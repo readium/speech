@@ -62,64 +62,76 @@ const localizedNames = [
 let novelty = [];
 let veryLowQuality = [];
 
-let localization = {};
+// let localization = {};
 
-let recommendedveryHigh = [];
-let recommendedHigh = [];
-let recommendedNormal = [];
-let recommendedLow = [];
+let recommended = []
 
-function generateLanguageRegionStrings(languages, regions) {
+let quality = [];
 
-  const result = {};
-  for (const languageCode in languages) {
-    for (const regionCode in regions) {
-      const bcp47Code = `${languageCode.toLowerCase()}-${regionCode.toLowerCase()}`;
-      const translation = `(${languages[languageCode]} (${regions[regionCode]}))`;
-      result[bcp47Code] = translation;
-    }
-  }
+// function generateLanguageRegionStrings(languages, regions) {
 
-  return result;
-}
+//   const result = {};
+//   for (const languageCode in languages) {
+//     for (const regionCode in regions) {
+//       const bcp47Code = `${languageCode.toLowerCase()}-${regionCode.toLowerCase()}`;
+//       const translation = `(${languages[languageCode]} (${regions[regionCode]}))`;
+//       result[bcp47Code] = translation;
+//     }
+//   }
 
-function getAltName(languages) {
+//   return result;
+// }
 
-  if (!languages.length) {
-    return [];
-  }
+// function getAltName(languages) {
 
-  const result = [];
-  for (const language of languages) {
-    for (const langLocalization in localization) {
+//   if (!languages.length) {
+//     return [];
+//   }
+
+//   const result = [];
+//   for (const language of languages) {
+//     for (const langLocalization in localization) {
       
-      const v = localization[langLocalization][language.toLowerCase()];
-      if (v) {
-        result.push(v);
-      }
-    }
-  }
+//       const v = localization[langLocalization][language.toLowerCase()];
+//       if (v) {
+//         result.push(v);
+//       }
+//     }
+//   }
 
-  return result;
-}
+//   return result;
+// }
 
 function filterBCP47(data) {
   return data.filter((v) => /\w{2,3}-\w{2,3}/.test(v));
 }
 
-for (const file of localizedNames) {
+{
+  const file = 'apple.json';
   const filePath = join(process.cwd(), repoPath, 'json', 'localizedNames', file);
   try {
     const { default: jsonData } = await import(filePath, { with: { type: 'json' } });
     console.log(`Imported localizedNames/${file}:` /*, jsonData*/);
 
-    const lang = file.split(".")[0];
-    localization[lang] = generateLanguageRegionStrings(jsonData.languages, jsonData.regions);
+    quality = jsonData.quality;
   } catch (error) {
     console.error(`Failed to import localizedNames/${file}: ${error.message}`);
   }
 }
-// console.log(localization);
+
+// for (const file of localizedNames) {
+//   const filePath = join(process.cwd(), repoPath, 'json', 'localizedNames', 'full', file);
+//   try {
+//     const { default: jsonData } = await import(filePath, { with: { type: 'json' } });
+//     console.log(`Imported localizedNames/${file}:` /*, jsonData*/);
+
+//     const lang = file.split(".")[0];
+//     localization[lang] = generateLanguageRegionStrings(jsonData.languages, jsonData.regions);
+//   } catch (error) {
+//     console.error(`Failed to import localizedNames/${file}: ${error.message}`);
+//   }
+// }
+// // console.log(localization);
 
 
 for (const file of jsonFiles) {
@@ -128,25 +140,22 @@ for (const file of jsonFiles) {
     const { default: jsonData } = await import(filePath, { with: { type: 'json' } });
     console.log(`Imported ${file}:` /*, jsonData*/);
 
-    recommendedveryHigh.push(...(
-      jsonData.voices
-        .filter(({ quality }) => Array.isArray(quality) && quality.includes("veryHigh"))
-        .map(({ name, altNames }) => [name, altNames].flat()).flat()));
+    const voices = jsonData.voices;
 
-    recommendedHigh.push(...(
-      jsonData.voices
-        .filter(({ quality }) => Array.isArray(quality) && quality.includes("high"))
-        .map(({ name, altNames }) => [name, altNames].flat()).flat()));
+    for (const voice of voices) {
 
-    recommendedNormal.push(...(
-      jsonData.voices
-        .filter(({ quality }) => Array.isArray(quality) && quality.includes("normal"))
-        .map(({ name, altNames }) => [name, altNames].flat()).flat()));
-
-    recommendedLow.push(...(
-      jsonData.voices
-        .filter(({ quality }) => Array.isArray(quality) && quality.includes("low"))
-        .map(({ name, altNames }) => [name, altNames].flat()).flat()));
+      recommended.push({
+        label: voice.label,
+        name: voice.name || undefined,
+        language: voice.language || undefined,
+        gender: voice.gender || undefined,
+        age: voice.age || undefined,
+        quality: Array.isArray(voice.quality) ? voice.quality : [],
+        recommendedPitch: voice.pitch || 1,
+        recommendedRate: voice.rate || 1,
+        localizedName: voice.localizedName || "",
+      });
+    }
 
   } catch (error) {
     console.error(`Failed to import ${file}: ${error.message}`);
@@ -165,11 +174,12 @@ for (const file of filters) {
 
     if (file.startsWith("veryLow")) {
       veryLowQuality = jsonData.voices.map(({ name, language, otherLanguages }) => {
-        const languages = filterBCP47([language, otherLanguages].flat());
-        const altNamesGenerated = getAltName(languages);
-        const altNames = altNamesGenerated.map((v) => name + " " + v);
+        // const languages = filterBCP47([language, otherLanguages].flat());
+        // const altNamesGenerated = getAltName(languages);
+        // const altNames = altNamesGenerated.map((v) => name + " " + v);
         
-        return [name, altNames].flat();
+        // return [name, altNames].flat();
+        return name;
       }).flat();
     }
   } catch (error) {
@@ -183,21 +193,30 @@ const content = `
 
 export const novelty = ${JSON.stringify(novelty)};
 
-
 export const veryLowQuality = ${JSON.stringify(veryLowQuality)};
 
+export type TGender = "female" | "male" | "nonbinary"
+export type TQuality =  "veryLow" | "low" | "normal" | "high" | "veryHigh";
 
-export const recommendedVeryHigh = ${JSON.stringify(recommendedveryHigh.filter((v) => v))};
+export interface IRecommended {
+    label: string;
+    name: string;
+    language: string;
+    gender?: TGender | undefined;
+    age?: string | undefined;
+    quality: TQuality[];
+    recommendedPitch?: number | undefined;
+    recommendedRate?: number | undefined;
+    localizedName: string;
+};
+      
+export const recommended: Array<IRecommended> = ${JSON.stringify(recommended)};
 
-export const recommendedHigh = ${JSON.stringify(recommendedHigh.filter((v) => v))};
-
-export const recommendedNormal = ${JSON.stringify(recommendedNormal.filter((v) => v))};
-
-export const recommendedLow = ${JSON.stringify(recommendedLow.filter((v) => v))};
+export const quality = ${JSON.stringify(quality)};
 
 `;
 
-const filePath = './src/data.mts';
+const filePath = './src/data.ts';
 
 try {
     writeFileSync(filePath, content);

@@ -4,14 +4,20 @@
   "description": "Readium Speech is a TypeScript library for implementing a read aloud feature with Web technologies. It follows [best practices](https://github.com/HadrienGardeur/read-aloud-best-practices) gathered through interviews with members of the digital publishing industry.",
   "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "ava build/**/*.test.js",
     "build": "tsc",
-    "start": "node build/index.mjs",
-    "extract-json-data": "node script/extract-json.mjs"
+    "start": "node build/index.js",
+    "extract-json-data": "node script/extract-json.mjs",
+    "serve": "http-server ./",
+    "watch": "tsc -w"
   },
   "author": "",
   "license": "BSD-3-Clause",
+  "type": "module",
   "devDependencies": {
+    "@ava/typescript": "^5.0.0",
+    "ava": "^6.1.3",
+    "http-server": "^14.1.1",
     "typescript": "^5.5.4"
   }
 }

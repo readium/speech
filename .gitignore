@@ -1,3 +1,4 @@
 
 node_modules/
 script/web-speech-recommended-voices/
+.DS_Store
