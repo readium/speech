@@ -16,7 +16,7 @@ export interface IVoices {
     quality?: TQuality | undefined;
     pitchControl: boolean;
     recommendedPitch?: number | undefined;
-    recomendedRate?: number | undefined;
+    recommendedRate?: number | undefined;
 }
 
 const normalQuality = Object.values(quality).map(({ normal }) => normal);
@@ -127,25 +127,25 @@ function updateVoiceInfo(recommendedVoice: IRecommended, voice: IVoices) {
     voice.label = recommendedVoice.label;
     voice.gender = recommendedVoice.gender;
     voice.recommendedPitch = recommendedVoice.recommendedPitch;
-    voice.recomendedRate = recommendedVoice.recommendedRate;
+    voice.recommendedRate = recommendedVoice.recommendedRate;
 
     return voice;
 }
 export type TReturnFilterOnRecommended = [voicesRecommended: IVoices[], voicesLowerQuality: IVoices[]];
-export function filterOnRecommended(voices: IVoices[]): TReturnFilterOnRecommended {
+export function filterOnRecommended(voices: IVoices[], _recommended: IRecommended[] = recommended): TReturnFilterOnRecommended {
 
     const voicesRecommended = [];
     const voicesLowerQuality = [];
 
     recommendedVoiceLoop:
-    for (const recommendedVoice of recommended) {
+    for (const recommendedVoice of _recommended) {
         if (Array.isArray(recommendedVoice.quality) && recommendedVoice.quality.length > 1) {
 
             const voicesFound = voices.filter(({ name }) => name.startsWith(recommendedVoice.name));
             if (voicesFound.length) {
 
                 for (let i = 0; i < voicesFound.length; i++) {
-                    const voice = voicesFound[0];
+                    const voice = voicesFound[i];
 
                     const rxp = /^.*\((.*)\)$/;
                     if (rxp.test(voice.name)) {
@@ -172,7 +172,10 @@ export function filterOnRecommended(voices: IVoices[]): TReturnFilterOnRecommend
                             voicesRecommended.push(updateVoiceInfo(recommendedVoice, voice));
 
                             voicesFound.splice(i, 1);
-                            voicesLowerQuality.push(...voicesFound);
+                            voicesLowerQuality.push(...(voicesFound.map((v) => {
+                                v.quality = "low";
+                                return updateVoiceInfo(recommendedVoice, v);
+                            })));
 
                             continue recommendedVoiceLoop;
                         }
@@ -224,11 +227,10 @@ export function sortByGender(voices: IVoices[], genderFirst: TGender) {
     })
 }
 
-export function sortByLanguage(voices: IVoices[], preferredLanguage?: string[]): IVoices[] {
+export function sortByLanguage(voices: IVoices[], preferredLanguage?: string[] | string): IVoices[] {
 
-    if (!Array.isArray(preferredLanguage)) {
-        preferredLanguage = [];
-    }
+    preferredLanguage = Array.isArray(preferredLanguage) ? preferredLanguage :
+        preferredLanguage ? [preferredLanguage] : [];
 
     const languages = [...(new Set([...preferredLanguage, ...window.navigator.languages]))];
 
@@ -256,6 +258,9 @@ export function sortByLanguage(voices: IVoices[], preferredLanguage?: string[]):
         if (voicesIndex.includes(i)) continue
         voiceMissing.push(voices[i]);
     }
+    voiceMissing.sort(({language: la}, {language: lb}) => {
+        return la.localeCompare(lb);
+    })
 
     return [voicesSorted, voiceMissing].flat();
 }

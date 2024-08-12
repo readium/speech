@@ -108,18 +108,18 @@ function updateVoiceInfo(recommendedVoice, voice) {
     voice.label = recommendedVoice.label;
     voice.gender = recommendedVoice.gender;
     voice.recommendedPitch = recommendedVoice.recommendedPitch;
-    voice.recomendedRate = recommendedVoice.recommendedRate;
+    voice.recommendedRate = recommendedVoice.recommendedRate;
     return voice;
 }
-export function filterOnRecommended(voices) {
+export function filterOnRecommended(voices, _recommended = recommended) {
     const voicesRecommended = [];
     const voicesLowerQuality = [];
-    recommendedVoiceLoop: for (const recommendedVoice of recommended) {
+    recommendedVoiceLoop: for (const recommendedVoice of _recommended) {
         if (Array.isArray(recommendedVoice.quality) && recommendedVoice.quality.length > 1) {
             const voicesFound = voices.filter(({ name }) => name.startsWith(recommendedVoice.name));
             if (voicesFound.length) {
                 for (let i = 0; i < voicesFound.length; i++) {
-                    const voice = voicesFound[0];
+                    const voice = voicesFound[i];
                     const rxp = /^.*\((.*)\)$/;
                     if (rxp.test(voice.name)) {
                         const res = rxp.exec(voice.name);
@@ -140,7 +140,10 @@ export function filterOnRecommended(voices) {
                         if (matched) {
                             voicesRecommended.push(updateVoiceInfo(recommendedVoice, voice));
                             voicesFound.splice(i, 1);
-                            voicesLowerQuality.push(...voicesFound);
+                            voicesLowerQuality.push(...(voicesFound.map((v) => {
+                                v.quality = "low";
+                                return updateVoiceInfo(recommendedVoice, v);
+                            })));
                             continue recommendedVoiceLoop;
                         }
                     }
@@ -181,9 +184,8 @@ export function sortByGender(voices, genderFirst) {
     });
 }
 export function sortByLanguage(voices, preferredLanguage) {
-    if (!Array.isArray(preferredLanguage)) {
-        preferredLanguage = [];
-    }
+    preferredLanguage = Array.isArray(preferredLanguage) ? preferredLanguage :
+        preferredLanguage ? [preferredLanguage] : [];
     const languages = [...(new Set([...preferredLanguage, ...window.navigator.languages]))];
     const voicesSorted = [];
     const voicesIndex = [];
@@ -212,6 +214,9 @@ export function sortByLanguage(voices, preferredLanguage) {
             continue;
         voiceMissing.push(voices[i]);
     }
+    voiceMissing.sort(({ language: la }, { language: lb }) => {
+        return la.localeCompare(lb);
+    });
     return [voicesSorted, voiceMissing].flat();
 }
 export async function getVoices() {
