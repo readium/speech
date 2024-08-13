@@ -1,4 +1,7 @@
 import { novelty, quality, recommended, veryLowQuality } from "./data.js";
+// export type TOS = 'Android' | 'ChromeOS' | 'iOS' | 'iPadOS' | 'macOS' | 'Windows';
+// export type TBrowser = 'ChromeDesktop' | 'Edge' | 'Firefox' | 'Safari';
+const navigatorLanguages = () => window.navigator.languages;
 const normalQuality = Object.values(quality).map(({ normal }) => normal);
 const highQuality = Object.values(quality).map(({ high }) => high);
 function compareQuality(a, b) {
@@ -183,10 +186,14 @@ export function sortByGender(voices, genderFirst) {
         return ga === gb ? 0 : ga === genderFirst ? -1 : gb === genderFirst ? -1 : 1;
     });
 }
-export function sortByLanguage(voices, preferredLanguage) {
+function getPreferredLanguage(preferredLanguage) {
     preferredLanguage = Array.isArray(preferredLanguage) ? preferredLanguage :
         preferredLanguage ? [preferredLanguage] : [];
-    const languages = [...(new Set([...preferredLanguage, ...window.navigator.languages]))];
+    const languages = [...(new Set([...preferredLanguage, ...navigatorLanguages()]))];
+    return languages;
+}
+export function sortByLanguage(voices, preferredLanguage) {
+    const languages = getPreferredLanguage(preferredLanguage);
     const voicesSorted = [];
     const voicesIndex = [];
     for (const lang of languages) {
@@ -219,8 +226,81 @@ export function sortByLanguage(voices, preferredLanguage) {
     });
     return [voicesSorted, voiceMissing].flat();
 }
+export function extractLanguagesFromVoices(voices) {
+    return voices.reduce((acc, cv) => {
+        const [cvLanguage] = extractLangRegionFromBCP47(cv.language);
+        const found = acc.find(({ language }) => language === cvLanguage);
+        if (found) {
+            found.count++;
+        }
+        else {
+            acc.push({ language: cvLanguage, count: 1 });
+        }
+        return acc;
+    }, []);
+}
+export function extractRegionsFromVoices(voices) {
+    return voices.reduce((acc, cv) => {
+        const found = acc.find(({ language }) => language === cv.language);
+        if (found) {
+            found.count++;
+        }
+        else {
+            acc.push({ language: cv.language, count: 1 });
+        }
+        return acc;
+    }, []);
+}
+export function groupByLanguage(voices, preferredLanguage) {
+    const languages = getPreferredLanguage(preferredLanguage);
+    const voicesSorted = sortByLanguage(voices, languages);
+    const languagesStructure = extractLanguagesFromVoices(voicesSorted);
+    const res = new Map();
+    for (const { language } of languagesStructure) {
+        res.set(language, voicesSorted.filter(({ language: voiceLang }) => {
+            const [l] = extractLangRegionFromBCP47(voiceLang);
+            return l === language;
+        }));
+    }
+    return res;
+}
+export function groupByRegions(voices, language, preferredRegions) {
+    const languages = getPreferredLanguage(preferredRegions);
+    const languagesFilteredOnlyRegionsRemain = languages.filter((l) => language.startsWith(extractLangRegionFromBCP47(l)[0]));
+    // en-US , en-CA , en-GB sorted by preferredRegions in BCP47
+    const voicesFiltered = voices.filter(({ language: voiceLang }) => voiceLang.startsWith(language));
+    const voicesSorted = sortByLanguage(voicesFiltered, languagesFilteredOnlyRegionsRemain);
+    const languagesStructure = extractRegionsFromVoices(voicesSorted);
+    const res = new Map();
+    for (const { language } of languagesStructure) {
+        res.set(language, voicesSorted.filter(({ language: voiceLang }) => {
+            return voiceLang === language;
+        }));
+    }
+    return res;
+}
+export function groupByKindOfVoices(allVoices) {
+    const [recommendedVoices, lowQualityVoices] = filterOnRecommended(allVoices);
+    const remainingVoice = allVoices.filter((v) => !recommendedVoices.includes(v) && !lowQualityVoices.includes(v));
+    const noveltyFiltered = filterOnNovelty(remainingVoice);
+    const noveltyVoices = remainingVoice.filter((v) => !noveltyFiltered.includes(v));
+    const veryLowQualityFiltered = filterOnVeryLowQuality(remainingVoice);
+    const veryLowQualityVoices = remainingVoice.filter((v) => !veryLowQualityFiltered.includes(v));
+    const remainingVoiceFiltered = filterOnNovelty(filterOnVeryLowQuality(remainingVoice));
+    const res = new Map();
+    res.set("recommendedVoices", recommendedVoices);
+    res.set("lowQuality", lowQualityVoices);
+    res.set("novelty", noveltyVoices);
+    res.set("veryLowQuality", veryLowQualityVoices);
+    res.set("remaining", remainingVoiceFiltered);
+    return res;
+}
+export async function getLanguages(allVoices) {
+    allVoices = allVoices ? allVoices : await getVoices();
+    return extractLanguagesFromVoices(allVoices);
+}
 export async function getVoices() {
-    let allVoices = parseSpeechSynthesisVoices(await getSpeechSynthesisVoices());
+    const allVoices = parseSpeechSynthesisVoices(await getSpeechSynthesisVoices());
     const [recommendedVoices, lowQualityVoices] = filterOnRecommended(allVoices);
     const remainingVoice = allVoices.filter((v) => !recommendedVoices.includes(v) && !lowQualityVoices.includes(v));
     const remainingVoiceFiltered = filterOnNovelty(filterOnVeryLowQuality(remainingVoice));

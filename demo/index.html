@@ -8,13 +8,18 @@
     <script type="module" defer>
 
     import {voicesSelection} from "../build/index.js";
-    const { getSpeechSynthesisVoices, parseSpeechSynthesisVoices, filterOnNovelty, filterOnVeryLowQuality, filterOnRecommended, sortByLanguage, sortByQuality, getVoices} = voicesSelection;
+    const { getSpeechSynthesisVoices, parseSpeechSynthesisVoices, filterOnNovelty, filterOnVeryLowQuality, filterOnRecommended, sortByLanguage, sortByQuality, getVoices, groupByKindOfVoices} = voicesSelection;
     
     // console.log(filterOnRecommended(filterOnVeryLowQuality(filterOnNovelty(parseSpeechSynthesisVoices(await getSpeechSynthesisVoices())))));
     // console.log(sortByLanguage(sortByQuality(filterOnRecommended(filterOnVeryLowQuality(filterOnNovelty(parseSpeechSynthesisVoices(await getSpeechSynthesisVoices()))))[0])));
 
     const voices = await getVoices();
     console.log(voices);
+
+    const allVoices = parseSpeechSynthesisVoices(await getSpeechSynthesisVoices());
+    console.log(groupByKindOfVoices(allVoices));
+    console.log(JSON.stringify(Array.from(groupByKindOfVoices(allVoices).entries()), null, 4));
+    
     
     
 
