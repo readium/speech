@@ -68,6 +68,8 @@ let recommended = []
 
 let quality = [];
 
+const defaultRegion = {};
+
 // function generateLanguageRegionStrings(languages, regions) {
 
 //   const result = {};
@@ -139,6 +141,8 @@ for (const file of jsonFiles) {
   try {
     const { default: jsonData } = await import(filePath, { with: { type: 'json' } });
     console.log(`Imported ${file}:` /*, jsonData*/);
+
+    defaultRegion[jsonData.language] = jsonData.defaultRegion;
 
     const voices = jsonData.voices;
 
@@ -214,6 +218,7 @@ export const recommended: Array<IRecommended> = ${JSON.stringify(recommended)};
 
 export const quality = ${JSON.stringify(quality)};
 
+export const defaultRegion = ${JSON.stringify(defaultRegion)};
 `;
 
 const filePath = './src/data.ts';

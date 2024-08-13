@@ -1,4 +1,4 @@
-import { novelty, quality, recommended, veryLowQuality } from "./data.js";
+import { novelty, quality, recommended, veryLowQuality, defaultRegion } from "./data.js";
 // export type TOS = 'Android' | 'ChromeOS' | 'iOS' | 'iPadOS' | 'macOS' | 'Windows';
 // export type TBrowser = 'ChromeDesktop' | 'Edge' | 'Firefox' | 'Safari';
 const navigatorLanguages = () => window.navigator.languages;
@@ -189,9 +189,27 @@ export function sortByGender(voices, genderFirst) {
 function getPreferredLanguage(preferredLanguage) {
     preferredLanguage = Array.isArray(preferredLanguage) ? preferredLanguage :
         preferredLanguage ? [preferredLanguage] : [];
-    const languages = [...(new Set([...preferredLanguage, ...navigatorLanguages()]))];
+    const defaultRegionList = Object.values(defaultRegion).sort();
+    const languages = [...(new Set([...preferredLanguage, ...navigatorLanguages(), ...defaultRegionList]))];
     return languages;
 }
+// const isAKeyFromDefaultRegion = (a: any): a is keyof typeof defaultRegion => {
+//     return Object.keys(defaultRegion).includes(a);
+// }
+// function languageSortFunction(a: IVoices, b: IVoices) {
+//     const {language: la} = a;
+//     const {language: lb} = a;
+//     const [lal, lar] = extractLangRegionFromBCP47(la);
+//     const [lbl, lbr] = extractLangRegionFromBCP47(lb);
+//     if (lal === lbl) {
+//         if (isAKeyFromDefaultRegion(lal)) {
+//             const [,defaultRegionValue] = extractLangRegionFromBCP47(defaultRegion[lal]);
+//             return lar === defaultRegionValue ? -1 : lbr === defaultRegionValue ? 1 : lar.localeCompare(lbr);
+//         }
+//         return lar.localeCompare(lbr);
+//     }
+//     return la.localeCompare(lb);
+// }
 export function sortByLanguage(voices, preferredLanguage) {
     const languages = getPreferredLanguage(preferredLanguage);
     const voicesSorted = [];
@@ -221,9 +239,6 @@ export function sortByLanguage(voices, preferredLanguage) {
             continue;
         voiceMissing.push(voices[i]);
     }
-    voiceMissing.sort(({ language: la }, { language: lb }) => {
-        return la.localeCompare(lb);
-    });
     return [voicesSorted, voiceMissing].flat();
 }
 export function extractLanguagesFromVoices(voices) {
@@ -257,7 +272,8 @@ export function groupByLanguage(voices, preferredLanguage) {
     const languagesStructure = extractLanguagesFromVoices(voicesSorted);
     const res = new Map();
     for (const { language } of languagesStructure) {
-        res.set(language, voicesSorted.filter(({ language: voiceLang }) => {
+        res.set(language, voicesSorted
+            .filter(({ language: voiceLang }) => {
             const [l] = extractLangRegionFromBCP47(voiceLang);
             return l === language;
         }));
