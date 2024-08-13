@@ -8,7 +8,7 @@
     <script type="module" defer>
 
     import {voicesSelection} from "../build/index.js";
-    const { getSpeechSynthesisVoices, parseSpeechSynthesisVoices, filterOnNovelty, filterOnVeryLowQuality, filterOnRecommended, sortByLanguage, sortByQuality, getVoices, groupByKindOfVoices} = voicesSelection;
+    const { getSpeechSynthesisVoices, parseSpeechSynthesisVoices, filterOnNovelty, filterOnVeryLowQuality, filterOnRecommended, sortByLanguage, sortByQuality, getVoices, groupByKindOfVoices, groupByRegions} = voicesSelection;
     
     // console.log(filterOnRecommended(filterOnVeryLowQuality(filterOnNovelty(parseSpeechSynthesisVoices(await getSpeechSynthesisVoices())))));
     // console.log(sortByLanguage(sortByQuality(filterOnRecommended(filterOnVeryLowQuality(filterOnNovelty(parseSpeechSynthesisVoices(await getSpeechSynthesisVoices()))))[0])));
@@ -18,41 +18,187 @@
 
     const allVoices = parseSpeechSynthesisVoices(await getSpeechSynthesisVoices());
     console.log(groupByKindOfVoices(allVoices));
-    console.log(JSON.stringify(Array.from(groupByKindOfVoices(allVoices).entries()), null, 4));
+    // console.log(JSON.stringify(Array.from(groupByKindOfVoices(allVoices).entries()), null, 4));
+
+    const languageSelect = document.getElementById('language-select');
+
+  languageSelect.addEventListener('change', async function () {
+
+    const defaultOption = document.getElementById("default-language-select");
+    if (defaultOption) {
+      defaultOption.remove();
+    }
+
+    const selectedLanguage = languageSelect.value;
+    const jsonData = await loadJSONData("https://hadriengardeur.github.io/web-speech-recommended-voices/json/" + selectedLanguage + ".json");
+
+    const defaultText = document.getElementById('text-to-read');
+    defaultText.value = jsonData.testUtterance
+
+    const voiceMap = groupByRegions(voices, selectedLanguage);
+    console.log(voiceMap);
     
-    
-    
+    const voiceDropdownHTML = generateVoiceDropdownHTML(voiceMap);
+    document.getElementById('voice-select').outerHTML = voiceDropdownHTML;
+  });
 
-  </script>
-</head>
-<body>
-  <h1>Recommended voices demo</h1>
+  document.getElementById('read-button').addEventListener('click', readTextWithSelectedVoice);
 
-  <p>Language :</p>
-  <select id="language-select">
-    <option id="default-language-select" default>Select a language</option>
-    <option value="ca">Catalan</option>
-    <option value="da">Danish</option>
-    <option value="nl">Dutch</option>
-    <option value="en">English</option>
-    <option value="fi">Finnish</option>
-    <option value="fr">French</option>
-    <option value="de">German</option>
-    <option value="it">Italian</option>
-    <option value="nb">Norwegian</option>
-    <option value="pt">Portuguese</option>
-    <option value="es">Spanish</option>
-    <option value="sv">Swedish</option>
-  </select>
+  async function loadJSONData(url) {
+    try {
+      const response = await fetch(url);
+      const jsonData = await response.json();
+      return jsonData;
+    } catch (error) {
+      console.error('Error loading JSON data:', error);
+      return null;
+    }
+  }
 
-  <p>Recommended voices :</p>
-  <select id="voice-select"></select>
+  // function filterAvailableVoices(jsonData) {
+  //   if (!jsonData) return [];
 
-  <p>Text :</p>
-  <input id="text-to-read" class="txt"></input>
+  //   const availableVoices = [];
+  //   const voices = speechSynthesis.getVoices();
 
-  <div class="controls">
-    <button id="read-button">Read aloud</button>
-  </div>
-</body>
-</html>
+  //   jsonData.voices.forEach(
+  //     function (voice) {
+  //       if (voices.some(apiVoice => apiVoice.name === voice.name)) {
+  //         availableVoices.push(voice);
+  //       }
+  //       else {
+  //         if (voice.altNames) {
+  //           voice.altNames.forEach(
+  //             function (altName) {
+  //               if (voices.some(apiVoice => apiVoice.name === altName)) {
+  //                 voice.name = altName;
+  //                 availableVoices.push(voice);
+  //               }
+  //             }
+  //           )
+  //         }
+  //       }
+  //     }
+  //   );
+
+  //   return availableVoices;
+  // }
+
+  // function groupVoicesByRegion(voices) {
+  //   const regions = {};
+
+  //   voices.forEach(voice => {
+  //     const region = extractRegionFromLang(voice.language) || 'Other';
+  //     if (!regions[region]) {
+  //       regions[region] = [];
+  //     }
+  //     regions[region].push(voice);
+  //   });
+
+  //   return regions;
+  // }
+
+  // function extractRegionFromLang(lang) {
+  //   if (!lang) return null;
+  //   const parts = lang.split('-');
+  //   return parts.length > 1 ? parts[1] : null;
+  // }
+
+  // function sortVoicesByRegionPreference(groupedVoices) {
+  //   const acceptLanguages = navigator.languages;
+  //   const primaryRegion = acceptLanguages.map(lang => extractRegionFromLang(lang) || 'Other');
+
+  //   const sortedVoices = [];
+
+  //   primaryRegion.forEach(region => {
+  //     if (groupedVoices[region]) {
+  //       sortedVoices.push(...groupedVoices[region]);
+  //       delete groupedVoices[region];
+  //     }
+  //   });
+
+  //   for (const region in groupedVoices) {
+  //     sortedVoices.push(...groupedVoices[region]);
+  //   }
+
+  //   return sortedVoices;
+  // }
+
+  function generateVoiceDropdownHTML(voiceMap) {
+    if (!voiceMap) return '';
+
+    const voiceSelect = document.createElement('select');
+    voiceSelect.id = 'voice-select';
+
+    for (const [region,voice] of voiceMap) {
+      const optgroup = document.createElement('optgroup');
+      optgroup.label = region;
+      (voice || []).forEach(function (v) {
+        const voiceOption = document.createElement('option');
+        voiceOption.value = v.name;
+        voiceOption.textContent = v.label;
+        optgroup.appendChild(voiceOption);
+      });
+      voiceSelect.appendChild(optgroup);
+    }
+
+    return voiceSelect.outerHTML;
+  }
+
+  function readTextWithSelectedVoice() {
+    const textToRead = document.getElementById('text-to-read').value;
+    const selectedVoice = document.getElementById('voice-select').value;
+    const voices = window.speechSynthesis.getVoices();
+
+    if (!textToRead || !selectedVoice) return;
+
+    const utterance = new SpeechSynthesisUtterance();
+    utterance.text = textToRead;
+
+    for (const voice of voices) {
+      if (voice.name === selectedVoice) {
+        utterance.voice = voice;
+        utterance.lang = voice.lang;
+        break;
+      }
+    }
+
+    speechSynthesis.speak(utterance);
+  }
+
+
+</script>
+  </head>
+  
+  <body>
+    <h1>Recommended voices demo</h1>
+  
+    <p>Language :</p>
+    <select id="language-select">
+      <option id="default-language-select" default>Select a language</option>
+      <option value="ca">Catalan</option>
+      <option value="da">Danish</option>
+      <option value="nl">Dutch</option>
+      <option value="en">English</option>
+      <option value="fi">Finnish</option>
+      <option value="fr">French</option>
+      <option value="de">German</option>
+      <option value="it">Italian</option>
+      <option value="nb">Norwegian</option>
+      <option value="pt">Portuguese</option>
+      <option value="es">Spanish</option>
+      <option value="sv">Swedish</option>
+    </select>
+  
+    <p>Recommended voices :</p>
+    <select id="voice-select"></select>
+  
+    <p>Text :</p>
+    <input id="text-to-read" class="txt"></input>
+  
+    <div class="controls">
+      <button id="read-button">Read aloud</button>
+    </div>
+  </body>
+  
+  </html>
