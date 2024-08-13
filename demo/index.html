@@ -43,10 +43,11 @@
         }
 
         const selectedLanguage = languageSelect.value;
-        const jsonData = await loadJSONData("https://hadriengardeur.github.io/web-speech-recommended-voices/json/" + selectedLanguage + ".json");
+
+        const jsonData = await loadJSONData("https://raw.githubusercontent.com/HadrienGardeur/web-speech-recommended-voices/locales-for-voice-names/json/" + selectedLanguage + ".json");
 
         const defaultText = document.getElementById('text-to-read');
-        defaultText.value = jsonData.testUtterance
+        defaultText.value = jsonData?.testUtterance || "hello world";
 
         const voiceMap = groupByRegions(voices, selectedLanguage, undefined, navigator.language.split("-")[0].toLowerCase());
         console.log(voiceMap);
@@ -60,7 +61,7 @@
       async function loadJSONData(url) {
         try {
           const response = await fetch(url);
-          const jsonData = await response.json();
+          const jsonData = JSON.parse(await response.text());
           return jsonData;
         } catch (error) {
           console.error('Error loading JSON data:', error);
