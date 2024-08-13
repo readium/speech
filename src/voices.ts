@@ -5,6 +5,7 @@ import { novelty, quality, recommended, veryLowQuality, TGender, TQuality, IReco
 // export type TBrowser = 'ChromeDesktop' | 'Edge' | 'Firefox' | 'Safari';
 
 const navigatorLanguages = () => window.navigator.languages;
+const navigatorLang = () => navigator.language.split("-")[0].toLowerCase();
 
 
 export interface IVoices {
@@ -278,28 +279,40 @@ export function sortByLanguage(voices: IVoices[], preferredLanguage?: string[] |
     return [voicesSorted, voiceMissing].flat();
 }
 export interface ILanguages {
+    label: string;
     language: string;
     count: number;
 }
-export function extractLanguagesFromVoices(voices: IVoices[]): ILanguages[] {
+export function extractLanguagesFromVoices(voices: IVoices[], localization?: string): ILanguages[] {
+    let langueName: Intl.DisplayNames | undefined = undefined;
+    if (localization) {
+        langueName = new Intl.DisplayNames([localization], { type: 'language' });
+    }
     return voices.reduce<ILanguages[]>((acc, cv) => {
         const [cvLanguage] = extractLangRegionFromBCP47(cv.language);
+        const name = langueName ? langueName.of(cvLanguage) || cvLanguage : cvLanguage;
         const found = acc.find(({language}) => language === cvLanguage)
         if (found) {
             found.count++;
         } else {
-            acc.push({language: cvLanguage, count: 1});
+            acc.push({language: cvLanguage, count: 1, label: name});
         }
         return acc;
     }, []);
 }
-export function extractRegionsFromVoices(voices: IVoices[]): ILanguages[] {
+export function extractRegionsFromVoices(voices: IVoices[], localization?: string): ILanguages[] {
+    let regionName: Intl.DisplayNames | undefined = undefined;
+    if (localization) {
+        regionName = new Intl.DisplayNames([localization], { type: 'region' });
+    }
     return voices.reduce<ILanguages[]>((acc, cv) => {
-        const found = acc.find(({language}) => language === cv.language);
+        const [,region] = extractLangRegionFromBCP47(cv.language);
+        const name = regionName ? regionName.of(region) || cv.language : cv.language;
+        const found = acc.find(({language}) => language.endsWith(region));
         if (found) {
             found.count++;
         } else {
-            acc.push({language: cv.language, count: 1});
+            acc.push({language: cv.language, count: 1, label: name});
         }
         return acc;
     }, []);
@@ -308,20 +321,14 @@ export function extractRegionsFromVoices(voices: IVoices[]): ILanguages[] {
 export type TGroupVoices = Map<string, IVoices[]>;
 export function groupByLanguage(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string): TGroupVoices {
 
-    let langueName: Intl.DisplayNames | undefined = undefined;
-    if (localization) {
-        langueName = new Intl.DisplayNames([localization], { type: 'language' });
-    }
-
     const languages = orderLanguages(preferredLanguage);
 
     const voicesSorted = sortByLanguage(voices, languages);
     
-    const languagesStructure = extractLanguagesFromVoices(voicesSorted);
+    const languagesStructure = extractLanguagesFromVoices(voicesSorted, localization);
     const res: TGroupVoices = new Map();
-    for (const { language } of languagesStructure) {
-        const name = langueName ? langueName.of(language) || language : language;
-        res.set(name, voicesSorted
+    for (const { language, label } of languagesStructure) {
+        res.set(label, voicesSorted
             .filter(({ language: voiceLang }) => {
             const [l] = extractLangRegionFromBCP47(voiceLang);
             return l === language;
@@ -332,11 +339,6 @@ export function groupByLanguage(voices: IVoices[], preferredLanguage?: string[] 
 
 export function groupByRegions(voices: IVoices[], language: string, preferredRegions?: string[] | string, localization?: string): TGroupVoices {
 
-    let regionName: Intl.DisplayNames | undefined = undefined;
-    if (localization) {
-        regionName = new Intl.DisplayNames([localization], { type: 'region' });
-    }
-
     const languages = orderLanguages(preferredRegions);
     const languagesFilteredOnlyRegionsRemain = languages.filter((l) => language.startsWith(extractLangRegionFromBCP47(l)[0]));
     // en-US , en-CA , en-GB sorted by preferredRegions in BCP47
@@ -345,13 +347,11 @@ export function groupByRegions(voices: IVoices[], language: string, preferredReg
 
     const voicesSorted = sortByLanguage(voicesFiltered, languagesFilteredOnlyRegionsRemain);
     
-    const languagesStructure = extractRegionsFromVoices(voicesSorted);
+    const languagesStructure = extractRegionsFromVoices(voicesSorted, localization);
 
     const res: TGroupVoices = new Map();
-    for (const { language } of languagesStructure) {
-        const [,region] = extractLangRegionFromBCP47(language);
-        const name = regionName ? regionName.of(region) || language : language;
-        res.set(name, voicesSorted.filter(({ language: voiceLang }) => {
+    for (const { language, label } of languagesStructure) {
+        res.set(label, voicesSorted.filter(({ language: voiceLang }) => {
             return voiceLang === language;
         }));
     }
@@ -378,10 +378,11 @@ export function groupByKindOfVoices(allVoices: IVoices[]): TGroupVoices {
     return res;
 }
 
-export async function getLanguages(allVoices?: IVoices[]): Promise<ILanguages[]> {
+export async function getLanguages(allVoices?: IVoices[], localization?: string): Promise<ILanguages[]> {
+
     allVoices = allVoices ? allVoices : await getVoices();
 
-    return extractLanguagesFromVoices(allVoices);
+    return extractLanguagesFromVoices(allVoices, localization || navigatorLang());
 }
 
 export async function getVoices() {
