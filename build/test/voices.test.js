@@ -268,6 +268,55 @@ test('groupByLanguage: ', t => {
             ]],
     ]));
 });
+test('groupByLanguage: localized en', t => {
+    const voices = [
+        { label: 'Voice 1', voiceURI: 'uri1', name: 'Name 1', language: 'en-US', offlineAvailability: true, pitchControl: true },
+        { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
+        { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
+        { label: 'Voice 4', voiceURI: 'uri4', name: 'Name 4', language: 'es-ES', offlineAvailability: true, pitchControl: true },
+    ];
+    const result = groupByLanguage(voices, ['fr-FR', 'es-ES'], "en");
+    t.deepEqual(result, new Map([
+        ['French', [
+                {
+                    label: 'Voice 2',
+                    language: 'fr-FR',
+                    name: 'Name 2',
+                    offlineAvailability: true,
+                    pitchControl: true,
+                    voiceURI: 'uri2',
+                },
+            ]],
+        ['Spanish', [
+                {
+                    label: 'Voice 4',
+                    language: 'es-ES',
+                    name: 'Name 4',
+                    offlineAvailability: true,
+                    pitchControl: true,
+                    voiceURI: 'uri4',
+                },
+            ]],
+        ['English', [
+                {
+                    label: 'Voice 1',
+                    language: 'en-US',
+                    name: 'Name 1',
+                    offlineAvailability: true,
+                    pitchControl: true,
+                    voiceURI: 'uri1',
+                },
+                {
+                    label: 'Voice 3',
+                    language: 'en-US',
+                    name: 'Name 3',
+                    offlineAvailability: true,
+                    pitchControl: true,
+                    voiceURI: 'uri3',
+                },
+            ]],
+    ]));
+});
 test('groupByRegion: ', t => {
     const voices = [
         { label: 'Voice 1', voiceURI: 'uri1', name: 'Name 1', language: 'en-US', offlineAvailability: true, pitchControl: true },
@@ -288,6 +337,37 @@ test('groupByRegion: ', t => {
                 },
             ]],
         ['en-GB', [
+                {
+                    label: 'Voice 3',
+                    language: 'en-GB',
+                    name: 'Name 3',
+                    offlineAvailability: true,
+                    pitchControl: true,
+                    voiceURI: 'uri3',
+                },
+            ]],
+    ]));
+});
+test('groupByRegion: localized fr', t => {
+    const voices = [
+        { label: 'Voice 1', voiceURI: 'uri1', name: 'Name 1', language: 'en-US', offlineAvailability: true, pitchControl: true },
+        { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
+        { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-GB', offlineAvailability: true, pitchControl: true },
+        { label: 'Voice 4', voiceURI: 'uri4', name: 'Name 4', language: 'es-ES', offlineAvailability: true, pitchControl: true },
+    ];
+    const result = groupByRegions(voices, 'en', ['fr-FR', 'es-ES'], "fr");
+    t.deepEqual(result, new Map([
+        ['États-Unis', [
+                {
+                    label: 'Voice 1',
+                    language: 'en-US',
+                    name: 'Name 1',
+                    offlineAvailability: true,
+                    pitchControl: true,
+                    voiceURI: 'uri1',
+                },
+            ]],
+        ['Royaume-Uni', [
                 {
                     label: 'Voice 3',
                     language: 'en-GB',

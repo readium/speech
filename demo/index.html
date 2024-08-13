@@ -35,7 +35,7 @@
     const defaultText = document.getElementById('text-to-read');
     defaultText.value = jsonData.testUtterance
 
-    const voiceMap = groupByRegions(voices, selectedLanguage);
+    const voiceMap = groupByRegions(voices, selectedLanguage, undefined, navigator.language.split("-")[0].toLowerCase());
     console.log(voiceMap);
     
     const voiceDropdownHTML = generateVoiceDropdownHTML(voiceMap);

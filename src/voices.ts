@@ -146,40 +146,28 @@ export function filterOnRecommended(voices: IVoices[], _recommended: IRecommende
             const voicesFound = voices.filter(({ name }) => name.startsWith(recommendedVoice.name));
             if (voicesFound.length) {
 
-                for (let i = 0; i < voicesFound.length; i++) {
-                    const voice = voicesFound[i];
+                for (const qualityTested of ["high", "normal"] as TQuality[]) {
+                    for (let i = 0; i < voicesFound.length; i++) {
+                        const voice = voicesFound[i];
 
-                    const rxp = /^.*\((.*)\)$/;
-                    if (rxp.test(voice.name)) {
-                        const res = rxp.exec(voice.name);
-                        const maybeQualityString = res ? res[1] || "" : "";
+                        const rxp = /^.*\((.*)\)$/;
+                        if (rxp.test(voice.name)) {
+                            const res = rxp.exec(voice.name);
+                            const maybeQualityString = res ? res[1] || "" : "";
+                            const qualityDataArray = qualityTested === "high" ? highQuality : normalQuality;
 
-                        let matched = false;
-                        if (recommendedVoice.quality.includes("high")) {
+                            if (recommendedVoice.quality.includes(qualityTested) && qualityDataArray.includes(maybeQualityString)) {
+                                voice.quality = qualityTested;
+                                voicesRecommended.push(updateVoiceInfo(recommendedVoice, voice));
 
-                            if (highQuality.includes(maybeQualityString)) {
-                                voice.quality = "high";
-                                matched = true;
+                                voicesFound.splice(i, 1);
+                                voicesLowerQuality.push(...(voicesFound.map((v) => {
+                                    v.quality = "low"; // Todo need to be more precise for 'normal' quality voices
+                                    return updateVoiceInfo(recommendedVoice, v);
+                                })));
+
+                                continue recommendedVoiceLoop;
                             }
-                        }
-                        if (recommendedVoice.quality.includes("normal")) {
-
-                            if (normalQuality.includes(maybeQualityString)) {
-                                voice.quality = "normal";
-                                matched = true;
-                            }
-                        }
-
-                        if (matched) {
-                            voicesRecommended.push(updateVoiceInfo(recommendedVoice, voice));
-
-                            voicesFound.splice(i, 1);
-                            voicesLowerQuality.push(...(voicesFound.map((v) => {
-                                v.quality = "low";
-                                return updateVoiceInfo(recommendedVoice, v);
-                            })));
-
-                            continue recommendedVoiceLoop;
                         }
                     }
                 }
@@ -229,7 +217,7 @@ export function sortByGender(voices: IVoices[], genderFirst: TGender) {
     })
 }
 
-function getPreferredLanguage(preferredLanguage?: string[] | string): string[] {
+function orderLanguages(preferredLanguage?: string[] | string): string[] {
     preferredLanguage = Array.isArray(preferredLanguage) ? preferredLanguage :
         preferredLanguage ? [preferredLanguage] : [];
 
@@ -260,7 +248,7 @@ function getPreferredLanguage(preferredLanguage?: string[] | string): string[] {
 
 export function sortByLanguage(voices: IVoices[], preferredLanguage?: string[] | string): IVoices[] {
 
-    const languages = getPreferredLanguage(preferredLanguage);
+    const languages = orderLanguages(preferredLanguage);
 
     const voicesSorted = [];
     const voicesIndex: number[] = [];
@@ -318,17 +306,22 @@ export function extractRegionsFromVoices(voices: IVoices[]): ILanguages[] {
 }
 
 export type TGroupVoices = Map<string, IVoices[]>;
-export function groupByLanguage(voices: IVoices[], preferredLanguage?: string[] | string): TGroupVoices {
+export function groupByLanguage(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string): TGroupVoices {
 
-    const languages = getPreferredLanguage(preferredLanguage);
+    let langueName: Intl.DisplayNames | undefined = undefined;
+    if (localization) {
+        langueName = new Intl.DisplayNames([localization], { type: 'language' });
+    }
+
+    const languages = orderLanguages(preferredLanguage);
 
     const voicesSorted = sortByLanguage(voices, languages);
     
     const languagesStructure = extractLanguagesFromVoices(voicesSorted);
-
     const res: TGroupVoices = new Map();
     for (const { language } of languagesStructure) {
-        res.set(language, voicesSorted
+        const name = langueName ? langueName.of(language) || language : language;
+        res.set(name, voicesSorted
             .filter(({ language: voiceLang }) => {
             const [l] = extractLangRegionFromBCP47(voiceLang);
             return l === language;
@@ -337,9 +330,14 @@ export function groupByLanguage(voices: IVoices[], preferredLanguage?: string[] 
     return res;
 }
 
-export function groupByRegions(voices: IVoices[], language: string, preferredRegions?: string[] | string): TGroupVoices {
+export function groupByRegions(voices: IVoices[], language: string, preferredRegions?: string[] | string, localization?: string): TGroupVoices {
 
-    const languages = getPreferredLanguage(preferredRegions);
+    let regionName: Intl.DisplayNames | undefined = undefined;
+    if (localization) {
+        regionName = new Intl.DisplayNames([localization], { type: 'region' });
+    }
+
+    const languages = orderLanguages(preferredRegions);
     const languagesFilteredOnlyRegionsRemain = languages.filter((l) => language.startsWith(extractLangRegionFromBCP47(l)[0]));
     // en-US , en-CA , en-GB sorted by preferredRegions in BCP47
 
@@ -351,7 +349,9 @@ export function groupByRegions(voices: IVoices[], language: string, preferredReg
 
     const res: TGroupVoices = new Map();
     for (const { language } of languagesStructure) {
-        res.set(language, voicesSorted.filter(({ language: voiceLang }) => {
+        const [,region] = extractLangRegionFromBCP47(language);
+        const name = regionName ? regionName.of(region) || language : language;
+        res.set(name, voicesSorted.filter(({ language: voiceLang }) => {
             return voiceLang === language;
         }));
     }

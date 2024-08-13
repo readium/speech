@@ -121,33 +121,24 @@ export function filterOnRecommended(voices, _recommended = recommended) {
         if (Array.isArray(recommendedVoice.quality) && recommendedVoice.quality.length > 1) {
             const voicesFound = voices.filter(({ name }) => name.startsWith(recommendedVoice.name));
             if (voicesFound.length) {
-                for (let i = 0; i < voicesFound.length; i++) {
-                    const voice = voicesFound[i];
-                    const rxp = /^.*\((.*)\)$/;
-                    if (rxp.test(voice.name)) {
-                        const res = rxp.exec(voice.name);
-                        const maybeQualityString = res ? res[1] || "" : "";
-                        let matched = false;
-                        if (recommendedVoice.quality.includes("high")) {
-                            if (highQuality.includes(maybeQualityString)) {
-                                voice.quality = "high";
-                                matched = true;
+                for (const qualityTested of ["high", "normal"]) {
+                    for (let i = 0; i < voicesFound.length; i++) {
+                        const voice = voicesFound[i];
+                        const rxp = /^.*\((.*)\)$/;
+                        if (rxp.test(voice.name)) {
+                            const res = rxp.exec(voice.name);
+                            const maybeQualityString = res ? res[1] || "" : "";
+                            const qualityDataArray = qualityTested === "high" ? highQuality : normalQuality;
+                            if (recommendedVoice.quality.includes(qualityTested) && qualityDataArray.includes(maybeQualityString)) {
+                                voice.quality = qualityTested;
+                                voicesRecommended.push(updateVoiceInfo(recommendedVoice, voice));
+                                voicesFound.splice(i, 1);
+                                voicesLowerQuality.push(...(voicesFound.map((v) => {
+                                    v.quality = "low"; // Todo need to be more precise for 'normal' quality voices
+                                    return updateVoiceInfo(recommendedVoice, v);
+                                })));
+                                continue recommendedVoiceLoop;
                             }
-                        }
-                        if (recommendedVoice.quality.includes("normal")) {
-                            if (normalQuality.includes(maybeQualityString)) {
-                                voice.quality = "normal";
-                                matched = true;
-                            }
-                        }
-                        if (matched) {
-                            voicesRecommended.push(updateVoiceInfo(recommendedVoice, voice));
-                            voicesFound.splice(i, 1);
-                            voicesLowerQuality.push(...(voicesFound.map((v) => {
-                                v.quality = "low";
-                                return updateVoiceInfo(recommendedVoice, v);
-                            })));
-                            continue recommendedVoiceLoop;
                         }
                     }
                 }
@@ -186,7 +177,7 @@ export function sortByGender(voices, genderFirst) {
         return ga === gb ? 0 : ga === genderFirst ? -1 : gb === genderFirst ? -1 : 1;
     });
 }
-function getPreferredLanguage(preferredLanguage) {
+function orderLanguages(preferredLanguage) {
     preferredLanguage = Array.isArray(preferredLanguage) ? preferredLanguage :
         preferredLanguage ? [preferredLanguage] : [];
     const defaultRegionList = Object.values(defaultRegion).sort();
@@ -211,7 +202,7 @@ function getPreferredLanguage(preferredLanguage) {
 //     return la.localeCompare(lb);
 // }
 export function sortByLanguage(voices, preferredLanguage) {
-    const languages = getPreferredLanguage(preferredLanguage);
+    const languages = orderLanguages(preferredLanguage);
     const voicesSorted = [];
     const voicesIndex = [];
     for (const lang of languages) {
@@ -266,13 +257,18 @@ export function extractRegionsFromVoices(voices) {
         return acc;
     }, []);
 }
-export function groupByLanguage(voices, preferredLanguage) {
-    const languages = getPreferredLanguage(preferredLanguage);
+export function groupByLanguage(voices, preferredLanguage, localization) {
+    let langueName = undefined;
+    if (localization) {
+        langueName = new Intl.DisplayNames([localization], { type: 'language' });
+    }
+    const languages = orderLanguages(preferredLanguage);
     const voicesSorted = sortByLanguage(voices, languages);
     const languagesStructure = extractLanguagesFromVoices(voicesSorted);
     const res = new Map();
     for (const { language } of languagesStructure) {
-        res.set(language, voicesSorted
+        const name = langueName ? langueName.of(language) || language : language;
+        res.set(name, voicesSorted
             .filter(({ language: voiceLang }) => {
             const [l] = extractLangRegionFromBCP47(voiceLang);
             return l === language;
@@ -280,8 +276,12 @@ export function groupByLanguage(voices, preferredLanguage) {
     }
     return res;
 }
-export function groupByRegions(voices, language, preferredRegions) {
-    const languages = getPreferredLanguage(preferredRegions);
+export function groupByRegions(voices, language, preferredRegions, localization) {
+    let regionName = undefined;
+    if (localization) {
+        regionName = new Intl.DisplayNames([localization], { type: 'region' });
+    }
+    const languages = orderLanguages(preferredRegions);
     const languagesFilteredOnlyRegionsRemain = languages.filter((l) => language.startsWith(extractLangRegionFromBCP47(l)[0]));
     // en-US , en-CA , en-GB sorted by preferredRegions in BCP47
     const voicesFiltered = voices.filter(({ language: voiceLang }) => voiceLang.startsWith(language));
@@ -289,7 +289,9 @@ export function groupByRegions(voices, language, preferredRegions) {
     const languagesStructure = extractRegionsFromVoices(voicesSorted);
     const res = new Map();
     for (const { language } of languagesStructure) {
-        res.set(language, voicesSorted.filter(({ language: voiceLang }) => {
+        const [, region] = extractLangRegionFromBCP47(language);
+        const name = regionName ? regionName.of(region) || language : language;
+        res.set(name, voicesSorted.filter(({ language: voiceLang }) => {
             return voiceLang === language;
         }));
     }
