@@ -370,7 +370,7 @@ export function groupByKindOfVoices(allVoices: IVoices[]): TGroupVoices {
 
     const res: TGroupVoices = new Map();
     res.set("recommendedVoices", recommendedVoices);
-    res.set("lowQuality", lowQualityVoices);
+    res.set("lowerQuality", lowQualityVoices);
     res.set("novelty", noveltyVoices);
     res.set("veryLowQuality", veryLowQualityVoices);
     res.set("remaining", remainingVoiceFiltered);

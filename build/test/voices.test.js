@@ -250,20 +250,20 @@ test('groupByLanguage: ', t => {
             ]],
         ['en', [
                 {
-                    label: 'Voice 3',
-                    language: 'en-US',
-                    name: 'Name 3',
-                    offlineAvailability: true,
-                    pitchControl: true,
-                    voiceURI: 'uri3',
-                },
-                {
                     label: 'Voice 1',
                     language: 'en-US',
                     name: 'Name 1',
                     offlineAvailability: true,
                     pitchControl: true,
                     voiceURI: 'uri1',
+                },
+                {
+                    label: 'Voice 3',
+                    language: 'en-US',
+                    name: 'Name 3',
+                    offlineAvailability: true,
+                    pitchControl: true,
+                    voiceURI: 'uri3',
                 },
             ]],
     ]));

@@ -305,7 +305,7 @@ export function groupByKindOfVoices(allVoices) {
     const remainingVoiceFiltered = filterOnNovelty(filterOnVeryLowQuality(remainingVoice));
     const res = new Map();
     res.set("recommendedVoices", recommendedVoices);
-    res.set("lowQuality", lowQualityVoices);
+    res.set("lowerQuality", lowQualityVoices);
     res.set("novelty", noveltyVoices);
     res.set("veryLowQuality", veryLowQualityVoices);
     res.set("remaining", remainingVoiceFiltered);
