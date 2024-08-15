@@ -248,6 +248,70 @@ test('filterOnRecommended: Multiple recommended voices', t => {
 		[],
 	]);
 });
+test('filterOnRecommended: Recommended voices with altNames', t => {
+	const voices = [
+		{ label: 'Voice 1', voiceURI: 'uri1', name: 'Name 1', language: 'en-US', offlineAvailability: true, pitchControl: true },
+		{ label: 'Voice 1-1', voiceURI: 'uri1-1', name: 'Name 1 with an altNames', language: 'en-US', offlineAvailability: true, pitchControl: true },
+		{ label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'es-ES', offlineAvailability: false, pitchControl: false },
+		{ label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
+	];
+	const recommended: IRecommended[] = [
+		{ name: 'Name 1', label: 'Voice 1', quality: ['high'], altNames: ['Name 1 with an altNames'], language: 'en-US', localizedName: "" },
+		{ name: 'Name 2', label: 'Voice 2', quality: ['normal'], language: 'es-ES', localizedName: "" },
+	];
+	const result = filterOnRecommended(voices, recommended);
+	t.deepEqual(result, [
+		[
+			{ label: 'Voice 1', voiceURI: 'uri1', name: 'Name 1', language: 'en-US', offlineAvailability: true, pitchControl: true, quality: 'high', recommendedRate: undefined, recommendedPitch: undefined, gender: undefined },
+			{ label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'es-ES', offlineAvailability: false, pitchControl: false, quality: 'normal', recommendedRate: undefined, recommendedPitch: undefined, gender: undefined },
+		],
+		[
+			{ label: 'Voice 1', voiceURI: 'uri1-1', name: 'Name 1 with an altNames', language: 'en-US', offlineAvailability: true, pitchControl: true, quality: 'high', recommendedRate: undefined, recommendedPitch: undefined, gender: undefined },
+		],
+	]);
+});
+test('filterOnRecommended: Recommended voices with altNames only and voices not in name', t => {
+	const voices = [
+		{ label: 'Voice 1', voiceURI: 'uri1', name: 'Name 1 with an altNames', language: 'en-US', offlineAvailability: true, pitchControl: true },
+		{ label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'es-ES', offlineAvailability: false, pitchControl: false },
+		{ label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
+	];
+	const recommended: IRecommended[] = [
+		{ name: 'Name 1', label: 'Voice 1', quality: ['high'], altNames: ['Name 1 with an altNames'], language: 'en-US', localizedName: "" },
+		{ name: 'Name 2', label: 'Voice 2', quality: ['normal'], language: 'es-ES', localizedName: "" },
+	];
+	const result = filterOnRecommended(voices, recommended);
+	t.deepEqual(result, [
+		[
+			{ label: 'Voice 1', voiceURI: 'uri1', name: 'Name 1 with an altNames', language: 'en-US', offlineAvailability: true, pitchControl: true, quality: 'high', recommendedRate: undefined, recommendedPitch: undefined, gender: undefined },
+			{ label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'es-ES', offlineAvailability: false, pitchControl: false, quality: 'normal', recommendedRate: undefined, recommendedPitch: undefined, gender: undefined },
+		],
+		[
+		],
+	]);
+});
+test('filterOnRecommended: Recommended voices with multiple altNames and voices not in name', t => {
+	const voices = [
+		{ label: 'Voice 1', voiceURI: 'uri1', name: 'Name 1 with an altNames', language: 'en-US', offlineAvailability: true, pitchControl: true },
+		{ label: 'Voice 1-1', voiceURI: 'uri1-1', name: 'Name 1 with a second altNames', language: 'en-US', offlineAvailability: true, pitchControl: true },
+		{ label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'es-ES', offlineAvailability: false, pitchControl: false },
+		{ label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
+	];
+	const recommended: IRecommended[] = [
+		{ name: 'Name 1', label: 'Voice 1', quality: ['high'], altNames: ['Name 1 with an altNames', 'Name 1 with a second altNames'], language: 'en-US', localizedName: "" },
+		{ name: 'Name 2', label: 'Voice 2', quality: ['normal'], language: 'es-ES', localizedName: "" },
+	];
+	const result = filterOnRecommended(voices, recommended);
+	t.deepEqual(result, [
+		[
+			{ label: 'Voice 1', voiceURI: 'uri1', name: 'Name 1 with an altNames', language: 'en-US', offlineAvailability: true, pitchControl: true, quality: 'high', recommendedRate: undefined, recommendedPitch: undefined, gender: undefined },
+			{ label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'es-ES', offlineAvailability: false, pitchControl: false, quality: 'normal', recommendedRate: undefined, recommendedPitch: undefined, gender: undefined },
+		],
+		[
+			{ label: 'Voice 1', voiceURI: 'uri1-1', name: 'Name 1 with a second altNames', language: 'en-US', offlineAvailability: true, pitchControl: true, quality: 'high', recommendedRate: undefined, recommendedPitch: undefined, gender: undefined },
+		],
+	]);
+});
 test('groupByLanguage: ', t => {
 	const voices = [
 		{ label: 'Voice 1', voiceURI: 'uri1', name: 'Name 1', language: 'en-US', offlineAvailability: true, pitchControl: true },

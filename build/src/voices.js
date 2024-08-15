@@ -147,8 +147,36 @@ export function filterOnRecommended(voices, _recommended = recommended) {
                 for (let i = 1; i < voicesFound.length; i++) {
                     voicesLowerQuality.push(voicesFound[i]);
                 }
-                voice.quality = voicesFound.length > 3 ? "veryHigh" : voicesFound.length === 2 ? "high" : "normal";
+                voice.quality = voicesFound.length > 3 ? "veryHigh" : voicesFound.length > 2 ? "high" : "normal";
                 voicesRecommended.push(updateVoiceInfo(recommendedVoice, voice));
+            }
+        }
+        else if (Array.isArray(recommendedVoice.altNames) && recommendedVoice.altNames.length) {
+            const voiceFound = voices.find(({ name }) => name === recommendedVoice.name);
+            if (voiceFound) {
+                const voice = voiceFound;
+                voice.quality = Array.isArray(recommendedVoice.quality) ? recommendedVoice.quality[0] : undefined;
+                voicesRecommended.push(updateVoiceInfo(recommendedVoice, voice));
+                // voice Name found so altNames array must be filter and push to voicesLowerQuality
+                const altNamesVoicesFound = voices.filter(({ name }) => recommendedVoice.altNames.includes(name));
+                // TODO: Typescript bug type assertion doesn't work, need to force the compiler with the Non-null Assertion Operator
+                voicesLowerQuality.push(...(altNamesVoicesFound.map((v) => {
+                    v.quality = recommendedVoice.quality[0];
+                    return updateVoiceInfo(recommendedVoice, v);
+                })));
+            }
+            else {
+                // filter voices on altNames, keep the first and push the remaining to voicesLowerQuality
+                const altNamesVoicesFound = voices.filter(({ name }) => recommendedVoice.altNames.includes(name));
+                if (altNamesVoicesFound.length) {
+                    const voice = altNamesVoicesFound.shift();
+                    voice.quality = Array.isArray(recommendedVoice.quality) ? recommendedVoice.quality[0] : undefined;
+                    voicesRecommended.push(updateVoiceInfo(recommendedVoice, voice));
+                    voicesLowerQuality.push(...(altNamesVoicesFound.map((v) => {
+                        v.quality = recommendedVoice.quality[0];
+                        return updateVoiceInfo(recommendedVoice, v);
+                    })));
+                }
             }
         }
         else {

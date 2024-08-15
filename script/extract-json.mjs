@@ -151,6 +151,7 @@ for (const file of jsonFiles) {
       recommended.push({
         label: voice.label,
         name: voice.name || undefined,
+        altNames: voice.altNames || undefined,
         language: voice.language || undefined,
         gender: voice.gender || undefined,
         age: voice.age || undefined,
@@ -205,6 +206,7 @@ export type TQuality =  "veryLow" | "low" | "normal" | "high" | "veryHigh";
 export interface IRecommended {
     label: string;
     name: string;
+    altNames?: string[];
     language: string;
     gender?: TGender | undefined;
     age?: string | undefined;
