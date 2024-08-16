@@ -5,7 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Readium Speech Demo</title>
   <link rel="stylesheet" href="styles.css" />
+  <!-- <script>
+      console.log(speechSynthesis.getVoices());
+      setTimeout(() => console.log(speechSynthesis.getVoices()), 1);
+  </script> -->
     <script type="module" defer>
+
+      // console.log(speechSynthesis.getVoices());
+      // setTimeout(() => console.log(speechSynthesis.getVoices()), 1);
 
       import { voicesSelection } from "../build/index.js";
       const { getSpeechSynthesisVoices, parseSpeechSynthesisVoices, filterOnNovelty, filterOnVeryLowQuality,
