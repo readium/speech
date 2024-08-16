@@ -88,8 +88,10 @@ export function filterOnGender(voices, gender) {
 }
 export function filterOnLanguage(voices, language) {
     language = Array.isArray(language) ? language : [language];
+    language = language.map((l) => extractLangRegionFromBCP47(l)[0]);
     return voices.filter(({ language: voiceLanguage }) => {
-        return language.some((lang) => voiceLanguage.startsWith(lang));
+        const [lang] = extractLangRegionFromBCP47(voiceLanguage);
+        return language.includes(lang);
     });
 }
 export function filterOnQuality(voices, quality) {
@@ -206,7 +208,7 @@ export function sortByGender(voices, genderFirst) {
         return ga === gb ? 0 : ga === genderFirst ? -1 : gb === genderFirst ? -1 : 1;
     });
 }
-function orderLanguages(preferredLanguage) {
+function orderPrefferedLanguages(preferredLanguage) {
     preferredLanguage = Array.isArray(preferredLanguage) ? preferredLanguage :
         preferredLanguage ? [preferredLanguage] : [];
     const defaultRegionList = Object.values(defaultRegion).sort();
@@ -231,7 +233,7 @@ function orderLanguages(preferredLanguage) {
 //     return la.localeCompare(lb);
 // }
 export function sortByLanguage(voices, preferredLanguage) {
-    const languages = orderLanguages(preferredLanguage);
+    const languages = orderPrefferedLanguages(preferredLanguage);
     const voicesSorted = [];
     const voicesIndex = [];
     for (const lang of languages) {
@@ -298,7 +300,7 @@ export function extractRegionsFromVoices(voices, localization) {
     }, []);
 }
 export function groupByLanguage(voices, preferredLanguage, localization) {
-    const languages = orderLanguages(preferredLanguage);
+    const languages = orderPrefferedLanguages(preferredLanguage);
     const voicesSorted = sortByLanguage(voices, languages);
     const languagesStructure = extractLanguagesFromVoices(voicesSorted, localization);
     const res = new Map();
@@ -312,10 +314,16 @@ export function groupByLanguage(voices, preferredLanguage, localization) {
     return res;
 }
 export function groupByRegions(voices, language, preferredRegions, localization) {
-    const languages = orderLanguages(preferredRegions);
-    const languagesFilteredOnlyRegionsRemain = languages.filter((l) => language.startsWith(extractLangRegionFromBCP47(l)[0]));
+    const languages = orderPrefferedLanguages(preferredRegions);
+    const languagesFilteredOnlyRegionsRemain = languages.filter((l) => {
+        const [lang] = extractLangRegionFromBCP47(l);
+        return language === lang;
+    });
     // en-US , en-CA , en-GB sorted by preferredRegions in BCP47
-    const voicesFiltered = voices.filter(({ language: voiceLang }) => voiceLang.startsWith(language));
+    const voicesFiltered = voices.filter(({ language: voiceLang }) => {
+        const [lang] = extractLangRegionFromBCP47(voiceLang);
+        return lang === language;
+    });
     const voicesSorted = sortByLanguage(voicesFiltered, languagesFilteredOnlyRegionsRemain);
     const languagesStructure = extractRegionsFromVoices(voicesSorted, localization);
     const res = new Map();

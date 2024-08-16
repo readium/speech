@@ -102,8 +102,10 @@ export function filterOnGender(voices: IVoices[], gender: TGender): IVoices[] {
 
 export function filterOnLanguage(voices: IVoices[], language: string | string[]): IVoices[] {
     language = Array.isArray(language) ? language : [language];
+    language = language.map((l) => extractLangRegionFromBCP47(l)[0]);
     return voices.filter(({language: voiceLanguage}) => {
-        return language.some((lang) => voiceLanguage.startsWith(lang));
+        const [lang] = extractLangRegionFromBCP47(voiceLanguage);
+        return language.includes(lang);
     })
 }
 
@@ -253,7 +255,7 @@ export function sortByGender(voices: IVoices[], genderFirst: TGender) {
     })
 }
 
-function orderLanguages(preferredLanguage?: string[] | string): string[] {
+function orderPrefferedLanguages(preferredLanguage?: string[] | string): string[] {
     preferredLanguage = Array.isArray(preferredLanguage) ? preferredLanguage :
         preferredLanguage ? [preferredLanguage] : [];
 
@@ -284,7 +286,7 @@ function orderLanguages(preferredLanguage?: string[] | string): string[] {
 
 export function sortByLanguage(voices: IVoices[], preferredLanguage?: string[] | string): IVoices[] {
 
-    const languages = orderLanguages(preferredLanguage);
+    const languages = orderPrefferedLanguages(preferredLanguage);
 
     const voicesSorted = [];
     const voicesIndex: number[] = [];
@@ -356,7 +358,7 @@ export function extractRegionsFromVoices(voices: IVoices[], localization?: strin
 export type TGroupVoices = Map<string, IVoices[]>;
 export function groupByLanguage(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string): TGroupVoices {
 
-    const languages = orderLanguages(preferredLanguage);
+    const languages = orderPrefferedLanguages(preferredLanguage);
 
     const voicesSorted = sortByLanguage(voices, languages);
     
@@ -374,11 +376,17 @@ export function groupByLanguage(voices: IVoices[], preferredLanguage?: string[] 
 
 export function groupByRegions(voices: IVoices[], language: string, preferredRegions?: string[] | string, localization?: string): TGroupVoices {
 
-    const languages = orderLanguages(preferredRegions);
-    const languagesFilteredOnlyRegionsRemain = languages.filter((l) => language.startsWith(extractLangRegionFromBCP47(l)[0]));
+    const languages = orderPrefferedLanguages(preferredRegions);
+    const languagesFilteredOnlyRegionsRemain = languages.filter((l) => {
+        const [lang] = extractLangRegionFromBCP47(l);
+        return language === lang;
+    });
     // en-US , en-CA , en-GB sorted by preferredRegions in BCP47
 
-    const voicesFiltered = voices.filter(({language: voiceLang}) => voiceLang.startsWith(language));
+    const voicesFiltered = voices.filter(({language: voiceLang}) => {
+        const [lang] = extractLangRegionFromBCP47(voiceLang);
+        return lang === language;
+    });
 
     const voicesSorted = sortByLanguage(voicesFiltered, languagesFilteredOnlyRegionsRemain);
     
