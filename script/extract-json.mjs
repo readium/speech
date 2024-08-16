@@ -5,9 +5,9 @@ import { join } from 'node:path';
 import { writeFileSync } from 'node:fs';
 
 const repoUrl = 'https://github.com/HadrienGardeur/web-speech-recommended-voices.git';
-const repoBranch = 'locales-for-voice-names';
+// const repoBranch = 'locales-for-voice-names';
+const repoBranch = 'main';
 const repoPath = 'script/web-speech-recommended-voices';
-const jsonFilePath = join(repoPath, 'path/to/your/json/file.json');
 
 // Clone the repository
 await new Promise((resolve, reject) => {
@@ -24,6 +24,7 @@ await new Promise((resolve, reject) => {
 
 const jsonFiles = [
   'ca.json',
+  'cs.json',
   'da.json',
   'de.json',
   'en.json',
@@ -32,11 +33,19 @@ const jsonFiles = [
   'fi.json',
   'fr.json',
   'gl.json',
+  'hr.json',
+  'hu.json',
   'it.json',
+  'ja.json',
   'nb.json',
   'nl.json',
+  'pl.json',
   'pt.json',
+  'ro.json',
+  'sk.json',
+  'sl.json',
   'sv.json',
+  'tr.json',
 ];
 
 const filters = [
@@ -44,20 +53,20 @@ const filters = [
   'veryLowQuality.json',
 ];
 
-const localizedNames = [
-  'ca.json',
-  'da.json',
-  'de.json',
-  'en.json',
-  'es.json',
-  'fi.json',
-  'fr.json',
-  'it.json',
-  'nb.json',
-  'nl.json',
-  'pt.json',
-  'sv.json',
-];
+// const localizedNames = [
+//   'ca.json',
+//   'da.json',
+//   'de.json',
+//   'en.json',
+//   'es.json',
+//   'fi.json',
+//   'fr.json',
+//   'it.json',
+//   'nb.json',
+//   'nl.json',
+//   'pt.json',
+//   'sv.json',
+// ];
 
 let novelty = [];
 let veryLowQuality = [];

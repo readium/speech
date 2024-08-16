@@ -51,7 +51,7 @@
 
         const selectedLanguage = languageSelect.value;
 
-        const jsonData = await loadJSONData("https://raw.githubusercontent.com/HadrienGardeur/web-speech-recommended-voices/locales-for-voice-names/json/" + selectedLanguage + ".json");
+        const jsonData = await loadJSONData("https://raw.githubusercontent.com/HadrienGardeur/web-speech-recommended-voices/main/json/" + selectedLanguage + ".json");
 
         const defaultText = document.getElementById('text-to-read');
         defaultText.value = jsonData?.testUtterance || "hello world";
