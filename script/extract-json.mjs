@@ -11,7 +11,7 @@ const repoPath = 'script/web-speech-recommended-voices';
 
 // Clone the repository
 await new Promise((resolve, reject) => {
-  const cloneProcess = spawn('git', ['clone', '--branch', repoBranch, repoUrl, repoPath]);
+  const cloneProcess = spawn('git', ['clone', '--depth=1', '--branch', repoBranch, repoUrl, repoPath]);
   cloneProcess.on('close', (code) => {
     if (code === 0) {
       resolve();
