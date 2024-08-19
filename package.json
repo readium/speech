@@ -5,8 +5,8 @@
   "main": "build/cjs/voices.js",
   "module": "build/mjs/voices.js",
   "scripts": {
-    "test": "ava build/**/*.test.js",
-    "build": "rimraf build/* && tsc -p tsconfig-cjs.json && tsc -p tsconfig.json",
+    "test": "ava build/mjs/**/*.test.js",
+    "build": "rimraf build/* && tsc -p tsconfig-cjs.json && tsc -p tsconfig.json && /bin/sh script/fixup.sh",
     "start": "node build/index.js",
     "extract-json-data": "node script/extract-json.mjs",
     "serve": "http-server ./",
