@@ -165,8 +165,8 @@ for (const file of jsonFiles) {
         gender: voice.gender || undefined,
         age: voice.age || undefined,
         quality: Array.isArray(voice.quality) ? voice.quality : [],
-        recommendedPitch: voice.pitch || 1,
-        recommendedRate: voice.rate || 1,
+        recommendedPitch: voice.pitchControl === false ? undefined : voice.pitch || 1,
+        recommendedRate: voice.pitchControl === false ? undefined : voice.rate || 1,
         localizedName: voice.localizedName || "",
       });
     }
