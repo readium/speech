@@ -1,0 +1,10 @@
+{
+    "extends": "./tsconfig-base.json",
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "module": "commonjs",
+        "outDir": "build/cjs",
+        "target": "es2015",
+        "lib": ["es2019", "DOM", "ES2020.Intl"]
+    }
+}

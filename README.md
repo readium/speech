@@ -20,3 +20,10 @@ Readium Speech was spun out as a separate project in order to facilitate its int
 For our initial work on this project, we're focusing on voice selection based on [recommended voices](https://github.com/HadrienGardeur/web-speech-recommended-voices).
 
 The outline of this work has been explored in a [GitHub discussion](https://github.com/HadrienGardeur/web-speech-recommended-voices/discussions/9) and through a [best practices document](https://github.com/HadrienGardeur/read-aloud-best-practices/blob/main/voice-selection.md).
+
+
+## ressources
+
+https://www.sensedeep.com/blog/posts/2021/how-to-create-single-source-npm-module.html
+
+
