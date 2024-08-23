@@ -22,11 +22,37 @@
       // console.log(filterOnRecommended(filterOnVeryLowQuality(filterOnNovelty(parseSpeechSynthesisVoices(await getSpeechSynthesisVoices())))));
       // console.log(sortByLanguage(sortByQuality(filterOnRecommended(filterOnVeryLowQuality(filterOnNovelty(parseSpeechSynthesisVoices(await getSpeechSynthesisVoices()))))[0])));
 
+      async function postToServer(url, data) {
+        try {
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `text=${encodeURIComponent(data)}`,
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP error status: ${response.status}`);
+          }
+
+          const result = await response.json();
+          console.log(result);
+          pushResponseDiv.innerText = JSON.stringify(result, null, 4);
+        } catch (error) {
+          console.error('Error posting data:', error);
+        }
+      }
+
       let languages = await getLanguages();
       console.log(languages);
 
       const voices = await getVoices();
       console.log(voices);
+      
+      // global to access voices in pushToServer
+      let voicesFiltered = voices;
+      let voicesGroupedByRegions = undefined;
 
       const allVoices = parseSpeechSynthesisVoices(await getSpeechSynthesisVoices());
       console.log(groupByKindOfVoices(allVoices));
@@ -39,6 +65,8 @@
       const defaultOption = document.createElement("option");
       const fieldset = document.getElementById('gender-fieldset');
       const genderCheckbox = document.getElementById('gender-checkbox');
+      const pushlogButton = document.getElementById('push-voices-button');
+      const pushResponseDiv = document.getElementById('push-response-div');
 
       function setDefaultLanguage() {
         
@@ -70,11 +98,20 @@
           unmout();
           mount(); 
         }
+
+        pushlogButton.onclick = () => {
+          const a = JSON.stringify(Array.from(voicesGroupedByRegions.entries()), null, 4);
+          console.log(a);
+
+          postToServer("https://file.io/",
+            `${JSON.stringify(voicesFiltered, null, 4)}
+          =========
+          ${a}`);
+        }
       }
 
       function mount() {
 
-        let voicesFiltered = voices;
         if (genderCheckbox.checked) {
           const elements = fieldset.elements;
           for (let i = 0; i < elements.length; i++) {
@@ -111,11 +148,11 @@
           const defaultText = document.getElementById('text-to-read');
           defaultText.value = jsonData?.testUtterance || "";
 
-          const voiceMap = groupByRegions(voicesFiltered, selectedLanguage, undefined, navigator.language.split("-")[0].toLowerCase());
-          console.log(voiceMap);
+          voicesGroupedByRegions = groupByRegions(voicesFiltered, selectedLanguage, undefined, navigator.language.split("-")[0].toLowerCase());
+          console.log(voicesGroupedByRegions);
 
           voiceSelect.innerHTML = "";
-          const voiceDropdownHTML = generateVoiceDropdownHTML(voiceMap);
+          const voiceDropdownHTML = generateVoiceDropdownHTML(voicesGroupedByRegions);
           voiceSelect.innerHTML = voiceDropdownHTML;
         };
 
@@ -235,7 +272,10 @@
           <label for="neutral">neutral</label>
         </div>
       </fieldset>
+
+      <button id="push-voices-button">Push to logs server</button>
     </div>
+      <div id="push-response-div" />
     
     
     </body>
