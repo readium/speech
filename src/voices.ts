@@ -220,7 +220,7 @@ export function filterOnRecommended(voices: IVoices[], _recommended: IRecommende
             }
         } else {
 
-            const voiceFound = voices.find(({ name }) => name.startsWith(recommendedVoice.name));
+            const voiceFound = voices.find(({ name }) => name === recommendedVoice.name);
             if (voiceFound) {
 
                 const voice = voiceFound;

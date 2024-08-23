@@ -182,7 +182,7 @@ export function filterOnRecommended(voices, _recommended = recommended) {
             }
         }
         else {
-            const voiceFound = voices.find(({ name }) => name.startsWith(recommendedVoice.name));
+            const voiceFound = voices.find(({ name }) => name === recommendedVoice.name);
             if (voiceFound) {
                 const voice = voiceFound;
                 voice.quality = Array.isArray(recommendedVoice.quality) ? recommendedVoice.quality[0] : undefined;
