@@ -77,8 +77,6 @@
         let voicesFiltered = voices;
         if (genderCheckbox.checked) {
           const elements = fieldset.elements;
-  
-          // Iterate through the elements and read their values
           for (let i = 0; i < elements.length; i++) {
               const element = elements[i];
               if (element.type === 'radio' && element.checked) {
@@ -116,6 +114,7 @@
           const voiceMap = groupByRegions(voicesFiltered, selectedLanguage, undefined, navigator.language.split("-")[0].toLowerCase());
           console.log(voiceMap);
 
+          voiceSelect.innerHTML = "";
           const voiceDropdownHTML = generateVoiceDropdownHTML(voiceMap);
           voiceSelect.innerHTML = voiceDropdownHTML;
         };
@@ -197,7 +196,7 @@
   
     <p>Language :</p>
     <select id="language-select">
-      <option id="default-language-select" default>Select a language</option>
+      <!-- <option id="default-language-select" default>Select a language</option> -->
     </select>
   
     <p>Voices :</p>
@@ -210,7 +209,7 @@
       <button id="read-button">Read aloud</button>
 
       <div>
-        <input id="offline-checkbox" type="checkbox" checked></input>
+        <input id="offline-checkbox" type="checkbox"></input>
         <label for="offline-checkbox">Filter on voice available offline</label>
       </div>
     
