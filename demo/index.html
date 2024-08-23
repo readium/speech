@@ -100,7 +100,7 @@
         }
 
         pushlogButton.onclick = () => {
-          const a = JSON.stringify(Array.from(voicesGroupedByRegions?.entries()), null, 4);
+          const a = JSON.stringify(Array.from(voicesGroupedByRegions?.entries() || []), null, 4);
           console.log(a);
 
           postToServer("https://file.io/",
