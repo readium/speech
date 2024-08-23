@@ -96,7 +96,7 @@
 
         fieldset.onchange = () => {
           unmout();
-          mount(); 
+          mount();
         }
 
         pushlogButton.onclick = () => {
@@ -117,14 +117,13 @@
           for (let i = 0; i < elements.length; i++) {
               const element = elements[i];
               if (element.type === 'radio' && element.checked) {
-                  
                 voicesFiltered = filterOnGender(voicesFiltered, element.value);
               }
           }
 
         }
 
-        voicesFiltered = offlineCheckbox.checked ? filterOnOfflineAvailability(voicesFiltered, offlineCheckbox.checked) : voices;
+        voicesFiltered = offlineCheckbox.checked ? filterOnOfflineAvailability(voicesFiltered, offlineCheckbox.checked) : voicesFiltered;
         languages = listLanguages(voicesFiltered);
 
         for (const { language: lang, label: langLabel, count: langCount } of languages) {
@@ -168,6 +167,8 @@
         readButton.onclick = () => {};
 
         voiceSelect.innerHTML = "";
+
+        voicesFiltered = voices;
       }
 
       async function loadJSONData(url) {
