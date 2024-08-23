@@ -266,11 +266,24 @@ export function sortByLanguage(voices, preferredLanguage) {
 function extractLanguagesFromVoices(voices, localization) {
     let langueName = undefined;
     if (localization) {
-        langueName = new Intl.DisplayNames([localization], { type: 'language' });
+        try {
+            langueName = new Intl.DisplayNames([localization], { type: 'language' });
+        }
+        catch (e) {
+            console.error("Intl.DisplayNames throw an exception with ", localization, e);
+        }
     }
     return voices.reduce((acc, cv) => {
         const [cvLanguage] = extractLangRegionFromBCP47(cv.language);
-        const name = langueName ? langueName.of(cvLanguage) || cvLanguage : cvLanguage;
+        let name = cvLanguage;
+        try {
+            if (langueName) {
+                name = langueName.of(cvLanguage) || cvLanguage;
+            }
+        }
+        catch (e) {
+            console.error("langueName.of throw an error with ", cvLanguage, e);
+        }
         const found = acc.find(({ language }) => language === cvLanguage);
         if (found) {
             found.count++;
@@ -284,11 +297,24 @@ function extractLanguagesFromVoices(voices, localization) {
 export function extractRegionsFromVoices(voices, localization) {
     let regionName = undefined;
     if (localization) {
-        regionName = new Intl.DisplayNames([localization], { type: 'region' });
+        try {
+            regionName = new Intl.DisplayNames([localization], { type: 'region' });
+        }
+        catch (e) {
+            console.error("Intl.DisplayNames throw an exception with ", localization, e);
+        }
     }
     return voices.reduce((acc, cv) => {
         const [, region] = extractLangRegionFromBCP47(cv.language);
-        const name = regionName ? regionName.of(region) || cv.language : cv.language;
+        let name = cv.language;
+        try {
+            if (regionName) {
+                name = regionName.of(region) || cv.language;
+            }
+        }
+        catch (e) {
+            console.error("regionName.of throw an error with ", region, e);
+        }
         const found = acc.find(({ language }) => language.endsWith(region));
         if (found) {
             found.count++;
