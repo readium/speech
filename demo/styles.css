@@ -57,6 +57,16 @@ form > div {
   margin-top: 50px;
 }
 
+.controls > * {
+  margin-bottom: 10px;
+  text-align: center;
+}
+.controls fieldset {
+  display: inline-block;
+  text-align: left;
+}
+
 .controls button {
   padding: 10px;
+  width: 100px;
 }

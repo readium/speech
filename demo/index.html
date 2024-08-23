@@ -17,12 +17,12 @@
       import { voicesSelection } from "../build/mjs/src/index.js";
       const { getSpeechSynthesisVoices, parseSpeechSynthesisVoices, filterOnNovelty, filterOnVeryLowQuality,
         filterOnRecommended, sortByLanguage, sortByQuality, getVoices, groupByKindOfVoices, groupByRegions,
-        getLanguages } = voicesSelection;
+        getLanguages, filterOnOfflineAvailability, listLanguages, filterOnGender } = voicesSelection;
 
       // console.log(filterOnRecommended(filterOnVeryLowQuality(filterOnNovelty(parseSpeechSynthesisVoices(await getSpeechSynthesisVoices())))));
       // console.log(sortByLanguage(sortByQuality(filterOnRecommended(filterOnVeryLowQuality(filterOnNovelty(parseSpeechSynthesisVoices(await getSpeechSynthesisVoices()))))[0])));
 
-      const languages = await getLanguages();
+      let languages = await getLanguages();
       console.log(languages);
 
       const voices = await getVoices();
@@ -33,37 +33,106 @@
       // console.log(JSON.stringify(Array.from(groupByKindOfVoices(allVoices).entries()), null, 4));
 
       const languageSelect = document.getElementById('language-select'); 
+      const readButton = document.getElementById('read-button');
+      const voiceSelect = document.getElementById('voice-select');
+      const offlineCheckbox = document.getElementById('offline-checkbox');
+      const defaultOption = document.createElement("option");
+      const fieldset = document.getElementById('gender-fieldset');
+      const genderCheckbox = document.getElementById('gender-checkbox');
 
-      for (const {language: lang, label: langLabel, count: langCount} of languages) {
-        const opt = document.createElement("option");
-        opt.value = lang;
-        opt.text = `${langLabel} (${langCount})`;
-        languageSelect.appendChild(opt);
+      function setDefaultLanguage() {
+        
+        defaultOption.defaultSelected = true;
+        defaultOption.text = "Select a language";
+        languageSelect.appendChild(defaultOption);
       }
-      
 
-      languageSelect.addEventListener('change', async function () {
+      const setFieldStateHiddenOrNot = () => fieldset.style = !genderCheckbox.checked ? "display: none" : "";
 
-        const defaultOption = document.getElementById("default-language-select");
-        if (defaultOption) {
-          defaultOption.remove();
+      function init() {
+        setDefaultLanguage();
+        mount();
+
+        setFieldStateHiddenOrNot()
+
+        offlineCheckbox.onchange = (ev) => {
+          unmout();
+          mount(); 
         }
 
-        const selectedLanguage = languageSelect.value;
+        genderCheckbox.onchange = () => {
+          setFieldStateHiddenOrNot()
+          unmout();
+          mount(); 
+        }
 
-        const jsonData = await loadJSONData("https://raw.githubusercontent.com/HadrienGardeur/web-speech-recommended-voices/main/json/" + selectedLanguage + ".json");
+        fieldset.onchange = () => {
+          unmout();
+          mount(); 
+        }
+      }
 
-        const defaultText = document.getElementById('text-to-read');
-        defaultText.value = jsonData?.testUtterance || "hello world";
+      function mount() {
 
-        const voiceMap = groupByRegions(voices, selectedLanguage, undefined, navigator.language.split("-")[0].toLowerCase());
-        console.log(voiceMap);
+        let voicesFiltered = voices;
+        if (genderCheckbox.checked) {
+          const elements = fieldset.elements;
+  
+          // Iterate through the elements and read their values
+          for (let i = 0; i < elements.length; i++) {
+              const element = elements[i];
+              if (element.type === 'radio' && element.checked) {
+                  
+                voicesFiltered = filterOnGender(voicesFiltered, element.value);
+              }
+          }
 
-        const voiceDropdownHTML = generateVoiceDropdownHTML(voiceMap);
-        document.getElementById('voice-select').outerHTML = voiceDropdownHTML;
-      });
+        }
 
-      document.getElementById('read-button').addEventListener('click', readTextWithSelectedVoice);
+        voicesFiltered = offlineCheckbox.checked ? filterOnOfflineAvailability(voicesFiltered, offlineCheckbox.checked) : voices;
+        languages = listLanguages(voicesFiltered);
+
+        for (const { language: lang, label: langLabel, count: langCount } of languages) {
+          const opt = document.createElement("option");
+          opt.value = lang;
+          opt.text = `${langLabel} (${langCount})`;
+          languageSelect.appendChild(opt);
+        }
+      
+
+        languageSelect.onchange = async () => {
+
+          if (languageSelect.contains(defaultOption))
+            languageSelect.removeChild(defaultOption);
+
+
+          const selectedLanguage = languageSelect.value;
+
+          const jsonData = await loadJSONData("https://raw.githubusercontent.com/HadrienGardeur/web-speech-recommended-voices/main/json/" + selectedLanguage + ".json");
+
+          const defaultText = document.getElementById('text-to-read');
+          defaultText.value = jsonData?.testUtterance || "";
+
+          const voiceMap = groupByRegions(voicesFiltered, selectedLanguage, undefined, navigator.language.split("-")[0].toLowerCase());
+          console.log(voiceMap);
+
+          const voiceDropdownHTML = generateVoiceDropdownHTML(voiceMap);
+          voiceSelect.innerHTML = voiceDropdownHTML;
+        };
+
+        readButton.onclick = readTextWithSelectedVoice;
+      }
+
+      function unmout() {
+        languageSelect.innerHTML = "";
+        languageSelect.defaultSelected;
+
+        setDefaultLanguage();
+        
+        readButton.onclick = () => {};
+
+        voiceSelect.innerHTML = "";
+      }
 
       async function loadJSONData(url) {
         try {
@@ -75,75 +144,6 @@
           return null;
         }
       }
-
-      // function filterAvailableVoices(jsonData) {
-      //   if (!jsonData) return [];
-
-      //   const availableVoices = [];
-      //   const voices = speechSynthesis.getVoices();
-
-      //   jsonData.voices.forEach(
-      //     function (voice) {
-      //       if (voices.some(apiVoice => apiVoice.name === voice.name)) {
-      //         availableVoices.push(voice);
-      //       }
-      //       else {
-      //         if (voice.altNames) {
-      //           voice.altNames.forEach(
-      //             function (altName) {
-      //               if (voices.some(apiVoice => apiVoice.name === altName)) {
-      //                 voice.name = altName;
-      //                 availableVoices.push(voice);
-      //               }
-      //             }
-      //           )
-      //         }
-      //       }
-      //     }
-      //   );
-
-      //   return availableVoices;
-      // }
-
-      // function groupVoicesByRegion(voices) {
-      //   const regions = {};
-
-      //   voices.forEach(voice => {
-      //     const region = extractRegionFromLang(voice.language) || 'Other';
-      //     if (!regions[region]) {
-      //       regions[region] = [];
-      //     }
-      //     regions[region].push(voice);
-      //   });
-
-      //   return regions;
-      // }
-
-      // function extractRegionFromLang(lang) {
-      //   if (!lang) return null;
-      //   const parts = lang.split('-');
-      //   return parts.length > 1 ? parts[1] : null;
-      // }
-
-      // function sortVoicesByRegionPreference(groupedVoices) {
-      //   const acceptLanguages = navigator.languages;
-      //   const primaryRegion = acceptLanguages.map(lang => extractRegionFromLang(lang) || 'Other');
-
-      //   const sortedVoices = [];
-
-      //   primaryRegion.forEach(region => {
-      //     if (groupedVoices[region]) {
-      //       sortedVoices.push(...groupedVoices[region]);
-      //       delete groupedVoices[region];
-      //     }
-      //   });
-
-      //   for (const region in groupedVoices) {
-      //     sortedVoices.push(...groupedVoices[region]);
-      //   }
-
-      //   return sortedVoices;
-      // }
 
       function generateVoiceDropdownHTML(voiceMap) {
         if (!voiceMap) return '';
@@ -187,6 +187,7 @@
         speechSynthesis.speak(utterance);
       }
 
+      init();
 
     </script>
   </head>
@@ -197,18 +198,6 @@
     <p>Language :</p>
     <select id="language-select">
       <option id="default-language-select" default>Select a language</option>
-      <!-- <option value="ca">Catalan</option>
-      <option value="da">Danish</option>
-      <option value="nl">Dutch</option>
-      <option value="en">English</option>
-      <option value="fi">Finnish</option>
-      <option value="fr">French</option>
-      <option value="de">German</option>
-      <option value="it">Italian</option>
-      <option value="nb">Norwegian</option>
-      <option value="pt">Portuguese</option>
-      <option value="es">Spanish</option>
-      <option value="sv">Swedish</option> -->
     </select>
   
     <p>Voices :</p>
@@ -219,7 +208,37 @@
   
     <div class="controls">
       <button id="read-button">Read aloud</button>
+
+      <div>
+        <input id="offline-checkbox" type="checkbox" checked></input>
+        <label for="offline-checkbox">Filter on voice available offline</label>
+      </div>
+    
+      <div>
+        <input id="gender-checkbox" type="checkbox" ></input>
+        <label for="gender-checkbox">Filter on gender</label>
+      </div>
+      <fieldset id="gender-fieldset" style="display: none;">
+        <legend>Select a gender:</legend>
+
+        <div>
+          <input type="radio" id="male" name="drone" value="male" checked />
+          <label for="male">male</label>
+        </div>
+    
+        <div>
+          <input type="radio" id="female" name="drone" value="female" />
+          <label for="female">female</label>
+        </div>
+    
+        <div>
+          <input type="radio" id="neutral" name="drone" value="neutral" />
+          <label for="neutral">neutral</label>
+        </div>
+      </fieldset>
     </div>
-  </body>
+    
+    
+    </body>
   
   </html>

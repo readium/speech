@@ -88,7 +88,7 @@ export function parseSpeechSynthesisVoices(speechSynthesisVoices: SpeechSynthesi
     }));
 } 
 
-export function filterOnOfflineActivity(voices: IVoices[], offline = true): IVoices[] {
+export function filterOnOfflineAvailability(voices: IVoices[], offline = true): IVoices[] {
     return voices.filter(({offlineAvailability}) => {
         return offlineAvailability === offline;
     });
@@ -320,7 +320,7 @@ export interface ILanguages {
     language: string;
     count: number;
 }
-export function extractLanguagesFromVoices(voices: IVoices[], localization?: string): ILanguages[] {
+function extractLanguagesFromVoices(voices: IVoices[], localization?: string): ILanguages[] {
     let langueName: Intl.DisplayNames | undefined = undefined;
     if (localization) {
         langueName = new Intl.DisplayNames([localization], { type: 'language' });
@@ -426,6 +426,11 @@ export async function getLanguages(allVoices?: IVoices[], localization?: string)
     allVoices = allVoices ? allVoices : await getVoices();
 
     return extractLanguagesFromVoices(allVoices, localization || navigatorLang());
+}
+
+export function listLanguages(voices: IVoices[], localization?: string): ILanguages[] {
+
+    return extractLanguagesFromVoices(voices, localization || navigatorLang());
 }
 
 export async function getVoices() {

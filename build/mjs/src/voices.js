@@ -76,7 +76,7 @@ export function parseSpeechSynthesisVoices(speechSynthesisVoices) {
         recomendedRate: undefined,
     }));
 }
-export function filterOnOfflineActivity(voices, offline = true) {
+export function filterOnOfflineAvailability(voices, offline = true) {
     return voices.filter(({ offlineAvailability }) => {
         return offlineAvailability === offline;
     });
@@ -263,7 +263,7 @@ export function sortByLanguage(voices, preferredLanguage) {
     }
     return [voicesSorted, voiceMissing].flat();
 }
-export function extractLanguagesFromVoices(voices, localization) {
+function extractLanguagesFromVoices(voices, localization) {
     let langueName = undefined;
     if (localization) {
         langueName = new Intl.DisplayNames([localization], { type: 'language' });
@@ -353,6 +353,9 @@ export function groupByKindOfVoices(allVoices) {
 export async function getLanguages(allVoices, localization) {
     allVoices = allVoices ? allVoices : await getVoices();
     return extractLanguagesFromVoices(allVoices, localization || navigatorLang());
+}
+export function listLanguages(voices, localization) {
+    return extractLanguagesFromVoices(voices, localization || navigatorLang());
 }
 export async function getVoices() {
     const allVoices = parseSpeechSynthesisVoices(await getSpeechSynthesisVoices());
