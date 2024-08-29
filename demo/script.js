@@ -119,6 +119,7 @@ const languageSelectOnChange = async (ev) => {
     const jsonData = await loadJSONData("https://raw.githubusercontent.com/HadrienGardeur/web-speech-recommended-voices/main/json/" + selectedLanguage + ".json");
 
     textToRead = jsonData?.testUtterance || "";
+    document.getElementById("text-to-read").value = textToRead;
 
     filterVoices();
 }
@@ -193,7 +194,7 @@ const content = () => html`
 </div>
   
 <p>Text :</p>
-<input type="text" id="text-to-read" class="txt" value=${textToRead}></input>
+<input type="text" id="text-to-read" class="txt" value=${textToRead} @input=${(e) => textToRead = e.target.value ? e.target.value : textToRead}></input>
 
 <div class="controls">
     <button id="read-button" @click=${selectedVoice ? readTextWithSelectedVoice : undefined}>Read aloud</button>
