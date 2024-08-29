@@ -32,6 +32,10 @@ export declare const quality: {
         normal: string;
         high: string;
     };
+    el: {
+        normal: string;
+        high: string;
+    };
     en: {
         normal: string;
         high: string;
@@ -64,6 +68,10 @@ export declare const quality: {
         normal: string;
         high: string;
     };
+    ko: {
+        normal: string;
+        high: string;
+    };
     nb: {
         normal: string;
         high: string;
@@ -84,6 +92,10 @@ export declare const quality: {
         normal: string;
         high: string;
     };
+    ru: {
+        normal: string;
+        high: string;
+    };
     sk: {
         normal: string;
         high: string;
@@ -97,6 +109,10 @@ export declare const quality: {
         high: string;
     };
     tr: {
+        normal: string;
+        high: string;
+    };
+    uk: {
         normal: string;
         high: string;
     };
