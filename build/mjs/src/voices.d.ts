@@ -31,11 +31,27 @@ export interface ILanguages {
     language: string;
     count: number;
 }
-export declare function extractRegionsFromVoices(voices: IVoices[], localization?: string): ILanguages[];
+export declare function ListRegions(voices: IVoices[], localization?: string): ILanguages[];
 export type TGroupVoices = Map<string, IVoices[]>;
 export declare function groupByLanguage(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string): TGroupVoices;
 export declare function groupByRegions(voices: IVoices[], language: string, preferredRegions?: string[] | string, localization?: string): TGroupVoices;
 export declare function groupByKindOfVoices(allVoices: IVoices[]): TGroupVoices;
+/**
+ * get the languages list
+ * @param allVoices IVoices list
+ * @param localization BCP47 localization string
+ * @returns
+ */
 export declare function getLanguages(allVoices?: IVoices[], localization?: string): Promise<ILanguages[]>;
+/**
+ * same as async getLanguages
+ * @param voices IVoices list
+ * @param localization BPC47 localisation string
+ * @returns ILanguages[]
+ */
 export declare function listLanguages(voices: IVoices[], localization?: string): ILanguages[];
+/**
+ * Parse and extract SpeechSynthesisVoices,
+ * @returns IVoices[]
+ */
 export declare function getVoices(): Promise<IVoices[]>;

@@ -348,7 +348,7 @@ function extractLanguagesFromVoices(voices: IVoices[], localization?: string): I
         return acc;
     }, []);
 }
-export function extractRegionsFromVoices(voices: IVoices[], localization?: string): ILanguages[] {
+export function ListRegions(voices: IVoices[], localization?: string): ILanguages[] {
     let regionName: Intl.DisplayNames | undefined = undefined;
     if (localization) {
         try {
@@ -412,7 +412,7 @@ export function groupByRegions(voices: IVoices[], language: string, preferredReg
 
     const voicesSorted = sortByLanguage(voicesFiltered, languagesFilteredOnlyRegionsRemain);
     
-    const languagesStructure = extractRegionsFromVoices(voicesSorted, localization);
+    const languagesStructure = ListRegions(voicesSorted, localization);
 
     const res: TGroupVoices = new Map();
     for (const { language, label } of languagesStructure) {
@@ -443,6 +443,12 @@ export function groupByKindOfVoices(allVoices: IVoices[]): TGroupVoices {
     return res;
 }
 
+/**
+ * get the languages list
+ * @param allVoices IVoices list
+ * @param localization BCP47 localization string
+ * @returns 
+ */
 export async function getLanguages(allVoices?: IVoices[], localization?: string): Promise<ILanguages[]> {
 
     allVoices = allVoices ? allVoices : await getVoices();
@@ -450,11 +456,21 @@ export async function getLanguages(allVoices?: IVoices[], localization?: string)
     return extractLanguagesFromVoices(allVoices, localization || navigatorLang());
 }
 
+/**
+ * same as async getLanguages
+ * @param voices IVoices list
+ * @param localization BPC47 localisation string
+ * @returns ILanguages[]
+ */
 export function listLanguages(voices: IVoices[], localization?: string): ILanguages[] {
 
     return extractLanguagesFromVoices(voices, localization || navigatorLang());
 }
 
+/**
+ * Parse and extract SpeechSynthesisVoices,
+ * @returns IVoices[]
+ */
 export async function getVoices() {
 
     const allVoices = parseSpeechSynthesisVoices(await getSpeechSynthesisVoices());

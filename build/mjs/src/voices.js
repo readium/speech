@@ -294,7 +294,7 @@ function extractLanguagesFromVoices(voices, localization) {
         return acc;
     }, []);
 }
-export function extractRegionsFromVoices(voices, localization) {
+export function ListRegions(voices, localization) {
     let regionName = undefined;
     if (localization) {
         try {
@@ -351,7 +351,7 @@ export function groupByRegions(voices, language, preferredRegions, localization)
         return lang === language;
     });
     const voicesSorted = sortByLanguage(voicesFiltered, languagesFilteredOnlyRegionsRemain);
-    const languagesStructure = extractRegionsFromVoices(voicesSorted, localization);
+    const languagesStructure = ListRegions(voicesSorted, localization);
     const res = new Map();
     for (const { language, label } of languagesStructure) {
         res.set(label, voicesSorted.filter(({ language: voiceLang }) => {
@@ -376,13 +376,29 @@ export function groupByKindOfVoices(allVoices) {
     res.set("remaining", remainingVoiceFiltered);
     return res;
 }
+/**
+ * get the languages list
+ * @param allVoices IVoices list
+ * @param localization BCP47 localization string
+ * @returns
+ */
 export async function getLanguages(allVoices, localization) {
     allVoices = allVoices ? allVoices : await getVoices();
     return extractLanguagesFromVoices(allVoices, localization || navigatorLang());
 }
+/**
+ * same as async getLanguages
+ * @param voices IVoices list
+ * @param localization BPC47 localisation string
+ * @returns ILanguages[]
+ */
 export function listLanguages(voices, localization) {
     return extractLanguagesFromVoices(voices, localization || navigatorLang());
 }
+/**
+ * Parse and extract SpeechSynthesisVoices,
+ * @returns IVoices[]
+ */
 export async function getVoices() {
     const allVoices = parseSpeechSynthesisVoices(await getSpeechSynthesisVoices());
     const [recommendedVoices, lowQualityVoices] = filterOnRecommended(allVoices);
