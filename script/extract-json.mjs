@@ -28,6 +28,7 @@ const jsonFiles = [
   'cs.json',
   'da.json',
   'de.json',
+  'el.json',
   'en.json',
   'es.json',
   'eu.json',
