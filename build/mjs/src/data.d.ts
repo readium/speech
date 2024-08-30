@@ -118,6 +118,7 @@ export declare const quality: {
     };
 };
 export declare const defaultRegion: {
+    bg: string;
     ca: string;
     cs: string;
     da: string;
@@ -132,13 +133,16 @@ export declare const defaultRegion: {
     hu: string;
     it: string;
     ja: string;
+    ko: string;
     nb: string;
     nl: string;
     pl: string;
     pt: string;
     ro: string;
+    ru: string;
     sk: string;
     sl: string;
     sv: string;
     tr: string;
+    uk: string;
 };

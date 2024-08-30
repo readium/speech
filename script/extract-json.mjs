@@ -23,6 +23,7 @@ await new Promise((resolve, reject) => {
 
 
 const jsonFiles = [
+  'bg.json',
   'ca.json',
   'cs.json',
   'da.json',
@@ -37,15 +38,18 @@ const jsonFiles = [
   'hu.json',
   'it.json',
   'ja.json',
+  'ko.json',
   'nb.json',
   'nl.json',
   'pl.json',
   'pt.json',
   'ro.json',
+  'ru.json',
   'sk.json',
   'sl.json',
   'sv.json',
   'tr.json',
+  'uk.json',
 ];
 
 const filters = [

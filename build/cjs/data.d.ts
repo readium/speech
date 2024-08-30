@@ -32,6 +32,10 @@ export declare const quality: {
         normal: string;
         high: string;
     };
+    el: {
+        normal: string;
+        high: string;
+    };
     en: {
         normal: string;
         high: string;
@@ -64,6 +68,10 @@ export declare const quality: {
         normal: string;
         high: string;
     };
+    ko: {
+        normal: string;
+        high: string;
+    };
     nb: {
         normal: string;
         high: string;
@@ -84,6 +92,10 @@ export declare const quality: {
         normal: string;
         high: string;
     };
+    ru: {
+        normal: string;
+        high: string;
+    };
     sk: {
         normal: string;
         high: string;
@@ -100,10 +112,15 @@ export declare const quality: {
         normal: string;
         high: string;
     };
+    uk: {
+        normal: string;
+        high: string;
+    };
 };
 export declare const defaultRegion: {
+    bg: string;
     ca: string;
-    "cs-CZ": string;
+    cs: string;
     da: string;
     de: string;
     en: string;
@@ -112,17 +129,20 @@ export declare const defaultRegion: {
     fi: string;
     fr: string;
     gl: string;
-    "hr-HR": string;
-    "hu-HU": string;
+    hr: string;
+    hu: string;
     it: string;
-    "ja-JP": string;
+    ja: string;
+    ko: string;
     nb: string;
     nl: string;
-    "pl-PL": string;
+    pl: string;
     pt: string;
-    "ro-RO": string;
-    "sk-SK": string;
-    "sl-SI": string;
+    ro: string;
+    ru: string;
+    sk: string;
+    sl: string;
     sv: string;
-    "tr-TR": string;
+    tr: string;
+    uk: string;
 };
