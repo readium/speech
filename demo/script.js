@@ -66,7 +66,7 @@ const readTextWithSelectedVoice = () => {
     const voices = window.speechSynthesis.getVoices();
 
     const utterance = new SpeechSynthesisUtterance();
-    utterance.text = textToRead;
+    utterance.text = textToReadFormated;
 
     for (const voice of voices) {
         if (voice.name === selectedVoice) {
@@ -108,6 +108,8 @@ const filterVoices = () => {
 
     viewRender();
 
+    textToReadFormated = textToRead.replace("{name}", selectedVoice);
+    document.getElementById("text-to-read").value = textToReadFormated;
 } 
 
 const languageSelectOnChange = async (ev) => {
