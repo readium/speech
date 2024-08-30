@@ -2,7 +2,7 @@
 import { voicesSelection } from "../build/mjs/src/index.js";
 const { getSpeechSynthesisVoices, parseSpeechSynthesisVoices, filterOnNovelty, filterOnVeryLowQuality,
   filterOnRecommended, sortByLanguage, sortByQuality, getVoices, groupByKindOfVoices, groupByRegions,
-  getLanguages, filterOnOfflineAvailability, listLanguages, filterOnGender } = voicesSelection;
+  getLanguages, filterOnOfflineAvailability, listLanguages, filterOnGender, filterOnLanguage } = voicesSelection;
 
 import { html, render } from './lit-html_3-2-0_esm.js'
 
@@ -41,17 +41,16 @@ function downloadJSON(obj, filename) {
 
 const viewRender = () => render(content(), document.body);
 
-
-const languages = await getLanguages();
-console.log(languages);
-
 const voices = await getVoices();
 console.log(voices);
+
+const languages = getLanguages(voices);
 
 let voicesFiltered = voices;
 let languagesFiltered = languages;
 
 let textToRead = "";
+let textToReadFormated = "";
 
 let selectedLanguage = undefined;
 
@@ -100,11 +99,10 @@ const filterVoices = () => {
         voicesFiltered = filterOnOfflineAvailability(voicesFiltered, true);
     }
 
-    languagesFiltered = listLanguages(voicesFiltered);
+    languagesFiltered = getLanguages(voicesFiltered);
 
-    const voicesGroupedByRegions = groupByRegions(voicesFiltered, selectedLanguage, undefined, navigator.language.split("-")[0].toLowerCase());
-    console.log(voicesGroupedByRegions);
-    
+    const voicesFilteredOnLanguage = filterOnLanguage(voicesFiltered, selectedLanguage);
+    const voicesGroupedByRegions = groupByRegions(voicesFilteredOnLanguage);
     
     voicesSelectElem = listVoicesWithLanguageSelected(voicesGroupedByRegions);
 
@@ -119,7 +117,6 @@ const languageSelectOnChange = async (ev) => {
     const jsonData = await loadJSONData("https://raw.githubusercontent.com/HadrienGardeur/web-speech-recommended-voices/main/json/" + selectedLanguage + ".json");
 
     textToRead = jsonData?.testUtterance || "";
-    document.getElementById("text-to-read").value = textToRead;
 
     filterVoices();
 }
@@ -165,13 +162,15 @@ const content = () => html`
 <p>Language :</p>
 <select id="language-select" @change=${languageSelectOnChange}>
     ${!selectedLanguage ? html`<option id="default-language-select" default>Select a language</option>` : null}
-    ${languagesFiltered.map(({language, label, count}) => html`<option value=${language}>${`${label} (${count})`}</option>`)}
+    ${languagesFiltered.map(({code, label, count}) => html`<option value=${code}>${`${label} (${count})`}</option>`)}
 </select>
 
 <p>Voices :</p>
 <select id="voice-select" @change=${(e) => {
     selectedVoice = e.target.value;
     viewRender(); // update aboutVoice
+    textToReadFormated = textToRead.replace("{name}", selectedVoice);
+    document.getElementById("text-to-read").value = textToReadFormated;
 }}>
     ${voicesSelectElem}
 </select>
@@ -194,7 +193,7 @@ const content = () => html`
 </div>
   
 <p>Text :</p>
-<input type="text" id="text-to-read" class="txt" value=${textToRead} @input=${(e) => textToRead = e.target.value ? e.target.value : textToRead}></input>
+<input type="text" id="text-to-read" class="txt" value=${textToReadFormated} @input=${(e) => textToRead = e.target.value ? e.target.value : textToRead}></input>
 
 <div class="controls">
     <button id="read-button" @click=${selectedVoice ? readTextWithSelectedVoice : undefined}>Read aloud</button>

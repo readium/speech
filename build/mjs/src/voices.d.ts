@@ -25,33 +25,22 @@ export declare function filterOnRecommended(voices: IVoices[], _recommended?: IR
 export declare function sortByQuality(voices: IVoices[]): IVoices[];
 export declare function sortByName(voices: IVoices[]): IVoices[];
 export declare function sortByGender(voices: IVoices[], genderFirst: TGender): IVoices[];
-export declare function sortByLanguage(voices: IVoices[], preferredLanguage?: string[] | string): IVoices[];
+export declare function sortByLanguage(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string | undefined): IVoices[];
+export declare function sortByRegion(voices: IVoices[], preferredRegions?: string[] | string, localization?: string | undefined): IVoices[];
 export interface ILanguages {
     label: string;
-    language: string;
+    code: string;
     count: number;
 }
-export declare function ListRegions(voices: IVoices[], localization?: string): ILanguages[];
+export declare function listLanguages(voices: IVoices[], localization?: string | undefined): ILanguages[];
+export declare function listRegions(voices: IVoices[], localization?: string | undefined): ILanguages[];
 export type TGroupVoices = Map<string, IVoices[]>;
-export declare function groupByLanguage(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string): TGroupVoices;
-export declare function groupByRegions(voices: IVoices[], language: string, preferredRegions?: string[] | string, localization?: string): TGroupVoices;
+export declare function groupByLanguages(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string | undefined): TGroupVoices;
+export declare function groupByRegions(voices: IVoices[], preferredRegions?: string[] | string, localization?: string | undefined): TGroupVoices;
 export declare function groupByKindOfVoices(allVoices: IVoices[]): TGroupVoices;
-/**
- * get the languages list
- * @param allVoices IVoices list
- * @param localization BCP47 localization string
- * @returns
- */
-export declare function getLanguages(allVoices?: IVoices[], localization?: string): Promise<ILanguages[]>;
-/**
- * same as async getLanguages
- * @param voices IVoices list
- * @param localization BPC47 localisation string
- * @returns ILanguages[]
- */
-export declare function listLanguages(voices: IVoices[], localization?: string): ILanguages[];
+export declare function getLanguages(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string | undefined): ILanguages[];
 /**
  * Parse and extract SpeechSynthesisVoices,
  * @returns IVoices[]
  */
-export declare function getVoices(): Promise<IVoices[]>;
+export declare function getVoices(preferredLanguage?: string[] | string, localization?: string): Promise<IVoices[]>;

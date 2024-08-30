@@ -1,5 +1,5 @@
 import test from "ava";
-import { filterOnRecommended, groupByLanguage, sortByLanguage, groupByRegions } from "../src/voices.js";
+import { filterOnRecommended, groupByLanguages, sortByLanguage, groupByRegions } from "../src/voices.js";
 // import { getVoices } from "../src/voices.js";
 test('dumb test', t => {
     t.deepEqual([], []);
@@ -14,7 +14,7 @@ test('sortByLanguage: Empty preferred language list', t => {
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices);
+    const result = sortByLanguage(voices, [], undefined);
     t.true(result.length === voices.length);
     t.true(result[0].language === 'en-US');
     t.true(result[1].language === 'en-US');
@@ -26,7 +26,7 @@ test('sortByLanguage: Preferred language list with one language', t => {
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, ['fr-FR']);
+    const result = sortByLanguage(voices, ['fr-FR'], undefined);
     t.true(result.length === voices.length);
     t.true(result[0].language === 'fr-FR');
     t.true(result[1].language === 'en-US');
@@ -39,7 +39,7 @@ test('sortByLanguage: Preferred language list with multiple languages', t => {
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 4', voiceURI: 'uri4', name: 'Name 4', language: 'es-ES', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, ['fr-FR', 'es-ES']);
+    const result = sortByLanguage(voices, ['fr-FR', 'es-ES'], undefined);
     t.true(result.length === voices.length);
     t.true(result[0].language === 'fr-FR');
     t.true(result[1].language === 'es-ES');
@@ -52,7 +52,7 @@ test('sortByLanguage: No matching languages', t => {
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, ['de-DE']);
+    const result = sortByLanguage(voices, ['de-DE'], undefined);
     t.true(result.length === voices.length);
     t.true(result[0].language === 'en-US');
     t.true(result[1].language === 'en-US');
@@ -64,7 +64,7 @@ test('sortByLanguage: Preferred language list is not an array', t => {
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, 'en-US');
+    const result = sortByLanguage(voices, 'en-US', undefined);
     t.true(result.length === voices.length);
     t.true(result[0].language === 'en-US');
     t.true(result[1].language === 'en-US');
@@ -76,7 +76,7 @@ test('sortByLanguage: Preferred language undefined and navigator langua', t => {
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, 'en-US');
+    const result = sortByLanguage(voices, 'en-US', undefined);
     t.true(result.length === voices.length);
     t.true(result[0].language === 'en-US');
     t.true(result[1].language === 'en-US');
@@ -89,7 +89,7 @@ test('sortByLanguage: Preferred language list with one language and navigator.la
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, ['fr-FR']);
+    const result = sortByLanguage(voices, ['fr-FR'], undefined);
     t.true(result.length === voices.length);
     t.true(result[0].language === 'fr-FR');
     t.true(result[1].language === 'en-US');
@@ -103,7 +103,7 @@ test('sortByLanguage: Preferred language list with multiple languages and naviga
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 4', voiceURI: 'uri4', name: 'Name 4', language: 'es-ES', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, ['fr-FR', 'es-ES']);
+    const result = sortByLanguage(voices, ['fr-FR', 'es-ES'], undefined);
     t.true(result.length === voices.length);
     t.true(result[0].language === 'fr-FR');
     t.true(result[1].language === 'es-ES');
@@ -117,7 +117,7 @@ test('sortByLanguage: No matching languages and navigator.languages', t => {
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, ['de-DE']);
+    const result = sortByLanguage(voices, ['de-DE'], undefined);
     t.true(result.length === voices.length);
     t.true(result[0].language === 'en-US');
     t.true(result[1].language === 'en-US');
@@ -130,7 +130,7 @@ test('sortByLanguage: Preferred language list is not an array and navigator.lang
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, 'en-US');
+    const result = sortByLanguage(voices, 'en-US', undefined);
     t.true(result.length === voices.length);
     t.true(result[0].language === 'en-US');
     t.true(result[1].language === 'en-US');
@@ -289,7 +289,7 @@ test('groupByLanguage: ', t => {
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 4', voiceURI: 'uri4', name: 'Name 4', language: 'es-ES', offlineAvailability: true, pitchControl: true },
     ];
-    const result = groupByLanguage(voices, ['fr-FR', 'es-ES']);
+    const result = groupByLanguages(voices, ['fr-FR', 'es-ES'], "");
     t.deepEqual(result, new Map([
         ['fr', [
                 {
@@ -338,7 +338,7 @@ test('groupByLanguage: localized en', t => {
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 4', voiceURI: 'uri4', name: 'Name 4', language: 'es-ES', offlineAvailability: true, pitchControl: true },
     ];
-    const result = groupByLanguage(voices, ['fr-FR', 'es-ES'], "en");
+    const result = groupByLanguages(voices, ['fr-FR', 'es-ES'], "en");
     t.deepEqual(result, new Map([
         ['French', [
                 {
@@ -386,10 +386,32 @@ test('groupByRegion: ', t => {
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-GB', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 4', voiceURI: 'uri4', name: 'Name 4', language: 'es-ES', offlineAvailability: true, pitchControl: true },
+        { label: 'Voice 5', voiceURI: 'uri5', name: 'Name 5', language: 'en-CA', offlineAvailability: true, pitchControl: true },
+        { label: 'Voice 6', voiceURI: 'uri6', name: 'Name 6', language: 'fr-CA', offlineAvailability: true, pitchControl: true },
     ];
-    const result = groupByRegions(voices, 'en', ['fr-FR', 'es-ES']);
+    const result = groupByRegions(voices, ['fr-FR', 'es-ES'], "");
     t.deepEqual(result, new Map([
-        ['en-US', [
+        ['FR', [
+                {
+                    label: 'Voice 2',
+                    language: 'fr-FR',
+                    name: 'Name 2',
+                    offlineAvailability: true,
+                    pitchControl: true,
+                    voiceURI: 'uri2',
+                },
+            ]],
+        ['ES', [
+                {
+                    label: 'Voice 4',
+                    language: 'es-ES',
+                    name: 'Name 4',
+                    offlineAvailability: true,
+                    pitchControl: true,
+                    voiceURI: 'uri4',
+                },
+            ]],
+        ['US', [
                 {
                     label: 'Voice 1',
                     language: 'en-US',
@@ -399,7 +421,25 @@ test('groupByRegion: ', t => {
                     voiceURI: 'uri1',
                 },
             ]],
-        ['en-GB', [
+        ['CA', [
+                {
+                    label: 'Voice 5',
+                    language: 'en-CA',
+                    name: 'Name 5',
+                    offlineAvailability: true,
+                    pitchControl: true,
+                    voiceURI: 'uri5',
+                },
+                {
+                    label: 'Voice 6',
+                    language: 'fr-CA',
+                    name: 'Name 6',
+                    offlineAvailability: true,
+                    pitchControl: true,
+                    voiceURI: 'uri6',
+                },
+            ]],
+        ['GB', [
                 {
                     label: 'Voice 3',
                     language: 'en-GB',
@@ -417,9 +457,31 @@ test('groupByRegion: localized fr', t => {
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-GB', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 4', voiceURI: 'uri4', name: 'Name 4', language: 'es-ES', offlineAvailability: true, pitchControl: true },
+        { label: 'Voice 5', voiceURI: 'uri5', name: 'Name 5', language: 'en-CA', offlineAvailability: true, pitchControl: true },
+        { label: 'Voice 6', voiceURI: 'uri6', name: 'Name 6', language: 'fr-CA', offlineAvailability: true, pitchControl: true },
     ];
-    const result = groupByRegions(voices, 'en', ['fr-FR', 'es-ES'], "fr");
+    const result = groupByRegions(voices, ['fr-FR', 'es-ES'], "fr");
     t.deepEqual(result, new Map([
+        ['France', [
+                {
+                    label: 'Voice 2',
+                    language: 'fr-FR',
+                    name: 'Name 2',
+                    offlineAvailability: true,
+                    pitchControl: true,
+                    voiceURI: 'uri2',
+                },
+            ]],
+        ['Espagne', [
+                {
+                    label: 'Voice 4',
+                    language: 'es-ES',
+                    name: 'Name 4',
+                    offlineAvailability: true,
+                    pitchControl: true,
+                    voiceURI: 'uri4',
+                },
+            ]],
         ['États-Unis', [
                 {
                     label: 'Voice 1',
@@ -428,6 +490,24 @@ test('groupByRegion: localized fr', t => {
                     offlineAvailability: true,
                     pitchControl: true,
                     voiceURI: 'uri1',
+                },
+            ]],
+        ['Canada', [
+                {
+                    label: 'Voice 5',
+                    language: 'en-CA',
+                    name: 'Name 5',
+                    offlineAvailability: true,
+                    pitchControl: true,
+                    voiceURI: 'uri5',
+                },
+                {
+                    label: 'Voice 6',
+                    language: 'fr-CA',
+                    name: 'Name 6',
+                    offlineAvailability: true,
+                    pitchControl: true,
+                    voiceURI: 'uri6',
                 },
             ]],
         ['Royaume-Uni', [

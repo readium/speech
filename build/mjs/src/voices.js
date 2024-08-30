@@ -208,62 +208,86 @@ export function sortByGender(voices, genderFirst) {
         return ga === gb ? 0 : ga === genderFirst ? -1 : gb === genderFirst ? -1 : 1;
     });
 }
-function orderPrefferedLanguages(preferredLanguage) {
+function orderByPreferredLanguage(preferredLanguage) {
     preferredLanguage = Array.isArray(preferredLanguage) ? preferredLanguage :
         preferredLanguage ? [preferredLanguage] : [];
-    const defaultRegionList = Object.values(defaultRegion).sort();
-    const languages = [...(new Set([...preferredLanguage, ...navigatorLanguages(), ...defaultRegionList]))];
-    return languages;
+    return [...(new Set([...preferredLanguage, ...navigatorLanguages()]))];
 }
-// const isAKeyFromDefaultRegion = (a: any): a is keyof typeof defaultRegion => {
-//     return Object.keys(defaultRegion).includes(a);
-// }
-// function languageSortFunction(a: IVoices, b: IVoices) {
-//     const {language: la} = a;
-//     const {language: lb} = a;
-//     const [lal, lar] = extractLangRegionFromBCP47(la);
-//     const [lbl, lbr] = extractLangRegionFromBCP47(lb);
-//     if (lal === lbl) {
-//         if (isAKeyFromDefaultRegion(lal)) {
-//             const [,defaultRegionValue] = extractLangRegionFromBCP47(defaultRegion[lal]);
-//             return lar === defaultRegionValue ? -1 : lbr === defaultRegionValue ? 1 : lar.localeCompare(lbr);
-//         }
-//         return lar.localeCompare(lbr);
-//     }
-//     return la.localeCompare(lb);
-// }
-export function sortByLanguage(voices, preferredLanguage) {
-    const languages = orderPrefferedLanguages(preferredLanguage);
+function orderByPreferredRegion(preferredLanguage) {
+    preferredLanguage = Array.isArray(preferredLanguage) ? preferredLanguage :
+        preferredLanguage ? [preferredLanguage] : [];
+    const regionByDefaultArray = Object.values(defaultRegion);
+    return [...(new Set([...preferredLanguage, ...navigatorLanguages(), ...regionByDefaultArray]))];
+}
+const getLangFromBCP47Array = (a) => {
+    return [...(new Set(a.map((v) => extractLangRegionFromBCP47(v)[0]).filter((v) => !!v)))];
+};
+const getRegionFromBCP47Array = (a) => {
+    return [...(new Set(a.map((v) => (extractLangRegionFromBCP47(v)[1] || "").toUpperCase()).filter((v) => !!v)))];
+};
+export function sortByLanguage(voices, preferredLanguage = [], localization = navigatorLang()) {
+    const languages = getLangFromBCP47Array(orderByPreferredLanguage(preferredLanguage));
     const voicesSorted = [];
-    const voicesIndex = [];
     for (const lang of languages) {
-        const voicesFiltered = voices.filter(({ language: langFromVoice }, i) => {
-            if (voicesIndex.includes(i))
-                return false;
-            const [l, r] = extractLangRegionFromBCP47(lang);
-            let ret = false;
-            if (!r && l) {
-                ret = langFromVoice.startsWith(l);
-            }
-            else if (r) {
-                ret = langFromVoice === lang;
-            }
-            if (ret)
-                voicesIndex.push(i);
-            return ret;
-        });
-        voicesSorted.push(...voicesFiltered);
+        voicesSorted.push(...voices.filter(({ language: voiceLanguage }) => lang === extractLangRegionFromBCP47(voiceLanguage)[0]));
     }
-    voicesIndex.sort();
-    const voiceMissing = [];
-    for (let i = 0; i < voices.length; i++) {
-        if (voicesIndex.includes(i))
-            continue;
-        voiceMissing.push(voices[i]);
+    let langueName = undefined;
+    if (localization) {
+        try {
+            langueName = new Intl.DisplayNames([localization], { type: 'language' });
+        }
+        catch (e) {
+            console.error("Intl.DisplayNames throw an exception with ", localization, e);
+        }
     }
-    return [voicesSorted, voiceMissing].flat();
+    const remainingVoices = voices.filter((v) => !voicesSorted.includes(v));
+    remainingVoices.sort(({ language: a }, { language: b }) => {
+        let nameA = a, nameB = b;
+        try {
+            if (langueName) {
+                nameA = langueName.of(extractLangRegionFromBCP47(a)[0]) || a;
+                nameB = langueName.of(extractLangRegionFromBCP47(b)[0]) || b;
+            }
+        }
+        catch (e) {
+            // ignore
+        }
+        return nameA.localeCompare(nameB);
+    });
+    return [...voicesSorted, ...remainingVoices];
 }
-function extractLanguagesFromVoices(voices, localization) {
+export function sortByRegion(voices, preferredRegions = [], localization = navigatorLang()) {
+    const regions = getRegionFromBCP47Array(orderByPreferredRegion(preferredRegions));
+    const voicesSorted = [];
+    for (const reg of regions) {
+        voicesSorted.push(...voices.filter(({ language: voiceLanguage }) => reg === extractLangRegionFromBCP47(voiceLanguage)[1]));
+    }
+    let regionName = undefined;
+    if (localization) {
+        try {
+            regionName = new Intl.DisplayNames([localization], { type: 'region' });
+        }
+        catch (e) {
+            console.error("Intl.DisplayNames throw an exception with ", localization, e);
+        }
+    }
+    const remainingVoices = voices.filter((v) => !voicesSorted.includes(v));
+    remainingVoices.sort(({ language: a }, { language: b }) => {
+        let nameA = a, nameB = b;
+        try {
+            if (regionName) {
+                nameA = regionName.of(extractLangRegionFromBCP47(a)[1]) || a;
+                nameB = regionName.of(extractLangRegionFromBCP47(b)[1]) || b;
+            }
+        }
+        catch (e) {
+            // ignore
+        }
+        return nameA.localeCompare(nameB);
+    });
+    return [...voicesSorted, ...remainingVoices];
+}
+export function listLanguages(voices, localization = navigatorLang()) {
     let langueName = undefined;
     if (localization) {
         try {
@@ -274,27 +298,27 @@ function extractLanguagesFromVoices(voices, localization) {
         }
     }
     return voices.reduce((acc, cv) => {
-        const [cvLanguage] = extractLangRegionFromBCP47(cv.language);
-        let name = cvLanguage;
+        const [lang] = extractLangRegionFromBCP47(cv.language);
+        let name = lang;
         try {
             if (langueName) {
-                name = langueName.of(cvLanguage) || cvLanguage;
+                name = langueName.of(lang) || lang;
             }
         }
         catch (e) {
-            console.error("langueName.of throw an error with ", cvLanguage, e);
+            console.error("langueName.of throw an error with ", lang, e);
         }
-        const found = acc.find(({ language }) => language === cvLanguage);
+        const found = acc.find(({ code }) => code === lang);
         if (found) {
             found.count++;
         }
         else {
-            acc.push({ language: cvLanguage, count: 1, label: name });
+            acc.push({ code: lang, count: 1, label: name });
         }
         return acc;
     }, []);
 }
-export function ListRegions(voices, localization) {
+export function listRegions(voices, localization = navigatorLang()) {
     let regionName = undefined;
     if (localization) {
         try {
@@ -306,56 +330,47 @@ export function ListRegions(voices, localization) {
     }
     return voices.reduce((acc, cv) => {
         const [, region] = extractLangRegionFromBCP47(cv.language);
-        let name = cv.language;
+        let name = region;
         try {
             if (regionName) {
-                name = regionName.of(region) || cv.language;
+                name = regionName.of(region) || region;
             }
         }
         catch (e) {
             console.error("regionName.of throw an error with ", region, e);
         }
-        const found = acc.find(({ language }) => language.endsWith(region));
+        const found = acc.find(({ code }) => code === region);
         if (found) {
             found.count++;
         }
         else {
-            acc.push({ language: cv.language, count: 1, label: name });
+            acc.push({ code: region, count: 1, label: name });
         }
         return acc;
     }, []);
 }
-export function groupByLanguage(voices, preferredLanguage, localization) {
-    const languages = orderPrefferedLanguages(preferredLanguage);
-    const voicesSorted = sortByLanguage(voices, languages);
-    const languagesStructure = extractLanguagesFromVoices(voicesSorted, localization);
+export function groupByLanguages(voices, preferredLanguage = [], localization = navigatorLang()) {
+    const voicesSorted = sortByLanguage(voices, preferredLanguage, localization);
+    const languagesStructure = listLanguages(voicesSorted, localization);
     const res = new Map();
-    for (const { language, label } of languagesStructure) {
+    for (const { code, label } of languagesStructure) {
         res.set(label, voicesSorted
             .filter(({ language: voiceLang }) => {
             const [l] = extractLangRegionFromBCP47(voiceLang);
-            return l === language;
+            return l === code;
         }));
     }
     return res;
 }
-export function groupByRegions(voices, language, preferredRegions, localization) {
-    const languages = orderPrefferedLanguages(preferredRegions);
-    const languagesFilteredOnlyRegionsRemain = languages.filter((l) => {
-        const [lang] = extractLangRegionFromBCP47(l);
-        return language === lang;
-    });
-    // en-US , en-CA , en-GB sorted by preferredRegions in BCP47
-    const voicesFiltered = voices.filter(({ language: voiceLang }) => {
-        const [lang] = extractLangRegionFromBCP47(voiceLang);
-        return lang === language;
-    });
-    const voicesSorted = sortByLanguage(voicesFiltered, languagesFilteredOnlyRegionsRemain);
-    const languagesStructure = ListRegions(voicesSorted, localization);
+export function groupByRegions(voices, preferredRegions = [], localization = navigatorLang()) {
+    const voicesSorted = sortByRegion(voices, preferredRegions, localization);
+    const languagesStructure = listRegions(voicesSorted, localization);
     const res = new Map();
-    for (const { language, label } of languagesStructure) {
-        res.set(label, voicesSorted.filter(({ language: voiceLang }) => {
-            return voiceLang === language;
+    for (const { code, label } of languagesStructure) {
+        res.set(label, voicesSorted
+            .filter(({ language: voiceLang }) => {
+            const [, r] = extractLangRegionFromBCP47(voiceLang);
+            return r === code;
         }));
     }
     return res;
@@ -376,35 +391,22 @@ export function groupByKindOfVoices(allVoices) {
     res.set("remaining", remainingVoiceFiltered);
     return res;
 }
-/**
- * get the languages list
- * @param allVoices IVoices list
- * @param localization BCP47 localization string
- * @returns
- */
-export async function getLanguages(allVoices, localization) {
-    allVoices = allVoices ? allVoices : await getVoices();
-    return extractLanguagesFromVoices(allVoices, localization || navigatorLang());
-}
-/**
- * same as async getLanguages
- * @param voices IVoices list
- * @param localization BPC47 localisation string
- * @returns ILanguages[]
- */
-export function listLanguages(voices, localization) {
-    return extractLanguagesFromVoices(voices, localization || navigatorLang());
+export function getLanguages(voices, preferredLanguage = [], localization = navigatorLang()) {
+    const group = groupByLanguages(voices, preferredLanguage, localization);
+    return Array.from(group.entries()).map(([label, _voices]) => {
+        return { label, count: _voices.length, code: extractLangRegionFromBCP47(_voices[0]?.language || "")[0] };
+    });
 }
 /**
  * Parse and extract SpeechSynthesisVoices,
  * @returns IVoices[]
  */
-export async function getVoices() {
+export async function getVoices(preferredLanguage, localization) {
     const allVoices = parseSpeechSynthesisVoices(await getSpeechSynthesisVoices());
     const [recommendedVoices, lowQualityVoices] = filterOnRecommended(allVoices);
     const remainingVoice = allVoices.filter((v) => !recommendedVoices.includes(v) && !lowQualityVoices.includes(v));
     const remainingVoiceFiltered = filterOnNovelty(filterOnVeryLowQuality(remainingVoice));
     const voices = [recommendedVoices, remainingVoiceFiltered].flat();
-    const voicesSorted = sortByLanguage(sortByQuality(voices));
+    const voicesSorted = sortByLanguage(sortByQuality(voices), preferredLanguage, localization || navigatorLang());
     return voicesSorted;
 }

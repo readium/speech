@@ -255,72 +255,106 @@ export function sortByGender(voices: IVoices[], genderFirst: TGender) {
     })
 }
 
-function orderPrefferedLanguages(preferredLanguage?: string[] | string): string[] {
+function orderByPreferredLanguage(preferredLanguage?: string[] | string): string[] {
     preferredLanguage = Array.isArray(preferredLanguage) ? preferredLanguage :
         preferredLanguage ? [preferredLanguage] : [];
 
-    const defaultRegionList = Object.values(defaultRegion).sort();
-    const languages = [...(new Set([...preferredLanguage, ...navigatorLanguages(), ...defaultRegionList]))];
+    return  [...(new Set([...preferredLanguage, ...navigatorLanguages()]))];
+}
+function orderByPreferredRegion(preferredLanguage?: string[] | string): string[] {
+    preferredLanguage = Array.isArray(preferredLanguage) ? preferredLanguage :
+        preferredLanguage ? [preferredLanguage] : [];
 
-    return languages;
+    const regionByDefaultArray = Object.values(defaultRegion);
+
+    return [...(new Set([...preferredLanguage, ...navigatorLanguages(), ...regionByDefaultArray]))];
 }
 
-// const isAKeyFromDefaultRegion = (a: any): a is keyof typeof defaultRegion => {
-//     return Object.keys(defaultRegion).includes(a);
-// }
-// function languageSortFunction(a: IVoices, b: IVoices) {
-//     const {language: la} = a;
-//     const {language: lb} = a;
-//     const [lal, lar] = extractLangRegionFromBCP47(la);
-//     const [lbl, lbr] = extractLangRegionFromBCP47(lb);
+const getLangFromBCP47Array = (a: string[]) => {
+    return [...(new Set(a.map((v) => extractLangRegionFromBCP47(v)[0]).filter((v) => !!v)))];
+}
+const getRegionFromBCP47Array = (a: string[]) => {
+    return [...(new Set(a.map((v) => (extractLangRegionFromBCP47(v)[1] || "").toUpperCase()).filter((v) => !!v)))];
+}
 
-//     if (lal === lbl) {
-//         if (isAKeyFromDefaultRegion(lal)) {
-//             const [,defaultRegionValue] = extractLangRegionFromBCP47(defaultRegion[lal]);
-//             return lar === defaultRegionValue ? -1 : lbr === defaultRegionValue ? 1 : lar.localeCompare(lbr);
-//         }
-//         return lar.localeCompare(lbr);
-//     }
-//     return la.localeCompare(lb);
-// }
+export function sortByLanguage(voices: IVoices[], preferredLanguage: string[] | string = [], localization: string | undefined = navigatorLang()): IVoices[] {
 
-export function sortByLanguage(voices: IVoices[], preferredLanguage?: string[] | string): IVoices[] {
+    const languages = getLangFromBCP47Array(orderByPreferredLanguage(preferredLanguage));
 
-    const languages = orderPrefferedLanguages(preferredLanguage);
-
-    const voicesSorted = [];
-    const voicesIndex: number[] = [];
+    const voicesSorted: IVoices[] = [];
     for (const lang of languages) {
-        const voicesFiltered = voices.filter(({language: langFromVoice}, i) => {
-            if (voicesIndex.includes(i)) return false;
-            const [l,r] = extractLangRegionFromBCP47(lang);
-            let ret = false; 
-            if (!r && l) {
-                ret = langFromVoice.startsWith(l);
-            } else if (r) {
-                ret = langFromVoice === lang;
+        voicesSorted.push(...voices.filter(({language: voiceLanguage}) => lang === extractLangRegionFromBCP47(voiceLanguage)[0]));
+    }
+
+    let langueName: Intl.DisplayNames | undefined = undefined;
+    if (localization) {
+        try {
+            langueName = new Intl.DisplayNames([localization], { type: 'language' });
+        } catch (e) {
+            console.error("Intl.DisplayNames throw an exception with ", localization, e);
+        }
+    }
+
+    const remainingVoices = voices.filter((v) => !voicesSorted.includes(v));
+    remainingVoices.sort(({ language: a }, { language: b }) => {
+
+        let nameA = a, nameB = b;
+        try {
+            if (langueName) {
+                nameA = langueName.of(extractLangRegionFromBCP47(a)[0]) || a;
+                nameB = langueName.of(extractLangRegionFromBCP47(b)[0]) || b;
             }
-            if (ret) voicesIndex.push(i);
-            return ret;
-        })
-        voicesSorted.push(...voicesFiltered);
-    }
+        } catch (e) {
+            // ignore
+        }
+        return nameA.localeCompare(nameB);
+    });
 
-    voicesIndex.sort();
-    const voiceMissing = [];
-    for (let i = 0; i < voices.length; i++) {
-        if (voicesIndex.includes(i)) continue
-        voiceMissing.push(voices[i]);
-    }
-
-    return [voicesSorted, voiceMissing].flat();
+    return [...voicesSorted, ...remainingVoices];
 }
+
+export function sortByRegion(voices: IVoices[], preferredRegions: string[] | string = [], localization: string | undefined = navigatorLang()): IVoices[] {
+
+    const regions = getRegionFromBCP47Array(orderByPreferredRegion(preferredRegions));
+
+    const voicesSorted: IVoices[] = [];
+    for (const reg of regions) {
+        voicesSorted.push(...voices.filter(({language: voiceLanguage}) => reg === extractLangRegionFromBCP47(voiceLanguage)[1]));
+    }
+
+    let regionName: Intl.DisplayNames | undefined = undefined;
+    if (localization) {
+        try {
+            regionName = new Intl.DisplayNames([localization], { type: 'region' });
+        } catch (e) {
+            console.error("Intl.DisplayNames throw an exception with ", localization, e);
+        }
+    }
+
+    const remainingVoices = voices.filter((v) => !voicesSorted.includes(v));
+    remainingVoices.sort(({ language: a }, { language: b }) => {
+
+        let nameA = a, nameB = b;
+        try {
+            if (regionName) {
+                nameA = regionName.of(extractLangRegionFromBCP47(a)[1]) || a;
+                nameB = regionName.of(extractLangRegionFromBCP47(b)[1]) || b;
+            }
+        } catch (e) {
+            // ignore
+        }
+        return nameA.localeCompare(nameB);
+    });
+
+    return [...voicesSorted, ...remainingVoices];
+}
+
 export interface ILanguages {
     label: string;
-    language: string;
+    code: string;
     count: number;
 }
-function extractLanguagesFromVoices(voices: IVoices[], localization?: string): ILanguages[] {
+export function listLanguages(voices: IVoices[], localization: string | undefined = navigatorLang()): ILanguages[] {
     let langueName: Intl.DisplayNames | undefined = undefined;
     if (localization) {
         try {
@@ -330,25 +364,25 @@ function extractLanguagesFromVoices(voices: IVoices[], localization?: string): I
         }
     }
     return voices.reduce<ILanguages[]>((acc, cv) => {
-        const [cvLanguage] = extractLangRegionFromBCP47(cv.language);
-        let name = cvLanguage;
+        const [lang] = extractLangRegionFromBCP47(cv.language);
+        let name = lang;
         try {
             if (langueName) {
-                name = langueName.of(cvLanguage) || cvLanguage;
+                name = langueName.of(lang) || lang;
             }
         } catch (e) {
-            console.error("langueName.of throw an error with ", cvLanguage, e);
+            console.error("langueName.of throw an error with ", lang, e);
         }
-        const found = acc.find(({language}) => language === cvLanguage)
+        const found = acc.find(({code}) => code === lang)
         if (found) {
             found.count++;
         } else {
-            acc.push({language: cvLanguage, count: 1, label: name});
+            acc.push({code: lang, count: 1, label: name});
         }
         return acc;
     }, []);
 }
-export function ListRegions(voices: IVoices[], localization?: string): ILanguages[] {
+export function listRegions(voices: IVoices[], localization: string | undefined = navigatorLang()): ILanguages[] {
     let regionName: Intl.DisplayNames | undefined = undefined;
     if (localization) {
         try {
@@ -359,65 +393,52 @@ export function ListRegions(voices: IVoices[], localization?: string): ILanguage
     }
     return voices.reduce<ILanguages[]>((acc, cv) => {
         const [,region] = extractLangRegionFromBCP47(cv.language);
-        let name = cv.language;
+        let name = region;
         try {
             if (regionName) {
-                name = regionName.of(region) || cv.language;
+                name = regionName.of(region) || region;
             }
         } catch (e) {
             console.error("regionName.of throw an error with ", region, e);
         }
-        const found = acc.find(({language}) => language.endsWith(region));
+        const found = acc.find(({code}) => code === region);
         if (found) {
             found.count++;
         } else {
-            acc.push({language: cv.language, count: 1, label: name});
+            acc.push({code: region, count: 1, label: name});
         }
         return acc;
     }, []);
 }
 
 export type TGroupVoices = Map<string, IVoices[]>;
-export function groupByLanguage(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string): TGroupVoices {
+export function groupByLanguages(voices: IVoices[], preferredLanguage: string[] | string = [], localization: string | undefined = navigatorLang()): TGroupVoices {
 
-    const languages = orderPrefferedLanguages(preferredLanguage);
-
-    const voicesSorted = sortByLanguage(voices, languages);
+    const voicesSorted = sortByLanguage(voices, preferredLanguage, localization);
     
-    const languagesStructure = extractLanguagesFromVoices(voicesSorted, localization);
+    const languagesStructure = listLanguages(voicesSorted, localization);
     const res: TGroupVoices = new Map();
-    for (const { language, label } of languagesStructure) {
+    for (const { code, label } of languagesStructure) {
         res.set(label, voicesSorted
             .filter(({ language: voiceLang }) => {
             const [l] = extractLangRegionFromBCP47(voiceLang);
-            return l === language;
+            return l === code;
         }));
     }
     return res;
 }
 
-export function groupByRegions(voices: IVoices[], language: string, preferredRegions?: string[] | string, localization?: string): TGroupVoices {
+export function groupByRegions(voices: IVoices[], preferredRegions: string[] | string = [], localization: string | undefined = navigatorLang()): TGroupVoices {
 
-    const languages = orderPrefferedLanguages(preferredRegions);
-    const languagesFilteredOnlyRegionsRemain = languages.filter((l) => {
-        const [lang] = extractLangRegionFromBCP47(l);
-        return language === lang;
-    });
-    // en-US , en-CA , en-GB sorted by preferredRegions in BCP47
-
-    const voicesFiltered = voices.filter(({language: voiceLang}) => {
-        const [lang] = extractLangRegionFromBCP47(voiceLang);
-        return lang === language;
-    });
-
-    const voicesSorted = sortByLanguage(voicesFiltered, languagesFilteredOnlyRegionsRemain);
+    const voicesSorted = sortByRegion(voices, preferredRegions, localization);
     
-    const languagesStructure = ListRegions(voicesSorted, localization);
-
+    const languagesStructure = listRegions(voicesSorted, localization);
     const res: TGroupVoices = new Map();
-    for (const { language, label } of languagesStructure) {
-        res.set(label, voicesSorted.filter(({ language: voiceLang }) => {
-            return voiceLang === language;
+    for (const { code, label } of languagesStructure) {
+        res.set(label, voicesSorted
+            .filter(({ language: voiceLang }) => {
+            const [, r] = extractLangRegionFromBCP47(voiceLang);
+            return r === code;
         }));
     }
     return res;
@@ -443,35 +464,20 @@ export function groupByKindOfVoices(allVoices: IVoices[]): TGroupVoices {
     return res;
 }
 
-/**
- * get the languages list
- * @param allVoices IVoices list
- * @param localization BCP47 localization string
- * @returns 
- */
-export async function getLanguages(allVoices?: IVoices[], localization?: string): Promise<ILanguages[]> {
+export function getLanguages(voices: IVoices[], preferredLanguage: string[] | string = [], localization: string | undefined = navigatorLang()): ILanguages[] {
 
-    allVoices = allVoices ? allVoices : await getVoices();
+    const group = groupByLanguages(voices, preferredLanguage, localization);
 
-    return extractLanguagesFromVoices(allVoices, localization || navigatorLang());
-}
-
-/**
- * same as async getLanguages
- * @param voices IVoices list
- * @param localization BPC47 localisation string
- * @returns ILanguages[]
- */
-export function listLanguages(voices: IVoices[], localization?: string): ILanguages[] {
-
-    return extractLanguagesFromVoices(voices, localization || navigatorLang());
+    return Array.from(group.entries()).map(([label, _voices]) => {
+        return {label, count: _voices.length, code: extractLangRegionFromBCP47(_voices[0]?.language || "")[0]}
+    });
 }
 
 /**
  * Parse and extract SpeechSynthesisVoices,
  * @returns IVoices[]
  */
-export async function getVoices() {
+export async function getVoices(preferredLanguage?: string[] | string, localization?: string) {
 
     const allVoices = parseSpeechSynthesisVoices(await getSpeechSynthesisVoices());
     const [recommendedVoices, lowQualityVoices] = filterOnRecommended(allVoices);
@@ -480,7 +486,7 @@ export async function getVoices() {
 
     const voices = [recommendedVoices, remainingVoiceFiltered].flat();
 
-    const voicesSorted = sortByLanguage(sortByQuality(voices));
+    const voicesSorted = sortByLanguage(sortByQuality(voices), preferredLanguage, localization || navigatorLang());
 
     return voicesSorted;
 }

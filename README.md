@@ -63,20 +63,20 @@ export interface IVoices {
 
 export interface ILanguages {
     label: string;
-    language: string;
+    code: string;
     count: number;
 }
 ```
 
 
-#### Parse and Extract voices from speechSynthesis WebAPI
+#### Parse and Extract IVoices from speechSynthesis WebAPI
 ```
-function getVoices(): Promise<IVoices[]>
+function getVoices(preferredLanguage?: string[] | string, localization?: string): Promise<IVoices[]>
 ```
 
-#### List languages from voices or speechSynthesis WebAPI
+#### List languages from IVoices
 ```
-function getLanguages(allVoices?: IVoices[], localization?: string): Promise<ILanguages[]>
+function getLanguages(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string | undefined): ILanguages[]
 ```
 
 #### helpers
@@ -105,6 +105,8 @@ function groupByLanguage(voices: IVoices[], preferredLanguage?: string[] | strin
 
 ```
 function sortByLanguage(voices: IVoices[], preferredLanguage?: string[] | string): IVoices[]
+
+function sortByRegion(voices: IVoices[], preferredRegions?: string[] | string, localization?: string | undefined): IVoices[]
 
 function sortByGender(voices: IVoices[], genderFirst: TGender): IVoices[]
 
