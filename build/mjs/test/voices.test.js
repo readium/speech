@@ -14,7 +14,7 @@ test('sortByLanguage: Empty preferred language list', t => {
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, [], undefined);
+    const result = sortByLanguage(voices, [], "");
     t.true(result.length === voices.length);
     t.true(result[0].language === 'en-US');
     t.true(result[1].language === 'en-US');
@@ -26,7 +26,7 @@ test('sortByLanguage: Preferred language list with one language', t => {
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, ['fr-FR'], undefined);
+    const result = sortByLanguage(voices, ['fr-FR'], "");
     t.true(result.length === voices.length);
     t.true(result[0].language === 'fr-FR');
     t.true(result[1].language === 'en-US');
@@ -39,7 +39,7 @@ test('sortByLanguage: Preferred language list with multiple languages', t => {
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 4', voiceURI: 'uri4', name: 'Name 4', language: 'es-ES', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, ['fr-FR', 'es-ES'], undefined);
+    const result = sortByLanguage(voices, ['fr-FR', 'es-ES'], "");
     t.true(result.length === voices.length);
     t.true(result[0].language === 'fr-FR');
     t.true(result[1].language === 'es-ES');
@@ -52,7 +52,7 @@ test('sortByLanguage: No matching languages', t => {
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, ['de-DE'], undefined);
+    const result = sortByLanguage(voices, ['de-DE'], "");
     t.true(result.length === voices.length);
     t.true(result[0].language === 'en-US');
     t.true(result[1].language === 'en-US');
@@ -64,7 +64,7 @@ test('sortByLanguage: Preferred language list is not an array', t => {
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, 'en-US', undefined);
+    const result = sortByLanguage(voices, 'en-US', "");
     t.true(result.length === voices.length);
     t.true(result[0].language === 'en-US');
     t.true(result[1].language === 'en-US');
@@ -76,7 +76,7 @@ test('sortByLanguage: Preferred language undefined and navigator langua', t => {
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, 'en-US', undefined);
+    const result = sortByLanguage(voices, 'en-US', "");
     t.true(result.length === voices.length);
     t.true(result[0].language === 'en-US');
     t.true(result[1].language === 'en-US');
@@ -89,7 +89,7 @@ test('sortByLanguage: Preferred language list with one language and navigator.la
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, ['fr-FR'], undefined);
+    const result = sortByLanguage(voices, ['fr-FR'], "");
     t.true(result.length === voices.length);
     t.true(result[0].language === 'fr-FR');
     t.true(result[1].language === 'en-US');
@@ -103,7 +103,7 @@ test('sortByLanguage: Preferred language list with multiple languages and naviga
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 4', voiceURI: 'uri4', name: 'Name 4', language: 'es-ES', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, ['fr-FR', 'es-ES'], undefined);
+    const result = sortByLanguage(voices, ['fr-FR', 'es-ES'], "");
     t.true(result.length === voices.length);
     t.true(result[0].language === 'fr-FR');
     t.true(result[1].language === 'es-ES');
@@ -117,7 +117,7 @@ test('sortByLanguage: No matching languages and navigator.languages', t => {
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, ['de-DE'], undefined);
+    const result = sortByLanguage(voices, ['de-DE'], "");
     t.true(result.length === voices.length);
     t.true(result[0].language === 'en-US');
     t.true(result[1].language === 'en-US');
@@ -130,7 +130,7 @@ test('sortByLanguage: Preferred language list is not an array and navigator.lang
         { label: 'Voice 2', voiceURI: 'uri2', name: 'Name 2', language: 'fr-FR', offlineAvailability: true, pitchControl: true },
         { label: 'Voice 3', voiceURI: 'uri3', name: 'Name 3', language: 'en-US', offlineAvailability: true, pitchControl: true },
     ];
-    const result = sortByLanguage(voices, 'en-US', undefined);
+    const result = sortByLanguage(voices, 'en-US', "");
     t.true(result.length === voices.length);
     t.true(result[0].language === 'en-US');
     t.true(result[1].language === 'en-US');

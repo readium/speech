@@ -1,8 +1,8 @@
 import { novelty, quality, recommended, veryLowQuality, defaultRegion } from "./data.js";
 // export type TOS = 'Android' | 'ChromeOS' | 'iOS' | 'iPadOS' | 'macOS' | 'Windows';
 // export type TBrowser = 'ChromeDesktop' | 'Edge' | 'Firefox' | 'Safari';
-const navigatorLanguages = () => window.navigator.languages;
-const navigatorLang = () => navigator.language.split("-")[0].toLowerCase();
+const navigatorLanguages = () => window?.navigator?.languages || [];
+const navigatorLang = () => (navigator?.language || "").split("-")[0].toLowerCase();
 const normalQuality = Object.values(quality).map(({ normal }) => normal);
 const highQuality = Object.values(quality).map(({ high }) => high);
 function compareQuality(a, b) {

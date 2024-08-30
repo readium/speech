@@ -4,9 +4,8 @@ import { novelty, quality, recommended, veryLowQuality, TGender, TQuality, IReco
 // export type TOS = 'Android' | 'ChromeOS' | 'iOS' | 'iPadOS' | 'macOS' | 'Windows';
 // export type TBrowser = 'ChromeDesktop' | 'Edge' | 'Firefox' | 'Safari';
 
-const navigatorLanguages = () => window.navigator.languages;
-const navigatorLang = () => navigator.language.split("-")[0].toLowerCase();
-
+const navigatorLanguages = () => window?.navigator?.languages || [];
+const navigatorLang = () => (navigator?.language || "").split("-")[0].toLowerCase();
 
 export interface IVoices {
     label: string;
