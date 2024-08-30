@@ -4,7 +4,8 @@ const { getSpeechSynthesisVoices, parseSpeechSynthesisVoices, filterOnNovelty, f
   filterOnRecommended, sortByLanguage, sortByQuality, getVoices, groupByKindOfVoices, groupByRegions,
   getLanguages, filterOnOfflineAvailability, listLanguages, filterOnGender, filterOnLanguage } = voicesSelection;
 
-import { html, render } from './lit-html_3-2-0_esm.js'
+import * as lit from './lit-html_3-2-0_esm.js'
+const { html, render } = lit;
 
 async function loadJSONData(url) {
     try {
@@ -107,10 +108,13 @@ const filterVoices = () => {
     voicesSelectElem = listVoicesWithLanguageSelected(voicesGroupedByRegions);
 
     viewRender();
-
-    textToReadFormated = textToRead.replace("{name}", selectedVoice);
-    document.getElementById("text-to-read").value = textToReadFormated;
 } 
+
+const setSelectVoice = (name) => {
+
+    selectedVoice = name;
+    textToReadFormated = textToRead.replace("{name}", selectedVoice);
+}
 
 const languageSelectOnChange = async (ev) => {
 
@@ -133,7 +137,7 @@ const listVoicesWithLanguageSelected = (voiceMap) => {
 
         for (const {name, label} of voice) {
             option.push(html`<option value=${name} ?default=${!selectedVoice}>${label}</option>`);
-            if (!selectedVoice) selectedVoice = name;
+            if (!selectedVoice) setSelectVoice(name);
         }
         elem.push(html`
         <optgroup label=${region}>
@@ -169,10 +173,8 @@ const content = () => html`
 
 <p>Voices :</p>
 <select id="voice-select" @change=${(e) => {
-    selectedVoice = e.target.value;
-    viewRender(); // update aboutVoice
-    textToReadFormated = textToRead.replace("{name}", selectedVoice);
-    document.getElementById("text-to-read").value = textToReadFormated;
+    setSelectVoice(e.target.value || "");
+    viewRender();
 }}>
     ${voicesSelectElem}
 </select>
@@ -195,7 +197,7 @@ const content = () => html`
 </div>
   
 <p>Text :</p>
-<input type="text" id="text-to-read" class="txt" value=${textToReadFormated} @input=${(e) => textToRead = e.target.value ? e.target.value : textToRead}></input>
+<input type="text" id="text-to-read" class="txt" .value=${textToReadFormated} @input=${(e) => textToRead = e.target.value ? e.target.value : textToRead}></input>
 
 <div class="controls">
     <button id="read-button" @click=${selectedVoice ? readTextWithSelectedVoice : undefined}>Read aloud</button>
