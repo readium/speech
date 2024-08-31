@@ -197,7 +197,7 @@ const content = () => html`
 </div>
   
 <p>Text :</p>
-<input type="text" id="text-to-read" class="txt" .value=${textToReadFormated} @input=${(e) => textToRead = e.target.value ? e.target.value : textToRead}></input>
+<input type="text" id="text-to-read" class="txt" .value=${textToReadFormated} @input=${(e) => textToReadFormated = e.target.value ? e.target.value : textToReadFormated}></input>
 
 <div class="controls">
     <button id="read-button" @click=${selectedVoice ? readTextWithSelectedVoice : undefined}>Read aloud</button>
