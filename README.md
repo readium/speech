@@ -20,3 +20,17 @@ Readium Speech was spun out as a separate project in order to facilitate its int
 For our initial work on this project, we're focusing on voice selection based on [recommended voices](https://github.com/HadrienGardeur/web-speech-recommended-voices).
 
 The outline of this work has been explored in a [GitHub discussion](https://github.com/HadrienGardeur/web-speech-recommended-voices/discussions/9) and through a [best practices document](https://github.com/HadrienGardeur/read-aloud-best-practices/blob/main/voice-selection.md).
+
+It's currently [under review in a draft PR](https://github.com/readium/speech/pull/7).
+
+
+## Demo
+
+[A live demo](https://panac.github.io/readium-speech/demo/) of the voice selection API is available.
+
+It demonstrates the following features:
+
+- fetching a list of all available languages, translating them to the user's locale and sorting them based on these translations
+- returning a list of voices for a given language, grouped by region and sorted based on quality
+- filtering languages and voices based on gender and offline availability
+- using embedded test utterances to demo voices
