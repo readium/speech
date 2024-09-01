@@ -20,3 +20,121 @@ Readium Speech was spun out as a separate project in order to facilitate its int
 For our initial work on this project, we're focusing on voice selection based on [recommended voices](https://github.com/HadrienGardeur/web-speech-recommended-voices).
 
 The outline of this work has been explored in a [GitHub discussion](https://github.com/HadrienGardeur/web-speech-recommended-voices/discussions/9) and through a [best practices document](https://github.com/HadrienGardeur/read-aloud-best-practices/blob/main/voice-selection.md).
+
+
+## QuickStart
+
+`npm install readium-speech`
+
+#### node :
+```
+import { getVoices } from "readium-speech/build/cjs/voices";
+
+const voices = await getVoices();
+console.log(voices);
+```
+
+#### web : 
+```
+import { getVoices } from "readium-speech/build/mjs/voices";
+
+const voices = await getVoices();
+console.log(voices);
+```
+
+## API
+
+### Interface 
+
+```
+export interface IVoices {
+    label: string;
+    voiceURI: string;
+    name: string;
+    language: string;
+    gender?: TGender | undefined;
+    age?: string | undefined;
+    offlineAvailability: boolean;
+    quality?: TQuality | undefined;
+    pitchControl: boolean;
+    recommendedPitch?: number | undefined;
+    recommendedRate?: number | undefined;
+}
+
+export interface ILanguages {
+    label: string;
+    code: string;
+    count: number;
+}
+```
+
+
+#### Parse and Extract IVoices from speechSynthesis WebAPI
+```
+function getVoices(preferredLanguage?: string[] | string, localization?: string): Promise<IVoices[]>
+```
+
+#### List languages from IVoices
+```
+function getLanguages(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string | undefined): ILanguages[]
+```
+
+#### helpers
+
+```
+function listLanguages(voices: IVoices[], localization?: string): ILanguages[]
+
+function ListRegions(voices: IVoices[], localization?: string): ILanguages[]
+
+function parseSpeechSynthesisVoices(speechSynthesisVoices: SpeechSynthesisVoice[]): IVoices[]
+
+function getSpeechSynthesisVoices(): Promise<SpeechSynthesisVoice[]>
+```
+
+#### groupBy
+
+```
+function groupByKindOfVoices(allVoices: IVoices[]): TGroupVoices
+
+function groupByRegions(voices: IVoices[], language: string, preferredRegions?: string[] | string, localization?: string): TGroupVoices
+
+function groupByLanguage(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string): TGroupVoices
+```
+
+#### sortBy
+
+```
+function sortByLanguage(voices: IVoices[], preferredLanguage?: string[] | string): IVoices[]
+
+function sortByRegion(voices: IVoices[], preferredRegions?: string[] | string, localization?: string | undefined): IVoices[]
+
+function sortByGender(voices: IVoices[], genderFirst: TGender): IVoices[]
+
+function sortByName(voices: IVoices[]): IVoices[]
+
+function sortByQuality(voices: IVoices[]): IVoices[]
+```
+
+#### filterOn
+
+```
+function filterOnRecommended(voices: IVoices[], _recommended?: IRecommended[]): TReturnFilterOnRecommended
+
+function filterOnVeryLowQuality(voices: IVoices[]): IVoices[]
+
+function filterOnNovelty(voices: IVoices[]): IVoices[]
+
+function filterOnQuality(voices: IVoices[], quality: TQuality | TQuality[]): IVoices[]
+
+function filterOnLanguage(voices: IVoices[], language: string | string[]): IVoices[]
+
+function filterOnGender(voices: IVoices[], gender: TGender): IVoices[]
+
+function filterOnGender(voices: IVoices[], gender: TGender): IVoices[]
+```
+
+## ressources
+
+https://www.sensedeep.com/blog/posts/2021/how-to-create-single-source-npm-module.html
+
+
