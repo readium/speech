@@ -26,7 +26,7 @@ It's currently [under review in a draft PR](https://github.com/readium/speech/pu
 
 ## Demo
 
-[A live demo](https://panac.github.io/readium-speech/demo/) of the voice selection API is available.
+[A live demo](https://readium.org/speech/demo/) of the voice selection API is available.
 
 It demonstrates the following features:
 
