@@ -1,3 +1,4 @@
 {
+    "main": "src/index.js",
     "type": "module"
 }

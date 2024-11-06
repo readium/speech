@@ -30,13 +30,13 @@ exports.groupByRegions = groupByRegions;
 exports.groupByKindOfVoices = groupByKindOfVoices;
 exports.getLanguages = getLanguages;
 exports.getVoices = getVoices;
-const data_js_1 = require("./data.js");
+const data_gen_js_1 = require("./data.gen.js");
 // export type TOS = 'Android' | 'ChromeOS' | 'iOS' | 'iPadOS' | 'macOS' | 'Windows';
 // export type TBrowser = 'ChromeDesktop' | 'Edge' | 'Firefox' | 'Safari';
 const navigatorLanguages = () => { var _a; return ((_a = window === null || window === void 0 ? void 0 : window.navigator) === null || _a === void 0 ? void 0 : _a.languages) || []; };
 const navigatorLang = () => ((navigator === null || navigator === void 0 ? void 0 : navigator.language) || "").split("-")[0].toLowerCase();
-const normalQuality = Object.values(data_js_1.quality).map(({ normal }) => normal);
-const highQuality = Object.values(data_js_1.quality).map(({ high }) => high);
+const normalQuality = Object.values(data_gen_js_1.quality).map(({ normal }) => normal);
+const highQuality = Object.values(data_gen_js_1.quality).map(({ high }) => high);
 function compareQuality(a, b) {
     const qualityToNumber = (quality) => {
         switch (quality) {
@@ -136,12 +136,12 @@ function filterOnQuality(voices, quality) {
 }
 function filterOnNovelty(voices) {
     return voices.filter(({ name }) => {
-        return !data_js_1.novelty.includes(name);
+        return !data_gen_js_1.novelty.includes(name);
     });
 }
 function filterOnVeryLowQuality(voices) {
     return voices.filter(({ name }) => {
-        return !data_js_1.veryLowQuality.find((v) => name.startsWith(v));
+        return !data_gen_js_1.veryLowQuality.find((v) => name.startsWith(v));
     });
 }
 function updateVoiceInfo(recommendedVoice, voice) {
@@ -151,7 +151,7 @@ function updateVoiceInfo(recommendedVoice, voice) {
     voice.recommendedRate = recommendedVoice.recommendedRate;
     return voice;
 }
-function filterOnRecommended(voices, _recommended = data_js_1.recommended) {
+function filterOnRecommended(voices, _recommended = data_gen_js_1.recommended) {
     const voicesRecommended = [];
     const voicesLowerQuality = [];
     recommendedVoiceLoop: for (const recommendedVoice of _recommended) {
@@ -250,7 +250,7 @@ function orderByPreferredLanguage(preferredLanguage) {
 function orderByPreferredRegion(preferredLanguage) {
     preferredLanguage = Array.isArray(preferredLanguage) ? preferredLanguage :
         preferredLanguage ? [preferredLanguage] : [];
-    const regionByDefaultArray = Object.values(data_js_1.defaultRegion);
+    const regionByDefaultArray = Object.values(data_gen_js_1.defaultRegion);
     return [...(new Set([...preferredLanguage, ...navigatorLanguages(), ...regionByDefaultArray]))];
 }
 const getLangFromBCP47Array = (a) => {

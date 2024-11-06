@@ -152,7 +152,7 @@ const listVoicesWithLanguageSelected = (voiceMap) => {
 const aboutVoice = () => {
     return html`
         <fieldset>
-            <p>${JSON.stringify(voicesFiltered.filter(({name}) => name === selectedVoice, null, 4))}</p>
+            <pre>${JSON.stringify(voicesFiltered.filter(({name}) => name === selectedVoice), null, 4)}</pre>
         </fieldset>
     `;
 }

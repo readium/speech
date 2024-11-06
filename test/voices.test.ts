@@ -1,6 +1,6 @@
 import test from "ava";
 import { filterOnRecommended, groupByLanguages, IVoices, sortByLanguage, groupByRegions } from "../src/voices.js";
-import { IRecommended } from "../src/data.js";
+import { IRecommended } from "../src/data.gen.js";
 // import { getVoices } from "../src/voices.js";
 
 test('dumb test', t => {

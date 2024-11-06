@@ -1,5 +1,5 @@
 
-import { novelty, quality, recommended, veryLowQuality, TGender, TQuality, IRecommended, defaultRegion } from "./data.js";
+import { novelty, quality, recommended, veryLowQuality, TGender, TQuality, IRecommended, defaultRegion } from "./data.gen.js";
 
 // export type TOS = 'Android' | 'ChromeOS' | 'iOS' | 'iPadOS' | 'macOS' | 'Windows';
 // export type TBrowser = 'ChromeDesktop' | 'Edge' | 'Firefox' | 'Safari';

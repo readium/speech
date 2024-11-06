@@ -1,4 +1,4 @@
-import { TGender, TQuality, IRecommended } from "./data.js";
+import { TGender, TQuality, IRecommended } from "./data.gen.js";
 export interface IVoices {
     label: string;
     voiceURI: string;

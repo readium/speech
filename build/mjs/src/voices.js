@@ -1,4 +1,4 @@
-import { novelty, quality, recommended, veryLowQuality, defaultRegion } from "./data.js";
+import { novelty, quality, recommended, veryLowQuality, defaultRegion } from "./data.gen.js";
 // export type TOS = 'Android' | 'ChromeOS' | 'iOS' | 'iPadOS' | 'macOS' | 'Windows';
 // export type TBrowser = 'ChromeDesktop' | 'Edge' | 'Firefox' | 'Safari';
 const navigatorLanguages = () => window?.navigator?.languages || [];

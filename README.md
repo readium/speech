@@ -38,22 +38,26 @@ It demonstrates the following features:
 
 ## QuickStart
 
-`npm install readium-speech`
+`npm install https://github.com/readium/speech`
 
-#### node :
 ```
+import { getVoices } from "readium-speech";
+// or with cjs only : 
 import { getVoices } from "readium-speech/build/cjs/voices";
+// or with esm mjs :
+import { getVoices } from "readium-speech/build/mjs/src/voices";
 
 const voices = await getVoices();
 console.log(voices);
-```
 
-#### web : 
-```
-import { getVoices } from "readium-speech/build/mjs/voices";
 
-const voices = await getVoices();
+// or 
+import { voicesSelection } from "readium-speech/build/cjs";
+import { voicesSelection } from "readium-speech/build/mjs";
+
+const voices = await voicesSelection.getVoices();
 console.log(voices);
+
 ```
 
 ## API
