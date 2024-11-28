@@ -21,9 +21,6 @@ For our initial work on this project, we're focusing on voice selection based on
 
 The outline of this work has been explored in a [GitHub discussion](https://github.com/HadrienGardeur/web-speech-recommended-voices/discussions/9) and through a [best practices document](https://github.com/HadrienGardeur/read-aloud-best-practices/blob/main/voice-selection.md).
 
-
-It's currently [under review in a draft PR](https://github.com/readium/speech/pull/7).
-
 ## Demo
 
 [A live demo](https://readium.org/speech/demo/) of the voice selection API is available.
@@ -34,7 +31,6 @@ It demonstrates the following features:
 - returning a list of voices for a given language, grouped by region and sorted based on quality
 - filtering languages and voices based on gender and offline availability
 - using embedded test utterances to demo voices
-=======
 
 ## QuickStart
 
@@ -85,7 +81,6 @@ export interface ILanguages {
     count: number;
 }
 ```
-
 
 #### Parse and Extract IVoices from speechSynthesis WebAPI
 ```
