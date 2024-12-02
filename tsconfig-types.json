@@ -1,0 +1,11 @@
+{
+    "extends": "./tsconfig-base.json",
+    "compilerOptions": {
+        "declaration": true,
+        "moduleResolution": "NodeNext",
+        "module": "NodeNext",
+        "outDir": "build/types",
+        "emitDeclarationOnly": true,
+        "target": "esnext"
+    }
+}

@@ -1,5 +1,5 @@
 
-import { voicesSelection } from "../build/mjs/src/index.js";
+import { voicesSelection } from "../build/mjs/index.js";
 const { getSpeechSynthesisVoices, parseSpeechSynthesisVoices, filterOnNovelty, filterOnVeryLowQuality,
   filterOnRecommended, sortByLanguage, sortByQuality, getVoices, groupByKindOfVoices, groupByRegions,
   getLanguages, filterOnOfflineAvailability, listLanguages, filterOnGender, filterOnLanguage } = voicesSelection;
