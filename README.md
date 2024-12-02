@@ -34,22 +34,19 @@ It demonstrates the following features:
 
 ## QuickStart
 
-`npm install https://github.com/readium/speech`
+`npm install https://github.com/readium/speech#build`
 
 ```
-import { getVoices } from "readium-speech";
+import { voicesSelection} from "readium-speech";
+console.log(voicesSelection);
+
 // or with cjs only : 
-import { getVoices } from "readium-speech/build/cjs/voices";
+const { getVoices } = require("readium-speech/cjs/voices.js");
+console.log(getVoices);
+
 // or with esm mjs :
-import { getVoices } from "readium-speech/build/mjs/src/voices";
-
-const voices = await getVoices();
-console.log(voices);
-
-
-// or 
-import { voicesSelection } from "readium-speech/build/cjs";
-import { voicesSelection } from "readium-speech/build/mjs";
+import { getVoices } from "readium-speech/mjs/voices.js";
+console.log(getVoices);
 
 const voices = await voicesSelection.getVoices();
 console.log(voices);
