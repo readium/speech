@@ -43,6 +43,7 @@ jobs:
           ls -laR ./build
           ls -laR ./demo
           mkdir build-demo
+          cp README.md ./build-demo/
           cp -r ./build ./build-demo/
           cp -r ./demo ./build-demo/
           ls -laR ./build-demo
