@@ -178,6 +178,7 @@ export declare const defaultRegion: {
     id: string;
     it: string;
     ja: string;
+    kn: string;
     ko: string;
     mr: string;
     ms: string;
