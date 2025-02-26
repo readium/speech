@@ -3,6 +3,7 @@ export interface IVoices {
     label: string;
     voiceURI: string;
     name: string;
+    __lang?: string | undefined;
     language: string;
     gender?: TGender | undefined;
     age?: string | undefined;
@@ -14,6 +15,7 @@ export interface IVoices {
 }
 export declare function getSpeechSynthesisVoices(): Promise<SpeechSynthesisVoice[]>;
 export declare function parseSpeechSynthesisVoices(speechSynthesisVoices: SpeechSynthesisVoice[]): IVoices[];
+export declare function convertToSpeechSynthesisVoices(voices: IVoices[]): SpeechSynthesisVoice[];
 export declare function filterOnOfflineAvailability(voices: IVoices[], offline?: boolean): IVoices[];
 export declare function filterOnGender(voices: IVoices[], gender: TGender): IVoices[];
 export declare function filterOnLanguage(voices: IVoices[], language: string | string[]): IVoices[];

@@ -11,6 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getSpeechSynthesisVoices = getSpeechSynthesisVoices;
 exports.parseSpeechSynthesisVoices = parseSpeechSynthesisVoices;
+exports.convertToSpeechSynthesisVoices = convertToSpeechSynthesisVoices;
 exports.filterOnOfflineAvailability = filterOnOfflineAvailability;
 exports.filterOnGender = filterOnGender;
 exports.filterOnLanguage = filterOnLanguage;
@@ -100,6 +101,7 @@ function parseSpeechSynthesisVoices(speechSynthesisVoices) {
         label: speechVoice.name,
         voiceURI: speechVoice.voiceURI,
         name: speechVoice.name,
+        __lang: speechVoice.lang,
         language: parseAndFormatBCP47(speechVoice.lang),
         gender: undefined,
         age: undefined,
@@ -108,6 +110,15 @@ function parseSpeechSynthesisVoices(speechSynthesisVoices) {
         pitchControl: true,
         recommendedPitch: undefined,
         recomendedRate: undefined,
+    }));
+}
+function convertToSpeechSynthesisVoices(voices) {
+    return voices.map((voice) => ({
+        default: false,
+        lang: voice.__lang || voice.language,
+        localService: voice.offlineAvailability,
+        name: voice.name,
+        voiceURI: voice.voiceURI,
     }));
 }
 function filterOnOfflineAvailability(voices, offline = true) {
