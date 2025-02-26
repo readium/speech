@@ -11,6 +11,7 @@ export interface IVoices {
     label: string;
     voiceURI: string;
     name: string;
+    __lang?: string | undefined;
     language: string;
     gender?: TGender | undefined;
     age?: string | undefined;
@@ -76,6 +77,7 @@ export function parseSpeechSynthesisVoices(speechSynthesisVoices: SpeechSynthesi
         label: speechVoice.name,
         voiceURI: speechVoice.voiceURI      ,
         name: speechVoice.name,
+        __lang: speechVoice.lang,
         language: parseAndFormatBCP47(speechVoice.lang) ,
         gender: undefined,
         age: undefined,
@@ -86,6 +88,16 @@ export function parseSpeechSynthesisVoices(speechSynthesisVoices: SpeechSynthesi
         recomendedRate: undefined,
     }));
 } 
+
+export function convertToSpeechSynthesisVoices(voices: IVoices[]): SpeechSynthesisVoice[] {
+    return voices.map<SpeechSynthesisVoice>((voice) => ({
+        default: false,
+        lang: voice.__lang || voice.language,
+        localService: voice.offlineAvailability,
+        name: voice.name,
+        voiceURI: voice.voiceURI,
+    }));
+}
 
 export function filterOnOfflineAvailability(voices: IVoices[], offline = true): IVoices[] {
     return voices.filter(({offlineAvailability}) => {
@@ -138,8 +150,8 @@ function updateVoiceInfo(recommendedVoice: IRecommended, voice: IVoices) {
 export type TReturnFilterOnRecommended = [voicesRecommended: IVoices[], voicesLowerQuality: IVoices[]];
 export function filterOnRecommended(voices: IVoices[], _recommended: IRecommended[] = recommended): TReturnFilterOnRecommended {
 
-    const voicesRecommended = [];
-    const voicesLowerQuality = [];
+    const voicesRecommended: IVoices[] = [];
+    const voicesLowerQuality: IVoices[] = [];
 
     recommendedVoiceLoop:
     for (const recommendedVoice of _recommended) {
