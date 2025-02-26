@@ -66,6 +66,7 @@ export function parseSpeechSynthesisVoices(speechSynthesisVoices) {
         label: speechVoice.name,
         voiceURI: speechVoice.voiceURI,
         name: speechVoice.name,
+        __lang: speechVoice.lang,
         language: parseAndFormatBCP47(speechVoice.lang),
         gender: undefined,
         age: undefined,
@@ -74,6 +75,15 @@ export function parseSpeechSynthesisVoices(speechSynthesisVoices) {
         pitchControl: true,
         recommendedPitch: undefined,
         recomendedRate: undefined,
+    }));
+}
+export function convertToSpeechSynthesisVoices(voices) {
+    return voices.map((voice) => ({
+        default: false,
+        lang: voice.__lang || voice.language,
+        localService: voice.offlineAvailability,
+        name: voice.name,
+        voiceURI: voice.voiceURI,
     }));
 }
 export function filterOnOfflineAvailability(voices, offline = true) {
