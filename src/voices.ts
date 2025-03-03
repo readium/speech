@@ -62,6 +62,19 @@ export async function getSpeechSynthesisVoices(): Promise<SpeechSynthesisVoice[]
     });
 }
 
+const _strHash = ({voiceURI, name, language, offlineAvailability}: IVoices) => `${voiceURI}_${name}_${language}_${offlineAvailability}`;
+
+function removeDuplicate(voices: IVoices[]): IVoices[] {
+
+    const voicesStrMap = [...new Set(voices.map((v) => _strHash(v)))];
+
+    const voicesFiltered = voicesStrMap
+        .map((s) => voices.find((v) => _strHash(v) === s))
+        .filter((v) => !!v);
+
+    return voicesFiltered;
+}
+
 export function parseSpeechSynthesisVoices(speechSynthesisVoices: SpeechSynthesisVoice[]): IVoices[] {
 
     const parseAndFormatBCP47 = (lang: string) => {
@@ -243,7 +256,7 @@ export function filterOnRecommended(voices: IVoices[], _recommended: IRecommende
         }
     }
 
-    return [voicesRecommended, voicesLowerQuality];
+    return [removeDuplicate(voicesRecommended), removeDuplicate(voicesLowerQuality)];
 }
 
 const extractLangRegionFromBCP47 = (l: string) => [l.split("-")[0].toLowerCase(), l.split("-")[1]?.toUpperCase()];
@@ -490,14 +503,34 @@ export function getLanguages(voices: IVoices[], preferredLanguage: string[] | st
  */
 export async function getVoices(preferredLanguage?: string[] | string, localization?: string) {
 
-    const allVoices = parseSpeechSynthesisVoices(await getSpeechSynthesisVoices());
-    const [recommendedVoices, lowQualityVoices] = filterOnRecommended(allVoices);
-    const remainingVoice = allVoices.filter((v) => !recommendedVoices.includes(v) && !lowQualityVoices.includes(v));
-    const remainingVoiceFiltered = filterOnNovelty(filterOnVeryLowQuality(remainingVoice));
+    const speechVoices = await getSpeechSynthesisVoices();
+    const allVoices = removeDuplicate(parseSpeechSynthesisVoices(speechVoices));
+    const recommendedTuple = filterOnRecommended(allVoices);
+    const [recommendedVoices, lowQualityVoices] = recommendedTuple;
+    const recommendedTupleFlatten = recommendedTuple.flat();
+    const remainingVoices = allVoices
+        .map((allVoicesItem) => _strHash(allVoicesItem))
+        .filter((str) => !recommendedTupleFlatten.find((recommendedVoicesPtr) => _strHash(recommendedVoicesPtr) === str))
+        .map((str) => allVoices.find((allVoicesPtr) => _strHash(allVoicesPtr) === str))
+        .filter((v) => !!v);
+    const remainingVoiceFiltered = filterOnNovelty(filterOnVeryLowQuality(remainingVoices));
 
-    const voices = [recommendedVoices, remainingVoiceFiltered].flat();
+
+    // console.log("PRE_recommendedVoices_GET_VOICES", recommendedVoices.filter(({label}) => label === "Paulina"), recommendedVoices.length);
+
+    // console.log("PRE_lowQualityVoices_GET_VOICES", lowQualityVoices.filter(({label}) => label === "Paulina"), lowQualityVoices.length);
+
+    // console.log("PRE_remainingVoiceFiltered_GET_VOICES", remainingVoiceFiltered.filter(({label}) => label === "Paulina"), remainingVoiceFiltered.length);
+
+    // console.log("PRE_allVoices_GET_VOICES", allVoices.filter(({label}) => label === "Paulina"), allVoices.length);
+
+    const voices = [recommendedVoices, lowQualityVoices, remainingVoiceFiltered].flat();
+
+    // console.log("MID_GET_VOICES", voices.filter(({label}) => label === "Paulina"), voices.length);
 
     const voicesSorted = sortByLanguage(sortByQuality(voices), preferredLanguage, localization || navigatorLang());
+
+    // console.log("POST_GET_VOICES", voicesSorted.filter(({ label }) => label === "Paulina"), voicesSorted.length);
 
     return voicesSorted;
 }
