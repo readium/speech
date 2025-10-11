@@ -1,8 +1,5 @@
-import { ReadiumSpeechPlaybackEngine } from "./engine";
 import { ReadiumSpeechVoice } from "./voices";
 import { ReadiumSpeechUtterance } from "./utterance";
-
-import { WebSpeechEngine } from "./WebSpeech/webSpeechEngine";
 
 export type ReadiumSpeechPlaybackState = "playing" | "paused" | "idle" | "loading" | "ready";
 

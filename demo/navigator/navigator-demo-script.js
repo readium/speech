@@ -26,11 +26,6 @@ const viewRender = () => {
   };
   
   render(content(state), document.body);
-  
-  // Update debug info if the function exists
-  if (typeof updateDebugInfo === "function") {
-    updateDebugInfo(state);
-  }
 };
 
 // Split text into sentences for utterances
@@ -155,7 +150,7 @@ const jumpToUtterance = () => {
 
 // UI Components
 const content = (state) => {
-  // Show loading state if navigator isn"t ready
+  // Show loading state if navigator isn't ready
   if (navigator.getState() === "loading" || !state) {
     return html`
       <div class="container">
