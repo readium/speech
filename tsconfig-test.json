@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
         "target": "ES2022",
-        "moduleResolution": "NodeNext",
-        "module": "NodeNext",
+        "moduleResolution": "bundler",
+        "module": "ES2022",
         "outDir": "build/test",
     },
     "exclude": ["build/", "node_modules/"],

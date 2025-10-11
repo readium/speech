@@ -1,7 +1,6 @@
 import test from "ava";
-import { filterOnRecommended, groupByLanguages, IVoices, sortByLanguage, groupByRegions } from "../src/voices.js";
+import { filterOnRecommended, groupByLanguages, ReadiumSpeechVoice, sortByLanguage, groupByRegions } from "../src/voices.js";
 import { IRecommended } from "../src/data.gen.js";
-// import { getVoices } from "../src/voices.js";
 
 test('dumb test', t => {
 	t.deepEqual([], []);
@@ -161,7 +160,7 @@ test('sortByLanguage: Preferred language list is not an array and navigator.lang
 });
 
 test('filterOnRecommended: Empty input', t => {
-	const voices: IVoices[] = [];
+	const voices: ReadiumSpeechVoice[] = [];
 	const result = filterOnRecommended(voices);
 	t.deepEqual(result, [[], []]);
 });
