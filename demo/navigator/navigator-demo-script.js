@@ -24,8 +24,16 @@ const viewRender = () => {
     totalUtterances: navigator.getContentQueue().length,
     currentVoice: navigator.getCurrentVoice()
   };
-  
+
   render(content(state), document.body);
+
+  // Update input field only if user hasn't manually changed it
+  updateJumpInputIfNeeded(state.currentUtteranceIndex + 1);
+
+  // Initialize position tracking on first render
+  if (lastNavigatorPosition === 0) {
+    lastNavigatorPosition = state.currentUtteranceIndex + 1;
+  }
 };
 
 // Split text into sentences for utterances
@@ -84,31 +92,63 @@ async function handleVoiceChange(event) {
 navigator.loadContent(utterances);
 initVoices();
 
+// Input value management
+let jumpInputUserChanged = false;
+let lastNavigatorPosition = 0;
+
+function updateJumpInputIfNeeded(navigatorPosition) {
+  const input = document.getElementById("utterance-index");
+  if (!input) return;
+
+  // If user has changed the input, don't update it
+  if (jumpInputUserChanged) {
+    return;
+  }
+
+  // Only update if position actually changed
+  if (navigatorPosition !== lastNavigatorPosition) {
+    input.value = navigatorPosition;
+    lastNavigatorPosition = navigatorPosition;
+  }
+}
+
+// Track when user manually changes the input
+const jumpInput = document.getElementById("utterance-index");
+if (jumpInput) {
+  jumpInput.addEventListener("input", () => {
+    jumpInputUserChanged = true;
+  });
+
+  // Set initial value once input is ready
+  jumpInput.addEventListener("focus", () => {
+    if (jumpInput.value === "" && !jumpInputUserChanged) {
+      const currentPos = navigator.getCurrentUtteranceIndex() + 1;
+      jumpInput.value = currentPos;
+      lastNavigatorPosition = currentPos;
+    }
+  }, { once: true });
+}
+
 // Event listeners for navigator
 navigator.on("start", () => {
-  console.log("Playback started");
   clearWordHighlighting(); // Clear any previous highlighting
   viewRender();
 });
 
 navigator.on("pause", () => {
-  console.log("Playback paused");
   viewRender();
 });
 
 navigator.on("resume", () => {
-  console.log("Playback resumed");
   viewRender();
 });
 
 navigator.on("stop", () => {
-  console.log("Playback stopped");
   clearWordHighlighting();
   viewRender();
 });
 
 navigator.on("end", () => {
-  console.log("Playback ended");
   viewRender();
 });
 
@@ -118,8 +158,7 @@ navigator.on("error", (event) => {
 });
 
 navigator.on("boundary", (event) => {
-  console.log("Boundary event:", event.detail);
-  // Handle word and sentence boundaries for highlighting
+  // Handle word boundaries for highlighting
   if (event.detail.name === "word") {
     highlightCurrentWord(event.detail.charIndex, event.detail.charLength);
   }
@@ -137,16 +176,17 @@ const playPause = async () => {
 };
 
 const stop = () => {
+  clearWordHighlighting();
   navigator.stop();
 };
 
 const next = async () => {
-  clearWordHighlighting(); // Clear highlighting when moving to next utterance
+  clearWordHighlighting();
   await navigator.next();
 };
 
 const previous = async () => {
-  clearWordHighlighting(); // Clear highlighting when moving to previous utterance
+  clearWordHighlighting();
   await navigator.previous();
 };
 
@@ -154,12 +194,20 @@ const jumpToUtterance = () => {
   const input = document.getElementById("utterance-index");
   const index = parseInt(input.value) - 1; // Convert to 0-based index
   if (index >= 0 && index < navigator.getContentQueue().length) {
-    clearWordHighlighting(); // Clear highlighting when jumping to new utterance
+    clearWordHighlighting();
     navigator.jumpTo(index);
+    // Clear user changed flag and update position tracking
+    jumpInputUserChanged = false;
+    lastNavigatorPosition = index + 1;
+    // Update input to reflect the new position
+    input.value = lastNavigatorPosition;
   } else {
     alert(`Please enter a number between 1 and ${navigator.getContentQueue().length}`);
-    // Reset input to current position
-    input.value = navigator.getCurrentUtteranceIndex() + 1;
+    // Reset input to current position and clear user changed flag
+    const currentPos = navigator.getCurrentUtteranceIndex() + 1;
+    input.value = currentPos;
+    jumpInputUserChanged = false;
+    lastNavigatorPosition = currentPos;
   }
 };
 
@@ -332,7 +380,6 @@ const content = (state) => {
         id="utterance-index"
         min="1"
         max="${state.totalUtterances}"
-        value="${state.currentUtteranceIndex + 1}"
         placeholder="Utterance #"
         class="jump-input"
       />
