@@ -28,6 +28,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private isSpeakingInternal: boolean = false;
   private initialized: boolean = false;
   private maxLengthExceeded: "error" | "none" | "warn" = "warn";
+  private utterancesBeingCancelled: boolean = false; // Flag to track if utterances are being cancelled
 
   // Playback parameters
   private rate: number = 1.0;
@@ -202,8 +203,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       return;
     }
 
-    // Cancel any ongoing speech
-    this.speechSynthesis.cancel();
+    // Cancel any ongoing speech with Firefox workaround
+    this.cancelCurrentSpeech();
 
     // Reset internal state
     this.isSpeakingInternal = true;
@@ -222,14 +223,24 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.currentUtteranceIndex = 0;
     }
 
-    // Use timeout and additional safety check
-    setTimeout(() => {
-      if (this.currentUtteranceIndex < this.currentUtterances.length && !this.speechSynthesis.speaking) {
-        this.speakCurrentUtterance();
-      }
-    }, 10);
+    // Speak immediately for responsive navigation
+    this.speakCurrentUtterance();
   }
 
+  private cancelCurrentSpeech(): void {
+    if (this.patches.isFirefox && this.speechSynthesis.speaking) {
+      // Firefox workaround: set flag to ignore delayed onend events
+      this.utterancesBeingCancelled = true;
+      
+      // Clear cancelled flag after delay
+      setTimeout(() => {
+        this.utterancesBeingCancelled = false;
+      }, 100);
+    }
+    
+    this.speechSynthesis.cancel();
+  }
+  
   private async speakCurrentUtterance(): Promise<void> {
     if (this.currentUtteranceIndex >= this.currentUtterances.length) {
       this.setState("idle");
@@ -284,7 +295,13 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     };
 
     utterance.onend = () => {
-      // Don't continue if stopped (Firefox protection) - but don't auto-continue either
+      // Firefox workaround: ignore onend from cancelled utterances
+      if (this.utterancesBeingCancelled) {
+        this.utterancesBeingCancelled = false;
+        return;
+      }
+      
+      // Don't continue if stopped
       if (this.playbackState === "idle") {
         return;
       }
