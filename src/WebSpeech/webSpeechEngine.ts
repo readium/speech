@@ -284,20 +284,22 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     };
 
     utterance.onend = () => {
-      // Don't continue playback if we've been stopped (Firefox workaround)
+      // Don't continue if stopped (Firefox protection) - but don't auto-continue either
       if (this.playbackState === "idle") {
         return;
       }
+      
+      // Just report completion - navigator handles playback decisions
       this.isSpeakingInternal = false;
       this.isPausedInternal = false;
       this.stopResumeInfinity();
-      this.currentUtteranceIndex++;
-      if (this.currentUtteranceIndex < this.currentUtterances.length) {
-        this.speakCurrentUtterance();
-      } else {
+      
+      // Set idle state if we've reached the end
+      if (this.currentUtteranceIndex >= this.currentUtterances.length - 1) {
         this.setState("idle");
-        this.emitEvent({ type: "end" });
       }
+      
+      this.emitEvent({ type: "end" });
     };
 
     utterance.onerror = (event) => {

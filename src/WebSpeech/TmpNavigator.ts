@@ -36,11 +36,14 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
     });
 
     this.engine.on("end", () => {
-      // Only set idle if we've reached the end of all utterances
       const currentIndex = this.engine.getCurrentUtteranceIndex();
       const totalCount = this.engine.getUtteranceCount();
-  
-      if (currentIndex >= totalCount - 1) {
+
+      if (currentIndex < totalCount - 1) {
+        // Navigator handles continuous playback
+        this.engine.speak(currentIndex + 1);
+      } else {
+        // Reached end - set navigator to idle
         this.setNavigatorState("idle");
       }
       
