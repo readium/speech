@@ -53,7 +53,7 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
     this.engine.on("error", (event) => {
       this.setNavigatorState("idle");
       // Only emit error for genuine errors, not interruptions during navigation
-      if (event.detail.error !== "interrupted") {
+      if (event.detail.error !== "interrupted" && event.detail.error !== "canceled") {
         this.emitEvent(event);
       }
     });
@@ -63,6 +63,18 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
         this.setNavigatorState("ready");
         this.emitEvent({ type: "ready" });
       }
+    });
+
+    this.engine.on("boundary", (event) => {
+      this.emitEvent(event);
+    });
+
+    this.engine.on("mark", (event) => {
+      this.emitEvent(event);
+    });
+
+    this.engine.on("voiceschanged", () => {
+      this.emitEvent({ type: "voiceschanged" });
     });
   }
 

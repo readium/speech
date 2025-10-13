@@ -44,6 +44,7 @@ console.log(`Created ${utterances.length} utterances`);
 
 let voices = [];
 let currentVoice = null;
+let currentWordHighlight = null; // Track current word being highlighted
 
 // Initialize voices
 async function initVoices() {
@@ -86,6 +87,7 @@ initVoices();
 // Event listeners for navigator
 navigator.on("start", () => {
   console.log("Playback started");
+  clearWordHighlighting(); // Clear any previous highlighting
   viewRender();
 });
 
@@ -101,6 +103,7 @@ navigator.on("resume", () => {
 
 navigator.on("stop", () => {
   console.log("Playback stopped");
+  clearWordHighlighting();
   viewRender();
 });
 
@@ -111,6 +114,15 @@ navigator.on("end", () => {
 
 navigator.on("error", (event) => {
   console.error("Navigator error:", event.detail);
+  viewRender();
+});
+
+navigator.on("boundary", (event) => {
+  console.log("Boundary event:", event.detail);
+  // Handle word and sentence boundaries for highlighting
+  if (event.detail.name === "word") {
+    highlightCurrentWord(event.detail.charIndex, event.detail.charLength);
+  }
   viewRender();
 });
 
@@ -129,10 +141,12 @@ const stop = () => {
 };
 
 const next = async () => {
+  clearWordHighlighting(); // Clear highlighting when moving to next utterance
   await navigator.next();
 };
 
 const previous = async () => {
+  clearWordHighlighting(); // Clear highlighting when moving to previous utterance
   await navigator.previous();
 };
 
@@ -140,6 +154,7 @@ const jumpToUtterance = () => {
   const input = document.getElementById("utterance-index");
   const index = parseInt(input.value) - 1; // Convert to 0-based index
   if (index >= 0 && index < navigator.getContentQueue().length) {
+    clearWordHighlighting(); // Clear highlighting when jumping to new utterance
     navigator.jumpTo(index);
   } else {
     alert(`Please enter a number between 1 and ${navigator.getContentQueue().length}`);
@@ -147,6 +162,62 @@ const jumpToUtterance = () => {
     input.value = navigator.getCurrentUtteranceIndex() + 1;
   }
 };
+
+function highlightCurrentWord(charIndex, charLength) {
+  // Clear previous highlighting
+  clearWordHighlighting();
+  
+  // Find the current utterance being spoken
+  const currentUtterance = navigator.getCurrentContent();
+  if (!currentUtterance) return;
+  
+  // Extract the word based on character index and length
+  const text = currentUtterance.text;
+  if (charIndex >= 0 && charIndex < text.length) {
+    const wordEnd = Math.min(charIndex + charLength, text.length);
+    const word = text.substring(charIndex, wordEnd);
+    
+    // Find the specific occurrence of this word at this position
+    highlightSpecificWord(text, word, charIndex);
+    
+    currentWordHighlight = {
+      utteranceIndex: navigator.getCurrentUtteranceIndex(),
+      charIndex: charIndex,
+      charLength: charLength,
+      word: word
+    };
+  }
+}
+
+function highlightSpecificWord(fullText, targetWord, startIndex) {
+  const utteranceElements = document.querySelectorAll('.utterance-text');
+  const currentUtteranceIndex = navigator.getCurrentUtteranceIndex();
+  
+  if (utteranceElements.length > currentUtteranceIndex) {
+    const currentElement = utteranceElements[currentUtteranceIndex];
+    if (currentElement) {
+      // Find the specific occurrence of the word at the given character position
+      const beforeText = fullText.substring(0, startIndex);
+      const afterText = fullText.substring(startIndex + targetWord.length);
+      
+      // Reconstruct the HTML with only the specific word highlighted
+      currentElement.innerHTML = 
+        beforeText + 
+        '<span class="highlighted-word">' + targetWord + '</span>' + 
+        afterText;
+    }
+  }
+}
+
+function clearWordHighlighting() {
+  // Remove all word highlighting
+  const highlightedWords = document.querySelectorAll('.highlighted-word');
+  highlightedWords.forEach(el => {
+    el.outerHTML = el.textContent;
+  });
+  
+  currentWordHighlight = null;
+}
 
 // UI Components
 const content = (state) => {
@@ -311,6 +382,9 @@ const content = (state) => {
 
   .voice-info {
     margin-bottom: 15px;
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 5px;
   }
 
   .voice-selector {
@@ -517,8 +591,15 @@ const content = (state) => {
   }
 
   .utterance.current {
-    background: #fff3cd;
     border-left: 4px solid #ffc107;
+  }
+
+  .highlighted-word {
+    background-color: #ffff99;
+    padding: 2px 4px;
+    border-radius: 3px;
+    border-bottom: 2px solid #ffcc00;
+    font-weight: bold;
   }
 
   .utterance.played {
@@ -533,12 +614,6 @@ const content = (state) => {
 
   .utterance-text {
     flex: 1;
-  }
-
-  .voice-info {
-    padding: 15px;
-    background: #f8f9fa;
-    border-radius: 5px;
   }
 </style>
 `;

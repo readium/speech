@@ -136,7 +136,7 @@ export function parseSpeechSynthesisVoices(speechSynthesisVoices: SpeechSynthesi
 } 
 
 // Note: This does not work as browsers expect an actual SpeechSynthesisVoice
-// Here it is just an object with the same properties
+// Here it is just an object with the same-ish properties
 export function convertToSpeechSynthesisVoices(voices: ReadiumSpeechVoice[]): SpeechSynthesisVoice[] {
     return voices.map<SpeechSynthesisVoice>((voice) => ({
         default: false,
