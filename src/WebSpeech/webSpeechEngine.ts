@@ -284,6 +284,10 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     };
 
     utterance.onend = () => {
+      // Don't continue playback if we've been stopped (Firefox workaround)
+      if (this.playbackState === "idle") {
+        return;
+      }
       this.isSpeakingInternal = false;
       this.isPausedInternal = false;
       this.stopResumeInfinity();
@@ -428,6 +432,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.speechSynthesis.cancel();
     this.currentUtteranceIndex = 0;  // Reset to beginning when stopped
     this.setState("idle");
+    this.emitEvent({ type: "stop" });  // Emit immediately
   }
 
   // Playback Parameters
