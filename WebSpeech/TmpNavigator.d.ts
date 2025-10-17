@@ -1,0 +1,36 @@
+import { ReadiumSpeechPlaybackEngine } from '../engine';
+import { ReadiumSpeechNavigator, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from '../navigator';
+import { ReadiumSpeechUtterance } from '../utterance';
+import { ReadiumSpeechVoice } from '../voices';
+export declare class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
+    private engine;
+    private contentQueue;
+    private eventListeners;
+    private navigatorState;
+    constructor(engine?: ReadiumSpeechPlaybackEngine);
+    private initializeEngine;
+    private setupEngineListeners;
+    private setNavigatorState;
+    getVoices(): Promise<ReadiumSpeechVoice[]>;
+    setVoice(voice: ReadiumSpeechVoice | string): Promise<void>;
+    getCurrentVoice(): ReadiumSpeechVoice | null;
+    loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
+    getCurrentContent(): ReadiumSpeechUtterance | null;
+    getContentQueue(): ReadiumSpeechUtterance[];
+    private getCurrentUtteranceIndex;
+    play(): Promise<void>;
+    pause(): void;
+    stop(): void;
+    togglePlayPause(): Promise<void>;
+    next(): Promise<boolean>;
+    previous(): Promise<boolean>;
+    jumpTo(utteranceIndex: number): void;
+    setRate(rate: number): void;
+    setPitch(pitch: number): void;
+    setVolume(volume: number): void;
+    getState(): ReadiumSpeechPlaybackState;
+    on(event: ReadiumSpeechPlaybackEvent["type"] | "contentchange", listener: (event: ReadiumSpeechPlaybackEvent) => void): () => void;
+    private emitEvent;
+    private emitContentChangeEvent;
+    destroy(): Promise<void>;
+}
