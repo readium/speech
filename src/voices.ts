@@ -7,7 +7,7 @@ import { novelty, quality, recommended, veryLowQuality, TGender, TQuality, IReco
 const navigatorLanguages = () => window?.navigator?.languages || [];
 const navigatorLang = () => (navigator?.language || "").split("-")[0].toLowerCase();
 
-export interface IVoices {
+export interface ReadiumSpeechVoice {
     label: string;
     voiceURI: string;
     name: string;
@@ -40,31 +40,64 @@ function compareQuality(a?: TQuality, b?: TQuality): number {
     return qualityToNumber(b || "low") - qualityToNumber(a || "low");
 };
 
-export async function getSpeechSynthesisVoices(): Promise<SpeechSynthesisVoice[]> {
+export async function getSpeechSynthesisVoices(maxTimeout = 10000, interval = 10): Promise<SpeechSynthesisVoice[]> {
     const a = () => speechSynthesis.getVoices();
-    
+
+    // Step 1: Try to load voices directly (best case scenario)
     const voices = a();
     if (Array.isArray(voices) && voices.length) return voices;
 
-    return new Promise((resolve, _reject) => {
+    return new Promise((resolve, reject) => {
+        // Calculate iterations from total timeout
+        let counter = Math.floor(maxTimeout / interval);
+        // Flag to ensure polling only starts once
+        let pollingStarted = false;
 
-        let counter = 1000;
-        const tick = () => {
-            if (counter < 1) return resolve([]);
-            // console.log(counter);
-            
-            --counter;
-            const voices = a();
-            if (Array.isArray(voices) && voices.length) return resolve(voices);
-            setTimeout(tick, 10);
+        // Polling function: Checks for voices periodically until counter expires
+        const startPolling = () => {
+            // Prevent multiple starts
+            if (pollingStarted) return;
+            pollingStarted = true;
+
+            const tick = () => {
+                // Resolve with empty array if no voices found
+                if (counter < 1) return resolve([]);
+                --counter;
+                const voices = a();
+                // Resolve if voices loaded
+                if (Array.isArray(voices) && voices.length) return resolve(voices);
+                // Continue polling 
+                setTimeout(tick, interval); 
+            };
+            // Initial start
+            setTimeout(tick, interval);
+        };
+
+        // Step 2: Use onvoiceschanged if available (prioritizes event over polling)
+        if (speechSynthesis.onvoiceschanged) {
+            speechSynthesis.onvoiceschanged = () => {
+                const voices = a();
+                if (Array.isArray(voices) && voices.length) {
+                    // Resolve immediately if voices are available
+                    resolve(voices);
+                } else {
+                    // Fallback to polling if event fires but no voices
+                    startPolling();
+                }
+            };
+        } else {
+            // Step 3: No onvoiceschanged support, start polling directly
+            startPolling();
         }
-        setTimeout(tick, 10);
+
+        // Step 4: Overall safety timeout - fail if nothing happens after maxTimeout
+        setTimeout(() => reject(new Error("No voices available after timeout")), maxTimeout);
     });
 }
 
-const _strHash = ({voiceURI, name, language, offlineAvailability}: IVoices) => `${voiceURI}_${name}_${language}_${offlineAvailability}`;
+const _strHash = ({voiceURI, name, language, offlineAvailability}: ReadiumSpeechVoice) => `${voiceURI}_${name}_${language}_${offlineAvailability}`;
 
-function removeDuplicate(voices: IVoices[]): IVoices[] {
+function removeDuplicate(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
 
     const voicesStrMap = [...new Set(voices.map((v) => _strHash(v)))];
 
@@ -75,7 +108,7 @@ function removeDuplicate(voices: IVoices[]): IVoices[] {
     return voicesFiltered;
 }
 
-export function parseSpeechSynthesisVoices(speechSynthesisVoices: SpeechSynthesisVoice[]): IVoices[] {
+export function parseSpeechSynthesisVoices(speechSynthesisVoices: SpeechSynthesisVoice[]): ReadiumSpeechVoice[] {
 
     const parseAndFormatBCP47 = (lang: string) => {
         const speechVoiceLang = lang.replace("_", "-");
@@ -86,7 +119,7 @@ export function parseSpeechSynthesisVoices(speechSynthesisVoices: SpeechSynthesi
         // bad formated !?
         return lang;
     };
-    return speechSynthesisVoices.map<IVoices>((speechVoice) => ({
+    return speechSynthesisVoices.map<ReadiumSpeechVoice>((speechVoice) => ({
         label: speechVoice.name,
         voiceURI: speechVoice.voiceURI      ,
         name: speechVoice.name,
@@ -102,7 +135,9 @@ export function parseSpeechSynthesisVoices(speechSynthesisVoices: SpeechSynthesi
     }));
 } 
 
-export function convertToSpeechSynthesisVoices(voices: IVoices[]): SpeechSynthesisVoice[] {
+// Note: This does not work as browsers expect an actual SpeechSynthesisVoice
+// Here it is just an object with the same-ish properties
+export function convertToSpeechSynthesisVoices(voices: ReadiumSpeechVoice[]): SpeechSynthesisVoice[] {
     return voices.map<SpeechSynthesisVoice>((voice) => ({
         default: false,
         lang: voice.__lang || voice.language,
@@ -112,19 +147,19 @@ export function convertToSpeechSynthesisVoices(voices: IVoices[]): SpeechSynthes
     }));
 }
 
-export function filterOnOfflineAvailability(voices: IVoices[], offline = true): IVoices[] {
+export function filterOnOfflineAvailability(voices: ReadiumSpeechVoice[], offline = true): ReadiumSpeechVoice[] {
     return voices.filter(({offlineAvailability}) => {
         return offlineAvailability === offline;
     });
 }
 
-export function filterOnGender(voices: IVoices[], gender: TGender): IVoices[] {
+export function filterOnGender(voices: ReadiumSpeechVoice[], gender: TGender): ReadiumSpeechVoice[] {
     return voices.filter(({gender: voiceGender}) => {
         return voiceGender === gender;
     })
 }
 
-export function filterOnLanguage(voices: IVoices[], language: string | string[]): IVoices[] {
+export function filterOnLanguage(voices: ReadiumSpeechVoice[], language: string | string[] = navigatorLang()): ReadiumSpeechVoice[] {
     language = Array.isArray(language) ? language : [language];
     language = language.map((l) => extractLangRegionFromBCP47(l)[0]);
     return voices.filter(({language: voiceLanguage}) => {
@@ -133,26 +168,26 @@ export function filterOnLanguage(voices: IVoices[], language: string | string[])
     })
 }
 
-export function filterOnQuality(voices: IVoices[], quality: TQuality | TQuality[]): IVoices[] {
+export function filterOnQuality(voices: ReadiumSpeechVoice[], quality: TQuality | TQuality[]): ReadiumSpeechVoice[] {
     quality = Array.isArray(quality) ? quality : [quality];
     return voices.filter(({quality: voiceQuality}) => {
         return quality.some((qual) => qual === voiceQuality);
     });
 }
 
-export function filterOnNovelty(voices: IVoices[]): IVoices[] {
+export function filterOnNovelty(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
     return voices.filter(({ name }) => {
         return !novelty.includes(name); 
     });
 }
 
-export function filterOnVeryLowQuality(voices: IVoices[]): IVoices[] {
+export function filterOnVeryLowQuality(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
     return voices.filter(({ name }) => {
         return !veryLowQuality.find((v) => name.startsWith(v));
     });
 }
 
-function updateVoiceInfo(recommendedVoice: IRecommended, voice: IVoices) {
+function updateVoiceInfo(recommendedVoice: IRecommended, voice: ReadiumSpeechVoice) {
     voice.label = recommendedVoice.label;
     voice.gender = recommendedVoice.gender;
     voice.recommendedPitch = recommendedVoice.recommendedPitch;
@@ -160,11 +195,11 @@ function updateVoiceInfo(recommendedVoice: IRecommended, voice: IVoices) {
 
     return voice;
 }
-export type TReturnFilterOnRecommended = [voicesRecommended: IVoices[], voicesLowerQuality: IVoices[]];
-export function filterOnRecommended(voices: IVoices[], _recommended: IRecommended[] = recommended): TReturnFilterOnRecommended {
+export type TReturnFilterOnRecommended = [voicesRecommended: ReadiumSpeechVoice[], voicesLowerQuality: ReadiumSpeechVoice[]];
+export function filterOnRecommended(voices: ReadiumSpeechVoice[], _recommended: IRecommended[] = recommended): TReturnFilterOnRecommended {
 
-    const voicesRecommended: IVoices[] = [];
-    const voicesLowerQuality: IVoices[] = [];
+    const voicesRecommended: ReadiumSpeechVoice[] = [];
+    const voicesLowerQuality: ReadiumSpeechVoice[] = [];
 
     recommendedVoiceLoop:
     for (const recommendedVoice of _recommended) {
@@ -230,7 +265,7 @@ export function filterOnRecommended(voices: IVoices[], _recommended: IRecommende
                 const altNamesVoicesFound = voices.filter(({name}) => recommendedVoice.altNames!.includes(name));
                 if (altNamesVoicesFound.length) {
 
-                    const voice = altNamesVoicesFound.shift() as IVoices;
+                    const voice = altNamesVoicesFound.shift() as ReadiumSpeechVoice;
 
                     voice.quality = Array.isArray(recommendedVoice.quality) ? recommendedVoice.quality[0] : undefined;
                     voicesRecommended.push(updateVoiceInfo(recommendedVoice, voice));
@@ -261,19 +296,19 @@ export function filterOnRecommended(voices: IVoices[], _recommended: IRecommende
 
 const extractLangRegionFromBCP47 = (l: string) => [l.split("-")[0].toLowerCase(), l.split("-")[1]?.toUpperCase()];
 
-export function sortByQuality(voices: IVoices[]) {
+export function sortByQuality(voices: ReadiumSpeechVoice[]) {
     return voices.sort(({quality: qa}, {quality: qb}) => {
         return compareQuality(qa, qb);
     });
 }
 
-export function sortByName(voices: IVoices[]) {
+export function sortByName(voices: ReadiumSpeechVoice[]) {
     return voices.sort(({name: na}, {name: nb}) => {
         return na.localeCompare(nb);
     })
 }
 
-export function sortByGender(voices: IVoices[], genderFirst: TGender) {
+export function sortByGender(voices: ReadiumSpeechVoice[], genderFirst: TGender) {
     return voices.sort(({gender: ga}, {gender: gb}) => {
         return ga === gb ? 0 : ga === genderFirst ? -1 : gb === genderFirst ? -1 : 1;
     })
@@ -301,11 +336,11 @@ const getRegionFromBCP47Array = (a: string[]) => {
     return [...(new Set(a.map((v) => (extractLangRegionFromBCP47(v)[1] || "").toUpperCase()).filter((v) => !!v)))];
 }
 
-export function sortByLanguage(voices: IVoices[], preferredLanguage: string[] | string = [], localization: string | undefined = navigatorLang()): IVoices[] {
+export function sortByLanguage(voices: ReadiumSpeechVoice[], preferredLanguage: string[] | string = [], localization: string | undefined = navigatorLang()): ReadiumSpeechVoice[] {
 
     const languages = getLangFromBCP47Array(orderByPreferredLanguage(preferredLanguage));
 
-    const voicesSorted: IVoices[] = [];
+    const voicesSorted: ReadiumSpeechVoice[] = [];
     for (const lang of languages) {
         voicesSorted.push(...voices.filter(({language: voiceLanguage}) => lang === extractLangRegionFromBCP47(voiceLanguage)[0]));
     }
@@ -313,7 +348,7 @@ export function sortByLanguage(voices: IVoices[], preferredLanguage: string[] | 
     let langueName: Intl.DisplayNames | undefined = undefined;
     if (localization) {
         try {
-            langueName = new Intl.DisplayNames([localization], { type: 'language' });
+            langueName = new Intl.DisplayNames([localization], { type: "language" });
         } catch (e) {
             console.error("Intl.DisplayNames throw an exception with ", localization, e);
         }
@@ -337,11 +372,11 @@ export function sortByLanguage(voices: IVoices[], preferredLanguage: string[] | 
     return [...voicesSorted, ...remainingVoices];
 }
 
-export function sortByRegion(voices: IVoices[], preferredRegions: string[] | string = [], localization: string | undefined = navigatorLang()): IVoices[] {
+export function sortByRegion(voices: ReadiumSpeechVoice[], preferredRegions: string[] | string = [], localization: string | undefined = navigatorLang()): ReadiumSpeechVoice[] {
 
     const regions = getRegionFromBCP47Array(orderByPreferredRegion(preferredRegions));
 
-    const voicesSorted: IVoices[] = [];
+    const voicesSorted: ReadiumSpeechVoice[] = [];
     for (const reg of regions) {
         voicesSorted.push(...voices.filter(({language: voiceLanguage}) => reg === extractLangRegionFromBCP47(voiceLanguage)[1]));
     }
@@ -349,7 +384,7 @@ export function sortByRegion(voices: IVoices[], preferredRegions: string[] | str
     let regionName: Intl.DisplayNames | undefined = undefined;
     if (localization) {
         try {
-            regionName = new Intl.DisplayNames([localization], { type: 'region' });
+            regionName = new Intl.DisplayNames([localization], { type: "region" });
         } catch (e) {
             console.error("Intl.DisplayNames throw an exception with ", localization, e);
         }
@@ -378,11 +413,11 @@ export interface ILanguages {
     code: string;
     count: number;
 }
-export function listLanguages(voices: IVoices[], localization: string | undefined = navigatorLang()): ILanguages[] {
+export function listLanguages(voices: ReadiumSpeechVoice[], localization: string | undefined = navigatorLang()): ILanguages[] {
     let langueName: Intl.DisplayNames | undefined = undefined;
     if (localization) {
         try {
-            langueName = new Intl.DisplayNames([localization], { type: 'language' });
+            langueName = new Intl.DisplayNames([localization], { type: "language" });
         } catch (e) {
             console.error("Intl.DisplayNames throw an exception with ", localization, e);
         }
@@ -406,11 +441,11 @@ export function listLanguages(voices: IVoices[], localization: string | undefine
         return acc;
     }, []);
 }
-export function listRegions(voices: IVoices[], localization: string | undefined = navigatorLang()): ILanguages[] {
+export function listRegions(voices: ReadiumSpeechVoice[], localization: string | undefined = navigatorLang()): ILanguages[] {
     let regionName: Intl.DisplayNames | undefined = undefined;
     if (localization) {
         try {
-            regionName = new Intl.DisplayNames([localization], { type: 'region' });
+            regionName = new Intl.DisplayNames([localization], { type: "region" });
         } catch (e) {
             console.error("Intl.DisplayNames throw an exception with ", localization, e);
         }
@@ -435,8 +470,8 @@ export function listRegions(voices: IVoices[], localization: string | undefined 
     }, []);
 }
 
-export type TGroupVoices = Map<string, IVoices[]>;
-export function groupByLanguages(voices: IVoices[], preferredLanguage: string[] | string = [], localization: string | undefined = navigatorLang()): TGroupVoices {
+export type TGroupVoices = Map<string, ReadiumSpeechVoice[]>;
+export function groupByLanguages(voices: ReadiumSpeechVoice[], preferredLanguage: string[] | string = [], localization: string | undefined = navigatorLang()): TGroupVoices {
 
     const voicesSorted = sortByLanguage(voices, preferredLanguage, localization);
     
@@ -452,7 +487,7 @@ export function groupByLanguages(voices: IVoices[], preferredLanguage: string[] 
     return res;
 }
 
-export function groupByRegions(voices: IVoices[], preferredRegions: string[] | string = [], localization: string | undefined = navigatorLang()): TGroupVoices {
+export function groupByRegions(voices: ReadiumSpeechVoice[], preferredRegions: string[] | string = [], localization: string | undefined = navigatorLang()): TGroupVoices {
 
     const voicesSorted = sortByRegion(voices, preferredRegions, localization);
     
@@ -468,7 +503,7 @@ export function groupByRegions(voices: IVoices[], preferredRegions: string[] | s
     return res;
 }
 
-export function groupByKindOfVoices(allVoices: IVoices[]): TGroupVoices {
+export function groupByKindOfVoices(allVoices: ReadiumSpeechVoice[]): TGroupVoices {
 
     const [recommendedVoices, lowQualityVoices] = filterOnRecommended(allVoices);
     const remainingVoice = allVoices.filter((v) => !recommendedVoices.includes(v) && !lowQualityVoices.includes(v));
@@ -488,7 +523,7 @@ export function groupByKindOfVoices(allVoices: IVoices[]): TGroupVoices {
     return res;
 }
 
-export function getLanguages(voices: IVoices[], preferredLanguage: string[] | string = [], localization: string | undefined = navigatorLang()): ILanguages[] {
+export function getLanguages(voices: ReadiumSpeechVoice[], preferredLanguage: string[] | string = [], localization: string | undefined = navigatorLang()): ILanguages[] {
 
     const group = groupByLanguages(voices, preferredLanguage, localization);
 
@@ -499,7 +534,7 @@ export function getLanguages(voices: IVoices[], preferredLanguage: string[] | st
 
 /**
  * Parse and extract SpeechSynthesisVoices,
- * @returns IVoices[]
+ * @returns ReadiumSpeechVoice[]
  */
 export async function getVoices(preferredLanguage?: string[] | string, localization?: string) {
 
