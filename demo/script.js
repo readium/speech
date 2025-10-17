@@ -1,8 +1,7 @@
 
-import { voicesSelection } from "../build/mjs/index.js";
-const { getSpeechSynthesisVoices, parseSpeechSynthesisVoices, filterOnNovelty, filterOnVeryLowQuality,
+import { getSpeechSynthesisVoices, parseSpeechSynthesisVoices, filterOnNovelty, filterOnVeryLowQuality,
   filterOnRecommended, sortByLanguage, sortByQuality, getVoices, groupByKindOfVoices, groupByRegions,
-  getLanguages, filterOnOfflineAvailability, listLanguages, filterOnGender, filterOnLanguage } = voicesSelection;
+  getLanguages, filterOnOfflineAvailability, listLanguages, filterOnGender, filterOnLanguage } from "../build/index.js";
 
 import * as lit from './lit-html_3-2-0_esm.js'
 const { html, render } = lit;
