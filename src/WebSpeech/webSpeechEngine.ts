@@ -24,8 +24,9 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   // Enhanced properties for cross-browser compatibility
   private resumeInfinityTimer?: number;
-  private isPausedInternal: boolean = false;
   private isSpeakingInternal: boolean = false;
+  private isPausedInternal: boolean = false;
+  private isAndroidPaused: boolean = false; // Explicitly tracks Android's paused state
   private initialized: boolean = false;
   private maxLengthExceeded: "error" | "none" | "warn" = "warn";
   private utterancesBeingCancelled: boolean = false; // Flag to track if utterances are being cancelled
@@ -288,6 +289,11 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.setState("playing");
       this.emitEvent({ type: "start" });
 
+      // Clear Android paused state when new utterance actually starts
+      if (this.patches.isAndroid && this.isAndroidPaused) {
+        this.isAndroidPaused = false;
+      }
+
       const shouldUseResumeInfinity = this.shouldUseResumeInfinity();
       if (shouldUseResumeInfinity) {
         this.startResumeInfinity(utterance);
@@ -320,6 +326,11 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     };
 
     utterance.onerror = (event) => {
+      // Skip error handling for Android pause operations
+      if (event.error === "interrupted" && this.patches.isAndroid && this.isAndroidPaused) {
+        return;
+      }
+
       this.isSpeakingInternal = false;
       this.isPausedInternal = false;
       this.stopResumeInfinity();
@@ -416,10 +427,12 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   pause(): void {
     if (this.playbackState === "playing") {
-      // Call the appropriate method based on platform
-      this.patches.isAndroid 
-        ? this.speechSynthesis.cancel()  // Android
-        : this.speechSynthesis.pause();  // Other platforms
+      if (this.patches.isAndroid) {
+        this.isAndroidPaused = true;
+        this.speechSynthesis.cancel();
+      } else {
+        this.speechSynthesis.pause();
+      }
       
       // Common state updates
       this.isPausedInternal = true;
@@ -439,7 +452,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
       // Platform-specific resumption
       this.patches.isAndroid
-        ? this.speak(this.currentUtteranceIndex)  // Android: restart current utterance
+        ? this.speak(this.currentUtteranceIndex)  // Android: restart current utterance (flag cleared in onstart)
         : this.speechSynthesis.resume();          // Other platforms: resume normally
     }
   }
@@ -447,6 +460,12 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   stop(): void {
     this.speechSynthesis.cancel();
     this.currentUtteranceIndex = 0;  // Reset to beginning when stopped
+    
+    // Reset Android paused state when stopping
+    if (this.patches.isAndroid) {
+      this.isAndroidPaused = false;
+    }
+    
     this.setState("idle");
     this.emitEvent({ type: "stop" });  // Emit immediately
   }
