@@ -331,9 +331,11 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
         return;
       }
 
+      // Common cleanup
       this.isSpeakingInternal = false;
       this.isPausedInternal = false;
       this.stopResumeInfinity();
+      this.setState("idle");
 
       // Fatal errors that break playback completely - reset to beginning
       const fatalErrors = ["synthesis-unavailable", "audio-hardware", "voice-unavailable"];
@@ -342,14 +344,19 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
         this.currentUtteranceIndex = 0;
       }
 
-      this.setState("idle");
-      this.emitEvent({
-        type: "error",
-        detail: {
-          error: event.error,  // Preserve original error type
-          message: `Speech synthesis error: ${event.error}`
-        }
-      });
+      // Handle interrupted/canceled as stop events
+      if (event.error === "interrupted" || event.error === "canceled") {
+        this.emitEvent({ type: "stop" });
+      } else {
+        // All other errors
+        this.emitEvent({
+          type: "error",
+          detail: {
+            error: event.error,  // Preserve original error type
+            message: `Speech synthesis error: ${event.error}`
+          }
+        });
+      }
     };
 
     utterance.onpause = () => {

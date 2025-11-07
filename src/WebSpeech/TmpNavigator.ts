@@ -60,12 +60,14 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
       this.emitEvent({ type: "resume" });
     });
 
+    this.engine.on("stop", () => {
+      this.setNavigatorState("idle");
+      this.emitEvent({ type: "stop" });
+    });
+
     this.engine.on("error", (event) => {
       this.setNavigatorState("idle");
-      // Only emit error for genuine errors, not interruptions during navigation
-      if (event.detail.error !== "interrupted" && event.detail.error !== "canceled") {
-        this.emitEvent(event);
-      }
+      this.emitEvent(event);
     });
 
     this.engine.on("ready", () => {
