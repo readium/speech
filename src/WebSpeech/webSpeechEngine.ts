@@ -416,34 +416,31 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   pause(): void {
     if (this.playbackState === "playing") {
-      // Android-specific handling: pause causes speech to end but not fire end-event
-      // so we simply do it manually instead of pausing
-      if (this.patches.isAndroid) {
-        this.speechSynthesis.cancel();
-        return;
-      }
-  
-      this.speechSynthesis.pause();
-      // in some cases, pause does not update the internal state,
-      // so we need to update it manually using an own state
+      // Call the appropriate method based on platform
+      this.patches.isAndroid 
+        ? this.speechSynthesis.cancel()  // Android
+        : this.speechSynthesis.pause();  // Other platforms
+      
+      // Common state updates
       this.isPausedInternal = true;
       this.isSpeakingInternal = false;
       this.setState("paused");
-      // Emit pause event since speechSynthesis.pause() may not trigger utterance.onpause
       this.emitEvent({ type: "pause" });
     }
   }
 
   resume(): void {
-    if (this.playbackState === "paused") {
-      this.speechSynthesis.resume();
-      // in some cases, resume does not update the internal state,
-      // so we need to update it manually using an own state
+    if (this.playbackState === "paused" && (this.currentUtteranceIndex < this.currentUtterances.length)) {
+      // Common state updates
       this.isPausedInternal = false;
       this.isSpeakingInternal = true;
       this.setState("playing");
-      // Emit resume event since speechSynthesis.resume() may not trigger utterance.onresume
       this.emitEvent({ type: "resume" });
+
+      // Platform-specific resumption
+      this.patches.isAndroid
+        ? this.speak(this.currentUtteranceIndex)  // Android: restart current utterance
+        : this.speechSynthesis.resume();          // Other platforms: resume normally
     }
   }
 
