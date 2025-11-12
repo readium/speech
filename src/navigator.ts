@@ -46,8 +46,11 @@ export interface ReadiumSpeechNavigator {
   
   // Playback Parameters
   setRate(rate: number): void;
+  getRate(): number;
   setPitch(pitch: number): void;
+  getPitch(): number;
   setVolume(volume: number): void;
+  getVolume(): number;
   
   // State
   getState(): ReadiumSpeechPlaybackState;

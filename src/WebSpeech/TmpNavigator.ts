@@ -203,12 +203,24 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
     this.engine.setRate(rate);
   }
 
+  getRate(): number {
+    return this.engine.getRate();
+  }
+
   setPitch(pitch: number): void {
     this.engine.setPitch(pitch);
   }
 
+  getPitch(): number {
+    return this.engine.getPitch();
+  }
+
   setVolume(volume: number): void {
     this.engine.setVolume(volume);
+  }
+
+  getVolume(): number {
+    return this.engine.getVolume();
   }
 
   // State - Navigator is the single source of truth

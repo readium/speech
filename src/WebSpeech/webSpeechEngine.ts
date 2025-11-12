@@ -482,12 +482,24 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.rate = Math.max(0.1, Math.min(10, rate));
   }
 
+  getRate(): number {
+    return this.rate;
+  }
+
   setPitch(pitch: number): void {
     this.pitch = Math.max(0, Math.min(2, pitch));
   }
 
+  getPitch(): number {
+    return this.pitch;
+  }
+
   setVolume(volume: number): void {
     this.volume = Math.max(0, Math.min(1, volume));
+  }
+
+  getVolume(): number {
+    return this.volume;
   }
 
   // State
