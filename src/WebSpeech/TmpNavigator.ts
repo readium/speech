@@ -166,14 +166,6 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
     this.emitEvent({ type: "stop" });  // Then emit event for UI update
   }
 
-  async togglePlayPause(): Promise<void> {
-    if (this.navigatorState === "playing") {
-      this.pause();
-    } else {
-      await this.play();
-    }
-  }
-
   // Navigation - Navigator coordinates with proper state management
   async next(forcePlay: boolean = false): Promise<boolean> {
     const currentIndex = this.getCurrentUtteranceIndex();

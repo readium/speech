@@ -58,6 +58,37 @@ console.log(voices);
 
 ```
 
+### Basic Usage
+
+Here's how to get started with the Readium Speech library:
+
+```typescript
+import { WebSpeechReadAloudNavigator } from "readium-speech";
+
+// Initialize the navigator with default WebSpeech engine
+const navigator = new WebSpeechReadAloudNavigator();
+
+// Load content to be read
+navigator.loadContent([
+  { text: "Hello, this is the first sentence.", language: "en-US" },
+  { text: "And this is the second sentence.", language: "en-US" }
+]);
+
+// Set up event listeners
+navigator.on("start", () => console.log("Playback started"));
+navigator.on("end", () => console.log("Playback finished"));
+
+// Start playback
+navigator.play().catch(console.error);
+
+// Later, you can pause, resume, or stop
+// navigator.pause();
+// navigator.stop();
+
+// Clean up when done
+// navigator.destroy();
+```
+
 ## Voices API
 
 ### Interface 
@@ -166,7 +197,6 @@ interface ReadiumSpeechNavigator {
   play(): Promise<void>;
   pause(): void;
   stop(): void;
-  togglePlayPause(): Promise<void>;
   
   // Navigation
   next(): Promise<boolean>;

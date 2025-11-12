@@ -38,7 +38,6 @@ export interface ReadiumSpeechNavigator {
   play(): Promise<void>;
   pause(): void;
   stop(): void;
-  togglePlayPause(): Promise<void>;
   
   // Navigation
   next(): Promise<boolean>; 
