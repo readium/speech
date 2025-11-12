@@ -63,7 +63,7 @@ console.log(voices);
 ### Interface 
 
 ```
-export interface IVoices {
+export interface ReadiumSpeechVoices {
     label: string;
     voiceURI: string;
     name: string;
@@ -84,24 +84,24 @@ export interface ILanguages {
 }
 ```
 
-#### Parse and Extract IVoices from speechSynthesis WebAPI
+#### Parse and Extract ReadiumSpeechVoices from speechSynthesis WebAPI
 ```
-function getVoices(preferredLanguage?: string[] | string, localization?: string): Promise<IVoices[]>
+function getVoices(preferredLanguage?: string[] | string, localization?: string): Promise<ReadiumSpeechVoices[]>
 ```
 
-#### List languages from IVoices
+#### List languages from ReadiumSpeechVoices
 ```
-function getLanguages(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string | undefined): ILanguages[]
+function getLanguages(voices: ReadiumSpeechVoices[], preferredLanguage?: string[] | string, localization?: string | undefined): ILanguages[]
 ```
 
 #### helpers
 
 ```
-function listLanguages(voices: IVoices[], localization?: string): ILanguages[]
+function listLanguages(voices: ReadiumSpeechVoices[], localization?: string): ILanguages[]
 
-function ListRegions(voices: IVoices[], localization?: string): ILanguages[]
+function ListRegions(voices: ReadiumSpeechVoices[], localization?: string): ILanguages[]
 
-function parseSpeechSynthesisVoices(speechSynthesisVoices: SpeechSynthesisVoice[]): IVoices[]
+function parseSpeechSynthesisVoices(speechSynthesisVoices: SpeechSynthesisVoice[]): ReadiumSpeechVoices[]
 
 function getSpeechSynthesisVoices(): Promise<SpeechSynthesisVoice[]>
 ```
@@ -109,39 +109,39 @@ function getSpeechSynthesisVoices(): Promise<SpeechSynthesisVoice[]>
 #### groupBy
 
 ```
-function groupByKindOfVoices(allVoices: IVoices[]): TGroupVoices
+function groupByKindOfVoices(allVoices: ReadiumSpeechVoices[]): TGroupVoices
 
-function groupByRegions(voices: IVoices[], language: string, preferredRegions?: string[] | string, localization?: string): TGroupVoices
+function groupByRegions(voices: ReadiumSpeechVoices[], language: string, preferredRegions?: string[] | string, localization?: string): TGroupVoices
 
-function groupByLanguage(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string): TGroupVoices
+function groupByLanguage(voices: ReadiumSpeechVoices[], preferredLanguage?: string[] | string, localization?: string): TGroupVoices
 ```
 
 #### sortBy
 
 ```
-function sortByLanguage(voices: IVoices[], preferredLanguage?: string[] | string): IVoices[]
+function sortByLanguage(voices: ReadiumSpeechVoices[], preferredLanguage?: string[] | string): ReadiumSpeechVoices[]
 
-function sortByRegion(voices: IVoices[], preferredRegions?: string[] | string, localization?: string | undefined): IVoices[]
+function sortByRegion(voices: ReadiumSpeechVoices[], preferredRegions?: string[] | string, localization?: string | undefined): ReadiumSpeechVoices[]
 
-function sortByGender(voices: IVoices[], genderFirst: TGender): IVoices[]
+function sortByGender(voices: ReadiumSpeechVoices[], genderFirst: TGender): ReadiumSpeechVoices[]
 
-function sortByName(voices: IVoices[]): IVoices[]
+function sortByName(voices: ReadiumSpeechVoices[]): ReadiumSpeechVoices[]
 
-function sortByQuality(voices: IVoices[]): IVoices[]
+function sortByQuality(voices: ReadiumSpeechVoices[]): ReadiumSpeechVoices[]
 ```
 
 #### filterOn
 
 ```
-function filterOnRecommended(voices: IVoices[], _recommended?: IRecommended[]): TReturnFilterOnRecommended
+function filterOnRecommended(voices: ReadiumSpeechVoices[], _recommended?: IRecommended[]): TReturnFilterOnRecommended
 
-function filterOnVeryLowQuality(voices: IVoices[]): IVoices[]
+function filterOnVeryLowQuality(voices: ReadiumSpeechVoices[]): ReadiumSpeechVoices[]
 
-function filterOnNovelty(voices: IVoices[]): IVoices[]
+function filterOnNovelty(voices: ReadiumSpeechVoices[]): ReadiumSpeechVoices[]
 
-function filterOnQuality(voices: IVoices[], quality: TQuality | TQuality[]): IVoices[]
+function filterOnQuality(voices: ReadiumSpeechVoices[], quality: TQuality | TQuality[]): ReadiumSpeechVoices[]
 
-function filterOnLanguage(voices: IVoices[], language: string | string[]): IVoices[]
+function filterOnLanguage(voices: ReadiumSpeechVoices[], language: string | string[]): ReadiumSpeechVoices[]
 
-function filterOnGender(voices: IVoices[], gender: TGender): IVoices[]
+function filterOnGender(voices: ReadiumSpeechVoices[], gender: TGender): ReadiumSpeechVoices[]
 ```
