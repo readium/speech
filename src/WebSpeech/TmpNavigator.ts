@@ -84,6 +84,10 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
     this.engine.on("mark", (event) => {
       this.emitEvent(event);
     });
+    
+    this.engine.on("positionchanged", (event) => {
+      this.emitEvent(event);
+    });
 
     this.engine.on("voiceschanged", () => {
       this.emitEvent({ type: "voiceschanged" });
@@ -171,29 +175,41 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
   }
 
   // Navigation - Navigator coordinates with proper state management
-  async next(): Promise<boolean> {
+  async next(forcePlay: boolean = false): Promise<boolean> {
     const currentIndex = this.getCurrentUtteranceIndex();
     const totalCount = this.engine.getUtteranceCount();
 
-    if (currentIndex < totalCount - 1) {
-      this.engine.speak(currentIndex + 1);
-      return true;
+    if (currentIndex >= totalCount - 1) return false;
+
+    if (this.navigatorState === "paused" && !forcePlay) {
+      this.engine.setCurrentUtteranceIndex(currentIndex + 1);
+    } else {
+      this.setNavigatorState("playing");
+      await this.engine.speak(currentIndex + 1);
     }
-    return false;
+    return true;
   }
 
-  async previous(): Promise<boolean> {
+  async previous(forcePlay: boolean = false): Promise<boolean> {
     const currentIndex = this.getCurrentUtteranceIndex();
+    if (currentIndex <= 0) return false;
 
-    if (currentIndex > 0) {
-      this.engine.speak(currentIndex - 1);
-      return true;
+    if (this.navigatorState === "paused" && !forcePlay) {
+      this.engine.setCurrentUtteranceIndex(currentIndex - 1);
+    } else {
+      this.setNavigatorState("playing");
+      await this.engine.speak(currentIndex - 1);
     }
-    return false;
+    return true;
   }
 
-  jumpTo(utteranceIndex: number): void {
-    if (utteranceIndex >= 0 && utteranceIndex < this.contentQueue.length) {
+  jumpTo(utteranceIndex: number, forcePlay: boolean = false): void {
+    if (utteranceIndex < 0 || utteranceIndex >= this.contentQueue.length) return;
+
+    if (this.navigatorState === "paused" && !forcePlay) {
+      this.engine.setCurrentUtteranceIndex(utteranceIndex);
+    } else {
+      this.setNavigatorState("playing");
       this.engine.speak(utteranceIndex);
     }
   }

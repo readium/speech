@@ -157,6 +157,17 @@ navigator.on("error", (event) => {
   viewRender();
 });
 
+navigator.on("positionchanged", (event) => {
+  // Update the UI when the position changes programmatically
+  const newPosition = (event.detail?.position ?? 0) + 1; // Convert to 1-based index for display
+  lastNavigatorPosition = newPosition;
+  const input = document.getElementById("utterance-index");
+  if (input && input !== document.activeElement) {
+    input.value = newPosition;
+  }
+  viewRender();
+});
+
 navigator.on("boundary", (event) => {
   // Handle word boundaries for highlighting
   if (event.detail.name === "word") {

@@ -5,18 +5,19 @@ export type ReadiumSpeechPlaybackState = "playing" | "paused" | "idle" | "loadin
 
 export interface ReadiumSpeechPlaybackEvent {
   type: 
-    | "start"     // Playback started
-    | "pause"     // Playback paused
-    | "resume"    // Playback resumed
-    | "end"       // Playback ended naturally
-    | "stop"      // Playback stopped manually
-    | "error"     // An error occurred
-    | "boundary"  // Reached a word/sentence boundary
-    | "mark"      // Reached a named mark in SSML
-    | "idle"      // No content loaded
-    | "loading"   // Loading content
-    | "ready"     // Ready to play
-    | "voiceschanged"; // Available voices changed
+    | "start"           // Playback started
+    | "pause"           // Playback paused
+    | "resume"          // Playback resumed
+    | "end"             // Playback ended naturally
+    | "stop"            // Playback stopped manually
+    | "error"           // An error occurred
+    | "boundary"        // Reached a word/sentence boundary
+    | "mark"            // Reached a named mark in SSML
+    | "idle"            // No content loaded
+    | "loading"         // Loading content
+    | "ready"           // Ready to play
+    | "voiceschanged"   // Available voices changed
+    | "positionchanged"; // Playback position changed
   detail?: any;  // Event-specific data
 }
 

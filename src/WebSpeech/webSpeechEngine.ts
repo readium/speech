@@ -27,6 +27,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private isSpeakingInternal: boolean = false;
   private isPausedInternal: boolean = false;
   private isAndroidPaused: boolean = false; // Explicitly tracks Android's paused state
+  private pausedAtUtteranceIndex: number | null = null; // Tracks which utterance was playing when paused
   private initialized: boolean = false;
   private maxLengthExceeded: "error" | "none" | "warn" = "warn";
   private utterancesBeingCancelled: boolean = false; // Flag to track if utterances are being cancelled
@@ -434,6 +435,9 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   pause(): void {
     if (this.playbackState === "playing") {
+      // Store the current index when pausing
+      this.pausedAtUtteranceIndex = this.currentUtteranceIndex;
+      
       if (this.patches.isAndroid) {
         this.isAndroidPaused = true;
         this.speechSynthesis.cancel();
@@ -457,10 +461,20 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.setState("playing");
       this.emitEvent({ type: "resume" });
 
-      // Platform-specific resumption
-      this.patches.isAndroid
-        ? this.speak(this.currentUtteranceIndex)  // Android: restart current utterance (flag cleared in onstart)
-        : this.speechSynthesis.resume();          // Other platforms: resume normally
+      // Check if we need to restart or can resume
+      const shouldRestart = this.patches.isAndroid || 
+                          this.pausedAtUtteranceIndex !== this.currentUtteranceIndex;
+      
+      if (shouldRestart) {
+        // If index changed or on Android, start fresh from the new index
+        this.speak(this.currentUtteranceIndex);
+      } else {
+        // Otherwise, resume from where we left off
+        this.speechSynthesis.resume();
+      }
+      
+      // Reset the paused index
+      this.pausedAtUtteranceIndex = null;
     }
   }
 
@@ -509,6 +523,32 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   getCurrentUtteranceIndex(): number {
     return this.currentUtteranceIndex;
+  }
+
+  setCurrentUtteranceIndex(index: number): void {
+    // Validate the new index
+    if (index < 0 || index >= this.currentUtterances.length) {
+      throw new Error("Invalid utterance index");
+    }
+
+    // If the index isn't changing, do nothing
+    if (index === this.currentUtteranceIndex) {
+      return;
+    }
+
+    // First, handle any ongoing speech
+    if (!this.isPausedInternal && this.isSpeakingInternal) {
+      this.cancelCurrentSpeech();
+    }
+
+    // Only after ensuring any ongoing speech is cancelled, update the index
+    this.currentUtteranceIndex = index;
+    
+    // Only after all state changes and side effects, emit the event
+    this.emitEvent({ 
+      type: "positionchanged",
+      detail: { position: index }
+    });
   }
 
   getUtteranceCount(): number {

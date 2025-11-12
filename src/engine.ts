@@ -28,6 +28,7 @@ export interface ReadiumSpeechPlaybackEngine {
   // State
   getState(): ReadiumSpeechPlaybackState;
   getCurrentUtteranceIndex(): number;
+  setCurrentUtteranceIndex(index: number): void;
   getUtteranceCount(): number;
   
   // Events
