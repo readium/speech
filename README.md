@@ -34,21 +34,26 @@ It demonstrates the following features:
 
 ## QuickStart
 
-`npm install https://github.com/readium/speech#build`
+At the moment, the new alpha version of the library is not published on npm, so you need to clone the repository and build it yourself.
 
 ```
-import { voicesSelection} from "readium-speech";
-console.log(voicesSelection);
+git clone https://github.com/readium/speech.git
 
-// or with cjs only : 
-const { getVoices } = require("readium-speech/cjs/voices.js");
+```
+
+```
+cd speech
+npm install
+npm run build
+```
+
+You can then link the library to your project, for example using `npm link`.
+
+```
+import { getVoices } from "readium-speech";
 console.log(getVoices);
 
-// or with esm mjs :
-import { getVoices } from "readium-speech/mjs/voices.js";
-console.log(getVoices);
-
-const voices = await voicesSelection.getVoices();
+const voices = await getVoices();
 console.log(voices);
 
 ```
