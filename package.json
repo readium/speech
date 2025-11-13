@@ -5,12 +5,12 @@
   "main": "build/index.js",
   "module": "build/index.js",
   "scripts": {
-    "test": "ava test/**/*.test.ts",
+    "test": "npm run build && ava test/WebSpeechVoiceManager.test.ts",
     "clean": "rimraf ./build",
     "types": "tsc -p tsconfig-types.json",
     "build": "vite build",
     "start": "node build/index.js",
-    "extract-json-data": "node script/extract-json.mjs",
+    "extract-json-data": "node script/build-voices.mjs",
     "serve": "http-server ./",
     "watch": "tsc -w"
   },

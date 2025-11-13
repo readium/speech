@@ -1,0 +1,987 @@
+import test, { type ExecutionContext } from "ava";
+import { WebSpeechVoiceManager, IVoice } from "../build/index.js";
+
+// Mock Intl.DisplayNames for testing
+class MockDisplayNames {
+  private options: any;
+  
+  constructor(_: any, options: any) {
+    this.options = options;
+  }
+  
+  of(code: string): string {
+    if (this.options.type === "language") {
+      return `${code.toUpperCase()}_LANG`;
+    }
+    if (this.options.type === "region") {
+      return `${code.toUpperCase()}_REGION`;
+    }
+    return code;
+  }
+}
+
+interface TestContext {
+  manager: WebSpeechVoiceManager;
+}
+
+
+// Mock data
+const mockVoices = [
+  {
+    voiceURI: "voice1",
+    name: "Voice 1",
+    lang: "en-US",
+    localService: true,
+    default: true
+  },
+  {
+    voiceURI: "voice2",
+    name: "Voice 2",
+    lang: "fr-FR",
+    localService: true,
+    default: false
+  },
+  {
+    voiceURI: "voice3",
+    name: "Voice 3",
+    lang: "es-ES",
+    localService: true,
+    default: false
+  },
+  {
+    voiceURI: "novelty-voice",
+    name: "Novelty Voice",
+    lang: "en-US",
+    localService: true,
+    default: false
+  },
+  {
+    voiceURI: "low-quality-voice",
+    name: "Low Quality Voice",
+    lang: "en-US",
+    localService: true,
+    default: false
+  }
+];
+
+// Store original globals
+const originalNavigator = globalThis.navigator;
+const originalSpeechSynthesis = globalThis.speechSynthesis;
+
+// Use the test function with context
+type TestFn = (t: ExecutionContext<TestContext>) => void | Promise<void>;
+const testWithContext = test as unknown as {
+  (name: string, fn: TestFn): void;
+  afterEach: {
+    always: (fn: (t: ExecutionContext<TestContext>) => void | Promise<void>) => void;
+  };
+  beforeEach: (fn: (t: ExecutionContext<TestContext>) => void | Promise<void>) => void;
+};
+
+// Helper function to create test voice objects that match IVoice interface
+function createTestVoice(overrides: Partial<IVoice> = {}): IVoice {
+  return {
+    label: overrides.name || "Test Voice",
+    name: overrides.name || "Test Voice",
+    voiceURI: `voice-${overrides.name || "test"}`,
+    language: "en-US",
+    ...overrides
+  };
+}
+
+testWithContext.beforeEach(async (t: ExecutionContext<TestContext>) => {
+  // Create a fresh instance for each test
+  (WebSpeechVoiceManager as any).instance = undefined;
+  const manager = WebSpeechVoiceManager.getInstance();
+  
+  // Mock the window object if it doesn't exist
+  if (typeof (globalThis as any).window === "undefined") {
+    (globalThis as any).window = globalThis;
+  }
+
+  // Mock the global objects
+  Object.defineProperty(globalThis, "navigator", {
+    value: {
+      ...originalNavigator,
+      languages: ["en-US", "fr-FR"]
+    },
+    configurable: true,
+    writable: true
+  });
+
+  // Create a mock speechSynthesis object that matches the browser's API
+  const mockSpeechSynthesis = {
+    getVoices: () => mockVoices,
+    onvoiceschanged: null as (() => void) | null,
+    addEventListener: function(event: string, callback: () => void) {
+      if (event === "voiceschanged") {
+        this.onvoiceschanged = callback;
+      }
+    },
+    removeEventListener: function(event: string) {
+      if (event === "voiceschanged") {
+        this.onvoiceschanged = null;
+      }
+    },
+    // Helper to trigger the voiceschanged event
+    _triggerVoicesChanged: function() {
+      if (typeof this.onvoiceschanged === "function") {
+        this.onvoiceschanged();
+      }
+    }
+  };
+  
+  // Mock the window.speechSynthesis object
+  Object.defineProperty(globalThis, "speechSynthesis", {
+    value: mockSpeechSynthesis,
+    configurable: true,
+    writable: true
+  });
+  
+  // Also set it on window for good measure
+  Object.defineProperty(globalThis.window, "speechSynthesis", {
+    value: mockSpeechSynthesis,
+    configurable: true,
+    writable: true
+  });
+  
+  // Mock Intl.DisplayNames
+  Object.defineProperty(globalThis, "Intl", {
+    value: {
+      ...Intl,
+      DisplayNames: MockDisplayNames
+    },
+    configurable: true,
+    writable: true
+  });
+  
+  // Mock the window.speechSynthesis.getVoices() to return our mock voices
+  Object.defineProperty(globalThis.window, "speechSynthesis", {
+    value: mockSpeechSynthesis,
+    configurable: true,
+    writable: true
+  });
+
+  try {
+    // Initialize the manager
+    const initPromise = manager.initialize();
+    
+    // Immediately trigger the voiceschanged event to simulate the browser behavior
+    mockSpeechSynthesis._triggerVoicesChanged();
+    
+    // Wait for initialization to complete
+    await initPromise;
+    
+    // Store the manager in the test context
+    t.context.manager = manager;
+  } catch (error) {
+    console.error("Failed to initialize WebSpeechVoiceManager:", error);
+    throw error;
+  }
+});
+
+testWithContext.afterEach.always((t: ExecutionContext<TestContext>) => {
+  // Clean up
+  (WebSpeechVoiceManager as any).instance = undefined;
+  
+  // Restore original globals
+  Object.defineProperty(globalThis, "navigator", {
+    value: originalNavigator,
+    configurable: true,
+    writable: true
+  });
+  
+  Object.defineProperty(globalThis, "speechSynthesis", {
+    value: originalSpeechSynthesis,
+    configurable: true,
+    writable: true
+  });
+});
+
+testWithContext("getInstance: returns singleton instance", (t: ExecutionContext<TestContext>) => {
+  const instance1 = WebSpeechVoiceManager.getInstance();
+  const instance2 = WebSpeechVoiceManager.getInstance();
+  t.is(instance1, instance2);
+});
+
+testWithContext("initialize: loads voices and sets initialized flag", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  t.true((manager as any).initialized);
+  t.is((manager as any).voices.length, mockVoices.length);
+});
+
+testWithContext("getVoices: returns all voices when no filters are provided", (t: ExecutionContext<TestContext>) => {
+  const voices = t.context.manager.getVoices();
+  t.is(voices.length, mockVoices.length);
+});
+
+testWithContext("getVoices: combines all filters", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  (manager as any).voices = [
+    createTestVoice({ name: "English Male High", language: "en-US", gender: "male", quality: ["high"], provider: "Google", offlineAvailability: true }),
+    createTestVoice({ name: "English Female Normal", language: "en-US", gender: "female", quality: ["normal"], provider: "Microsoft", offlineAvailability: false }),
+    createTestVoice({ name: "French Male Low", language: "fr-FR", gender: "male", quality: ["low"], provider: "Google", offlineAvailability: true }),
+    createTestVoice({ name: "French Female High", language: "fr-FR", gender: "female", quality: ["high"], provider: "Amazon", offlineAvailability: false }),
+    createTestVoice({ name: "Spanish Male Normal", language: "es-ES", gender: "male", quality: ["normal"], provider: "Microsoft", offlineAvailability: true })
+  ];
+  
+  // Test with all filters combined
+  const filtered = manager.getVoices({ 
+    language: ["en", "fr"],
+    gender: "male",
+    quality: ["high", "normal"],
+    provider: "Google",
+    offlineOnly: true,
+    excludeNovelty: true,
+    excludeVeryLowQuality: true
+  });
+  
+  t.is(filtered.length, 1);
+  t.true(filtered.every(v => 
+    (v.language.startsWith("en") || v.language.startsWith("fr")) &&
+    v.gender === "male" &&
+    (v.quality?.includes("high") || v.quality?.includes("normal")) &&
+    v.provider === "Google" &&
+    v.offlineAvailability === true
+  ));
+});
+
+testWithContext("getVoices: handles empty navigator.languages", (t) => {
+  const manager = t.context.manager;
+  
+  // Create test voices
+  const testVoices = [
+    { voiceURI: "voice1", name: "Voice 1", language: "en-US" },
+    { voiceURI: "voice2", name: "Voice 2", language: "fr-FR" }
+  ];
+  
+  // Replace the voices in the manager
+  (manager as any).voices = testVoices;
+  
+  // Mock empty navigator.languages
+  const originalLanguages = [...(globalThis.navigator as any).languages];
+  (globalThis.navigator as any).languages = [];
+  
+  try {
+    const voices = manager.getVoices();
+    
+    // Should still return all voices even with empty languages
+    t.is(voices.length, 2);
+  } finally {
+    // Restore original languages
+    (globalThis.navigator as any).languages = originalLanguages;
+  }
+});
+
+testWithContext("getVoices: handles undefined navigator.languages", (t) => {
+  const manager = t.context.manager;
+  
+  // Create test voices
+  const testVoices = [
+    { voiceURI: "voice1", name: "Voice 1", language: "en-US" },
+    { voiceURI: "voice2", name: "Voice 2", language: "fr-FR" }
+  ];
+  
+  // Replace the voices in the manager
+  (manager as any).voices = testVoices;
+  
+  // Mock undefined navigator.languages
+  const originalLanguages = (globalThis.navigator as any).languages;
+  delete (globalThis.navigator as any).languages;
+  
+  try {
+    const voices = manager.getVoices();
+    
+    // Should still return all voices even with undefined languages
+    t.is(voices.length, 2);
+  } finally {
+    // Restore original languages
+    (globalThis.navigator as any).languages = originalLanguages;
+  }
+});
+
+
+testWithContext("getVoices: returns empty array when no voices are available", (t) => {
+  const manager = t.context.manager;
+  
+  // Replace voices with empty array
+  (manager as any).browserVoices = [];
+  (manager as any).voices = [];
+  (manager as any).initialized = true; // Force initialized to true to test getVoices directly
+  
+  // Should return empty array when no voices are available
+  const voices = manager.getVoices();
+  t.deepEqual(voices, []);
+});
+
+testWithContext("getVoices: filters by language", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Single language
+  let voices = manager.getVoices({ language: "en" });
+  t.true(voices.length > 0);
+  t.true(voices.every((v: IVoice) => v.language.startsWith("en")));
+  
+  // Multiple languages
+  voices = manager.getVoices({ language: ["en", "fr"] });
+  t.true(voices.length > 1);
+  t.true(voices.some((v: IVoice) => v.language.startsWith("en")));
+  t.true(voices.some((v: IVoice) => v.language.startsWith("fr")));
+});
+
+testWithContext("getVoices: filters by quality", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Mock quality property on voices
+  const voices = manager.getVoices();
+  const voicesWithQuality = voices.map((v: IVoice, i: number) => ({
+    ...v,
+    quality: i % 2 === 0 ? ["high"] : ["low"]
+  }));
+  
+  // Replace the voices in the manager
+  (manager as any).voices = voicesWithQuality;
+  
+  const highQualityVoices = manager.getVoices({ quality: "high" });
+  t.true(highQualityVoices.length > 0);
+  t.true(highQualityVoices.every((v: IVoice) => v.quality?.includes("high") ?? false));
+});
+
+testWithContext("filterVoices: filters by language", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices
+  const testVoices = [
+    createTestVoice({ name: "English Voice 1", language: "en-US" }),
+    createTestVoice({ name: "English Voice 2", language: "en-GB" }),
+    createTestVoice({ name: "French Voice", language: "fr-FR" }),
+    createTestVoice({ name: "Spanish Voice", language: "es-ES" })
+  ];
+  
+  const englishVoices = manager.filterVoices(testVoices, { language: "en" });
+  t.is(englishVoices.length, 2);
+  t.true(englishVoices.every(v => v.language.startsWith("en")));
+  
+  const multiLangVoices = manager.filterVoices(testVoices, { language: ["en", "fr"] });
+  t.is(multiLangVoices.length, 3);
+  t.true(multiLangVoices.every(v => v.language.startsWith("en") || v.language.startsWith("fr")));
+});
+
+testWithContext("filterVoices: filters by gender", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with different genders
+  const testVoices = [
+    createTestVoice({ name: "Male Voice 1", language: "en-US", gender: "male" }),
+    createTestVoice({ name: "Female Voice 1", language: "en-US", gender: "female" }),
+    createTestVoice({ name: "Male Voice 2", language: "en-US", gender: "male" }),
+    createTestVoice({ name: "Unknown Gender Voice", language: "en-US" })
+  ];
+  
+  const maleVoices = manager.filterVoices(testVoices, { gender: "male" });
+  t.is(maleVoices.length, 2);
+  t.true(maleVoices.every(v => v.gender === "male"));
+  
+  const femaleVoices = manager.filterVoices(testVoices, { gender: "female" });
+  t.is(femaleVoices.length, 1);
+  t.is(femaleVoices[0].gender, "female");
+});
+
+testWithContext("filterVoices: filters by quality array", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with different quality levels
+  const testVoices = [
+    createTestVoice({ name: "High Quality Voice", language: "en-US", quality: ["high"] }),
+    createTestVoice({ name: "Low Quality Voice", language: "en-US", quality: ["low"] }),
+    createTestVoice({ name: "Normal Quality Voice", language: "en-US", quality: ["normal"] }),
+    createTestVoice({ name: "Very High Quality Voice", language: "en-US", quality: ["veryHigh"] }),
+    createTestVoice({ name: "Multi Quality Voice", language: "en-US", quality: ["high", "normal"] }),
+    createTestVoice({ name: "No Quality Voice", language: "en-US", quality: undefined })
+  ];
+  
+  // Test single quality filter
+  const highQualityVoices = manager.filterVoices(testVoices, { quality: "high" });
+  t.is(highQualityVoices.length, 2); // high and multi quality voices
+  
+  // Test multiple quality filter
+  const multiQualityVoices = manager.filterVoices(testVoices, { quality: ["high", "normal"] });
+  t.is(multiQualityVoices.length, 3); // high, normal, and multi quality voices
+  
+  // Test that undefined quality voices are filtered out
+  const filteredVoices = manager.filterVoices(testVoices, { quality: "high" });
+  t.false(filteredVoices.some(v => v.quality === undefined));
+});
+
+testWithContext("filterVoices: filters by offline availability", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with different offline availability
+  const testVoices = [
+    createTestVoice({ name: "Offline Voice 1", language: "en-US", offlineAvailability: true }),
+    createTestVoice({ name: "Online Voice 1", language: "en-US", offlineAvailability: false }),
+    createTestVoice({ name: "Offline Voice 2", language: "en-US", offlineAvailability: true }),
+    createTestVoice({ name: "Undefined Availability Voice", language: "en-US" })
+  ];
+  
+  const offlineVoices = manager.filterVoices(testVoices, { offlineOnly: true });
+  t.is(offlineVoices.length, 2);
+  t.true(offlineVoices.every(v => v.offlineAvailability === true));
+  
+  // Test that undefined and false values are filtered out
+  t.false(offlineVoices.some(v => v.offlineAvailability === false));
+  t.false(offlineVoices.some(v => v.offlineAvailability === undefined));
+});
+
+testWithContext("filterVoices: filters by provider", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with different providers
+  const testVoices = [
+    createTestVoice({ name: "Google Voice", language: "en-US", provider: "Google" }),
+    createTestVoice({ name: "Microsoft Voice", language: "en-US", provider: "Microsoft" }),
+    createTestVoice({ name: "Amazon Voice", language: "en-US", provider: "Amazon" }),
+    createTestVoice({ name: "Another Google Voice", language: "en-US", provider: "Google" })
+  ];
+  
+  const googleVoices = manager.filterVoices(testVoices, { provider: "Google" });
+  t.is(googleVoices.length, 2);
+  t.true(googleVoices.every(v => v.provider === "Google"));
+  
+  // Test case insensitive matching
+  const caseInsensitiveVoices = manager.filterVoices(testVoices, { provider: "google" });
+  t.is(caseInsensitiveVoices.length, 2);
+});
+
+testWithContext("filterVoices: combines multiple filters", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with various properties
+  const testVoices = [
+    createTestVoice({ name: "Male High Quality English", language: "en-US", gender: "male", quality: ["high"], provider: "Google" }),
+    createTestVoice({ name: "Female Low Quality English", language: "en-US", gender: "female", quality: ["low"], provider: "Google" }),
+    createTestVoice({ name: "Male High Quality French", language: "fr-FR", gender: "male", quality: ["high"], provider: "Microsoft" }),
+    createTestVoice({ name: "Female Normal Quality English", language: "en-US", gender: "female", quality: ["normal"], provider: "Google" })
+  ];
+  
+  // Filter by language and gender
+  const englishFemaleVoices = manager.filterVoices(testVoices, { 
+    language: "en", 
+    gender: "female" 
+  });
+  t.is(englishFemaleVoices.length, 2);
+  t.true(englishFemaleVoices.every(v => 
+    v.language.startsWith("en") && v.gender === "female"
+  ));
+  
+  // Filter by quality and provider
+  const highQualityGoogleVoices = manager.filterVoices(testVoices, { 
+    quality: "high", 
+    provider: "Google" 
+  });
+  t.is(highQualityGoogleVoices.length, 1);
+  t.is(highQualityGoogleVoices[0].name, "Male High Quality English");
+});
+
+testWithContext("filterVoices: handles edge cases", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  const testVoices = [
+    createTestVoice({ name: "Voice 1", language: "en-US", gender: "male", quality: ["high"] }),
+    createTestVoice({ name: "Voice 2", language: "fr-FR", gender: "female", quality: ["low"] }),
+    createTestVoice({ name: "Voice 3", language: "de-DE", gender: "male", quality: ["normal"] })
+  ];
+  
+  // Test empty filter arrays
+  const emptyLanguageFilter = manager.filterVoices(testVoices, { language: [] });
+  t.is(emptyLanguageFilter.length, 0);
+  
+  const emptyQualityFilter = manager.filterVoices(testVoices, { quality: [] });
+  t.is(emptyQualityFilter.length, 0);
+  
+  // Test case sensitivity for language
+  const caseSensitiveLanguage = manager.filterVoices(testVoices, { language: "EN-us" });
+  t.is(caseSensitiveLanguage.length, 1); // Should match due to toLowerCase()
+  
+  // Test invalid quality values - cast to any for testing invalid input
+  const invalidQualityFilter = manager.filterVoices(testVoices, { quality: "invalid" as any });
+  t.is(invalidQualityFilter.length, 0);
+});
+
+testWithContext("getLanguages: returns available languages with counts", (t: ExecutionContext<TestContext>) => {
+  const languages = t.context.manager.getLanguages();
+  t.true(Array.isArray(languages));
+  
+  // Check that we have at least one language
+  t.true(languages.length > 0);
+  
+  // Check structure of language entries
+  for (const lang of languages) {
+    t.truthy(lang.code);
+    t.truthy(lang.label);
+    t.true(typeof lang.count === "number");
+  }
+});
+
+testWithContext("getLanguages: handles empty voices array", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  (manager as any).voices = [];
+  
+  const languages = manager.getLanguages();
+  t.deepEqual(languages, []);
+});
+
+testWithContext("getRegions: returns available regions with counts", (t: ExecutionContext<TestContext>) => {
+  const regions = t.context.manager.getRegions();
+  t.true(Array.isArray(regions));
+  
+  // Check that we have at least one region
+  t.true(regions.length > 0);
+  
+  // Check structure of region entries
+  for (const region of regions) {
+    t.truthy(region.code);
+    t.truthy(region.label);
+    t.true(typeof region.count === "number");
+  }
+});
+
+testWithContext("getRegions: handles empty voices array", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  (manager as any).voices = [];
+  
+  const regions = manager.getRegions();
+  t.deepEqual(regions, []);
+});
+
+testWithContext("convertToSpeechSynthesisVoice: converts IVoice to SpeechSynthesisVoice", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  const voices = manager.getVoices();
+  t.plan(3);
+  
+  if (voices.length > 0) {
+    const speechVoice = manager.convertToSpeechSynthesisVoice(voices[0]);
+    t.truthy(speechVoice);
+    t.is(speechVoice?.name, voices[0].name);
+    t.is(speechVoice?.voiceURI, voices[0].voiceURI);
+  } else {
+    t.pass("No voices available to test");
+  }
+});
+
+testWithContext("filterOutNoveltyVoices: removes novelty voices", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  const testVoices = [
+    createTestVoice({ name: "Regular Voice 1", language: "en-US" }),
+    createTestVoice({ name: "Novelty Voice 1", language: "en-US", isNovelty: true }),
+    createTestVoice({ name: "Regular Voice 2", language: "en-US" }),
+    createTestVoice({ name: "Novelty Voice 2", language: "en-US", isNovelty: true })
+  ];
+  
+  const filtered = manager.filterOutNoveltyVoices(testVoices);
+  t.is(filtered.length, 2);
+  t.false(filtered.some((v: IVoice) => v.isNovelty));
+});
+
+testWithContext("filterOutVeryLowQualityVoices: removes very low quality voices", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with one very low quality voice
+  const testVoices = [
+    createTestVoice({ name: "Voice 1", language: "en-US", quality: ["normal"] }),
+    createTestVoice({ name: "Low Quality Voice", language: "en-US", quality: ["veryLow"] }),
+    createTestVoice({ name: "Voice 2", language: "fr-FR", quality: ["normal"] })
+  ];
+  
+  const filtered = manager.filterOutVeryLowQualityVoices(testVoices);
+  t.is(filtered.length, testVoices.length - 1);
+  t.false(filtered.some((v: IVoice) => v.quality?.includes("veryLow")));
+});
+
+testWithContext("sortVoices: sorts by name", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices
+  const testVoices = [
+    createTestVoice({ name: "Zeta Voice", language: "en-US" }),
+    createTestVoice({ name: "Alpha Voice", language: "en-US" }),
+    createTestVoice({ name: "Beta Voice", language: "en-US" })
+  ];
+  
+  // Test ascending order
+  const sortedAsc = manager.sortVoices(testVoices, { by: "name", order: "asc" });
+  t.is(sortedAsc[0].name, "Alpha Voice");
+  t.is(sortedAsc[1].name, "Beta Voice");
+  t.is(sortedAsc[2].name, "Zeta Voice");
+  
+  // Test descending order
+  const sortedDesc = manager.sortVoices(testVoices, { by: "name", order: "desc" });
+  t.is(sortedDesc[0].name, "Zeta Voice");
+  t.is(sortedDesc[1].name, "Beta Voice");
+  t.is(sortedDesc[2].name, "Alpha Voice");
+});
+
+testWithContext("sortVoices: sorts by quality with proper direction", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with different quality levels
+  const testVoices = [
+    createTestVoice({ name: "High Quality Voice", language: "en-US", quality: ["high"] }),
+    createTestVoice({ name: "Low Quality Voice", language: "en-US", quality: ["low"] }),
+    createTestVoice({ name: "Normal Quality Voice", language: "en-US", quality: ["normal"] }),
+    createTestVoice({ name: "Very High Quality Voice", language: "en-US", quality: ["veryHigh"] }),
+    createTestVoice({ name: "Very Low Quality Voice", language: "en-US", quality: ["veryLow"] })
+  ];
+  
+  // Test ascending order (low to high quality)
+  const sortedAsc = manager.sortVoices(testVoices, { by: "quality", order: "asc" });
+  t.is(sortedAsc[0].quality?.[0], "veryLow");
+  t.is(sortedAsc[1].quality?.[0], "low");
+  t.is(sortedAsc[2].quality?.[0], "normal");
+  t.is(sortedAsc[3].quality?.[0], "high");
+  t.is(sortedAsc[4].quality?.[0], "veryHigh");
+  
+  // Test descending order (high to low quality)
+  const sortedDesc = manager.sortVoices(testVoices, { by: "quality", order: "desc" });
+  t.is(sortedDesc[0].quality?.[0], "veryHigh");
+  t.is(sortedDesc[1].quality?.[0], "high");
+  t.is(sortedDesc[2].quality?.[0], "normal");
+  t.is(sortedDesc[3].quality?.[0], "low");
+  t.is(sortedDesc[4].quality?.[0], "veryLow");
+});
+
+testWithContext("sortVoices: sorts by language", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with different languages
+  const testVoices = [
+    createTestVoice({ name: "French Voice", language: "fr-FR" }),
+    createTestVoice({ name: "English Voice", language: "en-US" }),
+    createTestVoice({ name: "Spanish Voice", language: "es-ES" }),
+    createTestVoice({ name: "German Voice", language: "de-DE" })
+  ];
+  
+  // Test ascending order
+  const sortedAsc = manager.sortVoices(testVoices, { by: "language", order: "asc" });
+  t.is(sortedAsc[0].language, "de-DE");
+  t.is(sortedAsc[1].language, "en-US");
+  t.is(sortedAsc[2].language, "es-ES");
+  t.is(sortedAsc[3].language, "fr-FR");
+  
+  // Test descending order
+  const sortedDesc = manager.sortVoices(testVoices, { by: "language", order: "desc" });
+  t.is(sortedDesc[0].language, "fr-FR");
+  t.is(sortedDesc[1].language, "es-ES");
+  t.is(sortedDesc[2].language, "en-US");
+  t.is(sortedDesc[3].language, "de-DE");
+});
+
+testWithContext("sortVoices: sorts by gender", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with different genders
+  const testVoices = [
+    createTestVoice({ name: "Female Voice 1", language: "en-US", gender: "female" }),
+    createTestVoice({ name: "Male Voice 1", language: "en-US", gender: "male" }),
+    createTestVoice({ name: "Unknown Voice", language: "en-US" }),
+    createTestVoice({ name: "Female Voice 2", language: "en-US", gender: "female" })
+  ];
+  
+  // Test ascending order (undefined should come first, then female, then male)
+  const sortedAsc = manager.sortVoices(testVoices, { by: "gender", order: "asc" });
+  t.is(sortedAsc[0].gender, undefined);
+  t.is(sortedAsc[1].gender, "female");
+  t.is(sortedAsc[2].gender, "female");
+  t.is(sortedAsc[3].gender, "male");
+  
+  // Test descending order (male should come first, then female, then undefined)
+  const sortedDesc = manager.sortVoices(testVoices, { by: "gender", order: "desc" });
+  t.is(sortedDesc[0].gender, "male");
+  t.is(sortedDesc[1].gender, "female");
+  t.is(sortedDesc[2].gender, "female");
+  t.is(sortedDesc[3].gender, undefined);
+});
+
+testWithContext("sortVoices: sorts by region", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with different regions
+  const testVoices = [
+    createTestVoice({ name: "US Voice", language: "en-US" }),
+    createTestVoice({ name: "UK Voice", language: "en-GB" }),
+    createTestVoice({ name: "Canada Voice", language: "en-CA" }),
+    createTestVoice({ name: "Australia Voice", language: "en-AU" })
+  ];
+  
+  // Test ascending order
+  const sortedAsc = manager.sortVoices(testVoices, { by: "region", order: "asc" });
+  t.is(sortedAsc[0].language, "en-AU");
+  t.is(sortedAsc[1].language, "en-CA");
+  t.is(sortedAsc[2].language, "en-GB");
+  t.is(sortedAsc[3].language, "en-US");
+  
+  // Test descending order
+  const sortedDesc = manager.sortVoices(testVoices, { by: "region", order: "desc" });
+  t.is(sortedDesc[0].language, "en-US");
+  t.is(sortedDesc[1].language, "en-GB");
+  t.is(sortedDesc[2].language, "en-CA");
+  t.is(sortedDesc[3].language, "en-AU");
+});
+
+testWithContext("getDefaultVoice: returns default voice for language", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with one default voice for en-US
+  const testVoices = [
+    { 
+      voiceURI: "voice1", 
+      name: "Voice 1", 
+      language: "en-US", 
+      isDefault: true, 
+      quality: ["high"] 
+    },
+    { 
+      voiceURI: "voice2", 
+      name: "Voice 2", 
+      language: "en-US", 
+      isDefault: false, 
+      quality: ["normal"] 
+    }
+  ];
+  
+  // Replace the voices in the manager
+  (manager as any).voices = testVoices;
+  
+  const defaultVoice = manager.getDefaultVoice("en-US");
+  t.truthy(defaultVoice);
+  t.is(defaultVoice?.voiceURI, "voice1");
+});
+
+testWithContext("getDefaultVoice: returns undefined when no voices available", (t) => {
+  const manager = t.context.manager;
+  
+  // Replace voices with empty array
+  (manager as any).voices = [];
+  
+  const defaultVoice = manager.getDefaultVoice("en-US");
+  t.is(defaultVoice, undefined);
+});
+
+testWithContext("groupVoices: groups by language", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with different languages
+  const testVoices = [
+    { voiceURI: "voice1", name: "Voice 1", language: "en-US" },
+    { voiceURI: "voice2", name: "Voice 2", language: "fr-FR" },
+    { voiceURI: "voice3", name: "Voice 3", language: "en-US" }
+  ];
+  
+  const groups = (manager as any).groupVoices(testVoices, "language");
+  
+  // Check that groups were created for each language
+  t.truthy(groups["en"]);
+  t.truthy(groups["fr"]);
+  
+  // Check the number of voices in each group
+  t.is(groups["en"].length, 2);
+  t.is(groups["fr"].length, 1);
+});
+
+testWithContext("groupVoices: groups by gender", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with different genders
+  const testVoices = [
+    createTestVoice({ name: "Male Voice 1", language: "en-US", gender: "male" }),
+    createTestVoice({ name: "Female Voice 1", language: "en-US", gender: "female" }),
+    createTestVoice({ name: "Male Voice 2", language: "fr-FR", gender: "male" }),
+    createTestVoice({ name: "Unknown Voice", language: "es-ES" })
+  ];
+  
+  const groups = manager.groupVoices(testVoices, "gender");
+  t.true(groups.hasOwnProperty("male"));
+  t.true(groups.hasOwnProperty("female"));
+  t.true(groups.hasOwnProperty("unknown"));
+  t.is(groups.male.length, 2);
+  t.is(groups.female.length, 1);
+  t.is(groups.unknown.length, 1);
+});
+
+testWithContext("groupVoices: groups by quality", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with different qualities
+  const testVoices = [
+    createTestVoice({ name: "High Quality 1", language: "en-US", quality: ["high"] }),
+    createTestVoice({ name: "Low Quality Voice", language: "en-US", quality: ["low"] }),
+    createTestVoice({ name: "High Quality 2", language: "fr-FR", quality: ["high"] })
+  ];
+  
+  const groups = manager.groupVoices(testVoices, "quality");
+  t.is(Object.keys(groups).length, 2);
+  t.is(groups.high.length, 2);
+  t.is(groups.low.length, 1);
+});
+
+testWithContext("groupVoices: groups by region", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with different regions
+  const testVoices = [
+    createTestVoice({ name: "US Voice", language: "en-US" }),
+    createTestVoice({ name: "UK Voice", language: "en-GB" }),
+    createTestVoice({ name: "Canada Voice", language: "en-CA" }),
+    createTestVoice({ name: "Australia Voice", language: "en-AU" })
+  ];
+  
+  const groups = manager.groupVoices(testVoices, "region");
+  t.is(Object.keys(groups).length, 4);
+  t.is(groups.US.length, 1);
+  t.is(groups.GB.length, 1);
+  t.is(groups.CA.length, 1);
+  t.is(groups.AU.length, 1);
+});
+
+testWithContext("groupVoices: handles empty voices array", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  const groups = manager.groupVoices([], "language");
+  t.deepEqual(groups, {});
+});
+
+testWithContext("getTestUtterance: returns test utterance for supported language", (t) => {
+  const manager = t.context.manager;
+  
+  // Test with a base language
+  const utterance1 = manager.getTestUtterance("en");
+  t.is(typeof utterance1, "string");
+  t.true(utterance1.length > 0);
+  t.true(utterance1.includes("{name}"));
+  
+  // Test with a locale variant (should fall back to base language)
+  const utterance2 = manager.getTestUtterance("en-US");
+  t.is(typeof utterance2, "string");
+  t.true(utterance2.length > 0);
+  t.true(utterance2.includes("{name}"));
+  t.is(utterance1, utterance2); // Should be the same
+});
+
+testWithContext("convertToSpeechSynthesisVoice: handles invalid voice", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Test with undefined voice
+  const result1 = manager.convertToSpeechSynthesisVoice(undefined as any);
+  t.is(result1, undefined);
+  
+  // Test with voice that doesn't match any browser voice
+  const invalidVoice = createTestVoice({ name: "Non-existent Voice", language: "xx-XX" });
+  const result2 = manager.convertToSpeechSynthesisVoice(invalidVoice);
+  t.is(result2, undefined);
+});
+
+testWithContext("getDefaultVoice: returns undefined when no matching language", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Test with language that has no voices
+  const result = manager.getDefaultVoice("xx-XX");
+  t.is(result, undefined);
+});
+
+testWithContext("groupVoices: handles voices with missing properties", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  const testVoices = [
+    createTestVoice({ name: "Voice 1", language: "en-US" }),
+    createTestVoice({ name: "Voice 2", language: undefined as any }),
+    createTestVoice({ name: "Voice 3", language: "fr-FR", gender: undefined as any }),
+    createTestVoice({ name: "Voice 4", language: "es-ES", quality: undefined as any })
+  ];
+  
+  // Should handle missing properties gracefully
+  const groupsByLanguage = manager.groupVoices(testVoices, "language");
+  t.true(groupsByLanguage.hasOwnProperty("en"));
+  t.true(groupsByLanguage.hasOwnProperty("fr"));
+  t.true(groupsByLanguage.hasOwnProperty("es"));
+  
+  const groupsByGender = manager.groupVoices(testVoices, "gender");
+  // Should have an "undefined" group for voices without gender
+  
+  const groupsByQuality = manager.groupVoices(testVoices, "quality");
+  // Should have an "undefined" group for voices without quality
+});
+
+testWithContext("filterVoices: uses array values for multiple filters", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  const testVoices = [
+    createTestVoice({ name: "English Male", language: "en-US", gender: "male", quality: ["high"] }),
+    createTestVoice({ name: "English Female", language: "en-US", gender: "female", quality: ["normal"] }),
+    createTestVoice({ name: "French Male", language: "fr-FR", gender: "male", quality: ["low"] }),
+    createTestVoice({ name: "French Female", language: "fr-FR", gender: "female", quality: ["high"] }),
+    createTestVoice({ name: "Spanish Male", language: "es-ES", gender: "male", quality: ["normal"] })
+  ];
+  
+  // Test with array of languages and array of qualities
+  const filtered = manager.filterVoices(testVoices, { 
+    language: ["en", "fr"], 
+    quality: ["high", "normal"] 
+  });
+  t.is(filtered.length, 3);
+  t.true(filtered.every(v => 
+    (v.language.startsWith("en") || v.language.startsWith("fr")) &&
+    (v.quality?.includes("high") || v.quality?.includes("normal"))
+  ));
+});
+
+testWithContext("getTestUtterance: returns empty string for unsupported language", (t) => {
+  const manager = t.context.manager;
+  
+  // Test with an unsupported language
+  const utterance = manager.getTestUtterance("xx-XX");
+  t.is(utterance, "");
+});
+
+testWithContext("ensureInitialized: throws if not initialized", (t) => {
+  // Create a new instance without initializing
+  (WebSpeechVoiceManager as any).instance = undefined;
+  const manager = WebSpeechVoiceManager.getInstance();
+  
+  // Should throw because we haven’t called initialize()
+  t.throws(() => manager.getVoices(), { 
+    message: /must be initialized first/ 
+  });
+});
+
+testWithContext("initialize: returns false when speechSynthesis is not available", async (t) => {
+  // Save original
+  const originalSpeechSynthesis = globalThis.speechSynthesis;
+  
+  try {
+    // Mock speechSynthesis to be undefined
+    Object.defineProperty(globalThis, "speechSynthesis", {
+      value: undefined,
+      configurable: true,
+      writable: true
+    });
+    
+    // Create a new instance
+    (WebSpeechVoiceManager as any).instance = undefined;
+    const manager = WebSpeechVoiceManager.getInstance();
+    
+    // Should return false when speechSynthesis is not available
+    const result = await manager.initialize();
+    t.false(result);
+  } finally {
+    // Restore
+    Object.defineProperty(globalThis, "speechSynthesis", {
+      value: originalSpeechSynthesis,
+      configurable: true,
+      writable: true
+    });
+  }
+});

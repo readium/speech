@@ -1,0 +1,412 @@
+// Auto-generated file - DO NOT EDIT
+// Last updated: 2025-11-19T09:33:56.336Z
+import type { IVoice } from "../types";
+
+/**
+ * List of available voices for ko
+ * Sorted by quality (highest first) and then by name
+ */
+const voices: IVoice[] = [
+  {
+    "label": "SunHi",
+    "name": "Microsoft SunHi Online (Natural) - Korean (Korea)",
+    "language": "ko-KR",
+    "gender": "female",
+    "quality": [
+      "veryHigh"
+    ],
+    "rate": 1,
+    "pitchControl": false,
+    "browser": [
+      "Edge"
+    ],
+    "preloaded": true,
+    "voiceURI": "Microsoft SunHi Online (Natural) - Korean (Korea)",
+    "localizedName": "SunHi",
+    "altNames": [],
+    "offlineAvailability": true,
+    "provider": "Microsoft",
+    "isDefault": false,
+    "isDeprecated": false,
+    "isNovelty": false,
+    "isLowQuality": false
+  },
+  {
+    "label": "Hyunsu",
+    "name": "Microsoft HyunsuMultilingual Online (Natural) - Korean (Korea)",
+    "altNames": [
+      "Microsoft Hyunsu Online (Natural) - Korean (Korea)"
+    ],
+    "language": "ko-KR",
+    "gender": "male",
+    "quality": [
+      "veryHigh"
+    ],
+    "rate": 1,
+    "pitchControl": false,
+    "browser": [
+      "Edge"
+    ],
+    "preloaded": true,
+    "voiceURI": "Microsoft HyunsuMultilingual Online (Natural) - Korean (Korea)",
+    "localizedName": "Hyunsu",
+    "offlineAvailability": true,
+    "provider": "Microsoft",
+    "isDefault": false,
+    "isDeprecated": false,
+    "isNovelty": false,
+    "isLowQuality": false
+  },
+  {
+    "label": "InJoon",
+    "name": "Microsoft InJoon Online (Natural) - Korean (Korea)",
+    "language": "ko-KR",
+    "gender": "male",
+    "quality": [
+      "veryHigh"
+    ],
+    "rate": 1,
+    "pitchControl": false,
+    "browser": [
+      "Edge"
+    ],
+    "preloaded": true,
+    "voiceURI": "Microsoft InJoon Online (Natural) - Korean (Korea)",
+    "localizedName": "InJoon",
+    "altNames": [],
+    "offlineAvailability": true,
+    "provider": "Microsoft",
+    "isDefault": false,
+    "isDeprecated": false,
+    "isNovelty": false,
+    "isLowQuality": false
+  },
+  {
+    "label": "Yuna",
+    "name": "Yuna",
+    "localizedName": "apple",
+    "language": "ko-KR",
+    "gender": "female",
+    "quality": [
+      "low",
+      "normal",
+      "high"
+    ],
+    "rate": 1,
+    "pitch": 1,
+    "os": [
+      "macOS",
+      "iOS",
+      "iPadOS"
+    ],
+    "preloaded": true,
+    "voiceURI": "Yuna",
+    "altNames": [],
+    "pitchControl": true,
+    "offlineAvailability": true,
+    "provider": "Other",
+    "isDefault": false,
+    "isDeprecated": false,
+    "isNovelty": false,
+    "isLowQuality": false
+  },
+  {
+    "label": "Jian",
+    "name": "Jian",
+    "localizedName": "apple",
+    "language": "ko-KR",
+    "gender": "female",
+    "quality": [
+      "low",
+      "normal",
+      "high"
+    ],
+    "rate": 1,
+    "pitch": 1,
+    "os": [
+      "macOS",
+      "iOS",
+      "iPadOS"
+    ],
+    "voiceURI": "Jian",
+    "altNames": [],
+    "pitchControl": true,
+    "offlineAvailability": true,
+    "provider": "Other",
+    "isDefault": false,
+    "isDeprecated": false,
+    "isNovelty": false,
+    "isLowQuality": false
+  },
+  {
+    "label": "Suhyun",
+    "name": "Suhyun",
+    "localizedName": "apple",
+    "language": "ko-KR",
+    "gender": "female",
+    "quality": [
+      "low",
+      "normal"
+    ],
+    "rate": 1,
+    "pitch": 1,
+    "os": [
+      "macOS",
+      "iOS",
+      "iPadOS"
+    ],
+    "voiceURI": "Suhyun",
+    "altNames": [],
+    "pitchControl": true,
+    "offlineAvailability": true,
+    "provider": "Other",
+    "isDefault": false,
+    "isDeprecated": false,
+    "isNovelty": false,
+    "isLowQuality": false
+  },
+  {
+    "label": "Sora",
+    "name": "Sora",
+    "localizedName": "apple",
+    "language": "ko-KR",
+    "gender": "female",
+    "quality": [
+      "low",
+      "normal"
+    ],
+    "rate": 1,
+    "pitch": 1,
+    "os": [
+      "macOS",
+      "iOS",
+      "iPadOS"
+    ],
+    "voiceURI": "Sora",
+    "altNames": [],
+    "pitchControl": true,
+    "offlineAvailability": true,
+    "provider": "Other",
+    "isDefault": false,
+    "isDeprecated": false,
+    "isNovelty": false,
+    "isLowQuality": false
+  },
+  {
+    "label": "Minsu",
+    "name": "Minsu",
+    "localizedName": "apple",
+    "language": "ko-KR",
+    "gender": "male",
+    "quality": [
+      "low",
+      "normal"
+    ],
+    "rate": 1,
+    "pitch": 1,
+    "os": [
+      "macOS",
+      "iOS",
+      "iPadOS"
+    ],
+    "voiceURI": "Minsu",
+    "altNames": [],
+    "pitchControl": true,
+    "offlineAvailability": true,
+    "provider": "Other",
+    "isDefault": false,
+    "isDeprecated": false,
+    "isNovelty": false,
+    "isLowQuality": false
+  },
+  {
+    "label": "Google 여성 음성",
+    "name": "Google 한국의",
+    "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
+    "language": "ko-KR",
+    "gender": "female",
+    "quality": [
+      "high"
+    ],
+    "rate": 1,
+    "pitch": 1,
+    "browser": [
+      "ChromeDesktop"
+    ],
+    "preloaded": true,
+    "voiceURI": "Google 한국의",
+    "localizedName": "Google 여성 음성",
+    "altNames": [],
+    "pitchControl": true,
+    "offlineAvailability": true,
+    "provider": "Google",
+    "isDefault": false,
+    "isDeprecated": false,
+    "isNovelty": false,
+    "isLowQuality": false
+  },
+  {
+    "label": "Heami",
+    "name": "Microsoft Heami - Korean (Korea)",
+    "language": "ko-KR",
+    "gender": "female",
+    "quality": [
+      "normal"
+    ],
+    "rate": 1,
+    "pitch": 1,
+    "os": [
+      "Windows"
+    ],
+    "preloaded": true,
+    "voiceURI": "Microsoft Heami - Korean (Korea)",
+    "localizedName": "Heami",
+    "altNames": [],
+    "pitchControl": true,
+    "offlineAvailability": true,
+    "provider": "Microsoft",
+    "isDefault": false,
+    "isDeprecated": false,
+    "isNovelty": false,
+    "isLowQuality": false
+  },
+  {
+    "label": "여성 목소리 1",
+    "name": "Google 한국어 2 (Natural)",
+    "altNames": [
+      "Android Speech Recognition and Synthesis from Google ko-kr-x-kob-network",
+      "Chrome OS 한국어 2",
+      "Android Speech Recognition and Synthesis from Google ko-kr-x-kob-local",
+      "Android Speech Recognition and Synthesis from Google ko-KR-language"
+    ],
+    "nativeID": [
+      "ko-kr-x-kob-network",
+      "ko-kr-x-kob-local"
+    ],
+    "language": "ko-KR",
+    "gender": "female",
+    "quality": [
+      "high"
+    ],
+    "rate": 1,
+    "pitch": 1,
+    "os": [
+      "Android",
+      "ChromeOS"
+    ],
+    "preloaded": true,
+    "voiceURI": "Google 한국어 2 (Natural)",
+    "localizedName": "여성 목소리 1",
+    "pitchControl": true,
+    "offlineAvailability": true,
+    "provider": "Google",
+    "isDefault": false,
+    "isDeprecated": false,
+    "isNovelty": false,
+    "isLowQuality": false
+  },
+  {
+    "label": "여성 목소리 2",
+    "name": "Google 한국어 1 (Natural)",
+    "altNames": [
+      "Android Speech Recognition and Synthesis from Google ko-kr-x-ism-network",
+      "Chrome OS 한국어 1",
+      "Android Speech Recognition and Synthesis from Google ko-kr-x-ism-local"
+    ],
+    "nativeID": [
+      "ko-kr-x-ism-network",
+      "ko-kr-x-ism-local"
+    ],
+    "language": "ko-KR",
+    "gender": "female",
+    "quality": [
+      "high"
+    ],
+    "rate": 1,
+    "pitch": 1,
+    "os": [
+      "Android",
+      "ChromeOS"
+    ],
+    "preloaded": true,
+    "voiceURI": "Google 한국어 1 (Natural)",
+    "localizedName": "여성 목소리 2",
+    "pitchControl": true,
+    "offlineAvailability": true,
+    "provider": "Google",
+    "isDefault": false,
+    "isDeprecated": false,
+    "isNovelty": false,
+    "isLowQuality": false
+  },
+  {
+    "label": "남성 1",
+    "name": "Google 한국어 3 (Natural)",
+    "altNames": [
+      "Android Speech Recognition and Synthesis from Google ko-kr-x-koc-network",
+      "Chrome OS 한국어 3",
+      "Android Speech Recognition and Synthesis from Google ko-kr-x-koc-local"
+    ],
+    "nativeID": [
+      "ko-kr-x-koc-network",
+      "ko-kr-x-koc-local"
+    ],
+    "language": "ko-KR",
+    "gender": "male",
+    "quality": [
+      "high"
+    ],
+    "rate": 1,
+    "pitch": 1,
+    "os": [
+      "Android",
+      "ChromeOS"
+    ],
+    "preloaded": true,
+    "voiceURI": "Google 한국어 3 (Natural)",
+    "localizedName": "남성 1",
+    "pitchControl": true,
+    "offlineAvailability": true,
+    "provider": "Google",
+    "isDefault": false,
+    "isDeprecated": false,
+    "isNovelty": false,
+    "isLowQuality": false
+  },
+  {
+    "label": "남성 2",
+    "name": "Google 한국어 4 (Natural)",
+    "altNames": [
+      "Android Speech Recognition and Synthesis from Google ko-kr-x-kod-network",
+      "Chrome OS 한국어 4",
+      "Android Speech Recognition and Synthesis from Google ko-kr-x-kod-local"
+    ],
+    "nativeID": [
+      "ko-kr-x-kod-network",
+      "ko-kr-x-kod-local"
+    ],
+    "language": "ko-KR",
+    "gender": "male",
+    "quality": [
+      "high"
+    ],
+    "rate": 1,
+    "pitch": 1,
+    "os": [
+      "Android",
+      "ChromeOS"
+    ],
+    "preloaded": true,
+    "voiceURI": "Google 한국어 4 (Natural)",
+    "localizedName": "남성 2",
+    "pitchControl": true,
+    "offlineAvailability": true,
+    "provider": "Google",
+    "isDefault": false,
+    "isDeprecated": false,
+    "isNovelty": false,
+    "isLowQuality": false
+  }
+];
+
+export default voices;
