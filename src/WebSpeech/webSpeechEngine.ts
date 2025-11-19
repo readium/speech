@@ -1,8 +1,8 @@
 import { ReadiumSpeechPlaybackEngine } from "../engine";
 import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navigator";
 import { ReadiumSpeechUtterance } from "../utterance";
-import { ReadiumSpeechVoice } from "../voices";
-import { getSpeechSynthesisVoices, parseSpeechSynthesisVoices, filterOnLanguage } from "../voices";
+import { ReadiumSpeechVoice } from "../voices/data/types";
+import { WebSpeechVoiceManager } from "./WebSpeechVoiceManager";
 
 import { detectFeatures, WebSpeechFeatures } from "../utils/features";
 import { detectPlatformFeatures, WebSpeechPlatformPatches } from "../utils/patches";
@@ -19,7 +19,6 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private eventListeners: Map<ReadiumSpeechPlaybackEvent["type"], ((event: ReadiumSpeechPlaybackEvent) => void)[]> = new Map();
 
   private voices: ReadiumSpeechVoice[] = [];
-  private browserVoices: SpeechSynthesisVoice[] = [];
   private defaultVoice: ReadiumSpeechVoice | null = null;
 
   // Enhanced properties for cross-browser compatibility
@@ -80,13 +79,11 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.maxLengthExceeded = maxLengthExceeded;
 
     try {
-      // Get and cache the browser's native voices
-      this.browserVoices = await getSpeechSynthesisVoices(maxTimeout, interval);
-      // Parse them into our internal format
-      this.voices = parseSpeechSynthesisVoices(this.browserVoices);
+      // Get voices from WebSpeechVoiceManager
+      this.voices = await WebSpeechVoiceManager.getInstance().getVoices();
 
       // Try to find voice matching user's language
-      const langVoices = filterOnLanguage(this.voices);
+      const langVoices = WebSpeechVoiceManager.getInstance().filterVoices(this.voices, { language: navigator.language || "en" });
       this.defaultVoice = langVoices.length > 0 ? langVoices[0] : this.voices[0] || null;
 
       this.initialized = true;
@@ -148,23 +145,22 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   // Voice Configuration
-  setVoice(voice: ReadiumSpeechVoice | string): void {
+  async setVoice(voice: ReadiumSpeechVoice | string): Promise<void> {
     const previousVoice = this.currentVoice;
 
     if (typeof voice === "string") {
       // Find voice by name or language
-      this.getAvailableVoices().then(voices => {
-        const foundVoice = voices.find(v => v.name === voice || v.language === voice);
-        if (foundVoice) {
-          this.currentVoice = foundVoice;
-          // Reset position when voice changes for fresh start with new voice
-          if (previousVoice && previousVoice.name !== foundVoice.name) {
-            this.currentUtteranceIndex = 0;
-          }
-        } else {
-          console.warn(`Voice "${voice}" not found`);
+      const voices = await this.getAvailableVoices();
+      const foundVoice = voices.find(v => v.name === voice || v.language === voice);
+      if (foundVoice) {
+        this.currentVoice = foundVoice;
+        // Reset position when voice changes for fresh start with new voice
+        if (previousVoice && previousVoice.name !== foundVoice.name) {
+          this.currentUtteranceIndex = 0;
         }
-      });
+      } else {
+        console.warn(`Voice "${voice}" not found`);
+      }
     } else {
       this.currentVoice = voice;
       // Reset position when voice changes for fresh start with new voice
@@ -265,12 +261,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     const selectedVoice = this.getCurrentVoiceForUtterance(this.currentVoice);
 
     if (selectedVoice) {
-      // Find the matching voice in our cached browser voices
-      // as converting ReadiumSpeechVoice to SpeechSynthesisVoice is not possible
-      const nativeVoice = this.browserVoices.find(v => 
-        v.name === selectedVoice.name && 
-        v.lang === (selectedVoice.__lang || selectedVoice.language)
-      );
+      // Convert ReadiumSpeechVoice to SpeechSynthesisVoice
+      const nativeVoice = WebSpeechVoiceManager.getInstance().convertToSpeechSynthesisVoice(selectedVoice);
       
       if (nativeVoice) {
         utterance.voice = nativeVoice; // Use the real native voice from cache

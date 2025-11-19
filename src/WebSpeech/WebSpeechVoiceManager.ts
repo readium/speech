@@ -1,5 +1,6 @@
-import { IVoice, TGender, TQuality } from "../voices/data/types";
+import { ReadiumSpeechVoice, TGender, TQuality } from "../voices/data/types";
 import { getTestUtterance } from "../voices/data/testUtterances";
+import * as voiceData from "../voices/data";
 
 /**
  * Options for filtering voices
@@ -27,7 +28,7 @@ interface LanguageInfo {
  * Grouped voices
  */
 interface VoiceGroup {
-  [key: string]: IVoice[];
+  [key: string]: ReadiumSpeechVoice[];
 }
 
 /**
@@ -50,9 +51,9 @@ interface SortOptions {
  */
 export class WebSpeechVoiceManager {
   private static instance: WebSpeechVoiceManager;
-  private voices: IVoice[] = [];
+  private voices: ReadiumSpeechVoice[] = [];
   private browserVoices: SpeechSynthesisVoice[] = [];
-  private initialized = false;
+  private initializationPromise: Promise<boolean> | null = null;
 
   /**
    * Get the singleton instance
@@ -73,27 +74,36 @@ export class WebSpeechVoiceManager {
    * @returns Promise that resolves when initialization is complete
    */
   async initialize(): Promise<boolean> {
-    if (this.initialized) return true;
-    
-    // Check if speechSynthesis is available
-    if (!window.speechSynthesis) {
-      return false;
+    // Return existing promise if initialization is in progress
+    if (this.initializationPromise) {
+      return this.initializationPromise;
     }
-    
+
+    // If already initialized, return true immediately
+    if (this.voices.length > 0) {
+      return true;
+    }
+
+    this.initializationPromise = this.doInitialize();
+    return this.initializationPromise;
+  }
+
+  private async doInitialize(): Promise<boolean> {
     try {
+      // Check if speechSynthesis is available
+      if (!window.speechSynthesis) {
+        return false;
+      }
+      
       this.browserVoices = await this.getBrowserVoices();
-      this.voices = await this.loadVoices();
-      this.initialized = true;
+      this.voices = this.parseToReadiumSpeechVoices(this.browserVoices);
       return true;
     } catch (error) {
       console.error("Failed to initialize WebSpeechVoiceManager:", error);
       return false;
-    }
-  }
-
-  private ensureInitialized(): void {
-    if (!this.initialized) {
-      throw new Error("WebSpeechVoiceManager must be initialized first. Call initialize() before using other methods.");
+    } finally {
+      // Clear the promise so initialization can be retried if needed
+      this.initializationPromise = null;
     }
   }
 
@@ -112,8 +122,8 @@ export class WebSpeechVoiceManager {
    * @param voices Array of voices to remove duplicates from
    * @returns Filtered array with duplicates removed
    */
-  private removeDuplicate(voices: IVoice[]): IVoice[] {
-    const strHash = (voice: IVoice) => `${voice.voiceURI}_${voice.name}_${voice.language}_${voice.offlineAvailability}`;
+  private removeDuplicate(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
+    const strHash = (voice: ReadiumSpeechVoice) => `${voice.voiceURI}_${voice.name}_${voice.language}_${voice.offlineAvailability}`;
     
     const voicesStrMap = [...new Set(voices.map((v) => strHash(v)))];
     
@@ -136,16 +146,17 @@ export class WebSpeechVoiceManager {
   /**
    * Get all voices matching the filter criteria
    */
-  getVoices(options: VoiceFilterOptions = {}): IVoice[] {
-    this.ensureInitialized();
+  async getVoices(options: VoiceFilterOptions = {}): Promise<ReadiumSpeechVoice[]> {
+    // Auto-initialize if not already done
+    await this.initialize();
     return this.filterVoices(this.voices, options);
   }
 
   /**
    * Get available languages with voice counts
    */
-  getLanguages(localization?: string): LanguageInfo[] {
-    this.ensureInitialized();
+  async getLanguages(localization?: string): Promise<LanguageInfo[]> {
+    await this.initialize();
     
     const languages = new Map<string, { count: number; label: string }>();
     
@@ -174,8 +185,8 @@ export class WebSpeechVoiceManager {
   /**
    * Get available regions with voice counts
    */
-  getRegions(localization?: string): LanguageInfo[] {
-    this.ensureInitialized();
+  async getRegions(localization?: string): Promise<LanguageInfo[]> {
+    await this.initialize();
     
     const regions = new Map<string, { count: number; label: string }>();
     
@@ -222,25 +233,25 @@ export class WebSpeechVoiceManager {
   /**
    * Get the default voice for a language
    */
-  getDefaultVoice(language: string): IVoice | undefined {
+  async getDefaultVoice(language: string): Promise<ReadiumSpeechVoice | undefined> {
     if (!language) return undefined;
     
-    const langVoices = this.filterVoices(this.voices, { language });
-    if (!langVoices.length) return undefined;
+    const voices = await this.getVoices({ language });
+    if (!voices.length) return undefined;
     
     // Try to find a default voice with high quality
-    const defaultVoice = langVoices.find(v => v.isDefault && this.getQualityValue(v.quality) >= 2);
+    const defaultVoice = voices.find(v => v.isDefault && this.getQualityValue(v.quality) >= 2);
     if (defaultVoice) return defaultVoice;
     
     // Try to find any high quality voice
-    const highQualityVoice = langVoices.find(v => this.getQualityValue(v.quality) >= 2);
+    const highQualityVoice = voices.find(v => this.getQualityValue(v.quality) >= 2);
     if (highQualityVoice) return highQualityVoice;
     
     // Fall back to the first available voice
-    return langVoices[0];
+    return voices[0];
   }
 
-  private getBrowserVoices(maxTimeout = 10000, interval = 10): Promise<SpeechSynthesisVoice[]> {
+  public getBrowserVoices(maxTimeout = 10000, interval = 10): Promise<SpeechSynthesisVoice[]> {
     const getVoices = () => window.speechSynthesis?.getVoices() || [];
 
     // Check if speechSynthesis is available
@@ -301,37 +312,25 @@ export class WebSpeechVoiceManager {
   }
 
   /**
-   * Load and convert browser voices to IVoice array
-   */
-  private async loadVoices(): Promise<IVoice[]> {
-    try {
-      const speechVoices = await this.getBrowserVoices();
-      return this.parseToIVoices(speechVoices);
-    } catch (error) {
-      console.error("Error loading voices:", error);
-      return [];
-    }
-  }
-
-  /**
    * Find a browser voice in the voice data
    * @private
    */
-  private findVoiceInData(browserVoice: SpeechSynthesisVoice): IVoice | undefined {
-    // Search through all loaded voices to find a match
-    for (const voice of this.voices) {
-      // Match by voiceURI first (most specific)
-      if (voice.voiceURI && voice.voiceURI === browserVoice.voiceURI) {
-        return voice;
-      }
-      
-      // Match by name and language
-      if (voice.name === browserVoice.name && voice.language === browserVoice.lang) {
-        return voice;
-      }
-      
-      // Match by name only (less specific)
+  private findVoiceInData(browserVoice: SpeechSynthesisVoice): ReadiumSpeechVoice | undefined {
+    // Use existing method to extract language
+    const [baseLang] = this.extractLangRegionFromBCP47(browserVoice.lang);
+    
+    // Get all voices for this language from the data
+    const dataVoices = voiceData.getVoices(baseLang);
+    
+    // Search through data voices to find a match
+    for (const voice of dataVoices) {
+      // Match by name first
       if (voice.name === browserVoice.name) {
+        return voice;
+      }
+      
+      // Match by voiceURI if available
+      if (voice.voiceURI && voice.voiceURI === browserVoice.voiceURI) {
         return voice;
       }
     }
@@ -340,10 +339,10 @@ export class WebSpeechVoiceManager {
   }
 
   /**
-   * Convert SpeechSynthesisVoice array to IVoice array
+   * Convert SpeechSynthesisVoice array to ReadiumSpeechVoice array
    * @private
    */
-  private parseToIVoices(speechVoices: SpeechSynthesisVoice[]): IVoice[] {
+  private parseToReadiumSpeechVoices(speechVoices: SpeechSynthesisVoice[]): ReadiumSpeechVoice[] {
     const parseAndFormatBCP47 = (lang: string) => {
       const speechVoiceLang = lang.replace("_", "-");
       if (/\w{2,3}-\w{2,3}/.test(speechVoiceLang)) {
@@ -405,9 +404,9 @@ export class WebSpeechVoiceManager {
   }
 
   /**
-   * Convert an IVoice to a native SpeechSynthesisVoice
+   * Convert an ReadiumSpeechVoice to a native SpeechSynthesisVoice
    */
-  convertToSpeechSynthesisVoice(voice: IVoice): SpeechSynthesisVoice | undefined {
+  convertToSpeechSynthesisVoice(voice: ReadiumSpeechVoice): SpeechSynthesisVoice | undefined {
     if (!voice) return undefined;
     
     return this.browserVoices.find(v => 
@@ -419,7 +418,7 @@ export class WebSpeechVoiceManager {
   /**
    * Filter voices based on the provided options
    */
-  filterVoices(voices: IVoice[], options: VoiceFilterOptions): IVoice[] {
+  filterVoices(voices: ReadiumSpeechVoice[], options: VoiceFilterOptions): ReadiumSpeechVoice[] {
     let result = [...voices];
 
     if (options.language) {
@@ -470,7 +469,7 @@ export class WebSpeechVoiceManager {
    * @param voices Array of voices to filter
    * @returns Filtered array with novelty voices removed
    */
-  filterOutNoveltyVoices(voices: IVoice[]): IVoice[] {
+  filterOutNoveltyVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
     return voices.filter(voice => !voice.isNovelty);
   }
 
@@ -479,7 +478,7 @@ export class WebSpeechVoiceManager {
    * @param voices Array of voices to filter
    * @returns Filtered array with very low quality voices removed
    */
-  filterOutVeryLowQualityVoices(voices: IVoice[]): IVoice[] {
+  filterOutVeryLowQualityVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
     if (!voices?.length) return [];
     return voices.filter(voice => !voice.quality?.includes("veryLow"));
   }
@@ -511,7 +510,7 @@ export class WebSpeechVoiceManager {
   /**
    * Sort voices by the specified criteria
    */
-  sortVoices(voices: IVoice[], options: SortOptions): IVoice[] {
+  sortVoices(voices: ReadiumSpeechVoice[], options: SortOptions): ReadiumSpeechVoice[] {
     if (!voices?.length) return [];
     
     const result = [...voices];
@@ -574,7 +573,7 @@ export class WebSpeechVoiceManager {
   /**
    * Group voices by the specified key
    */
-  groupVoices(voices: IVoice[], by: "language" | "gender" | "quality" | "region"): VoiceGroup {
+  groupVoices(voices: ReadiumSpeechVoice[], by: "language" | "gender" | "quality" | "region"): VoiceGroup {
     const groups: VoiceGroup = {};
     
     for (const voice of voices) {

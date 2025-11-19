@@ -1,4 +1,4 @@
-import { ReadiumSpeechVoice } from "./voices";
+import { ReadiumSpeechVoice } from "./voices/data/types";
 import { ReadiumSpeechUtterance } from "./utterance";
 
 export type ReadiumSpeechPlaybackState = "playing" | "paused" | "idle" | "loading" | "ready";

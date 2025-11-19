@@ -1,12 +1,12 @@
 // Auto-generated file - DO NOT EDIT
-// Last updated: 2025-11-19T09:33:56.338Z
-import type { IVoice } from "../types";
+// Last updated: 2025-11-19T13:07:29.941Z
+import type { ReadiumSpeechVoice } from "../types";
 
 /**
  * List of available voices for ta
  * Sorted by quality (highest first) and then by name
  */
-const voices: IVoice[] = [
+const voices: ReadiumSpeechVoice[] = [
   {
     "label": "Pallavi",
     "name": "Microsoft Pallavi Online (Natural) - Tamil (India)",

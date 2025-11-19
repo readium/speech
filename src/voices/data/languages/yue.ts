@@ -1,12 +1,12 @@
 // Auto-generated file - DO NOT EDIT
-// Last updated: 2025-11-19T09:33:56.339Z
-import type { IVoice } from "../types";
+// Last updated: 2025-11-19T13:07:29.942Z
+import type { ReadiumSpeechVoice } from "../types";
 
 /**
  * List of available voices for yue
  * Sorted by quality (highest first) and then by name
  */
-const voices: IVoice[] = [
+const voices: ReadiumSpeechVoice[] = [
   {
     "label": "HiuGaai",
     "name": "Microsoft HiuGaai Online (Natural) - Chinese (Cantonese Traditional)",

@@ -1,5 +1,5 @@
 // Auto-generated file - DO NOT EDIT
-// Last updated: 2025-11-19T09:33:56.339Z
+// Last updated: 2025-11-19T13:07:29.942Z
 
 /**
  * Test utterances for different languages
@@ -59,12 +59,12 @@ export const testUtterances: { [lang: string]: string } = {
  * @returns Test utterance string or empty string if not found
  */
 export function getTestUtterance(lang: string): string {
-  // First try exact match
+  // Direct match first
   if (testUtterances[lang]) {
     return testUtterances[lang];
   }
   
-  // If not found, try the base language (e.g., "en-US" -> "en")
+  // Try to extract base language from locale (e.g., "en-US" -> "en")
   const baseLang = lang.split('-')[0];
   return testUtterances[baseLang] || "";
 }

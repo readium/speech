@@ -27,7 +27,7 @@ const CONFIG = {
  */
 
 /**
- * @typedef {Object} IVoice
+ * @typedef {Object} ReadiumSpeechVoice
  * @property {string} label - User-friendly display name
  * @property {string} name - System/technical name
  * @property {string} [voiceURI] - Web Speech API voiceURI
@@ -125,7 +125,7 @@ function detectProvider(name) {
 
 /**
  * Process and enhance voice data
- * @returns {Promise<{languages: Map<string, IVoice[]>, allVoices: IVoice[]}>}
+ * @returns {Promise<{languages: Map<string, ReadiumSpeechVoice[]>, allVoices: ReadiumSpeechVoice[]}>}
  */
 async function processVoices() {
   console.log("Processing voice data...");
@@ -147,9 +147,9 @@ async function processVoices() {
   const files = await readdir(CONFIG.jsonDir);
   const languageFiles = files.filter(f => f.endsWith(".json") && !f.startsWith("."));
   
-  /** @type {IVoice[]} */
+  /** @type {ReadiumSpeechVoice[]} */
   const allVoices = [];
-  /** @type {Map<string, IVoice[]>} */
+  /** @type {Map<string, ReadiumSpeechVoice[]>} */
   const languages = new Map();
   /** @type {Map<string, string>} */
   const testUtterances = new Map();
@@ -185,7 +185,7 @@ async function processVoices() {
         }
       }
       
-      /** @type {IVoice} */
+      /** @type {ReadiumSpeechVoice} */
       const enhancedVoice = {
         ...voice,
         voiceURI: voice.voiceURI || voice.name,
@@ -218,8 +218,8 @@ async function processVoices() {
 
 /**
  * Generate TypeScript files for the processed voice data
- * @param {Map<string, IVoice[]>} languages - Map of language codes to voices
- * @param {IVoice[]} allVoices - All voices
+ * @param {Map<string, ReadiumSpeechVoice[]>} languages - Map of language codes to voices
+ * @param {ReadiumSpeechVoice[]} allVoices - All voices
  * @param {Map<string, string>} testUtterances - Map of language codes to test utterances
  * @returns {Promise<void>}
  */
@@ -232,7 +232,7 @@ async function generateOutputFiles(languages, allVoices, testUtterances) {
 export type TGender = "female" | "male" | "nonbinary";
 export type TQuality = "veryLow" | "low" | "normal" | "high" | "veryHigh";
 
-export interface IVoice {
+export interface ReadiumSpeechVoice {
   // Core identification
   label: string;          // User-friendly display name
   name: string;           // System/technical name (matches Web Speech API voiceURI)
@@ -288,13 +288,13 @@ export interface IVoice {
   for (const [lang, langVoices] of languages.entries()) {
     const content = `// Auto-generated file - DO NOT EDIT
 // Last updated: ${new Date().toISOString()}
-import type { IVoice } from "../types";
+import type { ReadiumSpeechVoice } from "../types";
 
 /**
  * List of available voices for ${lang}
  * Sorted by quality (highest first) and then by name
  */
-const voices: IVoice[] = ${JSON.stringify(langVoices, null, 2)};
+const voices: ReadiumSpeechVoice[] = ${JSON.stringify(langVoices, null, 2)};
 
 export default voices;`;
 
@@ -341,7 +341,7 @@ export default testUtterances;`;
   // Generate index file
   const indexContent = `// Auto-generated file - DO NOT EDIT
 // Last updated: ${new Date().toISOString()}
-import type { IVoice } from "./types";
+import type { ReadiumSpeechVoice } from "./types";
 
 ${Array.from(languages.keys())
   .map(lang => `import ${lang.replace("-", "_")} from "./languages/${lang}";`)
@@ -350,9 +350,9 @@ ${Array.from(languages.keys())
 /**
  * Get all voices for a specific language
  * @param {string} lang - Language code (e.g., "en", "fr")
- * @returns {IVoice[]} Array of voices for the specified language
+ * @returns {ReadiumSpeechVoice[]} Array of voices for the specified language
  */
-export function getVoices(lang: string): IVoice[] {
+export function getVoices(lang: string): ReadiumSpeechVoice[] {
   switch (lang) {
     ${Array.from(languages.keys())
       .map(lang => `case "${lang}": return ${lang.replace("-", "_")};`)

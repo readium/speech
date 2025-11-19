@@ -1,6 +1,6 @@
 // Auto-generated file - DO NOT EDIT
-// Last updated: 2025-11-19T09:33:56.340Z
-import type { IVoice } from "./types";
+// Last updated: 2025-11-19T13:07:29.943Z
+import type { ReadiumSpeechVoice } from "./types";
 
 import ar from "./languages/ar";
 import bg from "./languages/bg";
@@ -51,9 +51,9 @@ import yue from "./languages/yue";
 /**
  * Get all voices for a specific language
  * @param {string} lang - Language code (e.g., "en", "fr")
- * @returns {IVoice[]} Array of voices for the specified language
+ * @returns {ReadiumSpeechVoice[]} Array of voices for the specified language
  */
-export function getVoices(lang: string): IVoice[] {
+export function getVoices(lang: string): ReadiumSpeechVoice[] {
   switch (lang) {
     case "ar": return ar;
     case "bg": return bg;

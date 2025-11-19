@@ -84,7 +84,8 @@ async function handleVoiceChange(event) {
     await navigator.stop();
     currentVoice = selectedVoice;
     await navigator.setVoice(selectedVoice);
-    // The view will be updated automatically through the state change events
+    // Re-render to update voice details
+    viewRender();
   }
 }
 

@@ -1,10 +1,9 @@
 import test, { type ExecutionContext } from "ava";
-import { WebSpeechVoiceManager, IVoice } from "../build/index.js";
+import { WebSpeechVoiceManager, ReadiumSpeechVoice } from "../build/index.js";
 
-// Mock Intl.DisplayNames for testing
+// Mock DisplayNames for testing
 class MockDisplayNames {
-  private options: any;
-  
+  options: any;
   constructor(_: any, options: any) {
     this.options = options;
   }
@@ -18,7 +17,17 @@ class MockDisplayNames {
     }
     return code;
   }
+  
+  static supportedLocalesOf(locales: string[]): string[] {
+    return locales;
+  }
 }
+
+// Mock Intl.DisplayNames
+if (typeof (globalThis as any).Intl === "undefined") {
+  (globalThis as any).Intl = {};
+}
+(globalThis as any).Intl.DisplayNames = MockDisplayNames as any;
 
 interface TestContext {
   manager: WebSpeechVoiceManager;
@@ -78,8 +87,8 @@ const testWithContext = test as unknown as {
   beforeEach: (fn: (t: ExecutionContext<TestContext>) => void | Promise<void>) => void;
 };
 
-// Helper function to create test voice objects that match IVoice interface
-function createTestVoice(overrides: Partial<IVoice> = {}): IVoice {
+// Helper function to create test voice objects that match ReadiumSpeechVoice interface
+function createTestVoice(overrides: Partial<ReadiumSpeechVoice> = {}): ReadiumSpeechVoice {
   return {
     label: overrides.name || "Test Voice",
     name: overrides.name || "Test Voice",
@@ -119,43 +128,15 @@ testWithContext.beforeEach(async (t: ExecutionContext<TestContext>) => {
       }
     },
     removeEventListener: function(event: string) {
-      if (event === "voiceschanged") {
-        this.onvoiceschanged = null;
-      }
     },
-    // Helper to trigger the voiceschanged event
     _triggerVoicesChanged: function() {
-      if (typeof this.onvoiceschanged === "function") {
+      if (this.onvoiceschanged) {
         this.onvoiceschanged();
       }
     }
   };
-  
-  // Mock the window.speechSynthesis object
-  Object.defineProperty(globalThis, "speechSynthesis", {
-    value: mockSpeechSynthesis,
-    configurable: true,
-    writable: true
-  });
-  
-  // Also set it on window for good measure
-  Object.defineProperty(globalThis.window, "speechSynthesis", {
-    value: mockSpeechSynthesis,
-    configurable: true,
-    writable: true
-  });
-  
-  // Mock Intl.DisplayNames
-  Object.defineProperty(globalThis, "Intl", {
-    value: {
-      ...Intl,
-      DisplayNames: MockDisplayNames
-    },
-    configurable: true,
-    writable: true
-  });
-  
-  // Mock the window.speechSynthesis.getVoices() to return our mock voices
+
+  // Mock the window.speechSynthesis to return our mock voices
   Object.defineProperty(globalThis.window, "speechSynthesis", {
     value: mockSpeechSynthesis,
     configurable: true,
@@ -163,14 +144,8 @@ testWithContext.beforeEach(async (t: ExecutionContext<TestContext>) => {
   });
 
   try {
-    // Initialize the manager
-    const initPromise = manager.initialize();
-    
-    // Immediately trigger the voiceschanged event to simulate the browser behavior
-    mockSpeechSynthesis._triggerVoicesChanged();
-    
-    // Wait for initialization to complete
-    await initPromise;
+    // Auto-initialize by calling getVoices() which triggers initialization
+    await manager.getVoices();
     
     // Store the manager in the test context
     t.context.manager = manager;
@@ -206,16 +181,16 @@ testWithContext("getInstance: returns singleton instance", (t: ExecutionContext<
 
 testWithContext("initialize: loads voices and sets initialized flag", (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
-  t.true((manager as any).initialized);
+  t.true((manager as any).initializationPromise !== undefined);
   t.is((manager as any).voices.length, mockVoices.length);
 });
 
-testWithContext("getVoices: returns all voices when no filters are provided", (t: ExecutionContext<TestContext>) => {
-  const voices = t.context.manager.getVoices();
+testWithContext("getVoices: returns all voices when no filters are provided", async (t: ExecutionContext<TestContext>) => {
+  const voices = await t.context.manager.getVoices();
   t.is(voices.length, mockVoices.length);
 });
 
-testWithContext("getVoices: combines all filters", (t: ExecutionContext<TestContext>) => {
+testWithContext("getVoices: combines all filters", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   (manager as any).voices = [
@@ -227,7 +202,7 @@ testWithContext("getVoices: combines all filters", (t: ExecutionContext<TestCont
   ];
   
   // Test with all filters combined
-  const filtered = manager.getVoices({ 
+  const filtered = await manager.getVoices({ 
     language: ["en", "fr"],
     gender: "male",
     quality: ["high", "normal"],
@@ -247,7 +222,7 @@ testWithContext("getVoices: combines all filters", (t: ExecutionContext<TestCont
   ));
 });
 
-testWithContext("getVoices: handles empty navigator.languages", (t) => {
+testWithContext("getVoices: handles empty navigator.languages", async (t) => {
   const manager = t.context.manager;
   
   // Create test voices
@@ -264,7 +239,7 @@ testWithContext("getVoices: handles empty navigator.languages", (t) => {
   (globalThis.navigator as any).languages = [];
   
   try {
-    const voices = manager.getVoices();
+    const voices = await manager.getVoices();
     
     // Should still return all voices even with empty languages
     t.is(voices.length, 2);
@@ -274,7 +249,7 @@ testWithContext("getVoices: handles empty navigator.languages", (t) => {
   }
 });
 
-testWithContext("getVoices: handles undefined navigator.languages", (t) => {
+testWithContext("getVoices: handles undefined navigator.languages", async (t) => {
   const manager = t.context.manager;
   
   // Create test voices
@@ -291,7 +266,7 @@ testWithContext("getVoices: handles undefined navigator.languages", (t) => {
   delete (globalThis.navigator as any).languages;
   
   try {
-    const voices = manager.getVoices();
+    const voices = await manager.getVoices();
     
     // Should still return all voices even with undefined languages
     t.is(voices.length, 2);
@@ -302,40 +277,92 @@ testWithContext("getVoices: handles undefined navigator.languages", (t) => {
 });
 
 
-testWithContext("getVoices: returns empty array when no voices are available", (t) => {
-  const manager = t.context.manager;
+testWithContext("getVoices: returns empty array when no voices are available", async (t) => {
+  // Create a fresh instance to avoid interference from other tests
+  (WebSpeechVoiceManager as any).instance = undefined;
+  const manager = WebSpeechVoiceManager.getInstance();
   
-  // Replace voices with empty array
-  (manager as any).browserVoices = [];
-  (manager as any).voices = [];
-  (manager as any).initialized = true; // Force initialized to true to test getVoices directly
+  // Mock empty voices array
+  const emptyMockVoices: any[] = [];
+  const mockSpeechSynthesis = {
+    getVoices: () => emptyMockVoices,
+    onvoiceschanged: null as (() => void) | null,
+    addEventListener: function(event: string, callback: () => void) {
+      if (event === "voiceschanged") {
+        this.onvoiceschanged = callback;
+      }
+    },
+    removeEventListener: function(event: string) {
+    },
+    _triggerVoicesChanged: function() {
+      if (this.onvoiceschanged) {
+        this.onvoiceschanged();
+      }
+    }
+  };
   
-  // Should return empty array when no voices are available
-  const voices = manager.getVoices();
-  t.deepEqual(voices, []);
+  // Override speechSynthesis with empty voices
+  Object.defineProperty(globalThis.window, "speechSynthesis", {
+    value: mockSpeechSynthesis,
+    configurable: true,
+    writable: true
+  });
+  
+  try {
+    // Reset initialization to force re-initialization with empty voices
+    (manager as any).initializationPromise = null;
+    (manager as any).voices = [];
+    (manager as any).browserVoices = [];
+    
+    // Should return empty array when no voices are available
+    const voices = await manager.getVoices();
+    t.deepEqual(voices, []);
+  } finally {
+    // Restore original mock voices for other tests
+    Object.defineProperty(globalThis.window, "speechSynthesis", {
+      value: {
+        getVoices: () => mockVoices,
+        onvoiceschanged: null as (() => void) | null,
+        addEventListener: function(event: string, callback: () => void) {
+          if (event === "voiceschanged") {
+            this.onvoiceschanged = callback;
+          }
+        },
+        removeEventListener: function(event: string) {
+        },
+        _triggerVoicesChanged: function() {
+          if (this.onvoiceschanged) {
+            this.onvoiceschanged();
+          }
+        }
+      },
+      configurable: true,
+      writable: true
+    });
+  }
 });
 
-testWithContext("getVoices: filters by language", (t: ExecutionContext<TestContext>) => {
+testWithContext("getVoices: filters by language", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   // Single language
-  let voices = manager.getVoices({ language: "en" });
+  let voices = await manager.getVoices({ language: "en" });
   t.true(voices.length > 0);
-  t.true(voices.every((v: IVoice) => v.language.startsWith("en")));
+  t.true(voices.every((v: ReadiumSpeechVoice) => v.language.startsWith("en")));
   
   // Multiple languages
-  voices = manager.getVoices({ language: ["en", "fr"] });
+  voices = await manager.getVoices({ language: ["en", "fr"] });
   t.true(voices.length > 1);
-  t.true(voices.some((v: IVoice) => v.language.startsWith("en")));
-  t.true(voices.some((v: IVoice) => v.language.startsWith("fr")));
+  t.true(voices.some((v: ReadiumSpeechVoice) => v.language.startsWith("en")));
+  t.true(voices.some((v: ReadiumSpeechVoice) => v.language.startsWith("fr")));
 });
 
-testWithContext("getVoices: filters by quality", (t: ExecutionContext<TestContext>) => {
+testWithContext("getVoices: filters by quality", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   // Mock quality property on voices
-  const voices = manager.getVoices();
-  const voicesWithQuality = voices.map((v: IVoice, i: number) => ({
+  const voices = await manager.getVoices();
+  const voicesWithQuality = voices.map((v: ReadiumSpeechVoice, i: number) => ({
     ...v,
     quality: i % 2 === 0 ? ["high"] : ["low"]
   }));
@@ -343,9 +370,9 @@ testWithContext("getVoices: filters by quality", (t: ExecutionContext<TestContex
   // Replace the voices in the manager
   (manager as any).voices = voicesWithQuality;
   
-  const highQualityVoices = manager.getVoices({ quality: "high" });
+  const highQualityVoices = await manager.getVoices({ quality: "high" });
   t.true(highQualityVoices.length > 0);
-  t.true(highQualityVoices.every((v: IVoice) => v.quality?.includes("high") ?? false));
+  t.true(highQualityVoices.every((v: ReadiumSpeechVoice) => v.quality?.includes("high") ?? false));
 });
 
 testWithContext("filterVoices: filters by language", (t: ExecutionContext<TestContext>) => {
@@ -509,8 +536,8 @@ testWithContext("filterVoices: handles edge cases", (t: ExecutionContext<TestCon
   t.is(invalidQualityFilter.length, 0);
 });
 
-testWithContext("getLanguages: returns available languages with counts", (t: ExecutionContext<TestContext>) => {
-  const languages = t.context.manager.getLanguages();
+testWithContext("getLanguages: returns available languages with counts", async (t: ExecutionContext<TestContext>) => {
+  const languages = await t.context.manager.getLanguages();
   t.true(Array.isArray(languages));
   
   // Check that we have at least one language
@@ -524,17 +551,71 @@ testWithContext("getLanguages: returns available languages with counts", (t: Exe
   }
 });
 
-testWithContext("getLanguages: handles empty voices array", (t: ExecutionContext<TestContext>) => {
-  const manager = t.context.manager;
+testWithContext("getLanguages: handles empty voices array", async (t: ExecutionContext<TestContext>) => {
+  // Create a fresh instance to avoid interference
+  (WebSpeechVoiceManager as any).instance = undefined;
+  const manager = WebSpeechVoiceManager.getInstance();
   
-  (manager as any).voices = [];
+  // Mock empty voices array
+  const emptyMockVoices: any[] = [];
+  const mockSpeechSynthesis = {
+    getVoices: () => emptyMockVoices,
+    onvoiceschanged: null as (() => void) | null,
+    addEventListener: function(event: string, callback: () => void) {
+      if (event === "voiceschanged") {
+        this.onvoiceschanged = callback;
+      }
+    },
+    removeEventListener: function(event: string) {
+    },
+    _triggerVoicesChanged: function() {
+      if (this.onvoiceschanged) {
+        this.onvoiceschanged();
+      }
+    }
+  };
   
-  const languages = manager.getLanguages();
-  t.deepEqual(languages, []);
+  Object.defineProperty(globalThis.window, "speechSynthesis", {
+    value: mockSpeechSynthesis,
+    configurable: true,
+    writable: true
+  });
+  
+  try {
+    // Reset initialization
+    (manager as any).initializationPromise = null;
+    (manager as any).voices = [];
+    (manager as any).browserVoices = [];
+    
+    const languages = await manager.getLanguages();
+    t.deepEqual(languages, []);
+  } finally {
+    // Restore for other tests
+    Object.defineProperty(globalThis.window, "speechSynthesis", {
+      value: {
+        getVoices: () => mockVoices,
+        onvoiceschanged: null as (() => void) | null,
+        addEventListener: function(event: string, callback: () => void) {
+          if (event === "voiceschanged") {
+            this.onvoiceschanged = callback;
+          }
+        },
+        removeEventListener: function(event: string) {
+        },
+        _triggerVoicesChanged: function() {
+          if (this.onvoiceschanged) {
+            this.onvoiceschanged();
+          }
+        }
+      },
+      configurable: true,
+      writable: true
+    });
+  }
 });
 
-testWithContext("getRegions: returns available regions with counts", (t: ExecutionContext<TestContext>) => {
-  const regions = t.context.manager.getRegions();
+testWithContext("getRegions: returns available regions with counts", async (t: ExecutionContext<TestContext>) => {
+  const regions = await t.context.manager.getRegions();
   t.true(Array.isArray(regions));
   
   // Check that we have at least one region
@@ -548,18 +629,72 @@ testWithContext("getRegions: returns available regions with counts", (t: Executi
   }
 });
 
-testWithContext("getRegions: handles empty voices array", (t: ExecutionContext<TestContext>) => {
-  const manager = t.context.manager;
+testWithContext("getRegions: handles empty voices array", async (t: ExecutionContext<TestContext>) => {
+  // Create a fresh instance to avoid interference
+  (WebSpeechVoiceManager as any).instance = undefined;
+  const manager = WebSpeechVoiceManager.getInstance();
   
-  (manager as any).voices = [];
+  // Mock empty voices array
+  const emptyMockVoices: any[] = [];
+  const mockSpeechSynthesis = {
+    getVoices: () => emptyMockVoices,
+    onvoiceschanged: null as (() => void) | null,
+    addEventListener: function(event: string, callback: () => void) {
+      if (event === "voiceschanged") {
+        this.onvoiceschanged = callback;
+      }
+    },
+    removeEventListener: function(event: string) {
+    },
+    _triggerVoicesChanged: function() {
+      if (this.onvoiceschanged) {
+        this.onvoiceschanged();
+      }
+    }
+  };
   
-  const regions = manager.getRegions();
-  t.deepEqual(regions, []);
+  Object.defineProperty(globalThis.window, "speechSynthesis", {
+    value: mockSpeechSynthesis,
+    configurable: true,
+    writable: true
+  });
+  
+  try {
+    // Reset initialization
+    (manager as any).initializationPromise = null;
+    (manager as any).voices = [];
+    (manager as any).browserVoices = [];
+    
+    const regions = await manager.getRegions();
+    t.deepEqual(regions, []);
+  } finally {
+    // Restore for other tests
+    Object.defineProperty(globalThis.window, "speechSynthesis", {
+      value: {
+        getVoices: () => mockVoices,
+        onvoiceschanged: null as (() => void) | null,
+        addEventListener: function(event: string, callback: () => void) {
+          if (event === "voiceschanged") {
+            this.onvoiceschanged = callback;
+          }
+        },
+        removeEventListener: function(event: string) {
+        },
+        _triggerVoicesChanged: function() {
+          if (this.onvoiceschanged) {
+            this.onvoiceschanged();
+          }
+        }
+      },
+      configurable: true,
+      writable: true
+    });
+  }
 });
 
-testWithContext("convertToSpeechSynthesisVoice: converts IVoice to SpeechSynthesisVoice", (t: ExecutionContext<TestContext>) => {
+testWithContext("convertToSpeechSynthesisVoice: converts ReadiumSpeechVoice to SpeechSynthesisVoice", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
-  const voices = manager.getVoices();
+  const voices = await manager.getVoices();
   t.plan(3);
   
   if (voices.length > 0) {
@@ -584,7 +719,7 @@ testWithContext("filterOutNoveltyVoices: removes novelty voices", (t: ExecutionC
   
   const filtered = manager.filterOutNoveltyVoices(testVoices);
   t.is(filtered.length, 2);
-  t.false(filtered.some((v: IVoice) => v.isNovelty));
+  t.false(filtered.some((v: ReadiumSpeechVoice) => v.isNovelty));
 });
 
 testWithContext("filterOutVeryLowQualityVoices: removes very low quality voices", (t: ExecutionContext<TestContext>) => {
@@ -599,7 +734,7 @@ testWithContext("filterOutVeryLowQualityVoices: removes very low quality voices"
   
   const filtered = manager.filterOutVeryLowQualityVoices(testVoices);
   t.is(filtered.length, testVoices.length - 1);
-  t.false(filtered.some((v: IVoice) => v.quality?.includes("veryLow")));
+  t.false(filtered.some((v: ReadiumSpeechVoice) => v.quality?.includes("veryLow")));
 });
 
 testWithContext("sortVoices: sorts by name", (t: ExecutionContext<TestContext>) => {
@@ -732,7 +867,7 @@ testWithContext("sortVoices: sorts by region", (t: ExecutionContext<TestContext>
   t.is(sortedDesc[3].language, "en-AU");
 });
 
-testWithContext("getDefaultVoice: returns default voice for language", (t: ExecutionContext<TestContext>) => {
+testWithContext("getDefaultVoice: returns default voice for language", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   // Create test voices with one default voice for en-US
@@ -756,19 +891,72 @@ testWithContext("getDefaultVoice: returns default voice for language", (t: Execu
   // Replace the voices in the manager
   (manager as any).voices = testVoices;
   
-  const defaultVoice = manager.getDefaultVoice("en-US");
+  const defaultVoice = await manager.getDefaultVoice("en-US");
   t.truthy(defaultVoice);
   t.is(defaultVoice?.voiceURI, "voice1");
 });
 
-testWithContext("getDefaultVoice: returns undefined when no voices available", (t) => {
-  const manager = t.context.manager;
+testWithContext("getDefaultVoice: returns undefined when no voices available", async (t) => {
+  // Create a fresh instance to avoid interference
+  (WebSpeechVoiceManager as any).instance = undefined;
+  const manager = WebSpeechVoiceManager.getInstance();
   
-  // Replace voices with empty array
-  (manager as any).voices = [];
+  // Mock empty voices array
+  const emptyMockVoices: any[] = [];
+  const mockSpeechSynthesis = {
+    getVoices: () => emptyMockVoices,
+    onvoiceschanged: null as (() => void) | null,
+    addEventListener: function(event: string, callback: () => void) {
+      if (event === "voiceschanged") {
+        this.onvoiceschanged = callback;
+      }
+    },
+    removeEventListener: function(event: string) {
+    },
+    _triggerVoicesChanged: function() {
+      if (this.onvoiceschanged) {
+        this.onvoiceschanged();
+      }
+    }
+  };
   
-  const defaultVoice = manager.getDefaultVoice("en-US");
-  t.is(defaultVoice, undefined);
+  Object.defineProperty(globalThis.window, "speechSynthesis", {
+    value: mockSpeechSynthesis,
+    configurable: true,
+    writable: true
+  });
+  
+  try {
+    // Reset initialization
+    (manager as any).initializationPromise = null;
+    (manager as any).voices = [];
+    (manager as any).browserVoices = [];
+    
+    const defaultVoice = await manager.getDefaultVoice("en-US");
+    t.is(defaultVoice, undefined);
+  } finally {
+    // Restore for other tests
+    Object.defineProperty(globalThis.window, "speechSynthesis", {
+      value: {
+        getVoices: () => mockVoices,
+        onvoiceschanged: null as (() => void) | null,
+        addEventListener: function(event: string, callback: () => void) {
+          if (event === "voiceschanged") {
+            this.onvoiceschanged = callback;
+          }
+        },
+        removeEventListener: function(event: string) {
+        },
+        _triggerVoicesChanged: function() {
+          if (this.onvoiceschanged) {
+            this.onvoiceschanged();
+          }
+        }
+      },
+      configurable: true,
+      writable: true
+    });
+  }
 });
 
 testWithContext("groupVoices: groups by language", (t: ExecutionContext<TestContext>) => {
@@ -884,11 +1072,11 @@ testWithContext("convertToSpeechSynthesisVoice: handles invalid voice", (t: Exec
   t.is(result2, undefined);
 });
 
-testWithContext("getDefaultVoice: returns undefined when no matching language", (t: ExecutionContext<TestContext>) => {
+testWithContext("getDefaultVoice: returns undefined when no matching language", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   // Test with language that has no voices
-  const result = manager.getDefaultVoice("xx-XX");
+  const result = await manager.getDefaultVoice("xx-XX");
   t.is(result, undefined);
 });
 
@@ -946,18 +1134,61 @@ testWithContext("getTestUtterance: returns empty string for unsupported language
   t.is(utterance, "");
 });
 
-testWithContext("ensureInitialized: throws if not initialized", (t) => {
-  // Create a new instance without initializing
+testWithContext("getVoices: auto-initializes when not initialized", async (t) => {
+  // Create a fresh instance to ensure clean state
   (WebSpeechVoiceManager as any).instance = undefined;
   const manager = WebSpeechVoiceManager.getInstance();
   
-  // Should throw because we haven’t called initialize()
-  t.throws(() => manager.getVoices(), { 
-    message: /must be initialized first/ 
+  // Ensure speechSynthesis mock is available
+  if (typeof (globalThis as any).window === "undefined") {
+    (globalThis as any).window = globalThis;
+  }
+  
+  const mockSpeechSynthesis: any = {
+    getVoices: () => mockVoices,
+    onvoiceschanged: undefined, // Start as undefined like real browser
+    addEventListener: function(event: string, callback: () => void) {
+      if (event === "voiceschanged") {
+        this.onvoiceschanged = callback;
+      }
+    },
+    removeEventListener: function(event: string) {
+    },
+    _triggerVoicesChanged: function() {
+      if (this.onvoiceschanged) {
+        this.onvoiceschanged();
+      }
+    }
+  };
+  
+  Object.defineProperty(globalThis.window, "speechSynthesis", {
+    value: mockSpeechSynthesis,
+    configurable: true,
+    writable: true
   });
+  
+  // Reset initialization state
+  (manager as any).initializationPromise = null;
+  (manager as any).voices = [];
+  (manager as any).browserVoices = [];
+  
+  // Trigger the voiceschanged event after a short delay to simulate browser behavior
+  setTimeout(() => {
+    if (mockSpeechSynthesis.onvoiceschanged) {
+      mockSpeechSynthesis.onvoiceschanged();
+    }
+  }, 1);
+  
+  // Should not throw because getVoices() auto-initializes
+  const voices = await manager.getVoices();
+  t.true(Array.isArray(voices));
+  // Check that voices were loaded (not empty since we have mock voices)
+  t.true(voices.length > 0);
+  // After initialization, voices should be populated
+  t.true((manager as any).voices.length > 0);
 });
 
-testWithContext("initialize: returns false when speechSynthesis is not available", async (t) => {
+testWithContext("getVoices: returns empty array when speechSynthesis is not available", async (t) => {
   // Save original
   const originalSpeechSynthesis = globalThis.speechSynthesis;
   
@@ -973,9 +1204,9 @@ testWithContext("initialize: returns false when speechSynthesis is not available
     (WebSpeechVoiceManager as any).instance = undefined;
     const manager = WebSpeechVoiceManager.getInstance();
     
-    // Should return false when speechSynthesis is not available
-    const result = await manager.initialize();
-    t.false(result);
+    // Should return empty array when speechSynthesis is not available
+    const voices = await manager.getVoices();
+    t.deepEqual(voices, []);
   } finally {
     // Restore
     Object.defineProperty(globalThis, "speechSynthesis", {

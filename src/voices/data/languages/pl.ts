@@ -1,12 +1,12 @@
 // Auto-generated file - DO NOT EDIT
-// Last updated: 2025-11-19T09:33:56.337Z
-import type { IVoice } from "../types";
+// Last updated: 2025-11-19T13:07:29.940Z
+import type { ReadiumSpeechVoice } from "../types";
 
 /**
  * List of available voices for pl
  * Sorted by quality (highest first) and then by name
  */
-const voices: IVoice[] = [
+const voices: ReadiumSpeechVoice[] = [
   {
     "label": "Zofia",
     "name": "Microsoft Zofia Online (Natural) - Polish (Poland)",

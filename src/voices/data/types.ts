@@ -2,7 +2,7 @@
 export type TGender = "female" | "male" | "nonbinary";
 export type TQuality = "veryLow" | "low" | "normal" | "high" | "veryHigh";
 
-export interface IVoice {
+export interface ReadiumSpeechVoice {
   // Core identification
   label: string;          // User-friendly display name
   name: string;           // System/technical name (matches Web Speech API voiceURI)
