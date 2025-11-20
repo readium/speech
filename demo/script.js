@@ -318,6 +318,23 @@ async function loadSampleText(languageCode) {
   }
 }
 
+// Update the test utterance based on the current voice and language
+function updateTestUtterance(voice, languageCode) {
+  if (!voice) {
+    testUtterance = "";
+    testUtteranceInput.value = "";
+    testUtteranceBtn.disabled = true;
+    return;
+  }
+  
+  const lang = voice.lang?.split("-")[0] || languageCode?.split("-")[0] || "en";
+  const baseUtterance = voiceManager.getTestUtterance(lang) || 
+                      `This is a test of the {name} voice.`;
+  testUtterance = baseUtterance.replace(/\{\s*name\s*\}/g, voice.name || "this voice");
+  testUtteranceInput.value = testUtterance;
+  testUtteranceBtn.disabled = false;
+}
+
 // Create utterances from text with better sentence splitting
 function createUtterancesFromText(text) {
   // More sophisticated sentence splitting that handles abbreviations, quotes, etc.
@@ -370,15 +387,8 @@ function setupEventListeners() {
             voiceOption.selected = true;
           }
           
-          // Enable the test utterance button
-          testUtteranceBtn.disabled = false;
-          
           // Update the test utterance with the new voice
-          const lang = currentVoice.lang?.split("-")[0] || languageCode.split("-")[0];
-          const baseUtterance = voiceManager.getTestUtterance(lang) || 
-                              `This is a test of the {name} voice.`;
-          testUtterance = baseUtterance.replace(/\{\s*name\s*\}/g, currentVoice.name || "this voice");
-          testUtteranceInput.value = testUtterance;
+          updateTestUtterance(currentVoice, languageCode);
           
         } catch (error) {
           console.error("Error setting default voice:", error);
@@ -406,15 +416,8 @@ function setupEventListeners() {
         const languageCode = languageSelect.value;
         await loadSampleText(languageCode);
         
-        // Get the base utterance for the voice's language
-        const lang = currentVoice.lang?.split("-")[0] || languageCode.split("-")[0];
-        const baseUtterance = voiceManager.getTestUtterance(lang) || 
-                            `Hello, this is a test of the {name} voice.`;
-                            
-        // Generate the test utterance with the voice's name, handling spaces inside { name }
-        testUtterance = baseUtterance.replace(/\{\s*name\s*\}/g, currentVoice.name || "this voice");
-        testUtteranceInput.value = testUtterance;
-        testUtteranceBtn.disabled = false;
+        // Update the test utterance with the new voice
+        updateTestUtterance(currentVoice, languageCode);
       } catch (error) {
         console.error("Error setting voice:", error);
       }
