@@ -144,65 +144,46 @@ function populateVoiceDropdown(language = "") {
   voiceSelect.innerHTML = "<option value='' disabled selected>Select a voice</option>";
   
   try {
-    // Get current filter values
-    const voicesToShow = [...filteredVoices];
-    
-    if (!voicesToShow.length) {
+    if (!filteredVoices.length) {
       const option = document.createElement("option");
       option.disabled = true;
       option.textContent = "No voices match the current filters";
       voiceSelect.appendChild(option);
       return;
     }
-    
-    // Group voices by region
-    const voiceGroups = voiceManager.groupVoices(voicesToShow, "region");
-    
-    // Sort regions with the current language's region first, then alphabetically
-    const sortedRegions = Object.keys(voiceGroups).sort((a, b) => {
-      if (language) {
-        try {
-          const defaultRegion = new Intl.Locale(language).region;
-          if (a.includes(defaultRegion)) return -1;
-          if (b.includes(defaultRegion)) return 1;
-        } catch (e) {
-          console.warn("Could not determine region from language:", language);
-        }
-      }
-      return a.localeCompare(b);
+
+    // Sort voices by language (with current language first) and then by name
+    const sortedVoices = voiceManager.sortVoices([...filteredVoices], { 
+      by: "language",
+      order: "asc",
+      preferredLanguage: language || undefined
     });
-    
+
+    // Group the sorted voices by region
+    const voiceGroups = voiceManager.groupVoices(sortedVoices, "region");
+
     // Add optgroups for each region
-    for (const region of sortedRegions) {
-      const voices = voiceGroups[region];
+    for (const [region, voices] of Object.entries(voiceGroups)) {
       if (!voices.length) continue;
       
-      // Extract country code from region (e.g., "en-US" -> "US")
       const countryCode = region.split("-").pop() || region;
-      
-      // Create optgroup with region name
       const optgroup = document.createElement("optgroup");
       optgroup.label = `${getCountryFlag(countryCode)} ${region}`;
       
       // Sort voices by name within each region
-      const sortedVoices = voiceManager.sortVoices(voices, { 
+      const sortedVoicesInRegion = voiceManager.sortVoices(voices, { 
         by: "name",
         order: "asc"
       });
       
-      // Add each voice as an option
-      for (const voice of sortedVoices) {
+      for (const voice of sortedVoicesInRegion) {
         const option = document.createElement("option");
         option.value = voice.name;
-        
-        // Format the display text with voice details
-        const details = [
+        option.textContent = [
           voice.name,
           voice.gender ? `(${voice.gender})` : "",
           voice.offlineAvailability ? "(offline)" : "(online)"
         ].filter(Boolean).join(" ");
-        
-        option.textContent = details;
         option.dataset.voiceUri = voice.voiceURI;
         optgroup.appendChild(option);
       }
