@@ -18,6 +18,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private playbackState: ReadiumSpeechPlaybackState = "idle";
   private eventListeners: Map<ReadiumSpeechPlaybackEvent["type"], ((event: ReadiumSpeechPlaybackEvent) => void)[]> = new Map();
 
+  private voiceManager: WebSpeechVoiceManager | null = null;
   private voices: ReadiumSpeechVoice[] = [];
   private defaultVoice: ReadiumSpeechVoice | null = null;
 
@@ -70,7 +71,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     interval?: number;
     maxLengthExceeded?: "error" | "none" | "warn";
   } = {}): Promise<boolean> {
-    const { maxTimeout = 10000, interval = 10, maxLengthExceeded = "warn" } = options;
+    const { maxTimeout, interval, maxLengthExceeded = "warn" } = options;
 
     if (this.initialized) {
       return false;
@@ -79,11 +80,12 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.maxLengthExceeded = maxLengthExceeded;
 
     try {
-      // Get voices from WebSpeechVoiceManager
-      this.voices = await WebSpeechVoiceManager.getInstance().getVoices();
+      // Initialize voice manager with provided options and get voices
+      this.voiceManager = await WebSpeechVoiceManager.initialize(maxTimeout, interval);
+      this.voices = this.voiceManager.getVoices();
 
       // Try to find voice matching user's language
-      const langVoices = WebSpeechVoiceManager.getInstance().filterVoices(this.voices, { language: navigator.language || "en" });
+      const langVoices = this.voiceManager.filterVoices(this.voices, { language: navigator.language || "en" });
       this.defaultVoice = langVoices.length > 0 ? langVoices[0] : this.voices[0] || null;
 
       this.initialized = true;
@@ -145,13 +147,12 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   // Voice Configuration
-  async setVoice(voice: ReadiumSpeechVoice | string): Promise<void> {
+  setVoice(voice: ReadiumSpeechVoice | string): void {
     const previousVoice = this.currentVoice;
 
     if (typeof voice === "string") {
       // Find voice by name or language
-      const voices = await this.getAvailableVoices();
-      const foundVoice = voices.find(v => v.name === voice || v.language === voice);
+      const foundVoice = this.voices.find(v => v.name === voice || v.language === voice);
       if (foundVoice) {
         this.currentVoice = foundVoice;
         // Reset position when voice changes for fresh start with new voice
@@ -260,9 +261,9 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     // Enhanced voice selection with MSNatural detection
     const selectedVoice = this.getCurrentVoiceForUtterance(this.currentVoice);
 
-    if (selectedVoice) {
-      // Convert ReadiumSpeechVoice to SpeechSynthesisVoice
-      const nativeVoice = WebSpeechVoiceManager.getInstance().convertToSpeechSynthesisVoice(selectedVoice);
+    if (selectedVoice && this.voiceManager) {
+      // Convert ReadiumSpeechVoice to SpeechSynthesisVoice using the initialized voiceManager
+      const nativeVoice = this.voiceManager.convertToSpeechSynthesisVoice(selectedVoice);
       
       if (nativeVoice) {
         utterance.voice = nativeVoice; // Use the real native voice from cache

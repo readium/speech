@@ -51,60 +51,58 @@ interface SortOptions {
  */
 export class WebSpeechVoiceManager {
   private static instance: WebSpeechVoiceManager;
+  private static initializationPromise: Promise<WebSpeechVoiceManager> | null = null;
   private voices: ReadiumSpeechVoice[] = [];
   private browserVoices: SpeechSynthesisVoice[] = [];
-  private initializationPromise: Promise<boolean> | null = null;
-
-  /**
-   * Get the singleton instance
-   */
-  public static getInstance(): WebSpeechVoiceManager {
-    if (!WebSpeechVoiceManager.instance) {
-      WebSpeechVoiceManager.instance = new WebSpeechVoiceManager();
-    }
-    return WebSpeechVoiceManager.instance;
-  }
+  private isInitialized = false;
 
   private constructor() {
-    // Private constructor to enforce singleton
+    if (typeof window === "undefined" || !window.speechSynthesis) {
+      throw new Error("Web Speech API is not available in this environment");
+    }
   }
 
   /**
    * Initialize the voice manager
-   * @returns Promise that resolves when initialization is complete
+   * @param options Configuration options for voice loading
+   * @param options.maxTime Maximum time in milliseconds to wait for voices to load (passed to getBrowserVoices)
+   * @param options.interval Interval in milliseconds between voice loading checks (passed to getBrowserVoices)
+   * @returns Promise that resolves with the WebSpeechVoiceManager instance
    */
-  async initialize(): Promise<boolean> {
-    // Return existing promise if initialization is in progress
-    if (this.initializationPromise) {
-      return this.initializationPromise;
+  static async initialize(
+    maxTimeout?: number,
+    interval?: number
+  ): Promise<WebSpeechVoiceManager> {
+    // If we already have an initialized instance, return it
+    if (WebSpeechVoiceManager.instance?.isInitialized) {
+      return WebSpeechVoiceManager.instance;
     }
 
-    // If already initialized, return true immediately
-    if (this.voices.length > 0) {
-      return true;
+    // If initialization is in progress, return the existing promise
+    if (WebSpeechVoiceManager.initializationPromise) {
+      return WebSpeechVoiceManager.initializationPromise;
     }
 
-    this.initializationPromise = this.doInitialize();
-    return this.initializationPromise;
-  }
-
-  private async doInitialize(): Promise<boolean> {
-    try {
-      // Check if speechSynthesis is available
-      if (!window.speechSynthesis) {
-        return false;
+    // Create a new instance and store the initialization promise
+    WebSpeechVoiceManager.initializationPromise = (async () => {
+      try {
+        const instance = new WebSpeechVoiceManager();
+        WebSpeechVoiceManager.instance = instance;
+        
+        instance.browserVoices = await instance.getBrowserVoices(maxTimeout, interval);
+        instance.voices = instance.parseToReadiumSpeechVoices(instance.browserVoices);
+        instance.isInitialized = true;
+        
+        return instance;
+      } catch (error) {
+        // On error, clear the promise so initialization can be retried
+        WebSpeechVoiceManager.initializationPromise = null;
+        console.error("Failed to initialize WebSpeechVoiceManager:", error);
+        throw error;
       }
-      
-      this.browserVoices = await this.getBrowserVoices();
-      this.voices = this.parseToReadiumSpeechVoices(this.browserVoices);
-      return true;
-    } catch (error) {
-      console.error("Failed to initialize WebSpeechVoiceManager:", error);
-      return false;
-    } finally {
-      // Clear the promise so initialization can be retried if needed
-      this.initializationPromise = null;
-    }
+    })();
+
+    return WebSpeechVoiceManager.initializationPromise;
   }
 
   /**
@@ -146,17 +144,20 @@ export class WebSpeechVoiceManager {
   /**
    * Get all voices matching the filter criteria
    */
-  async getVoices(options: VoiceFilterOptions = {}): Promise<ReadiumSpeechVoice[]> {
-    // Auto-initialize if not already done
-    await this.initialize();
-    return this.filterVoices(this.voices, options);
+  getVoices(options: VoiceFilterOptions = {}): ReadiumSpeechVoice[] {
+    if (!this.isInitialized) {
+      throw new Error('WebSpeechVoiceManager not initialized. Call initialize() first.');
+    }
+    return this.filterVoices([...this.voices], options);
   }
 
   /**
    * Get available languages with voice counts
    */
-  async getLanguages(localization?: string): Promise<LanguageInfo[]> {
-    await this.initialize();
+  getLanguages(localization?: string): LanguageInfo[] {
+    if (!this.isInitialized) {
+      throw new Error('WebSpeechVoiceManager not initialized. Call initialize() first.');
+    }
     
     const languages = new Map<string, { count: number; label: string }>();
     
@@ -185,8 +186,10 @@ export class WebSpeechVoiceManager {
   /**
    * Get available regions with voice counts
    */
-  async getRegions(localization?: string): Promise<LanguageInfo[]> {
-    await this.initialize();
+  getRegions(localization?: string): LanguageInfo[] {
+    if (!this.isInitialized) {
+      throw new Error('WebSpeechVoiceManager not initialized. Call initialize() first.');
+    }
     
     const regions = new Map<string, { count: number; label: string }>();
     
@@ -233,10 +236,10 @@ export class WebSpeechVoiceManager {
   /**
    * Get the default voice for a language
    */
-  async getDefaultVoice(language: string): Promise<ReadiumSpeechVoice | undefined> {
+  getDefaultVoice(language: string): ReadiumSpeechVoice | undefined {
     if (!language) return undefined;
     
-    const voices = await this.getVoices({ language });
+    const voices = this.getVoices({ language });
     if (!voices.length) return undefined;
     
     // Try to find a default voice with high quality
@@ -251,7 +254,7 @@ export class WebSpeechVoiceManager {
     return voices[0];
   }
 
-  public getBrowserVoices(maxTimeout = 10000, interval = 10): Promise<SpeechSynthesisVoice[]> {
+  getBrowserVoices(maxTimeout = 10000, interval = 10): Promise<SpeechSynthesisVoice[]> {
     const getVoices = () => window.speechSynthesis?.getVoices() || [];
 
     // Check if speechSynthesis is available

@@ -97,8 +97,8 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
     return this.engine.getAvailableVoices();
   }
 
-  async setVoice(voice: ReadiumSpeechVoice | string): Promise<void> {
-    await this.engine.setVoice(voice);
+  setVoice(voice: ReadiumSpeechVoice | string): void {
+    this.engine.setVoice(voice);
   }
 
   getCurrentVoice(): ReadiumSpeechVoice | null {

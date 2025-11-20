@@ -65,7 +65,7 @@ async function initVoices() {
     currentVoice = englishVoices.length > 0 ? englishVoices[0] : voices[0];
     
     if (currentVoice) {
-      await navigator.setVoice(currentVoice);
+      navigator.setVoice(currentVoice);
     }
     
     // Re-render to show the voice selector
@@ -83,7 +83,7 @@ async function handleVoiceChange(event) {
     // Stop any ongoing speech before changing the voice
     await navigator.stop();
     currentVoice = selectedVoice;
-    await navigator.setVoice(selectedVoice);
+    navigator.setVoice(selectedVoice);
     // Re-render to update voice details
     viewRender();
   }
