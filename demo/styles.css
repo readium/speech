@@ -1,6 +1,10 @@
 body,
 html {
   margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.6;
+  color: #333;
 }
 
 html {
@@ -8,9 +12,204 @@ html {
 }
 
 body {
-  height: 90%;
+  min-height: 100%;
   max-width: 800px;
   margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Control panel */
+.control-panel {
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 0 0 20px 0;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* Form elements */
+.form-group {
+  margin-bottom: 15px;
+  width: 100%;
+  text-align: left;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 500;
+}
+
+select, 
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.checkbox-group {
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.checkbox-group input[type="checkbox"] {
+  margin: 0;
+  width: auto;
+}
+
+/* Test utterance section */
+.test-utterance-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.test-utterance-input {
+  flex: 1;
+}
+
+.test-utterance-button {
+  margin: 0;
+  align-self: flex-end;
+  margin-bottom: 1px; /* Small adjustment for visual alignment */
+}
+
+.test-utterance-button button {
+  background-color: #4CAF50; /* Green color for the test button */
+  color: white;
+  white-space: nowrap;
+  padding: 8px 16px;
+  height: 38px; /* Match input field height */
+  box-sizing: border-box;
+}
+
+.test-utterance-button button:hover:not(:disabled) {
+  background-color: #45a049; /* Darker green on hover */
+  opacity: 1;
+}
+
+/* Base button styles */
+button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  font-size: 14px;
+  margin-right: 10px;
+}
+
+button:disabled {
+  background-color: #cccccc !important;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+button:hover:not(:disabled) {
+  opacity: 0.9;
+}
+
+/* Playback controls */
+.playback-controls {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Play state (green) */
+.play-state {
+  background-color: #4CAF50; /* Green for play */
+}
+
+.play-state:hover:not(:disabled) {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+/* Pause state (orange) */
+.pause-state {
+  background-color: #ff9800; /* Orange for pause */
+}
+
+.pause-state:hover:not(:disabled) {
+  background-color: #e68900; /* Darker orange on hover */
+}
+
+/* Stop button (red) */
+.stop {
+  background-color: #f44336; /* Red for stop */
+}
+
+.stop:hover:not(:disabled) {
+  background-color: #d32f2f; /* Darker red on hover */
+}
+
+/* Navigation buttons (blue) */
+.nav {
+  background-color: #2196F3; /* Blue for navigation */
+}
+
+.nav:hover:not(:disabled) {
+  background-color: #1976D2; /* Darker blue on hover */
+}
+
+/* Jump Controls */
+.jump-controls {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.jump-controls input[type="number"] {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+/* Jump To button (purple) */
+.jump-btn {
+  background-color: #9c27b0; /* Purple for jump */
+}
+
+.jump-btn:hover:not(:disabled) {
+  background-color: #7b1fa2; /* Darker purple on hover */
+}
+
+/* Highlight for current utterance */
+.highlight {
+  background-color: #ffeb3b;
+  padding: 0 2px;
+  border-radius: 3px;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.2s ease;
+}
+
+/* Text display */
+.text-display {
+  line-height: 2;
+  min-height: 100px;
+  border: 1px solid #eee;
+  padding: 15px;
+  border-radius: 4px;
+  white-space: pre-wrap;
 }
 
 h1,
@@ -20,7 +219,6 @@ p {
   padding: 10px;
 }
 
-.txt,
 select,
 form > div {
   display: block;
@@ -30,52 +228,223 @@ form > div {
   padding: 5px;
 }
 
-.txt {
-  width: 82%;
-}
-
-select {
-  width: 83%;
-}
-
-form > div {
-  width: 81%;
-}
-
-.txt,
 form > div {
   margin-bottom: 10px;
   overflow: auto;
 }
 
-.clearfix {
-  clear: both;
+/* Demo section styles */
+.demo-section {
+  margin: 30px 0;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f9f9f9;
 }
 
-.controls {
-  text-align: center;
-  margin-top: 50px;
+.demo-section h2 {
+  margin-top: 0;
+  color: #333;
+  font-size: 1.5em;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
 }
 
-.controls > * {
-  margin-bottom: 10px;
-  text-align: center;
+/* Utterances list */
+.utterances-list {
+  margin-top: 15px;
 }
-.controls fieldset {
+
+.utterance {
+  margin: 10px 0;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: flex-start;
+  line-height: 1.5;
+  position: relative;
+  background: white;
+  border: 1px solid #e0e0e0;
+}
+
+.utterance.current {
+  background-color: #e6f3ff;
+  border-left: 3px solid #1a73e8;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.utterance.played {
+  opacity: 0.7;
+  background-color: #f8f9fa;
+}
+
+.utterance-number {
   display: inline-block;
-  text-align: left;
+  min-width: 24px;
+  color: #666;
+  font-weight: 600;
+  margin-right: 8px;
+  user-select: none;
+  font-family: monospace;
+  text-align: right;
+  flex-shrink: 0;
+  padding-top: 2px;
 }
 
-.controls button {
-  padding: 10px;
-  width: 100px;
+.utterance-text {
+  flex: 1;
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 2px 0;
 }
 
-.checkbox {
-  text-align: center;
+/* Playback Controls */
+.playback-controls {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  justify-content: center;
 }
 
-.debug {
-  margin-top: 100px;
-  text-align: center;
+/* Playback control buttons - base styles */
+.playback-controls button {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.playback-controls button:hover {
+  opacity: 0.9;
+}
+
+/* Play state (green) */
+.play-state,
+.playback-controls .play-state {
+  background-color: #4CAF50 !important; /* Green for play */
+}
+
+.play-state:hover,
+.playback-controls .play-state:hover {
+  background-color: #45a049 !important; /* Darker green on hover */
+}
+
+/* Pause state (orange) */
+.pause-state,
+.playback-controls .pause-state {
+  background-color: #ff9800 !important; /* Orange for pause */
+}
+
+.pause-state:hover,
+.playback-controls .pause-state:hover {
+  background-color: #e68900 !important; /* Darker orange on hover */
+}
+
+/* Stop button (red) */
+.stop,
+.playback-controls .stop {
+  background-color: #f44336 !important; /* Red for stop */
+}
+
+.stop:hover,
+.playback-controls .stop:hover {
+  background-color: #d32f2f !important; /* Darker red on hover */
+}
+
+/* Navigation buttons (blue) */
+.nav,
+.playback-controls .nav {
+  background-color: #2196F3 !important; /* Blue for navigation */
+}
+
+.nav:hover,
+.playback-controls .nav:hover {
+  background-color: #1976D2 !important; /* Darker blue on hover */
+}
+
+/* Jump Controls */
+.jump-controls {
+  display: flex;
+  gap: 10px;
+  margin: 20px 0;
+  justify-content: center;
+  align-items: center;
+}
+
+.jump-controls input[type="number"] {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 120px;
+}
+
+/* Jump To button (purple) */
+.jump-btn {
+  padding: 8px 16px;
+  background-color: #9c27b0; /* Purple for jump */
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.jump-btn:hover {
+  background-color: #7b1fa2; /* Darker purple on hover */
+}
+
+/* Simple highlight style for the current word */
+::highlight(current-word) {
+  background-color: #ffeb3b;
+  color: black;
+}
+
+/* Current utterance styling */
+.utterance.current {
+  background-color: #e3f2fd;
+  border-left: 3px solid #2196f3;
+  padding-left: 8px;
+}
+
+/* Played utterances styling */
+.utterance.played {
+  background-color: #e8f5e9;
+  opacity: 0.8;
+}
+
+.utterance.played .utterance-number {
+  color: #4caf50;
+  font-weight: bold;
+}
+
+.utterance.played .utterance-text {
+  color: #2e7d32;
+}
+
+/* Add some spacing between utterances */
+.utterance + .utterance {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #eee;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .demo-section {
+    padding: 15px;
+  }
+  
+  .utterance {
+    padding: 6px 8px;
+  }
+  
+  .utterance-number {
+    min-width: 20px;
+    margin-right: 6px;
+  }
 }
