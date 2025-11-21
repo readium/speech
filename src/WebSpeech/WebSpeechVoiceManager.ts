@@ -2,6 +2,18 @@ import { ReadiumSpeechVoice, TGender, TQuality } from "../voices/data/types";
 import { getTestUtterance } from "../voices/data/testUtterances";
 import * as voiceData from "../voices/data";
 
+// Mapping of language codes to their variants
+const LANGUAGE_CODE_MAPPING: Record<string, string[]> = {
+  "zh": ["cmn", "wuu", "yue"],  // Map "zh" to all Chinese variants
+  "zh-CN": ["cmn"],             // Map "zh-CN" to Mandarin
+  "zh-TW": ["cmn"],             // Map "zh-TW" to Mandarin
+  "zh-HK": ["yue", "cmn"],      // Map "zh-HK" to Cantonese and Mandarin
+  "zh-SG": ["cmn"],             // Map "zh-SG" to Mandarin
+  "cmn": ["cmn"],               // Direct mapping for ISO 639-3 codes
+  "wuu": ["wuu"],
+  "yue": ["yue"]
+};
+
 /**
  * Options for filtering voices
  */
@@ -115,6 +127,32 @@ export class WebSpeechVoiceManager {
   }
 
   /**
+   * Get language variants for a given language code
+   * @private
+   */
+  private static getLanguageVariants(lang: string): string[] {
+    const [baseLang] = this.extractLangRegionFromBCP47(lang);
+    return LANGUAGE_CODE_MAPPING[baseLang] || [baseLang];
+  }
+
+  /**
+   * Get display name for a language code
+   * @private
+   */
+  private static getLanguageDisplayName(code: string): string {
+    const displayNames: Record<string, string> = {
+      "cmn": "Mandarin Chinese",
+      "wuu": "Wu Chinese",
+      "yue": "Cantonese (Yue)"
+    };
+    try {
+      return displayNames[code] || new Intl.DisplayNames([], { type: "language" }).of(code) || code.toUpperCase();
+    } catch (e) {
+      return code.toUpperCase();
+    }
+  }
+
+  /**
    * Remove duplicate voices
    * @param voices Array of voices to remove duplicates from
    * @returns Filtered array with duplicates removed
@@ -136,8 +174,24 @@ export class WebSpeechVoiceManager {
    * @param language - Language code (e.g., "en", "fr", "es")
    * @returns Test utterance text
    */
-  getTestUtterance(language: string): string {
-    return getTestUtterance(language);
+  getTestUtterance(language: string): string | undefined {
+    // Try direct match first
+    let utterance = getTestUtterance(language);
+    if (utterance) {
+      return utterance;
+    }
+
+    // Try with language variants
+    const variants = WebSpeechVoiceManager.getLanguageVariants(language);
+    for (const variant of variants) {
+      utterance = getTestUtterance(variant);
+      if (utterance) {
+        return utterance;
+      }
+    }
+
+    // Return undefined if no matching utterance is found
+    return undefined;
   }
 
   /**
@@ -145,7 +199,7 @@ export class WebSpeechVoiceManager {
    */
   getVoices(options: VoiceFilterOptions = {}): ReadiumSpeechVoice[] {
     if (!this.isInitialized) {
-      throw new Error('WebSpeechVoiceManager not initialized. Call initialize() first.');
+      throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
     }
     return this.filterVoices([...this.voices], options);
   }
@@ -155,31 +209,31 @@ export class WebSpeechVoiceManager {
    */
   getLanguages(localization?: string): LanguageInfo[] {
     if (!this.isInitialized) {
-      throw new Error('WebSpeechVoiceManager not initialized. Call initialize() first.');
+      throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
     }
     
     const languages = new Map<string, { count: number; label: string }>();
     
     this.voices.forEach(voice => {
-      const [lang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(voice.language);
-      const entry = languages.get(lang) || { count: 0, label: voice.language };
-      languages.set(lang, { ...entry, count: entry.count + 1 });
+      const langCode = voice.language; // Use the full language code
+      const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(langCode);
+      
+      // For Chinese variants, use the full language code as the key
+      const key = baseLang === "zh" ? langCode : baseLang;
+      const displayName = WebSpeechVoiceManager.getLanguageDisplayName(key);
+      
+      const entry = languages.get(key) || { count: 0, label: displayName };
+      languages.set(key, { ...entry, count: entry.count + 1 });
     });
 
-    return Array.from(languages.entries()).map(([code, { count, label }]) => {
-      let displayName = label;
-      try {
-        const locale = localization || navigator.language;
-        displayName = new Intl.DisplayNames([locale], { type: "language" }).of(code) || label;
-      } catch (e) {
-        console.warn(`Failed to get display name for language ${code}`, e);
-      }
-      return {
+    // Convert to array and sort
+    return Array.from(languages.entries())
+      .map(([code, { count, label }]) => ({
         code,
-        label: displayName,
+        label,
         count
-      };
-    });
+      }))
+      .sort((a, b) => a.label.localeCompare(b.label));
   }
 
   /**
@@ -187,7 +241,7 @@ export class WebSpeechVoiceManager {
    */
   getRegions(localization?: string): LanguageInfo[] {
     if (!this.isInitialized) {
-      throw new Error('WebSpeechVoiceManager not initialized. Call initialize() first.');
+      throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
     }
     
     const regions = new Map<string, { count: number; label: string }>();
@@ -427,9 +481,20 @@ export class WebSpeechVoiceManager {
       const langs = Array.isArray(options.language) ? options.language : [options.language];
       result = result.filter(v => {
         const [voiceLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(v.language);
-        return langs.some(lang => {
-          const [filterLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(lang);
-          return voiceLang === filterLang;
+        
+        // Check if any of the requested languages match this voice's language or its variants
+        return langs.some(requestedLang => {
+          // First try direct match (e.g., zh-CN matches zh-CN)
+          if (v.language.toLowerCase() === requestedLang.toLowerCase()) {
+            return true;
+          }
+          
+          // Then check language variants (e.g., zh-CN matches cmn)
+          const variants = WebSpeechVoiceManager.getLanguageVariants(requestedLang);
+          return variants.some(variant => {
+            // Check if the variant matches the voice's language code
+            return voiceLang.toLowerCase() === variant.toLowerCase();
+          });
         });
       });
     }

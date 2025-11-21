@@ -243,9 +243,41 @@ async function loadSampleText(languageCode) {
       samples = await response.json();
     }
     
-    // Get the base language code using extractLangRegionFromBCP47
-    const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(languageCode);
-    const sampleText = samples[baseLang]?.text || samples["en"]?.text || "Sample text not available";
+    // Map Chinese variants to their sample text keys based on WebSpeechVoiceManager's mapping
+    const chineseVariantMap = {
+      "zh": "cmn",    // Default Chinese -> Mandarin
+      "cmn": "cmn",   // Mandarin
+      "wuu": "wuu",   // Wu Chinese
+      "yue": "yue",   // Cantonese
+      "zh-CN": "cmn", // Mainland China -> Mandarin
+      "zh-TW": "cmn", // Taiwan -> Mandarin
+      "zh-HK": "yue", // Hong Kong -> Cantonese (primary), then Mandarin
+      "zh-SG": "cmn"  // Singapore -> Mandarin
+    };
+    
+    // Try direct match first
+    let sampleText = samples[languageCode]?.text;
+    
+    // Try with Chinese variant mapping if no direct match
+    if (!sampleText && chineseVariantMap[languageCode]) {
+      sampleText = samples[chineseVariantMap[languageCode]]?.text;
+    }
+    
+    // If no direct match, try with base language
+    if (!sampleText) {
+      const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(languageCode);
+      // If base language is a Chinese variant, try the mapping
+      if (chineseVariantMap[baseLang]) {
+        sampleText = samples[chineseVariantMap[baseLang]]?.text;
+      } else {
+        sampleText = samples[baseLang]?.text;
+      }
+    }
+    
+    // If no match found, return a message
+    if (!sampleText) {
+      return `No sample text available for language: ${languageCode}`;
+    }
     
     // Create utterances from the sample text
     const utterances = createUtterancesFromText(sampleText);
