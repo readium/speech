@@ -206,7 +206,7 @@ function populateVoiceSelect() {
     for (const [region, voices] of sortedRegions) {
       if (!voices.length) continue;
       
-      // Sort voices by quality (descending) and then by name (ascending)
+      // Sort voices by quality (descending)
       const sortedVoices = voiceManager.sortVoices(voices, { 
         by: "quality", 
         order: "desc" 
