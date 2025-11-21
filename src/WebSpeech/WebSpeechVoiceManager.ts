@@ -107,9 +107,8 @@ export class WebSpeechVoiceManager {
 
   /**
    * Extract language and region from BCP47 language tag
-   * @private
    */
-  private extractLangRegionFromBCP47(lang: string): [string, string | undefined] {
+  static extractLangRegionFromBCP47(lang: string): [string, string | undefined] {
     if (!lang) return ["", undefined];
     
     return [lang.split("-")[0].toLowerCase(), lang.split("-")[1]?.toUpperCase()];
@@ -137,7 +136,7 @@ export class WebSpeechVoiceManager {
    * @param language - Language code (e.g., "en", "fr", "es")
    * @returns Test utterance text
    */
-  public getTestUtterance(language: string): string {
+  getTestUtterance(language: string): string {
     return getTestUtterance(language);
   }
 
@@ -162,7 +161,7 @@ export class WebSpeechVoiceManager {
     const languages = new Map<string, { count: number; label: string }>();
     
     this.voices.forEach(voice => {
-      const [lang] = this.extractLangRegionFromBCP47(voice.language);
+      const [lang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(voice.language);
       const entry = languages.get(lang) || { count: 0, label: voice.language };
       languages.set(lang, { ...entry, count: entry.count + 1 });
     });
@@ -194,7 +193,7 @@ export class WebSpeechVoiceManager {
     const regions = new Map<string, { count: number; label: string }>();
     
     this.voices.forEach(voice => {
-      const [, region] = this.extractLangRegionFromBCP47(voice.language);
+      const [, region] = WebSpeechVoiceManager.extractLangRegionFromBCP47(voice.language);
       if (region) {
         const entry = regions.get(region) || { count: 0, label: voice.language };
         regions.set(region, { ...entry, count: entry.count + 1 });
@@ -228,7 +227,7 @@ export class WebSpeechVoiceManager {
       return locale.region?.toLowerCase() || "";
     } catch {
       // Fallback to BCP47 parsing if Intl.Locale fails
-      const [, region] = this.extractLangRegionFromBCP47(langCode);
+      const [, region] = WebSpeechVoiceManager.extractLangRegionFromBCP47(langCode);
       return region || "";
     }
   }
@@ -320,7 +319,7 @@ export class WebSpeechVoiceManager {
    */
   private findVoiceInData(browserVoice: SpeechSynthesisVoice): ReadiumSpeechVoice | undefined {
     // Use existing method to extract language
-    const [baseLang] = this.extractLangRegionFromBCP47(browserVoice.lang);
+    const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(browserVoice.lang);
     
     // Get all voices for this language from the data
     const dataVoices = voiceData.getVoices(baseLang);
@@ -427,9 +426,9 @@ export class WebSpeechVoiceManager {
     if (options.language) {
       const langs = Array.isArray(options.language) ? options.language : [options.language];
       result = result.filter(v => {
-        const [voiceLang] = this.extractLangRegionFromBCP47(v.language);
+        const [voiceLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(v.language);
         return langs.some(lang => {
-          const [filterLang] = this.extractLangRegionFromBCP47(lang);
+          const [filterLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(lang);
           return voiceLang === filterLang;
         });
       });
@@ -584,7 +583,7 @@ export class WebSpeechVoiceManager {
       
       switch (by) {
         case "language":
-          key = this.extractLangRegionFromBCP47(voice.language)[0];
+          key = WebSpeechVoiceManager.extractLangRegionFromBCP47(voice.language)[0];
           break;
           
         case "gender":
@@ -596,7 +595,7 @@ export class WebSpeechVoiceManager {
           break;
           
         case "region":
-          const [, region] = this.extractLangRegionFromBCP47(voice.language);
+          const [, region] = WebSpeechVoiceManager.extractLangRegionFromBCP47(voice.language);
           key = region || "unknown";
           break;
       }

@@ -1,5 +1,7 @@
 import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator } from "../build/index.js";
 
+let samples = null;
+
 const highlight = new Highlight();
 CSS.highlights.set("readium-speech-highlight", highlight);
 let currentWordHighlight = null;
@@ -30,7 +32,7 @@ let filteredVoices = [];
 let languages = [];
 let currentVoice = null;
 let testUtterance = "";
-let lastNavigatorPosition = 1; // Track the current position in the navigator
+let lastNavigatorPosition = 1;
 
 const navigator = new WebSpeechReadAloudNavigator();
 
@@ -61,12 +63,9 @@ navigator.on("error", (event) => {
 
 // Initialize the application
 async function init() {
-  try {
-    // Show loading state
-    document.body.style.cursor = "wait";
-    
+  try {    
     // Initialize the voice manager
-    voiceManager = await WebSpeechVoiceManager.initialize(10000, 100);
+    voiceManager = await WebSpeechVoiceManager.initialize();
     
     // Load all available voices
     allVoices = voiceManager.getVoices();
@@ -90,8 +89,6 @@ async function init() {
     errorDiv.style.color = "red";
     errorDiv.textContent = "Error loading voices. Please check console for details.";
     document.body.prepend(errorDiv);
-  } finally {
-    document.body.style.cursor = "default";
   }
 }
 
@@ -181,8 +178,8 @@ function populateVoiceDropdown(language = "") {
         option.value = voice.name;
         option.textContent = [
           voice.name,
-          voice.gender ? `(${voice.gender})` : "",
-          voice.offlineAvailability ? "(offline)" : "(online)"
+          voice.gender ? `• ${voice.gender}` : "",
+          voice.offlineAvailability ? "• offline" : "• online"
         ].filter(Boolean).join(" ");
         option.dataset.voiceUri = voice.voiceURI;
         optgroup.appendChild(option);
@@ -237,15 +234,17 @@ async function loadSampleText(languageCode) {
     // Show loading state
     sampleTextDisplay.innerHTML = "<div class='loading'>Loading text...</div>";
     
-    // Load sample texts from the JSON file
-    const response = await fetch("sampleText.json");
-    if (!response.ok) {
-      throw new Error("Failed to load sample texts");
+    // Load sample texts if not already loaded
+    if (!samples) {
+      const response = await fetch("sampleText.json");
+      if (!response.ok) {
+        throw new Error("Failed to load sample texts");
+      }
+      samples = await response.json();
     }
-    const samples = await response.json();
     
-    // Get the base language code (e.g., "en" from "en-US")
-    const baseLang = languageCode.split("-")[0];
+    // Get the base language code using extractLangRegionFromBCP47
+    const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(languageCode);
     const sampleText = samples[baseLang]?.text || samples["en"]?.text || "Sample text not available";
     
     // Create utterances from the sample text
@@ -327,7 +326,8 @@ function updateTestUtterance(voice, languageCode) {
     return;
   }
   
-  const lang = voice.lang?.split("-")[0] || languageCode?.split("-")[0] || "en";
+  const [lang] = voice.lang ? WebSpeechVoiceManager.extractLangRegionFromBCP47(voice.lang) : 
+    (languageCode ? WebSpeechVoiceManager.extractLangRegionFromBCP47(languageCode) : ["en"]);
   const baseUtterance = voiceManager.getTestUtterance(lang) || 
                       `This is a test of the {name} voice.`;
   testUtterance = baseUtterance.replace(/\{\s*name\s*\}/g, voice.name || "this voice");
@@ -337,23 +337,22 @@ function updateTestUtterance(voice, languageCode) {
 
 // Create utterances from text with better sentence splitting
 function createUtterancesFromText(text) {
-  // More sophisticated sentence splitting that handles abbreviations, quotes, etc.
-  const sentenceBoundary = /(?<!\.\w{1,10})(?<![A-Z][a-z]\.)(?<=\.|\?|!)\s+/g;
-  const sentences = text.split(sentenceBoundary).filter(s => s.trim().length > 0);
+  // Use Intl.Segmenter for proper sentence segmentation
+  const segmenter = new Intl.Segmenter(languageSelect.value || "en", { 
+    granularity: "sentence" 
+  });
   
-  return sentences.map((sentence, index) => {
-    const trimmed = sentence.trim();
-    if (!trimmed) return null;
-    
-    return {
-      id: `utterance-${index}`,
-      text: trimmed,
-      language: languageSelect.value || "en-US",
-      // Add metadata for better navigation
-      wordCount: trimmed.split(/\s+/).filter(w => w.length > 0).length,
-      charCount: trimmed.length
-    };
-  }).filter(Boolean); // Remove any null/empty utterances
+  // Convert segments to array and extract text
+  const sentences = Array.from(segmenter.segment(text), 
+    ({ segment }) => segment.trim()
+  ).filter(Boolean); // Remove any empty strings
+  
+  // Create utterances from sentences
+  return sentences.map((sentence, index) => ({
+    id: `utterance-${index}`,
+    text: sentence,
+    language: languageSelect.value || "en-US"
+  }));
 }
 
 // Set up event listeners
@@ -482,11 +481,8 @@ function setupEventListeners() {
 
   // Update test utterance when language changes
   languageSelect.addEventListener("change", () => {
-    const languageCode = languageSelect.value;
-    if (languageCode) {
-      const utterance = voiceManager.getTestUtterance(languageCode) || 
-                       `This is a test for ${languageCode} language.`;
-      testUtteranceInput.value = utterance.replace("{name}", currentVoice?.name || "this voice");
+    if (languageSelect.value) {
+      updateTestUtterance(currentVoice, languageSelect.value);
     }
   });
 }
@@ -499,15 +495,16 @@ async function playTestUtterance() {
   }
   
   try {
-    // Stop any current speech first
-    speechSynthesis.cancel();
+    // Reset playback controls first
+    if (navigator) {
+      navigator.stop();
+    }
     
     // Get test utterance for the selected language
     let testText = testUtteranceInput.value;
     if (!testText) {
-      const utterance = voiceManager.getTestUtterance(languageSelect.value) || 
-                       `This is a test of the ${currentVoice?.name || "this voice"} voice.`;
-      testText = utterance.replace("{name}", currentVoice?.name || "this voice");
+      updateTestUtterance(currentVoice, languageSelect.value);
+      testText = testUtteranceInput.value;
     }
     
     // Create a new SpeechSynthesisUtterance
@@ -520,18 +517,21 @@ async function playTestUtterance() {
       utterance.lang = nativeVoice.lang;
     }
     
-    // Disable the button during playback
+    // Update UI state
     testUtteranceBtn.disabled = true;
+    testUtteranceBtn.textContent = "Playing...";
     
     // Handle when speech ends
     utterance.onend = () => {
       testUtteranceBtn.disabled = false;
+      testUtteranceBtn.textContent = "Play Test Utterance";
     };
     
     // Handle errors
     utterance.onerror = (event) => {
       console.error("SpeechSynthesis error:", event);
       testUtteranceBtn.disabled = false;
+      testUtteranceBtn.textContent = "Play Test Utterance";
     };
     
     // Speak the utterance directly

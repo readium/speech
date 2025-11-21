@@ -21,7 +21,7 @@ const CONFIG = {
 // JSDoc type definitions for better code intelligence
 
 /**
- * @typedef {"female"|"male"|"nonbinary"} TGender
+ * @typedef {"female"|"male"|"neutral"} TGender
  * @typedef {"veryLow"|"low"|"normal"|"high"|"veryHigh"} TQuality
  * @typedef {"macOS"|"iOS"|"iPadOS"|"Windows"|"Android"|"ChromeOS"} TOS
  */
@@ -229,7 +229,7 @@ async function generateOutputFiles(languages, allVoices, testUtterances) {
   
   // Generate types
   const typesContent = `// Auto-generated file - DO NOT EDIT
-export type TGender = "female" | "male" | "nonbinary";
+export type TGender = "female" | "male" | "neutral";
 export type TQuality = "veryLow" | "low" | "normal" | "high" | "veryHigh";
 
 export interface ReadiumSpeechVoice {
@@ -320,7 +320,14 @@ export const testUtterances: { [lang: string]: string } = ${JSON.stringify(Objec
  * @returns Test utterance string or empty string if not found
  */
 export function getTestUtterance(lang: string): string {
-  return testUtterances[lang] || "";
+  // Direct match first
+  if (testUtterances[lang]) {
+    return testUtterances[lang];
+  }
+  
+  // Try to extract base language from locale (e.g., "en-US" -> "en")
+  const baseLang = lang.split('-')[0];
+  return testUtterances[baseLang] || "";
 }
 
 /**

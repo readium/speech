@@ -1,5 +1,5 @@
 // Auto-generated file - DO NOT EDIT
-export type TGender = "female" | "male" | "nonbinary";
+export type TGender = "female" | "male" | "neutral";
 export type TQuality = "veryLow" | "low" | "normal" | "high" | "veryHigh";
 
 export interface ReadiumSpeechVoice {
