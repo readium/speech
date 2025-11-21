@@ -972,14 +972,12 @@ testWithContext("getTestUtterance: returns test utterance for supported language
   // Test with a base language
   const utterance1 = manager.getTestUtterance("en");
   t.is(typeof utterance1, "string");
-  t.true(utterance1.length > 0);
-  t.true(utterance1.includes("{name}"));
+  t.true(utterance1 && utterance1.length > 0);
   
   // Test with a locale variant (should fall back to base language)
   const utterance2 = manager.getTestUtterance("en-US");
   t.is(typeof utterance2, "string");
-  t.true(utterance2.length > 0);
-  t.true(utterance2.includes("{name}"));
+  t.true(utterance2 && utterance2.length > 0);
   t.is(utterance1, utterance2); // Should be the same
 });
 

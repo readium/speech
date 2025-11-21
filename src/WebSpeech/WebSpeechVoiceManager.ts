@@ -174,7 +174,7 @@ export class WebSpeechVoiceManager {
    * @param language - Language code (e.g., "en", "fr", "es")
    * @returns Test utterance text
    */
-  getTestUtterance(language: string): string | undefined {
+  getTestUtterance(language: string): string {
     // Try direct match first
     let utterance = getTestUtterance(language);
     if (utterance) {
@@ -190,8 +190,8 @@ export class WebSpeechVoiceManager {
       }
     }
 
-    // Return undefined if no matching utterance is found
-    return undefined;
+    // Return empty string if no matching utterance is found
+    return "";
   }
 
   /**
