@@ -48,7 +48,8 @@ async function initialize() {
     
     // Set default English voice
     if (allVoices && allVoices.length > 0) {
-      currentVoice = voiceManager.getDefaultVoice("en") || allVoices[0];
+      // This is already sorted by quality so we can just use the first one
+      currentVoice = allVoices[0];
       if (navigator) {
         navigator.setVoice(currentVoice);
         // Update the select element to reflect the selected voice
