@@ -9,6 +9,7 @@ const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const currentUtteranceSpan = document.getElementById("currentUtterance");
 const totalUtterancesSpan = document.getElementById("totalUtterances");
+const readAlongCheckbox = document.getElementById("readAlong");
 
 // State
 let voiceManager;
@@ -18,6 +19,7 @@ let currentVoice = null;
 let isPlaying = false;
 let utterances = [];
 let currentWordHighlight = null;
+let readAlongEnabled = true; // Default to true to match default checkbox state
 
 // Initialize voice manager and navigator
 async function initialize() {
@@ -37,6 +39,9 @@ async function initialize() {
     
     // Set up event listeners
     setupEventListeners();
+    
+    // Initialize the UI
+    updateUI();
     
     // Populate voice select
     populateVoiceSelect();
@@ -66,6 +71,8 @@ async function initialize() {
 
 // Set up event listeners
 function setupEventListeners() {
+  
+  // Navigator events
   // Navigator events
   navigator.on("start", () => {
     isPlaying = true;
@@ -102,13 +109,38 @@ function setupEventListeners() {
   });
   
   // Button events
-  playPauseBtn.addEventListener("click", togglePlayback);
-  stopBtn.addEventListener("click", stopPlayback);
-  prevBtn.addEventListener("click", previousUtterance);
-  nextBtn.addEventListener("click", nextUtterance);
+  if (playPauseBtn) playPauseBtn.addEventListener("click", togglePlayback);
+  if (stopBtn) stopBtn.addEventListener("click", stopPlayback);
+  if (prevBtn) prevBtn.addEventListener("click", previousUtterance);
+  if (nextBtn) nextBtn.addEventListener("click", nextUtterance);
+  
+  // Checkbox events
+  if (readAlongCheckbox) {
+    readAlongCheckbox.checked = readAlongEnabled;
+    readAlongCheckbox.addEventListener("change", handleReadAlongChange);
+  }
   
   // Voice selection
-  voiceSelect.addEventListener("change", handleVoiceChange);
+  if (voiceSelect) voiceSelect.addEventListener("change", handleVoiceChange);
+}
+
+// Handle read along checkbox change
+function handleReadAlongChange(e) {
+  readAlongEnabled = e.target.checked;
+  if (!readAlongEnabled) {
+    clearWordHighlighting();
+  } else if (isPlaying) {
+    const currentIndex = navigator?.getCurrentUtteranceIndex();
+    if (currentIndex !== undefined) {
+      const utterance = utterances[currentIndex];
+      if (utterance) {
+        const charIndex = utterance.text.indexOf(utterance.word);
+        if (charIndex !== -1) {
+          highlightCurrentWord(charIndex, utterance.word?.length || 0);
+        }
+      }
+    }
+  }
 }
 
 // Initialize content with proper segmentation
@@ -327,6 +359,9 @@ function clearWordHighlighting() {
 
 // Highlight current word in the content
 function highlightCurrentWord(charIndex, charLength) {
+  // Check if read-along is enabled
+  if (!readAlongEnabled) return;
+  
   // Clear previous highlighting
   clearWordHighlighting();
 
