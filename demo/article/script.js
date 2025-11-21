@@ -160,25 +160,57 @@ function populateVoiceSelect() {
     return;
   }
 
-  // Sort voices by name
-  const sortedVoices = [...allVoices].sort((a, b) => a.name.localeCompare(b.name));
+  try {
+    // Group voices by region
+    const voiceGroups = voiceManager.groupVoices([...allVoices], "region");
 
-  // Group voices by language
-  const voiceGroups = {};
-  sortedVoices.forEach(voice => {
-    const lang = voice.lang || "Unknown";
-    if (!voiceGroups[lang]) {
-      voiceGroups[lang] = [];
+    // Sort regions alphabetically
+    const sortedRegions = Object.entries(voiceGroups).sort(([regionA], [regionB]) => 
+      regionA.localeCompare(regionB)
+    );
+
+    // For each region, create an optgroup
+    for (const [region, voices] of sortedRegions) {
+      if (!voices.length) continue;
+      
+      // Sort voices by quality (descending) and then by name (ascending)
+      const sortedVoices = voiceManager.sortVoices(voices, { 
+        by: "quality", 
+        order: "desc" 
+      });
+
+      const countryCode = region.split("-").pop() || region;
+      const optgroup = document.createElement("optgroup");
+      optgroup.label = `${getCountryFlag(countryCode)} ${region}`;
+      
+      // Add voices to the optgroup
+      for (const voice of sortedVoices) {
+        const option = document.createElement("option");
+        option.value = voice.name;
+        option.textContent = [
+          voice.name,
+          voice.gender ? `• ${voice.gender}` : "",
+          voice.offlineAvailability ? "• offline" : "• online"
+        ].filter(Boolean).join(" ");
+        option.dataset.voiceUri = voice.voiceURI;
+        optgroup.appendChild(option);
+      }
+      
+      voiceSelect.appendChild(optgroup);
     }
-    voiceGroups[lang].push(voice);
-  });
-
-  // Add voices to select, grouped by language
-  Object.entries(voiceGroups).forEach(([lang, voices]) => {
-    const optgroup = document.createElement("optgroup");
-    optgroup.label = lang;
     
-    voices.forEach(voice => {
+    // Set the default voice selection
+    if (currentVoice) {
+      const option = voiceSelect.querySelector(`option[data-voice-uri="${currentVoice.voiceURI}"]`);
+      if (option) {
+        option.selected = true;
+      }
+    }
+    
+  } catch (error) {
+    console.error("Error populating voice dropdown:", error);
+    // Fallback to simple list if there's an error
+    allVoices.forEach(voice => {
       const option = document.createElement("option");
       option.value = voice.name;
       option.textContent = [
@@ -186,24 +218,28 @@ function populateVoiceSelect() {
         voice.gender ? `• ${voice.gender}` : "",
         voice.offlineAvailability ? "• offline" : "• online"
       ].filter(Boolean).join(" ");
-      
-      // Store the voice URI in a data attribute for selection
       option.dataset.voiceUri = voice.voiceURI;
-      
-      optgroup.appendChild(option);
+      voiceSelect.appendChild(option);
     });
-    
-    voiceSelect.appendChild(optgroup);
-  });
+  }
   
   // Set up voice change event listener
   voiceSelect.addEventListener("change", handleVoiceChange);
   
-  // Set the default voice selection
-  if (currentVoice && voiceSelect) {
-    const option = voiceSelect.querySelector(`option[data-voice-uri="${currentVoice.voiceURI}"]`);
-    if (option) {
-      option.selected = true;
+  // Helper function to get country flag emoji from country code
+  function getCountryFlag(countryCode) {
+    if (!countryCode) return "🌐";
+    
+    try {
+      const codePoints = countryCode
+        .toUpperCase()
+        .split("")
+        .map(char => 127397 + char.charCodeAt(0));
+      
+      return String.fromCodePoint(...codePoints);
+    } catch (e) {
+      console.warn("Could not generate flag for country code:", countryCode);
+      return "🌐";
     }
   }
 }

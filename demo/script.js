@@ -169,8 +169,8 @@ function populateVoiceDropdown(language = "") {
       
       // Sort voices by name within each region
       const sortedVoicesInRegion = voiceManager.sortVoices(voices, { 
-        by: "name",
-        order: "asc"
+        by: "quality",
+        order: "desc"
       });
       
       for (const voice of sortedVoicesInRegion) {
