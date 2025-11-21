@@ -410,7 +410,7 @@ function setupEventListeners() {
       if (currentVoice) {
         try {
           // Set the voice for the navigator
-          await navigator.setVoice(currentVoice);
+          navigator.setVoice(currentVoice);
           
           // Update the voice dropdown to reflect the selected voice
           const voiceOption = voiceSelect.querySelector(`option[value="${currentVoice.name}"]`);
@@ -441,7 +441,7 @@ function setupEventListeners() {
     if (currentVoice) {
       try {
         // Set the voice for the navigator
-        await navigator.setVoice(currentVoice);
+        navigator.setVoice(currentVoice);
         
         // Reload the sample text with the new voice
         const languageCode = languageSelect.value;
