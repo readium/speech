@@ -34,109 +34,232 @@ It demonstrates the following features:
 
 ## QuickStart
 
-`npm install https://github.com/readium/speech#build`
+### Prerequisites
 
-```
-import { voicesSelection} from "readium-speech";
-console.log(voicesSelection);
+- Node.js
+- npm
 
-// or with cjs only : 
-const { getVoices } = require("readium-speech/cjs/voices.js");
-console.log(getVoices);
+### Installation
 
-// or with esm mjs :
-import { getVoices } from "readium-speech/mjs/voices.js";
-console.log(getVoices);
+1. Clone the repository:
+   git clone https://github.com/readium/speech.git
+   cd speech
+   ```
 
-const voices = await voicesSelection.getVoices();
-console.log(voices);
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-```
+3. Build the package:
+   ```bash
+   npm run build
+   ```
 
-## API
+4. Link the package locally (optional, for development):
+   ```bash
+   npm link
+   # Then in your project directory:
+   # npm link readium-speech
+   ```
 
-### Interface 
+### Basic Usage
 
-```
-export interface IVoices {
-    label: string;
-    voiceURI: string;
-    name: string;
-    language: string;
-    gender?: TGender | undefined;
-    age?: string | undefined;
-    offlineAvailability: boolean;
-    quality?: TQuality | undefined;
-    pitchControl: boolean;
-    recommendedPitch?: number | undefined;
-    recommendedRate?: number | undefined;
+```typescript
+import { WebSpeechVoiceManager } from "readium-speech";
+
+async function setupVoices() {
+  try {
+    // Initialize the voice manager
+    const voiceManager = await WebSpeechVoiceManager.initialize();
+    
+    // Get all available voices
+    const allVoices = voiceManager.getVoices();
+    console.log("Available voices:", allVoices);
+    
+    // Get voices with filters
+    const filteredVoices = voiceManager.getVoices({
+      language: ["en", "fr"],
+      gender: "female",
+      quality: "high",
+      offlineOnly: true,
+      excludeNovelty: true,
+      excludeVeryLowQuality: true
+    });
+    
+    // Get voices grouped by language
+    const voices = voiceManager.getVoices();
+    const groupedByLanguage = voiceManager.groupVoices(voices, "language");
+    
+    // Get a test utterance for a specific language
+    const testText = voiceManager.getTestUtterance("en");
+    
+  } catch (error) {
+    console.error("Error initializing voice manager:", error);
+  }
 }
 
-export interface ILanguages {
-    label: string;
-    code: string;
-    count: number;
+await setupVoices();
+```
+
+## API Reference
+
+### Class: WebSpeechVoiceManager
+
+The main class for managing Web Speech API voices with enhanced functionality.
+
+#### Initialize the Voice Manager
+
+```typescript
+static initialize(maxTimeout?: number, interval?: number): Promise<WebSpeechVoiceManager>
+```
+
+Creates and initializes a new WebSpeechVoiceManager instance. This static factory method must be called to create an instance.
+
+- `maxTimeout`: Maximum time in milliseconds to wait for voices to load (default: 10000ms)
+- `interval`: Interval in milliseconds between voice loading checks (default: 100ms)
+- Returns: Promise that resolves with a new WebSpeechVoiceManager instance
+
+#### Get Available Voices
+
+```typescript
+voiceManager.getVoices(options?: VoiceFilterOptions): ReadiumSpeechVoice[]
+```
+
+Fetches all available voices that match the specified filter criteria.
+
+```typescript
+interface VoiceFilterOptions {
+  language?: string | string[];  // Filter by language code(s) (e.g., "en", "fr")
+  gender?: TGender;  // "male" | "female" | "other"
+  quality?: TQuality | TQuality[];  // "high" | "medium" | "low" | "veryLow"
+  offlineOnly?: boolean;  // Only return voices available offline
+  provider?: string;  // Filter by voice provider
+  excludeNovelty?: boolean;  // Exclude novelty voices
+  excludeVeryLowQuality?: boolean;  // Exclude very low quality voices
 }
 ```
 
-#### Parse and Extract IVoices from speechSynthesis WebAPI
-```
-function getVoices(preferredLanguage?: string[] | string, localization?: string): Promise<IVoices[]>
-```
+#### Group Voices
 
-#### List languages from IVoices
-```
-function getLanguages(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string | undefined): ILanguages[]
+```typescript
+voiceManager.groupVoices(voices: ReadiumSpeechVoice[], groupBy: "language" | "region" | "gender" | "quality" | "provider"): VoiceGroup
 ```
 
-#### helpers
+Organizes voices into groups based on the specified criteria. The available grouping options are:
 
-```
-function listLanguages(voices: IVoices[], localization?: string): ILanguages[]
+- `"language"`: Groups voices by their language code
+- `"region"`: Groups voices by their region
+- `"gender"`: Groups voices by gender
+- `"quality"`: Groups voices by quality level
+- `"provider"`: Groups voices by their provider
 
-function ListRegions(voices: IVoices[], localization?: string): ILanguages[]
+#### Sort Voices
 
-function parseSpeechSynthesisVoices(speechSynthesisVoices: SpeechSynthesisVoice[]): IVoices[]
-
-function getSpeechSynthesisVoices(): Promise<SpeechSynthesisVoice[]>
-```
-
-#### groupBy
-
-```
-function groupByKindOfVoices(allVoices: IVoices[]): TGroupVoices
-
-function groupByRegions(voices: IVoices[], language: string, preferredRegions?: string[] | string, localization?: string): TGroupVoices
-
-function groupByLanguage(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string): TGroupVoices
+```typescript
+voiceManager.sortVoices(voices: ReadiumSpeechVoice[], options: SortOptions): ReadiumSpeechVoice[]
 ```
 
-#### sortBy
+Arranges voices according to the specified sorting criteria. The `SortOptions` interface allows you to sort by various properties and specify sort order.
 
-```
-function sortByLanguage(voices: IVoices[], preferredLanguage?: string[] | string): IVoices[]
-
-function sortByRegion(voices: IVoices[], preferredRegions?: string[] | string, localization?: string | undefined): IVoices[]
-
-function sortByGender(voices: IVoices[], genderFirst: TGender): IVoices[]
-
-function sortByName(voices: IVoices[]): IVoices[]
-
-function sortByQuality(voices: IVoices[]): IVoices[]
+```typescript
+interface SortOptions {
+  by: "name" | "language" | "gender" | "quality" | "region";
+  order?: "asc" | "desc";
+  preferredLanguage?: string | string[];
+  localization?: string;
+}
 ```
 
-#### filterOn
+### Testing
 
+#### Get Test Utterance
+
+```typescript
+voiceManager.getTestUtterance(language: string): string
 ```
-function filterOnRecommended(voices: IVoices[], _recommended?: IRecommended[]): TReturnFilterOnRecommended
 
-function filterOnVeryLowQuality(voices: IVoices[]): IVoices[]
+Retrieves a sample text string suitable for testing text-to-speech functionality in the specified language. If no sample text is available for the specified language, it returns an empty string.
 
-function filterOnNovelty(voices: IVoices[]): IVoices[]
+### Interfaces
 
-function filterOnQuality(voices: IVoices[], quality: TQuality | TQuality[]): IVoices[]
+#### `ReadiumSpeechVoice`
 
-function filterOnLanguage(voices: IVoices[], language: string | string[]): IVoices[]
+```typescript
+interface ReadiumSpeechVoice {
+  // Core identification
+  label: string;          // User-friendly display name
+  name: string;           // System/technical name (matches Web Speech API voiceURI)
+  voiceURI?: string;      // For Web Speech API compatibility
+  
+  // Localization
+  language: string;       // BCP 47 language tag (e.g., "en-US")
+  localizedName?: string;  // Name in the voice's language
+  altNames?: string[];     // Alternative names or aliases
+  otherLanguages?: string[]; // Other language codes this voice can speak
+  altLanguage?: string;    // Alternative language code this voice can speak
+  multiLingual?: boolean;  // Whether the voice is multilingual
+  
+  // Voice characteristics
+  gender?: TGender;       // Voice gender ("female" | "male" | "neutral")
+  age?: string;           // Voice age group (e.g., "child", "adult", "senior")
+  children?: boolean;     // Whether the voice is designed for children
+  
+  // Quality and capabilities
+  quality?: TQuality[];    // Quality ratings ("veryLow" | "low" | "normal" | "high" | "veryHigh")
+  pitchControl?: boolean;  // Whether pitch can be controlled
+  
+  // Performance settings
+  pitch?: number;             // Current pitch (0-2, where 1 is normal)
+  recommendedPitch?: number;  // Default pitch
+  rate?: number;              // Speech rate (0.1-10, where 1 is normal)
+  recommendedRate?: number;   // Default rate
+  
+  // Platform and compatibility
+  browser?: string[];         // Browsers that support this voice
+  offlineAvailability?: boolean; // If the voice works offline
+  provider?: string;          // Voice provider (e.g., "Microsoft", "Google")
+  isDefault?: boolean;        // If this is a default voice for its language
+  isDeprecated?: boolean;     // If this voice is deprecated
+  isNovelty?: boolean;        // If this is a novelty voice
+  isLowQuality?: boolean;     // If this is a low-quality voice
+  nativeID?: string | string[]; // Platform-specific voice ID(s)
+  os?: string[];              // Supported operating systems
+  preloaded?: boolean;        // If the voice is preloaded on the system
+  note?: string;              // Additional notes about the voice
+  
+  // Sample text for testing
+  sampleText?: string;        // Sample text for testing the voice
+  
+  // For compatibility with Web Speech API
+  localService?: boolean;     // If the voice is provided by the local system
+  default?: boolean;          // If this is the default voice for the language
+  
+  // Allow for additional properties
+  [key: string]: any;
+}
+```
 
-function filterOnGender(voices: IVoices[], gender: TGender): IVoices[]
+#### `LanguageInfo`
+
+```typescript
+interface LanguageInfo {
+  code: string;
+  label: string;
+  count: number;
+}
+```
+
+### Enums
+
+#### `TQuality`
+
+```typescript
+type TQuality = "veryLow" | "low" | "normal" | "high" | "veryHigh";
+```
+
+#### `TGender`
+
+```typescript
+type TGender = "female" | "male" | "neutral";
 ```

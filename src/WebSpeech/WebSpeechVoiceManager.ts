@@ -49,10 +49,15 @@ interface VoiceGroup {
 type SortOrder = "asc" | "desc";
 
 /**
+ * Grouping criteria for voices
+ */
+type GroupBy = "language" | "gender" | "quality" | "region";
+
+/**
  * Sort options for voices
  */
 interface SortOptions {
-  by: "name" | "language" | "gender" | "quality" | "region";
+  by: GroupBy | "name";
   order?: SortOrder;
   preferredLanguage?: string | string[];
   localization?: string;
@@ -638,9 +643,12 @@ export class WebSpeechVoiceManager {
   }
   
   /**
-   * Group voices by the specified key
+   * Group voices by the specified criteria
+   * @param voices Array of voices to group
+   * @param options Grouping options
+   * @returns Object with voice groups keyed by the grouping criteria
    */
-  groupVoices(voices: ReadiumSpeechVoice[], by: "language" | "gender" | "quality" | "region"): VoiceGroup {
+  groupVoices(voices: ReadiumSpeechVoice[], by: GroupBy): VoiceGroup {
     const groups: VoiceGroup = {};
     
     for (const voice of voices) {
