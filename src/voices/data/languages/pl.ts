@@ -1,5 +1,5 @@
 // Auto-generated file - DO NOT EDIT
-// Last updated: 2025-11-19T13:07:29.940Z
+// Last updated: 2025-11-24T14:44:06.994Z
 import type { ReadiumSpeechVoice } from "../types";
 
 /**
@@ -27,9 +27,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Paulina",
@@ -51,9 +49,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Marek",
@@ -75,9 +71,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Ewa",
@@ -103,9 +97,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Other",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Zosia",
@@ -131,9 +123,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Other",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Krzysztof",
@@ -158,9 +148,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Other",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Żeński głos Google’a",
@@ -184,9 +172,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Paulina",
@@ -209,9 +195,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Adam",
@@ -234,9 +218,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Głos żeński 1",
@@ -269,9 +251,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Głos żeński 2",
@@ -303,9 +283,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Głos żeński 3",
@@ -337,9 +315,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Głos męski 1",
@@ -371,9 +347,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Głos męski 2",
@@ -405,9 +379,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   }
 ];
 

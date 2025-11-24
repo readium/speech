@@ -1,5 +1,5 @@
 // Auto-generated file - DO NOT EDIT
-// Last updated: 2025-11-19T13:07:29.938Z
+// Last updated: 2025-11-24T14:44:06.992Z
 import type { ReadiumSpeechVoice } from "../types";
 
 /**
@@ -27,9 +27,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Tamas",
@@ -51,9 +49,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Tünde",
@@ -80,9 +76,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Other",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Szabolcs",
@@ -105,9 +99,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Női hang",
@@ -140,9 +132,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   }
 ];
 

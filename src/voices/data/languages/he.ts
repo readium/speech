@@ -1,5 +1,5 @@
 // Auto-generated file - DO NOT EDIT
-// Last updated: 2025-11-19T13:07:29.938Z
+// Last updated: 2025-11-24T14:44:06.991Z
 import type { ReadiumSpeechVoice } from "../types";
 
 /**
@@ -28,9 +28,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Avri",
@@ -53,9 +51,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Carmit",
@@ -82,9 +78,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Other",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Asaf",
@@ -108,9 +102,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "קול גברי 1",
@@ -142,9 +134,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "קול נשי 1",
@@ -175,9 +165,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "קול גברי 2",
@@ -208,9 +196,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "קול נשי 2",
@@ -241,9 +227,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   }
 ];
 

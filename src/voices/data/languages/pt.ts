@@ -1,5 +1,5 @@
 // Auto-generated file - DO NOT EDIT
-// Last updated: 2025-11-19T13:07:29.940Z
+// Last updated: 2025-11-24T14:44:06.994Z
 import type { ReadiumSpeechVoice } from "../types";
 
 /**
@@ -27,9 +27,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Duarte",
@@ -51,9 +49,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Francisca",
@@ -75,9 +71,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Thalita",
@@ -99,9 +93,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Antonio",
@@ -123,9 +115,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Catarina",
@@ -150,9 +140,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Other",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Joana",
@@ -178,9 +166,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Other",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Joaquim",
@@ -205,9 +191,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Other",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Fernanda",
@@ -232,9 +216,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Other",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Luciana",
@@ -260,9 +242,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Other",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Felipe",
@@ -287,9 +267,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Other",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Voz feminina do Google",
@@ -313,9 +291,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Helia",
@@ -338,9 +314,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Maria",
@@ -363,9 +337,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Daniel",
@@ -388,9 +360,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Microsoft",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Voz feminina 1 (Portugal)",
@@ -422,9 +392,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Voz feminina 2 (Portugal)",
@@ -456,9 +424,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Voz masculina 1 (Portugal)",
@@ -489,9 +455,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Voz masculina 2 (Portugal)",
@@ -522,9 +486,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Voz feminina 1 (Brasil)",
@@ -557,9 +519,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Voz feminina 2 (Brasil)",
@@ -590,9 +550,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   },
   {
     "label": "Voz masculina  (Brasil)",
@@ -623,9 +581,7 @@ const voices: ReadiumSpeechVoice[] = [
     "offlineAvailability": true,
     "provider": "Google",
     "isDefault": false,
-    "isDeprecated": false,
-    "isNovelty": false,
-    "isLowQuality": false
+    "isDeprecated": false
   }
 ];
 

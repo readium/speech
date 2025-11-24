@@ -1,5 +1,5 @@
 // Auto-generated file - DO NOT EDIT
-// Last updated: 2025-11-19T13:07:29.943Z
+// Last updated: 2025-11-24T14:44:06.997Z
 import type { ReadiumSpeechVoice } from "./types";
 
 import ar from "./languages/ar";
@@ -114,3 +114,6 @@ export function getAvailableLanguages() {
 
 export * from "./types";
 export * from "./testUtterances";
+
+export * from "./filters/novelty";
+export * from "./filters/veryLowQuality";

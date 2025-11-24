@@ -1,6 +1,8 @@
 import { ReadiumSpeechVoice, TGender, TQuality } from "../voices/data/types";
 import { getTestUtterance } from "../voices/data/testUtterances";
 import * as voiceData from "../voices/data";
+import noveltyFilter from "../voices/data/filters/novelty";
+import veryLowQualityFilter from "../voices/data/filters/veryLowQuality";
 
 // Mapping of language codes to their variants
 const LANGUAGE_CODE_MAPPING: Record<string, string[]> = {
@@ -206,7 +208,15 @@ export class WebSpeechVoiceManager {
     if (!this.isInitialized) {
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
     }
-    return this.filterVoices([...this.voices], options);
+    
+    // Set default values for filter options
+    const filterOptions: VoiceFilterOptions = {
+      excludeNovelty: true,  // Default to true to filter out novelty voices
+      excludeVeryLowQuality: true,  // Default to true to filter out very low quality voices
+      ...options  // Let explicit options override the defaults
+    };
+    
+    return this.filterVoices([...this.voices], filterOptions);
   }
 
   /**
@@ -412,6 +422,12 @@ export class WebSpeechVoiceManager {
       return lang;
     };
 
+    const isNoveltyVoice = (voiceName: string) => 
+      noveltyFilter.voices.some((v: any) => voiceName.includes(v.name));
+    
+    const isVeryLowQualityVoice = (voiceName: string) =>
+      veryLowQualityFilter.voices.some((v: any) => voiceName.includes(v.name));
+
     const parsedVoices = speechVoices
       .filter(voice => voice && voice.name && voice.lang)
       .map(voice => {
@@ -425,10 +441,12 @@ export class WebSpeechVoiceManager {
             // Override with actual browser data
             isDefault: voice.default || false,
             offlineAvailability: voice.localService || false,
+            // Add isNovelty and isLowQuality based on filter modules
+            isNovelty: isNoveltyVoice(voice.name),
+            isLowQuality: dataVoice.quality?.includes("veryLow")
           };
         }
         
-        // If not found in data, create minimal voice from browser info
         return {
           // Core identification - use actual browser data
           label: voice.name,
@@ -457,7 +475,9 @@ export class WebSpeechVoiceManager {
           
           // Additional properties - use actual browser data
           isDefault: voice.default || false,
-          offlineAvailability: voice.localService || false
+          offlineAvailability: voice.localService || false,
+          isNovelty: isNoveltyVoice(voice.name),
+          isLowQuality: isVeryLowQualityVoice(voice.name)
         };
       });
     
@@ -552,7 +572,7 @@ export class WebSpeechVoiceManager {
    */
   filterOutVeryLowQualityVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
     if (!voices?.length) return [];
-    return voices.filter(voice => !voice.quality?.includes("veryLow"));
+    return voices.filter(voice => !voice.isLowQuality);
   }
 
   /**

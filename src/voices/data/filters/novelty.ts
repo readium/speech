@@ -1,0 +1,204 @@
+// Auto-generated file - DO NOT EDIT
+// Last updated: 2025-11-24T14:44:06.972Z
+
+const novelty = {
+  "voices": [
+    {
+      "name": "Albert",
+      "nativeID": [
+        "com.apple.speech.synthesis.voice.Albert"
+      ],
+      "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ],
+      "preloaded": true
+    },
+    {
+      "name": "Bad News",
+      "nativeID": [
+        "com.apple.speech.synthesis.voice.BadNews"
+      ],
+      "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ],
+      "preloaded": true
+    },
+    {
+      "name": "Bahh",
+      "nativeID": [
+        "com.apple.speech.synthesis.voice.Bahh"
+      ],
+      "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ],
+      "preloaded": true
+    },
+    {
+      "name": "Bells",
+      "nativeID": [
+        "com.apple.speech.synthesis.voice.Bells"
+      ],
+      "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ],
+      "preloaded": true
+    },
+    {
+      "name": "Boing",
+      "nativeID": [
+        "com.apple.speech.synthesis.voice.Boing"
+      ],
+      "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ],
+      "preloaded": true
+    },
+    {
+      "name": "Bubbles",
+      "nativeID": [
+        "com.apple.speech.synthesis.voice.Bubbles"
+      ],
+      "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ],
+      "preloaded": true
+    },
+    {
+      "name": "Cellos",
+      "nativeID": [
+        "com.apple.speech.synthesis.voice.Cellos"
+      ],
+      "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ],
+      "preloaded": true
+    },
+    {
+      "name": "Good News",
+      "nativeID": [
+        "com.apple.speech.synthesis.voice.GoodNews"
+      ],
+      "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ],
+      "preloaded": true
+    },
+    {
+      "name": "Jester",
+      "nativeID": [
+        "com.apple.speech.synthesis.voice.Hysterical"
+      ],
+      "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ],
+      "preloaded": true
+    },
+    {
+      "name": "Organ",
+      "nativeID": [
+        "com.apple.speech.synthesis.voice.Organ"
+      ],
+      "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ],
+      "preloaded": true
+    },
+    {
+      "name": "Superstar",
+      "nativeID": [
+        "com.apple.speech.synthesis.voice.Princess"
+      ],
+      "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ],
+      "preloaded": true
+    },
+    {
+      "name": "Trinoids",
+      "nativeID": [
+        "com.apple.speech.synthesis.voice.Trinoids"
+      ],
+      "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ],
+      "preloaded": true
+    },
+    {
+      "name": "Whisper",
+      "nativeID": [
+        "com.apple.speech.synthesis.voice.Whisper"
+      ],
+      "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ],
+      "preloaded": true
+    },
+    {
+      "name": "Wobble",
+      "nativeID": [
+        "com.apple.speech.synthesis.voice.Deranged"
+      ],
+      "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ],
+      "preloaded": true
+    },
+    {
+      "name": "Zarvox",
+      "nativeID": [
+        "com.apple.speech.synthesis.voice.Zarvox"
+      ],
+      "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ],
+      "preloaded": true
+    }
+  ]
+} as const;
+
+export default novelty;

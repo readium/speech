@@ -130,16 +130,6 @@ function detectProvider(name) {
 async function processVoices() {
   console.log("Processing voice data...");
   
-  // Load filter data
-  const [noveltyData, lowQualityData] = await Promise.all([
-    loadJsonFile(join(CONFIG.jsonDir, "filters/novelty.json")),
-    loadJsonFile(join(CONFIG.jsonDir, "filters/veryLowQuality.json")),
-  ]);
-
-  // Create sets for fast lookup
-  const noveltyVoices = new Set(noveltyData?.voices?.map(v => v.name) || []);
-  const lowQualityVoices = new Set(lowQualityData?.voices?.map(v => v.name) || []);
-  
   // Load localized names
   const localizedNames = await loadJsonFile(join(CONFIG.jsonDir, "localizedNames/apple.json")) || {};
   
@@ -170,10 +160,6 @@ async function processVoices() {
     }
     
     for (const voice of data.voices) {
-      const isNovelty = noveltyVoices.has(voice.name);
-      const isLowQuality = lowQualityVoices.has(voice.name) || 
-                         (voice.quality && voice.quality.includes("veryLow"));
-      
       // Get localized name if available
       let localizedName = voice.label;
       if (voice.language in localizedNames) {
@@ -197,11 +183,7 @@ async function processVoices() {
         offlineAvailability: voice.offlineAvailability !== false, // Default to true
         provider: voice.provider || detectProvider(voice.name),
         isDefault: voice.isDefault || false,
-        isDeprecated: voice.isDeprecated || false,
-        isNovelty,
-        isLowQuality,
-        // Add filter-specific data if available
-        ...(noveltyData?.voices?.find(v => v.name === voice.name) || {})
+        isDeprecated: voice.isDeprecated || false
       };
       
       langVoices.push(enhancedVoice);
@@ -280,9 +262,40 @@ export interface ReadiumSpeechVoice {
 
   // Ensure output directories exist
   await ensureDir(join(CONFIG.outputDir, "languages"));
+  await ensureDir(join(CONFIG.outputDir, "filters"));
   
   // Write types file
   await writeFile(join(CONFIG.outputDir, "types.ts"), typesContent);
+  
+  // Process filter files and convert to TypeScript modules
+  const filterFiles = ["novelty", "veryLowQuality"];
+  for (const filterName of filterFiles) {
+    const sourcePath = join(CONFIG.jsonDir, "filters", `${filterName}.json`);
+    const targetPath = join(CONFIG.outputDir, "filters", `${filterName}.ts`);
+    
+    try {
+      const content = await readFile(sourcePath, "utf8");
+      const tsContent = `// Auto-generated file - DO NOT EDIT
+// Last updated: ${new Date().toISOString()}
+
+const ${filterName} = ${content} as const;
+
+export default ${filterName};
+`;
+      await writeFile(targetPath, tsContent);
+    } catch (error) {
+      console.error(`Error processing filter file ${filterName}:`, error);
+      // Create a default empty array if the source file doesn't exist
+      const defaultContent = `// Auto-generated file - DO NOT EDIT
+// Last updated: ${new Date().toISOString()}
+
+const ${filterName} = [] as const;
+
+export default ${filterName};
+`;
+      await writeFile(targetPath, defaultContent);
+    }
+  }
 
   // Write language files
   for (const [lang, langVoices] of languages.entries()) {
@@ -379,7 +392,10 @@ export function getAvailableLanguages() {
 }
 
 export * from "./types";
-export * from "./testUtterances";`;
+export * from "./testUtterances";
+
+export * from "./filters/novelty";
+export * from "./filters/veryLowQuality";`;
 
   await writeFile(join(CONFIG.outputDir, "index.ts"), indexContent);
   console.log("Generated index.ts with type-safe exports");
