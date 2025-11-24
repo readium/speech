@@ -400,6 +400,9 @@ function setupEventListeners() {
     testUtteranceInput.value = "";
     testUtteranceBtn.disabled = true;
     
+    // Clear voice properties
+    displayVoiceProperties(null);
+    
     // Filter voices for the selected language
     filterVoices();
     
@@ -418,6 +421,9 @@ function setupEventListeners() {
             voiceOption.selected = true;
           }
           
+          // Display voice properties
+          displayVoiceProperties(currentVoice);
+          
           // Update the test utterance with the new voice
           updateTestUtterance(currentVoice, languageCode);
           
@@ -433,7 +439,72 @@ function setupEventListeners() {
     updateUI();
   });
   
-  // Voice selection
+  /**
+ * Format a value for display in the voice properties
+ */
+function formatValue(value) {
+  if (value === undefined || value === null) {
+    return { display: "undefined", className: "undefined" };
+  }
+  
+  if (typeof value === "boolean") {
+    return { 
+      display: value ? "true" : "false", 
+      className: `boolean-${value}` 
+    };
+  }
+  
+  if (Array.isArray(value)) {
+    return { 
+      display: value.length > 0 ? value.join(", ") : "[]",
+      className: ""
+    };
+  }
+  
+  if (typeof value === "object") {
+    return { 
+      display: JSON.stringify(value, null, 2).replace(/"/g, ""),
+      className: "object-value"
+    };
+  }
+  
+  return { display: String(value), className: "" };
+}
+
+/**
+ * Display voice properties in the UI
+ */
+function displayVoiceProperties(voice) {
+  const propertiesContainer = document.getElementById("voice-properties");
+  
+  if (!voice) {
+    propertiesContainer.innerHTML = "<p>No voice selected</p>";
+    return;
+  }
+  
+  // Sort properties alphabetically
+  const sortedProps = Object.keys(voice).sort();
+  
+  // Create HTML for each property
+  const propertiesHtml = sortedProps.map(prop => {
+    // Skip internal/private properties that start with underscore
+    if (prop.startsWith("_")) return "";
+    
+    const value = voice[prop];
+    const { display, className } = formatValue(value);
+    
+    return `
+      <div class="voice-property">
+        <div class="voice-property-name">${prop}</div>
+        <div class="voice-property-value ${className}">${display}</div>
+      </div>
+    `;
+  }).join('');
+  
+  propertiesContainer.innerHTML = propertiesHtml || "<p>No properties available</p>";
+}
+
+// Voice selection
   voiceSelect.addEventListener("change", async () => {
     const selectedVoiceName = voiceSelect.value;
     currentVoice = filteredVoices.find(v => v.name === selectedVoiceName) || null;
@@ -442,6 +513,9 @@ function setupEventListeners() {
       try {
         // Set the voice for the navigator
         navigator.setVoice(currentVoice);
+        
+        // Display voice properties
+        displayVoiceProperties(currentVoice);
         
         // Reload the sample text with the new voice
         const languageCode = languageSelect.value;
@@ -786,4 +860,9 @@ function updateUI() {
 }
 
 // Initialize the application
-init();
+init().then(() => {
+  // If there's a default voice selected after initialization, display its properties
+  if (currentVoice) {
+    displayVoiceProperties(currentVoice);
+  }
+});
