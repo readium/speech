@@ -430,8 +430,9 @@ export class WebSpeechVoiceManager {
     const isNoveltyVoice = (voiceName: string) => 
       noveltyFilter.voices.some((v: any) => voiceName.includes(v.name));
     
-    const isVeryLowQualityVoice = (voiceName: string) =>
-      veryLowQualityFilter.voices.some((v: any) => voiceName.includes(v.name));
+    const isVeryLowQualityVoice = (voiceName: string, quality?: TQuality[]) => 
+      veryLowQualityFilter.voices.some((v: any) => voiceName.includes(v.name)) || 
+      (Array.isArray(quality) && quality.includes("veryLow" as TQuality));
 
     const parsedVoices = speechVoices
       .filter(voice => voice && voice.name && voice.lang)
@@ -448,7 +449,7 @@ export class WebSpeechVoiceManager {
             offlineAvailability: voice.localService || false,
             // Add isNovelty and isLowQuality based on filter modules
             isNovelty: isNoveltyVoice(voice.name),
-            isLowQuality: dataVoice.quality?.includes("veryLow")
+            isLowQuality: isVeryLowQualityVoice(voice.name, dataVoice.quality)
           };
         }
         
@@ -577,7 +578,11 @@ export class WebSpeechVoiceManager {
    */
   filterOutVeryLowQualityVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
     if (!voices?.length) return [];
-    return voices.filter(voice => !voice.isLowQuality);
+    return voices.filter(voice => {
+      // Check both isLowQuality flag and quality array
+      const isVeryLow = voice.quality?.includes("veryLow") || voice.isLowQuality;
+      return !isVeryLow;
+    });
   }
 
   /**
