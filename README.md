@@ -17,20 +17,35 @@ Readium Speech was spun out as a separate project in order to facilitate its int
 
 ## Current focus
 
-For our initial work on this project, we're focusing on voice selection based on [recommended voices](https://github.com/HadrienGardeur/web-speech-recommended-voices).
+For our initial work on this project, we focused on voice selection based on [recommended voices](https://github.com/HadrienGardeur/web-speech-recommended-voices).
 
 The outline of this work has been explored in a [GitHub discussion](https://github.com/HadrienGardeur/web-speech-recommended-voices/discussions/9) and through a [best practices document](https://github.com/HadrienGardeur/read-aloud-best-practices/blob/main/voice-selection.md).
 
-## Demo
+In the second phase, we focused on implementing a WebSpeech API-based solution with an architecture designed for future extensibility:
 
-[A live demo](https://readium.org/speech/demo/) of the voice selection API is available.
+- **Engine Layer**: Core TTS functionality through `ReadiumSpeechPlaybackEngine`
+- **Navigator Layer**: Content and playback management via (a temporary) `ReadiumSpeechNavigator`
+- **Current Implementation**: WebSpeech API with cross-browser compatibility
+- **Future-Proof Design**: Architecture prepared for additional TTS service adapters
 
-It demonstrates the following features:
+Key features include advanced voice selection, cross-browser playback control, flexible content loading, and comprehensive event handling for UI feedback. The architecture is designed to be extensible for different TTS backends while maintaining TypeScript-first development practices.
+
+## Demos
+
+Two live demos are available:
+
+1. [Voice selection with playback demo](https://readium.org/speech/demo)
+2. [In-context demo](https://readium.org/speech/demo/article)
+
+The first demo showcases the following features:
 
 - fetching a list of all available languages, translating them to the user's locale and sorting them based on these translations
 - returning a list of voices for a given language, grouped by region and sorted based on quality
 - filtering languages and voices based on gender and offline availability
 - using embedded test utterances to demo voices
+- using the current Navigator for playback control
+
+The second demo focuses on in-context reading with seamless voice selection (grouped by region and sorted based on quality), and playback control, providing an optional read-along experience that integrates naturally with the content.
 
 ## QuickStart
 
