@@ -79,7 +79,7 @@ navigator.on("start", () => console.log("Playback started"));
 navigator.on("end", () => console.log("Playback finished"));
 
 // Start playback
-navigator.play().catch(console.error);
+navigator.play();
 
 // Later, you can pause, resume, or stop
 // navigator.pause();
@@ -194,13 +194,13 @@ interface ReadiumSpeechNavigator {
   getContentQueue(): ReadiumSpeechUtterance[];
   
   // Playback Control
-  play(): Promise<void>;
+  play(): void;
   pause(): void;
   stop(): void;
   
   // Navigation
-  next(): Promise<boolean>;
-  previous(): Promise<boolean>;
+  next(): boolean;
+  previous(): boolean;
   jumpTo(utteranceIndex: number): void;
   
   // Playback Parameters
@@ -238,14 +238,14 @@ type ReadiumSpeechPlaybackEvent = {
     | "resume"          // Playback resumed
     | "end"             // Playback ended naturally
     | "stop"            // Playback stopped manually
+    | "skip"            // Skipped to another utterance
     | "error"           // An error occurred
     | "boundary"        // Reached a word/sentence boundary
     | "mark"            // Reached a named mark in SSML
     | "idle"            // No content loaded
     | "loading"         // Loading content
     | "ready"           // Ready to play
-    | "voiceschanged"   // Available voices changed
-    | "positionchanged"; // Playback position changed
+    | "voiceschanged";   // Available voices changed
   detail?: any;  // Event-specific data
 };
 ```

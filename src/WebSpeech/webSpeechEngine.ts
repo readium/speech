@@ -243,7 +243,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.speechSynthesis.cancel();
   }
   
-  private async speakCurrentUtterance(): Promise<void> {
+  private speakCurrentUtterance(): void {
     if (this.currentUtteranceIndex >= this.currentUtterances.length) {
       this.setState("idle");
       this.emitEvent({ type: "end" });
@@ -525,13 +525,14 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return this.currentUtteranceIndex;
   }
 
-  setCurrentUtteranceIndex(index: number): void {
+  setCurrentUtteranceIndex(index: number, onComplete?: (success: boolean) => void): void {
     // Validate the new index
     if (index < 0 || index >= this.currentUtterances.length) {
-      throw new Error("Invalid utterance index");
+      onComplete?.(false);
+      return;
     }
 
-    // If the index isn't changing, do nothing
+    // If the index isn't changing
     if (index === this.currentUtteranceIndex) {
       return;
     }
@@ -541,14 +542,9 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.cancelCurrentSpeech();
     }
 
-    // Only after ensuring any ongoing speech is cancelled, update the index
+    // Update the index
     this.currentUtteranceIndex = index;
-    
-    // Only after all state changes and side effects, emit the event
-    this.emitEvent({ 
-      type: "positionchanged",
-      detail: { position: index }
-    });
+    onComplete?.(true);
   }
 
   getUtteranceCount(): number {

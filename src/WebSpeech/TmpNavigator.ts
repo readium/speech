@@ -84,10 +84,6 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
     this.engine.on("mark", (event) => {
       this.emitEvent(event);
     });
-    
-    this.engine.on("positionchanged", (event) => {
-      this.emitEvent(event);
-    });
 
     this.engine.on("voiceschanged", () => {
       this.emitEvent({ type: "voiceschanged" });
@@ -138,7 +134,7 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
   }
 
   // Playback Control - Navigator coordinates engine operations
-  async play(): Promise<void> {
+  play(): void {
     if (this.navigatorState === "paused") {
       // Resume from pause
       this.setNavigatorState("playing");
@@ -166,44 +162,50 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
     this.emitEvent({ type: "stop" });  // Then emit event for UI update
   }
 
+  private skipToPosition(targetIndex: number, forcePlay: boolean = false): boolean {
+    const currentIndex = this.getCurrentUtteranceIndex();
+    
+    // Check if the target index is valid
+    if (targetIndex < 0 || targetIndex >= this.contentQueue.length) {
+      return false;
+    }
+
+    // Don't do anything if we're already at the target index
+    if (targetIndex === currentIndex) {
+      return true;
+    }
+
+    if (this.navigatorState === "paused" && !forcePlay) {
+      // For paused state, just update the index without speaking
+      this.engine.setCurrentUtteranceIndex(targetIndex, (success) => {
+        if (success) {
+          this.emitEvent({
+            type: "skip",
+            detail: { position: targetIndex }
+          });
+        }
+      });
+    } else {
+      this.setNavigatorState("playing");
+      this.engine.speak(targetIndex);
+    }
+    
+    return true;
+  }
+
   // Navigation - Navigator coordinates with proper state management
-  async next(forcePlay: boolean = false): Promise<boolean> {
+  next(forcePlay: boolean = false): boolean {
     const currentIndex = this.getCurrentUtteranceIndex();
-    const totalCount = this.engine.getUtteranceCount();
-
-    if (currentIndex >= totalCount - 1) return false;
-
-    if (this.navigatorState === "paused" && !forcePlay) {
-      this.engine.setCurrentUtteranceIndex(currentIndex + 1);
-    } else {
-      this.setNavigatorState("playing");
-      await this.engine.speak(currentIndex + 1);
-    }
-    return true;
+    return this.skipToPosition(currentIndex + 1, forcePlay);
   }
 
-  async previous(forcePlay: boolean = false): Promise<boolean> {
+  previous(forcePlay: boolean = false): boolean {
     const currentIndex = this.getCurrentUtteranceIndex();
-    if (currentIndex <= 0) return false;
-
-    if (this.navigatorState === "paused" && !forcePlay) {
-      this.engine.setCurrentUtteranceIndex(currentIndex - 1);
-    } else {
-      this.setNavigatorState("playing");
-      await this.engine.speak(currentIndex - 1);
-    }
-    return true;
+    return this.skipToPosition(currentIndex - 1, forcePlay);
   }
 
-  jumpTo(utteranceIndex: number, forcePlay: boolean = false): void {
-    if (utteranceIndex < 0 || utteranceIndex >= this.contentQueue.length) return;
-
-    if (this.navigatorState === "paused" && !forcePlay) {
-      this.engine.setCurrentUtteranceIndex(utteranceIndex);
-    } else {
-      this.setNavigatorState("playing");
-      this.engine.speak(utteranceIndex);
-    }
+  jumpTo(utteranceIndex: number, forcePlay: boolean = false): boolean {
+    return this.skipToPosition(utteranceIndex, forcePlay);
   }
 
   // Playback Parameters

@@ -20,7 +20,7 @@ export class WebSpeechEngineProvider implements ReadiumSpeechEngineProvider {
     const engine = new WebSpeechEngine();
     await engine.initialize();
     if (voice) {
-      engine.setVoice(voice);
+      await engine.setVoice(voice);
     }
     return engine;
   }
