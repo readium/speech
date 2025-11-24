@@ -70,9 +70,11 @@ async function init() {
     // Load all available voices
     allVoices = voiceManager.getVoices();
     
-    // Get and sort languages
-    languages = voiceManager.getLanguages()
-      .sort((a, b) => a.label.localeCompare(b.label));
+    // Get and sort languages, excluding novelty and very low quality voices
+    languages = voiceManager.getLanguages(navigator.language, {
+      excludeNovelty: true,
+      excludeVeryLowQuality: true
+    }).sort((a, b) => a.label.localeCompare(b.label));
     
     // Populate language dropdown
     populateLanguageDropdown();

@@ -146,14 +146,14 @@ export class WebSpeechVoiceManager {
    * Get display name for a language code
    * @private
    */
-  private static getLanguageDisplayName(code: string): string {
+  private static getLanguageDisplayName(code: string, localization?: string): string {
     const displayNames: Record<string, string> = {
       "cmn": "Mandarin Chinese",
       "wuu": "Wu Chinese",
       "yue": "Cantonese (Yue)"
     };
     try {
-      return displayNames[code] || new Intl.DisplayNames([], { type: "language" }).of(code) || code.toUpperCase();
+      return displayNames[code] || new Intl.DisplayNames(localization ? [localization] : [], { type: "language" }).of(code) || code.toUpperCase();
     } catch (e) {
       return code.toUpperCase();
     }
@@ -221,21 +221,26 @@ export class WebSpeechVoiceManager {
 
   /**
    * Get available languages with voice counts
+   * @param localization Optional BCP 47 language tag to use for language names
+   * @param filterOptions Optional filters to apply to voices before counting languages
    */
-  getLanguages(localization?: string): LanguageInfo[] {
+  getLanguages(localization?: string, filterOptions?: VoiceFilterOptions): LanguageInfo[] {
     if (!this.isInitialized) {
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
     }
     
     const languages = new Map<string, { count: number; label: string }>();
     
-    this.voices.forEach(voice => {
+    // Apply filters if provided
+    const voicesToCount = filterOptions ? this.filterVoices([...this.voices], filterOptions) : this.voices;
+    
+    voicesToCount.forEach(voice => {
       const langCode = voice.language; // Use the full language code
       const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(langCode);
       
       // For Chinese variants, use the full language code as the key
       const key = baseLang === "zh" ? langCode : baseLang;
-      const displayName = WebSpeechVoiceManager.getLanguageDisplayName(key);
+      const displayName = WebSpeechVoiceManager.getLanguageDisplayName(key, localization);
       
       const entry = languages.get(key) || { count: 0, label: displayName };
       languages.set(key, { ...entry, count: entry.count + 1 });
