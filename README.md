@@ -42,6 +42,7 @@ It demonstrates the following features:
 ### Installation
 
 1. Clone the repository:
+   ```bash
    git clone https://github.com/readium/speech.git
    cd speech
    ```
