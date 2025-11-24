@@ -182,8 +182,6 @@ Arranges voices according to the specified sorting criteria. The `SortOptions` i
 interface SortOptions {
   by: "name" | "language" | "gender" | "quality" | "region";
   order?: "asc" | "desc";
-  preferredLanguage?: string | string[];
-  localization?: string;
 }
 ```
 

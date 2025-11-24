@@ -71,7 +71,7 @@ async function init() {
     allVoices = voiceManager.getVoices();
     
     // Get and sort languages, excluding novelty and very low quality voices
-    languages = voiceManager.getLanguages(navigator.language, {
+    languages = voiceManager.getLanguages(window.navigator.language, {
       excludeNovelty: true,
       excludeVeryLowQuality: true
     }).sort((a, b) => a.label.localeCompare(b.label));
@@ -154,8 +154,7 @@ function populateVoiceDropdown(language = "") {
     // Sort voices by language (with current language first) and then by name
     const sortedVoices = voiceManager.sortVoices([...filteredVoices], { 
       by: "language",
-      order: "asc",
-      preferredLanguage: language || undefined
+      order: "asc"
     });
 
     // Group the sorted voices by region

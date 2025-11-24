@@ -61,8 +61,6 @@ type GroupBy = "language" | "gender" | "quality" | "region";
 interface SortOptions {
   by: GroupBy | "name";
   order?: SortOrder;
-  preferredLanguage?: string | string[];
-  localization?: string;
 }
 
 /**
