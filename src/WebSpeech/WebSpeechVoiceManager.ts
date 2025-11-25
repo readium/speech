@@ -425,8 +425,11 @@ export class WebSpeechVoiceManager {
       return lang;
     };
 
-    const isNoveltyVoice = (voiceName: string) => 
-      noveltyFilter.voices.some((v: any) => voiceName.includes(v.name));
+    const isNoveltyVoice = (voiceName: string, voiceId?: string) => 
+      noveltyFilter.voices.some((v: any) => 
+        voiceName.includes(v.name) || 
+        (voiceId && v.nativeID && v.nativeID.some((id: string) => voiceId.includes(id)))
+      );
     
     const isVeryLowQualityVoice = (voiceName: string, quality?: TQuality[]) => 
       veryLowQualityFilter.voices.some((v: any) => voiceName.includes(v.name)) || 
@@ -446,7 +449,7 @@ export class WebSpeechVoiceManager {
             isDefault: voice.default || false,
             offlineAvailability: voice.localService || false,
             // Add isNovelty and isLowQuality based on filter modules
-            isNovelty: isNoveltyVoice(voice.name),
+            isNovelty: isNoveltyVoice(voice.name, voice.voiceURI),
             isLowQuality: isVeryLowQualityVoice(voice.name, dataVoice.quality)
           };
         }
@@ -480,7 +483,7 @@ export class WebSpeechVoiceManager {
           // Additional properties - use actual browser data
           isDefault: voice.default || false,
           offlineAvailability: voice.localService || false,
-          isNovelty: isNoveltyVoice(voice.name),
+          isNovelty: isNoveltyVoice(voice.name, voice.voiceURI),
           isLowQuality: isVeryLowQualityVoice(voice.name)
         };
       });
