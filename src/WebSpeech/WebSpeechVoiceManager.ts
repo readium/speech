@@ -61,6 +61,7 @@ type GroupBy = "language" | "gender" | "quality" | "region";
 interface SortOptions {
   by: GroupBy | "name";
   order?: SortOrder;
+  preferredLanguages?: string[];
 }
 
 /**
@@ -145,13 +146,20 @@ export class WebSpeechVoiceManager {
    * @private
    */
   private static getLanguageDisplayName(code: string, localization?: string): string {
-    const displayNames: Record<string, string> = {
-      "cmn": "Mandarin Chinese",
-      "wuu": "Wu Chinese",
-      "yue": "Cantonese (Yue)"
-    };
     try {
-      return displayNames[code] || new Intl.DisplayNames(localization ? [localization] : [], { type: "language" }).of(code) || code.toUpperCase();
+      // Use standard language tags for Chinese variants
+      const standardCode = {
+        "cmn": "cmn",  // Mandarin Chinese
+        "wuu": "wuu",  // Wu Chinese
+        "yue": "yue"   // Cantonese
+      }[code] || code;
+
+      const displayName = new Intl.DisplayNames(
+        localization ? [localization] : [],
+        { type: "language", languageDisplay: "standard" }
+      ).of(standardCode);
+
+      return displayName || code.toUpperCase();
     } catch (e) {
       return code.toUpperCase();
     }
@@ -629,11 +637,60 @@ export class WebSpeechVoiceManager {
         
       case "language":
         result.sort((a, b) => {
-          const aLang = a.language.toLowerCase();
-          const bLang = b.language.toLowerCase();
-          return options.order === "desc" 
-            ? bLang.localeCompare(aLang)
-            : aLang.localeCompare(bLang);
+          const [aLang, aRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
+          const [bLang, bRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
+          
+          // Get display names for both languages for comparison
+          const aDisplayName = WebSpeechVoiceManager.getLanguageDisplayName(aLang).toLowerCase();
+          const bDisplayName = WebSpeechVoiceManager.getLanguageDisplayName(bLang).toLowerCase();
+          
+          // If preferredLanguages is provided, prioritize them
+          if (options.preferredLanguages?.length) {
+            const aIndex = options.preferredLanguages.findIndex(prefLang => {
+              const [prefLangBase, prefRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
+              // Match both language and region if specified in preferred language
+              return aLang === prefLangBase.toLowerCase() && 
+                     (!prefRegion || !aRegion || prefRegion === aRegion);
+            });
+            
+            const bIndex = options.preferredLanguages.findIndex(prefLang => {
+              const [prefLangBase, prefRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
+              return bLang === prefLangBase.toLowerCase() && 
+                     (!prefRegion || !bRegion || prefRegion === bRegion);
+            });
+            
+            // If both languages are in preferred list, sort by their position
+            if (aIndex !== -1 && bIndex !== -1) {
+              // If same preferred language but different regions, sort by region if specified
+              if (aIndex === bIndex && aRegion && bRegion) {
+                return options.order === "desc" 
+                  ? bRegion.localeCompare(aRegion)
+                  : aRegion.localeCompare(bRegion);
+              }
+              return options.order === "desc" ? bIndex - aIndex : aIndex - bIndex;
+            }
+            // If only one language is in preferred list, it comes first
+            if (aIndex !== -1) return -1;
+            if (bIndex !== -1) return 1;
+          }
+          
+          // For Chinese variants, sort by their display name to ensure proper ordering
+          if (["cmn", "wuu", "yue", "zh"].includes(aLang) || ["cmn", "wuu", "yue", "zh"].includes(bLang)) {
+            const compare = aDisplayName.localeCompare(bDisplayName);
+            return options.order === "desc" ? -compare : compare;
+          }
+          
+          // Default sorting for other languages using display names for more natural sorting
+          const langCompare = options.order === "desc" 
+            ? bDisplayName.localeCompare(aDisplayName)
+            : aDisplayName.localeCompare(bDisplayName);
+            
+          // If same language, sort by region
+          return langCompare === 0 && aRegion && bRegion
+            ? options.order === "desc"
+              ? bRegion.localeCompare(aRegion)
+              : aRegion.localeCompare(bRegion)
+            : langCompare;
         });
         break;
         
@@ -663,6 +720,45 @@ export class WebSpeechVoiceManager {
           const aRegion = this.getRegionFromLanguage(a.language);
           const bRegion = this.getRegionFromLanguage(b.language);
           
+          // If preferredLanguages is provided, prioritize regions from preferred languages
+          if (options.preferredLanguages?.length) {
+            const [aLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
+            const [bLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
+            
+            // Check if either language is in preferred languages
+            const aIsPreferred = options.preferredLanguages.some(prefLang => {
+              const [prefLangBase] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
+              return aLang === prefLangBase.toLowerCase();
+            });
+            
+            const bIsPreferred = options.preferredLanguages.some(prefLang => {
+              const [prefLangBase] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
+              return bLang === prefLangBase.toLowerCase();
+            });
+            
+            // If one is preferred and the other isn't, the preferred one comes first
+            if (aIsPreferred && !bIsPreferred) return -1;
+            if (!aIsPreferred && bIsPreferred) return 1;
+            
+            // If both are from preferred languages, sort by their position in preferredLanguages
+            if (aIsPreferred && bIsPreferred) {
+              const aIndex = options.preferredLanguages.findIndex(prefLang => {
+                const [prefLangBase] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
+                return aLang === prefLangBase.toLowerCase();
+              });
+              
+              const bIndex = options.preferredLanguages.findIndex(prefLang => {
+                const [prefLangBase] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
+                return bLang === prefLangBase.toLowerCase();
+              });
+              
+              if (aIndex !== bIndex) {
+                return options.order === "desc" ? bIndex - aIndex : aIndex - bIndex;
+              }
+            }
+          }
+          
+          // Default region comparison
           return options.order === "desc"
             ? bRegion.localeCompare(aRegion)
             : aRegion.localeCompare(bRegion);

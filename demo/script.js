@@ -66,15 +66,35 @@ async function init() {
   try {    
     // Initialize the voice manager
     voiceManager = await WebSpeechVoiceManager.initialize();
-    
-    // Load all available voices
-    allVoices = voiceManager.getVoices();
-    
-    // Get and sort languages, excluding novelty and very low quality voices
-    languages = voiceManager.getLanguages(window.navigator.language, {
+
+    const initOptions = {
       excludeNovelty: true,
       excludeVeryLowQuality: true
-    }).sort((a, b) => a.label.localeCompare(b.label));
+    };
+    
+    // Load all available voices
+    allVoices = voiceManager.getVoices(initOptions);
+    
+    // Get languages, excluding novelty and very low quality voices
+    const allLanguages = voiceManager.getLanguages(window.navigator.language, initOptions);
+    
+    // Sort languages with browser's preferred languages first
+    languages = voiceManager.sortVoices(
+      allLanguages.map(lang => ({
+        ...lang,
+        language: lang.code,
+        name: lang.label
+      })),
+      { 
+        by: "language",
+        order: "asc",
+        preferredLanguages: window.navigator.languages
+      }
+    ).map(voice => ({
+      code: voice.language,
+      label: voice.name,
+      count: voice.count
+    }));
     
     // Populate language dropdown
     populateLanguageDropdown();
@@ -151,10 +171,11 @@ function populateVoiceDropdown(language = "") {
       return;
     }
 
-    // Sort voices by language (with current language first) and then by name
+    // Sort voices with browser's preferred languages first
     const sortedVoices = voiceManager.sortVoices([...filteredVoices], { 
       by: "language",
-      order: "asc"
+      order: "asc",
+      preferredLanguages: window.navigator.languages
     });
 
     // Group the sorted voices by region
