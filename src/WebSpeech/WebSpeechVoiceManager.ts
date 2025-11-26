@@ -166,20 +166,25 @@ export class WebSpeechVoiceManager {
   }
 
   /**
-   * Remove duplicate voices
+   * Remove duplicate voices, keeping the highest quality version of each voice
    * @param voices Array of voices to remove duplicates from
-   * @returns Filtered array with duplicates removed
+   * @returns Filtered array with duplicates removed, keeping only the highest quality versions
    */
   private removeDuplicate(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
-    const strHash = (voice: ReadiumSpeechVoice) => `${voice.voiceURI}_${voice.name}_${voice.language}_${voice.offlineAvailability}`;
+    const voiceMap = new Map<string, ReadiumSpeechVoice>();
     
-    const voicesStrMap = [...new Set(voices.map((v) => strHash(v)))];
+    for (const voice of voices) {
+      // Create a unique key based on voice identity (excluding quality)
+      const key = `${voice.voiceURI}_${voice.name}_${voice.language}`;
+      const existingVoice = voiceMap.get(key);
+      
+      // If we don't have this voice yet, or if the current voice is of higher quality
+      if (!existingVoice || this.getQualityValue(voice.quality) > this.getQualityValue(existingVoice.quality)) {
+        voiceMap.set(key, voice);
+      }
+    }
     
-    const voicesFiltered = voicesStrMap
-        .map((s) => voices.find((v) => strHash(v) === s))
-        .filter((v) => !!v);
-    
-    return voicesFiltered;
+    return Array.from(voiceMap.values());
   }
 
   /**
