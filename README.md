@@ -34,31 +34,67 @@ It demonstrates the following features:
 
 ## QuickStart
 
-`npm install https://github.com/readium/speech#build`
+At the moment, the new alpha version of the library is not published on npm, so you need to clone the repository and build it yourself.
 
 ```
-import { voicesSelection} from "readium-speech";
-console.log(voicesSelection);
+git clone https://github.com/readium/speech.git
 
-// or with cjs only : 
-const { getVoices } = require("readium-speech/cjs/voices.js");
+```
+
+```
+cd speech
+npm install
+npm run build
+```
+
+You can then link the library to your project, for example using `npm link`.
+
+```
+import { getVoices } from "readium-speech";
 console.log(getVoices);
 
-// or with esm mjs :
-import { getVoices } from "readium-speech/mjs/voices.js";
-console.log(getVoices);
-
-const voices = await voicesSelection.getVoices();
+const voices = await getVoices();
 console.log(voices);
 
 ```
 
-## API
+### Basic Usage
+
+Here's how to get started with the Readium Speech library:
+
+```typescript
+import { WebSpeechReadAloudNavigator } from "readium-speech";
+
+// Initialize the navigator with default WebSpeech engine
+const navigator = new WebSpeechReadAloudNavigator();
+
+// Load content to be read
+navigator.loadContent([
+  { text: "Hello, this is the first sentence.", language: "en-US" },
+  { text: "And this is the second sentence.", language: "en-US" }
+]);
+
+// Set up event listeners
+navigator.on("start", () => console.log("Playback started"));
+navigator.on("end", () => console.log("Playback finished"));
+
+// Start playback
+navigator.play();
+
+// Later, you can pause, resume, or stop
+// navigator.pause();
+// navigator.stop();
+
+// Clean up when done
+// navigator.destroy();
+```
+
+## Voices API
 
 ### Interface 
 
 ```
-export interface IVoices {
+export interface ReadiumSpeechVoices {
     label: string;
     voiceURI: string;
     name: string;
@@ -79,24 +115,24 @@ export interface ILanguages {
 }
 ```
 
-#### Parse and Extract IVoices from speechSynthesis WebAPI
+#### Parse and Extract ReadiumSpeechVoices from speechSynthesis WebAPI
 ```
-function getVoices(preferredLanguage?: string[] | string, localization?: string): Promise<IVoices[]>
+function getVoices(preferredLanguage?: string[] | string, localization?: string): Promise<ReadiumSpeechVoices[]>
 ```
 
-#### List languages from IVoices
+#### List languages from ReadiumSpeechVoices
 ```
-function getLanguages(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string | undefined): ILanguages[]
+function getLanguages(voices: ReadiumSpeechVoices[], preferredLanguage?: string[] | string, localization?: string | undefined): ILanguages[]
 ```
 
 #### helpers
 
 ```
-function listLanguages(voices: IVoices[], localization?: string): ILanguages[]
+function listLanguages(voices: ReadiumSpeechVoices[], localization?: string): ILanguages[]
 
-function ListRegions(voices: IVoices[], localization?: string): ILanguages[]
+function ListRegions(voices: ReadiumSpeechVoices[], localization?: string): ILanguages[]
 
-function parseSpeechSynthesisVoices(speechSynthesisVoices: SpeechSynthesisVoice[]): IVoices[]
+function parseSpeechSynthesisVoices(speechSynthesisVoices: SpeechSynthesisVoice[]): ReadiumSpeechVoices[]
 
 function getSpeechSynthesisVoices(): Promise<SpeechSynthesisVoice[]>
 ```
@@ -104,39 +140,118 @@ function getSpeechSynthesisVoices(): Promise<SpeechSynthesisVoice[]>
 #### groupBy
 
 ```
-function groupByKindOfVoices(allVoices: IVoices[]): TGroupVoices
+function groupByKindOfVoices(allVoices: ReadiumSpeechVoices[]): TGroupVoices
 
-function groupByRegions(voices: IVoices[], language: string, preferredRegions?: string[] | string, localization?: string): TGroupVoices
+function groupByRegions(voices: ReadiumSpeechVoices[], language: string, preferredRegions?: string[] | string, localization?: string): TGroupVoices
 
-function groupByLanguage(voices: IVoices[], preferredLanguage?: string[] | string, localization?: string): TGroupVoices
+function groupByLanguage(voices: ReadiumSpeechVoices[], preferredLanguage?: string[] | string, localization?: string): TGroupVoices
 ```
 
 #### sortBy
 
 ```
-function sortByLanguage(voices: IVoices[], preferredLanguage?: string[] | string): IVoices[]
+function sortByLanguage(voices: ReadiumSpeechVoices[], preferredLanguage?: string[] | string): ReadiumSpeechVoices[]
 
-function sortByRegion(voices: IVoices[], preferredRegions?: string[] | string, localization?: string | undefined): IVoices[]
+function sortByRegion(voices: ReadiumSpeechVoices[], preferredRegions?: string[] | string, localization?: string | undefined): ReadiumSpeechVoices[]
 
-function sortByGender(voices: IVoices[], genderFirst: TGender): IVoices[]
+function sortByGender(voices: ReadiumSpeechVoices[], genderFirst: TGender): ReadiumSpeechVoices[]
 
-function sortByName(voices: IVoices[]): IVoices[]
+function sortByName(voices: ReadiumSpeechVoices[]): ReadiumSpeechVoices[]
 
-function sortByQuality(voices: IVoices[]): IVoices[]
+function sortByQuality(voices: ReadiumSpeechVoices[]): ReadiumSpeechVoices[]
 ```
 
 #### filterOn
 
 ```
-function filterOnRecommended(voices: IVoices[], _recommended?: IRecommended[]): TReturnFilterOnRecommended
+function filterOnRecommended(voices: ReadiumSpeechVoices[], _recommended?: IRecommended[]): TReturnFilterOnRecommended
 
-function filterOnVeryLowQuality(voices: IVoices[]): IVoices[]
+function filterOnVeryLowQuality(voices: ReadiumSpeechVoices[]): ReadiumSpeechVoices[]
 
-function filterOnNovelty(voices: IVoices[]): IVoices[]
+function filterOnNovelty(voices: ReadiumSpeechVoices[]): ReadiumSpeechVoices[]
 
-function filterOnQuality(voices: IVoices[], quality: TQuality | TQuality[]): IVoices[]
+function filterOnQuality(voices: ReadiumSpeechVoices[], quality: TQuality | TQuality[]): ReadiumSpeechVoices[]
 
-function filterOnLanguage(voices: IVoices[], language: string | string[]): IVoices[]
+function filterOnLanguage(voices: ReadiumSpeechVoices[], language: string | string[]): ReadiumSpeechVoices[]
 
-function filterOnGender(voices: IVoices[], gender: TGender): IVoices[]
+function filterOnGender(voices: ReadiumSpeechVoices[], gender: TGender): ReadiumSpeechVoices[]
+```
+
+## Playback API
+
+### ReadiumSpeechNavigator
+
+```typescript
+interface ReadiumSpeechNavigator {
+  // Voice Management
+  getVoices(): Promise<ReadiumSpeechVoice[]>;
+  setVoice(voice: ReadiumSpeechVoice | string): Promise<void>;
+  getCurrentVoice(): ReadiumSpeechVoice | null;
+  
+  // Content Management
+  loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
+  getCurrentContent(): ReadiumSpeechUtterance | null;
+  getContentQueue(): ReadiumSpeechUtterance[];
+  
+  // Playback Control
+  play(): void;
+  pause(): void;
+  stop(): void;
+  
+  // Navigation
+  next(): boolean;
+  previous(): boolean;
+  jumpTo(utteranceIndex: number): void;
+  
+  // Playback Parameters
+  setRate(rate: number): void;
+  getRate(): number;
+  setPitch(pitch: number): void;
+  getPitch(): number;
+  setVolume(volume: number): void;
+  getVolume(): number;
+  
+  // State
+  getState(): ReadiumSpeechPlaybackState;
+  getCurrentUtteranceIndex(): number;
+  
+  // Events
+  on(
+    event: ReadiumSpeechPlaybackEvent["type"],
+    listener: (event: ReadiumSpeechPlaybackEvent) => void
+  ): void;
+  
+  // Cleanup
+  destroy(): void;
+}
+```
+
+### Events
+
+#### ReadiumSpeechPlaybackEvent
+
+```typescript
+type ReadiumSpeechPlaybackEvent = {
+  type: 
+    | "start"           // Playback started
+    | "pause"           // Playback paused
+    | "resume"          // Playback resumed
+    | "end"             // Playback ended naturally
+    | "stop"            // Playback stopped manually
+    | "skip"            // Skipped to another utterance
+    | "error"           // An error occurred
+    | "boundary"        // Reached a word/sentence boundary
+    | "mark"            // Reached a named mark in SSML
+    | "idle"            // No content loaded
+    | "loading"         // Loading content
+    | "ready"           // Ready to play
+    | "voiceschanged";   // Available voices changed
+  detail?: any;  // Event-specific data
+};
+```
+
+#### ReadiumSpeechPlaybackState
+
+```typescript
+type ReadiumSpeechPlaybackState = "playing" | "paused" | "idle" | "loading" | "ready";
 ```

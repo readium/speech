@@ -60,12 +60,14 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
       this.emitEvent({ type: "resume" });
     });
 
+    this.engine.on("stop", () => {
+      this.setNavigatorState("idle");
+      this.emitEvent({ type: "stop" });
+    });
+
     this.engine.on("error", (event) => {
       this.setNavigatorState("idle");
-      // Only emit error for genuine errors, not interruptions during navigation
-      if (event.detail.error !== "interrupted" && event.detail.error !== "canceled") {
-        this.emitEvent(event);
-      }
+      this.emitEvent(event);
     });
 
     this.engine.on("ready", () => {
@@ -132,7 +134,7 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
   }
 
   // Playback Control - Navigator coordinates engine operations
-  async play(): Promise<void> {
+  play(): void {
     if (this.navigatorState === "paused") {
       // Resume from pause
       this.setNavigatorState("playing");
@@ -160,40 +162,50 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
     this.emitEvent({ type: "stop" });  // Then emit event for UI update
   }
 
-  async togglePlayPause(): Promise<void> {
-    if (this.navigatorState === "playing") {
-      this.pause();
-    } else {
-      await this.play();
+  private skipToPosition(targetIndex: number, forcePlay: boolean = false): boolean {
+    const currentIndex = this.getCurrentUtteranceIndex();
+    
+    // Check if the target index is valid
+    if (targetIndex < 0 || targetIndex >= this.contentQueue.length) {
+      return false;
     }
+
+    // Don't do anything if we're already at the target index
+    if (targetIndex === currentIndex) {
+      return true;
+    }
+
+    if (this.navigatorState === "paused" && !forcePlay) {
+      // For paused state, just update the index without speaking
+      this.engine.setCurrentUtteranceIndex(targetIndex, (success) => {
+        if (success) {
+          this.emitEvent({
+            type: "skip",
+            detail: { position: targetIndex }
+          });
+        }
+      });
+    } else {
+      this.setNavigatorState("playing");
+      this.engine.speak(targetIndex);
+    }
+    
+    return true;
   }
 
   // Navigation - Navigator coordinates with proper state management
-  async next(): Promise<boolean> {
+  next(forcePlay: boolean = false): boolean {
     const currentIndex = this.getCurrentUtteranceIndex();
-    const totalCount = this.engine.getUtteranceCount();
-
-    if (currentIndex < totalCount - 1) {
-      this.engine.speak(currentIndex + 1);
-      return true;
-    }
-    return false;
+    return this.skipToPosition(currentIndex + 1, forcePlay);
   }
 
-  async previous(): Promise<boolean> {
+  previous(forcePlay: boolean = false): boolean {
     const currentIndex = this.getCurrentUtteranceIndex();
-
-    if (currentIndex > 0) {
-      this.engine.speak(currentIndex - 1);
-      return true;
-    }
-    return false;
+    return this.skipToPosition(currentIndex - 1, forcePlay);
   }
 
-  jumpTo(utteranceIndex: number): void {
-    if (utteranceIndex >= 0 && utteranceIndex < this.contentQueue.length) {
-      this.engine.speak(utteranceIndex);
-    }
+  jumpTo(utteranceIndex: number, forcePlay: boolean = false): boolean {
+    return this.skipToPosition(utteranceIndex, forcePlay);
   }
 
   // Playback Parameters
@@ -201,12 +213,24 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
     this.engine.setRate(rate);
   }
 
+  getRate(): number {
+    return this.engine.getRate();
+  }
+
   setPitch(pitch: number): void {
     this.engine.setPitch(pitch);
   }
 
+  getPitch(): number {
+    return this.engine.getPitch();
+  }
+
   setVolume(volume: number): void {
     this.engine.setVolume(volume);
+  }
+
+  getVolume(): number {
+    return this.engine.getVolume();
   }
 
   // State - Navigator is the single source of truth

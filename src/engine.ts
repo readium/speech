@@ -19,12 +19,16 @@ export interface ReadiumSpeechPlaybackEngine {
   
   // Playback Parameters
   setRate(rate: number): void;
+  getRate(): number;
   setPitch(pitch: number): void;
+  getPitch(): number;
   setVolume(volume: number): void;
+  getVolume(): number;
   
   // State
   getState(): ReadiumSpeechPlaybackState;
   getCurrentUtteranceIndex(): number;
+  setCurrentUtteranceIndex(index: number, onComplete?: (success: boolean) => void): void;
   getUtteranceCount(): number;
   
   // Events
