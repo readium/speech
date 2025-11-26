@@ -333,14 +333,44 @@ export const testUtterances: { [lang: string]: string } = ${JSON.stringify(Objec
  * @returns Test utterance string or empty string if not found
  */
 export function getTestUtterance(lang: string): string {
-  // Direct match first
-  if (testUtterances[lang]) {
-    return testUtterances[lang];
+  if (!lang) return "";  // Handle undefined/null
+  
+  // Convert to lowercase for case-insensitive comparison
+  const langLower = lang.toLowerCase();
+  
+  // Check Chinese variants first (they have special handling)
+  const chineseMapping: {[key: string]: string} = {
+    "cmn": "cmn", 
+    "cmn-cn": "cmn", 
+    "cmn-tw": "cmn", 
+    "zh": "cmn", 
+    "zh-cn": "cmn", 
+    "zh-tw": "cmn",
+    "yue": "yue", 
+    "yue-hk": "yue", 
+    "zh-hk": "yue",
+    "wuu": "wuu", 
+    "wuu-cn": "wuu"
+  };
+  
+  // Check Chinese variants
+  if (chineseMapping[langLower]) {
+    return testUtterances[chineseMapping[langLower]] || "";
   }
   
-  // Try to extract base language from locale (e.g., "en-US" -> "en")
-  const baseLang = lang.split('-')[0];
-  return testUtterances[baseLang] || "";
+  // Try direct match (case-insensitive)
+  const directMatch = Object.entries(testUtterances).find(
+    ([key]) => key.toLowerCase() === langLower
+  );
+  if (directMatch) return directMatch[1];
+  
+  // Try base language (case-insensitive)
+  const baseLang = langLower.split("-")[0];
+  const baseMatch = Object.entries(testUtterances).find(
+    ([key]) => key.toLowerCase() === baseLang
+  );
+  
+  return baseMatch ? baseMatch[1] : "";
 }
 
 /**

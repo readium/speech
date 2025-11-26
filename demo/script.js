@@ -265,34 +265,54 @@ async function loadSampleText(languageCode) {
       samples = await response.json();
     }
     
-    // Map Chinese variants to their sample text keys based on WebSpeechVoiceManager's mapping
+        // Normalize the language code to lowercase for case-insensitive comparison
+    const langLower = languageCode.toLowerCase();
+    
+    // Map Chinese variants to their sample text keys with case-insensitive support
     const chineseVariantMap = {
       "zh": "cmn",    // Default Chinese -> Mandarin
+      "zh-cn": "cmn", // Mainland China -> Mandarin
+      "zh-tw": "cmn", // Taiwan -> Mandarin
+      "zh-hk": "yue", // Hong Kong -> Cantonese
+      "zh-sg": "cmn", // Singapore -> Mandarin
       "cmn": "cmn",   // Mandarin
-      "wuu": "wuu",   // Wu Chinese
+      "cmn-cn": "cmn",
+      "cmn-tw": "cmn",
       "yue": "yue",   // Cantonese
-      "zh-CN": "cmn", // Mainland China -> Mandarin
-      "zh-TW": "cmn", // Taiwan -> Mandarin
-      "zh-HK": "yue", // Hong Kong -> Cantonese (primary), then Mandarin
-      "zh-SG": "cmn"  // Singapore -> Mandarin
+      "yue-hk": "yue",
+      "wuu": "wuu",   // Wu Chinese
+      "wuu-cn": "wuu"
     };
     
-    // Try direct match first
-    let sampleText = samples[languageCode]?.text;
+    // Function to find a case-insensitive match in the samples
+    const findCaseInsensitiveMatch = (lang) => {
+      const normalizedLang = lang.toLowerCase();
+      const matchingKey = Object.keys(samples).find(key => key.toLowerCase() === normalizedLang);
+      return matchingKey ? samples[matchingKey]?.text : null;
+    };
+    
+    // Try direct case-insensitive match first
+    let sampleText = findCaseInsensitiveMatch(languageCode);
     
     // Try with Chinese variant mapping if no direct match
-    if (!sampleText && chineseVariantMap[languageCode]) {
-      sampleText = samples[chineseVariantMap[languageCode]]?.text;
+    if (!sampleText) {
+      const mappedLang = chineseVariantMap[langLower];
+      if (mappedLang) {
+        sampleText = samples[mappedLang]?.text;
+      }
     }
     
-    // If no direct match, try with base language
+    // If still no match, try with base language
     if (!sampleText) {
       const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(languageCode);
-      // If base language is a Chinese variant, try the mapping
-      if (chineseVariantMap[baseLang]) {
-        sampleText = samples[chineseVariantMap[baseLang]]?.text;
-      } else {
-        sampleText = samples[baseLang]?.text;
+      const baseLangLower = baseLang.toLowerCase();
+      
+      // Try case-insensitive match with base language
+      sampleText = findCaseInsensitiveMatch(baseLang);
+      
+      // Try Chinese variant mapping for base language if still no match
+      if (!sampleText && chineseVariantMap[baseLangLower]) {
+        sampleText = samples[chineseVariantMap[baseLangLower]]?.text;
       }
     }
     
@@ -379,10 +399,10 @@ function updateTestUtterance(voice, languageCode) {
     testUtteranceBtn.disabled = true;
     return;
   }
-  
-  const [lang] = voice.lang ? WebSpeechVoiceManager.extractLangRegionFromBCP47(voice.lang) : 
-    (languageCode ? WebSpeechVoiceManager.extractLangRegionFromBCP47(languageCode) : ["en"]);
-  const baseUtterance = voiceManager.getTestUtterance(lang) || 
+
+  // Use the voice's language as the primary source, fall back to the language selector, then default to "en"
+  const language = voice.language || languageCode || "en";
+  const baseUtterance = voiceManager.getTestUtterance(language) || 
                       `This is a test of the {name} voice.`;
   testUtterance = baseUtterance.replace(/\{\s*name\s*\}/g, voice.name || "this voice");
   testUtteranceInput.value = testUtterance;
@@ -456,8 +476,9 @@ function setupEventListeners() {
       }
     }
     
-    // Load sample text for the selected language
-    loadSampleText(languageCode);
+    // Load sample text using the voice's language code if available, otherwise use the selector's value
+    const languageToUse = currentVoice?.language || languageCode;
+    loadSampleText(languageToUse);
     
     updateUI();
   });
@@ -527,7 +548,7 @@ function displayVoiceProperties(voice) {
   propertiesContainer.innerHTML = propertiesHtml || "<p>No properties available</p>";
 }
 
-// Voice selection
+  // Voice selection
   voiceSelect.addEventListener("change", async () => {
     const selectedVoiceName = voiceSelect.value;
     currentVoice = filteredVoices.find(v => v.name === selectedVoiceName) || null;
@@ -540,12 +561,11 @@ function displayVoiceProperties(voice) {
         // Display voice properties
         displayVoiceProperties(currentVoice);
         
-        // Reload the sample text with the new voice
-        const languageCode = languageSelect.value;
-        await loadSampleText(languageCode);
-        
         // Update the test utterance with the new voice
-        updateTestUtterance(currentVoice, languageCode);
+        updateTestUtterance(currentVoice, currentVoice.language || languageSelect.value);
+        
+        // Load sample text using the voice's language code (fire and forget)
+        loadSampleText(currentVoice.language || languageSelect.value);
       } catch (error) {
         console.error("Error setting voice:", error);
       }

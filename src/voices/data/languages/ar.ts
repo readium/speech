@@ -1,5 +1,5 @@
 // Auto-generated file - DO NOT EDIT
-// Last updated: 2025-11-24T14:44:06.987Z
+// Last updated: 2025-11-26T15:27:05.997Z
 import type { ReadiumSpeechVoice } from "../types";
 
 /**
