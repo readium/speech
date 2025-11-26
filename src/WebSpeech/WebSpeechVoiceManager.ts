@@ -314,23 +314,27 @@ export class WebSpeechVoiceManager {
 
   /**
    * Get the default voice for a language
+   * @param language The language code to get the default voice for (e.g., "en-US")
+   * @param voices Optional pre-filtered voices array to use instead of fetching voices
+   * @returns The default voice for the language, or null if no voices are available
    */
-  getDefaultVoice(language: string): ReadiumSpeechVoice | undefined {
-    if (!language) return undefined;
+  getDefaultVoice(language: string, voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice | null {
+    if (!language) return null;
     
-    const voices = this.getVoices({ language });
-    if (!voices.length) return undefined;
+    // Use provided voices or get filtered voices if not provided
+    const filteredVoices = voices || this.getVoices({ language });
+    if (!filteredVoices.length) return null;
     
     // Try to find a default voice with high quality
-    const defaultVoice = voices.find(v => v.isDefault && this.getQualityValue(v.quality) >= 2);
+    const defaultVoice = filteredVoices.find(v => v.isDefault && this.getQualityValue(v.quality) >= 2);
     if (defaultVoice) return defaultVoice;
     
     // Try to find any high quality voice
-    const highQualityVoice = voices.find(v => this.getQualityValue(v.quality) >= 2);
+    const highQualityVoice = filteredVoices.find(v => this.getQualityValue(v.quality) >= 2);
     if (highQualityVoice) return highQualityVoice;
     
     // Fall back to the first available voice
-    return voices[0];
+    return filteredVoices[0];
   }
 
   getBrowserVoices(maxTimeout = 10000, interval = 10): Promise<SpeechSynthesisVoice[]> {

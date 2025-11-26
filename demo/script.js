@@ -428,9 +428,10 @@ function setupEventListeners() {
     // Filter voices for the selected language
     filterVoices();
     
-    // Get the default voice for the selected language
+    // Get the default voice for the selected language using pre-filtered voices
     if (languageCode) {
-      currentVoice = voiceManager.getDefaultVoice(languageCode);
+      // Use the already filtered voices if available, otherwise fall back to the old behavior
+      currentVoice = voiceManager.getDefaultVoice(languageCode, filteredVoices.length ? filteredVoices : undefined);
       
       if (currentVoice) {
         try {

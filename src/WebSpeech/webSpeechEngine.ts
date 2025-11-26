@@ -84,9 +84,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.voiceManager = await WebSpeechVoiceManager.initialize(maxTimeout, interval);
       this.voices = this.voiceManager.getVoices();
 
-      // Try to find voice matching user's language
-      const langVoices = this.voiceManager.filterVoices(this.voices, { language: navigator.language || "en" });
-      this.defaultVoice = langVoices.length > 0 ? langVoices[0] : this.voices[0] || null;
+      // Find the best matching voice for the user's language using the optimized method
+      this.defaultVoice = this.voiceManager.getDefaultVoice(navigator.language || "en", this.voices);
 
       this.initialized = true;
       return true;
