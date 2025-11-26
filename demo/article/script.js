@@ -25,14 +25,10 @@ let readAlongEnabled = true; // Default to true to match default checkbox state
 async function initialize() {
   try {
     // Initialize the voice manager
-    voiceManager = await WebSpeechVoiceManager.initialize(5000, 100);
+    voiceManager = await WebSpeechVoiceManager.initialize();
     
-    // Only get English voices, sorted by offline availability and name
-    allVoices = voiceManager.getVoices({
-      language: "en",
-      sortBy: "quality",
-      sortOrder: "desc"
-    });
+    // Only get English voices
+    allVoices = voiceManager.getVoices({language: "en"});
     
     // Initialize the navigator
     navigator = new WebSpeechReadAloudNavigator();
@@ -46,18 +42,16 @@ async function initialize() {
     // Populate voice select
     populateVoiceSelect();
     
-    // Set default English voice
-    if (allVoices && allVoices.length > 0) {
-      // This is already sorted by quality so we can just use the first one
-      currentVoice = allVoices[0];
-      if (navigator) {
-        navigator.setVoice(currentVoice);
-        // Update the select element to reflect the selected voice
-        if (voiceSelect) {
-          const option = voiceSelect.querySelector(`option[data-voice-uri="${currentVoice.voiceURI}"]`);
-          if (option) {
-            option.selected = true;
-          }
+    // Get the default voice for English
+    currentVoice = voiceManager.getDefaultVoice("en");
+
+    if (currentVoice && navigator) {
+      navigator.setVoice(currentVoice);
+      // Update the select element to reflect the selected voice
+      if (voiceSelect) {
+        const option = voiceSelect.querySelector(`option[data-voice-uri="${currentVoice.voiceURI}"]`);
+        if (option) {
+          option.selected = true;
         }
       }
     }
@@ -73,7 +67,6 @@ async function initialize() {
 // Set up event listeners
 function setupEventListeners() {
   
-  // Navigator events
   // Navigator events
   navigator.on("start", () => {
     isPlaying = true;
@@ -194,42 +187,39 @@ function populateVoiceSelect() {
   }
 
   try {
-    // Group voices by region
-    const voiceGroups = voiceManager.groupVoices([...allVoices], "region");
+    const sortedVoices = voiceManager.sortVoices(allVoices, {
+      by: "region",
+      order: "asc",
+      preferredLanguages: window.navigator.languages
+    });
 
-    // Sort regions alphabetically
-    const sortedRegions = Object.entries(voiceGroups).sort(([regionA], [regionB]) => 
-      regionA.localeCompare(regionB)
-    );
-
-    // For each region, create an optgroup
-    for (const [region, voices] of sortedRegions) {
-      if (!voices.length) continue;
+    let currentRegion = null;
+    let optgroup = null;
+    
+    for (const voice of sortedVoices) {
+      // Extract region from language code (e.g., "US" from "en-US")
+      const region = voice.language.split("-")[1] || "Other";
       
-      // Sort voices by quality (descending)
-      const sortedVoices = voiceManager.sortVoices(voices, { 
-        by: "quality", 
-        order: "desc" 
-      });
-
-      const countryCode = region.split("-").pop() || region;
-      const optgroup = document.createElement("optgroup");
-      optgroup.label = `${getCountryFlag(countryCode)} ${region}`;
-      
-      // Add voices to the optgroup
-      for (const voice of sortedVoices) {
-        const option = document.createElement("option");
-        option.value = voice.name;
-        option.textContent = [
-          voice.name,
-          voice.gender ? `• ${voice.gender}` : "",
-          voice.offlineAvailability ? "• offline" : "• online"
-        ].filter(Boolean).join(" ");
-        option.dataset.voiceUri = voice.voiceURI;
-        optgroup.appendChild(option);
+      // Create new optgroup when region changes
+      if (region !== currentRegion) {
+        currentRegion = region;
+        optgroup = document.createElement("optgroup");
+        // Add emoji flag before the region code using the existing helper function
+        const flag = getCountryFlag(region === "Other" ? null : region);
+        optgroup.label = `${flag} ${region}`;
+        voiceSelect.appendChild(optgroup);
       }
       
-      voiceSelect.appendChild(optgroup);
+      const option = document.createElement("option");
+      option.value = voice.voiceURI;
+      option.textContent = `${voice.name} (${voice.language})`;
+      option.dataset.voiceUri = voice.voiceURI;
+      
+      if (currentVoice && voice.voiceURI === currentVoice.voiceURI) {
+        option.selected = true;
+      }
+      
+      optgroup?.appendChild(option);
     }
     
     // Set the default voice selection
@@ -447,11 +437,11 @@ function updateUI() {
   if (playPauseBtn) {
     playPauseBtn.disabled = !currentVoice || !hasContent;
     if (state === "playing") {
-      playPauseBtn.innerHTML = "<span class=\"btn-icon\">⏸️</span> <span class=\"btn-text\">Pause</span>";
+      playPauseBtn.innerHTML = `<span class="btn-icon">⏸️</span> <span class="btn-text">Pause</span>`;
       playPauseBtn.classList.remove("play-state");
       playPauseBtn.classList.add("pause-state");
     } else {
-      playPauseBtn.innerHTML = "<span class=\"btn-icon\">▶️</span> <span class=\"btn-text\">Play</span>";
+      playPauseBtn.innerHTML = `<span class="btn-icon">▶️</span> <span class="btn-text">Play</span>`;
       playPauseBtn.classList.remove("pause-state");
       playPauseBtn.classList.add("play-state");
     }

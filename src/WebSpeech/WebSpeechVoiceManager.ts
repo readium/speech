@@ -3,8 +3,6 @@ import { getTestUtterance } from "../voices/data/testUtterances";
 import noveltyFilter from "../voices/data/filters/novelty";
 import veryLowQualityFilter from "../voices/data/filters/veryLowQuality";
 
-// Language variants are now handled by the altLanguage field in voice data
-
 /**
  * Options for filtering voices
  */
@@ -591,7 +589,7 @@ export class WebSpeechVoiceManager {
       "veryHigh": 4
     };
     
-    if (!quality) return 1; // "low" as fallback like voices.ts
+    if (!quality) return 1; // "low" as fallback
     
     // Handle both single quality values and arrays
     if (Array.isArray(quality)) {
@@ -698,45 +696,60 @@ export class WebSpeechVoiceManager {
           const [aLang, aRegion = ""] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
           const [bLang, bRegion = ""] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
           
-          // If preferredLanguages is provided, prioritize regions from preferred languages
-          if (options.preferredLanguages?.length) {  
-            // Check if either language is in preferred languages
-            const aIsPreferred = options.preferredLanguages.some(prefLang => {
+          // If preferredLanguages is provided, prioritize exact matches first
+          if (options.preferredLanguages?.length) {
+            // Check for exact language-region matches first (e.g., "en-US" matches "en-US")
+            const aExactMatchIndex = options.preferredLanguages.findIndex(prefLang => {
+              const [prefLangBase, prefRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
+              return aLang === prefLangBase.toLowerCase() && 
+                     aRegion === prefRegion?.toUpperCase();
+            });
+            
+            const bExactMatchIndex = options.preferredLanguages.findIndex(prefLang => {
+              const [prefLangBase, prefRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
+              return bLang === prefLangBase.toLowerCase() && 
+                     bRegion === prefRegion?.toUpperCase();
+            });
+            
+            // If one has an exact match and the other doesn't, the exact match comes first
+            if (aExactMatchIndex !== -1 && bExactMatchIndex === -1) return -1;
+            if (aExactMatchIndex === -1 && bExactMatchIndex !== -1) return 1;
+            
+            // If both have exact matches, sort by their position in preferredLanguages
+            if (aExactMatchIndex !== -1 && bExactMatchIndex !== -1 && aExactMatchIndex !== bExactMatchIndex) {
+              return aExactMatchIndex - bExactMatchIndex;
+            }
+            
+            // Then check for language-only matches (e.g., "en" matches "en-US")
+            const aLangMatchIndex = options.preferredLanguages.findIndex(prefLang => {
               const [prefLangBase] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
               return aLang === prefLangBase.toLowerCase();
             });
             
-            const bIsPreferred = options.preferredLanguages.some(prefLang => {
+            const bLangMatchIndex = options.preferredLanguages.findIndex(prefLang => {
               const [prefLangBase] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
               return bLang === prefLangBase.toLowerCase();
             });
             
-            // If one is preferred and the other isn't, the preferred one comes first
-            if (aIsPreferred && !bIsPreferred) return -1;
-            if (!aIsPreferred && bIsPreferred) return 1;
+            // If one has a language match and the other doesn't, the language match comes first
+            if (aLangMatchIndex !== -1 && bLangMatchIndex === -1) return -1;
+            if (aLangMatchIndex === -1 && bLangMatchIndex !== -1) return 1;
             
-            // If both are from preferred languages, sort by their position in preferredLanguages
-            if (aIsPreferred && bIsPreferred) {
-              const aIndex = options.preferredLanguages.findIndex(prefLang => {
-                const [prefLangBase] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
-                return aLang === prefLangBase.toLowerCase();
-              });
-              
-              const bIndex = options.preferredLanguages.findIndex(prefLang => {
-                const [prefLangBase] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
-                return bLang === prefLangBase.toLowerCase();
-              });
-              
-              if (aIndex !== bIndex) {
-                return options.order === "desc" ? bIndex - aIndex : aIndex - bIndex;
-              }
+            // If both have language matches, sort by their position in preferredLanguages
+            if (aLangMatchIndex !== -1 && bLangMatchIndex !== -1 && aLangMatchIndex !== bLangMatchIndex) {
+              return aLangMatchIndex - bLangMatchIndex;
             }
           }
           
-          // Default region comparison
-          return options.order === "desc"
+          // If no preferred language matches, sort alphabetically by region
+          const regionCompare = options.order === "desc"
             ? bRegion.localeCompare(aRegion)
             : aRegion.localeCompare(bRegion);
+            
+          // If regions are the same, sort by language
+          return regionCompare === 0 
+            ? aLang.localeCompare(bLang)
+            : regionCompare;
         });
         break;
     }

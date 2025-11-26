@@ -1,4 +1,4 @@
-import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator } from "../build/index.js";
+import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator, chineseVariantMap } from "../build/index.js";
 
 let samples = null;
 
@@ -189,7 +189,7 @@ function populateVoiceDropdown(language = "") {
       const optgroup = document.createElement("optgroup");
       optgroup.label = `${getCountryFlag(countryCode)} ${region}`;
       
-      // Sort voices by name within each region
+      // Sort voices by quality within each region
       const sortedVoicesInRegion = voiceManager.sortVoices(voices, { 
         by: "quality",
         order: "desc"
@@ -265,24 +265,8 @@ async function loadSampleText(languageCode) {
       samples = await response.json();
     }
     
-        // Normalize the language code to lowercase for case-insensitive comparison
+    // Normalize the language code to lowercase for case-insensitive comparison
     const langLower = languageCode.toLowerCase();
-    
-    // Map Chinese variants to their sample text keys with case-insensitive support
-    const chineseVariantMap = {
-      "zh": "cmn",    // Default Chinese -> Mandarin
-      "zh-cn": "cmn", // Mainland China -> Mandarin
-      "zh-tw": "cmn", // Taiwan -> Mandarin
-      "zh-hk": "yue", // Hong Kong -> Cantonese
-      "zh-sg": "cmn", // Singapore -> Mandarin
-      "cmn": "cmn",   // Mandarin
-      "cmn-cn": "cmn",
-      "cmn-tw": "cmn",
-      "yue": "yue",   // Cantonese
-      "yue-hk": "yue",
-      "wuu": "wuu",   // Wu Chinese
-      "wuu-cn": "wuu"
-    };
     
     // Function to find a case-insensitive match in the samples
     const findCaseInsensitiveMatch = (lang) => {
@@ -619,14 +603,6 @@ function displayVoiceProperties(voice) {
   offlineOnlyCheckbox.addEventListener("change", () => {
     filterVoices();
   });
-
-  // Update UI when voices change
-  speechSynthesis.onvoiceschanged = () => {
-    if (voiceManager) {
-      allVoices = voiceManager.getVoices();
-      filterVoices();
-    }
-  };
 
   // Update test utterance when language changes
   languageSelect.addEventListener("change", () => {

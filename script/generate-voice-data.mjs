@@ -327,6 +327,21 @@ export default voices;`;
  */
 export const testUtterances: { [lang: string]: string } = ${JSON.stringify(Object.fromEntries(testUtterances), null, 2)};
 
+// Check Chinese variants first (they have special handling)
+export const chineseVariantMap: {[key: string]: string} = {
+  "cmn": "cmn", 
+  "cmn-cn": "cmn", 
+  "cmn-tw": "cmn", 
+  "zh": "cmn", 
+  "zh-cn": "cmn", 
+  "zh-tw": "cmn",
+  "yue": "yue", 
+  "yue-hk": "yue", 
+  "zh-hk": "yue",
+  "wuu": "wuu", 
+  "wuu-cn": "wuu"
+};
+
 /**
  * Get test utterance for a specific language
  * @param lang - Language code (e.g., "en", "fr", "es")
@@ -338,24 +353,9 @@ export function getTestUtterance(lang: string): string {
   // Convert to lowercase for case-insensitive comparison
   const langLower = lang.toLowerCase();
   
-  // Check Chinese variants first (they have special handling)
-  const chineseMapping: {[key: string]: string} = {
-    "cmn": "cmn", 
-    "cmn-cn": "cmn", 
-    "cmn-tw": "cmn", 
-    "zh": "cmn", 
-    "zh-cn": "cmn", 
-    "zh-tw": "cmn",
-    "yue": "yue", 
-    "yue-hk": "yue", 
-    "zh-hk": "yue",
-    "wuu": "wuu", 
-    "wuu-cn": "wuu"
-  };
-  
   // Check Chinese variants
-  if (chineseMapping[langLower]) {
-    return testUtterances[chineseMapping[langLower]] || "";
+  if (chineseVariantMap[langLower]) {
+    return testUtterances[chineseVariantMap[langLower]] || "";
   }
   
   // Try direct match (case-insensitive)
