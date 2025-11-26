@@ -114,11 +114,26 @@ export class WebSpeechVoiceManager {
 
   /**
    * Extract language and region from BCP47 language tag
+   * @param lang - The BCP47 language tag (e.g., "en-US", "zh-CN")
+   * @returns A tuple of [language, region] where language is lowercase and region is UPPERCASE
    */
   static extractLangRegionFromBCP47(lang: string): [string, string | undefined] {
     if (!lang) return ["", undefined];
     
-    return [lang.split("-")[0].toLowerCase(), lang.split("-")[1]?.toUpperCase()];
+    try {
+      const locale = new Intl.Locale(lang);
+      return [
+        locale.language.toLowerCase(),
+        locale.region?.toUpperCase()
+      ];
+    } catch {
+      // Fallback to simple parsing if Intl.Locale fails
+      const parts = lang.split("-");
+      return [
+        parts[0].toLowerCase(),
+        parts[1]?.toUpperCase()
+      ];
+    }
   }
 
   /**
@@ -275,21 +290,6 @@ export class WebSpeechVoiceManager {
     });
   }
 
-  /**
-   * Extract region from a language code
-   * @private
-   */
-  private getRegionFromLanguage(langCode: string): string {
-    try {
-      // Try using Intl.Locale for proper BCP 47 parsing
-      const locale = new Intl.Locale(langCode);
-      return locale.region?.toLowerCase() || "";
-    } catch {
-      // Fallback to BCP47 parsing if Intl.Locale fails
-      const [, region] = WebSpeechVoiceManager.extractLangRegionFromBCP47(langCode);
-      return region || "";
-    }
-  }
 
   /**
    * Get the default voice for a language
@@ -384,7 +384,7 @@ export class WebSpeechVoiceManager {
     if (!browserVoice || !browserVoice.lang) return undefined;
     
     const browserLang = browserVoice.lang.toLowerCase();
-    const [baseLang] = browserLang.split('-');
+    const [baseLang] = browserLang.split("-");
     
     // Try exact match first
     const exactMatch = this.voices.find(voice => {
@@ -516,7 +516,7 @@ export class WebSpeechVoiceManager {
           }
           
           // Then check base language matches
-          const [reqBase] = reqLang.split('-');
+          const [reqBase] = reqLang.split("-");
           return (voiceLang && voiceLang.startsWith(reqBase)) || 
                  (voiceAltLang && voiceAltLang.startsWith(reqBase));
         });
@@ -695,14 +695,11 @@ export class WebSpeechVoiceManager {
         
       case "region":
         result.sort((a, b) => {
-          const aRegion = this.getRegionFromLanguage(a.language);
-          const bRegion = this.getRegionFromLanguage(b.language);
+          const [aLang, aRegion = ""] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
+          const [bLang, bRegion = ""] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
           
           // If preferredLanguages is provided, prioritize regions from preferred languages
-          if (options.preferredLanguages?.length) {
-            const [aLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
-            const [bLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
-            
+          if (options.preferredLanguages?.length) {  
             // Check if either language is in preferred languages
             const aIsPreferred = options.preferredLanguages.some(prefLang => {
               const [prefLangBase] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
