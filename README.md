@@ -277,3 +277,82 @@ type TQuality = "veryLow" | "low" | "normal" | "high" | "veryHigh";
 ```typescript
 type TGender = "female" | "male" | "neutral";
 ```
+
+## Playback API
+
+### ReadiumSpeechNavigator
+
+```typescript
+interface ReadiumSpeechNavigator {
+  // Voice Management
+  getVoices(): Promise<ReadiumSpeechVoice[]>;
+  setVoice(voice: ReadiumSpeechVoice | string): Promise<void>;
+  getCurrentVoice(): ReadiumSpeechVoice | null;
+  
+  // Content Management
+  loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
+  getCurrentContent(): ReadiumSpeechUtterance | null;
+  getContentQueue(): ReadiumSpeechUtterance[];
+  
+  // Playback Control
+  play(): void;
+  pause(): void;
+  stop(): void;
+  
+  // Navigation
+  next(): boolean;
+  previous(): boolean;
+  jumpTo(utteranceIndex: number): void;
+  
+  // Playback Parameters
+  setRate(rate: number): void;
+  getRate(): number;
+  setPitch(pitch: number): void;
+  getPitch(): number;
+  setVolume(volume: number): void;
+  getVolume(): number;
+  
+  // State
+  getState(): ReadiumSpeechPlaybackState;
+  getCurrentUtteranceIndex(): number;
+  
+  // Events
+  on(
+    event: ReadiumSpeechPlaybackEvent["type"],
+    listener: (event: ReadiumSpeechPlaybackEvent) => void
+  ): void;
+  
+  // Cleanup
+  destroy(): void;
+}
+```
+
+### Events
+
+#### ReadiumSpeechPlaybackEvent
+
+```typescript
+type ReadiumSpeechPlaybackEvent = {
+  type: 
+    | "start"           // Playback started
+    | "pause"           // Playback paused
+    | "resume"          // Playback resumed
+    | "end"             // Playback ended naturally
+    | "stop"            // Playback stopped manually
+    | "skip"            // Skipped to another utterance
+    | "error"           // An error occurred
+    | "boundary"        // Reached a word/sentence boundary
+    | "mark"            // Reached a named mark in SSML
+    | "idle"            // No content loaded
+    | "loading"         // Loading content
+    | "ready"           // Ready to play
+    | "voiceschanged";   // Available voices changed
+  detail?: any;  // Event-specific data
+};
+```
+
+#### ReadiumSpeechPlaybackState
+
+```typescript
+type ReadiumSpeechPlaybackState = "playing" | "paused" | "idle" | "loading" | "ready";
+```

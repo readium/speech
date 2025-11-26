@@ -24,8 +24,10 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   // Enhanced properties for cross-browser compatibility
   private resumeInfinityTimer?: number;
-  private isPausedInternal: boolean = false;
   private isSpeakingInternal: boolean = false;
+  private isPausedInternal: boolean = false;
+  private isAndroidPaused: boolean = false; // Explicitly tracks Android's paused state
+  private pausedAtUtteranceIndex: number | null = null; // Tracks which utterance was playing when paused
   private initialized: boolean = false;
   private maxLengthExceeded: "error" | "none" | "warn" = "warn";
   private utterancesBeingCancelled: boolean = false; // Flag to track if utterances are being cancelled
@@ -237,7 +239,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.speechSynthesis.cancel();
   }
   
-  private async speakCurrentUtterance(): Promise<void> {
+  private speakCurrentUtterance(): void {
     if (this.currentUtteranceIndex >= this.currentUtterances.length) {
       this.setState("idle");
       this.emitEvent({ type: "end" });
@@ -280,6 +282,11 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.setState("playing");
       this.emitEvent({ type: "start" });
 
+      // Clear Android paused state when new utterance actually starts
+      if (this.patches.isAndroid && this.isAndroidPaused) {
+        this.isAndroidPaused = false;
+      }
+
       const shouldUseResumeInfinity = this.shouldUseResumeInfinity();
       if (shouldUseResumeInfinity) {
         this.startResumeInfinity(utterance);
@@ -312,9 +319,16 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     };
 
     utterance.onerror = (event) => {
+      // Skip error handling for Android pause operations
+      if (event.error === "interrupted" && this.patches.isAndroid && this.isAndroidPaused) {
+        return;
+      }
+
+      // Common cleanup
       this.isSpeakingInternal = false;
       this.isPausedInternal = false;
       this.stopResumeInfinity();
+      this.setState("idle");
 
       // Fatal errors that break playback completely - reset to beginning
       const fatalErrors = ["synthesis-unavailable", "audio-hardware", "voice-unavailable"];
@@ -323,14 +337,19 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
         this.currentUtteranceIndex = 0;
       }
 
-      this.setState("idle");
-      this.emitEvent({
-        type: "error",
-        detail: {
-          error: event.error,  // Preserve original error type
-          message: `Speech synthesis error: ${event.error}`
-        }
-      });
+      // Handle interrupted/canceled as stop events
+      if (event.error === "interrupted" || event.error === "canceled") {
+        this.emitEvent({ type: "stop" });
+      } else {
+        // All other errors
+        this.emitEvent({
+          type: "error",
+          detail: {
+            error: event.error,  // Preserve original error type
+            message: `Speech synthesis error: ${event.error}`
+          }
+        });
+      }
     };
 
     utterance.onpause = () => {
@@ -408,40 +427,58 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   pause(): void {
     if (this.playbackState === "playing") {
-      // Android-specific handling: pause causes speech to end but not fire end-event
-      // so we simply do it manually instead of pausing
+      // Store the current index when pausing
+      this.pausedAtUtteranceIndex = this.currentUtteranceIndex;
+      
       if (this.patches.isAndroid) {
+        this.isAndroidPaused = true;
         this.speechSynthesis.cancel();
-        return;
+      } else {
+        this.speechSynthesis.pause();
       }
-  
-      this.speechSynthesis.pause();
-      // in some cases, pause does not update the internal state,
-      // so we need to update it manually using an own state
+      
+      // Common state updates
       this.isPausedInternal = true;
       this.isSpeakingInternal = false;
       this.setState("paused");
-      // Emit pause event since speechSynthesis.pause() may not trigger utterance.onpause
       this.emitEvent({ type: "pause" });
     }
   }
 
   resume(): void {
-    if (this.playbackState === "paused") {
-      this.speechSynthesis.resume();
-      // in some cases, resume does not update the internal state,
-      // so we need to update it manually using an own state
+    if (this.playbackState === "paused" && (this.currentUtteranceIndex < this.currentUtterances.length)) {
+      // Common state updates
       this.isPausedInternal = false;
       this.isSpeakingInternal = true;
       this.setState("playing");
-      // Emit resume event since speechSynthesis.resume() may not trigger utterance.onresume
       this.emitEvent({ type: "resume" });
+
+      // Check if we need to restart or can resume
+      const shouldRestart = this.patches.isAndroid || 
+                          this.pausedAtUtteranceIndex !== this.currentUtteranceIndex;
+      
+      if (shouldRestart) {
+        // If index changed or on Android, start fresh from the new index
+        this.speak(this.currentUtteranceIndex);
+      } else {
+        // Otherwise, resume from where we left off
+        this.speechSynthesis.resume();
+      }
+      
+      // Reset the paused index
+      this.pausedAtUtteranceIndex = null;
     }
   }
 
   stop(): void {
     this.speechSynthesis.cancel();
     this.currentUtteranceIndex = 0;  // Reset to beginning when stopped
+    
+    // Reset Android paused state when stopping
+    if (this.patches.isAndroid) {
+      this.isAndroidPaused = false;
+    }
+    
     this.setState("idle");
     this.emitEvent({ type: "stop" });  // Emit immediately
   }
@@ -451,12 +488,24 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.rate = Math.max(0.1, Math.min(10, rate));
   }
 
+  getRate(): number {
+    return this.rate;
+  }
+
   setPitch(pitch: number): void {
     this.pitch = Math.max(0, Math.min(2, pitch));
   }
 
+  getPitch(): number {
+    return this.pitch;
+  }
+
   setVolume(volume: number): void {
     this.volume = Math.max(0, Math.min(1, volume));
+  }
+
+  getVolume(): number {
+    return this.volume;
   }
 
   // State
@@ -466,6 +515,28 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   getCurrentUtteranceIndex(): number {
     return this.currentUtteranceIndex;
+  }
+
+  setCurrentUtteranceIndex(index: number, onComplete?: (success: boolean) => void): void {
+    // Validate the new index
+    if (index < 0 || index >= this.currentUtterances.length) {
+      onComplete?.(false);
+      return;
+    }
+
+    // If the index isn't changing
+    if (index === this.currentUtteranceIndex) {
+      return;
+    }
+
+    // First, handle any ongoing speech
+    if (!this.isPausedInternal && this.isSpeakingInternal) {
+      this.cancelCurrentSpeech();
+    }
+
+    // Update the index
+    this.currentUtteranceIndex = index;
+    onComplete?.(true);
   }
 
   getUtteranceCount(): number {
