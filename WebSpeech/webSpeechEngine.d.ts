@@ -14,8 +14,10 @@ export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     private browserVoices;
     private defaultVoice;
     private resumeInfinityTimer?;
-    private isPausedInternal;
     private isSpeakingInternal;
+    private isPausedInternal;
+    private isAndroidPaused;
+    private pausedAtUtteranceIndex;
     private initialized;
     private maxLengthExceeded;
     private utterancesBeingCancelled;
@@ -48,10 +50,14 @@ export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     resume(): void;
     stop(): void;
     setRate(rate: number): void;
+    getRate(): number;
     setPitch(pitch: number): void;
+    getPitch(): number;
     setVolume(volume: number): void;
+    getVolume(): number;
     getState(): ReadiumSpeechPlaybackState;
     getCurrentUtteranceIndex(): number;
+    setCurrentUtteranceIndex(index: number, onComplete?: (success: boolean) => void): void;
     getUtteranceCount(): number;
     on(event: ReadiumSpeechPlaybackEvent["type"], callback: (event: ReadiumSpeechPlaybackEvent) => void): () => void;
     private emitEvent;
