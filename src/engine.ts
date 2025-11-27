@@ -1,6 +1,6 @@
 import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator";
 import { ReadiumSpeechUtterance } from "./utterance";
-import { ReadiumSpeechVoice } from "./voices";
+import { ReadiumSpeechVoice } from "./voices/data/types";
 
 export interface ReadiumSpeechPlaybackEngine {
   // Queue Management

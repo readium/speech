@@ -7,22 +7,24 @@ export default defineConfig({
     lib: {
       entry: "src/index.ts",
       name: "ReadiumSpeech",
-      fileName: "index",
-      formats: ["es"]
+      fileName: (format) => format === "es" ? "index.js" : "index.cjs",
+      formats: ["es", "cjs"]
     },
     rollupOptions: {
       external: [],
       output: {
-        format: "es"
+        inlineDynamicImports: true,
+        exports: "named",
+        preserveModules: false
       }
     }
   },
   define: {
-    global: 'globalThis',
-    'process.env': {},
-    'process.version': '""',
-    'process.platform': '"browser"',
-    'process.browser': true,
+    global: "globalThis",
+    "process.env": {},
+    "process.version": '""',
+    "process.platform": '"browser"',
+    "process.browser": true,
   },
   plugins: [
     dts({

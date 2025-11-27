@@ -1,0 +1,37 @@
+// Auto-generated file - DO NOT EDIT
+// Last updated: 2025-11-26T15:27:06.000Z
+import type { ReadiumSpeechVoice } from "../types";
+
+/**
+ * List of available voices for eu
+ * Sorted by quality (highest first) and then by name
+ */
+const voices: ReadiumSpeechVoice[] = [
+  {
+    "label": "Miren",
+    "name": "Miren",
+    "localizedName": "apple",
+    "language": "eu-ES",
+    "gender": "female",
+    "quality": [
+      "low",
+      "normal"
+    ],
+    "rate": 1,
+    "pitch": 1,
+    "os": [
+      "macOS",
+      "iOS",
+      "iPadOS"
+    ],
+    "voiceURI": "Miren",
+    "altNames": [],
+    "pitchControl": true,
+    "offlineAvailability": true,
+    "provider": "Other",
+    "isDefault": false,
+    "isDeprecated": false
+  }
+];
+
+export default voices;
