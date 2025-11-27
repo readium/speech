@@ -36,12 +36,11 @@ It demonstrates the following features:
 
 At the moment, the new alpha version of the library is not published on npm, so you need to clone the repository and build it yourself.
 
-```
+```sh
 git clone https://github.com/readium/speech.git
-
 ```
 
-```
+```sh
 cd speech
 npm install
 npm run build
@@ -49,7 +48,7 @@ npm run build
 
 You can then link the library to your project, for example using `npm link`.
 
-```
+```typescript
 import { getVoices } from "readium-speech";
 console.log(getVoices);
 
@@ -93,41 +92,43 @@ navigator.play();
 
 ### Interface 
 
-```
+```typescript
 export interface ReadiumSpeechVoices {
-    label: string;
-    voiceURI: string;
-    name: string;
-    language: string;
-    gender?: TGender | undefined;
-    age?: string | undefined;
-    offlineAvailability: boolean;
-    quality?: TQuality | undefined;
-    pitchControl: boolean;
-    recommendedPitch?: number | undefined;
-    recommendedRate?: number | undefined;
+  label: string;
+  voiceURI: string;
+  name: string;
+  language: string;
+  gender?: TGender | undefined;
+  age?: string | undefined;
+  offlineAvailability: boolean;
+  quality?: TQuality | undefined;
+  pitchControl: boolean;
+  recommendedPitch?: number | undefined;
+  recommendedRate?: number | undefined;
 }
 
 export interface ILanguages {
-    label: string;
-    code: string;
-    count: number;
+  label: string;
+  code: string;
+  count: number;
 }
 ```
 
 #### Parse and Extract ReadiumSpeechVoices from speechSynthesis WebAPI
-```
+
+```typescript
 function getVoices(preferredLanguage?: string[] | string, localization?: string): Promise<ReadiumSpeechVoices[]>
 ```
 
 #### List languages from ReadiumSpeechVoices
-```
+
+```typescript
 function getLanguages(voices: ReadiumSpeechVoices[], preferredLanguage?: string[] | string, localization?: string | undefined): ILanguages[]
 ```
 
 #### helpers
 
-```
+```typescript
 function listLanguages(voices: ReadiumSpeechVoices[], localization?: string): ILanguages[]
 
 function ListRegions(voices: ReadiumSpeechVoices[], localization?: string): ILanguages[]
@@ -139,7 +140,7 @@ function getSpeechSynthesisVoices(): Promise<SpeechSynthesisVoice[]>
 
 #### groupBy
 
-```
+```typescript
 function groupByKindOfVoices(allVoices: ReadiumSpeechVoices[]): TGroupVoices
 
 function groupByRegions(voices: ReadiumSpeechVoices[], language: string, preferredRegions?: string[] | string, localization?: string): TGroupVoices
@@ -149,7 +150,7 @@ function groupByLanguage(voices: ReadiumSpeechVoices[], preferredLanguage?: stri
 
 #### sortBy
 
-```
+```typescript
 function sortByLanguage(voices: ReadiumSpeechVoices[], preferredLanguage?: string[] | string): ReadiumSpeechVoices[]
 
 function sortByRegion(voices: ReadiumSpeechVoices[], preferredRegions?: string[] | string, localization?: string | undefined): ReadiumSpeechVoices[]
@@ -163,7 +164,7 @@ function sortByQuality(voices: ReadiumSpeechVoices[]): ReadiumSpeechVoices[]
 
 #### filterOn
 
-```
+```typescript
 function filterOnRecommended(voices: ReadiumSpeechVoices[], _recommended?: IRecommended[]): TReturnFilterOnRecommended
 
 function filterOnVeryLowQuality(voices: ReadiumSpeechVoices[]): ReadiumSpeechVoices[]
