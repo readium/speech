@@ -410,6 +410,23 @@ function highlightCurrentWord(charIndex, charLength) {
             range: range
           };
           
+          // Scroll the highlighted word into view with smooth behavior
+          const rect = range.getBoundingClientRect();
+          const isVisible = (
+            rect.top >= 0 &&
+            rect.left >= 0 &&
+            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+          );
+          
+          if (!isVisible) {
+            range.startContainer.parentElement.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+              inline: "nearest"
+            });
+          }
+          
           found = true;
         } catch (e) {
           console.error("Error setting highlight range:", e);
