@@ -994,12 +994,12 @@ testWithContext("convertToSpeechSynthesisVoice: handles invalid voice", (t: Exec
   t.is(result2, undefined);
 });
 
-testWithContext("getDefaultVoice: returns undefined when no matching language", async (t: ExecutionContext<TestContext>) => {
+testWithContext("getDefaultVoice: returns null when no matching language", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   // Test with language that has no voices
   const result = await manager.getDefaultVoice("xx-XX");
-  t.is(result, undefined);
+  t.is(result, null);
 });
 
 testWithContext("groupVoices: handles voices with missing properties", (t: ExecutionContext<TestContext>) => {
