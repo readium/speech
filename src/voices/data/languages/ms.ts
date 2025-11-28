@@ -1,5 +1,5 @@
 // Auto-generated file - DO NOT EDIT
-// Last updated: 2025-11-26T15:27:06.002Z
+// Last updated: 2025-11-28T12:15:59.653Z
 import type { ReadiumSpeechVoice } from "../types";
 
 /**
@@ -26,8 +26,7 @@ const voices: ReadiumSpeechVoice[] = [
     "altNames": [],
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Osman",
@@ -48,8 +47,7 @@ const voices: ReadiumSpeechVoice[] = [
     "altNames": [],
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Amira",
@@ -74,8 +72,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Other",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Rizwan",
@@ -97,8 +94,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Suara perempuan 1",
@@ -128,8 +124,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Google",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Suara perempuan 2",
@@ -158,8 +153,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Google",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Suara lelaki 1",
@@ -188,8 +182,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Google",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Suara lelaki 2",
@@ -218,8 +211,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Google",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   }
 ];
 

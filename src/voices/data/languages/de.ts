@@ -1,5 +1,5 @@
 // Auto-generated file - DO NOT EDIT
-// Last updated: 2025-11-26T15:27:05.999Z
+// Last updated: 2025-11-28T12:15:59.649Z
 import type { ReadiumSpeechVoice } from "../types";
 
 /**
@@ -27,8 +27,7 @@ const voices: ReadiumSpeechVoice[] = [
     "altNames": [],
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Amala",
@@ -49,8 +48,7 @@ const voices: ReadiumSpeechVoice[] = [
     "altNames": [],
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Katja",
@@ -71,8 +69,7 @@ const voices: ReadiumSpeechVoice[] = [
     "altNames": [],
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Florian",
@@ -94,8 +91,7 @@ const voices: ReadiumSpeechVoice[] = [
     "altNames": [],
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Conrad",
@@ -116,8 +112,7 @@ const voices: ReadiumSpeechVoice[] = [
     "altNames": [],
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Killian",
@@ -138,8 +133,7 @@ const voices: ReadiumSpeechVoice[] = [
     "altNames": [],
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Ingrid",
@@ -160,8 +154,7 @@ const voices: ReadiumSpeechVoice[] = [
     "altNames": [],
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Jonas",
@@ -182,8 +175,7 @@ const voices: ReadiumSpeechVoice[] = [
     "altNames": [],
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Leni",
@@ -204,8 +196,7 @@ const voices: ReadiumSpeechVoice[] = [
     "altNames": [],
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Jan",
@@ -226,8 +217,7 @@ const voices: ReadiumSpeechVoice[] = [
     "altNames": [],
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Petra",
@@ -252,8 +242,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Other",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Anna",
@@ -279,8 +268,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Other",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Helena",
@@ -305,8 +293,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Other",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Markus",
@@ -330,8 +317,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Other",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Viktor",
@@ -355,8 +341,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Other",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Yannick",
@@ -380,8 +365,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Other",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Martin",
@@ -406,8 +390,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Other",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Google Deutsch",
@@ -429,8 +412,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Google",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Hedda",
@@ -452,8 +434,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Katja",
@@ -475,8 +456,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Stefan",
@@ -498,8 +478,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Michael",
@@ -521,8 +500,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Karsten",
@@ -544,8 +522,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Weibliche Stimme 1 (Deutschland)",
@@ -577,8 +554,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Google",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Weibliche Stimme 2 (Deutschland)",
@@ -609,8 +585,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Google",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Männliche Stimme 1 (Deutschland)",
@@ -641,8 +616,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Google",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Männliche Stimme 2 (Deutschland)",
@@ -673,8 +647,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Google",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   }
 ];
 

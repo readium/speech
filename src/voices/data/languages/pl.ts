@@ -1,5 +1,5 @@
 // Auto-generated file - DO NOT EDIT
-// Last updated: 2025-11-26T15:27:06.003Z
+// Last updated: 2025-11-28T12:15:59.653Z
 import type { ReadiumSpeechVoice } from "../types";
 
 /**
@@ -26,8 +26,7 @@ const voices: ReadiumSpeechVoice[] = [
     "altNames": [],
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Paulina",
@@ -48,8 +47,7 @@ const voices: ReadiumSpeechVoice[] = [
     "altNames": [],
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Marek",
@@ -70,8 +68,7 @@ const voices: ReadiumSpeechVoice[] = [
     "altNames": [],
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Ewa",
@@ -96,8 +93,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Other",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Zosia",
@@ -122,8 +118,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Other",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Krzysztof",
@@ -147,8 +142,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Other",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Żeński głos Google’a",
@@ -171,8 +165,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Google",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Paulina",
@@ -194,8 +187,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Adam",
@@ -217,8 +209,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Microsoft",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Głos żeński 1",
@@ -250,8 +241,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Google",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Głos żeński 2",
@@ -282,8 +272,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Google",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Głos żeński 3",
@@ -314,8 +303,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Google",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Głos męski 1",
@@ -346,8 +334,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Google",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   },
   {
     "label": "Głos męski 2",
@@ -378,8 +365,7 @@ const voices: ReadiumSpeechVoice[] = [
     "pitchControl": true,
     "offlineAvailability": true,
     "provider": "Google",
-    "isDefault": false,
-    "isDeprecated": false
+    "isDefault": false
   }
 ];
 

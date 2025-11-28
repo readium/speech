@@ -43,7 +43,6 @@ const CONFIG = {
  * @property {boolean} offlineAvailability - If voice works offline
  * @property {string} provider - Voice provider (e.g., "Microsoft", "Google")
  * @property {boolean} isDefault - If default voice for language
- * @property {boolean} isDeprecated - If voice is deprecated
  * @property {boolean} isNovelty - If voice is a novelty voice
  * @property {boolean} isLowQuality - If voice is low quality
  * @property {string[]} [nativeID] - Platform-specific voice IDs
@@ -183,7 +182,6 @@ async function processVoices() {
         offlineAvailability: voice.offlineAvailability !== false, // Default to true
         provider: voice.provider || detectProvider(voice.name),
         isDefault: voice.isDefault || false,
-        isDeprecated: voice.isDeprecated || false
       };
       
       langVoices.push(enhancedVoice);
@@ -248,7 +246,6 @@ export interface ReadiumSpeechVoice {
   offlineAvailability?: boolean; // If the voice works offline (optional in some cases)
   provider?: string;       // Voice provider (e.g., "Microsoft", "Google", "Amazon")
   isDefault?: boolean;     // If this is a default voice for its language
-  isDeprecated?: boolean;  // If this voice is deprecated
   isNovelty?: boolean;     // If this is a novelty voice
   isLowQuality?: boolean;  // If this is a low-quality voice
   nativeID?: string | string[];    // Platform-specific voice ID(s)

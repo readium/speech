@@ -1,5 +1,5 @@
 // Auto-generated file - DO NOT EDIT
-// Last updated: 2025-11-28T12:00:35.763Z
+// Last updated: 2025-11-28T12:15:59.635Z
 
 const novelty = {
   "voices": [

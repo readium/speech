@@ -857,7 +857,7 @@ testWithContext("getDefaultVoice: returns undefined when no voices available", a
     (manager as any).browserVoices = [];
     
     const defaultVoice = manager.getDefaultVoice("en-US");
-    t.is(defaultVoice, undefined);
+    t.is(defaultVoice, null);
   } finally {
     // Restore for other tests
     Object.defineProperty(globalThis.window, "speechSynthesis", {

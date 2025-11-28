@@ -36,7 +36,6 @@ export interface ReadiumSpeechVoice {
   offlineAvailability?: boolean; // If the voice works offline (optional in some cases)
   provider?: string;       // Voice provider (e.g., "Microsoft", "Google", "Amazon")
   isDefault?: boolean;     // If this is a default voice for its language
-  isDeprecated?: boolean;  // If this voice is deprecated
   isNovelty?: boolean;     // If this is a novelty voice
   isLowQuality?: boolean;  // If this is a low-quality voice
   nativeID?: string | string[];    // Platform-specific voice ID(s)
