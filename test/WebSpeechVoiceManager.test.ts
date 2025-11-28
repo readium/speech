@@ -337,6 +337,35 @@ testWithContext("getVoices: filters by quality", async (t: ExecutionContext<Test
   t.true(highQualityVoices.every((v: ReadiumSpeechVoice) => v.quality?.includes("high") ?? false));
 });
 
+testWithContext("getVoices: returns empty array when speechSynthesis is not available", async (t) => {
+  // Save original
+  const originalSpeechSynthesis = globalThis.speechSynthesis;
+  
+  try {
+    // Mock speechSynthesis to be undefined
+    Object.defineProperty(globalThis, "speechSynthesis", {
+      value: undefined,
+      configurable: true,
+      writable: true
+    });
+    
+    // Create a new instance
+    (WebSpeechVoiceManager as any).instance = undefined;
+    const manager = await WebSpeechVoiceManager.initialize();
+    
+    // Should return empty array when speechSynthesis is not available
+    const voices = manager.getVoices();
+    t.deepEqual(voices, []);
+  } finally {
+    // Restore
+    Object.defineProperty(globalThis, "speechSynthesis", {
+      value: originalSpeechSynthesis,
+      configurable: true,
+      writable: true
+    });
+  }
+});
+
 testWithContext("filterVoices: filters by language", (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
@@ -498,6 +527,29 @@ testWithContext("filterVoices: handles edge cases", (t: ExecutionContext<TestCon
   t.is(invalidQualityFilter.length, 0);
 });
 
+testWithContext("filterVoices: uses array values for multiple filters", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  const testVoices = [
+    createTestVoice({ name: "English Male", language: "en-US", gender: "male", quality: ["high"] }),
+    createTestVoice({ name: "English Female", language: "en-US", gender: "female", quality: ["normal"] }),
+    createTestVoice({ name: "French Male", language: "fr-FR", gender: "male", quality: ["low"] }),
+    createTestVoice({ name: "French Female", language: "fr-FR", gender: "female", quality: ["high"] }),
+    createTestVoice({ name: "Spanish Male", language: "es-ES", gender: "male", quality: ["normal"] })
+  ];
+  
+  // Test with array of languages and array of qualities
+  const filtered = manager.filterVoices(testVoices, { 
+    language: ["en", "fr"], 
+    quality: ["high", "normal"] 
+  });
+  t.is(filtered.length, 3);
+  t.true(filtered.every(v => 
+    (v.language.startsWith("en") || v.language.startsWith("fr")) &&
+    (v.quality?.includes("high") || v.quality?.includes("normal"))
+  ));
+});
+
 testWithContext("getLanguages: returns available languages with counts", async (t: ExecutionContext<TestContext>) => {
   const languages = await t.context.manager.getLanguages();
   t.true(Array.isArray(languages));
@@ -613,21 +665,6 @@ testWithContext("getRegions: handles empty voices array", async (t: ExecutionCon
       configurable: true,
       writable: true
     });
-  }
-});
-
-testWithContext("convertToSpeechSynthesisVoice: converts ReadiumSpeechVoice to SpeechSynthesisVoice", async (t: ExecutionContext<TestContext>) => {
-  const manager = t.context.manager;
-  const voices = await manager.getVoices();
-  t.plan(3);
-  
-  if (voices.length > 0) {
-    const speechVoice = manager.convertToSpeechSynthesisVoice(voices[0]);
-    t.truthy(speechVoice);
-    t.is(speechVoice?.name, voices[0].name);
-    t.is(speechVoice?.voiceURI, voices[0].voiceURI);
-  } else {
-    t.pass("No voices available to test");
   }
 });
 
@@ -791,6 +828,133 @@ testWithContext("sortVoices: sorts by region", (t: ExecutionContext<TestContext>
   t.is(sortedDesc[3].language, "en-AU");
 });
 
+testWithContext("sortVoices: sorts by preferred languages", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with different languages and regions
+  const testVoices = [
+    createTestVoice({ name: "French Voice", language: "fr-FR" }),
+    createTestVoice({ name: "US English Voice", language: "en-US" }),
+    createTestVoice({ name: "UK English Voice", language: "en-GB" }),
+    createTestVoice({ name: "German Voice", language: "de-DE" }),
+    createTestVoice({ name: "Spanish Voice", language: "es-ES" }),
+    createTestVoice({ name: "French Canadian Voice", language: "fr-CA" })
+  ];
+  
+  // Test with preferred languages (exact matches first, then partial matches)
+  const preferredLangs = ["en-US", "fr", "es-ES"];
+  const sorted = manager.sortVoices(testVoices, { 
+    by: "language", 
+    preferredLanguages: preferredLangs 
+  });
+  
+  // Exact matches should come first in the order of preferredLanguages
+  t.is(sorted[0].language, "en-US");  // Exact match
+  t.is(sorted[1].language, "fr-CA");  // Partial match for "fr" - sorts by region code
+  t.is(sorted[2].language, "fr-FR");  // Also partial match for "fr" - sorts by region code
+  t.is(sorted[3].language, "es-ES");  // Exact match
+  
+  // Non-preferred languages should come after, sorted alphabetically
+  t.is(sorted[4].language, "de-DE");
+  t.is(sorted[5].language, "en-GB");
+  
+  // Test with region-specific preferences
+  const regionSpecific = manager.sortVoices(testVoices, { 
+    by: "language", 
+    preferredLanguages: ["fr-CA", "en-GB"] 
+  });
+  
+  t.is(regionSpecific[0].language, "fr-CA");  // Exact match
+  t.is(regionSpecific[1].language, "en-GB");  // Exact match
+  // Others should be sorted alphabetically
+  t.is(regionSpecific[2].language, "de-DE");
+  t.is(regionSpecific[3].language, "en-US");
+  t.is(regionSpecific[4].language, "es-ES");
+  t.is(regionSpecific[5].language, "fr-FR");
+  
+  // Test with empty preferred languages (should sort alphabetically)
+  const emptyPreferred = manager.sortVoices(testVoices, { 
+    by: "language", 
+    preferredLanguages: [] 
+  });
+  t.is(emptyPreferred[0].language, "de-DE");
+  t.is(emptyPreferred[1].language, "en-GB");
+  t.is(emptyPreferred[2].language, "en-US");
+  t.is(emptyPreferred[3].language, "es-ES");
+  t.is(emptyPreferred[4].language, "fr-CA");
+  t.is(emptyPreferred[5].language, "fr-FR");
+  
+  // Test with undefined preferred languages (should sort alphabetically)
+  const undefinedPreferred = manager.sortVoices(testVoices, { 
+    by: "language" 
+  });
+  t.is(undefinedPreferred[0].language, "de-DE");
+  t.is(undefinedPreferred[1].language, "en-GB");
+  t.is(undefinedPreferred[2].language, "en-US");
+  t.is(undefinedPreferred[3].language, "es-ES");
+  t.is(undefinedPreferred[4].language, "fr-CA");
+  t.is(undefinedPreferred[5].language, "fr-FR");
+  
+  // Test with case-insensitive matching
+  const caseInsensitive = manager.sortVoices(testVoices, {
+    by: "language",
+    preferredLanguages: ["EN-us", "FR"]  // Mixed case and partial
+  });
+  t.is(caseInsensitive[0].language, "en-US");  // Matches despite case difference
+  t.is(caseInsensitive[1].language, "fr-CA");  // Partial match, sorted by region
+  t.is(caseInsensitive[2].language, "fr-FR");  // Also partial match
+});
+
+testWithContext("sortVoices: sorts by region with preferred languages", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with different regions
+  const testVoices = [
+    createTestVoice({ name: "US English", language: "en-US" }),
+    createTestVoice({ name: "UK English", language: "en-GB" }),
+    createTestVoice({ name: "Australian English", language: "en-AU" }),
+    createTestVoice({ name: "Canadian French", language: "fr-CA" }),
+    createTestVoice({ name: "French", language: "fr-FR" }),
+    createTestVoice({ name: "Canadian English", language: "en-CA" })
+  ];
+  
+  // Test with preferred languages that include regions
+  const sorted = manager.sortVoices(testVoices, { 
+    by: "region",
+    preferredLanguages: ["en-CA", "fr-CA", "en"] // Prefer Canadian English, then Canadian French, then any English
+  });
+  
+  // Verify order:
+  // 1. en-CA (exact match for first preferred)
+  // 2. fr-CA (exact match for second preferred)
+  // 3. en-US (language match for third preferred)
+  // 4. en-GB (language match for third preferred)
+  // 5. en-AU (language match for third preferred)
+  // 6. fr-FR (no match, should come last)
+  t.is(sorted[0].language, "en-CA", "en-CA should be first (exact match)");
+  t.is(sorted[1].language, "fr-CA", "fr-CA should be second (exact match)");
+  
+  // The remaining English variants should be in their natural order
+  const remainingEnglish = sorted.slice(2, 5).map(v => v.language);
+  t.true(
+    ["en-US", "en-GB", "en-AU"].every(lang => remainingEnglish.includes(lang)),
+    "Should include all English variants after exact matches"
+  );
+  
+  t.is(sorted[5].language, "fr-FR", "fr-FR should be last (no match)");
+  
+  // Test with preferred languages that don't match any regions
+  const noMatches = manager.sortVoices(testVoices, {
+    by: "region",
+    preferredLanguages: ["es-ES", "de-DE"] // No matches in test data
+  });
+  
+  // Should sort alphabetically by region
+  const regions = noMatches.map(v => v.language.split("-")[1]);
+  const sortedRegions = [...regions].sort();
+  t.deepEqual(regions, sortedRegions, "Should sort alphabetically by region when no preferred matches");
+});
+
 testWithContext("getDefaultVoice: returns default voice for language", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
@@ -883,6 +1047,14 @@ testWithContext("getDefaultVoice: returns undefined when no voices available", a
   }
 });
 
+testWithContext("getDefaultVoice: returns null when no matching language", async (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Test with language that has no voices
+  const result = await manager.getDefaultVoice("xx-XX");
+  t.is(result, null);
+});
+
 testWithContext("groupVoices: groups by language", (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
@@ -966,42 +1138,6 @@ testWithContext("groupVoices: handles empty voices array", (t: ExecutionContext<
   t.deepEqual(groups, {});
 });
 
-testWithContext("getTestUtterance: returns test utterance for supported language", (t) => {
-  const manager = t.context.manager;
-  
-  // Test with a base language
-  const utterance1 = manager.getTestUtterance("en");
-  t.is(typeof utterance1, "string");
-  t.true(utterance1 && utterance1.length > 0);
-  
-  // Test with a locale variant (should fall back to base language)
-  const utterance2 = manager.getTestUtterance("en-US");
-  t.is(typeof utterance2, "string");
-  t.true(utterance2 && utterance2.length > 0);
-  t.is(utterance1, utterance2); // Should be the same
-});
-
-testWithContext("convertToSpeechSynthesisVoice: handles invalid voice", (t: ExecutionContext<TestContext>) => {
-  const manager = t.context.manager;
-  
-  // Test with undefined voice
-  const result1 = manager.convertToSpeechSynthesisVoice(undefined as any);
-  t.is(result1, undefined);
-  
-  // Test with voice that doesn't match any browser voice
-  const invalidVoice = createTestVoice({ name: "Non-existent Voice", language: "xx-XX" });
-  const result2 = manager.convertToSpeechSynthesisVoice(invalidVoice);
-  t.is(result2, undefined);
-});
-
-testWithContext("getDefaultVoice: returns null when no matching language", async (t: ExecutionContext<TestContext>) => {
-  const manager = t.context.manager;
-  
-  // Test with language that has no voices
-  const result = await manager.getDefaultVoice("xx-XX");
-  t.is(result, null);
-});
-
 testWithContext("groupVoices: handles voices with missing properties", (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
@@ -1025,27 +1161,19 @@ testWithContext("groupVoices: handles voices with missing properties", (t: Execu
   // Should have an "undefined" group for voices without quality
 });
 
-testWithContext("filterVoices: uses array values for multiple filters", (t: ExecutionContext<TestContext>) => {
+testWithContext("getTestUtterance: returns test utterance for supported language", (t) => {
   const manager = t.context.manager;
   
-  const testVoices = [
-    createTestVoice({ name: "English Male", language: "en-US", gender: "male", quality: ["high"] }),
-    createTestVoice({ name: "English Female", language: "en-US", gender: "female", quality: ["normal"] }),
-    createTestVoice({ name: "French Male", language: "fr-FR", gender: "male", quality: ["low"] }),
-    createTestVoice({ name: "French Female", language: "fr-FR", gender: "female", quality: ["high"] }),
-    createTestVoice({ name: "Spanish Male", language: "es-ES", gender: "male", quality: ["normal"] })
-  ];
+  // Test with a base language
+  const utterance1 = manager.getTestUtterance("en");
+  t.is(typeof utterance1, "string");
+  t.true(utterance1 && utterance1.length > 0);
   
-  // Test with array of languages and array of qualities
-  const filtered = manager.filterVoices(testVoices, { 
-    language: ["en", "fr"], 
-    quality: ["high", "normal"] 
-  });
-  t.is(filtered.length, 3);
-  t.true(filtered.every(v => 
-    (v.language.startsWith("en") || v.language.startsWith("fr")) &&
-    (v.quality?.includes("high") || v.quality?.includes("normal"))
-  ));
+  // Test with a locale variant (should fall back to base language)
+  const utterance2 = manager.getTestUtterance("en-US");
+  t.is(typeof utterance2, "string");
+  t.true(utterance2 && utterance2.length > 0);
+  t.is(utterance1, utterance2); // Should be the same
 });
 
 testWithContext("getTestUtterance: returns empty string for unsupported language", (t) => {
@@ -1056,32 +1184,30 @@ testWithContext("getTestUtterance: returns empty string for unsupported language
   t.is(utterance, "");
 });
 
-
-testWithContext("getVoices: returns empty array when speechSynthesis is not available", async (t) => {
-  // Save original
-  const originalSpeechSynthesis = globalThis.speechSynthesis;
+testWithContext("convertToSpeechSynthesisVoice: converts ReadiumSpeechVoice to SpeechSynthesisVoice", async (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  const voices = await manager.getVoices();
+  t.plan(3);
   
-  try {
-    // Mock speechSynthesis to be undefined
-    Object.defineProperty(globalThis, "speechSynthesis", {
-      value: undefined,
-      configurable: true,
-      writable: true
-    });
-    
-    // Create a new instance
-    (WebSpeechVoiceManager as any).instance = undefined;
-    const manager = await WebSpeechVoiceManager.initialize();
-    
-    // Should return empty array when speechSynthesis is not available
-    const voices = manager.getVoices();
-    t.deepEqual(voices, []);
-  } finally {
-    // Restore
-    Object.defineProperty(globalThis, "speechSynthesis", {
-      value: originalSpeechSynthesis,
-      configurable: true,
-      writable: true
-    });
+  if (voices.length > 0) {
+    const speechVoice = manager.convertToSpeechSynthesisVoice(voices[0]);
+    t.truthy(speechVoice);
+    t.is(speechVoice?.name, voices[0].name);
+    t.is(speechVoice?.voiceURI, voices[0].voiceURI);
+  } else {
+    t.pass("No voices available to test");
   }
+});
+
+testWithContext("convertToSpeechSynthesisVoice: handles invalid voice", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Test with undefined voice
+  const result1 = manager.convertToSpeechSynthesisVoice(undefined as any);
+  t.is(result1, undefined);
+  
+  // Test with voice that doesn't match any browser voice
+  const invalidVoice = createTestVoice({ name: "Non-existent Voice", language: "xx-XX" });
+  const result2 = manager.convertToSpeechSynthesisVoice(invalidVoice);
+  t.is(result2, undefined);
 });
