@@ -1,5 +1,5 @@
 // Auto-generated file - DO NOT EDIT
-// Last updated: 2025-11-26T15:27:05.993Z
+// Last updated: 2025-11-28T12:00:35.763Z
 
 const novelty = {
   "voices": [
@@ -22,6 +22,11 @@ const novelty = {
         "com.apple.speech.synthesis.voice.BadNews"
       ],
       "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "altNames": [
+        "Mauvaises nouvelles",
+        "Malas noticias",
+        "Brutte notizie"
+      ],
       "os": [
         "macOS",
         "iOS",
@@ -48,6 +53,11 @@ const novelty = {
         "com.apple.speech.synthesis.voice.Bells"
       ],
       "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "altNames": [
+        "Cloches",
+        "Campanas",
+        "Campane"
+      ],
       "os": [
         "macOS",
         "iOS",
@@ -74,6 +84,11 @@ const novelty = {
         "com.apple.speech.synthesis.voice.Bubbles"
       ],
       "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "altNames": [
+        "Bulles",
+        "Burbujas",
+        "Bollicine"
+      ],
       "os": [
         "macOS",
         "iOS",
@@ -87,6 +102,11 @@ const novelty = {
         "com.apple.speech.synthesis.voice.Cellos"
       ],
       "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "altNames": [
+        "Violoncelles",
+        "Violonchelos",
+        "Violoncelli"
+      ],
       "os": [
         "macOS",
         "iOS",
@@ -100,6 +120,11 @@ const novelty = {
         "com.apple.speech.synthesis.voice.GoodNews"
       ],
       "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "altNames": [
+        "Bonnes nouvelles",
+        "Buenas noticias",
+        "Buone notizie"
+      ],
       "os": [
         "macOS",
         "iOS",
@@ -113,6 +138,11 @@ const novelty = {
         "com.apple.speech.synthesis.voice.Hysterical"
       ],
       "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "altNames": [
+        "Bouffon",
+        "Bufón",
+        "Giullare"
+      ],
       "os": [
         "macOS",
         "iOS",
@@ -126,6 +156,11 @@ const novelty = {
         "com.apple.speech.synthesis.voice.Organ"
       ],
       "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "altNames": [
+        "Orgue",
+        "Órgano",
+        "Organo"
+      ],
       "os": [
         "macOS",
         "iOS",
@@ -139,6 +174,9 @@ const novelty = {
         "com.apple.speech.synthesis.voice.Princess"
       ],
       "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "altNames": [
+        "Superestrella"
+      ],
       "os": [
         "macOS",
         "iOS",
@@ -165,6 +203,11 @@ const novelty = {
         "com.apple.speech.synthesis.voice.Whisper"
       ],
       "note": "This novelty voice is part of a pack preloaded by Apple.",
+      "altNames": [
+        "Murmure",
+        "Susurro",
+        "Sussurro"
+      ],
       "os": [
         "macOS",
         "iOS",

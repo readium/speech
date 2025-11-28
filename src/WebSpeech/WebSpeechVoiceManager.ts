@@ -418,7 +418,8 @@ export class WebSpeechVoiceManager {
     const isNoveltyVoice = (voiceName: string, voiceId?: string) => 
       noveltyFilter.voices.some((v: any) => 
         voiceName.includes(v.name) || 
-        (voiceId && v.nativeID && v.nativeID.some((id: string) => voiceId.includes(id)))
+        (voiceId && v.nativeID && v.nativeID.some((id: string) => voiceId.includes(id))) ||
+        (v.altNames && v.altNames.some((name: string) => voiceName.includes(name)))
       );
     
     const isVeryLowQualityVoice = (voiceName: string, quality?: TQuality[]) => 
