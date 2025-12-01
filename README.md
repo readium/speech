@@ -241,13 +241,6 @@ interface ReadiumSpeechVoice {
   preloaded?: boolean;        // If the voice is preloaded on the system
   note?: string;              // Additional notes about the voice
   
-  // Sample text for testing
-  sampleText?: string;        // Sample text for testing the voice
-  
-  // For compatibility with Web Speech API
-  localService?: boolean;     // If the voice is provided by the local system
-  default?: boolean;          // If this is the default voice for the language
-  
   // Allow for additional properties
   [key: string]: any;
 }
