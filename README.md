@@ -201,47 +201,42 @@ Retrieves a sample text string suitable for testing text-to-speech functionality
 
 ```typescript
 interface ReadiumSpeechVoice {
-  // Core identification
-  label: string;          // User-friendly display name
+  // Core identification (required)
+  label: string;          // Human-friendly label for the voice
   name: string;           // System/technical name (matches Web Speech API voiceURI)
   voiceURI?: string;      // For Web Speech API compatibility
   
   // Localization
-  language: string;       // BCP 47 language tag (e.g., "en-US")
-  localizedName?: string;  // Name in the voice's language
-  altNames?: string[];     // Alternative names or aliases
-  otherLanguages?: string[]; // Other language codes this voice can speak
-  altLanguage?: string;    // Alternative language code this voice can speak
-  multiLingual?: boolean;  // Whether the voice is multilingual
+  language: string;       // BCP-47 language tag
+  localizedName?: TLocalizedName; // Localization pattern (android/apple)
+  altNames?: string[];     // Alternative names (mostly for Apple voices)
+  altLanguage?: string;    // Alternative BCP-47 language tag
+  otherLanguages?: string[]; // Other languages this voice can speak
+  multiLingual?: boolean;  // If voice can handle multiple languages
   
   // Voice characteristics
   gender?: TGender;       // Voice gender ("female" | "male" | "neutral")
-  age?: string;           // Voice age group (e.g., "child", "adult", "senior")
-  children?: boolean;     // Whether the voice is designed for children
+  children?: boolean;     // If this is a children's voice
   
   // Quality and capabilities
-  quality?: TQuality[];    // Quality ratings ("veryLow" | "low" | "normal" | "high" | "veryHigh")
+  quality?: TQuality[];    // Available quality levels for this voice ("veryLow" | "low" | "normal" | "high" | "veryHigh")
   pitchControl?: boolean;  // Whether pitch can be controlled
   
   // Performance settings
-  pitch?: number;             // Current pitch (0-2, where 1 is normal)
-  recommendedPitch?: number;  // Default pitch
-  rate?: number;              // Speech rate (0.1-10, where 1 is normal)
-  recommendedRate?: number;   // Default rate
+  pitch?: number;         // Current pitch (0-2, where 1 is normal)
+  rate?: number;          // Speech rate (0.1-10, where 1 is normal)
   
   // Platform and compatibility
-  browser?: string[];         // Browsers that support this voice
-  offlineAvailability?: boolean; // If the voice works offline
-  provider?: string;          // Voice provider (e.g., "Microsoft", "Google")
-  isDefault?: boolean;        // If this is a default voice for its language
-  isNovelty?: boolean;        // If this is a novelty voice
-  isLowQuality?: boolean;     // If this is a low-quality voice
+  browser?: string[];     // Supported browsers
+  os?: string[];          // Supported operating systems
+  preloaded?: boolean;    // If the voice is preloaded on the system
   nativeID?: string | string[]; // Platform-specific voice ID(s)
-  os?: string[];              // Supported operating systems
-  preloaded?: boolean;        // If the voice is preloaded on the system
-  note?: string;              // Additional notes about the voice
   
-  // Allow for additional properties
+  // Additional metadata
+  note?: string;          // Additional notes about the voice
+  provider?: string;      // Voice provider (e.g., "Microsoft", "Google")
+  
+  // Allow any additional properties that might be in the JSON
   [key: string]: any;
 }
 ```

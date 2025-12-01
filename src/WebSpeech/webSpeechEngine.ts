@@ -1,7 +1,7 @@
 import { ReadiumSpeechPlaybackEngine } from "../engine";
 import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navigator";
 import { ReadiumSpeechUtterance } from "../utterance";
-import { ReadiumSpeechVoice } from "../voices/data/types";
+import { ReadiumSpeechVoice } from "../voices/types";
 import { WebSpeechVoiceManager } from "./WebSpeechVoiceManager";
 
 import { detectFeatures, WebSpeechFeatures } from "../utils/features";

@@ -527,7 +527,7 @@ function displayVoiceProperties(voice) {
         <div class="voice-property-value ${className}">${display}</div>
       </div>
     `;
-  }).join('');
+  }).join("");
   
   propertiesContainer.innerHTML = propertiesHtml || "<p>No properties available</p>";
 }

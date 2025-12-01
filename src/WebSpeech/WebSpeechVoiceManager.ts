@@ -1,7 +1,13 @@
-import { ReadiumSpeechVoice, TGender, TQuality } from "../voices/data/types";
-import { getTestUtterance } from "../voices/data/testUtterances";
-import noveltyFilter from "../voices/data/filters/novelty";
-import veryLowQualityFilter from "../voices/data/filters/veryLowQuality";
+import { ReadiumSpeechVoice, TGender, TQuality } from "../voices/types";
+import { getTestUtterance, getVoices } from "../voices/languages";
+import { 
+  isNoveltyVoice, 
+  isVeryLowQualityVoice, 
+  filterOutNoveltyVoices, 
+  filterOutVeryLowQualityVoices 
+} from "../voices/filters";
+
+import { extractLangRegionFromBCP47 } from "../utils/language";
 
 /**
  * Options for filtering voices
@@ -95,7 +101,7 @@ export class WebSpeechVoiceManager {
         WebSpeechVoiceManager.instance = instance;
         
         instance.browserVoices = await instance.getBrowserVoices(maxTimeout, interval);
-        instance.voices = instance.parseToReadiumSpeechVoices(instance.browserVoices);
+        instance.voices = await instance.parseToReadiumSpeechVoices(instance.browserVoices);
         instance.isInitialized = true;
         
         return instance;
@@ -116,22 +122,7 @@ export class WebSpeechVoiceManager {
    * @returns A tuple of [language, region] where language is lowercase and region is UPPERCASE
    */
   static extractLangRegionFromBCP47(lang: string): [string, string | undefined] {
-    if (!lang) return ["", undefined];
-    
-    try {
-      const locale = new Intl.Locale(lang);
-      return [
-        locale.language.toLowerCase(),
-        locale.region?.toUpperCase()
-      ];
-    } catch {
-      // Fallback to simple parsing if Intl.Locale fails
-      const parts = lang.split("-");
-      return [
-        parts[0].toLowerCase(),
-        parts[1]?.toUpperCase()
-      ];
-    }
+    return extractLangRegionFromBCP47(lang);
   }
 
   /**
@@ -177,30 +168,28 @@ export class WebSpeechVoiceManager {
   /**
    * Get test utterance for a given language
    * @param language - Language code (e.g., "en", "fr", "es")
-   * @returns Test utterance text
+   * @returns Promise that resolves to the test utterance text
    */
   getTestUtterance(language: string): string {
-    // Try direct match first
-    let utterance = getTestUtterance(language);
-    if (utterance) {
-      return utterance;
-    }
+    if (!language) return "";
+    
+    // Try direct match
+    const utterance = getTestUtterance(language);
+    if (utterance) return utterance;
 
     // Try with base language as fallback
     const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(language);
-    if (baseLang) {
-      utterance = getTestUtterance(baseLang);
-      if (utterance) {
-        return utterance;
-      }
+    if (baseLang && baseLang !== language) {
+      const baseUtterance = getTestUtterance(baseLang);
+      if (baseUtterance) return baseUtterance;
     }
 
-    // Return empty string if no matching utterance is found
     return "";
   }
 
   /**
    * Get all voices matching the filter criteria
+   * @returns Promise that resolves to an array of filtered voices
    */
   getVoices(options: VoiceFilterOptions = {}): ReadiumSpeechVoice[] {
     if (!this.isInitialized) {
@@ -378,28 +367,37 @@ export class WebSpeechVoiceManager {
    * Find a browser voice in the voice data
    * @private
    */
-  private findVoiceInData(browserVoice: SpeechSynthesisVoice): ReadiumSpeechVoice | undefined {
-    if (!browserVoice || !browserVoice.lang) return undefined;
+  private async findVoiceInData(browserVoice: SpeechSynthesisVoice): Promise<ReadiumSpeechVoice | undefined> {
+    if (!browserVoice?.lang) return undefined;
     
-    const browserLang = browserVoice.lang.toLowerCase();
-    const [baseLang] = browserLang.split("-");
-    
-    // Try exact match first
-    const exactMatch = this.voices.find(voice => {
-      const voiceLang = voice.language?.toLowerCase();
-      const voiceAltLang = voice.altLanguage?.toLowerCase();
-      return voiceLang === browserLang || voiceAltLang === browserLang;
-    });
-    
-    if (exactMatch) return exactMatch;
-    
-    // Then try base language match
-    return this.voices.find(voice => {
-      const voiceLang = voice.language?.toLowerCase();
-      const voiceAltLang = voice.altLanguage?.toLowerCase();
-      return (voiceLang && voiceLang.startsWith(baseLang)) || 
-             (voiceAltLang && voiceAltLang.startsWith(baseLang));
-    });
+    try {
+      const browserLang = browserVoice.lang.toLowerCase();
+      const [baseLang] = browserLang.split("-");
+      
+      // Get voices for the base language
+      const voices = await getVoices(baseLang);
+      if (!voices || voices.length === 0) return undefined;
+      
+      // Try exact match first
+      const exactMatch = voices.find(voice => {
+        const voiceLang = voice.language?.toLowerCase();
+        const voiceAltLang = voice.altLanguage?.toLowerCase();
+        return voiceLang === browserLang || voiceAltLang === browserLang;
+      });
+      
+      if (exactMatch) return exactMatch;
+      
+      // Then try base language match
+      return voices.find(voice => {
+        const voiceLang = voice.language?.toLowerCase();
+        const voiceAltLang = voice.altLanguage?.toLowerCase();
+        return (voiceLang?.startsWith(baseLang)) || 
+               (voiceAltLang?.startsWith(baseLang));
+      });
+    } catch (error) {
+      console.error(`Error finding voice data for ${browserVoice.lang}:`, error);
+      return undefined;
+    }
   }
 
   /**
@@ -415,71 +413,47 @@ export class WebSpeechVoiceManager {
       return lang;
     };
 
-    const isNoveltyVoice = (voiceName: string, voiceId?: string) => 
-      noveltyFilter.voices.some((v: any) => 
-        voiceName.includes(v.name) || 
-        (voiceId && v.nativeID && v.nativeID.some((id: string) => voiceId.includes(id))) ||
-        (v.altNames && v.altNames.some((name: string) => voiceName.includes(name)))
-      );
-    
-    const isVeryLowQualityVoice = (voiceName: string, quality?: TQuality[]) => 
-      veryLowQualityFilter.voices.some((v: any) => voiceName.includes(v.name)) || 
-      (Array.isArray(quality) && quality.includes("veryLow" as TQuality));
-
-    const parsedVoices = speechVoices
+    return speechVoices
       .filter(voice => voice && voice.name && voice.lang)
       .map(voice => {
-        // Try to find this voice in the voice data
-        const dataVoice = this.findVoiceInData(voice);
+        const formattedLang = parseAndFormatBCP47(voice.lang);
+        const [baseLang] = formattedLang.split("-");
         
-        if (dataVoice) {
-          // Return the data voice with browser-specific properties
+        // Get voices for the specific language
+        const langVoices = getVoices(baseLang);
+        
+        // Try to find a matching voice by name
+        const jsonVoice = langVoices.find(v => 
+          v.name === voice.name || 
+          (v.altNames && v.altNames.some((name: string) => name === voice.name))
+        );
+
+        if (jsonVoice) {
+          // Found a match in JSON data, merge with browser voice
           return {
-            ...dataVoice,
-            // Override with actual browser data
+            ...jsonVoice,
+            // Preserve browser-specific properties
+            voiceURI: voice.voiceURI,
             isDefault: voice.default || false,
             offlineAvailability: voice.localService || false,
-            // Add isNovelty and isLowQuality based on filter modules
+            // Use utility functions from filters.ts
             isNovelty: isNoveltyVoice(voice.name, voice.voiceURI),
-            isLowQuality: isVeryLowQualityVoice(voice.name, dataVoice.quality)
+            isLowQuality: isVeryLowQualityVoice(voice.name, jsonVoice.quality)
           };
         }
-        
+
+        // No match found in JSON, create basic voice object
         return {
-          // Core identification - use actual browser data
           label: voice.name,
           name: voice.name,
           voiceURI: voice.voiceURI,
-          
-          // Localization - use BCP47 formatted language
-          language: parseAndFormatBCP47(voice.lang),
-          localizedName: voice.name,
-          altNames: undefined,
-          otherLanguages: undefined,
-          multiLingual: undefined,
-          
-          // Voice characteristics - browser doesn't provide this info
-          gender: undefined,
-          children: undefined,
-          
-          // Quality and capabilities - browser doesn't provide this info
-          quality: undefined,
-          pitchControl: undefined,
-          
-          // Performance settings - browser doesn't provide this
-          pitch: undefined,
-          recommendedPitch: undefined,
-          recommendedRate: undefined,
-          
-          // Additional properties - use actual browser data
+          language: formattedLang,
           isDefault: voice.default || false,
           offlineAvailability: voice.localService || false,
           isNovelty: isNoveltyVoice(voice.name, voice.voiceURI),
           isLowQuality: isVeryLowQualityVoice(voice.name)
         };
       });
-    
-    return this.removeDuplicate(parsedVoices);
   }
 
   /**
@@ -544,11 +518,11 @@ export class WebSpeechVoiceManager {
     }
 
     if (options.excludeNovelty) {
-      result = this.filterOutNoveltyVoices(result);
+      result = filterOutNoveltyVoices(result);
     }
 
     if (options.excludeVeryLowQuality) {
-      result = this.filterOutVeryLowQualityVoices(result);
+      result = filterOutVeryLowQualityVoices(result);
     }
 
     return result;
@@ -560,7 +534,7 @@ export class WebSpeechVoiceManager {
    * @returns Filtered array with novelty voices removed
    */
   filterOutNoveltyVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
-    return voices.filter(voice => !voice.isNovelty);
+    return filterOutNoveltyVoices(voices);
   }
 
   /**
@@ -569,12 +543,7 @@ export class WebSpeechVoiceManager {
    * @returns Filtered array with very low quality voices removed
    */
   filterOutVeryLowQualityVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
-    if (!voices?.length) return [];
-    return voices.filter(voice => {
-      // Check both isLowQuality flag and quality array
-      const isVeryLow = voice.quality?.includes("veryLow") || voice.isLowQuality;
-      return !isVeryLow;
-    });
+    return filterOutVeryLowQualityVoices(voices);
   }
 
   /**

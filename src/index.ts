@@ -2,7 +2,7 @@
 export * from "./WebSpeech";
 
 // Data exports
-export * from "./voices/data";
+export * from "./voices/languages";
 
 // Other exports
 export * from "./engine";

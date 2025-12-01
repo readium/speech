@@ -1,8 +1,8 @@
 export default {
   extensions: {
-    ts: 'module'
+    ts: "module"
   },
   nodeArguments: [
-    '--loader=ts-node/esm'
+    "--loader=ts-node/esm"
   ]
 }

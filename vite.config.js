@@ -1,5 +1,6 @@
-import { defineConfig } from "vite"
-import dts from "vite-plugin-dts"
+import { defineConfig } from "vite";
+import dts from "vite-plugin-dts";
+import { resolve } from "path";
 
 export default defineConfig({
   build: {
@@ -25,6 +26,11 @@ export default defineConfig({
     "process.version": '""',
     "process.platform": '"browser"',
     "process.browser": true,
+  },
+  resolve: {
+    alias: {
+      "@json": resolve(__dirname, "./json")
+    }
   },
   plugins: [
     dts({

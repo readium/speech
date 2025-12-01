@@ -1,7 +1,7 @@
 import { ReadiumSpeechPlaybackEngine } from "../engine";
 import { ReadiumSpeechNavigator, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navigator";
 import { ReadiumSpeechUtterance } from "../utterance";
-import { ReadiumSpeechVoice } from "../voices/data/types";
+import { ReadiumSpeechVoice } from "../voices/types";
 import { WebSpeechEngine } from "./webSpeechEngine";
 
 export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
