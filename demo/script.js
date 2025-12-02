@@ -409,7 +409,7 @@ function createUtterancesFromText(text) {
   return sentences.map((sentence, index) => ({
     id: `utterance-${index}`,
     text: sentence,
-    language: languageSelect.value || "en-US"
+    language: languageSelect.value || "en"
   }));
 }
 

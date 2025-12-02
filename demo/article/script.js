@@ -43,7 +43,7 @@ async function initialize() {
     populateVoiceSelect();
     
     // Get the default voice for English
-    currentVoice = voiceManager.getDefaultVoice("en");
+    currentVoice = voiceManager.getDefaultVoice("en-US");
 
     if (currentVoice && navigator) {
       navigator.setVoice(currentVoice);
@@ -160,7 +160,7 @@ async function initializeContent() {
       utterances.push({
         id: `utterance-${utterances.length}`,
         text: sentence,
-        language: "en-US"
+        language: "en"
       });
     });
   });
