@@ -1,5 +1,5 @@
 # Simple workflow for deploying static content to GitHub Pages
-name: Build and commit to `build` branch
+name: Deploy demo page to gh-pages
 
 on:
   # Runs on pushes targeting the default branch
@@ -16,12 +16,15 @@ permissions:
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
-  group: "build"
+  group: "pages"
   cancel-in-progress: false
 
 jobs:
   # Single deploy job since we're just deploying
   deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -36,6 +39,13 @@ jobs:
           npm run build
           ls -la ./
           ls -laR ./build
+          ls -laR ./demo
+          mkdir build-demo
+          cp README.md ./build-demo/
+          cp -r ./build ./build-demo/
+          cp -r ./demo ./build-demo/
+          ls -laR ./build-demo
+
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
@@ -45,7 +55,7 @@ jobs:
         if: github.ref == 'refs/heads/main'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
-          publish_branch: build # default: gh-pages
+          publish_dir: ./build-demo
+          publish_branch: gh-pages # default: gh-pages
           destination_dir: ./
-          enable_jekyll: true # do not write .nojekyll empty file
+          enable_jekyll: true # yes for README.md
