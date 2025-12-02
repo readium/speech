@@ -6,7 +6,7 @@
   "module": "./build/index.js",
   "types": "./build/index.d.ts",
   "sideEffects": false,
-  "files": ["build"],
+  "files": ["build", "json"],
   "exports": {
     ".": {
       "types": "./build/index.d.ts",
