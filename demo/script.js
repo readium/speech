@@ -199,7 +199,7 @@ function populateVoiceDropdown(language = "") {
         const option = document.createElement("option");
         option.value = voice.name;
         option.textContent = [
-          voice.name,
+          voice.label || voice.name,
           voice.gender ? `• ${voice.gender}` : "",
           voice.offlineAvailability ? "• offline" : "• online"
         ].filter(Boolean).join(" ");
@@ -388,7 +388,7 @@ function updateTestUtterance(voice, languageCode) {
   const language = voice.language || languageCode || "en";
   const baseUtterance = voiceManager.getTestUtterance(language) || 
                       `This is a test of the {name} voice.`;
-  testUtterance = baseUtterance.replace(/\{\s*name\s*\}/g, voice.name || "this voice");
+  testUtterance = baseUtterance.replace(/\{\s*name\s*\}/g, voice.label || voice.name || "this voice");
   testUtteranceInput.value = testUtterance;
   testUtteranceBtn.disabled = false;
 }

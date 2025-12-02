@@ -212,7 +212,7 @@ function populateVoiceSelect() {
       
       const option = document.createElement("option");
       option.value = voice.voiceURI;
-      option.textContent = `${voice.name} (${voice.language})`;
+      option.textContent = `${voice.label || voice.name}`;
       option.dataset.voiceUri = voice.voiceURI;
       
       if (currentVoice && voice.voiceURI === currentVoice.voiceURI) {
@@ -237,7 +237,7 @@ function populateVoiceSelect() {
       const option = document.createElement("option");
       option.value = voice.name;
       option.textContent = [
-        voice.name,
+        voice.label || voice.name,
         voice.gender ? `• ${voice.gender}` : "",
         voice.offlineAvailability ? "• offline" : "• online"
       ].filter(Boolean).join(" ");
