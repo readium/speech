@@ -66,16 +66,16 @@ const mockVoices = [
     default: false
   },
   {
-    voiceURI: "novelty-voice",
-    name: "Novelty Voice",
-    lang: "en-US",
+    voiceURI: "voice4",
+    name: "Voice 4",
+    lang: "de-DE",
     localService: true,
     default: false
   },
   {
-    voiceURI: "low-quality-voice",
-    name: "Low Quality Voice",
-    lang: "en-US",
+    voiceURI: "voice5",
+    name: "Voice 5",
+    lang: "it-IT",
     localService: true,
     default: false
   }
@@ -715,6 +715,40 @@ testWithContext("filterVoices: filters by quality array", (t: ExecutionContext<T
   // Test that undefined quality voices are filtered out
   const filteredVoices = manager.filterVoices(testVoices, { quality: "high" });
   t.false(filteredVoices.some(v => v.quality === undefined));
+});
+
+testWithContext("filterVoices: filters out novelty and low quality voices", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices using the createTestVoice helper
+  const testVoices = [
+    createTestVoice({ 
+      voiceURI: "com.apple.speech.synthesis.voice.Albert",
+      name: "Albert",
+      language: "en-US",
+      isNovelty: true
+    }),
+    createTestVoice({ 
+      voiceURI: "com.appk.it.speech.synthesis.voice.Eddy",
+      name: "Eddy",
+      language: "en-US",
+      quality: ["veryLow"]
+    })
+  ];
+
+  // Test filtering with default options (should filter out both voices)
+  const filteredVoices = manager.filterVoices(testVoices, {
+    excludeNovelty: true,
+    excludeVeryLowQuality: true
+  });
+  t.is(filteredVoices.length, 0, "Should filter out all test voices by default");
+  
+  // Test including them by disabling the filters
+  const allVoices = manager.filterVoices(testVoices, { 
+    excludeNovelty: false, 
+    excludeVeryLowQuality: false 
+  });
+  t.is(allVoices.length, 2, "Should include all voices when not filtered");
 });
 
 testWithContext("filterVoices: filters by offline availability", (t: ExecutionContext<TestContext>) => {
