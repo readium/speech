@@ -61,22 +61,26 @@
     </div>
   </div>
 
-  <div class="playback-controls">
-    <button id="play-pause-btn" class="play-state" disabled>▶️ Play</button>
-    <button id="stop-btn" class="stop" disabled>⏹️ Stop</button>
-    <button id="prev-utterance-btn" class="nav" disabled>⏮️ Previous</button>
-    <button id="next-utterance-btn" class="nav" disabled>⏭️ Next</button>
-  </div>
+  <div class="content-container">
+    <div class="controls-group">
+      <div class="playback-controls">
+        <button id="play-pause-btn" class="play-state" disabled>▶️ Play</button>
+        <button id="stop-btn" class="stop" disabled>⏹️ Stop</button>
+        <button id="prev-utterance-btn" class="nav" disabled>⏮️ Previous</button>
+        <button id="next-utterance-btn" class="nav" disabled>⏭️ Next</button>
+      </div>
 
-  <div class="jump-controls">
-    <input type="number" id="utterance-index" min="1" value="1" disabled>
-    <span>of <span id="total-utterances">-</span></span>
-    <button id="jump-to-btn" class="jump-btn" disabled>Jump To</button>
-  </div>
+      <div class="jump-controls">
+        <input type="number" id="utterance-index" min="1" value="1" disabled>
+        <span>of <span id="total-utterances">-</span></span>
+        <button id="jump-to-btn" class="jump-btn" disabled>Jump To</button>
+      </div>
+    </div>
 
-  <div class="form-group">
-    <div id="sample-text" class="text-display">
-      Select a language to load sample text...
+    <div class="form-group">
+      <div id="sample-text" class="text-display">
+        Select a language to load sample text...
+      </div>
     </div>
   </div>
 

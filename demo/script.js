@@ -121,7 +121,7 @@ function populateLanguageDropdown() {
   languages.forEach(lang => {
     const option = document.createElement("option");
     option.value = lang.code;
-    option.textContent = `${lang.label} (${lang.count} ${lang.count === 1 ? "voice" : "voices"})`;
+    option.textContent = `${lang.label} (${lang.count})`;
     languageSelect.appendChild(option);
   });
 }
