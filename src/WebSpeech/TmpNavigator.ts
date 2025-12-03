@@ -1,7 +1,7 @@
 import { ReadiumSpeechPlaybackEngine } from "../engine";
 import { ReadiumSpeechNavigator, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navigator";
 import { ReadiumSpeechUtterance } from "../utterance";
-import { ReadiumSpeechVoice } from "../voices";
+import { ReadiumSpeechVoice } from "../voices/types";
 import { WebSpeechEngine } from "./webSpeechEngine";
 
 export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
@@ -99,7 +99,7 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
     return this.engine.getAvailableVoices();
   }
 
-  async setVoice(voice: ReadiumSpeechVoice | string): Promise<void> {
+  setVoice(voice: ReadiumSpeechVoice | string): void {
     this.engine.setVoice(voice);
   }
 
