@@ -11,7 +11,7 @@ interface FilterVoice {
 const noveltyFilter = noveltyFilterData as { voices: FilterVoice[] };
 const veryLowQualityFilter = veryLowQualityFilterData as { voices: FilterVoice[] };
 
-export function isNoveltyVoice(voiceName: string, voiceId?: string): boolean {
+export const isNoveltyVoice = (voiceName: string, voiceId?: string): boolean => {
   return noveltyFilter.voices.some(filter => 
     voiceName.includes(filter.name) || 
     (voiceId && filter.nativeID?.some(id => voiceId.includes(id))) ||
@@ -19,18 +19,18 @@ export function isNoveltyVoice(voiceName: string, voiceId?: string): boolean {
   );
 }
 
-export function isVeryLowQualityVoice(voiceName: string, quality?: string[]): boolean {
+export const isVeryLowQualityVoice = (voiceName: string, quality?: string[]): boolean => {
   return veryLowQualityFilter.voices.some(filter => 
     voiceName.includes(filter.name)
   ) || (Array.isArray(quality) && quality.includes("veryLow"));
 }
 
-export function filterOutNoveltyVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
+export const filterOutNoveltyVoices = (voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] => {
   if (!voices?.length) return [];
   return voices.filter(voice => !(voice.isNovelty || isNoveltyVoice(voice.name, voice.voiceURI)));
 }
 
-export function filterOutVeryLowQualityVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
+export const filterOutVeryLowQualityVoices = (voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] => {
   if (!voices?.length) return [];
   return voices.filter(voice => !isVeryLowQualityVoice(voice.name, voice.quality));
 }

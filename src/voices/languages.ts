@@ -49,23 +49,21 @@ import wuu from "@json/wuu.json";
 import yue from "@json/yue.json";
 
 // Helper function to cast voice data to the correct type
-function castVoice(voice: any): ReadiumSpeechVoice {
-  return {
-    ...voice,
-    gender: voice.gender as TGender | undefined,
-    quality: voice.quality ? (Array.isArray(voice.quality) 
-      ? voice.quality.filter((q: any) => 
-          ["veryLow", "low", "normal", "high", "veryHigh"].includes(q)
-        ) as TQuality[] 
-      : [voice.quality].filter((q: any) => 
-          ["veryLow", "low", "normal", "high", "veryHigh"].includes(q)
-        ) as TQuality[]
-    ) : undefined,
-    localizedName: voice.localizedName && ["android", "apple"].includes(voice.localizedName) 
-      ? voice.localizedName as TLocalizedName 
-      : undefined
-  };
-}
+const castVoice = (voice: any): ReadiumSpeechVoice => ({
+  ...voice,
+  gender: voice.gender as TGender | undefined,
+  quality: voice.quality ? (Array.isArray(voice.quality) 
+    ? voice.quality.filter((q: any) => 
+        ["veryLow", "low", "normal", "high", "veryHigh"].includes(q)
+      ) as TQuality[] 
+    : [voice.quality].filter((q: any) => 
+        ["veryLow", "low", "normal", "high", "veryHigh"].includes(q)
+      ) as TQuality[]
+  ) : undefined,
+  localizedName: voice.localizedName && ["android", "apple"].includes(voice.localizedName) 
+    ? voice.localizedName as TLocalizedName 
+    : undefined
+});
 
 // Map of language codes to their respective voice data with proper casting
 const voiceDataMap: Record<string, VoiceData> = Object.fromEntries(
@@ -83,9 +81,7 @@ const voiceDataMap: Record<string, VoiceData> = Object.fromEntries(
 );
 
 // Helper function to get voice data synchronously
-function getVoiceData(lang: string): VoiceData | undefined {
-  return voiceDataMap[lang];
-}
+const getVoiceData = (lang: string): VoiceData | undefined => voiceDataMap[lang];
 
 // Chinese variant mapping for special handling
 export const chineseVariantMap: {[key: string]: string} = {
@@ -107,19 +103,19 @@ export const chineseVariantMap: {[key: string]: string} = {
  * @param lang - Input language code
  * @returns Normalized language code
  */
-function normalizeLanguageCode(lang: string): string {
+const normalizeLanguageCode = (lang: string): string => {
   if (!lang) return "";
   
   const normalized = lang.toLowerCase().replace(/_/g, "-");
   return chineseVariantMap[normalized] || normalized;
-}
+};
 
 /**
  * Get all voices for a specific language
  * @param {string} lang - Language code (e.g., "en", "fr", "zh-CN")
  * @returns {ReadiumSpeechVoice[]} Array of voices for the specified language
  */
-export function getVoices(lang: string): ReadiumSpeechVoice[] {
+export const getVoices = (lang: string): ReadiumSpeechVoice[] => {
   if (!lang) return [];
   
   try {
@@ -147,22 +143,20 @@ export function getVoices(lang: string): ReadiumSpeechVoice[] {
     console.error(`Failed to load voices for ${lang}:`, error);
     return [];
   }
-}
+};
 
 /**
  * Get all available language codes
  * @returns {string[]} Array of available language codes
  */
-export function getAvailableLanguages(): string[] {
-  return Object.keys(voiceDataMap);
-}
+export const getAvailableLanguages = (): string[] => Object.keys(voiceDataMap);
 
 /**
  * Get the test utterance for a language
  * @param {string} lang - Language code (e.g., "en", "fr", "zh-CN")
  * @returns {string} The test utterance or empty string if not found
  */
-export function getTestUtterance(lang: string): string {
+export const getTestUtterance = (lang: string): string => {
   if (!lang) return "";
   
   try {
@@ -199,7 +193,7 @@ export function getTestUtterance(lang: string): string {
     console.error(`Failed to get test utterance for ${lang}:`, error);
     return "";
   }
-}
+};
 
 // Re-export types for backward compatibility
 export * from "./types";
