@@ -186,8 +186,9 @@ function populateVoiceDropdown(language = "") {
       if (!voices.length) continue;
       
       const countryCode = region.split("-").pop() || region;
+      const regionName = new Intl.DisplayNames(window.navigator.languages, { type: "region" }).of(countryCode) || region;
       const optgroup = document.createElement("optgroup");
-      optgroup.label = `${getCountryFlag(countryCode)} ${region}`;
+      optgroup.label = `${getCountryFlag(countryCode)} ${regionName}`;
       
       // Sort voices by quality within each region
       const sortedVoicesInRegion = voiceManager.sortVoices(voices, { 

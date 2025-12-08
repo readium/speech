@@ -204,9 +204,11 @@ function populateVoiceSelect() {
       if (region !== currentRegion) {
         currentRegion = region;
         optgroup = document.createElement("optgroup");
-        // Add emoji flag before the region code using the existing helper function
+        // Add emoji flag before the region name using Intl.DisplayNames
         const flag = getCountryFlag(region === "Other" ? null : region);
-        optgroup.label = `${flag} ${region}`;
+        const regionName = region === "Other" ? region : 
+          new Intl.DisplayNames(window.navigator.languages, { type: "region" }).of(region) || region;
+        optgroup.label = `${flag} ${regionName}`;
         voiceSelect.appendChild(optgroup);
       }
       
