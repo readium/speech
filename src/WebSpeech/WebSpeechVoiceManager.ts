@@ -288,18 +288,23 @@ export class WebSpeechVoiceManager {
     if (!language) return null;
     
     // Use provided voices or get filtered voices if not provided
-    const filteredVoices = voices || this.getVoices({ language });
+    let filteredVoices = voices || this.getVoices({ language });
     if (!filteredVoices.length) return null;
     
-    // Try to find a default voice with high quality
-    const defaultVoice = filteredVoices.find(v => v.isDefault && this.getQualityValue(v.quality) >= 2);
-    if (defaultVoice) return defaultVoice;
-    
-    // Try to find any high quality voice
-    const highQualityVoice = filteredVoices.find(v => this.getQualityValue(v.quality) >= 2);
-    if (highQualityVoice) return highQualityVoice;
-    
-    // Fall back to the first available voice
+    // First sort by quality (highest first)
+    filteredVoices = this.sortVoices(filteredVoices, {
+      by: "quality",
+      order: "desc"
+    });
+  
+    // Then sort by language to ensure we get the best match for the requested language
+    filteredVoices = this.sortVoices(filteredVoices, {
+      by: "language",
+      order: "asc",
+      preferredLanguages: [language]
+    });
+  
+    // Return the best available voice (already sorted by quality and language)
     return filteredVoices[0];
   }
 

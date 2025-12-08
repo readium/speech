@@ -418,7 +418,7 @@ function createUtterancesFromText(text) {
 function setupEventListeners() {
   // Language selection
   languageSelect.addEventListener("change", async () => {
-    const languageCode = languageSelect.value;
+    const baseLanguage = languageSelect.value;
     
     // Reset voice selection and clear test utterance
     voiceSelect.disabled = false;
@@ -434,9 +434,15 @@ function setupEventListeners() {
     filterVoices();
     
     // Get the default voice for the selected language using pre-filtered voices
-    if (languageCode) {
-      // Use the already filtered voices if available, otherwise fall back to the old behavior
-      currentVoice = voiceManager.getDefaultVoice(languageCode, filteredVoices.length ? filteredVoices : undefined);
+    if (baseLanguage) {
+      // Find the first matching language from the user's preferences
+      const preferredLanguage = (window.navigator.languages || [window.navigator.language] || [])
+        .find(lang => lang && lang.startsWith(baseLanguage)) || baseLanguage;
+        
+      currentVoice = voiceManager.getDefaultVoice(
+        preferredLanguage, 
+        filteredVoices.length ? filteredVoices : undefined
+      );
       
       if (currentVoice) {
         try {

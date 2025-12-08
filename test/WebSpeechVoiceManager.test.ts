@@ -520,33 +520,94 @@ testWithContext("getRegions: handles empty voices array", async (t: ExecutionCon
 // 5. Default Voice Retrieval Tests
 // =============================================
 
-testWithContext("getDefaultVoice: returns default voice for language", async (t: ExecutionContext<TestContext>) => {
+testWithContext("getDefaultVoice: selects highest quality voice regardless of isDefault flag", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
-  // Create test voices with one default voice for en-US
+  // Create test voices with quality as the distinguishing factor
   const testVoices = [
     { 
       voiceURI: "voice1", 
-      name: "Voice 1", 
+      name: "High Quality", 
       language: "en-US", 
-      isDefault: true, 
+      isDefault: false,  // Not default but higher quality
       quality: ["high"] 
     },
     { 
       voiceURI: "voice2", 
-      name: "Voice 2", 
+      name: "Normal Quality", 
       language: "en-US", 
-      isDefault: false, 
+      isDefault: true,  // Default but lower quality
       quality: ["normal"] 
     }
   ];
   
-  // Replace the voices in the manager
   (manager as any).voices = testVoices;
   
   const defaultVoice = await manager.getDefaultVoice("en-US");
   t.truthy(defaultVoice);
-  t.is(defaultVoice?.voiceURI, "voice1");
+  t.is(defaultVoice?.voiceURI, "voice1", "Should select highest quality voice regardless of isDefault flag");
+});
+
+testWithContext("getDefaultVoice: falls back to base language", async (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  const testVoices = [
+    { 
+      voiceURI: "voice1", 
+      name: "English Generic", 
+      language: "en",  // Base language
+      isDefault: false,
+      quality: ["high"] 
+    },
+    { 
+      voiceURI: "voice2", 
+      name: "US English", 
+      language: "en-US", 
+      isDefault: false,
+      quality: ["high"] 
+    }
+  ];
+  
+  (manager as any).voices = testVoices;
+  
+  // Request en-GB which isn't available, should fall back to en
+  const defaultVoice = await manager.getDefaultVoice("en-GB");
+  t.truthy(defaultVoice);
+  t.is(defaultVoice?.language, "en", "Should fall back to base language when exact match not found");
+});
+
+testWithContext("getDefaultVoice: respects quality sorting", async (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  const testVoices = [
+    { 
+      voiceURI: "voice1", 
+      name: "High Quality", 
+      language: "en-US", 
+      isDefault: false,
+      quality: ["high"] 
+    },
+    { 
+      voiceURI: "voice2", 
+      name: "Very High Quality", 
+      language: "en-US", 
+      isDefault: false,
+      quality: ["veryHigh"]  // Higher quality
+    },
+    { 
+      voiceURI: "voice3", 
+      name: "Normal Quality", 
+      language: "en-US", 
+      isDefault: false,
+      quality: ["normal"]  // Lower quality
+    }
+  ];
+  
+  (manager as any).voices = testVoices;
+  
+  const defaultVoice = await manager.getDefaultVoice("en-US");
+  t.truthy(defaultVoice);
+  t.is(defaultVoice?.voiceURI, "voice2", "Should select highest quality voice available");
 });
 
 testWithContext("getDefaultVoice: returns undefined when no voices available", async (t) => {
