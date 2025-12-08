@@ -187,7 +187,14 @@ function populateVoiceSelect() {
   }
 
   try {
-    const sortedVoices = voiceManager.sortVoices(allVoices, {
+    // First sort by quality within each language/region
+    const sortedByQuality = voiceManager.sortVoices(allVoices, {
+      by: "quality",
+      order: "desc"
+    });
+    
+    // Then sort by region while preserving quality order within each region
+    const sortedVoices = voiceManager.sortVoices(sortedByQuality, {
       by: "region",
       order: "asc",
       preferredLanguages: window.navigator.languages
