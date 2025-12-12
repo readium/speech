@@ -102,6 +102,7 @@ const testWithContext = test as unknown as {
 // Helper function to create test voice objects that match ReadiumSpeechVoice interface
 function createTestVoice(overrides: Partial<ReadiumSpeechVoice> = {}): ReadiumSpeechVoice {
   return {
+    source: "json",
     label: overrides.name || "Test Voice",
     name: overrides.name || "Test Voice",
     voiceURI: `voice-${overrides.name || "test"}`,
@@ -730,6 +731,25 @@ testWithContext("filterVoices: filters by language", (t: ExecutionContext<TestCo
   const multiLangVoices = manager.filterVoices(testVoices, { language: ["en", "fr"] });
   t.is(multiLangVoices.length, 3);
   t.true(multiLangVoices.every(v => v.language.startsWith("en") || v.language.startsWith("fr")));
+});
+
+testWithContext("filterVoices: filters by source", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with different sources
+  const testVoices = [
+    createTestVoice({ name: "JSON Voice 1", source: "json" }),
+    createTestVoice({ name: "JSON Voice 2", source: "json" }),
+    createTestVoice({ name: "Browser Voice 1", source: "browser" }),
+  ];
+  
+  const jsonVoices = manager.filterVoices(testVoices, { source: "json" });
+  t.is(jsonVoices.length, 2);
+  t.true(jsonVoices.every(v => v.source === "json"));
+
+  const browserVoices = manager.filterVoices(testVoices, { source: "browser"});
+  t.is(browserVoices.length, 1);
+  t.true(browserVoices.every(v => v.source === "browser"));
 });
 
 testWithContext("filterVoices: filters by gender", (t: ExecutionContext<TestContext>) => {

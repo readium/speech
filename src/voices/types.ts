@@ -15,6 +15,11 @@ export type TQuality = "veryLow" | "low" | "normal" | "high" | "veryHigh";
  */
 export type TLocalizedName = "android" | "apple";
 
+/**
+ * Source of the voice data
+ */
+export type TSource = "json" | "browser";
+
 export interface VoiceFilterData {
   voices: Array<{
     name: string;
@@ -24,6 +29,8 @@ export interface VoiceFilterData {
 }
 
 export interface ReadiumSpeechVoice {
+  source: TSource;       // Source of the voice data
+
   // Core identification (required)
   label: string;          // Human-friendly label for the voice
   name: string;           // System/technical name (matches Web Speech API voiceURI)

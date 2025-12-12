@@ -1,4 +1,4 @@
-import { ReadiumSpeechVoice, TGender, TQuality } from "../voices/types";
+import { ReadiumSpeechVoice, TGender, TQuality, TSource } from "../voices/types";
 import { getTestUtterance, getVoices } from "../voices/languages";
 import { 
   isNoveltyVoice, 
@@ -14,6 +14,7 @@ import { extractLangRegionFromBCP47 } from "../utils/language";
  */
 interface VoiceFilterOptions {
   language?: string | string[];
+  source?: TSource;
   gender?: TGender;
   quality?: TQuality | TQuality[];
   offlineOnly?: boolean;
@@ -417,6 +418,7 @@ export class WebSpeechVoiceManager {
           // Found a match in JSON data, merge with browser voice
           return {
             ...jsonVoice,
+            source: "json",
             // Preserve browser-specific properties
             voiceURI: voice.voiceURI,
             isDefault: voice.default || false,
@@ -424,11 +426,12 @@ export class WebSpeechVoiceManager {
             // Use utility functions from filters.ts
             isNovelty: isNoveltyVoice(voice.name, voice.voiceURI),
             isLowQuality: isVeryLowQualityVoice(voice.name, jsonVoice.quality)
-          };
+          } as ReadiumSpeechVoice;
         }
 
         // No match found in JSON, create basic voice object
         return {
+          source: "browser",
           label: voice.name,
           name: voice.name,
           voiceURI: voice.voiceURI,
@@ -437,7 +440,7 @@ export class WebSpeechVoiceManager {
           offlineAvailability: voice.localService || false,
           isNovelty: isNoveltyVoice(voice.name, voice.voiceURI),
           isLowQuality: isVeryLowQualityVoice(voice.name)
-        };
+        } as ReadiumSpeechVoice;
       });
 
     // Remove duplicates before returning
@@ -482,6 +485,10 @@ export class WebSpeechVoiceManager {
                  (voiceAltLang && voiceAltLang.startsWith(reqBase));
         });
       });
+    }
+    
+    if (options.source) {
+      result = result.filter(v => v.source === options.source);
     }
 
     if (options.gender) {

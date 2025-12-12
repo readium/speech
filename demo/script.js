@@ -9,6 +9,7 @@ let currentWordHighlight = null;
 // DOM Elements
 const languageSelect = document.getElementById("language-select");
 const genderSelect = document.getElementById("gender-select");
+const sourceSelect = document.getElementById("source-select");
 const offlineOnlyCheckbox = document.getElementById("offline-only");
 const voiceSelect = document.getElementById("voice-select");
 const testUtteranceInput = document.getElementById("test-utterance");
@@ -130,6 +131,7 @@ function populateLanguageDropdown() {
 function filterVoices() {
   const language = languageSelect.value;
   const gender = genderSelect.value;
+  const source = sourceSelect.value;
   const offlineOnly = offlineOnlyCheckbox.checked;
 
   const filterOptions = {};
@@ -140,6 +142,10 @@ function filterVoices() {
   
   if (gender !== "all") {
     filterOptions.gender = gender;
+  }
+  
+  if (source !== "all") {
+    filterOptions.source = source;
   }
   
   if (offlineOnly) {
@@ -603,6 +609,11 @@ function displayVoiceProperties(voice) {
 
   // Update voices when gender filter changes
   genderSelect.addEventListener("change", () => {
+    filterVoices();
+  });
+
+  // Update voices when source filter changes
+  sourceSelect.addEventListener("change", () => {
     filterVoices();
   });
 
