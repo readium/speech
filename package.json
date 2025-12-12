@@ -20,7 +20,6 @@
     "types": "tsc -p tsconfig-types.json",
     "build": "vite build",
     "start": "node build/index.js",
-    "generate-voice-data": "node script/generate-voice-data.mjs",
     "serve": "http-server ./",
     "watch": "tsc -w"
   },
