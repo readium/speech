@@ -6,7 +6,10 @@
   "module": "./build/index.js",
   "types": "./build/index.d.ts",
   "sideEffects": false,
-  "files": ["build", "json"],
+  "files": [
+    "build",
+    "json"
+  ],
   "exports": {
     ".": {
       "types": "./build/index.d.ts",
@@ -28,7 +31,6 @@
   "devDependencies": {
     "@ava/typescript": "^6.0.0",
     "ava": "^6.4.0",
-    "cpy-cli": "^5.0.0",
     "http-server": "^14.1.1",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
