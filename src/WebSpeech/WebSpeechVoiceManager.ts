@@ -369,69 +369,49 @@ export class WebSpeechVoiceManager {
   }
 
   /**
-   * Find a browser voice in the voice data
-   * @private
-   */
-  private async findVoiceInData(browserVoice: SpeechSynthesisVoice): Promise<ReadiumSpeechVoice | undefined> {
-    if (!browserVoice?.lang) return undefined;
-    
-    try {
-      const browserLang = browserVoice.lang.toLowerCase();
-      const [baseLang] = browserLang.split("-");
-      
-      // Get voices for the base language
-      const voices = await getVoices(baseLang);
-      if (!voices || voices.length === 0) return undefined;
-      
-      // Try exact match first
-      const exactMatch = voices.find(voice => {
-        const voiceLang = voice.language?.toLowerCase();
-        const voiceAltLang = voice.altLanguage?.toLowerCase();
-        return voiceLang === browserLang || voiceAltLang === browserLang;
-      });
-      
-      if (exactMatch) return exactMatch;
-      
-      // Then try base language match
-      return voices.find(voice => {
-        const voiceLang = voice.language?.toLowerCase();
-        const voiceAltLang = voice.altLanguage?.toLowerCase();
-        return (voiceLang?.startsWith(baseLang)) || 
-               (voiceAltLang?.startsWith(baseLang));
-      });
-    } catch (error) {
-      console.error(`Error finding voice data for ${browserVoice.lang}:`, error);
-      return undefined;
-    }
-  }
-
-  /**
    * Convert SpeechSynthesisVoice array to ReadiumSpeechVoice array
    * @private
    */
   private parseToReadiumSpeechVoices(speechVoices: SpeechSynthesisVoice[]): ReadiumSpeechVoice[] {
     const parseAndFormatBCP47 = (lang: string) => {
-      const speechVoiceLang = lang.replace("_", "-");
+      const speechVoiceLang = lang.replace(/_/g, "-");
       if (/\w{2,3}-\w{2,3}/.test(speechVoiceLang)) {
         return `${speechVoiceLang.split("-")[0].toLowerCase()}-${speechVoiceLang.split("-")[1].toUpperCase()}`;
       }
       return lang;
     };
 
-    return speechVoices
+    // First, map all browser voices to ReadiumSpeechVoice format
+    const mappedVoices = speechVoices
       .filter(voice => voice && voice.name && voice.lang)
       .map(voice => {
         const formattedLang = parseAndFormatBCP47(voice.lang);
-        const [baseLang] = formattedLang.split("-");
+        const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(formattedLang);
         
         // Get voices for the specific language
         const langVoices = getVoices(baseLang);
         
-        // Try to find a matching voice by name
-        const jsonVoice = langVoices.find(v => 
-          v.name === voice.name || 
-          (v.altNames && v.altNames.some((name: string) => name === voice.name))
-        );
+        // Extract base name by removing anything in parentheses for matching
+        const baseName = voice.name.split("(")[0].trim();
+        
+        // Try to find a matching voice by name, including base name matching
+        const jsonVoice = langVoices.find(v => {
+          // Check direct name match
+          if (v.name === voice.name || v.name === baseName) return true;
+          
+          // Check alt names
+          if (v.altNames) {
+            return v.altNames.some((name: string) => {
+              const altBaseName = name.split("(")[0].trim();
+              return name === voice.name || 
+                     name === baseName ||
+                     altBaseName === voice.name ||
+                     altBaseName === baseName;
+            });
+          }
+          
+          return false;
+        });
 
         if (jsonVoice) {
           // Found a match in JSON data, merge with browser voice
@@ -459,6 +439,9 @@ export class WebSpeechVoiceManager {
           isLowQuality: isVeryLowQualityVoice(voice.name)
         };
       });
+
+    // Remove duplicates before returning
+    return this.removeDuplicate(mappedVoices);
   }
 
   /**
