@@ -17,7 +17,6 @@
   "scripts": {
     "test": "npm run build && ava test/WebSpeechVoiceManager.test.ts",
     "clean": "rimraf ./build",
-    "types": "tsc -p tsconfig-types.json",
     "build": "vite build",
     "start": "node build/index.js",
     "serve": "http-server ./",
