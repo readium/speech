@@ -1,7 +1,7 @@
 import { ReadiumSpeechPlaybackEngine } from '../engine';
 import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from '../navigator';
 import { ReadiumSpeechUtterance } from '../utterance';
-import { ReadiumSpeechVoice } from '../voices';
+import { ReadiumSpeechVoice } from '../voices/types';
 export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     private speechSynthesis;
     private speechSynthesisUtterance;
@@ -10,8 +10,8 @@ export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     private currentUtteranceIndex;
     private playbackState;
     private eventListeners;
+    private voiceManager;
     private voices;
-    private browserVoices;
     private defaultVoice;
     private resumeInfinityTimer?;
     private isSpeakingInternal;

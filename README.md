@@ -17,165 +17,269 @@ Readium Speech was spun out as a separate project in order to facilitate its int
 
 ## Current focus
 
-For our initial work on this project, we're focusing on voice selection based on [recommended voices](https://github.com/HadrienGardeur/web-speech-recommended-voices).
+For our initial work on this project, we focused on voice selection based on [recommended voices](https://github.com/HadrienGardeur/web-speech-recommended-voices).
 
 The outline of this work has been explored in a [GitHub discussion](https://github.com/HadrienGardeur/web-speech-recommended-voices/discussions/9) and through a [best practices document](https://github.com/HadrienGardeur/read-aloud-best-practices/blob/main/voice-selection.md).
 
-## Demo
+In the second phase, we focused on implementing a WebSpeech API-based solution with an architecture designed for future extensibility:
 
-[A live demo](https://readium.org/speech/demo/) of the voice selection API is available.
+- **Engine Layer**: Core TTS functionality through `ReadiumSpeechPlaybackEngine`
+- **Navigator Layer**: Content and playback management via (a temporary) `ReadiumSpeechNavigator`
+- **Current Implementation**: WebSpeech API with cross-browser compatibility
+- **Future-Proof Design**: Architecture prepared for additional TTS service adapters
 
-It demonstrates the following features:
+Key features include advanced voice selection, cross-browser playback control, flexible content loading, and comprehensive event handling for UI feedback. The architecture is designed to be extensible for different TTS backends while maintaining TypeScript-first development practices.
+
+## Demos
+
+Two live demos are available:
+
+1. [Voice selection with playback demo](https://readium.org/speech/demo)
+2. [In-context demo](https://readium.org/speech/demo/article)
+
+The first demo showcases the following features:
 
 - fetching a list of all available languages, translating them to the user's locale and sorting them based on these translations
 - returning a list of voices for a given language, grouped by region and sorted based on quality
 - filtering languages and voices based on gender and offline availability
 - using embedded test utterances to demo voices
+- using the current Navigator for playback control
+
+The second demo focuses on in-context reading with seamless voice selection (grouped by region and sorted based on quality), and playback control, providing an optional read-along experience that integrates naturally with the content.
 
 ## QuickStart
 
-At the moment, the new alpha version of the library is not published on npm, so you need to clone the repository and build it yourself.
+### Prerequisites
 
-```sh
-git clone https://github.com/readium/speech.git
-```
+- Node.js
+- npm
 
-```sh
-cd speech
-npm install
-npm run build
-```
+### Installation
 
-You can then link the library to your project, for example using `npm link`.
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/readium/speech.git
+   cd speech
+   ```
 
-```typescript
-import { getVoices } from "readium-speech";
-console.log(getVoices);
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-const voices = await getVoices();
-console.log(voices);
+3. Build the package:
+   ```bash
+   npm run build
+   ```
 
-```
+4. Link the package locally (optional, for development):
+   ```bash
+   npm link
+   # Then in your project directory:
+   # npm link readium-speech
+   ```
 
 ### Basic Usage
 
-Here's how to get started with the Readium Speech library:
-
 ```typescript
-import { WebSpeechReadAloudNavigator } from "readium-speech";
+import { WebSpeechVoiceManager } from "readium-speech";
 
-// Initialize the navigator with default WebSpeech engine
-const navigator = new WebSpeechReadAloudNavigator();
-
-// Load content to be read
-navigator.loadContent([
-  { text: "Hello, this is the first sentence.", language: "en-US" },
-  { text: "And this is the second sentence.", language: "en-US" }
-]);
-
-// Set up event listeners
-navigator.on("start", () => console.log("Playback started"));
-navigator.on("end", () => console.log("Playback finished"));
-
-// Start playback
-navigator.play();
-
-// Later, you can pause, resume, or stop
-// navigator.pause();
-// navigator.stop();
-
-// Clean up when done
-// navigator.destroy();
-```
-
-## Voices API
-
-### Interface 
-
-```typescript
-export interface ReadiumSpeechVoices {
-  label: string;
-  voiceURI: string;
-  name: string;
-  language: string;
-  gender?: TGender | undefined;
-  age?: string | undefined;
-  offlineAvailability: boolean;
-  quality?: TQuality | undefined;
-  pitchControl: boolean;
-  recommendedPitch?: number | undefined;
-  recommendedRate?: number | undefined;
+async function setupVoices() {
+  try {
+    // Initialize the voice manager
+    const voiceManager = await WebSpeechVoiceManager.initialize();
+    
+    // Get all available voices
+    const allVoices = voiceManager.getVoices();
+    console.log("Available voices:", allVoices);
+    
+    // Get voices with filters
+    const filteredVoices = voiceManager.getVoices({
+      language: ["en", "fr"],
+      gender: "female",
+      quality: "high",
+      offlineOnly: true,
+      excludeNovelty: true,
+      excludeVeryLowQuality: true
+    });
+    
+    // Get voices grouped by language
+    const voices = voiceManager.getVoices();
+    const groupedByLanguage = voiceManager.groupVoices(voices, "language");
+    
+    // Get a test utterance for a specific language
+    const testText = voiceManager.getTestUtterance("en");
+    
+  } catch (error) {
+    console.error("Error initializing voice manager:", error);
+  }
 }
 
-export interface ILanguages {
-  label: string;
+await setupVoices();
+```
+
+## API Reference
+
+### Class: WebSpeechVoiceManager
+
+The main class for managing Web Speech API voices with enhanced functionality.
+
+#### Initialize the Voice Manager
+
+```typescript
+static initialize(maxTimeout?: number, interval?: number): Promise<WebSpeechVoiceManager>
+```
+
+Creates and initializes a new WebSpeechVoiceManager instance. This static factory method must be called to create an instance.
+
+- `maxTimeout`: Maximum time in milliseconds to wait for voices to load (default: 10000ms)
+- `interval`: Interval in milliseconds between voice loading checks (default: 100ms)
+- Returns: Promise that resolves with a new WebSpeechVoiceManager instance
+
+#### Get Available Voices
+
+```typescript
+voiceManager.getVoices(options?: VoiceFilterOptions): ReadiumSpeechVoice[]
+```
+
+Fetches all available voices that match the specified filter criteria.
+
+```typescript
+interface VoiceFilterOptions {
+  language?: string | string[];  // Filter by language code(s) (e.g., "en", "fr")
+  source?: TSource;  // Filter by voice source ("json" | "browser")
+  gender?: TGender;  // "male" | "female" | "other"
+  quality?: TQuality | TQuality[];  // "high" | "medium" | "low" | "veryLow"
+  offlineOnly?: boolean;  // Only return voices available offline
+  provider?: string;  // Filter by voice provider
+  excludeNovelty?: boolean;  // Exclude novelty voices, true by default
+  excludeVeryLowQuality?: boolean;  // Exclude very low quality voices, true by default
+}
+```
+
+#### Filter Voices
+
+```typescript
+voiceManager.filterVoices(voices: ReadiumSpeechVoice[], options: VoiceFilterOptions): ReadiumSpeechVoice[]
+```
+
+Filters voices based on the specified criteria.
+
+#### Group Voices
+
+```typescript
+voiceManager.groupVoices(voices: ReadiumSpeechVoice[], groupBy: "language" | "region" | "gender" | "quality" | "provider"): VoiceGroup
+```
+
+Organizes voices into groups based on the specified criteria. The available grouping options are:
+
+- `"language"`: Groups voices by their language code
+- `"region"`: Groups voices by their region
+- `"gender"`: Groups voices by gender
+- `"quality"`: Groups voices by quality level
+- `"provider"`: Groups voices by their provider
+
+#### Sort Voices
+
+```typescript
+voiceManager.sortVoices(voices: ReadiumSpeechVoice[], options: SortOptions): ReadiumSpeechVoice[]
+```
+
+Arranges voices according to the specified sorting criteria. The `SortOptions` interface allows you to sort by various properties and specify sort order.
+
+```typescript
+interface SortOptions {
+  by: "name" | "language" | "gender" | "quality" | "region";
+  order?: "asc" | "desc";
+}
+```
+
+### Testing
+
+#### Get Test Utterance
+
+```typescript
+voiceManager.getTestUtterance(language: string): string
+```
+
+Retrieves a sample text string suitable for testing text-to-speech functionality in the specified language. If no sample text is available for the specified language, it returns an empty string.
+
+### Interfaces
+
+#### `ReadiumSpeechVoice`
+
+```typescript
+interface ReadiumSpeechVoice {
+  source: TSource;        // "json" | "browser"
+
+  // Core identification (required)
+  label: string;          // Human-friendly label for the voice
+  name: string;           // System/technical name (matches Web Speech API voiceURI)
+  voiceURI?: string;      // For Web Speech API compatibility
+  
+  // Localization
+  language: string;       // BCP-47 language tag
+  localizedName?: TLocalizedName; // Localization pattern (android/apple)
+  altNames?: string[];     // Alternative names (mostly for Apple voices)
+  altLanguage?: string;    // Alternative BCP-47 language tag
+  otherLanguages?: string[]; // Other languages this voice can speak
+  multiLingual?: boolean;  // If voice can handle multiple languages
+  
+  // Voice characteristics
+  gender?: TGender;       // Voice gender ("female" | "male" | "neutral")
+  children?: boolean;     // If this is a children's voice
+  
+  // Quality and capabilities
+  quality?: TQuality[];    // Available quality levels for this voice ("veryLow" | "low" | "normal" | "high" | "veryHigh")
+  pitchControl?: boolean;  // Whether pitch can be controlled
+  
+  // Performance settings
+  pitch?: number;         // Current pitch (0-2, where 1 is normal)
+  rate?: number;          // Speech rate (0.1-10, where 1 is normal)
+  
+  // Platform and compatibility
+  browser?: string[];     // Supported browsers
+  os?: string[];          // Supported operating systems
+  preloaded?: boolean;    // If the voice is preloaded on the system
+  nativeID?: string | string[]; // Platform-specific voice ID(s)
+  
+  // Additional metadata
+  note?: string;          // Additional notes about the voice
+  provider?: string;      // Voice provider (e.g., "Microsoft", "Google")
+  
+  // Allow any additional properties that might be in the JSON
+  [key: string]: any;
+}
+```
+
+#### `LanguageInfo`
+
+```typescript
+interface LanguageInfo {
   code: string;
+  label: string;
   count: number;
 }
 ```
 
-#### Parse and Extract ReadiumSpeechVoices from speechSynthesis WebAPI
+### Enums
+
+#### `TQuality`
 
 ```typescript
-function getVoices(preferredLanguage?: string[] | string, localization?: string): Promise<ReadiumSpeechVoices[]>
+type TQuality = "veryLow" | "low" | "normal" | "high" | "veryHigh";
 ```
 
-#### List languages from ReadiumSpeechVoices
+#### `TGender`
 
 ```typescript
-function getLanguages(voices: ReadiumSpeechVoices[], preferredLanguage?: string[] | string, localization?: string | undefined): ILanguages[]
+type TGender = "female" | "male" | "neutral";
 ```
 
-#### helpers
+#### `TSource`
 
 ```typescript
-function listLanguages(voices: ReadiumSpeechVoices[], localization?: string): ILanguages[]
-
-function ListRegions(voices: ReadiumSpeechVoices[], localization?: string): ILanguages[]
-
-function parseSpeechSynthesisVoices(speechSynthesisVoices: SpeechSynthesisVoice[]): ReadiumSpeechVoices[]
-
-function getSpeechSynthesisVoices(): Promise<SpeechSynthesisVoice[]>
-```
-
-#### groupBy
-
-```typescript
-function groupByKindOfVoices(allVoices: ReadiumSpeechVoices[]): TGroupVoices
-
-function groupByRegions(voices: ReadiumSpeechVoices[], language: string, preferredRegions?: string[] | string, localization?: string): TGroupVoices
-
-function groupByLanguage(voices: ReadiumSpeechVoices[], preferredLanguage?: string[] | string, localization?: string): TGroupVoices
-```
-
-#### sortBy
-
-```typescript
-function sortByLanguage(voices: ReadiumSpeechVoices[], preferredLanguage?: string[] | string): ReadiumSpeechVoices[]
-
-function sortByRegion(voices: ReadiumSpeechVoices[], preferredRegions?: string[] | string, localization?: string | undefined): ReadiumSpeechVoices[]
-
-function sortByGender(voices: ReadiumSpeechVoices[], genderFirst: TGender): ReadiumSpeechVoices[]
-
-function sortByName(voices: ReadiumSpeechVoices[]): ReadiumSpeechVoices[]
-
-function sortByQuality(voices: ReadiumSpeechVoices[]): ReadiumSpeechVoices[]
-```
-
-#### filterOn
-
-```typescript
-function filterOnRecommended(voices: ReadiumSpeechVoices[], _recommended?: IRecommended[]): TReturnFilterOnRecommended
-
-function filterOnVeryLowQuality(voices: ReadiumSpeechVoices[]): ReadiumSpeechVoices[]
-
-function filterOnNovelty(voices: ReadiumSpeechVoices[]): ReadiumSpeechVoices[]
-
-function filterOnQuality(voices: ReadiumSpeechVoices[], quality: TQuality | TQuality[]): ReadiumSpeechVoices[]
-
-function filterOnLanguage(voices: ReadiumSpeechVoices[], language: string | string[]): ReadiumSpeechVoices[]
-
-function filterOnGender(voices: ReadiumSpeechVoices[], gender: TGender): ReadiumSpeechVoices[]
+type TSource = "json" | "browser";
 ```
 
 ## Playback API

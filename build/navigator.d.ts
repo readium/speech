@@ -1,4 +1,4 @@
-import { ReadiumSpeechVoice } from './voices';
+import { ReadiumSpeechVoice } from './voices/types';
 import { ReadiumSpeechUtterance } from './utterance';
 export type ReadiumSpeechPlaybackState = "playing" | "paused" | "idle" | "loading" | "ready";
 export interface ReadiumSpeechPlaybackEvent {
@@ -7,7 +7,7 @@ export interface ReadiumSpeechPlaybackEvent {
 }
 export interface ReadiumSpeechNavigator {
     getVoices(): Promise<ReadiumSpeechVoice[]>;
-    setVoice(voice: ReadiumSpeechVoice | string): Promise<void>;
+    setVoice(voice: ReadiumSpeechVoice | string): void;
     getCurrentVoice(): ReadiumSpeechVoice | null;
     loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
     getCurrentContent(): ReadiumSpeechUtterance | null;

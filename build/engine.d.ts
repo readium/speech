@@ -1,6 +1,6 @@
 import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from './navigator';
 import { ReadiumSpeechUtterance } from './utterance';
-import { ReadiumSpeechVoice } from './voices';
+import { ReadiumSpeechVoice } from './voices/types';
 export interface ReadiumSpeechPlaybackEngine {
     loadUtterances(contents: ReadiumSpeechUtterance[]): void;
     setVoice(voice: ReadiumSpeechVoice | string): void;

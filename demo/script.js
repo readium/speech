@@ -1,214 +1,905 @@
+import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator, chineseVariantMap } from "../build/index.js";
 
-import { getSpeechSynthesisVoices, parseSpeechSynthesisVoices, filterOnNovelty, filterOnVeryLowQuality,
-  filterOnRecommended, sortByLanguage, sortByQuality, getVoices, groupByKindOfVoices, groupByRegions,
-  getLanguages, filterOnOfflineAvailability, listLanguages, filterOnGender, filterOnLanguage } from "../build/index.js";
+let samples = null;
 
-import * as lit from './lit-html_3-2-0_esm.js'
-const { html, render } = lit;
+const highlight = new Highlight();
+CSS.highlights.set("readium-speech-highlight", highlight);
+let currentWordHighlight = null;
 
-async function loadJSONData(url) {
-    try {
-        const response = await fetch(url);
-        const jsonData = JSON.parse(await response.text());
-        return jsonData;
-    } catch (error) {
-        console.error('Error loading JSON data:', error);
-        return null;
-    }
-}
+// DOM Elements
+const languageSelect = document.getElementById("language-select");
+const genderSelect = document.getElementById("gender-select");
+const sourceSelect = document.getElementById("source-select");
+const offlineOnlyCheckbox = document.getElementById("offline-only");
+const voiceSelect = document.getElementById("voice-select");
+const testUtteranceInput = document.getElementById("test-utterance");
+const playPauseBtn = document.getElementById("play-pause-btn");
+const stopBtn = document.getElementById("stop-btn");
+const testUtteranceBtn = document.getElementById("test-utterance-btn");
+const prevUtteranceBtn = document.getElementById("prev-utterance-btn");
+const nextUtteranceBtn = document.getElementById("next-utterance-btn");
+const jumpToBtn = document.getElementById("jump-to-btn");
+const utteranceIndexInput = document.getElementById("utterance-index");
+const totalUtterancesSpan = document.getElementById("total-utterances");
+const sampleTextDisplay = document.getElementById("sample-text");
 
-function downloadJSON(obj, filename) {
-    // Convert the JSON object to a string
-    const data = JSON.stringify(obj, null, 2);
+// Track if user has manually changed the jump input
+let jumpInputUserChanged = false;
 
-    // Create a blob from the string
-    const blob = new Blob([data], { type: "application/json" });
+// State
+let voiceManager;
+let allVoices = [];
+let filteredVoices = [];
+let languages = [];
+let currentVoice = null;
+let testUtterance = "";
+let lastNavigatorPosition = 1;
 
-    // Generate an object URL
-    const jsonObjectUrl = URL.createObjectURL(blob);
+const navigator = new WebSpeechReadAloudNavigator();
 
-    // Create an anchor element
-    const anchorEl = document.createElement("a");
-    anchorEl.href = jsonObjectUrl;
-    anchorEl.download = `${filename}.json`;
+// Set up event listeners for the navigator
+navigator.on("boundary", (event) => {
+  if (event.detail && event.detail.name === "word") {
+    highlightCurrentWord(event.detail.charIndex, event.detail.charLength);
+  }
+});
 
-    // Simulate a click on the anchor element
-    anchorEl.click();
+navigator.on("start", () => {
+  clearWordHighlighting();
+  updateUI();
+});
 
-    // Revoke the object URL
-    URL.revokeObjectURL(jsonObjectUrl);
-}
+navigator.on("pause", updateUI);
+navigator.on("resume", updateUI);
+navigator.on("stop", () => {
+  clearWordHighlighting();
+  updateUI();
+});
 
-const viewRender = () => render(content(), document.body);
+navigator.on("end", updateUI);
+navigator.on("error", (event) => {
+  console.error("Navigator error:", event.detail);
+  updateUI();
+});
 
-const voices = await getVoices();
-console.log(voices);
+// Initialize the application
+async function init() {
+  try {    
+    // Initialize the voice manager
+    voiceManager = await WebSpeechVoiceManager.initialize();
 
-const languages = getLanguages(voices);
-
-let voicesFiltered = voices;
-let languagesFiltered = languages;
-
-let textToRead = "";
-let textToReadFormated = "";
-
-let selectedLanguage = undefined;
-
-let voicesSelectElem = [];
-
-let selectedVoice = "";
-
-let selectedGender = "all";
-
-let checkboxOfflineChecked = false;
-
-const readTextWithSelectedVoice = () => {
-    const voices = window.speechSynthesis.getVoices();
-
-    const utterance = new SpeechSynthesisUtterance();
-    utterance.text = textToReadFormated;
-
-    for (const voice of voices) {
-        if (voice.name === selectedVoice) {
-            utterance.voice = voice;
-            utterance.lang = voice.lang;
-            break;
-        }
-    }
-
-    if (!utterance.voice) {
-        console.error("Speech : Voice NOT FOUND");
-        alert("voice not found");
-    } 
-
-    console.log("Speech", utterance);
+    const initOptions = {
+      excludeNovelty: true,
+      excludeVeryLowQuality: true
+    };
     
-
-    speechSynthesis.speak(utterance);
-}
-
-const filterVoices = () => {
-
-    voicesFiltered = voices;
+    // Load all available voices
+    allVoices = voiceManager.getVoices(initOptions);
     
-    if (selectedGender !== "all") {
-        voicesFiltered = filterOnGender(voicesFiltered, selectedGender);
-    }
-
-    if (checkboxOfflineChecked) {
-        voicesFiltered = filterOnOfflineAvailability(voicesFiltered, true);
-    }
-
-    languagesFiltered = getLanguages(voicesFiltered);
-
-    const voicesFilteredOnLanguage = filterOnLanguage(voicesFiltered, selectedLanguage);
-    const voicesGroupedByRegions = groupByRegions(voicesFilteredOnLanguage);
+    // Get languages, excluding novelty and very low quality voices
+    const allLanguages = voiceManager.getLanguages(window.navigator.language, initOptions);
     
-    voicesSelectElem = listVoicesWithLanguageSelected(voicesGroupedByRegions);
-
-    viewRender();
-} 
-
-const setSelectVoice = (name) => {
-
-    selectedVoice = name;
-    textToReadFormated = textToRead.replace("{name}", selectedVoice);
-}
-
-const languageSelectOnChange = async (ev) => {
-
-    selectedLanguage = ev.target.value;
-
-    const jsonData = await loadJSONData("https://raw.githubusercontent.com/HadrienGardeur/web-speech-recommended-voices/main/json/" + selectedLanguage + ".json");
-
-    textToRead = jsonData?.testUtterance || "";
-
-    filterVoices();
-}
-
-const listVoicesWithLanguageSelected = (voiceMap) => {
-
-    const elem = [];
-    selectedVoice = "";
-
-    for (const [region, voice] of voiceMap) {
-        const option = [];
-
-        for (const {name, label} of voice) {
-            option.push(html`<option value=${name} ?default=${!selectedVoice}>${label}</option>`);
-            if (!selectedVoice) setSelectVoice(name);
-        }
-        elem.push(html`
-        <optgroup label=${region}>
-            ${option}
-        </optgroup>
-        `)
+    // Sort languages with browser's preferred languages first
+    languages = voiceManager.sortVoices(
+      allLanguages.map(lang => ({
+        ...lang,
+        language: lang.code,
+        name: lang.label
+      })),
+      { 
+        by: "language",
+        order: "asc",
+        preferredLanguages: window.navigator.languages
       }
-
-    return elem;
+    ).map(voice => ({
+      code: voice.language,
+      label: voice.name,
+      count: voice.count
+    }));
+    
+    // Populate language dropdown
+    populateLanguageDropdown();
+    
+    // Set up event listeners
+    setupEventListeners();
+    
+    // Update UI
+    updateUI();
+    
+  } catch (error) {
+    console.error("Error initializing application:", error);
+    const errorDiv = document.createElement("div");
+    errorDiv.style.color = "red";
+    errorDiv.textContent = "Error loading voices. Please check console for details.";
+    document.body.prepend(errorDiv);
+  }
 }
 
-const aboutVoice = () => {
-    return html`
-        <fieldset>
-            <pre>${JSON.stringify(voicesFiltered.filter(({name}) => name === selectedVoice), null, 4)}</pre>
-        </fieldset>
-    `;
-}
-
-const getVoicesInputForDebug = () => {
-    const a = window.speechSynthesis.getVoices() || [];
-    return a.map(({ default: def, lang, localService, name, voiceURI}) => ({default: def, lang, localService, name, voiceURI}));
-}
-
-const content = () => html`
-<h1>ReadiumSpeech</h1>
-
-<p>Language :</p>
-<select id="language-select" @change=${languageSelectOnChange}>
-    ${!selectedLanguage ? html`<option id="default-language-select" default>Select a language</option>` : null}
-    ${languagesFiltered.map(({code, label, count}) => html`<option value=${code}>${`${label} (${count})`}</option>`)}
-</select>
-
-<p>Voices :</p>
-<select id="voice-select" @change=${(e) => {
-    setSelectVoice(e.target.value || "");
-    viewRender();
-}}>
-    ${voicesSelectElem}
-</select>
-
-<p>Gender : </p>
-<select id="gender-select" @change=${(e) => {
-    selectedGender = e.target.value;
-    filterVoices();
-}}>
-    ${["all", "male", "female", "neutral"].map((v, i) => html`<option ?default=${i === 0} value=${v}>${v}</option>`)}
-</select>
-
-<p>Filter : </p>
-<div class="checkbox">
-    <input id="offline-checkbox" type="checkbox" @change=${(e) => {
-        checkboxOfflineChecked = e.target.checked;
-        filterVoices();
-    }}></input>
-    <label for="offline-checkbox">Filter on voice available offline</label>
-</div>
+// Populate the language dropdown
+function populateLanguageDropdown() {
+  languageSelect.innerHTML = "<option value='' disabled selected>Select a language</option>";
   
-<p>Text :</p>
-<input type="text" id="text-to-read" class="txt" .value=${textToReadFormated} @input=${(e) => textToReadFormated = e.target.value ? e.target.value : textToReadFormated}></input>
+  languages.forEach(lang => {
+    const option = document.createElement("option");
+    option.value = lang.code;
+    option.textContent = `${lang.label} (${lang.count})`;
+    languageSelect.appendChild(option);
+  });
+}
 
-<div class="controls">
-    <button id="read-button" @click=${selectedVoice ? readTextWithSelectedVoice : undefined}>Read aloud</button>
-</div>
+// Filter voices based on current filters
+function filterVoices() {
+  const language = languageSelect.value;
+  const gender = genderSelect.value;
+  const source = sourceSelect.value;
+  const offlineOnly = offlineOnlyCheckbox.checked;
 
-<div class="aboutVoice">
-    ${selectedVoice ? aboutVoice() : undefined}
-</div>
+  const filterOptions = {};
+  
+  if (language) {
+    filterOptions.language = language;
+  }
+  
+  if (gender !== "all") {
+    filterOptions.gender = gender;
+  }
+  
+  if (source !== "all") {
+    filterOptions.source = source;
+  }
+  
+  if (offlineOnly) {
+    filterOptions.offlineOnly = true;
+  }
+  
+  // Apply filters
+  filteredVoices = voiceManager.filterVoices(allVoices, filterOptions);
+  
+  // Sort voices by quality (highest first)
+  filteredVoices = voiceManager.sortVoices(filteredVoices, {
+    by: "quality",
+    order: "desc"
+  });
+  populateVoiceDropdown(language);
+  updateUI();
+}
 
-<div class="debug">
-    <button @click=${() => downloadJSON({ input: getVoicesInputForDebug(), output: voices })}>Download Voices for DEBUG Only</button>
-</div>
+// Populate the voice dropdown with filtered voices
+function populateVoiceDropdown(language = "") {
+  voiceSelect.innerHTML = "<option value='' disabled selected>Select a voice</option>";
+  
+  try {
+    if (!filteredVoices.length) {
+      const option = document.createElement("option");
+      option.disabled = true;
+      option.textContent = "No voices match the current filters";
+      voiceSelect.appendChild(option);
+      return;
+    }
 
-`;
-viewRender();
+    // Sort voices with browser's preferred languages first
+    const sortedVoices = voiceManager.sortVoices([...filteredVoices], { 
+      by: "language",
+      order: "asc",
+      preferredLanguages: window.navigator.languages
+    });
+
+    // Group the sorted voices by region
+    const voiceGroups = voiceManager.groupVoices(sortedVoices, "region");
+
+    // Add optgroups for each region
+    for (const [region, voices] of Object.entries(voiceGroups)) {
+      if (!voices.length) continue;
+      
+      const countryCode = region.split("-").pop() || region;
+      const regionName = new Intl.DisplayNames(window.navigator.languages, { type: "region" }).of(countryCode) || region;
+      const optgroup = document.createElement("optgroup");
+      optgroup.label = `${getCountryFlag(countryCode)} ${regionName}`;
+      
+      // Sort voices by quality within each region
+      const sortedVoicesInRegion = voiceManager.sortVoices(voices, { 
+        by: "quality",
+        order: "desc"
+      });
+      
+      for (const voice of sortedVoicesInRegion) {
+        const option = document.createElement("option");
+        option.value = voice.name;
+        option.textContent = [
+          voice.label || voice.name,
+          voice.gender ? `• ${voice.gender}` : "",
+          voice.offlineAvailability ? "• offline" : "• online"
+        ].filter(Boolean).join(" ");
+        option.dataset.voiceUri = voice.voiceURI;
+        optgroup.appendChild(option);
+      }
+      
+      voiceSelect.appendChild(optgroup);
+    }
+    
+    // If we have a current voice, try to select it
+    if (currentVoice) {
+      const option = voiceSelect.querySelector(`option[data-voice-uri="${currentVoice.voiceURI}"]`);
+      if (option) {
+        option.selected = true;
+      }
+    }
+    
+    // Only show error message if we don't have any valid voice options
+    const hasValidOptions = Array.from(voiceSelect.options).some(opt => !opt.disabled);
+    if (!hasValidOptions) {
+      const option = document.createElement("option");
+      option.disabled = true;
+      option.textContent = "No voices available. Please check your browser settings and internet connection.";
+      voiceSelect.appendChild(option);
+    }
+  } catch (error) {
+    console.error("Error populating voice dropdown:", error);
+    // Log the error but don't add any error message to the dropdown
+  }
+  
+  // Helper function to get country flag emoji from country code
+  function getCountryFlag(countryCode) {
+    if (!countryCode) return "🌐";
+    
+    // Convert country code to flag emoji
+    try {
+      const codePoints = countryCode
+        .toUpperCase()
+        .split("")
+        .map(char => 127397 + char.charCodeAt(0));
+      
+      return String.fromCodePoint(...codePoints);
+    } catch (e) {
+      console.warn("Could not generate flag for country code:", countryCode);
+      return "🌐";
+    }
+  }
+}
+
+// Load sample text for the selected language
+async function loadSampleText(languageCode) {
+  try {
+    // Show loading state
+    sampleTextDisplay.innerHTML = "<div class='loading'>Loading text...</div>";
+    
+    // Load sample texts if not already loaded
+    if (!samples) {
+      const response = await fetch("sampleText.json");
+      if (!response.ok) {
+        throw new Error("Failed to load sample texts");
+      }
+      samples = await response.json();
+    }
+    
+    // Normalize the language code to lowercase for case-insensitive comparison
+    const langLower = languageCode.toLowerCase();
+    
+    // Function to find a case-insensitive match in the samples
+    const findCaseInsensitiveMatch = (lang) => {
+      const normalizedLang = lang.toLowerCase();
+      const matchingKey = Object.keys(samples).find(key => key.toLowerCase() === normalizedLang);
+      return matchingKey ? samples[matchingKey]?.text : null;
+    };
+    
+    // Try direct case-insensitive match first
+    let sampleText = findCaseInsensitiveMatch(languageCode);
+    
+    // Try with Chinese variant mapping if no direct match
+    if (!sampleText) {
+      const mappedLang = chineseVariantMap[langLower];
+      if (mappedLang) {
+        sampleText = samples[mappedLang]?.text;
+      }
+    }
+    
+    // If still no match, try with base language
+    if (!sampleText) {
+      const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(languageCode);
+      const baseLangLower = baseLang.toLowerCase();
+      
+      // Try case-insensitive match with base language
+      sampleText = findCaseInsensitiveMatch(baseLang);
+      
+      // Try Chinese variant mapping for base language if still no match
+      if (!sampleText && chineseVariantMap[baseLangLower]) {
+        sampleText = samples[chineseVariantMap[baseLangLower]]?.text;
+      }
+    }
+    
+    // If no match found, return a message
+    if (!sampleText) {
+      return `No sample text available for language: ${languageCode}`;
+    }
+    
+    // Create utterances from the sample text
+    const utterances = createUtterancesFromText(sampleText);
+    
+    // Clear any existing content
+    sampleTextDisplay.innerHTML = "";
+    
+    // Create a demo section container
+    const demoSection = document.createElement("div");
+    demoSection.className = "demo-section";
+    
+    // Add a heading
+    const heading = document.createElement("h2");
+    heading.textContent = "Content Preview";
+    demoSection.appendChild(heading);
+    
+    // Create a container for the utterances list
+    const utterancesList = document.createElement("div");
+    utterancesList.className = "utterances-list";
+    
+    // Add each utterance with number indicator
+    utterances.forEach((utterance, index) => {
+      const utteranceElement = document.createElement("div");
+      utteranceElement.className = `utterance ${index === 0 ? "current" : ""}`;
+      utteranceElement.dataset.utteranceIndex = index;
+      
+      // Add utterance number
+      const numberSpan = document.createElement("span");
+      numberSpan.className = "utterance-number";
+      numberSpan.textContent = `${index + 1}.`;
+      
+      // Add text content
+      const textSpan = document.createElement("span");
+      textSpan.className = "utterance-text";
+      textSpan.dataset.utteranceId = utterance.id;
+      textSpan.textContent = utterance.text;
+      
+      // Assemble the elements
+      utteranceElement.appendChild(numberSpan);
+      utteranceElement.appendChild(textSpan);
+      
+      utterancesList.appendChild(utteranceElement);
+    });
+    
+    // Assemble the section
+    demoSection.appendChild(utterancesList);
+    sampleTextDisplay.appendChild(demoSection);
+    
+    // Load utterances into the navigator
+    await navigator.loadContent(utterances);
+    
+    // Update total utterances display
+    const totalUtterancesSpan = document.getElementById("total-utterances");
+    if (totalUtterancesSpan) {
+      totalUtterancesSpan.textContent = utterances.length;
+    }
+    
+    // Update UI to enable playback controls
+    updateUI();
+    
+    // Update utterance input
+    if (utteranceIndexInput) {
+      utteranceIndexInput.max = utterances.length;
+      utteranceIndexInput.value = "1";
+    }
+  } catch (error) {
+    console.error("Error loading sample text:", error);
+    sampleTextDisplay.textContent = "Error loading sample text";
+  }
+}
+
+// Update the test utterance based on the current voice and language
+function updateTestUtterance(voice, languageCode) {
+  if (!voice) {
+    testUtterance = "";
+    testUtteranceInput.value = "";
+    testUtteranceBtn.disabled = true;
+    return;
+  }
+
+  // Use the voice's language as the primary source, fall back to the language selector, then default to "en"
+  const language = voice.language || languageCode || "en";
+  const baseUtterance = voiceManager.getTestUtterance(language) || 
+                      `This is a test of the {name} voice.`;
+  testUtterance = baseUtterance.replace(/\{\s*name\s*\}/g, voice.label || voice.name || "this voice");
+  testUtteranceInput.value = testUtterance;
+  testUtteranceBtn.disabled = false;
+}
+
+// Create utterances from text with better sentence splitting
+function createUtterancesFromText(text) {
+  // Use Intl.Segmenter for proper sentence segmentation
+  const segmenter = new Intl.Segmenter(languageSelect.value || "en", { 
+    granularity: "sentence" 
+  });
+  
+  // Convert segments to array and extract text
+  const sentences = Array.from(segmenter.segment(text), 
+    ({ segment }) => segment.trim()
+  ).filter(Boolean); // Remove any empty strings
+  
+  // Create utterances from sentences
+  return sentences.map((sentence, index) => ({
+    id: `utterance-${index}`,
+    text: sentence,
+    language: languageSelect.value || "en"
+  }));
+}
+
+// Set up event listeners
+function setupEventListeners() {
+  // Language selection
+  languageSelect.addEventListener("change", async () => {
+    const baseLanguage = languageSelect.value;
+    
+    // Reset voice selection and clear test utterance
+    voiceSelect.disabled = false;
+    currentVoice = null;
+    testUtterance = "";
+    testUtteranceInput.value = "";
+    testUtteranceBtn.disabled = true;
+    
+    // Clear voice properties
+    displayVoiceProperties(null);
+    
+    // Filter voices for the selected language
+    filterVoices();
+    
+    // Get the default voice for the selected language using pre-filtered voices
+    if (baseLanguage) {
+      // Find the first matching language from the user's preferences
+      const preferredLanguage = (window.navigator.languages || [window.navigator.language] || [])
+        .find(lang => lang && lang.startsWith(baseLanguage)) || baseLanguage;
+        
+      currentVoice = voiceManager.getDefaultVoice(
+        preferredLanguage, 
+        filteredVoices.length ? filteredVoices : undefined
+      );
+      
+      if (currentVoice) {
+        try {
+          // Set the voice for the navigator
+          navigator.setVoice(currentVoice);
+          
+          // Update the voice dropdown to reflect the selected voice
+          const voiceOption = voiceSelect.querySelector(`option[value="${currentVoice.name}"]`);
+          if (voiceOption) {
+            voiceOption.selected = true;
+          }
+          
+          // Display voice properties
+          displayVoiceProperties(currentVoice);
+          
+          // Update the test utterance with the new voice
+          updateTestUtterance(currentVoice, languageCode);
+          
+        } catch (error) {
+          console.error("Error setting default voice:", error);
+        }
+      }
+    }
+    
+    // Load sample text using the voice's language code if available, otherwise use the selector's value
+    const languageToUse = currentVoice?.language || languageCode;
+    loadSampleText(languageToUse);
+    
+    updateUI();
+  });
+  
+  /**
+ * Format a value for display in the voice properties
+ */
+function formatValue(value) {
+  if (value === undefined || value === null) {
+    return { display: "undefined", className: "undefined" };
+  }
+  
+  if (typeof value === "boolean") {
+    return { 
+      display: value ? "true" : "false", 
+      className: `boolean-${value}` 
+    };
+  }
+  
+  if (Array.isArray(value)) {
+    return { 
+      display: value.length > 0 ? value.join(", ") : "[]",
+      className: ""
+    };
+  }
+  
+  if (typeof value === "object") {
+    return { 
+      display: JSON.stringify(value, null, 2).replace(/"/g, ""),
+      className: "object-value"
+    };
+  }
+  
+  return { display: String(value), className: "" };
+}
+
+/**
+ * Display voice properties in the UI
+ */
+function displayVoiceProperties(voice) {
+  const propertiesContainer = document.getElementById("voice-properties");
+  
+  if (!voice) {
+    propertiesContainer.innerHTML = "<p>No voice selected</p>";
+    return;
+  }
+  
+  // Sort properties alphabetically
+  const sortedProps = Object.keys(voice).sort();
+  
+  // Create HTML for each property
+  const propertiesHtml = sortedProps.map(prop => {
+    // Skip internal/private properties that start with underscore
+    if (prop.startsWith("_")) return "";
+    
+    const value = voice[prop];
+    const { display, className } = formatValue(value);
+    
+    return `
+      <div class="voice-property">
+        <div class="voice-property-name">${prop}</div>
+        <div class="voice-property-value ${className}">${display}</div>
+      </div>
+    `;
+  }).join("");
+  
+  propertiesContainer.innerHTML = propertiesHtml || "<p>No properties available</p>";
+}
+
+  // Voice selection
+  voiceSelect.addEventListener("change", async () => {
+    const selectedVoiceName = voiceSelect.value;
+    currentVoice = filteredVoices.find(v => v.name === selectedVoiceName) || null;
+    
+    if (currentVoice) {
+      try {
+        // Set the voice for the navigator
+        navigator.setVoice(currentVoice);
+        
+        // Display voice properties
+        displayVoiceProperties(currentVoice);
+        
+        // Update the test utterance with the new voice
+        updateTestUtterance(currentVoice, currentVoice.language || languageSelect.value);
+        
+        // Load sample text using the voice's language code (fire and forget)
+        loadSampleText(currentVoice.language || languageSelect.value);
+      } catch (error) {
+        console.error("Error setting voice:", error);
+      }
+    } else {
+      if (testUtteranceBtn) {
+        testUtteranceBtn.disabled = true;
+      }
+    }
+    
+    updateUI();
+  });
+
+  // Test utterance button
+  testUtteranceBtn.addEventListener("click", playTestUtterance);
+
+  // Play/Pause button (for sample text)
+  playPauseBtn.addEventListener("click", togglePlayback);
+  playPauseBtn.disabled = !currentVoice;
+
+  // Stop button (for sample text)
+  stopBtn.addEventListener("click", stopPlayback);
+  stopBtn.disabled = !currentVoice;
+
+  // Previous utterance button
+  prevUtteranceBtn.addEventListener("click", previousUtterance);
+
+  // Next utterance button
+  nextUtteranceBtn.addEventListener("click", nextUtterance);
+
+  // Jump to utterance button
+  jumpToBtn.addEventListener("click", jumpToUtterance);
+  
+  // Handle Enter key in jump input
+  utteranceIndexInput.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      jumpToUtterance();
+    }
+  });
+  
+  // Track manual changes to jump input
+  utteranceIndexInput.addEventListener("input", () => {
+    jumpInputUserChanged = true;
+  });
+
+  // Update voices when gender filter changes
+  genderSelect.addEventListener("change", () => {
+    filterVoices();
+  });
+
+  // Update voices when source filter changes
+  sourceSelect.addEventListener("change", () => {
+    filterVoices();
+  });
+
+  // Update voices when offline filter changes
+  offlineOnlyCheckbox.addEventListener("change", () => {
+    filterVoices();
+  });
+
+  // Update test utterance when language changes
+  languageSelect.addEventListener("change", () => {
+    if (languageSelect.value) {
+      updateTestUtterance(currentVoice, languageSelect.value);
+    }
+  });
+}
+
+// Play test utterance - independent of the navigator
+async function playTestUtterance() {
+  if (!currentVoice) {
+    console.error("No voice selected");
+    return;
+  }
+  
+  try {
+    // Reset playback controls first
+    if (navigator) {
+      navigator.stop();
+    }
+    
+    // Get test utterance for the selected language
+    let testText = testUtteranceInput.value;
+    if (!testText) {
+      updateTestUtterance(currentVoice, languageSelect.value);
+      testText = testUtteranceInput.value;
+    }
+    
+    // Create a new SpeechSynthesisUtterance
+    const utterance = new SpeechSynthesisUtterance(testText);
+    
+    // Convert the ReadiumSpeechVoice to a native SpeechSynthesisVoice
+    const nativeVoice = voiceManager.convertToSpeechSynthesisVoice(currentVoice);
+    if (nativeVoice) {
+      utterance.voice = nativeVoice;
+      utterance.lang = nativeVoice.lang;
+    }
+    
+    // Update UI state
+    testUtteranceBtn.disabled = true;
+    testUtteranceBtn.textContent = "Playing...";
+    
+    // Handle when speech ends
+    utterance.onend = () => {
+      testUtteranceBtn.disabled = false;
+      testUtteranceBtn.textContent = "Play Test Utterance";
+    };
+    
+    // Handle errors
+    utterance.onerror = (event) => {
+      console.error("SpeechSynthesis error:", event);
+      testUtteranceBtn.disabled = false;
+      testUtteranceBtn.textContent = "Play Test Utterance";
+    };
+    
+    // Speak the utterance directly
+    speechSynthesis.speak(utterance);
+    
+  } catch (error) {
+    console.error("Error playing test utterance:", error);
+    testUtteranceBtn.textContent = "Play Test Utterance";
+    testUtteranceBtn.disabled = false;
+  }
+}
+
+// Toggle sample text playback
+async function togglePlayback() {
+  if (!currentVoice) {
+    console.error("No voice selected");
+    return;
+  }
+
+  try {
+    const state = navigator.getState();
+    if (state === "playing") {
+      await navigator.pause();
+    } else if (state === "paused") {
+      // Use play() to resume from paused state
+      await navigator.play();
+    } else {
+      // Start from beginning if stopped or in an unknown state
+      await navigator.jumpTo(0);
+      await navigator.play();
+    }
+  } catch (error) {
+    console.error("Error toggling playback:", error);
+  }
+  
+  // Update the UI to reflect the new state
+  updateUI();
+}
+
+// Stop sample playback
+async function stopPlayback() {
+  try {
+    await navigator.stop();
+    clearWordHighlighting();
+    playPauseBtn.textContent = "Play Sample";
+    updateUI();
+  } catch (error) {
+    console.error("Error stopping playback:", error);
+  }
+}
+
+// Go to previous utterance
+async function previousUtterance() {
+  await navigator.previous();
+  updateUI();
+}
+
+// Go to next utterance
+async function nextUtterance() {
+  await navigator.next();
+  updateUI();
+}
+
+// Jump to a specific utterance
+function jumpToUtterance() {
+  const totalUtterances = navigator.getContentQueue()?.length || 0;
+  
+  // Ensure we have a valid input value
+  const index = Math.max(0, Math.min(parseInt(utteranceIndexInput.value) - 1, totalUtterances - 1));
+  
+  if (!isNaN(index) && index >= 0 && index < totalUtterances) {
+    clearWordHighlighting();
+    navigator.jumpTo(index);
+    
+    // Update UI to reflect the new position
+    if (utteranceIndexInput) {
+      utteranceIndexInput.value = index + 1;
+    }
+    
+    // Update total utterances display if needed
+    if (totalUtterancesSpan) {
+      totalUtterancesSpan.textContent = totalUtterances;
+    }
+    
+    // Clear user changed flag and update position tracking
+    jumpInputUserChanged = false;
+    lastNavigatorPosition = index + 1;
+    
+    // Update input to reflect the new position
+    utteranceIndexInput.value = lastNavigatorPosition;
+  } else {
+    // Invalid input, reset to current position
+    const currentPos = (navigator.getCurrentUtteranceIndex() || 0) + 1;
+    utteranceIndexInput.value = currentPos;
+    jumpInputUserChanged = false;
+    lastNavigatorPosition = currentPos;
+    
+    // Ensure total is displayed
+    if (totalUtterancesSpan && totalUtterances > 0) {
+      totalUtterancesSpan.textContent = totalUtterances;
+    }
+  }
+}
+
+// Clear any previous highlighting
+function clearWordHighlighting() {
+  if (window.CSS?.highlights) {
+    CSS.highlights.clear();
+  }
+}
+
+// Highlight current word in the sample text
+function highlightCurrentWord(charIndex, charLength) {
+  // Clear previous highlighting
+  clearWordHighlighting();
+  
+  // Get the current utterance element
+  const currentIndex = navigator.getCurrentUtteranceIndex();
+  const utteranceElement = document.querySelector(`.utterance[data-utterance-index="${currentIndex}"] .utterance-text`);
+  if (!utteranceElement) return;
+  
+  const text = utteranceElement.textContent;
+  if (charIndex < 0 || charIndex >= text.length) return;
+  
+  // Create a range for the current word
+  const range = document.createRange();
+  const textNode = utteranceElement.firstChild || utteranceElement;
+  
+  try {
+    range.setStart(textNode, charIndex);
+    range.setEnd(textNode, charIndex + charLength);
+    
+    // Use CSS Highlight API
+    const highlight = new Highlight(range);
+    CSS.highlights.set("current-word", highlight);
+    
+    // Update current word highlight
+    currentWordHighlight = {
+      utteranceIndex: currentIndex,
+      charIndex: charIndex,
+      charLength: charLength,
+      range: range
+    };
+  } catch (e) {
+    console.error("Error highlighting word:", e);
+  }
+}
+
+// Update UI based on current state
+function updateUI() {
+  try {
+    const state = navigator.getState();
+    const currentIndex = navigator.getCurrentUtteranceIndex() || 0;
+    const totalUtterances = navigator.getContentQueue()?.length || 0;
+    const hasContent = totalUtterances > 0;
+    
+    // Update playback controls
+    if (playPauseBtn) {
+      playPauseBtn.disabled = !currentVoice || !hasContent;
+      if (state === "playing") {
+        playPauseBtn.innerHTML = "⏸️ Pause";
+        playPauseBtn.classList.remove("play-state");
+        playPauseBtn.classList.add("pause-state");
+      } else {
+        playPauseBtn.innerHTML = "▶️ Play";
+        playPauseBtn.classList.remove("pause-state");
+        playPauseBtn.classList.add("play-state");
+      }
+    }
+    
+    // Update stop button
+    if (stopBtn) {
+      stopBtn.disabled = !currentVoice || !hasContent || (state !== "playing" && state !== "paused");
+    }
+    
+    // Update navigation controls
+    if (prevUtteranceBtn) {
+      prevUtteranceBtn.disabled = !currentVoice || !hasContent || currentIndex <= 0;
+    }
+    
+    if (nextUtteranceBtn) {
+      nextUtteranceBtn.disabled = !currentVoice || !hasContent || currentIndex >= totalUtterances - 1;
+    }
+    
+    // Update jump controls
+    if (utteranceIndexInput) {
+      utteranceIndexInput.disabled = !currentVoice || !hasContent;
+      if (!jumpInputUserChanged && hasContent) {
+        utteranceIndexInput.value = currentIndex + 1;
+      }
+    }
+    
+    if (jumpToBtn) {
+      jumpToBtn.disabled = !currentVoice || !hasContent;
+    }
+    
+    // Update test utterance button
+    if (testUtteranceBtn) {
+      testUtteranceBtn.disabled = !currentVoice;
+    }
+    
+    // Update utterance highlighting and scroll to current position
+    if (hasContent) {
+      const utteranceElements = document.querySelectorAll(".utterance");
+      utteranceElements.forEach((el, i) => {
+        if (i === currentIndex) {
+          el.classList.add("current");
+          el.classList.remove("played");
+        } else if (i < currentIndex) {
+          el.classList.add("played");
+          el.classList.remove("current");
+        } else {
+          el.classList.remove("current", "played");
+        }
+      });
+    }
+  } catch (error) {
+    console.error("Error updating UI:", error);
+  }
+}
+
+// Initialize the application
+init().then(() => {
+  // If there's a default voice selected after initialization, display its properties
+  if (currentVoice) {
+    displayVoiceProperties(currentVoice);
+  }
+});
