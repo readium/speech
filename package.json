@@ -2,15 +2,26 @@
   "name": "@readium/speech",
   "version": "0.1.0-beta.1",
   "description": "Readium Speech is a TypeScript library for implementing a read aloud feature with Web technologies. It follows [best practices](https://github.com/HadrienGardeur/read-aloud-best-practices) gathered through interviews with members of the digital publishing industry.",
-  "main": "build/index.js",
-  "module": "build/index.js",
+  "main": "./build/index.cjs",
+  "module": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "build",
+    "json"
+  ],
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js",
+      "require": "./build/index.cjs"
+    }
+  },
   "scripts": {
-    "test": "ava test/**/*.test.ts",
+    "test": "npm run build && ava test/WebSpeechVoiceManager.test.ts",
     "clean": "rimraf ./build",
-    "types": "tsc -p tsconfig-types.json",
     "build": "vite build",
     "start": "node build/index.js",
-    "extract-json-data": "node script/extract-json.mjs",
     "serve": "http-server ./",
     "watch": "tsc -w"
   },
@@ -20,7 +31,6 @@
   "devDependencies": {
     "@ava/typescript": "^6.0.0",
     "ava": "^6.4.0",
-    "cpy-cli": "^5.0.0",
     "http-server": "^14.1.1",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",

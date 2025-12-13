@@ -1,0 +1,32 @@
+name: Validate JSON Schema
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+    paths:
+      - "json/**/*.json"
+  pull_request:
+    branches:
+      - main
+      - develop
+    paths:
+      - "json/**/*.json"
+  workflow_dispatch:
+
+jobs:
+  validate-json:
+    name: Validate JSON Schema
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Validate JSON against schema
+        uses: dsanders11/json-schema-validate-action@v1.4.0
+        with:
+          schema: "./voices.schema.json"
+          files: |
+            json/**/*.json
+            !json/localizedNames/**

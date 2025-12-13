@@ -1,11 +1,8 @@
 export default {
   extensions: {
-    ts: 'module'
-  },
-  environmentVariables: {
-    TS_NODE_COMPILER_OPTIONS: '{"module":"ES2022"}'
+    ts: "module"
   },
   nodeArguments: [
-    '--loader=ts-node/esm'
+    "--loader=ts-node/esm"
   ]
 }

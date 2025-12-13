@@ -1,6 +1,6 @@
 import { ReadiumSpeechEngineProvider } from "../provider";
 import { ReadiumSpeechPlaybackEngine } from "../engine";
-import { ReadiumSpeechVoice } from "../voices";
+import { ReadiumSpeechVoice } from "../voices/types";
 import { WebSpeechEngine } from "./webSpeechEngine";
 
 export class WebSpeechEngineProvider implements ReadiumSpeechEngineProvider {
