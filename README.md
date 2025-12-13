@@ -147,14 +147,23 @@ Fetches all available voices that match the specified filter criteria.
 ```typescript
 interface VoiceFilterOptions {
   language?: string | string[];  // Filter by language code(s) (e.g., "en", "fr")
+  source?: TSource;  // Filter by voice source ("json" | "browser")
   gender?: TGender;  // "male" | "female" | "other"
   quality?: TQuality | TQuality[];  // "high" | "medium" | "low" | "veryLow"
   offlineOnly?: boolean;  // Only return voices available offline
   provider?: string;  // Filter by voice provider
-  excludeNovelty?: boolean;  // Exclude novelty voices
-  excludeVeryLowQuality?: boolean;  // Exclude very low quality voices
+  excludeNovelty?: boolean;  // Exclude novelty voices, true by default
+  excludeVeryLowQuality?: boolean;  // Exclude very low quality voices, true by default
 }
 ```
+
+#### Filter Voices
+
+```typescript
+voiceManager.filterVoices(voices: ReadiumSpeechVoice[], options: VoiceFilterOptions): ReadiumSpeechVoice[]
+```
+
+Filters voices based on the specified criteria.
 
 #### Group Voices
 
@@ -201,6 +210,8 @@ Retrieves a sample text string suitable for testing text-to-speech functionality
 
 ```typescript
 interface ReadiumSpeechVoice {
+  source: TSource;        // "json" | "browser"
+
   // Core identification (required)
   label: string;          // Human-friendly label for the voice
   name: string;           // System/technical name (matches Web Speech API voiceURI)
@@ -263,6 +274,12 @@ type TQuality = "veryLow" | "low" | "normal" | "high" | "veryHigh";
 
 ```typescript
 type TGender = "female" | "male" | "neutral";
+```
+
+#### `TSource`
+
+```typescript
+type TSource = "json" | "browser";
 ```
 
 ## Playback API
