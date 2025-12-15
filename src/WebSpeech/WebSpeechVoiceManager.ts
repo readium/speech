@@ -584,7 +584,7 @@ export class WebSpeechVoiceManager {
     
     // Handle both single quality values and arrays
     if (Array.isArray(quality)) {
-      return Math.max(...quality.map(q => qualityOrder[q] ?? 1));
+      return Math.min(...quality.map(q => qualityOrder[q] ?? 1));
     }
     
     // Fallback for single quality values
