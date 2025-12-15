@@ -327,7 +327,7 @@ export class WebSpeechVoiceManager {
   }
 
   getBrowserVoices(maxTimeout = 10000, interval = 10): Promise<SpeechSynthesisVoice[]> {
-    const getVoices = () => window.speechSynthesis?.getVoices() || [];
+    const getAvailableVoices = () => window.speechSynthesis?.getVoices() || [];
 
     // Check if speechSynthesis is available
     if (!window.speechSynthesis) {
@@ -335,7 +335,7 @@ export class WebSpeechVoiceManager {
     }
 
     // Step 1: Try to load voices directly (best case scenario)
-    const voices = getVoices();
+    const voices = getAvailableVoices();
     if (Array.isArray(voices) && voices.length) return Promise.resolve(voices);
 
     return new Promise((resolve, reject) => {
@@ -354,7 +354,7 @@ export class WebSpeechVoiceManager {
           // Resolve with empty array if no voices found
           if (counter < 1) return resolve([]);
           --counter;
-          const voices = getVoices();
+          const voices = getAvailableVoices();
           // Resolve if voices loaded
           if (Array.isArray(voices) && voices.length) return resolve(voices);
           // Continue polling 
@@ -367,7 +367,7 @@ export class WebSpeechVoiceManager {
       // Step 2: Use onvoiceschanged if available (prioritizes event over polling)
       if (window.speechSynthesis.onvoiceschanged !== undefined) {
         window.speechSynthesis.onvoiceschanged = () => {
-          const voices = getVoices();
+          const voices = getAvailableVoices();
           if (Array.isArray(voices) && voices.length) {
             // Resolve immediately if voices are available
             resolve(voices);
