@@ -284,8 +284,8 @@ testWithContext("deduplication: keeps higher quality voice from json quality arr
       default: false
     },
     {
-      voiceURI: "Samantha",
-      name: "Samantha",
+      voiceURI: "Samantha superior",
+      name: "Samantha (Superior)",
       lang: "en-US",
       localService: true,
       default: false
@@ -297,6 +297,7 @@ testWithContext("deduplication: keeps higher quality voice from json quality arr
   // Verify only the higher quality voice remains with its original name
   t.is(deduped.length, 1, "Should only keep one voice after deduplication");
   t.is(deduped[0].name, "Samantha", "Should keep the json name of the voice");
+  t.is(deduped[0].voiceURI, "Samantha superior", "Should keep the voice with superior quality");
   t.deepEqual(deduped[0].quality, "normal", "Should find the voice with normal quality from the array");
 });
 

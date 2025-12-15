@@ -236,15 +236,16 @@ export class WebSpeechVoiceManager {
       const key = `${voice.language.toLowerCase()}_${this.normalizeVoiceName(voice.name)}`;
       const existing = voiceMap.get(key);
       
-      // If we don't have this voice yet
-      // This makes sure we do not remove voices with null quality
       if (!existing) {
         voiceMap.set(key, voice);
-      }
-
-      // If we already have this voice, only replace if the new one has a higher quality
-      else if (voice.quality && (!existing.quality || this.getQualityValue(voice.quality) > this.getQualityValue(existing.quality))) {
-        voiceMap.set(key, voice);
+      } else {
+        const existingQuality = this.getQualityValue(existing.quality);
+        const newQuality = this.getQualityValue(voice.quality);
+        
+        // If new voice has higher or equal quality, use it (preferring the newer one)
+        if (newQuality >= existingQuality) {
+          voiceMap.set(key, voice);
+        }
       }
     }
 
