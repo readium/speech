@@ -3,6 +3,7 @@ export default {
     ts: "module"
   },
   nodeArguments: [
-    "--loader=ts-node/esm"
+    "--import",
+    'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("ts-node/esm", pathToFileURL("./"));'
   ]
 }
