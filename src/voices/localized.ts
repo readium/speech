@@ -20,12 +20,12 @@ const platformQualities: PlatformQualities = {
   // android: androidQualities.quality
 };
 
-export const getInferredQuality = (
-  voiceName: string, 
+export const getInferredQualityFromPlatform = (
+  voiceURI: string, 
   language: string,
   platform?: TLocalizedName | TLocalizedName[]
 ): TQuality | undefined => {
-  if (!voiceName) return undefined;
+  if (!voiceURI) return undefined;
 
   // Convert single platform to array for consistent handling
   const platforms = Array.isArray(platform) ? platform : platform ? [platform] : [];
@@ -37,7 +37,7 @@ export const getInferredQuality = (
       const qualityIndicators = qualities[language] || qualities[langCode];
 
       if (qualityIndicators) {
-        const lowerName = voiceName.toLowerCase();
+        const lowerName = voiceURI.toLowerCase();
         const { normal, high } = qualityIndicators;
 
         if (high && lowerName.includes(high.toLowerCase())) {
