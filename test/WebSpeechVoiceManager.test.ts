@@ -199,37 +199,105 @@ testWithContext("initialize: loads voices and gets voices successfully", (t) => 
   t.true(voices.length > 0);
 });
 
-testWithContext("deduplication: keeps higher quality voice", (t) => {
+testWithContext("deduplication: keeps higher quality voice from voiceURI package name", (t) => {
   const manager = t.context.manager;
   
-  // Parse voices separately to check their qualities
-  const basicVoice = (manager as any).parseToReadiumSpeechVoices([{
+  // Define test voices once
+  const veryLowVoice = {
+    voiceURI: "com.apple.speech.synthesis.voice.super-compact.samantha",
+    name: "Samantha (very low)",
+    lang: "en-US",
+    localService: true,
+    default: false
+  };
+
+  const lowVoice = {
+    voiceURI: "com.apple.speech.synthesis.voice.compact.samantha",
+    name: "Samantha",
+    lang: "en-US",
+    localService: true,
+    default: false
+  };
+
+  // 1. First parse separately to verify individual qualities
+  const veryLowQualityVoice = (manager as any).parseToReadiumSpeechVoices([veryLowVoice])[0];
+  const lowQualityVoice = (manager as any).parseToReadiumSpeechVoices([lowVoice])[0];
+
+  // Verify individual qualities
+  t.is(veryLowQualityVoice.quality, "veryLow", "Very low quality voice should have very low quality");
+  t.is(lowQualityVoice.quality, "low", "Low quality voice should have low quality");
+
+  // 2. Now parse both together to test deduplication
+  const [resultVoice] = (manager as any).parseToReadiumSpeechVoices([veryLowVoice, lowVoice]);
+  
+  // Verify the result
+  t.is(resultVoice.name, "Samantha", "Should keep the json name of the voice");
+  t.deepEqual(resultVoice.quality, "low", "Should keep the voice with low quality");
+});
+
+testWithContext("deduplication: keeps higher quality voice from voiceURI string", (t) => {
+  const manager = t.context.manager;
+  
+  // Define test voices once
+  const basicVoice = {
     voiceURI: "Samantha",
     name: "Samantha",
     lang: "en-US",
     localService: true,
     default: false
-  }])[0];
+  };
 
-  const enhancedVoice = (manager as any).parseToReadiumSpeechVoices([{
+  const enhancedVoice = {
     voiceURI: "Samantha (Premium)",
     name: "Samantha (Premium)",
     lang: "en-US",
     localService: true,
     default: false
-  }])[0];
+  };
 
-  // Verify qualities are set as expected
-  t.is(basicVoice.quality, "low", "Basic voice should have low quality");
-  t.is(enhancedVoice.quality, "high", "Premium voice should have high quality");
+  // 1. First parse separately to verify individual qualities
+  const basicVoiceParsed = (manager as any).parseToReadiumSpeechVoices([basicVoice])[0];
+  const enhancedVoiceParsed = (manager as any).parseToReadiumSpeechVoices([enhancedVoice])[0];
 
+  // Verify individual qualities
+  t.is(basicVoiceParsed.quality, "low", "Basic voice should have low quality");
+  t.is(enhancedVoiceParsed.quality, "high", "Premium voice should have high quality");
+
+  // 2. Now parse both together to test deduplication
+  const [resultVoice] = (manager as any).parseToReadiumSpeechVoices([basicVoice, enhancedVoice]);
+  
+  // Verify the result
+  t.is(resultVoice.name, "Samantha", "Should keep the json name of the voice");
+  t.deepEqual(resultVoice.quality, "high", "Should keep the voice with high quality");
+});
+
+testWithContext("deduplication: keeps higher quality voice from json quality array", (t) => {
+  const manager = t.context.manager;
+  
+  // Parse both voices together to get correct duplicate counts
+  const voices = (manager as any).parseToReadiumSpeechVoices([
+    {
+      voiceURI: "Samantha",
+      name: "Samantha",
+      lang: "en-US",
+      localService: true,
+      default: false
+    },
+    {
+      voiceURI: "Samantha",
+      name: "Samantha",
+      lang: "en-US",
+      localService: true,
+      default: false
+    }
+  ]);
   // Now test deduplication with both voices
-  const deduped = (manager as any).removeDuplicate([basicVoice, enhancedVoice]);
+  const deduped = (manager as any).removeDuplicate(voices);
   
   // Verify only the higher quality voice remains with its original name
   t.is(deduped.length, 1, "Should only keep one voice after deduplication");
   t.is(deduped[0].name, "Samantha", "Should keep the json name of the voice");
-  t.deepEqual(deduped[0].quality, "high", "Should keep the voice with high quality");
+  t.deepEqual(deduped[0].quality, "normal", "Should find the voice with normal quality from the array");
 });
 
 // =============================================
