@@ -199,6 +199,39 @@ testWithContext("initialize: loads voices and gets voices successfully", (t) => 
   t.true(voices.length > 0);
 });
 
+testWithContext("deduplication: keeps higher quality voice", (t) => {
+  const manager = t.context.manager;
+  
+  // Parse voices separately to check their qualities
+  const basicVoice = (manager as any).parseToReadiumSpeechVoices([{
+    voiceURI: "voice1",
+    name: "Samantha",
+    lang: "en-US",
+    localService: true,
+    default: false
+  }])[0];
+
+  const enhancedVoice = (manager as any).parseToReadiumSpeechVoices([{
+    voiceURI: "voice2",
+    name: "Samantha (Premium)",
+    lang: "en-US",
+    localService: true,
+    default: false
+  }])[0];
+
+  // Verify qualities are set as expected
+  t.deepEqual(basicVoice.quality, ["low", "normal"], "Basic voice should have json quality");
+  t.deepEqual(enhancedVoice.quality, ["high"], "Premium voice should have high quality");
+
+  // Now test deduplication with both voices
+  const deduped = (manager as any).removeDuplicate([basicVoice, enhancedVoice]);
+  
+  // Verify only the higher quality voice remains with its original name
+  t.is(deduped.length, 1, "Should only keep one voice after deduplication");
+  t.is(deduped[0].name, "Samantha", "Should keep the json name of the voice");
+  t.deepEqual(deduped[0].quality, ["high"], "Should keep the voice with high quality");
+});
+
 // =============================================
 // 2. Voice Retrieval Tests
 // =============================================
@@ -212,7 +245,7 @@ testWithContext("getVoices: throws if not initialized", (t) => {
   // Create a new instance without initializing
   const manager = new (WebSpeechVoiceManager as any)();
   t.throws(() => manager.getVoices(), { 
-    message: 'WebSpeechVoiceManager not initialized. Call initialize() first.' 
+    message: "WebSpeechVoiceManager not initialized. Call initialize() first." 
   });
 });
 

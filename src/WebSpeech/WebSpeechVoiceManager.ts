@@ -6,6 +6,7 @@ import {
   filterOutNoveltyVoices, 
   filterOutVeryLowQualityVoices 
 } from "../voices/filters";
+import { getInferredQuality } from "../voices/localized";
 
 import { extractLangRegionFromBCP47 } from "../utils/language";
 
@@ -145,6 +146,22 @@ export class WebSpeechVoiceManager {
   }
 
   /**
+   * Normalize voice name for comparison by removing common variations
+   * @private
+   */
+  private normalizeVoiceName(name: string): string {
+    if (!name) return "";
+    
+    // Convert to lowercase and remove only the specific formatting we don't want
+    return name
+      .toLowerCase()
+      .replace(/\s*\([^)]*\)/g, "")  // Remove anything in parentheses
+      .replace(/[^\p{L}\p{N}\s-]/gu, "") // Keep letters, numbers, spaces, and hyphens
+      .replace(/\s+/g, " ")  // Normalize spaces
+      .trim();
+  }
+
+  /**
    * Remove duplicate voices, keeping the highest quality version of each voice
    * @param voices Array of voices to remove duplicates from
    * @returns Filtered array with duplicates removed, keeping only the highest quality versions
@@ -153,13 +170,13 @@ export class WebSpeechVoiceManager {
     const voiceMap = new Map<string, ReadiumSpeechVoice>();
     
     for (const voice of voices) {
-      // Create a unique key based on voice identity (excluding quality)
-      const key = `${voice.voiceURI}_${voice.name}_${voice.language}`;
-      const existingVoice = voiceMap.get(key);
+      // Create a normalized key based on language and normalized name
+      const normalizedKey = `${voice.language.toLowerCase()}_${this.normalizeVoiceName(voice.name)}`;
+      const existingVoice = voiceMap.get(normalizedKey);
       
       // If we don't have this voice yet, or if the current voice is of higher quality
       if (!existingVoice || this.getQualityValue(voice.quality) > this.getQualityValue(existingVoice.quality)) {
-        voiceMap.set(key, voice);
+        voiceMap.set(normalizedKey, voice);
       }
     }
     
@@ -392,40 +409,48 @@ export class WebSpeechVoiceManager {
         // Get voices for the specific language
         const langVoices = getVoices(baseLang);
         
-        // Extract base name by removing anything in parentheses for matching
-        const baseName = voice.name.split("(")[0].trim();
-        
-        // Try to find a matching voice by name, including base name matching
+        // First normalize the voice name for consistent comparison
+        const normalizedVoiceName = this.normalizeVoiceName(voice.name);
         const jsonVoice = langVoices.find(v => {
-          // Check direct name match
-          if (v.name === voice.name || v.name === baseName) return true;
+          // Check direct name match with normalized names
+          if (this.normalizeVoiceName(v.name) === normalizedVoiceName) {
+            return true;
+          }
           
-          // Check alt names
+          // Check alt names with normalized comparison
           if (v.altNames) {
-            return v.altNames.some((name: string) => {
-              const altBaseName = name.split("(")[0].trim();
-              return name === voice.name || 
-                     name === baseName ||
-                     altBaseName === voice.name ||
-                     altBaseName === baseName;
-            });
+            return v.altNames.some(altName => 
+              this.normalizeVoiceName(altName) === normalizedVoiceName
+            );
           }
           
           return false;
         });
 
         if (jsonVoice) {
-          // Found a match in JSON data, merge with browser voice
+          // Use the quality from the voice data by default
+          let quality = jsonVoice.quality;
+          
+          // If we have a localized name, infer quality from it
+          if (jsonVoice.localizedName) {
+            const platform = jsonVoice.localizedName;
+            const inferredQuality = getInferredQuality(voice.name, voice.lang, platform);
+            if (inferredQuality) {
+              quality = [inferredQuality];
+            }
+          }
+          
           return {
             ...jsonVoice,
             source: "json",
+            quality,
             // Preserve browser-specific properties
             voiceURI: voice.voiceURI,
             isDefault: voice.default || false,
             offlineAvailability: voice.localService || false,
             // Use utility functions from filters.ts
             isNovelty: isNoveltyVoice(voice.name, voice.voiceURI),
-            isLowQuality: isVeryLowQualityVoice(voice.name, jsonVoice.quality)
+            isLowQuality: isVeryLowQualityVoice(voice.name, quality)
           } as ReadiumSpeechVoice;
         }
 
@@ -453,9 +478,10 @@ export class WebSpeechVoiceManager {
   convertToSpeechSynthesisVoice(voice: ReadiumSpeechVoice): SpeechSynthesisVoice | undefined {
     if (!voice) return undefined;
     
+    const normalizedVoiceName = this.normalizeVoiceName(voice.name);
     return this.browserVoices.find(v => 
       v.voiceURI === voice.voiceURI || 
-      v.name === voice.name
+      this.normalizeVoiceName(v.name) === normalizedVoiceName
     );
   }
 
