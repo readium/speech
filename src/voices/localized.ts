@@ -1,4 +1,5 @@
 import type { TQuality, TLocalizedName } from "./types";
+import { extractLangRegionFromBCP47 } from "../utils/language";
 
 // Import platform-specific configurations
 import appleQualities from "@json/localizedNames/apple.json";
@@ -32,7 +33,7 @@ export const getInferredQuality = (
   for (const p of platforms) {
     if (p && platformQualities[p]) {
       const qualities = platformQualities[p];
-      const langCode = language.split("-")[0];
+      const langCode = extractLangRegionFromBCP47(language)[0];
       const qualityIndicators = qualities[language] || qualities[langCode];
 
       if (qualityIndicators) {
