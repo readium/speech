@@ -48,6 +48,7 @@ jobs:
           cp -r ./demo ./build-demo/
           cp -r ./json ./build-demo/
           cp -r ./docs ./build-demo/
+          cp ./voices.schema.json ./build-demo/
           ls -laR ./build-demo
 
 
