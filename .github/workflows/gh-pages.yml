@@ -51,8 +51,8 @@ jobs:
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
-        # If you're changing the branch from main,
-        # also change the `main` in `refs/heads/main`
+        # If you're changing the branch from develop,
+        # also change the `main` in `refs/heads/develop`
         # below accordingly.
         if: github.ref == 'refs/heads/develop'
         with:
