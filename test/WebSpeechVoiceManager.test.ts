@@ -203,14 +203,6 @@ testWithContext("deduplication: keeps higher quality voice from voiceURI package
   const manager = t.context.manager;
   
   // Define test voices once
-  const veryLowVoice = {
-    voiceURI: "com.apple.speech.synthesis.voice.super-compact.samantha",
-    name: "Samantha (very low)",
-    lang: "en-US",
-    localService: true,
-    default: false
-  };
-
   const lowVoice = {
     voiceURI: "com.apple.speech.synthesis.voice.compact.samantha",
     name: "Samantha",
@@ -219,20 +211,28 @@ testWithContext("deduplication: keeps higher quality voice from voiceURI package
     default: false
   };
 
+  const normalVoice = {
+    voiceURI: "com.apple.speech.synthesis.voice.enhanced.samantha",
+    name: "Samantha (enhanced)",
+    lang: "en-US",
+    localService: true,
+    default: false
+  };
+
   // 1. First parse separately to verify individual qualities
-  const veryLowQualityVoice = (manager as any).parseToReadiumSpeechVoices([veryLowVoice])[0];
   const lowQualityVoice = (manager as any).parseToReadiumSpeechVoices([lowVoice])[0];
+  const normalQualityVoice = (manager as any).parseToReadiumSpeechVoices([normalVoice])[0];
 
   // Verify individual qualities
-  t.is(veryLowQualityVoice.quality, "veryLow", "Very low quality voice should have very low quality");
   t.is(lowQualityVoice.quality, "low", "Low quality voice should have low quality");
+  t.is(normalQualityVoice.quality, "normal", "Normal quality voice should have normal quality");
 
   // 2. Now parse both together to test deduplication
-  const [resultVoice] = (manager as any).parseToReadiumSpeechVoices([veryLowVoice, lowVoice]);
+  const [resultVoice] = (manager as any).parseToReadiumSpeechVoices([lowVoice, normalVoice]);
   
   // Verify the result
   t.is(resultVoice.name, "Samantha", "Should keep the json name of the voice");
-  t.deepEqual(resultVoice.quality, "low", "Should keep the voice with low quality");
+  t.deepEqual(resultVoice.quality, "normal", "Should keep the voice with normal quality");
 });
 
 testWithContext("deduplication: keeps higher quality voice from voiceURI string", (t) => {
