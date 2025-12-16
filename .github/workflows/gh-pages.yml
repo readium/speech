@@ -41,11 +41,13 @@ jobs:
           ls -laR ./build
           ls -laR ./demo
           ls -laR ./json
+          ls -laR ./docs
           mkdir build-demo
           cp README.md ./build-demo/
           cp -r ./build ./build-demo/
           cp -r ./demo ./build-demo/
           cp -r ./json ./build-demo/
+          cp -r ./docs ./build-demo/
           ls -laR ./build-demo
 
 
@@ -60,4 +62,4 @@ jobs:
           publish_dir: ./build-demo
           publish_branch: gh-pages # default: gh-pages
           destination_dir: ./
-          enable_jekyll: true # yes for README.md
+          enable_jekyll: true # yes for markdown files

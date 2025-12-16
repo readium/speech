@@ -118,6 +118,13 @@ async function setupVoices() {
 await setupVoices();
 ```
 
+## Docs
+
+Documentation provides guide for:
+
+- [SpeechSynthesis in browsers and OSes](docs/WebSpeech.md)
+- [Voices and Filtering](docs/VoicesAndFiltering.md)
+
 ## API Reference
 
 ### Class: WebSpeechVoiceManager
