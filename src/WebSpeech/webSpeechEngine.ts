@@ -254,11 +254,6 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     const utterance = this.createUtterance(text);
 
-    // Configure utterance
-    if (content.language) {
-      utterance.lang = content.language;
-    }
-
     // Enhanced voice selection with MSNatural detection
     const selectedVoice = this.getCurrentVoiceForUtterance(this.currentVoice);
 
@@ -268,7 +263,12 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       
       if (nativeVoice) {
         utterance.voice = nativeVoice; // Use the real native voice from cache
+        utterance.lang = nativeVoice.lang;
       }
+    }
+
+    if (content.language) {
+      utterance.lang = content.language;
     }
 
     utterance.rate = this.rate;
