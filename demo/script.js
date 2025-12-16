@@ -465,7 +465,7 @@ function setupEventListeners() {
           displayVoiceProperties(currentVoice);
           
           // Update the test utterance with the new voice
-          updateTestUtterance(currentVoice, languageCode);
+          updateTestUtterance(currentVoice, baseLanguage);
           
         } catch (error) {
           console.error("Error setting default voice:", error);
@@ -474,7 +474,7 @@ function setupEventListeners() {
     }
     
     // Load sample text using the voice's language code if available, otherwise use the selector's value
-    const languageToUse = currentVoice?.language || languageCode;
+    const languageToUse = currentVoice?.language || baseLanguage;
     loadSampleText(languageToUse);
     
     updateUI();

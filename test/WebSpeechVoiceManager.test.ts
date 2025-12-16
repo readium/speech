@@ -199,6 +199,108 @@ testWithContext("initialize: loads voices and gets voices successfully", (t) => 
   t.true(voices.length > 0);
 });
 
+testWithContext("deduplication: keeps higher quality voice from voiceURI package name", (t) => {
+  const manager = t.context.manager;
+  
+  // Define test voices once
+  const veryLowVoice = {
+    voiceURI: "com.apple.speech.synthesis.voice.super-compact.samantha",
+    name: "Samantha (very low)",
+    lang: "en-US",
+    localService: true,
+    default: false
+  };
+
+  const lowVoice = {
+    voiceURI: "com.apple.speech.synthesis.voice.compact.samantha",
+    name: "Samantha",
+    lang: "en-US",
+    localService: true,
+    default: false
+  };
+
+  // 1. First parse separately to verify individual qualities
+  const veryLowQualityVoice = (manager as any).parseToReadiumSpeechVoices([veryLowVoice])[0];
+  const lowQualityVoice = (manager as any).parseToReadiumSpeechVoices([lowVoice])[0];
+
+  // Verify individual qualities
+  t.is(veryLowQualityVoice.quality, "veryLow", "Very low quality voice should have very low quality");
+  t.is(lowQualityVoice.quality, "low", "Low quality voice should have low quality");
+
+  // 2. Now parse both together to test deduplication
+  const [resultVoice] = (manager as any).parseToReadiumSpeechVoices([veryLowVoice, lowVoice]);
+  
+  // Verify the result
+  t.is(resultVoice.name, "Samantha", "Should keep the json name of the voice");
+  t.deepEqual(resultVoice.quality, "low", "Should keep the voice with low quality");
+});
+
+testWithContext("deduplication: keeps higher quality voice from voiceURI string", (t) => {
+  const manager = t.context.manager;
+  
+  // Define test voices once
+  const basicVoice = {
+    voiceURI: "Samantha",
+    name: "Samantha",
+    lang: "en-US",
+    localService: true,
+    default: false
+  };
+
+  const enhancedVoice = {
+    voiceURI: "Samantha (Premium)",
+    name: "Samantha (Premium)",
+    lang: "en-US",
+    localService: true,
+    default: false
+  };
+
+  // 1. First parse separately to verify individual qualities
+  const basicVoiceParsed = (manager as any).parseToReadiumSpeechVoices([basicVoice])[0];
+  const enhancedVoiceParsed = (manager as any).parseToReadiumSpeechVoices([enhancedVoice])[0];
+
+  // Verify individual qualities
+  t.is(basicVoiceParsed.quality, "low", "Basic voice should have low quality");
+  t.is(enhancedVoiceParsed.quality, "high", "Premium voice should have high quality");
+
+  // 2. Now parse both together to test deduplication
+  const [resultVoice] = (manager as any).parseToReadiumSpeechVoices([basicVoice, enhancedVoice]);
+  
+  // Verify the result
+  t.is(resultVoice.name, "Samantha", "Should keep the json name of the voice");
+  t.deepEqual(resultVoice.quality, "high", "Should keep the voice with high quality");
+});
+
+testWithContext("deduplication: keeps higher quality voice from json quality array", (t) => {
+  const manager = t.context.manager;
+  
+  // Parse both voices together to get correct duplicate counts
+  const voices = (manager as any).parseToReadiumSpeechVoices([
+    {
+      voiceURI: "Samantha",
+      name: "Samantha",
+      lang: "en-US",
+      localService: true,
+      default: false
+    },
+    {
+      voiceURI: "Samantha superior",
+      name: "Samantha (Superior)",
+      lang: "en-US",
+      localService: true,
+      default: false
+    }
+  ]);
+  // Now test deduplication with both voices
+  const deduped = (manager as any).removeDuplicate(voices);
+  
+  // Verify only the higher quality voice remains with its original name
+  t.is(deduped.length, 1, "Should only keep one voice after deduplication");
+  t.is(deduped[0].name, "Samantha", "Should keep the json name of the voice");
+  t.is(deduped[0].voiceURI, "Samantha superior", "Should keep the voice with superior quality");
+  t.deepEqual(deduped[0].quality, "normal", "Should find the voice with normal quality from the array");
+});
+
 // =============================================
 // 2. Voice Retrieval Tests
 // =============================================
@@ -212,7 +314,7 @@ testWithContext("getVoices: throws if not initialized", (t) => {
   // Create a new instance without initializing
   const manager = new (WebSpeechVoiceManager as any)();
   t.throws(() => manager.getVoices(), { 
-    message: 'WebSpeechVoiceManager not initialized. Call initialize() first.' 
+    message: "WebSpeechVoiceManager not initialized. Call initialize() first." 
   });
 });
 
@@ -220,11 +322,11 @@ testWithContext("getVoices: combines all filters", async (t: ExecutionContext<Te
   const manager = t.context.manager;
   
   (manager as any).voices = [
-    createTestVoice({ name: "English Male High", language: "en-US", gender: "male", quality: ["high"], provider: "Google", offlineAvailability: true }),
-    createTestVoice({ name: "English Female Normal", language: "en-US", gender: "female", quality: ["normal"], provider: "Microsoft", offlineAvailability: false }),
-    createTestVoice({ name: "French Male Low", language: "fr-FR", gender: "male", quality: ["low"], provider: "Google", offlineAvailability: true }),
-    createTestVoice({ name: "French Female High", language: "fr-FR", gender: "female", quality: ["high"], provider: "Amazon", offlineAvailability: false }),
-    createTestVoice({ name: "Spanish Male Normal", language: "es-ES", gender: "male", quality: ["normal"], provider: "Microsoft", offlineAvailability: true })
+    createTestVoice({ name: "Male High Quality English", language: "en-US", gender: "male", quality: "high", provider: "Google", offlineAvailability: true }),
+    createTestVoice({ name: "English Female Normal", language: "en-US", gender: "female", quality: "normal", provider: "Microsoft", offlineAvailability: false }),
+    createTestVoice({ name: "French Male Low", language: "fr-FR", gender: "male", quality: "low", provider: "Google", offlineAvailability: true }),
+    createTestVoice({ name: "French Female High", language: "fr-FR", gender: "female", quality: "high", provider: "Amazon", offlineAvailability: false }),
+    createTestVoice({ name: "Spanish Male Normal", language: "es-ES", gender: "male", quality: "normal", provider: "Microsoft", offlineAvailability: true })
   ];
   
   // Test with all filters combined
@@ -351,7 +453,7 @@ testWithContext("getVoices: filters by quality", async (t: ExecutionContext<Test
   const voices = await manager.getVoices();
   const voicesWithQuality = voices.map((v: ReadiumSpeechVoice, i: number) => ({
     ...v,
-    quality: i % 2 === 0 ? ["high"] : ["low"]
+    quality: i % 2 === 0 ? "high" : "low"
   }));
   
   // Replace the voices in the manager
@@ -359,7 +461,7 @@ testWithContext("getVoices: filters by quality", async (t: ExecutionContext<Test
   
   const highQualityVoices = await manager.getVoices({ quality: "high" });
   t.true(highQualityVoices.length > 0);
-  t.true(highQualityVoices.every((v: ReadiumSpeechVoice) => v.quality?.includes("high") ?? false));
+  t.true(highQualityVoices.every((v: ReadiumSpeechVoice) => v.quality === "high"));
 });
 
 testWithContext("getVoices: returns empty array when speechSynthesis is not available", async (t) => {
@@ -531,14 +633,14 @@ testWithContext("getDefaultVoice: selects highest quality voice regardless of is
       name: "High Quality", 
       language: "en-US", 
       isDefault: false,  // Not default but higher quality
-      quality: ["high"] 
+      quality: "high" 
     },
     { 
       voiceURI: "voice2", 
       name: "Normal Quality", 
       language: "en-US", 
       isDefault: true,  // Default but lower quality
-      quality: ["normal"] 
+      quality: "normal" 
     }
   ];
   
@@ -558,14 +660,14 @@ testWithContext("getDefaultVoice: falls back to base language", async (t: Execut
       name: "English Generic", 
       language: "en",  // Base language
       isDefault: false,
-      quality: ["high"] 
+      quality: "high" 
     },
     { 
       voiceURI: "voice2", 
       name: "US English", 
       language: "en-US", 
       isDefault: false,
-      quality: ["high"] 
+      quality: "high" 
     }
   ];
   
@@ -586,21 +688,21 @@ testWithContext("getDefaultVoice: respects quality sorting", async (t: Execution
       name: "High Quality", 
       language: "en-US", 
       isDefault: false,
-      quality: ["high"] 
+      quality: "high" 
     },
     { 
       voiceURI: "voice2", 
       name: "Very High Quality", 
       language: "en-US", 
       isDefault: false,
-      quality: ["veryHigh"]  // Higher quality
+      quality: "veryHigh"  // Higher quality
     },
     { 
       voiceURI: "voice3", 
       name: "Normal Quality", 
       language: "en-US", 
       isDefault: false,
-      quality: ["normal"]  // Lower quality
+      quality: "normal"  // Lower quality
     }
   ];
   
@@ -777,21 +879,20 @@ testWithContext("filterVoices: filters by quality array", (t: ExecutionContext<T
   
   // Create test voices with different quality levels
   const testVoices = [
-    createTestVoice({ name: "High Quality Voice", language: "en-US", quality: ["high"] }),
-    createTestVoice({ name: "Low Quality Voice", language: "en-US", quality: ["low"] }),
-    createTestVoice({ name: "Normal Quality Voice", language: "en-US", quality: ["normal"] }),
-    createTestVoice({ name: "Very High Quality Voice", language: "en-US", quality: ["veryHigh"] }),
-    createTestVoice({ name: "Multi Quality Voice", language: "en-US", quality: ["high", "normal"] }),
+    createTestVoice({ name: "High Quality Voice", language: "en-US", quality: "high" }),
+    createTestVoice({ name: "Low Quality Voice", language: "en-US", quality: "low" }),
+    createTestVoice({ name: "Normal Quality Voice", language: "en-US", quality: "normal" }),
+    createTestVoice({ name: "Very High Quality Voice", language: "en-US", quality: "veryHigh" }),
     createTestVoice({ name: "No Quality Voice", language: "en-US", quality: undefined })
   ];
   
   // Test single quality filter
   const highQualityVoices = manager.filterVoices(testVoices, { quality: "high" });
-  t.is(highQualityVoices.length, 2); // high and multi quality voices
+  t.is(highQualityVoices.length, 1); // Only the high quality voice
   
   // Test multiple quality filter
   const multiQualityVoices = manager.filterVoices(testVoices, { quality: ["high", "normal"] });
-  t.is(multiQualityVoices.length, 3); // high, normal, and multi quality voices
+  t.is(multiQualityVoices.length, 2); // high and normal quality voices
   
   // Test that undefined quality voices are filtered out
   const filteredVoices = manager.filterVoices(testVoices, { quality: "high" });
@@ -813,7 +914,7 @@ testWithContext("filterVoices: filters out novelty and low quality voices", (t: 
       voiceURI: "com.appk.it.speech.synthesis.voice.Eddy",
       name: "Eddy",
       language: "en-US",
-      quality: ["veryLow"]
+      quality: "veryLow"
     })
   ];
 
@@ -877,10 +978,10 @@ testWithContext("filterVoices: combines multiple filters", (t: ExecutionContext<
   
   // Create test voices with various properties
   const testVoices = [
-    createTestVoice({ name: "Male High Quality English", language: "en-US", gender: "male", quality: ["high"], provider: "Google" }),
-    createTestVoice({ name: "Female Low Quality English", language: "en-US", gender: "female", quality: ["low"], provider: "Google" }),
-    createTestVoice({ name: "Male High Quality French", language: "fr-FR", gender: "male", quality: ["high"], provider: "Microsoft" }),
-    createTestVoice({ name: "Female Normal Quality English", language: "en-US", gender: "female", quality: ["normal"], provider: "Google" })
+    createTestVoice({ name: "Male High Quality English", language: "en-US", gender: "male", quality: "high", provider: "Google" }),
+    createTestVoice({ name: "Female Low Quality English", language: "en-US", gender: "female", quality: "low", provider: "Google" }),
+    createTestVoice({ name: "Male High Quality French", language: "fr-FR", gender: "male", quality: "high", provider: "Microsoft" }),
+    createTestVoice({ name: "Female Normal Quality English", language: "en-US", gender: "female", quality: "normal", provider: "Google" })
   ];
   
   // Filter by language and gender
@@ -906,17 +1007,17 @@ testWithContext("filterVoices: handles edge cases", (t: ExecutionContext<TestCon
   const manager = t.context.manager;
   
   const testVoices = [
-    createTestVoice({ name: "Voice 1", language: "en-US", gender: "male", quality: ["high"] }),
-    createTestVoice({ name: "Voice 2", language: "fr-FR", gender: "female", quality: ["low"] }),
-    createTestVoice({ name: "Voice 3", language: "de-DE", gender: "male", quality: ["normal"] })
+    createTestVoice({ name: "Voice 1", language: "en-US", gender: "male", quality: "high" }),
+    createTestVoice({ name: "Voice 2", language: "fr-FR", gender: "female", quality: "low" }),
+    createTestVoice({ name: "Voice 3", language: "de-DE", gender: "male", quality: "normal" })
   ];
   
   // Test empty filter arrays
   const emptyLanguageFilter = manager.filterVoices(testVoices, { language: [] });
   t.is(emptyLanguageFilter.length, 0);
   
-  const emptyQualityFilter = manager.filterVoices(testVoices, { quality: [] });
-  t.is(emptyQualityFilter.length, 0);
+  const emptyQualityFilter = manager.filterVoices(testVoices, { quality: undefined });
+  t.is(emptyQualityFilter.length, testVoices.length, "Should return all voices when quality is undefined");
   
   // Test case sensitivity for language
   const caseSensitiveLanguage = manager.filterVoices(testVoices, { language: "EN-us" });
@@ -931,11 +1032,11 @@ testWithContext("filterVoices: uses array values for multiple filters", (t: Exec
   const manager = t.context.manager;
   
   const testVoices = [
-    createTestVoice({ name: "English Male", language: "en-US", gender: "male", quality: ["high"] }),
-    createTestVoice({ name: "English Female", language: "en-US", gender: "female", quality: ["normal"] }),
-    createTestVoice({ name: "French Male", language: "fr-FR", gender: "male", quality: ["low"] }),
-    createTestVoice({ name: "French Female", language: "fr-FR", gender: "female", quality: ["high"] }),
-    createTestVoice({ name: "Spanish Male", language: "es-ES", gender: "male", quality: ["normal"] })
+    createTestVoice({ name: "English Male", language: "en-US", gender: "male", quality: "high" }),
+    createTestVoice({ name: "English Female", language: "en-US", gender: "female", quality: "normal" }),
+    createTestVoice({ name: "French Male", language: "fr-FR", gender: "male", quality: "low" }),
+    createTestVoice({ name: "French Female", language: "fr-FR", gender: "female", quality: "high" }),
+    createTestVoice({ name: "Spanish Male", language: "es-ES", gender: "male", quality: "normal" })
   ];
   
   // Test with array of languages and array of qualities
@@ -946,7 +1047,7 @@ testWithContext("filterVoices: uses array values for multiple filters", (t: Exec
   t.is(filtered.length, 3);
   t.true(filtered.every(v => 
     (v.language.startsWith("en") || v.language.startsWith("fr")) &&
-    (v.quality?.includes("high") || v.quality?.includes("normal"))
+    (v.quality === "high" || v.quality === "normal")
   ));
 });
 
@@ -970,14 +1071,14 @@ testWithContext("filterOutVeryLowQualityVoices: removes very low quality voices"
   
   // Create test voices with one very low quality voice
   const testVoices = [
-    createTestVoice({ name: "Voice 1", language: "en-US", quality: ["normal"] }),
-    createTestVoice({ name: "Low Quality Voice", language: "en-US", quality: ["veryLow"] }),
-    createTestVoice({ name: "Voice 2", language: "fr-FR", quality: ["normal"] })
+    createTestVoice({ name: "Voice 1", language: "en-US", quality: "normal" }),
+    createTestVoice({ name: "Low Quality Voice", language: "en-US", quality: "veryLow" }),
+    createTestVoice({ name: "Voice 2", language: "fr-FR", quality: "normal" })
   ];
   
   const filtered = manager.filterOutVeryLowQualityVoices(testVoices);
   t.is(filtered.length, testVoices.length - 1);
-  t.false(filtered.some((v: ReadiumSpeechVoice) => v.quality?.includes("veryLow")));
+  t.false(filtered.some((v: ReadiumSpeechVoice) => v.quality === "veryLow"));
 });
 
 // =============================================
@@ -1012,28 +1113,28 @@ testWithContext("sortVoices: sorts by quality with proper direction", (t: Execut
   
   // Create test voices with different quality levels
   const testVoices = [
-    createTestVoice({ name: "High Quality Voice", language: "en-US", quality: ["high"] }),
-    createTestVoice({ name: "Low Quality Voice", language: "en-US", quality: ["low"] }),
-    createTestVoice({ name: "Normal Quality Voice", language: "en-US", quality: ["normal"] }),
-    createTestVoice({ name: "Very High Quality Voice", language: "en-US", quality: ["veryHigh"] }),
-    createTestVoice({ name: "Very Low Quality Voice", language: "en-US", quality: ["veryLow"] })
+    createTestVoice({ name: "High Quality Voice", language: "en-US", quality: "high" }),
+    createTestVoice({ name: "Low Quality Voice", language: "en-US", quality: "low" }),
+    createTestVoice({ name: "Normal Quality Voice", language: "en-US", quality: "normal" }),
+    createTestVoice({ name: "Very High Quality Voice", language: "en-US", quality: "veryHigh" }),
+    createTestVoice({ name: "Very Low Quality Voice", language: "en-US", quality: "veryLow" })
   ];
   
   // Test ascending order (low to high quality)
   const sortedAsc = manager.sortVoices(testVoices, { by: "quality", order: "asc" });
-  t.is(sortedAsc[0].quality?.[0], "veryLow");
-  t.is(sortedAsc[1].quality?.[0], "low");
-  t.is(sortedAsc[2].quality?.[0], "normal");
-  t.is(sortedAsc[3].quality?.[0], "high");
-  t.is(sortedAsc[4].quality?.[0], "veryHigh");
+  t.is(sortedAsc[0].quality, "veryLow");
+  t.is(sortedAsc[1].quality, "low");
+  t.is(sortedAsc[2].quality, "normal");
+  t.is(sortedAsc[3].quality, "high");
+  t.is(sortedAsc[4].quality, "veryHigh");
   
   // Test descending order (high to low quality)
   const sortedDesc = manager.sortVoices(testVoices, { by: "quality", order: "desc" });
-  t.is(sortedDesc[0].quality?.[0], "veryHigh");
-  t.is(sortedDesc[1].quality?.[0], "high");
-  t.is(sortedDesc[2].quality?.[0], "normal");
-  t.is(sortedDesc[3].quality?.[0], "low");
-  t.is(sortedDesc[4].quality?.[0], "veryLow");
+  t.is(sortedDesc[0].quality, "veryHigh");
+  t.is(sortedDesc[1].quality, "high");
+  t.is(sortedDesc[2].quality, "normal");
+  t.is(sortedDesc[3].quality, "low");
+  t.is(sortedDesc[4].quality, "veryLow");
 });
 
 testWithContext("sortVoices: sorts by language", (t: ExecutionContext<TestContext>) => {
@@ -1291,9 +1392,9 @@ testWithContext("groupVoices: groups by quality", (t: ExecutionContext<TestConte
   
   // Create test voices with different qualities
   const testVoices = [
-    createTestVoice({ name: "High Quality 1", language: "en-US", quality: ["high"] }),
-    createTestVoice({ name: "Low Quality Voice", language: "en-US", quality: ["low"] }),
-    createTestVoice({ name: "High Quality 2", language: "fr-FR", quality: ["high"] })
+    createTestVoice({ name: "High Quality 1", language: "en-US", quality: "high" }),
+    createTestVoice({ name: "Low Quality Voice", language: "en-US", quality: "low" }),
+    createTestVoice({ name: "High Quality 2", language: "fr-FR", quality: "high" })
   ];
   
   const groups = manager.groupVoices(testVoices, "quality");

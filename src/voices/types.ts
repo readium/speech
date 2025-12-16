@@ -1,5 +1,3 @@
-// Auto-generated file - DO NOT EDIT
-
 /**
  * Voice gender as defined in the schema
  */
@@ -8,7 +6,7 @@ export type TGender = "neutral" | "female" | "male";
 /**
  * Voice quality levels as defined in the schema
  */
-export type TQuality = "veryLow" | "low" | "normal" | "high" | "veryHigh";
+export type TQuality = null | "veryLow" | "low" | "normal" | "high" | "veryHigh";
 
 /**
  * Localization type for voice names
@@ -19,6 +17,41 @@ export type TLocalizedName = "android" | "apple";
  * Source of the voice data
  */
 export type TSource = "json" | "browser";
+
+/**
+ * Supported operating systems for voices
+ */
+export type TOperatingSystem = "Android" | "ChromeOS" | "iOS" | "iPadOS" | "macOS" | "Windows";
+
+/**
+ * Supported browsers for voices
+ */
+export type TBrowser = "ChromeDesktop" | "Edge" | "Firefox" | "Safari";
+
+/**
+ * Represents a voice from the JSON data file
+ */
+export interface JSONVoice {
+  label?: string;
+  name: string;
+  localizedName?: "android" | "apple";
+  note?: string;
+  altNames?: string[];
+  nativeID?: string[];
+  language?: string;
+  altLanguage?: string;
+  otherLanguages?: string[];
+  multiLingual?: boolean;
+  gender?: TGender;
+  children?: boolean;
+  quality?: TQuality[];
+  rate?: number;  
+  pitch?: number;
+  pitchControl?: boolean;
+  os?: TOperatingSystem[];
+  browser?: TBrowser[];
+  preloaded?: boolean;
+}
 
 export interface VoiceFilterData {
   voices: Array<{
@@ -49,7 +82,7 @@ export interface ReadiumSpeechVoice {
   children?: boolean;     // If this is a children's voice
   
   // Quality and capabilities
-  quality?: TQuality[];    // Available quality levels for this voice
+  quality?: TQuality;      // Voice quality level
   pitchControl?: boolean;  // Whether pitch can be controlled
   
   // Performance settings
@@ -57,8 +90,8 @@ export interface ReadiumSpeechVoice {
   rate?: number;          // Speech rate (0.1-10, where 1 is normal)
   
   // Platform and compatibility
-  browser?: string[];      // Supported browsers
-  os?: string[];          // Supported operating systems
+  browser?: TBrowser[];      // Supported browsers
+  os?: TOperatingSystem[];          // Supported operating systems
   preloaded?: boolean;    // If the voice is preloaded on the system
   nativeID?: string | string[]; // Platform-specific voice ID(s)
   

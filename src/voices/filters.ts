@@ -1,4 +1,5 @@
 import type { ReadiumSpeechVoice } from "./types";
+import { TQuality } from "./types";
 import noveltyFilterData from "@json/filters/novelty.json";
 import veryLowQualityFilterData from "@json/filters/veryLowQuality.json";
 
@@ -19,10 +20,10 @@ export const isNoveltyVoice = (voiceName: string, voiceId?: string): boolean => 
   );
 }
 
-export const isVeryLowQualityVoice = (voiceName: string, quality?: string[]): boolean => {
+export const isVeryLowQualityVoice = (voiceName: string, quality?: TQuality): boolean => {
   return veryLowQualityFilter.voices.some(filter => 
     voiceName.includes(filter.name)
-  ) || (Array.isArray(quality) && quality.includes("veryLow"));
+  ) || quality === "veryLow";
 }
 
 export const filterOutNoveltyVoices = (voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] => {
