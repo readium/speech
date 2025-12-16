@@ -72,6 +72,27 @@ export declare class WebSpeechVoiceManager {
      */
     private static getLanguageDisplayName;
     /**
+     * Normalize voice name for comparison by removing common variations
+     * @private
+     */
+    private normalizeVoiceName;
+    /**
+     * Count occurrences of each voice based on language and normalized name
+     * @private
+     */
+    private countVoiceDuplicates;
+    /**
+     * Infer voice quality based on package, platform, JSON, or duplicate count
+     * Returns null if quality cannot be determined
+     * @private
+     */
+    private inferVoiceQuality;
+    /**
+     * Find matching JSON voice by name or alternative names
+     * @private
+     */
+    private findMatchingJsonVoice;
+    /**
      * Remove duplicate voices, keeping the highest quality version of each voice
      * @param voices Array of voices to remove duplicates from
      * @returns Filtered array with duplicates removed, keeping only the highest quality versions
