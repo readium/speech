@@ -170,6 +170,15 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
         this.currentUtteranceIndex = 0;
       }
     }
+
+    // Update default voice if language changed
+    if (
+      this.voiceManager && 
+      this.defaultVoice && this.currentVoice &&
+      this.currentVoice.language !== this.defaultVoice.language
+    ) {
+      this.defaultVoice = this.voiceManager.getDefaultVoice(this.currentVoice.language, this.voices);
+    }
   }
 
   getAvailableVoices(): Promise<ReadiumSpeechVoice[]> {
