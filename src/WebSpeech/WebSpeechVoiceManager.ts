@@ -481,8 +481,13 @@ export class WebSpeechVoiceManager {
         const voiceKey = `${voice.lang.toLowerCase()}_${normalizedName}`;
         const duplicatesCount = duplicateCounts.get(voiceKey) || 1;
         
-        // Get voices for the specific language
-        const langVoices = getVoices(baseLang);
+        // First try with the full language code to handle variants like zh-HK
+        let langVoices = getVoices(formattedLang);
+        
+        // If no voices found, try with the base language code
+        if (!langVoices || langVoices.length === 0) {
+          langVoices = getVoices(baseLang);
+        }
         
         // Find matching JSON voice
         const jsonVoice = this.findMatchingJsonVoice(langVoices, normalizedName);
@@ -497,6 +502,7 @@ export class WebSpeechVoiceManager {
             source: "json",
             quality,
             voiceURI: voice.voiceURI,
+            language: voice.lang,
             isDefault: voice.default || false,
             offlineAvailability: voice.localService || false,
             isNovelty: isNoveltyVoice(voice.name, voice.voiceURI),
