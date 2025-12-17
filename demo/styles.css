@@ -489,8 +489,10 @@ form > div {
   }
 }
 
-/* Voice Details Section */
-.voice-details {
+/* Expandable Details */
+
+.voice-details,
+.dev-tools {
   background: #f9f9f9;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
@@ -498,7 +500,8 @@ form > div {
   overflow: hidden;
 }
 
-.voice-details summary {
+.voice-details summary,
+.dev-tools summary {
   padding: 12px 16px;
   background: #f0f0f0;
   cursor: pointer;
@@ -509,15 +512,18 @@ form > div {
   transition: background-color 0.2s ease;
 }
 
-.voice-details summary:hover {
+.voice-details summary:hover,
+.dev-tools summary:hover {
   background: #e8e8e8;
 }
 
-.voice-details[open] summary {
+.voice-details[open] summary,
+.dev-tools summary:hover {
   background: #e0e0e0;
 }
 
-.voice-properties {
+.voice-properties,
+.dev-tools-items {
   padding: 16px;
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
   font-size: 14px;
@@ -525,6 +531,8 @@ form > div {
   color: #333;
   background: white;
 }
+
+/* Voice Details Section */
 
 .voice-property {
   display: flex;
@@ -566,7 +574,8 @@ form > div {
   font-style: italic;
 }
 
-/* Download button (blue) */
+/* Dev tools items */
+
 .download-btn {
   background-color: #2196F3; /* Blue to match navigation buttons */
   color: white;
