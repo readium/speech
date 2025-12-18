@@ -221,7 +221,8 @@ interface ReadiumSpeechVoice {
 
   // Core identification (required)
   label: string;          // Human-friendly label for the voice
-  name: string;           // System/technical name (matches Web Speech API voiceURI)
+  name: string;           // JSON Name (or Web Speech API name if not found)
+  originalName: string;   // Original name of the voice
   voiceURI?: string;      // For Web Speech API compatibility
   
   // Localization

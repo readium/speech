@@ -105,6 +105,7 @@ function createTestVoice(overrides: Partial<ReadiumSpeechVoice> = {}): ReadiumSp
     source: "json",
     label: overrides.name || "Test Voice",
     name: overrides.name || "Test Voice",
+    originalName: overrides.originalName || "Test Voice",
     voiceURI: `voice-${overrides.name || "test"}`,
     language: "en-US",
     ...overrides
@@ -231,7 +232,8 @@ testWithContext("deduplication: keeps higher quality voice from voiceURI package
   const [resultVoice] = (manager as any).parseToReadiumSpeechVoices([lowVoice, normalVoice]);
   
   // Verify the result
-  t.is(resultVoice.name, "Samantha (enhanced)", "Should keep the name of the voice for retrieval");
+  t.is(resultVoice.name, "Samantha", "Should use the JSON name of the voice");
+  t.is(resultVoice.originalName, "Samantha (enhanced)", "Should keep the original name of the voice");
   t.deepEqual(resultVoice.quality, "normal", "Should keep the voice with normal quality");
 });
 
@@ -267,7 +269,8 @@ testWithContext("deduplication: keeps higher quality voice from voiceURI string"
   const [resultVoice] = (manager as any).parseToReadiumSpeechVoices([basicVoice, enhancedVoice]);
   
   // Verify the result
-  t.is(resultVoice.name, "Samantha (Premium)", "Should keep the name of the voice for retrieval");
+  t.is(resultVoice.name, "Samantha", "Should use the JSON name of the voice");
+  t.is(resultVoice.originalName, "Samantha (Premium)", "Should keep the original name of the voice");
   t.deepEqual(resultVoice.quality, "high", "Should keep the voice with high quality");
 });
 
@@ -296,7 +299,8 @@ testWithContext("deduplication: keeps higher quality voice from json quality arr
   
   // Verify only the higher quality voice remains with its original name
   t.is(deduped.length, 1, "Should only keep one voice after deduplication");
-  t.is(deduped[0].name, "Samantha (Superior)", "Should keep the name of the voice for retrieval");
+  t.is(deduped[0].name, "Samantha", "Should use the JSON name of the voice");
+  t.is(deduped[0].originalName, "Samantha (Superior)", "Should keep the original name of the voice");
   t.is(deduped[0].voiceURI, "Samantha superior", "Should keep the voice with superior quality");
   t.deepEqual(deduped[0].quality, "normal", "Should find the voice with normal quality from the array");
 });
@@ -1466,6 +1470,84 @@ testWithContext("convertToSpeechSynthesisVoice: converts ReadiumSpeechVoice to S
     t.truthy(speechVoice);
     t.is(speechVoice?.name, voices[0].name);
     t.is(speechVoice?.voiceURI, voices[0].voiceURI);
+  } else {
+    t.pass("No voices available to test");
+  }
+});
+
+testWithContext("convertToSpeechSynthesisVoice: handles undefined voiceURI", async (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  const voices = await manager.getVoices();
+  
+  if (voices.length > 0) {
+    // Create a test voice with undefined voiceURI but with name and originalName
+    const testVoice = {
+      ...voices[0],
+      voiceURI: undefined,
+      name: "Test Voice",
+      originalName: "Test Voice (Original)"
+    };
+    
+    // Mock browserVoices to include a matching voice by name
+    const mockBrowserVoice = {
+      voiceURI: "mock-voice-uri",
+      name: "Test Voice (Original)",
+      lang: "en-US",
+      localService: true,
+      default: false
+    };
+    
+    // Save original browserVoices and replace with our mock
+    const originalBrowserVoices = (manager as any).browserVoices;
+    (manager as any).browserVoices = [mockBrowserVoice];
+    
+    try {
+      const result = manager.convertToSpeechSynthesisVoice(testVoice);
+      t.truthy(result, "Should return a voice when matching by original name");
+      t.is(result?.name, "Test Voice (Original)", "Should match by original name when voiceURI is undefined");
+    } finally {
+      // Restore original browserVoices
+      (manager as any).browserVoices = originalBrowserVoices;
+    }
+  } else {
+    t.pass("No voices available to test");
+  }
+});
+
+testWithContext("convertToSpeechSynthesisVoice: handles undefined voiceURI and originalName", async (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  const voices = await manager.getVoices();
+  
+  if (voices.length > 0) {
+    // Create a test voice with undefined voiceURI  and originalName
+    const testVoice = {
+      ...voices[0],
+      voiceURI: undefined,
+      name: "Test Voice",
+      originalName: undefined
+    };
+    
+    // Mock browserVoices to include a matching voice by name
+    const mockBrowserVoice = {
+      voiceURI: "mock-voice-uri",
+      name: "Test Voice (Original)",
+      lang: "en-US",
+      localService: true,
+      default: false
+    };
+    
+    // Save original browserVoices and replace with our mock
+    const originalBrowserVoices = (manager as any).browserVoices;
+    (manager as any).browserVoices = [mockBrowserVoice];
+    
+    try {
+      const result = manager.convertToSpeechSynthesisVoice(testVoice as any);
+      t.truthy(result, "Should return a voice when matching by original name");
+      t.is(result?.name, "Test Voice (Original)", "Should match by name when voiceURI and Original name are undefined");
+    } finally {
+      // Restore original browserVoices
+      (manager as any).browserVoices = originalBrowserVoices;
+    }
   } else {
     t.pass("No voices available to test");
   }

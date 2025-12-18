@@ -1,4 +1,4 @@
-import { JSONVoice, ReadiumSpeechVoice, TGender, TQuality, TSource } from "../voices/types";
+import { ReadiumSpeechJSONVoice, ReadiumSpeechVoice, TGender, TQuality, TSource } from "../voices/types";
 import { getTestUtterance, getVoices } from "../voices/languages";
 import { 
   isNoveltyVoice, 
@@ -183,7 +183,7 @@ export class WebSpeechVoiceManager {
    */
   private inferVoiceQuality(
     voice: SpeechSynthesisVoice,
-    jsonVoice: JSONVoice | undefined,
+    jsonVoice: ReadiumSpeechJSONVoice | undefined,
     duplicatesCount: number
   ): TQuality {
     // 1. Try package name
@@ -217,7 +217,7 @@ export class WebSpeechVoiceManager {
    * Find matching JSON voice by name or alternative names
    * @private
    */
-  private findMatchingJsonVoice(langVoices: any[], normalizedName: string) {
+  private findMatchingJsonVoice(langVoices: any[], normalizedName: string): ReadiumSpeechJSONVoice | undefined {
     return langVoices.find(v => 
       this.normalizeVoiceName(v.name) === normalizedName || 
       v.altNames?.some((alt: string) => this.normalizeVoiceName(alt) === normalizedName)
@@ -500,7 +500,7 @@ export class WebSpeechVoiceManager {
           return {
             ...jsonVoice,
             source: "json",
-            name: voice.name,
+            originalName: voice.name,
             language: voice.lang,
             voiceURI: voice.voiceURI,
             quality,
@@ -516,6 +516,7 @@ export class WebSpeechVoiceManager {
           source: "browser",
           label: this.normalizeVoiceName(voice.name),
           name: voice.name,
+          originalName: voice.name,
           language: formattedLang,
           voiceURI: voice.voiceURI,
           quality,
@@ -538,7 +539,8 @@ export class WebSpeechVoiceManager {
     
     return this.browserVoices.find(v => 
       v.voiceURI === voice.voiceURI || 
-      v.name === voice.name
+      v.name === voice.originalName ||
+      this.normalizeVoiceName(v.name) === this.normalizeVoiceName(voice.name)
     );
   }
 
