@@ -231,7 +231,7 @@ testWithContext("deduplication: keeps higher quality voice from voiceURI package
   const [resultVoice] = (manager as any).parseToReadiumSpeechVoices([lowVoice, normalVoice]);
   
   // Verify the result
-  t.is(resultVoice.name, "Samantha", "Should keep the json name of the voice");
+  t.is(resultVoice.name, "Samantha (enhanced)", "Should keep the name of the voice for retrieval");
   t.deepEqual(resultVoice.quality, "normal", "Should keep the voice with normal quality");
 });
 
@@ -267,7 +267,7 @@ testWithContext("deduplication: keeps higher quality voice from voiceURI string"
   const [resultVoice] = (manager as any).parseToReadiumSpeechVoices([basicVoice, enhancedVoice]);
   
   // Verify the result
-  t.is(resultVoice.name, "Samantha", "Should keep the json name of the voice");
+  t.is(resultVoice.name, "Samantha (Premium)", "Should keep the name of the voice for retrieval");
   t.deepEqual(resultVoice.quality, "high", "Should keep the voice with high quality");
 });
 
@@ -296,7 +296,7 @@ testWithContext("deduplication: keeps higher quality voice from json quality arr
   
   // Verify only the higher quality voice remains with its original name
   t.is(deduped.length, 1, "Should only keep one voice after deduplication");
-  t.is(deduped[0].name, "Samantha", "Should keep the json name of the voice");
+  t.is(deduped[0].name, "Samantha (Superior)", "Should keep the name of the voice for retrieval");
   t.is(deduped[0].voiceURI, "Samantha superior", "Should keep the voice with superior quality");
   t.deepEqual(deduped[0].quality, "normal", "Should find the voice with normal quality from the array");
 });

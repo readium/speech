@@ -500,9 +500,10 @@ export class WebSpeechVoiceManager {
           return {
             ...jsonVoice,
             source: "json",
-            quality,
-            voiceURI: voice.voiceURI,
+            name: voice.name,
             language: voice.lang,
+            voiceURI: voice.voiceURI,
+            quality,
             isDefault: voice.default || false,
             offlineAvailability: voice.localService || false,
             isNovelty: isNoveltyVoice(voice.name, voice.voiceURI),
@@ -513,11 +514,11 @@ export class WebSpeechVoiceManager {
         // No match found in JSON, create basic voice object
         return {
           source: "browser",
-          label: voice.name,
+          label: this.normalizeVoiceName(voice.name),
           name: voice.name,
           language: formattedLang,
-          quality,
           voiceURI: voice.voiceURI,
+          quality,
           isDefault: voice.default || false,
           offlineAvailability: voice.localService || false,
           isNovelty: isNoveltyVoice(voice.name, voice.voiceURI),
@@ -535,10 +536,9 @@ export class WebSpeechVoiceManager {
   convertToSpeechSynthesisVoice(voice: ReadiumSpeechVoice): SpeechSynthesisVoice | undefined {
     if (!voice) return undefined;
     
-    const normalizedVoiceName = this.normalizeVoiceName(voice.name);
     return this.browserVoices.find(v => 
       v.voiceURI === voice.voiceURI || 
-      this.normalizeVoiceName(v.name) === normalizedVoiceName
+      v.name === voice.name
     );
   }
 
