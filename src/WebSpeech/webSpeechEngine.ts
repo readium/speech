@@ -87,7 +87,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.voices = this.voiceManager.getVoices();
 
       // Find the best matching voice for the user's language using the optimized method
-      this.defaultVoice = this.voiceManager.getDefaultVoice(navigator.language || "en", this.voices);
+      this.defaultVoice = this.voiceManager.getDefaultVoice(navigator.languages[0] || "en", this.voices);
 
       this.initialized = true;
       return true;
@@ -169,6 +169,15 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       if (previousVoice && previousVoice.name !== voice.name) {
         this.currentUtteranceIndex = 0;
       }
+    }
+
+    // Update default voice if language changed
+    if (
+      this.voiceManager && 
+      this.defaultVoice && this.currentVoice &&
+      this.currentVoice.language !== this.defaultVoice.language
+    ) {
+      this.defaultVoice = this.voiceManager.getDefaultVoice(this.currentVoice.language, this.voices);
     }
   }
 
@@ -254,11 +263,6 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     const utterance = this.createUtterance(text);
 
-    // Configure utterance
-    if (content.language) {
-      utterance.lang = content.language;
-    }
-
     // Enhanced voice selection with MSNatural detection
     const selectedVoice = this.getCurrentVoiceForUtterance(this.currentVoice);
 
@@ -268,7 +272,12 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       
       if (nativeVoice) {
         utterance.voice = nativeVoice; // Use the real native voice from cache
+        utterance.lang = nativeVoice.lang;
       }
+    }
+
+    if (content.language) {
+      utterance.lang = content.language;
     }
 
     utterance.rate = this.rate;

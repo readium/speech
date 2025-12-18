@@ -1,4 +1,4 @@
-import { JSONVoice, ReadiumSpeechVoice, TGender, TQuality, TSource } from "../voices/types";
+import { ReadiumSpeechJSONVoice, ReadiumSpeechVoice, TGender, TQuality, TSource } from "../voices/types";
 import { getTestUtterance, getVoices } from "../voices/languages";
 import { 
   isNoveltyVoice, 
@@ -183,7 +183,7 @@ export class WebSpeechVoiceManager {
    */
   private inferVoiceQuality(
     voice: SpeechSynthesisVoice,
-    jsonVoice: JSONVoice | undefined,
+    jsonVoice: ReadiumSpeechJSONVoice | undefined,
     duplicatesCount: number
   ): TQuality {
     // 1. Try package name
@@ -217,7 +217,7 @@ export class WebSpeechVoiceManager {
    * Find matching JSON voice by name or alternative names
    * @private
    */
-  private findMatchingJsonVoice(langVoices: any[], normalizedName: string) {
+  private findMatchingJsonVoice(langVoices: any[], normalizedName: string): ReadiumSpeechJSONVoice | undefined {
     return langVoices.find(v => 
       this.normalizeVoiceName(v.name) === normalizedName || 
       v.altNames?.some((alt: string) => this.normalizeVoiceName(alt) === normalizedName)
@@ -481,8 +481,13 @@ export class WebSpeechVoiceManager {
         const voiceKey = `${voice.lang.toLowerCase()}_${normalizedName}`;
         const duplicatesCount = duplicateCounts.get(voiceKey) || 1;
         
-        // Get voices for the specific language
-        const langVoices = getVoices(baseLang);
+        // First try with the full language code to handle variants like zh-HK
+        let langVoices = getVoices(formattedLang);
+        
+        // If no voices found, try with the base language code
+        if (!langVoices || langVoices.length === 0) {
+          langVoices = getVoices(baseLang);
+        }
         
         // Find matching JSON voice
         const jsonVoice = this.findMatchingJsonVoice(langVoices, normalizedName);
@@ -495,8 +500,10 @@ export class WebSpeechVoiceManager {
           return {
             ...jsonVoice,
             source: "json",
-            quality,
+            originalName: voice.name,
+            language: voice.lang,
             voiceURI: voice.voiceURI,
+            quality,
             isDefault: voice.default || false,
             offlineAvailability: voice.localService || false,
             isNovelty: isNoveltyVoice(voice.name, voice.voiceURI),
@@ -507,11 +514,12 @@ export class WebSpeechVoiceManager {
         // No match found in JSON, create basic voice object
         return {
           source: "browser",
-          label: voice.name,
+          label: this.normalizeVoiceName(voice.name),
           name: voice.name,
+          originalName: voice.name,
           language: formattedLang,
-          quality,
           voiceURI: voice.voiceURI,
+          quality,
           isDefault: voice.default || false,
           offlineAvailability: voice.localService || false,
           isNovelty: isNoveltyVoice(voice.name, voice.voiceURI),
@@ -529,10 +537,10 @@ export class WebSpeechVoiceManager {
   convertToSpeechSynthesisVoice(voice: ReadiumSpeechVoice): SpeechSynthesisVoice | undefined {
     if (!voice) return undefined;
     
-    const normalizedVoiceName = this.normalizeVoiceName(voice.name);
     return this.browserVoices.find(v => 
       v.voiceURI === voice.voiceURI || 
-      this.normalizeVoiceName(v.name) === normalizedVoiceName
+      v.name === voice.originalName ||
+      this.normalizeVoiceName(v.name) === this.normalizeVoiceName(voice.name)
     );
   }
 

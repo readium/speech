@@ -22,6 +22,7 @@ const jumpToBtn = document.getElementById("jump-to-btn");
 const utteranceIndexInput = document.getElementById("utterance-index");
 const totalUtterancesSpan = document.getElementById("total-utterances");
 const sampleTextDisplay = document.getElementById("sample-text");
+const downloadVoicesBtn = document.getElementById("download-voices-btn");
 
 // Track if user has manually changed the jump input
 let jumpInputUserChanged = false;
@@ -628,6 +629,9 @@ function displayVoiceProperties(voice) {
       updateTestUtterance(currentVoice, languageSelect.value);
     }
   });
+
+  // Download voices button
+  downloadVoicesBtn.addEventListener("click", downloadVoicesAsJson);
 }
 
 // Play test utterance - independent of the navigator
@@ -893,6 +897,51 @@ function updateUI() {
     }
   } catch (error) {
     console.error("Error updating UI:", error);
+  }
+}
+
+// Simple function to get current date for filenames
+function getCurrentDate() {
+  return new Date().toISOString().split("T")[0];
+}
+
+// Function to download voices as JSON
+function downloadVoicesAsJson() {
+  try {
+    const voices = window.speechSynthesis.getVoices();
+    
+    const metadata = {
+      timestamp: new Date().toISOString(),
+      voicesCount: voices.length
+    };
+    
+    const voicesData = voices.map(voice => ({
+      ...voice,
+      // Known properties
+      voiceURI: voice.voiceURI,
+      name: voice.name,
+      lang: voice.lang,
+      localService: voice.localService,
+      default: voice.default
+    }));
+    
+    const exportData = {
+      metadata,
+      voices: voicesData
+    };
+    
+    const dataStr = JSON.stringify(exportData, null, 2);
+    const dataUri = "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
+    
+    const exportFileDefaultName = `speech-voices-${getCurrentDate()}.json`.replace(/[^a-z0-9.-]+/gi, "-").toLowerCase();
+    
+    const linkElement = document.createElement("a");
+    linkElement.setAttribute("href", dataUri);
+    linkElement.setAttribute("download", exportFileDefaultName);
+    linkElement.click();
+  } catch (error) {
+    console.error("Error downloading voices data:", error);
+    alert("Error downloading voices data. Please check console for details.");
   }
 }
 

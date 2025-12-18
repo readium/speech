@@ -31,7 +31,7 @@ export type TBrowser = "ChromeDesktop" | "Edge" | "Firefox" | "Safari";
 /**
  * Represents a voice from the JSON data file
  */
-export interface JSONVoice {
+export interface ReadiumSpeechJSONVoice {
   label?: string;
   name: string;
   localizedName?: "android" | "apple";
@@ -66,7 +66,8 @@ export interface ReadiumSpeechVoice {
 
   // Core identification (required)
   label: string;          // Human-friendly label for the voice
-  name: string;           // System/technical name (matches Web Speech API voiceURI)
+  name: string;           // JSON Name (or Web Speech API name if not found)
+  originalName: string;   // Web Speech API name
   voiceURI?: string;      // For Web Speech API compatibility
   
   // Localization
