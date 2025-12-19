@@ -1185,6 +1185,46 @@
       "preloaded": true
     },
     {
+      "label": "Aman",
+      "name": "Aman",
+      "nativeID": [
+        "com.apple.voice.Aman"
+      ],
+      "localizedName": "apple",
+      "language": "en-IN",
+      "gender": "male",
+      "quality": [
+        "high"
+      ],
+      "rate": 1,
+      "pitch": 1,
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ]
+    },
+    {
+      "label": "Tara",
+      "name": "Tara",
+      "nativeID": [
+        "com.apple.voice.Tara"
+      ],
+      "localizedName": "apple",
+      "language": "en-IN",
+      "gender": "female",
+      "quality": [
+        "high"
+      ],
+      "rate": 1,
+      "pitch": 1,
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ]
+    },
+    {
       "label": "Isha",
       "name": "Isha",
       "localizedName": "apple",

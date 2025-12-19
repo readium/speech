@@ -1,0 +1,27 @@
+{
+  "language": "kk",
+  "defaultRegion": "kk-KZ",
+  "testUtterance": "Sälemetsiz be, meniñ atım {name} jäne men qazaq dawısımın.",
+  "voices": [
+    {
+      "label": "Aru",
+      "name": "Aru",
+      "nativeID": [
+        "com.apple.voice.Aru"
+      ],
+      "localizedName": "apple",
+      "language": "kk-KZ",
+      "gender": "male",
+      "quality": [
+        "high"
+      ],
+      "rate": 1,
+      "pitch": 1,
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ]
+    }
+  ]
+}
