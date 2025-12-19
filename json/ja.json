@@ -126,26 +126,6 @@
       ]
     },
     {
-      "label": "Hattori",
-      "name": "Hattori",
-      "nativeID": [
-        "com.apple.ttsbundle.siri_Hattori_ja-JP_premium"
-      ],
-      "localizedName": "apple",
-      "language": "ja-JP",
-      "gender": "male",
-      "quality": [
-        "veryHigh"
-      ],
-      "rate": 1,
-      "pitch": 1,
-      "os": [
-        "macOS",
-        "iOS",
-        "iPadOS"
-      ]
-    },
-    {
       "label": "Ayumi",
       "name": "Microsoft Ayumi - Japanese (Japan)",
       "language": "ja-JP",
