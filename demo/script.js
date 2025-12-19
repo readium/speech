@@ -157,6 +157,105 @@ function updateLanguageCounts(voices) {
   });
 }
 
+/**
+ * Format a value for display in the voice properties
+ */
+function formatValue(value) {
+  if (value === undefined || value === null) {
+    return { display: "undefined", className: "undefined" };
+  }
+  
+  if (typeof value === "boolean") {
+    return { 
+      display: value ? "true" : "false", 
+      className: `boolean-${value}` 
+    };
+  }
+  
+  if (Array.isArray(value)) {
+    return { 
+      display: value.length > 0 ? value.join(", ") : "[]",
+      className: ""
+    };
+  }
+  
+  if (typeof value === "object") {
+    return { 
+      display: JSON.stringify(value, null, 2).replace(/"/g, ""),
+      className: "object-value"
+    };
+  }
+  
+  return { display: String(value), className: "" };
+}
+
+/**
+ * Display voice properties in the UI
+ */
+function displayVoiceProperties(voice) {
+  const propertiesContainer = document.getElementById("voice-properties");
+  
+  if (!voice) {
+    propertiesContainer.innerHTML = "<p>No voice selected</p>";
+    return;
+  }
+  
+  // Sort properties alphabetically
+  const sortedProps = Object.keys(voice).sort();
+  
+  // Create HTML for each property
+  const propertiesHtml = sortedProps.map(prop => {
+    // Skip internal/private properties that start with underscore
+    if (prop.startsWith("_")) return "";
+    
+    const value = voice[prop];
+    const { display, className } = formatValue(value);
+    
+    return `
+      <div class="voice-property">
+        <div class="voice-property-name">${prop}</div>
+        <div class="voice-property-value ${className}">${display}</div>
+      </div>
+    `;
+  }).join("");
+  
+  propertiesContainer.innerHTML = propertiesHtml || "<p>No properties available</p>";
+}
+
+// Replace current voice with a new default voice if it gets filtered out
+function replaceCurrentVoiceIfFilteredOut(language) {
+  const currentVoiceFilteredOut = currentVoice && !filteredVoices.some(voice => voice.voiceURI === currentVoice.voiceURI);
+  const needNewVoice = !currentVoice && filteredVoices.length > 0;
+  
+  if (currentVoiceFilteredOut || needNewVoice) {
+    // Current voice was filtered out or no voice selected, pick a new default voice based on language
+    if (filteredVoices.length > 0) {
+      currentVoice = voiceManager.getDefaultVoice(language, filteredVoices);
+      
+      if (currentVoice) {
+        try {
+          speechNavigator.setVoice(currentVoice);
+          displayVoiceProperties(currentVoice);
+          updateTestUtterance(currentVoice, language);
+          
+          // Update dropdown to select the new voice
+          const voiceOption = voiceSelect.querySelector(`option[value="${currentVoice.name}"]`);
+          if (voiceOption) {
+            voiceOption.selected = true;
+          }
+        } catch (error) {
+          console.error("Error setting new default voice:", error);
+        }
+      }
+    } else {
+      // No voices available after filtering
+      currentVoice = null;
+      displayVoiceProperties(null);
+      updateTestUtterance(null, language);
+    }
+  }
+}
+
 // Filter voices based on current filters
 function filterVoices() {
   const language = languageSelect.value;
@@ -197,7 +296,12 @@ function filterVoices() {
     by: "quality",
     order: "desc"
   });
+  
   populateVoiceDropdown(language);
+
+  // Replace current voice if it was filtered out
+  replaceCurrentVoiceIfFilteredOut(language);
+
   updateUI();
 }
 
@@ -517,71 +621,6 @@ function setupEventListeners() {
     updateUI();
   });
   
-  /**
- * Format a value for display in the voice properties
- */
-function formatValue(value) {
-  if (value === undefined || value === null) {
-    return { display: "undefined", className: "undefined" };
-  }
-  
-  if (typeof value === "boolean") {
-    return { 
-      display: value ? "true" : "false", 
-      className: `boolean-${value}` 
-    };
-  }
-  
-  if (Array.isArray(value)) {
-    return { 
-      display: value.length > 0 ? value.join(", ") : "[]",
-      className: ""
-    };
-  }
-  
-  if (typeof value === "object") {
-    return { 
-      display: JSON.stringify(value, null, 2).replace(/"/g, ""),
-      className: "object-value"
-    };
-  }
-  
-  return { display: String(value), className: "" };
-}
-
-/**
- * Display voice properties in the UI
- */
-function displayVoiceProperties(voice) {
-  const propertiesContainer = document.getElementById("voice-properties");
-  
-  if (!voice) {
-    propertiesContainer.innerHTML = "<p>No voice selected</p>";
-    return;
-  }
-  
-  // Sort properties alphabetically
-  const sortedProps = Object.keys(voice).sort();
-  
-  // Create HTML for each property
-  const propertiesHtml = sortedProps.map(prop => {
-    // Skip internal/private properties that start with underscore
-    if (prop.startsWith("_")) return "";
-    
-    const value = voice[prop];
-    const { display, className } = formatValue(value);
-    
-    return `
-      <div class="voice-property">
-        <div class="voice-property-name">${prop}</div>
-        <div class="voice-property-value ${className}">${display}</div>
-      </div>
-    `;
-  }).join("");
-  
-  propertiesContainer.innerHTML = propertiesHtml || "<p>No properties available</p>";
-}
-
   // Voice selection
   voiceSelect.addEventListener("change", async () => {
     const selectedVoiceName = voiceSelect.value;
