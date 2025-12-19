@@ -34,7 +34,7 @@ testWithContext("systemLocale: initializes with first navigator.language", async
   try {
     // Ensure speechSynthesis mock is available on globalThis
     if (!globalThis.speechSynthesis) {
-      Object.defineProperty(globalThis, 'speechSynthesis', {
+      Object.defineProperty(globalThis, "speechSynthesis", {
         value: mockSpeechSynthesis,
         configurable: true,
         writable: true
@@ -48,7 +48,7 @@ testWithContext("systemLocale: initializes with first navigator.language", async
     };
     
     // Override the global navigator
-    Object.defineProperty(globalThis, 'navigator', {
+    Object.defineProperty(globalThis, "navigator", {
       value: testNavigator,
       configurable: true,
       writable: true
@@ -66,7 +66,7 @@ testWithContext("systemLocale: initializes with first navigator.language", async
     
   } finally {
     // Restore original state
-    Object.defineProperty(globalThis, 'navigator', {
+    Object.defineProperty(globalThis, "navigator", {
       value: originalNavigator,
       configurable: true,
       writable: true
@@ -80,26 +80,26 @@ testWithContext("systemLocale: initializes with first navigator.language", async
 testWithContext("systemLocale: updates with quality indicators from voices", async (t) => {
   const manager = t.context.manager;
   
-  // Create test voices with actual quality indicators for English
+  // Create test voices with actual quality indicators for Spanish
   const testVoices = [
     { 
       voiceURI: "test-voice-1", 
-      name: "Test Voice (Enhanced)",  // Matches English normal quality indicator
-      lang: "en-US" 
+      name: "Test Voice (mejorada)",  // Matches Spanish normal quality indicator
+      lang: "es-ES" 
     },
     { 
       voiceURI: "test-voice-2", 
-      name: "Test Voice (Premium)",   // Matches English high quality indicator
-      lang: "en-US" 
+      name: "Test Voice (premium)",   // Matches Spanish high quality indicator
+      lang: "es-ES" 
     },
   ];
   
   // Call updateSystemLocale with test voices
   await (manager as any).updateSystemLocale(testVoices);
   
-  // System locale should be updated to 'en' since we have English quality indicators
-  t.is((manager as any).systemLocale, "en",
-       "System locale should update when quality indicators are found in voice names");
+  // System locale should be updated to "es" when Spanish quality indicators are found
+  t.is((manager as any).systemLocale, "es",
+       "System locale should update to Spanish when quality indicators are found in Spanish voice names");
 });
 
 testWithContext("systemLocale: falls back to navigator.language when no quality indicators found", async (t) => {
