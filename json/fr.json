@@ -208,6 +208,22 @@
       "preloaded": true
     },
     {
+      "label": "Voix Google féminine (France)",
+      "name": "Google français",
+      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
+      "language": "fr-FR",
+      "gender": "female",
+      "quality": [
+        "high"
+      ],
+      "rate": 1,
+      "pitch": 1,
+      "browser": [
+        "ChromeDesktop"
+      ],
+      "preloaded": true
+    },
+    {
       "label": "Audrey",
       "name": "Audrey",
       "localizedName": "apple",
@@ -354,22 +370,6 @@
         "iOS",
         "iPadOS"
       ]
-    },
-    {
-      "label": "Voix Google féminine (France)",
-      "name": "Google français",
-      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
-      "language": "fr-FR",
-      "gender": "female",
-      "quality": [
-        "high"
-      ],
-      "rate": 1,
-      "pitch": 1,
-      "browser": [
-        "ChromeDesktop"
-      ],
-      "preloaded": true
     },
     {
       "label": "Julie",

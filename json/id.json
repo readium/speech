@@ -34,6 +34,22 @@
       "preloaded": true
     },
     {
+      "label": "Suara Google wanita",
+      "name": "Google Bahasa Indonesia",
+      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
+      "language": "id-ID",
+      "gender": "female",
+      "quality": [
+        "high"
+      ],
+      "rate": 1,
+      "pitch": 1,
+      "browser": [
+        "ChromeDesktop"
+      ],
+      "preloaded": true
+    },
+    {
       "label": "Damayanti",
       "name": "Damayanti",
       "localizedName": "apple",
@@ -49,22 +65,6 @@
         "macOS",
         "iOS",
         "iPadOS"
-      ],
-      "preloaded": true
-    },
-    {
-      "label": "Suara Google wanita",
-      "name": "Google Bahasa Indonesia",
-      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
-      "language": "id-ID",
-      "gender": "female",
-      "quality": [
-        "high"
-      ],
-      "rate": 1,
-      "pitch": 1,
-      "browser": [
-        "ChromeDesktop"
       ],
       "preloaded": true
     },
