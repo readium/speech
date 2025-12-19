@@ -26,6 +26,7 @@ import hu from "@json/hu.json";
 import id from "@json/id.json";
 import it from "@json/it.json";
 import ja from "@json/ja.json";
+import kk from "@json/kk.json";
 import kn from "@json/kn.json";
 import ko from "@json/ko.json";
 import mr from "@json/mr.json";
@@ -69,7 +70,7 @@ const castVoice = (voice: any): ReadiumSpeechVoice => ({
 const voiceDataMap: Record<string, VoiceData> = Object.fromEntries(
   Object.entries({
     ar, bg, bho, bn, ca, cmn, cs, da, de, el, en, es, eu, fa, fi, fr, gl, he, hi,
-    hr, hu, id, it, ja, kn, ko, mr, ms, nb, nl, pl, pt, ro, ru, sk, sl, sv, ta,
+    hr, hu, id, it, ja, kk, kn, ko, mr, ms, nb, nl, pl, pt, ro, ru, sk, sl, sv, ta,
     te, th, tr, uk, vi, wuu, yue
   }).map(([lang, data]) => [
     lang,
