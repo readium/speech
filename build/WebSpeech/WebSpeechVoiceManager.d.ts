@@ -48,6 +48,7 @@ interface SortOptions {
 export declare class WebSpeechVoiceManager {
     private static instance;
     private static initializationPromise;
+    private systemLocale;
     private voices;
     private browserVoices;
     private isInitialized;
@@ -81,6 +82,15 @@ export declare class WebSpeechVoiceManager {
      * @private
      */
     private countVoiceDuplicates;
+    /**
+     * Updates the system locale based on available voices by detecting quality indicators.
+     * The method extracts voice names and attempts to find a matching locale with both
+     * high and normal quality indicators. If found, updates the systemLocale property.
+     *
+     * @param voices - Array of SpeechSynthesisVoice objects to analyze for locale detection
+     * @returns void - Updates the systemLocale property if a matching locale is found
+     */
+    private updateSystemLocale;
     /**
      * Infer voice quality based on package, platform, JSON, or duplicate count
      * Returns null if quality cannot be determined
