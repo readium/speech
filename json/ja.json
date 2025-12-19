@@ -34,6 +34,26 @@
       "preloaded": true
     },
     {
+      "label": "Hattori",
+      "name": "Hattori",
+      "nativeID": [
+        "com.apple.ttsbundle.siri_Hattori_ja-JP_premium"
+      ],
+      "localizedName": "apple",
+      "language": "ja-JP",
+      "gender": "male",
+      "quality": [
+        "high"
+      ],
+      "rate": 1,
+      "pitch": 1,
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ]
+    },
+    {
       "label": "Google の女性の声",
       "name": "Google 日本語",
       "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
@@ -90,24 +110,6 @@
     {
       "label": "Otoya",
       "name": "Otoya",
-      "localizedName": "apple",
-      "language": "ja-JP",
-      "gender": "male",
-      "quality": [
-        "low",
-        "normal"
-      ],
-      "rate": 1,
-      "pitch": 1,
-      "os": [
-        "macOS",
-        "iOS",
-        "iPadOS"
-      ]
-    },
-    {
-      "label": "Hattori",
-      "name": "Hattori",
       "localizedName": "apple",
       "language": "ja-JP",
       "gender": "male",

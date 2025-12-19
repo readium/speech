@@ -46,6 +46,7 @@ In its current state, it covers 43 languages:
 * [Italian](../json/it.json)
 * [Japanese](../json/ja.json)
 * [Kannada](../json/kn.json)
+* [Kazakh](../json/kk.json)
 * [Korean](../json/ko.json)
 * [Malay](../json/ms.json)
 * [Marathi](../json/mr.json)
