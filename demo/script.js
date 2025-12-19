@@ -36,29 +36,29 @@ let currentVoice = null;
 let testUtterance = "";
 let lastNavigatorPosition = 1;
 
-const navigator = new WebSpeechReadAloudNavigator();
+const speechNavigator = new WebSpeechReadAloudNavigator();
 
 // Set up event listeners for the navigator
-navigator.on("boundary", (event) => {
+speechNavigator.on("boundary", (event) => {
   if (event.detail && event.detail.name === "word") {
     highlightCurrentWord(event.detail.charIndex, event.detail.charLength);
   }
 });
 
-navigator.on("start", () => {
+speechNavigator.on("start", () => {
   clearWordHighlighting();
   updateUI();
 });
 
-navigator.on("pause", updateUI);
-navigator.on("resume", updateUI);
-navigator.on("stop", () => {
+speechNavigator.on("pause", updateUI);
+speechNavigator.on("resume", updateUI);
+speechNavigator.on("stop", () => {
   clearWordHighlighting();
   updateUI();
 });
 
-navigator.on("end", updateUI);
-navigator.on("error", (event) => {
+speechNavigator.on("end", updateUI);
+speechNavigator.on("error", (event) => {
   console.error("Navigator error:", event.detail);
   updateUI();
 });
@@ -128,6 +128,35 @@ function populateLanguageDropdown() {
   });
 }
 
+// Update language counts based on filtered voices
+function updateLanguageCounts(voices) {
+  // Create a map to count voices per language from the provided voices
+  const languageCounts = new Map();
+  
+  voices.forEach(voice => {
+    const langCode = voice.language.split("-")[0]; // Get base language code
+    languageCounts.set(langCode, (languageCounts.get(langCode) || 0) + 1);
+  });
+  
+  // Update the languages array with new counts
+  languages = languages.map(lang => ({
+    ...lang,
+    count: languageCounts.get(lang.code) || 0
+  }));
+  
+  // Update the dropdown text without losing selection
+  const options = languageSelect.querySelectorAll("option");
+  
+  options.forEach(option => {
+    if (option.value) {
+      const lang = languages.find(l => l.code === option.value);
+      if (lang) {
+        option.textContent = `${lang.label} (${lang.count})`;
+      }
+    }
+  });
+}
+
 // Filter voices based on current filters
 function filterVoices() {
   const language = languageSelect.value;
@@ -136,10 +165,6 @@ function filterVoices() {
   const offlineOnly = offlineOnlyCheckbox.checked;
 
   const filterOptions = {};
-  
-  if (language) {
-    filterOptions.language = language;
-  }
   
   if (gender !== "all") {
     filterOptions.gender = gender;
@@ -153,8 +178,19 @@ function filterVoices() {
     filterOptions.offlineOnly = true;
   }
   
-  // Apply filters
-  filteredVoices = voiceManager.filterVoices(allVoices, filterOptions);
+  // Filter voices once with all filters except language
+  let voicesFilteredExceptLanguage = voiceManager.filterVoices(allVoices, filterOptions);
+  
+  // Update language counts using the filtered voices
+  updateLanguageCounts(voicesFilteredExceptLanguage);
+  
+  // Now apply language filter if needed
+  if (language) {
+    filterOptions.language = language;
+    filteredVoices = voiceManager.filterVoices(voicesFilteredExceptLanguage, { language });
+  } else {
+    filteredVoices = voicesFilteredExceptLanguage;
+  }
   
   // Sort voices by quality (highest first)
   filteredVoices = voiceManager.sortVoices(filteredVoices, {
@@ -361,7 +397,7 @@ async function loadSampleText(languageCode) {
     sampleTextDisplay.appendChild(demoSection);
     
     // Load utterances into the navigator
-    await navigator.loadContent(utterances);
+    await speechNavigator.loadContent(utterances);
     
     // Update total utterances display
     const totalUtterancesSpan = document.getElementById("total-utterances");
@@ -454,7 +490,7 @@ function setupEventListeners() {
       if (currentVoice) {
         try {
           // Set the voice for the navigator
-          navigator.setVoice(currentVoice);
+          speechNavigator.setVoice(currentVoice);
           
           // Update the voice dropdown to reflect the selected voice
           const voiceOption = voiceSelect.querySelector(`option[value="${currentVoice.name}"]`);
@@ -554,7 +590,7 @@ function displayVoiceProperties(voice) {
     if (currentVoice) {
       try {
         // Set the voice for the navigator
-        navigator.setVoice(currentVoice);
+        speechNavigator.setVoice(currentVoice);
         
         // Display voice properties
         displayVoiceProperties(currentVoice);
@@ -643,8 +679,8 @@ async function playTestUtterance() {
   
   try {
     // Reset playback controls first
-    if (navigator) {
-      navigator.stop();
+    if (speechNavigator) {
+      speechNavigator.stop();
     }
     
     // Get test utterance for the selected language
@@ -699,16 +735,16 @@ async function togglePlayback() {
   }
 
   try {
-    const state = navigator.getState();
+    const state = speechNavigator.getState();
     if (state === "playing") {
-      await navigator.pause();
+      await speechNavigator.pause();
     } else if (state === "paused") {
       // Use play() to resume from paused state
-      await navigator.play();
+      await speechNavigator.play();
     } else {
       // Start from beginning if stopped or in an unknown state
-      await navigator.jumpTo(0);
-      await navigator.play();
+      await speechNavigator.jumpTo(0);
+      await speechNavigator.play();
     }
   } catch (error) {
     console.error("Error toggling playback:", error);
@@ -721,7 +757,7 @@ async function togglePlayback() {
 // Stop sample playback
 async function stopPlayback() {
   try {
-    await navigator.stop();
+    await speechNavigator.stop();
     clearWordHighlighting();
     playPauseBtn.textContent = "Play Sample";
     updateUI();
@@ -732,26 +768,26 @@ async function stopPlayback() {
 
 // Go to previous utterance
 async function previousUtterance() {
-  await navigator.previous();
+  await speechNavigator.previous();
   updateUI();
 }
 
 // Go to next utterance
 async function nextUtterance() {
-  await navigator.next();
+  await speechNavigator.next();
   updateUI();
 }
 
 // Jump to a specific utterance
 function jumpToUtterance() {
-  const totalUtterances = navigator.getContentQueue()?.length || 0;
+  const totalUtterances = speechNavigator.getContentQueue()?.length || 0;
   
   // Ensure we have a valid input value
   const index = Math.max(0, Math.min(parseInt(utteranceIndexInput.value) - 1, totalUtterances - 1));
   
   if (!isNaN(index) && index >= 0 && index < totalUtterances) {
     clearWordHighlighting();
-    navigator.jumpTo(index);
+    speechNavigator.jumpTo(index);
     
     // Update UI to reflect the new position
     if (utteranceIndexInput) {
@@ -771,7 +807,7 @@ function jumpToUtterance() {
     utteranceIndexInput.value = lastNavigatorPosition;
   } else {
     // Invalid input, reset to current position
-    const currentPos = (navigator.getCurrentUtteranceIndex() || 0) + 1;
+    const currentPos = (speechNavigator.getCurrentUtteranceIndex() || 0) + 1;
     utteranceIndexInput.value = currentPos;
     jumpInputUserChanged = false;
     lastNavigatorPosition = currentPos;
@@ -796,7 +832,7 @@ function highlightCurrentWord(charIndex, charLength) {
   clearWordHighlighting();
   
   // Get the current utterance element
-  const currentIndex = navigator.getCurrentUtteranceIndex();
+  const currentIndex = speechNavigator.getCurrentUtteranceIndex();
   const utteranceElement = document.querySelector(`.utterance[data-utterance-index="${currentIndex}"] .utterance-text`);
   if (!utteranceElement) return;
   
@@ -830,9 +866,9 @@ function highlightCurrentWord(charIndex, charLength) {
 // Update UI based on current state
 function updateUI() {
   try {
-    const state = navigator.getState();
-    const currentIndex = navigator.getCurrentUtteranceIndex() || 0;
-    const totalUtterances = navigator.getContentQueue()?.length || 0;
+    const state = speechNavigator.getState();
+    const currentIndex = speechNavigator.getCurrentUtteranceIndex() || 0;
+    const totalUtterances = speechNavigator.getContentQueue()?.length || 0;
     const hasContent = totalUtterances > 0;
     
     // Update playback controls
