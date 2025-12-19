@@ -18,7 +18,7 @@
     }
   },
   "scripts": {
-    "test": "npm run build && ava test/WebSpeechVoiceManager*.test.ts",
+    "test": "npm run build && NODE_NO_WARNINGS=1 ava test/**/*.test.ts",
     "clean": "rimraf ./build",
     "build": "vite build",
     "start": "node build/index.js",
