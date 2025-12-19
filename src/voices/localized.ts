@@ -51,3 +51,28 @@ export const getInferredQualityFromPlatform = (
 
   return undefined;
 }
+
+/**
+ * Finds a locale where both high and normal quality indicators are present in the voice names
+ * @param voiceNames Array of voice names to check against quality indicators
+ * @param platform The platform to check quality indicators for (e.g., "apple")
+ * @returns The first matching locale code or undefined if none found or platform not found
+ */
+export const findLocaleWithQualityIndicators = (
+  voiceNames: string[], 
+  platform: keyof typeof platformQualities
+): string | undefined => {
+  const qualityMap = platformQualities[platform];
+  if (!qualityMap) return undefined;
+  
+  for (const [lang, { high, normal }] of Object.entries(qualityMap)) {
+    const hasHigh = high && voiceNames.some(name => name.includes(high));
+    const hasNormal = normal && voiceNames.some(name => name.includes(normal));
+    
+    if (hasHigh && hasNormal) {
+      return lang;
+    }
+  }
+  
+  return undefined;
+};

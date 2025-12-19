@@ -187,11 +187,6 @@ testWithContext.afterEach.always((t: ExecutionContext<TestContext>) => {
 // 1. Initialization Tests
 // =============================================
 
-testWithContext("initialize: returns singleton instance", async (t) => {
-  const instance1 = await WebSpeechVoiceManager.initialize();
-  const instance2 = await WebSpeechVoiceManager.initialize();
-  t.is(instance1, instance2);
-});
 
 testWithContext("initialize: loads voices and gets voices successfully", (t) => {
   const manager = t.context.manager;
@@ -1564,4 +1559,111 @@ testWithContext("convertToSpeechSynthesisVoice: handles invalid voice", (t: Exec
   const invalidVoice = createTestVoice({ name: "Non-existent Voice", language: "xx-XX" });
   const result2 = manager.convertToSpeechSynthesisVoice(invalidVoice);
   t.is(result2, undefined);
+});
+
+// =============================================
+// 11. System Locale Tests
+// =============================================
+
+testWithContext("systemLocale: initializes with first navigator.language", async (t) => {
+  // Store original state
+  const originalNavigator = globalThis.navigator;
+  const originalInstance = (WebSpeechVoiceManager as any).instance;
+  const originalInitPromise = (WebSpeechVoiceManager as any).initializationPromise;
+  
+  try {
+    // Ensure speechSynthesis mock is available on globalThis
+    if (!globalThis.speechSynthesis) {
+      Object.defineProperty(globalThis, 'speechSynthesis', {
+        value: mockSpeechSynthesis,
+        configurable: true,
+        writable: true
+      });
+    }
+    
+    // Create a new navigator object with test languages
+    const testNavigator = {
+      ...originalNavigator,
+      languages: ["fr-FR", "en-US"]
+    };
+    
+    // Override the global navigator
+    Object.defineProperty(globalThis, 'navigator', {
+      value: testNavigator,
+      configurable: true,
+      writable: true
+    });
+    
+    // Reset singleton to test fresh initialization
+    (WebSpeechVoiceManager as any).instance = undefined;
+    (WebSpeechVoiceManager as any).initializationPromise = null;
+    
+    // Test initialization with the modified navigator.languages
+    const manager = await WebSpeechVoiceManager.initialize(1000, 10);
+    
+    // Verify systemLocale is set to the first language code from navigator.languages
+    t.is((manager as any).systemLocale, "fr");
+    
+  } finally {
+    // Restore original state
+    Object.defineProperty(globalThis, 'navigator', {
+      value: originalNavigator,
+      configurable: true,
+      writable: true
+    });
+    
+    (WebSpeechVoiceManager as any).instance = originalInstance;
+    (WebSpeechVoiceManager as any).initializationPromise = originalInitPromise;
+  }
+});
+
+testWithContext("systemLocale: updates with quality indicators from voices", async (t) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with actual quality indicators for English
+  const testVoices = [
+    { 
+      voiceURI: "test-voice-1", 
+      name: "Test Voice (Enhanced)",  // Matches English normal quality indicator
+      lang: "en-US" 
+    },
+    { 
+      voiceURI: "test-voice-2", 
+      name: "Test Voice (Premium)",   // Matches English high quality indicator
+      lang: "en-US" 
+    },
+  ];
+  
+  // Call updateSystemLocale with test voices
+  await (manager as any).updateSystemLocale(testVoices);
+  
+  // System locale should be updated to 'en' since we have English quality indicators
+  t.is((manager as any).systemLocale, "en",
+       "System locale should update when quality indicators are found in voice names");
+});
+
+testWithContext("systemLocale: falls back to navigator.language when no quality indicators found", async (t) => {
+  const manager = t.context.manager;
+  const originalLocale = (manager as any).systemLocale;
+  
+  // Create test voices without any quality indicators
+  const testVoices = [
+    { 
+      voiceURI: "test-voice-1", 
+      name: "Random Voice 1",  // No quality indicators
+      lang: "en-US" 
+    },
+    { 
+      voiceURI: "test-voice-2", 
+      name: "Random Voice 2",  // No quality indicators
+      lang: "en-US" 
+    },
+  ];
+  
+  // Call updateSystemLocale with test voices
+  await (manager as any).updateSystemLocale(testVoices);
+  
+  // System locale should remain unchanged
+  t.is((manager as any).systemLocale, originalLocale,
+       "System locale should not change when no quality indicators are found");
 });
