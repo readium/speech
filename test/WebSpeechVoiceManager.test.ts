@@ -305,6 +305,45 @@ testWithContext("deduplication: keeps higher quality voice from json quality arr
   t.deepEqual(deduped[0].quality, "normal", "Should find the voice with normal quality from the array");
 });
 
+testWithContext("quality inference: infers quality from nativeID when voiceURI has no indicators", (t) => {
+  const manager = t.context.manager;
+  
+  // Test Francesca voice from es.json which has nativeID with "enhanced"
+  // Use plain voiceURI to force nativeID quality inference
+  const testVoice = {
+    voiceURI: "plain.voice.uri", // No package indicators
+    name: "Francesca", // Must match the JSON voice name exactly
+    lang: "es-CL", // Must match the JSON voice language
+    localService: true,
+    default: false
+  };
+  
+  // Parse the voice - it should find Francesca in es.json and infer quality from nativeID
+  const voices = (manager as any).parseToReadiumSpeechVoices([testVoice]);
+  
+  // Should infer "normal" quality from "enhanced" in nativeID array
+  t.is(voices[0].quality, "normal", "Should infer 'normal' quality from 'enhanced' in Francesca's nativeID");
+});
+
+testWithContext("quality inference: voiceURI takes precedence over nativeID", (t) => {
+  const manager = t.context.manager;
+  
+  // Test Francesca voice with compact in voiceURI (should take precedence over nativeID enhanced)
+  const testVoice = {
+    voiceURI: "com.apple.speech.synthesis.voice.compact.Francesca", // compact should infer "low"
+    name: "Francesca", // Must match the JSON voice name exactly
+    lang: "es-CL", // Must match the JSON voice language
+    localService: true,
+    default: false
+  };
+  
+  // Parse the voice - it should find Francesca but use voiceURI quality (takes precedence)
+  const voices = (manager as any).parseToReadiumSpeechVoices([testVoice]);
+  
+  // Should infer "low" from voiceURI, not "normal" from nativeID (voiceURI takes precedence)
+  t.is(voices[0].quality, "low", "Should infer 'low' quality from voiceURI, not 'normal' from nativeID");
+});
+
 // =============================================
 // 2. Voice Retrieval Tests
 // =============================================
