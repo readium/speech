@@ -6,7 +6,7 @@ import {
   filterOutNoveltyVoices, 
   filterOutVeryLowQualityVoices 
 } from "../voices/filters";
-import { getInferredQualityFromPlatform } from "../voices/localized";
+import { findLocaleWithQualityIndicators, getInferredQualityFromPlatform } from "../voices/localized";
 import { getInferredQualityFromPackageName } from "../voices/packages";
 import { extractLangRegionFromBCP47 } from "../utils/language";
 
@@ -65,6 +65,7 @@ interface SortOptions {
 export class WebSpeechVoiceManager {
   private static instance: WebSpeechVoiceManager;
   private static initializationPromise: Promise<WebSpeechVoiceManager> | null = null;
+  private systemLocale: string;
   private voices: ReadiumSpeechVoice[] = [];
   private browserVoices: SpeechSynthesisVoice[] = [];
   private isInitialized = false;
@@ -73,6 +74,7 @@ export class WebSpeechVoiceManager {
     if (typeof window === "undefined" || !window.speechSynthesis) {
       throw new Error("Web Speech API is not available in this environment");
     }
+    this.systemLocale = navigator.languages?.[0]?.split("-")[0] || "en";
   }
 
   /**
@@ -103,6 +105,7 @@ export class WebSpeechVoiceManager {
         WebSpeechVoiceManager.instance = instance;
         
         instance.browserVoices = await instance.getBrowserVoices(maxTimeout, interval);
+        instance.updateSystemLocale(instance.browserVoices);
         instance.voices = await instance.parseToReadiumSpeechVoices(instance.browserVoices);
         instance.isInitialized = true;
         
@@ -177,6 +180,27 @@ export class WebSpeechVoiceManager {
   }
 
   /**
+   * Updates the system locale based on available voices by detecting quality indicators.
+   * The method extracts voice names and attempts to find a matching locale with both
+   * high and normal quality indicators. If found, updates the systemLocale property.
+   * 
+   * @param voices - Array of SpeechSynthesisVoice objects to analyze for locale detection
+   * @returns void - Updates the systemLocale property if a matching locale is found
+   */
+  private updateSystemLocale(voices: SpeechSynthesisVoice[]): void {
+    if (!voices?.length) return;
+    
+    // Get voice names for locale detection
+    const voiceNames = voices.map(v => v.name);
+    
+    // Try to find a locale with quality indicators
+    const detectedLocale = findLocaleWithQualityIndicators(voiceNames, "apple");
+    if (detectedLocale) {
+      this.systemLocale = detectedLocale;
+    }
+  }
+
+  /**
    * Infer voice quality based on package, platform, JSON, or duplicate count
    * Returns null if quality cannot be determined
    * @private
@@ -202,7 +226,7 @@ export class WebSpeechVoiceManager {
     if (jsonVoice?.localizedName && voice.voiceURI && voice.lang) {
       const platformQuality = getInferredQualityFromPlatform(
         voice.voiceURI, 
-        voice.lang, 
+        this.systemLocale,
         jsonVoice.localizedName
       );
       if (platformQuality) return platformQuality;
