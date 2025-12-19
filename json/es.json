@@ -863,8 +863,11 @@
       ]
     },
     {
-      "label": "Francisca",
-      "name": "Francisca",
+      "label": "Francesca",
+      "name": "Francesca",
+      "nativeID": [
+        "com.apple.voice.enhanced.es-CL.Francisca"
+      ],
       "localizedName": "apple",
       "language": "es-CL",
       "gender": "female",
