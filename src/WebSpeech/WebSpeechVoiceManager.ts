@@ -214,8 +214,16 @@ export class WebSpeechVoiceManager {
     const packageQuality = voice.voiceURI ? getInferredQualityFromPackageName(voice.voiceURI) : undefined;
     if (packageQuality) return packageQuality;
 
-    // 2. Try platform (localized names) - only if jsonVoice is defined
-    if (jsonVoice?.localizedName && voice.voiceURI) {
+    // 2. Try jsonVoice nativeID against package names
+    if (jsonVoice?.nativeID && Array.isArray(jsonVoice.nativeID)) {
+      for (const nativeId of jsonVoice.nativeID) {
+        const nativeIdQuality = getInferredQualityFromPackageName(nativeId);
+        if (nativeIdQuality) return nativeIdQuality;
+      }
+    }
+
+    // 3. Try platform (localized names) - only if jsonVoice is defined
+    if (jsonVoice?.localizedName && voice.voiceURI && voice.lang) {
       const platformQuality = getInferredQualityFromPlatform(
         voice.voiceURI, 
         this.systemLocale,
@@ -224,7 +232,7 @@ export class WebSpeechVoiceManager {
       if (platformQuality) return platformQuality;
     }
 
-    // 3. Use the jsonVoice.quality array if available
+    // 4. Use the jsonVoice.quality array if available
     if (jsonVoice?.quality && jsonVoice.quality.length > 0) {
       const qualityIndex = Math.min(duplicatesCount - 1, jsonVoice.quality.length - 1);
       const quality = jsonVoice.quality[qualityIndex];
@@ -233,7 +241,7 @@ export class WebSpeechVoiceManager {
       }
     }
 
-    // 4. If we can't determine the quality, return null
+    // 5. If we can't determine the quality, return null
     return null;
   }
 

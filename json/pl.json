@@ -49,6 +49,22 @@
       "preloaded": true
     },
     {
+      "label": "Żeński głos Google’a",
+      "name": "Google polski",
+      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
+      "language": "pl-PL",
+      "gender": "female",
+      "quality": [
+        "high"
+      ],
+      "rate": 1,
+      "pitch": 1,
+      "browser": [
+        "ChromeDesktop"
+      ],
+      "preloaded": true
+    },
+    {
       "label": "Ewa",
       "name": "Ewa",
       "localizedName": "apple",
@@ -103,22 +119,6 @@
         "iOS",
         "iPadOS"
       ]
-    },
-    {
-      "label": "Żeński głos Google’a",
-      "name": "Google polski",
-      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
-      "language": "pl-PL",
-      "gender": "female",
-      "quality": [
-        "high"
-      ],
-      "rate": 1,
-      "pitch": 1,
-      "browser": [
-        "ChromeDesktop"
-      ],
-      "preloaded": true
     },
     {
       "label": "Paulina",

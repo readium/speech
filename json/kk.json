@@ -1,0 +1,57 @@
+{
+  "language": "kk",
+  "defaultRegion": "kk-KZ",
+  "testUtterance": "Sälemetsiz be, meniñ atım {name} jäne men qazaq dawısımın.",
+  "voices": [
+    {
+      "label": "Aigul",
+      "name": "Microsoft Aigul Online (Natural) - Kazakh (Kazakhstan)",
+      "language": "kk-KZ",
+      "gender": "female",
+      "quality": [
+        "veryHigh"
+      ],
+      "rate": 1,
+      "pitchControl": false,
+      "browser": [
+        "Edge"
+      ],
+      "preloaded": true
+    },
+    {
+      "label": "Daulet",
+      "name": "Microsoft Daulet Online (Natural) - Kazakh (Kazakhstan)",
+      "language": "kk-KZ",
+      "gender": "male",
+      "quality": [
+        "veryHigh"
+      ],
+      "rate": 1,
+      "pitchControl": false,
+      "browser": [
+        "Edge"
+      ],
+      "preloaded": true
+    },
+    {
+      "label": "Aru",
+      "name": "Aru",
+      "nativeID": [
+        "com.apple.voice.Aru"
+      ],
+      "localizedName": "apple",
+      "language": "kk-KZ",
+      "gender": "male",
+      "quality": [
+        "high"
+      ],
+      "rate": 1,
+      "pitch": 1,
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ]
+    }
+  ]
+}

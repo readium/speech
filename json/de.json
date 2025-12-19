@@ -156,6 +156,21 @@
       "preloaded": true
     },
     {
+      "label": "Weibliche Google-Stimme",
+      "name": "Google Deutsch",
+      "language": "de-DE",
+      "gender": "female",
+      "quality": [
+        "high"
+      ],
+      "rate": 1,
+      "pitch": 1,
+      "browser": [
+        "ChromeDesktop"
+      ],
+      "preloaded": true
+    },
+    {
       "label": "Petra",
       "name": "Petra",
       "localizedName": "apple",
@@ -283,21 +298,6 @@
         "macOS",
         "iOS",
         "iPadOS"
-      ],
-      "preloaded": true
-    },
-    {
-      "label": "Google Deutsch",
-      "name": "Weibliche Google-Stimme (Deutschland)",
-      "language": "de-DE",
-      "gender": "female",
-      "quality": [
-        "high"
-      ],
-      "rate": 1,
-      "pitch": 1,
-      "browser": [
-        "ChromeDesktop"
       ],
       "preloaded": true
     },

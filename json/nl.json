@@ -94,6 +94,22 @@
       "preloaded": true
     },
     {
+      "label": "Google mannelijke stem",
+      "name": "Google Nederlands",
+      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
+      "language": "nl-NL",
+      "gender": "male",
+      "quality": [
+        "high"
+      ],
+      "rate": 1,
+      "pitch": 1,
+      "browser": [
+        "ChromeDesktop"
+      ],
+      "preloaded": true
+    },
+    {
       "label": "Claire",
       "name": "Claire",
       "localizedName": "apple",
@@ -146,22 +162,6 @@
         "macOS",
         "iOS",
         "iPadOS"
-      ],
-      "preloaded": true
-    },
-    {
-      "label": "Google mannelijke stem",
-      "name": "Google Nederlands",
-      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
-      "language": "nl-NL",
-      "gender": "male",
-      "quality": [
-        "high"
-      ],
-      "rate": 1,
-      "pitch": 1,
-      "browser": [
-        "ChromeDesktop"
       ],
       "preloaded": true
     },

@@ -685,6 +685,38 @@
       "preloaded": true
     },
     {
+      "label": "Voz Google masculina (España)",
+      "name": "Google español",
+      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
+      "language": "es-ES",
+      "gender": "male",
+      "quality": [
+        "high"
+      ],
+      "rate": 1,
+      "pitch": 1,
+      "browser": [
+        "ChromeDesktop"
+      ],
+      "preloaded": true
+    },
+    {
+      "label": "Voz Google femenina (Estados Unidos)",
+      "name": "Google español de Estados Unidos",
+      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
+      "language": "es-US",
+      "gender": "female",
+      "quality": [
+        "high"
+      ],
+      "rate": 1,
+      "pitch": 1,
+      "browser": [
+        "ChromeDesktop"
+      ],
+      "preloaded": true
+    },
+    {
       "label": "Marisol",
       "name": "Marisol",
       "localizedName": "apple",
@@ -831,8 +863,11 @@
       ]
     },
     {
-      "label": "Francisca",
-      "name": "Francisca",
+      "label": "Francesca",
+      "name": "Francesca",
+      "nativeID": [
+        "com.apple.voice.enhanced.es-CL.Francisca"
+      ],
       "localizedName": "apple",
       "language": "es-CL",
       "gender": "female",
@@ -901,38 +936,6 @@
         "iOS",
         "iPadOS"
       ]
-    },
-    {
-      "label": "Voz Google masculina (España)",
-      "name": "Google español",
-      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
-      "language": "es-ES",
-      "gender": "male",
-      "quality": [
-        "high"
-      ],
-      "rate": 1,
-      "pitch": 1,
-      "browser": [
-        "ChromeDesktop"
-      ],
-      "preloaded": true
-    },
-    {
-      "label": "Voz Google femenina (Estados Unidos)",
-      "name": "Google español de Estados Unidos",
-      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
-      "language": "es-US",
-      "gender": "female",
-      "quality": [
-        "high"
-      ],
-      "rate": 1,
-      "pitch": 1,
-      "browser": [
-        "ChromeDesktop"
-      ],
-      "preloaded": true
     },
     {
       "label": "Helena",
