@@ -689,6 +689,54 @@
       "preloaded": true
     },
     {
+      "label": "Female Google voice (US)",
+      "name": "Google US English",
+      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
+      "language": "en-US",
+      "gender": "female",
+      "quality": [
+        "high"
+      ],
+      "rate": 1,
+      "pitch": 1,
+      "browser": [
+        "ChromeDesktop"
+      ],
+      "preloaded": true
+    },
+    {
+      "label": "Female Google voice (UK)",
+      "name": "Google UK English Female",
+      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
+      "language": "en-GB",
+      "gender": "female",
+      "quality": [
+        "high"
+      ],
+      "rate": 1,
+      "pitch": 1,
+      "browser": [
+        "ChromeDesktop"
+      ],
+      "preloaded": true
+    },
+    {
+      "label": "Male Google voice (UK)",
+      "name": "Google UK English Male",
+      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
+      "language": "en-GB",
+      "gender": "male",
+      "quality": [
+        "high"
+      ],
+      "rate": 1,
+      "pitch": 1,
+      "browser": [
+        "ChromeDesktop"
+      ],
+      "preloaded": true
+    },
+    {
       "label": "Apple Ava",
       "name": "Ava",
       "localizedName": "apple",
@@ -1245,54 +1293,6 @@
         "iOS",
         "iPadOS"
       ]
-    },
-    {
-      "label": "Female Google voice (US)",
-      "name": "Google US English",
-      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
-      "language": "en-US",
-      "gender": "female",
-      "quality": [
-        "high"
-      ],
-      "rate": 1,
-      "pitch": 1,
-      "browser": [
-        "ChromeDesktop"
-      ],
-      "preloaded": true
-    },
-    {
-      "label": "Female Google voice (UK)",
-      "name": "Google UK English Female",
-      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
-      "language": "en-GB",
-      "gender": "female",
-      "quality": [
-        "high"
-      ],
-      "rate": 1,
-      "pitch": 1,
-      "browser": [
-        "ChromeDesktop"
-      ],
-      "preloaded": true
-    },
-    {
-      "label": "Male Google voice (UK)",
-      "name": "Google UK English Male",
-      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
-      "language": "en-GB",
-      "gender": "male",
-      "quality": [
-        "high"
-      ],
-      "rate": 1,
-      "pitch": 1,
-      "browser": [
-        "ChromeDesktop"
-      ],
-      "preloaded": true
     },
     {
       "label": "Zira",

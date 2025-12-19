@@ -79,6 +79,22 @@
       "preloaded": true
     },
     {
+      "label": "Voz feminina do Google",
+      "name": "Google português do Brasil",
+      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
+      "language": "pt-BR",
+      "gender": "female",
+      "quality": [
+        "high"
+      ],
+      "rate": 1,
+      "pitch": 1,
+      "browser": [
+        "ChromeDesktop"
+      ],
+      "preloaded": true
+    },
+    {
       "label": "Catarina",
       "name": "Catarina",
       "localizedName": "apple",
@@ -187,22 +203,6 @@
         "iOS",
         "iPadOS"
       ]
-    },
-    {
-      "label": "Voz feminina do Google",
-      "name": "Google português do Brasil",
-      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
-      "language": "pt-BR",
-      "gender": "female",
-      "quality": [
-        "high"
-      ],
-      "rate": 1,
-      "pitch": 1,
-      "browser": [
-        "ChromeDesktop"
-      ],
-      "preloaded": true
     },
     {
       "label": "Helia",
