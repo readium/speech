@@ -57,7 +57,7 @@ async function initialize() {
     }
     
     // Initialize content
-    await initializeContent();
+    initializeContent();
     
   } catch (error) {
     console.error("Initialization error:", error);
@@ -166,7 +166,7 @@ async function initializeContent() {
   });
   
   // Load utterances into the navigator
-  await navigator.loadContent(utterances);
+  navigator.loadContent(utterances);
   
   // Update UI
   updateUI();
@@ -220,11 +220,11 @@ function populateVoiceSelect() {
       }
       
       const option = document.createElement("option");
-      option.value = voice.voiceURI;
+      option.value = voice.name;
       option.textContent = `${voice.label || voice.name}`;
       option.dataset.voiceUri = voice.voiceURI;
       
-      if (currentVoice && voice.voiceURI === currentVoice.voiceURI) {
+      if (currentVoice && voice.name === currentVoice.name) {
         option.selected = true;
       }
       
@@ -233,7 +233,7 @@ function populateVoiceSelect() {
     
     // Set the default voice selection
     if (currentVoice) {
-      const option = voiceSelect.querySelector(`option[data-voice-uri="${currentVoice.voiceURI}"]`);
+      const option = voiceSelect.querySelector(`option[value="${currentVoice.name}"]`);
       if (option) {
         option.selected = true;
       }
@@ -277,7 +277,7 @@ function populateVoiceSelect() {
 }
 
 // Toggle sample text playback
-async function togglePlayback() {
+function togglePlayback() {
   if (!currentVoice) {
     console.error("No voice selected");
     return;
@@ -286,14 +286,14 @@ async function togglePlayback() {
   try {
     const state = navigator.getState();
     if (state === "playing") {
-      await navigator.pause();
+      navigator.pause();
     } else if (state === "paused") {
       // Use play() to resume from paused state
-      await navigator.play();
+      navigator.play();
     } else {
       // Start from beginning if stopped or in an unknown state
-      await navigator.jumpTo(0);
-      await navigator.play();
+      navigator.jumpTo(0);
+      navigator.play();
     }
   } catch (error) {
     console.error("Error toggling playback:", error);
@@ -336,7 +336,7 @@ async function handleVoiceChange(e) {
   if (navigator) {
     try {
       // Stop the current speech
-      await navigator.stop();
+      navigator.stop();
       
       // Set the new voice
       navigator.setVoice(currentVoice);

@@ -501,7 +501,7 @@ async function loadSampleText(languageCode) {
     sampleTextDisplay.appendChild(demoSection);
     
     // Load utterances into the navigator
-    await speechNavigator.loadContent(utterances);
+    speechNavigator.loadContent(utterances);
     
     // Update total utterances display
     const totalUtterancesSpan = document.getElementById("total-utterances");
@@ -767,7 +767,7 @@ async function playTestUtterance() {
 }
 
 // Toggle sample text playback
-async function togglePlayback() {
+function togglePlayback() {
   if (!currentVoice) {
     console.error("No voice selected");
     return;
@@ -776,14 +776,14 @@ async function togglePlayback() {
   try {
     const state = speechNavigator.getState();
     if (state === "playing") {
-      await speechNavigator.pause();
+      speechNavigator.pause();
     } else if (state === "paused") {
       // Use play() to resume from paused state
-      await speechNavigator.play();
+      speechNavigator.play();
     } else {
       // Start from beginning if stopped or in an unknown state
-      await speechNavigator.jumpTo(0);
-      await speechNavigator.play();
+      speechNavigator.jumpTo(0);
+      speechNavigator.play();
     }
   } catch (error) {
     console.error("Error toggling playback:", error);
@@ -794,9 +794,9 @@ async function togglePlayback() {
 }
 
 // Stop sample playback
-async function stopPlayback() {
+function stopPlayback() {
   try {
-    await speechNavigator.stop();
+    speechNavigator.stop();
     clearWordHighlighting();
     playPauseBtn.textContent = "Play Sample";
     updateUI();
@@ -806,14 +806,14 @@ async function stopPlayback() {
 }
 
 // Go to previous utterance
-async function previousUtterance() {
-  await speechNavigator.previous();
+function previousUtterance() {
+  speechNavigator.previous();
   updateUI();
 }
 
 // Go to next utterance
-async function nextUtterance() {
-  await speechNavigator.next();
+function nextUtterance() {
+  speechNavigator.next();
   updateUI();
 }
 
