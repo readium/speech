@@ -135,7 +135,7 @@ const ka = "ar-SA", qa = "مرحبًا، اسمي {name} وأنا صوت عرب�
   defaultRegion: Mr,
   testUtterance: Hr,
   voices: Dr
-}, Lr = "kk", Ur = "kk-KZ", zr = "Sälemetsiz be, meniñ atım {name} jäne men qazaq dawısımın.", Br = [{ label: "Aigul", name: "Microsoft Aigul Online (Natural) - Kazakh (Kazakhstan)", language: "kk-KZ", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Daulet", name: "Microsoft Daulet Online (Natural) - Kazakh (Kazakhstan)", language: "kk-KZ", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Aru", name: "Aru", nativeID: ["com.apple.voice.Aru"], localizedName: "apple", language: "kk-KZ", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }], $r = {
+}, Lr = "kk", Ur = "kk-KZ", zr = "Sälemetsiz be, meniñ atım {name} jäne men qazaq dawısımın.", Br = [{ label: "Aigul", name: "Microsoft Aigul Online (Natural) - Kazakh (Kazakhstan)", language: "kk-KZ", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Daulet", name: "Microsoft Daulet Online (Natural) - Kazakh (Kazakhstan)", language: "kk-KZ", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Aru", name: "Aru", nativeID: ["com.apple.voice.Aru"], localizedName: "apple", language: "kk-KZ", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }], $r = {
   language: Lr,
   defaultRegion: Ur,
   testUtterance: zr,
