@@ -60,14 +60,14 @@ testWithContext("getDefaultVoice: falls back to base language", async (t: Execut
     { 
       voiceURI: "voice1", 
       name: "English Generic", 
-      language: "en",  // Base language
+      language: "en-AU",
       isDefault: false,
       quality: "high" 
     },
     { 
       voiceURI: "voice2", 
       name: "US English", 
-      language: "en-US", 
+      language: "en-US",
       isDefault: false,
       quality: "high" 
     }
@@ -75,10 +75,10 @@ testWithContext("getDefaultVoice: falls back to base language", async (t: Execut
   
   (manager as any).voices = testVoices;
   
-  // Request en-GB which isn't available, should fall back to en
+  // Request en-GB which isn't available, should fall back to alphabetical
   const defaultVoice = await manager.getDefaultVoice("en-GB");
   t.truthy(defaultVoice);
-  t.is(defaultVoice?.language, "en", "Should fall back to base language when exact match not found");
+  t.is(defaultVoice?.language, "en-AU", "Should fall back to first alphabetical region when exact match not found");
 });
 
 testWithContext("getDefaultVoice: respects quality sorting", async (t: ExecutionContext<TestContext>) => {

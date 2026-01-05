@@ -1,5 +1,5 @@
 import { ReadiumSpeechJSONVoice, ReadiumSpeechVoice, TGender, TQuality, TSource } from "../voices/types";
-import { getTestUtterance, getVoices } from "../voices/languages";
+import { getTestUtterance, getVoices, processLanguages } from "../voices/languages";
 import { 
   isNoveltyVoice, 
   isVeryLowQualityVoice, 
@@ -679,7 +679,7 @@ export class WebSpeechVoiceManager {
   sortVoices(voices: ReadiumSpeechVoice[], options: SortOptions): ReadiumSpeechVoice[] {
     if (!voices?.length) return [];
     
-    const result = [...voices];
+    let result = [...voices];
     
     switch (options.by) {
       case "name":
@@ -691,56 +691,103 @@ export class WebSpeechVoiceManager {
         break;
         
       case "language":
-        result.sort((a, b) => {
-          const [aLang, aRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
-          const [bLang, bRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
+        if (options.preferredLanguages?.length) {
+          // Use processLanguages to get language and region information
+          const processedLanguages = processLanguages(options.preferredLanguages);
+          const langInfo = new Map(processedLanguages.map(info => [info.baseLang, info]));
           
-          // Get display names for both languages for comparison
-          const aDisplayName = WebSpeechVoiceManager.getLanguageDisplayName(aLang).toLowerCase();
-          const bDisplayName = WebSpeechVoiceManager.getLanguageDisplayName(bLang).toLowerCase();
+          // Group voices by language
+          const voicesByLang = new Map<string, ReadiumSpeechVoice[]>();
+          const otherVoices: ReadiumSpeechVoice[] = [];
           
-          // If preferredLanguages is provided, prioritize them
-          if (options.preferredLanguages?.length) {
-            const aIndex = options.preferredLanguages.findIndex(prefLang => {
-              const [prefLangBase, prefRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
-              // Match both language and region if specified in preferred language
-              return aLang === prefLangBase.toLowerCase() && 
-                     (!prefRegion || !aRegion || prefRegion === aRegion);
-            });
+          for (const voice of result) {
+            const [lang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(voice.language);
+            const langInfoForVoice = langInfo.get(lang.toLowerCase());
             
-            const bIndex = options.preferredLanguages.findIndex(prefLang => {
-              const [prefLangBase, prefRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
-              return bLang === prefLangBase.toLowerCase() && 
-                     (!prefRegion || !bRegion || prefRegion === bRegion);
-            });
-            
-            // If both languages are in preferred list, sort by their position
-            if (aIndex !== -1 && bIndex !== -1) {
-              // If same preferred language but different regions, sort by region if specified
-              if (aIndex === bIndex && aRegion && bRegion) {
-                return options.order === "desc" 
-                  ? bRegion.localeCompare(aRegion)
-                  : aRegion.localeCompare(bRegion);
+            if (langInfoForVoice) {
+              if (!voicesByLang.has(lang)) {
+                voicesByLang.set(lang, []);
               }
-              return options.order === "desc" ? bIndex - aIndex : aIndex - bIndex;
+              voicesByLang.get(lang)!.push(voice);
+            } else {
+              otherVoices.push(voice);
             }
-            // If only one language is in preferred list, it comes first
-            if (aIndex !== -1) return -1;
-            if (bIndex !== -1) return 1;
           }
           
-          // Sort by display name for all languages
-          const compare = aDisplayName.localeCompare(bDisplayName);
+          // Sort each language group separately
+          const sortedResult: ReadiumSpeechVoice[] = [];
           
-          // If same display name, sort by region if available
-          if (compare === 0 && aRegion && bRegion) {
-            return options.order === "desc"
-              ? bRegion.localeCompare(aRegion)
-              : aRegion.localeCompare(bRegion);
+          for (const processedLang of processedLanguages) {
+            const langVoices = voicesByLang.get(processedLang.baseLang);
+            if (langVoices) {
+              // Sort this language's voices by region
+              langVoices.sort((a, b) => {
+                const [, aRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
+                const [, bRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
+                
+                // Check if regions are in the processed languages for this base language
+                const aHasMatch = aRegion && processedLang.regions.includes(aRegion);
+                const bHasMatch = bRegion && processedLang.regions.includes(bRegion);
+                
+                if (aHasMatch && bHasMatch) {
+                  // Both have matches - sort by their order in this language's regions
+                  const aIndex = processedLang.regions.indexOf(aRegion!);
+                  const bIndex = processedLang.regions.indexOf(bRegion!);
+                  return aIndex - bIndex;
+                }
+                
+                // Only one has match - it comes first
+                if (aHasMatch) return -1;
+                if (bHasMatch) return 1;
+                
+                // Neither has match - sort alphabetically by region
+                return (aRegion || "").localeCompare(bRegion || "");
+              });
+              
+              sortedResult.push(...langVoices);
+            }
           }
           
-          return options.order === "desc" ? -compare : compare;
-        });
+          // Add other voices sorted by display name
+          otherVoices.sort((a, b) => {
+            const [aLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
+            const [bLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
+            const aDisplayName = WebSpeechVoiceManager.getLanguageDisplayName(aLang).toLowerCase();
+            const bDisplayName = WebSpeechVoiceManager.getLanguageDisplayName(bLang).toLowerCase();
+            return aDisplayName.localeCompare(bDisplayName);
+          });
+          
+          sortedResult.push(...otherVoices);
+          result = sortedResult;
+        } else {
+          // No preferredLanguages, sort by display name
+          result.sort((a, b) => {
+            const [aLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
+            const [bLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
+            const aDisplayName = WebSpeechVoiceManager.getLanguageDisplayName(aLang).toLowerCase();
+            const bDisplayName = WebSpeechVoiceManager.getLanguageDisplayName(bLang).toLowerCase();
+            
+            const compare = aDisplayName.localeCompare(bDisplayName);
+            if (compare !== 0) {
+              return options.order === "desc" ? -compare : compare;
+            }
+            
+            // If same display name, sort by region if available
+            const [, aRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
+            const [, bRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
+            if (aRegion && bRegion) {
+              return options.order === "desc" 
+                ? bRegion.localeCompare(aRegion)
+                : aRegion.localeCompare(bRegion);
+            }
+            
+            // If one has a region and the other doesn't, the one with region comes first
+            if (aRegion) return -1;
+            if (bRegion) return 1;
+            
+            return 0;
+          });
+        }
         break;
         
       case "gender":

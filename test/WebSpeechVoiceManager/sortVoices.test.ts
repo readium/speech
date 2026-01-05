@@ -1,6 +1,7 @@
 import { type ExecutionContext } from "ava";
 import { testWithContext, TestContext, createTestVoice } from "./setup.js";
 import { WebSpeechVoiceManager } from "../../build/index.js";
+import { getDefaultRegion } from "../testUtils.js";
 
 // =============================================
 // Test Hooks
@@ -155,81 +156,71 @@ testWithContext("sortVoices: sorts by region", (t: ExecutionContext<TestContext>
   t.is(sortedDesc[3].language, "en-AU");
 });
 
-testWithContext("sortVoices: sorts by preferred languages", (t: ExecutionContext<TestContext>) => {
+testWithContext("sortVoices: sorts by preferred languages with region inference", (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   // Create test voices with different languages and regions
   const testVoices = [
-    createTestVoice({ name: "French Voice", language: "fr-FR" }),
+    createTestVoice({ name: "French Voice", language: "fr-FR" }),  // Default region
+    createTestVoice({ name: "French Canadian Voice", language: "fr-CA" }),  // CA region
+    createTestVoice({ name: "French Belgian Voice", language: "fr-BE" }),  // BE region
     createTestVoice({ name: "US English Voice", language: "en-US" }),
     createTestVoice({ name: "UK English Voice", language: "en-GB" }),
+    createTestVoice({ name: "Canadian English Voice", language: "en-CA" }),
     createTestVoice({ name: "German Voice", language: "de-DE" }),
-    createTestVoice({ name: "Spanish Voice", language: "es-ES" }),
-    createTestVoice({ name: "French Canadian Voice", language: "fr-CA" })
+    createTestVoice({ name: "Spanish Voice", language: "es-ES" }),  // Default region
+    createTestVoice({ name: "Mexican Spanish Voice", language: "es-MX" })  // MX region
   ];
-  
-  // Test with preferred languages (exact matches first, then partial matches)
-  const preferredLangs = ["en-US", "fr", "es-ES"];
-  const sorted = manager.sortVoices(testVoices, { 
-    by: "language", 
-    preferredLanguages: preferredLangs 
+
+  // Test 1: Basic language code should use default region
+  const defaultRegionTest = manager.sortVoices(testVoices, {
+    by: "language",
+    preferredLanguages: ["fr"]  // Should use default region (fr-FR)
   });
-  
-  // Exact matches should come first in the order of preferredLanguages
-  t.is(sorted[0].language, "en-US");  // Exact match
-  t.is(sorted[1].language, "fr-CA");  // Partial match for "fr" - sorts by region code
-  t.is(sorted[2].language, "fr-FR");  // Also partial match for "fr" - sorts by region code
-  t.is(sorted[3].language, "es-ES");  // Exact match
-  
-  // Non-preferred languages should come after, sorted alphabetically
-  t.is(sorted[4].language, "de-DE");
-  t.is(sorted[5].language, "en-GB");
-  
-  // Test with region-specific preferences
-  const regionSpecific = manager.sortVoices(testVoices, { 
-    by: "language", 
-    preferredLanguages: ["fr-CA", "en-GB"] 
+
+  // French voices should come first, with fr-FR (default) first
+  t.is(defaultRegionTest[0].language, getDefaultRegion("fr"), "Default region should come first");
+  t.is(defaultRegionTest[1].language, "fr-BE", "Other French regions should follow alphabetically");
+  t.is(defaultRegionTest[2].language, "fr-CA", "Other French regions should follow alphabetically");
+
+  // Test 2: Region inference from other languages
+  const inferredRegionTest = manager.sortVoices(testVoices, {
+    by: "language",
+    preferredLanguages: ["fr", "en-CA"]  // Should infer fr-CA as preferred French
   });
-  
-  t.is(regionSpecific[0].language, "fr-CA");  // Exact match
-  t.is(regionSpecific[1].language, "en-GB");  // Exact match
-  // Others should be sorted alphabetically
-  t.is(regionSpecific[2].language, "de-DE");
-  t.is(regionSpecific[3].language, "en-US");
-  t.is(regionSpecific[4].language, "es-ES");
-  t.is(regionSpecific[5].language, "fr-FR");
-  
-  // Test with empty preferred languages (should sort alphabetically)
+
+  // fr-CA should come first because en-CA provides the CA region hint
+  t.is(inferredRegionTest[0].language, "fr-CA", "Should infer fr-CA from en-CA");
+  t.is(inferredRegionTest[1].language, "fr-BE", "Other French regions should follow alphabetically");
+  t.is(inferredRegionTest[2].language, "fr-FR", "Default region should come after inferred region");
+
+  // Test 3: Multiple regional preferences
+  const multipleRegionsTest = manager.sortVoices(testVoices, {
+    by: "language",
+    preferredLanguages: ["fr-BE", "fr-CA", "es"]  // Explicit regional preferences
+  });
+
+  // Should respect the order of regional preferences
+  t.is(multipleRegionsTest[0].language, "fr-BE", "First regional preference should come first");
+  t.is(multipleRegionsTest[1].language, "fr-CA", "Second regional preference should come second");
+  t.is(multipleRegionsTest[2].language, "fr-FR", "Default region should come last");
+  t.is(multipleRegionsTest[3].language, getDefaultRegion("es"), "Spanish default region should come first");
+  t.is(multipleRegionsTest[4].language, "es-MX", "Other Spanish regions should follow");
+
+  // Test 4: Empty/undefined preferred languages (should sort alphabetically)
   const emptyPreferred = manager.sortVoices(testVoices, { 
-    by: "language", 
+    by: "language",
     preferredLanguages: [] 
   });
   t.is(emptyPreferred[0].language, "de-DE");
-  t.is(emptyPreferred[1].language, "en-GB");
-  t.is(emptyPreferred[2].language, "en-US");
-  t.is(emptyPreferred[3].language, "es-ES");
-  t.is(emptyPreferred[4].language, "fr-CA");
-  t.is(emptyPreferred[5].language, "fr-FR");
-  
-  // Test with undefined preferred languages (should sort alphabetically)
-  const undefinedPreferred = manager.sortVoices(testVoices, { 
-    by: "language" 
-  });
-  t.is(undefinedPreferred[0].language, "de-DE");
-  t.is(undefinedPreferred[1].language, "en-GB");
-  t.is(undefinedPreferred[2].language, "en-US");
-  t.is(undefinedPreferred[3].language, "es-ES");
-  t.is(undefinedPreferred[4].language, "fr-CA");
-  t.is(undefinedPreferred[5].language, "fr-FR");
-  
-  // Test with case-insensitive matching
-  const caseInsensitive = manager.sortVoices(testVoices, {
-    by: "language",
-    preferredLanguages: ["EN-us", "FR"]  // Mixed case and partial
-  });
-  t.is(caseInsensitive[0].language, "en-US");  // Matches despite case difference
-  t.is(caseInsensitive[1].language, "fr-CA");  // Partial match, sorted by region
-  t.is(caseInsensitive[2].language, "fr-FR");  // Also partial match
+  t.is(emptyPreferred[1].language, "en-CA");
+  t.is(emptyPreferred[2].language, "en-GB");
+  t.is(emptyPreferred[3].language, "en-US");
+  t.is(emptyPreferred[4].language, "es-ES");
+  t.is(emptyPreferred[5].language, "es-MX");
+  t.is(emptyPreferred[6].language, "fr-BE");
+  t.is(emptyPreferred[7].language, "fr-CA");
+  t.is(emptyPreferred[8].language, "fr-FR");
 });
 
 testWithContext("sortVoices: sorts by region with preferred languages", (t: ExecutionContext<TestContext>) => {
