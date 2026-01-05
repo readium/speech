@@ -235,7 +235,7 @@ const ka = "ar-SA", qa = "مرحبًا، اسمي {name} وأنا صوت عرب�
   defaultRegion: qo,
   testUtterance: xo,
   voices: Ro
-}, Go = "wuu", Io = "wuu-CN", To = "你好，我的名字是 {name}，我是吴语配音。", Mo = [{ label: "Nannan", name: "Nannan", localizedName: "apple", language: "wuu-CN", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }], Ho = {
+}, Go = "wuu", Io = "wuu-CN", To = "你好，我的名字是 {name}，我是吴语配音。", Mo = [{ label: "Nannan", name: "Nannan", localizedName: "apple", language: "wuu-CN", altLanguage: "zh-CN", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }], Ho = {
   language: Go,
   defaultRegion: Io,
   testUtterance: To,
