@@ -149,20 +149,27 @@ export class WebSpeechVoiceManager {
   }
 
   /**
-   * Normalize voice name for comparison by removing common variations
+   * Clean voice name by removing specific formatting
    * @private
    */
-
-  private normalizeVoiceName(name: string): string {
+  private cleanVoiceName(name: string): string {
     if (!name) return "";
     
-    // Convert to lowercase and remove only the specific formatting we don't want
+    // Remove only the specific formatting we don't want, preserving case
     return name
-      .toLowerCase()
       .replace(/\s*\([^)]*\)/g, "")  // Remove anything in parentheses
       .replace(/[^\p{L}\p{N}\s-]/gu, "") // Keep letters, numbers, spaces, and hyphens
       .replace(/\s+/g, " ")  // Normalize spaces
       .trim();
+  }
+
+  /**
+   * Normalize voice name for comparison by removing common variations
+   * @private
+   */
+  private normalizeVoiceName(name: string): string {
+    // Convert to lowercase first, then clean
+    return this.cleanVoiceName(name.toLowerCase());
   }
 
   /**
@@ -546,7 +553,7 @@ export class WebSpeechVoiceManager {
         // No match found in JSON, create basic voice object
         return {
           source: "browser",
-          label: this.normalizeVoiceName(voice.name),
+          label: this.cleanVoiceName(voice.name),
           name: voice.name,
           originalName: voice.name,
           language: formattedLang,
