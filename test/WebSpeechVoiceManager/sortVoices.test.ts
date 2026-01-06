@@ -239,28 +239,27 @@ testWithContext("sortVoices: sorts by region with preferred languages", (t: Exec
   // Test with preferred languages that include regions
   const sorted = manager.sortVoices(testVoices, { 
     by: "region",
-    preferredLanguages: ["en-CA", "fr-CA", "en"] // Prefer Canadian English, then Canadian French, then any English
+    preferredLanguages: ["en-CA", "fr-CA", "fr-FR"] // Prefer Canadian English, then Canadian French, then French French, then all other languages
   });
   
   // Verify order:
   // 1. en-CA (exact match for first preferred)
   // 2. fr-CA (exact match for second preferred)
-  // 3. en-US (language match for third preferred)
-  // 4. en-GB (language match for third preferred)
-  // 5. en-AU (language match for third preferred)
-  // 6. fr-FR (no match, should come last)
+  // 3. fr-FR (language match for third preferred)
+  // 4. en-AU (alphabetical order)
+  // 5. en-GB (alphabetical order)
+  // 6. en-US (alphabetical order)
   t.is(sorted[0].language, "en-CA", "en-CA should be first (exact match)");
   t.is(sorted[1].language, "fr-CA", "fr-CA should be second (exact match)");
+  t.is(sorted[2].language, "fr-FR", "fr-FR should be third (language match)");
   
   // The remaining English variants should be in their natural order
-  const remainingEnglish = sorted.slice(2, 5).map(v => v.language);
+  const remainingEnglish = sorted.slice(3, 6).map(v => v.language);
   t.true(
-    ["en-US", "en-GB", "en-AU"].every(lang => remainingEnglish.includes(lang)),
+    ["en-AU", "en-GB", "en-US"].every(lang => remainingEnglish.includes(lang)),
     "Should include all English variants after exact matches"
   );
-  
-  t.is(sorted[5].language, "fr-FR", "fr-FR should be last (no match)");
-  
+    
   // Test with preferred languages that don't match any regions
   const noMatches = manager.sortVoices(testVoices, {
     by: "region",

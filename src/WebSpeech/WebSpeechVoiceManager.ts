@@ -812,65 +812,116 @@ export class WebSpeechVoiceManager {
         break;
         
       case "region":
-        result.sort((a, b) => {
-          const [aLang, aRegion = ""] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
-          const [bLang, bRegion = ""] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
+        if (options.preferredLanguages?.length) {
+          // Use processLanguages to get language and region information
+          const processedLanguages = processLanguages(options.preferredLanguages);
           
-          // If preferredLanguages is provided, prioritize exact matches first
-          if (options.preferredLanguages?.length) {
-            // Check for exact language-region matches first (e.g., "en-US" matches "en-US")
-            const aExactMatchIndex = options.preferredLanguages.findIndex(prefLang => {
-              const [prefLangBase, prefRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
-              return aLang === prefLangBase.toLowerCase() && 
-                     aRegion === prefRegion?.toUpperCase();
-            });
-            
-            const bExactMatchIndex = options.preferredLanguages.findIndex(prefLang => {
-              const [prefLangBase, prefRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
-              return bLang === prefLangBase.toLowerCase() && 
-                     bRegion === prefRegion?.toUpperCase();
-            });
-            
-            // If one has an exact match and the other doesn't, the exact match comes first
-            if (aExactMatchIndex !== -1 && bExactMatchIndex === -1) return -1;
-            if (aExactMatchIndex === -1 && bExactMatchIndex !== -1) return 1;
-            
-            // If both have exact matches, sort by their position in preferredLanguages
-            if (aExactMatchIndex !== -1 && bExactMatchIndex !== -1 && aExactMatchIndex !== bExactMatchIndex) {
-              return aExactMatchIndex - bExactMatchIndex;
-            }
-            
-            // Then check for language-only matches (e.g., "en" matches "en-US")
-            const aLangMatchIndex = options.preferredLanguages.findIndex(prefLang => {
-              const [prefLangBase] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
-              return aLang === prefLangBase.toLowerCase();
-            });
-            
-            const bLangMatchIndex = options.preferredLanguages.findIndex(prefLang => {
-              const [prefLangBase] = WebSpeechVoiceManager.extractLangRegionFromBCP47(prefLang);
-              return bLang === prefLangBase.toLowerCase();
-            });
-            
-            // If one has a language match and the other doesn't, the language match comes first
-            if (aLangMatchIndex !== -1 && bLangMatchIndex === -1) return -1;
-            if (aLangMatchIndex === -1 && bLangMatchIndex !== -1) return 1;
-            
-            // If both have language matches, sort by their position in preferredLanguages
-            if (aLangMatchIndex !== -1 && bLangMatchIndex !== -1 && aLangMatchIndex !== bLangMatchIndex) {
-              return aLangMatchIndex - bLangMatchIndex;
+          // Create region preference order from processedLanguages
+          const regionOrder: string[] = [];
+          const regionToLangs = new Map<string, string[]>();
+          
+          for (const processedLang of processedLanguages) {
+            for (const region of processedLang.regions) {
+              if (!regionOrder.includes(region)) {
+                regionOrder.push(region);
+              }
+              if (!regionToLangs.has(region)) {
+                regionToLangs.set(region, []);
+              }
+              regionToLangs.get(region)!.push(processedLang.baseLang);
             }
           }
           
-          // If no preferred language matches, sort alphabetically by region
-          const regionCompare = options.order === "desc"
-            ? bRegion.localeCompare(aRegion)
-            : aRegion.localeCompare(bRegion);
+          // Group voices by region
+          const voicesByRegion = new Map<string, ReadiumSpeechVoice[]>();
+          const otherVoices: ReadiumSpeechVoice[] = [];
+          
+          for (const voice of result) {
+            const [, region] = WebSpeechVoiceManager.extractLangRegionFromBCP47(voice.language);
             
-          // If regions are the same, sort by language
-          return regionCompare === 0 
-            ? aLang.localeCompare(bLang)
-            : regionCompare;
-        });
+            if (region && regionToLangs.has(region)) {
+              if (!voicesByRegion.has(region)) {
+                voicesByRegion.set(region, []);
+              }
+              voicesByRegion.get(region)!.push(voice);
+            } else {
+              otherVoices.push(voice);
+            }
+          }
+          
+          // Sort each region group separately
+          const sortedResult: ReadiumSpeechVoice[] = [];
+          
+          for (const region of regionOrder) {
+            const regionVoices = voicesByRegion.get(region);
+            if (regionVoices) {
+              // Sort this region's voices by language preference
+              regionVoices.sort((a, b) => {
+                const [aLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
+                const [bLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
+                
+                // Check if languages are in the preferred languages for this region
+                const preferredLangsForRegion = regionToLangs.get(region) || [];
+                const aIndex = preferredLangsForRegion.indexOf(aLang);
+                const bIndex = preferredLangsForRegion.indexOf(bLang);
+                
+                if (aIndex !== -1 && bIndex !== -1) {
+                  // Both have matches - sort by their order in this region's languages
+                  return aIndex - bIndex;
+                }
+                
+                if (aIndex !== -1 && bIndex === -1) {
+                  // A has match, B doesn't - A comes first
+                  return -1;
+                }
+                
+                if (aIndex === -1 && bIndex !== -1) {
+                  // B has match, A doesn't - B comes first
+                  return 1;
+                }
+                
+                // Neither has match - sort alphabetically by language
+                return aLang.localeCompare(bLang);
+              });
+              
+              sortedResult.push(...regionVoices);
+            }
+          }
+          
+          // Add other voices sorted by region then language
+          otherVoices.sort((a, b) => {
+            const [, aRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
+            const [, bRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
+            const [aLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
+            const [bLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
+            
+            const regionCompare = options.order === "desc"
+              ? (bRegion || "").localeCompare(aRegion || "")
+              : (aRegion || "").localeCompare(bRegion || "");
+              
+            return regionCompare === 0 
+              ? aLang.localeCompare(bLang)
+              : regionCompare;
+          });
+          
+          sortedResult.push(...otherVoices);
+          result = sortedResult;
+        } else {
+          result.sort((a, b) => {
+            const [aLang, aRegion = ""] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
+            const [bLang, bRegion = ""] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
+            
+            // Sort alphabetically by region
+            const regionCompare = options.order === "desc"
+              ? bRegion.localeCompare(aRegion)
+              : aRegion.localeCompare(bRegion);
+              
+            // If regions are the same, sort by language
+            return regionCompare === 0 
+              ? aLang.localeCompare(bLang)
+              : regionCompare;
+          });
+        }
         break;
     }
     
