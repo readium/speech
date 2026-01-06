@@ -34,6 +34,7 @@ let filteredVoices = [];
 let languages = [];
 let currentVoice = null;
 let testUtterance = "";
+let userCustomUtterance = "";
 let lastNavigatorPosition = 1;
 
 const speechNavigator = new WebSpeechReadAloudNavigator();
@@ -532,12 +533,18 @@ function updateTestUtterance(voice, languageCode) {
     return;
   }
 
-  // Use the voice's language as the primary source, fall back to the language selector, then default to "en"
-  const language = voice.language || languageCode || "en";
-  const baseUtterance = voiceManager.getTestUtterance(language) || 
-                      `This is a test of the {name} voice.`;
-  testUtterance = baseUtterance.replace(/\{\s*name\s*\}/g, voice.label || voice.name || "this voice");
-  testUtteranceInput.value = testUtterance;
+  // Only update if we don't have custom text
+  if (!userCustomUtterance) {
+    const language = voice.language || languageCode || "en";
+    const baseUtterance = voiceManager.getTestUtterance(language) || 
+                        `This is a test of the {name} voice.`;
+    testUtterance = baseUtterance.replace(/\{\s*name\s*\}/g, voice.label || voice.name || "this voice");
+    testUtteranceInput.value = testUtterance;
+  } else {
+    // Use the custom text
+    testUtterance = userCustomUtterance;
+  }
+  
   testUtteranceBtn.disabled = false;
 }
 
@@ -567,12 +574,16 @@ function setupEventListeners() {
   languageSelect.addEventListener("change", async () => {
     const baseLanguage = languageSelect.value;
     
-    // Reset voice selection and clear test utterance
+    // Reset voice selection
     voiceSelect.disabled = false;
     currentVoice = null;
-    testUtterance = "";
-    testUtteranceInput.value = "";
-    testUtteranceBtn.disabled = true;
+    
+    // Only reset test utterance if there's no custom text
+    if (!userCustomUtterance) {
+      testUtterance = "";
+      testUtteranceInput.value = "";
+      testUtteranceBtn.disabled = true;
+    }
     
     // Clear voice properties
     displayVoiceProperties(null);
@@ -707,6 +718,17 @@ function setupEventListeners() {
 
   // Download voices button
   downloadVoicesBtn.addEventListener("click", downloadVoicesAsJson);
+  
+  // Update custom utterance when user types in the input
+  testUtteranceInput.addEventListener("input", (e) => {
+    userCustomUtterance = e.target.value.trim();
+    testUtterance = userCustomUtterance;
+    
+    // If user clears the input and we have a current voice, update with default utterance
+    if (!userCustomUtterance && currentVoice) {
+      updateTestUtterance(currentVoice, languageSelect.value);
+    }
+  });
 }
 
 // Play test utterance - independent of the navigator
@@ -725,8 +747,9 @@ async function playTestUtterance() {
     // Get test utterance for the selected language
     let testText = testUtteranceInput.value;
     if (!testText) {
+      // If input is empty, generate default and use it
       updateTestUtterance(currentVoice, languageSelect.value);
-      testText = testUtteranceInput.value;
+      testText = testUtteranceInput.value.trim();
     }
     
     // Create a new SpeechSynthesisUtterance
