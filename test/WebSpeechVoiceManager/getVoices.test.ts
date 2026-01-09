@@ -51,7 +51,7 @@ testWithContext("getVoices: combines all filters", async (t: ExecutionContext<Te
   
   // Test with all filters combined
   const filtered = await manager.getVoices({ 
-    language: ["en", "fr"],
+    languages: ["en", "fr"],
     gender: "male",
     quality: ["high", "normal"],
     provider: "Google",
@@ -155,12 +155,12 @@ testWithContext("getVoices: filters by language", async (t: ExecutionContext<Tes
   const manager = t.context.manager;
   
   // Single language
-  let voices = await manager.getVoices({ language: "en" });
+  let voices = await manager.getVoices({ languages: "en" });
   t.true(voices.length > 0);
   t.true(voices.every((v: ReadiumSpeechVoice) => v.language.startsWith("en")));
   
   // Multiple languages
-  voices = await manager.getVoices({ language: ["en", "fr"] });
+  voices = await manager.getVoices({ languages: ["en", "fr"] });
   t.true(voices.length > 1);
   t.true(voices.some((v: ReadiumSpeechVoice) => v.language.startsWith("en")));
   t.true(voices.some((v: ReadiumSpeechVoice) => v.language.startsWith("fr")));

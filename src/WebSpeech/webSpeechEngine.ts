@@ -87,7 +87,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.voices = this.voiceManager.getVoices();
 
       // Find the best matching voice for the user's language using the optimized method
-      this.defaultVoice = this.voiceManager.getDefaultVoice(navigator.languages[0] || "en", this.voices);
+      this.defaultVoice = this.voiceManager.getDefaultVoice([...(navigator.languages || ["en"])], this.voices);
 
       this.initialized = true;
       return true;
@@ -177,7 +177,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.defaultVoice && this.currentVoice &&
       this.currentVoice.language !== this.defaultVoice.language
     ) {
-      this.defaultVoice = this.voiceManager.getDefaultVoice(this.currentVoice.language, this.voices);
+      this.defaultVoice = this.voiceManager.getDefaultVoice([this.currentVoice.language], this.voices);
     }
   }
 

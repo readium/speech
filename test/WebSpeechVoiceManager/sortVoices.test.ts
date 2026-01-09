@@ -90,14 +90,14 @@ testWithContext("sortVoices: sorts by language", (t: ExecutionContext<TestContex
   ];
   
   // Test ascending order
-  const sortedAsc = manager.sortVoices(testVoices, { by: "language", order: "asc" });
+  const sortedAsc = manager.sortVoices(testVoices, { by: "languages", order: "asc" });
   t.is(sortedAsc[0].language, "de-DE");
   t.is(sortedAsc[1].language, "en-US");
   t.is(sortedAsc[2].language, "es-ES");
   t.is(sortedAsc[3].language, "fr-FR");
   
   // Test descending order
-  const sortedDesc = manager.sortVoices(testVoices, { by: "language", order: "desc" });
+  const sortedDesc = manager.sortVoices(testVoices, { by: "languages", order: "desc" });
   t.is(sortedDesc[0].language, "fr-FR");
   t.is(sortedDesc[1].language, "es-ES");
   t.is(sortedDesc[2].language, "en-US");
@@ -174,7 +174,7 @@ testWithContext("sortVoices: sorts by preferred languages with region inference"
 
   // Test 1: Basic language code should use default region
   const defaultRegionTest = manager.sortVoices(testVoices, {
-    by: "language",
+    by: "languages",
     preferredLanguages: ["fr"]  // Should use default region (fr-FR)
   });
 
@@ -185,7 +185,7 @@ testWithContext("sortVoices: sorts by preferred languages with region inference"
 
   // Test 2: Region inference from other languages
   const inferredRegionTest = manager.sortVoices(testVoices, {
-    by: "language",
+    by: "languages",
     preferredLanguages: ["fr", "en-CA"]  // Should infer fr-CA as preferred French
   });
 
@@ -196,7 +196,7 @@ testWithContext("sortVoices: sorts by preferred languages with region inference"
 
   // Test 3: Multiple regional preferences
   const multipleRegionsTest = manager.sortVoices(testVoices, {
-    by: "language",
+    by: "languages",
     preferredLanguages: ["fr-BE", "fr-CA", "es"]  // Explicit regional preferences
   });
 
@@ -209,7 +209,7 @@ testWithContext("sortVoices: sorts by preferred languages with region inference"
 
   // Test 4: Empty/undefined preferred languages (should sort alphabetically)
   const emptyPreferred = manager.sortVoices(testVoices, { 
-    by: "language",
+    by: "languages",
     preferredLanguages: [] 
   });
   t.is(emptyPreferred[0].language, "de-DE");

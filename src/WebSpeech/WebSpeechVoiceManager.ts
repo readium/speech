@@ -14,7 +14,7 @@ import { extractLangRegionFromBCP47 } from "../utils/language";
  * Options for filtering voices
  */
 interface VoiceFilterOptions {
-  language?: string | string[];
+  languages?: string | string[];
   source?: TSource;
   gender?: TGender;
   quality?: TQuality | TQuality[];
@@ -48,7 +48,7 @@ type SortOrder = "asc" | "desc";
 /**
  * Grouping criteria for voices
  */
-type GroupBy = "language" | "gender" | "quality" | "region";
+type GroupBy = "languages" | "gender" | "quality" | "region";
 
 /**
  * Sort options for voices
@@ -398,16 +398,19 @@ export class WebSpeechVoiceManager {
 
 
   /**
-   * Get the default voice for a language
-   * @param language The language code to get the default voice for (e.g., "en-US")
+   * Get the default voice for language preferences
+   * @param languages Array of preferred languages in order of preference, or a single language string
    * @param voices Optional pre-filtered voices array to use instead of fetching voices
    * @returns The default voice for the language, or null if no voices are available
    */
-  getDefaultVoice(language: string, voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice | null {
-    if (!language) return null;
+  getDefaultVoice(languages: string | string[], voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice | null {
+    if (!languages) return null;
+    
+    // Convert single language to array for consistent handling
+    const languageArray = Array.isArray(languages) ? languages : [languages];
     
     // Use provided voices or get filtered voices if not provided
-    let filteredVoices = voices || this.getVoices({ language });
+    let filteredVoices = voices || this.getVoices({ languages: languageArray });
     if (!filteredVoices.length) return null;
     
     // First sort by quality (highest first)
@@ -416,11 +419,11 @@ export class WebSpeechVoiceManager {
       order: "desc"
     });
   
-    // Then sort by language to ensure we get the best match for the requested language
+    // Then sort by language to ensure we get the best match for the requested language(s)
     filteredVoices = this.sortVoices(filteredVoices, {
-      by: "language",
+      by: "languages",
       order: "asc",
-      preferredLanguages: [language]
+      preferredLanguages: languageArray
     });
   
     // Return the best available voice (already sorted by quality and language)
@@ -582,8 +585,8 @@ export class WebSpeechVoiceManager {
   filterVoices(voices: ReadiumSpeechVoice[], options: VoiceFilterOptions): ReadiumSpeechVoice[] {
     let result = [...voices];
 
-    if (options.language) {
-      const langs = Array.isArray(options.language) ? options.language : [options.language];
+    if (options.languages) {
+      const langs = Array.isArray(options.languages) ? options.languages : [options.languages];
       
       result = result.filter(voice => {
         return langs.some(requestedLang => {
@@ -690,7 +693,7 @@ export class WebSpeechVoiceManager {
         );
         break;
         
-      case "language":
+      case "languages":
         // Use processLanguages to get language and region information
         const processedLangs = processLanguages(options.preferredLanguages || []);
         const langInfo = new Map(processedLangs.map(info => [info.baseLang, info]));
@@ -913,7 +916,7 @@ export class WebSpeechVoiceManager {
       let key = "Unknown";
       
       switch (by) {
-        case "language":
+        case "languages":
           key = WebSpeechVoiceManager.extractLangRegionFromBCP47(voice.language)[0];
           break;
           
