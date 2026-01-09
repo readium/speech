@@ -1,17 +1,17 @@
-const B = (e) => {
+const z = (e) => {
   if (!e) return ["", void 0];
   const a = e.replace(/_/g, "-");
   try {
-    const n = new Intl.Locale(a);
+    const r = new Intl.Locale(a);
     return [
-      n.language.toLowerCase(),
-      n.region?.toUpperCase()
+      r.language.toLowerCase(),
+      r.region?.toUpperCase()
     ];
   } catch {
-    const n = a.split("-");
+    const r = a.split("-");
     return [
-      n[0].toLowerCase(),
-      n[1]?.toUpperCase()
+      r[0].toLowerCase(),
+      r[1]?.toUpperCase()
     ];
   }
 };
@@ -309,107 +309,111 @@ const qa = "ar-SA", xa = "مرحبًا، اسمي {name} وأنا صوت عرب�
       voices: a.voices.map($o)
     }
   ])
-), L = (e) => ga[e], _ = {
+), B = (e) => ga[e], oe = {
   cmn: "cmn",
-  "cmn-cn": "cmn",
-  "cmn-tw": "cmn",
+  "cmn-CN": "cmn-CN",
+  "cmn-TW": "cmn-TW",
   zh: "cmn",
-  "zh-cn": "cmn",
-  "zh-tw": "cmn",
+  "zh-CN": "cmn-CN",
+  "zh-TW": "cmn-TW",
   yue: "yue",
-  "yue-hk": "yue",
-  "zh-hk": "yue",
+  "yue-HK": "yue-HK",
+  "zh-HK": "yue-HK",
   wuu: "wuu",
-  "wuu-cn": "wuu"
-}, de = (e) => {
+  "wuu-CN": "wuu-CN"
+}, _ = (e) => {
   if (!e) return "";
-  const a = e.toLowerCase().replace(/_/g, "-");
-  return _[a] || a;
+  let a = e.toLowerCase().replace(/_/g, "-");
+  if (/\w{2,3}-\w{2,3}/.test(a)) {
+    const [r, n] = a.split("-");
+    a = `${r.toLowerCase()}-${n.toUpperCase()}`;
+  }
+  return oe[a] || a;
 }, Ne = (e) => {
   if (!e) return [];
   try {
-    const a = de(e);
-    let n = L(a);
-    if ((!n || !n.voices?.length) && a in _ && (n = L("zh")), !n || !n.voices?.length) {
-      const [r] = B(a);
-      r !== a && (n = L(r));
+    const a = _(e);
+    let r = B(a);
+    if (!r || !r.voices?.length) {
+      const [n] = z(a);
+      n !== a && (r = B(n));
     }
-    return n?.voices || [];
+    return r?.voices || [];
   } catch (a) {
     return console.error(`Failed to load voices for ${e}:`, a), [];
   }
 }, Bs = () => Object.keys(ga), ze = (e) => {
   if (!e) return "";
   try {
-    const a = de(e);
-    let n = L(a);
-    if (!n?.testUtterance && a in _) {
-      const r = _[a];
-      if (r) {
-        const i = L(r);
+    const a = _(e);
+    let r = B(a);
+    if (!r?.testUtterance && a in oe) {
+      const n = oe[a];
+      if (n) {
+        const i = B(n);
         if (i?.testUtterance)
           return i.testUtterance;
       }
     }
-    if (!n?.testUtterance) {
-      const [r] = B(a);
-      if (r !== a) {
-        const i = L(r);
+    if (!r?.testUtterance) {
+      const [n] = z(a);
+      if (n !== a) {
+        const i = B(n);
         if (i?.testUtterance)
           return i.testUtterance;
       }
     }
-    return n?.testUtterance ?? "";
+    return r?.testUtterance ?? "";
   } catch (a) {
     return console.error(`Failed to get test utterance for ${e}:`, a), "";
   }
 }, jo = (e) => {
   if (!e) return "";
   try {
-    const a = de(e);
-    let n = L(a);
-    if (!n?.defaultRegion && a in _) {
-      const r = _[a];
-      if (r) {
-        const i = L(r);
+    const a = _(e);
+    let r = B(a);
+    if (!r?.defaultRegion && a in oe) {
+      const n = oe[a];
+      if (n) {
+        const i = B(n);
         if (i?.defaultRegion)
           return i.defaultRegion;
       }
     }
-    if (!n?.defaultRegion) {
-      const [r] = B(a);
-      if (r !== a) {
-        const i = L(r);
+    if (!r?.defaultRegion) {
+      const [n] = z(a);
+      if (n !== a) {
+        const i = B(n);
         if (i?.defaultRegion)
           return i.defaultRegion;
       }
     }
-    return n?.defaultRegion || "";
+    return r?.defaultRegion || "";
   } catch (a) {
     return console.error(`Failed to get default region for ${e}:`, a), "";
   }
 }, Be = (e) => {
   if (!e?.length) return [];
-  const a = /* @__PURE__ */ new Set(), n = /* @__PURE__ */ new Map(), r = /* @__PURE__ */ new Map();
+  const a = /* @__PURE__ */ new Set(), r = /* @__PURE__ */ new Map(), n = /* @__PURE__ */ new Map();
   for (const [i, o] of e.entries()) {
     if (!o) continue;
-    const g = de(o), [t, u] = B(g);
-    u && (a.add(u), r.has(u) || r.set(u, i)), n.has(t) || n.set(t, /* @__PURE__ */ new Set()), u && n.get(t).add(u);
+    const g = _(o), [t, u] = z(g);
+    u && (a.add(u), n.has(u) || n.set(u, i)), r.has(t) || r.set(t, /* @__PURE__ */ new Set()), u && r.get(t).add(u);
   }
-  return Array.from(n.entries()).map(([i, o]) => {
+  return Array.from(r.entries()).map(([i, o]) => {
     const g = Ne(i), t = new Set(
       g.map((c) => {
-        const [, h] = B(c.language);
+        const [, h] = z(c.language);
         return h;
       }).filter(Boolean)
     ), u = Array.from(o), s = Array.from(a).filter(
       (c) => t.has(c) && !u.includes(c)
     ), f = Array.from(/* @__PURE__ */ new Set([...u, ...s])).sort((c, h) => {
-      const d = r.get(c) ?? Number.MAX_SAFE_INTEGER, O = r.get(h) ?? Number.MAX_SAFE_INTEGER;
+      const d = n.get(c) ?? Number.MAX_SAFE_INTEGER, O = n.get(h) ?? Number.MAX_SAFE_INTEGER;
       return d - O;
     });
     if (f.length === 0) {
-      const c = jo(i), [, h] = B(c);
+      const c = jo(i), [, h] = z(c);
       h && f.push(h);
     }
     return {
@@ -422,20 +426,20 @@ const qa = "ar-SA", xa = "مرحبًا، اسمي {name} وأنا صوت عرب�
 }, Ko = [{ name: "Eddy", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Flo", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Grandma", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Grandpa", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Jacques", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Reed", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Rocko", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Sandy", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Shelley", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Fred", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Junior", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Kathy", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Ralph", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "eSpeak Arabic", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ar", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Bulgarian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "bg", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Bengali", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "bn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Catalan", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ca", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Chinese (Mandarin, latin as English)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "cmn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Czech", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "cs", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Danish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "da", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak German", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "de", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Greek", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "el", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Spanish (Spain)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "es", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Estonian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "et", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Finnish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "fi", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Gujarati", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "gu", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Croatian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "hr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Hungarian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "hu", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Indonesian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "id", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Italian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "it", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Kannada", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "kn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Korean", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ko", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Lithuanian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "lt", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Latvian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "lv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Malayalm", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ml", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Marathi", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "mr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Malay", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ms", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Norwegian Bokmål", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "nb", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Polish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "pl", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Portuguese (Brazil)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "pt-br", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Romanian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ro", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Russian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ru", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Slovak", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sk", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Slovenian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sl", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Serbian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Swedish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Swahili", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sw", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Tamil", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ta", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Telugu", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "te", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Turkish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "tr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Vietnamese (Northern)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "vi", os: ["ChromeOS"], preloaded: !0 }], Wo = {
   voices: Ko
 }, _o = Vo, Jo = Wo, Ae = (e, a) => _o.voices.some(
-  (n) => e.includes(n.name) || a && n.nativeID?.some((r) => a.includes(r)) || n.altNames?.some((r) => e.includes(r))
+  (r) => e.includes(r.name) || a && r.nativeID?.some((n) => a.includes(n)) || r.altNames?.some((n) => e.includes(n))
 ), Ce = (e, a) => Jo.voices.some(
-  (n) => e.includes(n.name)
+  (r) => e.includes(r.name)
 ) || a === "veryLow", $e = (e) => e?.length ? e.filter((a) => !(a.isNovelty || Ae(a.name, a.voiceURI))) : [], je = (e) => e?.length ? e.filter((a) => !Ce(a.name, a.quality)) : [], Yo = { ar: { normal: "محسن", high: "استثنائي" }, ca: { normal: "millorada", high: "prèmium" }, "cmn-CN": { normal: "优化音质", high: "高音质" }, "cmn-TW": { normal: "增強音質", high: "高音質" }, cs: { normal: "vylepšená verze", high: "prémiový" }, da: { normal: "forbedret", high: "høj kvalitet" }, de: { normal: "erweitert", high: "premium" }, el: { normal: "βελτιωμένη", high: "υψηλής ποιότητας" }, en: { normal: "Enhanced", high: "Premium" }, es: { normal: "mejorada", high: "premium" }, fi: { normal: "parannettu", high: "korkealaatuinen" }, fr: { normal: "premium", high: "de qualité" }, he: { normal: "משופר", high: "פרימיום" }, hi: { normal: "बेहतर", high: "प्रीमियम" }, hr: { normal: "poboljšani", high: "vrhunski" }, hu: { normal: "továbbfejlesztett", high: "prémium" }, id: { normal: "Ditingkatkan", high: "Premium" }, it: { normal: "ottimizzata", high: "premium" }, ja: { normal: "拡張", high: "プレミアム" }, ko: { normal: "고품질", high: "프리미엄" }, ms: { normal: "Dipertingkat", high: "Premium" }, nb: { normal: "forbedret", high: "premium" }, nl: { normal: "verbeterd", high: "premium" }, pl: { normal: "rozszerzony", high: "premium" }, pt: { normal: "melhorada", high: "premium" }, ro: { normal: "îmbunătățită", high: "premium" }, ru: { normal: "улучшенный", high: "высшее качество" }, sk: { normal: "vylepšený", high: "prémiový" }, sl: { normal: "izboljšano", high: "prvovrsten" }, sv: { normal: "förbättrad", high: "premium" }, th: { normal: "คุณภาพสูง", high: "คุณภาพสูง" }, tr: { normal: "Geliştirilmiş", high: "Yüksek Kaliteli" }, uk: { normal: "вдосконалений", high: "високої якості" }, vi: { normal: "Nâng cao", high: "Cao cấp" } }, Zo = {
   quality: Yo
 }, ke = {
   apple: Zo.quality
   // android: androidQualities.quality
-}, Qo = (e, a, n) => {
+}, Qo = (e, a, r) => {
   if (!e) return;
-  const r = Array.isArray(n) ? n : n ? [n] : [];
-  for (const i of r)
+  const n = Array.isArray(r) ? r : r ? [r] : [];
+  for (const i of n)
     if (i && ke[i]) {
-      const o = ke[i], g = B(a)[0], t = o[a] || o[g];
+      const o = ke[i], g = z(a)[0], t = o[a] || o[g];
       if (t) {
         const u = e.toLowerCase(), { normal: s, high: f } = t;
         if (f && u.includes(f.toLowerCase()))
@@ -445,12 +449,12 @@ const qa = "ar-SA", xa = "مرحبًا، اسمي {name} وأنا صوت عرب�
       }
     }
 }, Xo = (e, a) => {
-  const n = ke[a];
-  if (n)
-    for (const [r, { high: i, normal: o }] of Object.entries(n)) {
+  const r = ke[a];
+  if (r)
+    for (const [n, { high: i, normal: o }] of Object.entries(r)) {
       const g = i && e.some((u) => u.includes(i)), t = o && e.some((u) => u.includes(o));
       if (g && t)
-        return r;
+        return n;
     }
 }, el = {
   low: {
@@ -468,11 +472,11 @@ const qa = "ar-SA", xa = "مرحبًا، اسمي {name} وأنا صوت عرب�
 }, Fe = (e) => {
   if (!e) return;
   const a = e.toLowerCase();
-  for (const n of Object.values(el))
-    if (n.values.some((r) => a.includes(`.${r}.`)))
-      return n.quality;
+  for (const r of Object.values(el))
+    if (r.values.some((n) => a.includes(`.${n}.`)))
+      return r.quality;
 };
-class A {
+class C {
   static instance;
   static initializationPromise = null;
   systemLocale;
@@ -491,15 +495,15 @@ class A {
    * @param options.interval Interval in milliseconds between voice loading checks (passed to getBrowserVoices)
    * @returns Promise that resolves with the WebSpeechVoiceManager instance
    */
-  static async initialize(a, n) {
-    return A.instance?.isInitialized ? A.instance : (A.initializationPromise || (A.initializationPromise = (async () => {
+  static async initialize(a, r) {
+    return C.instance?.isInitialized ? C.instance : (C.initializationPromise || (C.initializationPromise = (async () => {
       try {
-        const r = new A();
-        return A.instance = r, r.browserVoices = await r.getBrowserVoices(a, n), r.updateSystemLocale(r.browserVoices), r.voices = await r.parseToReadiumSpeechVoices(r.browserVoices), r.isInitialized = !0, r;
-      } catch (r) {
-        throw A.initializationPromise = null, console.error("Failed to initialize WebSpeechVoiceManager:", r), r;
+        const n = new C();
+        return C.instance = n, n.browserVoices = await n.getBrowserVoices(a, r), n.updateSystemLocale(n.browserVoices), n.voices = await n.parseToReadiumSpeechVoices(n.browserVoices), n.isInitialized = !0, n;
+      } catch (n) {
+        throw C.initializationPromise = null, console.error("Failed to initialize WebSpeechVoiceManager:", n), n;
       }
-    })()), A.initializationPromise);
+    })()), C.initializationPromise);
   }
   /**
    * Extract language and region from BCP47 language tag
@@ -507,16 +511,16 @@ class A {
    * @returns A tuple of [language, region] where language is lowercase and region is UPPERCASE
    */
   static extractLangRegionFromBCP47(a) {
-    return B(a);
+    return z(a);
   }
   /**
    * Get display name for a language code
    * @private
    */
-  static getLanguageDisplayName(a, n) {
+  static getLanguageDisplayName(a, r) {
     try {
       return new Intl.DisplayNames(
-        n ? [n] : [],
+        r ? [r] : [],
         { type: "language", languageDisplay: "standard" }
       ).of(a) || a.toUpperCase();
     } catch {
@@ -542,13 +546,13 @@ class A {
    * @private
    */
   countVoiceDuplicates(a) {
-    const n = /* @__PURE__ */ new Map();
-    for (const r of a) {
-      if (!r?.name || !r?.lang) continue;
-      const i = `${r.lang.toLowerCase()}_${this.normalizeVoiceName(r.name)}`;
-      n.set(i, (n.get(i) || 0) + 1);
+    const r = /* @__PURE__ */ new Map();
+    for (const n of a) {
+      if (!n?.name || !n?.lang) continue;
+      const i = `${n.lang.toLowerCase()}_${this.normalizeVoiceName(n.name)}`;
+      r.set(i, (r.get(i) || 0) + 1);
     }
-    return n;
+    return r;
   }
   /**
    * Updates the system locale based on available voices by detecting quality indicators.
@@ -560,32 +564,32 @@ class A {
    */
   updateSystemLocale(a) {
     if (!a?.length) return;
-    const n = a.map((i) => i.name), r = Xo(n, "apple");
-    r && (this.systemLocale = r);
+    const r = a.map((i) => i.name), n = Xo(r, "apple");
+    n && (this.systemLocale = n);
   }
   /**
    * Infer voice quality based on package, platform, JSON, or duplicate count
    * Returns null if quality cannot be determined
    * @private
    */
-  inferVoiceQuality(a, n, r) {
+  inferVoiceQuality(a, r, n) {
     const i = a.voiceURI ? Fe(a.voiceURI) : void 0;
     if (i) return i;
-    if (n?.nativeID && Array.isArray(n.nativeID))
-      for (const o of n.nativeID) {
+    if (r?.nativeID && Array.isArray(r.nativeID))
+      for (const o of r.nativeID) {
         const g = Fe(o);
         if (g) return g;
       }
-    if (n?.localizedName && a.voiceURI && a.lang) {
+    if (r?.localizedName && a.voiceURI && a.lang) {
       const o = Qo(
         a.voiceURI,
         this.systemLocale,
-        n.localizedName
+        r.localizedName
       );
       if (o) return o;
     }
-    if (n?.quality && n.quality.length > 0) {
-      const o = Math.min(r - 1, n.quality.length - 1), g = n.quality[o];
+    if (r?.quality && r.quality.length > 0) {
+      const o = Math.min(n - 1, r.quality.length - 1), g = r.quality[o];
       if (g)
         return g;
     }
@@ -595,9 +599,9 @@ class A {
    * Find matching JSON voice by name or alternative names
    * @private
    */
-  findMatchingJsonVoice(a, n) {
+  findMatchingJsonVoice(a, r) {
     return a.find(
-      (r) => this.normalizeVoiceName(r.name) === n || r.altNames?.some((i) => this.normalizeVoiceName(i) === n)
+      (n) => this.normalizeVoiceName(n.name) === r || n.altNames?.some((i) => this.normalizeVoiceName(i) === r)
     );
   }
   /**
@@ -606,17 +610,17 @@ class A {
    * @returns Filtered array with duplicates removed, keeping only the highest quality versions
    */
   removeDuplicate(a) {
-    const n = /* @__PURE__ */ new Map();
-    for (const r of a) {
-      const i = `${r.language.toLowerCase()}_${this.normalizeVoiceName(r.name)}`, o = n.get(i);
+    const r = /* @__PURE__ */ new Map();
+    for (const n of a) {
+      const i = `${n.language.toLowerCase()}_${this.normalizeVoiceName(n.name)}`, o = r.get(i);
       if (!o)
-        n.set(i, r);
+        r.set(i, n);
       else {
         const g = this.getQualityValue(o.quality);
-        this.getQualityValue(r.quality) >= g && n.set(i, r);
+        this.getQualityValue(n.quality) >= g && r.set(i, n);
       }
     }
-    return Array.from(n.values());
+    return Array.from(r.values());
   }
   /**
    * Get test utterance for a given language
@@ -625,11 +629,11 @@ class A {
    */
   getTestUtterance(a) {
     if (!a) return "";
-    const n = ze(a);
-    if (n) return n;
-    const [r] = A.extractLangRegionFromBCP47(a);
-    if (r && r !== a) {
-      const i = ze(r);
+    const r = ze(a);
+    if (r) return r;
+    const [n] = C.extractLangRegionFromBCP47(a);
+    if (n && n !== a) {
+      const i = ze(n);
       if (i) return i;
     }
     return "";
@@ -641,7 +645,7 @@ class A {
   getVoices(a = {}) {
     if (!this.isInitialized)
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
-    const n = {
+    const r = {
       excludeNovelty: !0,
       // Default to true to filter out novelty voices
       excludeVeryLowQuality: !0,
@@ -649,21 +653,28 @@ class A {
       ...a
       // Let explicit options override the defaults
     };
-    return this.filterVoices([...this.voices], n);
+    return this.filterVoices([...this.voices], r);
   }
   /**
    * Get available languages with voice counts
    * @param localization Optional BCP 47 language tag to use for language names
    * @param filterOptions Optional filters to apply to voices before counting languages
    */
-  getLanguages(a, n) {
+  getLanguages(a, r) {
     if (!this.isInitialized)
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
-    const r = /* @__PURE__ */ new Map();
-    return (n ? this.filterVoices([...this.voices], n) : this.voices).forEach((o) => {
-      const g = o.language, [t] = A.extractLangRegionFromBCP47(g), u = t, s = A.getLanguageDisplayName(t, a), f = r.get(u) || { count: 0, label: s, code: t };
-      r.set(u, { ...f, count: f.count + 1 });
-    }), Array.from(r.entries()).map(([o, { code: g, label: t, count: u }]) => ({
+    const n = /* @__PURE__ */ new Map();
+    return (r ? this.filterVoices([...this.voices], r) : this.voices).forEach((o) => {
+      const g = o.language, u = _(g).split("-")[0], s = C.getLanguageDisplayName(
+        u,
+        a
+      ), f = n.get(u) || {
+        count: 0,
+        label: s,
+        code: u
+      };
+      n.set(u, { ...f, count: f.count + 1 });
+    }), Array.from(n.entries()).map(([o, { code: g, label: t, count: u }]) => ({
       code: g,
       label: t,
       count: u
@@ -675,23 +686,23 @@ class A {
   getRegions(a) {
     if (!this.isInitialized)
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
-    const n = /* @__PURE__ */ new Map();
-    return this.voices.forEach((r) => {
-      const [, i] = A.extractLangRegionFromBCP47(r.language);
+    const r = /* @__PURE__ */ new Map();
+    return this.voices.forEach((n) => {
+      const [, i] = C.extractLangRegionFromBCP47(n.language);
       if (i) {
-        const o = n.get(i) || { count: 0, label: r.language };
-        n.set(i, { ...o, count: o.count + 1 });
+        const o = r.get(i) || { count: 0, label: n.language };
+        r.set(i, { ...o, count: o.count + 1 });
       }
-    }), Array.from(n.entries()).map(([r, { count: i, label: o }]) => {
+    }), Array.from(r.entries()).map(([n, { count: i, label: o }]) => {
       let g = o;
       try {
         const t = a || navigator.language;
-        g = new Intl.DisplayNames([t], { type: "region" }).of(r) || o;
+        g = new Intl.DisplayNames([t], { type: "region" }).of(n) || o;
       } catch (t) {
-        console.warn(`Failed to get display name for region ${r}`, t);
+        console.warn(`Failed to get display name for region ${n}`, t);
       }
       return {
-        code: r,
+        code: n,
         label: g,
         count: i
       };
@@ -703,40 +714,40 @@ class A {
    * @param voices Optional pre-filtered voices array to use instead of fetching voices
    * @returns The default voice for the language, or null if no voices are available
    */
-  getDefaultVoice(a, n) {
+  getDefaultVoice(a, r) {
     if (!a) return null;
-    const r = Array.isArray(a) ? a : [a];
-    let i = n || this.getVoices({ languages: r });
+    const n = Array.isArray(a) ? a : [a];
+    let i = r || this.getVoices({ languages: n });
     return i.length ? (i = this.sortVoices(i, {
       by: "quality",
       order: "desc"
     }), i = this.sortVoices(i, {
       by: "languages",
       order: "asc",
-      preferredLanguages: r
+      preferredLanguages: n
     }), i[0]) : null;
   }
-  getBrowserVoices(a = 1e4, n = 10) {
-    const r = () => window.speechSynthesis?.getVoices() || [];
+  getBrowserVoices(a = 1e4, r = 10) {
+    const n = () => window.speechSynthesis?.getVoices() || [];
     if (!window.speechSynthesis)
       return Promise.resolve([]);
-    const i = r();
+    const i = n();
     return Array.isArray(i) && i.length ? Promise.resolve(i) : new Promise((o, g) => {
-      let t = Math.floor(a / n), u = !1;
+      let t = Math.floor(a / r), u = !1;
       const s = () => {
         if (u) return;
         u = !0;
         const f = () => {
           if (t < 1) return o([]);
           --t;
-          const c = r();
+          const c = n();
           if (Array.isArray(c) && c.length) return o(c);
-          setTimeout(f, n);
+          setTimeout(f, r);
         };
-        setTimeout(f, n);
+        setTimeout(f, r);
       };
       window.speechSynthesis.onvoiceschanged !== void 0 ? window.speechSynthesis.onvoiceschanged = () => {
-        const f = r();
+        const f = n();
         Array.isArray(f) && f.length ? o(f) : s();
       } : s(), setTimeout(() => o([]), a);
     });
@@ -746,40 +757,36 @@ class A {
    * @private
    */
   parseToReadiumSpeechVoices(a) {
-    const n = (o) => {
-      const g = o.replace(/_/g, "-");
-      return /\w{2,3}-\w{2,3}/.test(g) ? `${g.split("-")[0].toLowerCase()}-${g.split("-")[1].toUpperCase()}` : o;
-    }, r = this.countVoiceDuplicates(a), i = a.filter((o) => o?.name && o?.lang).map((o) => {
-      const g = n(o.lang), [t] = A.extractLangRegionFromBCP47(g), u = this.normalizeVoiceName(o.name), s = `${o.lang.toLowerCase()}_${u}`, f = r.get(s) || 1;
-      let c = Ne(g);
-      (!c || c.length === 0) && (c = Ne(t));
-      const h = this.findMatchingJsonVoice(c, u), d = this.inferVoiceQuality(o, h, f);
-      return h ? {
-        ...h,
+    const r = this.countVoiceDuplicates(a), n = a.filter((i) => i?.name && i?.lang).map((i) => {
+      const o = _(i.lang), [g] = C.extractLangRegionFromBCP47(o), t = this.normalizeVoiceName(i.name), u = `${i.lang.toLowerCase()}_${t}`, s = r.get(u) || 1;
+      let f = Ne(o);
+      (!f || f.length === 0) && (f = Ne(g));
+      const c = this.findMatchingJsonVoice(f, t), h = this.inferVoiceQuality(i, c, s);
+      return c ? {
+        ...c,
         source: "json",
-        originalName: o.name,
-        language: o.lang,
-        voiceURI: o.voiceURI,
-        quality: d,
-        isDefault: o.default || !1,
-        offlineAvailability: o.localService || !1,
-        isNovelty: Ae(o.name, o.voiceURI),
-        isLowQuality: Ce(o.name, d)
+        originalName: i.name,
+        voiceURI: i.voiceURI,
+        quality: h,
+        isDefault: i.default || !1,
+        offlineAvailability: i.localService || !1,
+        isNovelty: Ae(i.name, i.voiceURI),
+        isLowQuality: Ce(i.name, h)
       } : {
         source: "browser",
-        label: this.cleanVoiceName(o.name),
-        name: o.name,
-        originalName: o.name,
-        language: g,
-        voiceURI: o.voiceURI,
-        quality: d,
-        isDefault: o.default || !1,
-        offlineAvailability: o.localService || !1,
-        isNovelty: Ae(o.name, o.voiceURI),
-        isLowQuality: Ce(o.name, d)
+        label: this.cleanVoiceName(i.name),
+        name: i.name,
+        originalName: i.name,
+        language: o,
+        voiceURI: i.voiceURI,
+        quality: h,
+        isDefault: i.default || !1,
+        offlineAvailability: i.localService || !1,
+        isNovelty: Ae(i.name, i.voiceURI),
+        isLowQuality: Ce(i.name, h)
       };
     });
-    return this.removeDuplicate(i);
+    return this.removeDuplicate(n);
   }
   /**
    * Convert an ReadiumSpeechVoice to a native SpeechSynthesisVoice
@@ -787,17 +794,17 @@ class A {
   convertToSpeechSynthesisVoice(a) {
     if (a)
       return this.browserVoices.find(
-        (n) => n.voiceURI === a.voiceURI || n.name === a.originalName || this.normalizeVoiceName(n.name) === this.normalizeVoiceName(a.name)
+        (r) => r.voiceURI === a.voiceURI || r.name === a.originalName || this.normalizeVoiceName(r.name) === this.normalizeVoiceName(a.name)
       );
   }
   /**
    * Filter voices based on the provided options
    */
-  filterVoices(a, n) {
-    let r = [...a];
-    if (n.languages) {
-      const i = Array.isArray(n.languages) ? n.languages : [n.languages];
-      r = r.filter((o) => i.some((g) => {
+  filterVoices(a, r) {
+    let n = [...a];
+    if (r.languages) {
+      const i = Array.isArray(r.languages) ? r.languages : [r.languages];
+      n = n.filter((o) => i.some((g) => {
         const t = g.toLowerCase(), u = o.language?.toLowerCase(), s = o.altLanguage?.toLowerCase();
         if (u === t || s === t)
           return !0;
@@ -805,13 +812,13 @@ class A {
         return u && u.startsWith(f) || s && s.startsWith(f);
       }));
     }
-    if (n.source && (r = r.filter((i) => i.source === n.source)), n.gender && (r = r.filter((i) => i.gender === n.gender)), n.quality) {
-      const i = Array.isArray(n.quality) ? n.quality : [n.quality];
-      r = r.filter((o) => o.quality && i.includes(o.quality));
+    if (r.source && (n = n.filter((i) => i.source === r.source)), r.gender && (n = n.filter((i) => i.gender === r.gender)), r.quality) {
+      const i = Array.isArray(r.quality) ? r.quality : [r.quality];
+      n = n.filter((o) => o.quality && i.includes(o.quality));
     }
-    return n.offlineOnly && (r = r.filter((i) => i.offlineAvailability === !0)), n.provider && (r = r.filter(
-      (i) => i.provider?.toLowerCase() === n.provider?.toLowerCase()
-    )), n.excludeNovelty && (r = $e(r)), n.excludeVeryLowQuality && (r = je(r)), r;
+    return r.offlineOnly && (n = n.filter((i) => i.offlineAvailability === !0)), r.provider && (n = n.filter(
+      (i) => i.provider?.toLowerCase() === r.provider?.toLowerCase()
+    )), r.excludeNovelty && (n = $e(n)), r.excludeVeryLowQuality && (n = je(n)), n;
   }
   /**
    * Filter out novelty voices
@@ -845,26 +852,26 @@ class A {
   /**
    * Sort voices by the specified criteria
    */
-  sortVoices(a, n) {
+  sortVoices(a, r) {
     if (!a?.length) return [];
-    let r = [...a];
-    switch (n.by) {
+    let n = [...a];
+    switch (r.by) {
       case "name":
-        r.sort(
-          (y, v) => n.order === "desc" ? v.name.localeCompare(y.name) : y.name.localeCompare(v.name)
+        n.sort(
+          (y, v) => r.order === "desc" ? v.name.localeCompare(y.name) : y.name.localeCompare(v.name)
         );
         break;
       case "languages":
-        const i = Be(n.preferredLanguages || []), o = new Map(i.map((y) => [y.baseLang, y])), g = /* @__PURE__ */ new Map(), t = [];
-        for (const y of r) {
-          const [v] = A.extractLangRegionFromBCP47(y.language);
+        const i = Be(r.preferredLanguages || []), o = new Map(i.map((y) => [y.baseLang, y])), g = /* @__PURE__ */ new Map(), t = [];
+        for (const y of n) {
+          const [v] = C.extractLangRegionFromBCP47(y.language);
           o.get(v.toLowerCase()) ? (g.has(v) || g.set(v, []), g.get(v).push(y)) : t.push(y);
         }
         const u = [];
         for (const y of i) {
           const v = g.get(y.baseLang);
-          v && (v.sort((C, q) => {
-            const [, I] = A.extractLangRegionFromBCP47(C.language), [, G] = A.extractLangRegionFromBCP47(q.language), T = I && y.regions.includes(I), x = G && y.regions.includes(G);
+          v && (v.sort((A, q) => {
+            const [, I] = C.extractLangRegionFromBCP47(A.language), [, G] = C.extractLangRegionFromBCP47(q.language), T = I && y.regions.includes(I), x = G && y.regions.includes(G);
             if (T && x) {
               const R = y.regions.indexOf(I), ee = y.regions.indexOf(G);
               return R - ee;
@@ -873,50 +880,50 @@ class A {
           }), u.push(...v));
         }
         t.sort((y, v) => {
-          const [C] = A.extractLangRegionFromBCP47(y.language), [q] = A.extractLangRegionFromBCP47(v.language), I = A.getLanguageDisplayName(C).toLowerCase(), G = A.getLanguageDisplayName(q).toLowerCase(), T = I.localeCompare(G);
+          const [A] = C.extractLangRegionFromBCP47(y.language), [q] = C.extractLangRegionFromBCP47(v.language), I = C.getLanguageDisplayName(A).toLowerCase(), G = C.getLanguageDisplayName(q).toLowerCase(), T = I.localeCompare(G);
           if (T !== 0)
-            return n.order === "desc" ? -T : T;
-          const [, x] = A.extractLangRegionFromBCP47(y.language), [, R] = A.extractLangRegionFromBCP47(v.language);
-          return x && R ? n.order === "desc" ? R.localeCompare(x) : x.localeCompare(R) : x ? -1 : R ? 1 : 0;
-        }), u.push(...t), r = u;
+            return r.order === "desc" ? -T : T;
+          const [, x] = C.extractLangRegionFromBCP47(y.language), [, R] = C.extractLangRegionFromBCP47(v.language);
+          return x && R ? r.order === "desc" ? R.localeCompare(x) : x.localeCompare(R) : x ? -1 : R ? 1 : 0;
+        }), u.push(...t), n = u;
         break;
       case "gender":
-        r.sort((y, v) => {
-          const C = y.gender || "", q = v.gender || "";
-          return n.order === "desc" ? q.localeCompare(C) : C.localeCompare(q);
+        n.sort((y, v) => {
+          const A = y.gender || "", q = v.gender || "";
+          return r.order === "desc" ? q.localeCompare(A) : A.localeCompare(q);
         });
         break;
       case "quality":
-        r.sort((y, v) => {
-          const C = this.getQualityValue(y.quality), q = this.getQualityValue(v.quality);
-          return n.order === "desc" ? q - C : C - q;
+        n.sort((y, v) => {
+          const A = this.getQualityValue(y.quality), q = this.getQualityValue(v.quality);
+          return r.order === "desc" ? q - A : A - q;
         });
         break;
       case "region":
-        const s = Be(n.preferredLanguages || []), f = [], c = /* @__PURE__ */ new Map();
+        const s = Be(r.preferredLanguages || []), f = [], c = /* @__PURE__ */ new Map();
         for (const y of s)
           for (const v of y.regions)
             f.includes(v) || f.push(v), c.has(v) || c.set(v, []), c.get(v).push(y.baseLang);
         const h = /* @__PURE__ */ new Map(), d = [];
-        for (const y of r) {
-          const [, v] = A.extractLangRegionFromBCP47(y.language);
+        for (const y of n) {
+          const [, v] = C.extractLangRegionFromBCP47(y.language);
           v && c.has(v) ? (h.has(v) || h.set(v, []), h.get(v).push(y)) : d.push(y);
         }
         const O = [];
         for (const y of f) {
           const v = h.get(y);
-          v && (v.sort((C, q) => {
-            const [I] = A.extractLangRegionFromBCP47(C.language), [G] = A.extractLangRegionFromBCP47(q.language), T = c.get(y) || [], x = T.indexOf(I), R = T.indexOf(G);
+          v && (v.sort((A, q) => {
+            const [I] = C.extractLangRegionFromBCP47(A.language), [G] = C.extractLangRegionFromBCP47(q.language), T = c.get(y) || [], x = T.indexOf(I), R = T.indexOf(G);
             return x !== -1 && R !== -1 ? x - R : x !== -1 && R === -1 ? -1 : x === -1 && R !== -1 ? 1 : I.localeCompare(G);
           }), O.push(...v));
         }
         d.sort((y, v) => {
-          const [, C] = A.extractLangRegionFromBCP47(y.language), [, q] = A.extractLangRegionFromBCP47(v.language), [I] = A.extractLangRegionFromBCP47(y.language), [G] = A.extractLangRegionFromBCP47(v.language), T = n.order === "desc" ? (q || "").localeCompare(C || "") : (C || "").localeCompare(q || "");
+          const [, A] = C.extractLangRegionFromBCP47(y.language), [, q] = C.extractLangRegionFromBCP47(v.language), [I] = C.extractLangRegionFromBCP47(y.language), [G] = C.extractLangRegionFromBCP47(v.language), T = r.order === "desc" ? (q || "").localeCompare(A || "") : (A || "").localeCompare(q || "");
           return T === 0 ? I.localeCompare(G) : T;
-        }), O.push(...d), r = O;
+        }), O.push(...d), n = O;
         break;
     }
-    return r;
+    return n;
   }
   /**
    * Group voices by the specified criteria
@@ -924,13 +931,13 @@ class A {
    * @param options Grouping options
    * @returns Object with voice groups keyed by the grouping criteria
    */
-  groupVoices(a, n) {
-    const r = {};
+  groupVoices(a, r) {
+    const n = {};
     for (const i of a) {
       let o = "Unknown";
-      switch (n) {
+      switch (r) {
         case "languages":
-          o = A.extractLangRegionFromBCP47(i.language)[0];
+          o = C.extractLangRegionFromBCP47(i.language)[0];
           break;
         case "gender":
           o = i.gender || "unknown";
@@ -939,13 +946,13 @@ class A {
           o = i.quality || "unknown";
           break;
         case "region":
-          const [, g] = A.extractLangRegionFromBCP47(i.language);
+          const [, g] = C.extractLangRegionFromBCP47(i.language);
           o = g || "unknown";
           break;
       }
-      r[o] || (r[o] = []), r[o].push(i);
+      n[o] || (n[o] = []), n[o].push(i);
     }
-    return r;
+    return n;
   }
 }
 const al = ["webKit", "moz", "ms", "o"], nl = [
@@ -957,8 +964,8 @@ const al = ["webKit", "moz", "ms", "o"], nl = [
   "resume",
   "start"
 ], rl = (e) => `${e.charAt(0).toUpperCase()}${e.slice(1)}`, ne = (e = {}, a) => Object.hasOwnProperty.call(e, a) || a in e || !!e[a], tl = (e) => typeof window < "u" && e in window, ol = (e) => {
-  const a = rl(e), n = al.map((i) => `${i}${a}`), r = [e, a].concat(n).find(tl);
-  return r && typeof window < "u" ? window[r] : void 0;
+  const a = rl(e), r = al.map((i) => `${i}${a}`), n = [e, a].concat(r).find(tl);
+  return n && typeof window < "u" ? window[n] : void 0;
 }, ll = () => {
   const e = {};
   [
@@ -967,21 +974,21 @@ const al = ["webKit", "moz", "ms", "o"], nl = [
     "speechSynthesisVoice",
     "speechSynthesisEvent",
     "speechSynthesisErrorEvent"
-  ].forEach((n) => {
-    e[n] = ol(n);
+  ].forEach((r) => {
+    e[r] = ol(r);
   }), e.onvoiceschanged = ne(e.speechSynthesis, "onvoiceschanged"), e.speechSynthesisSpeaking = ne(e.speechSynthesis, "speaking"), e.speechSynthesisPaused = ne(e.speechSynthesis, "paused");
   const a = e.speechSynthesisUtterance ? ne(e.speechSynthesisUtterance, "prototype") : !1;
-  return nl.forEach((n) => {
-    const r = `on${n}`;
-    e[r] = a && e.speechSynthesisUtterance ? ne(e.speechSynthesisUtterance.prototype, r) : !1;
+  return nl.forEach((r) => {
+    const n = `on${r}`;
+    e[n] = a && e.speechSynthesisUtterance ? ne(e.speechSynthesisUtterance.prototype, n) : !1;
   }), e;
 }, il = () => {
-  const a = typeof window < "u" && (window.navigator || {}).userAgent || "", n = () => /android/i.test(a), r = () => /kaios/i.test(a), i = () => typeof window.InstallTrigger < "u" ? !0 : /firefox/i.test(a), o = () => typeof window.GestureEvent < "u" || /safari/i.test(a);
+  const a = typeof window < "u" && (window.navigator || {}).userAgent || "", r = () => /android/i.test(a), n = () => /kaios/i.test(a), i = () => typeof window.InstallTrigger < "u" ? !0 : /firefox/i.test(a), o = () => typeof window.GestureEvent < "u" || /safari/i.test(a);
   return {
-    isAndroid: n(),
-    isFirefox: i() || r(),
+    isAndroid: r(),
+    isFirefox: i() || n(),
     isSafari: o(),
-    isKaiOS: r()
+    isKaiOS: n()
   };
 };
 function sl(e) {
@@ -991,17 +998,17 @@ var me, Ve;
 function gl() {
   if (Ve) return me;
   Ve = 1, me = a;
-  function e(r) {
-    return r instanceof Buffer ? Buffer.from(r) : new r.constructor(r.buffer.slice(), r.byteOffset, r.length);
+  function e(n) {
+    return n instanceof Buffer ? Buffer.from(n) : new n.constructor(n.buffer.slice(), n.byteOffset, n.length);
   }
-  function a(r) {
-    if (r = r || {}, r.circles) return n(r);
+  function a(n) {
+    if (n = n || {}, n.circles) return r(n);
     const i = /* @__PURE__ */ new Map();
-    if (i.set(Date, (s) => new Date(s)), i.set(Map, (s, f) => new Map(g(Array.from(s), f))), i.set(Set, (s, f) => new Set(g(Array.from(s), f))), r.constructorHandlers)
-      for (const s of r.constructorHandlers)
+    if (i.set(Date, (s) => new Date(s)), i.set(Map, (s, f) => new Map(g(Array.from(s), f))), i.set(Set, (s, f) => new Set(g(Array.from(s), f))), n.constructorHandlers)
+      for (const s of n.constructorHandlers)
         i.set(s[0], s[1]);
     let o = null;
-    return r.proto ? u : t;
+    return n.proto ? u : t;
     function g(s, f) {
       const c = Object.keys(s), h = new Array(c.length);
       for (let d = 0; d < c.length; d++) {
@@ -1036,26 +1043,26 @@ function gl() {
       return f;
     }
   }
-  function n(r) {
+  function r(n) {
     const i = [], o = [], g = /* @__PURE__ */ new Map();
-    if (g.set(Date, (c) => new Date(c)), g.set(Map, (c, h) => new Map(u(Array.from(c), h))), g.set(Set, (c, h) => new Set(u(Array.from(c), h))), r.constructorHandlers)
-      for (const c of r.constructorHandlers)
+    if (g.set(Date, (c) => new Date(c)), g.set(Map, (c, h) => new Map(u(Array.from(c), h))), g.set(Set, (c, h) => new Set(u(Array.from(c), h))), n.constructorHandlers)
+      for (const c of n.constructorHandlers)
         g.set(c[0], c[1]);
     let t = null;
-    return r.proto ? f : s;
+    return n.proto ? f : s;
     function u(c, h) {
       const d = Object.keys(c), O = new Array(d.length);
       for (let y = 0; y < d.length; y++) {
-        const v = d[y], C = c[v];
-        if (typeof C != "object" || C === null)
-          O[v] = C;
-        else if (C.constructor !== Object && (t = g.get(C.constructor)))
-          O[v] = t(C, h);
-        else if (ArrayBuffer.isView(C))
-          O[v] = e(C);
+        const v = d[y], A = c[v];
+        if (typeof A != "object" || A === null)
+          O[v] = A;
+        else if (A.constructor !== Object && (t = g.get(A.constructor)))
+          O[v] = t(A, h);
+        else if (ArrayBuffer.isView(A))
+          O[v] = e(A);
         else {
-          const q = i.indexOf(C);
-          q !== -1 ? O[v] = o[q] : O[v] = h(C);
+          const q = i.indexOf(A);
+          q !== -1 ? O[v] = o[q] : O[v] = h(A);
         }
       }
       return O;
@@ -1125,7 +1132,7 @@ function cl(e) {
 function V(e) {
   return Number.isSafeInteger(e) && e >= 0;
 }
-function z(e) {
+function U(e) {
   return e != null;
 }
 function ul(e, a) {
@@ -1133,14 +1140,14 @@ function ul(e, a) {
 }
 var hl = typeof globalThis == "object" && globalThis && globalThis.Object === Object && globalThis, ml = typeof self == "object" && self && self.Object === Object && self, Ge = hl || ml || Function("return this")(), J = Ge.Symbol, ca = Object.prototype, pl = ca.hasOwnProperty, fl = ca.toString, re = J ? J.toStringTag : void 0;
 function yl(e) {
-  var a = pl.call(e, re), n = e[re];
+  var a = pl.call(e, re), r = e[re];
   try {
     e[re] = void 0;
-    var r = !0;
+    var n = !0;
   } catch {
   }
   var i = fl.call(e);
-  return r && (a ? e[re] = n : delete e[re]), i;
+  return n && (a ? e[re] = r : delete e[re]), i;
 }
 var Sl = Object.prototype, bl = Sl.toString;
 function Ol(e) {
@@ -1158,8 +1165,8 @@ function Al(e) {
   return typeof e == "symbol" || ha(e) && ua(e) == Nl;
 }
 function Cl(e, a) {
-  for (var n = -1, r = e == null ? 0 : e.length, i = Array(r); ++n < r; )
-    i[n] = a(e[n], n, e);
+  for (var r = -1, n = e == null ? 0 : e.length, i = Array(n); ++r < n; )
+    i[r] = a(e[r], r, e);
   return i;
 }
 var kl = Array.isArray, We = J ? J.prototype : void 0, _e = We ? We.toString : void 0;
@@ -1231,28 +1238,28 @@ function Wl(e, a) {
   return e?.[a];
 }
 function Te(e, a) {
-  var n = Wl(e, a);
-  return Kl(n) ? n : void 0;
+  var r = Wl(e, a);
+  return Kl(r) ? r : void 0;
 }
-function _l(e, a, n) {
-  switch (n.length) {
+function _l(e, a, r) {
+  switch (r.length) {
     case 0:
       return e.call(a);
     case 1:
-      return e.call(a, n[0]);
+      return e.call(a, r[0]);
     case 2:
-      return e.call(a, n[0], n[1]);
+      return e.call(a, r[0], r[1]);
     case 3:
-      return e.call(a, n[0], n[1], n[2]);
+      return e.call(a, r[0], r[1], r[2]);
   }
-  return e.apply(a, n);
+  return e.apply(a, r);
 }
 var Jl = 800, Yl = 16, Zl = Date.now;
 function Ql(e) {
-  var a = 0, n = 0;
+  var a = 0, r = 0;
   return function() {
-    var r = Zl(), i = Yl - (r - n);
-    if (n = r, i > 0) {
+    var n = Zl(), i = Yl - (n - r);
+    if (r = n, i > 0) {
       if (++a >= Jl)
         return arguments[0];
     } else
@@ -1279,8 +1286,8 @@ var Ye = (function() {
     writable: !0
   });
 } : pa, ai = Ql(ei);
-function ni(e, a, n, r) {
-  for (var i = e.length, o = n + -1; ++o < i; )
+function ni(e, a, r, n) {
+  for (var i = e.length, o = r + -1; ++o < i; )
     if (a(e[o], o, e))
       return o;
   return -1;
@@ -1288,31 +1295,31 @@ function ni(e, a, n, r) {
 function ri(e) {
   return e !== e;
 }
-function ti(e, a, n) {
-  for (var r = n - 1, i = e.length; ++r < i; )
-    if (e[r] === a)
-      return r;
+function ti(e, a, r) {
+  for (var n = r - 1, i = e.length; ++n < i; )
+    if (e[n] === a)
+      return n;
   return -1;
 }
-function Me(e, a, n) {
-  return a === a ? ti(e, a, n) : ni(e, ri, n);
+function Me(e, a, r) {
+  return a === a ? ti(e, a, r) : ni(e, ri, r);
 }
 function oi(e, a) {
-  var n = e == null ? 0 : e.length;
-  return !!n && Me(e, a, 0) > -1;
+  var r = e == null ? 0 : e.length;
+  return !!r && Me(e, a, 0) > -1;
 }
 function li(e, a) {
   return e === a || e !== e && a !== a;
 }
 var Ze = Math.max;
-function ii(e, a, n) {
+function ii(e, a, r) {
   return a = Ze(a === void 0 ? e.length - 1 : a, 0), function() {
-    for (var r = arguments, i = -1, o = Ze(r.length - a, 0), g = Array(o); ++i < o; )
-      g[i] = r[a + i];
+    for (var n = arguments, i = -1, o = Ze(n.length - a, 0), g = Array(o); ++i < o; )
+      g[i] = n[a + i];
     i = -1;
     for (var t = Array(a + 1); ++i < a; )
-      t[i] = r[i];
-    return t[a] = n(g), _l(e, this, t);
+      t[i] = n[i];
+    return t[a] = r(g), _l(e, this, t);
   };
 }
 function si(e, a) {
@@ -1325,9 +1332,9 @@ function di(e) {
 function ci(e) {
   return e != null && di(e.length) && !fa(e);
 }
-var oe = Te(Object, "create");
+var le = Te(Object, "create");
 function ui() {
-  this.__data__ = oe ? oe(null) : {}, this.size = 0;
+  this.__data__ = le ? le(null) : {}, this.size = 0;
 }
 function hi(e) {
   var a = this.has(e) && delete this.__data__[e];
@@ -1336,27 +1343,27 @@ function hi(e) {
 var mi = "__lodash_hash_undefined__", pi = Object.prototype, fi = pi.hasOwnProperty;
 function yi(e) {
   var a = this.__data__;
-  if (oe) {
-    var n = a[e];
-    return n === mi ? void 0 : n;
+  if (le) {
+    var r = a[e];
+    return r === mi ? void 0 : r;
   }
   return fi.call(a, e) ? a[e] : void 0;
 }
 var Si = Object.prototype, bi = Si.hasOwnProperty;
 function Oi(e) {
   var a = this.__data__;
-  return oe ? a[e] !== void 0 : bi.call(a, e);
+  return le ? a[e] !== void 0 : bi.call(a, e);
 }
 var vi = "__lodash_hash_undefined__";
 function wi(e, a) {
-  var n = this.__data__;
-  return this.size += this.has(e) ? 0 : 1, n[e] = oe && a === void 0 ? vi : a, this;
+  var r = this.__data__;
+  return this.size += this.has(e) ? 0 : 1, r[e] = le && a === void 0 ? vi : a, this;
 }
 function j(e) {
-  var a = -1, n = e == null ? 0 : e.length;
-  for (this.clear(); ++a < n; ) {
-    var r = e[a];
-    this.set(r[0], r[1]);
+  var a = -1, r = e == null ? 0 : e.length;
+  for (this.clear(); ++a < r; ) {
+    var n = e[a];
+    this.set(n[0], n[1]);
   }
 }
 j.prototype.clear = ui;
@@ -1368,35 +1375,35 @@ function Ni() {
   this.__data__ = [], this.size = 0;
 }
 function ce(e, a) {
-  for (var n = e.length; n--; )
-    if (li(e[n][0], a))
-      return n;
+  for (var r = e.length; r--; )
+    if (li(e[r][0], a))
+      return r;
   return -1;
 }
 var Ai = Array.prototype, Ci = Ai.splice;
 function ki(e) {
-  var a = this.__data__, n = ce(a, e);
-  if (n < 0)
+  var a = this.__data__, r = ce(a, e);
+  if (r < 0)
     return !1;
-  var r = a.length - 1;
-  return n == r ? a.pop() : Ci.call(a, n, 1), --this.size, !0;
+  var n = a.length - 1;
+  return r == n ? a.pop() : Ci.call(a, r, 1), --this.size, !0;
 }
 function qi(e) {
-  var a = this.__data__, n = ce(a, e);
-  return n < 0 ? void 0 : a[n][1];
+  var a = this.__data__, r = ce(a, e);
+  return r < 0 ? void 0 : a[r][1];
 }
 function xi(e) {
   return ce(this.__data__, e) > -1;
 }
 function Ri(e, a) {
-  var n = this.__data__, r = ce(n, e);
-  return r < 0 ? (++this.size, n.push([e, a])) : n[r][1] = a, this;
+  var r = this.__data__, n = ce(r, e);
+  return n < 0 ? (++this.size, r.push([e, a])) : r[n][1] = a, this;
 }
 function Q(e) {
-  var a = -1, n = e == null ? 0 : e.length;
-  for (this.clear(); ++a < n; ) {
-    var r = e[a];
-    this.set(r[0], r[1]);
+  var a = -1, r = e == null ? 0 : e.length;
+  for (this.clear(); ++a < r; ) {
+    var n = e[a];
+    this.set(n[0], n[1]);
   }
 }
 Q.prototype.clear = Ni;
@@ -1417,8 +1424,8 @@ function Ii(e) {
   return a == "string" || a == "number" || a == "symbol" || a == "boolean" ? e !== "__proto__" : e === null;
 }
 function ue(e, a) {
-  var n = e.__data__;
-  return Ii(a) ? n[typeof a == "string" ? "string" : "hash"] : n.map;
+  var r = e.__data__;
+  return Ii(a) ? r[typeof a == "string" ? "string" : "hash"] : r.map;
 }
 function Ti(e) {
   var a = ue(this, e).delete(e);
@@ -1431,14 +1438,14 @@ function Hi(e) {
   return ue(this, e).has(e);
 }
 function Di(e, a) {
-  var n = ue(this, e), r = n.size;
-  return n.set(e, a), this.size += n.size == r ? 0 : 1, this;
+  var r = ue(this, e), n = r.size;
+  return r.set(e, a), this.size += r.size == n ? 0 : 1, this;
 }
 function X(e) {
-  var a = -1, n = e == null ? 0 : e.length;
-  for (this.clear(); ++a < n; ) {
-    var r = e[a];
-    this.set(r[0], r[1]);
+  var a = -1, r = e == null ? 0 : e.length;
+  for (this.clear(); ++a < r; ) {
+    var n = e[a];
+    this.set(n[0], n[1]);
   }
 }
 X.prototype.clear = Gi;
@@ -1449,16 +1456,16 @@ X.prototype.set = Di;
 function Pi(e) {
   return e == null ? "" : Ie(e);
 }
-function Li(e, a, n) {
-  var r = -1, i = e.length;
-  a < 0 && (a = -a > i ? 0 : i + a), n = n > i ? i : n, n < 0 && (n += i), i = a > n ? 0 : n - a >>> 0, a >>>= 0;
-  for (var o = Array(i); ++r < i; )
-    o[r] = e[r + a];
+function Li(e, a, r) {
+  var n = -1, i = e.length;
+  a < 0 && (a = -a > i ? 0 : i + a), r = r > i ? i : r, r < 0 && (r += i), i = a > r ? 0 : r - a >>> 0, a >>>= 0;
+  for (var o = Array(i); ++n < i; )
+    o[n] = e[n + a];
   return o;
 }
-function Ui(e, a, n) {
-  var r = e.length;
-  return n = n === void 0 ? r : n, !a && n >= r ? e : Li(e, a, n);
+function Ui(e, a, r) {
+  var n = e.length;
+  return r = r === void 0 ? n : r, !a && r >= n ? e : Li(e, a, r);
 }
 var zi = "\\ud800-\\udfff", Bi = "\\u0300-\\u036f", $i = "\\ufe20-\\ufe2f", ji = "\\u20d0-\\u20ff", Fi = Bi + $i + ji, Vi = "\\ufe0e\\ufe0f", Ki = "\\u200d", Wi = RegExp("[" + Ki + zi + Fi + Vi + "]");
 function _i(e) {
@@ -1481,13 +1488,13 @@ function ds(e) {
 function cs(e) {
   return this.__data__.has(e);
 }
-function se(e) {
-  var a = -1, n = e == null ? 0 : e.length;
-  for (this.__data__ = new X(); ++a < n; )
+function ge(e) {
+  var a = -1, r = e == null ? 0 : e.length;
+  for (this.__data__ = new X(); ++a < r; )
     this.add(e[a]);
 }
-se.prototype.add = se.prototype.push = ds;
-se.prototype.has = cs;
+ge.prototype.add = ge.prototype.push = ds;
+ge.prototype.has = cs;
 function us(e, a) {
   return e.has(a);
 }
@@ -1495,11 +1502,11 @@ function hs(e) {
   return ha(e) && ci(e);
 }
 var ms = 200;
-function ps(e, a, n, r) {
+function ps(e, a, r, n) {
   var i = -1, o = oi, g = !0, t = e.length, u = [], s = a.length;
   if (!t)
     return u;
-  a.length >= ms && (o = us, g = !1, a = new se(a));
+  a.length >= ms && (o = us, g = !1, a = new ge(a));
   e:
     for (; ++i < t; ) {
       var f = e[i], c = f;
@@ -1508,48 +1515,48 @@ function ps(e, a, n, r) {
           if (a[h] === c)
             continue e;
         u.push(f);
-      } else o(a, c, r) || u.push(f);
+      } else o(a, c, n) || u.push(f);
     }
   return u;
 }
 function fs(e, a) {
-  for (var n = e.length; n-- && Me(a, e[n], 0) > -1; )
+  for (var r = e.length; r-- && Me(a, e[r], 0) > -1; )
     ;
-  return n;
+  return r;
 }
 function ys(e, a) {
-  for (var n = -1, r = e.length; ++n < r && Me(a, e[n], 0) > -1; )
+  for (var r = -1, n = e.length; ++r < n && Me(a, e[r], 0) > -1; )
     ;
-  return n;
+  return r;
 }
-function Xe(e, a, n) {
+function Xe(e, a, r) {
   if (e = Pi(e), e && a === void 0)
     return El(e);
   if (!e || !(a = Ie(a)))
     return e;
-  var r = Qe(e), i = Qe(a), o = ys(r, i), g = fs(r, i) + 1;
-  return Ui(r, o, g).join("");
+  var n = Qe(e), i = Qe(a), o = ys(n, i), g = fs(n, i) + 1;
+  return Ui(n, o, g).join("");
 }
 var Ss = si(function(e, a) {
   return hs(e) ? ps(e, a) : [];
 }), W = function() {
   return W = Object.assign || function(e) {
-    for (var a, n = 1, r = arguments.length; n < r; n++) {
-      a = arguments[n];
+    for (var a, r = 1, n = arguments.length; r < n; r++) {
+      a = arguments[r];
       for (var i in a) Object.prototype.hasOwnProperty.call(a, i) && (e[i] = a[i]);
     }
     return e;
   }, W.apply(this, arguments);
 }, bs = "~", Os = "~~";
 function He(e, a) {
-  for (var n = {}, r = {}, i = e.split(Os), o = !1, g = 0; i.length > g; g++) {
+  for (var r = {}, n = {}, i = e.split(Os), o = !1, g = 0; i.length > g; g++) {
     for (var t = i[g].split(bs), u = 0; u < t.length; u += 2) {
       var s = t[u], f = t[u + 1], c = "&" + s + ";";
-      n[c] = f, o && (n["&" + s] = f), r[f] = c;
+      r[c] = f, o && (r["&" + s] = f), n[f] = c;
     }
     o = !0;
   }
-  return a ? { entities: W(W({}, n), a.entities), characters: W(W({}, r), a.characters) } : { entities: n, characters: r };
+  return a ? { entities: W(W({}, r), a.entities), characters: W(W({}, n), a.characters) } : { entities: r, characters: n };
 }
 var fe = {
   xml: /&(?:#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+);?/g,
@@ -1592,8 +1599,8 @@ var vs = {
   return String.fromCharCode(Math.floor((e - 65536) / 1024) + 55296, (e - 65536) % 1024 + 56320);
 }, Z = function() {
   return Z = Object.assign || function(e) {
-    for (var a, n = 1, r = arguments.length; n < r; n++) {
-      a = arguments[n];
+    for (var a, r = 1, n = arguments.length; r < n; r++) {
+      a = arguments[r];
       for (var i in a) Object.prototype.hasOwnProperty.call(a, i) && (e[i] = a[i]);
     }
     return e;
@@ -1618,11 +1625,11 @@ var vs = {
     body: fe.html5
   }
 }, Cs = Z(Z({}, ea), { all: ea.html5 }), Na = String.fromCharCode, ks = Na(65533);
-function qs(e, a, n, r) {
+function qs(e, a, r, n) {
   var i = e, o = e[e.length - 1];
-  if (n && o === "=")
+  if (r && o === "=")
     i = e;
-  else if (r && o !== ";")
+  else if (n && o !== ";")
     i = e;
   else {
     var g = a[e];
@@ -1636,7 +1643,7 @@ function qs(e, a, n, r) {
   return i;
 }
 function aa(e, a) {
-  var n = a === void 0 ? As : a, r = n.level, i = r === void 0 ? "all" : r, o = n.scope, g = o === void 0 ? i === "xml" ? "strict" : "body" : o;
+  var r = a === void 0 ? As : a, n = r.level, i = n === void 0 ? "all" : n, o = r.scope, g = o === void 0 ? i === "xml" ? "strict" : "body" : o;
   if (!e)
     return "";
   var t = Cs[i][g], u = Ns[i].entities, s = g === "attribute", f = g === "strict";
@@ -1645,35 +1652,35 @@ function aa(e, a) {
   });
 }
 var xs = { strictlyTwoElementsInRangeArrays: !1, progressFn: null };
-function ge(e, a) {
+function de(e, a) {
   if (!Array.isArray(e) || !e.length) return e;
-  let n = { ...xs, ...a }, r, i;
-  if (n.strictlyTwoElementsInRangeArrays && !e.every((t, u) => !Array.isArray(t) || t.length !== 2 ? (r = u, i = t.length, !1) : !0)) throw new TypeError(`ranges-sort: [THROW_ID_03] The first argument should be an array and must consist of arrays which are natural number indexes representing TWO string index ranges. However, ${r}th range (${JSON.stringify(e[r], null, 4)}) has not two but ${i} elements!`);
-  if (!e.every((t, u) => !Array.isArray(t) || !Number.isInteger(t[0]) || t[0] < 0 || !Number.isInteger(t[1]) || t[1] < 0 ? (r = u, !1) : !0)) throw new TypeError(`ranges-sort: [THROW_ID_04] The first argument should be an array and must consist of arrays which are natural number indexes representing string index ranges. However, ${r}th range (${JSON.stringify(e[r], null, 4)}) does not consist of only natural numbers!`);
+  let r = { ...xs, ...a }, n, i;
+  if (r.strictlyTwoElementsInRangeArrays && !e.every((t, u) => !Array.isArray(t) || t.length !== 2 ? (n = u, i = t.length, !1) : !0)) throw new TypeError(`ranges-sort: [THROW_ID_03] The first argument should be an array and must consist of arrays which are natural number indexes representing TWO string index ranges. However, ${n}th range (${JSON.stringify(e[n], null, 4)}) has not two but ${i} elements!`);
+  if (!e.every((t, u) => !Array.isArray(t) || !Number.isInteger(t[0]) || t[0] < 0 || !Number.isInteger(t[1]) || t[1] < 0 ? (n = u, !1) : !0)) throw new TypeError(`ranges-sort: [THROW_ID_04] The first argument should be an array and must consist of arrays which are natural number indexes representing string index ranges. However, ${n}th range (${JSON.stringify(e[n], null, 4)}) does not consist of only natural numbers!`);
   let o = e.length ** 2, g = 0;
-  return Array.from(e).sort((t, u) => (n.progressFn && (g += 1, n.progressFn(Math.floor(g * 100 / o))), t[0] === u[0] ? t[1] < u[1] ? -1 : t[1] > u[1] ? 1 : 0 : t[0] < u[0] ? -1 : 1));
+  return Array.from(e).sort((t, u) => (r.progressFn && (g += 1, r.progressFn(Math.floor(g * 100 / o))), t[0] === u[0] ? t[1] < u[1] ? -1 : t[1] > u[1] ? 1 : 0 : t[0] < u[0] ? -1 : 1));
 }
 var na = { mergeType: 1, progressFn: null, joinRangesThatTouchEdges: !0 };
 function Rs(e, a) {
-  function n(s) {
+  function r(s) {
     return !!s && typeof s == "object" && !Array.isArray(s);
   }
   if (!Array.isArray(e) || !e.length) return null;
-  let r;
-  if (a) if (n(a)) {
-    if (r = { ...na, ...a }, r.progressFn && n(r.progressFn) && !Object.keys(r.progressFn).length) r.progressFn = null;
-    else if (r.progressFn && typeof r.progressFn != "function") throw new Error(`ranges-merge: [THROW_ID_01] opts.progressFn must be a function! It was given of a type: "${typeof r.progressFn}", equal to ${JSON.stringify(r.progressFn, null, 4)}`);
-    if (![1, 2, "1", "2"].includes(r.mergeType)) throw new Error(`ranges-merge: [THROW_ID_02] opts.mergeType was customised to a wrong thing! It was given of a type: "${typeof r.mergeType}", equal to ${JSON.stringify(r.mergeType, null, 4)}`);
-    if (typeof r.joinRangesThatTouchEdges != "boolean") throw new Error(`ranges-merge: [THROW_ID_04] opts.joinRangesThatTouchEdges was customised to a wrong thing! It was given of a type: "${typeof r.joinRangesThatTouchEdges}", equal to ${JSON.stringify(r.joinRangesThatTouchEdges, null, 4)}`);
+  let n;
+  if (a) if (r(a)) {
+    if (n = { ...na, ...a }, n.progressFn && r(n.progressFn) && !Object.keys(n.progressFn).length) n.progressFn = null;
+    else if (n.progressFn && typeof n.progressFn != "function") throw new Error(`ranges-merge: [THROW_ID_01] opts.progressFn must be a function! It was given of a type: "${typeof n.progressFn}", equal to ${JSON.stringify(n.progressFn, null, 4)}`);
+    if (![1, 2, "1", "2"].includes(n.mergeType)) throw new Error(`ranges-merge: [THROW_ID_02] opts.mergeType was customised to a wrong thing! It was given of a type: "${typeof n.mergeType}", equal to ${JSON.stringify(n.mergeType, null, 4)}`);
+    if (typeof n.joinRangesThatTouchEdges != "boolean") throw new Error(`ranges-merge: [THROW_ID_04] opts.joinRangesThatTouchEdges was customised to a wrong thing! It was given of a type: "${typeof n.joinRangesThatTouchEdges}", equal to ${JSON.stringify(n.joinRangesThatTouchEdges, null, 4)}`);
   } else throw new Error(`emlint: [THROW_ID_03] the second input argument must be a plain object. It was given as:
 ${JSON.stringify(a, null, 4)} (type ${typeof a})`);
-  else r = { ...na };
+  else n = { ...na };
   let i = e.filter((s) => Array.isArray(s)).map((s) => [...s]).filter((s) => s[2] !== void 0 || s[0] !== s[1]), o, g, t;
-  r.progressFn ? o = ge(i, { progressFn: (s) => {
-    t = Math.floor(s / 5), t !== g && (g = t, r.progressFn(t));
-  } }) : o = ge(i);
+  n.progressFn ? o = de(i, { progressFn: (s) => {
+    t = Math.floor(s / 5), t !== g && (g = t, n.progressFn(t));
+  } }) : o = de(i);
   let u = o.length - 1;
-  for (let s = u; s > 0; s--) r.progressFn && (t = Math.floor((1 - s / u) * 78) + 21, t !== g && t > g && (g = t, r.progressFn(t))), (o[s][0] <= o[s - 1][0] || !r.joinRangesThatTouchEdges && o[s][0] < o[s - 1][1] || r.joinRangesThatTouchEdges && o[s][0] <= o[s - 1][1]) && (o[s - 1][0] = Math.min(o[s][0], o[s - 1][0]), o[s - 1][1] = Math.max(o[s][1], o[s - 1][1]), o[s][2] !== void 0 && (o[s - 1][0] >= o[s][0] || o[s - 1][1] <= o[s][1]) && o[s - 1][2] !== null && (o[s][2] === null && o[s - 1][2] !== null ? o[s - 1][2] = null : o[s - 1][2] != null ? +r.mergeType == 2 && o[s - 1][0] === o[s][0] ? o[s - 1][2] = o[s][2] : o[s - 1][2] += o[s][2] : o[s - 1][2] = o[s][2]), o.splice(s, 1), s = o.length);
+  for (let s = u; s > 0; s--) n.progressFn && (t = Math.floor((1 - s / u) * 78) + 21, t !== g && t > g && (g = t, n.progressFn(t))), (o[s][0] <= o[s - 1][0] || !n.joinRangesThatTouchEdges && o[s][0] < o[s - 1][1] || n.joinRangesThatTouchEdges && o[s][0] <= o[s - 1][1]) && (o[s - 1][0] = Math.min(o[s][0], o[s - 1][0]), o[s - 1][1] = Math.max(o[s][1], o[s - 1][1]), o[s][2] !== void 0 && (o[s - 1][0] >= o[s][0] || o[s - 1][1] <= o[s][1]) && o[s - 1][2] !== null && (o[s][2] === null && o[s - 1][2] !== null ? o[s - 1][2] = null : o[s - 1][2] != null ? +n.mergeType == 2 && o[s - 1][0] === o[s][0] ? o[s - 1][2] = o[s][2] : o[s - 1][2] += o[s][2] : o[s - 1][2] = o[s][2]), o.splice(s, 1), s = o.length);
   return o.length ? o : null;
 }
 var Es = {}, Gs = Es.NODE_ENV === "production", ra = "Invariant failed";
@@ -1681,28 +1688,28 @@ function Is(e, a) {
   if (!e) {
     if (Gs)
       throw new Error(ra);
-    var n = ra;
-    throw new Error(n);
+    var r = ra;
+    throw new Error(r);
   }
 }
-function Ts(e, a, n) {
+function Ts(e, a, r) {
   if (arguments.length === 0) throw new Error("ranges-apply: [THROW_ID_01] inputs missing!");
   if (typeof e != "string") throw new TypeError(`ranges-apply: [THROW_ID_02] first input argument must be a string! Currently it's: ${typeof e}, equal to: ${JSON.stringify(e, null, 4)}`);
   if (a && !Array.isArray(a)) throw new TypeError(`ranges-apply: [THROW_ID_03] second input argument must be an array (or null)! Currently it's: ${typeof a}, equal to: ${JSON.stringify(a, null, 4)}`);
   if (!a?.filter((g) => g).length) return e;
-  let r;
-  Array.isArray(a) && Number.isInteger(a[0]) && Number.isInteger(a[1]) ? r = [Array.from(a)] : r = Array.from(a), r.length, r.filter((g) => g).forEach((g, t) => {
+  let n;
+  Array.isArray(a) && Number.isInteger(a[0]) && Number.isInteger(a[1]) ? n = [Array.from(a)] : n = Array.from(a), n.length, n.filter((g) => g).forEach((g, t) => {
     if (!Array.isArray(g)) throw new TypeError(`ranges-apply: [THROW_ID_05] ranges array, second input arg., has ${t}th element not an array: ${JSON.stringify(g, null, 4)}, which is ${typeof g}`);
     if (!Number.isInteger(g[0])) {
       if (!Number.isInteger(+g[0]) || +g[0] < 0) throw new TypeError(`ranges-apply: [THROW_ID_06] ranges array, second input arg. has ${t}th element, array ${JSON.stringify(g, null, 0)}. Its first element is not an integer, string index, but ${typeof g[0]}, equal to: ${JSON.stringify(g[0], null, 4)}.`);
-      r[t][0] = +r[t][0];
+      n[t][0] = +n[t][0];
     }
     if (!Number.isInteger(g[1])) {
       if (!Number.isInteger(+g[1]) || +g[1] < 0) throw new TypeError(`ranges-apply: [THROW_ID_07] ranges array, second input arg. has ${t}th element, array ${JSON.stringify(g, null, 0)}. Its second element is not an integer, string index, but ${typeof g[1]}, equal to: ${JSON.stringify(g[1], null, 4)}.`);
-      r[t][1] = +r[t][1];
+      n[t][1] = +n[t][1];
     }
   });
-  let i = Rs(r, { progressFn: (g) => {
+  let i = Rs(n, { progressFn: (g) => {
   } });
   Is(i);
   let o = i.length;
@@ -1716,8 +1723,8 @@ function Ts(e, a, n) {
   return e;
 }
 function be(e, a = 1) {
-  let n = " ";
-  function r(o) {
+  let r = " ";
+  function n(o) {
     return Array.from(o).reverse().join("");
   }
   function i(o, g, t) {
@@ -1727,7 +1734,7 @@ function be(e, a = 1) {
     if (!o) return o;
     let f = 0, c = "";
     for (let h = 0, d = o.length; h < d; h++) (o[h] === u || o[h] === s && o[h - 1] !== u) && f++, `\r
-`.includes(o[h]) || o[h] === n ? o[h] === n ? c += o[h] : o[h] === u ? f <= g && (c += o[h], o[h + 1] === s && (c += o[h + 1], h++)) : o[h] === s && o?.[h - 1] !== u && f <= g && (c += o[h]) : !o[h + 1] && !f && (c += " ");
+`.includes(o[h]) || o[h] === r ? o[h] === r ? c += o[h] : o[h] === u ? f <= g && (c += o[h], o[h + 1] === s && (c += o[h + 1], h++)) : o[h] === s && o?.[h - 1] !== u && f <= g && (c += o[h]) : !o[h + 1] && !f && (c += " ");
     return c;
   }
   if (typeof e == "string" && e.length) {
@@ -1741,37 +1748,37 @@ function be(e, a = 1) {
         break;
       }
     }
-    if (e.trim() && (e.slice(-1).trim() === "" || e.slice(-1) === n)) {
+    if (e.trim() && (e.slice(-1).trim() === "" || e.slice(-1) === r)) {
       for (let u = e.length; u--; ) if (e[u].trim()) {
         t = e.slice(u + 1);
         break;
       }
     }
-    return `${i(g, o, !1)}${e.trim()}${r(i(r(t), o, !0))}`;
+    return `${i(g, o, !1)}${e.trim()}${n(i(n(t), o, !0))}`;
   }
   return e;
 }
 var ta = { mergeType: 1, progressFn: null, joinRangesThatTouchEdges: !0 };
 function Ms(e, a) {
-  function n(s) {
+  function r(s) {
     return !!s && typeof s == "object" && !Array.isArray(s);
   }
   if (!Array.isArray(e) || !e.length) return null;
-  let r;
-  if (a) if (n(a)) {
-    if (r = { ...ta, ...a }, r.progressFn && n(r.progressFn) && !Object.keys(r.progressFn).length) r.progressFn = null;
-    else if (r.progressFn && typeof r.progressFn != "function") throw new Error(`ranges-merge: [THROW_ID_01] resolvedOpts.progressFn must be a function! It was given of a type: "${typeof r.progressFn}", equal to ${JSON.stringify(r.progressFn, null, 4)}`);
-    if (![1, 2, "1", "2"].includes(r.mergeType)) throw new Error(`ranges-merge: [THROW_ID_02] resolvedOpts.mergeType was customised to a wrong thing! It was given of a type: "${typeof r.mergeType}", equal to ${JSON.stringify(r.mergeType, null, 4)}`);
-    if (typeof r.joinRangesThatTouchEdges != "boolean") throw new Error(`ranges-merge: [THROW_ID_04] resolvedOpts.joinRangesThatTouchEdges was customised to a wrong thing! It was given of a type: "${typeof r.joinRangesThatTouchEdges}", equal to ${JSON.stringify(r.joinRangesThatTouchEdges, null, 4)}`);
+  let n;
+  if (a) if (r(a)) {
+    if (n = { ...ta, ...a }, n.progressFn && r(n.progressFn) && !Object.keys(n.progressFn).length) n.progressFn = null;
+    else if (n.progressFn && typeof n.progressFn != "function") throw new Error(`ranges-merge: [THROW_ID_01] resolvedOpts.progressFn must be a function! It was given of a type: "${typeof n.progressFn}", equal to ${JSON.stringify(n.progressFn, null, 4)}`);
+    if (![1, 2, "1", "2"].includes(n.mergeType)) throw new Error(`ranges-merge: [THROW_ID_02] resolvedOpts.mergeType was customised to a wrong thing! It was given of a type: "${typeof n.mergeType}", equal to ${JSON.stringify(n.mergeType, null, 4)}`);
+    if (typeof n.joinRangesThatTouchEdges != "boolean") throw new Error(`ranges-merge: [THROW_ID_04] resolvedOpts.joinRangesThatTouchEdges was customised to a wrong thing! It was given of a type: "${typeof n.joinRangesThatTouchEdges}", equal to ${JSON.stringify(n.joinRangesThatTouchEdges, null, 4)}`);
   } else throw new Error(`ranges-merge: [THROW_ID_03] the second input argument must be a plain object. It was given as:
 ${JSON.stringify(a, null, 4)} (type ${typeof a})`);
-  else r = { ...ta };
+  else n = { ...ta };
   let i = e.filter((s) => Array.isArray(s)).map((s) => [...s]).filter((s) => s[2] !== void 0 || s[0] !== s[1]), o, g, t;
-  r.progressFn ? o = ge(i, { progressFn: (s) => {
-    t = Math.floor(s / 5), t !== g && (g = t, r.progressFn != null && r.progressFn(t));
-  } }) : o = ge(i);
+  n.progressFn ? o = de(i, { progressFn: (s) => {
+    t = Math.floor(s / 5), t !== g && (g = t, n.progressFn != null && n.progressFn(t));
+  } }) : o = de(i);
   let u = o.length - 1;
-  for (let s = u; s > 0; s--) r.progressFn && (t = Math.floor((1 - s / u) * 78) + 21, t !== g && t > g && (g = t, r.progressFn(t))), (o[s][0] <= o[s - 1][0] || !r.joinRangesThatTouchEdges && o[s][0] < o[s - 1][1] || r.joinRangesThatTouchEdges && o[s][0] <= o[s - 1][1]) && (o[s - 1][0] = Math.min(o[s][0], o[s - 1][0]), o[s - 1][1] = Math.max(o[s][1], o[s - 1][1]), o[s][2] !== void 0 && (o[s - 1][0] >= o[s][0] || o[s - 1][1] <= o[s][1]) && o[s - 1][2] !== null && (o[s][2] === null && o[s - 1][2] !== null ? o[s - 1][2] = null : o[s - 1][2] != null ? +(r || {})?.mergeType == 2 && o[s - 1][0] === o[s][0] ? o[s - 1][2] = o[s][2] : o[s - 1][2] += o[s][2] : o[s - 1][2] = o[s][2]), o.splice(s, 1), s = o.length);
+  for (let s = u; s > 0; s--) n.progressFn && (t = Math.floor((1 - s / u) * 78) + 21, t !== g && t > g && (g = t, n.progressFn(t))), (o[s][0] <= o[s - 1][0] || !n.joinRangesThatTouchEdges && o[s][0] < o[s - 1][1] || n.joinRangesThatTouchEdges && o[s][0] <= o[s - 1][1]) && (o[s - 1][0] = Math.min(o[s][0], o[s - 1][0]), o[s - 1][1] = Math.max(o[s][1], o[s - 1][1]), o[s][2] !== void 0 && (o[s - 1][0] >= o[s][0] || o[s - 1][1] <= o[s][1]) && o[s - 1][2] !== null && (o[s][2] === null && o[s - 1][2] !== null ? o[s - 1][2] = null : o[s - 1][2] != null ? +(n || {})?.mergeType == 2 && o[s - 1][0] === o[s][0] ? o[s - 1][2] = o[s][2] : o[s - 1][2] += o[s][2] : o[s - 1][2] = o[s][2]), o.splice(s, 1), s = o.length);
   return o.length ? o : null;
 }
 var Hs = { limitToBeAddedWhitespace: !1, limitLinebreaksCount: 1, mergeType: 1 }, Ds = class {
@@ -1784,9 +1791,9 @@ var Hs = { limitToBeAddedWhitespace: !1, limitLinebreaksCount: 1, mergeType: 1 }
   }
   ranges;
   opts;
-  add(e, a, n) {
+  add(e, a, r) {
     if (e == null && a == null) return;
-    if (z(e) && !z(a)) {
+    if (U(e) && !U(a)) {
       if (Array.isArray(e)) {
         if (e.length) {
           if (e.some((o) => Array.isArray(o))) {
@@ -1800,28 +1807,28 @@ var Hs = { limitToBeAddedWhitespace: !1, limitLinebreaksCount: 1, mergeType: 1 }
         return;
       }
       throw new TypeError(`ranges-push/Ranges/add(): [THROW_ID_12] the first input argument, "from" is set (${JSON.stringify(e, null, 0)}) but second-one, "to" is not (${JSON.stringify(a, null, 0)})`);
-    } else if (!z(e) && z(a)) throw new TypeError(`ranges-push/Ranges/add(): [THROW_ID_13] the second input argument, "to" is set (${JSON.stringify(a, null, 0)}) but first-one, "from" is not (${JSON.stringify(e, null, 0)})`);
-    let r = +e, i = +a;
-    if (V(r) && V(i)) {
-      if (z(n) && !K(n) && !cl(n)) throw new TypeError(`ranges-push/Ranges/add(): [THROW_ID_08] The third argument, the value to add, was given not as string but ${typeof n}, equal to:
-${JSON.stringify(n, null, 4)}`);
-      if (z(this.ranges) && Array.isArray(this.last()) && r === this.last()[1]) {
-        if (this.last()[1] = i, this.last()[2], this.last()[2] !== null && z(n)) {
-          let o = this.last()[2] && this.last()[2].length && (!this.opts?.mergeType || this.opts.mergeType === 1) ? `${this.last()[2]}${n}` : n;
+    } else if (!U(e) && U(a)) throw new TypeError(`ranges-push/Ranges/add(): [THROW_ID_13] the second input argument, "to" is set (${JSON.stringify(a, null, 0)}) but first-one, "from" is not (${JSON.stringify(e, null, 0)})`);
+    let n = +e, i = +a;
+    if (V(n) && V(i)) {
+      if (U(r) && !K(r) && !cl(r)) throw new TypeError(`ranges-push/Ranges/add(): [THROW_ID_08] The third argument, the value to add, was given not as string but ${typeof r}, equal to:
+${JSON.stringify(r, null, 4)}`);
+      if (U(this.ranges) && Array.isArray(this.last()) && n === this.last()[1]) {
+        if (this.last()[1] = i, this.last()[2], this.last()[2] !== null && U(r)) {
+          let o = this.last()[2] && this.last()[2].length && (!this.opts?.mergeType || this.opts.mergeType === 1) ? `${this.last()[2]}${r}` : r;
           this.opts.limitToBeAddedWhitespace && (o = be(o, this.opts.limitLinebreaksCount)), K(o) && !o.length || (this.last()[2] = o);
         }
       } else {
         this.ranges || (this.ranges = []);
-        let o = n !== void 0 && !(K(n) && !n.length) ? [r, i, n && this.opts.limitToBeAddedWhitespace ? be(n, this.opts.limitLinebreaksCount) : n] : [r, i];
+        let o = r !== void 0 && !(K(r) && !r.length) ? [n, i, r && this.opts.limitToBeAddedWhitespace ? be(r, this.opts.limitLinebreaksCount) : r] : [n, i];
         this.ranges.push(o);
       }
-    } else throw V(r) && r >= 0 ? new TypeError(`ranges-push/Ranges/add(): [THROW_ID_10] "to" value, the second input argument, must be a natural number or zero! Currently it's of a type "${typeof i}" equal to: ${JSON.stringify(i, null, 4)}`) : new TypeError(`ranges-push/Ranges/add(): [THROW_ID_09] "from" value, the first input argument, must be a natural number or zero! Currently it's of a type "${typeof r}" equal to: ${JSON.stringify(r, null, 4)}`);
+    } else throw V(n) && n >= 0 ? new TypeError(`ranges-push/Ranges/add(): [THROW_ID_10] "to" value, the second input argument, must be a natural number or zero! Currently it's of a type "${typeof i}" equal to: ${JSON.stringify(i, null, 4)}`) : new TypeError(`ranges-push/Ranges/add(): [THROW_ID_09] "from" value, the first input argument, must be a natural number or zero! Currently it's of a type "${typeof n}" equal to: ${JSON.stringify(n, null, 4)}`);
   }
-  push(e, a, n) {
-    this.add(e, a, n);
+  push(e, a, r) {
+    this.add(e, a, r);
   }
   current() {
-    return Array.isArray(this.ranges) && this.ranges.length ? (this.ranges = Ms(this.ranges, { mergeType: this.opts.mergeType }), this.ranges && this.opts.limitToBeAddedWhitespace ? this.ranges.map((e) => z(e[2]) ? [e[0], e[1], be(e[2], this.opts.limitLinebreaksCount)] : e) : this.ranges) : null;
+    return Array.isArray(this.ranges) && this.ranges.length ? (this.ranges = Ms(this.ranges, { mergeType: this.opts.mergeType }), this.ranges && this.opts.limitToBeAddedWhitespace ? this.ranges.map((e) => U(e[2]) ? [e[0], e[1], be(e[2], this.opts.limitLinebreaksCount)] : e) : this.ranges) : null;
   }
   wipe() {
     this.ranges = [];
@@ -1837,14 +1844,14 @@ ${JSON.stringify(n, null, 4)}`);
 };
 da();
 var Oe = " ";
-function Ps({ str: e, idx: a = 0, stopAtNewlines: n = !1, stopAtRawNbsp: r = !1 }) {
+function Ps({ str: e, idx: a = 0, stopAtNewlines: r = !1, stopAtRawNbsp: n = !1 }) {
   if (typeof e != "string" || !e.length || ((!a || typeof a != "number") && (a = 0), !e[a + 1])) return null;
-  if (e[a + 1] && (e[a + 1].trim() || n && `
-\r`.includes(e[a + 1]) || r && e[a + 1] === Oe)) return a + 1;
-  if (e[a + 2] && (e[a + 2].trim() || n && `
-\r`.includes(e[a + 2]) || r && e[a + 2] === Oe)) return a + 2;
-  for (let i = a + 1, o = e.length; i < o; i++) if (e[i].trim() || n && `
-\r`.includes(e[i]) || r && e[i] === Oe) return i;
+  if (e[a + 1] && (e[a + 1].trim() || r && `
+\r`.includes(e[a + 1]) || n && e[a + 1] === Oe)) return a + 1;
+  if (e[a + 2] && (e[a + 2].trim() || r && `
+\r`.includes(e[a + 2]) || n && e[a + 2] === Oe)) return a + 2;
+  for (let i = a + 1, o = e.length; i < o; i++) if (e[i].trim() || r && `
+\r`.includes(e[i]) || n && e[i] === Oe) return i;
   return null;
 }
 function D(e, a = 0) {
@@ -1855,40 +1862,40 @@ function Ls(e) {
 }
 function oa(e, a) {
   if (!e) return [];
-  if (Array.isArray(e)) return e.filter((n) => typeof n == "string" && n.trim());
+  if (Array.isArray(e)) return e.filter((r) => typeof r == "string" && r.trim());
   if (typeof e == "string") return e.trim() ? [e] : [];
   throw new TypeError(`string-strip-html/stripHtml(): [THROW_ID_05] ${a} must be array containing zero or more strings or something falsey. Currently it's equal to: ${e}, that a type of ${typeof e}.`);
 }
-function ie(e, a, n, r) {
+function se(e, a, r, n) {
   for (let i = a, o = e.length; i < o; i++) {
-    if (e.startsWith(n, i)) return !0;
-    if (e.startsWith(r, i)) return !1;
+    if (e.startsWith(r, i)) return !0;
+    if (e.startsWith(n, i)) return !1;
   }
   return !1;
 }
-function la(e, a, n) {
-  return e?.quotes, e?.quotes?.value && ie(a, n + 1, e.quotes.value, ">"), e?.quotes?.next, ie(a, e?.quotes?.next - 1, e?.quotes?.value, ">"), !e?.quotes || !ie(a, n + 1, e.quotes.value, ">") && e?.quotes?.next !== -1 && ie(a, e?.quotes?.next - 1, e?.quotes?.value, ">");
+function la(e, a, r) {
+  return e?.quotes, e?.quotes?.value && se(a, r + 1, e.quotes.value, ">"), e?.quotes?.next, se(a, e?.quotes?.next - 1, e?.quotes?.value, ">"), !e?.quotes || !se(a, r + 1, e.quotes.value, ">") && e?.quotes?.next !== -1 && se(a, e?.quotes?.next - 1, e?.quotes?.value, ">");
 }
 function Us(e, a) {
   return (a.match(new RegExp(e, "g")) || []).length;
 }
 var te = /* @__PURE__ */ new Set(["!doctype", "abbr", "address", "area", "article", "aside", "audio", "base", "bdi", "bdo", "blockquote", "body", "br", "button", "canvas", "caption", "cite", "code", "col", "colgroup", "data", "datalist", "dd", "del", "details", "dfn", "dialog", "div", "dl", "doctype", "dt", "em", "embed", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup", "hr", "html", "iframe", "img", "input", "ins", "kbd", "keygen", "label", "legend", "li", "link", "main", "map", "mark", "math", "menu", "menuitem", "meta", "meter", "nav", "noscript", "object", "ol", "optgroup", "option", "output", "param", "picture", "pre", "progress", "rb", "rp", "rt", "rtc", "ruby", "samp", "script", "section", "select", "slot", "small", "source", "span", "strong", "style", "sub", "summary", "sup", "svg", "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead", "time", "title", "tr", "track", "ul", "var", "video", "wbr", "xml"]), ve = /* @__PURE__ */ new Set(["a", "b", "i", "p", "q", "s", "u"]), we = /* @__PURE__ */ new Set([".", ",", ";", "!", "?"]), ia = /* @__PURE__ */ new Set([".", ",", "?", ";", ")", "…", '"', "»"]), zs = /* @__PURE__ */ new Set(["a", "abbr", "acronym", "audio", "b", "bdi", "bdo", "big", "button", "canvas", "cite", "code", "data", "datalist", "del", "dfn", "em", "embed", "i", "iframe", "input", "ins", "kbd", "label", "map", "mark", "meter", "noscript", "object", "output", "picture", "progress", "q", "ruby", "s", "samp", "select", "slot", "small", "span", "strong", "sub", "sup", "svg", "template", "textarea", "time", "u", "tt", "var", "video", "wbr"]), sa = { ignoreTags: [], ignoreTagsWithTheirContents: [], onlyStripTags: [], stripTogetherWithTheirContents: ["script", "style", "xml"], skipHtmlDecoding: !1, trimOnlySpaces: !1, stripRecognisedHTMLOnly: !1, dumpLinkHrefsNearby: { enabled: !1, putOnNewLine: !1, wrapHeads: "", wrapTails: "" }, ignoreIndentations: !1, cb: null, reportProgressFunc: null, reportProgressFuncFrom: 0, reportProgressFuncTo: 100 };
 function Aa(e, a) {
-  let n = Date.now(), r = [], i = [], o = [], g = [], t = {};
+  let r = Date.now(), n = [], i = [], o = [], g = [], t = {};
   function u() {
     t = { attributes: [] };
   }
   u();
-  let s = null, f = null, c = null, h = !1, d = {}, O = { tagName: "", hrefValue: "", openingTagEnds: void 0 }, y = "", v = !1, C = null, q = !0;
+  let s = null, f = null, c = null, h = !1, d = {}, O = { tagName: "", hrefValue: "", openingTagEnds: void 0 }, y = "", v = !1, A = null, q = !0;
   function I(l, p, b) {
-    if (Array.isArray(p.stripTogetherWithTheirContents) && (p.stripTogetherWithTheirContents.includes(t.name) || p.stripTogetherWithTheirContents.includes("*"))) if (t.slashPresent && Array.isArray(r) && r.some((S) => S.name === t.name)) {
-      for (let S = r.length; S--; ) if (r[S].name === t.name) {
-        g = g.filter(([N, E]) => (N < r[S].lastOpeningBracketAt || N >= l + 1) && (E <= r[S].lastOpeningBracketAt || E > l + 1));
+    if (Array.isArray(p.stripTogetherWithTheirContents) && (p.stripTogetherWithTheirContents.includes(t.name) || p.stripTogetherWithTheirContents.includes("*"))) if (t.slashPresent && Array.isArray(n) && n.some((S) => S.name === t.name)) {
+      for (let S = n.length; S--; ) if (n[S].name === t.name) {
+        g = g.filter(([N, E]) => (N < n[S].lastOpeningBracketAt || N >= l + 1) && (E <= n[S].lastOpeningBracketAt || E > l + 1));
         let k = l + 1;
-        t.lastClosingBracketAt && (k = t.lastClosingBracketAt + 1), g.push([r[S].lastOpeningBracketAt, k]), ia.has(e[l]) && p.cb ? p.cb({ tag: t, deleteFrom: r[S].lastOpeningBracketAt, deleteTo: l + 1, insert: null, rangesArr: b, proposedReturn: [r[S].lastOpeningBracketAt, l, null] }) : p.cb && p.cb({ tag: t, deleteFrom: r[S].lastOpeningBracketAt, deleteTo: l, insert: "", rangesArr: b, proposedReturn: [r[S].lastOpeningBracketAt, l, ""] }), r.splice(S, 1);
+        t.lastClosingBracketAt && (k = t.lastClosingBracketAt + 1), g.push([n[S].lastOpeningBracketAt, k]), ia.has(e[l]) && p.cb ? p.cb({ tag: t, deleteFrom: n[S].lastOpeningBracketAt, deleteTo: l + 1, insert: null, rangesArr: b, proposedReturn: [n[S].lastOpeningBracketAt, l, null] }) : p.cb && p.cb({ tag: t, deleteFrom: n[S].lastOpeningBracketAt, deleteTo: l, insert: "", rangesArr: b, proposedReturn: [n[S].lastOpeningBracketAt, l, ""] }), n.splice(S, 1);
         break;
       }
-    } else t.slashPresent || r.push(t);
+    } else t.slashPresent || n.push(t);
     else Array.isArray(p.ignoreTagsWithTheirContents) && ee(l, p, t) && (q = !1);
   }
   function G(l, p, b, S, k, N) {
@@ -1958,9 +1965,9 @@ ${JSON.stringify(a, null, 4)}`);
   });
   let w = new Ds({ limitToBeAddedWhitespace: !0, limitLinebreaksCount: 2 });
   if (!m.skipHtmlDecoding) for (; e !== aa(e, { scope: "strict" }); ) e = aa(e, { scope: "strict" });
-  let $ = !1, U = !1, le = 0, Pe = 0, M = e.length, Ca = Math.floor(M / 2);
+  let $ = !1, L = !1, ie = 0, Pe = 0, M = e.length, Ca = Math.floor(M / 2);
   for (let l = 0; l < M; l++) {
-    if (m.reportProgressFunc && (M > 1e3 && M < 2e3 ? l === Ca && m.reportProgressFunc(Math.floor((m.reportProgressFuncTo - m.reportProgressFuncFrom) / 2)) : M >= 2e3 && (le = m.reportProgressFuncFrom + Math.floor(l / M * (m.reportProgressFuncTo - m.reportProgressFuncFrom)), le !== Pe && (Pe = le, m.reportProgressFunc(le)))), Object.keys(t).length > 1 && t.lastClosingBracketAt && t.lastClosingBracketAt < l && e[l] !== " " && C === null && (C = l), !$ && e[l] === "%" && e[l - 1] === "{" && e.includes("%}", l + 1)) {
+    if (m.reportProgressFunc && (M > 1e3 && M < 2e3 ? l === Ca && m.reportProgressFunc(Math.floor((m.reportProgressFuncTo - m.reportProgressFuncFrom) / 2)) : M >= 2e3 && (ie = m.reportProgressFuncFrom + Math.floor(l / M * (m.reportProgressFuncTo - m.reportProgressFuncFrom)), ie !== Pe && (Pe = ie, m.reportProgressFunc(ie)))), Object.keys(t).length > 1 && t.lastClosingBracketAt && t.lastClosingBracketAt < l && e[l] !== " " && A === null && (A = l), !$ && e[l] === "%" && e[l - 1] === "{" && e.includes("%}", l + 1)) {
       c = null;
       let p = e.indexOf("%}", l) - 1;
       if (p > l) {
@@ -1985,27 +1992,27 @@ ${JSON.stringify(a, null, 4)}`);
         break;
       }
     }
-    if (!U && e[l] === "/" && !t.quotes?.value && Number.isInteger(t.lastOpeningBracketAt) && !Number.isInteger(t.lastClosingBracketAt) && (t.slashPresent = l), e[l] === '"' || e[l] === "'") if (!U && t.nameStarts && t?.quotes?.value === e[l]) if (d.valueStarts === void 0) d = {}, delete t.quotes;
+    if (!L && e[l] === "/" && !t.quotes?.value && Number.isInteger(t.lastOpeningBracketAt) && !Number.isInteger(t.lastClosingBracketAt) && (t.slashPresent = l), e[l] === '"' || e[l] === "'") if (!L && t.nameStarts && t?.quotes?.value === e[l]) if (d.valueStarts === void 0) d = {}, delete t.quotes;
     else {
       d.valueEnds = l, d.value = e.slice(d.valueStarts, l), t.attributes.push(d), d = {}, delete t.quotes;
       let p;
-      m.dumpLinkHrefsNearby?.enabled && !r.length && t.attributes.some((b) => {
+      m.dumpLinkHrefsNearby?.enabled && !n.length && t.attributes.some((b) => {
         if (typeof b.name == "string" && b.name.toLowerCase() === "href") return p = `${m.dumpLinkHrefsNearby?.wrapHeads || ""}${b.value}${m.dumpLinkHrefsNearby?.wrapTails || ""}`, !0;
       }) && (O = { tagName: t.name, hrefValue: p, openingTagEnds: void 0 });
     }
-    else !U && !t.quotes && t.nameStarts && (t.quotes = {}, t.quotes.value = e[l], t.quotes.start = l, t.quotes.next = e.indexOf(e[l], l + 1), d.nameStarts && d.nameEnds && d.nameEnds < l && d.nameStarts < l && !d.valueStarts && (d.name = e.slice(d.nameStarts, d.nameEnds)));
+    else !L && !t.quotes && t.nameStarts && (t.quotes = {}, t.quotes.value = e[l], t.quotes.start = l, t.quotes.next = e.indexOf(e[l], l + 1), d.nameStarts && d.nameEnds && d.nameEnds < l && d.nameStarts < l && !d.valueStarts && (d.name = e.slice(d.nameStarts, d.nameEnds)));
     if (t.nameStarts !== void 0 && t.nameEnds === void 0 && (!e[l].trim() || !Ls(e[l]))) {
       if (t.nameEnds = l, t.name = e.slice(t.nameStarts, t.nameEnds + (!R(l) && e[l] !== "/" && e[l + 1] === void 0 ? 1 : 0)), e[t.nameStarts - 1] !== "!" && !t.name.replace(/-/g, "").length || /^\d+$/.test(t.name[0])) {
         t = {};
         continue;
       }
-      if (typeof t.name == "string" && t.name.toLowerCase() === "doctype" && (U = !0), x(l)) {
+      if (typeof t.name == "string" && t.name.toLowerCase() === "doctype" && (L = !0), x(l)) {
         T(m);
         let p = G(e, l, t.leftOuterWhitespace, l, t.lastOpeningBracketAt, l);
         (m.stripTogetherWithTheirContents.includes(t.name) || m.stripTogetherWithTheirContents.includes("*")) && (g = g.filter(([b, S]) => !(b === t.leftOuterWhitespace && S === l))), m.cb({ tag: t, deleteFrom: t.leftOuterWhitespace, deleteTo: l, insert: `${p}${y}${p}`, rangesArr: w, proposedReturn: [t.leftOuterWhitespace, l, `${p}${y}${p}`] }), he(), I(l, m, w);
       }
     }
-    if (t.quotes?.start && t.quotes.start < l && !t.quotes.end && d.nameEnds && d.equalsAt && !d.valueStarts && (d.valueStarts = l), !t.quotes && d.nameEnds && e[l] === "=" && !d.valueStarts && !d.equalsAt && (d.equalsAt = l), !t.quotes && d.nameStarts && d.nameEnds && !d.valueStarts && e[l].trim() && e[l] !== "=" && (t.attributes.push(d), d = {}), !t.quotes && d.nameStarts && !d.nameEnds && (U && `'"`.includes(e[d.nameStarts]) ? d.nameStarts < l && e[l] === e[d.nameStarts] && (d.nameEnds = l + 1, d.name = e.slice(d.nameStarts, d.nameEnds)) : e[l].trim() ? e[l] === "=" ? d.equalsAt || (d.nameEnds = l, d.equalsAt = l, d.name = e.slice(d.nameStarts, d.nameEnds)) : e[l] === "/" || R(l) ? (d.nameEnds = l, d.name = e.slice(d.nameStarts, d.nameEnds), t.attributes.push(d), d = {}) : x(l) && (d.nameEnds = l, d.name = e.slice(d.nameStarts, d.nameEnds), t.attributes.push(d), d = {}) : (d.nameEnds = l, d.name = e.slice(d.nameStarts, d.nameEnds))), !t.quotes && t.nameEnds < l && !e[l - 1].trim() && e[l].trim() && !"<>/!".includes(e[l]) && !d.nameStarts && !t.lastClosingBracketAt && (d.nameStarts = l), t.lastOpeningBracketAt !== null && t.lastOpeningBracketAt < l && e[l] === "/" && t.onlyPlausible && (t.onlyPlausible = !1), t.lastOpeningBracketAt !== null && t.lastOpeningBracketAt < l && e[l] !== "/" && (t.onlyPlausible === void 0 && ((!e[l].trim() || x(l)) && !t.slashPresent ? t.onlyPlausible = !0 : t.onlyPlausible = !1), e[l].trim() && t.nameStarts === void 0 && !x(l) && e[l] !== "/" && !R(l) && e[l] !== "!" && (t.nameStarts = l, t.nameContainsLetters = !1)), t.nameStarts && !t.quotes && typeof e[l] == "string" && e[l].toLowerCase() !== e[l].toUpperCase() && (t.nameContainsLetters = !0), R(l) && (la(t, e, l) || t.quotes.value && typeof t.lastOpeningBracketAt == "number" && Us(t.quotes.value, e.slice(t.lastOpeningBracketAt, l)) % 2 === 1 && !e.slice(t.lastOpeningBracketAt + 1, l).includes("<") && !e.slice(t.lastOpeningBracketAt + 1, l).includes(">")) && t.lastOpeningBracketAt !== void 0 && (t.lastClosingBracketAt = l, C = null, Object.keys(d).length && (t.attributes.push(d), d = {}), m.dumpLinkHrefsNearby?.enabled && O.tagName && !O.openingTagEnds && (O.openingTagEnds = l)), (!U || e[l] === ">") && t.lastOpeningBracketAt !== void 0) {
+    if (t.quotes?.start && t.quotes.start < l && !t.quotes.end && d.nameEnds && d.equalsAt && !d.valueStarts && (d.valueStarts = l), !t.quotes && d.nameEnds && e[l] === "=" && !d.valueStarts && !d.equalsAt && (d.equalsAt = l), !t.quotes && d.nameStarts && d.nameEnds && !d.valueStarts && e[l].trim() && e[l] !== "=" && (t.attributes.push(d), d = {}), !t.quotes && d.nameStarts && !d.nameEnds && (L && `'"`.includes(e[d.nameStarts]) ? d.nameStarts < l && e[l] === e[d.nameStarts] && (d.nameEnds = l + 1, d.name = e.slice(d.nameStarts, d.nameEnds)) : e[l].trim() ? e[l] === "=" ? d.equalsAt || (d.nameEnds = l, d.equalsAt = l, d.name = e.slice(d.nameStarts, d.nameEnds)) : e[l] === "/" || R(l) ? (d.nameEnds = l, d.name = e.slice(d.nameStarts, d.nameEnds), t.attributes.push(d), d = {}) : x(l) && (d.nameEnds = l, d.name = e.slice(d.nameStarts, d.nameEnds), t.attributes.push(d), d = {}) : (d.nameEnds = l, d.name = e.slice(d.nameStarts, d.nameEnds))), !t.quotes && t.nameEnds < l && !e[l - 1].trim() && e[l].trim() && !"<>/!".includes(e[l]) && !d.nameStarts && !t.lastClosingBracketAt && (d.nameStarts = l), t.lastOpeningBracketAt !== null && t.lastOpeningBracketAt < l && e[l] === "/" && t.onlyPlausible && (t.onlyPlausible = !1), t.lastOpeningBracketAt !== null && t.lastOpeningBracketAt < l && e[l] !== "/" && (t.onlyPlausible === void 0 && ((!e[l].trim() || x(l)) && !t.slashPresent ? t.onlyPlausible = !0 : t.onlyPlausible = !1), e[l].trim() && t.nameStarts === void 0 && !x(l) && e[l] !== "/" && !R(l) && e[l] !== "!" && (t.nameStarts = l, t.nameContainsLetters = !1)), t.nameStarts && !t.quotes && typeof e[l] == "string" && e[l].toLowerCase() !== e[l].toUpperCase() && (t.nameContainsLetters = !0), R(l) && (la(t, e, l) || t.quotes.value && typeof t.lastOpeningBracketAt == "number" && Us(t.quotes.value, e.slice(t.lastOpeningBracketAt, l)) % 2 === 1 && !e.slice(t.lastOpeningBracketAt + 1, l).includes("<") && !e.slice(t.lastOpeningBracketAt + 1, l).includes(">")) && t.lastOpeningBracketAt !== void 0 && (t.lastClosingBracketAt = l, A = null, Object.keys(d).length && (t.attributes.push(d), d = {}), m.dumpLinkHrefsNearby?.enabled && O.tagName && !O.openingTagEnds && (O.openingTagEnds = l)), (!L || e[l] === ">") && t.lastOpeningBracketAt !== void 0) {
       if (t.lastClosingBracketAt === void 0) {
         if (t.lastOpeningBracketAt < l && !x(l) && (e[l + 1] === void 0 || x(l + 1) && !t?.quotes?.value) && t.nameContainsLetters && typeof t.nameStarts == "number") {
           if (t.name = e.slice(t.nameStarts, t.nameEnds || l + 1).toLowerCase(), (!o.length || o[o.length - 1][0] !== t.lastOpeningBracketAt) && o.push([t.lastOpeningBracketAt, l + 1]), m.ignoreTags.includes(t.name) || ee(l, m, t) || !te.has(t.name) && (t.onlyPlausible || m.stripRecognisedHTMLOnly)) {
@@ -2021,14 +2028,14 @@ ${JSON.stringify(a, null, 4)}`);
           }
           if (!g.length || g[g.length - 1][0] !== t.lastOpeningBracketAt && g[g.length - 1][1] !== l + 1) if (m.stripTogetherWithTheirContents.includes(t.name) || m.stripTogetherWithTheirContents.includes("*")) {
             let p;
-            for (let b = r.length; b--; ) r[b].name === t.name && (p = r[b]);
+            for (let b = n.length; b--; ) n[b].name === t.name && (p = n[b]);
             p ? (g = g.filter(([b]) => b !== p.lastOpeningBracketAt), g.push([p.lastOpeningBracketAt, l + 1])) : g.push([t.lastOpeningBracketAt, l + 1]);
           } else g.push([t.lastOpeningBracketAt, l + 1]);
         }
       } else if (l > t.lastClosingBracketAt && e[l].trim() || e[l + 1] === void 0 || m.ignoreIndentations && `\r
 `.includes(e[l])) {
         let p = t.lastClosingBracketAt === l ? l + 1 : l;
-        m.trimOnlySpaces && p === M - 1 && C !== null && C < l && (p = C), (!o.length || o[o.length - 1][0] !== t.lastOpeningBracketAt) && o.push([t.lastOpeningBracketAt, t.lastClosingBracketAt + 1]);
+        m.trimOnlySpaces && p === M - 1 && A !== null && A < l && (p = A), (!o.length || o[o.length - 1][0] !== t.lastOpeningBracketAt) && o.push([t.lastOpeningBracketAt, t.lastClosingBracketAt + 1]);
         let b = m.ignoreTags.includes(t.name), S = ee(l, m, t);
         if (!q || m.stripRecognisedHTMLOnly && typeof t.name == "string" && !te.has(t.name.toLowerCase()) && !ve.has(t.name.toLowerCase()) || !De && (b || S) || De && !m.onlyStripTags.includes(t.name) || m.ignoreTagsWithTheirContents.includes(t.name)) {
           if (S) if (t.slashPresent) {
@@ -2059,7 +2066,7 @@ ${JSON.stringify(a, null, 4)}`);
         } else t = {};
         R(l) || (t = {});
       }
-      U && (U = !1);
+      L && (L = !1);
     }
     if ((!$ || e[l] === "<" && D(e, D(e, l)) && e[D(e, l)] === "/" && e.startsWith("script", D(e, D(e, l)))) && x(l) && !x(l - 1) && !`'"`.includes(e[l + 1]) && (!`'"`.includes(e[l + 2]) || /\w/.test(e[l + 1])) && !(e[l + 1] === "c" && e[l + 2] === ":") && !(e[l + 1] === "f" && e[l + 2] === "m" && e[l + 3] === "t" && e[l + 4] === ":") && !(e[l + 1] === "s" && e[l + 2] === "q" && e[l + 3] === "l" && e[l + 4] === ":") && !(e[l + 1] === "x" && e[l + 2] === ":") && !(e[l + 1] === "f" && e[l + 2] === "n" && e[l + 3] === ":") && la(t, e, l)) {
       if (R(D(e, l))) continue;
@@ -2080,7 +2087,7 @@ ${JSON.stringify(a, null, 4)}`);
         }
       }
     }
-    !e[l].trim() || e[l].charCodeAt(0) === 847 ? (s === null && (s = l, t.lastOpeningBracketAt !== void 0 && t.lastOpeningBracketAt < l && t.nameStarts && t.nameStarts < t.lastOpeningBracketAt && l === t.lastOpeningBracketAt + 1 && !r.some((p) => p.name === t.name) && (t.onlyPlausible = !0, t.name = void 0, t.nameStarts = void 0)), (e[l] === `
+    !e[l].trim() || e[l].charCodeAt(0) === 847 ? (s === null && (s = l, t.lastOpeningBracketAt !== void 0 && t.lastOpeningBracketAt < l && t.nameStarts && t.nameStarts < t.lastOpeningBracketAt && l === t.lastOpeningBracketAt + 1 && !n.some((p) => p.name === t.name) && (t.onlyPlausible = !0, t.name = void 0, t.nameStarts = void 0)), (e[l] === `
 ` || e[l] === "\r") && (c = l, h && (h = !1))) : (s !== null && (!t.quotes && d.equalsAt > s - 1 && d.nameEnds && d.equalsAt > d.nameEnds && e[l] !== '"' && e[l] !== "'" && (qe(d) && t.attributes.push(d), d = {}, t.equalsSpottedAt = void 0), s = null), h || (h = !0, q && !$ && typeof c == "number" && l && c < l - 1 && (e.slice(c + 1, l).trim() ? c = null : m.ignoreIndentations || w.push([c + 1, l])))), e[l] === " " ? f === null && (f = l) : f !== null && (f = null), t.name === "script" && ($ = !t.slashPresent);
   }
   if (e && !m.ignoreIndentations && (m.trimOnlySpaces && e[0] === " " || !m.trimOnlySpaces && !e[0].trim())) for (let l = 0; l < M; l++) if (m.trimOnlySpaces && e[l] !== " " || !m.trimOnlySpaces && e[l].trim()) {
@@ -2100,7 +2107,7 @@ ${JSON.stringify(a, null, 4)}`);
     let p = w.ranges[w.ranges.length - 1][2];
     w.ranges[w.ranges.length - 1] = [l, w.ranges[w.ranges.length - 1][1]], p?.trim() && w.ranges[w.ranges.length - 1].push(p.trimEnd());
   }
-  return { log: { timeTakenInMilliseconds: Date.now() - n }, result: Ts(e, w.current()), ranges: w.current(), allTagLocations: o, filteredTagLocations: g };
+  return { log: { timeTakenInMilliseconds: Date.now() - r }, result: Ts(e, w.current()), ranges: w.current(), allTagLocations: o, filteredTagLocations: g };
 }
 class Ee {
   speechSynthesis;
@@ -2140,20 +2147,20 @@ class Ee {
   // Check infinity pattern for long texts (except on problematic platforms)
   // Skip resume infinity for Microsoft Natural voices as they have different behavior 
   shouldUseResumeInfinity() {
-    const a = this.currentVoice, n = !!(a?.name && typeof a.name == "string" && a.name.toLocaleLowerCase().includes("(natural)"));
-    return this.patches.isAndroid !== !0 && !this.patches.isFirefox && !this.patches.isSafari && !n;
+    const a = this.currentVoice, r = !!(a?.name && typeof a.name == "string" && a.name.toLocaleLowerCase().includes("(natural)"));
+    return this.patches.isAndroid !== !0 && !this.patches.isFirefox && !this.patches.isSafari && !r;
   }
   // Creates a new SpeechSynthesisUtterance using detected constructor
   createUtterance(a) {
     return new this.speechSynthesisUtterance(a);
   }
   async initialize(a = {}) {
-    const { maxTimeout: n, interval: r, maxLengthExceeded: i = "warn" } = a;
+    const { maxTimeout: r, interval: n, maxLengthExceeded: i = "warn" } = a;
     if (this.initialized)
       return !1;
     this.maxLengthExceeded = i;
     try {
-      return this.voiceManager = await A.initialize(n, r), this.voices = this.voiceManager.getVoices(), this.defaultVoice = this.voiceManager.getDefaultVoice([...navigator.languages || ["en"]], this.voices), this.initialized = !0, !0;
+      return this.voiceManager = await C.initialize(r, n), this.voices = this.voiceManager.getVoices(), this.defaultVoice = this.voiceManager.getDefaultVoice([...navigator.languages || ["en"]], this.voices), this.initialized = !0, !0;
     } catch (o) {
       return console.error("Failed to initialize WebSpeechEngine:", o), this.initialized = !1, !1;
     }
@@ -2161,29 +2168,29 @@ class Ee {
   // Text length validation matching EasySpeech
   validateText(a) {
     if (new TextEncoder().encode(a).length > 4096) {
-      const r = "Text exceeds max length of 4096 bytes, which may not work with some voices.";
+      const n = "Text exceeds max length of 4096 bytes, which may not work with some voices.";
       switch (this.maxLengthExceeded) {
         case "none":
           break;
         case "error":
-          throw new Error(`WebSpeechEngine: ${r}`);
+          throw new Error(`WebSpeechEngine: ${n}`);
         case "warn":
         default:
-          console.warn(`WebSpeechEngine: ${r}`);
+          console.warn(`WebSpeechEngine: ${n}`);
       }
     }
   }
   getCurrentVoiceForUtterance(a) {
-    return a && typeof a == "object" ? a : typeof a == "string" ? this.voices.find((n) => n.name === a || n.language === a) || null : this.currentVoice || this.defaultVoice;
+    return a && typeof a == "object" ? a : typeof a == "string" ? this.voices.find((r) => r.name === a || r.language === a) || null : this.currentVoice || this.defaultVoice;
   }
   getCurrentVoice() {
     return this.currentVoice;
   }
   // SSML Escaping
   escapeSSML(a) {
-    return a.map((n) => ({
-      ...n,
-      text: n.ssml ? Aa(n.text).result : n.text
+    return a.map((r) => ({
+      ...r,
+      text: r.ssml ? Aa(r.text).result : r.text
     }));
   }
   // Queue Management
@@ -2192,12 +2199,12 @@ class Ee {
   }
   // Voice Configuration
   setVoice(a) {
-    const n = this.currentVoice;
+    const r = this.currentVoice;
     if (typeof a == "string") {
-      const r = this.voices.find((i) => i.name === a || i.language === a);
-      r ? (this.currentVoice = r, n && n.name !== r.name && (this.currentUtteranceIndex = 0)) : console.warn(`Voice "${a}" not found`);
+      const n = this.voices.find((i) => i.name === a || i.language === a);
+      n ? (this.currentVoice = n, r && r.name !== n.name && (this.currentUtteranceIndex = 0)) : console.warn(`Voice "${a}" not found`);
     } else
-      this.currentVoice = a, n && n.name !== a.name && (this.currentUtteranceIndex = 0);
+      this.currentVoice = a, r && r.name !== a.name && (this.currentUtteranceIndex = 0);
     this.voiceManager && this.defaultVoice && this.currentVoice && this.currentVoice.language !== this.defaultVoice.language && (this.defaultVoice = this.voiceManager.getDefaultVoice([this.currentVoice.language], this.voices));
   }
   getAvailableVoices() {
@@ -2232,22 +2239,22 @@ class Ee {
       this.setState("idle"), this.emitEvent({ type: "end" });
       return;
     }
-    const a = this.currentUtterances[this.currentUtteranceIndex], n = (a.ssml, a.text);
-    this.validateText(n);
-    const r = this.createUtterance(n), i = this.getCurrentVoiceForUtterance(this.currentVoice);
+    const a = this.currentUtterances[this.currentUtteranceIndex], r = (a.ssml, a.text);
+    this.validateText(r);
+    const n = this.createUtterance(r), i = this.getCurrentVoiceForUtterance(this.currentVoice);
     if (i && this.voiceManager) {
       const o = this.voiceManager.convertToSpeechSynthesisVoice(i);
-      o && (r.voice = o, r.lang = o.lang);
+      o && (n.voice = o, n.lang = o.lang);
     }
-    a.language && (r.lang = a.language), r.rate = this.rate, r.pitch = this.pitch, r.volume = this.volume, r.onstart = () => {
-      this.isSpeakingInternal = !0, this.isPausedInternal = !1, this.setState("playing"), this.emitEvent({ type: "start" }), this.patches.isAndroid && this.isAndroidPaused && (this.isAndroidPaused = !1), this.shouldUseResumeInfinity() && this.startResumeInfinity(r);
-    }, r.onend = () => {
+    a.language && (n.lang = a.language), n.rate = this.rate, n.pitch = this.pitch, n.volume = this.volume, n.onstart = () => {
+      this.isSpeakingInternal = !0, this.isPausedInternal = !1, this.setState("playing"), this.emitEvent({ type: "start" }), this.patches.isAndroid && this.isAndroidPaused && (this.isAndroidPaused = !1), this.shouldUseResumeInfinity() && this.startResumeInfinity(n);
+    }, n.onend = () => {
       if (this.utterancesBeingCancelled) {
         this.utterancesBeingCancelled = !1;
         return;
       }
       this.playbackState !== "idle" && (this.isSpeakingInternal = !1, this.isPausedInternal = !1, this.stopResumeInfinity(), this.currentUtteranceIndex >= this.currentUtterances.length - 1 && this.setState("idle"), this.emitEvent({ type: "end" }));
-    }, r.onerror = (o) => {
+    }, n.onerror = (o) => {
       if (o.error === "interrupted" && this.patches.isAndroid && this.isAndroidPaused)
         return;
       this.isSpeakingInternal = !1, this.isPausedInternal = !1, this.stopResumeInfinity(), this.setState("idle"), ["synthesis-unavailable", "audio-hardware", "voice-unavailable"].includes(o.error) && (console.log("[ENGINE] fatal error detected, resetting index to 0"), this.currentUtteranceIndex = 0), o.error === "interrupted" || o.error === "canceled" ? this.emitEvent({ type: "stop" }) : this.emitEvent({
@@ -2258,11 +2265,11 @@ class Ee {
           message: `Speech synthesis error: ${o.error}`
         }
       });
-    }, r.onpause = () => {
+    }, n.onpause = () => {
       this.isPausedInternal = !0, this.isSpeakingInternal = !1, this.emitEvent({ type: "pause" });
-    }, r.onresume = () => {
+    }, n.onresume = () => {
       this.isPausedInternal = !1, this.isSpeakingInternal = !0, this.emitEvent({ type: "resume" });
-    }, r.onboundary = (o) => {
+    }, n.onboundary = (o) => {
       this.emitEvent({
         type: "boundary",
         detail: {
@@ -2272,19 +2279,19 @@ class Ee {
           name: o.name
         }
       });
-    }, r.onmark = (o) => {
+    }, n.onmark = (o) => {
       this.emitEvent({
         type: "mark",
         detail: {
           name: o.name
         }
       });
-    }, this.speechSynthesis.speak(r);
+    }, this.speechSynthesis.speak(n);
   }
   startResumeInfinity(a) {
     this.shouldUseResumeInfinity() && (this.resumeInfinityTimer = window.setTimeout(() => {
       if (a) {
-        const { paused: r, speaking: i } = this.speechSynthesis, o = i || this.isSpeakingInternal, g = r || this.isPausedInternal;
+        const { paused: n, speaking: i } = this.speechSynthesis, o = i || this.isSpeakingInternal, g = n || this.isPausedInternal;
         o && !g && (this.speechSynthesis.pause(), this.speechSynthesis.resume());
       }
       this.startResumeInfinity(a);
@@ -2328,33 +2335,33 @@ class Ee {
   getCurrentUtteranceIndex() {
     return this.currentUtteranceIndex;
   }
-  setCurrentUtteranceIndex(a, n) {
+  setCurrentUtteranceIndex(a, r) {
     if (a < 0 || a >= this.currentUtterances.length) {
-      n?.(!1);
+      r?.(!1);
       return;
     }
-    a !== this.currentUtteranceIndex && (!this.isPausedInternal && this.isSpeakingInternal && this.cancelCurrentSpeech(), this.currentUtteranceIndex = a, n?.(!0));
+    a !== this.currentUtteranceIndex && (!this.isPausedInternal && this.isSpeakingInternal && this.cancelCurrentSpeech(), this.currentUtteranceIndex = a, r?.(!0));
   }
   getUtteranceCount() {
     return this.currentUtterances.length;
   }
   // Events
-  on(a, n) {
-    return this.eventListeners.has(a) || this.eventListeners.set(a, []), this.eventListeners.get(a).push(n), () => {
-      const r = this.eventListeners.get(a);
-      if (r) {
-        const i = r.indexOf(n);
-        i > -1 && r.splice(i, 1);
+  on(a, r) {
+    return this.eventListeners.has(a) || this.eventListeners.set(a, []), this.eventListeners.get(a).push(r), () => {
+      const n = this.eventListeners.get(a);
+      if (n) {
+        const i = n.indexOf(r);
+        i > -1 && n.splice(i, 1);
       }
     };
   }
   emitEvent(a) {
-    const n = this.eventListeners.get(a.type);
-    n && n.forEach((r) => r(a));
+    const r = this.eventListeners.get(a.type);
+    r && r.forEach((n) => n(a));
   }
   setState(a) {
-    const n = this.playbackState;
-    if (this.playbackState = a, n !== a)
+    const r = this.playbackState;
+    if (this.playbackState = a, r !== a)
       switch (a) {
         case "idle":
           this.emitEvent({ type: "idle" });
@@ -2382,8 +2389,8 @@ class $s {
     return this.engine.getAvailableVoices();
   }
   async createEngine(a) {
-    const n = new Ee();
-    return await n.initialize(), a && await n.setVoice(a), n;
+    const r = new Ee();
+    return await r.initialize(), a && await r.setVoice(a), r;
   }
   async destroy() {
     this.engine && (await this.engine.destroy(), this.engine = null);
@@ -2410,8 +2417,8 @@ class js {
     this.engine.on("start", () => {
       this.setNavigatorState("playing"), this.emitEvent({ type: "start" });
     }), this.engine.on("end", () => {
-      const a = this.engine.getCurrentUtteranceIndex(), n = this.engine.getUtteranceCount();
-      a < n - 1 ? this.engine.speak(a + 1) : this.setNavigatorState("idle"), this.emitEvent({ type: "end" });
+      const a = this.engine.getCurrentUtteranceIndex(), r = this.engine.getUtteranceCount();
+      a < r - 1 ? this.engine.speak(a + 1) : this.setNavigatorState("idle"), this.emitEvent({ type: "end" });
     }), this.engine.on("pause", () => {
       this.setNavigatorState("paused"), this.emitEvent({ type: "pause" });
     }), this.engine.on("resume", () => {
@@ -2445,8 +2452,8 @@ class js {
   }
   // Content Management
   loadContent(a) {
-    const n = Array.isArray(a) ? a : [a];
-    this.contentQueue = [...n], this.engine.loadUtterances(n), this.setNavigatorState("ready"), this.emitContentChangeEvent({ content: n });
+    const r = Array.isArray(a) ? a : [a];
+    this.contentQueue = [...r], this.engine.loadUtterances(r), this.setNavigatorState("ready"), this.emitContentChangeEvent({ content: r });
   }
   getCurrentContent() {
     const a = this.getCurrentUtteranceIndex();
@@ -2473,9 +2480,9 @@ class js {
   stop() {
     this.setNavigatorState("idle"), this.engine.stop(), this.emitEvent({ type: "stop" });
   }
-  skipToPosition(a, n = !1) {
-    const r = this.getCurrentUtteranceIndex();
-    return a < 0 || a >= this.contentQueue.length ? !1 : (a === r || (this.navigatorState === "paused" && !n ? this.engine.setCurrentUtteranceIndex(a, (i) => {
+  skipToPosition(a, r = !1) {
+    const n = this.getCurrentUtteranceIndex();
+    return a < 0 || a >= this.contentQueue.length ? !1 : (a === n || (this.navigatorState === "paused" && !r ? this.engine.setCurrentUtteranceIndex(a, (i) => {
       i && this.emitEvent({
         type: "skip",
         detail: { position: a }
@@ -2484,15 +2491,15 @@ class js {
   }
   // Navigation - Navigator coordinates with proper state management
   next(a = !1) {
-    const n = this.getCurrentUtteranceIndex();
-    return this.skipToPosition(n + 1, a);
+    const r = this.getCurrentUtteranceIndex();
+    return this.skipToPosition(r + 1, a);
   }
   previous(a = !1) {
-    const n = this.getCurrentUtteranceIndex();
-    return this.skipToPosition(n - 1, a);
+    const r = this.getCurrentUtteranceIndex();
+    return this.skipToPosition(r - 1, a);
   }
-  jumpTo(a, n = !1) {
-    return this.skipToPosition(a, n);
+  jumpTo(a, r = !1) {
+    return this.skipToPosition(a, r);
   }
   // Playback Parameters
   setRate(a) {
@@ -2518,22 +2525,22 @@ class js {
     return this.navigatorState;
   }
   // Events
-  on(a, n) {
-    return this.eventListeners.has(a) || this.eventListeners.set(a, []), this.eventListeners.get(a).push(n), () => {
-      const r = this.eventListeners.get(a);
-      if (r) {
-        const i = r.indexOf(n);
-        i > -1 && r.splice(i, 1);
+  on(a, r) {
+    return this.eventListeners.has(a) || this.eventListeners.set(a, []), this.eventListeners.get(a).push(r), () => {
+      const n = this.eventListeners.get(a);
+      if (n) {
+        const i = n.indexOf(r);
+        i > -1 && n.splice(i, 1);
       }
     };
   }
   emitEvent(a) {
-    const n = this.eventListeners.get(a.type);
-    n && n.forEach((r) => r(a));
+    const r = this.eventListeners.get(a.type);
+    r && r.forEach((n) => n(a));
   }
   emitContentChangeEvent(a) {
-    const n = this.eventListeners.get("contentchange");
-    n && n.forEach((r) => r({ type: "contentchange", detail: a }));
+    const r = this.eventListeners.get("contentchange");
+    r && r.forEach((n) => n({ type: "contentchange", detail: a }));
   }
   async destroy() {
     this.eventListeners.clear(), await this.engine.destroy();
@@ -2543,11 +2550,12 @@ export {
   Ee as WebSpeechEngine,
   $s as WebSpeechEngineProvider,
   js as WebSpeechReadAloudNavigator,
-  A as WebSpeechVoiceManager,
-  _ as chineseVariantMap,
+  C as WebSpeechVoiceManager,
+  oe as chineseVariantMap,
   Bs as getAvailableLanguages,
   jo as getDefaultRegion,
   ze as getTestUtterance,
   Ne as getVoices,
+  _ as normalizeLanguageCode,
   Be as processLanguages
 };
