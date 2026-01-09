@@ -471,10 +471,10 @@ const qa = "ar-SA", xa = "مرحبًا، اسمي {name} وأنا صوت عرب�
   }
 }, Fe = (e) => {
   if (!e) return;
-  const a = e.toLowerCase();
-  for (const r of Object.values(el))
-    if (r.values.some((n) => a.includes(`.${n}.`)))
-      return r.quality;
+  const r = e.toLowerCase().split(/[._-]/);
+  for (const n of Object.values(el))
+    if (n.values.some((i) => r.includes(i)))
+      return n.quality;
 };
 class C {
   static instance;
