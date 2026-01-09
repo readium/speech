@@ -26,10 +26,13 @@ export const getInferredQualityFromPackageName = (voiceName: string): TQuality |
   if (!voiceName) return undefined;
   
   const lowerName = voiceName.toLowerCase();
+  // Split the name into segments using common separators
+  const segments = lowerName.split(/[._-]/);
   
   // Check each quality level
   for (const quality of Object.values(packageQualities)) {
-    if (quality.values.some(value => lowerName.includes(`.${value}.`))) {
+    // Check if any of the quality values exist as a complete segment
+    if (quality.values.some(value => segments.includes(value))) {
       return quality.quality;
     }
   }
