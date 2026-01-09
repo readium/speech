@@ -92,16 +92,16 @@ const getVoiceData = (lang: string): VoiceData | undefined => voiceDataMap[lang]
 // Chinese variant mapping for special handling
 export const chineseVariantMap: {[key: string]: string} = {
   "cmn": "cmn", 
-  "cmn-cn": "cmn", 
-  "cmn-tw": "cmn", 
+  "cmn-CN": "cmn-CN", 
+  "cmn-TW": "cmn-TW", 
   "zh": "cmn", 
-  "zh-cn": "cmn", 
-  "zh-tw": "cmn",
+  "zh-CN": "cmn-CN", 
+  "zh-TW": "cmn-TW",
   "yue": "yue", 
-  "yue-hk": "yue", 
-  "zh-hk": "yue",
+  "yue-HK": "yue-HK", 
+  "zh-HK": "yue-HK",
   "wuu": "wuu", 
-  "wuu-cn": "wuu"
+  "wuu-CN": "wuu-CN"
 };
 
 /**
@@ -109,10 +109,19 @@ export const chineseVariantMap: {[key: string]: string} = {
  * @param lang - Input language code
  * @returns Normalized language code
  */
-const normalizeLanguageCode = (lang: string): string => {
+export const normalizeLanguageCode = (lang: string): string => {
   if (!lang) return "";
   
-  const normalized = lang.toLowerCase().replace(/_/g, "-");
+  // First normalize to lowercase and replace underscores with hyphens
+  let normalized = lang.toLowerCase().replace(/_/g, "-");
+  
+  // Handle BCP47 formatting (e.g., "en-US" -> "en-US", "en-us" -> "en-US")
+  if (/\w{2,3}-\w{2,3}/.test(normalized)) {
+    const [language, region] = normalized.split("-");
+    normalized = `${language.toLowerCase()}-${region.toUpperCase()}`;
+  }
+  
+  // Then check for Chinese variants
   return chineseVariantMap[normalized] || normalized;
 };
 
@@ -130,11 +139,6 @@ export const getVoices = (lang: string): ReadiumSpeechVoice[] => {
     
     // Try with the normalized language code
     let voiceData = getVoiceData(normalizedLang);
-    
-    // If no voices found and it's a Chinese variant, try with the base Chinese code
-    if ((!voiceData || !voiceData.voices?.length) && normalizedLang in chineseVariantMap) {
-      voiceData = getVoiceData("zh");
-    }
     
     // If still no voices, try with the base language code
     if (!voiceData || !voiceData.voices?.length) {
