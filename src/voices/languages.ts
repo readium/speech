@@ -49,6 +49,11 @@ import vi from "@json/vi.json";
 import wuu from "@json/wuu.json";
 import yue from "@json/yue.json";
 
+export interface LanguageWithRegions {
+  baseLang: string;              // Base language code (e.g., "en", "fr")
+  regions: string[];             // Regions to use for this language (explicit, inferred, or default)
+}
+
 // Helper function to cast voice data to the correct type
 const castVoice = (voice: any): ReadiumSpeechVoice => ({
   ...voice,
@@ -194,6 +199,131 @@ export const getTestUtterance = (lang: string): string => {
     console.error(`Failed to get test utterance for ${lang}:`, error);
     return "";
   }
+};
+
+/**
+ * Get the default region for a language
+ * @param {string} lang - Language code (e.g., "en", "fr", "zh-CN")
+ * @returns {string} The default region code or empty string if not found
+ */
+export const getDefaultRegion = (lang: string): string => {
+  if (!lang) return "";
+  
+  try {
+    // Normalize the language code first
+    const normalizedLang = normalizeLanguageCode(lang);
+    
+    // Try with the normalized language code
+    let voiceData = getVoiceData(normalizedLang);
+    
+    // If no default region found and it's a Chinese variant, try with the mapped variant code
+    if ((!voiceData?.defaultRegion) && normalizedLang in chineseVariantMap) {
+      const variantCode = chineseVariantMap[normalizedLang];
+      if (variantCode) {
+        const variantData = getVoiceData(variantCode);
+        if (variantData?.defaultRegion) {
+          return variantData.defaultRegion;
+        }
+      }
+    }
+    
+    // If still no default region, try with the base language code
+    if (!voiceData?.defaultRegion) {
+      const [baseLang] = extractLangRegionFromBCP47(normalizedLang);
+      if (baseLang !== normalizedLang) {
+        const baseLangData = getVoiceData(baseLang);
+        if (baseLangData?.defaultRegion) {
+          return baseLangData.defaultRegion;
+        }
+      }
+    }
+    
+    return voiceData?.defaultRegion || "";
+  } catch (error) {
+    console.error(`Failed to get default region for ${lang}:`, error);
+    return "";
+  }
+};
+
+/**
+ * Process languages with region inference
+ * @param languages - Array of language codes (e.g., ["fr", "en-CA"])
+ * @returns Array of LanguageWithRegions objects with language and region information
+ */
+export const processLanguages = (languages: string[]): LanguageWithRegions[] => {
+  if (!languages?.length) return [];
+  
+  const allRegions = new Set<string>();
+  const langMap = new Map<string, Set<string>>();
+  const regionPriority = new Map<string, number>();
+  
+  // Single pass: collect regions, language mappings, and region priorities
+  for (const [index, lang] of languages.entries()) {
+    if (!lang) continue;
+    
+    const normalizedLang = normalizeLanguageCode(lang);
+    const [baseLang, region] = extractLangRegionFromBCP47(normalizedLang);
+    
+    // Track the region in allRegions and its priority if it exists
+    if (region) {
+      allRegions.add(region);
+      // Only set the priority if it hasn't been set yet (first occurrence has highest priority)
+      if (!regionPriority.has(region)) {
+        regionPriority.set(region, index);
+      }
+    }
+    
+    // Track the language and its explicit regions
+    if (!langMap.has(baseLang)) {
+      langMap.set(baseLang, new Set());
+    }
+    
+    if (region) {
+      langMap.get(baseLang)!.add(region);
+    }
+  }
+
+  // Convert to the output format
+  return Array.from(langMap.entries()).map(([baseLang, explicitRegionsSet]) => {
+    // Get all regions from the voices for this language
+    const allLangVoices = getVoices(baseLang);
+    const validRegionsForLang = new Set(
+      allLangVoices.map(voice => {
+        const [, region] = extractLangRegionFromBCP47(voice.language);
+        return region;
+      }).filter(Boolean)
+    );
+
+    // Get explicit regions with their original priority
+    const explicitRegions = Array.from(explicitRegionsSet);
+    
+    // Add inferred regions (from allRegions) that are valid for this language
+    const inferredRegions = Array.from(allRegions).filter(region => 
+      validRegionsForLang.has(region) && !explicitRegions.includes(region)
+    );
+    
+    // Combine and sort regions based on their original priority
+    const regions = Array.from(new Set([...explicitRegions, ...inferredRegions]))
+      .sort((a, b) => {
+        const aPriority = regionPriority.get(a) ?? Number.MAX_SAFE_INTEGER;
+        const bPriority = regionPriority.get(b) ?? Number.MAX_SAFE_INTEGER;
+        return aPriority - bPriority;
+      });
+    
+    // If still no regions, add the default region
+    if (regions.length === 0) {
+      const defaultRegion = getDefaultRegion(baseLang);
+      const [, defaultRegionCode] = extractLangRegionFromBCP47(defaultRegion);
+      if (defaultRegionCode) {
+        regions.push(defaultRegionCode);
+      }
+    }
+    
+    return {
+      baseLang,
+      regions
+    };
+  });
 };
 
 // Re-export types for backward compatibility

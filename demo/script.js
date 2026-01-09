@@ -88,7 +88,7 @@ async function init() {
         name: lang.label
       })),
       { 
-        by: "language",
+        by: "languages",
         order: "asc",
         preferredLanguages: window.navigator.languages
       }
@@ -285,8 +285,8 @@ function filterVoices() {
   
   // Now apply language filter if needed
   if (language) {
-    filterOptions.language = language;
-    filteredVoices = voiceManager.filterVoices(voicesFilteredExceptLanguage, { language });
+    filterOptions.languages = language;
+    filteredVoices = voiceManager.filterVoices(voicesFilteredExceptLanguage, { languages: language });
   } else {
     filteredVoices = voicesFilteredExceptLanguage;
   }
@@ -306,7 +306,7 @@ function filterVoices() {
 }
 
 // Populate the voice dropdown with filtered voices
-function populateVoiceDropdown(language = "") {
+function populateVoiceDropdown() {
   voiceSelect.innerHTML = "<option value='' disabled selected>Select a voice</option>";
   
   try {
@@ -320,7 +320,7 @@ function populateVoiceDropdown(language = "") {
 
     // Sort voices with browser's preferred languages first
     const sortedVoices = voiceManager.sortVoices([...filteredVoices], { 
-      by: "language",
+      by: "region",
       order: "asc",
       preferredLanguages: window.navigator.languages
     });
@@ -582,12 +582,11 @@ function setupEventListeners() {
     
     // Get the default voice for the selected language using pre-filtered voices
     if (baseLanguage) {
-      // Find the first matching language from the user's preferences
-      const preferredLanguage = (window.navigator.languages || [window.navigator.language] || [])
-        .find(lang => lang && lang.startsWith(baseLanguage)) || baseLanguage;
-        
+      // Use the full navigator.languages array for proper language preference handling
+      const preferredLanguages = [...(window.navigator.languages || [window.navigator.language] || [baseLanguage])];
+      
       currentVoice = voiceManager.getDefaultVoice(
-        preferredLanguage, 
+        preferredLanguages, 
         filteredVoices.length ? filteredVoices : undefined
       );
       

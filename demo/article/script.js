@@ -28,7 +28,7 @@ async function initialize() {
     voiceManager = await WebSpeechVoiceManager.initialize();
     
     // Only get English voices
-    allVoices = voiceManager.getVoices({language: "en"});
+    allVoices = voiceManager.getVoices({languages: "en"});
     
     // Initialize the navigator
     navigator = new WebSpeechReadAloudNavigator();

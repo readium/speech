@@ -53,21 +53,29 @@ testWithContext("getDefaultVoice: selects highest quality voice regardless of is
   t.is(defaultVoice?.voiceURI, "voice1", "Should select highest quality voice regardless of isDefault flag");
 });
 
-testWithContext("getDefaultVoice: falls back to base language", async (t: ExecutionContext<TestContext>) => {
+testWithContext("getDefaultVoice: respects preferred languages order", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
+  // Create test voices with different languages
   const testVoices = [
     { 
       voiceURI: "voice1", 
-      name: "English Generic", 
-      language: "en",  // Base language
+      name: "French Voice", 
+      language: "fr-FR",
       isDefault: false,
       quality: "high" 
     },
     { 
       voiceURI: "voice2", 
-      name: "US English", 
-      language: "en-US", 
+      name: "German Voice", 
+      language: "de-DE",
+      isDefault: false,
+      quality: "high" 
+    },
+    { 
+      voiceURI: "voice3", 
+      name: "Spanish Voice", 
+      language: "es-ES",
       isDefault: false,
       quality: "high" 
     }
@@ -75,10 +83,48 @@ testWithContext("getDefaultVoice: falls back to base language", async (t: Execut
   
   (manager as any).voices = testVoices;
   
-  // Request en-GB which isn't available, should fall back to en
+  // Test with preferred languages in specific order
+  const defaultVoice = await manager.getDefaultVoice(["es-ES", "fr-FR", "de-DE"]);
+  t.truthy(defaultVoice);
+  t.is(defaultVoice?.language, "es-ES", "Should select first preferred language when available");
+  
+  // Test with different order
+  const defaultVoice2 = await manager.getDefaultVoice(["de-DE", "es-ES"]);
+  t.truthy(defaultVoice2);
+  t.is(defaultVoice2?.language, "de-DE", "Should respect the order of preferred languages");
+  
+  // Test with non-existent language first
+  const defaultVoice3 = await manager.getDefaultVoice(["it-IT", "fr-FR", "de-DE"]);
+  t.truthy(defaultVoice3);
+  t.is(defaultVoice3?.language, "fr-FR", "Should skip non-existent languages and use next preferred");
+});
+
+testWithContext("getDefaultVoice: falls back to base language", async (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  const testVoices = [
+    { 
+      voiceURI: "voice1", 
+      name: "English Generic", 
+      language: "en-AU",
+      isDefault: false,
+      quality: "high" 
+    },
+    { 
+      voiceURI: "voice2", 
+      name: "US English", 
+      language: "en-US",
+      isDefault: false,
+      quality: "high" 
+    }
+  ];
+  
+  (manager as any).voices = testVoices;
+  
+  // Request en-GB which isn't available, should fall back to alphabetical
   const defaultVoice = await manager.getDefaultVoice("en-GB");
   t.truthy(defaultVoice);
-  t.is(defaultVoice?.language, "en", "Should fall back to base language when exact match not found");
+  t.is(defaultVoice?.language, "en-AU", "Should fall back to first alphabetical region when exact match not found");
 });
 
 testWithContext("getDefaultVoice: respects quality sorting", async (t: ExecutionContext<TestContext>) => {

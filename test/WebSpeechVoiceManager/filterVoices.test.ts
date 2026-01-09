@@ -36,11 +36,11 @@ testWithContext("filterVoices: filters by language", (t: ExecutionContext<TestCo
     createTestVoice({ name: "Spanish Voice", language: "es-ES" })
   ];
   
-  const englishVoices = manager.filterVoices(testVoices, { language: "en" });
+  const englishVoices = manager.filterVoices(testVoices, { languages: "en" });
   t.is(englishVoices.length, 2);
   t.true(englishVoices.every(v => v.language.startsWith("en")));
   
-  const multiLangVoices = manager.filterVoices(testVoices, { language: ["en", "fr"] });
+  const multiLangVoices = manager.filterVoices(testVoices, { languages: ["en", "fr"] });
   t.is(multiLangVoices.length, 3);
   t.true(multiLangVoices.every(v => v.language.startsWith("en") || v.language.startsWith("fr")));
 });
@@ -196,7 +196,7 @@ testWithContext("filterVoices: combines multiple filters", (t: ExecutionContext<
   
   // Filter by language and gender
   const englishFemaleVoices = manager.filterVoices(testVoices, { 
-    language: "en", 
+    languages: "en", 
     gender: "female" 
   });
   t.is(englishFemaleVoices.length, 2);
@@ -223,14 +223,14 @@ testWithContext("filterVoices: handles edge cases", (t: ExecutionContext<TestCon
   ];
   
   // Test empty filter arrays
-  const emptyLanguageFilter = manager.filterVoices(testVoices, { language: [] });
+  const emptyLanguageFilter = manager.filterVoices(testVoices, { languages: [] });
   t.is(emptyLanguageFilter.length, 0);
   
   const emptyQualityFilter = manager.filterVoices(testVoices, { quality: undefined });
   t.is(emptyQualityFilter.length, testVoices.length, "Should return all voices when quality is undefined");
   
   // Test case sensitivity for language
-  const caseSensitiveLanguage = manager.filterVoices(testVoices, { language: "EN-us" });
+  const caseSensitiveLanguage = manager.filterVoices(testVoices, { languages: "EN-us" });
   t.is(caseSensitiveLanguage.length, 1); // Should match due to toLowerCase()
   
   // Test invalid quality values - cast to any for testing invalid input
@@ -251,7 +251,7 @@ testWithContext("filterVoices: uses array values for multiple filters", (t: Exec
   
   // Test with array of languages and array of qualities
   const filtered = manager.filterVoices(testVoices, { 
-    language: ["en", "fr"], 
+    languages: ["en", "fr"], 
     quality: ["high", "normal"] 
   });
   t.is(filtered.length, 3);
