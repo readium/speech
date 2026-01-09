@@ -95,7 +95,7 @@ async function setupVoices() {
     
     // Get voices with filters
     const filteredVoices = voiceManager.getVoices({
-      language: ["en", "fr"],
+      languages: ["en", "fr"],
       gender: "female",
       quality: "high",
       offlineOnly: true,
@@ -105,7 +105,7 @@ async function setupVoices() {
     
     // Get voices grouped by language
     const voices = voiceManager.getVoices();
-    const groupedByLanguage = voiceManager.groupVoices(voices, "language");
+    const groupedByLanguage = voiceManager.groupVoices(voices, "languages");
     
     // Get a test utterance for a specific language
     const testText = voiceManager.getTestUtterance("en");
@@ -153,7 +153,7 @@ Fetches all available voices that match the specified filter criteria.
 
 ```typescript
 interface VoiceFilterOptions {
-  language?: string | string[];  // Filter by language code(s) (e.g., "en", "fr")
+  languages?: string | string[];  // Filter by language code(s) (e.g., "en", "fr-FR")
   source?: TSource;  // Filter by voice source ("json" | "browser")
   gender?: TGender;  // "male" | "female" | "other"
   quality?: TQuality | TQuality[];  // "high" | "medium" | "low" | "veryLow"
@@ -175,12 +175,12 @@ Filters voices based on the specified criteria.
 #### Group Voices
 
 ```typescript
-voiceManager.groupVoices(voices: ReadiumSpeechVoice[], groupBy: "language" | "region" | "gender" | "quality" | "provider"): VoiceGroup
+voiceManager.groupVoices(voices: ReadiumSpeechVoice[], groupBy: "languages" | "region" | "gender" | "quality" | "provider"): VoiceGroup
 ```
 
 Organizes voices into groups based on the specified criteria. The available grouping options are:
 
-- `"language"`: Groups voices by their language code
+- `"languages"`: Groups voices by their language code
 - `"region"`: Groups voices by their region
 - `"gender"`: Groups voices by gender
 - `"quality"`: Groups voices by quality level
@@ -196,7 +196,7 @@ Arranges voices according to the specified sorting criteria. The `SortOptions` i
 
 ```typescript
 interface SortOptions {
-  by: "name" | "language" | "gender" | "quality" | "region";
+  by: "name" | "languages" | "gender" | "quality" | "region";
   order?: "asc" | "desc";
 }
 ```

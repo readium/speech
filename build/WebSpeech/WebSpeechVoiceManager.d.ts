@@ -3,7 +3,7 @@ import { ReadiumSpeechVoice, TGender, TQuality, TSource } from '../voices/types'
  * Options for filtering voices
  */
 interface VoiceFilterOptions {
-    language?: string | string[];
+    languages?: string | string[];
     source?: TSource;
     gender?: TGender;
     quality?: TQuality | TQuality[];
@@ -33,7 +33,7 @@ type SortOrder = "asc" | "desc";
 /**
  * Grouping criteria for voices
  */
-type GroupBy = "language" | "gender" | "quality" | "region";
+type GroupBy = "languages" | "gender" | "quality" | "region";
 /**
  * Sort options for voices
  */
@@ -130,12 +130,12 @@ export declare class WebSpeechVoiceManager {
      */
     getRegions(localization?: string): LanguageInfo[];
     /**
-     * Get the default voice for a language
-     * @param language The language code to get the default voice for (e.g., "en-US")
+     * Get the default voice for language preferences
+     * @param languages Array of preferred languages in order of preference, or a single language string
      * @param voices Optional pre-filtered voices array to use instead of fetching voices
      * @returns The default voice for the language, or null if no voices are available
      */
-    getDefaultVoice(language: string, voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice | null;
+    getDefaultVoice(languages: string | string[], voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice | null;
     getBrowserVoices(maxTimeout?: number, interval?: number): Promise<SpeechSynthesisVoice[]>;
     /**
      * Convert SpeechSynthesisVoice array to ReadiumSpeechVoice array
