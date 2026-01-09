@@ -192,12 +192,15 @@ Organizes voices into groups based on the specified criteria. The available grou
 voiceManager.sortVoices(voices: ReadiumSpeechVoice[], options: SortOptions): ReadiumSpeechVoice[]
 ```
 
-Arranges voices according to the specified sorting criteria. The `SortOptions` interface allows you to sort by various properties and specify sort order.
+Arranges voices according to the specified sorting criteria. The `SortOptions` interface allows you to sort by various properties and specify sort order. 
+
+If `preferredLanguages` is provided, voices from those languages will be prioritized in the sorting by languages and region.
 
 ```typescript
 interface SortOptions {
   by: "name" | "languages" | "gender" | "quality" | "region";
   order?: "asc" | "desc";
+  preferredLanguages?: string[];
 }
 ```
 
