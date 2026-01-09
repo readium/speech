@@ -135,8 +135,9 @@ function updateLanguageCounts(voices) {
   const languageCounts = new Map();
   
   voices.forEach(voice => {
-    const langCode = voice.language.split("-")[0]; // Get base language code
-    languageCounts.set(langCode, (languageCounts.get(langCode) || 0) + 1);
+    const langCode = voice.language;
+    const baseLang = langCode.split("-")[0];
+    languageCounts.set(baseLang, (languageCounts.get(baseLang) || 0) + 1)
   });
   
   // Update the languages array with new counts

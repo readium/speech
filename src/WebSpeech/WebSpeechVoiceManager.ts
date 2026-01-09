@@ -1,5 +1,5 @@
 import { ReadiumSpeechJSONVoice, ReadiumSpeechVoice, TGender, TQuality, TSource } from "../voices/types";
-import { getTestUtterance, getVoices, processLanguages } from "../voices/languages";
+import { getTestUtterance, getVoices, processLanguages, normalizeLanguageCode } from "../voices/languages";
 import { 
   isNoveltyVoice, 
   isVeryLowQualityVoice, 
@@ -349,13 +349,19 @@ export class WebSpeechVoiceManager {
     
     voicesToCount.forEach(voice => {
       const langCode = voice.language;
-      const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(langCode);
+      const normalizedLang = normalizeLanguageCode(langCode);
       
-      // Use the base language code for grouping (e.g., "en" for both "en-US" and "en-GB")
-      const key = baseLang;
-      const displayName = WebSpeechVoiceManager.getLanguageDisplayName(baseLang, localization);
+      const key = normalizedLang.split("-")[0];
+      const displayName = WebSpeechVoiceManager.getLanguageDisplayName(
+        key, 
+        localization
+      );
       
-      const entry = languages.get(key) || { count: 0, label: displayName, code: baseLang };
+      const entry = languages.get(key) || { 
+        count: 0, 
+        label: displayName, 
+        code: key
+      };
       languages.set(key, { ...entry, count: entry.count + 1 });
     });
 
@@ -502,14 +508,6 @@ export class WebSpeechVoiceManager {
    * @private
    */
   private parseToReadiumSpeechVoices(speechVoices: SpeechSynthesisVoice[]): ReadiumSpeechVoice[] {
-    const parseAndFormatBCP47 = (lang: string) => {
-      const speechVoiceLang = lang.replace(/_/g, "-");
-      if (/\w{2,3}-\w{2,3}/.test(speechVoiceLang)) {
-        return `${speechVoiceLang.split("-")[0].toLowerCase()}-${speechVoiceLang.split("-")[1].toUpperCase()}`;
-      }
-      return lang;
-    };
-
     // Count duplicates first
     const duplicateCounts = this.countVoiceDuplicates(speechVoices);
 
@@ -517,14 +515,14 @@ export class WebSpeechVoiceManager {
     const mappedVoices = speechVoices
       .filter(voice => voice?.name && voice?.lang)
       .map(voice => {
-        const formattedLang = parseAndFormatBCP47(voice.lang);
-        const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(formattedLang);
+        const normalizedLang = normalizeLanguageCode(voice.lang);
+        const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(normalizedLang);
         const normalizedName = this.normalizeVoiceName(voice.name);
         const voiceKey = `${voice.lang.toLowerCase()}_${normalizedName}`;
         const duplicatesCount = duplicateCounts.get(voiceKey) || 1;
         
         // First try with the full language code to handle variants like zh-HK
-        let langVoices = getVoices(formattedLang);
+        let langVoices = getVoices(normalizedLang);
         
         // If no voices found, try with the base language code
         if (!langVoices || langVoices.length === 0) {
@@ -543,7 +541,6 @@ export class WebSpeechVoiceManager {
             ...jsonVoice,
             source: "json",
             originalName: voice.name,
-            language: voice.lang,
             voiceURI: voice.voiceURI,
             quality,
             isDefault: voice.default || false,
@@ -559,7 +556,7 @@ export class WebSpeechVoiceManager {
           label: this.cleanVoiceName(voice.name),
           name: voice.name,
           originalName: voice.name,
-          language: formattedLang,
+          language: normalizedLang,
           voiceURI: voice.voiceURI,
           quality,
           isDefault: voice.default || false,
