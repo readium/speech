@@ -95,7 +95,7 @@ async function setupVoices() {
     
     // Get voices with filters
     const filteredVoices = voiceManager.getVoices({
-      language: ["en", "fr"],
+      languages: ["en", "fr"],
       gender: "female",
       quality: "high",
       offlineOnly: true,
@@ -105,7 +105,7 @@ async function setupVoices() {
     
     // Get voices grouped by language
     const voices = voiceManager.getVoices();
-    const groupedByLanguage = voiceManager.groupVoices(voices, "language");
+    const groupedByLanguage = voiceManager.groupVoices(voices, "languages");
     
     // Get a test utterance for a specific language
     const testText = voiceManager.getTestUtterance("en");
