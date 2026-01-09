@@ -253,24 +253,27 @@ export const getDefaultRegion = (lang: string): string => {
 export const processLanguages = (languages: string[]): LanguageWithRegions[] => {
   if (!languages?.length) return [];
   
-  // First pass: collect all unique regions from all languages
   const allRegions = new Set<string>();
-  for (const lang of languages) {
-    if (!lang) continue;
-    const normalizedLang = normalizeLanguageCode(lang);
-    const [, region] = extractLangRegionFromBCP47(normalizedLang);
-    if (region) {
-      allRegions.add(region);
-    }
-  }
-  
-  // Second pass: collect languages and their explicit regions
   const langMap = new Map<string, Set<string>>();
-  for (const lang of languages) {
+  const regionPriority = new Map<string, number>();
+  
+  // Single pass: collect regions, language mappings, and region priorities
+  for (const [index, lang] of languages.entries()) {
     if (!lang) continue;
+    
     const normalizedLang = normalizeLanguageCode(lang);
     const [baseLang, region] = extractLangRegionFromBCP47(normalizedLang);
     
+    // Track the region in allRegions and its priority if it exists
+    if (region) {
+      allRegions.add(region);
+      // Only set the priority if it hasn't been set yet (first occurrence has highest priority)
+      if (!regionPriority.has(region)) {
+        regionPriority.set(region, index);
+      }
+    }
+    
+    // Track the language and its explicit regions
     if (!langMap.has(baseLang)) {
       langMap.set(baseLang, new Set());
     }
@@ -279,7 +282,7 @@ export const processLanguages = (languages: string[]): LanguageWithRegions[] => 
       langMap.get(baseLang)!.add(region);
     }
   }
-  
+
   // Convert to the output format
   return Array.from(langMap.entries()).map(([baseLang, explicitRegionsSet]) => {
     // Get all regions from the voices for this language
@@ -291,7 +294,7 @@ export const processLanguages = (languages: string[]): LanguageWithRegions[] => 
       }).filter(Boolean)
     );
 
-    // Start with explicit regions
+    // Get explicit regions with their original priority
     const explicitRegions = Array.from(explicitRegionsSet);
     
     // Add inferred regions (from allRegions) that are valid for this language
@@ -299,8 +302,13 @@ export const processLanguages = (languages: string[]): LanguageWithRegions[] => 
       validRegionsForLang.has(region) && !explicitRegions.includes(region)
     );
     
-    // Combine explicit and inferred regions
-    const regions = [...explicitRegions, ...inferredRegions];
+    // Combine and sort regions based on their original priority
+    const regions = Array.from(new Set([...explicitRegions, ...inferredRegions]))
+      .sort((a, b) => {
+        const aPriority = regionPriority.get(a) ?? Number.MAX_SAFE_INTEGER;
+        const bPriority = regionPriority.get(b) ?? Number.MAX_SAFE_INTEGER;
+        return aPriority - bPriority;
+      });
     
     // If still no regions, add the default region
     if (regions.length === 0) {

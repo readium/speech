@@ -207,7 +207,21 @@ testWithContext("sortVoices: sorts by preferred languages with region inference"
   t.is(multipleRegionsTest[3].language, getDefaultRegion("es"), "Spanish default region should come first");
   t.is(multipleRegionsTest[4].language, "es-MX", "Other Spanish regions should follow");
 
-  // Test 4: Empty/undefined preferred languages (should sort alphabetically)
+  // Test 4: Keeping prioritization of regions
+  const prioritizedRegionsTest = manager.sortVoices(testVoices, {
+    by: "languages",
+    preferredLanguages: ["en-CA", "fr-BE", "fr-FR"] // Inferred region should come first
+  });
+
+  // Should respect the exact order of regional preferences
+  t.is(prioritizedRegionsTest[0].language, "en-CA", "First explicit preference should be en-CA");
+  t.is(prioritizedRegionsTest[1].language, "en-GB", "UK English should come second");
+  t.is(prioritizedRegionsTest[2].language, "en-US", "US English should come third");
+  t.is(prioritizedRegionsTest[3].language, "fr-CA", "Inferred French Canadian should come fourth");
+  t.is(prioritizedRegionsTest[4].language, "fr-BE", "French Belgian should come fifth");
+  t.is(prioritizedRegionsTest[5].language, "fr-FR", "French French should come sixth");
+
+  // Test 5: Empty/undefined preferred languages (should sort alphabetically)
   const emptyPreferred = manager.sortVoices(testVoices, { 
     by: "languages",
     preferredLanguages: [] 
