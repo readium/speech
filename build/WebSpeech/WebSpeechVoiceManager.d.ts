@@ -73,6 +73,11 @@ export declare class WebSpeechVoiceManager {
      */
     private static getLanguageDisplayName;
     /**
+     * Clean voice name by removing specific formatting
+     * @private
+     */
+    private cleanVoiceName;
+    /**
      * Normalize voice name for comparison by removing common variations
      * @private
      */

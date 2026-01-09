@@ -524,11 +524,18 @@ class A {
     }
   }
   /**
+   * Clean voice name by removing specific formatting
+   * @private
+   */
+  cleanVoiceName(a) {
+    return a ? a.replace(/\s*\([^)]*\)/g, "").replace(/[^\p{L}\p{N}\s-]/gu, "").replace(/\s+/g, " ").trim() : "";
+  }
+  /**
    * Normalize voice name for comparison by removing common variations
    * @private
    */
   normalizeVoiceName(a) {
-    return a ? a.toLowerCase().replace(/\s*\([^)]*\)/g, "").replace(/[^\p{L}\p{N}\s-]/gu, "").replace(/\s+/g, " ").trim() : "";
+    return this.cleanVoiceName(a.toLowerCase());
   }
   /**
    * Count occurrences of each voice based on language and normalized name
@@ -760,7 +767,7 @@ class A {
         isLowQuality: Ce(o.name, d)
       } : {
         source: "browser",
-        label: this.normalizeVoiceName(o.name),
+        label: this.cleanVoiceName(o.name),
         name: o.name,
         originalName: o.name,
         language: g,
