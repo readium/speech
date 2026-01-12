@@ -124,7 +124,7 @@ testWithContext("getDefaultVoice: falls back to base language", async (t: Execut
   // Request en-GB which isn't available, should fall back to alphabetical
   const defaultVoice = await manager.getDefaultVoice("en-GB");
   t.truthy(defaultVoice);
-  t.is(defaultVoice?.language, "en-AU", "Should fall back to first alphabetical region when exact match not found");
+  t.is(defaultVoice?.language, "en-US", "Should fall back to default region when exact match not found");
 });
 
 testWithContext("getDefaultVoice: respects quality sorting", async (t: ExecutionContext<TestContext>) => {
