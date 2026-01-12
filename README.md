@@ -188,21 +188,47 @@ Organizes voices into groups based on the specified criteria. The available grou
 
 #### Sort Voices
 
-```typescript
-voiceManager.sortVoices(voices: ReadiumSpeechVoice[], options: SortOptions): ReadiumSpeechVoice[]
-```
+The library provides flexible voice sorting capabilities to help you find the best voice for your needs:
 
-Arranges voices according to the specified sorting criteria. The `SortOptions` interface allows you to sort by various properties and specify sort order. 
+##### 1. Sort by Quality
 
-If `preferredLanguages` is provided, voices from those languages will be prioritized in the sorting by languages and region.
+Sort voices from highest to lowest quality:
 
 ```typescript
-interface SortOptions {
-  by: "name" | "languages" | "gender" | "quality" | "region";
-  order?: "asc" | "desc";
-  preferredLanguages?: string[];
-}
+const sortedVoices = voiceManager.sortQuality(voices);
+// Returns: [veryHigh, high, normal, low, veryLow]
 ```
+
+##### 2. Sort by Language
+
+Prioritize specific languages while maintaining quality order within each language group:
+
+```typescript
+// Basic usage
+const sortedByLanguage = voiceManager.sortLanguages(voices);
+
+// With preferred languages first
+const preferredFirst = voiceManager.sortLanguages(voices, ["fr", "en"]);
+// Returns: [fr voices (best quality first), en voices, other languages...]
+```
+
+##### 3. Sort by Region
+
+Sort voices by region, with optional preferred language regions:
+
+```typescript
+// Basic regional sort
+const byRegion = voiceManager.sortRegions(voices);
+
+// With preferred regions
+const preferredRegions = voiceManager.sortRegions(voices, ["fr-FR", "en-US"]);
+// Returns: [fr-FR voices, en-US voices, other regions...]
+```
+
+##### Sorting Behavior
+
+- Each sort method maintains relative quality order within its groups
+- Quality levels: veryHigh > high > normal > low > veryLow
 
 ### Testing
 
