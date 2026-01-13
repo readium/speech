@@ -697,32 +697,27 @@ private static sortByQuality(
   const aQuality = WebSpeechVoiceManager.getQualityValue(a.quality);
   const bQuality = WebSpeechVoiceManager.getQualityValue(b.quality);
   
-  // If both have defined quality, sort by quality (highest first)
-  if (aQuality > 0 && bQuality > 0) {
-    return bQuality - aQuality;
-  }
-  
-  // If one has quality and the other doesn't, the one with quality comes first
-  if (aQuality > 0 && bQuality === 0) return -1;
-  if (aQuality === 0 && bQuality > 0) return 1;
-  
-  // Both have undefined/null quality - use JSON order if possible
-  if (aQuality === 0 && bQuality === 0 && jsonOrderMaps && baseLang) {
-    if (a.source === "json" && b.source === "json") {
-      // Get the language-specific order map
-      const langOrderMap = jsonOrderMaps.get(baseLang);
-      if (langOrderMap) {
-        const aOrder = langOrderMap.get(a.name) ?? Number.MAX_SAFE_INTEGER;
-        const bOrder = langOrderMap.get(b.name) ?? Number.MAX_SAFE_INTEGER;
-        
-        if (aOrder !== Number.MAX_SAFE_INTEGER && bOrder !== Number.MAX_SAFE_INTEGER) {
+  // Use JSON order for same-quality JSON voices
+  if (jsonOrderMaps && baseLang && a.source === "json" && b.source === "json") {
+    const langOrderMap = jsonOrderMaps.get(baseLang);
+    if (langOrderMap) {
+      const aOrder = langOrderMap.get(a.name);
+      const bOrder = langOrderMap.get(b.name);
+      
+      if (aOrder !== undefined && bOrder !== undefined) {
+        // Both have JSON order - use it if same quality or both no quality
+        if ((aQuality > 0 && bQuality > 0 && aQuality === bQuality) || 
+            (aQuality === 0 && bQuality === 0)) {
           return aOrder - bOrder;
         }
       }
     }
   }
   
-  // Fallback to alphabetical by name
+  // Sort by quality (highest first)
+  if (bQuality !== aQuality) return bQuality - aQuality;
+  
+  // Same quality - fallback to alphabetical
   return a.name.localeCompare(b.name);
 }
 
@@ -877,6 +872,8 @@ private static sortByQuality(
     voices: ReadiumSpeechVoice[],
     processedLang: LanguageWithRegions
   ): void {
+    const jsonOrderMaps = createJsonOrderMap(voices);
+    
     voices.sort((a, b) => {
       const [, aRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
       const [, bRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
@@ -892,7 +889,6 @@ private static sortByQuality(
         
         // If same region, sort by quality
         if (aIndex === bIndex) {
-          const jsonOrderMaps = createJsonOrderMap(voices);
           return WebSpeechVoiceManager.sortByQuality(a, b, jsonOrderMaps, processedLang.baseLang);
         }
         
