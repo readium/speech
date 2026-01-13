@@ -10,6 +10,7 @@ import {
 import { findLocaleWithQualityIndicators, getInferredQualityFromPlatform } from "../voices/localized";
 import { getInferredQualityFromPackageName } from "../voices/packages";
 import { extractLangRegionFromBCP47 } from "../utils/language";
+import { shouldMergeVoicesByName, selectPreferredVoiceByName } from "../voices/voiceDuplicates";
 
 /**
  * Options for filtering voices
@@ -279,12 +280,19 @@ export class WebSpeechVoiceManager {
       if (!existing) {
         voiceMap.set(key, voice);
       } else {
-        const existingQuality = WebSpeechVoiceManager.getQualityValue(existing.quality);
-        const newQuality = WebSpeechVoiceManager.getQualityValue(voice.quality);
-        
-        // If new voice has higher or equal quality, use it (preferring the newer one)
-        if (newQuality >= existingQuality) {
-          voiceMap.set(key, voice);
+        // Check if these are the same voice with different names (have altNames)
+        if (shouldMergeVoicesByName(voice, existing)) {
+          const preferredVoice = selectPreferredVoiceByName(voice, existing);
+          voiceMap.set(key, preferredVoice);
+        } else {
+          // Use existing quality-based logic for different voices
+          const existingQuality = WebSpeechVoiceManager.getQualityValue(existing.quality);
+          const newQuality = WebSpeechVoiceManager.getQualityValue(voice.quality);
+          
+          // If new voice has higher or equal quality, use it (preferring the newer one)
+          if (newQuality >= existingQuality) {
+            voiceMap.set(key, voice);
+          }
         }
       }
     }
