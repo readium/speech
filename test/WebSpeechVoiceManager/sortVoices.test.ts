@@ -97,6 +97,30 @@ testWithContext("sortVoices: sorts languages by preferred", (t: ExecutionContext
   t.is(sortedPreferred[6].language, "es-MX");
 });
 
+testWithContext("sortVoices: sorts by JSON order", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices using actual names from JSON files in their exact JSON order
+  const testVoices = [
+    // French voices from fr.json - first 5 fr-FR voices in exact order
+    createTestVoice({ name: "Microsoft VivienneMultilingual Online (Natural) - French (France)", language: "fr-FR" }),
+    createTestVoice({ name: "Microsoft Denise Online (Natural) - French (France)", language: "fr-FR" }),
+    createTestVoice({ name: "Microsoft Eloise Online (Natural) - French (France)", language: "fr-FR" }),
+    createTestVoice({ name: "Microsoft RemyMultilingual Online (Natural) - French (France)", language: "fr-FR" }),
+    createTestVoice({ name: "Microsoft Henri Online (Natural) - French (France)", language: "fr-FR" })
+  ];
+  
+  // Test with preferred language
+  const sorted = manager.sortLanguages(testVoices, ["fr"]);
+  
+  // Should be in exact JSON order
+  t.is(sorted[0].name, "Microsoft VivienneMultilingual Online (Natural) - French (France)");
+  t.is(sorted[1].name, "Microsoft Denise Online (Natural) - French (France)");
+  t.is(sorted[2].name, "Microsoft Eloise Online (Natural) - French (France)");
+  t.is(sorted[3].name, "Microsoft RemyMultilingual Online (Natural) - French (France)");
+  t.is(sorted[4].name, "Microsoft Henri Online (Natural) - French (France)");
+});
+
 testWithContext("sortVoices: sorts by region", (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
@@ -181,4 +205,23 @@ testWithContext("sortVoices: sorts regions by preferred", (t: ExecutionContext<T
   t.is(emptyPreferred[6].language, "fr-FR");
   t.is(emptyPreferred[7].language, "fr-BE");
   t.is(emptyPreferred[8].language, "fr-CA");
+});
+
+testWithContext("sortVoices: sorts regions by JSON order", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices using actual names from JSON files in their exact JSON order
+  const testVoices = [
+    // French voices from fr.json - first 4 in exact order with different regions
+    createTestVoice({ name: "Microsoft VivienneMultilingual Online (Natural) - French (France)", language: "fr-FR" }),
+    createTestVoice({ name: "Microsoft Denise Online (Natural) - French (France)", language: "fr-FR" }),
+    createTestVoice({ name: "Microsoft Charline Online (Natural) - French (Belgium)", language: "fr-BE" }),
+    createTestVoice({ name: "Microsoft Ariane Online (Natural) - French (Switzerland)", language: "fr-CH" })
+  ];
+  
+  const sortedAsc = manager.sortRegions(testVoices, []);
+  t.is(sortedAsc[0].name, "Microsoft VivienneMultilingual Online (Natural) - French (France)");
+  t.is(sortedAsc[1].name, "Microsoft Denise Online (Natural) - French (France)");
+  t.is(sortedAsc[2].name, "Microsoft Charline Online (Natural) - French (Belgium)");
+  t.is(sortedAsc[3].name, "Microsoft Ariane Online (Natural) - French (Switzerland)");
 });
