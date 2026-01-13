@@ -164,6 +164,31 @@ interface VoiceFilterOptions {
 }
 ```
 
+#### Get Default Voice
+
+```typescript
+voiceManager.getDefaultVoice(languages: string | string[], voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice | null
+```
+
+Automatically selects the best available voice based on quality and language preferences. This is the recommended method for getting a suitable voice without manual selection.
+
+```typescript
+// Get the best voice for user's browser language
+const defaultVoice = voiceManager.getDefaultVoice(navigator.languages || ["en"]);
+
+// Get the best voice for specific preferred languages
+const frenchVoice = voiceManager.getDefaultVoice(["fr-FR", "fr-CA"]);
+
+// Get the best voice from a pre-filtered voice list
+const customVoice = voiceManager.getDefaultVoice(["en-US", "en-GB"], customVoiceList);
+```
+
+The selection algorithm:
+1. Filters voices by the specified languages (or uses provided voices array)
+2. Sorts by region preference within matching languages  
+3. Returns the highest quality voice from the best language/region match
+4. Returns `null` if no voices match or if languages parameter is empty
+
 #### Filter Voices
 
 ```typescript
@@ -188,20 +213,40 @@ Organizes voices into groups based on the specified criteria. The available grou
 
 #### Sort Voices
 
+The library provides opinionated voice sorting capabilities to help you find the best voice for your needs.
+
+If you need more control over the sorting process, you can implement and apply your own sorting logic on filtered voices.
+
+##### 1. Sort by Quality
+
+Sort voices from highest to lowest quality:
+
 ```typescript
-voiceManager.sortVoices(voices: ReadiumSpeechVoice[], options: SortOptions): ReadiumSpeechVoice[]
+const sortedVoices = voiceManager.sortVoicesByQuality(voices);
+// Returns: [veryHigh, high, normal, low, veryLow, null]
 ```
 
-Arranges voices according to the specified sorting criteria. The `SortOptions` interface allows you to sort by various properties and specify sort order. 
+##### 2. Sort by Language
 
-If `preferredLanguages` is provided, voices from those languages will be prioritized in the sorting by languages and region.
+Prioritize specific languages while maintaining JSON data’s quality order within each language group:
 
 ```typescript
-interface SortOptions {
-  by: "name" | "languages" | "gender" | "quality" | "region";
-  order?: "asc" | "desc";
-  preferredLanguages?: string[];
-}
+// Basic usage
+const sortedByLanguage = voiceManager.sortVoicesByLanguages(voices);
+
+// With preferred languages first
+const preferredFirst = voiceManager.sortVoicesByLanguages(voices, ["fr", "en"]);
+// Returns: [fr voices, en voices, other languages voices...]
+```
+
+##### 3. Sort by Region
+
+Sort voices by preferred languages and regions, while maintaining JSON data’s quality order within each region group:
+
+```typescript
+// With preferred regions
+const preferredRegions = voiceManager.sortVoicesByRegions(voices, ["fr-FR", "en-US"]);
+// Returns: [fr-FR voices, other fr regions voices, en-US voices, other en regions voices, other regions voices...]
 ```
 
 ### Testing

@@ -82,22 +82,20 @@ async function init() {
     const allLanguages = voiceManager.getLanguages(window.navigator.language, initOptions);
     
     // Sort languages with browser's preferred languages first
-    languages = voiceManager.sortVoices(
-      allLanguages.map(lang => ({
+    languages = allLanguages
+      .map(lang => ({
         ...lang,
         language: lang.code,
         name: lang.label
-      })),
-      { 
-        by: "languages",
-        order: "asc",
-        preferredLanguages: window.navigator.languages
-      }
-    ).map(voice => ({
-      code: voice.language,
-      label: voice.name,
-      count: voice.count
-    }));
+      }));
+    
+    // Sort using the manager's sortRegions method
+    languages = voiceManager.sortVoicesByRegions(languages, window.navigator.languages)
+      .map(voice => ({
+        code: voice.language,
+        label: voice.name,
+        count: voice.count
+      }));
     
     // Populate language dropdown
     populateLanguageDropdown();
@@ -293,12 +291,6 @@ function filterVoices() {
     filteredVoices = voicesFilteredExceptLanguage;
   }
   
-  // Sort voices by quality (highest first)
-  filteredVoices = voiceManager.sortVoices(filteredVoices, {
-    by: "quality",
-    order: "desc"
-  });
-  
   populateVoiceDropdown(language);
 
   // Replace current voice if it was filtered out
@@ -321,11 +313,7 @@ function populateVoiceDropdown() {
     }
 
     // Sort voices with browser's preferred languages first
-    const sortedVoices = voiceManager.sortVoices([...filteredVoices], { 
-      by: "region",
-      order: "asc",
-      preferredLanguages: window.navigator.languages
-    });
+    const sortedVoices = voiceManager.sortVoicesByRegions([...filteredVoices], window.navigator.languages);
 
     // Group the sorted voices by region
     const voiceGroups = voiceManager.groupVoices(sortedVoices, "region");
@@ -339,13 +327,7 @@ function populateVoiceDropdown() {
       const optgroup = document.createElement("optgroup");
       optgroup.label = `${getCountryFlag(countryCode)} ${regionName}`;
       
-      // Sort voices by quality within each region
-      const sortedVoicesInRegion = voiceManager.sortVoices(voices, { 
-        by: "quality",
-        order: "desc"
-      });
-      
-      for (const voice of sortedVoicesInRegion) {
+      for (const voice of voices) {
         const option = document.createElement("option");
         option.value = voice.name;
         option.textContent = [
