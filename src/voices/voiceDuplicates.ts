@@ -51,8 +51,8 @@ export function shouldMergeVoicesByName(voice1: ReadiumSpeechVoice, voice2: Read
   }
 
   // Check if voice1 name matches voice2's altNames or vice versa
-  const voice1Name = voice1.name;
-  const voice2Name = voice2.name;
+  const voice1Name = voice1.originalName;
+  const voice2Name = voice2.originalName;
 
   const voice1AltNames = voice1.altNames || [];
   const voice2AltNames = voice2.altNames || [];
