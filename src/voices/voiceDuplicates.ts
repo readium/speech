@@ -9,31 +9,26 @@ import { ReadiumSpeechVoice } from "./types";
  * @returns The preferred voice based on name/altNames order
  */
 export function selectPreferredVoiceByName(voice1: ReadiumSpeechVoice, voice2: ReadiumSpeechVoice): ReadiumSpeechVoice {
-  // If one voice's name is the other's originalName, prefer the one with the originalName
-  if (voice1.name === voice2.originalName) return voice2;
-  if (voice2.name === voice1.originalName) return voice1;
+  // If voice1 has name === originalName, it's preferred
+  if (voice1.name === voice1.originalName) return voice1;
+  // If voice2 has name === originalName, it's preferred
+  if (voice2.name === voice2.originalName) return voice2;
   
-  // If one voice's name is in the other's altNames, prefer the one with the name
-  if (voice1.altNames?.includes(voice2.name)) return voice2;
-  if (voice2.altNames?.includes(voice1.name)) return voice1;
-
-  // Fall back to comparing all names in order
-  const voice1Names = [voice1.originalName, voice1.name, ...(voice1.altNames || [])];
-  const voice2Names = [voice2.originalName, voice2.name, ...(voice2.altNames || [])];
-
-  // Find the first match in order of preference
-  for (let i = 0; i < voice1Names.length; i++) {
-    const v1Name = voice1Names[i];
-    const v2Index = voice2Names.findIndex(name => name === v1Name);
-    
-    if (v2Index !== -1) {
-      // Found a match, prefer the one with the lower index (higher preference)
-      return i <= v2Index ? voice1 : voice2;
-    }
-  }
-
-  // If no match found, return voice1 (fallback)
-  return voice1;
+  // Otherwise, use altNames priority order
+  const voice1Names = [voice1.originalName, ...(voice1.altNames || [])];
+  const voice2Names = [voice2.originalName, ...(voice2.altNames || [])];
+  
+  // Find the best matching priority for each voice
+  const voice1Priority = voice1Names.findIndex(name => voice2Names.includes(name));
+  const voice2Priority = voice2Names.findIndex(name => voice1Names.includes(name));
+  
+  // No matches found, default to voice1
+  if (voice1Priority === -1 && voice2Priority === -1) return voice1;
+  
+  // Return the voice with the better (lower) priority, or voice1 if equal
+  return voice1Priority !== -1 && (voice2Priority === -1 || voice1Priority <= voice2Priority) 
+    ? voice1 
+    : voice2;
 }
 
 /**
