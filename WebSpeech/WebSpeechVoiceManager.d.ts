@@ -27,21 +27,9 @@ interface VoiceGroup {
     [key: string]: ReadiumSpeechVoice[];
 }
 /**
- * Sort order for voices
- */
-type SortOrder = "asc" | "desc";
-/**
  * Grouping criteria for voices
  */
 type GroupBy = "languages" | "gender" | "quality" | "region";
-/**
- * Sort options for voices
- */
-interface SortOptions {
-    by: GroupBy | "name";
-    order?: SortOrder;
-    preferredLanguages?: string[];
-}
 /**
  * Manages Web Speech API voices with enhanced functionality
  */
@@ -168,14 +156,56 @@ export declare class WebSpeechVoiceManager {
      */
     filterOutVeryLowQualityVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[];
     /**
-     * Get the numeric value for a quality level
-     * @private
-     */
-    private getQualityValue;
+   * Get the numeric value for a quality level
+   * @param quality Quality level
+   * @returns Numeric value (higher = better quality, 0 for undefined/null)
+   */
+    private static getQualityValue;
     /**
-     * Sort voices by the specified criteria
+     * Sort two voices by quality, using JSON order as fallback for undefined/null quality
+     * @param a First voice
+     * @param b Second voice
+     * @param jsonOrderMaps Optional map of language codes to voice order maps
+     * @param baseLang Base language code to use for looking up the order map
+     * @returns Comparison result (-1, 0, or 1)
      */
-    sortVoices(voices: ReadiumSpeechVoice[], options: SortOptions): ReadiumSpeechVoice[];
+    private static sortByQuality;
+    /**
+     * Sort voices by quality, respecting JSON name order, then alphabetically for undefined/null quality
+     * @param voices Array of voices to sort
+     * @returns Sorted array of voices
+     */
+    sortVoicesByQuality(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[];
+    /**
+    * Group voices by language based on processed preferred languages
+    */
+    private static groupVoicesByLanguage;
+    /**
+     * Sort regions by default then alphabetically, sort voices by quality
+     */
+    private static sortByDefaultRegion;
+    /**
+     * Sort voices alphabetically by language, then region, then quality
+     */
+    private static sortAlphabetically;
+    /**
+     * Sort voices by language preference, then alphabetically
+     * @param voices Array of voices to sort
+     * @param preferredLanguages Array of preferred language codes in order of preference
+     * @returns Sorted array of voices
+     */
+    sortVoicesByLanguages(voices: ReadiumSpeechVoice[], preferredLanguages?: string[]): ReadiumSpeechVoice[];
+    /**
+     * Sort languages by region preference, then voices by quality
+     */
+    private static sortByPreferredRegion;
+    /**
+     * Sort voices by region preference, then alphabetically
+     * @param voices Array of voices to sort
+     * @param preferredLanguages Array of preferred language codes in order of preference
+     * @returns Sorted array of voices
+     */
+    sortVoicesByRegions(voices: ReadiumSpeechVoice[], preferredLanguages: string[]): ReadiumSpeechVoice[];
     /**
      * Group voices by the specified criteria
      * @param voices Array of voices to group
