@@ -1,5 +1,5 @@
 import { ReadiumSpeechJSONVoice, ReadiumSpeechVoice, TGender, TQuality, TSource } from "../voices/types";
-import { getTestUtterance, getVoices, processLanguages, normalizeLanguageCode, getDefaultRegion } from "../voices/languages";
+import { getTestUtterance, getVoices, processLanguages, normalizeLanguageCode, getDefaultRegion, LanguageWithRegions } from "../voices/languages";
 import { createJsonOrderMap, getQualityValue, sortByQuality } from "../voices/sorting";
 import { 
   isNoveltyVoice, 
@@ -662,98 +662,18 @@ export class WebSpeechVoiceManager {
   sortQuality(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
     if (!voices?.length) return [];
     
-    // Create a map to track the original JSON order for voices from JSON source, organized by language
     const jsonOrderMaps = createJsonOrderMap(voices);
-    
-    return [...voices].sort((a, b) => {
-      // Get quality values using the helper
-      const aQuality = getQualityValue(a.quality);
-      const bQuality = getQualityValue(b.quality);
-      
-      // If both have defined quality, sort by quality (highest first)
-      if (aQuality > 0 && bQuality > 0) {
-        return bQuality - aQuality;
-      }
-      
-      // If one has quality and the other doesn't, the one with quality comes first
-      if (aQuality > 0 && bQuality === 0) return -1;
-      if (aQuality === 0 && bQuality > 0) return 1;
-      
-      // Both have undefined/null quality - check if they're from JSON and preserve order
-      if (aQuality === 0 && bQuality === 0) {
-        const [aBaseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
-        const [bBaseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
-        
-        // If same language and both from JSON, preserve JSON order
-        if (aBaseLang === bBaseLang && a.source === "json" && b.source === "json") {
-          const langOrderMap = jsonOrderMaps.get(aBaseLang);
-          if (langOrderMap) {
-            const aOrder = langOrderMap.get(a.name) ?? Number.MAX_SAFE_INTEGER;
-            const bOrder = langOrderMap.get(b.name) ?? Number.MAX_SAFE_INTEGER;
-            
-            if (aOrder !== Number.MAX_SAFE_INTEGER && bOrder !== Number.MAX_SAFE_INTEGER) {
-              return aOrder - bOrder;
-            }
-          }
-        }
-        
-        // Otherwise, sort alphabetically by name
-        return a.name.localeCompare(b.name);
-      }
-      
-      return 0;
-    });
+    return [...voices].sort((a, b) => sortByQuality(a, b, jsonOrderMaps));
   }
 
    /**
-   * Sort voices by language preference, then alphabetically
-   * @param voices Array of voices to sort
-   * @param preferredLanguages Array of preferred language codes in order of preference
-   * @returns Sorted array of voices
+   * Group voices by language based on processed preferred languages
    */
-  sortLanguages(voices: ReadiumSpeechVoice[], preferredLanguages: string[]): ReadiumSpeechVoice[] {
-    if (!voices?.length) return [];
-    if (!preferredLanguages?.length) {
-      // If no preferred languages, sort alphabetically by language display name,
-      // but prioritize default region voices within each language group
-      return [...voices].sort((a, b) => {
-        const [aLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
-        const [bLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
-        const aDisplayName = WebSpeechVoiceManager.getLanguageDisplayName(aLang).toLowerCase();
-        const bDisplayName = WebSpeechVoiceManager.getLanguageDisplayName(bLang).toLowerCase();
-        
-        // First, sort by language display name
-        const langCompare = aDisplayName.localeCompare(bDisplayName);
-        if (langCompare !== 0) {
-          return langCompare;
-        }
-        
-        // Same language - prioritize default region
-        if (aLang === bLang) {
-          const defaultRegion = getDefaultRegion(aLang);
-          const [, aRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
-          const [, bRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
-          
-          const aIsDefault = defaultRegion && aRegion === defaultRegion.split("-")[1];
-          const bIsDefault = defaultRegion && bRegion === defaultRegion.split("-")[1];
-          
-          // Default region comes first
-          if (aIsDefault && !bIsDefault) return -1;
-          if (!aIsDefault && bIsDefault) return 1;
-          
-          // Both default or both non-default - sort by quality
-          const jsonOrderMaps = createJsonOrderMap([a, b]);
-          return sortByQuality(a, b, jsonOrderMaps, aLang);
-        }
-        
-        return langCompare;
-      });
-    }
-
-    const processedLangs = processLanguages(preferredLanguages);
+  private static groupVoicesByLanguage(
+    voices: ReadiumSpeechVoice[],
+    processedLangs: LanguageWithRegions[]
+  ): { voicesByLang: Map<string, ReadiumSpeechVoice[]>, otherLangVoices: ReadiumSpeechVoice[] } {
     const langInfo = new Map(processedLangs.map(info => [info.baseLang, info]));
-    
-    // Group voices by language
     const voicesByLang = new Map<string, ReadiumSpeechVoice[]>();
     const otherLangVoices: ReadiumSpeechVoice[] = [];
     
@@ -771,36 +691,42 @@ export class WebSpeechVoiceManager {
       }
     }
     
-    // Sort each language group by quality using helper
-    const langSortedResult: ReadiumSpeechVoice[] = [];
+    return { voicesByLang, otherLangVoices };
+  }
+
+  /**
+   * Sort voices by default region priority, then by quality
+   */
+  private static sortByDefaultRegionThenQuality(
+    voices: ReadiumSpeechVoice[],
+    baseLang: string
+  ): void {
+    const jsonOrderMaps = createJsonOrderMap(voices);
+    const defaultRegion = getDefaultRegion(baseLang);
     
-    for (const processedLang of processedLangs) {
-      const langVoices = voicesByLang.get(processedLang.baseLang);
-      if (langVoices) {
-        // Create JSON order map for this specific language
-        const jsonOrderMaps = createJsonOrderMap(langVoices);
-        // Sort using the language-specific order map with default region prioritization
-        langVoices.sort((a, b) => {
-          const defaultRegion = getDefaultRegion(processedLang.baseLang);
-          const [, aRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
-          const [, bRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
-          
-          const aIsDefault = defaultRegion && aRegion === defaultRegion.split("-")[1];
-          const bIsDefault = defaultRegion && bRegion === defaultRegion.split("-")[1];
-          
-          // Default region comes first
-          if (aIsDefault && !bIsDefault) return -1;
-          if (!aIsDefault && bIsDefault) return 1;
-          
-          // Both default or both non-default - sort by quality
-          return sortByQuality(a, b, jsonOrderMaps, processedLang.baseLang);
-        });
-        langSortedResult.push(...langVoices);
-      }
-    }
-    
-    // Add other voices sorted by language display name, then by default region, then by quality
-    otherLangVoices.sort((a, b) => {
+    voices.sort((a, b) => {
+      const [, aRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
+      const [, bRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
+      
+      const aIsDefault = defaultRegion && aRegion === defaultRegion.split("-")[1];
+      const bIsDefault = defaultRegion && bRegion === defaultRegion.split("-")[1];
+      
+      // Default region comes first
+      if (aIsDefault && !bIsDefault) return -1;
+      if (!aIsDefault && bIsDefault) return 1;
+      
+      // Both default or both non-default - sort by quality
+      return sortByQuality(a, b, jsonOrderMaps, baseLang);
+    });
+  }
+
+  /**
+   * Sort voices alphabetically by language display name, with default region and quality
+   */
+  private static sortAlphabeticallyWithRegionAndQuality(
+    voices: ReadiumSpeechVoice[]
+  ): void {
+    voices.sort((a, b) => {
       const [aLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
       const [bLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
       const aDisplayName = WebSpeechVoiceManager.getLanguageDisplayName(aLang).toLowerCase();
@@ -825,19 +751,99 @@ export class WebSpeechVoiceManager {
         if (!aIsDefault && bIsDefault) return 1;
         
         // Both default or both non-default - sort by quality
-        const sameLangVoices = otherLangVoices.filter(v => 
+        const sameLangVoices = voices.filter(v => 
           WebSpeechVoiceManager.extractLangRegionFromBCP47(v.language)[0] === aLang
         );
         const jsonOrderMaps = createJsonOrderMap(sameLangVoices);
         return sortByQuality(a, b, jsonOrderMaps, aLang);
       }
       
-      // Different languages - return the language comparison result
       return langCompare;
     });
+  }
+
+  /**
+   * Sort voices by language preference, then alphabetically
+   * @param voices Array of voices to sort
+   * @param preferredLanguages Array of preferred language codes in order of preference
+   * @returns Sorted array of voices
+   */
+  sortLanguages(voices: ReadiumSpeechVoice[], preferredLanguages: string[]): ReadiumSpeechVoice[] {
+    if (!voices?.length) return [];
+    if (!preferredLanguages?.length) {
+      // If no preferred languages, sort alphabetically by language display name,
+      // but prioritize default region voices within each language group
+      const sortedVoices = [...voices];
+      WebSpeechVoiceManager.sortAlphabeticallyWithRegionAndQuality(sortedVoices);
+      return sortedVoices;
+    }
+
+    const processedLangs = processLanguages(preferredLanguages);
+    const { voicesByLang, otherLangVoices } = WebSpeechVoiceManager.groupVoicesByLanguage(voices, processedLangs);
     
+    // Sort each language group by quality using helper
+    const langSortedResult: ReadiumSpeechVoice[] = [];
+    
+    for (const processedLang of processedLangs) {
+      const langVoices = voicesByLang.get(processedLang.baseLang);
+      if (langVoices) {
+        WebSpeechVoiceManager.sortByDefaultRegionThenQuality(langVoices, processedLang.baseLang);
+        langSortedResult.push(...langVoices);
+      }
+    }
+    
+    // Add other voices sorted alphabetically with region and quality fallback
+    WebSpeechVoiceManager.sortAlphabeticallyWithRegionAndQuality(otherLangVoices);
     langSortedResult.push(...otherLangVoices);
     return langSortedResult;
+  }
+
+  /**
+   * Sort voices within a language by region preference, then by quality
+   */
+  private static sortByRegionPreferenceThenQuality(
+    voices: ReadiumSpeechVoice[],
+    processedLang: LanguageWithRegions
+  ): void {
+    voices.sort((a, b) => {
+      const [, aRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
+      const [, bRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
+      
+      // Check if regions are in processed languages for this base language
+      const aHasMatch = aRegion && processedLang.regions.includes(aRegion);
+      const bHasMatch = bRegion && processedLang.regions.includes(bRegion);
+      
+      if (aHasMatch && bHasMatch) {
+        // Both have matches - sort by their order in this language's regions
+        const aIndex = processedLang.regions.indexOf(aRegion!);
+        const bIndex = processedLang.regions.indexOf(bRegion!);
+        
+        // If same region, sort by quality
+        if (aIndex === bIndex) {
+          const jsonOrderMaps = createJsonOrderMap(voices);
+          return sortByQuality(a, b, jsonOrderMaps, processedLang.baseLang);
+        }
+        
+        return aIndex - bIndex;
+      }
+      
+      // Only one has match - it comes first
+      if (aHasMatch) return -1;
+      if (bHasMatch) return 1;
+      
+      // Neither has match - always prioritize default region first, then alphabetical
+      const defaultRegion = getDefaultRegion(processedLang.baseLang);
+      const [, defaultRegionCode] = WebSpeechVoiceManager.extractLangRegionFromBCP47(defaultRegion);
+      
+      const aIsDefault = aRegion === defaultRegionCode;
+      const bIsDefault = bRegion === defaultRegionCode;
+      
+      if (aIsDefault && !bIsDefault) return -1;
+      if (!aIsDefault && bIsDefault) return 1;
+      
+      // Sort alphabetically by region
+      return (aRegion || "").localeCompare(bRegion || "");
+    });
   }
 
   /**
@@ -850,115 +856,21 @@ export class WebSpeechVoiceManager {
     if (!voices?.length) return [];
     
     const processedLangs = processLanguages(preferredLanguages || []);
-    const langInfo = new Map(processedLangs.map(info => [info.baseLang, info]));
+    const { voicesByLang, otherLangVoices } = WebSpeechVoiceManager.groupVoicesByLanguage(voices, processedLangs);
     
-    // Group voices by language
-    const voicesByLang = new Map<string, ReadiumSpeechVoice[]>();
-    const otherLangVoices: ReadiumSpeechVoice[] = [];
-    
-    for (const voice of voices) {
-      const [lang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(voice.language);
-      const langInfoForVoice = langInfo.get(lang);
-      
-      if (langInfoForVoice) {
-        if (!voicesByLang.has(lang)) {
-          voicesByLang.set(lang, []);
-        }
-        voicesByLang.get(lang)!.push(voice);
-      } else {
-        otherLangVoices.push(voice);
-      }
-    }
-    
-    // Sort each language group separately
+    // Sort each language group by region preference
     const langSortedResult: ReadiumSpeechVoice[] = [];
     
     for (const processedLang of processedLangs) {
       const langVoices = voicesByLang.get(processedLang.baseLang);
       if (langVoices) {
-        // Sort this language's voices by region
-        langVoices.sort((a, b) => {
-          const [, aRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
-          const [, bRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
-          
-          // Check if regions are in processed languages for this base language
-          const aHasMatch = aRegion && processedLang.regions.includes(aRegion);
-          const bHasMatch = bRegion && processedLang.regions.includes(bRegion);
-          
-          if (aHasMatch && bHasMatch) {
-            // Both have matches - sort by their order in this language's regions
-            const aIndex = processedLang.regions.indexOf(aRegion!);
-            const bIndex = processedLang.regions.indexOf(bRegion!);
-            
-            // If same region, sort by quality
-            if (aIndex === bIndex) {
-              const sameRegionVoices = langVoices.filter(v => 
-                WebSpeechVoiceManager.extractLangRegionFromBCP47(v.language)[1] === aRegion
-              );
-              const jsonOrderMaps = createJsonOrderMap(sameRegionVoices);
-              return sortByQuality(a, b, jsonOrderMaps, processedLang.baseLang);
-            }
-            
-            return aIndex - bIndex;
-          }
-          
-          // Only one has match - it comes first
-          if (aHasMatch) return -1;
-          if (bHasMatch) return 1;
-          
-          // Neither has match - always prioritize default region first, then alphabetical
-          const defaultRegion = getDefaultRegion(processedLang.baseLang);
-          const [, defaultRegionCode] = WebSpeechVoiceManager.extractLangRegionFromBCP47(defaultRegion);
-          
-          const aIsDefault = aRegion === defaultRegionCode;
-          const bIsDefault = bRegion === defaultRegionCode;
-          
-          if (aIsDefault && !bIsDefault) return -1;
-          if (!aIsDefault && bIsDefault) return 1;
-          
-          // Sort alphabetically by region
-          return (aRegion || "").localeCompare(bRegion || "");
-        });
-        
+        WebSpeechVoiceManager.sortByRegionPreferenceThenQuality(langVoices, processedLang);
         langSortedResult.push(...langVoices);
       }
     }
     
-    // Add other voices sorted by display name and default region priority
-    otherLangVoices.sort((a, b) => {
-      const [aLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
-      const [bLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
-      const aDisplayName = WebSpeechVoiceManager.getLanguageDisplayName(aLang).toLowerCase();
-      const bDisplayName = WebSpeechVoiceManager.getLanguageDisplayName(bLang).toLowerCase();
-      
-      const compare = aDisplayName.localeCompare(bDisplayName);
-      if (compare !== 0) {
-        return compare;
-      }
-      
-      // Same language - prioritize default region first
-      const [, aRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
-      const [, bRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
-      
-      const aDefaultRegion = getDefaultRegion(aLang);
-      const [, aDefaultRegionCode] = WebSpeechVoiceManager.extractLangRegionFromBCP47(aDefaultRegion);
-      const bDefaultRegion = getDefaultRegion(bLang);
-      const [, bDefaultRegionCode] = WebSpeechVoiceManager.extractLangRegionFromBCP47(bDefaultRegion);
-      
-      const aIsDefault = aRegion === aDefaultRegionCode;
-      const bIsDefault = bRegion === bDefaultRegionCode;
-      
-      if (aIsDefault && !bIsDefault) return -1;
-      if (!aIsDefault && bIsDefault) return 1;
-      
-      // If one has a region and other doesn't, one with region comes first
-      if (aRegion && !bRegion) return -1;
-      if (!aRegion && bRegion) return 1;
-      
-      // Both have regions or both don't - sort alphabetically by region
-      return (aRegion || "").localeCompare(bRegion || "");
-    });
-    
+    // Add other voices sorted alphabetically with region and quality fallback
+    WebSpeechVoiceManager.sortAlphabeticallyWithRegionAndQuality(otherLangVoices);
     langSortedResult.push(...otherLangVoices);
     return langSortedResult;
   }

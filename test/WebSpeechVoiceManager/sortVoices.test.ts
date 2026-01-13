@@ -48,6 +48,41 @@ testWithContext("sortVoices: sorts by quality", (t: ExecutionContext<TestContext
   t.is(sortedAsc[5].quality, null);
 });
 
+testWithContext("sortVoices: sorts by quality across languages", (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create test voices with different languages and quality levels
+  const testVoices = [
+    createTestVoice({ name: "French Low Quality", language: "fr-FR", quality: "low" }),
+    createTestVoice({ name: "English High Quality", language: "en-US", quality: "high" }),
+    createTestVoice({ name: "Spanish Normal Quality", language: "es-ES", quality: "normal" }),
+    createTestVoice({ name: "German Very High Quality", language: "de-DE", quality: "veryHigh" }),
+    createTestVoice({ name: "Italian Very Low Quality", language: "it-IT", quality: "veryLow" }),
+    createTestVoice({ name: "Portuguese Unknown Quality", language: "pt-BR", quality: null })
+  ];
+  
+  const sortedAsc = manager.sortQuality(testVoices);
+  
+  // Check both quality and language to ensure correct sorting
+  t.is(sortedAsc[0].quality, "veryHigh");
+  t.is(sortedAsc[0].language, "de-DE");
+  
+  t.is(sortedAsc[1].quality, "high");
+  t.is(sortedAsc[1].language, "en-US");
+  
+  t.is(sortedAsc[2].quality, "normal");
+  t.is(sortedAsc[2].language, "es-ES");
+  
+  t.is(sortedAsc[3].quality, "low");
+  t.is(sortedAsc[3].language, "fr-FR");
+  
+  t.is(sortedAsc[4].quality, "veryLow");
+  t.is(sortedAsc[4].language, "it-IT");
+  
+  t.is(sortedAsc[5].quality, null);
+  t.is(sortedAsc[5].language, "pt-BR");
+});
+
 testWithContext("sortVoices: sorts by language", (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
