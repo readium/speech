@@ -247,21 +247,26 @@ testWithContext("sortVoices: sorts regions by JSON order", (t: ExecutionContext<
   
   // Create test voices using actual names from JSON files in their exact JSON order
   const testVoices = [
-    // French voices from fr.json - first 5 fr-FR voices in exact order
-    createTestVoice({ name: "Microsoft VivienneMultilingual Online (Natural) - French (France)", language: "fr-FR" }),
-    createTestVoice({ name: "Microsoft Denise Online (Natural) - French (France)", language: "fr-FR" }),
-    createTestVoice({ name: "Microsoft Eloise Online (Natural) - French (France)", language: "fr-FR" }),
-    createTestVoice({ name: "Microsoft RemyMultilingual Online (Natural) - French (France)", language: "fr-FR" }),
-    createTestVoice({ name: "Microsoft Henri Online (Natural) - French (France)", language: "fr-FR" })
+    // Add some lower quality voices to test quality ordering
+    createTestVoice({ name: "Microsoft Hortense Online (Natural) - French (France)", language: "fr-FR", quality: "high" }),
+    createTestVoice({ name: "Microsoft Paul Online (Natural) - French (France)", language: "fr-FR", quality: "normal" }),
+    // French voices from fr.json - first 5 fr-FR voices in inexact order
+    createTestVoice({ name: "Microsoft Eloise Online (Natural) - French (France)", language: "fr-FR", quality: "veryHigh" }),
+    createTestVoice({ name: "Microsoft VivienneMultilingual Online (Natural) - French (France)", language: "fr-FR", quality: "veryHigh" }),
+    createTestVoice({ name: "Microsoft Henri Online (Natural) - French (France)", language: "fr-FR", quality: "veryHigh" }),
+    createTestVoice({ name: "Microsoft Denise Online (Natural) - French (France)", language: "fr-FR", quality: "veryHigh" }),
+    createTestVoice({ name: "Microsoft RemyMultilingual Online (Natural) - French (France)", language: "fr-FR", quality: "veryHigh" })
   ];
   
   // Test with preferred language
   const sorted = manager.sortVoicesByRegions(testVoices, ["fr-FR"]);
   
-  // Should be in exact JSON order
+  // Should be in exact JSON order for same quality, then quality ordering
   t.is(sorted[0].name, "Microsoft VivienneMultilingual Online (Natural) - French (France)");
   t.is(sorted[1].name, "Microsoft Denise Online (Natural) - French (France)");
   t.is(sorted[2].name, "Microsoft Eloise Online (Natural) - French (France)");
   t.is(sorted[3].name, "Microsoft RemyMultilingual Online (Natural) - French (France)");
   t.is(sorted[4].name, "Microsoft Henri Online (Natural) - French (France)");
+  t.is(sorted[5].name, "Microsoft Hortense Online (Natural) - French (France)");
+  t.is(sorted[6].name, "Microsoft Paul Online (Natural) - French (France)");
 });
