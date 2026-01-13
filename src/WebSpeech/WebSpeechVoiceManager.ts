@@ -1,6 +1,6 @@
 import { ReadiumSpeechJSONVoice, ReadiumSpeechVoice, TGender, TQuality, TSource } from "../voices/types";
 import { getTestUtterance, getVoices, processLanguages, normalizeLanguageCode, getDefaultRegion, LanguageWithRegions } from "../voices/languages";
-import { createJsonOrderMap, getQualityValue, sortByQuality } from "../voices/sorting";
+import { createJsonOrderMap } from "../voices/sorting";
 import { 
   isNoveltyVoice, 
   isVeryLowQualityVoice, 
@@ -279,8 +279,8 @@ export class WebSpeechVoiceManager {
       if (!existing) {
         voiceMap.set(key, voice);
       } else {
-        const existingQuality = getQualityValue(existing.quality);
-        const newQuality = getQualityValue(voice.quality);
+        const existingQuality = WebSpeechVoiceManager.getQualityValue(existing.quality);
+        const newQuality = WebSpeechVoiceManager.getQualityValue(voice.quality);
         
         // If new voice has higher or equal quality, use it (preferring the newer one)
         if (newQuality >= existingQuality) {
@@ -428,7 +428,7 @@ export class WebSpeechVoiceManager {
     if (!filteredVoices.length) return null;
   
     // Then sort by region to ensure we get the best match for the requested language(s)
-    filteredVoices = this.sortRegions(filteredVoices, languageArray);
+    filteredVoices = this.sortVoicesByRegions(filteredVoices, languageArray);
   
     // Return the best available voice (already sorted by quality and language)
     return filteredVoices[0];
@@ -655,15 +655,79 @@ export class WebSpeechVoiceManager {
   }
 
   /**
+ * Get the numeric value for a quality level
+ * @param quality Quality level
+ * @returns Numeric value (higher = better quality, 0 for undefined/null)
+ */
+private static getQualityValue(quality: string | null | undefined): number {
+  const qualityOrder: Record<string, number> = {
+    "veryLow": 1,
+    "low": 2,
+    "normal": 3,
+    "high": 4,
+    "veryHigh": 5
+  };
+  
+  // Return 0 for null/undefined, otherwise the quality value or 0 if not found
+  return quality ? (qualityOrder[quality] ?? 0) : 0;
+}
+
+/**
+ * Sort two voices by quality, using JSON order as fallback for undefined/null quality
+ * @param a First voice
+ * @param b Second voice
+ * @param jsonOrderMaps Optional map of language codes to voice order maps
+ * @param baseLang Base language code to use for looking up the order map
+ * @returns Comparison result (-1, 0, or 1)
+ */
+private static sortByQuality(
+  a: ReadiumSpeechVoice, 
+  b: ReadiumSpeechVoice, 
+  jsonOrderMaps?: Map<string, Map<string, number>>,
+  baseLang?: string
+): number {
+  const aQuality = WebSpeechVoiceManager.getQualityValue(a.quality);
+  const bQuality = WebSpeechVoiceManager.getQualityValue(b.quality);
+  
+  // If both have defined quality, sort by quality (highest first)
+  if (aQuality > 0 && bQuality > 0) {
+    return bQuality - aQuality;
+  }
+  
+  // If one has quality and the other doesn't, the one with quality comes first
+  if (aQuality > 0 && bQuality === 0) return -1;
+  if (aQuality === 0 && bQuality > 0) return 1;
+  
+  // Both have undefined/null quality - use JSON order if possible
+  if (aQuality === 0 && bQuality === 0 && jsonOrderMaps && baseLang) {
+    if (a.source === "json" && b.source === "json") {
+      // Get the language-specific order map
+      const langOrderMap = jsonOrderMaps.get(baseLang);
+      if (langOrderMap) {
+        const aOrder = langOrderMap.get(a.name) ?? Number.MAX_SAFE_INTEGER;
+        const bOrder = langOrderMap.get(b.name) ?? Number.MAX_SAFE_INTEGER;
+        
+        if (aOrder !== Number.MAX_SAFE_INTEGER && bOrder !== Number.MAX_SAFE_INTEGER) {
+          return aOrder - bOrder;
+        }
+      }
+    }
+  }
+  
+  // Fallback to alphabetical by name
+  return a.name.localeCompare(b.name);
+}
+
+  /**
    * Sort voices by quality, respecting JSON name order, then alphabetically for undefined/null quality
    * @param voices Array of voices to sort
    * @returns Sorted array of voices
    */
-  sortQuality(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
+  sortVoicesByQuality(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
     if (!voices?.length) return [];
     
     const jsonOrderMaps = createJsonOrderMap(voices);
-    return [...voices].sort((a, b) => sortByQuality(a, b, jsonOrderMaps));
+    return [...voices].sort((a, b) => WebSpeechVoiceManager.sortByQuality(a, b, jsonOrderMaps));
   }
 
    /**
@@ -695,9 +759,9 @@ export class WebSpeechVoiceManager {
   }
 
   /**
-   * Sort voices by default region priority, then by quality
+   * Sort regions by default then alphabetically, sort voices by quality
    */
-  private static sortByDefaultRegionThenQuality(
+  private static sortByDefaultRegion(
     voices: ReadiumSpeechVoice[],
     baseLang: string
   ): void {
@@ -716,14 +780,14 @@ export class WebSpeechVoiceManager {
       if (!aIsDefault && bIsDefault) return 1;
       
       // Both default or both non-default - sort by quality
-      return sortByQuality(a, b, jsonOrderMaps, baseLang);
+      return WebSpeechVoiceManager.sortByQuality(a, b, jsonOrderMaps, baseLang);
     });
   }
 
   /**
-   * Sort voices alphabetically by language display name, with default region and quality
+   * Sort voices alphabetically by language, then region, then quality
    */
-  private static sortAlphabeticallyWithRegionAndQuality(
+  private static sortAlphabetically(
     voices: ReadiumSpeechVoice[]
   ): void {
     voices.sort((a, b) => {
@@ -755,7 +819,7 @@ export class WebSpeechVoiceManager {
           WebSpeechVoiceManager.extractLangRegionFromBCP47(v.language)[0] === aLang
         );
         const jsonOrderMaps = createJsonOrderMap(sameLangVoices);
-        return sortByQuality(a, b, jsonOrderMaps, aLang);
+        return WebSpeechVoiceManager.sortByQuality(a, b, jsonOrderMaps, aLang);
       }
       
       return langCompare;
@@ -768,13 +832,13 @@ export class WebSpeechVoiceManager {
    * @param preferredLanguages Array of preferred language codes in order of preference
    * @returns Sorted array of voices
    */
-  sortLanguages(voices: ReadiumSpeechVoice[], preferredLanguages: string[]): ReadiumSpeechVoice[] {
+  sortVoicesByLanguages(voices: ReadiumSpeechVoice[], preferredLanguages: string[]): ReadiumSpeechVoice[] {
     if (!voices?.length) return [];
     if (!preferredLanguages?.length) {
       // If no preferred languages, sort alphabetically by language display name,
       // but prioritize default region voices within each language group
       const sortedVoices = [...voices];
-      WebSpeechVoiceManager.sortAlphabeticallyWithRegionAndQuality(sortedVoices);
+      WebSpeechVoiceManager.sortAlphabetically(sortedVoices);
       return sortedVoices;
     }
 
@@ -787,21 +851,21 @@ export class WebSpeechVoiceManager {
     for (const processedLang of processedLangs) {
       const langVoices = voicesByLang.get(processedLang.baseLang);
       if (langVoices) {
-        WebSpeechVoiceManager.sortByDefaultRegionThenQuality(langVoices, processedLang.baseLang);
+        WebSpeechVoiceManager.sortByDefaultRegion(langVoices, processedLang.baseLang);
         langSortedResult.push(...langVoices);
       }
     }
     
     // Add other voices sorted alphabetically with region and quality fallback
-    WebSpeechVoiceManager.sortAlphabeticallyWithRegionAndQuality(otherLangVoices);
+    WebSpeechVoiceManager.sortAlphabetically(otherLangVoices);
     langSortedResult.push(...otherLangVoices);
     return langSortedResult;
   }
 
   /**
-   * Sort voices within a language by region preference, then by quality
+   * Sort languages by region preference, then voices by quality
    */
-  private static sortByRegionPreferenceThenQuality(
+  private static sortByPreferredRegion(
     voices: ReadiumSpeechVoice[],
     processedLang: LanguageWithRegions
   ): void {
@@ -821,7 +885,7 @@ export class WebSpeechVoiceManager {
         // If same region, sort by quality
         if (aIndex === bIndex) {
           const jsonOrderMaps = createJsonOrderMap(voices);
-          return sortByQuality(a, b, jsonOrderMaps, processedLang.baseLang);
+          return WebSpeechVoiceManager.sortByQuality(a, b, jsonOrderMaps, processedLang.baseLang);
         }
         
         return aIndex - bIndex;
@@ -852,7 +916,7 @@ export class WebSpeechVoiceManager {
    * @param preferredLanguages Array of preferred language codes in order of preference
    * @returns Sorted array of voices
    */
-  sortRegions(voices: ReadiumSpeechVoice[], preferredLanguages: string[]): ReadiumSpeechVoice[] {
+  sortVoicesByRegions(voices: ReadiumSpeechVoice[], preferredLanguages: string[]): ReadiumSpeechVoice[] {
     if (!voices?.length) return [];
     
     const processedLangs = processLanguages(preferredLanguages || []);
@@ -864,13 +928,13 @@ export class WebSpeechVoiceManager {
     for (const processedLang of processedLangs) {
       const langVoices = voicesByLang.get(processedLang.baseLang);
       if (langVoices) {
-        WebSpeechVoiceManager.sortByRegionPreferenceThenQuality(langVoices, processedLang);
+        WebSpeechVoiceManager.sortByPreferredRegion(langVoices, processedLang);
         langSortedResult.push(...langVoices);
       }
     }
     
     // Add other voices sorted alphabetically with region and quality fallback
-    WebSpeechVoiceManager.sortAlphabeticallyWithRegionAndQuality(otherLangVoices);
+    WebSpeechVoiceManager.sortAlphabetically(otherLangVoices);
     langSortedResult.push(...otherLangVoices);
     return langSortedResult;
   }

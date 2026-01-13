@@ -39,7 +39,7 @@ testWithContext("sortVoices: sorts by quality", (t: ExecutionContext<TestContext
     createTestVoice({ name: "Unknown Quality Voice", language: "en-US", quality: null })
   ];
   
-  const sortedAsc = manager.sortQuality(testVoices);
+  const sortedAsc = manager.sortVoicesByQuality(testVoices);
   t.is(sortedAsc[0].quality, "veryHigh");
   t.is(sortedAsc[1].quality, "high");
   t.is(sortedAsc[2].quality, "normal");
@@ -61,7 +61,7 @@ testWithContext("sortVoices: sorts by quality across languages", (t: ExecutionCo
     createTestVoice({ name: "Portuguese Unknown Quality", language: "pt-BR", quality: null })
   ];
   
-  const sortedAsc = manager.sortQuality(testVoices);
+  const sortedAsc = manager.sortVoicesByQuality(testVoices);
   
   // Check both quality and language to ensure correct sorting
   t.is(sortedAsc[0].quality, "veryHigh");
@@ -94,7 +94,7 @@ testWithContext("sortVoices: sorts by language", (t: ExecutionContext<TestContex
     createTestVoice({ name: "German Voice", language: "de-DE" })
   ];
   
-  const sortedAsc = manager.sortLanguages(testVoices, []);
+  const sortedAsc = manager.sortVoicesByLanguages(testVoices, []);
   t.is(sortedAsc[0].language, "de-DE");
   t.is(sortedAsc[1].language, "en-US");
   t.is(sortedAsc[2].language, "es-ES");
@@ -116,7 +116,7 @@ testWithContext("sortVoices: sorts languages by preferred", (t: ExecutionContext
   ];
   
   // Test with preferred languages
-  const sortedPreferred = manager.sortLanguages(testVoices, ["fr", "en"]);
+  const sortedPreferred = manager.sortVoicesByLanguages(testVoices, ["fr", "en"]);
   
   // French voices should come first (preferred language)
   t.is(sortedPreferred[0].language, "fr-FR");
@@ -146,7 +146,7 @@ testWithContext("sortVoices: sorts by JSON order", (t: ExecutionContext<TestCont
   ];
   
   // Test with preferred language
-  const sorted = manager.sortLanguages(testVoices, ["fr"]);
+  const sorted = manager.sortVoicesByLanguages(testVoices, ["fr"]);
   
   // Should be in exact JSON order
   t.is(sorted[0].name, "Microsoft VivienneMultilingual Online (Natural) - French (France)");
@@ -167,7 +167,7 @@ testWithContext("sortVoices: sorts by region", (t: ExecutionContext<TestContext>
     createTestVoice({ name: "Australia Voice", language: "en-AU" })
   ];
   
-  const sortedAsc = manager.sortRegions(testVoices, []);
+  const sortedAsc = manager.sortVoicesByRegions(testVoices, []);
   t.is(sortedAsc[0].language, "en-US");
   t.is(sortedAsc[1].language, "en-AU");
   t.is(sortedAsc[2].language, "en-CA");
@@ -193,7 +193,7 @@ testWithContext("sortVoices: sorts regions by preferred", (t: ExecutionContext<T
   ];
 
   // Test 1: Basic language code should use default region
-  const defaultRegionTest = manager.sortRegions(testVoices, ["fr"]);
+  const defaultRegionTest = manager.sortVoicesByRegions(testVoices, ["fr"]);
 
   // French voices should come first, with fr-FR (default) first
   t.is(defaultRegionTest[0].language, getDefaultRegion("fr"), "Default region should come first");
@@ -201,7 +201,7 @@ testWithContext("sortVoices: sorts regions by preferred", (t: ExecutionContext<T
   t.is(defaultRegionTest[2].language, "fr-CA", "Other French regions should follow alphabetically");
 
   // Test 2: Region inference from other languages
-  const inferredRegionTest = manager.sortRegions(testVoices, ["fr", "en-CA"]);
+  const inferredRegionTest = manager.sortVoicesByRegions(testVoices, ["fr", "en-CA"]);
 
   // fr-CA should come first because en-CA provides the CA region hint
   t.is(inferredRegionTest[0].language, "fr-CA", "Should infer fr-CA from en-CA");
@@ -209,7 +209,7 @@ testWithContext("sortVoices: sorts regions by preferred", (t: ExecutionContext<T
   t.is(inferredRegionTest[2].language, "fr-BE", "Other French regions should follow alphabetically");
 
   // Test 3: Multiple regional preferences
-  const multipleRegionsTest = manager.sortRegions(testVoices, ["fr-BE", "fr-CA", "es"]);
+  const multipleRegionsTest = manager.sortVoicesByRegions(testVoices, ["fr-BE", "fr-CA", "es"]);
 
   // Should respect the order of regional preferences
   t.is(multipleRegionsTest[0].language, "fr-BE", "First regional preference should come first");
@@ -219,7 +219,7 @@ testWithContext("sortVoices: sorts regions by preferred", (t: ExecutionContext<T
   t.is(multipleRegionsTest[4].language, "es-MX", "Other Spanish regions should follow");
 
   // Test 4: Keeping prioritization of regions
-  const prioritizedRegionsTest = manager.sortRegions(testVoices, ["en-CA", "fr-BE", "fr-FR"]);
+  const prioritizedRegionsTest = manager.sortVoicesByRegions(testVoices, ["en-CA", "fr-BE", "fr-FR"]);
 
   // Should respect the exact order of regional preferences
   t.is(prioritizedRegionsTest[0].language, "en-CA", "First explicit preference should be en-CA");
@@ -230,7 +230,7 @@ testWithContext("sortVoices: sorts regions by preferred", (t: ExecutionContext<T
   t.is(prioritizedRegionsTest[5].language, "fr-FR", "French French should come sixth");
 
   // Test 5: Empty/undefined preferred languages (should sort default then alphabetically)
-  const emptyPreferred = manager.sortRegions(testVoices, []);
+  const emptyPreferred = manager.sortVoicesByRegions(testVoices, []);
   t.is(emptyPreferred[0].language, "de-DE");
   t.is(emptyPreferred[1].language, "en-US");
   t.is(emptyPreferred[2].language, "en-CA");
@@ -256,7 +256,7 @@ testWithContext("sortVoices: sorts regions by JSON order", (t: ExecutionContext<
   ];
   
   // Test with preferred language
-  const sorted = manager.sortRegions(testVoices, ["fr-FR"]);
+  const sorted = manager.sortVoicesByRegions(testVoices, ["fr-FR"]);
   
   // Should be in exact JSON order
   t.is(sorted[0].name, "Microsoft VivienneMultilingual Online (Natural) - French (France)");

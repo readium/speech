@@ -188,7 +188,7 @@ function populateVoiceSelect() {
 
   try {
     // Sort by region while preserving quality order within each region
-    const sortedVoices = voiceManager.sortRegions(allVoices, window.navigator.languages);
+    const sortedVoices = voiceManager.sortVoicesByRegions(allVoices, window.navigator.languages);
 
     let currentRegion = null;
     let optgroup = null;

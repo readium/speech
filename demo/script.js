@@ -90,7 +90,7 @@ async function init() {
       }));
     
     // Sort using the manager's sortRegions method
-    languages = voiceManager.sortRegions(languages, window.navigator.languages)
+    languages = voiceManager.sortVoicesByRegions(languages, window.navigator.languages)
       .map(voice => ({
         code: voice.language,
         label: voice.name,
@@ -291,9 +291,6 @@ function filterVoices() {
     filteredVoices = voicesFilteredExceptLanguage;
   }
   
-  // Sort voices by quality (highest first)
-  filteredVoices = voiceManager.sortQuality(filteredVoices);
-  
   populateVoiceDropdown(language);
 
   // Replace current voice if it was filtered out
@@ -316,7 +313,7 @@ function populateVoiceDropdown() {
     }
 
     // Sort voices with browser's preferred languages first
-    const sortedVoices = voiceManager.sortRegions([...filteredVoices], window.navigator.languages);
+    const sortedVoices = voiceManager.sortVoicesByRegions([...filteredVoices], window.navigator.languages);
 
     // Group the sorted voices by region
     const voiceGroups = voiceManager.groupVoices(sortedVoices, "region");

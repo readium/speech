@@ -195,7 +195,7 @@ The library provides flexible voice sorting capabilities to help you find the be
 Sort voices from highest to lowest quality:
 
 ```typescript
-const sortedVoices = voiceManager.sortQuality(voices);
+const sortedVoices = voiceManager.sortVoicesByQuality(voices);
 // Returns: [veryHigh, high, normal, low, veryLow]
 ```
 
@@ -205,10 +205,10 @@ Prioritize specific languages while maintaining quality order within each langua
 
 ```typescript
 // Basic usage
-const sortedByLanguage = voiceManager.sortLanguages(voices);
+const sortedByLanguage = voiceManager.sortVoicesByLanguages(voices);
 
 // With preferred languages first
-const preferredFirst = voiceManager.sortLanguages(voices, ["fr", "en"]);
+const preferredFirst = voiceManager.sortVoicesByLanguages(voices, ["fr", "en"]);
 // Returns: [fr voices (best quality first), en voices, other languages...]
 ```
 
@@ -218,10 +218,10 @@ Sort voices by region, with optional preferred language regions:
 
 ```typescript
 // Basic regional sort
-const byRegion = voiceManager.sortRegions(voices);
+const byRegion = voiceManager.sortVoicesByRegions(voices);
 
 // With preferred regions
-const preferredRegions = voiceManager.sortRegions(voices, ["fr-FR", "en-US"]);
+const preferredRegions = voiceManager.sortVoicesByRegions(voices, ["fr-FR", "en-US"]);
 // Returns: [fr-FR voices, en-US voices, other regions...]
 ```
 
