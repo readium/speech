@@ -164,6 +164,31 @@ interface VoiceFilterOptions {
 }
 ```
 
+#### Get Default Voice
+
+```typescript
+voiceManager.getDefaultVoice(languages: string | string[], voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice | null
+```
+
+Automatically selects the best available voice based on quality and language preferences. This is the recommended method for getting a suitable voice without manual selection.
+
+```typescript
+// Get the best voice for user's browser language
+const defaultVoice = voiceManager.getDefaultVoice(navigator.languages || ["en"]);
+
+// Get the best voice for specific preferred languages
+const frenchVoice = voiceManager.getDefaultVoice(["fr-FR", "fr-CA"]);
+
+// Get the best voice from a pre-filtered voice list
+const customVoice = voiceManager.getDefaultVoice(["en-US", "en-GB"], customVoiceList);
+```
+
+The selection algorithm:
+1. Filters voices by the specified languages (or uses provided voices array)
+2. Sorts by region preference within matching languages  
+3. Returns the highest quality voice from the best language/region match
+4. Returns `null` if no voices match or if languages parameter is empty
+
 #### Filter Voices
 
 ```typescript
