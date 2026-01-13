@@ -147,6 +147,69 @@ testWithContext("deduplication: keeps higher quality voice from json quality arr
   t.deepEqual(deduped[0].quality, "normal", "Should find the voice with normal quality from the array");
 });
 
+testWithContext("deduplication: prefers voice with matching name over altNames", (t) => {
+  const manager = t.context.manager;
+  
+  // Test scenario: two browser voices
+  // One matches primary name in JSON, other matches altName in JSON
+  const voices = [
+    {
+      voiceURI: "Google US English 5 (Natural)",
+      name: "Google US English 5 (Natural)",
+      lang: "en-US",
+      localService: true,
+      default: false
+    },
+    {
+      voiceURI: "Android Speech Recognition and Synthesis from Google en-us-x-tpc-local",
+      name: "Android Speech Recognition and Synthesis from Google en-us-x-tpc-local",
+      lang: "en-US",
+      localService: true,
+      default: false
+    }
+  ];
+  
+  const parsedVoices = (manager as any).parseToReadiumSpeechVoices(voices);
+  const deduped = (manager as any).removeDuplicate(parsedVoices);
+  
+  // Should only keep one voice
+  t.is(deduped.length, 1, "Should only keep one voice after deduplication");
+  // Should prefer the voice with the primary name (Google US English 5 (Natural))
+  t.is(deduped[0].name, "Google US English 5 (Natural)", "Should prefer voice with primary name over altName");
+  t.is(deduped[0].originalName, "Google US English 5 (Natural)", "Should keep the original name of preferred voice");
+});
+
+testWithContext("deduplication: prefers voice with earlier altName over later altName", (t) => {
+  const manager = t.context.manager;
+  
+  // Test scenario: two browser voices 
+  // Both match different altNames in same JSON voice entry
+  const voices = [
+    {
+      voiceURI: "Android Speech Recognition and Synthesis from Google en-us-x-tpc-local",
+      name: "Android Speech Recognition and Synthesis from Google en-us-x-tpc-local",
+      lang: "en-US",
+      localService: true,
+      default: false
+    },
+    {
+      voiceURI: "Android Speech Recognition and Synthesis from Google en-us-x-tpc-network", 
+      name: "Android Speech Recognition and Synthesis from Google en-us-x-tpc-network",
+      lang: "en-US",
+      localService: true,
+      default: false
+    }
+  ];
+  
+  const parsedVoices = (manager as any).parseToReadiumSpeechVoices(voices);
+  const deduped = (manager as any).removeDuplicate(parsedVoices);
+  
+  // Should only keep one voice
+  t.is(deduped.length, 1, "Should only keep one voice after deduplication");
+  // Should prefer the voice with the earlier altName (network comes before local in JSON)
+  t.is(deduped[0].originalName, "Android Speech Recognition and Synthesis from Google en-us-x-tpc-network", "Should prefer voice with earlier altName");
+});
+
 testWithContext("quality inference: infers quality from nativeID when voiceURI has no indicators", (t) => {
   const manager = t.context.manager;
   
