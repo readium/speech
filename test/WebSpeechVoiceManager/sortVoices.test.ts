@@ -94,7 +94,7 @@ testWithContext("sortVoices: sorts by language", (t: ExecutionContext<TestContex
     createTestVoice({ name: "German Voice", language: "de-DE" })
   ];
   
-  const sortedAsc = manager.sortVoicesByLanguages(testVoices, []);
+  const sortedAsc = manager.sortVoicesByLanguages(testVoices);
   t.is(sortedAsc[0].language, "de-DE");
   t.is(sortedAsc[1].language, "en-US");
   t.is(sortedAsc[2].language, "es-ES");

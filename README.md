@@ -188,7 +188,9 @@ Organizes voices into groups based on the specified criteria. The available grou
 
 #### Sort Voices
 
-The library provides flexible voice sorting capabilities to help you find the best voice for your needs:
+The library provides opinionated voice sorting capabilities to help you find the best voice for your needs.
+
+If you need more control over the sorting process, you can implement and apply your own sorting logic on filtered voices.
 
 ##### 1. Sort by Quality
 
@@ -196,12 +198,12 @@ Sort voices from highest to lowest quality:
 
 ```typescript
 const sortedVoices = voiceManager.sortVoicesByQuality(voices);
-// Returns: [veryHigh, high, normal, low, veryLow]
+// Returns: [veryHigh, high, normal, low, veryLow, null]
 ```
 
 ##### 2. Sort by Language
 
-Prioritize specific languages while maintaining quality order within each language group:
+Prioritize specific languages while maintaining JSON data’s quality order within each language group:
 
 ```typescript
 // Basic usage
@@ -209,26 +211,18 @@ const sortedByLanguage = voiceManager.sortVoicesByLanguages(voices);
 
 // With preferred languages first
 const preferredFirst = voiceManager.sortVoicesByLanguages(voices, ["fr", "en"]);
-// Returns: [fr voices (best quality first), en voices, other languages...]
+// Returns: [fr voices, en voices, other languages voices...]
 ```
 
 ##### 3. Sort by Region
 
-Sort voices by region, with optional preferred language regions:
+Sort voices by preferred languages and regions, while maintaining JSON data’s quality order within each region group:
 
 ```typescript
-// Basic regional sort
-const byRegion = voiceManager.sortVoicesByRegions(voices);
-
 // With preferred regions
 const preferredRegions = voiceManager.sortVoicesByRegions(voices, ["fr-FR", "en-US"]);
-// Returns: [fr-FR voices, en-US voices, other regions...]
+// Returns: [fr-FR voices, other fr regions voices, en-US voices, other en regions voices, other regions voices...]
 ```
-
-##### Sorting Behavior
-
-- Each sort method maintains relative quality order within its groups
-- Quality levels: veryHigh > high > normal > low > veryLow
 
 ### Testing
 

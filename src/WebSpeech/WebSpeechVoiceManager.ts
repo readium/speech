@@ -832,7 +832,7 @@ private static sortByQuality(
    * @param preferredLanguages Array of preferred language codes in order of preference
    * @returns Sorted array of voices
    */
-  sortVoicesByLanguages(voices: ReadiumSpeechVoice[], preferredLanguages: string[]): ReadiumSpeechVoice[] {
+  sortVoicesByLanguages(voices: ReadiumSpeechVoice[], preferredLanguages?: string[]): ReadiumSpeechVoice[] {
     if (!voices?.length) return [];
     if (!preferredLanguages?.length) {
       // If no preferred languages, sort alphabetically by language display name,
