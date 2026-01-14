@@ -416,3 +416,49 @@ type ReadiumSpeechPlaybackEvent = {
 ```typescript
 type ReadiumSpeechPlaybackState = "playing" | "paused" | "idle" | "loading" | "ready";
 ```
+
+## Development
+
+We are trying to use a test-driven development approach as much as possible, where we write tests before implementing the code. Currently, this is true for the `WebSpeechVoiceManager` class as it deals primarily with voice selection and management, where mocking is straightforward.
+
+The playback logic is more complex and may not be suitable for this approach yet, as it involves more intricate state management and user interactions that is difficult to handle through mock objects, especially as browsers vary significantly in their implementation of the Web Speech API.
+
+### Building the Library
+
+To build the library:
+```bash
+npm run build
+```
+
+This will compile the TypeScript code and generate the following outputs in the `build/` directory:
+- `index.js` (ES modules)
+- `index.cjs` (CommonJS)
+- TypeScript type definitions
+
+### Running Demos Locally
+
+The project includes two demo applications that can be served locally:
+
+1. Start the local development server:
+   ```bash
+   npm run serve
+   ```
+
+2. Open your browser to:
+   - [Voice selection demo](http://localhost:8080/demo)
+   - [In-context reading demo](http://localhost:8080/demo/article)
+
+### ChromeOS Debugging
+
+For ChromeOS development, the project includes a debug mode that mocks the Web Speech API with the set of voices exported from the ChromeOS browser:
+
+1. Open the debug page: http://localhost:8080/debug
+
+2. The debug page loads mock voices from a json file which contains a snapshot of ChromeOS voices.
+
+### Running Tests
+
+To run the test suite for `WebSpeechVoiceManager`:
+```bash
+npm test
+```
