@@ -35,7 +35,7 @@ testWithContext("groupVoices: groups by language", (t: ExecutionContext<TestCont
     { voiceURI: "voice3", name: "Voice 3", language: "en-US" }
   ];
   
-  const groups = (manager as any).groupVoices(testVoices, "languages");
+  const groups = (manager as any).groupVoices("languages", testVoices);
   
   // Check that groups were created for each language
   t.truthy(groups["en"]);
@@ -57,7 +57,7 @@ testWithContext("groupVoices: groups by gender", (t: ExecutionContext<TestContex
     createTestVoice({ name: "Unknown Voice", language: "es-ES" })
   ];
   
-  const groups = manager.groupVoices(testVoices, "gender");
+  const groups = manager.groupVoices("gender", testVoices);
   t.true(groups.hasOwnProperty("male"));
   t.true(groups.hasOwnProperty("female"));
   t.true(groups.hasOwnProperty("unknown"));
@@ -76,7 +76,7 @@ testWithContext("groupVoices: groups by quality", (t: ExecutionContext<TestConte
     createTestVoice({ name: "High Quality 2", language: "fr-FR", quality: "high" })
   ];
   
-  const groups = manager.groupVoices(testVoices, "quality");
+  const groups = manager.groupVoices("quality", testVoices);
   t.is(Object.keys(groups).length, 2);
   t.is(groups.high.length, 2);
   t.is(groups.low.length, 1);
@@ -93,7 +93,7 @@ testWithContext("groupVoices: groups by region", (t: ExecutionContext<TestContex
     createTestVoice({ name: "Australia Voice", language: "en-AU" })
   ];
   
-  const groups = manager.groupVoices(testVoices, "region");
+  const groups = manager.groupVoices("region", testVoices);
   t.is(Object.keys(groups).length, 4);
   t.is(groups.US.length, 1);
   t.is(groups.GB.length, 1);
@@ -104,7 +104,7 @@ testWithContext("groupVoices: groups by region", (t: ExecutionContext<TestContex
 testWithContext("groupVoices: handles empty voices array", (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
-  const groups = manager.groupVoices([], "languages");
+  const groups = manager.groupVoices("languages", []);
   t.deepEqual(groups, {});
 });
 
@@ -119,17 +119,17 @@ testWithContext("groupVoices: handles voices with missing properties", (t: Execu
   ];
   
   // Should handle missing properties gracefully
-  const groupsByLanguage = manager.groupVoices(testVoices, "languages");
+  const groupsByLanguage = manager.groupVoices("languages", testVoices);
   t.true(groupsByLanguage.hasOwnProperty("en"));
   t.true(groupsByLanguage.hasOwnProperty("fr"));
   t.true(groupsByLanguage.hasOwnProperty("es"));
   
-  const groupsByGender = manager.groupVoices(testVoices, "gender");
+  const groupsByGender = manager.groupVoices("gender", testVoices);
   // Should have an "unknown" group for voices without gender
   t.true(groupsByGender.hasOwnProperty("unknown"));
   t.is(groupsByGender.unknown.length, 3); // Voice 2, Voice 3, Voice 4 have no gender
   
-  const groupsByQuality = manager.groupVoices(testVoices, "quality");
+  const groupsByQuality = manager.groupVoices("quality", testVoices);
   // Should have an "unknown" group for voices without quality
   t.true(groupsByQuality.hasOwnProperty("unknown"));
   t.is(groupsByQuality.unknown.length, 3); // Voice 2, Voice 3, Voice 4 have no quality

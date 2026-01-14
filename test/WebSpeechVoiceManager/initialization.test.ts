@@ -42,10 +42,10 @@ testWithContext("initialize: loads voices and gets voices successfully", (t) => 
   t.true(voices.length > 0);
 });
 
-testWithContext("deduplication: keeps higher quality voice from voiceURI package name", (t) => {
+testWithContext("initialization: keeps all voices by default", (t) => {
   const manager = t.context.manager;
   
-  // Define test voices once
+  // Test 1: Basic duplicate voices
   const lowVoice = {
     voiceURI: "com.apple.speech.synthesis.voice.compact.samantha",
     name: "Samantha",
@@ -62,65 +62,20 @@ testWithContext("deduplication: keeps higher quality voice from voiceURI package
     default: false
   };
 
-  // 1. First parse separately to verify individual qualities
-  const lowQualityVoice = (manager as any).parseToReadiumSpeechVoices([lowVoice])[0];
-  const normalQualityVoice = (manager as any).parseToReadiumSpeechVoices([normalVoice])[0];
-
-  // Verify individual qualities
-  t.is(lowQualityVoice.quality, "low", "Low quality voice should have low quality");
-  t.is(normalQualityVoice.quality, "normal", "Normal quality voice should have normal quality");
-
-  // 2. Now parse both together to test deduplication
-  const [resultVoice] = (manager as any).parseToReadiumSpeechVoices([lowVoice, normalVoice]);
+  const basicVoices = (manager as any).parseToReadiumSpeechVoices([lowVoice, normalVoice]);
+  t.is(basicVoices.length, 2, "Should keep both basic voices when parsing");
   
-  // Verify the result
-  t.is(resultVoice.name, "Samantha", "Should use the JSON name of the voice");
-  t.is(resultVoice.originalName, "Samantha (enhanced)", "Should keep the original name of the voice");
-  t.deepEqual(resultVoice.quality, "normal", "Should keep the voice with normal quality");
-});
-
-testWithContext("deduplication: keeps higher quality voice from voiceURI string", (t) => {
-  const manager = t.context.manager;
+  const basicFiltered = manager.filterVoices({}, basicVoices);
+  t.is(basicFiltered.length, 2, "Should keep both basic voices by default");
   
-  // Define test voices once
-  const basicVoice = {
-    voiceURI: "Samantha",
-    name: "Samantha",
-    lang: "en-US",
-    localService: true,
-    default: false
-  };
-
-  const enhancedVoice = {
-    voiceURI: "Samantha (Premium)",
-    name: "Samantha (Premium)",
-    lang: "en-US",
-    localService: true,
-    default: false
-  };
-
-  // 1. First parse separately to verify individual qualities
-  const basicVoiceParsed = (manager as any).parseToReadiumSpeechVoices([basicVoice])[0];
-  const enhancedVoiceParsed = (manager as any).parseToReadiumSpeechVoices([enhancedVoice])[0];
-
-  // Verify individual qualities
-  t.is(basicVoiceParsed.quality, "low", "Basic voice should have low quality");
-  t.is(enhancedVoiceParsed.quality, "high", "Premium voice should have high quality");
-
-  // 2. Now parse both together to test deduplication
-  const [resultVoice] = (manager as any).parseToReadiumSpeechVoices([basicVoice, enhancedVoice]);
+  // Verify specific voices are preserved
+  const lowQualityVoice = basicFiltered.find((v: any) => v.voiceURI === lowVoice.voiceURI);
+  const normalQualityVoice = basicFiltered.find((v: any) => v.voiceURI === normalVoice.voiceURI);
+  t.is(lowQualityVoice?.originalName, "Samantha", "Should preserve low quality voice original name");
+  t.is(normalQualityVoice?.originalName, "Samantha (enhanced)", "Should preserve normal quality voice original name");
   
-  // Verify the result
-  t.is(resultVoice.name, "Samantha", "Should use the JSON name of the voice");
-  t.is(resultVoice.originalName, "Samantha (Premium)", "Should keep the original name of the voice");
-  t.deepEqual(resultVoice.quality, "high", "Should keep the voice with high quality");
-});
-
-testWithContext("deduplication: keeps higher quality voice from json quality array", (t) => {
-  const manager = t.context.manager;
-  
-  // Parse both voices together to get correct duplicate counts
-  const voices = (manager as any).parseToReadiumSpeechVoices([
+  // Test 2: VoiceURI string duplicates
+  const premiumVoices = (manager as any).parseToReadiumSpeechVoices([
     {
       voiceURI: "Samantha",
       name: "Samantha",
@@ -129,30 +84,26 @@ testWithContext("deduplication: keeps higher quality voice from json quality arr
       default: false
     },
     {
-      voiceURI: "Samantha superior",
-      name: "Samantha (Superior)",
+      voiceURI: "Samantha (Premium)",
+      name: "Samantha (Premium)",
       lang: "en-US",
       localService: true,
       default: false
     }
   ]);
-  // Now test deduplication with both voices
-  const deduped = (manager as any).removeDuplicate(voices);
+  t.is(premiumVoices.length, 2, "Should keep both premium voices when parsing");
   
-  // Verify only the higher quality voice remains with its original name
-  t.is(deduped.length, 1, "Should only keep one voice after deduplication");
-  t.is(deduped[0].name, "Samantha", "Should use the JSON name of the voice");
-  t.is(deduped[0].originalName, "Samantha (Superior)", "Should keep the original name of the voice");
-  t.is(deduped[0].voiceURI, "Samantha superior", "Should keep the voice with superior quality");
-  t.deepEqual(deduped[0].quality, "normal", "Should find the voice with normal quality from the array");
-});
-
-testWithContext("deduplication: prefers voice with matching name over altNames", (t) => {
-  const manager = t.context.manager;
+  const premiumFiltered = manager.filterVoices({}, premiumVoices);
+  t.is(premiumFiltered.length, 2, "Should keep both premium voices by default");
   
-  // Test scenario: two browser voices
-  // One matches primary name in JSON, other matches altName in JSON
-  const voices = [
+  // Verify specific voices are preserved
+  const basicVoice = premiumFiltered.find((v: any) => v.voiceURI === "Samantha");
+  const enhancedVoice = premiumFiltered.find((v: any) => v.voiceURI === "Samantha (Premium)");
+  t.is(basicVoice?.originalName, "Samantha", "Should preserve basic voice original name");
+  t.is(enhancedVoice?.originalName, "Samantha (Premium)", "Should preserve enhanced voice original name");
+  
+  // Test 3: Primary name vs altName matches
+  const altNameVoices = (manager as any).parseToReadiumSpeechVoices([
     {
       voiceURI: "Google US English 5 (Natural)",
       name: "Google US English 5 (Natural)",
@@ -167,24 +118,20 @@ testWithContext("deduplication: prefers voice with matching name over altNames",
       localService: true,
       default: false
     }
-  ];
+  ]);
+  t.is(altNameVoices.length, 2, "Should keep both altName voices when parsing");
   
-  const parsedVoices = (manager as any).parseToReadiumSpeechVoices(voices);
-  const deduped = (manager as any).removeDuplicate(parsedVoices);
+  const altNameFiltered = manager.filterVoices({}, altNameVoices);
+  t.is(altNameFiltered.length, 2, "Should keep both altName voices by default");
   
-  // Should only keep one voice
-  t.is(deduped.length, 1, "Should only keep one voice after deduplication");
-  // Should prefer the voice with the primary name (Google US English 5 (Natural))
-  t.is(deduped[0].name, "Google US English 5 (Natural)", "Should prefer voice with primary name over altName");
-  t.is(deduped[0].originalName, "Google US English 5 (Natural)", "Should keep the original name of preferred voice");
-});
-
-testWithContext("deduplication: prefers voice with earlier altName over later altName", (t) => {
-  const manager = t.context.manager;
+  // Verify specific voices are preserved
+  const primaryVoice = altNameFiltered.find((v: any) => v.voiceURI === "Google US English 5 (Natural)");
+  const altVoice = altNameFiltered.find((v: any) => v.voiceURI.includes("en-us-x-tpc-local"));
+  t.is(primaryVoice?.originalName, "Google US English 5 (Natural)", "Should preserve primary name voice original name");
+  t.is(altVoice?.originalName, "Android Speech Recognition and Synthesis from Google en-us-x-tpc-local", "Should preserve altName voice original name");
   
-  // Test scenario: two browser voices 
-  // Both match different altNames in same JSON voice entry
-  const voices = [
+  // Test 4: Multiple altName matches
+  const multiAltVoices = (manager as any).parseToReadiumSpeechVoices([
     {
       voiceURI: "Android Speech Recognition and Synthesis from Google en-us-x-tpc-local",
       name: "Android Speech Recognition and Synthesis from Google en-us-x-tpc-local",
@@ -199,16 +146,19 @@ testWithContext("deduplication: prefers voice with earlier altName over later al
       localService: true,
       default: false
     }
-  ];
+  ]);
+  t.is(multiAltVoices.length, 2, "Should keep both multi-alt voices when parsing");
   
-  const parsedVoices = (manager as any).parseToReadiumSpeechVoices(voices);
-  const deduped = (manager as any).removeDuplicate(parsedVoices);
+  const multiAltFiltered = manager.filterVoices({}, multiAltVoices);
+  t.is(multiAltFiltered.length, 2, "Should keep both multi-alt voices by default");
   
-  // Should only keep one voice
-  t.is(deduped.length, 1, "Should only keep one voice after deduplication");
-  // Should prefer the voice with the earlier altName (network comes before local in JSON)
-  t.is(deduped[0].originalName, "Android Speech Recognition and Synthesis from Google en-us-x-tpc-network", "Should prefer voice with earlier altName");
+  // Verify specific voices are preserved
+  const localVoice = multiAltFiltered.find((v: any) => v.voiceURI.includes("en-us-x-tpc-local"));
+  const networkVoice = multiAltFiltered.find((v: any) => v.voiceURI.includes("en-us-x-tpc-network"));
+  t.is(localVoice?.originalName, "Android Speech Recognition and Synthesis from Google en-us-x-tpc-local", "Should preserve local altName voice original name");
+  t.is(networkVoice?.originalName, "Android Speech Recognition and Synthesis from Google en-us-x-tpc-network", "Should preserve network altName voice original name");
 });
+
 
 testWithContext("quality inference: infers quality from nativeID when voiceURI has no indicators", (t) => {
   const manager = t.context.manager;

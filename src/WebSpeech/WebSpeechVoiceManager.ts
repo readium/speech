@@ -24,6 +24,7 @@ interface VoiceFilterOptions {
   provider?: string;
   excludeNovelty?: boolean;
   excludeVeryLowQuality?: boolean;
+  removeDuplicates?: boolean;
 }
 
 /**
@@ -270,7 +271,7 @@ export class WebSpeechVoiceManager {
    * @param voices Array of voices to remove duplicates from
    * @returns Filtered array with duplicates removed, keeping only the highest quality versions
    */
-  private removeDuplicate(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
+  private removeDuplicates(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
     const voiceMap = new Map<string, ReadiumSpeechVoice>();
 
     for (const voice of voices) {
@@ -335,28 +336,32 @@ export class WebSpeechVoiceManager {
     const filterOptions: VoiceFilterOptions = {
       excludeNovelty: true,  // Default to true to filter out novelty voices
       excludeVeryLowQuality: true,  // Default to true to filter out very low quality voices
+      removeDuplicates: false,  // Default to false - don't remove duplicates by default
       ...options  // Let explicit options override the defaults
     };
     
-    return this.filterVoices([...this.voices], filterOptions);
+    return this.filterVoices(filterOptions, [...this.voices]);
   }
 
   /**
    * Get available languages with voice counts
    * @param localization Optional BCP 47 language tag to use for language names
    * @param filterOptions Optional filters to apply to voices before counting languages
+   * @param voices Optional array of voices to count (defaults to this.voices)
    */
-  getLanguages(localization?: string, filterOptions?: VoiceFilterOptions): LanguageInfo[] {
-    if (!this.isInitialized) {
+  getLanguages(localization?: string, filterOptions?: VoiceFilterOptions, voices?: ReadiumSpeechVoice[]): LanguageInfo[] {
+    if (!voices && !this.isInitialized) {
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
     }
     
     const languages = new Map<string, { count: number; label: string; code: string }>();
     
-    // Apply filters if provided
-    const voicesToCount = filterOptions ? this.filterVoices([...this.voices], filterOptions) : this.voices;
+    const voicesToCount = voices ?? this.voices;
     
-    voicesToCount.forEach(voice => {
+    // Apply filters if provided
+    const filteredVoices = filterOptions ? this.filterVoices(filterOptions, voicesToCount) : voicesToCount;
+    
+    filteredVoices.forEach(voice => {
       const langCode = voice.language;
       const normalizedLang = normalizeLanguageCode(langCode);
       
@@ -386,15 +391,19 @@ export class WebSpeechVoiceManager {
 
   /**
    * Get available regions with voice counts
+   * @param localization Optional BCP 47 language tag to use for region names
+   * @param voices Optional array of voices to count (defaults to this.voices)
    */
-  getRegions(localization?: string): LanguageInfo[] {
-    if (!this.isInitialized) {
+  getRegions(localization?: string, voices?: ReadiumSpeechVoice[]): LanguageInfo[] {
+    if (!voices && !this.isInitialized) {
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
     }
     
     const regions = new Map<string, { count: number; label: string }>();
     
-    this.voices.forEach(voice => {
+    const voicesToCount = voices ?? this.voices;
+    
+    voicesToCount.forEach(voice => {
       const [, region] = WebSpeechVoiceManager.extractLangRegionFromBCP47(voice.language);
       if (region) {
         const entry = regions.get(region) || { count: 0, label: voice.language };
@@ -418,7 +427,6 @@ export class WebSpeechVoiceManager {
     });
   }
 
-
   /**
    * Get the default voice for language preferences
    * @param languages Array of preferred languages in order of preference, or a single language string
@@ -436,7 +444,7 @@ export class WebSpeechVoiceManager {
     if (!filteredVoices.length) return null;
   
     // Then sort by region to ensure we get the best match for the requested language(s)
-    filteredVoices = this.sortVoicesByRegions(filteredVoices, languageArray);
+    filteredVoices = this.sortVoicesByRegions(languageArray, filteredVoices);
   
     // Return the best available voice (already sorted by quality and language)
     return filteredVoices[0];
@@ -565,8 +573,7 @@ export class WebSpeechVoiceManager {
         } as ReadiumSpeechVoice;
       });
 
-    // Remove duplicates before returning
-    return this.removeDuplicate(mappedVoices);
+    return mappedVoices;
   }
 
   /**
@@ -585,8 +592,8 @@ export class WebSpeechVoiceManager {
   /**
    * Filter voices based on the provided options
    */
-  filterVoices(voices: ReadiumSpeechVoice[], options: VoiceFilterOptions): ReadiumSpeechVoice[] {
-    let result = [...voices];
+  filterVoices(options: VoiceFilterOptions, voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
+    let result = voices ? [...voices] : [...this.voices];
 
     if (options.languages) {
       const langs = Array.isArray(options.languages) ? options.languages : [options.languages];
@@ -641,7 +648,11 @@ export class WebSpeechVoiceManager {
       result = filterOutVeryLowQualityVoices(result);
     }
 
-    return result;
+    if (!options.removeDuplicates) {
+      return result;
+    }
+    
+    return this.removeDuplicates(result);
   }
 
   /**
@@ -649,8 +660,9 @@ export class WebSpeechVoiceManager {
    * @param voices Array of voices to filter
    * @returns Filtered array with novelty voices removed
    */
-  filterOutNoveltyVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
-    return filterOutNoveltyVoices(voices);
+  filterOutNoveltyVoices(voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
+    const voicesToFilter = voices ?? this.voices;
+    return filterOutNoveltyVoices(voicesToFilter);
   }
 
   /**
@@ -658,8 +670,9 @@ export class WebSpeechVoiceManager {
    * @param voices Array of voices to filter
    * @returns Filtered array with very low quality voices removed
    */
-  filterOutVeryLowQualityVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
-    return filterOutVeryLowQualityVoices(voices);
+  filterOutVeryLowQualityVoices(voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
+    const voicesToFilter = voices ?? this.voices;
+    return filterOutVeryLowQualityVoices(voicesToFilter);
   }
 
   /**
@@ -723,11 +736,12 @@ private static sortByQuality(
    * @param voices Array of voices to sort
    * @returns Sorted array of voices
    */
-  sortVoicesByQuality(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
-    if (!voices?.length) return [];
+  sortVoicesByQuality(voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
+    const voicesToSort = voices || this.voices;
+    if (!voicesToSort?.length) return [];
     
-    const jsonOrderMaps = createJsonOrderMap(voices);
-    return [...voices].sort((a, b) => WebSpeechVoiceManager.sortByQuality(a, b, jsonOrderMaps));
+    const jsonOrderMaps = createJsonOrderMap(voicesToSort);
+    return [...voicesToSort].sort((a, b) => WebSpeechVoiceManager.sortByQuality(a, b, jsonOrderMaps));
   }
 
    /**
@@ -832,18 +846,21 @@ private static sortByQuality(
    * @param preferredLanguages Array of preferred language codes in order of preference
    * @returns Sorted array of voices
    */
-  sortVoicesByLanguages(voices: ReadiumSpeechVoice[], preferredLanguages?: string[]): ReadiumSpeechVoice[] {
-    if (!voices?.length) return [];
+  sortVoicesByLanguages(preferredLanguages?: string[], voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
+    const voicesToSort = voices || this.voices;
+
+    if (!voicesToSort?.length) return [];
+
     if (!preferredLanguages?.length) {
       // If no preferred languages, sort alphabetically by language display name,
       // but prioritize default region voices within each language group
-      const sortedVoices = [...voices];
+      const sortedVoices = [...voicesToSort];
       WebSpeechVoiceManager.sortAlphabetically(sortedVoices);
       return sortedVoices;
     }
 
     const processedLangs = processLanguages(preferredLanguages);
-    const { voicesByLang, otherLangVoices } = WebSpeechVoiceManager.groupVoicesByLanguage(voices, processedLangs);
+    const { voicesByLang, otherLangVoices } = WebSpeechVoiceManager.groupVoicesByLanguage(voicesToSort, processedLangs);
     
     // Sort each language group by quality using helper
     const langSortedResult: ReadiumSpeechVoice[] = [];
@@ -916,11 +933,13 @@ private static sortByQuality(
    * @param preferredLanguages Array of preferred language codes in order of preference
    * @returns Sorted array of voices
    */
-  sortVoicesByRegions(voices: ReadiumSpeechVoice[], preferredLanguages: string[]): ReadiumSpeechVoice[] {
-    if (!voices?.length) return [];
+  sortVoicesByRegions(preferredLanguages: string[], voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
+    const voicesToSort = voices || this.voices;
+
+    if (!voicesToSort?.length) return [];
     
     const processedLangs = processLanguages(preferredLanguages || []);
-    const { voicesByLang, otherLangVoices } = WebSpeechVoiceManager.groupVoicesByLanguage(voices, processedLangs);
+    const { voicesByLang, otherLangVoices } = WebSpeechVoiceManager.groupVoicesByLanguage(voicesToSort, processedLangs);
     
     // Sort each language group by region preference
     const langSortedResult: ReadiumSpeechVoice[] = [];
@@ -945,10 +964,12 @@ private static sortByQuality(
    * @param options Grouping options
    * @returns Object with voice groups keyed by the grouping criteria
    */
-  groupVoices(voices: ReadiumSpeechVoice[], by: GroupBy): VoiceGroup {
+  groupVoices(by: GroupBy, voices?: ReadiumSpeechVoice[]): VoiceGroup {
     const groups: VoiceGroup = {};
+
+    const voicesToProcess = voices || this.voices
     
-    for (const voice of voices) {
+    for (const voice of voicesToProcess) {
       let key = "Unknown";
       
       switch (by) {
