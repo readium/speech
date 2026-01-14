@@ -1,0 +1,3823 @@
+{
+  "metadata": {
+    "timestamp": "2026-01-09T16:17:10.226Z",
+    "voicesCount": 545
+  },
+  "voices": [
+    {
+      "voiceURI": "Chrome OS US English 1",
+      "name": "Chrome OS US English 1",
+      "lang": "en-US",
+      "localService": true,
+      "default": true
+    },
+    {
+      "voiceURI": "Chrome OS US English 2",
+      "name": "Chrome OS US English 2",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS US English 3",
+      "name": "Chrome OS US English 3",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS US English 4",
+      "name": "Chrome OS US English 4",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS US English 5",
+      "name": "Chrome OS US English 5",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS US English 6",
+      "name": "Chrome OS US English 6",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS US English 7",
+      "name": "Chrome OS US English 7",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS US English 8",
+      "name": "Chrome OS US English 8",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS हिन्दी 1",
+      "name": "Chrome OS हिन्दी 1",
+      "lang": "hi-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS हिन्दी 2",
+      "name": "Chrome OS हिन्दी 2",
+      "lang": "hi-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS हिन्दी  3",
+      "name": "Chrome OS हिन्दी  3",
+      "lang": "hi-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS हिन्दी  4",
+      "name": "Chrome OS हिन्दी  4",
+      "lang": "hi-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS हिन्दी  5",
+      "name": "Chrome OS हिन्दी  5",
+      "lang": "hi-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS français 1",
+      "name": "Chrome OS français 1",
+      "lang": "fr-FR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS français 2",
+      "name": "Chrome OS français 2",
+      "lang": "fr-FR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS français 3",
+      "name": "Chrome OS français 3",
+      "lang": "fr-FR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS français 4",
+      "name": "Chrome OS français 4",
+      "lang": "fr-FR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS français 5",
+      "name": "Chrome OS français 5",
+      "lang": "fr-FR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS español 1",
+      "name": "Chrome OS español 1",
+      "lang": "es-ES",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS español 2",
+      "name": "Chrome OS español 2",
+      "lang": "es-ES",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS español 3",
+      "name": "Chrome OS español 3",
+      "lang": "es-ES",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS español 4",
+      "name": "Chrome OS español 4",
+      "lang": "es-ES",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS español 5",
+      "name": "Chrome OS español 5",
+      "lang": "es-ES",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS Nederlands 1",
+      "name": "Chrome OS Nederlands 1",
+      "lang": "nl-NL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS Nederlands 2",
+      "name": "Chrome OS Nederlands 2",
+      "lang": "nl-NL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS Nederlands 3",
+      "name": "Chrome OS Nederlands 3",
+      "lang": "nl-NL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS Nederlands 4",
+      "name": "Chrome OS Nederlands 4",
+      "lang": "nl-NL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS Nederlands 5",
+      "name": "Chrome OS Nederlands 5",
+      "lang": "nl-NL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS 日本語 1",
+      "name": "Chrome OS 日本語 1",
+      "lang": "ja-JP",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS 日本語 2",
+      "name": "Chrome OS 日本語 2",
+      "lang": "ja-JP",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS 日本語 3",
+      "name": "Chrome OS 日本語 3",
+      "lang": "ja-JP",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Chrome OS 日本語 4",
+      "name": "Chrome OS 日本語 4",
+      "lang": "ja-JP",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Google US English 1 (Natural)",
+      "name": "Google US English 1 (Natural)",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Google US English 2 (Natural)",
+      "name": "Google US English 2 (Natural)",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Google US English 3 (Natural)",
+      "name": "Google US English 3 (Natural)",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Google US English 4 (Natural)",
+      "name": "Google US English 4 (Natural)",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Google US English 5 (Natural)",
+      "name": "Google US English 5 (Natural)",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Google US English 6 (Natural)",
+      "name": "Google US English 6 (Natural)",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Google US English 7 (Natural)",
+      "name": "Google US English 7 (Natural)",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ms-my-x-msd-local",
+      "name": "Android Speech Recognition and Synthesis from Google ms-my-x-msd-local",
+      "lang": "ms-MY",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-gb-x-gba-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-gb-x-gba-local",
+      "lang": "en-GB",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-us-x-iol-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-us-x-iol-local",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google it-it-x-kda-local",
+      "name": "Android Speech Recognition and Synthesis from Google it-it-x-kda-local",
+      "lang": "it-IT",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google as-in-x-end-local",
+      "name": "Android Speech Recognition and Synthesis from Google as-in-x-end-local",
+      "lang": "as-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google as-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google as-IN-language",
+      "lang": "as-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-fr-x-frc-local",
+      "name": "Android Speech Recognition and Synthesis from Google fr-fr-x-frc-local",
+      "lang": "fr-FR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pl-pl-x-oda-local",
+      "name": "Android Speech Recognition and Synthesis from Google pl-pl-x-oda-local",
+      "lang": "pl-PL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nl-be-x-bec-local",
+      "name": "Android Speech Recognition and Synthesis from Google nl-be-x-bec-local",
+      "lang": "nl-BE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pt-pt-x-pmj-local",
+      "name": "Android Speech Recognition and Synthesis from Google pt-pt-x-pmj-local",
+      "lang": "pt-PT",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sv-se-x-lfs-local",
+      "name": "Android Speech Recognition and Synthesis from Google sv-se-x-lfs-local",
+      "lang": "sv-SE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nb-NO-language",
+      "name": "Android Speech Recognition and Synthesis from Google nb-NO-language",
+      "lang": "nb-NO",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ar-xa-x-arz-local",
+      "name": "Android Speech Recognition and Synthesis from Google ar-xa-x-arz-local",
+      "lang": "ar",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-ca-x-cad-local",
+      "name": "Android Speech Recognition and Synthesis from Google fr-ca-x-cad-local",
+      "lang": "fr-CA",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-us-x-tpf-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-us-x-tpf-local",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ja-jp-x-htm-local",
+      "name": "Android Speech Recognition and Synthesis from Google ja-jp-x-htm-local",
+      "lang": "ja-JP",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cy-gb-x-cyf-local",
+      "name": "Android Speech Recognition and Synthesis from Google cy-gb-x-cyf-local",
+      "lang": "cy-GB",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cmn-cn-x-cce-local",
+      "name": "Android Speech Recognition and Synthesis from Google cmn-cn-x-cce-local",
+      "lang": "zh-CN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pt-pt-x-jfb-local",
+      "name": "Android Speech Recognition and Synthesis from Google pt-pt-x-jfb-local",
+      "lang": "pt-PT",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sv-SE-language",
+      "name": "Android Speech Recognition and Synthesis from Google sv-SE-language",
+      "lang": "sv-SE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ru-ru-x-ruc-local",
+      "name": "Android Speech Recognition and Synthesis from Google ru-ru-x-ruc-local",
+      "lang": "ru-RU",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ar-xa-x-ard-local",
+      "name": "Android Speech Recognition and Synthesis from Google ar-xa-x-ard-local",
+      "lang": "ar",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ms-my-x-mse-local",
+      "name": "Android Speech Recognition and Synthesis from Google ms-my-x-mse-local",
+      "lang": "ms-MY",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nl-NL-language",
+      "name": "Android Speech Recognition and Synthesis from Google nl-NL-language",
+      "lang": "nl-NL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sl-SI-language",
+      "name": "Android Speech Recognition and Synthesis from Google sl-SI-language",
+      "lang": "sl-SI",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nb-no-x-tfs-local",
+      "name": "Android Speech Recognition and Synthesis from Google nb-no-x-tfs-local",
+      "lang": "nb-NO",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sw-ke-language",
+      "name": "Android Speech Recognition and Synthesis from Google sw-ke-language",
+      "lang": "sw-KE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ru-ru-x-ruf-local",
+      "name": "Android Speech Recognition and Synthesis from Google ru-ru-x-ruf-local",
+      "lang": "ru-RU",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google da-dk-x-sfp-local",
+      "name": "Android Speech Recognition and Synthesis from Google da-dk-x-sfp-local",
+      "lang": "da-DK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ja-jp-x-jac-local",
+      "name": "Android Speech Recognition and Synthesis from Google ja-jp-x-jac-local",
+      "lang": "ja-JP",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-au-x-auc-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-au-x-auc-local",
+      "lang": "en-AU",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-US-language",
+      "name": "Android Speech Recognition and Synthesis from Google es-US-language",
+      "lang": "es-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bn-bd-x-ban-local",
+      "name": "Android Speech Recognition and Synthesis from Google bn-bd-x-ban-local",
+      "lang": "bn-BD",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google zh-TW-language",
+      "name": "Android Speech Recognition and Synthesis from Google zh-TW-language",
+      "lang": "zh-TW",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google mni-in-x-end-local",
+      "name": "Android Speech Recognition and Synthesis from Google mni-in-x-end-local",
+      "lang": "mni-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pt-br-x-ptd-local",
+      "name": "Android Speech Recognition and Synthesis from Google pt-br-x-ptd-local",
+      "lang": "pt-BR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-es-x-eec-local",
+      "name": "Android Speech Recognition and Synthesis from Google es-es-x-eec-local",
+      "lang": "es-ES",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google hu-hu-x-kfl-local",
+      "name": "Android Speech Recognition and Synthesis from Google hu-hu-x-kfl-local",
+      "lang": "hu-HU",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-ca-x-caa-local",
+      "name": "Android Speech Recognition and Synthesis from Google fr-ca-x-caa-local",
+      "lang": "fr-CA",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-us-x-tpc-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-us-x-tpc-local",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bn-in-x-bnf-local",
+      "name": "Android Speech Recognition and Synthesis from Google bn-in-x-bnf-local",
+      "lang": "bn-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google kok-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google kok-IN-language",
+      "lang": "kok-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google jv-ID-language",
+      "name": "Android Speech Recognition and Synthesis from Google jv-ID-language",
+      "lang": "jv-ID",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pa-in-x-pad-local",
+      "name": "Android Speech Recognition and Synthesis from Google pa-in-x-pad-local",
+      "lang": "pa-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ml-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google ml-IN-language",
+      "lang": "ml-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-in-x-ena-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-in-x-ena-local",
+      "lang": "en-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cy-GB-language",
+      "name": "Android Speech Recognition and Synthesis from Google cy-GB-language",
+      "lang": "cy-GB",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google de-de-x-deb-local",
+      "name": "Android Speech Recognition and Synthesis from Google de-de-x-deb-local",
+      "lang": "de-DE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google uk-ua-x-hfd-local",
+      "name": "Android Speech Recognition and Synthesis from Google uk-ua-x-hfd-local",
+      "lang": "uk-UA",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-es-x-eee-local",
+      "name": "Android Speech Recognition and Synthesis from Google es-es-x-eee-local",
+      "lang": "es-ES",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google he-il-x-hec-local",
+      "name": "Android Speech Recognition and Synthesis from Google he-il-x-hec-local",
+      "lang": "iw-IL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nl-BE-language",
+      "name": "Android Speech Recognition and Synthesis from Google nl-BE-language",
+      "lang": "nl-BE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cmn-cn-x-ccc-local",
+      "name": "Android Speech Recognition and Synthesis from Google cmn-cn-x-ccc-local",
+      "lang": "zh-CN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google id-ID-language",
+      "name": "Android Speech Recognition and Synthesis from Google id-ID-language",
+      "lang": "in-ID",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cmn-tw-x-ctd-local",
+      "name": "Android Speech Recognition and Synthesis from Google cmn-tw-x-ctd-local",
+      "lang": "zh-TW",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-us-x-iog-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-us-x-iog-local",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pt-pt-x-sfs-local",
+      "name": "Android Speech Recognition and Synthesis from Google pt-pt-x-sfs-local",
+      "lang": "pt-PT",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cmn-tw-x-ctc-local",
+      "name": "Android Speech Recognition and Synthesis from Google cmn-tw-x-ctc-local",
+      "lang": "zh-TW",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-gb-x-rjs-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-gb-x-rjs-local",
+      "lang": "en-GB",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ko-kr-x-kob-local",
+      "name": "Android Speech Recognition and Synthesis from Google ko-kr-x-kob-local",
+      "lang": "ko-KR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google vi-vn-x-vie-local",
+      "name": "Android Speech Recognition and Synthesis from Google vi-vn-x-vie-local",
+      "lang": "vi-VN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pl-PL-language",
+      "name": "Android Speech Recognition and Synthesis from Google pl-PL-language",
+      "lang": "pl-PL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google km-kh-x-khm-local",
+      "name": "Android Speech Recognition and Synthesis from Google km-kh-x-khm-local",
+      "lang": "km-KH",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google id-id-x-idd-local",
+      "name": "Android Speech Recognition and Synthesis from Google id-id-x-idd-local",
+      "lang": "in-ID",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google doi-in-x-end-local",
+      "name": "Android Speech Recognition and Synthesis from Google doi-in-x-end-local",
+      "lang": "doi-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ms-my-x-msc-local",
+      "name": "Android Speech Recognition and Synthesis from Google ms-my-x-msc-local",
+      "lang": "ms-MY",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ro-ro-x-vfv-local",
+      "name": "Android Speech Recognition and Synthesis from Google ro-ro-x-vfv-local",
+      "lang": "ro-RO",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bg-bg-language",
+      "name": "Android Speech Recognition and Synthesis from Google bg-bg-language",
+      "lang": "bg-BG",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bs-ba-x-bsm-local",
+      "name": "Android Speech Recognition and Synthesis from Google bs-ba-x-bsm-local",
+      "lang": "bs-BA",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google jv-id-x-jvf-local",
+      "name": "Android Speech Recognition and Synthesis from Google jv-id-x-jvf-local",
+      "lang": "jv-ID",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pt-PT-language",
+      "name": "Android Speech Recognition and Synthesis from Google pt-PT-language",
+      "lang": "pt-PT",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google lt-lt-x-amc-local",
+      "name": "Android Speech Recognition and Synthesis from Google lt-lt-x-amc-local",
+      "lang": "lt-LT",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pt-br-x-pte-local",
+      "name": "Android Speech Recognition and Synthesis from Google pt-br-x-pte-local",
+      "lang": "pt-BR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google gu-in-x-gum-local",
+      "name": "Android Speech Recognition and Synthesis from Google gu-in-x-gum-local",
+      "lang": "gu-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sat-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google sat-IN-language",
+      "lang": "sat-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-us-x-sfg-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-us-x-sfg-local",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fil-PH-language",
+      "name": "Android Speech Recognition and Synthesis from Google fil-PH-language",
+      "lang": "fil-PH",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-in-x-ene-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-in-x-ene-local",
+      "lang": "en-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pt-BR-language",
+      "name": "Android Speech Recognition and Synthesis from Google pt-BR-language",
+      "lang": "pt-BR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ca-es-x-caf-local",
+      "name": "Android Speech Recognition and Synthesis from Google ca-es-x-caf-local",
+      "lang": "ca-ES",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ar-language",
+      "name": "Android Speech Recognition and Synthesis from Google ar-language",
+      "lang": "ar",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google tr-TR-language",
+      "name": "Android Speech Recognition and Synthesis from Google tr-TR-language",
+      "lang": "tr-TR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-gb-x-gbg-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-gb-x-gbg-local",
+      "lang": "en-GB",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fil-ph-x-fie-local",
+      "name": "Android Speech Recognition and Synthesis from Google fil-ph-x-fie-local",
+      "lang": "fil-PH",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sv-se-x-afp-local",
+      "name": "Android Speech Recognition and Synthesis from Google sv-se-x-afp-local",
+      "lang": "sv-SE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ta-in-x-tac-local",
+      "name": "Android Speech Recognition and Synthesis from Google ta-in-x-tac-local",
+      "lang": "ta-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cs-CZ-language",
+      "name": "Android Speech Recognition and Synthesis from Google cs-CZ-language",
+      "lang": "cs-CZ",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google si-lk-x-sin-local",
+      "name": "Android Speech Recognition and Synthesis from Google si-lk-x-sin-local",
+      "lang": "si-LK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google de-de-x-dea-local",
+      "name": "Android Speech Recognition and Synthesis from Google de-de-x-dea-local",
+      "lang": "de-DE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-us-x-iob-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-us-x-iob-local",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google th-th-x-mol-local",
+      "name": "Android Speech Recognition and Synthesis from Google th-th-x-mol-local",
+      "lang": "th-TH",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nl-nl-x-tfb-local",
+      "name": "Android Speech Recognition and Synthesis from Google nl-nl-x-tfb-local",
+      "lang": "nl-NL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google km-KH-language",
+      "name": "Android Speech Recognition and Synthesis from Google km-KH-language",
+      "lang": "km-KH",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bn-in-x-bin-local",
+      "name": "Android Speech Recognition and Synthesis from Google bn-in-x-bin-local",
+      "lang": "bn-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bs-ba-language",
+      "name": "Android Speech Recognition and Synthesis from Google bs-ba-language",
+      "lang": "bs-BA",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pa-in-x-pac-local",
+      "name": "Android Speech Recognition and Synthesis from Google pa-in-x-pac-local",
+      "lang": "pa-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ru-RU-language",
+      "name": "Android Speech Recognition and Synthesis from Google ru-RU-language",
+      "lang": "ru-RU",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-gb-x-gbd-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-gb-x-gbd-local",
+      "lang": "en-GB",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pl-pl-x-bmg-local",
+      "name": "Android Speech Recognition and Synthesis from Google pl-pl-x-bmg-local",
+      "lang": "pl-PL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google tr-tr-x-ama-local",
+      "name": "Android Speech Recognition and Synthesis from Google tr-tr-x-ama-local",
+      "lang": "tr-TR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google tr-tr-x-cfs-local",
+      "name": "Android Speech Recognition and Synthesis from Google tr-tr-x-cfs-local",
+      "lang": "tr-TR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sd-in-x-end-local",
+      "name": "Android Speech Recognition and Synthesis from Google sd-in-x-end-local",
+      "lang": "sd-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google kn-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google kn-IN-language",
+      "lang": "kn-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pt-pt-x-jmn-local",
+      "name": "Android Speech Recognition and Synthesis from Google pt-pt-x-jmn-local",
+      "lang": "pt-PT",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google id-id-x-ide-local",
+      "name": "Android Speech Recognition and Synthesis from Google id-id-x-ide-local",
+      "lang": "in-ID",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google et-ee-x-tms-local",
+      "name": "Android Speech Recognition and Synthesis from Google et-ee-x-tms-local",
+      "lang": "et-EE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google en-IN-language",
+      "lang": "en-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google kn-in-x-knf-local",
+      "name": "Android Speech Recognition and Synthesis from Google kn-in-x-knf-local",
+      "lang": "kn-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-us-x-esd-local",
+      "name": "Android Speech Recognition and Synthesis from Google es-us-x-esd-local",
+      "lang": "es-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google te-in-x-tef-local",
+      "name": "Android Speech Recognition and Synthesis from Google te-in-x-tef-local",
+      "lang": "te-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google hi-in-x-hic-local",
+      "name": "Android Speech Recognition and Synthesis from Google hi-in-x-hic-local",
+      "lang": "hi-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fi-fi-x-afi-local",
+      "name": "Android Speech Recognition and Synthesis from Google fi-fi-x-afi-local",
+      "lang": "fi-FI",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ml-in-x-mlm-local",
+      "name": "Android Speech Recognition and Synthesis from Google ml-in-x-mlm-local",
+      "lang": "ml-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sw-ke-x-swm-local",
+      "name": "Android Speech Recognition and Synthesis from Google sw-ke-x-swm-local",
+      "lang": "sw-KE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google el-GR-language",
+      "name": "Android Speech Recognition and Synthesis from Google el-GR-language",
+      "lang": "el-GR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google is-is-x-isf-local",
+      "name": "Android Speech Recognition and Synthesis from Google is-is-x-isf-local",
+      "lang": "is-IS",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google hi-in-x-hie-local",
+      "name": "Android Speech Recognition and Synthesis from Google hi-in-x-hie-local",
+      "lang": "hi-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sv-se-x-dmc-local",
+      "name": "Android Speech Recognition and Synthesis from Google sv-se-x-dmc-local",
+      "lang": "sv-SE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nl-nl-x-lfc-local",
+      "name": "Android Speech Recognition and Synthesis from Google nl-nl-x-lfc-local",
+      "lang": "nl-NL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sq-al-x-sqm-local",
+      "name": "Android Speech Recognition and Synthesis from Google sq-al-x-sqm-local",
+      "lang": "sq-AL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google he-il-language",
+      "name": "Android Speech Recognition and Synthesis from Google he-il-language",
+      "lang": "iw-IL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ar-xa-x-arc-local",
+      "name": "Android Speech Recognition and Synthesis from Google ar-xa-x-arc-local",
+      "lang": "ar",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google mr-in-x-mrf-local",
+      "name": "Android Speech Recognition and Synthesis from Google mr-in-x-mrf-local",
+      "lang": "mr-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google mai-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google mai-IN-language",
+      "lang": "mai-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-es-x-eef-local",
+      "name": "Android Speech Recognition and Synthesis from Google es-es-x-eef-local",
+      "lang": "es-ES",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ko-kr-x-kod-local",
+      "name": "Android Speech Recognition and Synthesis from Google ko-kr-x-kod-local",
+      "lang": "ko-KR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-fr-x-frd-local",
+      "name": "Android Speech Recognition and Synthesis from Google fr-fr-x-frd-local",
+      "lang": "fr-FR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ta-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google ta-IN-language",
+      "lang": "ta-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google kn-in-x-knm-local",
+      "name": "Android Speech Recognition and Synthesis from Google kn-in-x-knm-local",
+      "lang": "kn-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ta-in-x-tad-local",
+      "name": "Android Speech Recognition and Synthesis from Google ta-in-x-tad-local",
+      "lang": "ta-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bn-in-x-bnm-local",
+      "name": "Android Speech Recognition and Synthesis from Google bn-in-x-bnm-local",
+      "lang": "bn-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cs-cz-x-jfs-local",
+      "name": "Android Speech Recognition and Synthesis from Google cs-cz-x-jfs-local",
+      "lang": "cs-CZ",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sv-se-x-cmh-local",
+      "name": "Android Speech Recognition and Synthesis from Google sv-se-x-cmh-local",
+      "lang": "sv-SE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google de-DE-language",
+      "name": "Android Speech Recognition and Synthesis from Google de-DE-language",
+      "lang": "de-DE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nb-no-x-tmg-local",
+      "name": "Android Speech Recognition and Synthesis from Google nb-no-x-tmg-local",
+      "lang": "nb-NO",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fi-FI-language",
+      "name": "Android Speech Recognition and Synthesis from Google fi-FI-language",
+      "lang": "fi-FI",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sl-si-x-frm-local",
+      "name": "Android Speech Recognition and Synthesis from Google sl-si-x-frm-local",
+      "lang": "sl-SI",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ja-jp-x-jad-local",
+      "name": "Android Speech Recognition and Synthesis from Google ja-jp-x-jad-local",
+      "lang": "ja-JP",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google vi-vn-x-vid-local",
+      "name": "Android Speech Recognition and Synthesis from Google vi-vn-x-vid-local",
+      "lang": "vi-VN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google de-de-x-nfh-local",
+      "name": "Android Speech Recognition and Synthesis from Google de-de-x-nfh-local",
+      "lang": "de-DE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ur-pk-x-urm-local",
+      "name": "Android Speech Recognition and Synthesis from Google ur-pk-x-urm-local",
+      "lang": "ur-PK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-in-x-end-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-in-x-end-local",
+      "lang": "en-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-gb-x-gbb-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-gb-x-gbb-local",
+      "lang": "en-GB",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-es-x-eea-local",
+      "name": "Android Speech Recognition and Synthesis from Google es-es-x-eea-local",
+      "lang": "es-ES",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cmn-cn-x-ccd-local",
+      "name": "Android Speech Recognition and Synthesis from Google cmn-cn-x-ccd-local",
+      "lang": "zh-CN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google da-dk-x-kfm-local",
+      "name": "Android Speech Recognition and Synthesis from Google da-dk-x-kfm-local",
+      "lang": "da-DK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google he-il-x-heb-local",
+      "name": "Android Speech Recognition and Synthesis from Google he-il-x-heb-local",
+      "lang": "iw-IL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google lv-lv-x-imr-local",
+      "name": "Android Speech Recognition and Synthesis from Google lv-lv-x-imr-local",
+      "lang": "lv-LV",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google id-id-x-dfz-local",
+      "name": "Android Speech Recognition and Synthesis from Google id-id-x-dfz-local",
+      "lang": "in-ID",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ko-kr-x-ism-local",
+      "name": "Android Speech Recognition and Synthesis from Google ko-kr-x-ism-local",
+      "lang": "ko-KR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google gu-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google gu-IN-language",
+      "lang": "gu-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sk-SK-language",
+      "name": "Android Speech Recognition and Synthesis from Google sk-SK-language",
+      "lang": "sk-SK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google or-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google or-IN-language",
+      "lang": "or-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google or-in-x-end-local",
+      "name": "Android Speech Recognition and Synthesis from Google or-in-x-end-local",
+      "lang": "or-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-ca-x-cac-local",
+      "name": "Android Speech Recognition and Synthesis from Google fr-ca-x-cac-local",
+      "lang": "fr-CA",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google el-gr-x-vfz-local",
+      "name": "Android Speech Recognition and Synthesis from Google el-gr-x-vfz-local",
+      "lang": "el-GR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google it-it-x-itb-local",
+      "name": "Android Speech Recognition and Synthesis from Google it-it-x-itb-local",
+      "lang": "it-IT",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ms-my-x-msg-local",
+      "name": "Android Speech Recognition and Synthesis from Google ms-my-x-msg-local",
+      "lang": "ms-MY",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google da-dk-x-vfb-local",
+      "name": "Android Speech Recognition and Synthesis from Google da-dk-x-vfb-local",
+      "lang": "da-DK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google yue-hk-x-yuc-local",
+      "name": "Android Speech Recognition and Synthesis from Google yue-hk-x-yuc-local",
+      "lang": "yue-HK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google yue-hk-x-yuf-local",
+      "name": "Android Speech Recognition and Synthesis from Google yue-hk-x-yuf-local",
+      "lang": "yue-HK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-fr-x-vlf-local",
+      "name": "Android Speech Recognition and Synthesis from Google fr-fr-x-vlf-local",
+      "lang": "fr-FR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ru-ru-x-dfc-local",
+      "name": "Android Speech Recognition and Synthesis from Google ru-ru-x-dfc-local",
+      "lang": "ru-RU",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google si-LK-language",
+      "name": "Android Speech Recognition and Synthesis from Google si-LK-language",
+      "lang": "si-LK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google brx-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google brx-IN-language",
+      "lang": "brx-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-au-x-aub-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-au-x-aub-local",
+      "lang": "en-AU",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ru-ru-x-rue-local",
+      "name": "Android Speech Recognition and Synthesis from Google ru-ru-x-rue-local",
+      "lang": "ru-RU",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google gu-in-x-guf-local",
+      "name": "Android Speech Recognition and Synthesis from Google gu-in-x-guf-local",
+      "lang": "gu-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ms-MY-language",
+      "name": "Android Speech Recognition and Synthesis from Google ms-MY-language",
+      "lang": "ms-MY",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fil-ph-x-fid-local",
+      "name": "Android Speech Recognition and Synthesis from Google fil-ph-x-fid-local",
+      "lang": "fil-PH",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bn-in-x-bnx-local",
+      "name": "Android Speech Recognition and Synthesis from Google bn-in-x-bnx-local",
+      "lang": "bn-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google de-de-x-deg-local",
+      "name": "Android Speech Recognition and Synthesis from Google de-de-x-deg-local",
+      "lang": "de-DE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google tr-tr-x-mfm-local",
+      "name": "Android Speech Recognition and Synthesis from Google tr-tr-x-mfm-local",
+      "lang": "tr-TR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ro-RO-language",
+      "name": "Android Speech Recognition and Synthesis from Google ro-RO-language",
+      "lang": "ro-RO",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-gb-x-gbc-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-gb-x-gbc-local",
+      "lang": "en-GB",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ne-NP-language",
+      "name": "Android Speech Recognition and Synthesis from Google ne-NP-language",
+      "lang": "ne-NP",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google yue-hk-x-jar-local",
+      "name": "Android Speech Recognition and Synthesis from Google yue-hk-x-jar-local",
+      "lang": "yue-HK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google yue-hk-x-yue-local",
+      "name": "Android Speech Recognition and Synthesis from Google yue-hk-x-yue-local",
+      "lang": "yue-HK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cmn-tw-x-cte-local",
+      "name": "Android Speech Recognition and Synthesis from Google cmn-tw-x-cte-local",
+      "lang": "zh-TW",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fil-ph-x-cfc-local",
+      "name": "Android Speech Recognition and Synthesis from Google fil-ph-x-cfc-local",
+      "lang": "fil-PH",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ne-np-x-nep-local",
+      "name": "Android Speech Recognition and Synthesis from Google ne-np-x-nep-local",
+      "lang": "ne-NP",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google it-it-x-itc-local",
+      "name": "Android Speech Recognition and Synthesis from Google it-it-x-itc-local",
+      "lang": "it-IT",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nb-no-x-cfl-local",
+      "name": "Android Speech Recognition and Synthesis from Google nb-no-x-cfl-local",
+      "lang": "nb-NO",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google su-ID-language",
+      "name": "Android Speech Recognition and Synthesis from Google su-ID-language",
+      "lang": "su-ID",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google th-TH-language",
+      "name": "Android Speech Recognition and Synthesis from Google th-TH-language",
+      "lang": "th-TH",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google zh-CN-language",
+      "name": "Android Speech Recognition and Synthesis from Google zh-CN-language",
+      "lang": "zh-CN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google it-it-x-itd-local",
+      "name": "Android Speech Recognition and Synthesis from Google it-it-x-itd-local",
+      "lang": "it-IT",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-au-x-aud-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-au-x-aud-local",
+      "lang": "en-AU",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-AU-language",
+      "name": "Android Speech Recognition and Synthesis from Google en-AU-language",
+      "lang": "en-AU",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google hr-HR-language",
+      "name": "Android Speech Recognition and Synthesis from Google hr-HR-language",
+      "lang": "hr-HR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ja-JP-language",
+      "name": "Android Speech Recognition and Synthesis from Google ja-JP-language",
+      "lang": "ja-JP",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-FR-language",
+      "name": "Android Speech Recognition and Synthesis from Google fr-FR-language",
+      "lang": "fr-FR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-fr-x-frb-local",
+      "name": "Android Speech Recognition and Synthesis from Google fr-fr-x-frb-local",
+      "lang": "fr-FR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sr-rs-language",
+      "name": "Android Speech Recognition and Synthesis from Google sr-rs-language",
+      "lang": "sr-RS",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sa-in-x-end-local",
+      "name": "Android Speech Recognition and Synthesis from Google sa-in-x-end-local",
+      "lang": "sa-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nb-no-x-rfj-local",
+      "name": "Android Speech Recognition and Synthesis from Google nb-no-x-rfj-local",
+      "lang": "nb-NO",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pl-pl-x-afb-local",
+      "name": "Android Speech Recognition and Synthesis from Google pl-pl-x-afb-local",
+      "lang": "pl-PL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pa-in-x-pag-local",
+      "name": "Android Speech Recognition and Synthesis from Google pa-in-x-pag-local",
+      "lang": "pa-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bn-BD-language",
+      "name": "Android Speech Recognition and Synthesis from Google bn-BD-language",
+      "lang": "bn-BD",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google vi-vn-x-vic-local",
+      "name": "Android Speech Recognition and Synthesis from Google vi-vn-x-vic-local",
+      "lang": "vi-VN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google hr-hr-x-hra-local",
+      "name": "Android Speech Recognition and Synthesis from Google hr-hr-x-hra-local",
+      "lang": "hr-HR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nb-no-x-cmj-local",
+      "name": "Android Speech Recognition and Synthesis from Google nb-no-x-cmj-local",
+      "lang": "nb-NO",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google da-DK-language",
+      "name": "Android Speech Recognition and Synthesis from Google da-DK-language",
+      "lang": "da-DK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google he-il-x-hee-local",
+      "name": "Android Speech Recognition and Synthesis from Google he-il-x-hee-local",
+      "lang": "iw-IL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pa-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google pa-IN-language",
+      "lang": "pa-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google yue-hk-x-yud-local",
+      "name": "Android Speech Recognition and Synthesis from Google yue-hk-x-yud-local",
+      "lang": "yue-HK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ml-in-x-mlf-local",
+      "name": "Android Speech Recognition and Synthesis from Google ml-in-x-mlf-local",
+      "lang": "ml-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ks-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google ks-IN-language",
+      "lang": "ks-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google da-dk-x-nmm-local",
+      "name": "Android Speech Recognition and Synthesis from Google da-dk-x-nmm-local",
+      "lang": "da-DK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google doi-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google doi-IN-language",
+      "lang": "doi-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google kok-in-x-end-local",
+      "name": "Android Speech Recognition and Synthesis from Google kok-in-x-end-local",
+      "lang": "kok-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google lv-LV-language",
+      "name": "Android Speech Recognition and Synthesis from Google lv-LV-language",
+      "lang": "lv-LV",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nl-be-x-bed-local",
+      "name": "Android Speech Recognition and Synthesis from Google nl-be-x-bed-local",
+      "lang": "nl-BE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-GB-language",
+      "name": "Android Speech Recognition and Synthesis from Google en-GB-language",
+      "lang": "en-GB",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google hi-in-x-hia-local",
+      "name": "Android Speech Recognition and Synthesis from Google hi-in-x-hia-local",
+      "lang": "hi-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ks-in-x-end-local",
+      "name": "Android Speech Recognition and Synthesis from Google ks-in-x-end-local",
+      "lang": "ks-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nl-nl-x-yfr-local",
+      "name": "Android Speech Recognition and Synthesis from Google nl-nl-x-yfr-local",
+      "lang": "nl-NL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ar-xa-x-are-local",
+      "name": "Android Speech Recognition and Synthesis from Google ar-xa-x-are-local",
+      "lang": "ar",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ca-ES-language",
+      "name": "Android Speech Recognition and Synthesis from Google ca-ES-language",
+      "lang": "ca-ES",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google mr-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google mr-IN-language",
+      "lang": "mr-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google te-in-x-tem-local",
+      "name": "Android Speech Recognition and Synthesis from Google te-in-x-tem-local",
+      "lang": "te-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ru-ru-x-rud-local",
+      "name": "Android Speech Recognition and Synthesis from Google ru-ru-x-rud-local",
+      "lang": "ru-RU",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nl-nl-x-dma-local",
+      "name": "Android Speech Recognition and Synthesis from Google nl-nl-x-dma-local",
+      "lang": "nl-NL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google et-EE-language",
+      "name": "Android Speech Recognition and Synthesis from Google et-EE-language",
+      "lang": "et-EE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ko-KR-language",
+      "name": "Android Speech Recognition and Synthesis from Google ko-KR-language",
+      "lang": "ko-KR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bg-bg-x-ifk-local",
+      "name": "Android Speech Recognition and Synthesis from Google bg-bg-x-ifk-local",
+      "lang": "bg-BG",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google tr-tr-x-tmc-local",
+      "name": "Android Speech Recognition and Synthesis from Google tr-tr-x-tmc-local",
+      "lang": "tr-TR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-NG-language",
+      "name": "Android Speech Recognition and Synthesis from Google en-NG-language",
+      "lang": "en-NG",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-in-x-enc-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-in-x-enc-local",
+      "lang": "en-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-au-x-aua-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-au-x-aua-local",
+      "lang": "en-AU",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google te-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google te-IN-language",
+      "lang": "te-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-ES-language",
+      "name": "Android Speech Recognition and Synthesis from Google es-ES-language",
+      "lang": "es-ES",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nl-nl-x-bmh-local",
+      "name": "Android Speech Recognition and Synthesis from Google nl-nl-x-bmh-local",
+      "lang": "nl-NL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ur-PK-language",
+      "name": "Android Speech Recognition and Synthesis from Google ur-PK-language",
+      "lang": "ur-PK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google is-is-language",
+      "name": "Android Speech Recognition and Synthesis from Google is-is-language",
+      "lang": "is-IS",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google vi-vn-x-vif-local",
+      "name": "Android Speech Recognition and Synthesis from Google vi-vn-x-vif-local",
+      "lang": "vi-VN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google vi-VN-language",
+      "name": "Android Speech Recognition and Synthesis from Google vi-VN-language",
+      "lang": "vi-VN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-us-x-esf-local",
+      "name": "Android Speech Recognition and Synthesis from Google es-us-x-esf-local",
+      "lang": "es-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-us-x-sfb-local",
+      "name": "Android Speech Recognition and Synthesis from Google es-us-x-sfb-local",
+      "lang": "es-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google hi-in-x-hid-local",
+      "name": "Android Speech Recognition and Synthesis from Google hi-in-x-hid-local",
+      "lang": "hi-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ur-pk-x-cfn-local",
+      "name": "Android Speech Recognition and Synthesis from Google ur-pk-x-cfn-local",
+      "lang": "ur-PK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-us-x-esc-local",
+      "name": "Android Speech Recognition and Synthesis from Google es-us-x-esc-local",
+      "lang": "es-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pl-pl-x-jmk-local",
+      "name": "Android Speech Recognition and Synthesis from Google pl-pl-x-jmk-local",
+      "lang": "pl-PL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google mni-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google mni-IN-language",
+      "lang": "mni-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-CA-language",
+      "name": "Android Speech Recognition and Synthesis from Google fr-CA-language",
+      "lang": "fr-CA",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google it-IT-language",
+      "name": "Android Speech Recognition and Synthesis from Google it-IT-language",
+      "lang": "it-IT",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pl-pl-x-zfg-local",
+      "name": "Android Speech Recognition and Synthesis from Google pl-pl-x-zfg-local",
+      "lang": "pl-PL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-us-x-tpd-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-us-x-tpd-local",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-us-x-iom-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-us-x-iom-local",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ja-jp-x-jab-local",
+      "name": "Android Speech Recognition and Synthesis from Google ja-jp-x-jab-local",
+      "lang": "ja-JP",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google he-il-x-hed-local",
+      "name": "Android Speech Recognition and Synthesis from Google he-il-x-hed-local",
+      "lang": "iw-IL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pt-br-x-afs-local",
+      "name": "Android Speech Recognition and Synthesis from Google pt-br-x-afs-local",
+      "lang": "pt-BR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google brx-in-x-end-local",
+      "name": "Android Speech Recognition and Synthesis from Google brx-in-x-end-local",
+      "lang": "brx-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fil-ph-x-fic-local",
+      "name": "Android Speech Recognition and Synthesis from Google fil-ph-x-fic-local",
+      "lang": "fil-PH",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google hr-hr-x-hrb-local",
+      "name": "Android Speech Recognition and Synthesis from Google hr-hr-x-hrb-local",
+      "lang": "hr-HR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cmn-cn-x-ssa-local",
+      "name": "Android Speech Recognition and Synthesis from Google cmn-cn-x-ssa-local",
+      "lang": "zh-CN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-ca-x-cab-local",
+      "name": "Android Speech Recognition and Synthesis from Google fr-ca-x-cab-local",
+      "lang": "fr-CA",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google hi-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google hi-IN-language",
+      "lang": "hi-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-es-x-eed-local",
+      "name": "Android Speech Recognition and Synthesis from Google es-es-x-eed-local",
+      "lang": "es-ES",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-fr-x-fra-local",
+      "name": "Android Speech Recognition and Synthesis from Google fr-fr-x-fra-local",
+      "lang": "fr-FR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google vi-vn-x-gft-local",
+      "name": "Android Speech Recognition and Synthesis from Google vi-vn-x-gft-local",
+      "lang": "vi-VN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google hu-HU-language",
+      "name": "Android Speech Recognition and Synthesis from Google hu-HU-language",
+      "lang": "hu-HU",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google mai-in-x-end-local",
+      "name": "Android Speech Recognition and Synthesis from Google mai-in-x-end-local",
+      "lang": "mai-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google id-id-x-idc-local",
+      "name": "Android Speech Recognition and Synthesis from Google id-id-x-idc-local",
+      "lang": "in-ID",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google lt-lt-language",
+      "name": "Android Speech Recognition and Synthesis from Google lt-lt-language",
+      "lang": "lt-LT",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sv-se-x-cfg-local",
+      "name": "Android Speech Recognition and Synthesis from Google sv-se-x-cfg-local",
+      "lang": "sv-SE",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bn-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google bn-IN-language",
+      "lang": "bn-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sa-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google sa-IN-language",
+      "lang": "sa-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-ng-x-tfn-local",
+      "name": "Android Speech Recognition and Synthesis from Google en-ng-x-tfn-local",
+      "lang": "en-NG",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google tr-tr-x-efu-local",
+      "name": "Android Speech Recognition and Synthesis from Google tr-tr-x-efu-local",
+      "lang": "tr-TR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sat-in-x-end-local",
+      "name": "Android Speech Recognition and Synthesis from Google sat-in-x-end-local",
+      "lang": "sat-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ko-kr-x-koc-local",
+      "name": "Android Speech Recognition and Synthesis from Google ko-kr-x-koc-local",
+      "lang": "ko-KR",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-US-language",
+      "name": "Android Speech Recognition and Synthesis from Google en-US-language",
+      "lang": "en-US",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google yue-HK-language",
+      "name": "Android Speech Recognition and Synthesis from Google yue-HK-language",
+      "lang": "yue-HK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pa-in-x-pae-local",
+      "name": "Android Speech Recognition and Synthesis from Google pa-in-x-pae-local",
+      "lang": "pa-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sk-sk-x-sfk-local",
+      "name": "Android Speech Recognition and Synthesis from Google sk-sk-x-sfk-local",
+      "lang": "sk-SK",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sq-al-language",
+      "name": "Android Speech Recognition and Synthesis from Google sq-al-language",
+      "lang": "sq-AL",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google su-id-x-suf-local",
+      "name": "Android Speech Recognition and Synthesis from Google su-id-x-suf-local",
+      "lang": "su-ID",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google uk-UA-language",
+      "name": "Android Speech Recognition and Synthesis from Google uk-UA-language",
+      "lang": "uk-UA",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sd-IN-language",
+      "name": "Android Speech Recognition and Synthesis from Google sd-IN-language",
+      "lang": "sd-IN",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cmn-tw-x-ctd-network",
+      "name": "Android Speech Recognition and Synthesis from Google cmn-tw-x-ctd-network",
+      "lang": "zh-TW",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google kn-in-x-knm-network",
+      "name": "Android Speech Recognition and Synthesis from Google kn-in-x-knm-network",
+      "lang": "kn-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-gb-x-gbc-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-gb-x-gbc-network",
+      "lang": "en-GB",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google hu-hu-x-kfl-network",
+      "name": "Android Speech Recognition and Synthesis from Google hu-hu-x-kfl-network",
+      "lang": "hu-HU",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ja-jp-x-htm-network",
+      "name": "Android Speech Recognition and Synthesis from Google ja-jp-x-htm-network",
+      "lang": "ja-JP",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google hi-in-x-hia-network",
+      "name": "Android Speech Recognition and Synthesis from Google hi-in-x-hia-network",
+      "lang": "hi-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ru-ru-x-ruc-network",
+      "name": "Android Speech Recognition and Synthesis from Google ru-ru-x-ruc-network",
+      "lang": "ru-RU",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google lt-lt-x-amc-network",
+      "name": "Android Speech Recognition and Synthesis from Google lt-lt-x-amc-network",
+      "lang": "lt-LT",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google he-il-x-hed-network",
+      "name": "Android Speech Recognition and Synthesis from Google he-il-x-hed-network",
+      "lang": "iw-IL",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-au-x-aua-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-au-x-aua-network",
+      "lang": "en-AU",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ja-jp-x-jad-network",
+      "name": "Android Speech Recognition and Synthesis from Google ja-jp-x-jad-network",
+      "lang": "ja-JP",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google da-dk-x-sfp-network",
+      "name": "Android Speech Recognition and Synthesis from Google da-dk-x-sfp-network",
+      "lang": "da-DK",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nl-be-x-bec-network",
+      "name": "Android Speech Recognition and Synthesis from Google nl-be-x-bec-network",
+      "lang": "nl-BE",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sw-ke-x-swm-network",
+      "name": "Android Speech Recognition and Synthesis from Google sw-ke-x-swm-network",
+      "lang": "sw-KE",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sv-se-x-afp-network",
+      "name": "Android Speech Recognition and Synthesis from Google sv-se-x-afp-network",
+      "lang": "sv-SE",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-ng-x-tfn-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-ng-x-tfn-network",
+      "lang": "en-NG",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pa-in-x-pag-network",
+      "name": "Android Speech Recognition and Synthesis from Google pa-in-x-pag-network",
+      "lang": "pa-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-in-x-ene-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-in-x-ene-network",
+      "lang": "en-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google de-de-x-deb-network",
+      "name": "Android Speech Recognition and Synthesis from Google de-de-x-deb-network",
+      "lang": "de-DE",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sv-se-x-cmh-network",
+      "name": "Android Speech Recognition and Synthesis from Google sv-se-x-cmh-network",
+      "lang": "sv-SE",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google si-lk-x-sin-network",
+      "name": "Android Speech Recognition and Synthesis from Google si-lk-x-sin-network",
+      "lang": "si-LK",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pl-pl-x-bmg-network",
+      "name": "Android Speech Recognition and Synthesis from Google pl-pl-x-bmg-network",
+      "lang": "pl-PL",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ko-kr-x-kod-network",
+      "name": "Android Speech Recognition and Synthesis from Google ko-kr-x-kod-network",
+      "lang": "ko-KR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bn-bd-x-ban-network",
+      "name": "Android Speech Recognition and Synthesis from Google bn-bd-x-ban-network",
+      "lang": "bn-BD",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-in-x-enc-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-in-x-enc-network",
+      "lang": "en-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-au-x-auc-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-au-x-auc-network",
+      "lang": "en-AU",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sq-al-x-sqm-network",
+      "name": "Android Speech Recognition and Synthesis from Google sq-al-x-sqm-network",
+      "lang": "sq-AL",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ar-xa-x-ard-network",
+      "name": "Android Speech Recognition and Synthesis from Google ar-xa-x-ard-network",
+      "lang": "ar",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cmn-cn-x-ccd-network",
+      "name": "Android Speech Recognition and Synthesis from Google cmn-cn-x-ccd-network",
+      "lang": "zh-CN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-gb-x-gba-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-gb-x-gba-network",
+      "lang": "en-GB",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-us-x-esf-network",
+      "name": "Android Speech Recognition and Synthesis from Google es-us-x-esf-network",
+      "lang": "es-US",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google hi-in-x-hic-network",
+      "name": "Android Speech Recognition and Synthesis from Google hi-in-x-hic-network",
+      "lang": "hi-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google tr-tr-x-cfs-network",
+      "name": "Android Speech Recognition and Synthesis from Google tr-tr-x-cfs-network",
+      "lang": "tr-TR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google yue-hk-x-yuc-network",
+      "name": "Android Speech Recognition and Synthesis from Google yue-hk-x-yuc-network",
+      "lang": "yue-HK",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pl-pl-x-jmk-network",
+      "name": "Android Speech Recognition and Synthesis from Google pl-pl-x-jmk-network",
+      "lang": "pl-PL",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google vi-vn-x-vie-network",
+      "name": "Android Speech Recognition and Synthesis from Google vi-vn-x-vie-network",
+      "lang": "vi-VN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google id-id-x-dfz-network",
+      "name": "Android Speech Recognition and Synthesis from Google id-id-x-dfz-network",
+      "lang": "in-ID",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-ca-x-cab-network",
+      "name": "Android Speech Recognition and Synthesis from Google fr-ca-x-cab-network",
+      "lang": "fr-CA",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google hr-hr-x-hrb-network",
+      "name": "Android Speech Recognition and Synthesis from Google hr-hr-x-hrb-network",
+      "lang": "hr-HR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ja-jp-x-jab-network",
+      "name": "Android Speech Recognition and Synthesis from Google ja-jp-x-jab-network",
+      "lang": "ja-JP",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google hr-hr-x-hra-network",
+      "name": "Android Speech Recognition and Synthesis from Google hr-hr-x-hra-network",
+      "lang": "hr-HR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google jv-id-x-jvf-network",
+      "name": "Android Speech Recognition and Synthesis from Google jv-id-x-jvf-network",
+      "lang": "jv-ID",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google id-id-x-idd-network",
+      "name": "Android Speech Recognition and Synthesis from Google id-id-x-idd-network",
+      "lang": "in-ID",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ko-kr-x-kob-network",
+      "name": "Android Speech Recognition and Synthesis from Google ko-kr-x-kob-network",
+      "lang": "ko-KR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pl-pl-x-zfg-network",
+      "name": "Android Speech Recognition and Synthesis from Google pl-pl-x-zfg-network",
+      "lang": "pl-PL",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fil-ph-x-fic-network",
+      "name": "Android Speech Recognition and Synthesis from Google fil-ph-x-fic-network",
+      "lang": "fil-PH",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-es-x-eea-network",
+      "name": "Android Speech Recognition and Synthesis from Google es-es-x-eea-network",
+      "lang": "es-ES",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fil-ph-x-cfc-network",
+      "name": "Android Speech Recognition and Synthesis from Google fil-ph-x-cfc-network",
+      "lang": "fil-PH",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nl-nl-x-tfb-network",
+      "name": "Android Speech Recognition and Synthesis from Google nl-nl-x-tfb-network",
+      "lang": "nl-NL",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google it-it-x-kda-network",
+      "name": "Android Speech Recognition and Synthesis from Google it-it-x-kda-network",
+      "lang": "it-IT",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ml-in-x-mlm-network",
+      "name": "Android Speech Recognition and Synthesis from Google ml-in-x-mlm-network",
+      "lang": "ml-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pa-in-x-pac-network",
+      "name": "Android Speech Recognition and Synthesis from Google pa-in-x-pac-network",
+      "lang": "pa-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-in-x-ena-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-in-x-ena-network",
+      "lang": "en-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google it-it-x-itc-network",
+      "name": "Android Speech Recognition and Synthesis from Google it-it-x-itc-network",
+      "lang": "it-IT",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-us-x-iom-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-us-x-iom-network",
+      "lang": "en-US",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-es-x-eed-network",
+      "name": "Android Speech Recognition and Synthesis from Google es-es-x-eed-network",
+      "lang": "es-ES",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ms-my-x-mse-network",
+      "name": "Android Speech Recognition and Synthesis from Google ms-my-x-mse-network",
+      "lang": "ms-MY",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google th-th-x-mol-network",
+      "name": "Android Speech Recognition and Synthesis from Google th-th-x-mol-network",
+      "lang": "th-TH",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-ca-x-cad-network",
+      "name": "Android Speech Recognition and Synthesis from Google fr-ca-x-cad-network",
+      "lang": "fr-CA",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google vi-vn-x-vic-network",
+      "name": "Android Speech Recognition and Synthesis from Google vi-vn-x-vic-network",
+      "lang": "vi-VN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nl-be-x-bed-network",
+      "name": "Android Speech Recognition and Synthesis from Google nl-be-x-bed-network",
+      "lang": "nl-BE",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bn-in-x-bnm-network",
+      "name": "Android Speech Recognition and Synthesis from Google bn-in-x-bnm-network",
+      "lang": "bn-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ru-ru-x-rue-network",
+      "name": "Android Speech Recognition and Synthesis from Google ru-ru-x-rue-network",
+      "lang": "ru-RU",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bn-in-x-bnx-network",
+      "name": "Android Speech Recognition and Synthesis from Google bn-in-x-bnx-network",
+      "lang": "bn-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-us-x-iol-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-us-x-iol-network",
+      "lang": "en-US",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google he-il-x-heb-network",
+      "name": "Android Speech Recognition and Synthesis from Google he-il-x-heb-network",
+      "lang": "iw-IL",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-us-x-iob-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-us-x-iob-network",
+      "lang": "en-US",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pt-pt-x-jmn-network",
+      "name": "Android Speech Recognition and Synthesis from Google pt-pt-x-jmn-network",
+      "lang": "pt-PT",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google su-id-x-suf-network",
+      "name": "Android Speech Recognition and Synthesis from Google su-id-x-suf-network",
+      "lang": "su-ID",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google tr-tr-x-efu-network",
+      "name": "Android Speech Recognition and Synthesis from Google tr-tr-x-efu-network",
+      "lang": "tr-TR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google mr-in-x-mrf-network",
+      "name": "Android Speech Recognition and Synthesis from Google mr-in-x-mrf-network",
+      "lang": "mr-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google hi-in-x-hie-network",
+      "name": "Android Speech Recognition and Synthesis from Google hi-in-x-hie-network",
+      "lang": "hi-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ne-np-x-nep-network",
+      "name": "Android Speech Recognition and Synthesis from Google ne-np-x-nep-network",
+      "lang": "ne-NP",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-us-x-iog-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-us-x-iog-network",
+      "lang": "en-US",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google he-il-x-hec-network",
+      "name": "Android Speech Recognition and Synthesis from Google he-il-x-hec-network",
+      "lang": "iw-IL",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fil-ph-x-fie-network",
+      "name": "Android Speech Recognition and Synthesis from Google fil-ph-x-fie-network",
+      "lang": "fil-PH",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ru-ru-x-dfc-network",
+      "name": "Android Speech Recognition and Synthesis from Google ru-ru-x-dfc-network",
+      "lang": "ru-RU",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pl-pl-x-afb-network",
+      "name": "Android Speech Recognition and Synthesis from Google pl-pl-x-afb-network",
+      "lang": "pl-PL",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google de-de-x-nfh-network",
+      "name": "Android Speech Recognition and Synthesis from Google de-de-x-nfh-network",
+      "lang": "de-DE",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google km-kh-x-khm-network",
+      "name": "Android Speech Recognition and Synthesis from Google km-kh-x-khm-network",
+      "lang": "km-KH",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-fr-x-frd-network",
+      "name": "Android Speech Recognition and Synthesis from Google fr-fr-x-frd-network",
+      "lang": "fr-FR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nl-nl-x-lfc-network",
+      "name": "Android Speech Recognition and Synthesis from Google nl-nl-x-lfc-network",
+      "lang": "nl-NL",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google te-in-x-tef-network",
+      "name": "Android Speech Recognition and Synthesis from Google te-in-x-tef-network",
+      "lang": "te-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google it-it-x-itb-network",
+      "name": "Android Speech Recognition and Synthesis from Google it-it-x-itb-network",
+      "lang": "it-IT",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nb-no-x-cmj-network",
+      "name": "Android Speech Recognition and Synthesis from Google nb-no-x-cmj-network",
+      "lang": "nb-NO",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sv-se-x-cfg-network",
+      "name": "Android Speech Recognition and Synthesis from Google sv-se-x-cfg-network",
+      "lang": "sv-SE",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bs-ba-x-bsm-network",
+      "name": "Android Speech Recognition and Synthesis from Google bs-ba-x-bsm-network",
+      "lang": "bs-BA",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nl-nl-x-dma-network",
+      "name": "Android Speech Recognition and Synthesis from Google nl-nl-x-dma-network",
+      "lang": "nl-NL",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google uk-ua-x-hfd-network",
+      "name": "Android Speech Recognition and Synthesis from Google uk-ua-x-hfd-network",
+      "lang": "uk-UA",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nb-no-x-cfl-network",
+      "name": "Android Speech Recognition and Synthesis from Google nb-no-x-cfl-network",
+      "lang": "nb-NO",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google gu-in-x-guf-network",
+      "name": "Android Speech Recognition and Synthesis from Google gu-in-x-guf-network",
+      "lang": "gu-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sv-se-x-dmc-network",
+      "name": "Android Speech Recognition and Synthesis from Google sv-se-x-dmc-network",
+      "lang": "sv-SE",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nb-no-x-rfj-network",
+      "name": "Android Speech Recognition and Synthesis from Google nb-no-x-rfj-network",
+      "lang": "nb-NO",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-es-x-eec-network",
+      "name": "Android Speech Recognition and Synthesis from Google es-es-x-eec-network",
+      "lang": "es-ES",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nl-nl-x-yfr-network",
+      "name": "Android Speech Recognition and Synthesis from Google nl-nl-x-yfr-network",
+      "lang": "nl-NL",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nb-no-x-tmg-network",
+      "name": "Android Speech Recognition and Synthesis from Google nb-no-x-tmg-network",
+      "lang": "nb-NO",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-us-x-tpc-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-us-x-tpc-network",
+      "lang": "en-US",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sr-rs-x-gfg-network",
+      "name": "Android Speech Recognition and Synthesis from Google sr-rs-x-gfg-network",
+      "lang": "sr-RS",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google yue-hk-x-jar-network",
+      "name": "Android Speech Recognition and Synthesis from Google yue-hk-x-jar-network",
+      "lang": "yue-HK",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google is-is-x-isf-network",
+      "name": "Android Speech Recognition and Synthesis from Google is-is-x-isf-network",
+      "lang": "is-IS",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google it-it-x-itd-network",
+      "name": "Android Speech Recognition and Synthesis from Google it-it-x-itd-network",
+      "lang": "it-IT",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ar-xa-x-arz-network",
+      "name": "Android Speech Recognition and Synthesis from Google ar-xa-x-arz-network",
+      "lang": "ar",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ro-ro-x-vfv-network",
+      "name": "Android Speech Recognition and Synthesis from Google ro-ro-x-vfv-network",
+      "lang": "ro-RO",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google kn-in-x-knf-network",
+      "name": "Android Speech Recognition and Synthesis from Google kn-in-x-knf-network",
+      "lang": "kn-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pt-pt-x-pmj-network",
+      "name": "Android Speech Recognition and Synthesis from Google pt-pt-x-pmj-network",
+      "lang": "pt-PT",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ml-in-x-mlf-network",
+      "name": "Android Speech Recognition and Synthesis from Google ml-in-x-mlf-network",
+      "lang": "ml-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google da-dk-x-kfm-network",
+      "name": "Android Speech Recognition and Synthesis from Google da-dk-x-kfm-network",
+      "lang": "da-DK",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-us-x-tpf-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-us-x-tpf-network",
+      "lang": "en-US",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-us-x-tpd-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-us-x-tpd-network",
+      "lang": "en-US",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cs-cz-x-jfs-network",
+      "name": "Android Speech Recognition and Synthesis from Google cs-cz-x-jfs-network",
+      "lang": "cs-CZ",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google tr-tr-x-mfm-network",
+      "name": "Android Speech Recognition and Synthesis from Google tr-tr-x-mfm-network",
+      "lang": "tr-TR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ms-my-x-msg-network",
+      "name": "Android Speech Recognition and Synthesis from Google ms-my-x-msg-network",
+      "lang": "ms-MY",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google gu-in-x-gum-network",
+      "name": "Android Speech Recognition and Synthesis from Google gu-in-x-gum-network",
+      "lang": "gu-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nl-nl-x-bmh-network",
+      "name": "Android Speech Recognition and Synthesis from Google nl-nl-x-bmh-network",
+      "lang": "nl-NL",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google nb-no-x-tfs-network",
+      "name": "Android Speech Recognition and Synthesis from Google nb-no-x-tfs-network",
+      "lang": "nb-NO",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-fr-x-frc-network",
+      "name": "Android Speech Recognition and Synthesis from Google fr-fr-x-frc-network",
+      "lang": "fr-FR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pl-pl-x-oda-network",
+      "name": "Android Speech Recognition and Synthesis from Google pl-pl-x-oda-network",
+      "lang": "pl-PL",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-gb-x-gbd-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-gb-x-gbd-network",
+      "lang": "en-GB",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-gb-x-rjs-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-gb-x-rjs-network",
+      "lang": "en-GB",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google he-il-x-hee-network",
+      "name": "Android Speech Recognition and Synthesis from Google he-il-x-hee-network",
+      "lang": "iw-IL",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ms-my-x-msd-network",
+      "name": "Android Speech Recognition and Synthesis from Google ms-my-x-msd-network",
+      "lang": "ms-MY",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pa-in-x-pad-network",
+      "name": "Android Speech Recognition and Synthesis from Google pa-in-x-pad-network",
+      "lang": "pa-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sv-se-x-lfs-network",
+      "name": "Android Speech Recognition and Synthesis from Google sv-se-x-lfs-network",
+      "lang": "sv-SE",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google id-id-x-ide-network",
+      "name": "Android Speech Recognition and Synthesis from Google id-id-x-ide-network",
+      "lang": "in-ID",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cmn-cn-x-ccc-network",
+      "name": "Android Speech Recognition and Synthesis from Google cmn-cn-x-ccc-network",
+      "lang": "zh-CN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bg-bg-x-ifk-network",
+      "name": "Android Speech Recognition and Synthesis from Google bg-bg-x-ifk-network",
+      "lang": "bg-BG",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ur-pk-x-cfn-network",
+      "name": "Android Speech Recognition and Synthesis from Google ur-pk-x-cfn-network",
+      "lang": "ur-PK",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google sk-sk-x-sfk-network",
+      "name": "Android Speech Recognition and Synthesis from Google sk-sk-x-sfk-network",
+      "lang": "sk-SK",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fil-ph-x-fid-network",
+      "name": "Android Speech Recognition and Synthesis from Google fil-ph-x-fid-network",
+      "lang": "fil-PH",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-fr-x-vlf-network",
+      "name": "Android Speech Recognition and Synthesis from Google fr-fr-x-vlf-network",
+      "lang": "fr-FR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google da-dk-x-nmm-network",
+      "name": "Android Speech Recognition and Synthesis from Google da-dk-x-nmm-network",
+      "lang": "da-DK",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pa-in-x-pae-network",
+      "name": "Android Speech Recognition and Synthesis from Google pa-in-x-pae-network",
+      "lang": "pa-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ms-my-x-msc-network",
+      "name": "Android Speech Recognition and Synthesis from Google ms-my-x-msc-network",
+      "lang": "ms-MY",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cmn-cn-x-ssa-network",
+      "name": "Android Speech Recognition and Synthesis from Google cmn-cn-x-ssa-network",
+      "lang": "zh-CN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pt-pt-x-jfb-network",
+      "name": "Android Speech Recognition and Synthesis from Google pt-pt-x-jfb-network",
+      "lang": "pt-PT",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ar-xa-x-arc-network",
+      "name": "Android Speech Recognition and Synthesis from Google ar-xa-x-arc-network",
+      "lang": "ar",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-ca-x-cac-network",
+      "name": "Android Speech Recognition and Synthesis from Google fr-ca-x-cac-network",
+      "lang": "fr-CA",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pt-br-x-pte-network",
+      "name": "Android Speech Recognition and Synthesis from Google pt-br-x-pte-network",
+      "lang": "pt-BR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google de-de-x-deg-network",
+      "name": "Android Speech Recognition and Synthesis from Google de-de-x-deg-network",
+      "lang": "de-DE",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google et-ee-x-tms-network",
+      "name": "Android Speech Recognition and Synthesis from Google et-ee-x-tms-network",
+      "lang": "et-EE",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ta-in-x-tac-network",
+      "name": "Android Speech Recognition and Synthesis from Google ta-in-x-tac-network",
+      "lang": "ta-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ru-ru-x-ruf-network",
+      "name": "Android Speech Recognition and Synthesis from Google ru-ru-x-ruf-network",
+      "lang": "ru-RU",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google de-de-x-dea-network",
+      "name": "Android Speech Recognition and Synthesis from Google de-de-x-dea-network",
+      "lang": "de-DE",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google id-id-x-idc-network",
+      "name": "Android Speech Recognition and Synthesis from Google id-id-x-idc-network",
+      "lang": "in-ID",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google tr-tr-x-tmc-network",
+      "name": "Android Speech Recognition and Synthesis from Google tr-tr-x-tmc-network",
+      "lang": "tr-TR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google da-dk-x-vfb-network",
+      "name": "Android Speech Recognition and Synthesis from Google da-dk-x-vfb-network",
+      "lang": "da-DK",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ko-kr-x-ism-network",
+      "name": "Android Speech Recognition and Synthesis from Google ko-kr-x-ism-network",
+      "lang": "ko-KR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google hi-in-x-hid-network",
+      "name": "Android Speech Recognition and Synthesis from Google hi-in-x-hid-network",
+      "lang": "hi-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-us-x-sfg-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-us-x-sfg-network",
+      "lang": "en-US",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bn-in-x-bnf-network",
+      "name": "Android Speech Recognition and Synthesis from Google bn-in-x-bnf-network",
+      "lang": "bn-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pt-br-x-ptd-network",
+      "name": "Android Speech Recognition and Synthesis from Google pt-br-x-ptd-network",
+      "lang": "pt-BR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-au-x-aud-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-au-x-aud-network",
+      "lang": "en-AU",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ko-kr-x-koc-network",
+      "name": "Android Speech Recognition and Synthesis from Google ko-kr-x-koc-network",
+      "lang": "ko-KR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-fr-x-fra-network",
+      "name": "Android Speech Recognition and Synthesis from Google fr-fr-x-fra-network",
+      "lang": "fr-FR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-us-x-esc-network",
+      "name": "Android Speech Recognition and Synthesis from Google es-us-x-esc-network",
+      "lang": "es-US",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-fr-x-frb-network",
+      "name": "Android Speech Recognition and Synthesis from Google fr-fr-x-frb-network",
+      "lang": "fr-FR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ca-es-x-caf-network",
+      "name": "Android Speech Recognition and Synthesis from Google ca-es-x-caf-network",
+      "lang": "ca-ES",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-gb-x-gbg-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-gb-x-gbg-network",
+      "lang": "en-GB",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cmn-cn-x-cce-network",
+      "name": "Android Speech Recognition and Synthesis from Google cmn-cn-x-cce-network",
+      "lang": "zh-CN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google yue-hk-x-yud-network",
+      "name": "Android Speech Recognition and Synthesis from Google yue-hk-x-yud-network",
+      "lang": "yue-HK",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google vi-vn-x-vid-network",
+      "name": "Android Speech Recognition and Synthesis from Google vi-vn-x-vid-network",
+      "lang": "vi-VN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ar-xa-x-are-network",
+      "name": "Android Speech Recognition and Synthesis from Google ar-xa-x-are-network",
+      "lang": "ar",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pt-pt-x-sfs-network",
+      "name": "Android Speech Recognition and Synthesis from Google pt-pt-x-sfs-network",
+      "lang": "pt-PT",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google te-in-x-tem-network",
+      "name": "Android Speech Recognition and Synthesis from Google te-in-x-tem-network",
+      "lang": "te-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google el-gr-x-vfz-network",
+      "name": "Android Speech Recognition and Synthesis from Google el-gr-x-vfz-network",
+      "lang": "el-GR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google bn-in-x-bin-network",
+      "name": "Android Speech Recognition and Synthesis from Google bn-in-x-bin-network",
+      "lang": "bn-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fr-ca-x-caa-network",
+      "name": "Android Speech Recognition and Synthesis from Google fr-ca-x-caa-network",
+      "lang": "fr-CA",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ja-jp-x-jac-network",
+      "name": "Android Speech Recognition and Synthesis from Google ja-jp-x-jac-network",
+      "lang": "ja-JP",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google fi-fi-x-afi-network",
+      "name": "Android Speech Recognition and Synthesis from Google fi-fi-x-afi-network",
+      "lang": "fi-FI",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-us-x-esd-network",
+      "name": "Android Speech Recognition and Synthesis from Google es-us-x-esd-network",
+      "lang": "es-US",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ru-ru-x-rud-network",
+      "name": "Android Speech Recognition and Synthesis from Google ru-ru-x-rud-network",
+      "lang": "ru-RU",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google pt-br-x-afs-network",
+      "name": "Android Speech Recognition and Synthesis from Google pt-br-x-afs-network",
+      "lang": "pt-BR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-au-x-aub-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-au-x-aub-network",
+      "lang": "en-AU",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ur-pk-x-urm-network",
+      "name": "Android Speech Recognition and Synthesis from Google ur-pk-x-urm-network",
+      "lang": "ur-PK",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google tr-tr-x-ama-network",
+      "name": "Android Speech Recognition and Synthesis from Google tr-tr-x-ama-network",
+      "lang": "tr-TR",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google es-us-x-sfb-network",
+      "name": "Android Speech Recognition and Synthesis from Google es-us-x-sfb-network",
+      "lang": "es-US",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cy-gb-x-cyf-network",
+      "name": "Android Speech Recognition and Synthesis from Google cy-gb-x-cyf-network",
+      "lang": "cy-GB",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-in-x-end-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-in-x-end-network",
+      "lang": "en-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google yue-hk-x-yuf-network",
+      "name": "Android Speech Recognition and Synthesis from Google yue-hk-x-yuf-network",
+      "lang": "yue-HK",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cmn-tw-x-ctc-network",
+      "name": "Android Speech Recognition and Synthesis from Google cmn-tw-x-ctc-network",
+      "lang": "zh-TW",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google cmn-tw-x-cte-network",
+      "name": "Android Speech Recognition and Synthesis from Google cmn-tw-x-cte-network",
+      "lang": "zh-TW",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google vi-vn-x-vif-network",
+      "name": "Android Speech Recognition and Synthesis from Google vi-vn-x-vif-network",
+      "lang": "vi-VN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google en-gb-x-gbb-network",
+      "name": "Android Speech Recognition and Synthesis from Google en-gb-x-gbb-network",
+      "lang": "en-GB",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google ta-in-x-tad-network",
+      "name": "Android Speech Recognition and Synthesis from Google ta-in-x-tad-network",
+      "lang": "ta-IN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google yue-hk-x-yue-network",
+      "name": "Android Speech Recognition and Synthesis from Google yue-hk-x-yue-network",
+      "lang": "yue-HK",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google lv-lv-x-imr-network",
+      "name": "Android Speech Recognition and Synthesis from Google lv-lv-x-imr-network",
+      "lang": "lv-LV",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "Android Speech Recognition and Synthesis from Google vi-vn-x-gft-network",
+      "name": "Android Speech Recognition and Synthesis from Google vi-vn-x-gft-network",
+      "lang": "vi-VN",
+      "localService": false,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Arabic",
+      "name": "eSpeak Arabic",
+      "lang": "ar",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Bulgarian",
+      "name": "eSpeak Bulgarian",
+      "lang": "bg",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Bengali",
+      "name": "eSpeak Bengali",
+      "lang": "bn",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Catalan",
+      "name": "eSpeak Catalan",
+      "lang": "ca",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Chinese (Mandarin, latin as English)",
+      "name": "eSpeak Chinese (Mandarin, latin as English)",
+      "lang": "cmn",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Czech",
+      "name": "eSpeak Czech",
+      "lang": "cs",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Danish",
+      "name": "eSpeak Danish",
+      "lang": "da",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak German",
+      "name": "eSpeak German",
+      "lang": "de",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Greek",
+      "name": "eSpeak Greek",
+      "lang": "el",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Spanish (Spain)",
+      "name": "eSpeak Spanish (Spain)",
+      "lang": "es",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Estonian",
+      "name": "eSpeak Estonian",
+      "lang": "et",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Persian",
+      "name": "eSpeak Persian",
+      "lang": "fa",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Finnish",
+      "name": "eSpeak Finnish",
+      "lang": "fi",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Gujarati",
+      "name": "eSpeak Gujarati",
+      "lang": "gu",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Croatian",
+      "name": "eSpeak Croatian",
+      "lang": "hr",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Hungarian",
+      "name": "eSpeak Hungarian",
+      "lang": "hu",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Indonesian",
+      "name": "eSpeak Indonesian",
+      "lang": "id",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Italian",
+      "name": "eSpeak Italian",
+      "lang": "it",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Kannada",
+      "name": "eSpeak Kannada",
+      "lang": "kn",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Korean",
+      "name": "eSpeak Korean",
+      "lang": "ko",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Lithuanian",
+      "name": "eSpeak Lithuanian",
+      "lang": "lt",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Latvian",
+      "name": "eSpeak Latvian",
+      "lang": "lv",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Malayalam",
+      "name": "eSpeak Malayalam",
+      "lang": "ml",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Marathi",
+      "name": "eSpeak Marathi",
+      "lang": "mr",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Malay",
+      "name": "eSpeak Malay",
+      "lang": "ms",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Norwegian Bokmål",
+      "name": "eSpeak Norwegian Bokmål",
+      "lang": "nb",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Polish",
+      "name": "eSpeak Polish",
+      "lang": "pl",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Portuguese (Brazil)",
+      "name": "eSpeak Portuguese (Brazil)",
+      "lang": "pt-br",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Romanian",
+      "name": "eSpeak Romanian",
+      "lang": "ro",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Russian",
+      "name": "eSpeak Russian",
+      "lang": "ru",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Slovak",
+      "name": "eSpeak Slovak",
+      "lang": "sk",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Slovenian",
+      "name": "eSpeak Slovenian",
+      "lang": "sl",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Serbian",
+      "name": "eSpeak Serbian",
+      "lang": "sr",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Swedish",
+      "name": "eSpeak Swedish",
+      "lang": "sv",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Swahili",
+      "name": "eSpeak Swahili",
+      "lang": "sw",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Tamil",
+      "name": "eSpeak Tamil",
+      "lang": "ta",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Telugu",
+      "name": "eSpeak Telugu",
+      "lang": "te",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Turkish",
+      "name": "eSpeak Turkish",
+      "lang": "tr",
+      "localService": true,
+      "default": false
+    },
+    {
+      "voiceURI": "eSpeak Vietnamese (Northern)",
+      "name": "eSpeak Vietnamese (Northern)",
+      "lang": "vi",
+      "localService": true,
+      "default": false
+    }
+  ]
+}
