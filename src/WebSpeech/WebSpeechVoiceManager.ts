@@ -705,11 +705,8 @@ private static sortByQuality(
       const bOrder = langOrderMap.get(b.name);
       
       if (aOrder !== undefined && bOrder !== undefined) {
-        // Both have JSON order - use it if same quality or both no quality
-        if ((aQuality > 0 && bQuality > 0 && aQuality === bQuality) || 
-            (aQuality === 0 && bQuality === 0)) {
-          return aOrder - bOrder;
-        }
+        // Both have JSON order - always use it for JSON voices
+        return aOrder - bOrder;
       }
     }
   }
@@ -909,8 +906,7 @@ private static sortByQuality(
       if (aIsDefault && !bIsDefault) return -1;
       if (!aIsDefault && bIsDefault) return 1;
       
-      // Sort alphabetically by region
-      return (aRegion || "").localeCompare(bRegion || "");
+      return WebSpeechVoiceManager.sortByQuality(a, b, jsonOrderMaps, processedLang.baseLang);
     });
   }
 
