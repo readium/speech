@@ -11,6 +11,7 @@ interface VoiceFilterOptions {
     provider?: string;
     excludeNovelty?: boolean;
     excludeVeryLowQuality?: boolean;
+    removeDuplicates?: boolean;
 }
 /**
  * Language/Region information with voice count
@@ -100,7 +101,7 @@ export declare class WebSpeechVoiceManager {
      * @param voices Array of voices to remove duplicates from
      * @returns Filtered array with duplicates removed, keeping only the highest quality versions
      */
-    private removeDuplicate;
+    private removeDuplicates;
     /**
      * Get test utterance for a given language
      * @param language - Language code (e.g., "en", "fr", "es")
@@ -116,12 +117,16 @@ export declare class WebSpeechVoiceManager {
      * Get available languages with voice counts
      * @param localization Optional BCP 47 language tag to use for language names
      * @param filterOptions Optional filters to apply to voices before counting languages
+     * @param voices Optional array of voices to count (defaults to this.voices)
      */
-    getLanguages(localization?: string, filterOptions?: VoiceFilterOptions): LanguageInfo[];
+    getLanguages(localization?: string, filterOptions?: VoiceFilterOptions, voices?: ReadiumSpeechVoice[]): LanguageInfo[];
     /**
      * Get available regions with voice counts
+     * @param localization Optional BCP 47 language tag to use for region names
+     * @param filterOptions Optional filters to apply to voices before counting regions
+     * @param voices Optional array of voices to count (defaults to this.voices)
      */
-    getRegions(localization?: string): LanguageInfo[];
+    getRegions(localization?: string, filterOptions?: VoiceFilterOptions, voices?: ReadiumSpeechVoice[]): LanguageInfo[];
     /**
      * Get the default voice for language preferences
      * @param languages Array of preferred languages in order of preference, or a single language string
@@ -142,19 +147,19 @@ export declare class WebSpeechVoiceManager {
     /**
      * Filter voices based on the provided options
      */
-    filterVoices(voices: ReadiumSpeechVoice[], options: VoiceFilterOptions): ReadiumSpeechVoice[];
+    filterVoices(options: VoiceFilterOptions, voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[];
     /**
      * Filter out novelty voices
      * @param voices Array of voices to filter
      * @returns Filtered array with novelty voices removed
      */
-    filterOutNoveltyVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[];
+    filterOutNoveltyVoices(voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[];
     /**
      * Filter out very low quality voices
      * @param voices Array of voices to filter
      * @returns Filtered array with very low quality voices removed
      */
-    filterOutVeryLowQualityVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[];
+    filterOutVeryLowQualityVoices(voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[];
     /**
    * Get the numeric value for a quality level
    * @param quality Quality level
@@ -175,7 +180,7 @@ export declare class WebSpeechVoiceManager {
      * @param voices Array of voices to sort
      * @returns Sorted array of voices
      */
-    sortVoicesByQuality(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[];
+    sortVoicesByQuality(voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[];
     /**
     * Group voices by language based on processed preferred languages
     */
@@ -194,7 +199,7 @@ export declare class WebSpeechVoiceManager {
      * @param preferredLanguages Array of preferred language codes in order of preference
      * @returns Sorted array of voices
      */
-    sortVoicesByLanguages(voices: ReadiumSpeechVoice[], preferredLanguages?: string[]): ReadiumSpeechVoice[];
+    sortVoicesByLanguages(preferredLanguages?: string[], voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[];
     /**
      * Sort languages by region preference, then voices by quality
      */
@@ -205,13 +210,13 @@ export declare class WebSpeechVoiceManager {
      * @param preferredLanguages Array of preferred language codes in order of preference
      * @returns Sorted array of voices
      */
-    sortVoicesByRegions(voices: ReadiumSpeechVoice[], preferredLanguages: string[]): ReadiumSpeechVoice[];
+    sortVoicesByRegions(preferredLanguages: string[], voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[];
     /**
      * Group voices by the specified criteria
      * @param voices Array of voices to group
      * @param options Grouping options
      * @returns Object with voice groups keyed by the grouping criteria
      */
-    groupVoices(voices: ReadiumSpeechVoice[], by: GroupBy): VoiceGroup;
+    groupVoices(by: GroupBy, voices?: ReadiumSpeechVoice[]): VoiceGroup;
 }
 export {};

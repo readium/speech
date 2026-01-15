@@ -2,16 +2,16 @@ const M = (e) => {
   if (!e) return ["", void 0];
   const a = e.replace(/_/g, "-");
   try {
-    const r = new Intl.Locale(a);
+    const t = new Intl.Locale(a);
     return [
-      r.language.toLowerCase(),
-      r.region?.toUpperCase()
+      t.language.toLowerCase(),
+      t.region?.toUpperCase()
     ];
   } catch {
-    const r = a.split("-");
+    const t = a.split("-");
     return [
-      r[0].toLowerCase(),
-      r[1]?.toUpperCase()
+      t[0].toLowerCase(),
+      t[1]?.toUpperCase()
     ];
   }
 };
@@ -65,7 +65,7 @@ const Ra = "ar-SA", Ea = "مرحبًا، اسمي {name} وأنا صوت عرب�
   defaultRegion: vn,
   testUtterance: wn,
   voices: Nn
-}, Cn = "en", kn = "en-US", qn = "Hello, my name is {name} and I am an English voice.", xn = /* @__PURE__ */ JSON.parse(`[{"label":"Emma","name":"Microsoft EmmaMultilingual Online (Natural) - English (United States)","altNames":["Microsoft Emma Online (Natural) - English (United States)"],"language":"en-US","multiLingual":true,"gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Microsoft Ava","name":"Microsoft AvaMultilingual Online (Natural) - English (United States)","altNames":["Microsoft Ava Online (Natural) - English (United States)"],"language":"en-US","multiLingual":true,"gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Jenny","name":"Microsoft Jenny Online (Natural) - English (United States)","language":"en-US","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Aria","name":"Microsoft Aria Online (Natural) - English (United States)","language":"en-US","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Michelle","name":"Microsoft Michelle Online (Natural) - English (United States)","language":"en-US","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Ana","name":"Microsoft Ana Online (Natural) - English (United States)","language":"en-US","gender":"female","children":true,"quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Andrew","name":"Microsoft AndrewMultilingual Online (Natural) - English (United States)","altNames":["Microsoft Andrew Online (Natural) - English (United States)"],"language":"en-US","multiLingual":true,"gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Brian","name":"Microsoft BrianMultilingual Online (Natural) - English (United States)","altNames":["Microsoft Brian Online (Natural) - English (United States)"],"language":"en-US","multiLingual":true,"gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Guy","name":"Microsoft Guy Online (Natural) - English (United States)","language":"en-US","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Eric","name":"Microsoft Eric Online (Natural) - English (United States)","language":"en-US","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Steffan","name":"Microsoft Steffan Online (Natural) - English (United States)","language":"en-US","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Christopher","name":"Microsoft Christopher Online (Natural) - English (United States)","language":"en-US","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Roger","name":"Microsoft Roger Online (Natural) - English (United States)","language":"en-US","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Sonia","name":"Microsoft Sonia Online (Natural) - English (United Kingdom)","language":"en-GB","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Libby","name":"Microsoft Libby Online (Natural) - English (United Kingdom)","language":"en-GB","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Maisie","name":"Microsoft Maisie Online (Natural) - English (United Kingdom)","language":"en-GB","gender":"female","children":true,"quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Ryan","name":"Microsoft Ryan Online (Natural) - English (United Kingdom)","language":"en-GB","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Thomas","name":"Microsoft Thomas Online (Natural) - English (United Kingdom)","language":"en-GB","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Natasha","name":"Microsoft Natasha Online (Natural) - English (Australia)","language":"en-AU","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Hayley","name":"Microsoft Hayley Online - English (Australia)","language":"en-AU","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"William","name":"Microsoft William Online (Natural) - English (Australia)","altNames":["Microsoft WilliamMultilingual Online (Natural) - English (Australia)"],"language":"en-AU","multiLingual":true,"gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Clara","name":"Microsoft Clara Online (Natural) - English (Canada)","language":"en-CA","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Heather","name":"Microsoft Heather Online - English (Canada)","language":"en-CA","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Liam","name":"Microsoft Liam Online (Natural) - English (Canada)","language":"en-CA","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Neerja","name":"Microsoft Neerja Online (Natural) - English (India)","altNames":["Microsoft Neerja Online (Natural) - English (India) (Preview)"],"language":"en-IN","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Prabhat","name":"Microsoft Prabhat Online (Natural) - English (India)","language":"en-IN","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Emily","name":"Microsoft Emily Online (Natural) - English (Ireland)","language":"en-IE","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Connor","name":"Microsoft Connor Online (Natural) - English (Ireland)","language":"en-IE","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Leah","name":"Microsoft Leah Online (Natural) - English (South Africa)","language":"en-ZA","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Luke","name":"Microsoft Luke Online (Natural) - English (South Africa)","language":"en-ZA","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Yan","name":"Microsoft Yan Online (Natural) - English (Hong Kong SAR)","language":"en-HK","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Sam","name":"Microsoft Sam Online (Natural) - English (Hongkong)","language":"en-HK","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Asilia","name":"Microsoft Asilia Online (Natural) - English (Kenya)","language":"en-KE","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Chilemba","name":"Microsoft Chilemba Online (Natural) - English (Kenya)","language":"en-KE","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Molly","name":"Microsoft Molly Online (Natural) - English (New Zealand)","language":"en-NZ","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Mitchell","name":"Microsoft Mitchell Online (Natural) - English (New Zealand)","language":"en-NZ","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Ezinne","name":"Microsoft Ezinne Online (Natural) - English (Nigeria)","language":"en-NG","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Abeo","name":"Microsoft Abeo Online (Natural) - English (Nigeria)","language":"en-NG","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Rosa","name":"Microsoft Rosa Online (Natural) - English (Philippines)","language":"en-PH","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"James","name":"Microsoft James Online (Natural) - English (Philippines)","language":"en-PH","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Luna","name":"Microsoft Luna Online (Natural) - English (Singapore)","language":"en-SG","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Wayne","name":"Microsoft Wayne Online (Natural) - English (Singapore)","language":"en-SG","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Imani","name":"Microsoft Imani Online (Natural) - English (Tanzania)","language":"en-TZ","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Elimu","name":"Microsoft Elimu Online (Natural) - English (Tanzania)","language":"en-TZ","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Female Google voice (US)","name":"Google US English","note":"This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.","language":"en-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"browser":["ChromeDesktop"],"preloaded":true},{"label":"Female Google voice (UK)","name":"Google UK English Female","note":"This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.","language":"en-GB","gender":"female","quality":["high"],"rate":1,"pitch":1,"browser":["ChromeDesktop"],"preloaded":true},{"label":"Male Google voice (UK)","name":"Google UK English Male","note":"This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.","language":"en-GB","gender":"male","quality":["high"],"rate":1,"pitch":1,"browser":["ChromeDesktop"],"preloaded":true},{"label":"Apple Ava","name":"Ava","localizedName":"apple","language":"en-US","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Zoe","name":"Zoe","localizedName":"apple","language":"en-US","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Allison","name":"Allison","localizedName":"apple","language":"en-US","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Nicky","name":"Nicky","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS. Unlike other Siri voices, a higher quality version can be installed and used.","language":"en-US","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Samantha","name":"Samantha","localizedName":"apple","language":"en-US","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Joelle","name":"Joelle","localizedName":"apple","language":"en-US","gender":"female","children":true,"quality":["normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Evan","name":"Evan","localizedName":"apple","language":"en-US","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Nathan","name":"Nathan","localizedName":"apple","language":"en-US","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Tom","name":"Tom","localizedName":"apple","language":"en-US","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Alex","name":"Alex","localizedName":"apple","language":"en-US","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Aaron","name":"Aaron","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS.","language":"en-US","gender":"male","quality":["low"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Kate","name":"Kate","localizedName":"apple","language":"en-GB","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Stephanie","name":"Stephanie","localizedName":"apple","language":"en-GB","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Serena","name":"Serena","localizedName":"apple","language":"en-GB","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Martha","name":"Martha","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS.","language":"en-GB","gender":"female","quality":["low"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Jamie","name":"Jamie","localizedName":"apple","language":"en-GB","gender":"male","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Oliver","name":"Oliver","localizedName":"apple","language":"en-GB","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Daniel","name":"Daniel","localizedName":"apple","language":"en-GB","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Arthur","name":"Arthur","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS.","language":"en-GB","gender":"male","quality":["low"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Matilda","name":"Matilda","localizedName":"apple","language":"en-AU","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Karen","name":"Karen","localizedName":"apple","language":"en-AU","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Catherine","name":"Catherine","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS.","language":"en-AU","gender":"female","quality":["low"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Lee","name":"Lee","localizedName":"apple","language":"en-AU","gender":"male","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Gordon","name":"Gordon","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS.","language":"en-AU","gender":"male","quality":["low"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Aman","name":"Aman","nativeID":["com.apple.voice.Aman"],"localizedName":"apple","language":"en-IN","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Tara","name":"Tara","nativeID":["com.apple.voice.Tara"],"localizedName":"apple","language":"en-IN","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Isha","name":"Isha","localizedName":"apple","language":"en-IN","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Sangeeta","name":"Sangeeta","localizedName":"apple","language":"en-IN","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Rishi","name":"Rishi","localizedName":"apple","language":"en-IN","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Moira","name":"Moira","localizedName":"apple","language":"en-IE","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Tessa","name":"Tessa","localizedName":"apple","language":"en-ZA","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Fiona","name":"Fiona","localizedName":"apple","language":"en-GB-u-sd-gbsct","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Zira","name":"Microsoft Zira - English (United States)","language":"en-US","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"David","name":"Microsoft David - English (United States)","language":"en-US","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Mark","name":"Microsoft Mark - English (United States)","language":"en-US","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Hazel","name":"Microsoft Hazel - English (Great Britain)","language":"en-GB","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Susan","name":"Microsoft Susan - English (Great Britain)","language":"en-GB","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"George","name":"Microsoft George - English (Great Britain)","language":"en-GB","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Catherine","name":"Microsoft Catherine - English (Austalia)","language":"en-AU","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"James","name":"Microsoft Richard - English (Australia)","language":"en-AU","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Linda","name":"Microsoft Linda - English (Canada)","language":"en-CA","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Richard","name":"Microsoft Richard - English (Canada)","language":"en-CA","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Heera","name":"Microsoft Heera - English (India)","language":"en-IN","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Ravi","name":"Microsoft Ravi - English (India)","language":"en-IN","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Sean","name":"Microsoft Sean - English (Ireland)","language":"en-IE","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Female voice 1 (US)","name":"Google US English 5 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-tpc-network","Chrome OS US English 5","Android Speech Recognition and Synthesis from Google en-us-x-tpc-local","Android Speech Recognition and Synthesis from Google en-US-language"],"nativeID":["en-us-x-tpc-network","en-us-x-tpc-local"],"language":"en-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 2 (US)","name":"Google US English 1 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-iob-network","Chrome OS US English 1","Android Speech Recognition and Synthesis from Google en-us-x-iob-local"],"nativeID":["en-us-x-iob-network","en-us-x-iob-local"],"language":"en-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 3 (US)","name":"Google US English 2 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-iog-network","Chrome OS US English 2","Android Speech Recognition and Synthesis from Google en-us-x-iog-local"],"nativeID":["en-us-x-iog-network","en-us-x-iog-local"],"language":"en-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 4 (US)","name":"Google US English 7 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-tpf-network","Chrome OS US English 7","Android Speech Recognition and Synthesis from Google en-us-x-tpf-local"],"nativeID":["en-us-x-tpf-network","en-us-x-tpf-local"],"language":"en-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 5 (US)","name":"Android Speech Recognition and Synthesis from Google en-us-x-sfg-network","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-sfg-local"],"nativeID":["en-us-x-sfg-network","en-us-x-sfg-local"],"language":"en-US","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 6 (US)","name":"Chrome OS US English 8","language":"en-US","gender":"female","quality":["low"],"rate":1,"pitch":1,"os":["ChromeOS"],"preloaded":true},{"label":"Male voice 1 (US)","name":"Google US English 4 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-iom-network","Chrome OS US English 4","Android Speech Recognition and Synthesis from Google en-us-x-iom-local"],"nativeID":["en-us-x-iom-network","en-us-x-iom-local"],"language":"en-US","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 2 (US)","name":"Google US English 3 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-iol-network","Chrome OS US English 3","Android Speech Recognition and Synthesis from Google en-us-x-iol-local"],"nativeID":["en-us-x-iol-network","en-us-x-iol-local"],"language":"en-US","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 3 (US)","name":"Google US English 6 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-tpd-network","Chrome OS US English 6","Android Speech Recognition and Synthesis from Google en-us-x-tpd-local"],"nativeID":["en-us-x-tpd-network","en-us-x-tpd-local"],"language":"en-US","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 1 (UK)","name":"Google UK English 2 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-gba-network","Chrome OS UK English 2","Android Speech Recognition and Synthesis from Google en-gb-x-gba-local","Android Speech Recognition and Synthesis from Google en-GB-language"],"nativeID":["en-gb-x-gba-network","en-gb-x-gba-local"],"language":"en-GB","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 2 (UK)","name":"Google UK English 4 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-gbc-network","Chrome OS UK English 4","Android Speech Recognition and Synthesis from Google en-gb-x-gbc-local"],"nativeID":["en-gb-x-gbc-network","en-gb-x-gbc-local"],"language":"en-GB","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 3 (UK)","name":"Google UK English 6 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-gbg-network","Chrome OS UK English 6","Android Speech Recognition and Synthesis from Google en-gb-x-gbg-local"],"nativeID":["en-gb-x-gbg-network","en-gb-x-gbg-local"],"language":"en-GB","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 4 (UK)","name":"Chrome OS UK English 7","language":"en-GB","gender":"female","quality":["low"],"rate":1,"pitch":1,"os":["ChromeOS"],"preloaded":true},{"label":"Male voice 1 (UK)","name":"Google UK English 1 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-rjs-network","Chrome OS UK English 1","Android Speech Recognition and Synthesis from Google en-gb-x-rjs-local"],"nativeID":["en-gb-x-rjs-network","en-gb-x-rjs-local"],"language":"en-GB","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 2 (UK)","name":"Google UK English 3 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-gbb-network","Chrome OS UK English 3","Android Speech Recognition and Synthesis from Google en-gb-x-gbb-local"],"nativeID":["en-gb-x-gbb-network","en-gb-x-gbb-local"],"language":"en-GB","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 3 (UK)","name":"Google UK English 5 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-gbd-network","Chrome OS UK English 5","Android Speech Recognition and Synthesis from Google en-gb-x-gbd-local"],"nativeID":["en-gb-x-gbd-network","en-gb-x-gbd-local"],"language":"en-GB","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 1 (Australia)","name":"Google Australian English 1 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-au-x-aua-network","Chrome OS Australian English 1","Android Speech Recognition and Synthesis from Google en-au-x-aua-local","Android Speech Recognition and Synthesis from Google en-AU-language"],"nativeID":["en-au-x-aua-network","en-au-x-aua-local"],"language":"en-AU","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 2 (Australia)","name":"Google Australian English 3 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-au-x-auc-network","Chrome OS Australian English 3","Android Speech Recognition and Synthesis from Google en-au-x-auc-local"],"nativeID":["en-au-x-auc-network","en-au-x-auc-local"],"language":"en-AU","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 1 (Australia)","name":"Google Australian English 2 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-au-x-aub-network","Chrome OS Australian English 2","Android Speech Recognition and Synthesis from Google en-au-x-aub-local"],"nativeID":["en-au-x-aub-network","en-au-x-aub-local"],"language":"en-AU","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 2 (Australia)","name":"Google Australian English 4 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-au-x-aud-network","Chrome OS Australian English 4","Android Speech Recognition and Synthesis from Google en-au-x-aud-local"],"nativeID":["en-au-x-aud-network","en-au-x-aud-local"],"language":"en-AU","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 3 (Australia)","name":"Chrome OS Australian English 5","language":"en-AU","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["ChromeOS"],"preloaded":true},{"label":"Female voice 1 (India)","name":"Android Speech Recognition and Synthesis from Google en-in-x-ena-network","altNames":["Android Speech Recognition and Synthesis from Google en-in-x-ena-local","Android Speech Recognition and Synthesis from Google en-IN-language"],"nativeID":["en-in-x-ena-network","en-in-x-ena-local"],"language":"en-IN","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 2 (India)","name":"Android Speech Recognition and Synthesis from Google en-in-x-enc-network","altNames":["Android Speech Recognition and Synthesis from Google en-in-x-enc-local"],"nativeID":["en-in-x-enc-network","en-in-x-enc-local"],"language":"en-IN","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 1 (India)","name":"Android Speech Recognition and Synthesis from Google en-in-x-end-network","altNames":["Android Speech Recognition and Synthesis from Google en-in-x-end-local"],"nativeID":["en-in-x-end-network","en-in-x-end-local"],"language":"en-IN","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 2 (India)","name":"Android Speech Recognition and Synthesis from Google en-in-x-ene-network","altNames":["Android Speech Recognition and Synthesis from Google en-in-x-ene-local"],"nativeID":["en-in-x-ene-network","en-in-x-ene-local"],"language":"en-IN","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true}]`), Rn = {
+}, Cn = "en", kn = "en-US", qn = "Hello, my name is {name} and I am an English voice.", xn = /* @__PURE__ */ JSON.parse(`[{"label":"Emma","name":"Microsoft EmmaMultilingual Online (Natural) - English (United States)","altNames":["Microsoft Emma Online (Natural) - English (United States)"],"language":"en-US","multiLingual":true,"gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Microsoft Ava","name":"Microsoft AvaMultilingual Online (Natural) - English (United States)","altNames":["Microsoft Ava Online (Natural) - English (United States)"],"language":"en-US","multiLingual":true,"gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Jenny","name":"Microsoft Jenny Online (Natural) - English (United States)","language":"en-US","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Aria","name":"Microsoft Aria Online (Natural) - English (United States)","language":"en-US","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Michelle","name":"Microsoft Michelle Online (Natural) - English (United States)","language":"en-US","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Ana","name":"Microsoft Ana Online (Natural) - English (United States)","language":"en-US","gender":"female","children":true,"quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Andrew","name":"Microsoft AndrewMultilingual Online (Natural) - English (United States)","altNames":["Microsoft Andrew Online (Natural) - English (United States)"],"language":"en-US","multiLingual":true,"gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Brian","name":"Microsoft BrianMultilingual Online (Natural) - English (United States)","altNames":["Microsoft Brian Online (Natural) - English (United States)"],"language":"en-US","multiLingual":true,"gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Guy","name":"Microsoft Guy Online (Natural) - English (United States)","language":"en-US","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Eric","name":"Microsoft Eric Online (Natural) - English (United States)","language":"en-US","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Steffan","name":"Microsoft Steffan Online (Natural) - English (United States)","language":"en-US","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Christopher","name":"Microsoft Christopher Online (Natural) - English (United States)","language":"en-US","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Roger","name":"Microsoft Roger Online (Natural) - English (United States)","language":"en-US","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Sonia","name":"Microsoft Sonia Online (Natural) - English (United Kingdom)","language":"en-GB","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Libby","name":"Microsoft Libby Online (Natural) - English (United Kingdom)","language":"en-GB","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Maisie","name":"Microsoft Maisie Online (Natural) - English (United Kingdom)","language":"en-GB","gender":"female","children":true,"quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Ryan","name":"Microsoft Ryan Online (Natural) - English (United Kingdom)","language":"en-GB","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Thomas","name":"Microsoft Thomas Online (Natural) - English (United Kingdom)","language":"en-GB","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Natasha","name":"Microsoft Natasha Online (Natural) - English (Australia)","language":"en-AU","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Hayley","name":"Microsoft Hayley Online - English (Australia)","language":"en-AU","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"William","name":"Microsoft William Online (Natural) - English (Australia)","altNames":["Microsoft WilliamMultilingual Online (Natural) - English (Australia)"],"language":"en-AU","multiLingual":true,"gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Clara","name":"Microsoft Clara Online (Natural) - English (Canada)","language":"en-CA","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Heather","name":"Microsoft Heather Online - English (Canada)","language":"en-CA","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Liam","name":"Microsoft Liam Online (Natural) - English (Canada)","language":"en-CA","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Neerja","name":"Microsoft Neerja Online (Natural) - English (India)","altNames":["Microsoft Neerja Online (Natural) - English (India) (Preview)"],"language":"en-IN","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Prabhat","name":"Microsoft Prabhat Online (Natural) - English (India)","language":"en-IN","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Emily","name":"Microsoft Emily Online (Natural) - English (Ireland)","language":"en-IE","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Connor","name":"Microsoft Connor Online (Natural) - English (Ireland)","language":"en-IE","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Leah","name":"Microsoft Leah Online (Natural) - English (South Africa)","language":"en-ZA","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Luke","name":"Microsoft Luke Online (Natural) - English (South Africa)","language":"en-ZA","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Yan","name":"Microsoft Yan Online (Natural) - English (Hong Kong SAR)","language":"en-HK","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Sam","name":"Microsoft Sam Online (Natural) - English (Hongkong)","language":"en-HK","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Asilia","name":"Microsoft Asilia Online (Natural) - English (Kenya)","language":"en-KE","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Chilemba","name":"Microsoft Chilemba Online (Natural) - English (Kenya)","language":"en-KE","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Molly","name":"Microsoft Molly Online (Natural) - English (New Zealand)","language":"en-NZ","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Mitchell","name":"Microsoft Mitchell Online (Natural) - English (New Zealand)","language":"en-NZ","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Ezinne","name":"Microsoft Ezinne Online (Natural) - English (Nigeria)","language":"en-NG","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Abeo","name":"Microsoft Abeo Online (Natural) - English (Nigeria)","language":"en-NG","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Rosa","name":"Microsoft Rosa Online (Natural) - English (Philippines)","language":"en-PH","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"James","name":"Microsoft James Online (Natural) - English (Philippines)","language":"en-PH","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Luna","name":"Microsoft Luna Online (Natural) - English (Singapore)","language":"en-SG","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Wayne","name":"Microsoft Wayne Online (Natural) - English (Singapore)","language":"en-SG","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Imani","name":"Microsoft Imani Online (Natural) - English (Tanzania)","language":"en-TZ","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Elimu","name":"Microsoft Elimu Online (Natural) - English (Tanzania)","language":"en-TZ","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Female Google voice (US)","name":"Google US English","note":"This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.","language":"en-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"browser":["ChromeDesktop"],"preloaded":true},{"label":"Female Google voice (UK)","name":"Google UK English Female","note":"This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.","language":"en-GB","gender":"female","quality":["high"],"rate":1,"pitch":1,"browser":["ChromeDesktop"],"preloaded":true},{"label":"Male Google voice (UK)","name":"Google UK English Male","note":"This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.","language":"en-GB","gender":"male","quality":["high"],"rate":1,"pitch":1,"browser":["ChromeDesktop"],"preloaded":true},{"label":"Apple Ava","name":"Ava","localizedName":"apple","language":"en-US","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Zoe","name":"Zoe","localizedName":"apple","language":"en-US","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Allison","name":"Allison","localizedName":"apple","language":"en-US","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Nicky","name":"Nicky","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS. Unlike other Siri voices, a higher quality version can be installed and used.","language":"en-US","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Samantha","name":"Samantha","localizedName":"apple","language":"en-US","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Joelle","name":"Joelle","localizedName":"apple","language":"en-US","gender":"female","children":true,"quality":["normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Evan","name":"Evan","localizedName":"apple","language":"en-US","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Nathan","name":"Nathan","localizedName":"apple","language":"en-US","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Tom","name":"Tom","localizedName":"apple","language":"en-US","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Alex","name":"Alex","localizedName":"apple","language":"en-US","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Aaron","name":"Aaron","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS.","language":"en-US","gender":"male","quality":["low"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Kate","name":"Kate","localizedName":"apple","language":"en-GB","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Stephanie","name":"Stephanie","localizedName":"apple","language":"en-GB","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Serena","name":"Serena","localizedName":"apple","language":"en-GB","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Martha","name":"Martha","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS.","language":"en-GB","gender":"female","quality":["low"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Jamie","name":"Jamie","localizedName":"apple","language":"en-GB","gender":"male","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Oliver","name":"Oliver","localizedName":"apple","language":"en-GB","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Daniel","name":"Daniel","localizedName":"apple","language":"en-GB","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Arthur","name":"Arthur","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS.","language":"en-GB","gender":"male","quality":["low"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Matilda","name":"Matilda","localizedName":"apple","language":"en-AU","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Karen","name":"Karen","localizedName":"apple","language":"en-AU","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Catherine","name":"Catherine","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS.","language":"en-AU","gender":"female","quality":["low"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Lee","name":"Lee","localizedName":"apple","language":"en-AU","gender":"male","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Gordon","name":"Gordon","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS.","language":"en-AU","gender":"male","quality":["low"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Aman","name":"Aman","nativeID":["com.apple.voice.Aman"],"localizedName":"apple","language":"en-IN","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Tara","name":"Tara","nativeID":["com.apple.voice.Tara"],"localizedName":"apple","language":"en-IN","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Isha","name":"Isha","localizedName":"apple","language":"en-IN","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Sangeeta","name":"Sangeeta","localizedName":"apple","language":"en-IN","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Rishi","name":"Rishi","localizedName":"apple","language":"en-IN","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Moira","name":"Moira","localizedName":"apple","language":"en-IE","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Tessa","name":"Tessa","localizedName":"apple","language":"en-ZA","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Fiona","name":"Fiona","localizedName":"apple","language":"en-GB-u-sd-gbsct","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Zira","name":"Microsoft Zira - English (United States)","language":"en-US","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"David","name":"Microsoft David - English (United States)","language":"en-US","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Mark","name":"Microsoft Mark - English (United States)","language":"en-US","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Hazel","name":"Microsoft Hazel - English (Great Britain)","language":"en-GB","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Susan","name":"Microsoft Susan - English (Great Britain)","language":"en-GB","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"George","name":"Microsoft George - English (Great Britain)","language":"en-GB","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Catherine","name":"Microsoft Catherine - English (Austalia)","language":"en-AU","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"James","name":"Microsoft Richard - English (Australia)","language":"en-AU","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Linda","name":"Microsoft Linda - English (Canada)","language":"en-CA","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Richard","name":"Microsoft Richard - English (Canada)","language":"en-CA","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Heera","name":"Microsoft Heera - English (India)","language":"en-IN","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Ravi","name":"Microsoft Ravi - English (India)","language":"en-IN","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Sean","name":"Microsoft Sean - English (Ireland)","language":"en-IE","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Female voice 1 (US)","name":"Google US English 5 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-tpc-network","Chrome OS US English 5","Android Speech Recognition and Synthesis from Google en-us-x-tpc-local","Android Speech Recognition and Synthesis from Google en-US-language"],"nativeID":["en-us-x-tpc-network","en-us-x-tpc-local"],"language":"en-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 2 (US)","name":"Google US English 1 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-iob-network","Chrome OS US English 1","Android Speech Recognition and Synthesis from Google en-us-x-iob-local"],"nativeID":["en-us-x-iob-network","en-us-x-iob-local"],"language":"en-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 3 (US)","name":"Google US English 2 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-iog-network","Chrome OS US English 2","Android Speech Recognition and Synthesis from Google en-us-x-iog-local"],"nativeID":["en-us-x-iog-network","en-us-x-iog-local"],"language":"en-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 4 (US)","name":"Google US English 7 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-tpf-network","Chrome OS US English 7","Android Speech Recognition and Synthesis from Google en-us-x-tpf-local"],"nativeID":["en-us-x-tpf-network","en-us-x-tpf-local"],"language":"en-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 5 (US)","name":"Android Speech Recognition and Synthesis from Google en-us-x-sfg-network","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-sfg-local"],"nativeID":["en-us-x-sfg-network","en-us-x-sfg-local"],"language":"en-US","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 6 (US)","name":"Chrome OS US English 8","language":"en-US","gender":"female","quality":["low"],"rate":1,"pitch":1,"os":["ChromeOS"],"preloaded":true},{"label":"Male voice 1 (US)","name":"Google US English 4 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-iom-network","Chrome OS US English 4","Android Speech Recognition and Synthesis from Google en-us-x-iom-local"],"nativeID":["en-us-x-iom-network","en-us-x-iom-local"],"language":"en-US","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 2 (US)","name":"Google US English 3 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-iol-network","Chrome OS US English 3","Android Speech Recognition and Synthesis from Google en-us-x-iol-local"],"nativeID":["en-us-x-iol-network","en-us-x-iol-local"],"language":"en-US","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 3 (US)","name":"Google US English 6 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-tpd-network","Chrome OS US English 6","Android Speech Recognition and Synthesis from Google en-us-x-tpd-local"],"nativeID":["en-us-x-tpd-network","en-us-x-tpd-local"],"language":"en-US","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 1 (UK)","name":"Google UK English 2 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-gba-network","Chrome OS UK English 2","Android Speech Recognition and Synthesis from Google en-gb-x-gba-local","Android Speech Recognition and Synthesis from Google en-GB-language"],"nativeID":["en-gb-x-gba-network","en-gb-x-gba-local"],"language":"en-GB","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 2 (UK)","name":"Google UK English 4 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-gbc-network","Chrome OS UK English 4","Android Speech Recognition and Synthesis from Google en-gb-x-gbc-local"],"nativeID":["en-gb-x-gbc-network","en-gb-x-gbc-local"],"language":"en-GB","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 3 (UK)","name":"Google UK English 6 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-gbg-network","Chrome OS UK English 6","Android Speech Recognition and Synthesis from Google en-gb-x-gbg-local"],"nativeID":["en-gb-x-gbg-network","en-gb-x-gbg-local"],"language":"en-GB","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 4 (UK)","name":"Chrome OS UK English 7","language":"en-GB","gender":"female","quality":["low"],"rate":1,"pitch":1,"os":["ChromeOS"],"preloaded":true},{"label":"Male voice 1 (UK)","name":"Google UK English 1 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-rjs-network","Chrome OS UK English 1","Android Speech Recognition and Synthesis from Google en-gb-x-rjs-local"],"nativeID":["en-gb-x-rjs-network","en-gb-x-rjs-local"],"language":"en-GB","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 2 (UK)","name":"Google UK English 3 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-gbb-network","Chrome OS UK English 3","Android Speech Recognition and Synthesis from Google en-gb-x-gbb-local"],"nativeID":["en-gb-x-gbb-network","en-gb-x-gbb-local"],"language":"en-GB","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 3 (UK)","name":"Google UK English 5 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-gbd-network","Chrome OS UK English 5","Android Speech Recognition and Synthesis from Google en-gb-x-gbd-local"],"nativeID":["en-gb-x-gbd-network","en-gb-x-gbd-local"],"language":"en-GB","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 1 (Australia)","name":"Google Australian English 1 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-au-x-aua-network","Chrome OS Australian English 1","Android Speech Recognition and Synthesis from Google en-au-x-aua-local","Android Speech Recognition and Synthesis from Google en-AU-language"],"nativeID":["en-au-x-aua-network","en-au-x-aua-local"],"language":"en-AU","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 2 (Australia)","name":"Google Australian English 3 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-au-x-auc-network","Chrome OS Australian English 3","Android Speech Recognition and Synthesis from Google en-au-x-auc-local"],"nativeID":["en-au-x-auc-network","en-au-x-auc-local"],"language":"en-AU","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 1 (Australia)","name":"Google Australian English 2 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-au-x-aub-network","Chrome OS Australian English 2","Android Speech Recognition and Synthesis from Google en-au-x-aub-local"],"nativeID":["en-au-x-aub-network","en-au-x-aub-local"],"language":"en-AU","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 2 (Australia)","name":"Google Australian English 4 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-au-x-aud-network","Chrome OS Australian English 4","Android Speech Recognition and Synthesis from Google en-au-x-aud-local"],"nativeID":["en-au-x-aud-network","en-au-x-aud-local"],"language":"en-AU","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 3 (Australia)","name":"Chrome OS Australian English 5","language":"en-AU","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["ChromeOS"],"preloaded":true},{"label":"Female voice 1 (India)","name":"Android Speech Recognition and Synthesis from Google en-in-x-ena-network","altNames":["Android Speech Recognition and Synthesis from Google en-in-x-ena-local","Android Speech Recognition and Synthesis from Google en-IN-language"],"nativeID":["en-in-x-ena-network","en-in-x-ena-local"],"language":"en-IN","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 2 (India)","name":"Android Speech Recognition and Synthesis from Google en-in-x-enc-network","altNames":["Android Speech Recognition and Synthesis from Google en-in-x-enc-local"],"nativeID":["en-in-x-enc-network","en-in-x-enc-local"],"language":"en-IN","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 1 (India)","name":"Android Speech Recognition and Synthesis from Google en-in-x-end-network","altNames":["Android Speech Recognition and Synthesis from Google en-in-x-end-local"],"nativeID":["en-in-x-end-network","en-in-x-end-local"],"language":"en-IN","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 2 (India)","name":"Android Speech Recognition and Synthesis from Google en-in-x-ene-network","altNames":["Android Speech Recognition and Synthesis from Google en-in-x-ene-local"],"nativeID":["en-in-x-ene-network","en-in-x-ene-local"],"language":"en-IN","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true}]`), Rn = {
   language: Cn,
   defaultRegion: kn,
   testUtterance: qn,
@@ -321,33 +321,33 @@ const Ra = "ar-SA", Ea = "مرحبًا، اسمي {name} وأنا صوت عرب�
   "zh-HK": "yue-HK",
   wuu: "wuu",
   "wuu-CN": "wuu-CN"
-}, K = (e) => {
+}, z = (e) => {
   if (!e) return "";
   let a = e.toLowerCase().replace(/_/g, "-");
   if (/\w{2,3}-\w{2,3}/.test(a)) {
-    const [r, n] = a.split("-");
-    a = `${r.toLowerCase()}-${n.toUpperCase()}`;
+    const [t, n] = a.split("-");
+    a = `${t.toLowerCase()}-${n.toUpperCase()}`;
   }
   return ne[a] || a;
 }, ge = (e) => {
   if (!e) return [];
   try {
-    const a = K(e);
-    let r = L(a);
-    if (!r || !r.voices?.length) {
+    const a = z(e);
+    let t = L(a);
+    if (!t || !t.voices?.length) {
       const [n] = M(a);
-      n !== a && (r = L(n));
+      n !== a && (t = L(n));
     }
-    return r?.voices || [];
+    return t?.voices || [];
   } catch (a) {
     return console.error(`Failed to load voices for ${e}:`, a), [];
   }
 }, Fs = () => Object.keys(ca), $e = (e) => {
   if (!e) return "";
   try {
-    const a = K(e);
-    let r = L(a);
-    if (!r?.testUtterance && a in ne) {
+    const a = z(e);
+    let t = L(a);
+    if (!t?.testUtterance && a in ne) {
       const n = ne[a];
       if (n) {
         const l = L(n);
@@ -355,7 +355,7 @@ const Ra = "ar-SA", Ea = "مرحبًا، اسمي {name} وأنا صوت عرب�
           return l.testUtterance;
       }
     }
-    if (!r?.testUtterance) {
+    if (!t?.testUtterance) {
       const [n] = M(a);
       if (n !== a) {
         const l = L(n);
@@ -363,16 +363,16 @@ const Ra = "ar-SA", Ea = "مرحبًا، اسمي {name} وأنا صوت عرب�
           return l.testUtterance;
       }
     }
-    return r?.testUtterance ?? "";
+    return t?.testUtterance ?? "";
   } catch (a) {
     return console.error(`Failed to get test utterance for ${e}:`, a), "";
   }
 }, se = (e) => {
   if (!e) return "";
   try {
-    const a = K(e);
-    let r = L(a);
-    if (!r?.defaultRegion && a in ne) {
+    const a = z(e);
+    let t = L(a);
+    if (!t?.defaultRegion && a in ne) {
       const n = ne[a];
       if (n) {
         const l = L(n);
@@ -380,7 +380,7 @@ const Ra = "ar-SA", Ea = "مرحبًا، اسمي {name} وأنا صوت عرب�
           return l.defaultRegion;
       }
     }
-    if (!r?.defaultRegion) {
+    if (!t?.defaultRegion) {
       const [n] = M(a);
       if (n !== a) {
         const l = L(n);
@@ -388,37 +388,37 @@ const Ra = "ar-SA", Ea = "مرحبًا، اسمي {name} وأنا صوت عرب�
           return l.defaultRegion;
       }
     }
-    return r?.defaultRegion || "";
+    return t?.defaultRegion || "";
   } catch (a) {
     return console.error(`Failed to get default region for ${e}:`, a), "";
   }
 }, je = (e) => {
   if (!e?.length) return [];
-  const a = /* @__PURE__ */ new Set(), r = /* @__PURE__ */ new Map(), n = /* @__PURE__ */ new Map();
+  const a = /* @__PURE__ */ new Set(), t = /* @__PURE__ */ new Map(), n = /* @__PURE__ */ new Map();
   for (const [l, o] of e.entries()) {
     if (!o) continue;
-    const g = K(o), [t, d] = M(g);
-    d && (a.add(d), n.has(d) || n.set(d, l)), r.has(t) || r.set(t, /* @__PURE__ */ new Set()), d && r.get(t).add(d);
+    const g = z(o), [r, d] = M(g);
+    d && (a.add(d), n.has(d) || n.set(d, l)), t.has(r) || t.set(r, /* @__PURE__ */ new Set()), d && t.get(r).add(d);
   }
-  return Array.from(r.entries()).map(([l, o]) => {
-    const g = ge(l), t = new Set(
-      g.map((u) => {
-        const [, h] = M(u.language);
-        return h;
+  return Array.from(t.entries()).map(([l, o]) => {
+    const g = ge(l), r = new Set(
+      g.map((c) => {
+        const [, m] = M(c.language);
+        return m;
       }).filter(Boolean)
     ), d = Array.from(o), s = Array.from(a).filter(
-      (u) => t.has(u) && !d.includes(u)
-    ), m = Array.from(/* @__PURE__ */ new Set([...d, ...s])).sort((u, h) => {
-      const c = n.get(u) ?? Number.MAX_SAFE_INTEGER, b = n.get(h) ?? Number.MAX_SAFE_INTEGER;
-      return c - b;
+      (c) => r.has(c) && !d.includes(c)
+    ), u = Array.from(/* @__PURE__ */ new Set([...d, ...s])).sort((c, m) => {
+      const h = n.get(c) ?? Number.MAX_SAFE_INTEGER, S = n.get(m) ?? Number.MAX_SAFE_INTEGER;
+      return h - S;
     });
-    if (m.length === 0) {
-      const u = se(l), [, h] = M(u);
-      h && m.push(h);
+    if (u.length === 0) {
+      const c = se(l), [, m] = M(c);
+      m && u.push(m);
     }
     return {
       baseLang: l,
-      regions: m
+      regions: u
     };
   });
 };
@@ -429,55 +429,55 @@ function le(e) {
     const [l] = M(n.language);
     a.has(l) || a.set(l, []), a.get(l).push(n);
   }
-  const r = /* @__PURE__ */ new Map();
+  const t = /* @__PURE__ */ new Map();
   for (const [n, l] of a.entries()) {
-    const o = /* @__PURE__ */ new Map(), g = ge(n), t = /* @__PURE__ */ new Map();
+    const o = /* @__PURE__ */ new Map(), g = ge(n), r = /* @__PURE__ */ new Map();
     g.forEach((d, s) => {
-      t.set(d.name.toLowerCase(), s), d.altNames?.forEach((m) => {
-        t.set(m.toLowerCase(), s);
+      r.set(d.name.toLowerCase(), s), d.altNames?.forEach((u) => {
+        r.set(u.toLowerCase(), s);
       });
     });
     for (const d of l) {
-      const s = d.name.toLowerCase(), m = t.get(s);
-      m !== void 0 && o.set(d.name, m);
+      const s = d.name.toLowerCase(), u = r.get(s);
+      u !== void 0 && o.set(d.name, u);
     }
-    o.size > 0 && r.set(n, o);
+    o.size > 0 && t.set(n, o);
   }
-  return r;
+  return t;
 }
 const Vo = [{ name: "Albert", nativeID: ["com.apple.speech.synthesis.voice.Albert"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bad News", nativeID: ["com.apple.speech.synthesis.voice.BadNews"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Mauvaises nouvelles", "Malas noticias", "Brutte notizie"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bahh", nativeID: ["com.apple.speech.synthesis.voice.Bahh"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bells", nativeID: ["com.apple.speech.synthesis.voice.Bells"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Cloches", "Campanas", "Campane"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Boing", nativeID: ["com.apple.speech.synthesis.voice.Boing"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bubbles", nativeID: ["com.apple.speech.synthesis.voice.Bubbles"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bulles", "Burbujas", "Bollicine"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Cellos", nativeID: ["com.apple.speech.synthesis.voice.Cellos"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Violoncelles", "Violonchelos", "Violoncelli"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Good News", nativeID: ["com.apple.speech.synthesis.voice.GoodNews"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bonnes nouvelles", "Buenas noticias", "Buone notizie"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Jester", nativeID: ["com.apple.speech.synthesis.voice.Hysterical"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bouffon", "Bufón", "Giullare"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Organ", nativeID: ["com.apple.speech.synthesis.voice.Organ"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Orgue", "Órgano", "Organo"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Superstar", nativeID: ["com.apple.speech.synthesis.voice.Princess"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Superestrella"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Trinoids", nativeID: ["com.apple.speech.synthesis.voice.Trinoids"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Trinoïdes"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Whisper", nativeID: ["com.apple.speech.synthesis.voice.Whisper"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Murmure", "Susurro", "Sussurro"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Wobble", nativeID: ["com.apple.speech.synthesis.voice.Deranged"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Zarvox", nativeID: ["com.apple.speech.synthesis.voice.Zarvox"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }], Ko = {
   voices: Vo
 }, Wo = [{ name: "Eddy", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Flo", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Grandma", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Grandpa", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Jacques", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Reed", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Rocko", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Sandy", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Shelley", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Fred", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Junior", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Kathy", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Ralph", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "eSpeak Arabic", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ar", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Bulgarian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "bg", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Bengali", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "bn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Catalan", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ca", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Chinese (Mandarin, latin as English)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "cmn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Czech", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "cs", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Danish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "da", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak German", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "de", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Greek", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "el", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Spanish (Spain)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "es", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Estonian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "et", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Finnish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "fi", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Gujarati", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "gu", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Croatian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "hr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Hungarian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "hu", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Indonesian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "id", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Italian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "it", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Kannada", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "kn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Korean", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ko", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Lithuanian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "lt", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Latvian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "lv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Malayalm", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ml", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Marathi", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "mr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Malay", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ms", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Norwegian Bokmål", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "nb", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Polish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "pl", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Portuguese (Brazil)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "pt-br", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Romanian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ro", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Russian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ru", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Slovak", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sk", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Slovenian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sl", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Serbian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Swedish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Swahili", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sw", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Tamil", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ta", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Telugu", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "te", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Turkish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "tr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Vietnamese (Northern)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "vi", os: ["ChromeOS"], preloaded: !0 }], Jo = {
   voices: Wo
 }, _o = Ko, Yo = Jo, ke = (e, a) => _o.voices.some(
-  (r) => e.includes(r.name) || a && r.nativeID?.some((n) => a.includes(n)) || r.altNames?.some((n) => e.includes(n))
+  (t) => e.includes(t.name) || a && t.nativeID?.some((n) => a.includes(n)) || t.altNames?.some((n) => e.includes(n))
 ), qe = (e, a) => Yo.voices.some(
-  (r) => e.includes(r.name)
+  (t) => e.includes(t.name)
 ) || a === "veryLow", Fe = (e) => e?.length ? e.filter((a) => !(a.isNovelty || ke(a.name, a.voiceURI))) : [], Ve = (e) => e?.length ? e.filter((a) => !qe(a.name, a.quality)) : [], Qo = { ar: { normal: "محسن", high: "استثنائي" }, ca: { normal: "millorada", high: "prèmium" }, "cmn-CN": { normal: "优化音质", high: "高音质" }, "cmn-TW": { normal: "增強音質", high: "高音質" }, cs: { normal: "vylepšená verze", high: "prémiový" }, da: { normal: "forbedret", high: "høj kvalitet" }, de: { normal: "erweitert", high: "premium" }, el: { normal: "βελτιωμένη", high: "υψηλής ποιότητας" }, en: { normal: "Enhanced", high: "Premium" }, es: { normal: "mejorada", high: "premium" }, fi: { normal: "parannettu", high: "korkealaatuinen" }, fr: { normal: "premium", high: "de qualité" }, he: { normal: "משופר", high: "פרימיום" }, hi: { normal: "बेहतर", high: "प्रीमियम" }, hr: { normal: "poboljšani", high: "vrhunski" }, hu: { normal: "továbbfejlesztett", high: "prémium" }, id: { normal: "Ditingkatkan", high: "Premium" }, it: { normal: "ottimizzata", high: "premium" }, ja: { normal: "拡張", high: "プレミアム" }, ko: { normal: "고품질", high: "프리미엄" }, ms: { normal: "Dipertingkat", high: "Premium" }, nb: { normal: "forbedret", high: "premium" }, nl: { normal: "verbeterd", high: "premium" }, pl: { normal: "rozszerzony", high: "premium" }, pt: { normal: "melhorada", high: "premium" }, ro: { normal: "îmbunătățită", high: "premium" }, ru: { normal: "улучшенный", high: "высшее качество" }, sk: { normal: "vylepšený", high: "prémiový" }, sl: { normal: "izboljšano", high: "prvovrsten" }, sv: { normal: "förbättrad", high: "premium" }, th: { normal: "คุณภาพสูง", high: "คุณภาพสูง" }, tr: { normal: "Geliştirilmiş", high: "Yüksek Kaliteli" }, uk: { normal: "вдосконалений", high: "високої якості" }, vi: { normal: "Nâng cao", high: "Cao cấp" } }, Zo = {
   quality: Qo
 }, xe = {
   apple: Zo.quality
   // android: androidQualities.quality
-}, Xo = (e, a, r) => {
+}, Xo = (e, a, t) => {
   if (!e) return;
-  const n = Array.isArray(r) ? r : r ? [r] : [];
+  const n = Array.isArray(t) ? t : t ? [t] : [];
   for (const l of n)
     if (l && xe[l]) {
-      const o = xe[l], g = M(a)[0], t = o[a] || o[g];
-      if (t) {
-        const d = e.toLowerCase(), { normal: s, high: m } = t;
-        if (m && d.includes(m.toLowerCase()))
+      const o = xe[l], g = M(a)[0], r = o[a] || o[g];
+      if (r) {
+        const d = e.toLowerCase(), { normal: s, high: u } = r;
+        if (u && d.includes(u.toLowerCase()))
           return "high";
         if (s && d.includes(s.toLowerCase()))
           return "normal";
       }
     }
 }, el = (e, a) => {
-  const r = xe[a];
-  if (r)
-    for (const [n, { high: l, normal: o }] of Object.entries(r)) {
-      const g = l && e.some((d) => d.includes(l)), t = o && e.some((d) => d.includes(o));
-      if (g && t)
+  const t = xe[a];
+  if (t)
+    for (const [n, { high: l, normal: o }] of Object.entries(t)) {
+      const g = l && e.some((d) => d.includes(l)), r = o && e.some((d) => d.includes(o));
+      if (g && r)
         return n;
     }
 }, al = {
@@ -495,22 +495,22 @@ const Vo = [{ name: "Albert", nativeID: ["com.apple.speech.synthesis.voice.Alber
   }
 }, Ke = (e) => {
   if (!e) return;
-  const r = e.toLowerCase().split(/[._-]/);
+  const t = e.toLowerCase().split(/[._-]/);
   for (const n of Object.values(al))
-    if (n.values.some((l) => r.includes(l)))
+    if (n.values.some((l) => t.includes(l)))
       return n.quality;
 };
 function nl(e, a) {
   if (e.name === e.originalName) return e;
   if (a.name === a.originalName) return a;
-  const r = [e.originalName, ...e.altNames || []], n = [a.originalName, ...a.altNames || []], l = r.findIndex((g) => n.includes(g)), o = n.findIndex((g) => r.includes(g));
+  const t = [e.originalName, ...e.altNames || []], n = [a.originalName, ...a.altNames || []], l = t.findIndex((g) => n.includes(g)), o = n.findIndex((g) => t.includes(g));
   return l === -1 && o === -1 || l !== -1 && (o === -1 || l <= o) ? e : a;
 }
 function rl(e, a) {
   if (!e.altNames && !a.altNames)
     return !1;
-  const r = e.originalName, n = a.originalName, l = e.altNames || [], o = a.altNames || [];
-  return o.includes(r) || l.includes(n) ? !0 : l.filter((t) => o.includes(t)).length > 0;
+  const t = e.originalName, n = a.originalName, l = e.altNames || [], o = a.altNames || [];
+  return o.includes(t) || l.includes(n) ? !0 : l.filter((r) => o.includes(r)).length > 0;
 }
 class O {
   static instance;
@@ -531,11 +531,11 @@ class O {
    * @param options.interval Interval in milliseconds between voice loading checks (passed to getBrowserVoices)
    * @returns Promise that resolves with the WebSpeechVoiceManager instance
    */
-  static async initialize(a, r) {
+  static async initialize(a, t) {
     return O.instance?.isInitialized ? O.instance : (O.initializationPromise || (O.initializationPromise = (async () => {
       try {
         const n = new O();
-        return O.instance = n, n.browserVoices = await n.getBrowserVoices(a, r), n.updateSystemLocale(n.browserVoices), n.voices = await n.parseToReadiumSpeechVoices(n.browserVoices), n.isInitialized = !0, n;
+        return O.instance = n, n.browserVoices = await n.getBrowserVoices(a, t), n.updateSystemLocale(n.browserVoices), n.voices = await n.parseToReadiumSpeechVoices(n.browserVoices), n.isInitialized = !0, n;
       } catch (n) {
         throw O.initializationPromise = null, console.error("Failed to initialize WebSpeechVoiceManager:", n), n;
       }
@@ -553,10 +553,10 @@ class O {
    * Get display name for a language code
    * @private
    */
-  static getLanguageDisplayName(a, r) {
+  static getLanguageDisplayName(a, t) {
     try {
       return new Intl.DisplayNames(
-        r ? [r] : [],
+        t ? [t] : [],
         { type: "language", languageDisplay: "standard" }
       ).of(a) || a.toUpperCase();
     } catch {
@@ -582,13 +582,13 @@ class O {
    * @private
    */
   countVoiceDuplicates(a) {
-    const r = /* @__PURE__ */ new Map();
+    const t = /* @__PURE__ */ new Map();
     for (const n of a) {
       if (!n?.name || !n?.lang) continue;
       const l = `${n.lang.toLowerCase()}_${this.normalizeVoiceName(n.name)}`;
-      r.set(l, (r.get(l) || 0) + 1);
+      t.set(l, (t.get(l) || 0) + 1);
     }
-    return r;
+    return t;
   }
   /**
    * Updates the system locale based on available voices by detecting quality indicators.
@@ -600,7 +600,7 @@ class O {
    */
   updateSystemLocale(a) {
     if (!a?.length) return;
-    const r = a.map((l) => l.name), n = el(r, "apple");
+    const t = a.map((l) => l.name), n = el(t, "apple");
     n && (this.systemLocale = n);
   }
   /**
@@ -608,24 +608,24 @@ class O {
    * Returns null if quality cannot be determined
    * @private
    */
-  inferVoiceQuality(a, r, n) {
+  inferVoiceQuality(a, t, n) {
     const l = a.voiceURI ? Ke(a.voiceURI) : void 0;
     if (l) return l;
-    if (r?.nativeID && Array.isArray(r.nativeID))
-      for (const o of r.nativeID) {
+    if (t?.nativeID && Array.isArray(t.nativeID))
+      for (const o of t.nativeID) {
         const g = Ke(o);
         if (g) return g;
       }
-    if (r?.localizedName && a.voiceURI && a.lang) {
+    if (t?.localizedName && a.voiceURI && a.lang) {
       const o = Xo(
         a.voiceURI,
         this.systemLocale,
-        r.localizedName
+        t.localizedName
       );
       if (o) return o;
     }
-    if (r?.quality && r.quality.length > 0) {
-      const o = Math.min(n - 1, r.quality.length - 1), g = r.quality[o];
+    if (t?.quality && t.quality.length > 0) {
+      const o = Math.min(n - 1, t.quality.length - 1), g = t.quality[o];
       if (g)
         return g;
     }
@@ -635,9 +635,9 @@ class O {
    * Find matching JSON voice by name or alternative names
    * @private
    */
-  findMatchingJsonVoice(a, r) {
+  findMatchingJsonVoice(a, t) {
     return a.find(
-      (n) => this.normalizeVoiceName(n.name) === r || n.altNames?.some((l) => this.normalizeVoiceName(l) === r)
+      (n) => this.normalizeVoiceName(n.name) === t || n.altNames?.some((l) => this.normalizeVoiceName(l) === t)
     );
   }
   /**
@@ -645,21 +645,21 @@ class O {
    * @param voices Array of voices to remove duplicates from
    * @returns Filtered array with duplicates removed, keeping only the highest quality versions
    */
-  removeDuplicate(a) {
-    const r = /* @__PURE__ */ new Map();
+  removeDuplicates(a) {
+    const t = /* @__PURE__ */ new Map();
     for (const n of a) {
-      const l = `${n.language.toLowerCase()}_${this.normalizeVoiceName(n.name)}`, o = r.get(l);
+      const l = `${n.language.toLowerCase()}_${this.normalizeVoiceName(n.name)}`, o = t.get(l);
       if (!o)
-        r.set(l, n);
+        t.set(l, n);
       else if (rl(n, o)) {
         const g = nl(n, o);
-        r.set(l, g);
+        t.set(l, g);
       } else {
         const g = O.getQualityValue(o.quality);
-        O.getQualityValue(n.quality) >= g && r.set(l, n);
+        O.getQualityValue(n.quality) >= g && t.set(l, n);
       }
     }
-    return Array.from(r.values());
+    return Array.from(t.values());
   }
   /**
    * Get test utterance for a given language
@@ -668,8 +668,8 @@ class O {
    */
   getTestUtterance(a) {
     if (!a) return "";
-    const r = $e(a);
-    if (r) return r;
+    const t = $e(a);
+    if (t) return t;
     const [n] = O.extractLangRegionFromBCP47(a);
     if (n && n !== a) {
       const l = $e(n);
@@ -684,68 +684,61 @@ class O {
   getVoices(a = {}) {
     if (!this.isInitialized)
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
-    const r = {
-      excludeNovelty: !0,
-      // Default to true to filter out novelty voices
-      excludeVeryLowQuality: !0,
-      // Default to true to filter out very low quality voices
-      ...a
-      // Let explicit options override the defaults
-    };
-    return this.filterVoices([...this.voices], r);
+    return this.filterVoices(a, [...this.voices]);
   }
   /**
    * Get available languages with voice counts
    * @param localization Optional BCP 47 language tag to use for language names
    * @param filterOptions Optional filters to apply to voices before counting languages
+   * @param voices Optional array of voices to count (defaults to this.voices)
    */
-  getLanguages(a, r) {
-    if (!this.isInitialized)
+  getLanguages(a, t, n) {
+    if (!n && !this.isInitialized)
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
-    const n = /* @__PURE__ */ new Map();
-    return (r ? this.filterVoices([...this.voices], r) : this.voices).forEach((o) => {
-      const g = o.language, d = K(g).split("-")[0], s = O.getLanguageDisplayName(
-        d,
-        a
-      ), m = n.get(d) || {
-        count: 0,
-        label: s,
-        code: d
-      };
-      n.set(d, { ...m, count: m.count + 1 });
-    }), Array.from(n.entries()).map(([o, { code: g, label: t, count: d }]) => ({
-      code: g,
-      label: t,
-      count: d
-    })).sort((o, g) => o.label.localeCompare(g.label));
+    const l = n ?? this.voices, o = t ? this.filterVoices(t, l) : l, g = [], r = /* @__PURE__ */ new Set();
+    for (const d of o) {
+      const u = z(d.language).split("-")[0];
+      if (!r.has(u)) {
+        const c = O.getLanguageDisplayName(u, a), m = o.filter(
+          (h) => z(h.language).split("-")[0] === u
+        ).length;
+        g.push({ code: u, label: c, count: m }), r.add(u);
+      }
+    }
+    return n ? g : g.sort((d, s) => d.label.localeCompare(s.label));
   }
   /**
    * Get available regions with voice counts
+   * @param localization Optional BCP 47 language tag to use for region names
+   * @param filterOptions Optional filters to apply to voices before counting regions
+   * @param voices Optional array of voices to count (defaults to this.voices)
    */
-  getRegions(a) {
-    if (!this.isInitialized)
+  getRegions(a, t, n) {
+    if (!n && !this.isInitialized)
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
-    const r = /* @__PURE__ */ new Map();
-    return this.voices.forEach((n) => {
-      const [, l] = O.extractLangRegionFromBCP47(n.language);
-      if (l) {
-        const o = r.get(l) || { count: 0, label: n.language };
-        r.set(l, { ...o, count: o.count + 1 });
+    const l = n ?? this.voices, o = t ? this.filterVoices(t, l) : l, g = [], r = /* @__PURE__ */ new Set(), d = /* @__PURE__ */ new Map();
+    for (const s of o) {
+      const [, u] = O.extractLangRegionFromBCP47(s.language);
+      u && d.set(u, (d.get(u) || 0) + 1);
+    }
+    for (const s of o) {
+      const [, u] = O.extractLangRegionFromBCP47(s.language);
+      if (u && !r.has(u)) {
+        let c = s.language;
+        try {
+          const m = a || navigator.language;
+          c = new Intl.DisplayNames([m], { type: "region" }).of(u) || s.language;
+        } catch (m) {
+          console.warn(`Failed to get display name for region ${u}`, m);
+        }
+        g.push({
+          code: u,
+          label: c,
+          count: d.get(u) || 0
+        }), r.add(u);
       }
-    }), Array.from(r.entries()).map(([n, { count: l, label: o }]) => {
-      let g = o;
-      try {
-        const t = a || navigator.language;
-        g = new Intl.DisplayNames([t], { type: "region" }).of(n) || o;
-      } catch (t) {
-        console.warn(`Failed to get display name for region ${n}`, t);
-      }
-      return {
-        code: n,
-        label: g,
-        count: l
-      };
-    });
+    }
+    return n ? g : g.sort((s, u) => s.label.localeCompare(u.label));
   }
   /**
    * Get the default voice for language preferences
@@ -753,34 +746,34 @@ class O {
    * @param voices Optional pre-filtered voices array to use instead of fetching voices
    * @returns The default voice for the language, or null if no voices are available
    */
-  getDefaultVoice(a, r) {
+  getDefaultVoice(a, t) {
     if (!a) return null;
     const n = Array.isArray(a) ? a : [a];
-    let l = r || this.getVoices({ languages: n });
-    return l.length ? (l = this.sortVoicesByRegions(l, n), l[0]) : null;
+    let l = t || this.getVoices({ languages: n });
+    return l.length ? (l = this.sortVoicesByRegions(n, l), l[0]) : null;
   }
-  getBrowserVoices(a = 1e4, r = 10) {
+  getBrowserVoices(a = 1e4, t = 10) {
     const n = () => window.speechSynthesis?.getVoices() || [];
     if (!window.speechSynthesis)
       return Promise.resolve([]);
     const l = n();
     return Array.isArray(l) && l.length ? Promise.resolve(l) : new Promise((o, g) => {
-      let t = Math.floor(a / r), d = !1;
+      let r = Math.floor(a / t), d = !1;
       const s = () => {
         if (d) return;
         d = !0;
-        const m = () => {
-          if (t < 1) return o([]);
-          --t;
-          const u = n();
-          if (Array.isArray(u) && u.length) return o(u);
-          setTimeout(m, r);
+        const u = () => {
+          if (r < 1) return o([]);
+          --r;
+          const c = n();
+          if (Array.isArray(c) && c.length) return o(c);
+          setTimeout(u, t);
         };
-        setTimeout(m, r);
+        setTimeout(u, t);
       };
       window.speechSynthesis.onvoiceschanged !== void 0 ? window.speechSynthesis.onvoiceschanged = () => {
-        const m = n();
-        Array.isArray(m) && m.length ? o(m) : s();
+        const u = n();
+        Array.isArray(u) && u.length ? o(u) : s();
       } : s(), setTimeout(() => o([]), a);
     });
   }
@@ -789,21 +782,22 @@ class O {
    * @private
    */
   parseToReadiumSpeechVoices(a) {
-    const r = this.countVoiceDuplicates(a), n = a.filter((l) => l?.name && l?.lang).map((l) => {
-      const o = K(l.lang), [g] = O.extractLangRegionFromBCP47(o), t = this.normalizeVoiceName(l.name), d = `${l.lang.toLowerCase()}_${t}`, s = r.get(d) || 1;
-      let m = ge(o);
-      (!m || m.length === 0) && (m = ge(g));
-      const u = this.findMatchingJsonVoice(m, t), h = this.inferVoiceQuality(l, u, s);
-      return u ? {
-        ...u,
+    const t = this.countVoiceDuplicates(a);
+    return a.filter((l) => l?.name && l?.lang).map((l) => {
+      const o = z(l.lang), [g] = O.extractLangRegionFromBCP47(o), r = this.normalizeVoiceName(l.name), d = `${l.lang.toLowerCase()}_${r}`, s = t.get(d) || 1;
+      let u = ge(o);
+      (!u || u.length === 0) && (u = ge(g));
+      const c = this.findMatchingJsonVoice(u, r), m = this.inferVoiceQuality(l, c, s);
+      return c ? {
+        ...c,
         source: "json",
         originalName: l.name,
         voiceURI: l.voiceURI,
-        quality: h,
+        quality: m,
         isDefault: l.default || !1,
         offlineAvailability: l.localService || !1,
         isNovelty: ke(l.name, l.voiceURI),
-        isLowQuality: qe(l.name, h)
+        isLowQuality: qe(l.name, m)
       } : {
         source: "browser",
         label: this.cleanVoiceName(l.name),
@@ -811,14 +805,13 @@ class O {
         originalName: l.name,
         language: o,
         voiceURI: l.voiceURI,
-        quality: h,
+        quality: m,
         isDefault: l.default || !1,
         offlineAvailability: l.localService || !1,
         isNovelty: ke(l.name, l.voiceURI),
-        isLowQuality: qe(l.name, h)
+        isLowQuality: qe(l.name, m)
       };
     });
-    return this.removeDuplicate(n);
   }
   /**
    * Convert an ReadiumSpeechVoice to a native SpeechSynthesisVoice
@@ -826,31 +819,41 @@ class O {
   convertToSpeechSynthesisVoice(a) {
     if (a)
       return this.browserVoices.find(
-        (r) => r.voiceURI === a.voiceURI || r.name === a.originalName || this.normalizeVoiceName(r.name) === this.normalizeVoiceName(a.name)
+        (t) => t.voiceURI === a.voiceURI || t.name === a.originalName || this.normalizeVoiceName(t.name) === this.normalizeVoiceName(a.name)
       );
   }
   /**
    * Filter voices based on the provided options
    */
-  filterVoices(a, r) {
-    let n = [...a];
-    if (r.languages) {
-      const l = Array.isArray(r.languages) ? r.languages : [r.languages];
-      n = n.filter((o) => l.some((g) => {
-        const t = g.toLowerCase(), d = o.language?.toLowerCase(), s = o.altLanguage?.toLowerCase();
-        if (d === t || s === t)
+  filterVoices(a, t) {
+    let n = t ? [...t] : [...this.voices];
+    const l = {
+      excludeNovelty: !0,
+      // Default to true to filter out novelty voices
+      excludeVeryLowQuality: !0,
+      // Default to true to filter out very low quality voices
+      removeDuplicates: !0,
+      // Default to true - remove duplicates by default
+      ...a
+      // Let explicit options override the defaults
+    };
+    if (l.languages) {
+      const o = Array.isArray(l.languages) ? l.languages : [l.languages];
+      n = n.filter((g) => o.some((r) => {
+        const d = r.toLowerCase(), s = g.language?.toLowerCase(), u = g.altLanguage?.toLowerCase();
+        if (s === d || u === d)
           return !0;
-        const [m] = t.split("-");
-        return d && d.startsWith(m) || s && s.startsWith(m);
+        const [c] = d.split("-");
+        return s && s.startsWith(c) || u && u.startsWith(c);
       }));
     }
-    if (r.source && (n = n.filter((l) => l.source === r.source)), r.gender && (n = n.filter((l) => l.gender === r.gender)), r.quality) {
-      const l = Array.isArray(r.quality) ? r.quality : [r.quality];
-      n = n.filter((o) => o.quality && l.includes(o.quality));
+    if (l.source && (n = n.filter((o) => o.source === l.source)), l.gender && (n = n.filter((o) => o.gender === l.gender)), l.quality) {
+      const o = Array.isArray(l.quality) ? l.quality : [l.quality];
+      n = n.filter((g) => g.quality && o.includes(g.quality));
     }
-    return r.offlineOnly && (n = n.filter((l) => l.offlineAvailability === !0)), r.provider && (n = n.filter(
-      (l) => l.provider?.toLowerCase() === r.provider?.toLowerCase()
-    )), r.excludeNovelty && (n = Fe(n)), r.excludeVeryLowQuality && (n = Ve(n)), n;
+    return l.offlineOnly && (n = n.filter((o) => o.offlineAvailability === !0)), l.provider && (n = n.filter(
+      (o) => o.provider?.toLowerCase() === l.provider?.toLowerCase()
+    )), l.excludeNovelty && (n = Fe(n)), l.excludeVeryLowQuality && (n = Ve(n)), l.removeDuplicates && (n = this.removeDuplicates(n)), n;
   }
   /**
    * Filter out novelty voices
@@ -858,7 +861,8 @@ class O {
    * @returns Filtered array with novelty voices removed
    */
   filterOutNoveltyVoices(a) {
-    return Fe(a);
+    const t = a ?? this.voices;
+    return Fe(t);
   }
   /**
    * Filter out very low quality voices
@@ -866,7 +870,8 @@ class O {
    * @returns Filtered array with very low quality voices removed
    */
   filterOutVeryLowQualityVoices(a) {
-    return Ve(a);
+    const t = a ?? this.voices;
+    return Ve(t);
   }
   /**
   * Get the numeric value for a quality level
@@ -890,17 +895,17 @@ class O {
    * @param baseLang Base language code to use for looking up the order map
    * @returns Comparison result (-1, 0, or 1)
    */
-  static sortByQuality(a, r, n, l) {
-    const o = O.getQualityValue(a.quality), g = O.getQualityValue(r.quality);
-    if (n && l && a.source === "json" && r.source === "json") {
-      const t = n.get(l);
-      if (t) {
-        const d = t.get(a.name), s = t.get(r.name);
-        if (d !== void 0 && s !== void 0 && (o > 0 && g > 0 && o === g || o === 0 && g === 0))
+  static sortByQuality(a, t, n, l) {
+    const o = O.getQualityValue(a.quality), g = O.getQualityValue(t.quality);
+    if (n && l && a.source === "json" && t.source === "json") {
+      const r = n.get(l);
+      if (r) {
+        const d = r.get(a.name), s = r.get(t.name);
+        if (d !== void 0 && s !== void 0)
           return d - s;
       }
     }
-    return g !== o ? g - o : a.name.localeCompare(r.name);
+    return g !== o ? g - o : a.name.localeCompare(t.name);
   }
   /**
    * Sort voices by quality, respecting JSON name order, then alphabetically for undefined/null quality
@@ -908,47 +913,53 @@ class O {
    * @returns Sorted array of voices
    */
   sortVoicesByQuality(a) {
-    if (!a?.length) return [];
-    const r = le(a);
-    return [...a].sort((n, l) => O.sortByQuality(n, l, r));
+    const t = a || this.voices;
+    if (!t?.length) return [];
+    const n = le(t);
+    return [...t].sort((l, o) => O.sortByQuality(l, o, n));
   }
   /**
   * Group voices by language based on processed preferred languages
   */
-  static groupVoicesByLanguage(a, r) {
-    const n = new Map(r.map((g) => [g.baseLang, g])), l = /* @__PURE__ */ new Map(), o = [];
+  static groupVoicesByLanguage(a, t) {
+    const n = new Map(t.map((g) => [g.baseLang, g])), l = /* @__PURE__ */ new Map(), o = [];
     for (const g of a) {
-      const [t] = O.extractLangRegionFromBCP47(g.language);
-      n.get(t) ? (l.has(t) || l.set(t, []), l.get(t).push(g)) : o.push(g);
+      const [r] = O.extractLangRegionFromBCP47(g.language);
+      n.get(r) ? (l.has(r) || l.set(r, []), l.get(r).push(g)) : o.push(g);
     }
     return { voicesByLang: l, otherLangVoices: o };
   }
   /**
    * Sort regions by default then alphabetically, sort voices by quality
    */
-  static sortByDefaultRegion(a, r) {
-    const n = le(a), l = se(r);
+  static sortByDefaultRegion(a, t) {
+    const n = le(a), l = se(t);
     a.sort((o, g) => {
-      const [, t] = O.extractLangRegionFromBCP47(o.language), [, d] = O.extractLangRegionFromBCP47(g.language), s = l && t === l.split("-")[1], m = l && d === l.split("-")[1];
-      return s && !m ? -1 : !s && m ? 1 : O.sortByQuality(o, g, n, r);
+      const [, r] = O.extractLangRegionFromBCP47(o.language), [, d] = O.extractLangRegionFromBCP47(g.language), s = l && r === l.split("-")[1], u = l && d === l.split("-")[1];
+      return s && !u ? -1 : !s && u ? 1 : O.sortByQuality(o, g, n, t);
     });
   }
   /**
    * Sort voices alphabetically by language, then region, then quality
    */
   static sortAlphabetically(a) {
-    a.sort((r, n) => {
-      const [l] = O.extractLangRegionFromBCP47(r.language), [o] = O.extractLangRegionFromBCP47(n.language), g = O.getLanguageDisplayName(l).toLowerCase(), t = O.getLanguageDisplayName(o).toLowerCase(), d = g.localeCompare(t);
+    a.sort((t, n) => {
+      const [l] = O.extractLangRegionFromBCP47(t.language), [o] = O.extractLangRegionFromBCP47(n.language), g = O.getLanguageDisplayName(l).toLowerCase(), r = O.getLanguageDisplayName(o).toLowerCase(), d = g.localeCompare(r);
       if (d !== 0)
         return d;
       if (l === o) {
-        const s = se(l), [, m] = O.extractLangRegionFromBCP47(r.language), [, u] = O.extractLangRegionFromBCP47(n.language), h = s && m === s.split("-")[1], c = s && u === s.split("-")[1];
-        if (h && !c) return -1;
-        if (!h && c) return 1;
-        const b = a.filter(
-          (q) => O.extractLangRegionFromBCP47(q.language)[0] === l
-        ), w = le(b);
-        return O.sortByQuality(r, n, w, l);
+        const s = se(l), [, u] = O.extractLangRegionFromBCP47(t.language), [, c] = O.extractLangRegionFromBCP47(n.language), m = s && u === s.split("-")[1], h = s && c === s.split("-")[1];
+        if (m && !h) return -1;
+        if (!m && h) return 1;
+        if (u && c) {
+          const w = u.localeCompare(c);
+          if (w !== 0)
+            return w;
+        }
+        if (u) return -1;
+        if (c) return 1;
+        const S = le(a);
+        return O.sortByQuality(t, n, S, l);
       }
       return d;
     });
@@ -959,34 +970,41 @@ class O {
    * @param preferredLanguages Array of preferred language codes in order of preference
    * @returns Sorted array of voices
    */
-  sortVoicesByLanguages(a, r) {
-    if (!a?.length) return [];
-    if (!r?.length) {
-      const t = [...a];
-      return O.sortAlphabetically(t), t;
+  sortVoicesByLanguages(a, t) {
+    const n = t || this.voices;
+    if (!n?.length) return [];
+    if (!a?.length) {
+      const d = [...n];
+      return O.sortAlphabetically(d), d;
     }
-    const n = je(r), { voicesByLang: l, otherLangVoices: o } = O.groupVoicesByLanguage(a, n), g = [];
-    for (const t of n) {
-      const d = l.get(t.baseLang);
-      d && (O.sortByDefaultRegion(d, t.baseLang), g.push(...d));
+    const l = je(a), { voicesByLang: o, otherLangVoices: g } = O.groupVoicesByLanguage(n, l), r = [];
+    for (const d of l) {
+      const s = o.get(d.baseLang);
+      s && (O.sortByDefaultRegion(s, d.baseLang), r.push(...s));
     }
-    return O.sortAlphabetically(o), g.push(...o), g;
+    return O.sortAlphabetically(g), r.push(...g), r;
   }
   /**
    * Sort languages by region preference, then voices by quality
    */
-  static sortByPreferredRegion(a, r) {
+  static sortByPreferredRegion(a, t) {
     const n = le(a);
     a.sort((l, o) => {
-      const [, g] = O.extractLangRegionFromBCP47(l.language), [, t] = O.extractLangRegionFromBCP47(o.language), d = g && r.regions.includes(g), s = t && r.regions.includes(t);
+      const [, g] = O.extractLangRegionFromBCP47(l.language), [, r] = O.extractLangRegionFromBCP47(o.language), d = g && t.regions.includes(g), s = r && t.regions.includes(r);
       if (d && s) {
-        const b = r.regions.indexOf(g), w = r.regions.indexOf(t);
-        return b === w ? O.sortByQuality(l, o, n, r.baseLang) : b - w;
+        const S = t.regions.indexOf(g), w = t.regions.indexOf(r);
+        return S === w ? O.sortByQuality(l, o, n, t.baseLang) : S - w;
       }
       if (d) return -1;
       if (s) return 1;
-      const m = se(r.baseLang), [, u] = O.extractLangRegionFromBCP47(m), h = g === u, c = t === u;
-      return h && !c ? -1 : !h && c ? 1 : (g || "").localeCompare(t || "");
+      const u = se(t.baseLang), [, c] = O.extractLangRegionFromBCP47(u), m = g === c, h = r === c;
+      if (m && !h) return -1;
+      if (!m && h) return 1;
+      if (g && r) {
+        const S = g.localeCompare(r);
+        return S !== 0 ? S : O.sortByQuality(l, o, n, t.baseLang);
+      }
+      return g ? -1 : r ? 1 : O.sortByQuality(l, o, n, t.baseLang);
     });
   }
   /**
@@ -995,14 +1013,15 @@ class O {
    * @param preferredLanguages Array of preferred language codes in order of preference
    * @returns Sorted array of voices
    */
-  sortVoicesByRegions(a, r) {
-    if (!a?.length) return [];
-    const n = je(r || []), { voicesByLang: l, otherLangVoices: o } = O.groupVoicesByLanguage(a, n), g = [];
-    for (const t of n) {
-      const d = l.get(t.baseLang);
-      d && (O.sortByPreferredRegion(d, t), g.push(...d));
+  sortVoicesByRegions(a, t) {
+    const n = t || this.voices;
+    if (!n?.length) return [];
+    const l = je(a || []), { voicesByLang: o, otherLangVoices: g } = O.groupVoicesByLanguage(n, l), r = [];
+    for (const d of l) {
+      const s = o.get(d.baseLang);
+      s && (O.sortByPreferredRegion(s, d), r.push(...s));
     }
-    return O.sortAlphabetically(o), g.push(...o), g;
+    return O.sortAlphabetically(g), r.push(...g), r;
   }
   /**
    * Group voices by the specified criteria
@@ -1010,26 +1029,26 @@ class O {
    * @param options Grouping options
    * @returns Object with voice groups keyed by the grouping criteria
    */
-  groupVoices(a, r) {
-    const n = {};
-    for (const l of a) {
-      let o = "Unknown";
-      switch (r) {
+  groupVoices(a, t) {
+    const n = {}, l = t || this.voices;
+    for (const o of l) {
+      let g = "Unknown";
+      switch (a) {
         case "languages":
-          o = O.extractLangRegionFromBCP47(l.language)[0];
+          g = O.extractLangRegionFromBCP47(o.language)[0];
           break;
         case "gender":
-          o = l.gender || "unknown";
+          g = o.gender || "unknown";
           break;
         case "quality":
-          o = l.quality || "unknown";
+          g = o.quality || "unknown";
           break;
         case "region":
-          const [, g] = O.extractLangRegionFromBCP47(l.language);
-          o = g || "unknown";
+          const [, r] = O.extractLangRegionFromBCP47(o.language);
+          g = r || "unknown";
           break;
       }
-      n[o] || (n[o] = []), n[o].push(l);
+      n[g] || (n[g] = []), n[g].push(o);
     }
     return n;
   }
@@ -1043,7 +1062,7 @@ const tl = ["webKit", "moz", "ms", "o"], ol = [
   "resume",
   "start"
 ], ll = (e) => `${e.charAt(0).toUpperCase()}${e.slice(1)}`, X = (e = {}, a) => Object.hasOwnProperty.call(e, a) || a in e || !!e[a], il = (e) => typeof window < "u" && e in window, sl = (e) => {
-  const a = ll(e), r = tl.map((l) => `${l}${a}`), n = [e, a].concat(r).find(il);
+  const a = ll(e), t = tl.map((l) => `${l}${a}`), n = [e, a].concat(t).find(il);
   return n && typeof window < "u" ? window[n] : void 0;
 }, gl = () => {
   const e = {};
@@ -1053,18 +1072,18 @@ const tl = ["webKit", "moz", "ms", "o"], ol = [
     "speechSynthesisVoice",
     "speechSynthesisEvent",
     "speechSynthesisErrorEvent"
-  ].forEach((r) => {
-    e[r] = sl(r);
+  ].forEach((t) => {
+    e[t] = sl(t);
   }), e.onvoiceschanged = X(e.speechSynthesis, "onvoiceschanged"), e.speechSynthesisSpeaking = X(e.speechSynthesis, "speaking"), e.speechSynthesisPaused = X(e.speechSynthesis, "paused");
   const a = e.speechSynthesisUtterance ? X(e.speechSynthesisUtterance, "prototype") : !1;
-  return ol.forEach((r) => {
-    const n = `on${r}`;
+  return ol.forEach((t) => {
+    const n = `on${t}`;
     e[n] = a && e.speechSynthesisUtterance ? X(e.speechSynthesisUtterance.prototype, n) : !1;
   }), e;
 }, dl = () => {
-  const a = typeof window < "u" && (window.navigator || {}).userAgent || "", r = () => /android/i.test(a), n = () => /kaios/i.test(a), l = () => typeof window.InstallTrigger < "u" ? !0 : /firefox/i.test(a), o = () => typeof window.GestureEvent < "u" || /safari/i.test(a);
+  const a = typeof window < "u" && (window.navigator || {}).userAgent || "", t = () => /android/i.test(a), n = () => /kaios/i.test(a), l = () => typeof window.InstallTrigger < "u" ? !0 : /firefox/i.test(a), o = () => typeof window.GestureEvent < "u" || /safari/i.test(a);
   return {
-    isAndroid: r(),
+    isAndroid: t(),
     isFirefox: l() || n(),
     isSafari: o(),
     isKaiOS: n()
@@ -1081,115 +1100,115 @@ function ul() {
     return n instanceof Buffer ? Buffer.from(n) : new n.constructor(n.buffer.slice(), n.byteOffset, n.length);
   }
   function a(n) {
-    if (n = n || {}, n.circles) return r(n);
+    if (n = n || {}, n.circles) return t(n);
     const l = /* @__PURE__ */ new Map();
-    if (l.set(Date, (s) => new Date(s)), l.set(Map, (s, m) => new Map(g(Array.from(s), m))), l.set(Set, (s, m) => new Set(g(Array.from(s), m))), n.constructorHandlers)
+    if (l.set(Date, (s) => new Date(s)), l.set(Map, (s, u) => new Map(g(Array.from(s), u))), l.set(Set, (s, u) => new Set(g(Array.from(s), u))), n.constructorHandlers)
       for (const s of n.constructorHandlers)
         l.set(s[0], s[1]);
     let o = null;
-    return n.proto ? d : t;
-    function g(s, m) {
-      const u = Object.keys(s), h = new Array(u.length);
-      for (let c = 0; c < u.length; c++) {
-        const b = u[c], w = s[b];
-        typeof w != "object" || w === null ? h[b] = w : w.constructor !== Object && (o = l.get(w.constructor)) ? h[b] = o(w, m) : ArrayBuffer.isView(w) ? h[b] = e(w) : h[b] = m(w);
-      }
-      return h;
-    }
-    function t(s) {
-      if (typeof s != "object" || s === null) return s;
-      if (Array.isArray(s)) return g(s, t);
-      if (s.constructor !== Object && (o = l.get(s.constructor)))
-        return o(s, t);
-      const m = {};
-      for (const u in s) {
-        if (Object.hasOwnProperty.call(s, u) === !1) continue;
-        const h = s[u];
-        typeof h != "object" || h === null ? m[u] = h : h.constructor !== Object && (o = l.get(h.constructor)) ? m[u] = o(h, t) : ArrayBuffer.isView(h) ? m[u] = e(h) : m[u] = t(h);
+    return n.proto ? d : r;
+    function g(s, u) {
+      const c = Object.keys(s), m = new Array(c.length);
+      for (let h = 0; h < c.length; h++) {
+        const S = c[h], w = s[S];
+        typeof w != "object" || w === null ? m[S] = w : w.constructor !== Object && (o = l.get(w.constructor)) ? m[S] = o(w, u) : ArrayBuffer.isView(w) ? m[S] = e(w) : m[S] = u(w);
       }
       return m;
+    }
+    function r(s) {
+      if (typeof s != "object" || s === null) return s;
+      if (Array.isArray(s)) return g(s, r);
+      if (s.constructor !== Object && (o = l.get(s.constructor)))
+        return o(s, r);
+      const u = {};
+      for (const c in s) {
+        if (Object.hasOwnProperty.call(s, c) === !1) continue;
+        const m = s[c];
+        typeof m != "object" || m === null ? u[c] = m : m.constructor !== Object && (o = l.get(m.constructor)) ? u[c] = o(m, r) : ArrayBuffer.isView(m) ? u[c] = e(m) : u[c] = r(m);
+      }
+      return u;
     }
     function d(s) {
       if (typeof s != "object" || s === null) return s;
       if (Array.isArray(s)) return g(s, d);
       if (s.constructor !== Object && (o = l.get(s.constructor)))
         return o(s, d);
-      const m = {};
-      for (const u in s) {
-        const h = s[u];
-        typeof h != "object" || h === null ? m[u] = h : h.constructor !== Object && (o = l.get(h.constructor)) ? m[u] = o(h, d) : ArrayBuffer.isView(h) ? m[u] = e(h) : m[u] = d(h);
+      const u = {};
+      for (const c in s) {
+        const m = s[c];
+        typeof m != "object" || m === null ? u[c] = m : m.constructor !== Object && (o = l.get(m.constructor)) ? u[c] = o(m, d) : ArrayBuffer.isView(m) ? u[c] = e(m) : u[c] = d(m);
       }
-      return m;
+      return u;
     }
   }
-  function r(n) {
+  function t(n) {
     const l = [], o = [], g = /* @__PURE__ */ new Map();
-    if (g.set(Date, (u) => new Date(u)), g.set(Map, (u, h) => new Map(d(Array.from(u), h))), g.set(Set, (u, h) => new Set(d(Array.from(u), h))), n.constructorHandlers)
-      for (const u of n.constructorHandlers)
-        g.set(u[0], u[1]);
-    let t = null;
-    return n.proto ? m : s;
-    function d(u, h) {
-      const c = Object.keys(u), b = new Array(c.length);
-      for (let w = 0; w < c.length; w++) {
-        const q = c[w], k = u[q];
+    if (g.set(Date, (c) => new Date(c)), g.set(Map, (c, m) => new Map(d(Array.from(c), m))), g.set(Set, (c, m) => new Set(d(Array.from(c), m))), n.constructorHandlers)
+      for (const c of n.constructorHandlers)
+        g.set(c[0], c[1]);
+    let r = null;
+    return n.proto ? u : s;
+    function d(c, m) {
+      const h = Object.keys(c), S = new Array(h.length);
+      for (let w = 0; w < h.length; w++) {
+        const q = h[w], k = c[q];
         if (typeof k != "object" || k === null)
-          b[q] = k;
-        else if (k.constructor !== Object && (t = g.get(k.constructor)))
-          b[q] = t(k, h);
+          S[q] = k;
+        else if (k.constructor !== Object && (r = g.get(k.constructor)))
+          S[q] = r(k, m);
         else if (ArrayBuffer.isView(k))
-          b[q] = e(k);
+          S[q] = e(k);
         else {
           const G = l.indexOf(k);
-          G !== -1 ? b[q] = o[G] : b[q] = h(k);
+          G !== -1 ? S[q] = o[G] : S[q] = m(k);
         }
       }
-      return b;
+      return S;
     }
-    function s(u) {
-      if (typeof u != "object" || u === null) return u;
-      if (Array.isArray(u)) return d(u, s);
-      if (u.constructor !== Object && (t = g.get(u.constructor)))
-        return t(u, s);
-      const h = {};
-      l.push(u), o.push(h);
-      for (const c in u) {
-        if (Object.hasOwnProperty.call(u, c) === !1) continue;
-        const b = u[c];
-        if (typeof b != "object" || b === null)
-          h[c] = b;
-        else if (b.constructor !== Object && (t = g.get(b.constructor)))
-          h[c] = t(b, s);
-        else if (ArrayBuffer.isView(b))
-          h[c] = e(b);
+    function s(c) {
+      if (typeof c != "object" || c === null) return c;
+      if (Array.isArray(c)) return d(c, s);
+      if (c.constructor !== Object && (r = g.get(c.constructor)))
+        return r(c, s);
+      const m = {};
+      l.push(c), o.push(m);
+      for (const h in c) {
+        if (Object.hasOwnProperty.call(c, h) === !1) continue;
+        const S = c[h];
+        if (typeof S != "object" || S === null)
+          m[h] = S;
+        else if (S.constructor !== Object && (r = g.get(S.constructor)))
+          m[h] = r(S, s);
+        else if (ArrayBuffer.isView(S))
+          m[h] = e(S);
         else {
-          const w = l.indexOf(b);
-          w !== -1 ? h[c] = o[w] : h[c] = s(b);
+          const w = l.indexOf(S);
+          w !== -1 ? m[h] = o[w] : m[h] = s(S);
         }
       }
-      return l.pop(), o.pop(), h;
+      return l.pop(), o.pop(), m;
     }
-    function m(u) {
-      if (typeof u != "object" || u === null) return u;
-      if (Array.isArray(u)) return d(u, m);
-      if (u.constructor !== Object && (t = g.get(u.constructor)))
-        return t(u, m);
-      const h = {};
-      l.push(u), o.push(h);
-      for (const c in u) {
-        const b = u[c];
-        if (typeof b != "object" || b === null)
-          h[c] = b;
-        else if (b.constructor !== Object && (t = g.get(b.constructor)))
-          h[c] = t(b, m);
-        else if (ArrayBuffer.isView(b))
-          h[c] = e(b);
+    function u(c) {
+      if (typeof c != "object" || c === null) return c;
+      if (Array.isArray(c)) return d(c, u);
+      if (c.constructor !== Object && (r = g.get(c.constructor)))
+        return r(c, u);
+      const m = {};
+      l.push(c), o.push(m);
+      for (const h in c) {
+        const S = c[h];
+        if (typeof S != "object" || S === null)
+          m[h] = S;
+        else if (S.constructor !== Object && (r = g.get(S.constructor)))
+          m[h] = r(S, u);
+        else if (ArrayBuffer.isView(S))
+          m[h] = e(S);
         else {
-          const w = l.indexOf(b);
-          w !== -1 ? h[c] = o[w] : h[c] = m(b);
+          const w = l.indexOf(S);
+          w !== -1 ? m[h] = o[w] : m[h] = u(S);
         }
       }
-      return l.pop(), o.pop(), h;
+      return l.pop(), o.pop(), m;
     }
   }
   return ye;
@@ -1202,31 +1221,31 @@ function Re(e) {
   let a = Object.getPrototypeOf(e);
   return a !== null && a !== Object.prototype && Object.getPrototypeOf(a) !== null ? !1 : !(Symbol.iterator in e) && !(Symbol.toStringTag in e);
 }
-function F(e) {
+function V(e) {
   return typeof e == "string";
 }
 function ml(e) {
   return Number.isFinite(e);
 }
-function j(e) {
+function F(e) {
   return Number.isSafeInteger(e) && e >= 0;
 }
 function P(e) {
   return e != null;
 }
 function pl(e, a) {
-  return Re(e) && F(a) && a in e;
+  return Re(e) && V(a) && a in e;
 }
 var fl = typeof globalThis == "object" && globalThis && globalThis.Object === Object && globalThis, yl = typeof self == "object" && self && self.Object === Object && self, Te = fl || yl || Function("return this")(), W = Te.Symbol, ha = Object.prototype, Sl = ha.hasOwnProperty, bl = ha.toString, ee = W ? W.toStringTag : void 0;
 function Ol(e) {
-  var a = Sl.call(e, ee), r = e[ee];
+  var a = Sl.call(e, ee), t = e[ee];
   try {
     e[ee] = void 0;
     var n = !0;
   } catch {
   }
   var l = bl.call(e);
-  return n && (a ? e[ee] = r : delete e[ee]), l;
+  return n && (a ? e[ee] = t : delete e[ee]), l;
 }
 var vl = Object.prototype, wl = vl.toString;
 function Nl(e) {
@@ -1244,8 +1263,8 @@ function ql(e) {
   return typeof e == "symbol" || pa(e) && ma(e) == kl;
 }
 function xl(e, a) {
-  for (var r = -1, n = e == null ? 0 : e.length, l = Array(n); ++r < n; )
-    l[r] = a(e[r], r, e);
+  for (var t = -1, n = e == null ? 0 : e.length, l = Array(n); ++t < n; )
+    l[t] = a(e[t], t, e);
   return l;
 }
 var Rl = Array.isArray, _e = W ? W.prototype : void 0, Ye = _e ? _e.toString : void 0;
@@ -1317,28 +1336,28 @@ function Yl(e, a) {
   return e?.[a];
 }
 function He(e, a) {
-  var r = Yl(e, a);
-  return _l(r) ? r : void 0;
+  var t = Yl(e, a);
+  return _l(t) ? t : void 0;
 }
-function Ql(e, a, r) {
-  switch (r.length) {
+function Ql(e, a, t) {
+  switch (t.length) {
     case 0:
       return e.call(a);
     case 1:
-      return e.call(a, r[0]);
+      return e.call(a, t[0]);
     case 2:
-      return e.call(a, r[0], r[1]);
+      return e.call(a, t[0], t[1]);
     case 3:
-      return e.call(a, r[0], r[1], r[2]);
+      return e.call(a, t[0], t[1], t[2]);
   }
-  return e.apply(a, r);
+  return e.apply(a, t);
 }
 var Zl = 800, Xl = 16, ei = Date.now;
 function ai(e) {
-  var a = 0, r = 0;
+  var a = 0, t = 0;
   return function() {
-    var n = ei(), l = Xl - (n - r);
-    if (r = n, l > 0) {
+    var n = ei(), l = Xl - (n - t);
+    if (t = n, l > 0) {
       if (++a >= Zl)
         return arguments[0];
     } else
@@ -1365,8 +1384,8 @@ var Ze = (function() {
     writable: !0
   });
 } : ya, ti = ai(ri);
-function oi(e, a, r, n) {
-  for (var l = e.length, o = r + -1; ++o < l; )
+function oi(e, a, t, n) {
+  for (var l = e.length, o = t + -1; ++o < l; )
     if (a(e[o], o, e))
       return o;
   return -1;
@@ -1374,31 +1393,31 @@ function oi(e, a, r, n) {
 function li(e) {
   return e !== e;
 }
-function ii(e, a, r) {
-  for (var n = r - 1, l = e.length; ++n < l; )
+function ii(e, a, t) {
+  for (var n = t - 1, l = e.length; ++n < l; )
     if (e[n] === a)
       return n;
   return -1;
 }
-function De(e, a, r) {
-  return a === a ? ii(e, a, r) : oi(e, li, r);
+function De(e, a, t) {
+  return a === a ? ii(e, a, t) : oi(e, li, t);
 }
 function si(e, a) {
-  var r = e == null ? 0 : e.length;
-  return !!r && De(e, a, 0) > -1;
+  var t = e == null ? 0 : e.length;
+  return !!t && De(e, a, 0) > -1;
 }
 function gi(e, a) {
   return e === a || e !== e && a !== a;
 }
 var Xe = Math.max;
-function di(e, a, r) {
+function di(e, a, t) {
   return a = Xe(a === void 0 ? e.length - 1 : a, 0), function() {
     for (var n = arguments, l = -1, o = Xe(n.length - a, 0), g = Array(o); ++l < o; )
       g[l] = n[a + l];
     l = -1;
-    for (var t = Array(a + 1); ++l < a; )
-      t[l] = n[l];
-    return t[a] = r(g), Ql(e, this, t);
+    for (var r = Array(a + 1); ++l < a; )
+      r[l] = n[l];
+    return r[a] = t(g), Ql(e, this, r);
   };
 }
 function ci(e, a) {
@@ -1423,8 +1442,8 @@ var yi = "__lodash_hash_undefined__", Si = Object.prototype, bi = Si.hasOwnPrope
 function Oi(e) {
   var a = this.__data__;
   if (re) {
-    var r = a[e];
-    return r === yi ? void 0 : r;
+    var t = a[e];
+    return t === yi ? void 0 : t;
   }
   return bi.call(a, e) ? a[e] : void 0;
 }
@@ -1435,52 +1454,52 @@ function Ni(e) {
 }
 var Ai = "__lodash_hash_undefined__";
 function Ci(e, a) {
-  var r = this.__data__;
-  return this.size += this.has(e) ? 0 : 1, r[e] = re && a === void 0 ? Ai : a, this;
+  var t = this.__data__;
+  return this.size += this.has(e) ? 0 : 1, t[e] = re && a === void 0 ? Ai : a, this;
 }
-function z(e) {
-  var a = -1, r = e == null ? 0 : e.length;
-  for (this.clear(); ++a < r; ) {
+function B(e) {
+  var a = -1, t = e == null ? 0 : e.length;
+  for (this.clear(); ++a < t; ) {
     var n = e[a];
     this.set(n[0], n[1]);
   }
 }
-z.prototype.clear = pi;
-z.prototype.delete = fi;
-z.prototype.get = Oi;
-z.prototype.has = Ni;
-z.prototype.set = Ci;
+B.prototype.clear = pi;
+B.prototype.delete = fi;
+B.prototype.get = Oi;
+B.prototype.has = Ni;
+B.prototype.set = Ci;
 function ki() {
   this.__data__ = [], this.size = 0;
 }
 function ue(e, a) {
-  for (var r = e.length; r--; )
-    if (gi(e[r][0], a))
-      return r;
+  for (var t = e.length; t--; )
+    if (gi(e[t][0], a))
+      return t;
   return -1;
 }
 var qi = Array.prototype, xi = qi.splice;
 function Ri(e) {
-  var a = this.__data__, r = ue(a, e);
-  if (r < 0)
+  var a = this.__data__, t = ue(a, e);
+  if (t < 0)
     return !1;
   var n = a.length - 1;
-  return r == n ? a.pop() : xi.call(a, r, 1), --this.size, !0;
+  return t == n ? a.pop() : xi.call(a, t, 1), --this.size, !0;
 }
 function Ei(e) {
-  var a = this.__data__, r = ue(a, e);
-  return r < 0 ? void 0 : a[r][1];
+  var a = this.__data__, t = ue(a, e);
+  return t < 0 ? void 0 : a[t][1];
 }
 function Gi(e) {
   return ue(this.__data__, e) > -1;
 }
 function Ii(e, a) {
-  var r = this.__data__, n = ue(r, e);
-  return n < 0 ? (++this.size, r.push([e, a])) : r[n][1] = a, this;
+  var t = this.__data__, n = ue(t, e);
+  return n < 0 ? (++this.size, t.push([e, a])) : t[n][1] = a, this;
 }
 function Y(e) {
-  var a = -1, r = e == null ? 0 : e.length;
-  for (this.clear(); ++a < r; ) {
+  var a = -1, t = e == null ? 0 : e.length;
+  for (this.clear(); ++a < t; ) {
     var n = e[a];
     this.set(n[0], n[1]);
   }
@@ -1493,9 +1512,9 @@ Y.prototype.set = Ii;
 var Ti = He(Te, "Map");
 function Mi() {
   this.size = 0, this.__data__ = {
-    hash: new z(),
+    hash: new B(),
     map: new (Ti || Y)(),
-    string: new z()
+    string: new B()
   };
 }
 function Hi(e) {
@@ -1503,8 +1522,8 @@ function Hi(e) {
   return a == "string" || a == "number" || a == "symbol" || a == "boolean" ? e !== "__proto__" : e === null;
 }
 function he(e, a) {
-  var r = e.__data__;
-  return Hi(a) ? r[typeof a == "string" ? "string" : "hash"] : r.map;
+  var t = e.__data__;
+  return Hi(a) ? t[typeof a == "string" ? "string" : "hash"] : t.map;
 }
 function Di(e) {
   var a = he(this, e).delete(e);
@@ -1517,12 +1536,12 @@ function Li(e) {
   return he(this, e).has(e);
 }
 function Ui(e, a) {
-  var r = he(this, e), n = r.size;
-  return r.set(e, a), this.size += r.size == n ? 0 : 1, this;
+  var t = he(this, e), n = t.size;
+  return t.set(e, a), this.size += t.size == n ? 0 : 1, this;
 }
 function Q(e) {
-  var a = -1, r = e == null ? 0 : e.length;
-  for (this.clear(); ++a < r; ) {
+  var a = -1, t = e == null ? 0 : e.length;
+  for (this.clear(); ++a < t; ) {
     var n = e[a];
     this.set(n[0], n[1]);
   }
@@ -1535,16 +1554,16 @@ Q.prototype.set = Ui;
 function zi(e) {
   return e == null ? "" : Me(e);
 }
-function Bi(e, a, r) {
+function Bi(e, a, t) {
   var n = -1, l = e.length;
-  a < 0 && (a = -a > l ? 0 : l + a), r = r > l ? l : r, r < 0 && (r += l), l = a > r ? 0 : r - a >>> 0, a >>>= 0;
+  a < 0 && (a = -a > l ? 0 : l + a), t = t > l ? l : t, t < 0 && (t += l), l = a > t ? 0 : t - a >>> 0, a >>>= 0;
   for (var o = Array(l); ++n < l; )
     o[n] = e[n + a];
   return o;
 }
-function $i(e, a, r) {
+function $i(e, a, t) {
   var n = e.length;
-  return r = r === void 0 ? n : r, !a && r >= n ? e : Bi(e, a, r);
+  return t = t === void 0 ? n : t, !a && t >= n ? e : Bi(e, a, t);
 }
 var ji = "\\ud800-\\udfff", Fi = "\\u0300-\\u036f", Vi = "\\ufe20-\\ufe2f", Ki = "\\u20d0-\\u20ff", Wi = Fi + Vi + Ki, Ji = "\\ufe0e\\ufe0f", _i = "\\u200d", Yi = RegExp("[" + _i + ji + Wi + Ji + "]");
 function Qi(e) {
@@ -1568,8 +1587,8 @@ function ms(e) {
   return this.__data__.has(e);
 }
 function de(e) {
-  var a = -1, r = e == null ? 0 : e.length;
-  for (this.__data__ = new Q(); ++a < r; )
+  var a = -1, t = e == null ? 0 : e.length;
+  for (this.__data__ = new Q(); ++a < t; )
     this.add(e[a]);
 }
 de.prototype.add = de.prototype.push = hs;
@@ -1581,34 +1600,34 @@ function fs(e) {
   return pa(e) && mi(e);
 }
 var ys = 200;
-function Ss(e, a, r, n) {
-  var l = -1, o = si, g = !0, t = e.length, d = [], s = a.length;
-  if (!t)
+function Ss(e, a, t, n) {
+  var l = -1, o = si, g = !0, r = e.length, d = [], s = a.length;
+  if (!r)
     return d;
   a.length >= ys && (o = ps, g = !1, a = new de(a));
   e:
-    for (; ++l < t; ) {
-      var m = e[l], u = m;
-      if (m = m !== 0 ? m : 0, g && u === u) {
-        for (var h = s; h--; )
-          if (a[h] === u)
+    for (; ++l < r; ) {
+      var u = e[l], c = u;
+      if (u = u !== 0 ? u : 0, g && c === c) {
+        for (var m = s; m--; )
+          if (a[m] === c)
             continue e;
-        d.push(m);
-      } else o(a, u, n) || d.push(m);
+        d.push(u);
+      } else o(a, c, n) || d.push(u);
     }
   return d;
 }
 function bs(e, a) {
-  for (var r = e.length; r-- && De(a, e[r], 0) > -1; )
+  for (var t = e.length; t-- && De(a, e[t], 0) > -1; )
     ;
-  return r;
+  return t;
 }
 function Os(e, a) {
-  for (var r = -1, n = e.length; ++r < n && De(a, e[r], 0) > -1; )
+  for (var t = -1, n = e.length; ++t < n && De(a, e[t], 0) > -1; )
     ;
-  return r;
+  return t;
 }
-function aa(e, a, r) {
+function aa(e, a, t) {
   if (e = zi(e), e && a === void 0)
     return Tl(e);
   if (!e || !(a = Me(a)))
@@ -1618,24 +1637,24 @@ function aa(e, a, r) {
 }
 var vs = ci(function(e, a) {
   return fs(e) ? Ss(e, a) : [];
-}), V = function() {
-  return V = Object.assign || function(e) {
-    for (var a, r = 1, n = arguments.length; r < n; r++) {
-      a = arguments[r];
+}), K = function() {
+  return K = Object.assign || function(e) {
+    for (var a, t = 1, n = arguments.length; t < n; t++) {
+      a = arguments[t];
       for (var l in a) Object.prototype.hasOwnProperty.call(a, l) && (e[l] = a[l]);
     }
     return e;
-  }, V.apply(this, arguments);
+  }, K.apply(this, arguments);
 }, ws = "~", Ns = "~~";
 function Pe(e, a) {
-  for (var r = {}, n = {}, l = e.split(Ns), o = !1, g = 0; l.length > g; g++) {
-    for (var t = l[g].split(ws), d = 0; d < t.length; d += 2) {
-      var s = t[d], m = t[d + 1], u = "&" + s + ";";
-      r[u] = m, o && (r["&" + s] = m), n[m] = u;
+  for (var t = {}, n = {}, l = e.split(Ns), o = !1, g = 0; l.length > g; g++) {
+    for (var r = l[g].split(ws), d = 0; d < r.length; d += 2) {
+      var s = r[d], u = r[d + 1], c = "&" + s + ";";
+      t[c] = u, o && (t["&" + s] = u), n[u] = c;
     }
     o = !0;
   }
-  return a ? { entities: V(V({}, r), a.entities), characters: V(V({}, n), a.characters) } : { entities: r, characters: n };
+  return a ? { entities: K(K({}, t), a.entities), characters: K(K({}, n), a.characters) } : { entities: t, characters: n };
 }
 var be = {
   xml: /&(?:#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+);?/g,
@@ -1678,8 +1697,8 @@ var As = {
   return String.fromCharCode(Math.floor((e - 65536) / 1024) + 55296, (e - 65536) % 1024 + 56320);
 }, _ = function() {
   return _ = Object.assign || function(e) {
-    for (var a, r = 1, n = arguments.length; r < n; r++) {
-      a = arguments[r];
+    for (var a, t = 1, n = arguments.length; t < n; t++) {
+      a = arguments[t];
       for (var l in a) Object.prototype.hasOwnProperty.call(a, l) && (e[l] = a[l]);
     }
     return e;
@@ -1704,9 +1723,9 @@ var As = {
     body: be.html5
   }
 }, xs = _(_({}, na), { all: na.html5 }), Ca = String.fromCharCode, Rs = Ca(65533);
-function Es(e, a, r, n) {
+function Es(e, a, t, n) {
   var l = e, o = e[e.length - 1];
-  if (r && o === "=")
+  if (t && o === "=")
     l = e;
   else if (n && o !== ";")
     l = e;
@@ -1715,51 +1734,51 @@ function Es(e, a, r, n) {
     if (g)
       l = g;
     else if (e[0] === "&" && e[1] === "#") {
-      var t = e[2], d = t == "x" || t == "X" ? parseInt(e.substr(3), 16) : parseInt(e.substr(2));
+      var r = e[2], d = r == "x" || r == "X" ? parseInt(e.substr(3), 16) : parseInt(e.substr(2));
       l = d >= 1114111 ? Rs : d > 65535 ? Cs(d) : Ca(As[d] || d);
     }
   }
   return l;
 }
 function ra(e, a) {
-  var r = a === void 0 ? qs : a, n = r.level, l = n === void 0 ? "all" : n, o = r.scope, g = o === void 0 ? l === "xml" ? "strict" : "body" : o;
+  var t = a === void 0 ? qs : a, n = t.level, l = n === void 0 ? "all" : n, o = t.scope, g = o === void 0 ? l === "xml" ? "strict" : "body" : o;
   if (!e)
     return "";
-  var t = xs[l][g], d = ks[l].entities, s = g === "attribute", m = g === "strict";
-  return e.replace(t, function(u) {
-    return Es(u, d, s, m);
+  var r = xs[l][g], d = ks[l].entities, s = g === "attribute", u = g === "strict";
+  return e.replace(r, function(c) {
+    return Es(c, d, s, u);
   });
 }
 var Gs = { strictlyTwoElementsInRangeArrays: !1, progressFn: null };
 function ce(e, a) {
   if (!Array.isArray(e) || !e.length) return e;
-  let r = { ...Gs, ...a }, n, l;
-  if (r.strictlyTwoElementsInRangeArrays && !e.every((t, d) => !Array.isArray(t) || t.length !== 2 ? (n = d, l = t.length, !1) : !0)) throw new TypeError(`ranges-sort: [THROW_ID_03] The first argument should be an array and must consist of arrays which are natural number indexes representing TWO string index ranges. However, ${n}th range (${JSON.stringify(e[n], null, 4)}) has not two but ${l} elements!`);
-  if (!e.every((t, d) => !Array.isArray(t) || !Number.isInteger(t[0]) || t[0] < 0 || !Number.isInteger(t[1]) || t[1] < 0 ? (n = d, !1) : !0)) throw new TypeError(`ranges-sort: [THROW_ID_04] The first argument should be an array and must consist of arrays which are natural number indexes representing string index ranges. However, ${n}th range (${JSON.stringify(e[n], null, 4)}) does not consist of only natural numbers!`);
+  let t = { ...Gs, ...a }, n, l;
+  if (t.strictlyTwoElementsInRangeArrays && !e.every((r, d) => !Array.isArray(r) || r.length !== 2 ? (n = d, l = r.length, !1) : !0)) throw new TypeError(`ranges-sort: [THROW_ID_03] The first argument should be an array and must consist of arrays which are natural number indexes representing TWO string index ranges. However, ${n}th range (${JSON.stringify(e[n], null, 4)}) has not two but ${l} elements!`);
+  if (!e.every((r, d) => !Array.isArray(r) || !Number.isInteger(r[0]) || r[0] < 0 || !Number.isInteger(r[1]) || r[1] < 0 ? (n = d, !1) : !0)) throw new TypeError(`ranges-sort: [THROW_ID_04] The first argument should be an array and must consist of arrays which are natural number indexes representing string index ranges. However, ${n}th range (${JSON.stringify(e[n], null, 4)}) does not consist of only natural numbers!`);
   let o = e.length ** 2, g = 0;
-  return Array.from(e).sort((t, d) => (r.progressFn && (g += 1, r.progressFn(Math.floor(g * 100 / o))), t[0] === d[0] ? t[1] < d[1] ? -1 : t[1] > d[1] ? 1 : 0 : t[0] < d[0] ? -1 : 1));
+  return Array.from(e).sort((r, d) => (t.progressFn && (g += 1, t.progressFn(Math.floor(g * 100 / o))), r[0] === d[0] ? r[1] < d[1] ? -1 : r[1] > d[1] ? 1 : 0 : r[0] < d[0] ? -1 : 1));
 }
 var ta = { mergeType: 1, progressFn: null, joinRangesThatTouchEdges: !0 };
 function Is(e, a) {
-  function r(s) {
+  function t(s) {
     return !!s && typeof s == "object" && !Array.isArray(s);
   }
   if (!Array.isArray(e) || !e.length) return null;
   let n;
-  if (a) if (r(a)) {
-    if (n = { ...ta, ...a }, n.progressFn && r(n.progressFn) && !Object.keys(n.progressFn).length) n.progressFn = null;
+  if (a) if (t(a)) {
+    if (n = { ...ta, ...a }, n.progressFn && t(n.progressFn) && !Object.keys(n.progressFn).length) n.progressFn = null;
     else if (n.progressFn && typeof n.progressFn != "function") throw new Error(`ranges-merge: [THROW_ID_01] opts.progressFn must be a function! It was given of a type: "${typeof n.progressFn}", equal to ${JSON.stringify(n.progressFn, null, 4)}`);
     if (![1, 2, "1", "2"].includes(n.mergeType)) throw new Error(`ranges-merge: [THROW_ID_02] opts.mergeType was customised to a wrong thing! It was given of a type: "${typeof n.mergeType}", equal to ${JSON.stringify(n.mergeType, null, 4)}`);
     if (typeof n.joinRangesThatTouchEdges != "boolean") throw new Error(`ranges-merge: [THROW_ID_04] opts.joinRangesThatTouchEdges was customised to a wrong thing! It was given of a type: "${typeof n.joinRangesThatTouchEdges}", equal to ${JSON.stringify(n.joinRangesThatTouchEdges, null, 4)}`);
   } else throw new Error(`emlint: [THROW_ID_03] the second input argument must be a plain object. It was given as:
 ${JSON.stringify(a, null, 4)} (type ${typeof a})`);
   else n = { ...ta };
-  let l = e.filter((s) => Array.isArray(s)).map((s) => [...s]).filter((s) => s[2] !== void 0 || s[0] !== s[1]), o, g, t;
+  let l = e.filter((s) => Array.isArray(s)).map((s) => [...s]).filter((s) => s[2] !== void 0 || s[0] !== s[1]), o, g, r;
   n.progressFn ? o = ce(l, { progressFn: (s) => {
-    t = Math.floor(s / 5), t !== g && (g = t, n.progressFn(t));
+    r = Math.floor(s / 5), r !== g && (g = r, n.progressFn(r));
   } }) : o = ce(l);
   let d = o.length - 1;
-  for (let s = d; s > 0; s--) n.progressFn && (t = Math.floor((1 - s / d) * 78) + 21, t !== g && t > g && (g = t, n.progressFn(t))), (o[s][0] <= o[s - 1][0] || !n.joinRangesThatTouchEdges && o[s][0] < o[s - 1][1] || n.joinRangesThatTouchEdges && o[s][0] <= o[s - 1][1]) && (o[s - 1][0] = Math.min(o[s][0], o[s - 1][0]), o[s - 1][1] = Math.max(o[s][1], o[s - 1][1]), o[s][2] !== void 0 && (o[s - 1][0] >= o[s][0] || o[s - 1][1] <= o[s][1]) && o[s - 1][2] !== null && (o[s][2] === null && o[s - 1][2] !== null ? o[s - 1][2] = null : o[s - 1][2] != null ? +n.mergeType == 2 && o[s - 1][0] === o[s][0] ? o[s - 1][2] = o[s][2] : o[s - 1][2] += o[s][2] : o[s - 1][2] = o[s][2]), o.splice(s, 1), s = o.length);
+  for (let s = d; s > 0; s--) n.progressFn && (r = Math.floor((1 - s / d) * 78) + 21, r !== g && r > g && (g = r, n.progressFn(r))), (o[s][0] <= o[s - 1][0] || !n.joinRangesThatTouchEdges && o[s][0] < o[s - 1][1] || n.joinRangesThatTouchEdges && o[s][0] <= o[s - 1][1]) && (o[s - 1][0] = Math.min(o[s][0], o[s - 1][0]), o[s - 1][1] = Math.max(o[s][1], o[s - 1][1]), o[s][2] !== void 0 && (o[s - 1][0] >= o[s][0] || o[s - 1][1] <= o[s][1]) && o[s - 1][2] !== null && (o[s][2] === null && o[s - 1][2] !== null ? o[s - 1][2] = null : o[s - 1][2] != null ? +n.mergeType == 2 && o[s - 1][0] === o[s][0] ? o[s - 1][2] = o[s][2] : o[s - 1][2] += o[s][2] : o[s - 1][2] = o[s][2]), o.splice(s, 1), s = o.length);
   return o.length ? o : null;
 }
 var Ts = {}, Ms = Ts.NODE_ENV === "production", oa = "Invariant failed";
@@ -1767,25 +1786,25 @@ function Hs(e, a) {
   if (!e) {
     if (Ms)
       throw new Error(oa);
-    var r = oa;
-    throw new Error(r);
+    var t = oa;
+    throw new Error(t);
   }
 }
-function Ds(e, a, r) {
+function Ds(e, a, t) {
   if (arguments.length === 0) throw new Error("ranges-apply: [THROW_ID_01] inputs missing!");
   if (typeof e != "string") throw new TypeError(`ranges-apply: [THROW_ID_02] first input argument must be a string! Currently it's: ${typeof e}, equal to: ${JSON.stringify(e, null, 4)}`);
   if (a && !Array.isArray(a)) throw new TypeError(`ranges-apply: [THROW_ID_03] second input argument must be an array (or null)! Currently it's: ${typeof a}, equal to: ${JSON.stringify(a, null, 4)}`);
   if (!a?.filter((g) => g).length) return e;
   let n;
-  Array.isArray(a) && Number.isInteger(a[0]) && Number.isInteger(a[1]) ? n = [Array.from(a)] : n = Array.from(a), n.length, n.filter((g) => g).forEach((g, t) => {
-    if (!Array.isArray(g)) throw new TypeError(`ranges-apply: [THROW_ID_05] ranges array, second input arg., has ${t}th element not an array: ${JSON.stringify(g, null, 4)}, which is ${typeof g}`);
+  Array.isArray(a) && Number.isInteger(a[0]) && Number.isInteger(a[1]) ? n = [Array.from(a)] : n = Array.from(a), n.length, n.filter((g) => g).forEach((g, r) => {
+    if (!Array.isArray(g)) throw new TypeError(`ranges-apply: [THROW_ID_05] ranges array, second input arg., has ${r}th element not an array: ${JSON.stringify(g, null, 4)}, which is ${typeof g}`);
     if (!Number.isInteger(g[0])) {
-      if (!Number.isInteger(+g[0]) || +g[0] < 0) throw new TypeError(`ranges-apply: [THROW_ID_06] ranges array, second input arg. has ${t}th element, array ${JSON.stringify(g, null, 0)}. Its first element is not an integer, string index, but ${typeof g[0]}, equal to: ${JSON.stringify(g[0], null, 4)}.`);
-      n[t][0] = +n[t][0];
+      if (!Number.isInteger(+g[0]) || +g[0] < 0) throw new TypeError(`ranges-apply: [THROW_ID_06] ranges array, second input arg. has ${r}th element, array ${JSON.stringify(g, null, 0)}. Its first element is not an integer, string index, but ${typeof g[0]}, equal to: ${JSON.stringify(g[0], null, 4)}.`);
+      n[r][0] = +n[r][0];
     }
     if (!Number.isInteger(g[1])) {
-      if (!Number.isInteger(+g[1]) || +g[1] < 0) throw new TypeError(`ranges-apply: [THROW_ID_07] ranges array, second input arg. has ${t}th element, array ${JSON.stringify(g, null, 0)}. Its second element is not an integer, string index, but ${typeof g[1]}, equal to: ${JSON.stringify(g[1], null, 4)}.`);
-      n[t][1] = +n[t][1];
+      if (!Number.isInteger(+g[1]) || +g[1] < 0) throw new TypeError(`ranges-apply: [THROW_ID_07] ranges array, second input arg. has ${r}th element, array ${JSON.stringify(g, null, 0)}. Its second element is not an integer, string index, but ${typeof g[1]}, equal to: ${JSON.stringify(g[1], null, 4)}.`);
+      n[r][1] = +n[r][1];
     }
   });
   let l = Is(n, { progressFn: (g) => {
@@ -1794,32 +1813,32 @@ function Ds(e, a, r) {
   let o = l.length;
   if (o > 0) {
     let g = e.slice(l[o - 1][1]);
-    e = l.reduce((t, d, s, m) => {
-      let u = s === 0 ? 0 : m[s - 1][1], h = m[s][0];
-      return `${t}${e.slice(u, h)}${m[s][2] || ""}`;
+    e = l.reduce((r, d, s, u) => {
+      let c = s === 0 ? 0 : u[s - 1][1], m = u[s][0];
+      return `${r}${e.slice(c, m)}${u[s][2] || ""}`;
     }, ""), e += g;
   }
   return e;
 }
 function we(e, a = 1) {
-  let r = " ";
+  let t = " ";
   function n(o) {
     return Array.from(o).reverse().join("");
   }
-  function l(o, g, t) {
-    let d = t ? `
-` : "\r", s = t ? "\r" : `
+  function l(o, g, r) {
+    let d = r ? `
+` : "\r", s = r ? "\r" : `
 `;
     if (!o) return o;
-    let m = 0, u = "";
-    for (let h = 0, c = o.length; h < c; h++) (o[h] === d || o[h] === s && o[h - 1] !== d) && m++, `\r
-`.includes(o[h]) || o[h] === r ? o[h] === r ? u += o[h] : o[h] === d ? m <= g && (u += o[h], o[h + 1] === s && (u += o[h + 1], h++)) : o[h] === s && o?.[h - 1] !== d && m <= g && (u += o[h]) : !o[h + 1] && !m && (u += " ");
-    return u;
+    let u = 0, c = "";
+    for (let m = 0, h = o.length; m < h; m++) (o[m] === d || o[m] === s && o[m - 1] !== d) && u++, `\r
+`.includes(o[m]) || o[m] === t ? o[m] === t ? c += o[m] : o[m] === d ? u <= g && (c += o[m], o[m + 1] === s && (c += o[m + 1], m++)) : o[m] === s && o?.[m - 1] !== d && u <= g && (c += o[m]) : !o[m + 1] && !u && (c += " ");
+    return c;
   }
   if (typeof e == "string" && e.length) {
     let o = 1;
     typeof +a == "number" && Number.isInteger(+a) && +a >= 0 && (o = +a);
-    let g = "", t = "";
+    let g = "", r = "";
     if (!e.trim()) g = e;
     else if (!e[0].trim()) {
       for (let d = 0, s = e.length; d < s; d++) if (e[d].trim()) {
@@ -1827,50 +1846,50 @@ function we(e, a = 1) {
         break;
       }
     }
-    if (e.trim() && (e.slice(-1).trim() === "" || e.slice(-1) === r)) {
+    if (e.trim() && (e.slice(-1).trim() === "" || e.slice(-1) === t)) {
       for (let d = e.length; d--; ) if (e[d].trim()) {
-        t = e.slice(d + 1);
+        r = e.slice(d + 1);
         break;
       }
     }
-    return `${l(g, o, !1)}${e.trim()}${n(l(n(t), o, !0))}`;
+    return `${l(g, o, !1)}${e.trim()}${n(l(n(r), o, !0))}`;
   }
   return e;
 }
 var la = { mergeType: 1, progressFn: null, joinRangesThatTouchEdges: !0 };
 function Ps(e, a) {
-  function r(s) {
+  function t(s) {
     return !!s && typeof s == "object" && !Array.isArray(s);
   }
   if (!Array.isArray(e) || !e.length) return null;
   let n;
-  if (a) if (r(a)) {
-    if (n = { ...la, ...a }, n.progressFn && r(n.progressFn) && !Object.keys(n.progressFn).length) n.progressFn = null;
+  if (a) if (t(a)) {
+    if (n = { ...la, ...a }, n.progressFn && t(n.progressFn) && !Object.keys(n.progressFn).length) n.progressFn = null;
     else if (n.progressFn && typeof n.progressFn != "function") throw new Error(`ranges-merge: [THROW_ID_01] resolvedOpts.progressFn must be a function! It was given of a type: "${typeof n.progressFn}", equal to ${JSON.stringify(n.progressFn, null, 4)}`);
     if (![1, 2, "1", "2"].includes(n.mergeType)) throw new Error(`ranges-merge: [THROW_ID_02] resolvedOpts.mergeType was customised to a wrong thing! It was given of a type: "${typeof n.mergeType}", equal to ${JSON.stringify(n.mergeType, null, 4)}`);
     if (typeof n.joinRangesThatTouchEdges != "boolean") throw new Error(`ranges-merge: [THROW_ID_04] resolvedOpts.joinRangesThatTouchEdges was customised to a wrong thing! It was given of a type: "${typeof n.joinRangesThatTouchEdges}", equal to ${JSON.stringify(n.joinRangesThatTouchEdges, null, 4)}`);
   } else throw new Error(`ranges-merge: [THROW_ID_03] the second input argument must be a plain object. It was given as:
 ${JSON.stringify(a, null, 4)} (type ${typeof a})`);
   else n = { ...la };
-  let l = e.filter((s) => Array.isArray(s)).map((s) => [...s]).filter((s) => s[2] !== void 0 || s[0] !== s[1]), o, g, t;
+  let l = e.filter((s) => Array.isArray(s)).map((s) => [...s]).filter((s) => s[2] !== void 0 || s[0] !== s[1]), o, g, r;
   n.progressFn ? o = ce(l, { progressFn: (s) => {
-    t = Math.floor(s / 5), t !== g && (g = t, n.progressFn != null && n.progressFn(t));
+    r = Math.floor(s / 5), r !== g && (g = r, n.progressFn != null && n.progressFn(r));
   } }) : o = ce(l);
   let d = o.length - 1;
-  for (let s = d; s > 0; s--) n.progressFn && (t = Math.floor((1 - s / d) * 78) + 21, t !== g && t > g && (g = t, n.progressFn(t))), (o[s][0] <= o[s - 1][0] || !n.joinRangesThatTouchEdges && o[s][0] < o[s - 1][1] || n.joinRangesThatTouchEdges && o[s][0] <= o[s - 1][1]) && (o[s - 1][0] = Math.min(o[s][0], o[s - 1][0]), o[s - 1][1] = Math.max(o[s][1], o[s - 1][1]), o[s][2] !== void 0 && (o[s - 1][0] >= o[s][0] || o[s - 1][1] <= o[s][1]) && o[s - 1][2] !== null && (o[s][2] === null && o[s - 1][2] !== null ? o[s - 1][2] = null : o[s - 1][2] != null ? +(n || {})?.mergeType == 2 && o[s - 1][0] === o[s][0] ? o[s - 1][2] = o[s][2] : o[s - 1][2] += o[s][2] : o[s - 1][2] = o[s][2]), o.splice(s, 1), s = o.length);
+  for (let s = d; s > 0; s--) n.progressFn && (r = Math.floor((1 - s / d) * 78) + 21, r !== g && r > g && (g = r, n.progressFn(r))), (o[s][0] <= o[s - 1][0] || !n.joinRangesThatTouchEdges && o[s][0] < o[s - 1][1] || n.joinRangesThatTouchEdges && o[s][0] <= o[s - 1][1]) && (o[s - 1][0] = Math.min(o[s][0], o[s - 1][0]), o[s - 1][1] = Math.max(o[s][1], o[s - 1][1]), o[s][2] !== void 0 && (o[s - 1][0] >= o[s][0] || o[s - 1][1] <= o[s][1]) && o[s - 1][2] !== null && (o[s][2] === null && o[s - 1][2] !== null ? o[s - 1][2] = null : o[s - 1][2] != null ? +(n || {})?.mergeType == 2 && o[s - 1][0] === o[s][0] ? o[s - 1][2] = o[s][2] : o[s - 1][2] += o[s][2] : o[s - 1][2] = o[s][2]), o.splice(s, 1), s = o.length);
   return o.length ? o : null;
 }
 var Ls = { limitToBeAddedWhitespace: !1, limitLinebreaksCount: 1, mergeType: 1 }, Us = class {
   constructor(e) {
     let a = { ...Ls, ...e };
-    if (a.mergeType && a.mergeType !== 1 && a.mergeType !== 2) if (F(a.mergeType) && a.mergeType.trim() === "1") a.mergeType = 1;
-    else if (F(a.mergeType) && a.mergeType.trim() === "2") a.mergeType = 2;
+    if (a.mergeType && a.mergeType !== 1 && a.mergeType !== 2) if (V(a.mergeType) && a.mergeType.trim() === "1") a.mergeType = 1;
+    else if (V(a.mergeType) && a.mergeType.trim() === "2") a.mergeType = 2;
     else throw new Error(`ranges-push: [THROW_ID_02] opts.mergeType was customised to a wrong thing! It was given of a type: "${typeof a.mergeType}", equal to ${JSON.stringify(a.mergeType, null, 4)}`);
     this.opts = a, this.ranges = [];
   }
   ranges;
   opts;
-  add(e, a, r) {
+  add(e, a, t) {
     if (e == null && a == null) return;
     if (P(e) && !P(a)) {
       if (Array.isArray(e)) {
@@ -1881,30 +1900,30 @@ var Ls = { limitToBeAddedWhitespace: !1, limitLinebreaksCount: 1, mergeType: 1 }
             });
             return;
           }
-          e.length && j(+e[0]) && j(+e[1]) && this.add(...e);
+          e.length && F(+e[0]) && F(+e[1]) && this.add(...e);
         }
         return;
       }
       throw new TypeError(`ranges-push/Ranges/add(): [THROW_ID_12] the first input argument, "from" is set (${JSON.stringify(e, null, 0)}) but second-one, "to" is not (${JSON.stringify(a, null, 0)})`);
     } else if (!P(e) && P(a)) throw new TypeError(`ranges-push/Ranges/add(): [THROW_ID_13] the second input argument, "to" is set (${JSON.stringify(a, null, 0)}) but first-one, "from" is not (${JSON.stringify(e, null, 0)})`);
     let n = +e, l = +a;
-    if (j(n) && j(l)) {
-      if (P(r) && !F(r) && !ml(r)) throw new TypeError(`ranges-push/Ranges/add(): [THROW_ID_08] The third argument, the value to add, was given not as string but ${typeof r}, equal to:
-${JSON.stringify(r, null, 4)}`);
+    if (F(n) && F(l)) {
+      if (P(t) && !V(t) && !ml(t)) throw new TypeError(`ranges-push/Ranges/add(): [THROW_ID_08] The third argument, the value to add, was given not as string but ${typeof t}, equal to:
+${JSON.stringify(t, null, 4)}`);
       if (P(this.ranges) && Array.isArray(this.last()) && n === this.last()[1]) {
-        if (this.last()[1] = l, this.last()[2], this.last()[2] !== null && P(r)) {
-          let o = this.last()[2] && this.last()[2].length && (!this.opts?.mergeType || this.opts.mergeType === 1) ? `${this.last()[2]}${r}` : r;
-          this.opts.limitToBeAddedWhitespace && (o = we(o, this.opts.limitLinebreaksCount)), F(o) && !o.length || (this.last()[2] = o);
+        if (this.last()[1] = l, this.last()[2], this.last()[2] !== null && P(t)) {
+          let o = this.last()[2] && this.last()[2].length && (!this.opts?.mergeType || this.opts.mergeType === 1) ? `${this.last()[2]}${t}` : t;
+          this.opts.limitToBeAddedWhitespace && (o = we(o, this.opts.limitLinebreaksCount)), V(o) && !o.length || (this.last()[2] = o);
         }
       } else {
         this.ranges || (this.ranges = []);
-        let o = r !== void 0 && !(F(r) && !r.length) ? [n, l, r && this.opts.limitToBeAddedWhitespace ? we(r, this.opts.limitLinebreaksCount) : r] : [n, l];
+        let o = t !== void 0 && !(V(t) && !t.length) ? [n, l, t && this.opts.limitToBeAddedWhitespace ? we(t, this.opts.limitLinebreaksCount) : t] : [n, l];
         this.ranges.push(o);
       }
-    } else throw j(n) && n >= 0 ? new TypeError(`ranges-push/Ranges/add(): [THROW_ID_10] "to" value, the second input argument, must be a natural number or zero! Currently it's of a type "${typeof l}" equal to: ${JSON.stringify(l, null, 4)}`) : new TypeError(`ranges-push/Ranges/add(): [THROW_ID_09] "from" value, the first input argument, must be a natural number or zero! Currently it's of a type "${typeof n}" equal to: ${JSON.stringify(n, null, 4)}`);
+    } else throw F(n) && n >= 0 ? new TypeError(`ranges-push/Ranges/add(): [THROW_ID_10] "to" value, the second input argument, must be a natural number or zero! Currently it's of a type "${typeof l}" equal to: ${JSON.stringify(l, null, 4)}`) : new TypeError(`ranges-push/Ranges/add(): [THROW_ID_09] "from" value, the first input argument, must be a natural number or zero! Currently it's of a type "${typeof n}" equal to: ${JSON.stringify(n, null, 4)}`);
   }
-  push(e, a, r) {
-    this.add(e, a, r);
+  push(e, a, t) {
+    this.add(e, a, t);
   }
   current() {
     return Array.isArray(this.ranges) && this.ranges.length ? (this.ranges = Ps(this.ranges, { mergeType: this.opts.mergeType }), this.ranges && this.opts.limitToBeAddedWhitespace ? this.ranges.map((e) => P(e[2]) ? [e[0], e[1], we(e[2], this.opts.limitLinebreaksCount)] : e) : this.ranges) : null;
@@ -1913,7 +1932,7 @@ ${JSON.stringify(r, null, 4)}`);
     this.ranges = [];
   }
   replace(e) {
-    if (Array.isArray(e) && e.length) if (Array.isArray(e[0]) && j(e[0][0])) this.ranges = Array.from(e);
+    if (Array.isArray(e) && e.length) if (Array.isArray(e[0]) && F(e[0][0])) this.ranges = Array.from(e);
     else throw new Error(`ranges-push/Ranges/replace(): [THROW_ID_11] Single range was given but we expected array of arrays! The first element, ${JSON.stringify(e[0], null, 4)} should be an array and its first element should be an integer, a string index.`);
     else this.ranges = [];
   }
@@ -1923,13 +1942,13 @@ ${JSON.stringify(r, null, 4)}`);
 };
 ua();
 var Ne = " ";
-function zs({ str: e, idx: a = 0, stopAtNewlines: r = !1, stopAtRawNbsp: n = !1 }) {
+function zs({ str: e, idx: a = 0, stopAtNewlines: t = !1, stopAtRawNbsp: n = !1 }) {
   if (typeof e != "string" || !e.length || ((!a || typeof a != "number") && (a = 0), !e[a + 1])) return null;
-  if (e[a + 1] && (e[a + 1].trim() || r && `
+  if (e[a + 1] && (e[a + 1].trim() || t && `
 \r`.includes(e[a + 1]) || n && e[a + 1] === Ne)) return a + 1;
-  if (e[a + 2] && (e[a + 2].trim() || r && `
+  if (e[a + 2] && (e[a + 2].trim() || t && `
 \r`.includes(e[a + 2]) || n && e[a + 2] === Ne)) return a + 2;
-  for (let l = a + 1, o = e.length; l < o; l++) if (e[l].trim() || r && `
+  for (let l = a + 1, o = e.length; l < o; l++) if (e[l].trim() || t && `
 \r`.includes(e[l]) || n && e[l] === Ne) return l;
   return null;
 }
@@ -1941,53 +1960,53 @@ function Bs(e) {
 }
 function ia(e, a) {
   if (!e) return [];
-  if (Array.isArray(e)) return e.filter((r) => typeof r == "string" && r.trim());
+  if (Array.isArray(e)) return e.filter((t) => typeof t == "string" && t.trim());
   if (typeof e == "string") return e.trim() ? [e] : [];
   throw new TypeError(`string-strip-html/stripHtml(): [THROW_ID_05] ${a} must be array containing zero or more strings or something falsey. Currently it's equal to: ${e}, that a type of ${typeof e}.`);
 }
-function ie(e, a, r, n) {
+function ie(e, a, t, n) {
   for (let l = a, o = e.length; l < o; l++) {
-    if (e.startsWith(r, l)) return !0;
+    if (e.startsWith(t, l)) return !0;
     if (e.startsWith(n, l)) return !1;
   }
   return !1;
 }
-function sa(e, a, r) {
-  return e?.quotes, e?.quotes?.value && ie(a, r + 1, e.quotes.value, ">"), e?.quotes?.next, ie(a, e?.quotes?.next - 1, e?.quotes?.value, ">"), !e?.quotes || !ie(a, r + 1, e.quotes.value, ">") && e?.quotes?.next !== -1 && ie(a, e?.quotes?.next - 1, e?.quotes?.value, ">");
+function sa(e, a, t) {
+  return e?.quotes, e?.quotes?.value && ie(a, t + 1, e.quotes.value, ">"), e?.quotes?.next, ie(a, e?.quotes?.next - 1, e?.quotes?.value, ">"), !e?.quotes || !ie(a, t + 1, e.quotes.value, ">") && e?.quotes?.next !== -1 && ie(a, e?.quotes?.next - 1, e?.quotes?.value, ">");
 }
 function $s(e, a) {
   return (a.match(new RegExp(e, "g")) || []).length;
 }
 var ae = /* @__PURE__ */ new Set(["!doctype", "abbr", "address", "area", "article", "aside", "audio", "base", "bdi", "bdo", "blockquote", "body", "br", "button", "canvas", "caption", "cite", "code", "col", "colgroup", "data", "datalist", "dd", "del", "details", "dfn", "dialog", "div", "dl", "doctype", "dt", "em", "embed", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup", "hr", "html", "iframe", "img", "input", "ins", "kbd", "keygen", "label", "legend", "li", "link", "main", "map", "mark", "math", "menu", "menuitem", "meta", "meter", "nav", "noscript", "object", "ol", "optgroup", "option", "output", "param", "picture", "pre", "progress", "rb", "rp", "rt", "rtc", "ruby", "samp", "script", "section", "select", "slot", "small", "source", "span", "strong", "style", "sub", "summary", "sup", "svg", "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead", "time", "title", "tr", "track", "ul", "var", "video", "wbr", "xml"]), Ae = /* @__PURE__ */ new Set(["a", "b", "i", "p", "q", "s", "u"]), Ce = /* @__PURE__ */ new Set([".", ",", ";", "!", "?"]), ga = /* @__PURE__ */ new Set([".", ",", "?", ";", ")", "…", '"', "»"]), js = /* @__PURE__ */ new Set(["a", "abbr", "acronym", "audio", "b", "bdi", "bdo", "big", "button", "canvas", "cite", "code", "data", "datalist", "del", "dfn", "em", "embed", "i", "iframe", "input", "ins", "kbd", "label", "map", "mark", "meter", "noscript", "object", "output", "picture", "progress", "q", "ruby", "s", "samp", "select", "slot", "small", "span", "strong", "sub", "sup", "svg", "template", "textarea", "time", "u", "tt", "var", "video", "wbr"]), da = { ignoreTags: [], ignoreTagsWithTheirContents: [], onlyStripTags: [], stripTogetherWithTheirContents: ["script", "style", "xml"], skipHtmlDecoding: !1, trimOnlySpaces: !1, stripRecognisedHTMLOnly: !1, dumpLinkHrefsNearby: { enabled: !1, putOnNewLine: !1, wrapHeads: "", wrapTails: "" }, ignoreIndentations: !1, cb: null, reportProgressFunc: null, reportProgressFuncFrom: 0, reportProgressFuncTo: 100 };
 function ka(e, a) {
-  let r = Date.now(), n = [], l = [], o = [], g = [], t = {};
+  let t = Date.now(), n = [], l = [], o = [], g = [], r = {};
   function d() {
-    t = { attributes: [] };
+    r = { attributes: [] };
   }
   d();
-  let s = null, m = null, u = null, h = !1, c = {}, b = { tagName: "", hrefValue: "", openingTagEnds: void 0 }, w = "", q = !1, k = null, G = !0;
-  function te(i, f, S) {
-    if (Array.isArray(f.stripTogetherWithTheirContents) && (f.stripTogetherWithTheirContents.includes(t.name) || f.stripTogetherWithTheirContents.includes("*"))) if (t.slashPresent && Array.isArray(n) && n.some((y) => y.name === t.name)) {
-      for (let y = n.length; y--; ) if (n[y].name === t.name) {
+  let s = null, u = null, c = null, m = !1, h = {}, S = { tagName: "", hrefValue: "", openingTagEnds: void 0 }, w = "", q = !1, k = null, G = !0;
+  function te(i, f, b) {
+    if (Array.isArray(f.stripTogetherWithTheirContents) && (f.stripTogetherWithTheirContents.includes(r.name) || f.stripTogetherWithTheirContents.includes("*"))) if (r.slashPresent && Array.isArray(n) && n.some((y) => y.name === r.name)) {
+      for (let y = n.length; y--; ) if (n[y].name === r.name) {
         g = g.filter(([N, C]) => (N < n[y].lastOpeningBracketAt || N >= i + 1) && (C <= n[y].lastOpeningBracketAt || C > i + 1));
         let A = i + 1;
-        t.lastClosingBracketAt && (A = t.lastClosingBracketAt + 1), g.push([n[y].lastOpeningBracketAt, A]), ga.has(e[i]) && f.cb ? f.cb({ tag: t, deleteFrom: n[y].lastOpeningBracketAt, deleteTo: i + 1, insert: null, rangesArr: S, proposedReturn: [n[y].lastOpeningBracketAt, i, null] }) : f.cb && f.cb({ tag: t, deleteFrom: n[y].lastOpeningBracketAt, deleteTo: i, insert: "", rangesArr: S, proposedReturn: [n[y].lastOpeningBracketAt, i, ""] }), n.splice(y, 1);
+        r.lastClosingBracketAt && (A = r.lastClosingBracketAt + 1), g.push([n[y].lastOpeningBracketAt, A]), ga.has(e[i]) && f.cb ? f.cb({ tag: r, deleteFrom: n[y].lastOpeningBracketAt, deleteTo: i + 1, insert: null, rangesArr: b, proposedReturn: [n[y].lastOpeningBracketAt, i, null] }) : f.cb && f.cb({ tag: r, deleteFrom: n[y].lastOpeningBracketAt, deleteTo: i, insert: "", rangesArr: b, proposedReturn: [n[y].lastOpeningBracketAt, i, ""] }), n.splice(y, 1);
         break;
       }
-    } else t.slashPresent || n.push(t);
-    else Array.isArray(f.ignoreTagsWithTheirContents) && pe(i, f, t) && (G = !1);
+    } else r.slashPresent || n.push(r);
+    else Array.isArray(f.ignoreTagsWithTheirContents) && pe(i, f, r) && (G = !1);
   }
-  function B(i, f, S, y, A, N) {
-    if (Array.isArray(v.current()) && typeof S == "number" && v.current()[0][0] === 0 && v.current()[0][1] >= S) return "";
+  function $(i, f, b, y, A, N) {
+    if (Array.isArray(v.current()) && typeof b == "number" && v.current()[0][0] === 0 && v.current()[0][1] >= b) return "";
     if (e.length === y && N && !p?.dumpLinkHrefsNearby?.enabled) return null;
     let C = "";
-    if (Number.isInteger(S) && S < A && (C += i.slice(S, A)), Number.isInteger(y) && y > N + 1) {
+    if (Number.isInteger(b) && b < A && (C += i.slice(b, A)), Number.isInteger(y) && y > N + 1) {
       let T = i.slice(N + 1, y);
       y && !E(e, y - 1) && (T = T.trimEnd()), T.includes(`
 `) && I(y, i) ? C += " " : C += T;
     }
-    let $ = !ga.has(i[f]), ze = i[y - 1] !== ">" || !i[S].trim(), Be = !['"', "("].includes(i[A - 1]), xa = ![";", ".", ":", "!"].includes(i[f]);
-    if (($ || ze && Be && xa) && (ze || Be) && i[f] !== "!" && (!js.has(t.name) || typeof S == "number" && S < A || typeof y == "number" && y > N + 1)) {
+    let j = !ga.has(i[f]), ze = i[y - 1] !== ">" || !i[b].trim(), Be = !['"', "("].includes(i[A - 1]), xa = ![";", ".", ":", "!"].includes(i[f]);
+    if ((j || ze && Be && xa) && (ze || Be) && i[f] !== "!" && (!js.has(r.name) || typeof b == "number" && b < A || typeof y == "number" && y > N + 1)) {
       let T = C.match(/\n/g);
       return Array.isArray(T) && T.length ? T.length === 1 ? `
 ` : T.length === 2 ? `
@@ -2000,11 +2019,11 @@ function ka(e, a) {
     return "";
   }
   function me(i, f) {
-    if (i.dumpLinkHrefsNearby?.enabled && b.tagName && b.tagName === t.name && t.lastOpeningBracketAt && (b.openingTagEnds && t.lastOpeningBracketAt > b.openingTagEnds || !b.openingTagEnds) && (q = !0), q) {
-      let S = i.dumpLinkHrefsNearby?.putOnNewLine ? `
+    if (i.dumpLinkHrefsNearby?.enabled && S.tagName && S.tagName === r.name && r.lastOpeningBracketAt && (S.openingTagEnds && r.lastOpeningBracketAt > S.openingTagEnds || !S.openingTagEnds) && (q = !0), q) {
+      let b = i.dumpLinkHrefsNearby?.putOnNewLine ? `
 
 ` : "";
-      w = `${S}${b.hrefValue}`, (typeof f != "number" || E(e, f - 1)) && (w += S);
+      w = `${b}${S.hrefValue}`, (typeof f != "number" || E(e, f - 1)) && (w += b);
     }
   }
   function I(i, f) {
@@ -2013,10 +2032,10 @@ function ka(e, a) {
   function H(i) {
     return e[i] === ">" && e[i - 1] !== "%";
   }
-  function pe(i, f, S) {
+  function pe(i, f, b) {
     if (f.ignoreTagsWithTheirContents.includes("*")) return !0;
-    let y = e.indexOf(`<${S.name}`, i), A = e.indexOf(`</${S.name}`, i);
-    return !S.slashPresent && A === -1 || S.slashPresent && !l.some((N) => N.name === S.name) || A > -1 && y > -1 && y < A ? !1 : f.ignoreTagsWithTheirContents.includes(S.name);
+    let y = e.indexOf(`<${b.name}`, i), A = e.indexOf(`</${b.name}`, i);
+    return !b.slashPresent && A === -1 || b.slashPresent && !l.some((N) => N.name === b.name) || A > -1 && y > -1 && y < A ? !1 : f.ignoreTagsWithTheirContents.includes(b.name);
   }
   if (typeof e != "string") throw new TypeError(`string-strip-html/stripHtml(): [THROW_ID_01] Input must be string! Currently it's: ${(typeof e).toLowerCase()}, equal to:
 ${JSON.stringify(e, null, 4)}`);
@@ -2026,7 +2045,7 @@ ${JSON.stringify(e, null, 4)}`);
   } else throw new TypeError(`string-strip-html/stripHtml(): [THROW_ID_02] Optional Options Object must be a plain object! Currently it's: ${(typeof a).toLowerCase()}, equal to:
 ${JSON.stringify(a, null, 4)}`);
   function fe() {
-    q && (b = { tagName: "", hrefValue: "", openingTagEnds: void 0 }, q = !1);
+    q && (S = { tagName: "", hrefValue: "", openingTagEnds: void 0 }, q = !1);
   }
   let p = { ...da, ...a, dumpLinkHrefsNearby: Object.assign({}, da.dumpLinkHrefsNearby, a?.dumpLinkHrefsNearby) };
   if (pl(p, "returnRangesOnly")) throw new TypeError("string-strip-html/stripHtml(): [THROW_ID_05] The Optional Options Object's key returnRangesOnly has been removed from the API since v.5 release.");
@@ -2046,128 +2065,128 @@ ${JSON.stringify(a, null, 4)}`);
   if (!p.skipHtmlDecoding) for (; e !== ra(e, { scope: "strict" }); ) e = ra(e, { scope: "strict" });
   let U = !1, D = !1, oe = 0, Ue = 0, x = e.length, qa = Math.floor(x / 2);
   for (let i = 0; i < x; i++) {
-    if (p.reportProgressFunc && (x > 1e3 && x < 2e3 ? i === qa && p.reportProgressFunc(Math.floor((p.reportProgressFuncTo - p.reportProgressFuncFrom) / 2)) : x >= 2e3 && (oe = p.reportProgressFuncFrom + Math.floor(i / x * (p.reportProgressFuncTo - p.reportProgressFuncFrom)), oe !== Ue && (Ue = oe, p.reportProgressFunc(oe)))), Object.keys(t).length > 1 && t.lastClosingBracketAt && t.lastClosingBracketAt < i && e[i] !== " " && k === null && (k = i), !U && e[i] === "%" && e[i - 1] === "{" && e.includes("%}", i + 1)) {
-      u = null;
+    if (p.reportProgressFunc && (x > 1e3 && x < 2e3 ? i === qa && p.reportProgressFunc(Math.floor((p.reportProgressFuncTo - p.reportProgressFuncFrom) / 2)) : x >= 2e3 && (oe = p.reportProgressFuncFrom + Math.floor(i / x * (p.reportProgressFuncTo - p.reportProgressFuncFrom)), oe !== Ue && (Ue = oe, p.reportProgressFunc(oe)))), Object.keys(r).length > 1 && r.lastClosingBracketAt && r.lastClosingBracketAt < i && e[i] !== " " && k === null && (k = i), !U && e[i] === "%" && e[i - 1] === "{" && e.includes("%}", i + 1)) {
+      c = null;
       let f = e.indexOf("%}", i) - 1;
       if (f > i) {
         i = f;
         continue;
       }
     }
-    if (!U && H(i) && (!t || Object.keys(t).length < 2) && i > 1) {
+    if (!U && H(i) && (!r || Object.keys(r).length < 2) && i > 1) {
       for (let f = i; f--; ) if (e[f - 1] === void 0 || H(f)) {
-        let S = e[f - 1] === void 0 ? f : f + 1, y = e.slice(S, i + 1) || "";
+        let b = e[f - 1] === void 0 ? f : f + 1, y = e.slice(b, i + 1) || "";
         if ((y.includes("/>") || y.includes("/ >") || y.includes('="') || y.includes("='")) && e !== `<${aa(y.trim(), "/>")}>` && [...ae].some((A) => aa(y.trim().split(/\s+/).filter((N) => N.trim()).filter((N, C) => C === 0), "/>").toLowerCase() === A) && ka(`<${y.trim()}>`, p).result === "") {
-          (!o.length || o[o.length - 1][0] !== t.lastOpeningBracketAt) && o.push([S, i + 1]), (!g.length || g[g.length - 1][0] !== t.lastOpeningBracketAt) && g.push([S, i + 1]);
-          let A = B(e, i, S, i + 1, S, i + 1), N = i + 1;
+          (!o.length || o[o.length - 1][0] !== r.lastOpeningBracketAt) && o.push([b, i + 1]), (!g.length || g[g.length - 1][0] !== r.lastOpeningBracketAt) && g.push([b, i + 1]);
+          let A = $(e, i, b, i + 1, b, i + 1), N = i + 1;
           if (e[N] && !e[N].trim()) {
             for (let C = N; C < x; C++) if (e[C].trim()) {
               N = C;
               break;
             }
           }
-          p.cb({ tag: t, deleteFrom: S, deleteTo: N, insert: A, rangesArr: v, proposedReturn: [S, N, A] });
+          p.cb({ tag: r, deleteFrom: b, deleteTo: N, insert: A, rangesArr: v, proposedReturn: [b, N, A] });
         }
         break;
       }
     }
-    if (!D && e[i] === "/" && !t.quotes?.value && Number.isInteger(t.lastOpeningBracketAt) && !Number.isInteger(t.lastClosingBracketAt) && (t.slashPresent = i), e[i] === '"' || e[i] === "'") if (!D && t.nameStarts && t?.quotes?.value === e[i]) if (c.valueStarts === void 0) c = {}, delete t.quotes;
+    if (!D && e[i] === "/" && !r.quotes?.value && Number.isInteger(r.lastOpeningBracketAt) && !Number.isInteger(r.lastClosingBracketAt) && (r.slashPresent = i), e[i] === '"' || e[i] === "'") if (!D && r.nameStarts && r?.quotes?.value === e[i]) if (h.valueStarts === void 0) h = {}, delete r.quotes;
     else {
-      c.valueEnds = i, c.value = e.slice(c.valueStarts, i), t.attributes.push(c), c = {}, delete t.quotes;
+      h.valueEnds = i, h.value = e.slice(h.valueStarts, i), r.attributes.push(h), h = {}, delete r.quotes;
       let f;
-      p.dumpLinkHrefsNearby?.enabled && !n.length && t.attributes.some((S) => {
-        if (typeof S.name == "string" && S.name.toLowerCase() === "href") return f = `${p.dumpLinkHrefsNearby?.wrapHeads || ""}${S.value}${p.dumpLinkHrefsNearby?.wrapTails || ""}`, !0;
-      }) && (b = { tagName: t.name, hrefValue: f, openingTagEnds: void 0 });
+      p.dumpLinkHrefsNearby?.enabled && !n.length && r.attributes.some((b) => {
+        if (typeof b.name == "string" && b.name.toLowerCase() === "href") return f = `${p.dumpLinkHrefsNearby?.wrapHeads || ""}${b.value}${p.dumpLinkHrefsNearby?.wrapTails || ""}`, !0;
+      }) && (S = { tagName: r.name, hrefValue: f, openingTagEnds: void 0 });
     }
-    else !D && !t.quotes && t.nameStarts && (t.quotes = {}, t.quotes.value = e[i], t.quotes.start = i, t.quotes.next = e.indexOf(e[i], i + 1), c.nameStarts && c.nameEnds && c.nameEnds < i && c.nameStarts < i && !c.valueStarts && (c.name = e.slice(c.nameStarts, c.nameEnds)));
-    if (t.nameStarts !== void 0 && t.nameEnds === void 0 && (!e[i].trim() || !Bs(e[i]))) {
-      if (t.nameEnds = i, t.name = e.slice(t.nameStarts, t.nameEnds + (!H(i) && e[i] !== "/" && e[i + 1] === void 0 ? 1 : 0)), e[t.nameStarts - 1] !== "!" && !t.name.replace(/-/g, "").length || /^\d+$/.test(t.name[0])) {
-        t = {};
+    else !D && !r.quotes && r.nameStarts && (r.quotes = {}, r.quotes.value = e[i], r.quotes.start = i, r.quotes.next = e.indexOf(e[i], i + 1), h.nameStarts && h.nameEnds && h.nameEnds < i && h.nameStarts < i && !h.valueStarts && (h.name = e.slice(h.nameStarts, h.nameEnds)));
+    if (r.nameStarts !== void 0 && r.nameEnds === void 0 && (!e[i].trim() || !Bs(e[i]))) {
+      if (r.nameEnds = i, r.name = e.slice(r.nameStarts, r.nameEnds + (!H(i) && e[i] !== "/" && e[i + 1] === void 0 ? 1 : 0)), e[r.nameStarts - 1] !== "!" && !r.name.replace(/-/g, "").length || /^\d+$/.test(r.name[0])) {
+        r = {};
         continue;
       }
-      if (typeof t.name == "string" && t.name.toLowerCase() === "doctype" && (D = !0), I(i)) {
+      if (typeof r.name == "string" && r.name.toLowerCase() === "doctype" && (D = !0), I(i)) {
         me(p);
-        let f = B(e, i, t.leftOuterWhitespace, i, t.lastOpeningBracketAt, i);
-        (p.stripTogetherWithTheirContents.includes(t.name) || p.stripTogetherWithTheirContents.includes("*")) && (g = g.filter(([S, y]) => !(S === t.leftOuterWhitespace && y === i))), p.cb({ tag: t, deleteFrom: t.leftOuterWhitespace, deleteTo: i, insert: `${f}${w}${f}`, rangesArr: v, proposedReturn: [t.leftOuterWhitespace, i, `${f}${w}${f}`] }), fe(), te(i, p, v);
+        let f = $(e, i, r.leftOuterWhitespace, i, r.lastOpeningBracketAt, i);
+        (p.stripTogetherWithTheirContents.includes(r.name) || p.stripTogetherWithTheirContents.includes("*")) && (g = g.filter(([b, y]) => !(b === r.leftOuterWhitespace && y === i))), p.cb({ tag: r, deleteFrom: r.leftOuterWhitespace, deleteTo: i, insert: `${f}${w}${f}`, rangesArr: v, proposedReturn: [r.leftOuterWhitespace, i, `${f}${w}${f}`] }), fe(), te(i, p, v);
       }
     }
-    if (t.quotes?.start && t.quotes.start < i && !t.quotes.end && c.nameEnds && c.equalsAt && !c.valueStarts && (c.valueStarts = i), !t.quotes && c.nameEnds && e[i] === "=" && !c.valueStarts && !c.equalsAt && (c.equalsAt = i), !t.quotes && c.nameStarts && c.nameEnds && !c.valueStarts && e[i].trim() && e[i] !== "=" && (t.attributes.push(c), c = {}), !t.quotes && c.nameStarts && !c.nameEnds && (D && `'"`.includes(e[c.nameStarts]) ? c.nameStarts < i && e[i] === e[c.nameStarts] && (c.nameEnds = i + 1, c.name = e.slice(c.nameStarts, c.nameEnds)) : e[i].trim() ? e[i] === "=" ? c.equalsAt || (c.nameEnds = i, c.equalsAt = i, c.name = e.slice(c.nameStarts, c.nameEnds)) : e[i] === "/" || H(i) ? (c.nameEnds = i, c.name = e.slice(c.nameStarts, c.nameEnds), t.attributes.push(c), c = {}) : I(i) && (c.nameEnds = i, c.name = e.slice(c.nameStarts, c.nameEnds), t.attributes.push(c), c = {}) : (c.nameEnds = i, c.name = e.slice(c.nameStarts, c.nameEnds))), !t.quotes && t.nameEnds < i && !e[i - 1].trim() && e[i].trim() && !"<>/!".includes(e[i]) && !c.nameStarts && !t.lastClosingBracketAt && (c.nameStarts = i), t.lastOpeningBracketAt !== null && t.lastOpeningBracketAt < i && e[i] === "/" && t.onlyPlausible && (t.onlyPlausible = !1), t.lastOpeningBracketAt !== null && t.lastOpeningBracketAt < i && e[i] !== "/" && (t.onlyPlausible === void 0 && ((!e[i].trim() || I(i)) && !t.slashPresent ? t.onlyPlausible = !0 : t.onlyPlausible = !1), e[i].trim() && t.nameStarts === void 0 && !I(i) && e[i] !== "/" && !H(i) && e[i] !== "!" && (t.nameStarts = i, t.nameContainsLetters = !1)), t.nameStarts && !t.quotes && typeof e[i] == "string" && e[i].toLowerCase() !== e[i].toUpperCase() && (t.nameContainsLetters = !0), H(i) && (sa(t, e, i) || t.quotes.value && typeof t.lastOpeningBracketAt == "number" && $s(t.quotes.value, e.slice(t.lastOpeningBracketAt, i)) % 2 === 1 && !e.slice(t.lastOpeningBracketAt + 1, i).includes("<") && !e.slice(t.lastOpeningBracketAt + 1, i).includes(">")) && t.lastOpeningBracketAt !== void 0 && (t.lastClosingBracketAt = i, k = null, Object.keys(c).length && (t.attributes.push(c), c = {}), p.dumpLinkHrefsNearby?.enabled && b.tagName && !b.openingTagEnds && (b.openingTagEnds = i)), (!D || e[i] === ">") && t.lastOpeningBracketAt !== void 0) {
-      if (t.lastClosingBracketAt === void 0) {
-        if (t.lastOpeningBracketAt < i && !I(i) && (e[i + 1] === void 0 || I(i + 1) && !t?.quotes?.value) && t.nameContainsLetters && typeof t.nameStarts == "number") {
-          if (t.name = e.slice(t.nameStarts, t.nameEnds || i + 1).toLowerCase(), (!o.length || o[o.length - 1][0] !== t.lastOpeningBracketAt) && o.push([t.lastOpeningBracketAt, i + 1]), p.ignoreTags.includes(t.name) || pe(i, p, t) || !ae.has(t.name) && (t.onlyPlausible || p.stripRecognisedHTMLOnly)) {
-            t = {}, c = {};
+    if (r.quotes?.start && r.quotes.start < i && !r.quotes.end && h.nameEnds && h.equalsAt && !h.valueStarts && (h.valueStarts = i), !r.quotes && h.nameEnds && e[i] === "=" && !h.valueStarts && !h.equalsAt && (h.equalsAt = i), !r.quotes && h.nameStarts && h.nameEnds && !h.valueStarts && e[i].trim() && e[i] !== "=" && (r.attributes.push(h), h = {}), !r.quotes && h.nameStarts && !h.nameEnds && (D && `'"`.includes(e[h.nameStarts]) ? h.nameStarts < i && e[i] === e[h.nameStarts] && (h.nameEnds = i + 1, h.name = e.slice(h.nameStarts, h.nameEnds)) : e[i].trim() ? e[i] === "=" ? h.equalsAt || (h.nameEnds = i, h.equalsAt = i, h.name = e.slice(h.nameStarts, h.nameEnds)) : e[i] === "/" || H(i) ? (h.nameEnds = i, h.name = e.slice(h.nameStarts, h.nameEnds), r.attributes.push(h), h = {}) : I(i) && (h.nameEnds = i, h.name = e.slice(h.nameStarts, h.nameEnds), r.attributes.push(h), h = {}) : (h.nameEnds = i, h.name = e.slice(h.nameStarts, h.nameEnds))), !r.quotes && r.nameEnds < i && !e[i - 1].trim() && e[i].trim() && !"<>/!".includes(e[i]) && !h.nameStarts && !r.lastClosingBracketAt && (h.nameStarts = i), r.lastOpeningBracketAt !== null && r.lastOpeningBracketAt < i && e[i] === "/" && r.onlyPlausible && (r.onlyPlausible = !1), r.lastOpeningBracketAt !== null && r.lastOpeningBracketAt < i && e[i] !== "/" && (r.onlyPlausible === void 0 && ((!e[i].trim() || I(i)) && !r.slashPresent ? r.onlyPlausible = !0 : r.onlyPlausible = !1), e[i].trim() && r.nameStarts === void 0 && !I(i) && e[i] !== "/" && !H(i) && e[i] !== "!" && (r.nameStarts = i, r.nameContainsLetters = !1)), r.nameStarts && !r.quotes && typeof e[i] == "string" && e[i].toLowerCase() !== e[i].toUpperCase() && (r.nameContainsLetters = !0), H(i) && (sa(r, e, i) || r.quotes.value && typeof r.lastOpeningBracketAt == "number" && $s(r.quotes.value, e.slice(r.lastOpeningBracketAt, i)) % 2 === 1 && !e.slice(r.lastOpeningBracketAt + 1, i).includes("<") && !e.slice(r.lastOpeningBracketAt + 1, i).includes(">")) && r.lastOpeningBracketAt !== void 0 && (r.lastClosingBracketAt = i, k = null, Object.keys(h).length && (r.attributes.push(h), h = {}), p.dumpLinkHrefsNearby?.enabled && S.tagName && !S.openingTagEnds && (S.openingTagEnds = i)), (!D || e[i] === ">") && r.lastOpeningBracketAt !== void 0) {
+      if (r.lastClosingBracketAt === void 0) {
+        if (r.lastOpeningBracketAt < i && !I(i) && (e[i + 1] === void 0 || I(i + 1) && !r?.quotes?.value) && r.nameContainsLetters && typeof r.nameStarts == "number") {
+          if (r.name = e.slice(r.nameStarts, r.nameEnds || i + 1).toLowerCase(), (!o.length || o[o.length - 1][0] !== r.lastOpeningBracketAt) && o.push([r.lastOpeningBracketAt, i + 1]), p.ignoreTags.includes(r.name) || pe(i, p, r) || !ae.has(r.name) && (r.onlyPlausible || p.stripRecognisedHTMLOnly)) {
+            r = {}, h = {};
             continue;
           }
-          if ((ae.has(t.name) || Ae.has(t.name)) && (t.onlyPlausible === !1 || t.onlyPlausible === !0 && t.attributes.length) || e[i + 1] === void 0) {
+          if ((ae.has(r.name) || Ae.has(r.name)) && (r.onlyPlausible === !1 || r.onlyPlausible === !0 && r.attributes.length) || e[i + 1] === void 0) {
             me(p);
-            let f = B(e, i, t.leftOuterWhitespace, i + 1, t.lastOpeningBracketAt, t.lastClosingBracketAt);
-            U && t.name === "script" && t.slashPresent && (U = !1);
-            let S;
-            f === null || w === null ? S = null : S = `${f}${w}${f}`, p.cb({ tag: t, deleteFrom: t.leftOuterWhitespace, deleteTo: i + 1, insert: S, rangesArr: v, proposedReturn: [t.leftOuterWhitespace, i + 1, S] }), fe(), te(i, p, v);
+            let f = $(e, i, r.leftOuterWhitespace, i + 1, r.lastOpeningBracketAt, r.lastClosingBracketAt);
+            U && r.name === "script" && r.slashPresent && (U = !1);
+            let b;
+            f === null || w === null ? b = null : b = `${f}${w}${f}`, p.cb({ tag: r, deleteFrom: r.leftOuterWhitespace, deleteTo: i + 1, insert: b, rangesArr: v, proposedReturn: [r.leftOuterWhitespace, i + 1, b] }), fe(), te(i, p, v);
           }
-          if (!g.length || g[g.length - 1][0] !== t.lastOpeningBracketAt && g[g.length - 1][1] !== i + 1) if (p.stripTogetherWithTheirContents.includes(t.name) || p.stripTogetherWithTheirContents.includes("*")) {
+          if (!g.length || g[g.length - 1][0] !== r.lastOpeningBracketAt && g[g.length - 1][1] !== i + 1) if (p.stripTogetherWithTheirContents.includes(r.name) || p.stripTogetherWithTheirContents.includes("*")) {
             let f;
-            for (let S = n.length; S--; ) n[S].name === t.name && (f = n[S]);
-            f ? (g = g.filter(([S]) => S !== f.lastOpeningBracketAt), g.push([f.lastOpeningBracketAt, i + 1])) : g.push([t.lastOpeningBracketAt, i + 1]);
-          } else g.push([t.lastOpeningBracketAt, i + 1]);
+            for (let b = n.length; b--; ) n[b].name === r.name && (f = n[b]);
+            f ? (g = g.filter(([b]) => b !== f.lastOpeningBracketAt), g.push([f.lastOpeningBracketAt, i + 1])) : g.push([r.lastOpeningBracketAt, i + 1]);
+          } else g.push([r.lastOpeningBracketAt, i + 1]);
         }
-      } else if (i > t.lastClosingBracketAt && e[i].trim() || e[i + 1] === void 0 || p.ignoreIndentations && `\r
+      } else if (i > r.lastClosingBracketAt && e[i].trim() || e[i + 1] === void 0 || p.ignoreIndentations && `\r
 `.includes(e[i])) {
-        let f = t.lastClosingBracketAt === i ? i + 1 : i;
-        p.trimOnlySpaces && f === x - 1 && k !== null && k < i && (f = k), (!o.length || o[o.length - 1][0] !== t.lastOpeningBracketAt) && o.push([t.lastOpeningBracketAt, t.lastClosingBracketAt + 1]);
-        let S = p.ignoreTags.includes(t.name), y = pe(i, p, t);
-        if (!G || p.stripRecognisedHTMLOnly && typeof t.name == "string" && !ae.has(t.name.toLowerCase()) && !Ae.has(t.name.toLowerCase()) || !Le && (S || y) || Le && !p.onlyStripTags.includes(t.name) || p.ignoreTagsWithTheirContents.includes(t.name)) {
-          if (y) if (t.slashPresent) {
-            for (let A = l.length; A--; ) if (l[A].name === t.name) {
+        let f = r.lastClosingBracketAt === i ? i + 1 : i;
+        p.trimOnlySpaces && f === x - 1 && k !== null && k < i && (f = k), (!o.length || o[o.length - 1][0] !== r.lastOpeningBracketAt) && o.push([r.lastOpeningBracketAt, r.lastClosingBracketAt + 1]);
+        let b = p.ignoreTags.includes(r.name), y = pe(i, p, r);
+        if (!G || p.stripRecognisedHTMLOnly && typeof r.name == "string" && !ae.has(r.name.toLowerCase()) && !Ae.has(r.name.toLowerCase()) || !Le && (b || y) || Le && !p.onlyStripTags.includes(r.name) || p.ignoreTagsWithTheirContents.includes(r.name)) {
+          if (y) if (r.slashPresent) {
+            for (let A = l.length; A--; ) if (l[A].name === r.name) {
               l.splice(A, 1);
               break;
             }
             l.length || (G = !0);
-          } else G && (G = !1), l.push(t);
-          p.cb({ tag: t, deleteFrom: null, deleteTo: null, insert: null, rangesArr: v, proposedReturn: null }), t = {}, c = {};
-        } else if (!t.onlyPlausible || t.attributes.length === 0 && t.name && (ae.has(t.name.toLowerCase()) || Ae.has(t.name.toLowerCase())) || t.attributes?.some((A) => A.equalsAt)) {
-          (!g.length || g[g.length - 1][0] !== t.lastOpeningBracketAt) && g.push([t.lastOpeningBracketAt, t.lastClosingBracketAt + 1]);
-          let A = B(e, i, t.leftOuterWhitespace, f, t.lastOpeningBracketAt, t.lastClosingBracketAt);
+          } else G && (G = !1), l.push(r);
+          p.cb({ tag: r, deleteFrom: null, deleteTo: null, insert: null, rangesArr: v, proposedReturn: null }), r = {}, h = {};
+        } else if (!r.onlyPlausible || r.attributes.length === 0 && r.name && (ae.has(r.name.toLowerCase()) || Ae.has(r.name.toLowerCase())) || r.attributes?.some((A) => A.equalsAt)) {
+          (!g.length || g[g.length - 1][0] !== r.lastOpeningBracketAt) && g.push([r.lastOpeningBracketAt, r.lastClosingBracketAt + 1]);
+          let A = $(e, i, r.leftOuterWhitespace, f, r.lastOpeningBracketAt, r.lastClosingBracketAt);
           w = "", q = !1, me(p, f);
           let N;
           typeof w == "string" && w.length ? (N = `${A}${w}${A === `
 
 ` ? `
-` : A}`, f === t.lastClosingBracketAt + 1 && (!e[f] || !Ce.has(e[f])) && (N += " "), t.leftOuterWhitespace === t.lastOpeningBracketAt && v.last() && v.last()[1] < t.lastOpeningBracketAt && (!p?.dumpLinkHrefsNearby?.putOnNewLine || !Ce.has(e[f])) && (N = " " + N)) : N = A, N !== null && (t.leftOuterWhitespace === 0 || !E(e, f - 1)) && (!p.dumpLinkHrefsNearby?.enabled || t.name !== "a") && (N = void 0);
+` : A}`, f === r.lastClosingBracketAt + 1 && (!e[f] || !Ce.has(e[f])) && (N += " "), r.leftOuterWhitespace === r.lastOpeningBracketAt && v.last() && v.last()[1] < r.lastOpeningBracketAt && (!p?.dumpLinkHrefsNearby?.putOnNewLine || !Ce.has(e[f])) && (N = " " + N)) : N = A, N !== null && (r.leftOuterWhitespace === 0 || !E(e, f - 1)) && (!p.dumpLinkHrefsNearby?.enabled || r.name !== "a") && (N = void 0);
           let C = 0;
           if (q && Ce.has(e[f])) {
             p.dumpLinkHrefsNearby?.putOnNewLine && (N = `${e[f]}${N || ""}`);
-            let $ = E(e, f);
-            $ && N?.endsWith(`
-`) ? C += $ - i : (!$ || $ > i) && C++;
+            let j = E(e, f);
+            j && N?.endsWith(`
+`) ? C += j - i : (!j || j > i) && C++;
           }
-          p.cb({ tag: t, deleteFrom: t.leftOuterWhitespace, deleteTo: f + C, insert: N, rangesArr: v, proposedReturn: [t.leftOuterWhitespace, f + C, N] }), fe(), te(i, p, v);
-        } else t = {};
-        H(i) || (t = {});
+          p.cb({ tag: r, deleteFrom: r.leftOuterWhitespace, deleteTo: f + C, insert: N, rangesArr: v, proposedReturn: [r.leftOuterWhitespace, f + C, N] }), fe(), te(i, p, v);
+        } else r = {};
+        H(i) || (r = {});
       }
       D && (D = !1);
     }
-    if ((!U || e[i] === "<" && E(e, E(e, i)) && e[E(e, i)] === "/" && e.startsWith("script", E(e, E(e, i)))) && I(i) && !I(i - 1) && !`'"`.includes(e[i + 1]) && (!`'"`.includes(e[i + 2]) || /\w/.test(e[i + 1])) && !(e[i + 1] === "c" && e[i + 2] === ":") && !(e[i + 1] === "f" && e[i + 2] === "m" && e[i + 3] === "t" && e[i + 4] === ":") && !(e[i + 1] === "s" && e[i + 2] === "q" && e[i + 3] === "l" && e[i + 4] === ":") && !(e[i + 1] === "x" && e[i + 2] === ":") && !(e[i + 1] === "f" && e[i + 2] === "n" && e[i + 3] === ":") && sa(t, e, i)) {
+    if ((!U || e[i] === "<" && E(e, E(e, i)) && e[E(e, i)] === "/" && e.startsWith("script", E(e, E(e, i)))) && I(i) && !I(i - 1) && !`'"`.includes(e[i + 1]) && (!`'"`.includes(e[i + 2]) || /\w/.test(e[i + 1])) && !(e[i + 1] === "c" && e[i + 2] === ":") && !(e[i + 1] === "f" && e[i + 2] === "m" && e[i + 3] === "t" && e[i + 4] === ":") && !(e[i + 1] === "s" && e[i + 2] === "q" && e[i + 3] === "l" && e[i + 4] === ":") && !(e[i + 1] === "x" && e[i + 2] === ":") && !(e[i + 1] === "f" && e[i + 2] === "n" && e[i + 3] === ":") && sa(r, e, i)) {
       if (H(E(e, i))) continue;
-      if (t.nameEnds && t.nameEnds < i && !t.lastClosingBracketAt && (t.onlyPlausible === !0 && t.attributes?.length || t.onlyPlausible === !1)) {
-        let f = B(e, i, t.leftOuterWhitespace, i, t.lastOpeningBracketAt, i);
-        p.cb({ tag: t, deleteFrom: t.leftOuterWhitespace, deleteTo: i, insert: f, rangesArr: v, proposedReturn: [t.leftOuterWhitespace, i, f] }), te(i, p, v), t = {}, c = {};
+      if (r.nameEnds && r.nameEnds < i && !r.lastClosingBracketAt && (r.onlyPlausible === !0 && r.attributes?.length || r.onlyPlausible === !1)) {
+        let f = $(e, i, r.leftOuterWhitespace, i, r.lastOpeningBracketAt, i);
+        p.cb({ tag: r, deleteFrom: r.leftOuterWhitespace, deleteTo: i, insert: f, rangesArr: v, proposedReturn: [r.leftOuterWhitespace, i, f] }), te(i, p, v), r = {}, h = {};
       }
-      if (t.lastOpeningBracketAt !== void 0 && t.onlyPlausible && t.name && !t.quotes && (t.lastOpeningBracketAt = void 0, t.name = void 0, t.onlyPlausible = !1), (t.lastOpeningBracketAt === void 0 || !t.onlyPlausible) && !t.quotes && (t.lastOpeningBracketAt = i, t.slashPresent = !1, t.attributes = [], s === null ? t.leftOuterWhitespace = i : p.trimOnlySpaces && s === 0 ? t.leftOuterWhitespace = m || i : t.leftOuterWhitespace = s, `${e[i + 1]}${e[i + 2]}${e[i + 3]}` == "!--" || `${e[i + 1]}${e[i + 2]}${e[i + 3]}${e[i + 4]}${e[i + 5]}${e[i + 6]}${e[i + 7]}${e[i + 8]}` == "![CDATA[")) {
+      if (r.lastOpeningBracketAt !== void 0 && r.onlyPlausible && r.name && !r.quotes && (r.lastOpeningBracketAt = void 0, r.name = void 0, r.onlyPlausible = !1), (r.lastOpeningBracketAt === void 0 || !r.onlyPlausible) && !r.quotes && (r.lastOpeningBracketAt = i, r.slashPresent = !1, r.attributes = [], s === null ? r.leftOuterWhitespace = i : p.trimOnlySpaces && s === 0 ? r.leftOuterWhitespace = u || i : r.leftOuterWhitespace = s, `${e[i + 1]}${e[i + 2]}${e[i + 3]}` == "!--" || `${e[i + 1]}${e[i + 2]}${e[i + 3]}${e[i + 4]}${e[i + 5]}${e[i + 6]}${e[i + 7]}${e[i + 8]}` == "![CDATA[")) {
         let f = !0;
         e[i + 2] === "-" && (f = !1);
-        let S;
-        for (let y = i; y < x; y++) if ((!S && f && `${e[y - 2]}${e[y - 1]}${e[y]}` == "]]>" || !f && `${e[y - 2]}${e[y - 1]}${e[y]}` == "-->") && (S = y), S && (S < y && e[y].trim() || e[y + 1] === void 0)) {
+        let b;
+        for (let y = i; y < x; y++) if ((!b && f && `${e[y - 2]}${e[y - 1]}${e[y]}` == "]]>" || !f && `${e[y - 2]}${e[y - 1]}${e[y]}` == "-->") && (b = y), b && (b < y && e[y].trim() || e[y + 1] === void 0)) {
           let A = y;
-          (e[y + 1] === void 0 && !e[y].trim() || e[y] === ">") && (A += 1), (!o.length || o[o.length - 1][0] !== t.lastOpeningBracketAt) && o.push([t.lastOpeningBracketAt, S + 1]), (!g.length || g[g.length - 1][0] !== t.lastOpeningBracketAt) && g.push([t.lastOpeningBracketAt, S + 1]);
-          let N = B(e, y, t.leftOuterWhitespace, A, t.lastOpeningBracketAt, S);
-          p.cb({ tag: t, deleteFrom: t.leftOuterWhitespace, deleteTo: A, insert: N, rangesArr: v, proposedReturn: [t.leftOuterWhitespace, A, N] }), i = y - 1, e[y] === ">" && (i = y), t = {}, c = {};
+          (e[y + 1] === void 0 && !e[y].trim() || e[y] === ">") && (A += 1), (!o.length || o[o.length - 1][0] !== r.lastOpeningBracketAt) && o.push([r.lastOpeningBracketAt, b + 1]), (!g.length || g[g.length - 1][0] !== r.lastOpeningBracketAt) && g.push([r.lastOpeningBracketAt, b + 1]);
+          let N = $(e, y, r.leftOuterWhitespace, A, r.lastOpeningBracketAt, b);
+          p.cb({ tag: r, deleteFrom: r.leftOuterWhitespace, deleteTo: A, insert: N, rangesArr: v, proposedReturn: [r.leftOuterWhitespace, A, N] }), i = y - 1, e[y] === ">" && (i = y), r = {}, h = {};
           break;
         }
       }
     }
-    !e[i].trim() || e[i].charCodeAt(0) === 847 ? (s === null && (s = i, t.lastOpeningBracketAt !== void 0 && t.lastOpeningBracketAt < i && t.nameStarts && t.nameStarts < t.lastOpeningBracketAt && i === t.lastOpeningBracketAt + 1 && !n.some((f) => f.name === t.name) && (t.onlyPlausible = !0, t.name = void 0, t.nameStarts = void 0)), (e[i] === `
-` || e[i] === "\r") && (u = i, h && (h = !1))) : (s !== null && (!t.quotes && c.equalsAt > s - 1 && c.nameEnds && c.equalsAt > c.nameEnds && e[i] !== '"' && e[i] !== "'" && (Re(c) && t.attributes.push(c), c = {}, t.equalsSpottedAt = void 0), s = null), h || (h = !0, G && !U && typeof u == "number" && i && u < i - 1 && (e.slice(u + 1, i).trim() ? u = null : p.ignoreIndentations || v.push([u + 1, i])))), e[i] === " " ? m === null && (m = i) : m !== null && (m = null), t.name === "script" && (U = !t.slashPresent);
+    !e[i].trim() || e[i].charCodeAt(0) === 847 ? (s === null && (s = i, r.lastOpeningBracketAt !== void 0 && r.lastOpeningBracketAt < i && r.nameStarts && r.nameStarts < r.lastOpeningBracketAt && i === r.lastOpeningBracketAt + 1 && !n.some((f) => f.name === r.name) && (r.onlyPlausible = !0, r.name = void 0, r.nameStarts = void 0)), (e[i] === `
+` || e[i] === "\r") && (c = i, m && (m = !1))) : (s !== null && (!r.quotes && h.equalsAt > s - 1 && h.nameEnds && h.equalsAt > h.nameEnds && e[i] !== '"' && e[i] !== "'" && (Re(h) && r.attributes.push(h), h = {}, r.equalsSpottedAt = void 0), s = null), m || (m = !0, G && !U && typeof c == "number" && i && c < i - 1 && (e.slice(c + 1, i).trim() ? c = null : p.ignoreIndentations || v.push([c + 1, i])))), e[i] === " " ? u === null && (u = i) : u !== null && (u = null), r.name === "script" && (U = !r.slashPresent);
   }
   if (e && !p.ignoreIndentations && (p.trimOnlySpaces && e[0] === " " || !p.trimOnlySpaces && !e[0].trim())) for (let i = 0; i < x; i++) if (p.trimOnlySpaces && e[i] !== " " || !p.trimOnlySpaces && e[i].trim()) {
     v.push([0, i]);
@@ -2186,7 +2205,7 @@ ${JSON.stringify(a, null, 4)}`);
     let f = v.ranges[v.ranges.length - 1][2];
     v.ranges[v.ranges.length - 1] = [i, v.ranges[v.ranges.length - 1][1]], f?.trim() && v.ranges[v.ranges.length - 1].push(f.trimEnd());
   }
-  return { log: { timeTakenInMilliseconds: Date.now() - r }, result: Ds(e, v.current()), ranges: v.current(), allTagLocations: o, filteredTagLocations: g };
+  return { log: { timeTakenInMilliseconds: Date.now() - t }, result: Ds(e, v.current()), ranges: v.current(), allTagLocations: o, filteredTagLocations: g };
 }
 class Ie {
   speechSynthesis;
@@ -2226,20 +2245,20 @@ class Ie {
   // Check infinity pattern for long texts (except on problematic platforms)
   // Skip resume infinity for Microsoft Natural voices as they have different behavior 
   shouldUseResumeInfinity() {
-    const a = this.currentVoice, r = !!(a?.name && typeof a.name == "string" && a.name.toLocaleLowerCase().includes("(natural)"));
-    return this.patches.isAndroid !== !0 && !this.patches.isFirefox && !this.patches.isSafari && !r;
+    const a = this.currentVoice, t = !!(a?.name && typeof a.name == "string" && a.name.toLocaleLowerCase().includes("(natural)"));
+    return this.patches.isAndroid !== !0 && !this.patches.isFirefox && !this.patches.isSafari && !t;
   }
   // Creates a new SpeechSynthesisUtterance using detected constructor
   createUtterance(a) {
     return new this.speechSynthesisUtterance(a);
   }
   async initialize(a = {}) {
-    const { maxTimeout: r, interval: n, maxLengthExceeded: l = "warn" } = a;
+    const { maxTimeout: t, interval: n, maxLengthExceeded: l = "warn" } = a;
     if (this.initialized)
       return !1;
     this.maxLengthExceeded = l;
     try {
-      return this.voiceManager = await O.initialize(r, n), this.voices = this.voiceManager.getVoices(), this.defaultVoice = this.voiceManager.getDefaultVoice([...navigator.languages || ["en"]], this.voices), this.initialized = !0, !0;
+      return this.voiceManager = await O.initialize(t, n), this.voices = this.voiceManager.getVoices(), this.defaultVoice = this.voiceManager.getDefaultVoice([...navigator.languages || ["en"]], this.voices), this.initialized = !0, !0;
     } catch (o) {
       return console.error("Failed to initialize WebSpeechEngine:", o), this.initialized = !1, !1;
     }
@@ -2260,16 +2279,16 @@ class Ie {
     }
   }
   getCurrentVoiceForUtterance(a) {
-    return a && typeof a == "object" ? a : typeof a == "string" ? this.voices.find((r) => r.name === a || r.language === a) || null : this.currentVoice || this.defaultVoice;
+    return a && typeof a == "object" ? a : typeof a == "string" ? this.voices.find((t) => t.name === a || t.language === a) || null : this.currentVoice || this.defaultVoice;
   }
   getCurrentVoice() {
     return this.currentVoice;
   }
   // SSML Escaping
   escapeSSML(a) {
-    return a.map((r) => ({
-      ...r,
-      text: r.ssml ? ka(r.text).result : r.text
+    return a.map((t) => ({
+      ...t,
+      text: t.ssml ? ka(t.text).result : t.text
     }));
   }
   // Queue Management
@@ -2278,12 +2297,12 @@ class Ie {
   }
   // Voice Configuration
   setVoice(a) {
-    const r = this.currentVoice;
+    const t = this.currentVoice;
     if (typeof a == "string") {
       const n = this.voices.find((l) => l.name === a || l.language === a);
-      n ? (this.currentVoice = n, r && r.name !== n.name && (this.currentUtteranceIndex = 0)) : console.warn(`Voice "${a}" not found`);
+      n ? (this.currentVoice = n, t && t.name !== n.name && (this.currentUtteranceIndex = 0)) : console.warn(`Voice "${a}" not found`);
     } else
-      this.currentVoice = a, r && r.name !== a.name && (this.currentUtteranceIndex = 0);
+      this.currentVoice = a, t && t.name !== a.name && (this.currentUtteranceIndex = 0);
     this.voiceManager && this.defaultVoice && this.currentVoice && this.currentVoice.language !== this.defaultVoice.language && (this.defaultVoice = this.voiceManager.getDefaultVoice([this.currentVoice.language], this.voices));
   }
   getAvailableVoices() {
@@ -2318,9 +2337,9 @@ class Ie {
       this.setState("idle"), this.emitEvent({ type: "end" });
       return;
     }
-    const a = this.currentUtterances[this.currentUtteranceIndex], r = (a.ssml, a.text);
-    this.validateText(r);
-    const n = this.createUtterance(r), l = this.getCurrentVoiceForUtterance(this.currentVoice);
+    const a = this.currentUtterances[this.currentUtteranceIndex], t = (a.ssml, a.text);
+    this.validateText(t);
+    const n = this.createUtterance(t), l = this.getCurrentVoiceForUtterance(this.currentVoice);
     if (l && this.voiceManager) {
       const o = this.voiceManager.convertToSpeechSynthesisVoice(l);
       o && (n.voice = o, n.lang = o.lang);
@@ -2414,33 +2433,33 @@ class Ie {
   getCurrentUtteranceIndex() {
     return this.currentUtteranceIndex;
   }
-  setCurrentUtteranceIndex(a, r) {
+  setCurrentUtteranceIndex(a, t) {
     if (a < 0 || a >= this.currentUtterances.length) {
-      r?.(!1);
+      t?.(!1);
       return;
     }
-    a !== this.currentUtteranceIndex && (!this.isPausedInternal && this.isSpeakingInternal && this.cancelCurrentSpeech(), this.currentUtteranceIndex = a, r?.(!0));
+    a !== this.currentUtteranceIndex && (!this.isPausedInternal && this.isSpeakingInternal && this.cancelCurrentSpeech(), this.currentUtteranceIndex = a, t?.(!0));
   }
   getUtteranceCount() {
     return this.currentUtterances.length;
   }
   // Events
-  on(a, r) {
-    return this.eventListeners.has(a) || this.eventListeners.set(a, []), this.eventListeners.get(a).push(r), () => {
+  on(a, t) {
+    return this.eventListeners.has(a) || this.eventListeners.set(a, []), this.eventListeners.get(a).push(t), () => {
       const n = this.eventListeners.get(a);
       if (n) {
-        const l = n.indexOf(r);
+        const l = n.indexOf(t);
         l > -1 && n.splice(l, 1);
       }
     };
   }
   emitEvent(a) {
-    const r = this.eventListeners.get(a.type);
-    r && r.forEach((n) => n(a));
+    const t = this.eventListeners.get(a.type);
+    t && t.forEach((n) => n(a));
   }
   setState(a) {
-    const r = this.playbackState;
-    if (this.playbackState = a, r !== a)
+    const t = this.playbackState;
+    if (this.playbackState = a, t !== a)
       switch (a) {
         case "idle":
           this.emitEvent({ type: "idle" });
@@ -2468,8 +2487,8 @@ class Vs {
     return this.engine.getAvailableVoices();
   }
   async createEngine(a) {
-    const r = new Ie();
-    return await r.initialize(), a && await r.setVoice(a), r;
+    const t = new Ie();
+    return await t.initialize(), a && await t.setVoice(a), t;
   }
   async destroy() {
     this.engine && (await this.engine.destroy(), this.engine = null);
@@ -2496,8 +2515,8 @@ class Ks {
     this.engine.on("start", () => {
       this.setNavigatorState("playing"), this.emitEvent({ type: "start" });
     }), this.engine.on("end", () => {
-      const a = this.engine.getCurrentUtteranceIndex(), r = this.engine.getUtteranceCount();
-      a < r - 1 ? this.engine.speak(a + 1) : this.setNavigatorState("idle"), this.emitEvent({ type: "end" });
+      const a = this.engine.getCurrentUtteranceIndex(), t = this.engine.getUtteranceCount();
+      a < t - 1 ? this.engine.speak(a + 1) : this.setNavigatorState("idle"), this.emitEvent({ type: "end" });
     }), this.engine.on("pause", () => {
       this.setNavigatorState("paused"), this.emitEvent({ type: "pause" });
     }), this.engine.on("resume", () => {
@@ -2531,8 +2550,8 @@ class Ks {
   }
   // Content Management
   loadContent(a) {
-    const r = Array.isArray(a) ? a : [a];
-    this.contentQueue = [...r], this.engine.loadUtterances(r), this.setNavigatorState("ready"), this.emitContentChangeEvent({ content: r });
+    const t = Array.isArray(a) ? a : [a];
+    this.contentQueue = [...t], this.engine.loadUtterances(t), this.setNavigatorState("ready"), this.emitContentChangeEvent({ content: t });
   }
   getCurrentContent() {
     const a = this.getCurrentUtteranceIndex();
@@ -2559,9 +2578,9 @@ class Ks {
   stop() {
     this.setNavigatorState("idle"), this.engine.stop(), this.emitEvent({ type: "stop" });
   }
-  skipToPosition(a, r = !1) {
+  skipToPosition(a, t = !1) {
     const n = this.getCurrentUtteranceIndex();
-    return a < 0 || a >= this.contentQueue.length ? !1 : (a === n || (this.navigatorState === "paused" && !r ? this.engine.setCurrentUtteranceIndex(a, (l) => {
+    return a < 0 || a >= this.contentQueue.length ? !1 : (a === n || (this.navigatorState === "paused" && !t ? this.engine.setCurrentUtteranceIndex(a, (l) => {
       l && this.emitEvent({
         type: "skip",
         detail: { position: a }
@@ -2570,15 +2589,15 @@ class Ks {
   }
   // Navigation - Navigator coordinates with proper state management
   next(a = !1) {
-    const r = this.getCurrentUtteranceIndex();
-    return this.skipToPosition(r + 1, a);
+    const t = this.getCurrentUtteranceIndex();
+    return this.skipToPosition(t + 1, a);
   }
   previous(a = !1) {
-    const r = this.getCurrentUtteranceIndex();
-    return this.skipToPosition(r - 1, a);
+    const t = this.getCurrentUtteranceIndex();
+    return this.skipToPosition(t - 1, a);
   }
-  jumpTo(a, r = !1) {
-    return this.skipToPosition(a, r);
+  jumpTo(a, t = !1) {
+    return this.skipToPosition(a, t);
   }
   // Playback Parameters
   setRate(a) {
@@ -2604,22 +2623,22 @@ class Ks {
     return this.navigatorState;
   }
   // Events
-  on(a, r) {
-    return this.eventListeners.has(a) || this.eventListeners.set(a, []), this.eventListeners.get(a).push(r), () => {
+  on(a, t) {
+    return this.eventListeners.has(a) || this.eventListeners.set(a, []), this.eventListeners.get(a).push(t), () => {
       const n = this.eventListeners.get(a);
       if (n) {
-        const l = n.indexOf(r);
+        const l = n.indexOf(t);
         l > -1 && n.splice(l, 1);
       }
     };
   }
   emitEvent(a) {
-    const r = this.eventListeners.get(a.type);
-    r && r.forEach((n) => n(a));
+    const t = this.eventListeners.get(a.type);
+    t && t.forEach((n) => n(a));
   }
   emitContentChangeEvent(a) {
-    const r = this.eventListeners.get("contentchange");
-    r && r.forEach((n) => n({ type: "contentchange", detail: a }));
+    const t = this.eventListeners.get("contentchange");
+    t && t.forEach((n) => n({ type: "contentchange", detail: a }));
   }
   async destroy() {
     this.eventListeners.clear(), await this.engine.destroy();
@@ -2635,6 +2654,6 @@ export {
   se as getDefaultRegion,
   $e as getTestUtterance,
   ge as getVoices,
-  K as normalizeLanguageCode,
+  z as normalizeLanguageCode,
   je as processLanguages
 };
