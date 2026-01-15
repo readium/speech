@@ -25,11 +25,7 @@ testWithContext.afterEach.always((t: ExecutionContext<TestContext>) => {
 // Initialization Tests
 // =============================================
 
-test("initialize: returns singleton instance", async (t) => {
-  // Reset singleton instance
-  (WebSpeechVoiceManager as any).instance = undefined;
-  (WebSpeechVoiceManager as any).initializationPromise = null;
-  
+testWithContext("initialize: returns singleton instance", async (t) => {
   const instance1 = await WebSpeechVoiceManager.initialize();
   const instance2 = await WebSpeechVoiceManager.initialize();
   t.is(instance1, instance2);
