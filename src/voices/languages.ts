@@ -18,7 +18,7 @@ const jsonLoaders = import.meta.glob<{ default: VoiceData }>('../../json/*.json'
  */
 async function loadVoiceData(lang: string): Promise<VoiceData> {
   try {
-    // Extract the language subtag (first part of BCP-47)
+    // Extract language subtag (first part of BCP-47)
     const langSubtag = lang.split("-")[0];
     const loader = jsonLoaders[`../../json/${langSubtag}.json`];
     if (!loader) {
@@ -31,8 +31,15 @@ async function loadVoiceData(lang: string): Promise<VoiceData> {
       voices: voiceData.voices.map(castVoice)
     };
   } catch (error) {
-    console.error(`Failed to load voice data for ${lang}:`, error);
-    throw error;
+    // Log warning instead of error for unsupported languages
+    console.warn(`Failed to load voice data for ${lang}:`, error);
+    // Return empty voice data to prevent breaking the voice loading process
+    return {
+      language: lang,
+      defaultRegion: "",
+      testUtterance: "",
+      voices: []
+    };
   }
 }
 
