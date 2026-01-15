@@ -29,7 +29,6 @@ let jumpInputUserChanged = false;
 
 // State
 let voiceManager;
-let allVoices = [];
 let filteredVoices = [];
 let languages = [];
 let currentVoice = null;
@@ -66,36 +65,15 @@ speechNavigator.on("error", (event) => {
 
 // Initialize the application
 async function init() {
-  try {    
+  try {
     // Initialize the voice manager
     voiceManager = await WebSpeechVoiceManager.initialize();
-
-    const initOptions = {
-      excludeNovelty: true,
-      excludeVeryLowQuality: true
-    };
     
-    // Load all available voices
-    allVoices = voiceManager.getVoices(initOptions);
+    // Sort those voices by browser preference using sortVoicesByRegions
+    const voices = voiceManager.sortVoicesByRegions(window.navigator.languages);
     
-    // Get languages, excluding novelty and very low quality voices
-    const allLanguages = voiceManager.getLanguages(window.navigator.language, initOptions);
-    
-    // Sort languages with browser's preferred languages first
-    languages = allLanguages
-      .map(lang => ({
-        ...lang,
-        language: lang.code,
-        name: lang.label
-      }));
-    
-    // Sort using the manager's sortRegions method
-    languages = voiceManager.sortVoicesByRegions(languages, window.navigator.languages)
-      .map(voice => ({
-        code: voice.language,
-        label: voice.name,
-        count: voice.count
-      }));
+    // Get languages
+    languages = voiceManager.getLanguages(window.navigator.languages[0], { removeDuplicates: true }, voices);
     
     // Populate language dropdown
     populateLanguageDropdown();
@@ -263,7 +241,7 @@ function filterVoices() {
   const source = sourceSelect.value;
   const offlineOnly = offlineOnlyCheckbox.checked;
 
-  const filterOptions = {};
+  const filterOptions = { };
   
   if (gender !== "all") {
     filterOptions.gender = gender;
@@ -278,7 +256,7 @@ function filterVoices() {
   }
   
   // Filter voices once with all filters except language
-  let voicesFilteredExceptLanguage = voiceManager.filterVoices(allVoices, filterOptions);
+  let voicesFilteredExceptLanguage = voiceManager.filterVoices(filterOptions);
   
   // Update language counts using the filtered voices
   updateLanguageCounts(voicesFilteredExceptLanguage);
@@ -286,7 +264,7 @@ function filterVoices() {
   // Now apply language filter if needed
   if (language) {
     filterOptions.languages = language;
-    filteredVoices = voiceManager.filterVoices(voicesFilteredExceptLanguage, { languages: language });
+    filteredVoices = voiceManager.filterVoices({ languages: language }, voicesFilteredExceptLanguage);
   } else {
     filteredVoices = voicesFilteredExceptLanguage;
   }
@@ -313,10 +291,10 @@ function populateVoiceDropdown() {
     }
 
     // Sort voices with browser's preferred languages first
-    const sortedVoices = voiceManager.sortVoicesByRegions([...filteredVoices], window.navigator.languages);
+    const sortedVoices = voiceManager.sortVoicesByRegions(window.navigator.languages, [...filteredVoices]);
 
     // Group the sorted voices by region
-    const voiceGroups = voiceManager.groupVoices(sortedVoices, "region");
+    const voiceGroups = voiceManager.groupVoices("region", sortedVoices);
 
     // Add optgroups for each region
     for (const [region, voices] of Object.entries(voiceGroups)) {

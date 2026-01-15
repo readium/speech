@@ -1,5 +1,5 @@
 import test, { type ExecutionContext } from "ava";
-import { testWithContext, TestContext, originalNavigator, originalSpeechSynthesis, mockSpeechSynthesis } from "./setup.js";
+import { testWithContext, TestContext, originalNavigator, originalSpeechSynthesis, mockSpeechSynthesis, createTestVoice } from "./setup.js";
 import { WebSpeechVoiceManager } from "../../build/index.js";
 
 // =============================================
@@ -64,4 +64,66 @@ testWithContext("getRegions: handles empty voices array", async (t: ExecutionCon
     // Restore original getVoices
     mockSpeechSynthesis.getVoices = originalGetVoices;
   }
+});
+
+testWithContext("getRegions: works with provided voices array", async (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create custom voices with different regions using the helper
+  const customVoices = [
+    createTestVoice({
+      name: "Custom Voice 1",
+      language: "en-US",
+      voiceURI: "custom-voice-1"
+    }),
+    createTestVoice({
+      name: "Custom Voice 2",
+      language: "en-GB", 
+      voiceURI: "custom-voice-2"
+    }),
+    createTestVoice({
+      name: "Custom Voice 3",
+      language: "fr-FR",
+      voiceURI: "custom-voice-3"
+    })
+  ];
+  
+  // Test with provided voices
+  const regions = manager.getRegions(undefined, undefined, customVoices);
+  
+  t.is(regions.length, 3, "Should return 3 regions");
+  
+  const usRegion = regions.find((r: any) => r.code === "US");
+  const gbRegion = regions.find((r: any) => r.code === "GB");
+  const frRegion = regions.find((r: any) => r.code === "FR");
+  
+  t.is(usRegion?.count, 1, "Should have 1 US voice");
+  t.is(gbRegion?.count, 1, "Should have 1 GB voice");
+  t.is(frRegion?.count, 1, "Should have 1 FR voice");
+  t.truthy(usRegion?.label, "Should have US label");
+  t.truthy(gbRegion?.label, "Should have GB label");
+  t.truthy(frRegion?.label, "Should have FR label");
+});
+
+testWithContext("getRegions: handles voices without regions", async (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  
+  // Create custom voices without regions (just language codes) using the helper
+  const customVoices = [
+    createTestVoice({
+      name: "Custom Voice 1",
+      language: "en",
+      voiceURI: "custom-voice-1"
+    }),
+    createTestVoice({
+      name: "Custom Voice 2",
+      language: "fr",
+      voiceURI: "custom-voice-2"
+    })
+  ];
+  
+  // Test with provided voices (no regions should be extracted)
+  const regions = manager.getRegions(undefined, undefined, customVoices);
+  
+  t.is(regions.length, 0, "Should return 0 regions when no region codes present");
 });

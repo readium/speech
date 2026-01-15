@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Readium Speech Debug</title>
+  <link rel="stylesheet" href="../demo/styles.css">
+</head>
+<body>
+  <h1>Readium Speech Debug</h1>
+
+  <p>This page uses mock voices to simulate Chrome OS. More sets could be added in the future for additional platforms. Do not expect playback to work in this page.</p>
+  
+  <div class="control-panel">
+    <div class="form-group">
+      <label for="language-select">Language:</label>
+      <select id="language-select">
+        <option value="" disabled selected>Select a language</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <label for="voice-select">Voice:</label>
+      <select id="voice-select" disabled>
+        <option value="" disabled selected>Select a voice</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <div class="test-utterance-container">
+        <div class="test-utterance-input">
+          <label for="test-utterance">Test Utterance:</label>
+          <input type="text" id="test-utterance" placeholder="Load sample text or type your own">
+        </div>
+        <div class="test-utterance-button">
+          <button id="test-utterance-btn" disabled>Play Test Utterance</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <details class="voice-details">
+      <summary>Voice Details</summary>
+      <div id="voice-properties" class="voice-properties">
+        <p>Select a voice to see its properties</p>
+      </div>
+      </details>
+    </div>
+
+    <fieldset class="filter-section">
+      <legend>Filters</legend>
+      <div class="form-group">
+        <label for="gender-select">Gender:</label>
+        <select id="gender-select">
+          <option value="all" selected>All</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+          <option value="neutral">Neutral</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="source-select">Source:</label>
+        <select id="source-select">
+          <option value="all" selected>All</option>
+          <option value="json">JSON</option>
+          <option value="browser">Browser</option>
+        </select>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="offline-only">
+        <label for="offline-only">Show only offline voices</label>
+      </div>
+    </fieldset>
+  </div>
+
+  <div class="content-container">
+    <div class="controls-group">
+      <div class="playback-controls">
+        <button id="play-pause-btn" class="play-state" disabled>▶️ Play</button>
+        <button id="stop-btn" class="stop" disabled>⏹️ Stop</button>
+        <button id="prev-utterance-btn" class="nav" disabled>⏮️ Previous</button>
+        <button id="next-utterance-btn" class="nav" disabled>⏭️ Next</button>
+      </div>
+
+      <div class="jump-controls">
+        <input type="number" id="utterance-index" min="1" value="1" disabled>
+        <span>of <span id="total-utterances">-</span></span>
+        <button id="jump-to-btn" class="jump-btn" disabled>Jump To</button>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div id="sample-text" class="text-display">
+        Select a language to load sample text...
+      </div>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <details class="dev-tools">
+      <summary>Developer Tools</summary>
+      <div class="dev-tools-items">
+        <button id="download-voices-btn" class="download-btn">Download All Browser Voices as JSON</button>
+      </div>
+    </details>
+  </div>
+
+  <!-- Load mock voices BEFORE the demo script -->
+  <script src="../debug/mock-voices.js"></script>
+
+  <script type="module" src="../demo/script.js"></script>
+</body>
+</html>

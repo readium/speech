@@ -1,6 +1,6 @@
 {
   "name": "@readium/speech",
-  "version": "0.1.0-beta.5",
+  "version": "0.1.0-beta.6",
   "description": "Readium Speech is a TypeScript library for implementing a read aloud feature with Web technologies. It follows [best practices](https://github.com/HadrienGardeur/read-aloud-best-practices) gathered through interviews with members of the digital publishing industry.",
   "main": "./build/index.cjs",
   "module": "./build/index.js",
