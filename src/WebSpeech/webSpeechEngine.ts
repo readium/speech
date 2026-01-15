@@ -69,11 +69,12 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   async initialize(options: {
+    languages?: string[];
     maxTimeout?: number;
     interval?: number;
     maxLengthExceeded?: "error" | "none" | "warn";
   } = {}): Promise<boolean> {
-    const { maxTimeout, interval, maxLengthExceeded = "warn" } = options;
+    const { languages, maxTimeout, interval, maxLengthExceeded = "warn" } = options;
 
     if (this.initialized) {
       return false;
@@ -84,13 +85,15 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     try {
       // Initialize voice manager with provided options and get voices
       this.voiceManager = await WebSpeechVoiceManager.initialize({
+        languages,
         maxTimeout,
         interval
       });
       this.voices = this.voiceManager.getVoices();
 
       // Find the best matching voice for the user's language using the optimized method
-      this.defaultVoice = await this.voiceManager.getDefaultVoice([...(navigator.languages || ["en"])], this.voices);
+      const preferredLanguages = languages || [...(navigator.languages || ["en"])];
+      this.defaultVoice = await this.voiceManager.getDefaultVoice(preferredLanguages, this.voices);
 
       this.initialized = true;
       return true;
@@ -184,19 +187,18 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     }
   }
 
-  getAvailableVoices(): Promise<ReadiumSpeechVoice[]> {
-    return new Promise((resolve) => {
-      if (this.voices.length > 0) {
-        resolve(this.voices);
-      } else {
-        // If voices not loaded yet, initialize first
-        this.initialize().then(() => {
-          resolve(this.voices);
-        }).catch(() => {
-          resolve([]);
-        });
-      }
-    });
+  async getAvailableVoices(): Promise<ReadiumSpeechVoice[]> {
+    if (this.voices.length > 0) {
+      return this.voices;
+    }
+
+    // If voices not loaded yet, initialize first
+    try {
+      await this.initialize();
+      return this.voices;
+    } catch {
+      return [];
+    }
   }
 
   // Playback Control
