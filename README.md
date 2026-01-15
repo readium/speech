@@ -143,7 +143,9 @@ Creates and initializes a new WebSpeechVoiceManager instance. This static factor
 - `interval`: Interval in milliseconds between voice loading checks (default: 100ms)
 - Returns: Promise that resolves with a new WebSpeechVoiceManager instance
 
-#### Get Available Voices
+#### Get filtered Voices
+
+By default, the instance keeps all voices in memory. You can filter them using the `getVoices` method with optional filter criteria and use this array instead.
 
 ```typescript
 voiceManager.getVoices(options?: VoiceFilterOptions): ReadiumSpeechVoice[]
@@ -163,6 +165,16 @@ interface VoiceFilterOptions {
   excludeVeryLowQuality?: boolean;  // Exclude very low quality voices, true by default
 }
 ```
+
+#### Get Languages and Regions
+
+```typescript
+voiceManager.getLanguages(localization?: string, filterOptions?: VoiceFilterOptions, voices?: ReadiumSpeechVoice[]): { code: string; label: string; count: number }[]
+
+voiceManager.getRegions(localization?: string, filterOptions?: VoiceFilterOptions, voices?: ReadiumSpeechVoice[]): { code: string; label: string; count: number }[]
+```
+
+Returns arrays of languages and regions with their display names and voice counts. Both methods preserve the order of first occurrence when custom voices are provided.
 
 #### Get Default Voice
 
@@ -192,15 +204,15 @@ The selection algorithm:
 #### Filter Voices
 
 ```typescript
-voiceManager.filterVoices(voices: ReadiumSpeechVoice[], options: VoiceFilterOptions): ReadiumSpeechVoice[]
+voiceManager.filterVoices(options: VoiceFilterOptions, voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[]
 ```
 
-Filters voices based on the specified criteria.
+Filters voices based on the specified criteria. If no voices are provided, it filters the instance's internal voice list.
 
 #### Group Voices
 
 ```typescript
-voiceManager.groupVoices(voices: ReadiumSpeechVoice[], groupBy: "languages" | "region" | "gender" | "quality" | "provider"): VoiceGroup
+voiceManager.groupVoices(groupBy: "languages" | "region" | "gender" | "quality" | "provider", voices?: ReadiumSpeechVoice[]): VoiceGroup
 ```
 
 Organizes voices into groups based on the specified criteria. The available grouping options are:
@@ -210,6 +222,8 @@ Organizes voices into groups based on the specified criteria. The available grou
 - `"gender"`: Groups voices by gender
 - `"quality"`: Groups voices by quality level
 - `"provider"`: Groups voices by their provider
+
+If no voices are provided, it groups the instance's internal voice list.
 
 #### Sort Voices
 
@@ -222,31 +236,30 @@ If you need more control over the sorting process, you can implement and apply y
 Sort voices from highest to lowest quality:
 
 ```typescript
-const sortedVoices = voiceManager.sortVoicesByQuality(voices);
+voiceManager.sortVoicesByQuality(voices?: ReadiumSpeechVoice[]);
 // Returns: [veryHigh, high, normal, low, veryLow, null]
 ```
+
+If no voices are provided, it sorts the instance's internal voice list.
 
 ##### 2. Sort by Language
 
 Prioritize specific languages while maintaining JSON data’s quality order within each language group:
 
 ```typescript
-// Basic usage
-const sortedByLanguage = voiceManager.sortVoicesByLanguages(voices);
-
-// With preferred languages first
-const preferredFirst = voiceManager.sortVoicesByLanguages(voices, ["fr", "en"]);
-// Returns: [fr voices, en voices, other languages voices...]
+voiceManager.sortVoicesByLanguages(preferredLanguages?: string[], voices?: ReadiumSpeechVoice[]);
+// Returns: [preferred languages voices, other languages voices...]
 ```
+
+If no voices are provided, it sorts the instance's internal voice list.
 
 ##### 3. Sort by Region
 
 Sort voices by preferred languages and regions, while maintaining JSON data’s quality order within each region group:
 
 ```typescript
-// With preferred regions
-const preferredRegions = voiceManager.sortVoicesByRegions(voices, ["fr-FR", "en-US"]);
-// Returns: [fr-FR voices, other fr regions voices, en-US voices, other en regions voices, other regions voices...]
+voiceManager.sortVoicesByRegions(preferredLanguages?: string[], voices?: ReadiumSpeechVoice[]);
+// Returns: [languages in preferred then alphabetical order → regions: preferred regions → default region → alphabetical regions → voice quality within each region]
 ```
 
 ### Testing
