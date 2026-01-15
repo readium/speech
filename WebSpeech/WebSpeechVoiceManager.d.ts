@@ -43,13 +43,23 @@ export declare class WebSpeechVoiceManager {
     private isInitialized;
     private constructor();
     /**
-     * Initialize the voice manager
+     * Initialize voice manager
      * @param options Configuration options for voice loading
-     * @param options.maxTime Maximum time in milliseconds to wait for voices to load (passed to getBrowserVoices)
+     * @param options.languages Optional array of preferred language codes to filter voices during initialization
+     * @param options.maxTimeout Maximum time in milliseconds to wait for voices to load (passed to getBrowserVoices)
      * @param options.interval Interval in milliseconds between voice loading checks (passed to getBrowserVoices)
      * @returns Promise that resolves with the WebSpeechVoiceManager instance
      */
-    static initialize(maxTimeout?: number, interval?: number): Promise<WebSpeechVoiceManager>;
+    static initialize(options?: {
+        languages?: string[];
+        maxTimeout?: number;
+        interval?: number;
+    }): Promise<WebSpeechVoiceManager>;
+    /**
+     * Filter browser voices based on preferred languages
+     * @private
+     */
+    private filterBrowserVoicesByLanguages;
     /**
      * Extract language and region from BCP47 language tag
      * @param lang - The BCP47 language tag (e.g., "en-US", "zh-CN")
@@ -133,7 +143,7 @@ export declare class WebSpeechVoiceManager {
      * @param voices Optional pre-filtered voices array to use instead of fetching voices
      * @returns The default voice for the language, or null if no voices are available
      */
-    getDefaultVoice(languages: string | string[], voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice | null;
+    getDefaultVoice(languages: string | string[], voices?: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice | null>;
     getBrowserVoices(maxTimeout?: number, interval?: number): Promise<SpeechSynthesisVoice[]>;
     /**
      * Convert SpeechSynthesisVoice array to ReadiumSpeechVoice array
@@ -180,7 +190,7 @@ export declare class WebSpeechVoiceManager {
      * @param voices Array of voices to sort
      * @returns Sorted array of voices
      */
-    sortVoicesByQuality(voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[];
+    sortVoicesByQuality(voices?: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice[]>;
     /**
     * Group voices by language based on processed preferred languages
     */
@@ -199,7 +209,7 @@ export declare class WebSpeechVoiceManager {
      * @param preferredLanguages Array of preferred language codes in order of preference
      * @returns Sorted array of voices
      */
-    sortVoicesByLanguages(preferredLanguages?: string[], voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[];
+    sortVoicesByLanguages(preferredLanguages?: string[], voices?: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice[]>;
     /**
      * Sort languages by region preference, then voices by quality
      */
@@ -210,7 +220,7 @@ export declare class WebSpeechVoiceManager {
      * @param preferredLanguages Array of preferred language codes in order of preference
      * @returns Sorted array of voices
      */
-    sortVoicesByRegions(preferredLanguages: string[], voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[];
+    sortVoicesByRegions(preferredLanguages: string[], voices?: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice[]>;
     /**
      * Group voices by the specified criteria
      * @param voices Array of voices to group
