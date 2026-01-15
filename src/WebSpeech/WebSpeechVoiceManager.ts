@@ -373,21 +373,23 @@ export class WebSpeechVoiceManager {
   /**
    * Get available regions with voice counts
    * @param localization Optional BCP 47 language tag to use for region names
+   * @param filterOptions Optional filters to apply to voices before counting regions
    * @param voices Optional array of voices to count (defaults to this.voices)
    */
-  getRegions(localization?: string, voices?: ReadiumSpeechVoice[]): LanguageInfo[] {
+  getRegions(localization?: string, filterOptions?: VoiceFilterOptions, voices?: ReadiumSpeechVoice[]): LanguageInfo[] {
     if (!voices && !this.isInitialized) {
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
     }
     
     const voicesToCount = voices ?? this.voices;
+    const filteredVoices = filterOptions ? this.filterVoices(filterOptions, voicesToCount) : voicesToCount;
     
     const result: { code: string; label: string; count: number }[] = [];
     const seen = new Set<string>();
     const counts = new Map<string, number>();
     
     // Count regions first
-    for (const voice of voicesToCount) {
+    for (const voice of filteredVoices) {
       const [, region] = WebSpeechVoiceManager.extractLangRegionFromBCP47(voice.language);
       if (region) {
         counts.set(region, (counts.get(region) || 0) + 1);
@@ -395,7 +397,7 @@ export class WebSpeechVoiceManager {
     }
     
     // Preserve order
-    for (const voice of voicesToCount) {
+    for (const voice of filteredVoices) {
       const [, region] = WebSpeechVoiceManager.extractLangRegionFromBCP47(voice.language);
       if (region && !seen.has(region)) {
         let displayName = voice.language;

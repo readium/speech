@@ -89,7 +89,7 @@ testWithContext("getRegions: works with provided voices array", async (t: Execut
   ];
   
   // Test with provided voices
-  const regions = manager.getRegions(undefined, customVoices);
+  const regions = manager.getRegions(undefined, undefined, customVoices);
   
   t.is(regions.length, 3, "Should return 3 regions");
   
@@ -123,7 +123,7 @@ testWithContext("getRegions: handles voices without regions", async (t: Executio
   ];
   
   // Test with provided voices (no regions should be extracted)
-  const regions = manager.getRegions(undefined, customVoices);
+  const regions = manager.getRegions(undefined, undefined, customVoices);
   
   t.is(regions.length, 0, "Should return 0 regions when no region codes present");
 });
