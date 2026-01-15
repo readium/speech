@@ -14,7 +14,7 @@ const readAlongCheckbox = document.getElementById("readAlong");
 // State
 let voiceManager;
 let navigator;
-let allVoices = [];
+let enVoices = [];
 let currentVoice = null;
 let isPlaying = false;
 let utterances = [];
@@ -28,7 +28,7 @@ async function initialize() {
     voiceManager = await WebSpeechVoiceManager.initialize();
     
     // Only get English voices
-    allVoices = voiceManager.getVoices({languages: "en"});
+    enVoices = voiceManager.getVoices({languages: "en", removeDuplicates: true});
     
     // Initialize the navigator
     navigator = new WebSpeechReadAloudNavigator();
@@ -43,7 +43,7 @@ async function initialize() {
     populateVoiceSelect();
     
     // Get the default voice for English
-    currentVoice = voiceManager.getDefaultVoice("en-US");
+    currentVoice = voiceManager.getDefaultVoice("en");
 
     if (currentVoice && navigator) {
       navigator.setVoice(currentVoice);
@@ -178,7 +178,7 @@ function populateVoiceSelect() {
   
   voiceSelect.innerHTML = "<option value=\"\" disabled selected>Select a voice</option>";
   
-  if (!allVoices || !allVoices.length) {
+  if (!enVoices || !enVoices.length) {
     const option = document.createElement("option");
     option.disabled = true;
     option.textContent = "No voices available. Please check your browser settings and internet connection.";
@@ -188,7 +188,9 @@ function populateVoiceSelect() {
 
   try {
     // Sort by region while preserving quality order within each region
-    const sortedVoices = voiceManager.sortVoicesByRegions(allVoices, window.navigator.languages);
+    const sortedVoices = voiceManager.sortVoicesByRegions(["en"], enVoices);
+
+    console.log(sortedVoices);
 
     let currentRegion = null;
     let optgroup = null;
@@ -232,7 +234,7 @@ function populateVoiceSelect() {
   } catch (error) {
     console.error("Error populating voice dropdown:", error);
     // Fallback to simple list if there's an error
-    allVoices.forEach(voice => {
+    enVoices.forEach(voice => {
       const option = document.createElement("option");
       option.value = voice.name;
       option.textContent = [
@@ -315,7 +317,7 @@ async function handleVoiceChange(e) {
   if (!voiceName) return;
   
   // Find the selected voice by name
-  currentVoice = allVoices.find(v => v.name === voiceName);
+  currentVoice = enVoices.find(v => v.name === voiceName);
   
   if (!currentVoice) {
     console.error("Voice not found:", voiceName);
