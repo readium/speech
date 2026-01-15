@@ -83,7 +83,10 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     try {
       // Initialize voice manager with provided options and get voices
-      this.voiceManager = await WebSpeechVoiceManager.initialize(maxTimeout, interval);
+      this.voiceManager = await WebSpeechVoiceManager.initialize({
+        maxTimeout,
+        interval
+      });
       this.voices = this.voiceManager.getVoices();
 
       // Find the best matching voice for the user's language using the optimized method

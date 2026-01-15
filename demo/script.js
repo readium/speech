@@ -66,7 +66,7 @@ speechNavigator.on("error", (event) => {
 // Initialize the application
 async function init() {
   try {
-    // Initialize the voice manager
+    // Initialize the voice manager with preferred languages
     voiceManager = await WebSpeechVoiceManager.initialize();
     
     // Sort those voices by browser preference using sortVoicesByRegions

@@ -25,10 +25,10 @@ let readAlongEnabled = true; // Default to true to match default checkbox state
 async function initialize() {
   try {
     // Initialize the voice manager
-    voiceManager = await WebSpeechVoiceManager.initialize();
+    voiceManager = await WebSpeechVoiceManager.initialize({languages: ["en"]});
     
     // Get English voices asynchronously
-    enVoices = await voiceManager.getVoices({languages: "en", removeDuplicates: true});
+    enVoices = await voiceManager.getVoices({removeDuplicates: true});
     
     // Initialize the navigator
     navigator = new WebSpeechReadAloudNavigator();
@@ -43,7 +43,7 @@ async function initialize() {
     await populateVoiceSelect();
     
     // Get the default voice for English asynchronously
-    currentVoice = await voiceManager.getDefaultVoice("en");
+    currentVoice = await voiceManager.getDefaultVoice("en", enVoices);
 
     if (currentVoice && navigator) {
       navigator.setVoice(currentVoice);

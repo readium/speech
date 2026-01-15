@@ -81,15 +81,19 @@ export class WebSpeechVoiceManager {
   }
 
   /**
-   * Initialize the voice manager
+   * Initialize voice manager
    * @param options Configuration options for voice loading
-   * @param options.maxTime Maximum time in milliseconds to wait for voices to load (passed to getBrowserVoices)
+   * @param options.languages Optional array of preferred language codes to filter voices during initialization
+   * @param options.maxTimeout Maximum time in milliseconds to wait for voices to load (passed to getBrowserVoices)
    * @param options.interval Interval in milliseconds between voice loading checks (passed to getBrowserVoices)
    * @returns Promise that resolves with the WebSpeechVoiceManager instance
    */
   static async initialize(
-    maxTimeout?: number,
-    interval?: number
+    options?: {
+      languages?: string[];
+      maxTimeout?: number;
+      interval?: number;
+    }
   ): Promise<WebSpeechVoiceManager> {
     // If we already have an initialized instance, return it
     if (WebSpeechVoiceManager.instance?.isInitialized) {
@@ -107,9 +111,16 @@ export class WebSpeechVoiceManager {
         const instance = new WebSpeechVoiceManager();
         WebSpeechVoiceManager.instance = instance;
         
-        instance.browserVoices = await instance.getBrowserVoices(maxTimeout, interval);
+        instance.browserVoices = await instance.getBrowserVoices(options?.maxTimeout, options?.interval);
         instance.updateSystemLocale(instance.browserVoices);
-        instance.voices = await instance.parseToReadiumSpeechVoices(instance.browserVoices);
+        
+        // Filter browser voices if languages are provided
+        let voicesToParse = instance.browserVoices;
+        if (options?.languages && options.languages.length > 0) {
+          voicesToParse = instance.filterBrowserVoicesByLanguages(instance.browserVoices, options.languages);
+        }
+        
+        instance.voices = await instance.parseToReadiumSpeechVoices(voicesToParse);
         instance.isInitialized = true;
         
         return instance;
@@ -122,6 +133,33 @@ export class WebSpeechVoiceManager {
     })();
 
     return WebSpeechVoiceManager.initializationPromise;
+  }
+
+  /**
+   * Filter browser voices based on preferred languages
+   * @private
+   */
+  private filterBrowserVoicesByLanguages(browserVoices: SpeechSynthesisVoice[], languages: string[]): SpeechSynthesisVoice[] {
+    if (!languages?.length) return browserVoices;
+    
+    // Extract just the base languages from input
+    const allowedBaseLangs = new Set(
+      languages.map(lang => {
+        const normalized = normalizeLanguageCode(lang);
+        const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(normalized);
+        return baseLang;
+      })
+    );
+    
+    return browserVoices.filter(voice => {
+      if (!voice?.lang) return false;
+      
+      const normalizedVoiceLang = normalizeLanguageCode(voice.lang);
+      const [voiceBaseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(normalizedVoiceLang);
+      
+      // Include all voices for matching base languages, regardless of region
+      return allowedBaseLangs.has(voiceBaseLang);
+    });
   }
 
   /**
