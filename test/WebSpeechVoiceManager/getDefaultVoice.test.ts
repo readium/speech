@@ -197,7 +197,7 @@ testWithContext("getDefaultVoice: returns undefined when no voices available", a
     (manager as any).voices = [];
     (manager as any).browserVoices = [];
     
-    const defaultVoice = manager.getDefaultVoice("en-US");
+    const defaultVoice = await manager.getDefaultVoice("en-US");
     t.is(defaultVoice, null);
   } finally {
     // Restore for other tests

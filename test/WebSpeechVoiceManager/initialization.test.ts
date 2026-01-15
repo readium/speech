@@ -42,7 +42,7 @@ testWithContext("initialize: loads voices and gets voices successfully", (t) => 
   t.true(voices.length > 0);
 });
 
-testWithContext("initialization: keeps all voices by default", (t) => {
+testWithContext("initialization: keeps all voices by default", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   // Test 1: Basic duplicate voices
@@ -62,7 +62,7 @@ testWithContext("initialization: keeps all voices by default", (t) => {
     default: false
   };
 
-  const basicVoices = (manager as any).parseToReadiumSpeechVoices([lowVoice, normalVoice]);
+  const basicVoices = await (manager as any).parseToReadiumSpeechVoices([lowVoice, normalVoice]);
   t.is(basicVoices.length, 2, "Should keep both basic voices when parsing");
   
   const basicFiltered = manager.filterVoices({removeDuplicates: false}, basicVoices);
@@ -75,7 +75,7 @@ testWithContext("initialization: keeps all voices by default", (t) => {
   t.is(normalQualityVoice?.originalName, "Samantha (enhanced)", "Should preserve normal quality voice original name");
   
   // Test 2: VoiceURI string duplicates
-  const premiumVoices = (manager as any).parseToReadiumSpeechVoices([
+  const premiumVoices = await (manager as any).parseToReadiumSpeechVoices([
     {
       voiceURI: "Samantha",
       name: "Samantha",
@@ -103,7 +103,7 @@ testWithContext("initialization: keeps all voices by default", (t) => {
   t.is(enhancedVoice?.originalName, "Samantha (Premium)", "Should preserve enhanced voice original name");
   
   // Test 3: Primary name vs altName matches
-  const altNameVoices = (manager as any).parseToReadiumSpeechVoices([
+  const altNameVoices = await (manager as any).parseToReadiumSpeechVoices([
     {
       voiceURI: "Google US English 5 (Natural)",
       name: "Google US English 5 (Natural)",
@@ -131,7 +131,7 @@ testWithContext("initialization: keeps all voices by default", (t) => {
   t.is(altVoice?.originalName, "Android Speech Recognition and Synthesis from Google en-us-x-tpc-local", "Should preserve altName voice original name");
   
   // Test 4: Multiple altName matches
-  const multiAltVoices = (manager as any).parseToReadiumSpeechVoices([
+  const multiAltVoices = await (manager as any).parseToReadiumSpeechVoices([
     {
       voiceURI: "Android Speech Recognition and Synthesis from Google en-us-x-tpc-local",
       name: "Android Speech Recognition and Synthesis from Google en-us-x-tpc-local",
@@ -159,8 +159,7 @@ testWithContext("initialization: keeps all voices by default", (t) => {
   t.is(networkVoice?.originalName, "Android Speech Recognition and Synthesis from Google en-us-x-tpc-network", "Should preserve network altName voice original name");
 });
 
-
-testWithContext("quality inference: infers quality from nativeID when voiceURI has no indicators", (t) => {
+testWithContext("initialization: quality inference: infers quality from nativeID when voiceURI has no indicators", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   // Test Francesca voice from es.json which has nativeID with "enhanced"
@@ -174,13 +173,13 @@ testWithContext("quality inference: infers quality from nativeID when voiceURI h
   };
   
   // Parse the voice - it should find Francesca in es.json and infer quality from nativeID
-  const voices = (manager as any).parseToReadiumSpeechVoices([testVoice]);
+  const voices = await (manager as any).parseToReadiumSpeechVoices([testVoice]);
   
   // Should infer "normal" quality from "enhanced" in nativeID array
   t.is(voices[0].quality, "normal", "Should infer 'normal' quality from 'enhanced' in Francesca's nativeID");
 });
 
-testWithContext("quality inference: voiceURI takes precedence over nativeID", (t) => {
+testWithContext("initialization: quality inference: voiceURI takes precedence over nativeID", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   // Test Francesca voice with compact in voiceURI (should take precedence over nativeID enhanced)
@@ -193,7 +192,7 @@ testWithContext("quality inference: voiceURI takes precedence over nativeID", (t
   };
   
   // Parse the voice - it should find Francesca but use voiceURI quality (takes precedence)
-  const voices = (manager as any).parseToReadiumSpeechVoices([testVoice]);
+  const voices = await (manager as any).parseToReadiumSpeechVoices([testVoice]);
   
   // Should infer "low" from voiceURI, not "normal" from nativeID (voiceURI takes precedence)
   t.is(voices[0].quality, "low", "Should infer 'low' quality from voiceURI, not 'normal' from nativeID");

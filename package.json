@@ -21,7 +21,7 @@
     "test": "npm run build && NODE_NO_WARNINGS=1 ava test/**/*.test.ts",
     "generate-metadata": "node scripts/generate-metadata.js",
     "clean": "rimraf ./build",
-    "build": "npm run generate-metadata && vite build",
+    "build": "vite build",
     "start": "node build/index.js",
     "serve": "http-server ./",
     "watch": "tsc -w"
