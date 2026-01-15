@@ -10,15 +10,25 @@ export interface LanguageWithRegions {
 // Cache for loaded language data
 const voiceDataCache = new Map<string, Promise<VoiceData>>();
 
+// Use import.meta.glob to dynamically import JSON files
+const jsonLoaders = import.meta.glob<{ default: VoiceData }>('../../json/*.json');
+
 /**
  * Dynamically imports and caches language data
  */
 async function loadVoiceData(lang: string): Promise<VoiceData> {
   try {
-    const module = await import(`@json/${lang}.json`);
+    // Extract the language subtag (first part of BCP-47)
+    const langSubtag = lang.split("-")[0];
+    const loader = jsonLoaders[`../../json/${langSubtag}.json`];
+    if (!loader) {
+      throw new Error(`No voice data found for language: ${lang}`);
+    }
+    const module = await loader();
+    const voiceData = module.default;
     return {
-      ...module.default,
-      voices: module.default.voices.map(castVoice)
+      ...voiceData,
+      voices: voiceData.voices.map(castVoice)
     };
   } catch (error) {
     console.error(`Failed to load voice data for ${lang}:`, error);

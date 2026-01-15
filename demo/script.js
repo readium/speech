@@ -70,7 +70,7 @@ async function init() {
     voiceManager = await WebSpeechVoiceManager.initialize();
     
     // Sort those voices by browser preference using sortVoicesByRegions
-    const voices = voiceManager.sortVoicesByRegions(window.navigator.languages);
+    const voices = await voiceManager.sortVoicesByRegions(window.navigator.languages);
     
     // Get languages
     languages = voiceManager.getLanguages(window.navigator.languages[0], { removeDuplicates: true }, voices);
@@ -201,18 +201,18 @@ function displayVoiceProperties(voice) {
 }
 
 // Replace current voice with a new default voice if it gets filtered out
-function replaceCurrentVoiceIfFilteredOut(language) {
+async function replaceCurrentVoiceIfFilteredOut(language) {
   const currentVoiceFilteredOut = currentVoice && !filteredVoices.some(voice => voice.voiceURI === currentVoice.voiceURI);
   const needNewVoice = !currentVoice && filteredVoices.length > 0;
   
   if (currentVoiceFilteredOut || needNewVoice) {
     // Current voice was filtered out or no voice selected, pick a new default voice based on language
     if (filteredVoices.length > 0) {
-      currentVoice = voiceManager.getDefaultVoice(language, filteredVoices);
+      currentVoice = await voiceManager.getDefaultVoice(language, filteredVoices);
       
       if (currentVoice) {
         try {
-          speechNavigator.setVoice(currentVoice);
+          await speechNavigator.setVoice(currentVoice);
           displayVoiceProperties(currentVoice);
           updateTestUtterance(currentVoice, language);
           
@@ -235,7 +235,7 @@ function replaceCurrentVoiceIfFilteredOut(language) {
 }
 
 // Filter voices based on current filters
-function filterVoices() {
+async function filterVoices() {
   const language = languageSelect.value;
   const gender = genderSelect.value;
   const source = sourceSelect.value;
@@ -269,16 +269,16 @@ function filterVoices() {
     filteredVoices = voicesFilteredExceptLanguage;
   }
   
-  populateVoiceDropdown(language);
+  await populateVoiceDropdown(language);
 
   // Replace current voice if it was filtered out
-  replaceCurrentVoiceIfFilteredOut(language);
+  await replaceCurrentVoiceIfFilteredOut(language);
 
   updateUI();
 }
 
 // Populate the voice dropdown with filtered voices
-function populateVoiceDropdown() {
+async function populateVoiceDropdown() {
   voiceSelect.innerHTML = "<option value='' disabled selected>Select a voice</option>";
   
   try {
@@ -291,7 +291,7 @@ function populateVoiceDropdown() {
     }
 
     // Sort voices with browser's preferred languages first
-    const sortedVoices = voiceManager.sortVoicesByRegions(window.navigator.languages, [...filteredVoices]);
+    const sortedVoices = await voiceManager.sortVoicesByRegions(window.navigator.languages, [...filteredVoices]);
 
     // Group the sorted voices by region
     const voiceGroups = voiceManager.groupVoices("region", sortedVoices);
@@ -550,14 +550,14 @@ function setupEventListeners() {
     displayVoiceProperties(null);
     
     // Filter voices for the selected language
-    filterVoices();
+    await filterVoices();
     
     // Get the default voice for the selected language using pre-filtered voices
     if (baseLanguage) {
       // Use the full navigator.languages array for proper language preference handling
       const preferredLanguages = [...(window.navigator.languages || [window.navigator.language] || [baseLanguage])];
       
-      currentVoice = voiceManager.getDefaultVoice(
+      currentVoice = await voiceManager.getDefaultVoice(
         preferredLanguages, 
         filteredVoices.length ? filteredVoices : undefined
       );
@@ -565,7 +565,7 @@ function setupEventListeners() {
       if (currentVoice) {
         try {
           // Set the voice for the navigator
-          speechNavigator.setVoice(currentVoice);
+          await speechNavigator.setVoice(currentVoice);
           
           // Update the voice dropdown to reflect the selected voice
           const voiceOption = voiceSelect.querySelector(`option[value="${currentVoice.name}"]`);
@@ -600,7 +600,7 @@ function setupEventListeners() {
     if (currentVoice) {
       try {
         // Set the voice for the navigator
-        speechNavigator.setVoice(currentVoice);
+        await speechNavigator.setVoice(currentVoice);
         
         // Display voice properties
         displayVoiceProperties(currentVoice);
@@ -655,18 +655,18 @@ function setupEventListeners() {
   });
 
   // Update voices when gender filter changes
-  genderSelect.addEventListener("change", () => {
-    filterVoices();
+  genderSelect.addEventListener("change", async () => {
+    await filterVoices();
   });
 
   // Update voices when source filter changes
-  sourceSelect.addEventListener("change", () => {
-    filterVoices();
+  sourceSelect.addEventListener("change", async () => {
+    await filterVoices();
   });
 
   // Update voices when offline filter changes
-  offlineOnlyCheckbox.addEventListener("change", () => {
-    filterVoices();
+  offlineOnlyCheckbox.addEventListener("change", async () => {
+    await filterVoices();
   });
 
   // Update test utterance when language changes

@@ -27,8 +27,8 @@ async function initialize() {
     // Initialize the voice manager
     voiceManager = await WebSpeechVoiceManager.initialize();
     
-    // Only get English voices
-    enVoices = voiceManager.getVoices({languages: "en", removeDuplicates: true});
+    // Get English voices asynchronously
+    enVoices = await voiceManager.getVoices({languages: "en", removeDuplicates: true});
     
     // Initialize the navigator
     navigator = new WebSpeechReadAloudNavigator();
@@ -39,11 +39,11 @@ async function initialize() {
     // Initialize the UI
     updateUI();
     
-    // Populate voice select
-    populateVoiceSelect();
+    // Populate voice select asynchronously
+    await populateVoiceSelect();
     
-    // Get the default voice for English
-    currentVoice = voiceManager.getDefaultVoice("en");
+    // Get the default voice for English asynchronously
+    currentVoice = await voiceManager.getDefaultVoice("en");
 
     if (currentVoice && navigator) {
       navigator.setVoice(currentVoice);
@@ -173,24 +173,29 @@ async function initializeContent() {
 }
 
 // Populate voice select dropdown
-function populateVoiceSelect() {
+async function populateVoiceSelect() {
   if (!voiceSelect) return;
   
-  voiceSelect.innerHTML = "<option value=\"\" disabled selected>Select a voice</option>";
+  voiceSelect.innerHTML = "<option value=\"\" disabled selected>Loading voices...</option>";
   
-  if (!enVoices || !enVoices.length) {
-    const option = document.createElement("option");
-    option.disabled = true;
-    option.textContent = "No voices available. Please check your browser settings and internet connection.";
-    voiceSelect.appendChild(option);
-    return;
-  }
+  try {
+    if (!enVoices || !enVoices.length) {
+      enVoices = await voiceManager.getVoices({languages: "en", removeDuplicates: true});
+    }
+    
+    voiceSelect.innerHTML = "<option value=\"\" disabled selected>Select a voice</option>";
+    
+    if (!enVoices || !enVoices.length) {
+      const option = document.createElement("option");
+      option.disabled = true;
+      option.textContent = "No voices available. Please check your browser settings and internet connection.";
+      voiceSelect.appendChild(option);
+      return;
+    }
 
   try {
     // Sort by region while preserving quality order within each region
-    const sortedVoices = voiceManager.sortVoicesByRegions(["en"], enVoices);
-
-    console.log(sortedVoices);
+    const sortedVoices = await voiceManager.sortVoicesByRegions(["en"], enVoices);
 
     let currentRegion = null;
     let optgroup = null;
@@ -223,14 +228,22 @@ function populateVoiceSelect() {
       optgroup?.appendChild(option);
     }
     
-    // Set the default voice selection
+    // If we have a current voice, select it
     if (currentVoice) {
-      const option = voiceSelect.querySelector(`option[value="${currentVoice.name}"]`);
+      const option = voiceSelect.querySelector(`option[data-voice-uri="${currentVoice.voiceURI}"]`);
       if (option) {
         option.selected = true;
       }
     }
     
+    // Update the UI to reflect the current state
+    updateUI();
+    
+  } catch (error) {
+    console.error("Error populating voice select:", error);
+    voiceSelect.innerHTML = "<option value=\"\" disabled selected>Error loading voices</option>";
+  }
+  
   } catch (error) {
     console.error("Error populating voice dropdown:", error);
     // Fallback to simple list if there's an error
