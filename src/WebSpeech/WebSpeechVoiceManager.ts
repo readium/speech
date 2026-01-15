@@ -332,15 +332,7 @@ export class WebSpeechVoiceManager {
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
     }
     
-    // Set default values for filter options
-    const filterOptions: VoiceFilterOptions = {
-      excludeNovelty: true,  // Default to true to filter out novelty voices
-      excludeVeryLowQuality: true,  // Default to true to filter out very low quality voices
-      removeDuplicates: false,  // Default to false - don't remove duplicates by default
-      ...options  // Let explicit options override the defaults
-    };
-    
-    return this.filterVoices(filterOptions, [...this.voices]);
+    return this.filterVoices(options, [...this.voices]);
   }
 
   /**
@@ -354,39 +346,28 @@ export class WebSpeechVoiceManager {
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
     }
     
-    const languages = new Map<string, { count: number; label: string; code: string }>();
-    
     const voicesToCount = voices ?? this.voices;
-    
-    // Apply filters if provided
     const filteredVoices = filterOptions ? this.filterVoices(filterOptions, voicesToCount) : voicesToCount;
     
-    filteredVoices.forEach(voice => {
-      const langCode = voice.language;
-      const normalizedLang = normalizeLanguageCode(langCode);
-      
+    const result: { code: string; label: string; count: number }[] = [];
+    const seen = new Set<string>();
+    
+    for (const voice of filteredVoices) {
+      const normalizedLang = normalizeLanguageCode(voice.language);
       const key = normalizedLang.split("-")[0];
-      const displayName = WebSpeechVoiceManager.getLanguageDisplayName(
-        key, 
-        localization
-      );
       
-      const entry = languages.get(key) || { 
-        count: 0, 
-        label: displayName, 
-        code: key
-      };
-      languages.set(key, { ...entry, count: entry.count + 1 });
-    });
+      if (!seen.has(key)) {
+        const displayName = WebSpeechVoiceManager.getLanguageDisplayName(key, localization);
+        const count = filteredVoices.filter(v => 
+          normalizeLanguageCode(v.language).split("-")[0] === key
+        ).length;
+        
+        result.push({ code: key, label: displayName, count });
+        seen.add(key);
+      }
+    }
 
-    // Convert to array and sort
-    return Array.from(languages.entries())
-      .map(([_, { code, label, count }]) => ({
-        code,
-        label,
-        count
-      }))
-      .sort((a, b) => a.label.localeCompare(b.label));
+    return voices ? result : result.sort((a, b) => a.label.localeCompare(b.label));
   }
 
   /**
@@ -399,32 +380,42 @@ export class WebSpeechVoiceManager {
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
     }
     
-    const regions = new Map<string, { count: number; label: string }>();
-    
     const voicesToCount = voices ?? this.voices;
     
-    voicesToCount.forEach(voice => {
+    const result: { code: string; label: string; count: number }[] = [];
+    const seen = new Set<string>();
+    const counts = new Map<string, number>();
+    
+    // Count regions first
+    for (const voice of voicesToCount) {
       const [, region] = WebSpeechVoiceManager.extractLangRegionFromBCP47(voice.language);
       if (region) {
-        const entry = regions.get(region) || { count: 0, label: voice.language };
-        regions.set(region, { ...entry, count: entry.count + 1 });
+        counts.set(region, (counts.get(region) || 0) + 1);
       }
-    });
+    }
+    
+    // Preserve order
+    for (const voice of voicesToCount) {
+      const [, region] = WebSpeechVoiceManager.extractLangRegionFromBCP47(voice.language);
+      if (region && !seen.has(region)) {
+        let displayName = voice.language;
+        try {
+          const locale = localization || navigator.language;
+          displayName = new Intl.DisplayNames([locale], { type: "region" }).of(region) || voice.language;
+        } catch (e) {
+          console.warn(`Failed to get display name for region ${region}`, e);
+        }
+        
+        result.push({
+          code: region,
+          label: displayName,
+          count: counts.get(region) || 0
+        });
+        seen.add(region);
+      }
+    }
 
-    return Array.from(regions.entries()).map(([code, { count, label }]) => {
-      let displayName = label;
-      try {
-        const locale = localization || navigator.language;
-        displayName = new Intl.DisplayNames([locale], { type: "region" }).of(code) || label;
-      } catch (e) {
-        console.warn(`Failed to get display name for region ${code}`, e);
-      }
-      return {
-        code,
-        label: displayName,
-        count
-      };
-    });
+    return voices ? result : result.sort((a, b) => a.label.localeCompare(b.label));
   }
 
   /**
@@ -595,8 +586,16 @@ export class WebSpeechVoiceManager {
   filterVoices(options: VoiceFilterOptions, voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
     let result = voices ? [...voices] : [...this.voices];
 
-    if (options.languages) {
-      const langs = Array.isArray(options.languages) ? options.languages : [options.languages];
+    // Set default values for filter options
+    const filterOptions: VoiceFilterOptions = {
+      excludeNovelty: true,  // Default to true to filter out novelty voices
+      excludeVeryLowQuality: true,  // Default to true to filter out very low quality voices
+      removeDuplicates: true,  // Default to true - remove duplicates by default
+      ...options  // Let explicit options override the defaults
+    };
+
+    if (filterOptions.languages) {
+      const langs = Array.isArray(filterOptions.languages) ? filterOptions.languages : [filterOptions.languages];
       
       result = result.filter(voice => {
         return langs.some(requestedLang => {
@@ -617,42 +616,42 @@ export class WebSpeechVoiceManager {
       });
     }
     
-    if (options.source) {
-      result = result.filter(v => v.source === options.source);
+    if (filterOptions.source) {
+      result = result.filter(v => v.source === filterOptions.source);
     }
 
-    if (options.gender) {
-      result = result.filter(v => v.gender === options.gender);
+    if (filterOptions.gender) {
+      result = result.filter(v => v.gender === filterOptions.gender);
     }
 
-    if (options.quality) {
-      const qualities = Array.isArray(options.quality) ? options.quality : [options.quality];
+    if (filterOptions.quality) {
+      const qualities = Array.isArray(filterOptions.quality) ? filterOptions.quality : [filterOptions.quality];
       result = result.filter(v => v.quality && qualities.includes(v.quality));
     }
 
-    if (options.offlineOnly) {
+    if (filterOptions.offlineOnly) {
       result = result.filter(v => v.offlineAvailability === true);
     }
 
-    if (options.provider) {
+    if (filterOptions.provider) {
       result = result.filter(v => 
-        v.provider?.toLowerCase() === options.provider?.toLowerCase()
+        v.provider?.toLowerCase() === filterOptions.provider?.toLowerCase()
       );
     }
 
-    if (options.excludeNovelty) {
+    if (filterOptions.excludeNovelty) {
       result = filterOutNoveltyVoices(result);
     }
 
-    if (options.excludeVeryLowQuality) {
+    if (filterOptions.excludeVeryLowQuality) {
       result = filterOutVeryLowQualityVoices(result);
     }
 
-    if (!options.removeDuplicates) {
-      return result;
+    if (filterOptions.removeDuplicates) {
+      result = this.removeDuplicates(result);
     }
     
-    return this.removeDuplicates(result);
+    return result;
   }
 
   /**
@@ -828,11 +827,18 @@ private static sortByQuality(
         if (aIsDefault && !bIsDefault) return -1;
         if (!aIsDefault && bIsDefault) return 1;
         
-        // Both default or both non-default - sort by quality
-        const sameLangVoices = voices.filter(v => 
-          WebSpeechVoiceManager.extractLangRegionFromBCP47(v.language)[0] === aLang
-        );
-        const jsonOrderMaps = createJsonOrderMap(sameLangVoices);
+        // Both default or both non-default - sort by region alphabetically, then quality
+        if (aRegion && bRegion) {
+          const regionCompare = aRegion.localeCompare(bRegion);
+          if (regionCompare !== 0) {
+            return regionCompare;
+          }
+        }
+        if (aRegion) return -1;
+        if (bRegion) return 1;
+        
+        // Same language group - sort by quality
+        const jsonOrderMaps = createJsonOrderMap(voices);
         return WebSpeechVoiceManager.sortByQuality(a, b, jsonOrderMaps, aLang);
       }
       
@@ -922,6 +928,18 @@ private static sortByQuality(
       
       if (aIsDefault && !bIsDefault) return -1;
       if (!aIsDefault && bIsDefault) return 1;
+      
+      // Neither has match - sort by region alphabetically, then quality
+      if (aRegion && bRegion) {
+        const regionCompare = aRegion.localeCompare(bRegion);
+        if (regionCompare !== 0) {
+          return regionCompare;
+        }
+        // Same region - sort by quality
+        return WebSpeechVoiceManager.sortByQuality(a, b, jsonOrderMaps, processedLang.baseLang);
+      }
+      if (aRegion) return -1;
+      if (bRegion) return 1;
       
       return WebSpeechVoiceManager.sortByQuality(a, b, jsonOrderMaps, processedLang.baseLang);
     });

@@ -65,7 +65,7 @@ testWithContext("initialization: keeps all voices by default", (t) => {
   const basicVoices = (manager as any).parseToReadiumSpeechVoices([lowVoice, normalVoice]);
   t.is(basicVoices.length, 2, "Should keep both basic voices when parsing");
   
-  const basicFiltered = manager.filterVoices({}, basicVoices);
+  const basicFiltered = manager.filterVoices({removeDuplicates: false}, basicVoices);
   t.is(basicFiltered.length, 2, "Should keep both basic voices by default");
   
   // Verify specific voices are preserved
@@ -93,7 +93,7 @@ testWithContext("initialization: keeps all voices by default", (t) => {
   ]);
   t.is(premiumVoices.length, 2, "Should keep both premium voices when parsing");
   
-  const premiumFiltered = manager.filterVoices({}, premiumVoices);
+  const premiumFiltered = manager.filterVoices({removeDuplicates: false}, premiumVoices);
   t.is(premiumFiltered.length, 2, "Should keep both premium voices by default");
   
   // Verify specific voices are preserved
@@ -121,7 +121,7 @@ testWithContext("initialization: keeps all voices by default", (t) => {
   ]);
   t.is(altNameVoices.length, 2, "Should keep both altName voices when parsing");
   
-  const altNameFiltered = manager.filterVoices({}, altNameVoices);
+  const altNameFiltered = manager.filterVoices({removeDuplicates: false}, altNameVoices);
   t.is(altNameFiltered.length, 2, "Should keep both altName voices by default");
   
   // Verify specific voices are preserved
@@ -149,7 +149,7 @@ testWithContext("initialization: keeps all voices by default", (t) => {
   ]);
   t.is(multiAltVoices.length, 2, "Should keep both multi-alt voices when parsing");
   
-  const multiAltFiltered = manager.filterVoices({}, multiAltVoices);
+  const multiAltFiltered = manager.filterVoices({removeDuplicates: false}, multiAltVoices);
   t.is(multiAltFiltered.length, 2, "Should keep both multi-alt voices by default");
   
   // Verify specific voices are preserved

@@ -65,15 +65,15 @@ speechNavigator.on("error", (event) => {
 
 // Initialize the application
 async function init() {
-  try {    
+  try {
     // Initialize the voice manager
     voiceManager = await WebSpeechVoiceManager.initialize();
     
     // Sort those voices by browser preference using sortVoicesByRegions
     const voices = voiceManager.sortVoicesByRegions(window.navigator.languages);
     
-    // Get languages, excluding novelty and very low quality voices
-    languages = voiceManager.getLanguages(window.navigator.language, undefined, voices);
+    // Get languages
+    languages = voiceManager.getLanguages(window.navigator.languages[0], { removeDuplicates: true }, voices);
     
     // Populate language dropdown
     populateLanguageDropdown();
@@ -241,7 +241,7 @@ function filterVoices() {
   const source = sourceSelect.value;
   const offlineOnly = offlineOnlyCheckbox.checked;
 
-  const filterOptions = {};
+  const filterOptions = { };
   
   if (gender !== "all") {
     filterOptions.gender = gender;
@@ -264,7 +264,7 @@ function filterVoices() {
   // Now apply language filter if needed
   if (language) {
     filterOptions.languages = language;
-    filteredVoices = voiceManager.filterVoices(voicesFilteredExceptLanguage, { languages: language });
+    filteredVoices = voiceManager.filterVoices({ languages: language }, voicesFilteredExceptLanguage);
   } else {
     filteredVoices = voicesFilteredExceptLanguage;
   }
