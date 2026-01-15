@@ -1,315 +1,439 @@
-const M = (e) => {
+const F = (e) => {
   if (!e) return ["", void 0];
-  const a = e.replace(/_/g, "-");
+  const t = e.replace(/_/g, "-");
   try {
-    const t = new Intl.Locale(a);
+    const r = new Intl.Locale(t);
     return [
-      t.language.toLowerCase(),
-      t.region?.toUpperCase()
+      r.language.toLowerCase(),
+      r.region?.toUpperCase()
     ];
   } catch {
-    const t = a.split("-");
+    const r = t.split("-");
     return [
-      t[0].toLowerCase(),
-      t[1]?.toUpperCase()
+      r[0].toLowerCase(),
+      r[1]?.toUpperCase()
     ];
   }
-};
-const Ra = "ar-SA", Ea = "مرحبًا، اسمي {name} وأنا صوت عربي.", Ga = [{ label: "Amina", name: "Microsoft Amina Online (Natural) - Arabic (Algeria)", language: "ar-DZ", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Ismael", name: "Microsoft Ismael Online (Natural) - Arabic (Algeria)", language: "ar-DZ", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Laila", name: "Microsoft Laila Online (Natural) - Arabic (Bahrain)", language: "ar-BH", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Ali", name: "Microsoft Ali Online (Natural) - Arabic (Bahrain)", language: "ar-BH", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Salma", name: "Microsoft Salma Online (Natural) - Arabic (Egypt)", language: "ar-EG", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Shakir", name: "Microsoft Shakir Online (Natural) - Arabic (Egypt)", language: "ar-EG", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Rana", name: "Microsoft Rana Online (Natural) - Arabic (Iraq)", language: "ar-IQ", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Bassel", name: "Microsoft Bassel Online (Natural) - Arabic (Iraq)", language: "ar-IQ", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Sana", name: "Microsoft Sana Online (Natural) - Arabic (Jordan)", language: "ar-JO", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Taim", name: "Microsoft Taim Online (Natural) - Arabic (Jordan)", language: "ar-JO", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Noura", name: "Microsoft Noura Online (Natural) - Arabic (Kuwait)", language: "ar-KW", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Fahed", name: "Microsoft Fahed Online (Natural) - Arabic (Kuwait)", language: "ar-KW", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Layla", name: "Microsoft Layla Online (Natural) - Arabic (Lebanon)", language: "ar-LB", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Rami", name: "Microsoft Rami Online (Natural) - Arabic (Lebanon)", language: "ar-LB", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Iman", name: "Microsoft Iman Online (Natural) - Arabic (Libya)", language: "ar-LY", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Omar", name: "Microsoft Omar Online (Natural) - Arabic (Libya)", language: "ar-LY", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Mouna", name: "Microsoft Mouna Online (Natural) - Arabic (Morocco)", language: "ar-MA", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Jamal", name: "Microsoft Jamal Online (Natural) - Arabic (Morocco)", language: "ar-MA", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Aysha", name: "Microsoft Aysha Online (Natural) - Arabic (Oman)", language: "ar-OM", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Abdullah", name: "Microsoft Abdullah Online (Natural) - Arabic (Oman)", language: "ar-OM", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Amal", name: "Microsoft Amal Online (Natural) - Arabic (Qatar)", language: "ar-QA", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Moaz", name: "Microsoft Moaz Online (Natural) - Arabic (Qatar)", language: "ar-QA", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Zariyah", name: "Microsoft Zariyah Online (Natural) - Arabic (Saudi Arabia)", language: "ar-SA", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Hamed", name: "Microsoft Hamed Online (Natural) - Arabic (Saudi Arabia)", language: "ar-SA", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Amany", name: "Microsoft Amany Online (Natural) - Arabic (Syria)", language: "ar-SY", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Laith", name: "Microsoft Laith Online (Natural) - Arabic (Syria)", language: "ar-SY", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Reem", name: "Microsoft Reem Online (Natural) - Arabic (Tunisia)", language: "ar-TN", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Hedi", name: "Microsoft Hedi Online (Natural) - Arabic (Tunisia)", language: "ar-TN", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Fatima", name: "Microsoft Fatima Online (Natural) - Arabic (United Arab Emirates)", language: "ar-AE", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Hamdan", name: "Microsoft Hamdan Online (Natural) - Arabic (United Arab Emirates)", language: "ar-AE", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Maryam", name: "Microsoft Maryam Online (Natural) - Arabic (Yemen)", language: "ar-YE", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Saleh", name: "Microsoft Saleh Online (Natural) - Arabic (Yemen)", language: "ar-YE", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Mariam", name: "Mariam", localizedName: "apple", language: "ar-001", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Apple Laila", name: "Laila", localizedName: "apple", language: "ar-001", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Tarik", name: "Tarik", localizedName: "apple", language: "ar-001", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Majed", name: "Majed", localizedName: "apple", language: "ar-001", gender: "male", quality: ["low", "normal", "high"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Hoda", name: "Microsoft Hoda - Arabic (Arabic )", language: "ar-EG", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Naayf", name: "Microsoft Naayf - Arabic (Saudi Arabia)", language: "ar-AS", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "صوت انثوي 1", name: "Android Speech Recognition and Synthesis from Google ar-xa-x-arc-network", altNames: ["Android Speech Recognition and Synthesis from Google ar-xa-x-arc-local", "Android Speech Recognition and Synthesis from Google ar-language"], nativeID: ["ar-xa-x-arc-network", "ar-xa-x-arc-local"], language: "ar", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "صوت انثوي 2", name: "Android Speech Recognition and Synthesis from Google ar-xa-x-arz-network", altNames: ["Android Speech Recognition and Synthesis from Google ar-xa-x-arz-local"], nativeID: ["ar-xa-x-arz-network", "ar-xa-x-arz-local"], language: "ar", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "صوت ذكر 1", name: "Android Speech Recognition and Synthesis from Google ar-xa-x-ard-network", altNames: ["Android Speech Recognition and Synthesis from Google ar-xa-x-ard-local"], nativeID: ["ar-xa-x-ard-network", "ar-xa-x-ard-local"], language: "ar", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "صوت ذكر 2", name: "Android Speech Recognition and Synthesis from Google ar-xa-x-are-network", altNames: ["Android Speech Recognition and Synthesis from Google ar-xa-x-are-local"], nativeID: ["ar-xa-x-are-network", "ar-xa-x-are-local"], language: "ar", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], Ia = {
-  language: "ar",
-  defaultRegion: Ra,
-  testUtterance: Ea,
-  voices: Ga
-}, Ta = "bg", Ma = "bg-BG", Ha = "Здравейте, казвам се {name} и съм български глас.", Da = [{ label: "Kalina", name: "Microsoft Kalina Online (Natural) - Bulgarian (Bulgaria)", language: "bg-BG", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Borislav", name: "Microsoft Borislav Online (Natural) - Bulgarian (Bulgaria)", language: "bg-BG", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Daria", name: "Daria", localizedName: "apple", language: "bg-BG", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Ivan", name: "Microsoft Ivan - Bulgarian (Bulgaria)", language: "bg-BG", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Женски глас", name: "Android Speech Recognition and Synthesis from Google bg-bg-x-ifk-network", altNames: ["Android Speech Recognition and Synthesis from Google bg-bg-x-ifk-local", "Android Speech Recognition and Synthesis from Google bg-bg-language"], nativeID: ["bg-bg-x-ifk-network", "bg-bg-x-ifk-local"], language: "bg-BG", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], Pa = {
-  language: Ta,
-  defaultRegion: Ma,
-  testUtterance: Ha,
-  voices: Da
-}, La = "bho", Ua = "bho-IN", za = "नमस्कार, हमार नाम {name} ह आ हम भोजपुरी आवाज हईं", Ba = [{ label: "Jaya", name: "Jaya", localizedName: "apple", language: "bho-IN", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }], $a = {
-  language: La,
-  defaultRegion: Ua,
-  testUtterance: za,
-  voices: Ba
-}, ja = "bn", Fa = "bn-IN", Va = "হ্যালো, আমার নাম {name} এবং আমি একজন বাংলা ভয়েস।", Ka = [{ label: "Tanishaa", name: "Microsoft Tanishaa Online (Natural) - Bengali (India)", language: "bn-IN", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Bashkar", name: "Microsoft Bashkar Online (Natural) - Bangla (India)", language: "bn-IN", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Nabanita", name: "Microsoft Nabanita Online (Natural) - Bangla (Bangladesh)", language: "bn-BD", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Pradeep", name: "Microsoft Pradeep Online (Natural) - Bangla (Bangladesh)", language: "bn-BD", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Piya", name: "Piya", localizedName: "apple", language: "bn-IN", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "মহিলা কণ্ঠস্বর 1", name: "Android Speech Recognition and Synthesis from Google bn-in-x-bnf-network", altNames: ["Android Speech Recognition and Synthesis from Google bn-in-x-bnf-local", "Android Speech Recognition and Synthesis from Google bn-IN-language"], nativeID: ["bn-in-x-bnf-network", "bn-in-x-bnf-local"], language: "bn-IN", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "মহিলা কণ্ঠস্বর 2", name: "Android Speech Recognition and Synthesis from Google bn-in-x-bnx-network", altNames: ["Android Speech Recognition and Synthesis from Google bn-in-x-bnx-local"], nativeID: ["bn-in-x-bnx-network", "bn-in-x-bnx-local"], language: "bn-IN", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "পুরুষ কন্ঠ 1", name: "Android Speech Recognition and Synthesis from Google bn-in-x-bin-network", altNames: ["Android Speech Recognition and Synthesis from Google bn-in-x-bin-local"], nativeID: ["bn-in-x-bin-network", "bn-in-x-bin-local"], language: "bn-IN", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "পুরুষ কন্ঠ 2", name: "Android Speech Recognition and Synthesis from Google bn-in-x-bnm-network", altNames: ["Android Speech Recognition and Synthesis from Google bn-in-x-bnm-local"], nativeID: ["bn-in-x-bnm-network", "bn-in-x-bnm-local"], language: "bn-IN", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "পুরুষ কন্ঠ", name: "Google বাংলা (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google bn-bd-x-ban-network", "Chrome OS বাংলা", "Android Speech Recognition and Synthesis from Google bn-bd-x-ban-local", "Android Speech Recognition and Synthesis from Google bn-BD-language"], nativeID: ["bn-bd-x-ban-network", "bn-bd-x-ban-local"], language: "bn-BD", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], Wa = {
-  language: ja,
-  defaultRegion: Fa,
-  testUtterance: Va,
-  voices: Ka
-}, Ja = "ca", _a = "ca-ES", Ya = "Hola, em dic {name} i sóc una veu catalana", Qa = [{ label: "Joana (Català)", name: "Microsoft Joana Online (Natural) - Catalan", language: "ca-ES", otherLanguages: ["es"], gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Enric (Català)", name: "Microsoft Enric Online (Natural) - Catalan", language: "ca-ES", otherLanguages: ["es"], gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Montse (Català)", name: "Montse", localizedName: "apple", language: "ca-ES", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Pau (Valencià)", name: "Pau", localizedName: "apple", language: "ca-ES-u-sd-esvc", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Jordi (Català)", name: "Jordi", localizedName: "apple", language: "ca-ES", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Herena (Català)", name: "Microsoft Herena - Catalan (Spain)", language: "ca-ES", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Veu femenina catalana", name: "Android Speech Recognition and Synthesis from Google ca-es-x-caf-network", altNames: ["Android Speech Recognition and Synthesis from Google ca-es-x-caf-local", "Android Speech Recognition and Synthesis from Google ca-ES-language"], nativeID: ["ca-es-x-caf-network", "ca-es-x-caf-local"], language: "ca-ES", otherLanguages: ["es"], gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], Za = {
-  language: Ja,
-  defaultRegion: _a,
-  testUtterance: Ya,
-  voices: Qa
-}, Xa = "cmn", en = "cmn-CN", an = "你好，我的名字是 {name}，我是普通话配音。", nn = /* @__PURE__ */ JSON.parse(`[{"label":"Xiaoxiao","name":"Microsoft Xiaoxiao Online (Natural) - Chinese (Mainland)","language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Xiaoyi","name":"Microsoft Xiaoyi Online (Natural) - Chinese (Mainland)","language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Yunxi","name":"Microsoft Yunxi Online (Natural) - Chinese (Mainland)","language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Yunxia","name":"Microsoft Yunxia Online (Natural) - Chinese (Mainland)","language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Xiaobei","name":"Microsoft Xiaobei Online (Natural) - Chinese (Northeastern Mandarin)","language":"cmn-CN-liaoning","altLanguage":"zh-CN-liaoning","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Xiaoni","name":"Microsoft Xiaoni Online (Natural) - Chinese (Zhongyuan Mandarin Shaanxi)","language":"cmn-CN-shaanxi","altLanguage":"zh-CN-shaanxi","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Yunjian","name":"Microsoft Yunjian Online (Natural) - Chinese (Mainland)","language":"cmn-CN","altLanguage":"zh-CN","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Yunyang","name":"Microsoft Yunyang Online (Natural) - Chinese (Mainland)","language":"cmn-CN","altLanguage":"zh-CN","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"HsiaoChen","name":"Microsoft HsiaoChen Online (Natural) - Chinese (Taiwan)","language":"cmn-TW","altLanguage":"zh-TW","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"HsiaoYu","name":"Microsoft HsiaoYu Online (Natural) - Chinese (Taiwanese Mandarin)","language":"cmn-TW","altLanguage":"zh-TW","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"YunJhe","name":"Microsoft YunJhe Online (Natural) - Chinese (Taiwan)","language":"cmn-TW","altLanguage":"zh-TW","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Google 女声","name":"Google 普通话（中国大陆）","note":"This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.","language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["high"],"rate":1,"pitch":1,"browser":["ChromeDesktop"],"preloaded":true},{"label":"Google 女聲","name":"Google 國語（臺灣）","note":"This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.","language":"cmn-TW","altLanguage":"zh-TW","gender":"female","quality":["high"],"rate":1,"pitch":1,"browser":["ChromeDesktop"],"preloaded":true},{"label":"Lilian","name":"Lilian","localizedName":"apple","language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Tiantian","name":"Tiantian","localizedName":"apple","language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Shasha","name":"Shasha","localizedName":"apple","language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Lili","name":"Lili","localizedName":"apple","language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Lisheng","name":"Lisheng","localizedName":"apple","language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Lanlan","name":"Lanlan","localizedName":"apple","language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Shanshan","name":"Shanshan","localizedName":"apple","language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Yue","name":"Yue","localizedName":"apple","language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Tingting","name":"Tingting","localizedName":"apple","language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Yu-shu","name":"Yu-shu","localizedName":"apple","language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Dongmei","name":"Dongmei","localizedName":"apple","language":"cmn-CN-liaoning","altLanguage":"zh-CN-liaoning","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Panpan","name":"Panpan","localizedName":"apple","language":"cmn-CN-sichuan","altLanguage":"zh-CN-sichuan","gender":"female","quality":["low","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Meijia","name":"Meijia","localizedName":"apple","language":"cmn-TW","altLanguage":"zh-TW","gender":"female","quality":["low","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Han","name":"Han","localizedName":"apple","language":"cmn-CN","altLanguage":"zh-CN","gender":"male","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Bobo","name":"Bobo","localizedName":"apple","language":"cmn-CN","altLanguage":"zh-CN","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Taotao","name":"Taotao","localizedName":"apple","language":"cmn-CN","altLanguage":"zh-CN","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Binbin","name":"Binbin","localizedName":"apple","language":"cmn-CN","altLanguage":"zh-CN","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Li-Mu","name":"Li-Mu","localizedName":"apple","language":"cmn-CN","altLanguage":"zh-CN","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Haohao","name":"Haohao","localizedName":"apple","language":"cmn-CN-shaanxi","altLanguage":"zh-CN-shaanxi","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Huihui","name":"Microsoft Huihui - Chinese (Simplified, PRC)","language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Yaoyao","name":"Microsoft Yaoyao - Chinese (Simplified, PRC)","language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Kangkang","name":"Microsoft Kangkang - Chinese (Simplified, PRC)","language":"cmn-CN","altLanguage":"zh-CN","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Yating","name":"Microsoft Yating - Chinese (Traditional, Taiwan)","language":"cmn-TW","altLanguage":"zh-TW","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Hanhan","name":"Microsoft Hanhan - Chinese (Traditional, Taiwan)","language":"cmn-TW","altLanguage":"zh-TW","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Zhiwei","name":"Microsoft Zhiwei - Chinese (Traditional, Taiwan)","language":"cmn-TW","altLanguage":"zh-TW","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"女声1","name":"Android Speech Recognition and Synthesis from Google cmn-CN-x-ccc-network","altNames":["Android Speech Recognition and Synthesis from Google cmn-CN-x-ccc-local","Android Speech Recognition and Synthesis from Google zh-CN-language"],"nativeID":["cmn-CN-x-ccc-network","cmn-CN-x-ccc-local"],"language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"女声2","name":"Android Speech Recognition and Synthesis from Google cmn-CN-x-ssa-network","altNames":["Android Speech Recognition and Synthesis from Google cmn-CN-x-ssa-local"],"nativeID":["cmn-CN-x-ssa-network","cmn-CN-x-ssa-local"],"language":"cmn-CN","altLanguage":"zh-CN","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"男声1","name":"Android Speech Recognition and Synthesis from Google cmn-CN-x-ccd-network","altNames":["Android Speech Recognition and Synthesis from Google cmn-CN-x-ccd-local"],"nativeID":["cmn-CN-x-ccd-network","cmn-CN-x-ccd-local"],"language":"cmn-CN","altLanguage":"zh-CN","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"男声2","name":"Android Speech Recognition and Synthesis from Google cmn-CN-x-cce-network","altNames":["Android Speech Recognition and Synthesis from Google cmn-CN-x-cce-local"],"nativeID":["cmn-CN-x-cce-network","cmn-CN-x-cce-local"],"language":"cmn-CN","altLanguage":"zh-CN","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"女聲","name":"Android Speech Recognition and Synthesis from Google cmn-TW-x-ctc-network","altNames":["Android Speech Recognition and Synthesis from Google cmn-TW-x-ctc-local","Android Speech Recognition and Synthesis from Google zh-TW-language"],"nativeID":["cmn-TW-x-ctc-network","cmn-TW-x-ctc-local"],"language":"cmn-TW","altLanguage":"zh-TW","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"男聲1","name":"Android Speech Recognition and Synthesis from Google cmn-TW-x-ctd-network","altNames":["Chrome OS 粵語 1","Android Speech Recognition and Synthesis from Google cmn-TW-x-ctd-local"],"nativeID":["cmn-TW-x-ctd-network","cmn-TW-x-ctd-local"],"language":"cmn-TW","altLanguage":"zh-TW","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"男聲2","name":"Android Speech Recognition and Synthesis from Google cmn-TW-x-cte-network","altNames":["Chrome OS 粵語 1","Android Speech Recognition and Synthesis from Google cmn-TW-x-cte-local"],"nativeID":["cmn-TW-x-cte-network","cmn-TW-x-cte-local"],"language":"cmn-CTW","altLanguage":"zh-TW","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true}]`), rn = {
-  language: Xa,
-  defaultRegion: en,
-  testUtterance: an,
-  voices: nn
-}, tn = "cs", on = "cs-CZ", ln = "Dobrý den, jmenuji se {name} a jsem český hlas.", sn = [{ label: "Vlasta", name: "Microsoft Vlasta Online (Natural) - Czech (Czech)", language: "cs-CZ", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Antonin", name: "Microsoft Antonin Online (Natural) - Czech (Czech)", language: "cs-CZ", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Zuzana", name: "Zuzana", localizedName: "apple", language: "cs-CZ", gender: "female", quality: ["low", "normal", "high"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Iveta", name: "Iveta", localizedName: "apple", language: "cs-CZ", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Jakub", name: "Microsoft Jakub - Czech (Czech)", language: "cs-CZ", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Ženský hlas", name: "Google čeština (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google cs-cz-x-jfs-network", "Chrome OS čeština", "Android Speech Recognition and Synthesis from Google cs-cz-x-jfs-local", "Android Speech Recognition and Synthesis from Google cs-CZ-language"], nativeID: ["cs-cz-x-jfs-network", "cs-cz-x-jfs-local"], language: "cs-CZ", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], gn = {
-  language: tn,
-  defaultRegion: on,
-  testUtterance: ln,
-  voices: sn
-}, dn = "da", cn = "da-DK", un = "Hej, mit navn er {name} og jeg er en dansk stemme.", hn = [{ label: "Christel", name: "Microsoft Christel Online (Natural) - Danish (Denmark)", language: "da-DK", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Jeppe", name: "Microsoft Jeppe Online (Natural) - Danish (Denmark)", language: "da-DK", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Sara", name: "Sara", localizedName: "apple", language: "da-DK", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Magnus", name: "Magnus", localizedName: "apple", language: "da-DK", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Helle", name: "Microsoft Helle - Danish (Denmark)", language: "da-DK", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Kvindestemme 1", name: "Google Dansk 1 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google da-dk-x-kfm-network", "Chrome OS Dansk 1", "Android Speech Recognition and Synthesis from Google da-dk-x-kfm-local", "Android Speech Recognition and Synthesis from Google da-DK-language"], nativeID: ["da-dk-x-kfm-network", "da-dk-x-kfm-local"], language: "da-DK", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Kvindestemme 2", name: "Google Dansk 3 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google da-dk-x-sfp-network", "Chrome OS Dansk 3", "Android Speech Recognition and Synthesis from Google da-dk-x-sfp-local"], nativeID: ["da-dk-x-sfp-network", "da-dk-x-sfp-local"], language: "da-DK", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Kvindestemme 3", name: "Google Dansk 4 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google da-dk-x-vfb-network", "Chrome OS Dansk 4", "Android Speech Recognition and Synthesis from Google da-dk-x-vfb-local"], nativeID: ["da-dk-x-vfb-network", "da-dk-x-vfb-local"], language: "da-DK", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Mandsstemme", name: "Google Dansk 2 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google da-dk-x-nmm-network", "Chrome OS Dansk 2", "Android Speech Recognition and Synthesis from Google da-dk-x-nmm-local"], nativeID: ["da-dk-x-nmm-network", "da-dk-x-nmm-local"], language: "da-DK", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], mn = {
-  language: dn,
-  defaultRegion: cn,
-  testUtterance: un,
-  voices: hn
-}, pn = "de", fn = "de-DE", yn = "Hallo, mein Name ist {name} und ich bin eine deutsche Stimme.", Sn = [{ label: "Seraphina", name: "Microsoft SeraphinaMultilingual Online (Natural) - German (Germany)", language: "de-DE", multiLingual: !0, gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Amala", name: "Microsoft Amala Online (Natural) - German (Germany)", language: "de-DE", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Katja", name: "Microsoft Katja Online (Natural) - German (Germany)", language: "de-DE", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Florian", name: "Microsoft FlorianMultilingual Online (Natural) - German (Germany)", language: "de-DE", multiLingual: !0, gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Conrad", name: "Microsoft Conrad Online (Natural) - German (Germany)", language: "de-DE", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Killian", name: "Microsoft Killian Online (Natural) - German (Germany)", language: "de-DE", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Ingrid", name: "Microsoft Ingrid Online (Natural) - German (Austria)", language: "de-AT", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Jonas", name: "Microsoft Jonas Online (Natural) - German (Austria)", language: "de-AT", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Leni", name: "Microsoft Leni Online (Natural) - German (Switzerland)", language: "de-CH", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Jan", name: "Microsoft Jan Online (Natural) - German (Switzerland)", language: "de-CH", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Weibliche Google-Stimme", name: "Google Deutsch", language: "de-DE", gender: "female", quality: ["high"], rate: 1, pitch: 1, browser: ["ChromeDesktop"], preloaded: !0 }, { label: "Petra", name: "Petra", localizedName: "apple", language: "de-DE", gender: "female", quality: ["low", "normal", "high"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Anna", name: "Anna", localizedName: "apple", language: "de-DE", gender: "female", quality: ["low", "normal", "high"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Helena", name: "Helena", localizedName: "apple", note: "This is a compact version of a preloaded Siri voice on macOS.", language: "de-DE", gender: "female", quality: ["low"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Markus", name: "Markus", localizedName: "apple", language: "de-DE", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Viktor", name: "Viktor", localizedName: "apple", language: "de-DE", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Yannick", name: "Yannick", localizedName: "apple", language: "de-DE", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Martin", name: "Martin", localizedName: "apple", note: "This is a compact version of a preloaded Siri voice on macOS.", language: "de-DE", gender: "male", quality: ["low"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Hedda", name: "Microsoft Hedda - German (Germany)", language: "de-DE", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Katja", name: "Microsoft Katja - German (Germany)", language: "de-DE", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Stefan", name: "Microsoft Stefan - German (Germany)", language: "de-DE", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Michael", name: "Microsoft Michael - German (Austria)", language: "de-AT", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Karsten", name: "Microsoft Karsten - German (Switzerland)", language: "de-CH", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Weibliche Stimme 1 (Deutschland)", name: "Google Deutsch 2 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google de-de-x-dea-network", "Chrome OS Deutsch 2", "Android Speech Recognition and Synthesis from Google de-de-x-dea-local", "Android Speech Recognition and Synthesis from Google de-DE-language"], nativeID: ["de-de-x-dea-network", "de-de-x-dea-local"], language: "de-DE", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Weibliche Stimme 2 (Deutschland)", name: "Google Deutsch 1 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google de-de-x-nfh-network", "Chrome OS Deutsch 1", "Android Speech Recognition and Synthesis from Google de-de-x-nfh-local"], nativeID: ["de-de-x-nfh-network", "de-de-x-nfh-local"], language: "de-DE", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Männliche Stimme 1 (Deutschland)", name: "Google Deutsch 3 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google de-de-x-deb-network", "Chrome OS Deutsch 3", "Android Speech Recognition and Synthesis from Google de-de-x-deb-local"], nativeID: ["de-de-x-deb-network", "de-de-x-deb-local"], language: "de-DE", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Männliche Stimme 2 (Deutschland)", name: "Google Deutsch 4 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google de-de-x-deg-network", "Chrome OS Deutsch 4", "Android Speech Recognition and Synthesis from Google de-de-x-deg-local"], nativeID: ["de-de-x-deg-network", "de-de-x-deg-local"], language: "de-DE", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], bn = {
-  language: pn,
-  defaultRegion: fn,
-  testUtterance: yn,
-  voices: Sn
-}, On = "el", vn = "el-GR", wn = "Γεια σας, με λένε {name} και είμαι ελληνική φωνή.", Nn = [{ label: "Athina", name: "Microsoft Athina Online (Natural) - Greek (Greece)", language: "el-GR", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Nestoras", name: "Microsoft Nestoras Online (Natural) - Greek (Greece)", language: "el-GR", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Melina", name: "Melina", localizedName: "apple", language: "el-GR", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Nikos", name: "Nikos", localizedName: "apple", language: "el-GR", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Stefanos", name: "Microsoft Stefanos - Greek (Greece)", language: "el-GR", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Γυναικεία φωνή", name: "Google Ελληνικά (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google el-gr-x-vfz-network", "Chrome OS Ελληνικά", "Android Speech Recognition and Synthesis from Google el-gr-x-vfz-local", "Android Speech Recognition and Synthesis from Google el-GR-language"], nativeID: ["el-gr-x-vfz-network", "el-gr-x-vfz-local"], language: "el-GR", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], An = {
-  language: On,
-  defaultRegion: vn,
-  testUtterance: wn,
-  voices: Nn
-}, Cn = "en", kn = "en-US", qn = "Hello, my name is {name} and I am an English voice.", xn = /* @__PURE__ */ JSON.parse(`[{"label":"Emma","name":"Microsoft EmmaMultilingual Online (Natural) - English (United States)","altNames":["Microsoft Emma Online (Natural) - English (United States)"],"language":"en-US","multiLingual":true,"gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Microsoft Ava","name":"Microsoft AvaMultilingual Online (Natural) - English (United States)","altNames":["Microsoft Ava Online (Natural) - English (United States)"],"language":"en-US","multiLingual":true,"gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Jenny","name":"Microsoft Jenny Online (Natural) - English (United States)","language":"en-US","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Aria","name":"Microsoft Aria Online (Natural) - English (United States)","language":"en-US","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Michelle","name":"Microsoft Michelle Online (Natural) - English (United States)","language":"en-US","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Ana","name":"Microsoft Ana Online (Natural) - English (United States)","language":"en-US","gender":"female","children":true,"quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Andrew","name":"Microsoft AndrewMultilingual Online (Natural) - English (United States)","altNames":["Microsoft Andrew Online (Natural) - English (United States)"],"language":"en-US","multiLingual":true,"gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Brian","name":"Microsoft BrianMultilingual Online (Natural) - English (United States)","altNames":["Microsoft Brian Online (Natural) - English (United States)"],"language":"en-US","multiLingual":true,"gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Guy","name":"Microsoft Guy Online (Natural) - English (United States)","language":"en-US","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Eric","name":"Microsoft Eric Online (Natural) - English (United States)","language":"en-US","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Steffan","name":"Microsoft Steffan Online (Natural) - English (United States)","language":"en-US","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Christopher","name":"Microsoft Christopher Online (Natural) - English (United States)","language":"en-US","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Roger","name":"Microsoft Roger Online (Natural) - English (United States)","language":"en-US","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Sonia","name":"Microsoft Sonia Online (Natural) - English (United Kingdom)","language":"en-GB","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Libby","name":"Microsoft Libby Online (Natural) - English (United Kingdom)","language":"en-GB","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Maisie","name":"Microsoft Maisie Online (Natural) - English (United Kingdom)","language":"en-GB","gender":"female","children":true,"quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Ryan","name":"Microsoft Ryan Online (Natural) - English (United Kingdom)","language":"en-GB","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Thomas","name":"Microsoft Thomas Online (Natural) - English (United Kingdom)","language":"en-GB","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Natasha","name":"Microsoft Natasha Online (Natural) - English (Australia)","language":"en-AU","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Hayley","name":"Microsoft Hayley Online - English (Australia)","language":"en-AU","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"William","name":"Microsoft William Online (Natural) - English (Australia)","altNames":["Microsoft WilliamMultilingual Online (Natural) - English (Australia)"],"language":"en-AU","multiLingual":true,"gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Clara","name":"Microsoft Clara Online (Natural) - English (Canada)","language":"en-CA","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Heather","name":"Microsoft Heather Online - English (Canada)","language":"en-CA","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Liam","name":"Microsoft Liam Online (Natural) - English (Canada)","language":"en-CA","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Neerja","name":"Microsoft Neerja Online (Natural) - English (India)","altNames":["Microsoft Neerja Online (Natural) - English (India) (Preview)"],"language":"en-IN","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Prabhat","name":"Microsoft Prabhat Online (Natural) - English (India)","language":"en-IN","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Emily","name":"Microsoft Emily Online (Natural) - English (Ireland)","language":"en-IE","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Connor","name":"Microsoft Connor Online (Natural) - English (Ireland)","language":"en-IE","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Leah","name":"Microsoft Leah Online (Natural) - English (South Africa)","language":"en-ZA","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Luke","name":"Microsoft Luke Online (Natural) - English (South Africa)","language":"en-ZA","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Yan","name":"Microsoft Yan Online (Natural) - English (Hong Kong SAR)","language":"en-HK","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Sam","name":"Microsoft Sam Online (Natural) - English (Hongkong)","language":"en-HK","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Asilia","name":"Microsoft Asilia Online (Natural) - English (Kenya)","language":"en-KE","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Chilemba","name":"Microsoft Chilemba Online (Natural) - English (Kenya)","language":"en-KE","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Molly","name":"Microsoft Molly Online (Natural) - English (New Zealand)","language":"en-NZ","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Mitchell","name":"Microsoft Mitchell Online (Natural) - English (New Zealand)","language":"en-NZ","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Ezinne","name":"Microsoft Ezinne Online (Natural) - English (Nigeria)","language":"en-NG","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Abeo","name":"Microsoft Abeo Online (Natural) - English (Nigeria)","language":"en-NG","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Rosa","name":"Microsoft Rosa Online (Natural) - English (Philippines)","language":"en-PH","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"James","name":"Microsoft James Online (Natural) - English (Philippines)","language":"en-PH","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Luna","name":"Microsoft Luna Online (Natural) - English (Singapore)","language":"en-SG","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Wayne","name":"Microsoft Wayne Online (Natural) - English (Singapore)","language":"en-SG","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Imani","name":"Microsoft Imani Online (Natural) - English (Tanzania)","language":"en-TZ","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Elimu","name":"Microsoft Elimu Online (Natural) - English (Tanzania)","language":"en-TZ","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Female Google voice (US)","name":"Google US English","note":"This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.","language":"en-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"browser":["ChromeDesktop"],"preloaded":true},{"label":"Female Google voice (UK)","name":"Google UK English Female","note":"This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.","language":"en-GB","gender":"female","quality":["high"],"rate":1,"pitch":1,"browser":["ChromeDesktop"],"preloaded":true},{"label":"Male Google voice (UK)","name":"Google UK English Male","note":"This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.","language":"en-GB","gender":"male","quality":["high"],"rate":1,"pitch":1,"browser":["ChromeDesktop"],"preloaded":true},{"label":"Apple Ava","name":"Ava","localizedName":"apple","language":"en-US","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Zoe","name":"Zoe","localizedName":"apple","language":"en-US","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Allison","name":"Allison","localizedName":"apple","language":"en-US","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Nicky","name":"Nicky","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS. Unlike other Siri voices, a higher quality version can be installed and used.","language":"en-US","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Samantha","name":"Samantha","localizedName":"apple","language":"en-US","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Joelle","name":"Joelle","localizedName":"apple","language":"en-US","gender":"female","children":true,"quality":["normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Evan","name":"Evan","localizedName":"apple","language":"en-US","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Nathan","name":"Nathan","localizedName":"apple","language":"en-US","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Tom","name":"Tom","localizedName":"apple","language":"en-US","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Alex","name":"Alex","localizedName":"apple","language":"en-US","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Aaron","name":"Aaron","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS.","language":"en-US","gender":"male","quality":["low"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Kate","name":"Kate","localizedName":"apple","language":"en-GB","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Stephanie","name":"Stephanie","localizedName":"apple","language":"en-GB","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Serena","name":"Serena","localizedName":"apple","language":"en-GB","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Martha","name":"Martha","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS.","language":"en-GB","gender":"female","quality":["low"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Jamie","name":"Jamie","localizedName":"apple","language":"en-GB","gender":"male","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Oliver","name":"Oliver","localizedName":"apple","language":"en-GB","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Daniel","name":"Daniel","localizedName":"apple","language":"en-GB","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Arthur","name":"Arthur","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS.","language":"en-GB","gender":"male","quality":["low"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Matilda","name":"Matilda","localizedName":"apple","language":"en-AU","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Karen","name":"Karen","localizedName":"apple","language":"en-AU","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Catherine","name":"Catherine","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS.","language":"en-AU","gender":"female","quality":["low"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Lee","name":"Lee","localizedName":"apple","language":"en-AU","gender":"male","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Gordon","name":"Gordon","localizedName":"apple","note":"This is a compact version of a preloaded Siri voice on macOS.","language":"en-AU","gender":"male","quality":["low"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Aman","name":"Aman","nativeID":["com.apple.voice.Aman"],"localizedName":"apple","language":"en-IN","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Tara","name":"Tara","nativeID":["com.apple.voice.Tara"],"localizedName":"apple","language":"en-IN","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Isha","name":"Isha","localizedName":"apple","language":"en-IN","gender":"female","quality":["low","normal","high"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Sangeeta","name":"Sangeeta","localizedName":"apple","language":"en-IN","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Rishi","name":"Rishi","localizedName":"apple","language":"en-IN","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Moira","name":"Moira","localizedName":"apple","language":"en-IE","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Tessa","name":"Tessa","localizedName":"apple","language":"en-ZA","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Fiona","name":"Fiona","localizedName":"apple","language":"en-GB-u-sd-gbsct","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Zira","name":"Microsoft Zira - English (United States)","language":"en-US","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"David","name":"Microsoft David - English (United States)","language":"en-US","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Mark","name":"Microsoft Mark - English (United States)","language":"en-US","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Hazel","name":"Microsoft Hazel - English (Great Britain)","language":"en-GB","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Susan","name":"Microsoft Susan - English (Great Britain)","language":"en-GB","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"George","name":"Microsoft George - English (Great Britain)","language":"en-GB","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Catherine","name":"Microsoft Catherine - English (Austalia)","language":"en-AU","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"James","name":"Microsoft Richard - English (Australia)","language":"en-AU","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Linda","name":"Microsoft Linda - English (Canada)","language":"en-CA","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Richard","name":"Microsoft Richard - English (Canada)","language":"en-CA","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Heera","name":"Microsoft Heera - English (India)","language":"en-IN","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Ravi","name":"Microsoft Ravi - English (India)","language":"en-IN","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Sean","name":"Microsoft Sean - English (Ireland)","language":"en-IE","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Female voice 1 (US)","name":"Google US English 5 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-tpc-network","Chrome OS US English 5","Android Speech Recognition and Synthesis from Google en-us-x-tpc-local","Android Speech Recognition and Synthesis from Google en-US-language"],"nativeID":["en-us-x-tpc-network","en-us-x-tpc-local"],"language":"en-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 2 (US)","name":"Google US English 1 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-iob-network","Chrome OS US English 1","Android Speech Recognition and Synthesis from Google en-us-x-iob-local"],"nativeID":["en-us-x-iob-network","en-us-x-iob-local"],"language":"en-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 3 (US)","name":"Google US English 2 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-iog-network","Chrome OS US English 2","Android Speech Recognition and Synthesis from Google en-us-x-iog-local"],"nativeID":["en-us-x-iog-network","en-us-x-iog-local"],"language":"en-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 4 (US)","name":"Google US English 7 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-tpf-network","Chrome OS US English 7","Android Speech Recognition and Synthesis from Google en-us-x-tpf-local"],"nativeID":["en-us-x-tpf-network","en-us-x-tpf-local"],"language":"en-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 5 (US)","name":"Android Speech Recognition and Synthesis from Google en-us-x-sfg-network","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-sfg-local"],"nativeID":["en-us-x-sfg-network","en-us-x-sfg-local"],"language":"en-US","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 6 (US)","name":"Chrome OS US English 8","language":"en-US","gender":"female","quality":["low"],"rate":1,"pitch":1,"os":["ChromeOS"],"preloaded":true},{"label":"Male voice 1 (US)","name":"Google US English 4 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-iom-network","Chrome OS US English 4","Android Speech Recognition and Synthesis from Google en-us-x-iom-local"],"nativeID":["en-us-x-iom-network","en-us-x-iom-local"],"language":"en-US","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 2 (US)","name":"Google US English 3 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-iol-network","Chrome OS US English 3","Android Speech Recognition and Synthesis from Google en-us-x-iol-local"],"nativeID":["en-us-x-iol-network","en-us-x-iol-local"],"language":"en-US","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 3 (US)","name":"Google US English 6 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-us-x-tpd-network","Chrome OS US English 6","Android Speech Recognition and Synthesis from Google en-us-x-tpd-local"],"nativeID":["en-us-x-tpd-network","en-us-x-tpd-local"],"language":"en-US","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 1 (UK)","name":"Google UK English 2 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-gba-network","Chrome OS UK English 2","Android Speech Recognition and Synthesis from Google en-gb-x-gba-local","Android Speech Recognition and Synthesis from Google en-GB-language"],"nativeID":["en-gb-x-gba-network","en-gb-x-gba-local"],"language":"en-GB","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 2 (UK)","name":"Google UK English 4 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-gbc-network","Chrome OS UK English 4","Android Speech Recognition and Synthesis from Google en-gb-x-gbc-local"],"nativeID":["en-gb-x-gbc-network","en-gb-x-gbc-local"],"language":"en-GB","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 3 (UK)","name":"Google UK English 6 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-gbg-network","Chrome OS UK English 6","Android Speech Recognition and Synthesis from Google en-gb-x-gbg-local"],"nativeID":["en-gb-x-gbg-network","en-gb-x-gbg-local"],"language":"en-GB","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 4 (UK)","name":"Chrome OS UK English 7","language":"en-GB","gender":"female","quality":["low"],"rate":1,"pitch":1,"os":["ChromeOS"],"preloaded":true},{"label":"Male voice 1 (UK)","name":"Google UK English 1 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-rjs-network","Chrome OS UK English 1","Android Speech Recognition and Synthesis from Google en-gb-x-rjs-local"],"nativeID":["en-gb-x-rjs-network","en-gb-x-rjs-local"],"language":"en-GB","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 2 (UK)","name":"Google UK English 3 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-gbb-network","Chrome OS UK English 3","Android Speech Recognition and Synthesis from Google en-gb-x-gbb-local"],"nativeID":["en-gb-x-gbb-network","en-gb-x-gbb-local"],"language":"en-GB","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 3 (UK)","name":"Google UK English 5 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-gb-x-gbd-network","Chrome OS UK English 5","Android Speech Recognition and Synthesis from Google en-gb-x-gbd-local"],"nativeID":["en-gb-x-gbd-network","en-gb-x-gbd-local"],"language":"en-GB","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 1 (Australia)","name":"Google Australian English 1 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-au-x-aua-network","Chrome OS Australian English 1","Android Speech Recognition and Synthesis from Google en-au-x-aua-local","Android Speech Recognition and Synthesis from Google en-AU-language"],"nativeID":["en-au-x-aua-network","en-au-x-aua-local"],"language":"en-AU","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 2 (Australia)","name":"Google Australian English 3 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-au-x-auc-network","Chrome OS Australian English 3","Android Speech Recognition and Synthesis from Google en-au-x-auc-local"],"nativeID":["en-au-x-auc-network","en-au-x-auc-local"],"language":"en-AU","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 1 (Australia)","name":"Google Australian English 2 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-au-x-aub-network","Chrome OS Australian English 2","Android Speech Recognition and Synthesis from Google en-au-x-aub-local"],"nativeID":["en-au-x-aub-network","en-au-x-aub-local"],"language":"en-AU","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 2 (Australia)","name":"Google Australian English 4 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google en-au-x-aud-network","Chrome OS Australian English 4","Android Speech Recognition and Synthesis from Google en-au-x-aud-local"],"nativeID":["en-au-x-aud-network","en-au-x-aud-local"],"language":"en-AU","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 3 (Australia)","name":"Chrome OS Australian English 5","language":"en-AU","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["ChromeOS"],"preloaded":true},{"label":"Female voice 1 (India)","name":"Android Speech Recognition and Synthesis from Google en-in-x-ena-network","altNames":["Android Speech Recognition and Synthesis from Google en-in-x-ena-local","Android Speech Recognition and Synthesis from Google en-IN-language"],"nativeID":["en-in-x-ena-network","en-in-x-ena-local"],"language":"en-IN","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Female voice 2 (India)","name":"Android Speech Recognition and Synthesis from Google en-in-x-enc-network","altNames":["Android Speech Recognition and Synthesis from Google en-in-x-enc-local"],"nativeID":["en-in-x-enc-network","en-in-x-enc-local"],"language":"en-IN","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 1 (India)","name":"Android Speech Recognition and Synthesis from Google en-in-x-end-network","altNames":["Android Speech Recognition and Synthesis from Google en-in-x-end-local"],"nativeID":["en-in-x-end-network","en-in-x-end-local"],"language":"en-IN","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Male voice 2 (India)","name":"Android Speech Recognition and Synthesis from Google en-in-x-ene-network","altNames":["Android Speech Recognition and Synthesis from Google en-in-x-ene-local"],"nativeID":["en-in-x-ene-network","en-in-x-ene-local"],"language":"en-IN","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true}]`), Rn = {
-  language: Cn,
-  defaultRegion: kn,
-  testUtterance: qn,
-  voices: xn
-}, En = "es", Gn = "es-ES", In = "Hola, mi nombre es {name} y soy una voz española.", Tn = /* @__PURE__ */ JSON.parse(`[{"label":"Elvira","name":"Microsoft Elvira Online (Natural) - Spanish (Spain)","language":"es-ES","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Alvaro","name":"Microsoft Alvaro Online (Natural) - Spanish (Spain)","language":"es-ES","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Dalia","name":"Microsoft Dalia Online (Natural) - Spanish (Mexico)","language":"es-MX","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Microsoft Jorge","name":"Microsoft Jorge Online (Natural) - Spanish (Mexico)","language":"es-MX","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Elena","name":"Microsoft Elena Online (Natural) - Spanish (Argentina)","language":"es-AR","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Tomas","name":"Microsoft Tomas Online (Natural) - Spanish (Argentina)","language":"es-AR","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Sofia","name":"Microsoft Sofia Online (Natural) - Spanish (Bolivia)","language":"es-BO","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Marcelo","name":"Microsoft Marcelo Online (Natural) - Spanish (Bolivia)","language":"es-BO","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Catalina","name":"Microsoft Catalina Online (Natural) - Spanish (Chile)","language":"es-CL","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Lorenzo","name":"Microsoft Lorenzo Online (Natural) - Spanish (Chile)","language":"es-CL","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Ximena","name":"Microsoft Ximena Online (Natural) - Spanish (Colombia)","language":"es-CO","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Salome","name":"Microsoft Salome Online (Natural) - Spanish (Colombia)","language":"es-CO","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Gonzalo","name":"Microsoft Gonzalo Online (Natural) - Spanish (Colombia)","language":"es-CO","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Maria","name":"Microsoft Maria Online (Natural) - Spanish (Costa Rica)","language":"es-CR","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Juan","name":"Microsoft Juan Online (Natural) - Spanish (Costa Rica)","language":"es-CR","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Belkys","name":"Microsoft Belkys Online (Natural) - Spanish (Cuba)","language":"es-CU","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Manuel","name":"Microsoft Manuel Online (Natural) - Spanish (Cuba)","language":"es-CU","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Andrea","name":"Microsoft Andrea Online (Natural) - Spanish (Ecuador)","language":"es-EC","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Luis","name":"Microsoft Luis Online (Natural) - Spanish (Ecuador)","language":"es-EC","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Lorena","name":"Microsoft Lorena Online (Natural) - Spanish (El Salvador)","language":"es-SV","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Rodrigo","name":"Microsoft Rodrigo Online (Natural) - Spanish (El Salvador)","language":"es-SV","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Paloma","name":"Microsoft Paloma Online (Natural) - Spanish (United States)","language":"es-US","otherLanguages":["en"],"gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Alonso","name":"Microsoft Alonso Online (Natural) - Spanish (United States)","language":"es-US","otherLanguages":["en"],"gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Marta","name":"Microsoft Marta Online (Natural) - Spanish (Guatemala)","language":"es-GT","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Andres","name":"Microsoft Andres Online (Natural) - Spanish (Guatemala)","language":"es-GT","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Teresa","name":"Microsoft Teresa Online (Natural) - Spanish (Equatorial Guinea)","language":"es-GQ","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Javier","name":"Microsoft Javier Online (Natural) - Spanish (Equatorial Guinea)","language":"es-GQ","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Karla","name":"Microsoft Karla Online (Natural) - Spanish (Honduras)","language":"es-HN","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Carlos","name":"Microsoft Carlos Online (Natural) - Spanish (Honduras)","language":"es-HN","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Yolanda","name":"Microsoft Yolanda Online (Natural) - Spanish (Nicaragua)","language":"es-NI","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Federico","name":"Microsoft Federico Online (Natural) - Spanish (Nicaragua)","language":"es-NI","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Margarita","name":"Microsoft Margarita Online (Natural) - Spanish (Panama)","language":"es-PA","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Roberto","name":"Microsoft Roberto Online (Natural) - Spanish (Panama)","language":"es-PA","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Tania","name":"Microsoft Tania Online (Natural) - Spanish (Paraguay)","language":"es-PY","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Mario","name":"Microsoft Mario Online (Natural) - Spanish (Paraguay)","language":"es-PY","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Camila","name":"Microsoft Camila Online (Natural) - Spanish (Peru)","language":"es-PE","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Alex","name":"Microsoft Alex Online (Natural) - Spanish (Peru)","language":"es-PE","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Karina","name":"Microsoft Karina Online (Natural) - Spanish (Puerto Rico)","language":"es-PR","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Victor","name":"Microsoft Victor Online (Natural) - Spanish (Puerto Rico)","language":"es-PR","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Ramona","name":"Microsoft Ramona Online (Natural) - Spanish (Dominican Republic)","language":"es-DO","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Emilio","name":"Microsoft Emilio Online (Natural) - Spanish (Dominican Republic)","language":"es-DO","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Valentina","name":"Microsoft Valentina Online (Natural) - Spanish (Uruguay)","language":"es-UY","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Mateo","name":"Microsoft Mateo Online (Natural) - Spanish (Uruguay)","language":"es-UY","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Paola","name":"Microsoft Paola Online (Natural) - Spanish (Venezuela)","language":"es-VE","gender":"female","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Sebastian","name":"Microsoft Sebastian Online (Natural) - Spanish (Venezuela)","language":"es-VE","gender":"male","quality":["veryHigh"],"rate":1,"pitchControl":false,"browser":["Edge"],"preloaded":true},{"label":"Voz Google masculina (España)","name":"Google español","note":"This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.","language":"es-ES","gender":"male","quality":["high"],"rate":1,"pitch":1,"browser":["ChromeDesktop"],"preloaded":true},{"label":"Voz Google femenina (Estados Unidos)","name":"Google español de Estados Unidos","note":"This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.","language":"es-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"browser":["ChromeDesktop"],"preloaded":true},{"label":"Marisol","name":"Marisol","localizedName":"apple","language":"es-ES","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Mónica","name":"Mónica","localizedName":"apple","language":"es-ES","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Apple Jorge","name":"Jorge","localizedName":"apple","language":"es-ES","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Angelica","name":"Angelica","localizedName":"apple","language":"es-MX","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Paulina","name":"Paulina","localizedName":"apple","language":"es-MX","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"],"preloaded":true},{"label":"Juan","name":"Juan","localizedName":"apple","language":"es-MX","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Isabela","name":"Isabela","localizedName":"apple","language":"es-AR","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Diego","name":"Diego","localizedName":"apple","language":"es-AR","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Francesca","name":"Francesca","nativeID":["com.apple.voice.enhanced.es-CL.Francisca"],"localizedName":"apple","language":"es-CL","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Soledad","name":"Soledad","localizedName":"apple","language":"es-CO","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Jimena","name":"Jimena","localizedName":"apple","language":"es-CO","gender":"female","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Carlos","name":"Carlos","localizedName":"apple","language":"es-CO","gender":"male","quality":["low","normal"],"rate":1,"pitch":1,"os":["macOS","iOS","iPadOS"]},{"label":"Helena","name":"Microsoft Helena - Spanish (Spain)","language":"es-ES","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Laura","name":"Microsoft Laura - Spanish (Spain)","language":"es-ES","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Pablo","name":"Microsoft Pablo - Spanish (Spain)","language":"es-ES","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Sabina","name":"Microsoft Sabina - Spanish (Mexico)","language":"es-MX","gender":"female","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Raul","name":"Microsoft Raul - Spanish (Mexico)","language":"es-MX","gender":"male","quality":["normal"],"rate":1,"pitch":1,"os":["Windows"],"preloaded":true},{"label":"Voz femenina 1 (España)","name":"Google español 4 (Natural)","altNames":["Chrome OS español 4","Android Speech Recognition and Synthesis from Google es-es-x-eee-local","Android Speech Recognition and Synthesis from Google es-ES-language"],"nativeID":["es-es-x-eee-local"],"language":"es-ES","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Voz femenina 2 (España)","name":"Google español 1 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google es-es-x-eea-network","Chrome OS español 1","Android Speech Recognition and Synthesis from Google es-es-x-eea-local"],"nativeID":["es-es-x-eea-network","es-es-x-eea-local"],"language":"es-ES","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Voz femenina 3 (España)","name":"Google español 2 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google es-es-x-eec-network","Chrome OS español 2","Android Speech Recognition and Synthesis from Google es-es-x-eec-local"],"nativeID":["es-es-x-eec-network","es-es-x-eec-local"],"language":"es-ES","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Voz masculina 1 (España)","name":"Google español 3 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google es-es-x-eed-network","Chrome OS español 3","Android Speech Recognition and Synthesis from Google es-es-x-eed-local"],"nativeID":["es-es-x-eed-network","es-es-x-eed-local"],"language":"es-ES","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Voz masculina 2 (España)","name":"Google español 5 (Natural)","altNames":["Chrome OS español 5","Android Speech Recognition and Synthesis from Google es-es-x-eef-local"],"nativeID":["es-es-x-eef-local"],"language":"es-ES","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Voz femenina 1 (Estados Unidos)","name":"Google español de Estados Unidos 1 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google es-us-x-esc-network","Chrome OS español de Estados Unidos","Android Speech Recognition and Synthesis from Google es-us-x-esc-local","Android Speech Recognition and Synthesis from Google es-US-language"],"nativeID":["es-us-x-esc-network","es-us-x-esc-local"],"language":"es-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Voz femenina 2 (Estados Unidos)","name":"Google español de Estados Unidos 2 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google es-us-x-sfb-network","Android Speech Recognition and Synthesis from Google es-us-x-sfb-local"],"nativeID":["es-us-x-sfb-network","es-us-x-sfb-local"],"language":"es-US","gender":"female","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Voz masculina 1 (Estados Unidos)","name":"Google español de Estados Unidos 3 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google es-us-x-esd-network","Android Speech Recognition and Synthesis from Google es-us-x-esd-local"],"nativeID":["es-us-x-esd-network","es-us-x-esd-local"],"language":"es-US","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true},{"label":"Voz masculina 2 (Estados Unidos)","name":"Google español de Estados Unidos 4 (Natural)","altNames":["Android Speech Recognition and Synthesis from Google es-us-x-esf-network","Android Speech Recognition and Synthesis from Google es-us-x-esf-local"],"nativeID":["es-us-x-esf-network","es-us-x-esf-local"],"language":"es-US","gender":"male","quality":["high"],"rate":1,"pitch":1,"os":["Android","ChromeOS"],"preloaded":true}]`), Mn = {
-  language: En,
-  defaultRegion: Gn,
-  testUtterance: In,
-  voices: Tn
-}, Hn = "eu", Dn = "eu-ES", Pn = "Kaixo, nire izena {name} da eta euskal ahotsa naiz.", Ln = [{ label: "Miren", name: "Miren", localizedName: "apple", language: "eu-ES", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }], Un = {
-  language: Hn,
-  defaultRegion: Dn,
-  testUtterance: Pn,
-  voices: Ln
-}, zn = "fa", Bn = "fa-IR", $n = "سلام اسم من {name} و صدای فارسی هستم", jn = [{ label: "Dilara", name: "Microsoft Dilara Online (Natural) - Persian (Iran)", language: "fa-IR", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Farid", name: "Microsoft Farid Online (Natural) - Persian (Iran)", language: "fa-IR", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Dariush", name: "Dariush", localizedName: "apple", language: "fa-IR", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }], Fn = {
-  language: zn,
-  defaultRegion: Bn,
-  testUtterance: $n,
-  voices: jn
-}, Vn = "fi", Kn = "fi-FI", Wn = "Hei, nimeni on {name} ja olen suomalainen ääni.", Jn = [{ label: "Noora", name: "Microsoft Noora Online (Natural) - Finnish (Finland)", language: "fi-FI", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Harri", name: "Microsoft Harri Online (Natural) - Finnish (Finland)", language: "fi-FI", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Satu", name: "Satu", localizedName: "apple", language: "fi-FI", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Onni", name: "Onni", localizedName: "apple", language: "fi-FI", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Heidi", name: "Microsoft Heidi - Finnish (Finland)", language: "fi-FI", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Suomalainen naisääni", name: "Google Suomi (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google fi-fi-x-afi-network", "Chrome OS Suomi", "Android Speech Recognition and Synthesis from Google fi-fi-x-afi-local", "Android Speech Recognition and Synthesis from Google fi-FI-language"], nativeID: ["fi-fi-x-afi-network", "fi-fi-x-afi-local"], language: "fi-FI", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], _n = {
-  language: Vn,
-  defaultRegion: Kn,
-  testUtterance: Wn,
-  voices: Jn
-}, Yn = "fr", Qn = "fr-FR", Zn = "Bonjour, mon nom est {name} et je suis une voix française.", Xn = [{ label: "Vivienne", name: "Microsoft VivienneMultilingual Online (Natural) - French (France)", language: "fr-FR", multiLingual: !0, gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Denise", name: "Microsoft Denise Online (Natural) - French (France)", language: "fr-FR", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Charline", name: "Microsoft Charline Online (Natural) - French (Belgium)", language: "fr-BE", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Ariane", name: "Microsoft Ariane Online (Natural) - French (Switzerland)", language: "fr-CH", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Eloise", name: "Microsoft Eloise Online (Natural) - French (France)", language: "fr-FR", gender: "female", children: !0, quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Remy", name: "Microsoft RemyMultilingual Online (Natural) - French (France)", language: "fr-FR", multiLingual: !0, gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Henri", name: "Microsoft Henri Online (Natural) - French (France)", language: "fr-FR", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Gerard", name: "Microsoft Gerard Online (Natural) - French (Belgium)", language: "fr-BE", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Fabrice", name: "Microsoft Fabrice Online (Natural) - French (Switzerland)", language: "fr-CH", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Sylvie", name: "Microsoft Sylvie Online (Natural) - French (Canada)", language: "fr-CA", otherLanguages: ["en"], gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Antoine", name: "Microsoft Antoine Online (Natural) - French (Canada)", language: "fr-CA", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Jean", name: "Microsoft Jean Online (Natural) - French (Canada)", language: "fr-CA", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Thierry", name: "Microsoft Thierry Online (Natural) - French (Canada)", language: "fr-CA", otherLanguages: ["en"], gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Voix Google féminine (France)", name: "Google français", note: "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.", language: "fr-FR", gender: "female", quality: ["high"], rate: 1, pitch: 1, browser: ["ChromeDesktop"], preloaded: !0 }, { label: "Audrey", name: "Audrey", localizedName: "apple", language: "fr-FR", gender: "female", quality: ["low", "normal", "high"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Aurélie", name: "Aurélie", localizedName: "apple", language: "fr-FR", gender: "female", quality: ["low", "normal"], rate: 0.9, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Marie", name: "Marie", localizedName: "apple", note: "This is a compact version of a preloaded Siri voice on macOS.", language: "fr-FR", gender: "female", quality: ["low"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Thomas", name: "Thomas", localizedName: "apple", language: "fr-FR", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Aude", name: "Aude", localizedName: "apple", language: "fr-BE", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Chantal", name: "Chantal", localizedName: "apple", language: "fr-CA", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Amélie", name: "Amélie", localizedName: "apple", language: "fr-CA", gender: "female", quality: ["low", "high"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Nicolas", name: "Nicolas", localizedName: "apple", language: "fr-CA", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Julie", name: "Microsoft Julie - French (France)", language: "fr-FR", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Hortence", name: "Microsoft Hortence - French (France)", language: "fr-FR", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Paul", name: "Microsoft Paul - French (France)", language: "fr-FR", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Caroline", name: "Microsoft Caroline - French (Canada)", language: "fr-CA", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Claude", name: "Microsoft Claude - French (Canada)", language: "fr-CA", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Guillaume", name: "Microsoft Claude - French (Switzerland)", language: "fr-CH", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Voix féminine 1 (France)", name: "Google français 4 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google fr-fr-x-frc-network", "Chrome OS français 4", "Android Speech Recognition and Synthesis from Google fr-fr-x-frc-local", "Android Speech Recognition and Synthesis from Google fr-FR-language"], nativeID: ["fr-fr-x-frc-network", "fr-fr-x-frc-local"], language: "fr-FR", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Voix féminine 2 (France)", name: "Google français 2 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google fr-fr-x-fra-network", "Chrome OS français 2", "Android Speech Recognition and Synthesis from Google fr-fr-x-fra-local"], nativeID: ["fr-fr-x-fra-network", "fr-fr-x-fra-local"], language: "fr-FR", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Voix féminine 3 (France)", name: "Google français 1 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google fr-fr-x-vlf-network", "Chrome OS français 1", "Android Speech Recognition and Synthesis from Google fr-fr-x-vlf-local"], nativeID: ["fr-fr-x-vlf-network", "fr-fr-x-vlf-local"], language: "fr-FR", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Voix masculine 1 (France)", name: "Google français 5 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google fr-fr-x-frd-network", "Chrome OS français 5", "Android Speech Recognition and Synthesis from Google fr-fr-x-frd-local"], nativeID: ["fr-fr-x-frd-network", "fr-fr-x-frd-local"], language: "fr-FR", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Voix masculine 2 (France)", name: "Google français 3 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google fr-fr-x-frb-network", "Chrome OS français 3", "Android Speech Recognition and Synthesis from Google fr-fr-x-frb-local"], nativeID: ["fr-fr-x-frb-network", "fr-fr-x-frb-local"], language: "fr-FR", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Voix féminine 1 (Canada)", name: "Android Speech Recognition and Synthesis from Google fr-ca-x-caa-network", altNames: ["Android Speech Recognition and Synthesis from Google fr-ca-x-caa-local", "Android Speech Recognition and Synthesis from Google fr-CA-language"], nativeID: ["fr-ca-x-caa-network", "fr-ca-x-caa-local"], language: "fr-CA", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Voix féminine 2 (Canada)", name: "Android Speech Recognition and Synthesis from Google fr-ca-x-cac-network", altNames: ["Android Speech Recognition and Synthesis from Google fr-ca-x-cac-local"], nativeID: ["fr-ca-x-cac-network", "fr-ca-x-cac-local"], language: "fr-CA", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Voix masculine 1 (Canada)", name: "Android Speech Recognition and Synthesis from Google fr-ca-x-cab-network", altNames: ["Android Speech Recognition and Synthesis from Google fr-ca-x-cab-local"], nativeID: ["fr-ca-x-cab-network", "fr-ca-x-cab-local"], language: "fr-CA", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Voix masculine 2 (Canada)", name: "Android Speech Recognition and Synthesis from Google fr-ca-x-cad-network", altNames: ["Android Speech Recognition and Synthesis from Google fr-ca-x-cad-local"], nativeID: ["fr-ca-x-cad-network", "fr-ca-x-cad-local"], language: "fr-CA", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], er = {
-  language: Yn,
-  defaultRegion: Qn,
-  testUtterance: Zn,
-  voices: Xn
-}, ar = "gl", nr = "gl-ES", rr = "Ola, chámome {name} e son unha voz galega.", tr = [{ label: "Sabela", name: "Microsoft Sabela Online (Natural) - Galician", language: "gl-ES", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Roi", name: "Microsoft Roi Online (Natural) - Galician", language: "gl-ES", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Carmela", name: "Carmela", localizedName: "apple", language: "gl-ES", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }], or = {
-  language: ar,
-  defaultRegion: nr,
-  testUtterance: rr,
-  voices: tr
-}, lr = "he", ir = "he-IL", sr = "שלום, שמי {name} ואני קול עברי.", gr = [{ label: "Hila", name: "Microsoft Hila Online (Natural) - Hebrew (Israel)", language: "he-IL", altLanguage: "iw-IL", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Avri", name: "Microsoft Avri Online (Natural) - Hebrew (Israel)", language: "he-IL", altLanguage: "iw-IL", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Carmit", name: "Carmit", localizedName: "apple", language: "he-IL", altLanguage: "iw-IL", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Asaf", name: "Microsoft Asaf - Hebrew (Israel)", language: "he-IL", altLanguage: "iw-IL", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "קול גברי 1", name: "Android Speech Recognition and Synthesis from Google he-il-x-heb-network", altNames: ["Android Speech Recognition and Synthesis from Google he-il-x-heb-local", "Android Speech Recognition and Synthesis from Google he-IL-language"], nativeID: ["he-il-x-heb-network", "he-il-x-heb-local"], language: "he-IL", altLanguage: "iw-IL", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "קול נשי 1", name: "Android Speech Recognition and Synthesis from Google he-il-x-hec-network", altNames: ["Android Speech Recognition and Synthesis from Google he-il-x-hec-local"], nativeID: ["he-il-x-hec-network", "he-il-x-hec-local"], language: "he-IL", altLanguage: "iw-IL", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "קול גברי 2", name: "Android Speech Recognition and Synthesis from Google he-il-x-hed-network", altNames: ["Android Speech Recognition and Synthesis from Google he-il-x-hed-local"], nativeID: ["he-il-x-hed-network", "he-il-x-hed-local"], language: "he-IL", altLanguage: "iw-IL", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "קול נשי 2", name: "Android Speech Recognition and Synthesis from Google he-il-x-hee-network", altNames: ["Android Speech Recognition and Synthesis from Google he-il-x-hee-local"], nativeID: ["he-il-x-hee-network", "he-il-x-hee-local"], language: "he-IL", altLanguage: "iw-IL", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], dr = {
-  language: lr,
-  defaultRegion: ir,
-  testUtterance: sr,
-  voices: gr
-}, cr = "hi", ur = "hi-IN", hr = "नमस्कार, मेरा नाम {name} है और मैं एक हिंदी आवाज़ हूँ।", mr = [{ label: "Swara", name: "Microsoft Swara Online (Natural) - Hindi (India)", language: "hi-IN", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Madhur", name: "Microsoft Madhur Online (Natural) - Hindi (India)", language: "hi-IN", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "महिला Google आवाज़", name: "Google हिन्दी", note: "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.", language: "hi-IN", gender: "female", quality: ["high"], rate: 1, pitch: 1, browser: ["ChromeDesktop"], preloaded: !0 }, { label: "Kiyara", name: "Kiyara", localizedName: "apple", language: "hi-IN", gender: "female", quality: ["low", "normal", "high"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Lekha", name: "Lekha", localizedName: "apple", language: "hi-IN", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Neel", name: "Neel", localizedName: "apple", language: "hi-IN", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Kalpana", name: "Microsoft Kalpana - Hindi (India)", language: "hi-IN", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Hemant", name: "Microsoft Hemant - Hindi (India)", language: "hi-IN", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "महिला आवाज़ 1", name: "Google हिन्दी 1 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google hi-in-x-hia-network", "Chrome OS हिन्दी 2", "Android Speech Recognition and Synthesis from Google hi-in-x-hia-local", "Android Speech Recognition and Synthesis from Google hi-IN-language"], nativeID: ["hi-in-x-hia-network", "hi-in-x-hia-local"], language: "hi-IN", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "महिला आवाज़ 2", name: "Google हिन्दी 2 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google hi-in-x-hic-network", "Chrome OS हिन्दी 3", "Android Speech Recognition and Synthesis from Google hi-in-x-hic-local"], nativeID: ["hi-in-x-hic-network", "hi-in-x-hic-local"], language: "hi-IN", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "महिला आवाज़ 3", name: "Chrome OS हिन्दी 1", language: "hi-IN", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["ChromeOS"], preloaded: !0 }, { label: "पुरुष आवाज 1", name: "Google हिन्दी 3 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google hi-in-x-hid-network", "Chrome OS हिन्दी 4", "Android Speech Recognition and Synthesis from Google hi-in-x-hid-local"], nativeID: ["hi-in-x-hid-network", "hi-in-x-hid-local"], language: "hi-IN", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "पुरुष आवाज 2", name: "Google हिन्दी 4 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google hi-in-x-hie-network", "Chrome OS हिन्दी 5", "Android Speech Recognition and Synthesis from Google hi-in-x-hie-local"], nativeID: ["hi-in-x-hie-network", "hi-in-x-hie-local"], language: "hi-IN", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], pr = {
-  language: cr,
-  defaultRegion: ur,
-  testUtterance: hr,
-  voices: mr
-}, fr = "hr", yr = "hr-HR", Sr = "Pozdrav, ja sam {name} i hrvatski sam glas.", br = [{ label: "Gabrijela", name: "Microsoft Gabrijela Online (Natural) - Croatian (Croatia)", language: "hr-HR", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Srecko", name: "Microsoft Srecko Online (Natural) - Croatian (Croatia)", language: "hr-HR", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Lana", name: "Lana", localizedName: "apple", altNames: ["Lana (poboljšani)", "Lana (hrvatski (Hrvatska))"], language: "hr-HR", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Matej", name: "Microsoft Matej - Croatian (Croatia)", language: "hr-HR", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Ženski glas", name: "Android Speech Recognition and Synthesis from Google hr-hr-x-hra-network", altNames: ["Android Speech Recognition and Synthesis from Google hr-hr-x-hra-local"], nativeID: ["hr-hr-x-hra-network", "hr-hr-x-hra-local"], language: "hr-HR", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Muški glas", name: "Android Speech Recognition and Synthesis from Google hr-hr-x-hrb-network", altNames: ["Android Speech Recognition and Synthesis from Google hr-hr-x-hrb-local", "Android Speech Recognition and Synthesis from Google hr-HR-language"], nativeID: ["hr-hr-x-hrb-network", "hr-hr-x-hrb-local"], language: "hr-HR", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], Or = {
-  language: fr,
-  defaultRegion: yr,
-  testUtterance: Sr,
-  voices: br
-}, vr = "hu", wr = "hu-HU", Nr = "Helló, a nevem {name} és magyar hangú vagyok.", Ar = [{ label: "Noemi", name: "Microsoft Noemi Online (Natural) - Hungarian (Hungary)", language: "hu-HU", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Tamas", name: "Microsoft Tamas Online (Natural) - Hungarian (Hungary)", language: "hu-HU", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Tünde", name: "Tünde", localizedName: "apple", language: "hu-HU", gender: "female", quality: ["low", "normal", "high"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Szabolcs", name: "Microsoft Szabolcs - Hungarian (Hungary)", language: "hu-HU", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Női hang", name: "Google Magyar (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google hu-hu-x-kfl-network", "Chrome OS Magyar", "Android Speech Recognition and Synthesis from Google hu-hu-x-kfl-local", "Android Speech Recognition and Synthesis from Google hu-HU-language"], nativeID: ["hu-hu-x-kfl-network", "hu-hu-x-kfl-local"], language: "hu-HU", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], Cr = {
-  language: vr,
-  defaultRegion: wr,
-  testUtterance: Nr,
-  voices: Ar
-}, kr = "id", qr = "id-ID", xr = "Halo, nama saya {name} dan saya suara Indonesia.", Rr = [{ label: "Gadis", name: "Microsoft Gadis Online (Natural) - Indonesian (Indonesia)", language: "id-ID", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Ardi", name: "Microsoft Ardi Online (Natural) - Indonesian (Indonesia)", language: "id-ID", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Suara Google wanita", name: "Google Bahasa Indonesia", note: "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.", language: "id-ID", gender: "female", quality: ["high"], rate: 1, pitch: 1, browser: ["ChromeDesktop"], preloaded: !0 }, { label: "Damayanti", name: "Damayanti", localizedName: "apple", language: "id-ID", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Andika", name: "Microsoft Andika - Indonesian (Indonesia)", language: "id-ID", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Suara wanita 1", name: "Google Bahasa Indonesia 1 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google id-id-x-idc-network", "Chrome OS Bahasa Indonesia 1", "Android Speech Recognition and Synthesis from Google id-id-x-idc-local", "Android Speech Recognition and Synthesis from Google id-ID-language"], nativeID: ["id-id-x-idc-network", "id-id-x-idc-local"], language: "id-ID", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Suara wanita 2", name: "Google Bahasa Indonesia 2 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google id-id-x-idd-network", "Chrome OS Bahasa Indonesia 2", "Android Speech Recognition and Synthesis from Google id-id-x-idd-local"], nativeID: ["id-id-x-idd-network", "id-id-x-idd-local"], language: "id-ID", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Suara laki-laki 1", name: "Google Bahasa Indonesia 3 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google id-id-x-ide-network", "Chrome OS Bahasa Indonesia 3", "Android Speech Recognition and Synthesis from Google id-id-x-ide-local"], nativeID: ["id-id-x-ide-network", "id-id-x-ide-local"], language: "id-ID", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Suara laki-laki 2", name: "Google Bahasa Indonesia 4 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google id-id-x-dfz-network", "Chrome OS Bahasa Indonesia 4", "Android Speech Recognition and Synthesis from Google id-id-x-dfz-local"], nativeID: ["id-id-x-dfz-network", "id-id-x-dfz-local"], language: "id-ID", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], Er = {
-  language: kr,
-  defaultRegion: qr,
-  testUtterance: xr,
-  voices: Rr
-}, Gr = "it", Ir = "it-IT", Tr = "Ciao, mi chiamo {name} e sono una voce italiana.", Mr = [{ label: "Elsa (Alta qualita)", name: "Microsoft Elsa Online (Natural) - Italian (Italy)", language: "it-IT", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Isabella", name: "Microsoft Isabella Online (Natural) - Italian (Italy)", language: "it-IT", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Giuseppe", name: "Microsoft GiuseppeMultilingual Online (Natural) - Italian (Italy)", language: "it-IT", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Diego", name: "Microsoft Diego Online (Natural) - Italian (Italy)", language: "it-IT", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Voce Google femminile", name: "Google italiano", note: "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.", language: "it-IT", gender: "female", quality: ["high"], rate: 1, pitch: 1, browser: ["ChromeDesktop"], preloaded: !0 }, { label: "Federica", name: "Federica", localizedName: "apple", language: "it-IT", gender: "female", quality: ["low", "normal", "high"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Emma", name: "Emma", localizedName: "apple", language: "it-IT", gender: "female", quality: ["low", "normal", "high"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Alice", name: "Alice", localizedName: "apple", language: "it-IT", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Paola", name: "Paola", localizedName: "apple", language: "it-IT", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Luca", name: "Luca", localizedName: "apple", language: "it-IT", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Elsa", name: "Microsoft Elsa - Italian (Italy)", language: "it-IT", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Cosimo", name: "Microsoft Cosimo - Italian (Italy)", language: "it-IT", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Voce femminile 1", name: "Google italiano 2 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google it-it-x-itb-network", "Chrome OS italiano 2", "Android Speech Recognition and Synthesis from Google it-it-x-itb-local", "Android Speech Recognition and Synthesis from Google it-IT-language"], nativeID: ["it-it-x-itb-network", "it-it-x-itb-local"], language: "it-IT", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Voce femminile 2", name: "Google italiano 1 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google it-it-x-kda-network", "Chrome OS italiano 1", "Android Speech Recognition and Synthesis from Google it-it-x-kda-local"], nativeID: ["it-it-x-kda-network", "it-it-x-kda-local"], language: "it-IT", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Voce maschile 1", name: "Google italiano 3 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google it-it-x-itc-network", "Chrome OS italiano 3", "Android Speech Recognition and Synthesis from Google it-it-x-itc-local"], nativeID: ["it-it-x-itc-network", "it-it-x-itc-local"], language: "it-IT", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Voce maschile 2", name: "Google italiano 4 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google it-it-x-itd-network", "Chrome OS italiano 4", "Android Speech Recognition and Synthesis from Google it-it-x-itd-local"], nativeID: ["it-it-x-itd-network", "it-it-x-itd-local"], language: "it-IT", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], Hr = {
-  language: Gr,
-  defaultRegion: Ir,
-  testUtterance: Tr,
-  voices: Mr
-}, Dr = "ja", Pr = "ja-JP", Lr = "こんにちは。私の名前は{name}で、日本語の声を担当しています。", Ur = [{ label: "Nanami", name: "Microsoft Nanami Online (Natural) - Japanese (Japan)", language: "ja-JP", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Keita", name: "Microsoft Keita Online (Natural) - Japanese (Japan)", language: "ja-JP", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Hattori", name: "Hattori", nativeID: ["com.apple.ttsbundle.siri_Hattori_ja-JP_premium"], localizedName: "apple", language: "ja-JP", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Google の女性の声", name: "Google 日本語", note: "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.", language: "ja-JP", gender: "female", quality: ["high"], rate: 1, pitch: 1, browser: ["ChromeDesktop"], preloaded: !0 }, { label: "O-Ren", name: "O-Ren", localizedName: "apple", language: "ja-JP", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Kyoko", name: "Kyoko", localizedName: "apple", language: "ja-JP", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Otoya", name: "Otoya", localizedName: "apple", language: "ja-JP", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Ayumi", name: "Microsoft Ayumi - Japanese (Japan)", language: "ja-JP", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Haruka", name: "Microsoft Haruka - Japanese (Japan)", language: "ja-JP", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Ichiro", name: "Microsoft Ichiro - Japanese (Japan)", language: "ja-JP", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "女性の声1", name: "Google 日本語 1 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google ja-jp-x-htm-network", "Chrome OS 日本語 1", "Android Speech Recognition and Synthesis from Google ja-jp-x-htm-local", "Android Speech Recognition and Synthesis from Google ja-JP-language"], nativeID: ["ja-jp-x-htm-network", "ja-jp-x-htm-local"], language: "ja-JP", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["ChromeOS"], preloaded: !0 }, { label: "女性の声2", name: "Chrome OS 日本語 2", altNames: ["Android Speech Recognition and Synthesis from Google ja-jp-x-jab-network", "Android Speech Recognition and Synthesis from Google ja-jp-x-jab-local"], nativeID: ["ja-jp-x-jab-network", "ja-jp-x-jab-local"], language: "ja-JP", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "男性の声1", name: "Google 日本語 2 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google ja-jp-x-jac-network", "Chrome OS 日本語 3", "Android Speech Recognition and Synthesis from Google ja-jp-x-jac-local"], nativeID: ["ja-jp-x-jac-network", "ja-jp-x-jac-local"], language: "ja-JP", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "男性の声2", name: "Google 日本語 3 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google ja-jp-x-jad-network", "Chrome OS 日本語 4", "Android Speech Recognition and Synthesis from Google ja-jp-x-jad-local"], nativeID: ["ja-jp-x-jad-network", "ja-jp-x-jad-local"], language: "ja-JP", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], zr = {
-  language: Dr,
-  defaultRegion: Pr,
-  testUtterance: Lr,
-  voices: Ur
-}, Br = "kk", $r = "kk-KZ", jr = "Sälemetsiz be, meniñ atım {name} jäne men qazaq dawısımın.", Fr = [{ label: "Aigul", name: "Microsoft Aigul Online (Natural) - Kazakh (Kazakhstan)", language: "kk-KZ", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Daulet", name: "Microsoft Daulet Online (Natural) - Kazakh (Kazakhstan)", language: "kk-KZ", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Aru", name: "Aru", nativeID: ["com.apple.voice.Aru"], localizedName: "apple", language: "kk-KZ", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }], Vr = {
-  language: Br,
-  defaultRegion: $r,
-  testUtterance: jr,
-  voices: Fr
-}, Kr = "kn", Wr = "kn-IN", Jr = "ಹಲೋ, ನನ್ನ ಹೆಸರು {name} ಮತ್ತು ನಾನು ಕನ್ನಡ ಧ್ವನಿ.", _r = [{ label: "Sapna", name: "Microsoft Sapna Online (Natural) - Kannada (India)", language: "kn-IN", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Gagan", name: "Microsoft Gagan Online (Natural) - Kannada (India)", language: "kn-IN", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Soumya", name: "Soumya", localizedName: "apple", language: "kn-IN", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "ಸ್ತ್ರೀ ಧ್ವನಿ", name: "Android Speech Recognition and Synthesis from Google kn-in-x-knf-network", altNames: ["Android Speech Recognition and Synthesis from Google kn-in-x-knf-local", "Android Speech Recognition and Synthesis from Google kn-IN-language"], nativeID: ["kn-in-x-knf-network", "kn-in-x-knf-local"], language: "kn-IN", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "ಪುರುಷ ಧ್ವನಿ", name: "Android Speech Recognition and Synthesis from Google kn-in-x-knm-network", altNames: ["Android Speech Recognition and Synthesis from Google kn-in-x-knm-local"], nativeID: ["kn-in-x-knm-network", "kn-in-x-knm-local"], language: "kn-IN", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], Yr = {
-  language: Kr,
-  defaultRegion: Wr,
-  testUtterance: Jr,
-  voices: _r
-}, Qr = "ko", Zr = "ko-KR", Xr = "안녕하세요, 저는 {name}이고 한국어 음성입니다.", et = [{ label: "SunHi", name: "Microsoft SunHi Online (Natural) - Korean (Korea)", language: "ko-KR", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Hyunsu", name: "Microsoft HyunsuMultilingual Online (Natural) - Korean (Korea)", altNames: ["Microsoft Hyunsu Online (Natural) - Korean (Korea)"], language: "ko-KR", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "InJoon", name: "Microsoft InJoon Online (Natural) - Korean (Korea)", language: "ko-KR", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Google 여성 음성", name: "Google 한국의", note: "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.", language: "ko-KR", gender: "female", quality: ["high"], rate: 1, pitch: 1, browser: ["ChromeDesktop"], preloaded: !0 }, { label: "Yuna", name: "Yuna", localizedName: "apple", language: "ko-KR", gender: "female", quality: ["low", "normal", "high"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Jian", name: "Jian", localizedName: "apple", language: "ko-KR", gender: "female", quality: ["low", "normal", "high"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Suhyun", name: "Suhyun", localizedName: "apple", language: "ko-KR", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Sora", name: "Sora", localizedName: "apple", language: "ko-KR", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Minsu", name: "Minsu", localizedName: "apple", language: "ko-KR", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Heami", name: "Microsoft Heami - Korean (Korea)", language: "ko-KR", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "여성 목소리 1", name: "Google 한국어 2 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google ko-kr-x-kob-network", "Chrome OS 한국어 2", "Android Speech Recognition and Synthesis from Google ko-kr-x-kob-local", "Android Speech Recognition and Synthesis from Google ko-KR-language"], nativeID: ["ko-kr-x-kob-network", "ko-kr-x-kob-local"], language: "ko-KR", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "여성 목소리 2", name: "Google 한국어 1 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google ko-kr-x-ism-network", "Chrome OS 한국어 1", "Android Speech Recognition and Synthesis from Google ko-kr-x-ism-local"], nativeID: ["ko-kr-x-ism-network", "ko-kr-x-ism-local"], language: "ko-KR", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "남성 1", name: "Google 한국어 3 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google ko-kr-x-koc-network", "Chrome OS 한국어 3", "Android Speech Recognition and Synthesis from Google ko-kr-x-koc-local"], nativeID: ["ko-kr-x-koc-network", "ko-kr-x-koc-local"], language: "ko-KR", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "남성 2", name: "Google 한국어 4 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google ko-kr-x-kod-network", "Chrome OS 한국어 4", "Android Speech Recognition and Synthesis from Google ko-kr-x-kod-local"], nativeID: ["ko-kr-x-kod-network", "ko-kr-x-kod-local"], language: "ko-KR", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], at = {
-  language: Qr,
-  defaultRegion: Zr,
-  testUtterance: Xr,
-  voices: et
-}, nt = "mr", rt = "mr-IN", tt = "नमस्कार, माझे नाव {name} आहे आणि मी एक मराठी आवाज आहे.", ot = [{ label: "Aarohi", name: "Microsoft Aarohi Online (Natural) - Marathi (India)", language: "mr-IN", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Manohar", name: "Microsoft Manohar Online (Natural) - Marathi (India)", language: "mr-IN", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Ananya", name: "Ananya", localizedName: "apple", language: "mr-IN", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "स्त्री आवाज", name: "Android Speech Recognition and Synthesis from Google mr-in-x-mrf-network", altNames: ["Android Speech Recognition and Synthesis from Google mr-in-x-mrf-local", "Android Speech Recognition and Synthesis from Google mr-IN-language"], nativeID: ["mr-in-x-mrf-network", "mr-in-x-mrf-local"], language: "mr-IN", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["ChromeOS"], preloaded: !0 }], lt = {
-  language: nt,
-  defaultRegion: rt,
-  testUtterance: tt,
-  voices: ot
-}, it = "ms", st = "ms-MY", gt = "Hello, nama saya {name} dan saya suara Melayu.", dt = [{ label: "Yasmin", name: "Microsoft Yasmin Online (Natural) - Malay (Malaysia)", language: "ms-MY", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Osman", name: "Microsoft Osman Online (Natural) - Malay (Malaysia)", language: "ms-MY", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Amira", name: "Amira", localizedName: "apple", language: "ms-MY", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Rizwan", name: "Microsoft Rizwan - Malay (Malaysia)", language: "ms-MY", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Suara perempuan 1", name: "Android Speech Recognition and Synthesis from Google ms-my-x-msc-network", altNames: ["Android Speech Recognition and Synthesis from Google ms-my-x-msc-local", "Android Speech Recognition and Synthesis from Google ms-MY-language"], nativeID: ["ms-my-x-msc-network", "ms-my-x-msc-local"], language: "ms-MY", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Suara perempuan 2", name: "Android Speech Recognition and Synthesis from Google ms-my-x-mse-network", altNames: ["Android Speech Recognition and Synthesis from Google ms-my-x-mse-local"], nativeID: ["ms-my-x-mse-network", "ms-my-x-mse-local"], language: "ms-MY", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Suara lelaki 1", name: "Android Speech Recognition and Synthesis from Google ms-my-x-msd-network", altNames: ["Android Speech Recognition and Synthesis from Google ms-my-x-msd-local"], nativeID: ["ms-my-x-msd-network", "ms-my-x-msd-local"], language: "ms-MY", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Suara lelaki 2", name: "Android Speech Recognition and Synthesis from Google ms-my-x-msg-network", altNames: ["Android Speech Recognition and Synthesis from Google ms-my-x-msg-local"], nativeID: ["ms-my-x-msg-network", "ms-my-x-msg-local"], language: "ms-MY", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], ct = {
-  language: it,
-  defaultRegion: st,
-  testUtterance: gt,
-  voices: dt
-}, ut = "nb", ht = "nb-NO", mt = "Hei, jeg heter {name} og er en norsk stemme.", pt = [{ label: "Pernille", name: "Microsoft Pernille Online (Natural) - Norwegian (Bokmål, Norway)", language: "nb-NO", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Finn", name: "Microsoft Finn Online (Natural) - Norwegian (Bokmål Norway)", language: "nb-NO", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Nora", name: "Nora", localizedName: "apple", language: "nb-NO", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Henrik", name: "Henrik", localizedName: "apple", language: "nb-NO", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Jon", name: "Microsoft Jon - Norwegian (Bokmål Norway)", language: "nb-NO", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Kvinnestemme 1", name: "Google Norsk Bokmål 2 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google nb-no-x-cfl-network", "Chrome OS Norsk Bokmål 2", "Android Speech Recognition and Synthesis from Google nb-no-x-cfl-local", "Android Speech Recognition and Synthesis from Google nb-NO-language"], nativeID: ["nb-no-x-cfl-network", "nb-no-x-cfl-local"], language: "nb-NO", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Kvinnestemme 2", name: "Google Norsk Bokmål 1 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google nb-no-x-rfj-network", "Chrome OS Norsk Bokmål 1", "Android Speech Recognition and Synthesis from Google nb-no-x-rfj-local"], nativeID: ["nb-no-x-rfj-network", "nb-no-x-rfj-local"], language: "nb-NO", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Kvinnestemme 3", name: "Google Norsk Bokmål 4 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google nb-no-x-tfs-network", "Chrome OS Norsk Bokmål 4", "Android Speech Recognition and Synthesis from Google nb-no-x-tfs-local"], nativeID: ["nb-no-x-tfs-network", "nb-no-x-tfs-local"], language: "nb-NO", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Mannsstemme 1", name: "Google Norsk Bokmål 3 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google nb-no-x-cmj-network", "Chrome OS Norsk Bokmål 3", "Android Speech Recognition and Synthesis from Google nb-no-x-cmj-local"], nativeID: ["nb-no-x-cmj-network", "nb-no-x-cmj-local"], language: "nb-NO", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Mannsstemme 2", name: "Google Norsk Bokmål 5 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google nb-no-x-tmg-network", "Chrome OS Norsk Bokmål 5", "Android Speech Recognition and Synthesis from Google nb-no-x-tmg-local"], nativeID: ["nb-no-x-tmg-network", "nb-no-x-tmg-local"], language: "nb-NO", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], ft = {
-  language: ut,
-  defaultRegion: ht,
-  testUtterance: mt,
-  voices: pt
-}, yt = "nl", St = "nl-NL", bt = "Hallo, mijn naam is {name} en ik ben een Nederlandse stem.", Ot = [{ label: "Colette", name: "Microsoft Colette Online (Natural) - Dutch (Netherlands)", language: "nl-NL", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Fenna", name: "Microsoft Fenna Online (Natural) - Dutch (Netherlands)", language: "nl-NL", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Hanna", name: "Microsoft Hanna Online - Dutch (Netherlands)", language: "nl-NL", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Maarten", name: "Microsoft Maarten Online (Natural) - Dutch (Netherlands)", language: "nl-NL", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Dena", name: "Microsoft Dena Online (Natural) - Dutch (Belgium)", language: "nl-BE", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Arnaud", name: "Microsoft Arnaud Online (Natural) - Dutch (Belgium)", language: "nl-BE", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Google mannelijke stem", name: "Google Nederlands", note: "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.", language: "nl-NL", gender: "male", quality: ["high"], rate: 1, pitch: 1, browser: ["ChromeDesktop"], preloaded: !0 }, { label: "Claire", name: "Claire", localizedName: "apple", language: "nl-NL", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Xander", name: "Xander", localizedName: "apple", language: "nl-NL", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Ellen", name: "Ellen", localizedName: "apple", language: "nl-BE", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Frank", name: "Microsoft Frank - Dutch (Netherlands)", language: "nl-NL", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Vrouwelijke stem 1 (Nederland)", name: "Google Nederlands 4 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google nl-nl-x-lfc-network", "Chrome OS Nederlands 4", "Android Speech Recognition and Synthesis from Google nl-nl-x-lfc-local", "Android Speech Recognition and Synthesis from Google nl-NL-language"], nativeID: ["nl-nl-x-lfc-network", "nl-nl-x-lfc-local"], language: "nl-NL", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Vrouwelijke stem 2 (Nederland)", name: "Google Nederlands 1 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google nl-nl-x-tfb-network", "Chrome OS Nederlands 1", "Android Speech Recognition and Synthesis from Google nl-nl-x-tfb-local"], nativeID: ["nl-nl-x-tfb-network", "nl-nl-x-tfb-local"], language: "nl-NL", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Vrouwelijke stem 3 (Nederland)", name: "Google Nederlands 5 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google nl-nl-x-yfr-network", "Chrome OS Nederlands 5", "Android Speech Recognition and Synthesis from Google nl-nl-x-yfr-local"], nativeID: ["nl-nl-x-yfr-network", "nl-nl-x-yfr-local"], language: "nl-NL", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Mannelijke stem 1 (Nederland)", name: "Google Nederlands 2 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google nl-nl-x-bmh-network", "Chrome OS Nederlands 2", "Android Speech Recognition and Synthesis from Google nl-nl-x-bmh-local"], nativeID: ["nl-nl-x-bmh-network", "nl-nl-x-bmh-local"], language: "nl-NL", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Mannelijke stem 2 (Nederland)", name: "Google Nederlands 3 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google nl-nl-x-dma-network", "Chrome OS Nederlands 3", "Android Speech Recognition and Synthesis from Google nl-nl-x-dma-local"], nativeID: ["nl-nl-x-dma-network", "nl-nl-x-dma-local"], language: "nl-NL", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Vrouwelijke stem (België)", name: "Android Speech Recognition and Synthesis from Google nl-be-x-bec-network", altNames: ["Android Speech Recognition and Synthesis from Google nl-be-x-bec-local", "Android Speech Recognition and Synthesis from Google nl-BE-language"], nativeID: ["nl-be-x-bec-network", "nl-be-x-bec-local"], language: "nl-BE", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Mannelijke stem (België)", name: "Android Speech Recognition and Synthesis from Google nl-be-x-bed-network", altNames: ["Android Speech Recognition and Synthesis from Google nl-be-x-bed-local"], nativeID: ["nl-be-x-bed-network", "nl-be-x-bed-local"], language: "nl-BE", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], vt = {
-  language: yt,
-  defaultRegion: St,
-  testUtterance: bt,
-  voices: Ot
-}, wt = "pl", Nt = "pl-PL", At = "Cześć, nazywam się {name} i mam polski głos.", Ct = [{ label: "Zofia", name: "Microsoft Zofia Online (Natural) - Polish (Poland)", language: "pl-PL", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Paulina", name: "Microsoft Paulina Online - Polish (Poland)", language: "pl-PL", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Marek", name: "Microsoft Marek Online (Natural) - Polish (Poland)", language: "pl-PL", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Żeński głos Google’a", name: "Google polski", note: "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.", language: "pl-PL", gender: "female", quality: ["high"], rate: 1, pitch: 1, browser: ["ChromeDesktop"], preloaded: !0 }, { label: "Ewa", name: "Ewa", localizedName: "apple", language: "pl-PL", gender: "female", quality: ["low", "normal", "high"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Zosia", name: "Zosia", localizedName: "apple", language: "pl-PL", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Krzysztof", name: "Krzysztof", localizedName: "apple", language: "pl-PL", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Paulina", name: "Microsoft Paulina - Polish (Poland)", language: "pl-PL", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Adam", name: "Microsoft Adam - Polish (Poland)", language: "pl-PL", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Głos żeński 1", name: "Google Polski 2 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google pl-pl-x-afb-network", "Chrome OS Polski 2", "Android Speech Recognition and Synthesis from Google pl-pl-x-afb-local", "Android Speech Recognition and Synthesis from Google pl-PL-language"], nativeID: ["pl-pl-x-afb-network", "pl-pl-x-afb-local"], language: "pl-PL", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Głos żeński 2", name: "Google Polski 1 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google pl-pl-x-oda-network", "Chrome OS Polski 1", "Android Speech Recognition and Synthesis from Google pl-pl-x-oda-local"], nativeID: ["pl-pl-x-oda-network", "pl-pl-x-oda-local"], language: "pl-PL", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Głos żeński 3", name: "Google Polski 5 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google pl-pl-x-zfg-network", "Chrome OS Polski 5", "Android Speech Recognition and Synthesis from Google pl-pl-x-zfg-local"], nativeID: ["pl-pl-x-zfg-network", "pl-pl-x-zfg-local"], language: "pl-PL", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Głos męski 1", name: "Google Polski 3 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google pl-pl-x-bmg-network", "Chrome OS Polski 3", "Android Speech Recognition and Synthesis from Google pl-pl-x-bmg-local"], nativeID: ["pl-pl-x-bmg-network", "pl-pl-x-bmg-local"], language: "pl-PL", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Głos męski 2", name: "Google Polski 4 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google pl-pl-x-jmk-network", "Chrome OS Polski 4", "Android Speech Recognition and Synthesis from Google pl-pl-x-jmk-local"], nativeID: ["pl-pl-x-jmk-network", "pl-pl-x-jmk-local"], language: "pl-PL", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], kt = {
-  language: wt,
-  defaultRegion: Nt,
-  testUtterance: At,
-  voices: Ct
-}, qt = "pt", xt = "pt-BR", Rt = "Olá, o meu nome é {name} e sou uma voz portuguesa.", Et = [{ label: "Raquel", name: "Microsoft Raquel Online (Natural) - Portuguese (Portugal)", language: "pt-PT", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Duarte", name: "Microsoft Duarte Online (Natural) - Portuguese (Portugal)", language: "pt-PT", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Francisca", name: "Microsoft Francisca Online (Natural) - Portuguese (Brazil)", language: "pt-BR", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Thalita", name: "Microsoft ThalitaMultilingual Online (Natural) - Portuguese (Brazil)", language: "pt-BR", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Antonio", name: "Microsoft Antonio Online (Natural) - Portuguese (Brazil)", language: "pt-BR", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Voz feminina do Google", name: "Google português do Brasil", note: "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.", language: "pt-BR", gender: "female", quality: ["high"], rate: 1, pitch: 1, browser: ["ChromeDesktop"], preloaded: !0 }, { label: "Catarina", name: "Catarina", localizedName: "apple", language: "pt-PT", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Joana", name: "Joana", localizedName: "apple", language: "pt-PT", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Joaquim", name: "Joaquim", localizedName: "apple", language: "pt-PT", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Fernanda", name: "Fernanda", localizedName: "apple", language: "pt-BR", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Luciana", name: "Luciana", localizedName: "apple", language: "pt-BR", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Felipe", name: "Felipe", localizedName: "apple", language: "pt-BR", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Helia", name: "Microsoft Helia - Portuguese (Portugal)", language: "pt-PT", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Maria", name: "Microsoft Maria - Portuguese (Brazil)", language: "pt-BR", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Daniel", name: "Microsoft Daniel - Portuguese (Brazil)", language: "pt-BR", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Voz feminina 1 (Portugal)", name: "Google português de Portugal 1 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google pt-pt-x-jfb-network", "Android Speech Recognition and Synthesis from Google pt-pt-x-jfb-local", "Android Speech Recognition and Synthesis from Google pt-PT-language"], nativeID: ["pt-pt-x-jfb-network", "pt-pt-x-jfb-local"], language: "pt-PT", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Voz feminina 2 (Portugal)", name: "Google português de Portugal 4 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google pt-pt-x-sfs-network", "Chrome OS português de Portugal", "Android Speech Recognition and Synthesis from Google pt-pt-x-sfs-local"], nativeID: ["pt-pt-x-sfs-network", "pt-pt-x-sfs-local"], language: "pt-PT", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Voz masculina 1 (Portugal)", name: "Google português de Portugal 2 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google pt-pt-x-jmn-network", "Android Speech Recognition and Synthesis from Google pt-pt-x-jmn-local"], nativeID: ["pt-pt-x-jmn-network", "pt-pt-x-jmn-local"], language: "pt-PT", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Voz masculina 2 (Portugal)", name: "Google português de Portugal 3 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google pt-pt-x-pmj-network", "Android Speech Recognition and Synthesis from Google pt-pt-x-pmj-local"], nativeID: ["pt-pt-x-pmj-network", "pt-pt-x-pmj-local"], language: "pt-PT", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Voz feminina 1 (Brasil)", name: "Google português do Brasil 1 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google pt-br-x-afs-network", "Chrome OS português do Brasil", "Android Speech Recognition and Synthesis from Google pt-br-x-afs-local", "Android Speech Recognition and Synthesis from Google pt-BR-language"], nativeID: ["pt-br-x-afs-network", "pt-br-x-afs-local"], language: "pt-BR", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Voz feminina 2 (Brasil)", name: "Google português do Brasil 3 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google pt-br-x-pte-network", "Android Speech Recognition and Synthesis from Google pt-br-x-pte-local"], nativeID: ["pt-br-x-pte-network", "pt-br-x-pte-local"], language: "pt-BR", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Voz masculina  (Brasil)", name: "Google português do Brasil 2 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google pt-br-x-ptd-network", "Android Speech Recognition and Synthesis from Google pt-br-x-ptd-local"], nativeID: ["pt-br-x-ptd-network", "pt-br-x-ptd-local"], language: "pt-BR", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], Gt = {
-  language: qt,
-  defaultRegion: xt,
-  testUtterance: Rt,
-  voices: Et
-}, It = "ro", Tt = "ro-RO", Mt = "Buna ziua, ma numesc {name} si sunt o voce romaneasca.", Ht = [{ label: "Alina", name: "Microsoft Alina Online (Natural) - Romanian (Romania)", language: "ro-RO", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Emil", name: "Microsoft Emil Online (Natural) - Romanian (Romania)", language: "ro-RO", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Ioana", name: "Ioana", localizedName: "apple", language: "ro-RO", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Andrei", name: "Microsoft Andrei - Romanian (Romania)", language: "ro-RO", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Voce feminină", name: "Android Speech Recognition and Synthesis from Google ro-ro-x-vfv-network", altNames: ["Android Speech Recognition and Synthesis from Google ro-ro-x-vfv-local", "Android Speech Recognition and Synthesis from Google ro-RO-language"], nativeID: ["ro-ro-x-vfv-network", "ro-ro-x-vfv-local"], language: "ro-RO", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], Dt = {
-  language: It,
-  defaultRegion: Tt,
-  testUtterance: Mt,
-  voices: Ht
-}, Pt = "ru", Lt = "ru-RU", Ut = "Здравствуйте, меня зовут {name} и я русский голос.", zt = [{ label: "Svetlana", name: "Microsoft Svetlana Online (Natural) - Russian (Russia)", language: "ru-RU", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Ekaterina", name: "Microsoft Ekaterina Online - Russian (Russia)", language: "ru-RU", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Dmitry", name: "Microsoft Dmitry Online (Natural) - Russian (Russia)", language: "ru-RU", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Google женский голос", name: "Google русский", note: "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.", language: "ru-RU", gender: "female", quality: ["high"], rate: 1, pitch: 1, browser: ["ChromeDesktop"], preloaded: !0 }, { label: "Katya", name: "Katya", localizedName: "apple", language: "ru-RU", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Milena", name: "Milena", localizedName: "apple", language: "ru-RU", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Yuri", name: "Yuri", localizedName: "apple", language: "ru-RU", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Irina", name: "Microsoft Irina - Russian (Russian)", language: "ru-RU", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Pavel", name: "Microsoft Pavel - Russian (Russian)", language: "ru-RU", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Женский голос 1", name: "Android Speech Recognition and Synthesis from Google ru-ru-x-dfc-network", altNames: ["Android Speech Recognition and Synthesis from Google ru-ru-x-dfc-local"], nativeID: ["ru-ru-x-dfc-network", "ru-ru-x-dfc-local"], language: "ru-RU", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Женский голос 2", name: "Android Speech Recognition and Synthesis from Google ru-ru-x-ruc-network", altNames: ["Android Speech Recognition and Synthesis from Google ru-ru-x-ruc-local"], nativeID: ["ru-ru-x-ruc-network", "ru-ru-x-ruc-local"], language: "ru-RU", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Женский голос 3", name: "Android Speech Recognition and Synthesis from Google ru-ru-x-rue-network", altNames: ["Android Speech Recognition and Synthesis from Google ru-ru-x-rue-local"], nativeID: ["ru-ru-x-rue-network", "ru-ru-x-rue-local"], language: "ru-RU", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Мужской голос 1", name: "Android Speech Recognition and Synthesis from Google ru-ru-x-rud-network", altNames: ["Android Speech Recognition and Synthesis from Google ru-ru-x-rud-local"], nativeID: ["ru-ru-x-rud-network", "ru-ru-x-rud-local"], language: "ru-RU", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Мужской голос 2", name: "Android Speech Recognition and Synthesis from Google ru-ru-x-ruf-network", altNames: ["Android Speech Recognition and Synthesis from Google ru-ru-x-ruf-local"], nativeID: ["ru-ru-x-ruf-network", "ru-ru-x-ruf-local"], language: "ru-RU", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], Bt = {
-  language: Pt,
-  defaultRegion: Lt,
-  testUtterance: Ut,
-  voices: zt
-}, $t = "sk", jt = "sk-SK", Ft = "Dobrý deň, volám sa {name} a som slovenský hlas.", Vt = [{ label: "Viktoria", name: "Microsoft Viktoria Online (Natural) - Slovak (Slovakia)", language: "sk-SK", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Lukas", name: "Microsoft Lukas Online (Natural) - Slovak (Slovakia)", language: "sk-SK", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Laura", name: "Laura", localizedName: "apple", language: "sk-SK", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Filip", name: "Microsoft Filip - Slovak (Slovakia)", language: "sk-SK", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Ženský hlas", name: "Google Slovenčina (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google sk-sk-x-sfk-network", "Android Speech Recognition and Synthesis from Google sk-sk-x-sfk-local", "Chrome OS Slovenčina", "Android Speech Recognition and Synthesis from Google sk-SK-language"], nativeID: ["sk-sk-x-sfk-network", "sk-sk-x-sfk-local"], language: "sk-SK", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], Kt = {
-  language: $t,
-  defaultRegion: jt,
-  testUtterance: Ft,
-  voices: Vt
-}, Wt = "sl", Jt = "sl-SI", _t = "Pozdravljeni, moje ime je {name} in sem slovenski glas.", Yt = [{ label: "Petra", name: "Microsoft Petra Online (Natural) - Slovenian (Slovenia)", language: "sl-SI", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Rok", name: "Microsoft Rok Online (Natural) - Slovenian (Slovenia)", language: "sl-SI", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Tina", name: "Tina", localizedName: "apple", language: "sl-SI", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Lado", name: "Microsoft Lado - Slovenian (Slovenia)", language: "sl-SI", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Ženski glas", name: "Android Speech Recognition and Synthesis from Google sl-si-x-frm-local", altNames: ["Android Speech Recognition and Synthesis from Google sl-SI-language"], nativeID: ["sl-si-x-frm-local"], language: "sl-SI", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], Qt = {
-  language: Wt,
-  defaultRegion: Jt,
-  testUtterance: _t,
-  voices: Yt
-}, Zt = "sv", Xt = "sv-SE", eo = "Hej, jag heter {name} och jag är en svensk röst.", ao = [{ label: "Sofie", name: "Microsoft Sofie Online (Natural) - Swedish (Sweden)", language: "sv-SE", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Mattias", name: "Microsoft Mattias Online (Natural) - Swedish (Sweden)", language: "sv-SE", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Klara", name: "Klara", localizedName: "apple", language: "sv-SE", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Alva", name: "Alva", localizedName: "apple", language: "sv-SE", gender: "female", quality: ["low", "normal", "high"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Oskar", name: "Oskar", note: "This voice can be installed on all Apple devices and offers two variants. Like all voices that can be installed on Apple devices, it suffers from inconsistent naming due to localization.", language: "sv-SE", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Bengt", name: "Microsoft Bengt - Swedish (Sweden)", language: "sv-SE", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Kvinnlig röst 1", name: "Google Svenska 1 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google sv-se-x-lfs-network", "Chrome OS Svenska", "Android Speech Recognition and Synthesis from Google sv-se-x-lfs-local", "Android Speech Recognition and Synthesis from Google sv-SE-language"], nativeID: ["sv-se-x-lfs-network", "sv-se-x-lfs-local"], language: "sv-SE", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Kvinnlig röst 2", name: "Google Svenska 2 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google sv-se-x-afp-network", "Android Speech Recognition and Synthesis from Google sv-se-x-afp-local"], nativeID: ["sv-se-x-afp-network", "sv-se-x-afp-local"], language: "sv-SE", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Kvinnlig röst 3", name: "Google Svenska 3 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google sv-se-x-cfg-network", "Android Speech Recognition and Synthesis from Google sv-se-x-cfg-local"], nativeID: ["sv-se-x-cfg-network", "sv-se-x-cfg-local"], language: "sv-SE", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Mansröst 1", name: "Google Svenska 4 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google sv-se-x-cmh-network", "Android Speech Recognition and Synthesis from Google sv-se-x-cmh-local"], nativeID: ["sv-se-x-cmh-network", "sv-se-x-cmh-local"], language: "sv-SE", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Mansröst 2", name: "Google Svenska 5 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google sv-se-x-dmc-network", "Android Speech Recognition and Synthesis from Google sv-se-x-dmc-local"], nativeID: ["sv-se-x-dmc-network", "sv-se-x-dmc-local"], language: "sv-SE", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], no = {
-  language: Zt,
-  defaultRegion: Xt,
-  testUtterance: eo,
-  voices: ao
-}, ro = "ta", to = "ta-IN", oo = "வணக்கம், என் பெயர் {name} மற்றும் நான் ஒரு தமிழ் குரல்", lo = [{ label: "Pallavi", name: "Microsoft Pallavi Online (Natural) - Tamil (India)", language: "ta-IN", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Valluvar", name: "Microsoft Valluvar Online (Natural) - Tamil (India)", language: "ta-IN", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Saranya", name: "Microsoft Saranya Online (Natural) - Tamil (Sri Lanka)", language: "ta-LK", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Kumar", name: "Microsoft Kumar Online (Natural) - Tamil (Sri Lanka)", language: "ta-LK", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Kani", name: "Microsoft Kani Online (Natural) - Tamil (Malaysia)", language: "ta-MY", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Surya", name: "Microsoft Surya Online (Natural) - Tamil (Malaysia)", language: "ta-MY", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Venba", name: "Microsoft Venba Online (Natural) - Tamil (Singapore)", language: "ta-SG", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Anbu", name: "Microsoft Anbu Online (Natural) - Tamil (Singapore)", language: "ta-SG", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Vani", name: "Vani", localizedName: "apple", language: "ta-IN", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Valluvar", name: "Microsoft Valluvar - Tamil (India)", language: "ta-IN", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "பெண் குரல்", name: "Android Speech Recognition and Synthesis from Google ta-in-x-tac-network", altNames: ["Android Speech Recognition and Synthesis from Google ta-in-x-tac-local", "Android Speech Recognition and Synthesis from Google ta-IN-language"], nativeID: ["ta-in-x-tac-network", "ta-in-x-tac-local"], language: "ta-IN", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "ஆண் குரல்", name: "Android Speech Recognition and Synthesis from Google ta-in-x-tad-network", altNames: ["Android Speech Recognition and Synthesis from Google ta-in-x-tad-local"], nativeID: ["ta-in-x-tad-network", "ta-in-x-tad-local"], language: "ta-IN", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], io = {
-  language: ro,
-  defaultRegion: to,
-  testUtterance: oo,
-  voices: lo
-}, so = "te", go = "te-IN", co = "హలో, నా పేరు {name} మరియు నేను తెలుగు వాణిని.", uo = [{ label: "Shruti", name: "Microsoft Shruti Online (Natural) - Telugu (India)", language: "te-IN", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Mohan", name: "Microsoft Mohan Online (Natural) - Telugu (India)", language: "te-IN", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Geeta", name: "Geeta", localizedName: "apple", language: "te-IN", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "స్త్రీ స్వరం", name: "Android Speech Recognition and Synthesis from Google te-in-x-tef-network", altNames: ["Android Speech Recognition and Synthesis from Google te-in-x-tef-local", "Android Speech Recognition and Synthesis from Google te-IN-language"], nativeID: ["te-in-x-tef-network", "te-in-x-tef-local"], language: "te-IN", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "పురుష స్వరం", name: "Android Speech Recognition and Synthesis from Google te-in-x-tem-network", altNames: ["Android Speech Recognition and Synthesis from Google te-in-x-tem-local"], nativeID: ["te-in-x-tem-network", "te-in-x-tem-local"], language: "te-IN", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], ho = {
-  language: so,
-  defaultRegion: go,
-  testUtterance: co,
-  voices: uo
-}, mo = "th", po = "th-TH", fo = "สวัสดีค่ะ ฉันชื่อ {name} และฉันเป็นคนมีเสียงภาษาไทย", yo = [{ label: "Premwadee", name: "Microsoft Premwadee Online (Natural) - Thai (Thailand)", language: "th-TH", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Niwat", name: "Microsoft Niwat Online (Natural) - Thai (Thailand)", language: "th-TH", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Narisa", name: "Narisa", localizedName: "apple", language: "th-TH", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Kanya", name: "Kanya", localizedName: "apple", language: "th-TH", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Pattara", name: "Microsoft Pattara - Thai (Thailand)", language: "th-TH", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "เสียงผู้หญิง", name: "Google ไทย (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google th-th-x-mol-network", "Chrome OS ไทย", "Android Speech Recognition and Synthesis from Google th-th-x-mol-local", "Android Speech Recognition and Synthesis from Google th-TH-language"], nativeID: ["th-th-x-mol-network", "th-th-x-mol-local"], language: "th-TH", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], So = {
-  language: mo,
-  defaultRegion: po,
-  testUtterance: fo,
-  voices: yo
-}, bo = "tr", Oo = "tr-TR", vo = "Merhaba, adım {name} ve Türk sesiyim.", wo = [{ label: "Emel", name: "Microsoft Emel Online (Natural) - Turkish (Turkey)", language: "tr-TR", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Ahmet", name: "Microsoft Ahmet Online (Natural) - Turkish (Türkiye)", language: "tr-TR", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Yelda", name: "Yelda", localizedName: "apple", altNames: ["Yelda (Geliştirilmiş)", "Yelda (Türkçe (Türkiye))"], language: "tr-TR", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Cem", name: "Cem", localizedName: "apple", language: "tr-TR", gender: "male", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"] }, { label: "Tolga", name: "Microsoft Tolga - Turkish (Turkey)", language: "tr-TR", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Kadın sesi 1", name: "Google Türkçe 3 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google tr-tr-x-cfs-network", "Chrome OS Türkçe 3", "Android Speech Recognition and Synthesis from Google tr-tr-x-cfs-local", "Android Speech Recognition and Synthesis from Google tr-TR-language"], nativeID: ["tr-tr-x-cfs-network", "tr-tr-x-cfs-local"], language: "tr-TR", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Kadın sesi 2", name: "Google Türkçe 4 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google tr-tr-x-efu-network", "Chrome OS Türkçe 4", "Android Speech Recognition and Synthesis from Google tr-tr-x-efu-local"], nativeID: ["tr-tr-x-efu-network", "tr-tr-x-efu-local"], language: "tr-TR", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Kadın sesi 3", name: "Google Türkçe 1 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google tr-tr-x-mfm-network", "Chrome OS Türkçe 1", "Android Speech Recognition and Synthesis from Google tr-tr-x-mfm-local"], nativeID: ["tr-tr-x-mfm-network", "tr-tr-x-mfm-local"], language: "tr-TR", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Erkek sesi 1", name: "Google Türkçe 2 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google tr-tr-x-ama-network", "Chrome OS Türkçe 2", "Android Speech Recognition and Synthesis from Google tr-tr-x-ama-local"], nativeID: ["tr-tr-x-ama-network", "tr-tr-x-ama-local"], language: "tr-TR", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Erkek sesi 2", name: "Google Türkçe 5 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google tr-tr-x-tmc-network", "Chrome OS Türkçe 5", "Android Speech Recognition and Synthesis from Google tr-tr-x-tmc-local"], nativeID: ["tr-tr-x-tmc-network", "tr-tr-x-tmc-local"], language: "tr-TR", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], No = {
-  language: bo,
-  defaultRegion: Oo,
-  testUtterance: vo,
-  voices: wo
-}, Ao = "uk", Co = "uk-UA", ko = "Здравствуйте, меня зовут {name} и я украинский голос.", qo = [{ label: "Polina", name: "Microsoft Polina Online (Natural) - Ukrainian (Ukraine)", language: "uk-UA", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Ostap", name: "Microsoft Ostap Online (Natural) - Ukrainian (Ukraine)", language: "uk-UA", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Lesya", name: "Lesya", localizedName: "apple", language: "uk-UA", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Жіночий голос", name: "Google українська (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google uk-ua-x-hfd-network", "Chrome OS українська", "Android Speech Recognition and Synthesis from Google uk-ua-x-hfd-local", "Android Speech Recognition and Synthesis from Google uk-UA-language"], nativeID: ["uk-ua-x-hfd-network", "uk-ua-x-hfd-local"], language: "uk-UA", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], xo = {
-  language: Ao,
-  defaultRegion: Co,
-  testUtterance: ko,
-  voices: qo
-}, Ro = "vi", Eo = "vi-VN", Go = "Xin chào, tôi tên là {name} và tôi là giọng nói tiếng Việt.", Io = [{ label: "HoaiMy", name: "Microsoft HoaiMy Online (Natural) - Vietnamese (Vietnam)", language: "vi-VN", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "NamMinh", name: "Microsoft NamMinh Online (Natural) - Vietnamese (Vietnam)", language: "vi-VN", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Linh", name: "Linh", localizedName: "apple", language: "vi-VN", gender: "female", quality: ["low", "normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "An", name: "Microsoft An - Vietnamese (Vietnam)", language: "vi-VN", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Giọng nữ 1", name: "Google Tiếng Việt 1 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google vi-vn-x-vic-network", "Chrome OS Tiếng Việt 1", "Android Speech Recognition and Synthesis from Google vi-vn-x-vic-local", "Android Speech Recognition and Synthesis from Google vi-VN-language"], nativeID: ["vi-vn-x-vic-network", "vi-vn-x-vic-local"], language: "vi-VN", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Giọng nữ 2", name: "Google Tiếng Việt 2 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google vi-vn-x-vid-network", "Chrome OS Tiếng Việt 2", "Android Speech Recognition and Synthesis from Google vi-vn-x-vid-local"], nativeID: ["vi-vn-x-vid-network", "vi-vn-x-vid-local"], language: "vi-VN", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Giọng nữ 3", name: "Google Tiếng Việt 4 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google vi-vn-x-vif-network", "Chrome OS Tiếng Việt 4", "Android Speech Recognition and Synthesis from Google vi-vn-x-vif-local"], nativeID: ["vi-vn-x-vif-network", "vi-vn-x-vif-local"], language: "vi-VN", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Giọng nam 1", name: "Google Tiếng Việt 3 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google vi-vn-x-vie-network", "Chrome OS Tiếng Việt 3", "Android Speech Recognition and Synthesis from Google vi-vn-x-vie-local"], nativeID: ["vi-vn-x-vie-network", "vi-vn-x-vie-local"], language: "vi-VN", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "Giọng nam 2", name: "Google Tiếng Việt 5 (Natural)", altNames: ["Android Speech Recognition and Synthesis from Google vi-vn-x-gft-network", "Chrome OS Tiếng Việt 5", "Android Speech Recognition and Synthesis from Google vi-vn-x-gft-local"], nativeID: ["vi-vn-x-gft-network", "vi-vn-x-gft-local"], language: "vi-VN", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], To = {
-  language: Ro,
-  defaultRegion: Eo,
-  testUtterance: Go,
-  voices: Io
-}, Mo = "wuu", Ho = "wuu-CN", Do = "你好，我的名字是 {name}，我是吴语配音。", Po = [{ label: "Nannan", name: "Nannan", localizedName: "apple", language: "wuu-CN", altLanguage: "zh-CN", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }], Lo = {
-  language: Mo,
-  defaultRegion: Ho,
-  testUtterance: Do,
-  voices: Po
-}, Uo = "yue", zo = "yue-HK", Bo = "你好，我叫 {name}，係越中文聲。", $o = [{ label: "HiuGaai", name: "Microsoft HiuGaai Online (Natural) - Chinese (Cantonese Traditional)", language: "yue-HK", altLanguage: "zh-HK", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "HiuMaan", name: "Microsoft HiuMaan Online (Natural) - Chinese (Hong Kong SAR)", language: "yue-HK", altLanguage: "zh-HK", gender: "female", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "WanLung", name: "Microsoft WanLung Online (Natural) - Chinese (Hong Kong SAR)", language: "yue-HK", altLanguage: "zh-HK", gender: "male", quality: ["veryHigh"], rate: 1, pitchControl: !1, browser: ["Edge"], preloaded: !0 }, { label: "Google 女聲", name: "Google 粤語（香港）", note: "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.", language: "yue-HK", altLanguage: "zh-HK", gender: "female", quality: ["high"], rate: 1, pitch: 1, browser: ["ChromeDesktop"], preloaded: !0 }, { label: "Sinji", name: "Sinji", localizedName: "apple", language: "yue-HK", altLanguage: "zh-HK", gender: "female", quality: ["low", "normal", "high"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Aasing", name: "Aasing", localizedName: "apple", language: "yue-HK", altLanguage: "zh-HK", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { label: "Tracy", name: "Microsoft Tracy - Chinese (Traditional, Hong Kong S.A.R.)", language: "cmn-HK", altLanguage: "zh-HK", gender: "female", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "Danny", name: "Microsoft Danny - Chinese (Traditional, Hong Kong S.A.R.)", language: "cmn-HK", altLanguage: "zh-HK", gender: "male", quality: ["normal"], rate: 1, pitch: 1, os: ["Windows"], preloaded: !0 }, { label: "女聲1", name: "Android Speech Recognition and Synthesis from Google yue-hk-x-jar-network", altNames: ["Chrome OS 粵語 1", "Android Speech Recognition and Synthesis from Google yue-HK-x-jar-local", "Android Speech Recognition and Synthesis from Google yue-HK-language"], nativeID: ["yue-hk-x-jar-network", "yue-hk-x-jar-local"], language: "yue-HK", altLanguage: "zh-HK", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "女聲2", name: "Android Speech Recognition and Synthesis from Google yue-hk-x-yuc-network", altNames: ["Chrome OS 粵語 2", "Android Speech Recognition and Synthesis from Google yue-HK-x-yuc-local"], nativeID: ["yue-hk-x-yuc-network", "yue-hk-x-yuc-local"], language: "yue-HK", altLanguage: "zh-HK", gender: "female", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "男聲1", name: "Android Speech Recognition and Synthesis from Google yue-hk-x-yud-network", altNames: ["Chrome OS 粵語 3", "Android Speech Recognition and Synthesis from Google yue-HK-x-yud-local"], nativeID: ["yue-hk-x-yud-network", "yue-hk-x-yud-local"], language: "yue-HK", altLanguage: "zh-HK", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "男聲2", name: "Android Speech Recognition and Synthesis from Google yue-hk-x-yue-network", altNames: ["Chrome OS 粵語 5", "Android Speech Recognition and Synthesis from Google yue-HK-x-yue-local"], nativeID: ["yue-hk-x-yue-network", "yue-hk-x-yue-local"], language: "yue-HK", altLanguage: "zh-HK", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }, { label: "男聲3", name: "Android Speech Recognition and Synthesis from Google yue-hk-x-yuf-network", altNames: ["Chrome OS 粵語 5", "Android Speech Recognition and Synthesis from Google yue-HK-x-yuf-local"], nativeID: ["yue-hk-x-yuf-network", "yue-hk-x-yuf-local"], language: "yue-HK", altLanguage: "zh-HK", gender: "male", quality: ["high"], rate: 1, pitch: 1, os: ["Android", "ChromeOS"], preloaded: !0 }], jo = {
-  language: Uo,
-  defaultRegion: zo,
-  testUtterance: Bo,
-  voices: $o
-}, Fo = (e) => ({
+}, L = {
+  ar: {
+    defaultRegion: "SA",
+    availableRegions: [
+      "001",
+      "AE",
+      "AS",
+      "BH",
+      "DZ",
+      "EG",
+      "IQ",
+      "JO",
+      "KW",
+      "LB",
+      "LY",
+      "MA",
+      "OM",
+      "QA",
+      "SA",
+      "SY",
+      "TN",
+      "YE"
+    ],
+    testUtterance: "مرحبًا، اسمي {name} وأنا صوت عربي."
+  },
+  bg: {
+    defaultRegion: "BG",
+    availableRegions: [
+      "BG"
+    ],
+    testUtterance: "Здравейте, казвам се {name} и съм български глас."
+  },
+  bho: {
+    defaultRegion: "IN",
+    availableRegions: [
+      "IN"
+    ],
+    testUtterance: "नमस्कार, हमार नाम {name} ह आ हम भोजपुरी आवाज हईं"
+  },
+  bn: {
+    defaultRegion: "IN",
+    availableRegions: [
+      "BD",
+      "IN"
+    ],
+    testUtterance: "হ্যালো, আমার নাম {name} এবং আমি একজন বাংলা ভয়েস।"
+  },
+  ca: {
+    defaultRegion: "ES",
+    availableRegions: [
+      "ES"
+    ],
+    testUtterance: "Hola, em dic {name} i sóc una veu catalana"
+  },
+  cmn: {
+    defaultRegion: "CN",
+    availableRegions: [
+      "CN",
+      "CTW",
+      "TW"
+    ],
+    testUtterance: "你好，我的名字是 {name}，我是普通话配音。"
+  },
+  cs: {
+    defaultRegion: "CZ",
+    availableRegions: [
+      "CZ"
+    ],
+    testUtterance: "Dobrý den, jmenuji se {name} a jsem český hlas."
+  },
+  da: {
+    defaultRegion: "DK",
+    availableRegions: [
+      "DK"
+    ],
+    testUtterance: "Hej, mit navn er {name} og jeg er en dansk stemme."
+  },
+  de: {
+    defaultRegion: "DE",
+    availableRegions: [
+      "AT",
+      "CH",
+      "DE"
+    ],
+    testUtterance: "Hallo, mein Name ist {name} und ich bin eine deutsche Stimme."
+  },
+  el: {
+    defaultRegion: "GR",
+    availableRegions: [
+      "GR"
+    ],
+    testUtterance: "Γεια σας, με λένε {name} και είμαι ελληνική φωνή."
+  },
+  en: {
+    defaultRegion: "US",
+    availableRegions: [
+      "AU",
+      "CA",
+      "GB",
+      "HK",
+      "IE",
+      "IN",
+      "KE",
+      "NG",
+      "NZ",
+      "PH",
+      "SG",
+      "TZ",
+      "US",
+      "ZA"
+    ],
+    testUtterance: "Hello, my name is {name} and I am an English voice."
+  },
+  es: {
+    defaultRegion: "ES",
+    availableRegions: [
+      "AR",
+      "BO",
+      "CL",
+      "CO",
+      "CR",
+      "CU",
+      "DO",
+      "EC",
+      "ES",
+      "GQ",
+      "GT",
+      "HN",
+      "MX",
+      "NI",
+      "PA",
+      "PE",
+      "PR",
+      "PY",
+      "SV",
+      "US",
+      "UY",
+      "VE"
+    ],
+    testUtterance: "Hola, mi nombre es {name} y soy una voz española."
+  },
+  eu: {
+    defaultRegion: "ES",
+    availableRegions: [
+      "ES"
+    ],
+    testUtterance: "Kaixo, nire izena {name} da eta euskal ahotsa naiz."
+  },
+  fa: {
+    defaultRegion: "IR",
+    availableRegions: [
+      "IR"
+    ],
+    testUtterance: "سلام اسم من {name} و صدای فارسی هستم"
+  },
+  fi: {
+    defaultRegion: "FI",
+    availableRegions: [
+      "FI"
+    ],
+    testUtterance: "Hei, nimeni on {name} ja olen suomalainen ääni."
+  },
+  fr: {
+    defaultRegion: "FR",
+    availableRegions: [
+      "BE",
+      "CA",
+      "CH",
+      "FR"
+    ],
+    testUtterance: "Bonjour, mon nom est {name} et je suis une voix française."
+  },
+  gl: {
+    defaultRegion: "ES",
+    availableRegions: [
+      "ES"
+    ],
+    testUtterance: "Ola, chámome {name} e son unha voz galega."
+  },
+  he: {
+    defaultRegion: "IL",
+    availableRegions: [
+      "IL"
+    ],
+    testUtterance: "שלום, שמי {name} ואני קול עברי."
+  },
+  hi: {
+    defaultRegion: "IN",
+    availableRegions: [
+      "IN"
+    ],
+    testUtterance: "नमस्कार, मेरा नाम {name} है और मैं एक हिंदी आवाज़ हूँ।"
+  },
+  hr: {
+    defaultRegion: "HR",
+    availableRegions: [
+      "HR"
+    ],
+    testUtterance: "Pozdrav, ja sam {name} i hrvatski sam glas."
+  },
+  hu: {
+    defaultRegion: "HU",
+    availableRegions: [
+      "HU"
+    ],
+    testUtterance: "Helló, a nevem {name} és magyar hangú vagyok."
+  },
+  id: {
+    defaultRegion: "ID",
+    availableRegions: [
+      "ID"
+    ],
+    testUtterance: "Halo, nama saya {name} dan saya suara Indonesia."
+  },
+  it: {
+    defaultRegion: "IT",
+    availableRegions: [
+      "IT"
+    ],
+    testUtterance: "Ciao, mi chiamo {name} e sono una voce italiana."
+  },
+  ja: {
+    defaultRegion: "JP",
+    availableRegions: [
+      "JP"
+    ],
+    testUtterance: "こんにちは。私の名前は{name}で、日本語の声を担当しています。"
+  },
+  kk: {
+    defaultRegion: "KZ",
+    availableRegions: [
+      "KZ"
+    ],
+    testUtterance: "Sälemetsiz be, meniñ atım {name} jäne men qazaq dawısımın."
+  },
+  kn: {
+    defaultRegion: "IN",
+    availableRegions: [
+      "IN"
+    ],
+    testUtterance: "ಹಲೋ, ನನ್ನ ಹೆಸರು {name} ಮತ್ತು ನಾನು ಕನ್ನಡ ಧ್ವನಿ."
+  },
+  ko: {
+    defaultRegion: "KR",
+    availableRegions: [
+      "KR"
+    ],
+    testUtterance: "안녕하세요, 저는 {name}이고 한국어 음성입니다."
+  },
+  mr: {
+    defaultRegion: "IN",
+    availableRegions: [
+      "IN"
+    ],
+    testUtterance: "नमस्कार, माझे नाव {name} आहे आणि मी एक मराठी आवाज आहे."
+  },
+  ms: {
+    defaultRegion: "MY",
+    availableRegions: [
+      "MY"
+    ],
+    testUtterance: "Hello, nama saya {name} dan saya suara Melayu."
+  },
+  nb: {
+    defaultRegion: "NO",
+    availableRegions: [
+      "NO"
+    ],
+    testUtterance: "Hei, jeg heter {name} og er en norsk stemme."
+  },
+  nl: {
+    defaultRegion: "NL",
+    availableRegions: [
+      "BE",
+      "NL"
+    ],
+    testUtterance: "Hallo, mijn naam is {name} en ik ben een Nederlandse stem."
+  },
+  pl: {
+    defaultRegion: "PL",
+    availableRegions: [
+      "PL"
+    ],
+    testUtterance: "Cześć, nazywam się {name} i mam polski głos."
+  },
+  pt: {
+    defaultRegion: "BR",
+    availableRegions: [
+      "BR",
+      "PT"
+    ],
+    testUtterance: "Olá, o meu nome é {name} e sou uma voz portuguesa."
+  },
+  ro: {
+    defaultRegion: "RO",
+    availableRegions: [
+      "RO"
+    ],
+    testUtterance: "Buna ziua, ma numesc {name} si sunt o voce romaneasca."
+  },
+  ru: {
+    defaultRegion: "RU",
+    availableRegions: [
+      "RU"
+    ],
+    testUtterance: "Здравствуйте, меня зовут {name} и я русский голос."
+  },
+  sk: {
+    defaultRegion: "SK",
+    availableRegions: [
+      "SK"
+    ],
+    testUtterance: "Dobrý deň, volám sa {name} a som slovenský hlas."
+  },
+  sl: {
+    defaultRegion: "SI",
+    availableRegions: [
+      "SI"
+    ],
+    testUtterance: "Pozdravljeni, moje ime je {name} in sem slovenski glas."
+  },
+  sv: {
+    defaultRegion: "SE",
+    availableRegions: [
+      "SE"
+    ],
+    testUtterance: "Hej, jag heter {name} och jag är en svensk röst."
+  },
+  ta: {
+    defaultRegion: "IN",
+    availableRegions: [
+      "IN",
+      "LK",
+      "MY",
+      "SG"
+    ],
+    testUtterance: "வணக்கம், என் பெயர் {name} மற்றும் நான் ஒரு தமிழ் குரல்"
+  },
+  te: {
+    defaultRegion: "IN",
+    availableRegions: [
+      "IN"
+    ],
+    testUtterance: "హలో, నా పేరు {name} మరియు నేను తెలుగు వాణిని."
+  },
+  th: {
+    defaultRegion: "TH",
+    availableRegions: [
+      "TH"
+    ],
+    testUtterance: "สวัสดีค่ะ ฉันชื่อ {name} และฉันเป็นคนมีเสียงภาษาไทย"
+  },
+  tr: {
+    defaultRegion: "TR",
+    availableRegions: [
+      "TR"
+    ],
+    testUtterance: "Merhaba, adım {name} ve Türk sesiyim."
+  },
+  uk: {
+    defaultRegion: "UA",
+    availableRegions: [
+      "UA"
+    ],
+    testUtterance: "Здравствуйте, меня зовут {name} и я украинский голос."
+  },
+  vi: {
+    defaultRegion: "VN",
+    availableRegions: [
+      "VN"
+    ],
+    testUtterance: "Xin chào, tôi tên là {name} và tôi là giọng nói tiếng Việt."
+  },
+  wuu: {
+    defaultRegion: "CN",
+    availableRegions: [
+      "CN"
+    ],
+    testUtterance: "你好，我的名字是 {name}，我是吴语配音。"
+  },
+  yue: {
+    defaultRegion: "HK",
+    availableRegions: [
+      "HK"
+    ],
+    testUtterance: "你好，我叫 {name}，係越中文聲。"
+  }
+}, me = /* @__PURE__ */ new Map(), Nt = /* @__PURE__ */ Object.assign({ "../../json/ar.json": () => import("./ar-CJhBAgKq.js"), "../../json/bg.json": () => import("./bg-JvP4LoOT.js"), "../../json/bho.json": () => import("./bho-CpuLBMN3.js"), "../../json/bn.json": () => import("./bn-84u93pMd.js"), "../../json/ca.json": () => import("./ca-DdScTbex.js"), "../../json/cmn.json": () => import("./cmn-Dd1zrvTE.js"), "../../json/cs.json": () => import("./cs-CDMne0uc.js"), "../../json/da.json": () => import("./da-oFf4cHgj.js"), "../../json/de.json": () => import("./de-Bjgc3bVq.js"), "../../json/el.json": () => import("./el-FkKIcghI.js"), "../../json/en.json": () => import("./en-DCQHxNny.js"), "../../json/es.json": () => import("./es-CDjjngpC.js"), "../../json/eu.json": () => import("./eu-DxWirHU-.js"), "../../json/fa.json": () => import("./fa-CTVUniYi.js"), "../../json/fi.json": () => import("./fi-Do6QFzRv.js"), "../../json/fr.json": () => import("./fr-B5-P9o29.js"), "../../json/gl.json": () => import("./gl-DqSXeC_F.js"), "../../json/he.json": () => import("./he-CpyNwgaH.js"), "../../json/hi.json": () => import("./hi-CeOBacbl.js"), "../../json/hr.json": () => import("./hr-CSpU18l6.js"), "../../json/hu.json": () => import("./hu-oONHmpR6.js"), "../../json/id.json": () => import("./id-BpZuB5Iw.js"), "../../json/it.json": () => import("./it-CM4X84UA.js"), "../../json/ja.json": () => import("./ja-e-iw3c4_.js"), "../../json/kk.json": () => import("./kk-DtoipulN.js"), "../../json/kn.json": () => import("./kn-BYRvouO5.js"), "../../json/ko.json": () => import("./ko-EIouMDK1.js"), "../../json/mr.json": () => import("./mr-DN-hwEV1.js"), "../../json/ms.json": () => import("./ms-B5E3oaWE.js"), "../../json/nb.json": () => import("./nb-DOw05HBh.js"), "../../json/nl.json": () => import("./nl-CEydw4A9.js"), "../../json/pl.json": () => import("./pl-Ivj_eAP7.js"), "../../json/pt.json": () => import("./pt-BPEGqRmW.js"), "../../json/ro.json": () => import("./ro-BQ617SOx.js"), "../../json/ru.json": () => import("./ru-Dieeph4H.js"), "../../json/sk.json": () => import("./sk-pEiOt4GQ.js"), "../../json/sl.json": () => import("./sl-Z6jWAR8J.js"), "../../json/sv.json": () => import("./sv-BT09piiZ.js"), "../../json/ta.json": () => import("./ta-B0YMGW5q.js"), "../../json/te.json": () => import("./te-ax-HNsAY.js"), "../../json/th.json": () => import("./th-C7Dbxwoz.js"), "../../json/tr.json": () => import("./tr-mipEichO.js"), "../../json/uk.json": () => import("./uk-CHdx7DHz.js"), "../../json/vi.json": () => import("./vi-DrlcEwAD.js"), "../../json/wuu.json": () => import("./wuu-C6uQvT6g.js"), "../../json/yue.json": () => import("./yue-CFroa59o.js") });
+async function Lt(e) {
+  try {
+    const t = e.split("-")[0], r = Nt[`../../json/${t}.json`];
+    if (!r)
+      throw new Error(`No voice data found for language: ${e}`);
+    const i = (await r()).default;
+    return {
+      ...i,
+      voices: i.voices.map(It)
+    };
+  } catch (t) {
+    return console.warn(`Failed to load voice data for ${e}:`, t), {
+      language: e,
+      defaultRegion: "",
+      testUtterance: "",
+      voices: []
+    };
+  }
+}
+function ze(e) {
+  return me.has(e) || me.set(e, Lt(e)), me.get(e);
+}
+const It = (e) => ({
   ...e,
   gender: e.gender,
   quality: e.quality ? Array.isArray(e.quality) ? e.quality.filter(
-    (a) => ["veryLow", "low", "normal", "high", "veryHigh"].includes(a)
+    (t) => ["veryLow", "low", "normal", "high", "veryHigh"].includes(t)
   ) : [e.quality].filter(
-    (a) => ["veryLow", "low", "normal", "high", "veryHigh"].includes(a)
+    (t) => ["veryLow", "low", "normal", "high", "veryHigh"].includes(t)
   ) : void 0,
   localizedName: e.localizedName && ["android", "apple"].includes(e.localizedName) ? e.localizedName : void 0
-}), ca = Object.fromEntries(
-  Object.entries({
-    ar: Ia,
-    bg: Pa,
-    bho: $a,
-    bn: Wa,
-    ca: Za,
-    cmn: rn,
-    cs: gn,
-    da: mn,
-    de: bn,
-    el: An,
-    en: Rn,
-    es: Mn,
-    eu: Un,
-    fa: Fn,
-    fi: _n,
-    fr: er,
-    gl: or,
-    he: dr,
-    hi: pr,
-    hr: Or,
-    hu: Cr,
-    id: Er,
-    it: Hr,
-    ja: zr,
-    kk: Vr,
-    kn: Yr,
-    ko: at,
-    mr: lt,
-    ms: ct,
-    nb: ft,
-    nl: vt,
-    pl: kt,
-    pt: Gt,
-    ro: Dt,
-    ru: Bt,
-    sk: Kt,
-    sl: Qt,
-    sv: no,
-    ta: io,
-    te: ho,
-    th: So,
-    tr: No,
-    uk: xo,
-    vi: To,
-    wuu: Lo,
-    yue: jo
-  }).map(([e, a]) => [
-    e,
-    {
-      ...a,
-      voices: a.voices.map(Fo)
-    }
-  ])
-), L = (e) => ca[e], ne = {
+}), re = {
   cmn: "cmn",
   "cmn-CN": "cmn-CN",
   "cmn-TW": "cmn-TW",
@@ -321,166 +445,164 @@ const Ra = "ar-SA", Ea = "مرحبًا، اسمي {name} وأنا صوت عرب�
   "zh-HK": "yue-HK",
   wuu: "wuu",
   "wuu-CN": "wuu-CN"
-}, z = (e) => {
+}, P = (e) => {
   if (!e) return "";
-  let a = e.toLowerCase().replace(/_/g, "-");
-  if (/\w{2,3}-\w{2,3}/.test(a)) {
-    const [t, n] = a.split("-");
-    a = `${t.toLowerCase()}-${n.toUpperCase()}`;
+  let t = e.toLowerCase().replace(/_/g, "-");
+  if (/\w{2,3}-\w{2,3}/.test(t)) {
+    const [r, n] = t.split("-");
+    t = `${r.toLowerCase()}-${n.toUpperCase()}`;
   }
-  return ne[a] || a;
-}, ge = (e) => {
+  return re[t] || t;
+}, Re = async (e) => {
   if (!e) return [];
   try {
-    const a = z(e);
-    let t = L(a);
-    if (!t || !t.voices?.length) {
-      const [n] = M(a);
-      n !== a && (t = L(n));
+    const t = P(e);
+    try {
+      const n = await ze(t);
+      if (n?.voices?.length)
+        return n.voices;
+    } catch (n) {
+      console.warn(`Failed to load voices for ${t}:`, n);
     }
-    return t?.voices || [];
-  } catch (a) {
-    return console.error(`Failed to load voices for ${e}:`, a), [];
+    const [r] = F(t);
+    if (r !== t)
+      try {
+        const n = await ze(r);
+        if (n?.voices?.length)
+          return n.voices;
+      } catch (n) {
+        console.warn(`Failed to load voices for base language ${r}:`, n);
+      }
+    return [];
+  } catch (t) {
+    return console.error(`Error in getVoices for ${e}:`, t), [];
   }
-}, Fs = () => Object.keys(ca), $e = (e) => {
+}, xa = () => Object.keys(L), _e = (e) => {
   if (!e) return "";
   try {
-    const a = z(e);
-    let t = L(a);
-    if (!t?.testUtterance && a in ne) {
-      const n = ne[a];
-      if (n) {
-        const l = L(n);
-        if (l?.testUtterance)
-          return l.testUtterance;
-      }
+    const t = P(e), r = L[t];
+    if (r?.testUtterance)
+      return r.testUtterance;
+    if (t in re) {
+      const i = re[t];
+      if (i && L[i]?.testUtterance)
+        return L[i].testUtterance;
     }
-    if (!t?.testUtterance) {
-      const [n] = M(a);
-      if (n !== a) {
-        const l = L(n);
-        if (l?.testUtterance)
-          return l.testUtterance;
-      }
-    }
-    return t?.testUtterance ?? "";
-  } catch (a) {
-    return console.error(`Failed to get test utterance for ${e}:`, a), "";
+    const [n] = F(t);
+    return n !== t && L[n]?.testUtterance ? L[n].testUtterance : "";
+  } catch (t) {
+    return console.error(`Error in getTestUtterance for ${e}:`, t), "";
   }
-}, se = (e) => {
+}, le = (e) => {
   if (!e) return "";
   try {
-    const a = z(e);
-    let t = L(a);
-    if (!t?.defaultRegion && a in ne) {
-      const n = ne[a];
-      if (n) {
-        const l = L(n);
-        if (l?.defaultRegion)
-          return l.defaultRegion;
+    const t = P(e), r = L[t];
+    if (r?.defaultRegion)
+      return `${t}-${r.defaultRegion}`;
+    if (t in re) {
+      const i = re[t];
+      if (i) {
+        const s = L[i];
+        if (s?.defaultRegion)
+          return `${i}-${s.defaultRegion}`;
       }
     }
-    if (!t?.defaultRegion) {
-      const [n] = M(a);
-      if (n !== a) {
-        const l = L(n);
-        if (l?.defaultRegion)
-          return l.defaultRegion;
-      }
+    const [n] = F(t);
+    if (n !== t) {
+      const i = L[n];
+      if (i?.defaultRegion)
+        return `${n}-${i.defaultRegion}`;
     }
-    return t?.defaultRegion || "";
-  } catch (a) {
-    return console.error(`Failed to get default region for ${e}:`, a), "";
+    return "";
+  } catch (t) {
+    return console.error(`Failed to get default region for ${e}:`, t), "";
   }
-}, je = (e) => {
+}, Ge = (e) => {
   if (!e?.length) return [];
-  const a = /* @__PURE__ */ new Set(), t = /* @__PURE__ */ new Map(), n = /* @__PURE__ */ new Map();
-  for (const [l, o] of e.entries()) {
-    if (!o) continue;
-    const g = z(o), [r, d] = M(g);
-    d && (a.add(d), n.has(d) || n.set(d, l)), t.has(r) || t.set(r, /* @__PURE__ */ new Set()), d && t.get(r).add(d);
+  const t = /* @__PURE__ */ new Set(), r = /* @__PURE__ */ new Map(), n = /* @__PURE__ */ new Map();
+  for (const [i, s] of e.entries()) {
+    if (!s) continue;
+    const u = P(s), [a, c] = F(u);
+    c && (t.add(c), n.has(c) || n.set(c, i)), r.has(a) || r.set(a, /* @__PURE__ */ new Set()), c && r.get(a).add(c);
   }
-  return Array.from(t.entries()).map(([l, o]) => {
-    const g = ge(l), r = new Set(
-      g.map((c) => {
-        const [, m] = M(c.language);
-        return m;
-      }).filter(Boolean)
-    ), d = Array.from(o), s = Array.from(a).filter(
-      (c) => r.has(c) && !d.includes(c)
-    ), u = Array.from(/* @__PURE__ */ new Set([...d, ...s])).sort((c, m) => {
-      const h = n.get(c) ?? Number.MAX_SAFE_INTEGER, S = n.get(m) ?? Number.MAX_SAFE_INTEGER;
-      return h - S;
+  return Array.from(r.entries()).map(([i, s]) => {
+    const u = new Set(
+      L[i]?.availableRegions || []
+    ), a = Array.from(s), c = Array.from(t).filter(
+      (g) => u.has(g) && !a.includes(g)
+    ), l = Array.from(/* @__PURE__ */ new Set([...a, ...c])).sort((g, d) => {
+      const h = n.get(g) ?? Number.MAX_SAFE_INTEGER, p = n.get(d) ?? Number.MAX_SAFE_INTEGER;
+      return h - p;
     });
-    if (u.length === 0) {
-      const c = se(l), [, m] = M(c);
-      m && u.push(m);
+    if (l.length === 0) {
+      const g = le(i), [, d] = F(g);
+      d && l.push(d);
     }
     return {
-      baseLang: l,
-      regions: u
+      baseLang: i,
+      regions: l
     };
   });
 };
-function le(e) {
-  const a = /* @__PURE__ */ new Map();
+async function ie(e) {
+  const t = /* @__PURE__ */ new Map();
   for (const n of e) {
     if (n.source !== "json") continue;
-    const [l] = M(n.language);
-    a.has(l) || a.set(l, []), a.get(l).push(n);
+    const [i] = F(n.language);
+    t.has(i) || t.set(i, []), t.get(i).push(n);
   }
-  const t = /* @__PURE__ */ new Map();
-  for (const [n, l] of a.entries()) {
-    const o = /* @__PURE__ */ new Map(), g = ge(n), r = /* @__PURE__ */ new Map();
-    g.forEach((d, s) => {
-      r.set(d.name.toLowerCase(), s), d.altNames?.forEach((u) => {
-        r.set(u.toLowerCase(), s);
+  const r = /* @__PURE__ */ new Map();
+  for (const [n, i] of t.entries()) {
+    const s = /* @__PURE__ */ new Map(), u = await Re(n), a = /* @__PURE__ */ new Map();
+    u.forEach((c, l) => {
+      a.set(c.name.toLowerCase(), l), c.altNames?.forEach((g) => {
+        a.set(g.toLowerCase(), l);
       });
     });
-    for (const d of l) {
-      const s = d.name.toLowerCase(), u = r.get(s);
-      u !== void 0 && o.set(d.name, u);
+    for (const c of i) {
+      const l = c.name.toLowerCase(), g = a.get(l);
+      g !== void 0 && s.set(c.name, g);
     }
-    o.size > 0 && t.set(n, o);
+    s.size > 0 && r.set(n, s);
   }
-  return t;
+  return r;
 }
-const Vo = [{ name: "Albert", nativeID: ["com.apple.speech.synthesis.voice.Albert"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bad News", nativeID: ["com.apple.speech.synthesis.voice.BadNews"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Mauvaises nouvelles", "Malas noticias", "Brutte notizie"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bahh", nativeID: ["com.apple.speech.synthesis.voice.Bahh"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bells", nativeID: ["com.apple.speech.synthesis.voice.Bells"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Cloches", "Campanas", "Campane"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Boing", nativeID: ["com.apple.speech.synthesis.voice.Boing"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bubbles", nativeID: ["com.apple.speech.synthesis.voice.Bubbles"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bulles", "Burbujas", "Bollicine"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Cellos", nativeID: ["com.apple.speech.synthesis.voice.Cellos"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Violoncelles", "Violonchelos", "Violoncelli"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Good News", nativeID: ["com.apple.speech.synthesis.voice.GoodNews"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bonnes nouvelles", "Buenas noticias", "Buone notizie"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Jester", nativeID: ["com.apple.speech.synthesis.voice.Hysterical"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bouffon", "Bufón", "Giullare"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Organ", nativeID: ["com.apple.speech.synthesis.voice.Organ"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Orgue", "Órgano", "Organo"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Superstar", nativeID: ["com.apple.speech.synthesis.voice.Princess"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Superestrella"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Trinoids", nativeID: ["com.apple.speech.synthesis.voice.Trinoids"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Trinoïdes"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Whisper", nativeID: ["com.apple.speech.synthesis.voice.Whisper"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Murmure", "Susurro", "Sussurro"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Wobble", nativeID: ["com.apple.speech.synthesis.voice.Deranged"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Zarvox", nativeID: ["com.apple.speech.synthesis.voice.Zarvox"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }], Ko = {
-  voices: Vo
-}, Wo = [{ name: "Eddy", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Flo", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Grandma", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Grandpa", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Jacques", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Reed", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Rocko", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Sandy", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Shelley", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Fred", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Junior", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Kathy", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Ralph", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "eSpeak Arabic", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ar", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Bulgarian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "bg", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Bengali", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "bn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Catalan", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ca", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Chinese (Mandarin, latin as English)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "cmn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Czech", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "cs", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Danish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "da", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak German", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "de", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Greek", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "el", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Spanish (Spain)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "es", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Estonian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "et", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Finnish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "fi", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Gujarati", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "gu", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Croatian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "hr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Hungarian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "hu", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Indonesian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "id", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Italian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "it", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Kannada", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "kn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Korean", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ko", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Lithuanian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "lt", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Latvian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "lv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Malayalm", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ml", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Marathi", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "mr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Malay", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ms", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Norwegian Bokmål", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "nb", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Polish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "pl", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Portuguese (Brazil)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "pt-br", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Romanian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ro", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Russian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ru", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Slovak", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sk", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Slovenian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sl", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Serbian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Swedish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Swahili", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sw", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Tamil", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ta", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Telugu", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "te", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Turkish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "tr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Vietnamese (Northern)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "vi", os: ["ChromeOS"], preloaded: !0 }], Jo = {
-  voices: Wo
-}, _o = Ko, Yo = Jo, ke = (e, a) => _o.voices.some(
-  (t) => e.includes(t.name) || a && t.nativeID?.some((n) => a.includes(n)) || t.altNames?.some((n) => e.includes(n))
-), qe = (e, a) => Yo.voices.some(
-  (t) => e.includes(t.name)
-) || a === "veryLow", Fe = (e) => e?.length ? e.filter((a) => !(a.isNovelty || ke(a.name, a.voiceURI))) : [], Ve = (e) => e?.length ? e.filter((a) => !qe(a.name, a.quality)) : [], Qo = { ar: { normal: "محسن", high: "استثنائي" }, ca: { normal: "millorada", high: "prèmium" }, "cmn-CN": { normal: "优化音质", high: "高音质" }, "cmn-TW": { normal: "增強音質", high: "高音質" }, cs: { normal: "vylepšená verze", high: "prémiový" }, da: { normal: "forbedret", high: "høj kvalitet" }, de: { normal: "erweitert", high: "premium" }, el: { normal: "βελτιωμένη", high: "υψηλής ποιότητας" }, en: { normal: "Enhanced", high: "Premium" }, es: { normal: "mejorada", high: "premium" }, fi: { normal: "parannettu", high: "korkealaatuinen" }, fr: { normal: "premium", high: "de qualité" }, he: { normal: "משופר", high: "פרימיום" }, hi: { normal: "बेहतर", high: "प्रीमियम" }, hr: { normal: "poboljšani", high: "vrhunski" }, hu: { normal: "továbbfejlesztett", high: "prémium" }, id: { normal: "Ditingkatkan", high: "Premium" }, it: { normal: "ottimizzata", high: "premium" }, ja: { normal: "拡張", high: "プレミアム" }, ko: { normal: "고품질", high: "프리미엄" }, ms: { normal: "Dipertingkat", high: "Premium" }, nb: { normal: "forbedret", high: "premium" }, nl: { normal: "verbeterd", high: "premium" }, pl: { normal: "rozszerzony", high: "premium" }, pt: { normal: "melhorada", high: "premium" }, ro: { normal: "îmbunătățită", high: "premium" }, ru: { normal: "улучшенный", high: "высшее качество" }, sk: { normal: "vylepšený", high: "prémiový" }, sl: { normal: "izboljšano", high: "prvovrsten" }, sv: { normal: "förbättrad", high: "premium" }, th: { normal: "คุณภาพสูง", high: "คุณภาพสูง" }, tr: { normal: "Geliştirilmiş", high: "Yüksek Kaliteli" }, uk: { normal: "вдосконалений", high: "високої якості" }, vi: { normal: "Nâng cao", high: "Cao cấp" } }, Zo = {
-  quality: Qo
-}, xe = {
-  apple: Zo.quality
+const xt = [{ name: "Albert", nativeID: ["com.apple.speech.synthesis.voice.Albert"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bad News", nativeID: ["com.apple.speech.synthesis.voice.BadNews"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Mauvaises nouvelles", "Malas noticias", "Brutte notizie"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bahh", nativeID: ["com.apple.speech.synthesis.voice.Bahh"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bells", nativeID: ["com.apple.speech.synthesis.voice.Bells"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Cloches", "Campanas", "Campane"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Boing", nativeID: ["com.apple.speech.synthesis.voice.Boing"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bubbles", nativeID: ["com.apple.speech.synthesis.voice.Bubbles"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bulles", "Burbujas", "Bollicine"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Cellos", nativeID: ["com.apple.speech.synthesis.voice.Cellos"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Violoncelles", "Violonchelos", "Violoncelli"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Good News", nativeID: ["com.apple.speech.synthesis.voice.GoodNews"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bonnes nouvelles", "Buenas noticias", "Buone notizie"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Jester", nativeID: ["com.apple.speech.synthesis.voice.Hysterical"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bouffon", "Bufón", "Giullare"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Organ", nativeID: ["com.apple.speech.synthesis.voice.Organ"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Orgue", "Órgano", "Organo"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Superstar", nativeID: ["com.apple.speech.synthesis.voice.Princess"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Superestrella"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Trinoids", nativeID: ["com.apple.speech.synthesis.voice.Trinoids"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Trinoïdes"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Whisper", nativeID: ["com.apple.speech.synthesis.voice.Whisper"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Murmure", "Susurro", "Sussurro"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Wobble", nativeID: ["com.apple.speech.synthesis.voice.Deranged"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Zarvox", nativeID: ["com.apple.speech.synthesis.voice.Zarvox"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }], jt = {
+  voices: xt
+}, Pt = [{ name: "Eddy", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Flo", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Grandma", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Grandpa", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Jacques", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Reed", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Rocko", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Sandy", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Shelley", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Fred", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Junior", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Kathy", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Ralph", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "eSpeak Arabic", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ar", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Bulgarian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "bg", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Bengali", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "bn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Catalan", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ca", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Chinese (Mandarin, latin as English)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "cmn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Czech", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "cs", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Danish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "da", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak German", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "de", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Greek", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "el", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Spanish (Spain)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "es", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Estonian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "et", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Finnish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "fi", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Gujarati", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "gu", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Croatian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "hr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Hungarian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "hu", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Indonesian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "id", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Italian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "it", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Kannada", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "kn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Korean", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ko", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Lithuanian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "lt", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Latvian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "lv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Malayalm", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ml", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Marathi", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "mr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Malay", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ms", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Norwegian Bokmål", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "nb", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Polish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "pl", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Portuguese (Brazil)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "pt-br", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Romanian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ro", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Russian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ru", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Slovak", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sk", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Slovenian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sl", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Serbian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Swedish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Swahili", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sw", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Tamil", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ta", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Telugu", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "te", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Turkish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "tr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Vietnamese (Northern)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "vi", os: ["ChromeOS"], preloaded: !0 }], Ut = {
+  voices: Pt
+}, Dt = jt, Bt = Ut, Ce = (e, t) => Dt.voices.some(
+  (r) => e.includes(r.name) || t && r.nativeID?.some((n) => t.includes(n)) || r.altNames?.some((n) => e.includes(n))
+), Ee = (e, t) => Bt.voices.some(
+  (r) => e.includes(r.name)
+) || t === "veryLow", Me = (e) => e?.length ? e.filter((t) => !(t.isNovelty || Ce(t.name, t.voiceURI))) : [], We = (e) => e?.length ? e.filter((t) => !Ee(t.name, t.quality)) : [], Ft = { ar: { normal: "محسن", high: "استثنائي" }, ca: { normal: "millorada", high: "prèmium" }, "cmn-CN": { normal: "优化音质", high: "高音质" }, "cmn-TW": { normal: "增強音質", high: "高音質" }, cs: { normal: "vylepšená verze", high: "prémiový" }, da: { normal: "forbedret", high: "høj kvalitet" }, de: { normal: "erweitert", high: "premium" }, el: { normal: "βελτιωμένη", high: "υψηλής ποιότητας" }, en: { normal: "Enhanced", high: "Premium" }, es: { normal: "mejorada", high: "premium" }, fi: { normal: "parannettu", high: "korkealaatuinen" }, fr: { normal: "premium", high: "de qualité" }, he: { normal: "משופר", high: "פרימיום" }, hi: { normal: "बेहतर", high: "प्रीमियम" }, hr: { normal: "poboljšani", high: "vrhunski" }, hu: { normal: "továbbfejlesztett", high: "prémium" }, id: { normal: "Ditingkatkan", high: "Premium" }, it: { normal: "ottimizzata", high: "premium" }, ja: { normal: "拡張", high: "プレミアム" }, ko: { normal: "고품질", high: "프리미엄" }, ms: { normal: "Dipertingkat", high: "Premium" }, nb: { normal: "forbedret", high: "premium" }, nl: { normal: "verbeterd", high: "premium" }, pl: { normal: "rozszerzony", high: "premium" }, pt: { normal: "melhorada", high: "premium" }, ro: { normal: "îmbunătățită", high: "premium" }, ru: { normal: "улучшенный", high: "высшее качество" }, sk: { normal: "vylepšený", high: "prémiový" }, sl: { normal: "izboljšano", high: "prvovrsten" }, sv: { normal: "förbättrad", high: "premium" }, th: { normal: "คุณภาพสูง", high: "คุณภาพสูง" }, tr: { normal: "Geliştirilmiş", high: "Yüksek Kaliteli" }, uk: { normal: "вдосконалений", high: "високої якості" }, vi: { normal: "Nâng cao", high: "Cao cấp" } }, $t = {
+  quality: Ft
+}, qe = {
+  apple: $t.quality
   // android: androidQualities.quality
-}, Xo = (e, a, t) => {
+}, Ht = (e, t, r) => {
   if (!e) return;
-  const n = Array.isArray(t) ? t : t ? [t] : [];
-  for (const l of n)
-    if (l && xe[l]) {
-      const o = xe[l], g = M(a)[0], r = o[a] || o[g];
-      if (r) {
-        const d = e.toLowerCase(), { normal: s, high: u } = r;
-        if (u && d.includes(u.toLowerCase()))
+  const n = Array.isArray(r) ? r : r ? [r] : [];
+  for (const i of n)
+    if (i && qe[i]) {
+      const s = qe[i], u = F(t)[0], a = s[t] || s[u];
+      if (a) {
+        const c = e.toLowerCase(), { normal: l, high: g } = a;
+        if (g && c.includes(g.toLowerCase()))
           return "high";
-        if (s && d.includes(s.toLowerCase()))
+        if (l && c.includes(l.toLowerCase()))
           return "normal";
       }
     }
-}, el = (e, a) => {
-  const t = xe[a];
-  if (t)
-    for (const [n, { high: l, normal: o }] of Object.entries(t)) {
-      const g = l && e.some((d) => d.includes(l)), r = o && e.some((d) => d.includes(o));
-      if (g && r)
+}, Vt = (e, t) => {
+  const r = qe[t];
+  if (r)
+    for (const [n, { high: i, normal: s }] of Object.entries(r)) {
+      const u = i && e.some((c) => c.includes(i)), a = s && e.some((c) => c.includes(s));
+      if (u && a)
         return n;
     }
-}, al = {
+}, zt = {
   low: {
     values: ["super-compact", "compact"],
     quality: "low"
@@ -493,26 +615,26 @@ const Vo = [{ name: "Albert", nativeID: ["com.apple.speech.synthesis.voice.Alber
     values: ["premium"],
     quality: "high"
   }
-}, Ke = (e) => {
+}, Je = (e) => {
   if (!e) return;
-  const t = e.toLowerCase().split(/[._-]/);
-  for (const n of Object.values(al))
-    if (n.values.some((l) => t.includes(l)))
+  const r = e.toLowerCase().split(/[._-]/);
+  for (const n of Object.values(zt))
+    if (n.values.some((i) => r.includes(i)))
       return n.quality;
 };
-function nl(e, a) {
+function _t(e, t) {
   if (e.name === e.originalName) return e;
-  if (a.name === a.originalName) return a;
-  const t = [e.originalName, ...e.altNames || []], n = [a.originalName, ...a.altNames || []], l = t.findIndex((g) => n.includes(g)), o = n.findIndex((g) => t.includes(g));
-  return l === -1 && o === -1 || l !== -1 && (o === -1 || l <= o) ? e : a;
+  if (t.name === t.originalName) return t;
+  const r = [e.originalName, ...e.altNames || []], n = [t.originalName, ...t.altNames || []], i = r.findIndex((u) => n.includes(u)), s = n.findIndex((u) => r.includes(u));
+  return i === -1 && s === -1 || i !== -1 && (s === -1 || i <= s) ? e : t;
 }
-function rl(e, a) {
-  if (!e.altNames && !a.altNames)
+function Gt(e, t) {
+  if (!e.altNames && !t.altNames)
     return !1;
-  const t = e.originalName, n = a.originalName, l = e.altNames || [], o = a.altNames || [];
-  return o.includes(t) || l.includes(n) ? !0 : l.filter((r) => o.includes(r)).length > 0;
+  const r = e.originalName, n = t.originalName, i = e.altNames || [], s = t.altNames || [];
+  return s.includes(r) || i.includes(n) ? !0 : i.filter((a) => s.includes(a)).length > 0;
 }
-class O {
+class S {
   static instance;
   static initializationPromise = null;
   systemLocale;
@@ -525,70 +647,91 @@ class O {
     this.systemLocale = navigator.languages?.[0]?.split("-")[0] || "en";
   }
   /**
-   * Initialize the voice manager
+   * Initialize voice manager
    * @param options Configuration options for voice loading
-   * @param options.maxTime Maximum time in milliseconds to wait for voices to load (passed to getBrowserVoices)
+   * @param options.languages Optional array of preferred language codes to filter voices during initialization
+   * @param options.maxTimeout Maximum time in milliseconds to wait for voices to load (passed to getBrowserVoices)
    * @param options.interval Interval in milliseconds between voice loading checks (passed to getBrowserVoices)
    * @returns Promise that resolves with the WebSpeechVoiceManager instance
    */
-  static async initialize(a, t) {
-    return O.instance?.isInitialized ? O.instance : (O.initializationPromise || (O.initializationPromise = (async () => {
+  static async initialize(t) {
+    return S.instance?.isInitialized ? S.instance : (S.initializationPromise || (S.initializationPromise = (async () => {
       try {
-        const n = new O();
-        return O.instance = n, n.browserVoices = await n.getBrowserVoices(a, t), n.updateSystemLocale(n.browserVoices), n.voices = await n.parseToReadiumSpeechVoices(n.browserVoices), n.isInitialized = !0, n;
-      } catch (n) {
-        throw O.initializationPromise = null, console.error("Failed to initialize WebSpeechVoiceManager:", n), n;
+        const r = new S();
+        S.instance = r, r.browserVoices = await r.getBrowserVoices(t?.maxTimeout, t?.interval), r.updateSystemLocale(r.browserVoices);
+        let n = r.browserVoices;
+        return t?.languages && t.languages.length > 0 && (n = r.filterBrowserVoicesByLanguages(r.browserVoices, t.languages)), r.voices = await r.parseToReadiumSpeechVoices(n), r.isInitialized = !0, r;
+      } catch (r) {
+        throw S.initializationPromise = null, console.error("Failed to initialize WebSpeechVoiceManager:", r), r;
       }
-    })()), O.initializationPromise);
+    })()), S.initializationPromise);
+  }
+  /**
+   * Filter browser voices based on preferred languages
+   * @private
+   */
+  filterBrowserVoicesByLanguages(t, r) {
+    if (!r?.length) return t;
+    const n = new Set(
+      r.map((i) => {
+        const s = P(i), [u] = S.extractLangRegionFromBCP47(s);
+        return u;
+      })
+    );
+    return t.filter((i) => {
+      if (!i?.lang) return !1;
+      const s = P(i.lang), [u] = S.extractLangRegionFromBCP47(s);
+      return n.has(u);
+    });
   }
   /**
    * Extract language and region from BCP47 language tag
    * @param lang - The BCP47 language tag (e.g., "en-US", "zh-CN")
    * @returns A tuple of [language, region] where language is lowercase and region is UPPERCASE
    */
-  static extractLangRegionFromBCP47(a) {
-    return M(a);
+  static extractLangRegionFromBCP47(t) {
+    return F(t);
   }
   /**
    * Get display name for a language code
    * @private
    */
-  static getLanguageDisplayName(a, t) {
+  static getLanguageDisplayName(t, r) {
     try {
       return new Intl.DisplayNames(
-        t ? [t] : [],
+        r ? [r] : [],
         { type: "language", languageDisplay: "standard" }
-      ).of(a) || a.toUpperCase();
+      ).of(t) || t.toUpperCase();
     } catch {
-      return a.toUpperCase();
+      return t.toUpperCase();
     }
   }
   /**
    * Clean voice name by removing specific formatting
    * @private
    */
-  cleanVoiceName(a) {
-    return a ? a.replace(/\s*\([^)]*\)/g, "").replace(/[^\p{L}\p{N}\s-]/gu, "").replace(/\s+/g, " ").trim() : "";
+  cleanVoiceName(t) {
+    return t ? t.replace(/\s*\([^)]*\)/g, "").replace(/[^\p{L}\p{N}\s-]/gu, "").replace(/\s+/g, " ").trim() : "";
   }
   /**
    * Normalize voice name for comparison by removing common variations
    * @private
    */
-  normalizeVoiceName(a) {
-    return this.cleanVoiceName(a.toLowerCase());
+  normalizeVoiceName(t) {
+    return this.cleanVoiceName(t.toLowerCase());
   }
   /**
    * Count occurrences of each voice based on language and normalized name
    * @private
    */
-  countVoiceDuplicates(a) {
-    const t = /* @__PURE__ */ new Map();
-    for (const n of a) {
+  countVoiceDuplicates(t) {
+    const r = /* @__PURE__ */ new Map();
+    for (const n of t) {
       if (!n?.name || !n?.lang) continue;
-      const l = `${n.lang.toLowerCase()}_${this.normalizeVoiceName(n.name)}`;
-      t.set(l, (t.get(l) || 0) + 1);
+      const i = `${n.lang.toLowerCase()}_${this.normalizeVoiceName(n.name)}`;
+      r.set(i, (r.get(i) || 0) + 1);
     }
-    return t;
+    return r;
   }
   /**
    * Updates the system locale based on available voices by detecting quality indicators.
@@ -598,9 +741,9 @@ class O {
    * @param voices - Array of SpeechSynthesisVoice objects to analyze for locale detection
    * @returns void - Updates the systemLocale property if a matching locale is found
    */
-  updateSystemLocale(a) {
-    if (!a?.length) return;
-    const t = a.map((l) => l.name), n = el(t, "apple");
+  updateSystemLocale(t) {
+    if (!t?.length) return;
+    const r = t.map((i) => i.name), n = Vt(r, "apple");
     n && (this.systemLocale = n);
   }
   /**
@@ -608,26 +751,26 @@ class O {
    * Returns null if quality cannot be determined
    * @private
    */
-  inferVoiceQuality(a, t, n) {
-    const l = a.voiceURI ? Ke(a.voiceURI) : void 0;
-    if (l) return l;
-    if (t?.nativeID && Array.isArray(t.nativeID))
-      for (const o of t.nativeID) {
-        const g = Ke(o);
-        if (g) return g;
+  inferVoiceQuality(t, r, n) {
+    const i = t.voiceURI ? Je(t.voiceURI) : void 0;
+    if (i) return i;
+    if (r?.nativeID && Array.isArray(r.nativeID))
+      for (const s of r.nativeID) {
+        const u = Je(s);
+        if (u) return u;
       }
-    if (t?.localizedName && a.voiceURI && a.lang) {
-      const o = Xo(
-        a.voiceURI,
+    if (r?.localizedName && t.voiceURI && t.lang) {
+      const s = Ht(
+        t.voiceURI,
         this.systemLocale,
-        t.localizedName
+        r.localizedName
       );
-      if (o) return o;
+      if (s) return s;
     }
-    if (t?.quality && t.quality.length > 0) {
-      const o = Math.min(n - 1, t.quality.length - 1), g = t.quality[o];
-      if (g)
-        return g;
+    if (r?.quality && r.quality.length > 0) {
+      const s = Math.min(n - 1, r.quality.length - 1), u = r.quality[s];
+      if (u)
+        return u;
     }
     return null;
   }
@@ -635,9 +778,9 @@ class O {
    * Find matching JSON voice by name or alternative names
    * @private
    */
-  findMatchingJsonVoice(a, t) {
-    return a.find(
-      (n) => this.normalizeVoiceName(n.name) === t || n.altNames?.some((l) => this.normalizeVoiceName(l) === t)
+  findMatchingJsonVoice(t, r) {
+    return t.find(
+      (n) => this.normalizeVoiceName(n.name) === r || n.altNames?.some((i) => this.normalizeVoiceName(i) === r)
     );
   }
   /**
@@ -645,35 +788,35 @@ class O {
    * @param voices Array of voices to remove duplicates from
    * @returns Filtered array with duplicates removed, keeping only the highest quality versions
    */
-  removeDuplicates(a) {
-    const t = /* @__PURE__ */ new Map();
-    for (const n of a) {
-      const l = `${n.language.toLowerCase()}_${this.normalizeVoiceName(n.name)}`, o = t.get(l);
-      if (!o)
-        t.set(l, n);
-      else if (rl(n, o)) {
-        const g = nl(n, o);
-        t.set(l, g);
+  removeDuplicates(t) {
+    const r = /* @__PURE__ */ new Map();
+    for (const n of t) {
+      const i = `${n.language.toLowerCase()}_${this.normalizeVoiceName(n.name)}`, s = r.get(i);
+      if (!s)
+        r.set(i, n);
+      else if (Gt(n, s)) {
+        const u = _t(n, s);
+        r.set(i, u);
       } else {
-        const g = O.getQualityValue(o.quality);
-        O.getQualityValue(n.quality) >= g && t.set(l, n);
+        const u = S.getQualityValue(s.quality);
+        S.getQualityValue(n.quality) >= u && r.set(i, n);
       }
     }
-    return Array.from(t.values());
+    return Array.from(r.values());
   }
   /**
    * Get test utterance for a given language
    * @param language - Language code (e.g., "en", "fr", "es")
    * @returns Promise that resolves to the test utterance text
    */
-  getTestUtterance(a) {
-    if (!a) return "";
-    const t = $e(a);
-    if (t) return t;
-    const [n] = O.extractLangRegionFromBCP47(a);
-    if (n && n !== a) {
-      const l = $e(n);
-      if (l) return l;
+  getTestUtterance(t) {
+    if (!t) return "";
+    const r = _e(t);
+    if (r) return r;
+    const [n] = S.extractLangRegionFromBCP47(t);
+    if (n && n !== t) {
+      const i = _e(n);
+      if (i) return i;
     }
     return "";
   }
@@ -681,10 +824,10 @@ class O {
    * Get all voices matching the filter criteria
    * @returns Promise that resolves to an array of filtered voices
    */
-  getVoices(a = {}) {
+  getVoices(t = {}) {
     if (!this.isInitialized)
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
-    return this.filterVoices(a, [...this.voices]);
+    return this.filterVoices(t, [...this.voices]);
   }
   /**
    * Get available languages with voice counts
@@ -692,20 +835,20 @@ class O {
    * @param filterOptions Optional filters to apply to voices before counting languages
    * @param voices Optional array of voices to count (defaults to this.voices)
    */
-  getLanguages(a, t, n) {
+  getLanguages(t, r, n) {
     if (!n && !this.isInitialized)
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
-    const l = n ?? this.voices, o = t ? this.filterVoices(t, l) : l, g = [], r = /* @__PURE__ */ new Set();
-    for (const d of o) {
-      const u = z(d.language).split("-")[0];
-      if (!r.has(u)) {
-        const c = O.getLanguageDisplayName(u, a), m = o.filter(
-          (h) => z(h.language).split("-")[0] === u
+    const i = n ?? this.voices, s = r ? this.filterVoices(r, i) : i, u = [], a = /* @__PURE__ */ new Set();
+    for (const c of s) {
+      const g = P(c.language).split("-")[0];
+      if (!a.has(g)) {
+        const d = S.getLanguageDisplayName(g, t), h = s.filter(
+          (p) => P(p.language).split("-")[0] === g
         ).length;
-        g.push({ code: u, label: c, count: m }), r.add(u);
+        u.push({ code: g, label: d, count: h }), a.add(g);
       }
     }
-    return n ? g : g.sort((d, s) => d.label.localeCompare(s.label));
+    return n ? u : u.sort((c, l) => c.label.localeCompare(l.label));
   }
   /**
    * Get available regions with voice counts
@@ -713,32 +856,32 @@ class O {
    * @param filterOptions Optional filters to apply to voices before counting regions
    * @param voices Optional array of voices to count (defaults to this.voices)
    */
-  getRegions(a, t, n) {
+  getRegions(t, r, n) {
     if (!n && !this.isInitialized)
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
-    const l = n ?? this.voices, o = t ? this.filterVoices(t, l) : l, g = [], r = /* @__PURE__ */ new Set(), d = /* @__PURE__ */ new Map();
-    for (const s of o) {
-      const [, u] = O.extractLangRegionFromBCP47(s.language);
-      u && d.set(u, (d.get(u) || 0) + 1);
+    const i = n ?? this.voices, s = r ? this.filterVoices(r, i) : i, u = [], a = /* @__PURE__ */ new Set(), c = /* @__PURE__ */ new Map();
+    for (const l of s) {
+      const [, g] = S.extractLangRegionFromBCP47(l.language);
+      g && c.set(g, (c.get(g) || 0) + 1);
     }
-    for (const s of o) {
-      const [, u] = O.extractLangRegionFromBCP47(s.language);
-      if (u && !r.has(u)) {
-        let c = s.language;
+    for (const l of s) {
+      const [, g] = S.extractLangRegionFromBCP47(l.language);
+      if (g && !a.has(g)) {
+        let d = l.language;
         try {
-          const m = a || navigator.language;
-          c = new Intl.DisplayNames([m], { type: "region" }).of(u) || s.language;
-        } catch (m) {
-          console.warn(`Failed to get display name for region ${u}`, m);
+          const h = t || navigator.language;
+          d = new Intl.DisplayNames([h], { type: "region" }).of(g) || l.language;
+        } catch (h) {
+          console.warn(`Failed to get display name for region ${g}`, h);
         }
-        g.push({
-          code: u,
-          label: c,
-          count: d.get(u) || 0
-        }), r.add(u);
+        u.push({
+          code: g,
+          label: d,
+          count: c.get(g) || 0
+        }), a.add(g);
       }
     }
-    return n ? g : g.sort((s, u) => s.label.localeCompare(u.label));
+    return n ? u : u.sort((l, g) => l.label.localeCompare(g.label));
   }
   /**
    * Get the default voice for language preferences
@@ -746,146 +889,148 @@ class O {
    * @param voices Optional pre-filtered voices array to use instead of fetching voices
    * @returns The default voice for the language, or null if no voices are available
    */
-  getDefaultVoice(a, t) {
-    if (!a) return null;
-    const n = Array.isArray(a) ? a : [a];
-    let l = t || this.getVoices({ languages: n });
-    return l.length ? (l = this.sortVoicesByRegions(n, l), l[0]) : null;
+  async getDefaultVoice(t, r) {
+    if (!t) return null;
+    const n = Array.isArray(t) ? t : [t];
+    let i = r || this.getVoices({ languages: n });
+    return i.length ? (i = await this.sortVoicesByRegions(n, i), i[0]) : null;
   }
-  getBrowserVoices(a = 1e4, t = 10) {
+  getBrowserVoices(t = 1e4, r = 10) {
     const n = () => window.speechSynthesis?.getVoices() || [];
     if (!window.speechSynthesis)
       return Promise.resolve([]);
-    const l = n();
-    return Array.isArray(l) && l.length ? Promise.resolve(l) : new Promise((o, g) => {
-      let r = Math.floor(a / t), d = !1;
-      const s = () => {
-        if (d) return;
-        d = !0;
-        const u = () => {
-          if (r < 1) return o([]);
-          --r;
-          const c = n();
-          if (Array.isArray(c) && c.length) return o(c);
-          setTimeout(u, t);
+    const i = n();
+    return Array.isArray(i) && i.length ? Promise.resolve(i) : new Promise((s, u) => {
+      let a = Math.floor(t / r), c = !1;
+      const l = () => {
+        if (c) return;
+        c = !0;
+        const g = () => {
+          if (a < 1) return s([]);
+          --a;
+          const d = n();
+          if (Array.isArray(d) && d.length) return s(d);
+          setTimeout(g, r);
         };
-        setTimeout(u, t);
+        setTimeout(g, r);
       };
       window.speechSynthesis.onvoiceschanged !== void 0 ? window.speechSynthesis.onvoiceschanged = () => {
-        const u = n();
-        Array.isArray(u) && u.length ? o(u) : s();
-      } : s(), setTimeout(() => o([]), a);
+        const g = n();
+        Array.isArray(g) && g.length ? s(g) : l();
+      } : l(), setTimeout(() => s([]), t);
     });
   }
   /**
    * Convert SpeechSynthesisVoice array to ReadiumSpeechVoice array
    * @private
    */
-  parseToReadiumSpeechVoices(a) {
-    const t = this.countVoiceDuplicates(a);
-    return a.filter((l) => l?.name && l?.lang).map((l) => {
-      const o = z(l.lang), [g] = O.extractLangRegionFromBCP47(o), r = this.normalizeVoiceName(l.name), d = `${l.lang.toLowerCase()}_${r}`, s = t.get(d) || 1;
-      let u = ge(o);
-      (!u || u.length === 0) && (u = ge(g));
-      const c = this.findMatchingJsonVoice(u, r), m = this.inferVoiceQuality(l, c, s);
-      return c ? {
-        ...c,
-        source: "json",
-        originalName: l.name,
-        voiceURI: l.voiceURI,
-        quality: m,
-        isDefault: l.default || !1,
-        offlineAvailability: l.localService || !1,
-        isNovelty: ke(l.name, l.voiceURI),
-        isLowQuality: qe(l.name, m)
-      } : {
-        source: "browser",
-        label: this.cleanVoiceName(l.name),
-        name: l.name,
-        originalName: l.name,
-        language: o,
-        voiceURI: l.voiceURI,
-        quality: m,
-        isDefault: l.default || !1,
-        offlineAvailability: l.localService || !1,
-        isNovelty: ke(l.name, l.voiceURI),
-        isLowQuality: qe(l.name, m)
-      };
-    });
+  async parseToReadiumSpeechVoices(t) {
+    const r = this.countVoiceDuplicates(t);
+    return await Promise.all(
+      t.filter((i) => i?.name && i?.lang).map(async (i) => {
+        const s = P(i.lang), [u] = S.extractLangRegionFromBCP47(s), a = this.normalizeVoiceName(i.name), c = `${i.lang.toLowerCase()}_${a}`, l = r.get(c) || 1;
+        let g = await Re(s);
+        (!g || g.length === 0) && (g = await Re(u));
+        const d = this.findMatchingJsonVoice(g, a), h = this.inferVoiceQuality(i, d, l);
+        return d ? {
+          ...d,
+          source: "json",
+          originalName: i.name,
+          voiceURI: i.voiceURI,
+          quality: h,
+          isDefault: i.default || !1,
+          offlineAvailability: i.localService || !1,
+          isNovelty: Ce(i.name, i.voiceURI),
+          isLowQuality: Ee(i.name, h)
+        } : {
+          source: "browser",
+          label: this.cleanVoiceName(i.name),
+          name: i.name,
+          originalName: i.name,
+          language: s,
+          voiceURI: i.voiceURI,
+          quality: h,
+          isDefault: i.default || !1,
+          offlineAvailability: i.localService || !1,
+          isNovelty: Ce(i.name, i.voiceURI),
+          isLowQuality: Ee(i.name, h)
+        };
+      })
+    );
   }
   /**
    * Convert an ReadiumSpeechVoice to a native SpeechSynthesisVoice
    */
-  convertToSpeechSynthesisVoice(a) {
-    if (a)
+  convertToSpeechSynthesisVoice(t) {
+    if (t)
       return this.browserVoices.find(
-        (t) => t.voiceURI === a.voiceURI || t.name === a.originalName || this.normalizeVoiceName(t.name) === this.normalizeVoiceName(a.name)
+        (r) => r.voiceURI === t.voiceURI || r.name === t.originalName || this.normalizeVoiceName(r.name) === this.normalizeVoiceName(t.name)
       );
   }
   /**
    * Filter voices based on the provided options
    */
-  filterVoices(a, t) {
-    let n = t ? [...t] : [...this.voices];
-    const l = {
+  filterVoices(t, r) {
+    let n = r ? [...r] : [...this.voices];
+    const i = {
       excludeNovelty: !0,
       // Default to true to filter out novelty voices
       excludeVeryLowQuality: !0,
       // Default to true to filter out very low quality voices
       removeDuplicates: !0,
       // Default to true - remove duplicates by default
-      ...a
+      ...t
       // Let explicit options override the defaults
     };
-    if (l.languages) {
-      const o = Array.isArray(l.languages) ? l.languages : [l.languages];
-      n = n.filter((g) => o.some((r) => {
-        const d = r.toLowerCase(), s = g.language?.toLowerCase(), u = g.altLanguage?.toLowerCase();
-        if (s === d || u === d)
+    if (i.languages) {
+      const s = Array.isArray(i.languages) ? i.languages : [i.languages];
+      n = n.filter((u) => s.some((a) => {
+        const c = a.toLowerCase(), l = u.language?.toLowerCase(), g = u.altLanguage?.toLowerCase();
+        if (l === c || g === c)
           return !0;
-        const [c] = d.split("-");
-        return s && s.startsWith(c) || u && u.startsWith(c);
+        const [d] = c.split("-");
+        return l && l.startsWith(d) || g && g.startsWith(d);
       }));
     }
-    if (l.source && (n = n.filter((o) => o.source === l.source)), l.gender && (n = n.filter((o) => o.gender === l.gender)), l.quality) {
-      const o = Array.isArray(l.quality) ? l.quality : [l.quality];
-      n = n.filter((g) => g.quality && o.includes(g.quality));
+    if (i.source && (n = n.filter((s) => s.source === i.source)), i.gender && (n = n.filter((s) => s.gender === i.gender)), i.quality) {
+      const s = Array.isArray(i.quality) ? i.quality : [i.quality];
+      n = n.filter((u) => u.quality && s.includes(u.quality));
     }
-    return l.offlineOnly && (n = n.filter((o) => o.offlineAvailability === !0)), l.provider && (n = n.filter(
-      (o) => o.provider?.toLowerCase() === l.provider?.toLowerCase()
-    )), l.excludeNovelty && (n = Fe(n)), l.excludeVeryLowQuality && (n = Ve(n)), l.removeDuplicates && (n = this.removeDuplicates(n)), n;
+    return i.offlineOnly && (n = n.filter((s) => s.offlineAvailability === !0)), i.provider && (n = n.filter(
+      (s) => s.provider?.toLowerCase() === i.provider?.toLowerCase()
+    )), i.excludeNovelty && (n = Me(n)), i.excludeVeryLowQuality && (n = We(n)), i.removeDuplicates && (n = this.removeDuplicates(n)), n;
   }
   /**
    * Filter out novelty voices
    * @param voices Array of voices to filter
    * @returns Filtered array with novelty voices removed
    */
-  filterOutNoveltyVoices(a) {
-    const t = a ?? this.voices;
-    return Fe(t);
+  filterOutNoveltyVoices(t) {
+    const r = t ?? this.voices;
+    return Me(r);
   }
   /**
    * Filter out very low quality voices
    * @param voices Array of voices to filter
    * @returns Filtered array with very low quality voices removed
    */
-  filterOutVeryLowQualityVoices(a) {
-    const t = a ?? this.voices;
-    return Ve(t);
+  filterOutVeryLowQualityVoices(t) {
+    const r = t ?? this.voices;
+    return We(r);
   }
   /**
   * Get the numeric value for a quality level
   * @param quality Quality level
   * @returns Numeric value (higher = better quality, 0 for undefined/null)
   */
-  static getQualityValue(a) {
-    return a ? {
+  static getQualityValue(t) {
+    return t ? {
       veryLow: 1,
       low: 2,
       normal: 3,
       high: 4,
       veryHigh: 5
-    }[a] ?? 0 : 0;
+    }[t] ?? 0 : 0;
   }
   /**
    * Sort two voices by quality, using JSON order as fallback for undefined/null quality
@@ -895,73 +1040,71 @@ class O {
    * @param baseLang Base language code to use for looking up the order map
    * @returns Comparison result (-1, 0, or 1)
    */
-  static sortByQuality(a, t, n, l) {
-    const o = O.getQualityValue(a.quality), g = O.getQualityValue(t.quality);
-    if (n && l && a.source === "json" && t.source === "json") {
-      const r = n.get(l);
-      if (r) {
-        const d = r.get(a.name), s = r.get(t.name);
-        if (d !== void 0 && s !== void 0)
-          return d - s;
+  static sortByQuality(t, r, n, i) {
+    const s = S.getQualityValue(t.quality), u = S.getQualityValue(r.quality);
+    if (n && i && t.source === "json" && r.source === "json") {
+      const a = n.get(i);
+      if (a) {
+        const c = a.get(t.name), l = a.get(r.name);
+        if (c !== void 0 && l !== void 0)
+          return c - l;
       }
     }
-    return g !== o ? g - o : a.name.localeCompare(t.name);
+    return u !== s ? u - s : t.name.localeCompare(r.name);
   }
   /**
    * Sort voices by quality, respecting JSON name order, then alphabetically for undefined/null quality
    * @param voices Array of voices to sort
    * @returns Sorted array of voices
    */
-  sortVoicesByQuality(a) {
-    const t = a || this.voices;
-    if (!t?.length) return [];
-    const n = le(t);
-    return [...t].sort((l, o) => O.sortByQuality(l, o, n));
+  async sortVoicesByQuality(t) {
+    const r = t || this.voices;
+    if (!r?.length) return [];
+    const n = await ie(r);
+    return [...r].sort((i, s) => S.sortByQuality(i, s, n));
   }
   /**
   * Group voices by language based on processed preferred languages
   */
-  static groupVoicesByLanguage(a, t) {
-    const n = new Map(t.map((g) => [g.baseLang, g])), l = /* @__PURE__ */ new Map(), o = [];
-    for (const g of a) {
-      const [r] = O.extractLangRegionFromBCP47(g.language);
-      n.get(r) ? (l.has(r) || l.set(r, []), l.get(r).push(g)) : o.push(g);
+  static groupVoicesByLanguage(t, r) {
+    const n = new Map(r.map((u) => [u.baseLang, u])), i = /* @__PURE__ */ new Map(), s = [];
+    for (const u of t) {
+      const [a] = S.extractLangRegionFromBCP47(u.language);
+      n.get(a) ? (i.has(a) || i.set(a, []), i.get(a).push(u)) : s.push(u);
     }
-    return { voicesByLang: l, otherLangVoices: o };
+    return { voicesByLang: i, otherLangVoices: s };
   }
   /**
    * Sort regions by default then alphabetically, sort voices by quality
    */
-  static sortByDefaultRegion(a, t) {
-    const n = le(a), l = se(t);
-    a.sort((o, g) => {
-      const [, r] = O.extractLangRegionFromBCP47(o.language), [, d] = O.extractLangRegionFromBCP47(g.language), s = l && r === l.split("-")[1], u = l && d === l.split("-")[1];
-      return s && !u ? -1 : !s && u ? 1 : O.sortByQuality(o, g, n, t);
+  static async sortByDefaultRegion(t, r) {
+    const n = await ie(t), i = le(r);
+    t.sort((s, u) => {
+      const [, a] = S.extractLangRegionFromBCP47(s.language), [, c] = S.extractLangRegionFromBCP47(u.language), l = i && a === i.split("-")[1], g = i && c === i.split("-")[1];
+      return l && !g ? -1 : !l && g ? 1 : S.sortByQuality(s, u, n, r);
     });
   }
   /**
    * Sort voices alphabetically by language, then region, then quality
    */
-  static sortAlphabetically(a) {
-    a.sort((t, n) => {
-      const [l] = O.extractLangRegionFromBCP47(t.language), [o] = O.extractLangRegionFromBCP47(n.language), g = O.getLanguageDisplayName(l).toLowerCase(), r = O.getLanguageDisplayName(o).toLowerCase(), d = g.localeCompare(r);
-      if (d !== 0)
-        return d;
-      if (l === o) {
-        const s = se(l), [, u] = O.extractLangRegionFromBCP47(t.language), [, c] = O.extractLangRegionFromBCP47(n.language), m = s && u === s.split("-")[1], h = s && c === s.split("-")[1];
-        if (m && !h) return -1;
-        if (!m && h) return 1;
-        if (u && c) {
-          const w = u.localeCompare(c);
-          if (w !== 0)
-            return w;
+  static async sortAlphabetically(t) {
+    const r = await ie(t);
+    t.sort((n, i) => {
+      const [s] = S.extractLangRegionFromBCP47(n.language), [u] = S.extractLangRegionFromBCP47(i.language), a = S.getLanguageDisplayName(s).toLowerCase(), c = S.getLanguageDisplayName(u).toLowerCase(), l = a.localeCompare(c);
+      if (l !== 0)
+        return l;
+      if (s === u) {
+        const g = le(s), [, d] = S.extractLangRegionFromBCP47(n.language), [, h] = S.extractLangRegionFromBCP47(i.language), p = g && d === g.split("-")[1], v = g && h === g.split("-")[1];
+        if (p && !v) return -1;
+        if (!p && v) return 1;
+        if (d && h) {
+          const O = d.localeCompare(h);
+          if (O !== 0)
+            return O;
         }
-        if (u) return -1;
-        if (c) return 1;
-        const S = le(a);
-        return O.sortByQuality(t, n, S, l);
+        return d ? -1 : h ? 1 : S.sortByQuality(n, i, r, s);
       }
-      return d;
+      return l;
     });
   }
   /**
@@ -970,41 +1113,41 @@ class O {
    * @param preferredLanguages Array of preferred language codes in order of preference
    * @returns Sorted array of voices
    */
-  sortVoicesByLanguages(a, t) {
-    const n = t || this.voices;
+  async sortVoicesByLanguages(t, r) {
+    const n = r || this.voices;
     if (!n?.length) return [];
-    if (!a?.length) {
-      const d = [...n];
-      return O.sortAlphabetically(d), d;
+    if (!t?.length) {
+      const c = [...n];
+      return await S.sortAlphabetically(c), c;
     }
-    const l = je(a), { voicesByLang: o, otherLangVoices: g } = O.groupVoicesByLanguage(n, l), r = [];
-    for (const d of l) {
-      const s = o.get(d.baseLang);
-      s && (O.sortByDefaultRegion(s, d.baseLang), r.push(...s));
+    const i = Ge(t), { voicesByLang: s, otherLangVoices: u } = S.groupVoicesByLanguage(n, i), a = [];
+    for (const c of i) {
+      const l = s.get(c.baseLang);
+      l && (await S.sortByDefaultRegion(l, c.baseLang), a.push(...l));
     }
-    return O.sortAlphabetically(g), r.push(...g), r;
+    return await S.sortAlphabetically(u), a.push(...u), a;
   }
   /**
    * Sort languages by region preference, then voices by quality
    */
-  static sortByPreferredRegion(a, t) {
-    const n = le(a);
-    a.sort((l, o) => {
-      const [, g] = O.extractLangRegionFromBCP47(l.language), [, r] = O.extractLangRegionFromBCP47(o.language), d = g && t.regions.includes(g), s = r && t.regions.includes(r);
-      if (d && s) {
-        const S = t.regions.indexOf(g), w = t.regions.indexOf(r);
-        return S === w ? O.sortByQuality(l, o, n, t.baseLang) : S - w;
+  static async sortByPreferredRegion(t, r) {
+    const n = await ie(t);
+    t.sort((i, s) => {
+      const [, u] = S.extractLangRegionFromBCP47(i.language), [, a] = S.extractLangRegionFromBCP47(s.language), c = u && r.regions.includes(u), l = a && r.regions.includes(a);
+      if (c && l) {
+        const v = r.regions.indexOf(u), O = r.regions.indexOf(a);
+        return v === O ? S.sortByQuality(i, s, n, r.baseLang) : v - O;
       }
-      if (d) return -1;
-      if (s) return 1;
-      const u = se(t.baseLang), [, c] = O.extractLangRegionFromBCP47(u), m = g === c, h = r === c;
-      if (m && !h) return -1;
-      if (!m && h) return 1;
-      if (g && r) {
-        const S = g.localeCompare(r);
-        return S !== 0 ? S : O.sortByQuality(l, o, n, t.baseLang);
+      if (c) return -1;
+      if (l) return 1;
+      const g = le(r.baseLang), [, d] = S.extractLangRegionFromBCP47(g), h = u === d, p = a === d;
+      if (h && !p) return -1;
+      if (!h && p) return 1;
+      if (u && a) {
+        const v = u.localeCompare(a);
+        return v !== 0 ? v : S.sortByQuality(i, s, n, r.baseLang);
       }
-      return g ? -1 : r ? 1 : O.sortByQuality(l, o, n, t.baseLang);
+      return u ? -1 : a ? 1 : S.sortByQuality(i, s, n, r.baseLang);
     });
   }
   /**
@@ -1013,15 +1156,15 @@ class O {
    * @param preferredLanguages Array of preferred language codes in order of preference
    * @returns Sorted array of voices
    */
-  sortVoicesByRegions(a, t) {
-    const n = t || this.voices;
+  async sortVoicesByRegions(t, r) {
+    const n = r || this.voices;
     if (!n?.length) return [];
-    const l = je(a || []), { voicesByLang: o, otherLangVoices: g } = O.groupVoicesByLanguage(n, l), r = [];
-    for (const d of l) {
-      const s = o.get(d.baseLang);
-      s && (O.sortByPreferredRegion(s, d), r.push(...s));
+    const i = Ge(t || []), { voicesByLang: s, otherLangVoices: u } = S.groupVoicesByLanguage(n, i), a = [];
+    for (const c of i) {
+      const l = s.get(c.baseLang);
+      l && (await S.sortByPreferredRegion(l, c), a.push(...l));
     }
-    return O.sortAlphabetically(g), r.push(...g), r;
+    return await S.sortAlphabetically(u), a.push(...u), a;
   }
   /**
    * Group voices by the specified criteria
@@ -1029,31 +1172,31 @@ class O {
    * @param options Grouping options
    * @returns Object with voice groups keyed by the grouping criteria
    */
-  groupVoices(a, t) {
-    const n = {}, l = t || this.voices;
-    for (const o of l) {
-      let g = "Unknown";
-      switch (a) {
+  groupVoices(t, r) {
+    const n = {}, i = r || this.voices;
+    for (const s of i) {
+      let u = "Unknown";
+      switch (t) {
         case "languages":
-          g = O.extractLangRegionFromBCP47(o.language)[0];
+          u = S.extractLangRegionFromBCP47(s.language)[0];
           break;
         case "gender":
-          g = o.gender || "unknown";
+          u = s.gender || "unknown";
           break;
         case "quality":
-          g = o.quality || "unknown";
+          u = s.quality || "unknown";
           break;
         case "region":
-          const [, r] = O.extractLangRegionFromBCP47(o.language);
-          g = r || "unknown";
+          const [, a] = S.extractLangRegionFromBCP47(s.language);
+          u = a || "unknown";
           break;
       }
-      n[g] || (n[g] = []), n[g].push(o);
+      n[u] || (n[u] = []), n[u].push(s);
     }
     return n;
   }
 }
-const tl = ["webKit", "moz", "ms", "o"], ol = [
+const Mt = ["webKit", "moz", "ms", "o"], Wt = [
   "boundary",
   "end",
   "error",
@@ -1061,10 +1204,10 @@ const tl = ["webKit", "moz", "ms", "o"], ol = [
   "pause",
   "resume",
   "start"
-], ll = (e) => `${e.charAt(0).toUpperCase()}${e.slice(1)}`, X = (e = {}, a) => Object.hasOwnProperty.call(e, a) || a in e || !!e[a], il = (e) => typeof window < "u" && e in window, sl = (e) => {
-  const a = ll(e), t = tl.map((l) => `${l}${a}`), n = [e, a].concat(t).find(il);
+], Jt = (e) => `${e.charAt(0).toUpperCase()}${e.slice(1)}`, Y = (e = {}, t) => Object.hasOwnProperty.call(e, t) || t in e || !!e[t], Qt = (e) => typeof window < "u" && e in window, Kt = (e) => {
+  const t = Jt(e), r = Mt.map((i) => `${i}${t}`), n = [e, t].concat(r).find(Qt);
   return n && typeof window < "u" ? window[n] : void 0;
-}, gl = () => {
+}, Zt = () => {
   const e = {};
   [
     "speechSynthesis",
@@ -1072,248 +1215,248 @@ const tl = ["webKit", "moz", "ms", "o"], ol = [
     "speechSynthesisVoice",
     "speechSynthesisEvent",
     "speechSynthesisErrorEvent"
-  ].forEach((t) => {
-    e[t] = sl(t);
-  }), e.onvoiceschanged = X(e.speechSynthesis, "onvoiceschanged"), e.speechSynthesisSpeaking = X(e.speechSynthesis, "speaking"), e.speechSynthesisPaused = X(e.speechSynthesis, "paused");
-  const a = e.speechSynthesisUtterance ? X(e.speechSynthesisUtterance, "prototype") : !1;
-  return ol.forEach((t) => {
-    const n = `on${t}`;
-    e[n] = a && e.speechSynthesisUtterance ? X(e.speechSynthesisUtterance.prototype, n) : !1;
+  ].forEach((r) => {
+    e[r] = Kt(r);
+  }), e.onvoiceschanged = Y(e.speechSynthesis, "onvoiceschanged"), e.speechSynthesisSpeaking = Y(e.speechSynthesis, "speaking"), e.speechSynthesisPaused = Y(e.speechSynthesis, "paused");
+  const t = e.speechSynthesisUtterance ? Y(e.speechSynthesisUtterance, "prototype") : !1;
+  return Wt.forEach((r) => {
+    const n = `on${r}`;
+    e[n] = t && e.speechSynthesisUtterance ? Y(e.speechSynthesisUtterance.prototype, n) : !1;
   }), e;
-}, dl = () => {
-  const a = typeof window < "u" && (window.navigator || {}).userAgent || "", t = () => /android/i.test(a), n = () => /kaios/i.test(a), l = () => typeof window.InstallTrigger < "u" ? !0 : /firefox/i.test(a), o = () => typeof window.GestureEvent < "u" || /safari/i.test(a);
+}, Xt = () => {
+  const t = typeof window < "u" && (window.navigator || {}).userAgent || "", r = () => /android/i.test(t), n = () => /kaios/i.test(t), i = () => typeof window.InstallTrigger < "u" ? !0 : /firefox/i.test(t), s = () => typeof window.GestureEvent < "u" || /safari/i.test(t);
   return {
-    isAndroid: t(),
-    isFirefox: l() || n(),
-    isSafari: o(),
+    isAndroid: r(),
+    isFirefox: i() || n(),
+    isSafari: s(),
     isKaiOS: n()
   };
 };
-function cl(e) {
+function Yt(e) {
   return e && e.__esModule && Object.prototype.hasOwnProperty.call(e, "default") ? e.default : e;
 }
-var ye, We;
-function ul() {
-  if (We) return ye;
-  We = 1, ye = a;
+var ye, Qe;
+function er() {
+  if (Qe) return ye;
+  Qe = 1, ye = t;
   function e(n) {
     return n instanceof Buffer ? Buffer.from(n) : new n.constructor(n.buffer.slice(), n.byteOffset, n.length);
   }
-  function a(n) {
-    if (n = n || {}, n.circles) return t(n);
-    const l = /* @__PURE__ */ new Map();
-    if (l.set(Date, (s) => new Date(s)), l.set(Map, (s, u) => new Map(g(Array.from(s), u))), l.set(Set, (s, u) => new Set(g(Array.from(s), u))), n.constructorHandlers)
-      for (const s of n.constructorHandlers)
-        l.set(s[0], s[1]);
-    let o = null;
-    return n.proto ? d : r;
-    function g(s, u) {
-      const c = Object.keys(s), m = new Array(c.length);
-      for (let h = 0; h < c.length; h++) {
-        const S = c[h], w = s[S];
-        typeof w != "object" || w === null ? m[S] = w : w.constructor !== Object && (o = l.get(w.constructor)) ? m[S] = o(w, u) : ArrayBuffer.isView(w) ? m[S] = e(w) : m[S] = u(w);
+  function t(n) {
+    if (n = n || {}, n.circles) return r(n);
+    const i = /* @__PURE__ */ new Map();
+    if (i.set(Date, (l) => new Date(l)), i.set(Map, (l, g) => new Map(u(Array.from(l), g))), i.set(Set, (l, g) => new Set(u(Array.from(l), g))), n.constructorHandlers)
+      for (const l of n.constructorHandlers)
+        i.set(l[0], l[1]);
+    let s = null;
+    return n.proto ? c : a;
+    function u(l, g) {
+      const d = Object.keys(l), h = new Array(d.length);
+      for (let p = 0; p < d.length; p++) {
+        const v = d[p], O = l[v];
+        typeof O != "object" || O === null ? h[v] = O : O.constructor !== Object && (s = i.get(O.constructor)) ? h[v] = s(O, g) : ArrayBuffer.isView(O) ? h[v] = e(O) : h[v] = g(O);
       }
-      return m;
+      return h;
     }
-    function r(s) {
-      if (typeof s != "object" || s === null) return s;
-      if (Array.isArray(s)) return g(s, r);
-      if (s.constructor !== Object && (o = l.get(s.constructor)))
-        return o(s, r);
-      const u = {};
-      for (const c in s) {
-        if (Object.hasOwnProperty.call(s, c) === !1) continue;
-        const m = s[c];
-        typeof m != "object" || m === null ? u[c] = m : m.constructor !== Object && (o = l.get(m.constructor)) ? u[c] = o(m, r) : ArrayBuffer.isView(m) ? u[c] = e(m) : u[c] = r(m);
+    function a(l) {
+      if (typeof l != "object" || l === null) return l;
+      if (Array.isArray(l)) return u(l, a);
+      if (l.constructor !== Object && (s = i.get(l.constructor)))
+        return s(l, a);
+      const g = {};
+      for (const d in l) {
+        if (Object.hasOwnProperty.call(l, d) === !1) continue;
+        const h = l[d];
+        typeof h != "object" || h === null ? g[d] = h : h.constructor !== Object && (s = i.get(h.constructor)) ? g[d] = s(h, a) : ArrayBuffer.isView(h) ? g[d] = e(h) : g[d] = a(h);
       }
-      return u;
+      return g;
     }
-    function d(s) {
-      if (typeof s != "object" || s === null) return s;
-      if (Array.isArray(s)) return g(s, d);
-      if (s.constructor !== Object && (o = l.get(s.constructor)))
-        return o(s, d);
-      const u = {};
-      for (const c in s) {
-        const m = s[c];
-        typeof m != "object" || m === null ? u[c] = m : m.constructor !== Object && (o = l.get(m.constructor)) ? u[c] = o(m, d) : ArrayBuffer.isView(m) ? u[c] = e(m) : u[c] = d(m);
+    function c(l) {
+      if (typeof l != "object" || l === null) return l;
+      if (Array.isArray(l)) return u(l, c);
+      if (l.constructor !== Object && (s = i.get(l.constructor)))
+        return s(l, c);
+      const g = {};
+      for (const d in l) {
+        const h = l[d];
+        typeof h != "object" || h === null ? g[d] = h : h.constructor !== Object && (s = i.get(h.constructor)) ? g[d] = s(h, c) : ArrayBuffer.isView(h) ? g[d] = e(h) : g[d] = c(h);
       }
-      return u;
+      return g;
     }
   }
-  function t(n) {
-    const l = [], o = [], g = /* @__PURE__ */ new Map();
-    if (g.set(Date, (c) => new Date(c)), g.set(Map, (c, m) => new Map(d(Array.from(c), m))), g.set(Set, (c, m) => new Set(d(Array.from(c), m))), n.constructorHandlers)
-      for (const c of n.constructorHandlers)
-        g.set(c[0], c[1]);
-    let r = null;
-    return n.proto ? u : s;
-    function d(c, m) {
-      const h = Object.keys(c), S = new Array(h.length);
-      for (let w = 0; w < h.length; w++) {
-        const q = h[w], k = c[q];
-        if (typeof k != "object" || k === null)
-          S[q] = k;
-        else if (k.constructor !== Object && (r = g.get(k.constructor)))
-          S[q] = r(k, m);
-        else if (ArrayBuffer.isView(k))
-          S[q] = e(k);
+  function r(n) {
+    const i = [], s = [], u = /* @__PURE__ */ new Map();
+    if (u.set(Date, (d) => new Date(d)), u.set(Map, (d, h) => new Map(c(Array.from(d), h))), u.set(Set, (d, h) => new Set(c(Array.from(d), h))), n.constructorHandlers)
+      for (const d of n.constructorHandlers)
+        u.set(d[0], d[1]);
+    let a = null;
+    return n.proto ? g : l;
+    function c(d, h) {
+      const p = Object.keys(d), v = new Array(p.length);
+      for (let O = 0; O < p.length; O++) {
+        const C = p[O], R = d[C];
+        if (typeof R != "object" || R === null)
+          v[C] = R;
+        else if (R.constructor !== Object && (a = u.get(R.constructor)))
+          v[C] = a(R, h);
+        else if (ArrayBuffer.isView(R))
+          v[C] = e(R);
         else {
-          const G = l.indexOf(k);
-          G !== -1 ? S[q] = o[G] : S[q] = m(k);
+          const I = i.indexOf(R);
+          I !== -1 ? v[C] = s[I] : v[C] = h(R);
         }
       }
-      return S;
+      return v;
     }
-    function s(c) {
-      if (typeof c != "object" || c === null) return c;
-      if (Array.isArray(c)) return d(c, s);
-      if (c.constructor !== Object && (r = g.get(c.constructor)))
-        return r(c, s);
-      const m = {};
-      l.push(c), o.push(m);
-      for (const h in c) {
-        if (Object.hasOwnProperty.call(c, h) === !1) continue;
-        const S = c[h];
-        if (typeof S != "object" || S === null)
-          m[h] = S;
-        else if (S.constructor !== Object && (r = g.get(S.constructor)))
-          m[h] = r(S, s);
-        else if (ArrayBuffer.isView(S))
-          m[h] = e(S);
+    function l(d) {
+      if (typeof d != "object" || d === null) return d;
+      if (Array.isArray(d)) return c(d, l);
+      if (d.constructor !== Object && (a = u.get(d.constructor)))
+        return a(d, l);
+      const h = {};
+      i.push(d), s.push(h);
+      for (const p in d) {
+        if (Object.hasOwnProperty.call(d, p) === !1) continue;
+        const v = d[p];
+        if (typeof v != "object" || v === null)
+          h[p] = v;
+        else if (v.constructor !== Object && (a = u.get(v.constructor)))
+          h[p] = a(v, l);
+        else if (ArrayBuffer.isView(v))
+          h[p] = e(v);
         else {
-          const w = l.indexOf(S);
-          w !== -1 ? m[h] = o[w] : m[h] = s(S);
+          const O = i.indexOf(v);
+          O !== -1 ? h[p] = s[O] : h[p] = l(v);
         }
       }
-      return l.pop(), o.pop(), m;
+      return i.pop(), s.pop(), h;
     }
-    function u(c) {
-      if (typeof c != "object" || c === null) return c;
-      if (Array.isArray(c)) return d(c, u);
-      if (c.constructor !== Object && (r = g.get(c.constructor)))
-        return r(c, u);
-      const m = {};
-      l.push(c), o.push(m);
-      for (const h in c) {
-        const S = c[h];
-        if (typeof S != "object" || S === null)
-          m[h] = S;
-        else if (S.constructor !== Object && (r = g.get(S.constructor)))
-          m[h] = r(S, u);
-        else if (ArrayBuffer.isView(S))
-          m[h] = e(S);
+    function g(d) {
+      if (typeof d != "object" || d === null) return d;
+      if (Array.isArray(d)) return c(d, g);
+      if (d.constructor !== Object && (a = u.get(d.constructor)))
+        return a(d, g);
+      const h = {};
+      i.push(d), s.push(h);
+      for (const p in d) {
+        const v = d[p];
+        if (typeof v != "object" || v === null)
+          h[p] = v;
+        else if (v.constructor !== Object && (a = u.get(v.constructor)))
+          h[p] = a(v, g);
+        else if (ArrayBuffer.isView(v))
+          h[p] = e(v);
         else {
-          const w = l.indexOf(S);
-          w !== -1 ? m[h] = o[w] : m[h] = u(S);
+          const O = i.indexOf(v);
+          O !== -1 ? h[p] = s[O] : h[p] = g(v);
         }
       }
-      return l.pop(), o.pop(), m;
+      return i.pop(), s.pop(), h;
     }
   }
   return ye;
 }
-var hl = ul();
-const ua = /* @__PURE__ */ cl(hl);
-ua();
-function Re(e) {
+var tr = er();
+const dt = /* @__PURE__ */ Yt(tr);
+dt();
+function Ne(e) {
   if (e == null || typeof e != "object") return !1;
-  let a = Object.getPrototypeOf(e);
-  return a !== null && a !== Object.prototype && Object.getPrototypeOf(a) !== null ? !1 : !(Symbol.iterator in e) && !(Symbol.toStringTag in e);
+  let t = Object.getPrototypeOf(e);
+  return t !== null && t !== Object.prototype && Object.getPrototypeOf(t) !== null ? !1 : !(Symbol.iterator in e) && !(Symbol.toStringTag in e);
 }
-function V(e) {
+function G(e) {
   return typeof e == "string";
 }
-function ml(e) {
+function rr(e) {
   return Number.isFinite(e);
 }
-function F(e) {
+function _(e) {
   return Number.isSafeInteger(e) && e >= 0;
 }
-function P(e) {
+function B(e) {
   return e != null;
 }
-function pl(e, a) {
-  return Re(e) && V(a) && a in e;
+function nr(e, t) {
+  return Ne(e) && G(t) && t in e;
 }
-var fl = typeof globalThis == "object" && globalThis && globalThis.Object === Object && globalThis, yl = typeof self == "object" && self && self.Object === Object && self, Te = fl || yl || Function("return this")(), W = Te.Symbol, ha = Object.prototype, Sl = ha.hasOwnProperty, bl = ha.toString, ee = W ? W.toStringTag : void 0;
-function Ol(e) {
-  var a = Sl.call(e, ee), t = e[ee];
+var ar = typeof globalThis == "object" && globalThis && globalThis.Object === Object && globalThis, sr = typeof self == "object" && self && self.Object === Object && self, je = ar || sr || Function("return this")(), W = je.Symbol, ht = Object.prototype, ir = ht.hasOwnProperty, or = ht.toString, ee = W ? W.toStringTag : void 0;
+function lr(e) {
+  var t = ir.call(e, ee), r = e[ee];
   try {
     e[ee] = void 0;
     var n = !0;
   } catch {
   }
-  var l = bl.call(e);
-  return n && (a ? e[ee] = t : delete e[ee]), l;
+  var i = or.call(e);
+  return n && (t ? e[ee] = r : delete e[ee]), i;
 }
-var vl = Object.prototype, wl = vl.toString;
-function Nl(e) {
-  return wl.call(e);
+var ur = Object.prototype, cr = ur.toString;
+function gr(e) {
+  return cr.call(e);
 }
-var Al = "[object Null]", Cl = "[object Undefined]", Je = W ? W.toStringTag : void 0;
-function ma(e) {
-  return e == null ? e === void 0 ? Cl : Al : Je && Je in Object(e) ? Ol(e) : Nl(e);
+var pr = "[object Null]", dr = "[object Undefined]", Ke = W ? W.toStringTag : void 0;
+function ft(e) {
+  return e == null ? e === void 0 ? dr : pr : Ke && Ke in Object(e) ? lr(e) : gr(e);
 }
-function pa(e) {
+function mt(e) {
   return e != null && typeof e == "object";
 }
-var kl = "[object Symbol]";
-function ql(e) {
-  return typeof e == "symbol" || pa(e) && ma(e) == kl;
+var hr = "[object Symbol]";
+function fr(e) {
+  return typeof e == "symbol" || mt(e) && ft(e) == hr;
 }
-function xl(e, a) {
-  for (var t = -1, n = e == null ? 0 : e.length, l = Array(n); ++t < n; )
-    l[t] = a(e[t], t, e);
-  return l;
+function mr(e, t) {
+  for (var r = -1, n = e == null ? 0 : e.length, i = Array(n); ++r < n; )
+    i[r] = t(e[r], r, e);
+  return i;
 }
-var Rl = Array.isArray, _e = W ? W.prototype : void 0, Ye = _e ? _e.toString : void 0;
-function Me(e) {
+var yr = Array.isArray, Ze = W ? W.prototype : void 0, Xe = Ze ? Ze.toString : void 0;
+function Pe(e) {
   if (typeof e == "string")
     return e;
-  if (Rl(e))
-    return xl(e, Me) + "";
-  if (ql(e))
-    return Ye ? Ye.call(e) : "";
-  var a = e + "";
-  return a == "0" && 1 / e == -1 / 0 ? "-0" : a;
+  if (yr(e))
+    return mr(e, Pe) + "";
+  if (fr(e))
+    return Xe ? Xe.call(e) : "";
+  var t = e + "";
+  return t == "0" && 1 / e == -1 / 0 ? "-0" : t;
 }
-var El = /\s/;
-function Gl(e) {
-  for (var a = e.length; a-- && El.test(e.charAt(a)); )
+var br = /\s/;
+function vr(e) {
+  for (var t = e.length; t-- && br.test(e.charAt(t)); )
     ;
-  return a;
+  return t;
 }
-var Il = /^\s+/;
-function Tl(e) {
-  return e && e.slice(0, Gl(e) + 1).replace(Il, "");
+var Sr = /^\s+/;
+function wr(e) {
+  return e && e.slice(0, vr(e) + 1).replace(Sr, "");
 }
-function fa(e) {
-  var a = typeof e;
-  return e != null && (a == "object" || a == "function");
+function yt(e) {
+  var t = typeof e;
+  return e != null && (t == "object" || t == "function");
 }
-function ya(e) {
+function bt(e) {
   return e;
 }
-var Ml = "[object AsyncFunction]", Hl = "[object Function]", Dl = "[object GeneratorFunction]", Pl = "[object Proxy]";
-function Sa(e) {
-  if (!fa(e))
+var Or = "[object AsyncFunction]", Ar = "[object Function]", kr = "[object GeneratorFunction]", Tr = "[object Proxy]";
+function vt(e) {
+  if (!yt(e))
     return !1;
-  var a = ma(e);
-  return a == Hl || a == Dl || a == Ml || a == Pl;
+  var t = ft(e);
+  return t == Ar || t == kr || t == Or || t == Tr;
 }
-var Se = Te["__core-js_shared__"], Qe = (function() {
-  var e = /[^.]+$/.exec(Se && Se.keys && Se.keys.IE_PROTO || "");
+var be = je["__core-js_shared__"], Ye = (function() {
+  var e = /[^.]+$/.exec(be && be.keys && be.keys.IE_PROTO || "");
   return e ? "Symbol(src)_1." + e : "";
 })();
-function Ll(e) {
-  return !!Qe && Qe in e;
+function Rr(e) {
+  return !!Ye && Ye in e;
 }
-var Ul = Function.prototype, zl = Ul.toString;
-function Bl(e) {
+var Cr = Function.prototype, Er = Cr.toString;
+function qr(e) {
   if (e != null) {
     try {
-      return zl.call(e);
+      return Er.call(e);
     } catch {
     }
     try {
@@ -1323,348 +1466,348 @@ function Bl(e) {
   }
   return "";
 }
-var $l = /[\\^$.*+?()[\]{}|]/g, jl = /^\[object .+?Constructor\]$/, Fl = Function.prototype, Vl = Object.prototype, Kl = Fl.toString, Wl = Vl.hasOwnProperty, Jl = RegExp(
-  "^" + Kl.call(Wl).replace($l, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$"
+var Nr = /[\\^$.*+?()[\]{}|]/g, Lr = /^\[object .+?Constructor\]$/, Ir = Function.prototype, xr = Object.prototype, jr = Ir.toString, Pr = xr.hasOwnProperty, Ur = RegExp(
+  "^" + jr.call(Pr).replace(Nr, "\\$&").replace(/hasOwnProperty|(function).*?(?=\\\()| for .+?(?=\\\])/g, "$1.*?") + "$"
 );
-function _l(e) {
-  if (!fa(e) || Ll(e))
+function Dr(e) {
+  if (!yt(e) || Rr(e))
     return !1;
-  var a = Sa(e) ? Jl : jl;
-  return a.test(Bl(e));
+  var t = vt(e) ? Ur : Lr;
+  return t.test(qr(e));
 }
-function Yl(e, a) {
-  return e?.[a];
+function Br(e, t) {
+  return e?.[t];
 }
-function He(e, a) {
-  var t = Yl(e, a);
-  return _l(t) ? t : void 0;
+function Ue(e, t) {
+  var r = Br(e, t);
+  return Dr(r) ? r : void 0;
 }
-function Ql(e, a, t) {
-  switch (t.length) {
+function Fr(e, t, r) {
+  switch (r.length) {
     case 0:
-      return e.call(a);
+      return e.call(t);
     case 1:
-      return e.call(a, t[0]);
+      return e.call(t, r[0]);
     case 2:
-      return e.call(a, t[0], t[1]);
+      return e.call(t, r[0], r[1]);
     case 3:
-      return e.call(a, t[0], t[1], t[2]);
+      return e.call(t, r[0], r[1], r[2]);
   }
-  return e.apply(a, t);
+  return e.apply(t, r);
 }
-var Zl = 800, Xl = 16, ei = Date.now;
-function ai(e) {
-  var a = 0, t = 0;
+var $r = 800, Hr = 16, Vr = Date.now;
+function zr(e) {
+  var t = 0, r = 0;
   return function() {
-    var n = ei(), l = Xl - (n - t);
-    if (t = n, l > 0) {
-      if (++a >= Zl)
+    var n = Vr(), i = Hr - (n - r);
+    if (r = n, i > 0) {
+      if (++t >= $r)
         return arguments[0];
     } else
-      a = 0;
+      t = 0;
     return e.apply(void 0, arguments);
   };
 }
-function ni(e) {
+function _r(e) {
   return function() {
     return e;
   };
 }
-var Ze = (function() {
+var et = (function() {
   try {
-    var e = He(Object, "defineProperty");
+    var e = Ue(Object, "defineProperty");
     return e({}, "", {}), e;
   } catch {
   }
-})(), ri = Ze ? function(e, a) {
-  return Ze(e, "toString", {
+})(), Gr = et ? function(e, t) {
+  return et(e, "toString", {
     configurable: !0,
     enumerable: !1,
-    value: ni(a),
+    value: _r(t),
     writable: !0
   });
-} : ya, ti = ai(ri);
-function oi(e, a, t, n) {
-  for (var l = e.length, o = t + -1; ++o < l; )
-    if (a(e[o], o, e))
-      return o;
+} : bt, Mr = zr(Gr);
+function Wr(e, t, r, n) {
+  for (var i = e.length, s = r + -1; ++s < i; )
+    if (t(e[s], s, e))
+      return s;
   return -1;
 }
-function li(e) {
+function Jr(e) {
   return e !== e;
 }
-function ii(e, a, t) {
-  for (var n = t - 1, l = e.length; ++n < l; )
-    if (e[n] === a)
+function Qr(e, t, r) {
+  for (var n = r - 1, i = e.length; ++n < i; )
+    if (e[n] === t)
       return n;
   return -1;
 }
-function De(e, a, t) {
-  return a === a ? ii(e, a, t) : oi(e, li, t);
+function De(e, t, r) {
+  return t === t ? Qr(e, t, r) : Wr(e, Jr, r);
 }
-function si(e, a) {
-  var t = e == null ? 0 : e.length;
-  return !!t && De(e, a, 0) > -1;
+function Kr(e, t) {
+  var r = e == null ? 0 : e.length;
+  return !!r && De(e, t, 0) > -1;
 }
-function gi(e, a) {
-  return e === a || e !== e && a !== a;
+function Zr(e, t) {
+  return e === t || e !== e && t !== t;
 }
-var Xe = Math.max;
-function di(e, a, t) {
-  return a = Xe(a === void 0 ? e.length - 1 : a, 0), function() {
-    for (var n = arguments, l = -1, o = Xe(n.length - a, 0), g = Array(o); ++l < o; )
-      g[l] = n[a + l];
-    l = -1;
-    for (var r = Array(a + 1); ++l < a; )
-      r[l] = n[l];
-    return r[a] = t(g), Ql(e, this, r);
+var tt = Math.max;
+function Xr(e, t, r) {
+  return t = tt(t === void 0 ? e.length - 1 : t, 0), function() {
+    for (var n = arguments, i = -1, s = tt(n.length - t, 0), u = Array(s); ++i < s; )
+      u[i] = n[t + i];
+    i = -1;
+    for (var a = Array(t + 1); ++i < t; )
+      a[i] = n[i];
+    return a[t] = r(u), Fr(e, this, a);
   };
 }
-function ci(e, a) {
-  return ti(di(e, a, ya), e + "");
+function Yr(e, t) {
+  return Mr(Xr(e, t, bt), e + "");
 }
-var ui = 9007199254740991;
-function hi(e) {
-  return typeof e == "number" && e > -1 && e % 1 == 0 && e <= ui;
+var en = 9007199254740991;
+function tn(e) {
+  return typeof e == "number" && e > -1 && e % 1 == 0 && e <= en;
 }
-function mi(e) {
-  return e != null && hi(e.length) && !Sa(e);
+function rn(e) {
+  return e != null && tn(e.length) && !vt(e);
 }
-var re = He(Object, "create");
-function pi() {
-  this.__data__ = re ? re(null) : {}, this.size = 0;
+var ne = Ue(Object, "create");
+function nn() {
+  this.__data__ = ne ? ne(null) : {}, this.size = 0;
 }
-function fi(e) {
-  var a = this.has(e) && delete this.__data__[e];
-  return this.size -= a ? 1 : 0, a;
+function an(e) {
+  var t = this.has(e) && delete this.__data__[e];
+  return this.size -= t ? 1 : 0, t;
 }
-var yi = "__lodash_hash_undefined__", Si = Object.prototype, bi = Si.hasOwnProperty;
-function Oi(e) {
-  var a = this.__data__;
-  if (re) {
-    var t = a[e];
-    return t === yi ? void 0 : t;
-  }
-  return bi.call(a, e) ? a[e] : void 0;
-}
-var vi = Object.prototype, wi = vi.hasOwnProperty;
-function Ni(e) {
-  var a = this.__data__;
-  return re ? a[e] !== void 0 : wi.call(a, e);
-}
-var Ai = "__lodash_hash_undefined__";
-function Ci(e, a) {
+var sn = "__lodash_hash_undefined__", on = Object.prototype, ln = on.hasOwnProperty;
+function un(e) {
   var t = this.__data__;
-  return this.size += this.has(e) ? 0 : 1, t[e] = re && a === void 0 ? Ai : a, this;
+  if (ne) {
+    var r = t[e];
+    return r === sn ? void 0 : r;
+  }
+  return ln.call(t, e) ? t[e] : void 0;
 }
-function B(e) {
-  var a = -1, t = e == null ? 0 : e.length;
-  for (this.clear(); ++a < t; ) {
-    var n = e[a];
+var cn = Object.prototype, gn = cn.hasOwnProperty;
+function pn(e) {
+  var t = this.__data__;
+  return ne ? t[e] !== void 0 : gn.call(t, e);
+}
+var dn = "__lodash_hash_undefined__";
+function hn(e, t) {
+  var r = this.__data__;
+  return this.size += this.has(e) ? 0 : 1, r[e] = ne && t === void 0 ? dn : t, this;
+}
+function H(e) {
+  var t = -1, r = e == null ? 0 : e.length;
+  for (this.clear(); ++t < r; ) {
+    var n = e[t];
     this.set(n[0], n[1]);
   }
 }
-B.prototype.clear = pi;
-B.prototype.delete = fi;
-B.prototype.get = Oi;
-B.prototype.has = Ni;
-B.prototype.set = Ci;
-function ki() {
+H.prototype.clear = nn;
+H.prototype.delete = an;
+H.prototype.get = un;
+H.prototype.has = pn;
+H.prototype.set = hn;
+function fn() {
   this.__data__ = [], this.size = 0;
 }
-function ue(e, a) {
-  for (var t = e.length; t--; )
-    if (gi(e[t][0], a))
-      return t;
+function ge(e, t) {
+  for (var r = e.length; r--; )
+    if (Zr(e[r][0], t))
+      return r;
   return -1;
 }
-var qi = Array.prototype, xi = qi.splice;
-function Ri(e) {
-  var a = this.__data__, t = ue(a, e);
-  if (t < 0)
+var mn = Array.prototype, yn = mn.splice;
+function bn(e) {
+  var t = this.__data__, r = ge(t, e);
+  if (r < 0)
     return !1;
-  var n = a.length - 1;
-  return t == n ? a.pop() : xi.call(a, t, 1), --this.size, !0;
+  var n = t.length - 1;
+  return r == n ? t.pop() : yn.call(t, r, 1), --this.size, !0;
 }
-function Ei(e) {
-  var a = this.__data__, t = ue(a, e);
-  return t < 0 ? void 0 : a[t][1];
+function vn(e) {
+  var t = this.__data__, r = ge(t, e);
+  return r < 0 ? void 0 : t[r][1];
 }
-function Gi(e) {
-  return ue(this.__data__, e) > -1;
+function Sn(e) {
+  return ge(this.__data__, e) > -1;
 }
-function Ii(e, a) {
-  var t = this.__data__, n = ue(t, e);
-  return n < 0 ? (++this.size, t.push([e, a])) : t[n][1] = a, this;
+function wn(e, t) {
+  var r = this.__data__, n = ge(r, e);
+  return n < 0 ? (++this.size, r.push([e, t])) : r[n][1] = t, this;
 }
-function Y(e) {
-  var a = -1, t = e == null ? 0 : e.length;
-  for (this.clear(); ++a < t; ) {
-    var n = e[a];
+function K(e) {
+  var t = -1, r = e == null ? 0 : e.length;
+  for (this.clear(); ++t < r; ) {
+    var n = e[t];
     this.set(n[0], n[1]);
   }
 }
-Y.prototype.clear = ki;
-Y.prototype.delete = Ri;
-Y.prototype.get = Ei;
-Y.prototype.has = Gi;
-Y.prototype.set = Ii;
-var Ti = He(Te, "Map");
-function Mi() {
+K.prototype.clear = fn;
+K.prototype.delete = bn;
+K.prototype.get = vn;
+K.prototype.has = Sn;
+K.prototype.set = wn;
+var On = Ue(je, "Map");
+function An() {
   this.size = 0, this.__data__ = {
-    hash: new B(),
-    map: new (Ti || Y)(),
-    string: new B()
+    hash: new H(),
+    map: new (On || K)(),
+    string: new H()
   };
 }
-function Hi(e) {
-  var a = typeof e;
-  return a == "string" || a == "number" || a == "symbol" || a == "boolean" ? e !== "__proto__" : e === null;
+function kn(e) {
+  var t = typeof e;
+  return t == "string" || t == "number" || t == "symbol" || t == "boolean" ? e !== "__proto__" : e === null;
 }
-function he(e, a) {
-  var t = e.__data__;
-  return Hi(a) ? t[typeof a == "string" ? "string" : "hash"] : t.map;
+function pe(e, t) {
+  var r = e.__data__;
+  return kn(t) ? r[typeof t == "string" ? "string" : "hash"] : r.map;
 }
-function Di(e) {
-  var a = he(this, e).delete(e);
-  return this.size -= a ? 1 : 0, a;
+function Tn(e) {
+  var t = pe(this, e).delete(e);
+  return this.size -= t ? 1 : 0, t;
 }
-function Pi(e) {
-  return he(this, e).get(e);
+function Rn(e) {
+  return pe(this, e).get(e);
 }
-function Li(e) {
-  return he(this, e).has(e);
+function Cn(e) {
+  return pe(this, e).has(e);
 }
-function Ui(e, a) {
-  var t = he(this, e), n = t.size;
-  return t.set(e, a), this.size += t.size == n ? 0 : 1, this;
+function En(e, t) {
+  var r = pe(this, e), n = r.size;
+  return r.set(e, t), this.size += r.size == n ? 0 : 1, this;
 }
-function Q(e) {
-  var a = -1, t = e == null ? 0 : e.length;
-  for (this.clear(); ++a < t; ) {
-    var n = e[a];
+function Z(e) {
+  var t = -1, r = e == null ? 0 : e.length;
+  for (this.clear(); ++t < r; ) {
+    var n = e[t];
     this.set(n[0], n[1]);
   }
 }
-Q.prototype.clear = Mi;
-Q.prototype.delete = Di;
-Q.prototype.get = Pi;
-Q.prototype.has = Li;
-Q.prototype.set = Ui;
-function zi(e) {
-  return e == null ? "" : Me(e);
+Z.prototype.clear = An;
+Z.prototype.delete = Tn;
+Z.prototype.get = Rn;
+Z.prototype.has = Cn;
+Z.prototype.set = En;
+function qn(e) {
+  return e == null ? "" : Pe(e);
 }
-function Bi(e, a, t) {
-  var n = -1, l = e.length;
-  a < 0 && (a = -a > l ? 0 : l + a), t = t > l ? l : t, t < 0 && (t += l), l = a > t ? 0 : t - a >>> 0, a >>>= 0;
-  for (var o = Array(l); ++n < l; )
-    o[n] = e[n + a];
-  return o;
+function Nn(e, t, r) {
+  var n = -1, i = e.length;
+  t < 0 && (t = -t > i ? 0 : i + t), r = r > i ? i : r, r < 0 && (r += i), i = t > r ? 0 : r - t >>> 0, t >>>= 0;
+  for (var s = Array(i); ++n < i; )
+    s[n] = e[n + t];
+  return s;
 }
-function $i(e, a, t) {
+function Ln(e, t, r) {
   var n = e.length;
-  return t = t === void 0 ? n : t, !a && t >= n ? e : Bi(e, a, t);
+  return r = r === void 0 ? n : r, !t && r >= n ? e : Nn(e, t, r);
 }
-var ji = "\\ud800-\\udfff", Fi = "\\u0300-\\u036f", Vi = "\\ufe20-\\ufe2f", Ki = "\\u20d0-\\u20ff", Wi = Fi + Vi + Ki, Ji = "\\ufe0e\\ufe0f", _i = "\\u200d", Yi = RegExp("[" + _i + ji + Wi + Ji + "]");
-function Qi(e) {
-  return Yi.test(e);
+var In = "\\ud800-\\udfff", xn = "\\u0300-\\u036f", jn = "\\ufe20-\\ufe2f", Pn = "\\u20d0-\\u20ff", Un = xn + jn + Pn, Dn = "\\ufe0e\\ufe0f", Bn = "\\u200d", Fn = RegExp("[" + Bn + In + Un + Dn + "]");
+function $n(e) {
+  return Fn.test(e);
 }
-function Zi(e) {
+function Hn(e) {
   return e.split("");
 }
-var ba = "\\ud800-\\udfff", Xi = "\\u0300-\\u036f", es = "\\ufe20-\\ufe2f", as = "\\u20d0-\\u20ff", ns = Xi + es + as, rs = "\\ufe0e\\ufe0f", ts = "[" + ba + "]", Ee = "[" + ns + "]", Ge = "\\ud83c[\\udffb-\\udfff]", os = "(?:" + Ee + "|" + Ge + ")", Oa = "[^" + ba + "]", va = "(?:\\ud83c[\\udde6-\\uddff]){2}", wa = "[\\ud800-\\udbff][\\udc00-\\udfff]", ls = "\\u200d", Na = os + "?", Aa = "[" + rs + "]?", is = "(?:" + ls + "(?:" + [Oa, va, wa].join("|") + ")" + Aa + Na + ")*", ss = Aa + Na + is, gs = "(?:" + [Oa + Ee + "?", Ee, va, wa, ts].join("|") + ")", ds = RegExp(Ge + "(?=" + Ge + ")|" + gs + ss, "g");
-function cs(e) {
-  return e.match(ds) || [];
-}
+var St = "\\ud800-\\udfff", Vn = "\\u0300-\\u036f", zn = "\\ufe20-\\ufe2f", _n = "\\u20d0-\\u20ff", Gn = Vn + zn + _n, Mn = "\\ufe0e\\ufe0f", Wn = "[" + St + "]", Le = "[" + Gn + "]", Ie = "\\ud83c[\\udffb-\\udfff]", Jn = "(?:" + Le + "|" + Ie + ")", wt = "[^" + St + "]", Ot = "(?:\\ud83c[\\udde6-\\uddff]){2}", At = "[\\ud800-\\udbff][\\udc00-\\udfff]", Qn = "\\u200d", kt = Jn + "?", Tt = "[" + Mn + "]?", Kn = "(?:" + Qn + "(?:" + [wt, Ot, At].join("|") + ")" + Tt + kt + ")*", Zn = Tt + kt + Kn, Xn = "(?:" + [wt + Le + "?", Le, Ot, At, Wn].join("|") + ")", Yn = RegExp(Ie + "(?=" + Ie + ")|" + Xn + Zn, "g");
 function ea(e) {
-  return Qi(e) ? cs(e) : Zi(e);
+  return e.match(Yn) || [];
 }
-var us = "__lodash_hash_undefined__";
-function hs(e) {
-  return this.__data__.set(e, us), this;
+function rt(e) {
+  return $n(e) ? ea(e) : Hn(e);
 }
-function ms(e) {
+var ta = "__lodash_hash_undefined__";
+function ra(e) {
+  return this.__data__.set(e, ta), this;
+}
+function na(e) {
   return this.__data__.has(e);
 }
-function de(e) {
-  var a = -1, t = e == null ? 0 : e.length;
-  for (this.__data__ = new Q(); ++a < t; )
-    this.add(e[a]);
+function ue(e) {
+  var t = -1, r = e == null ? 0 : e.length;
+  for (this.__data__ = new Z(); ++t < r; )
+    this.add(e[t]);
 }
-de.prototype.add = de.prototype.push = hs;
-de.prototype.has = ms;
-function ps(e, a) {
-  return e.has(a);
+ue.prototype.add = ue.prototype.push = ra;
+ue.prototype.has = na;
+function aa(e, t) {
+  return e.has(t);
 }
-function fs(e) {
-  return pa(e) && mi(e);
+function sa(e) {
+  return mt(e) && rn(e);
 }
-var ys = 200;
-function Ss(e, a, t, n) {
-  var l = -1, o = si, g = !0, r = e.length, d = [], s = a.length;
-  if (!r)
-    return d;
-  a.length >= ys && (o = ps, g = !1, a = new de(a));
+var ia = 200;
+function oa(e, t, r, n) {
+  var i = -1, s = Kr, u = !0, a = e.length, c = [], l = t.length;
+  if (!a)
+    return c;
+  t.length >= ia && (s = aa, u = !1, t = new ue(t));
   e:
-    for (; ++l < r; ) {
-      var u = e[l], c = u;
-      if (u = u !== 0 ? u : 0, g && c === c) {
-        for (var m = s; m--; )
-          if (a[m] === c)
+    for (; ++i < a; ) {
+      var g = e[i], d = g;
+      if (g = g !== 0 ? g : 0, u && d === d) {
+        for (var h = l; h--; )
+          if (t[h] === d)
             continue e;
-        d.push(u);
-      } else o(a, c, n) || d.push(u);
+        c.push(g);
+      } else s(t, d, n) || c.push(g);
     }
-  return d;
+  return c;
 }
-function bs(e, a) {
-  for (var t = e.length; t-- && De(a, e[t], 0) > -1; )
+function la(e, t) {
+  for (var r = e.length; r-- && De(t, e[r], 0) > -1; )
     ;
-  return t;
+  return r;
 }
-function Os(e, a) {
-  for (var t = -1, n = e.length; ++t < n && De(a, e[t], 0) > -1; )
+function ua(e, t) {
+  for (var r = -1, n = e.length; ++r < n && De(t, e[r], 0) > -1; )
     ;
-  return t;
+  return r;
 }
-function aa(e, a, t) {
-  if (e = zi(e), e && a === void 0)
-    return Tl(e);
-  if (!e || !(a = Me(a)))
+function nt(e, t, r) {
+  if (e = qn(e), e && t === void 0)
+    return wr(e);
+  if (!e || !(t = Pe(t)))
     return e;
-  var n = ea(e), l = ea(a), o = Os(n, l), g = bs(n, l) + 1;
-  return $i(n, o, g).join("");
+  var n = rt(e), i = rt(t), s = ua(n, i), u = la(n, i) + 1;
+  return Ln(n, s, u).join("");
 }
-var vs = ci(function(e, a) {
-  return fs(e) ? Ss(e, a) : [];
-}), K = function() {
-  return K = Object.assign || function(e) {
-    for (var a, t = 1, n = arguments.length; t < n; t++) {
-      a = arguments[t];
-      for (var l in a) Object.prototype.hasOwnProperty.call(a, l) && (e[l] = a[l]);
+var ca = Yr(function(e, t) {
+  return sa(e) ? oa(e, t) : [];
+}), M = function() {
+  return M = Object.assign || function(e) {
+    for (var t, r = 1, n = arguments.length; r < n; r++) {
+      t = arguments[r];
+      for (var i in t) Object.prototype.hasOwnProperty.call(t, i) && (e[i] = t[i]);
     }
     return e;
-  }, K.apply(this, arguments);
-}, ws = "~", Ns = "~~";
-function Pe(e, a) {
-  for (var t = {}, n = {}, l = e.split(Ns), o = !1, g = 0; l.length > g; g++) {
-    for (var r = l[g].split(ws), d = 0; d < r.length; d += 2) {
-      var s = r[d], u = r[d + 1], c = "&" + s + ";";
-      t[c] = u, o && (t["&" + s] = u), n[u] = c;
+  }, M.apply(this, arguments);
+}, ga = "~", pa = "~~";
+function Be(e, t) {
+  for (var r = {}, n = {}, i = e.split(pa), s = !1, u = 0; i.length > u; u++) {
+    for (var a = i[u].split(ga), c = 0; c < a.length; c += 2) {
+      var l = a[c], g = a[c + 1], d = "&" + l + ";";
+      r[d] = g, s && (r["&" + l] = g), n[g] = d;
     }
-    o = !0;
+    s = !0;
   }
-  return a ? { entities: K(K({}, t), a.entities), characters: K(K({}, n), a.characters) } : { entities: t, characters: n };
+  return t ? { entities: M(M({}, r), t.entities), characters: M(M({}, n), t.characters) } : { entities: r, characters: n };
 }
-var be = {
+var ve = {
   xml: /&(?:#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+);?/g,
   html4: /&notin;|&(?:nbsp|iexcl|cent|pound|curren|yen|brvbar|sect|uml|copy|ordf|laquo|not|shy|reg|macr|deg|plusmn|sup2|sup3|acute|micro|para|middot|cedil|sup1|ordm|raquo|frac14|frac12|frac34|iquest|Agrave|Aacute|Acirc|Atilde|Auml|Aring|AElig|Ccedil|Egrave|Eacute|Ecirc|Euml|Igrave|Iacute|Icirc|Iuml|ETH|Ntilde|Ograve|Oacute|Ocirc|Otilde|Ouml|times|Oslash|Ugrave|Uacute|Ucirc|Uuml|Yacute|THORN|szlig|agrave|aacute|acirc|atilde|auml|aring|aelig|ccedil|egrave|eacute|ecirc|euml|igrave|iacute|icirc|iuml|eth|ntilde|ograve|oacute|ocirc|otilde|ouml|divide|oslash|ugrave|uacute|ucirc|uuml|yacute|thorn|yuml|quot|amp|lt|gt|#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+);?/g,
   html5: /&centerdot;|&copysr;|&divideontimes;|&gtcc;|&gtcir;|&gtdot;|&gtlPar;|&gtquest;|&gtrapprox;|&gtrarr;|&gtrdot;|&gtreqless;|&gtreqqless;|&gtrless;|&gtrsim;|&ltcc;|&ltcir;|&ltdot;|&lthree;|&ltimes;|&ltlarr;|&ltquest;|&ltrPar;|&ltri;|&ltrie;|&ltrif;|&notin;|&notinE;|&notindot;|&notinva;|&notinvb;|&notinvc;|&notni;|&notniva;|&notnivb;|&notnivc;|&parallel;|&timesb;|&timesbar;|&timesd;|&(?:AElig|AMP|Aacute|Acirc|Agrave|Aring|Atilde|Auml|COPY|Ccedil|ETH|Eacute|Ecirc|Egrave|Euml|GT|Iacute|Icirc|Igrave|Iuml|LT|Ntilde|Oacute|Ocirc|Ograve|Oslash|Otilde|Ouml|QUOT|REG|THORN|Uacute|Ucirc|Ugrave|Uuml|Yacute|aacute|acirc|acute|aelig|agrave|amp|aring|atilde|auml|brvbar|ccedil|cedil|cent|copy|curren|deg|divide|eacute|ecirc|egrave|eth|euml|frac12|frac14|frac34|gt|iacute|icirc|iexcl|igrave|iquest|iuml|laquo|lt|macr|micro|middot|nbsp|not|ntilde|oacute|ocirc|ograve|ordf|ordm|oslash|otilde|ouml|para|plusmn|pound|quot|raquo|reg|sect|shy|sup1|sup2|sup3|szlig|thorn|times|uacute|ucirc|ugrave|uml|uuml|yacute|yen|yuml|#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+);?/g
 }, J = {};
-J.xml = Pe(`lt~<~gt~>~quot~"~apos~'~amp~&`);
-J.html4 = Pe(`apos~'~OElig~Œ~oelig~œ~Scaron~Š~scaron~š~Yuml~Ÿ~circ~ˆ~tilde~˜~ensp~ ~emsp~ ~thinsp~ ~zwnj~‌~zwj~‍~lrm~‎~rlm~‏~ndash~–~mdash~—~lsquo~‘~rsquo~’~sbquo~‚~ldquo~“~rdquo~”~bdquo~„~dagger~†~Dagger~‡~permil~‰~lsaquo~‹~rsaquo~›~euro~€~fnof~ƒ~Alpha~Α~Beta~Β~Gamma~Γ~Delta~Δ~Epsilon~Ε~Zeta~Ζ~Eta~Η~Theta~Θ~Iota~Ι~Kappa~Κ~Lambda~Λ~Mu~Μ~Nu~Ν~Xi~Ξ~Omicron~Ο~Pi~Π~Rho~Ρ~Sigma~Σ~Tau~Τ~Upsilon~Υ~Phi~Φ~Chi~Χ~Psi~Ψ~Omega~Ω~alpha~α~beta~β~gamma~γ~delta~δ~epsilon~ε~zeta~ζ~eta~η~theta~θ~iota~ι~kappa~κ~lambda~λ~mu~μ~nu~ν~xi~ξ~omicron~ο~pi~π~rho~ρ~sigmaf~ς~sigma~σ~tau~τ~upsilon~υ~phi~φ~chi~χ~psi~ψ~omega~ω~thetasym~ϑ~upsih~ϒ~piv~ϖ~bull~•~hellip~…~prime~′~Prime~″~oline~‾~frasl~⁄~weierp~℘~image~ℑ~real~ℜ~trade~™~alefsym~ℵ~larr~←~uarr~↑~rarr~→~darr~↓~harr~↔~crarr~↵~lArr~⇐~uArr~⇑~rArr~⇒~dArr~⇓~hArr~⇔~forall~∀~part~∂~exist~∃~empty~∅~nabla~∇~isin~∈~notin~∉~ni~∋~prod~∏~sum~∑~minus~−~lowast~∗~radic~√~prop~∝~infin~∞~ang~∠~and~∧~or~∨~cap~∩~cup~∪~int~∫~there4~∴~sim~∼~cong~≅~asymp~≈~ne~≠~equiv~≡~le~≤~ge~≥~sub~⊂~sup~⊃~nsub~⊄~sube~⊆~supe~⊇~oplus~⊕~otimes~⊗~perp~⊥~sdot~⋅~lceil~⌈~rceil~⌉~lfloor~⌊~rfloor~⌋~lang~〈~rang~〉~loz~◊~spades~♠~clubs~♣~hearts~♥~diams~♦~~nbsp~ ~iexcl~¡~cent~¢~pound~£~curren~¤~yen~¥~brvbar~¦~sect~§~uml~¨~copy~©~ordf~ª~laquo~«~not~¬~shy~­~reg~®~macr~¯~deg~°~plusmn~±~sup2~²~sup3~³~acute~´~micro~µ~para~¶~middot~·~cedil~¸~sup1~¹~ordm~º~raquo~»~frac14~¼~frac12~½~frac34~¾~iquest~¿~Agrave~À~Aacute~Á~Acirc~Â~Atilde~Ã~Auml~Ä~Aring~Å~AElig~Æ~Ccedil~Ç~Egrave~È~Eacute~É~Ecirc~Ê~Euml~Ë~Igrave~Ì~Iacute~Í~Icirc~Î~Iuml~Ï~ETH~Ð~Ntilde~Ñ~Ograve~Ò~Oacute~Ó~Ocirc~Ô~Otilde~Õ~Ouml~Ö~times~×~Oslash~Ø~Ugrave~Ù~Uacute~Ú~Ucirc~Û~Uuml~Ü~Yacute~Ý~THORN~Þ~szlig~ß~agrave~à~aacute~á~acirc~â~atilde~ã~auml~ä~aring~å~aelig~æ~ccedil~ç~egrave~è~eacute~é~ecirc~ê~euml~ë~igrave~ì~iacute~í~icirc~î~iuml~ï~eth~ð~ntilde~ñ~ograve~ò~oacute~ó~ocirc~ô~otilde~õ~ouml~ö~divide~÷~oslash~ø~ugrave~ù~uacute~ú~ucirc~û~uuml~ü~yacute~ý~thorn~þ~yuml~ÿ~quot~"~amp~&~lt~<~gt~>`);
-J.html5 = Pe('Abreve~Ă~Acy~А~Afr~𝔄~Amacr~Ā~And~⩓~Aogon~Ą~Aopf~𝔸~ApplyFunction~⁡~Ascr~𝒜~Assign~≔~Backslash~∖~Barv~⫧~Barwed~⌆~Bcy~Б~Because~∵~Bernoullis~ℬ~Bfr~𝔅~Bopf~𝔹~Breve~˘~Bscr~ℬ~Bumpeq~≎~CHcy~Ч~Cacute~Ć~Cap~⋒~CapitalDifferentialD~ⅅ~Cayleys~ℭ~Ccaron~Č~Ccirc~Ĉ~Cconint~∰~Cdot~Ċ~Cedilla~¸~CenterDot~·~Cfr~ℭ~CircleDot~⊙~CircleMinus~⊖~CirclePlus~⊕~CircleTimes~⊗~ClockwiseContourIntegral~∲~CloseCurlyDoubleQuote~”~CloseCurlyQuote~’~Colon~∷~Colone~⩴~Congruent~≡~Conint~∯~ContourIntegral~∮~Copf~ℂ~Coproduct~∐~CounterClockwiseContourIntegral~∳~Cross~⨯~Cscr~𝒞~Cup~⋓~CupCap~≍~DD~ⅅ~DDotrahd~⤑~DJcy~Ђ~DScy~Ѕ~DZcy~Џ~Darr~↡~Dashv~⫤~Dcaron~Ď~Dcy~Д~Del~∇~Dfr~𝔇~DiacriticalAcute~´~DiacriticalDot~˙~DiacriticalDoubleAcute~˝~DiacriticalGrave~`~DiacriticalTilde~˜~Diamond~⋄~DifferentialD~ⅆ~Dopf~𝔻~Dot~¨~DotDot~⃜~DotEqual~≐~DoubleContourIntegral~∯~DoubleDot~¨~DoubleDownArrow~⇓~DoubleLeftArrow~⇐~DoubleLeftRightArrow~⇔~DoubleLeftTee~⫤~DoubleLongLeftArrow~⟸~DoubleLongLeftRightArrow~⟺~DoubleLongRightArrow~⟹~DoubleRightArrow~⇒~DoubleRightTee~⊨~DoubleUpArrow~⇑~DoubleUpDownArrow~⇕~DoubleVerticalBar~∥~DownArrow~↓~DownArrowBar~⤓~DownArrowUpArrow~⇵~DownBreve~̑~DownLeftRightVector~⥐~DownLeftTeeVector~⥞~DownLeftVector~↽~DownLeftVectorBar~⥖~DownRightTeeVector~⥟~DownRightVector~⇁~DownRightVectorBar~⥗~DownTee~⊤~DownTeeArrow~↧~Downarrow~⇓~Dscr~𝒟~Dstrok~Đ~ENG~Ŋ~Ecaron~Ě~Ecy~Э~Edot~Ė~Efr~𝔈~Element~∈~Emacr~Ē~EmptySmallSquare~◻~EmptyVerySmallSquare~▫~Eogon~Ę~Eopf~𝔼~Equal~⩵~EqualTilde~≂~Equilibrium~⇌~Escr~ℰ~Esim~⩳~Exists~∃~ExponentialE~ⅇ~Fcy~Ф~Ffr~𝔉~FilledSmallSquare~◼~FilledVerySmallSquare~▪~Fopf~𝔽~ForAll~∀~Fouriertrf~ℱ~Fscr~ℱ~GJcy~Ѓ~Gammad~Ϝ~Gbreve~Ğ~Gcedil~Ģ~Gcirc~Ĝ~Gcy~Г~Gdot~Ġ~Gfr~𝔊~Gg~⋙~Gopf~𝔾~GreaterEqual~≥~GreaterEqualLess~⋛~GreaterFullEqual~≧~GreaterGreater~⪢~GreaterLess~≷~GreaterSlantEqual~⩾~GreaterTilde~≳~Gscr~𝒢~Gt~≫~HARDcy~Ъ~Hacek~ˇ~Hat~^~Hcirc~Ĥ~Hfr~ℌ~HilbertSpace~ℋ~Hopf~ℍ~HorizontalLine~─~Hscr~ℋ~Hstrok~Ħ~HumpDownHump~≎~HumpEqual~≏~IEcy~Е~IJlig~Ĳ~IOcy~Ё~Icy~И~Idot~İ~Ifr~ℑ~Im~ℑ~Imacr~Ī~ImaginaryI~ⅈ~Implies~⇒~Int~∬~Integral~∫~Intersection~⋂~InvisibleComma~⁣~InvisibleTimes~⁢~Iogon~Į~Iopf~𝕀~Iscr~ℐ~Itilde~Ĩ~Iukcy~І~Jcirc~Ĵ~Jcy~Й~Jfr~𝔍~Jopf~𝕁~Jscr~𝒥~Jsercy~Ј~Jukcy~Є~KHcy~Х~KJcy~Ќ~Kcedil~Ķ~Kcy~К~Kfr~𝔎~Kopf~𝕂~Kscr~𝒦~LJcy~Љ~Lacute~Ĺ~Lang~⟪~Laplacetrf~ℒ~Larr~↞~Lcaron~Ľ~Lcedil~Ļ~Lcy~Л~LeftAngleBracket~⟨~LeftArrow~←~LeftArrowBar~⇤~LeftArrowRightArrow~⇆~LeftCeiling~⌈~LeftDoubleBracket~⟦~LeftDownTeeVector~⥡~LeftDownVector~⇃~LeftDownVectorBar~⥙~LeftFloor~⌊~LeftRightArrow~↔~LeftRightVector~⥎~LeftTee~⊣~LeftTeeArrow~↤~LeftTeeVector~⥚~LeftTriangle~⊲~LeftTriangleBar~⧏~LeftTriangleEqual~⊴~LeftUpDownVector~⥑~LeftUpTeeVector~⥠~LeftUpVector~↿~LeftUpVectorBar~⥘~LeftVector~↼~LeftVectorBar~⥒~Leftarrow~⇐~Leftrightarrow~⇔~LessEqualGreater~⋚~LessFullEqual~≦~LessGreater~≶~LessLess~⪡~LessSlantEqual~⩽~LessTilde~≲~Lfr~𝔏~Ll~⋘~Lleftarrow~⇚~Lmidot~Ŀ~LongLeftArrow~⟵~LongLeftRightArrow~⟷~LongRightArrow~⟶~Longleftarrow~⟸~Longleftrightarrow~⟺~Longrightarrow~⟹~Lopf~𝕃~LowerLeftArrow~↙~LowerRightArrow~↘~Lscr~ℒ~Lsh~↰~Lstrok~Ł~Lt~≪~Map~⤅~Mcy~М~MediumSpace~ ~Mellintrf~ℳ~Mfr~𝔐~MinusPlus~∓~Mopf~𝕄~Mscr~ℳ~NJcy~Њ~Nacute~Ń~Ncaron~Ň~Ncedil~Ņ~Ncy~Н~NegativeMediumSpace~​~NegativeThickSpace~​~NegativeThinSpace~​~NegativeVeryThinSpace~​~NestedGreaterGreater~≫~NestedLessLess~≪~NewLine~\n~Nfr~𝔑~NoBreak~⁠~NonBreakingSpace~ ~Nopf~ℕ~Not~⫬~NotCongruent~≢~NotCupCap~≭~NotDoubleVerticalBar~∦~NotElement~∉~NotEqual~≠~NotEqualTilde~≂̸~NotExists~∄~NotGreater~≯~NotGreaterEqual~≱~NotGreaterFullEqual~≧̸~NotGreaterGreater~≫̸~NotGreaterLess~≹~NotGreaterSlantEqual~⩾̸~NotGreaterTilde~≵~NotHumpDownHump~≎̸~NotHumpEqual~≏̸~NotLeftTriangle~⋪~NotLeftTriangleBar~⧏̸~NotLeftTriangleEqual~⋬~NotLess~≮~NotLessEqual~≰~NotLessGreater~≸~NotLessLess~≪̸~NotLessSlantEqual~⩽̸~NotLessTilde~≴~NotNestedGreaterGreater~⪢̸~NotNestedLessLess~⪡̸~NotPrecedes~⊀~NotPrecedesEqual~⪯̸~NotPrecedesSlantEqual~⋠~NotReverseElement~∌~NotRightTriangle~⋫~NotRightTriangleBar~⧐̸~NotRightTriangleEqual~⋭~NotSquareSubset~⊏̸~NotSquareSubsetEqual~⋢~NotSquareSuperset~⊐̸~NotSquareSupersetEqual~⋣~NotSubset~⊂⃒~NotSubsetEqual~⊈~NotSucceeds~⊁~NotSucceedsEqual~⪰̸~NotSucceedsSlantEqual~⋡~NotSucceedsTilde~≿̸~NotSuperset~⊃⃒~NotSupersetEqual~⊉~NotTilde~≁~NotTildeEqual~≄~NotTildeFullEqual~≇~NotTildeTilde~≉~NotVerticalBar~∤~Nscr~𝒩~Ocy~О~Odblac~Ő~Ofr~𝔒~Omacr~Ō~Oopf~𝕆~OpenCurlyDoubleQuote~“~OpenCurlyQuote~‘~Or~⩔~Oscr~𝒪~Otimes~⨷~OverBar~‾~OverBrace~⏞~OverBracket~⎴~OverParenthesis~⏜~PartialD~∂~Pcy~П~Pfr~𝔓~PlusMinus~±~Poincareplane~ℌ~Popf~ℙ~Pr~⪻~Precedes~≺~PrecedesEqual~⪯~PrecedesSlantEqual~≼~PrecedesTilde~≾~Product~∏~Proportion~∷~Proportional~∝~Pscr~𝒫~Qfr~𝔔~Qopf~ℚ~Qscr~𝒬~RBarr~⤐~Racute~Ŕ~Rang~⟫~Rarr~↠~Rarrtl~⤖~Rcaron~Ř~Rcedil~Ŗ~Rcy~Р~Re~ℜ~ReverseElement~∋~ReverseEquilibrium~⇋~ReverseUpEquilibrium~⥯~Rfr~ℜ~RightAngleBracket~⟩~RightArrow~→~RightArrowBar~⇥~RightArrowLeftArrow~⇄~RightCeiling~⌉~RightDoubleBracket~⟧~RightDownTeeVector~⥝~RightDownVector~⇂~RightDownVectorBar~⥕~RightFloor~⌋~RightTee~⊢~RightTeeArrow~↦~RightTeeVector~⥛~RightTriangle~⊳~RightTriangleBar~⧐~RightTriangleEqual~⊵~RightUpDownVector~⥏~RightUpTeeVector~⥜~RightUpVector~↾~RightUpVectorBar~⥔~RightVector~⇀~RightVectorBar~⥓~Rightarrow~⇒~Ropf~ℝ~RoundImplies~⥰~Rrightarrow~⇛~Rscr~ℛ~Rsh~↱~RuleDelayed~⧴~SHCHcy~Щ~SHcy~Ш~SOFTcy~Ь~Sacute~Ś~Sc~⪼~Scedil~Ş~Scirc~Ŝ~Scy~С~Sfr~𝔖~ShortDownArrow~↓~ShortLeftArrow~←~ShortRightArrow~→~ShortUpArrow~↑~SmallCircle~∘~Sopf~𝕊~Sqrt~√~Square~□~SquareIntersection~⊓~SquareSubset~⊏~SquareSubsetEqual~⊑~SquareSuperset~⊐~SquareSupersetEqual~⊒~SquareUnion~⊔~Sscr~𝒮~Star~⋆~Sub~⋐~Subset~⋐~SubsetEqual~⊆~Succeeds~≻~SucceedsEqual~⪰~SucceedsSlantEqual~≽~SucceedsTilde~≿~SuchThat~∋~Sum~∑~Sup~⋑~Superset~⊃~SupersetEqual~⊇~Supset~⋑~TRADE~™~TSHcy~Ћ~TScy~Ц~Tab~	~Tcaron~Ť~Tcedil~Ţ~Tcy~Т~Tfr~𝔗~Therefore~∴~ThickSpace~  ~ThinSpace~ ~Tilde~∼~TildeEqual~≃~TildeFullEqual~≅~TildeTilde~≈~Topf~𝕋~TripleDot~⃛~Tscr~𝒯~Tstrok~Ŧ~Uarr~↟~Uarrocir~⥉~Ubrcy~Ў~Ubreve~Ŭ~Ucy~У~Udblac~Ű~Ufr~𝔘~Umacr~Ū~UnderBar~_~UnderBrace~⏟~UnderBracket~⎵~UnderParenthesis~⏝~Union~⋃~UnionPlus~⊎~Uogon~Ų~Uopf~𝕌~UpArrow~↑~UpArrowBar~⤒~UpArrowDownArrow~⇅~UpDownArrow~↕~UpEquilibrium~⥮~UpTee~⊥~UpTeeArrow~↥~Uparrow~⇑~Updownarrow~⇕~UpperLeftArrow~↖~UpperRightArrow~↗~Upsi~ϒ~Uring~Ů~Uscr~𝒰~Utilde~Ũ~VDash~⊫~Vbar~⫫~Vcy~В~Vdash~⊩~Vdashl~⫦~Vee~⋁~Verbar~‖~Vert~‖~VerticalBar~∣~VerticalLine~|~VerticalSeparator~❘~VerticalTilde~≀~VeryThinSpace~ ~Vfr~𝔙~Vopf~𝕍~Vscr~𝒱~Vvdash~⊪~Wcirc~Ŵ~Wedge~⋀~Wfr~𝔚~Wopf~𝕎~Wscr~𝒲~Xfr~𝔛~Xopf~𝕏~Xscr~𝒳~YAcy~Я~YIcy~Ї~YUcy~Ю~Ycirc~Ŷ~Ycy~Ы~Yfr~𝔜~Yopf~𝕐~Yscr~𝒴~ZHcy~Ж~Zacute~Ź~Zcaron~Ž~Zcy~З~Zdot~Ż~ZeroWidthSpace~​~Zfr~ℨ~Zopf~ℤ~Zscr~𝒵~abreve~ă~ac~∾~acE~∾̳~acd~∿~acy~а~af~⁡~afr~𝔞~aleph~ℵ~amacr~ā~amalg~⨿~andand~⩕~andd~⩜~andslope~⩘~andv~⩚~ange~⦤~angle~∠~angmsd~∡~angmsdaa~⦨~angmsdab~⦩~angmsdac~⦪~angmsdad~⦫~angmsdae~⦬~angmsdaf~⦭~angmsdag~⦮~angmsdah~⦯~angrt~∟~angrtvb~⊾~angrtvbd~⦝~angsph~∢~angst~Å~angzarr~⍼~aogon~ą~aopf~𝕒~ap~≈~apE~⩰~apacir~⩯~ape~≊~apid~≋~approx~≈~approxeq~≊~ascr~𝒶~ast~*~asympeq~≍~awconint~∳~awint~⨑~bNot~⫭~backcong~≌~backepsilon~϶~backprime~‵~backsim~∽~backsimeq~⋍~barvee~⊽~barwed~⌅~barwedge~⌅~bbrk~⎵~bbrktbrk~⎶~bcong~≌~bcy~б~becaus~∵~because~∵~bemptyv~⦰~bepsi~϶~bernou~ℬ~beth~ℶ~between~≬~bfr~𝔟~bigcap~⋂~bigcirc~◯~bigcup~⋃~bigodot~⨀~bigoplus~⨁~bigotimes~⨂~bigsqcup~⨆~bigstar~★~bigtriangledown~▽~bigtriangleup~△~biguplus~⨄~bigvee~⋁~bigwedge~⋀~bkarow~⤍~blacklozenge~⧫~blacksquare~▪~blacktriangle~▴~blacktriangledown~▾~blacktriangleleft~◂~blacktriangleright~▸~blank~␣~blk12~▒~blk14~░~blk34~▓~block~█~bne~=⃥~bnequiv~≡⃥~bnot~⌐~bopf~𝕓~bot~⊥~bottom~⊥~bowtie~⋈~boxDL~╗~boxDR~╔~boxDl~╖~boxDr~╓~boxH~═~boxHD~╦~boxHU~╩~boxHd~╤~boxHu~╧~boxUL~╝~boxUR~╚~boxUl~╜~boxUr~╙~boxV~║~boxVH~╬~boxVL~╣~boxVR~╠~boxVh~╫~boxVl~╢~boxVr~╟~boxbox~⧉~boxdL~╕~boxdR~╒~boxdl~┐~boxdr~┌~boxh~─~boxhD~╥~boxhU~╨~boxhd~┬~boxhu~┴~boxminus~⊟~boxplus~⊞~boxtimes~⊠~boxuL~╛~boxuR~╘~boxul~┘~boxur~└~boxv~│~boxvH~╪~boxvL~╡~boxvR~╞~boxvh~┼~boxvl~┤~boxvr~├~bprime~‵~breve~˘~bscr~𝒷~bsemi~⁏~bsim~∽~bsime~⋍~bsol~\\~bsolb~⧅~bsolhsub~⟈~bullet~•~bump~≎~bumpE~⪮~bumpe~≏~bumpeq~≏~cacute~ć~capand~⩄~capbrcup~⩉~capcap~⩋~capcup~⩇~capdot~⩀~caps~∩︀~caret~⁁~caron~ˇ~ccaps~⩍~ccaron~č~ccirc~ĉ~ccups~⩌~ccupssm~⩐~cdot~ċ~cemptyv~⦲~centerdot~·~cfr~𝔠~chcy~ч~check~✓~checkmark~✓~cir~○~cirE~⧃~circeq~≗~circlearrowleft~↺~circlearrowright~↻~circledR~®~circledS~Ⓢ~circledast~⊛~circledcirc~⊚~circleddash~⊝~cire~≗~cirfnint~⨐~cirmid~⫯~cirscir~⧂~clubsuit~♣~colon~:~colone~≔~coloneq~≔~comma~,~commat~@~comp~∁~compfn~∘~complement~∁~complexes~ℂ~congdot~⩭~conint~∮~copf~𝕔~coprod~∐~copysr~℗~cross~✗~cscr~𝒸~csub~⫏~csube~⫑~csup~⫐~csupe~⫒~ctdot~⋯~cudarrl~⤸~cudarrr~⤵~cuepr~⋞~cuesc~⋟~cularr~↶~cularrp~⤽~cupbrcap~⩈~cupcap~⩆~cupcup~⩊~cupdot~⊍~cupor~⩅~cups~∪︀~curarr~↷~curarrm~⤼~curlyeqprec~⋞~curlyeqsucc~⋟~curlyvee~⋎~curlywedge~⋏~curvearrowleft~↶~curvearrowright~↷~cuvee~⋎~cuwed~⋏~cwconint~∲~cwint~∱~cylcty~⌭~dHar~⥥~daleth~ℸ~dash~‐~dashv~⊣~dbkarow~⤏~dblac~˝~dcaron~ď~dcy~д~dd~ⅆ~ddagger~‡~ddarr~⇊~ddotseq~⩷~demptyv~⦱~dfisht~⥿~dfr~𝔡~dharl~⇃~dharr~⇂~diam~⋄~diamond~⋄~diamondsuit~♦~die~¨~digamma~ϝ~disin~⋲~div~÷~divideontimes~⋇~divonx~⋇~djcy~ђ~dlcorn~⌞~dlcrop~⌍~dollar~$~dopf~𝕕~dot~˙~doteq~≐~doteqdot~≑~dotminus~∸~dotplus~∔~dotsquare~⊡~doublebarwedge~⌆~downarrow~↓~downdownarrows~⇊~downharpoonleft~⇃~downharpoonright~⇂~drbkarow~⤐~drcorn~⌟~drcrop~⌌~dscr~𝒹~dscy~ѕ~dsol~⧶~dstrok~đ~dtdot~⋱~dtri~▿~dtrif~▾~duarr~⇵~duhar~⥯~dwangle~⦦~dzcy~џ~dzigrarr~⟿~eDDot~⩷~eDot~≑~easter~⩮~ecaron~ě~ecir~≖~ecolon~≕~ecy~э~edot~ė~ee~ⅇ~efDot~≒~efr~𝔢~eg~⪚~egs~⪖~egsdot~⪘~el~⪙~elinters~⏧~ell~ℓ~els~⪕~elsdot~⪗~emacr~ē~emptyset~∅~emptyv~∅~emsp13~ ~emsp14~ ~eng~ŋ~eogon~ę~eopf~𝕖~epar~⋕~eparsl~⧣~eplus~⩱~epsi~ε~epsiv~ϵ~eqcirc~≖~eqcolon~≕~eqsim~≂~eqslantgtr~⪖~eqslantless~⪕~equals~=~equest~≟~equivDD~⩸~eqvparsl~⧥~erDot~≓~erarr~⥱~escr~ℯ~esdot~≐~esim~≂~excl~!~expectation~ℰ~exponentiale~ⅇ~fallingdotseq~≒~fcy~ф~female~♀~ffilig~ﬃ~fflig~ﬀ~ffllig~ﬄ~ffr~𝔣~filig~ﬁ~fjlig~fj~flat~♭~fllig~ﬂ~fltns~▱~fopf~𝕗~fork~⋔~forkv~⫙~fpartint~⨍~frac13~⅓~frac15~⅕~frac16~⅙~frac18~⅛~frac23~⅔~frac25~⅖~frac35~⅗~frac38~⅜~frac45~⅘~frac56~⅚~frac58~⅝~frac78~⅞~frown~⌢~fscr~𝒻~gE~≧~gEl~⪌~gacute~ǵ~gammad~ϝ~gap~⪆~gbreve~ğ~gcirc~ĝ~gcy~г~gdot~ġ~gel~⋛~geq~≥~geqq~≧~geqslant~⩾~ges~⩾~gescc~⪩~gesdot~⪀~gesdoto~⪂~gesdotol~⪄~gesl~⋛︀~gesles~⪔~gfr~𝔤~gg~≫~ggg~⋙~gimel~ℷ~gjcy~ѓ~gl~≷~glE~⪒~gla~⪥~glj~⪤~gnE~≩~gnap~⪊~gnapprox~⪊~gne~⪈~gneq~⪈~gneqq~≩~gnsim~⋧~gopf~𝕘~grave~`~gscr~ℊ~gsim~≳~gsime~⪎~gsiml~⪐~gtcc~⪧~gtcir~⩺~gtdot~⋗~gtlPar~⦕~gtquest~⩼~gtrapprox~⪆~gtrarr~⥸~gtrdot~⋗~gtreqless~⋛~gtreqqless~⪌~gtrless~≷~gtrsim~≳~gvertneqq~≩︀~gvnE~≩︀~hairsp~ ~half~½~hamilt~ℋ~hardcy~ъ~harrcir~⥈~harrw~↭~hbar~ℏ~hcirc~ĥ~heartsuit~♥~hercon~⊹~hfr~𝔥~hksearow~⤥~hkswarow~⤦~hoarr~⇿~homtht~∻~hookleftarrow~↩~hookrightarrow~↪~hopf~𝕙~horbar~―~hscr~𝒽~hslash~ℏ~hstrok~ħ~hybull~⁃~hyphen~‐~ic~⁣~icy~и~iecy~е~iff~⇔~ifr~𝔦~ii~ⅈ~iiiint~⨌~iiint~∭~iinfin~⧜~iiota~℩~ijlig~ĳ~imacr~ī~imagline~ℐ~imagpart~ℑ~imath~ı~imof~⊷~imped~Ƶ~in~∈~incare~℅~infintie~⧝~inodot~ı~intcal~⊺~integers~ℤ~intercal~⊺~intlarhk~⨗~intprod~⨼~iocy~ё~iogon~į~iopf~𝕚~iprod~⨼~iscr~𝒾~isinE~⋹~isindot~⋵~isins~⋴~isinsv~⋳~isinv~∈~it~⁢~itilde~ĩ~iukcy~і~jcirc~ĵ~jcy~й~jfr~𝔧~jmath~ȷ~jopf~𝕛~jscr~𝒿~jsercy~ј~jukcy~є~kappav~ϰ~kcedil~ķ~kcy~к~kfr~𝔨~kgreen~ĸ~khcy~х~kjcy~ќ~kopf~𝕜~kscr~𝓀~lAarr~⇚~lAtail~⤛~lBarr~⤎~lE~≦~lEg~⪋~lHar~⥢~lacute~ĺ~laemptyv~⦴~lagran~ℒ~langd~⦑~langle~⟨~lap~⪅~larrb~⇤~larrbfs~⤟~larrfs~⤝~larrhk~↩~larrlp~↫~larrpl~⤹~larrsim~⥳~larrtl~↢~lat~⪫~latail~⤙~late~⪭~lates~⪭︀~lbarr~⤌~lbbrk~❲~lbrace~{~lbrack~[~lbrke~⦋~lbrksld~⦏~lbrkslu~⦍~lcaron~ľ~lcedil~ļ~lcub~{~lcy~л~ldca~⤶~ldquor~„~ldrdhar~⥧~ldrushar~⥋~ldsh~↲~leftarrow~←~leftarrowtail~↢~leftharpoondown~↽~leftharpoonup~↼~leftleftarrows~⇇~leftrightarrow~↔~leftrightarrows~⇆~leftrightharpoons~⇋~leftrightsquigarrow~↭~leftthreetimes~⋋~leg~⋚~leq~≤~leqq~≦~leqslant~⩽~les~⩽~lescc~⪨~lesdot~⩿~lesdoto~⪁~lesdotor~⪃~lesg~⋚︀~lesges~⪓~lessapprox~⪅~lessdot~⋖~lesseqgtr~⋚~lesseqqgtr~⪋~lessgtr~≶~lesssim~≲~lfisht~⥼~lfr~𝔩~lg~≶~lgE~⪑~lhard~↽~lharu~↼~lharul~⥪~lhblk~▄~ljcy~љ~ll~≪~llarr~⇇~llcorner~⌞~llhard~⥫~lltri~◺~lmidot~ŀ~lmoust~⎰~lmoustache~⎰~lnE~≨~lnap~⪉~lnapprox~⪉~lne~⪇~lneq~⪇~lneqq~≨~lnsim~⋦~loang~⟬~loarr~⇽~lobrk~⟦~longleftarrow~⟵~longleftrightarrow~⟷~longmapsto~⟼~longrightarrow~⟶~looparrowleft~↫~looparrowright~↬~lopar~⦅~lopf~𝕝~loplus~⨭~lotimes~⨴~lowbar~_~lozenge~◊~lozf~⧫~lpar~(~lparlt~⦓~lrarr~⇆~lrcorner~⌟~lrhar~⇋~lrhard~⥭~lrtri~⊿~lscr~𝓁~lsh~↰~lsim~≲~lsime~⪍~lsimg~⪏~lsqb~[~lsquor~‚~lstrok~ł~ltcc~⪦~ltcir~⩹~ltdot~⋖~lthree~⋋~ltimes~⋉~ltlarr~⥶~ltquest~⩻~ltrPar~⦖~ltri~◃~ltrie~⊴~ltrif~◂~lurdshar~⥊~luruhar~⥦~lvertneqq~≨︀~lvnE~≨︀~mDDot~∺~male~♂~malt~✠~maltese~✠~map~↦~mapsto~↦~mapstodown~↧~mapstoleft~↤~mapstoup~↥~marker~▮~mcomma~⨩~mcy~м~measuredangle~∡~mfr~𝔪~mho~℧~mid~∣~midast~*~midcir~⫰~minusb~⊟~minusd~∸~minusdu~⨪~mlcp~⫛~mldr~…~mnplus~∓~models~⊧~mopf~𝕞~mp~∓~mscr~𝓂~mstpos~∾~multimap~⊸~mumap~⊸~nGg~⋙̸~nGt~≫⃒~nGtv~≫̸~nLeftarrow~⇍~nLeftrightarrow~⇎~nLl~⋘̸~nLt~≪⃒~nLtv~≪̸~nRightarrow~⇏~nVDash~⊯~nVdash~⊮~nacute~ń~nang~∠⃒~nap~≉~napE~⩰̸~napid~≋̸~napos~ŉ~napprox~≉~natur~♮~natural~♮~naturals~ℕ~nbump~≎̸~nbumpe~≏̸~ncap~⩃~ncaron~ň~ncedil~ņ~ncong~≇~ncongdot~⩭̸~ncup~⩂~ncy~н~neArr~⇗~nearhk~⤤~nearr~↗~nearrow~↗~nedot~≐̸~nequiv~≢~nesear~⤨~nesim~≂̸~nexist~∄~nexists~∄~nfr~𝔫~ngE~≧̸~nge~≱~ngeq~≱~ngeqq~≧̸~ngeqslant~⩾̸~nges~⩾̸~ngsim~≵~ngt~≯~ngtr~≯~nhArr~⇎~nharr~↮~nhpar~⫲~nis~⋼~nisd~⋺~niv~∋~njcy~њ~nlArr~⇍~nlE~≦̸~nlarr~↚~nldr~‥~nle~≰~nleftarrow~↚~nleftrightarrow~↮~nleq~≰~nleqq~≦̸~nleqslant~⩽̸~nles~⩽̸~nless~≮~nlsim~≴~nlt~≮~nltri~⋪~nltrie~⋬~nmid~∤~nopf~𝕟~notinE~⋹̸~notindot~⋵̸~notinva~∉~notinvb~⋷~notinvc~⋶~notni~∌~notniva~∌~notnivb~⋾~notnivc~⋽~npar~∦~nparallel~∦~nparsl~⫽⃥~npart~∂̸~npolint~⨔~npr~⊀~nprcue~⋠~npre~⪯̸~nprec~⊀~npreceq~⪯̸~nrArr~⇏~nrarr~↛~nrarrc~⤳̸~nrarrw~↝̸~nrightarrow~↛~nrtri~⋫~nrtrie~⋭~nsc~⊁~nsccue~⋡~nsce~⪰̸~nscr~𝓃~nshortmid~∤~nshortparallel~∦~nsim~≁~nsime~≄~nsimeq~≄~nsmid~∤~nspar~∦~nsqsube~⋢~nsqsupe~⋣~nsubE~⫅̸~nsube~⊈~nsubset~⊂⃒~nsubseteq~⊈~nsubseteqq~⫅̸~nsucc~⊁~nsucceq~⪰̸~nsup~⊅~nsupE~⫆̸~nsupe~⊉~nsupset~⊃⃒~nsupseteq~⊉~nsupseteqq~⫆̸~ntgl~≹~ntlg~≸~ntriangleleft~⋪~ntrianglelefteq~⋬~ntriangleright~⋫~ntrianglerighteq~⋭~num~#~numero~№~numsp~ ~nvDash~⊭~nvHarr~⤄~nvap~≍⃒~nvdash~⊬~nvge~≥⃒~nvgt~>⃒~nvinfin~⧞~nvlArr~⤂~nvle~≤⃒~nvlt~<⃒~nvltrie~⊴⃒~nvrArr~⤃~nvrtrie~⊵⃒~nvsim~∼⃒~nwArr~⇖~nwarhk~⤣~nwarr~↖~nwarrow~↖~nwnear~⤧~oS~Ⓢ~oast~⊛~ocir~⊚~ocy~о~odash~⊝~odblac~ő~odiv~⨸~odot~⊙~odsold~⦼~ofcir~⦿~ofr~𝔬~ogon~˛~ogt~⧁~ohbar~⦵~ohm~Ω~oint~∮~olarr~↺~olcir~⦾~olcross~⦻~olt~⧀~omacr~ō~omid~⦶~ominus~⊖~oopf~𝕠~opar~⦷~operp~⦹~orarr~↻~ord~⩝~order~ℴ~orderof~ℴ~origof~⊶~oror~⩖~orslope~⩗~orv~⩛~oscr~ℴ~osol~⊘~otimesas~⨶~ovbar~⌽~par~∥~parallel~∥~parsim~⫳~parsl~⫽~pcy~п~percnt~%~period~.~pertenk~‱~pfr~𝔭~phiv~ϕ~phmmat~ℳ~phone~☎~pitchfork~⋔~planck~ℏ~planckh~ℎ~plankv~ℏ~plus~+~plusacir~⨣~plusb~⊞~pluscir~⨢~plusdo~∔~plusdu~⨥~pluse~⩲~plussim~⨦~plustwo~⨧~pm~±~pointint~⨕~popf~𝕡~pr~≺~prE~⪳~prap~⪷~prcue~≼~pre~⪯~prec~≺~precapprox~⪷~preccurlyeq~≼~preceq~⪯~precnapprox~⪹~precneqq~⪵~precnsim~⋨~precsim~≾~primes~ℙ~prnE~⪵~prnap~⪹~prnsim~⋨~profalar~⌮~profline~⌒~profsurf~⌓~propto~∝~prsim~≾~prurel~⊰~pscr~𝓅~puncsp~ ~qfr~𝔮~qint~⨌~qopf~𝕢~qprime~⁗~qscr~𝓆~quaternions~ℍ~quatint~⨖~quest~?~questeq~≟~rAarr~⇛~rAtail~⤜~rBarr~⤏~rHar~⥤~race~∽̱~racute~ŕ~raemptyv~⦳~rangd~⦒~range~⦥~rangle~⟩~rarrap~⥵~rarrb~⇥~rarrbfs~⤠~rarrc~⤳~rarrfs~⤞~rarrhk~↪~rarrlp~↬~rarrpl~⥅~rarrsim~⥴~rarrtl~↣~rarrw~↝~ratail~⤚~ratio~∶~rationals~ℚ~rbarr~⤍~rbbrk~❳~rbrace~}~rbrack~]~rbrke~⦌~rbrksld~⦎~rbrkslu~⦐~rcaron~ř~rcedil~ŗ~rcub~}~rcy~р~rdca~⤷~rdldhar~⥩~rdquor~”~rdsh~↳~realine~ℛ~realpart~ℜ~reals~ℝ~rect~▭~rfisht~⥽~rfr~𝔯~rhard~⇁~rharu~⇀~rharul~⥬~rhov~ϱ~rightarrow~→~rightarrowtail~↣~rightharpoondown~⇁~rightharpoonup~⇀~rightleftarrows~⇄~rightleftharpoons~⇌~rightrightarrows~⇉~rightsquigarrow~↝~rightthreetimes~⋌~ring~˚~risingdotseq~≓~rlarr~⇄~rlhar~⇌~rmoust~⎱~rmoustache~⎱~rnmid~⫮~roang~⟭~roarr~⇾~robrk~⟧~ropar~⦆~ropf~𝕣~roplus~⨮~rotimes~⨵~rpar~)~rpargt~⦔~rppolint~⨒~rrarr~⇉~rscr~𝓇~rsh~↱~rsqb~]~rsquor~’~rthree~⋌~rtimes~⋊~rtri~▹~rtrie~⊵~rtrif~▸~rtriltri~⧎~ruluhar~⥨~rx~℞~sacute~ś~sc~≻~scE~⪴~scap~⪸~sccue~≽~sce~⪰~scedil~ş~scirc~ŝ~scnE~⪶~scnap~⪺~scnsim~⋩~scpolint~⨓~scsim~≿~scy~с~sdotb~⊡~sdote~⩦~seArr~⇘~searhk~⤥~searr~↘~searrow~↘~semi~;~seswar~⤩~setminus~∖~setmn~∖~sext~✶~sfr~𝔰~sfrown~⌢~sharp~♯~shchcy~щ~shcy~ш~shortmid~∣~shortparallel~∥~sigmav~ς~simdot~⩪~sime~≃~simeq~≃~simg~⪞~simgE~⪠~siml~⪝~simlE~⪟~simne~≆~simplus~⨤~simrarr~⥲~slarr~←~smallsetminus~∖~smashp~⨳~smeparsl~⧤~smid~∣~smile~⌣~smt~⪪~smte~⪬~smtes~⪬︀~softcy~ь~sol~/~solb~⧄~solbar~⌿~sopf~𝕤~spadesuit~♠~spar~∥~sqcap~⊓~sqcaps~⊓︀~sqcup~⊔~sqcups~⊔︀~sqsub~⊏~sqsube~⊑~sqsubset~⊏~sqsubseteq~⊑~sqsup~⊐~sqsupe~⊒~sqsupset~⊐~sqsupseteq~⊒~squ~□~square~□~squarf~▪~squf~▪~srarr~→~sscr~𝓈~ssetmn~∖~ssmile~⌣~sstarf~⋆~star~☆~starf~★~straightepsilon~ϵ~straightphi~ϕ~strns~¯~subE~⫅~subdot~⪽~subedot~⫃~submult~⫁~subnE~⫋~subne~⊊~subplus~⪿~subrarr~⥹~subset~⊂~subseteq~⊆~subseteqq~⫅~subsetneq~⊊~subsetneqq~⫋~subsim~⫇~subsub~⫕~subsup~⫓~succ~≻~succapprox~⪸~succcurlyeq~≽~succeq~⪰~succnapprox~⪺~succneqq~⪶~succnsim~⋩~succsim~≿~sung~♪~supE~⫆~supdot~⪾~supdsub~⫘~supedot~⫄~suphsol~⟉~suphsub~⫗~suplarr~⥻~supmult~⫂~supnE~⫌~supne~⊋~supplus~⫀~supset~⊃~supseteq~⊇~supseteqq~⫆~supsetneq~⊋~supsetneqq~⫌~supsim~⫈~supsub~⫔~supsup~⫖~swArr~⇙~swarhk~⤦~swarr~↙~swarrow~↙~swnwar~⤪~target~⌖~tbrk~⎴~tcaron~ť~tcedil~ţ~tcy~т~tdot~⃛~telrec~⌕~tfr~𝔱~therefore~∴~thetav~ϑ~thickapprox~≈~thicksim~∼~thkap~≈~thksim~∼~timesb~⊠~timesbar~⨱~timesd~⨰~tint~∭~toea~⤨~top~⊤~topbot~⌶~topcir~⫱~topf~𝕥~topfork~⫚~tosa~⤩~tprime~‴~triangle~▵~triangledown~▿~triangleleft~◃~trianglelefteq~⊴~triangleq~≜~triangleright~▹~trianglerighteq~⊵~tridot~◬~trie~≜~triminus~⨺~triplus~⨹~trisb~⧍~tritime~⨻~trpezium~⏢~tscr~𝓉~tscy~ц~tshcy~ћ~tstrok~ŧ~twixt~≬~twoheadleftarrow~↞~twoheadrightarrow~↠~uHar~⥣~ubrcy~ў~ubreve~ŭ~ucy~у~udarr~⇅~udblac~ű~udhar~⥮~ufisht~⥾~ufr~𝔲~uharl~↿~uharr~↾~uhblk~▀~ulcorn~⌜~ulcorner~⌜~ulcrop~⌏~ultri~◸~umacr~ū~uogon~ų~uopf~𝕦~uparrow~↑~updownarrow~↕~upharpoonleft~↿~upharpoonright~↾~uplus~⊎~upsi~υ~upuparrows~⇈~urcorn~⌝~urcorner~⌝~urcrop~⌎~uring~ů~urtri~◹~uscr~𝓊~utdot~⋰~utilde~ũ~utri~▵~utrif~▴~uuarr~⇈~uwangle~⦧~vArr~⇕~vBar~⫨~vBarv~⫩~vDash~⊨~vangrt~⦜~varepsilon~ϵ~varkappa~ϰ~varnothing~∅~varphi~ϕ~varpi~ϖ~varpropto~∝~varr~↕~varrho~ϱ~varsigma~ς~varsubsetneq~⊊︀~varsubsetneqq~⫋︀~varsupsetneq~⊋︀~varsupsetneqq~⫌︀~vartheta~ϑ~vartriangleleft~⊲~vartriangleright~⊳~vcy~в~vdash~⊢~vee~∨~veebar~⊻~veeeq~≚~vellip~⋮~verbar~|~vert~|~vfr~𝔳~vltri~⊲~vnsub~⊂⃒~vnsup~⊃⃒~vopf~𝕧~vprop~∝~vrtri~⊳~vscr~𝓋~vsubnE~⫋︀~vsubne~⊊︀~vsupnE~⫌︀~vsupne~⊋︀~vzigzag~⦚~wcirc~ŵ~wedbar~⩟~wedge~∧~wedgeq~≙~wfr~𝔴~wopf~𝕨~wp~℘~wr~≀~wreath~≀~wscr~𝓌~xcap~⋂~xcirc~◯~xcup~⋃~xdtri~▽~xfr~𝔵~xhArr~⟺~xharr~⟷~xlArr~⟸~xlarr~⟵~xmap~⟼~xnis~⋻~xodot~⨀~xopf~𝕩~xoplus~⨁~xotime~⨂~xrArr~⟹~xrarr~⟶~xscr~𝓍~xsqcup~⨆~xuplus~⨄~xutri~△~xvee~⋁~xwedge~⋀~yacy~я~ycirc~ŷ~ycy~ы~yfr~𝔶~yicy~ї~yopf~𝕪~yscr~𝓎~yucy~ю~zacute~ź~zcaron~ž~zcy~з~zdot~ż~zeetrf~ℨ~zfr~𝔷~zhcy~ж~zigrarr~⇝~zopf~𝕫~zscr~𝓏~~AMP~&~COPY~©~GT~>~LT~<~QUOT~"~REG~®', J.html4);
-var As = {
+J.xml = Be(`lt~<~gt~>~quot~"~apos~'~amp~&`);
+J.html4 = Be(`apos~'~OElig~Œ~oelig~œ~Scaron~Š~scaron~š~Yuml~Ÿ~circ~ˆ~tilde~˜~ensp~ ~emsp~ ~thinsp~ ~zwnj~‌~zwj~‍~lrm~‎~rlm~‏~ndash~–~mdash~—~lsquo~‘~rsquo~’~sbquo~‚~ldquo~“~rdquo~”~bdquo~„~dagger~†~Dagger~‡~permil~‰~lsaquo~‹~rsaquo~›~euro~€~fnof~ƒ~Alpha~Α~Beta~Β~Gamma~Γ~Delta~Δ~Epsilon~Ε~Zeta~Ζ~Eta~Η~Theta~Θ~Iota~Ι~Kappa~Κ~Lambda~Λ~Mu~Μ~Nu~Ν~Xi~Ξ~Omicron~Ο~Pi~Π~Rho~Ρ~Sigma~Σ~Tau~Τ~Upsilon~Υ~Phi~Φ~Chi~Χ~Psi~Ψ~Omega~Ω~alpha~α~beta~β~gamma~γ~delta~δ~epsilon~ε~zeta~ζ~eta~η~theta~θ~iota~ι~kappa~κ~lambda~λ~mu~μ~nu~ν~xi~ξ~omicron~ο~pi~π~rho~ρ~sigmaf~ς~sigma~σ~tau~τ~upsilon~υ~phi~φ~chi~χ~psi~ψ~omega~ω~thetasym~ϑ~upsih~ϒ~piv~ϖ~bull~•~hellip~…~prime~′~Prime~″~oline~‾~frasl~⁄~weierp~℘~image~ℑ~real~ℜ~trade~™~alefsym~ℵ~larr~←~uarr~↑~rarr~→~darr~↓~harr~↔~crarr~↵~lArr~⇐~uArr~⇑~rArr~⇒~dArr~⇓~hArr~⇔~forall~∀~part~∂~exist~∃~empty~∅~nabla~∇~isin~∈~notin~∉~ni~∋~prod~∏~sum~∑~minus~−~lowast~∗~radic~√~prop~∝~infin~∞~ang~∠~and~∧~or~∨~cap~∩~cup~∪~int~∫~there4~∴~sim~∼~cong~≅~asymp~≈~ne~≠~equiv~≡~le~≤~ge~≥~sub~⊂~sup~⊃~nsub~⊄~sube~⊆~supe~⊇~oplus~⊕~otimes~⊗~perp~⊥~sdot~⋅~lceil~⌈~rceil~⌉~lfloor~⌊~rfloor~⌋~lang~〈~rang~〉~loz~◊~spades~♠~clubs~♣~hearts~♥~diams~♦~~nbsp~ ~iexcl~¡~cent~¢~pound~£~curren~¤~yen~¥~brvbar~¦~sect~§~uml~¨~copy~©~ordf~ª~laquo~«~not~¬~shy~­~reg~®~macr~¯~deg~°~plusmn~±~sup2~²~sup3~³~acute~´~micro~µ~para~¶~middot~·~cedil~¸~sup1~¹~ordm~º~raquo~»~frac14~¼~frac12~½~frac34~¾~iquest~¿~Agrave~À~Aacute~Á~Acirc~Â~Atilde~Ã~Auml~Ä~Aring~Å~AElig~Æ~Ccedil~Ç~Egrave~È~Eacute~É~Ecirc~Ê~Euml~Ë~Igrave~Ì~Iacute~Í~Icirc~Î~Iuml~Ï~ETH~Ð~Ntilde~Ñ~Ograve~Ò~Oacute~Ó~Ocirc~Ô~Otilde~Õ~Ouml~Ö~times~×~Oslash~Ø~Ugrave~Ù~Uacute~Ú~Ucirc~Û~Uuml~Ü~Yacute~Ý~THORN~Þ~szlig~ß~agrave~à~aacute~á~acirc~â~atilde~ã~auml~ä~aring~å~aelig~æ~ccedil~ç~egrave~è~eacute~é~ecirc~ê~euml~ë~igrave~ì~iacute~í~icirc~î~iuml~ï~eth~ð~ntilde~ñ~ograve~ò~oacute~ó~ocirc~ô~otilde~õ~ouml~ö~divide~÷~oslash~ø~ugrave~ù~uacute~ú~ucirc~û~uuml~ü~yacute~ý~thorn~þ~yuml~ÿ~quot~"~amp~&~lt~<~gt~>`);
+J.html5 = Be('Abreve~Ă~Acy~А~Afr~𝔄~Amacr~Ā~And~⩓~Aogon~Ą~Aopf~𝔸~ApplyFunction~⁡~Ascr~𝒜~Assign~≔~Backslash~∖~Barv~⫧~Barwed~⌆~Bcy~Б~Because~∵~Bernoullis~ℬ~Bfr~𝔅~Bopf~𝔹~Breve~˘~Bscr~ℬ~Bumpeq~≎~CHcy~Ч~Cacute~Ć~Cap~⋒~CapitalDifferentialD~ⅅ~Cayleys~ℭ~Ccaron~Č~Ccirc~Ĉ~Cconint~∰~Cdot~Ċ~Cedilla~¸~CenterDot~·~Cfr~ℭ~CircleDot~⊙~CircleMinus~⊖~CirclePlus~⊕~CircleTimes~⊗~ClockwiseContourIntegral~∲~CloseCurlyDoubleQuote~”~CloseCurlyQuote~’~Colon~∷~Colone~⩴~Congruent~≡~Conint~∯~ContourIntegral~∮~Copf~ℂ~Coproduct~∐~CounterClockwiseContourIntegral~∳~Cross~⨯~Cscr~𝒞~Cup~⋓~CupCap~≍~DD~ⅅ~DDotrahd~⤑~DJcy~Ђ~DScy~Ѕ~DZcy~Џ~Darr~↡~Dashv~⫤~Dcaron~Ď~Dcy~Д~Del~∇~Dfr~𝔇~DiacriticalAcute~´~DiacriticalDot~˙~DiacriticalDoubleAcute~˝~DiacriticalGrave~`~DiacriticalTilde~˜~Diamond~⋄~DifferentialD~ⅆ~Dopf~𝔻~Dot~¨~DotDot~⃜~DotEqual~≐~DoubleContourIntegral~∯~DoubleDot~¨~DoubleDownArrow~⇓~DoubleLeftArrow~⇐~DoubleLeftRightArrow~⇔~DoubleLeftTee~⫤~DoubleLongLeftArrow~⟸~DoubleLongLeftRightArrow~⟺~DoubleLongRightArrow~⟹~DoubleRightArrow~⇒~DoubleRightTee~⊨~DoubleUpArrow~⇑~DoubleUpDownArrow~⇕~DoubleVerticalBar~∥~DownArrow~↓~DownArrowBar~⤓~DownArrowUpArrow~⇵~DownBreve~̑~DownLeftRightVector~⥐~DownLeftTeeVector~⥞~DownLeftVector~↽~DownLeftVectorBar~⥖~DownRightTeeVector~⥟~DownRightVector~⇁~DownRightVectorBar~⥗~DownTee~⊤~DownTeeArrow~↧~Downarrow~⇓~Dscr~𝒟~Dstrok~Đ~ENG~Ŋ~Ecaron~Ě~Ecy~Э~Edot~Ė~Efr~𝔈~Element~∈~Emacr~Ē~EmptySmallSquare~◻~EmptyVerySmallSquare~▫~Eogon~Ę~Eopf~𝔼~Equal~⩵~EqualTilde~≂~Equilibrium~⇌~Escr~ℰ~Esim~⩳~Exists~∃~ExponentialE~ⅇ~Fcy~Ф~Ffr~𝔉~FilledSmallSquare~◼~FilledVerySmallSquare~▪~Fopf~𝔽~ForAll~∀~Fouriertrf~ℱ~Fscr~ℱ~GJcy~Ѓ~Gammad~Ϝ~Gbreve~Ğ~Gcedil~Ģ~Gcirc~Ĝ~Gcy~Г~Gdot~Ġ~Gfr~𝔊~Gg~⋙~Gopf~𝔾~GreaterEqual~≥~GreaterEqualLess~⋛~GreaterFullEqual~≧~GreaterGreater~⪢~GreaterLess~≷~GreaterSlantEqual~⩾~GreaterTilde~≳~Gscr~𝒢~Gt~≫~HARDcy~Ъ~Hacek~ˇ~Hat~^~Hcirc~Ĥ~Hfr~ℌ~HilbertSpace~ℋ~Hopf~ℍ~HorizontalLine~─~Hscr~ℋ~Hstrok~Ħ~HumpDownHump~≎~HumpEqual~≏~IEcy~Е~IJlig~Ĳ~IOcy~Ё~Icy~И~Idot~İ~Ifr~ℑ~Im~ℑ~Imacr~Ī~ImaginaryI~ⅈ~Implies~⇒~Int~∬~Integral~∫~Intersection~⋂~InvisibleComma~⁣~InvisibleTimes~⁢~Iogon~Į~Iopf~𝕀~Iscr~ℐ~Itilde~Ĩ~Iukcy~І~Jcirc~Ĵ~Jcy~Й~Jfr~𝔍~Jopf~𝕁~Jscr~𝒥~Jsercy~Ј~Jukcy~Є~KHcy~Х~KJcy~Ќ~Kcedil~Ķ~Kcy~К~Kfr~𝔎~Kopf~𝕂~Kscr~𝒦~LJcy~Љ~Lacute~Ĺ~Lang~⟪~Laplacetrf~ℒ~Larr~↞~Lcaron~Ľ~Lcedil~Ļ~Lcy~Л~LeftAngleBracket~⟨~LeftArrow~←~LeftArrowBar~⇤~LeftArrowRightArrow~⇆~LeftCeiling~⌈~LeftDoubleBracket~⟦~LeftDownTeeVector~⥡~LeftDownVector~⇃~LeftDownVectorBar~⥙~LeftFloor~⌊~LeftRightArrow~↔~LeftRightVector~⥎~LeftTee~⊣~LeftTeeArrow~↤~LeftTeeVector~⥚~LeftTriangle~⊲~LeftTriangleBar~⧏~LeftTriangleEqual~⊴~LeftUpDownVector~⥑~LeftUpTeeVector~⥠~LeftUpVector~↿~LeftUpVectorBar~⥘~LeftVector~↼~LeftVectorBar~⥒~Leftarrow~⇐~Leftrightarrow~⇔~LessEqualGreater~⋚~LessFullEqual~≦~LessGreater~≶~LessLess~⪡~LessSlantEqual~⩽~LessTilde~≲~Lfr~𝔏~Ll~⋘~Lleftarrow~⇚~Lmidot~Ŀ~LongLeftArrow~⟵~LongLeftRightArrow~⟷~LongRightArrow~⟶~Longleftarrow~⟸~Longleftrightarrow~⟺~Longrightarrow~⟹~Lopf~𝕃~LowerLeftArrow~↙~LowerRightArrow~↘~Lscr~ℒ~Lsh~↰~Lstrok~Ł~Lt~≪~Map~⤅~Mcy~М~MediumSpace~ ~Mellintrf~ℳ~Mfr~𝔐~MinusPlus~∓~Mopf~𝕄~Mscr~ℳ~NJcy~Њ~Nacute~Ń~Ncaron~Ň~Ncedil~Ņ~Ncy~Н~NegativeMediumSpace~​~NegativeThickSpace~​~NegativeThinSpace~​~NegativeVeryThinSpace~​~NestedGreaterGreater~≫~NestedLessLess~≪~NewLine~\n~Nfr~𝔑~NoBreak~⁠~NonBreakingSpace~ ~Nopf~ℕ~Not~⫬~NotCongruent~≢~NotCupCap~≭~NotDoubleVerticalBar~∦~NotElement~∉~NotEqual~≠~NotEqualTilde~≂̸~NotExists~∄~NotGreater~≯~NotGreaterEqual~≱~NotGreaterFullEqual~≧̸~NotGreaterGreater~≫̸~NotGreaterLess~≹~NotGreaterSlantEqual~⩾̸~NotGreaterTilde~≵~NotHumpDownHump~≎̸~NotHumpEqual~≏̸~NotLeftTriangle~⋪~NotLeftTriangleBar~⧏̸~NotLeftTriangleEqual~⋬~NotLess~≮~NotLessEqual~≰~NotLessGreater~≸~NotLessLess~≪̸~NotLessSlantEqual~⩽̸~NotLessTilde~≴~NotNestedGreaterGreater~⪢̸~NotNestedLessLess~⪡̸~NotPrecedes~⊀~NotPrecedesEqual~⪯̸~NotPrecedesSlantEqual~⋠~NotReverseElement~∌~NotRightTriangle~⋫~NotRightTriangleBar~⧐̸~NotRightTriangleEqual~⋭~NotSquareSubset~⊏̸~NotSquareSubsetEqual~⋢~NotSquareSuperset~⊐̸~NotSquareSupersetEqual~⋣~NotSubset~⊂⃒~NotSubsetEqual~⊈~NotSucceeds~⊁~NotSucceedsEqual~⪰̸~NotSucceedsSlantEqual~⋡~NotSucceedsTilde~≿̸~NotSuperset~⊃⃒~NotSupersetEqual~⊉~NotTilde~≁~NotTildeEqual~≄~NotTildeFullEqual~≇~NotTildeTilde~≉~NotVerticalBar~∤~Nscr~𝒩~Ocy~О~Odblac~Ő~Ofr~𝔒~Omacr~Ō~Oopf~𝕆~OpenCurlyDoubleQuote~“~OpenCurlyQuote~‘~Or~⩔~Oscr~𝒪~Otimes~⨷~OverBar~‾~OverBrace~⏞~OverBracket~⎴~OverParenthesis~⏜~PartialD~∂~Pcy~П~Pfr~𝔓~PlusMinus~±~Poincareplane~ℌ~Popf~ℙ~Pr~⪻~Precedes~≺~PrecedesEqual~⪯~PrecedesSlantEqual~≼~PrecedesTilde~≾~Product~∏~Proportion~∷~Proportional~∝~Pscr~𝒫~Qfr~𝔔~Qopf~ℚ~Qscr~𝒬~RBarr~⤐~Racute~Ŕ~Rang~⟫~Rarr~↠~Rarrtl~⤖~Rcaron~Ř~Rcedil~Ŗ~Rcy~Р~Re~ℜ~ReverseElement~∋~ReverseEquilibrium~⇋~ReverseUpEquilibrium~⥯~Rfr~ℜ~RightAngleBracket~⟩~RightArrow~→~RightArrowBar~⇥~RightArrowLeftArrow~⇄~RightCeiling~⌉~RightDoubleBracket~⟧~RightDownTeeVector~⥝~RightDownVector~⇂~RightDownVectorBar~⥕~RightFloor~⌋~RightTee~⊢~RightTeeArrow~↦~RightTeeVector~⥛~RightTriangle~⊳~RightTriangleBar~⧐~RightTriangleEqual~⊵~RightUpDownVector~⥏~RightUpTeeVector~⥜~RightUpVector~↾~RightUpVectorBar~⥔~RightVector~⇀~RightVectorBar~⥓~Rightarrow~⇒~Ropf~ℝ~RoundImplies~⥰~Rrightarrow~⇛~Rscr~ℛ~Rsh~↱~RuleDelayed~⧴~SHCHcy~Щ~SHcy~Ш~SOFTcy~Ь~Sacute~Ś~Sc~⪼~Scedil~Ş~Scirc~Ŝ~Scy~С~Sfr~𝔖~ShortDownArrow~↓~ShortLeftArrow~←~ShortRightArrow~→~ShortUpArrow~↑~SmallCircle~∘~Sopf~𝕊~Sqrt~√~Square~□~SquareIntersection~⊓~SquareSubset~⊏~SquareSubsetEqual~⊑~SquareSuperset~⊐~SquareSupersetEqual~⊒~SquareUnion~⊔~Sscr~𝒮~Star~⋆~Sub~⋐~Subset~⋐~SubsetEqual~⊆~Succeeds~≻~SucceedsEqual~⪰~SucceedsSlantEqual~≽~SucceedsTilde~≿~SuchThat~∋~Sum~∑~Sup~⋑~Superset~⊃~SupersetEqual~⊇~Supset~⋑~TRADE~™~TSHcy~Ћ~TScy~Ц~Tab~	~Tcaron~Ť~Tcedil~Ţ~Tcy~Т~Tfr~𝔗~Therefore~∴~ThickSpace~  ~ThinSpace~ ~Tilde~∼~TildeEqual~≃~TildeFullEqual~≅~TildeTilde~≈~Topf~𝕋~TripleDot~⃛~Tscr~𝒯~Tstrok~Ŧ~Uarr~↟~Uarrocir~⥉~Ubrcy~Ў~Ubreve~Ŭ~Ucy~У~Udblac~Ű~Ufr~𝔘~Umacr~Ū~UnderBar~_~UnderBrace~⏟~UnderBracket~⎵~UnderParenthesis~⏝~Union~⋃~UnionPlus~⊎~Uogon~Ų~Uopf~𝕌~UpArrow~↑~UpArrowBar~⤒~UpArrowDownArrow~⇅~UpDownArrow~↕~UpEquilibrium~⥮~UpTee~⊥~UpTeeArrow~↥~Uparrow~⇑~Updownarrow~⇕~UpperLeftArrow~↖~UpperRightArrow~↗~Upsi~ϒ~Uring~Ů~Uscr~𝒰~Utilde~Ũ~VDash~⊫~Vbar~⫫~Vcy~В~Vdash~⊩~Vdashl~⫦~Vee~⋁~Verbar~‖~Vert~‖~VerticalBar~∣~VerticalLine~|~VerticalSeparator~❘~VerticalTilde~≀~VeryThinSpace~ ~Vfr~𝔙~Vopf~𝕍~Vscr~𝒱~Vvdash~⊪~Wcirc~Ŵ~Wedge~⋀~Wfr~𝔚~Wopf~𝕎~Wscr~𝒲~Xfr~𝔛~Xopf~𝕏~Xscr~𝒳~YAcy~Я~YIcy~Ї~YUcy~Ю~Ycirc~Ŷ~Ycy~Ы~Yfr~𝔜~Yopf~𝕐~Yscr~𝒴~ZHcy~Ж~Zacute~Ź~Zcaron~Ž~Zcy~З~Zdot~Ż~ZeroWidthSpace~​~Zfr~ℨ~Zopf~ℤ~Zscr~𝒵~abreve~ă~ac~∾~acE~∾̳~acd~∿~acy~а~af~⁡~afr~𝔞~aleph~ℵ~amacr~ā~amalg~⨿~andand~⩕~andd~⩜~andslope~⩘~andv~⩚~ange~⦤~angle~∠~angmsd~∡~angmsdaa~⦨~angmsdab~⦩~angmsdac~⦪~angmsdad~⦫~angmsdae~⦬~angmsdaf~⦭~angmsdag~⦮~angmsdah~⦯~angrt~∟~angrtvb~⊾~angrtvbd~⦝~angsph~∢~angst~Å~angzarr~⍼~aogon~ą~aopf~𝕒~ap~≈~apE~⩰~apacir~⩯~ape~≊~apid~≋~approx~≈~approxeq~≊~ascr~𝒶~ast~*~asympeq~≍~awconint~∳~awint~⨑~bNot~⫭~backcong~≌~backepsilon~϶~backprime~‵~backsim~∽~backsimeq~⋍~barvee~⊽~barwed~⌅~barwedge~⌅~bbrk~⎵~bbrktbrk~⎶~bcong~≌~bcy~б~becaus~∵~because~∵~bemptyv~⦰~bepsi~϶~bernou~ℬ~beth~ℶ~between~≬~bfr~𝔟~bigcap~⋂~bigcirc~◯~bigcup~⋃~bigodot~⨀~bigoplus~⨁~bigotimes~⨂~bigsqcup~⨆~bigstar~★~bigtriangledown~▽~bigtriangleup~△~biguplus~⨄~bigvee~⋁~bigwedge~⋀~bkarow~⤍~blacklozenge~⧫~blacksquare~▪~blacktriangle~▴~blacktriangledown~▾~blacktriangleleft~◂~blacktriangleright~▸~blank~␣~blk12~▒~blk14~░~blk34~▓~block~█~bne~=⃥~bnequiv~≡⃥~bnot~⌐~bopf~𝕓~bot~⊥~bottom~⊥~bowtie~⋈~boxDL~╗~boxDR~╔~boxDl~╖~boxDr~╓~boxH~═~boxHD~╦~boxHU~╩~boxHd~╤~boxHu~╧~boxUL~╝~boxUR~╚~boxUl~╜~boxUr~╙~boxV~║~boxVH~╬~boxVL~╣~boxVR~╠~boxVh~╫~boxVl~╢~boxVr~╟~boxbox~⧉~boxdL~╕~boxdR~╒~boxdl~┐~boxdr~┌~boxh~─~boxhD~╥~boxhU~╨~boxhd~┬~boxhu~┴~boxminus~⊟~boxplus~⊞~boxtimes~⊠~boxuL~╛~boxuR~╘~boxul~┘~boxur~└~boxv~│~boxvH~╪~boxvL~╡~boxvR~╞~boxvh~┼~boxvl~┤~boxvr~├~bprime~‵~breve~˘~bscr~𝒷~bsemi~⁏~bsim~∽~bsime~⋍~bsol~\\~bsolb~⧅~bsolhsub~⟈~bullet~•~bump~≎~bumpE~⪮~bumpe~≏~bumpeq~≏~cacute~ć~capand~⩄~capbrcup~⩉~capcap~⩋~capcup~⩇~capdot~⩀~caps~∩︀~caret~⁁~caron~ˇ~ccaps~⩍~ccaron~č~ccirc~ĉ~ccups~⩌~ccupssm~⩐~cdot~ċ~cemptyv~⦲~centerdot~·~cfr~𝔠~chcy~ч~check~✓~checkmark~✓~cir~○~cirE~⧃~circeq~≗~circlearrowleft~↺~circlearrowright~↻~circledR~®~circledS~Ⓢ~circledast~⊛~circledcirc~⊚~circleddash~⊝~cire~≗~cirfnint~⨐~cirmid~⫯~cirscir~⧂~clubsuit~♣~colon~:~colone~≔~coloneq~≔~comma~,~commat~@~comp~∁~compfn~∘~complement~∁~complexes~ℂ~congdot~⩭~conint~∮~copf~𝕔~coprod~∐~copysr~℗~cross~✗~cscr~𝒸~csub~⫏~csube~⫑~csup~⫐~csupe~⫒~ctdot~⋯~cudarrl~⤸~cudarrr~⤵~cuepr~⋞~cuesc~⋟~cularr~↶~cularrp~⤽~cupbrcap~⩈~cupcap~⩆~cupcup~⩊~cupdot~⊍~cupor~⩅~cups~∪︀~curarr~↷~curarrm~⤼~curlyeqprec~⋞~curlyeqsucc~⋟~curlyvee~⋎~curlywedge~⋏~curvearrowleft~↶~curvearrowright~↷~cuvee~⋎~cuwed~⋏~cwconint~∲~cwint~∱~cylcty~⌭~dHar~⥥~daleth~ℸ~dash~‐~dashv~⊣~dbkarow~⤏~dblac~˝~dcaron~ď~dcy~д~dd~ⅆ~ddagger~‡~ddarr~⇊~ddotseq~⩷~demptyv~⦱~dfisht~⥿~dfr~𝔡~dharl~⇃~dharr~⇂~diam~⋄~diamond~⋄~diamondsuit~♦~die~¨~digamma~ϝ~disin~⋲~div~÷~divideontimes~⋇~divonx~⋇~djcy~ђ~dlcorn~⌞~dlcrop~⌍~dollar~$~dopf~𝕕~dot~˙~doteq~≐~doteqdot~≑~dotminus~∸~dotplus~∔~dotsquare~⊡~doublebarwedge~⌆~downarrow~↓~downdownarrows~⇊~downharpoonleft~⇃~downharpoonright~⇂~drbkarow~⤐~drcorn~⌟~drcrop~⌌~dscr~𝒹~dscy~ѕ~dsol~⧶~dstrok~đ~dtdot~⋱~dtri~▿~dtrif~▾~duarr~⇵~duhar~⥯~dwangle~⦦~dzcy~џ~dzigrarr~⟿~eDDot~⩷~eDot~≑~easter~⩮~ecaron~ě~ecir~≖~ecolon~≕~ecy~э~edot~ė~ee~ⅇ~efDot~≒~efr~𝔢~eg~⪚~egs~⪖~egsdot~⪘~el~⪙~elinters~⏧~ell~ℓ~els~⪕~elsdot~⪗~emacr~ē~emptyset~∅~emptyv~∅~emsp13~ ~emsp14~ ~eng~ŋ~eogon~ę~eopf~𝕖~epar~⋕~eparsl~⧣~eplus~⩱~epsi~ε~epsiv~ϵ~eqcirc~≖~eqcolon~≕~eqsim~≂~eqslantgtr~⪖~eqslantless~⪕~equals~=~equest~≟~equivDD~⩸~eqvparsl~⧥~erDot~≓~erarr~⥱~escr~ℯ~esdot~≐~esim~≂~excl~!~expectation~ℰ~exponentiale~ⅇ~fallingdotseq~≒~fcy~ф~female~♀~ffilig~ﬃ~fflig~ﬀ~ffllig~ﬄ~ffr~𝔣~filig~ﬁ~fjlig~fj~flat~♭~fllig~ﬂ~fltns~▱~fopf~𝕗~fork~⋔~forkv~⫙~fpartint~⨍~frac13~⅓~frac15~⅕~frac16~⅙~frac18~⅛~frac23~⅔~frac25~⅖~frac35~⅗~frac38~⅜~frac45~⅘~frac56~⅚~frac58~⅝~frac78~⅞~frown~⌢~fscr~𝒻~gE~≧~gEl~⪌~gacute~ǵ~gammad~ϝ~gap~⪆~gbreve~ğ~gcirc~ĝ~gcy~г~gdot~ġ~gel~⋛~geq~≥~geqq~≧~geqslant~⩾~ges~⩾~gescc~⪩~gesdot~⪀~gesdoto~⪂~gesdotol~⪄~gesl~⋛︀~gesles~⪔~gfr~𝔤~gg~≫~ggg~⋙~gimel~ℷ~gjcy~ѓ~gl~≷~glE~⪒~gla~⪥~glj~⪤~gnE~≩~gnap~⪊~gnapprox~⪊~gne~⪈~gneq~⪈~gneqq~≩~gnsim~⋧~gopf~𝕘~grave~`~gscr~ℊ~gsim~≳~gsime~⪎~gsiml~⪐~gtcc~⪧~gtcir~⩺~gtdot~⋗~gtlPar~⦕~gtquest~⩼~gtrapprox~⪆~gtrarr~⥸~gtrdot~⋗~gtreqless~⋛~gtreqqless~⪌~gtrless~≷~gtrsim~≳~gvertneqq~≩︀~gvnE~≩︀~hairsp~ ~half~½~hamilt~ℋ~hardcy~ъ~harrcir~⥈~harrw~↭~hbar~ℏ~hcirc~ĥ~heartsuit~♥~hercon~⊹~hfr~𝔥~hksearow~⤥~hkswarow~⤦~hoarr~⇿~homtht~∻~hookleftarrow~↩~hookrightarrow~↪~hopf~𝕙~horbar~―~hscr~𝒽~hslash~ℏ~hstrok~ħ~hybull~⁃~hyphen~‐~ic~⁣~icy~и~iecy~е~iff~⇔~ifr~𝔦~ii~ⅈ~iiiint~⨌~iiint~∭~iinfin~⧜~iiota~℩~ijlig~ĳ~imacr~ī~imagline~ℐ~imagpart~ℑ~imath~ı~imof~⊷~imped~Ƶ~in~∈~incare~℅~infintie~⧝~inodot~ı~intcal~⊺~integers~ℤ~intercal~⊺~intlarhk~⨗~intprod~⨼~iocy~ё~iogon~į~iopf~𝕚~iprod~⨼~iscr~𝒾~isinE~⋹~isindot~⋵~isins~⋴~isinsv~⋳~isinv~∈~it~⁢~itilde~ĩ~iukcy~і~jcirc~ĵ~jcy~й~jfr~𝔧~jmath~ȷ~jopf~𝕛~jscr~𝒿~jsercy~ј~jukcy~є~kappav~ϰ~kcedil~ķ~kcy~к~kfr~𝔨~kgreen~ĸ~khcy~х~kjcy~ќ~kopf~𝕜~kscr~𝓀~lAarr~⇚~lAtail~⤛~lBarr~⤎~lE~≦~lEg~⪋~lHar~⥢~lacute~ĺ~laemptyv~⦴~lagran~ℒ~langd~⦑~langle~⟨~lap~⪅~larrb~⇤~larrbfs~⤟~larrfs~⤝~larrhk~↩~larrlp~↫~larrpl~⤹~larrsim~⥳~larrtl~↢~lat~⪫~latail~⤙~late~⪭~lates~⪭︀~lbarr~⤌~lbbrk~❲~lbrace~{~lbrack~[~lbrke~⦋~lbrksld~⦏~lbrkslu~⦍~lcaron~ľ~lcedil~ļ~lcub~{~lcy~л~ldca~⤶~ldquor~„~ldrdhar~⥧~ldrushar~⥋~ldsh~↲~leftarrow~←~leftarrowtail~↢~leftharpoondown~↽~leftharpoonup~↼~leftleftarrows~⇇~leftrightarrow~↔~leftrightarrows~⇆~leftrightharpoons~⇋~leftrightsquigarrow~↭~leftthreetimes~⋋~leg~⋚~leq~≤~leqq~≦~leqslant~⩽~les~⩽~lescc~⪨~lesdot~⩿~lesdoto~⪁~lesdotor~⪃~lesg~⋚︀~lesges~⪓~lessapprox~⪅~lessdot~⋖~lesseqgtr~⋚~lesseqqgtr~⪋~lessgtr~≶~lesssim~≲~lfisht~⥼~lfr~𝔩~lg~≶~lgE~⪑~lhard~↽~lharu~↼~lharul~⥪~lhblk~▄~ljcy~љ~ll~≪~llarr~⇇~llcorner~⌞~llhard~⥫~lltri~◺~lmidot~ŀ~lmoust~⎰~lmoustache~⎰~lnE~≨~lnap~⪉~lnapprox~⪉~lne~⪇~lneq~⪇~lneqq~≨~lnsim~⋦~loang~⟬~loarr~⇽~lobrk~⟦~longleftarrow~⟵~longleftrightarrow~⟷~longmapsto~⟼~longrightarrow~⟶~looparrowleft~↫~looparrowright~↬~lopar~⦅~lopf~𝕝~loplus~⨭~lotimes~⨴~lowbar~_~lozenge~◊~lozf~⧫~lpar~(~lparlt~⦓~lrarr~⇆~lrcorner~⌟~lrhar~⇋~lrhard~⥭~lrtri~⊿~lscr~𝓁~lsh~↰~lsim~≲~lsime~⪍~lsimg~⪏~lsqb~[~lsquor~‚~lstrok~ł~ltcc~⪦~ltcir~⩹~ltdot~⋖~lthree~⋋~ltimes~⋉~ltlarr~⥶~ltquest~⩻~ltrPar~⦖~ltri~◃~ltrie~⊴~ltrif~◂~lurdshar~⥊~luruhar~⥦~lvertneqq~≨︀~lvnE~≨︀~mDDot~∺~male~♂~malt~✠~maltese~✠~map~↦~mapsto~↦~mapstodown~↧~mapstoleft~↤~mapstoup~↥~marker~▮~mcomma~⨩~mcy~м~measuredangle~∡~mfr~𝔪~mho~℧~mid~∣~midast~*~midcir~⫰~minusb~⊟~minusd~∸~minusdu~⨪~mlcp~⫛~mldr~…~mnplus~∓~models~⊧~mopf~𝕞~mp~∓~mscr~𝓂~mstpos~∾~multimap~⊸~mumap~⊸~nGg~⋙̸~nGt~≫⃒~nGtv~≫̸~nLeftarrow~⇍~nLeftrightarrow~⇎~nLl~⋘̸~nLt~≪⃒~nLtv~≪̸~nRightarrow~⇏~nVDash~⊯~nVdash~⊮~nacute~ń~nang~∠⃒~nap~≉~napE~⩰̸~napid~≋̸~napos~ŉ~napprox~≉~natur~♮~natural~♮~naturals~ℕ~nbump~≎̸~nbumpe~≏̸~ncap~⩃~ncaron~ň~ncedil~ņ~ncong~≇~ncongdot~⩭̸~ncup~⩂~ncy~н~neArr~⇗~nearhk~⤤~nearr~↗~nearrow~↗~nedot~≐̸~nequiv~≢~nesear~⤨~nesim~≂̸~nexist~∄~nexists~∄~nfr~𝔫~ngE~≧̸~nge~≱~ngeq~≱~ngeqq~≧̸~ngeqslant~⩾̸~nges~⩾̸~ngsim~≵~ngt~≯~ngtr~≯~nhArr~⇎~nharr~↮~nhpar~⫲~nis~⋼~nisd~⋺~niv~∋~njcy~њ~nlArr~⇍~nlE~≦̸~nlarr~↚~nldr~‥~nle~≰~nleftarrow~↚~nleftrightarrow~↮~nleq~≰~nleqq~≦̸~nleqslant~⩽̸~nles~⩽̸~nless~≮~nlsim~≴~nlt~≮~nltri~⋪~nltrie~⋬~nmid~∤~nopf~𝕟~notinE~⋹̸~notindot~⋵̸~notinva~∉~notinvb~⋷~notinvc~⋶~notni~∌~notniva~∌~notnivb~⋾~notnivc~⋽~npar~∦~nparallel~∦~nparsl~⫽⃥~npart~∂̸~npolint~⨔~npr~⊀~nprcue~⋠~npre~⪯̸~nprec~⊀~npreceq~⪯̸~nrArr~⇏~nrarr~↛~nrarrc~⤳̸~nrarrw~↝̸~nrightarrow~↛~nrtri~⋫~nrtrie~⋭~nsc~⊁~nsccue~⋡~nsce~⪰̸~nscr~𝓃~nshortmid~∤~nshortparallel~∦~nsim~≁~nsime~≄~nsimeq~≄~nsmid~∤~nspar~∦~nsqsube~⋢~nsqsupe~⋣~nsubE~⫅̸~nsube~⊈~nsubset~⊂⃒~nsubseteq~⊈~nsubseteqq~⫅̸~nsucc~⊁~nsucceq~⪰̸~nsup~⊅~nsupE~⫆̸~nsupe~⊉~nsupset~⊃⃒~nsupseteq~⊉~nsupseteqq~⫆̸~ntgl~≹~ntlg~≸~ntriangleleft~⋪~ntrianglelefteq~⋬~ntriangleright~⋫~ntrianglerighteq~⋭~num~#~numero~№~numsp~ ~nvDash~⊭~nvHarr~⤄~nvap~≍⃒~nvdash~⊬~nvge~≥⃒~nvgt~>⃒~nvinfin~⧞~nvlArr~⤂~nvle~≤⃒~nvlt~<⃒~nvltrie~⊴⃒~nvrArr~⤃~nvrtrie~⊵⃒~nvsim~∼⃒~nwArr~⇖~nwarhk~⤣~nwarr~↖~nwarrow~↖~nwnear~⤧~oS~Ⓢ~oast~⊛~ocir~⊚~ocy~о~odash~⊝~odblac~ő~odiv~⨸~odot~⊙~odsold~⦼~ofcir~⦿~ofr~𝔬~ogon~˛~ogt~⧁~ohbar~⦵~ohm~Ω~oint~∮~olarr~↺~olcir~⦾~olcross~⦻~olt~⧀~omacr~ō~omid~⦶~ominus~⊖~oopf~𝕠~opar~⦷~operp~⦹~orarr~↻~ord~⩝~order~ℴ~orderof~ℴ~origof~⊶~oror~⩖~orslope~⩗~orv~⩛~oscr~ℴ~osol~⊘~otimesas~⨶~ovbar~⌽~par~∥~parallel~∥~parsim~⫳~parsl~⫽~pcy~п~percnt~%~period~.~pertenk~‱~pfr~𝔭~phiv~ϕ~phmmat~ℳ~phone~☎~pitchfork~⋔~planck~ℏ~planckh~ℎ~plankv~ℏ~plus~+~plusacir~⨣~plusb~⊞~pluscir~⨢~plusdo~∔~plusdu~⨥~pluse~⩲~plussim~⨦~plustwo~⨧~pm~±~pointint~⨕~popf~𝕡~pr~≺~prE~⪳~prap~⪷~prcue~≼~pre~⪯~prec~≺~precapprox~⪷~preccurlyeq~≼~preceq~⪯~precnapprox~⪹~precneqq~⪵~precnsim~⋨~precsim~≾~primes~ℙ~prnE~⪵~prnap~⪹~prnsim~⋨~profalar~⌮~profline~⌒~profsurf~⌓~propto~∝~prsim~≾~prurel~⊰~pscr~𝓅~puncsp~ ~qfr~𝔮~qint~⨌~qopf~𝕢~qprime~⁗~qscr~𝓆~quaternions~ℍ~quatint~⨖~quest~?~questeq~≟~rAarr~⇛~rAtail~⤜~rBarr~⤏~rHar~⥤~race~∽̱~racute~ŕ~raemptyv~⦳~rangd~⦒~range~⦥~rangle~⟩~rarrap~⥵~rarrb~⇥~rarrbfs~⤠~rarrc~⤳~rarrfs~⤞~rarrhk~↪~rarrlp~↬~rarrpl~⥅~rarrsim~⥴~rarrtl~↣~rarrw~↝~ratail~⤚~ratio~∶~rationals~ℚ~rbarr~⤍~rbbrk~❳~rbrace~}~rbrack~]~rbrke~⦌~rbrksld~⦎~rbrkslu~⦐~rcaron~ř~rcedil~ŗ~rcub~}~rcy~р~rdca~⤷~rdldhar~⥩~rdquor~”~rdsh~↳~realine~ℛ~realpart~ℜ~reals~ℝ~rect~▭~rfisht~⥽~rfr~𝔯~rhard~⇁~rharu~⇀~rharul~⥬~rhov~ϱ~rightarrow~→~rightarrowtail~↣~rightharpoondown~⇁~rightharpoonup~⇀~rightleftarrows~⇄~rightleftharpoons~⇌~rightrightarrows~⇉~rightsquigarrow~↝~rightthreetimes~⋌~ring~˚~risingdotseq~≓~rlarr~⇄~rlhar~⇌~rmoust~⎱~rmoustache~⎱~rnmid~⫮~roang~⟭~roarr~⇾~robrk~⟧~ropar~⦆~ropf~𝕣~roplus~⨮~rotimes~⨵~rpar~)~rpargt~⦔~rppolint~⨒~rrarr~⇉~rscr~𝓇~rsh~↱~rsqb~]~rsquor~’~rthree~⋌~rtimes~⋊~rtri~▹~rtrie~⊵~rtrif~▸~rtriltri~⧎~ruluhar~⥨~rx~℞~sacute~ś~sc~≻~scE~⪴~scap~⪸~sccue~≽~sce~⪰~scedil~ş~scirc~ŝ~scnE~⪶~scnap~⪺~scnsim~⋩~scpolint~⨓~scsim~≿~scy~с~sdotb~⊡~sdote~⩦~seArr~⇘~searhk~⤥~searr~↘~searrow~↘~semi~;~seswar~⤩~setminus~∖~setmn~∖~sext~✶~sfr~𝔰~sfrown~⌢~sharp~♯~shchcy~щ~shcy~ш~shortmid~∣~shortparallel~∥~sigmav~ς~simdot~⩪~sime~≃~simeq~≃~simg~⪞~simgE~⪠~siml~⪝~simlE~⪟~simne~≆~simplus~⨤~simrarr~⥲~slarr~←~smallsetminus~∖~smashp~⨳~smeparsl~⧤~smid~∣~smile~⌣~smt~⪪~smte~⪬~smtes~⪬︀~softcy~ь~sol~/~solb~⧄~solbar~⌿~sopf~𝕤~spadesuit~♠~spar~∥~sqcap~⊓~sqcaps~⊓︀~sqcup~⊔~sqcups~⊔︀~sqsub~⊏~sqsube~⊑~sqsubset~⊏~sqsubseteq~⊑~sqsup~⊐~sqsupe~⊒~sqsupset~⊐~sqsupseteq~⊒~squ~□~square~□~squarf~▪~squf~▪~srarr~→~sscr~𝓈~ssetmn~∖~ssmile~⌣~sstarf~⋆~star~☆~starf~★~straightepsilon~ϵ~straightphi~ϕ~strns~¯~subE~⫅~subdot~⪽~subedot~⫃~submult~⫁~subnE~⫋~subne~⊊~subplus~⪿~subrarr~⥹~subset~⊂~subseteq~⊆~subseteqq~⫅~subsetneq~⊊~subsetneqq~⫋~subsim~⫇~subsub~⫕~subsup~⫓~succ~≻~succapprox~⪸~succcurlyeq~≽~succeq~⪰~succnapprox~⪺~succneqq~⪶~succnsim~⋩~succsim~≿~sung~♪~supE~⫆~supdot~⪾~supdsub~⫘~supedot~⫄~suphsol~⟉~suphsub~⫗~suplarr~⥻~supmult~⫂~supnE~⫌~supne~⊋~supplus~⫀~supset~⊃~supseteq~⊇~supseteqq~⫆~supsetneq~⊋~supsetneqq~⫌~supsim~⫈~supsub~⫔~supsup~⫖~swArr~⇙~swarhk~⤦~swarr~↙~swarrow~↙~swnwar~⤪~target~⌖~tbrk~⎴~tcaron~ť~tcedil~ţ~tcy~т~tdot~⃛~telrec~⌕~tfr~𝔱~therefore~∴~thetav~ϑ~thickapprox~≈~thicksim~∼~thkap~≈~thksim~∼~timesb~⊠~timesbar~⨱~timesd~⨰~tint~∭~toea~⤨~top~⊤~topbot~⌶~topcir~⫱~topf~𝕥~topfork~⫚~tosa~⤩~tprime~‴~triangle~▵~triangledown~▿~triangleleft~◃~trianglelefteq~⊴~triangleq~≜~triangleright~▹~trianglerighteq~⊵~tridot~◬~trie~≜~triminus~⨺~triplus~⨹~trisb~⧍~tritime~⨻~trpezium~⏢~tscr~𝓉~tscy~ц~tshcy~ћ~tstrok~ŧ~twixt~≬~twoheadleftarrow~↞~twoheadrightarrow~↠~uHar~⥣~ubrcy~ў~ubreve~ŭ~ucy~у~udarr~⇅~udblac~ű~udhar~⥮~ufisht~⥾~ufr~𝔲~uharl~↿~uharr~↾~uhblk~▀~ulcorn~⌜~ulcorner~⌜~ulcrop~⌏~ultri~◸~umacr~ū~uogon~ų~uopf~𝕦~uparrow~↑~updownarrow~↕~upharpoonleft~↿~upharpoonright~↾~uplus~⊎~upsi~υ~upuparrows~⇈~urcorn~⌝~urcorner~⌝~urcrop~⌎~uring~ů~urtri~◹~uscr~𝓊~utdot~⋰~utilde~ũ~utri~▵~utrif~▴~uuarr~⇈~uwangle~⦧~vArr~⇕~vBar~⫨~vBarv~⫩~vDash~⊨~vangrt~⦜~varepsilon~ϵ~varkappa~ϰ~varnothing~∅~varphi~ϕ~varpi~ϖ~varpropto~∝~varr~↕~varrho~ϱ~varsigma~ς~varsubsetneq~⊊︀~varsubsetneqq~⫋︀~varsupsetneq~⊋︀~varsupsetneqq~⫌︀~vartheta~ϑ~vartriangleleft~⊲~vartriangleright~⊳~vcy~в~vdash~⊢~vee~∨~veebar~⊻~veeeq~≚~vellip~⋮~verbar~|~vert~|~vfr~𝔳~vltri~⊲~vnsub~⊂⃒~vnsup~⊃⃒~vopf~𝕧~vprop~∝~vrtri~⊳~vscr~𝓋~vsubnE~⫋︀~vsubne~⊊︀~vsupnE~⫌︀~vsupne~⊋︀~vzigzag~⦚~wcirc~ŵ~wedbar~⩟~wedge~∧~wedgeq~≙~wfr~𝔴~wopf~𝕨~wp~℘~wr~≀~wreath~≀~wscr~𝓌~xcap~⋂~xcirc~◯~xcup~⋃~xdtri~▽~xfr~𝔵~xhArr~⟺~xharr~⟷~xlArr~⟸~xlarr~⟵~xmap~⟼~xnis~⋻~xodot~⨀~xopf~𝕩~xoplus~⨁~xotime~⨂~xrArr~⟹~xrarr~⟶~xscr~𝓍~xsqcup~⨆~xuplus~⨄~xutri~△~xvee~⋁~xwedge~⋀~yacy~я~ycirc~ŷ~ycy~ы~yfr~𝔶~yicy~ї~yopf~𝕪~yscr~𝓎~yucy~ю~zacute~ź~zcaron~ž~zcy~з~zdot~ż~zeetrf~ℨ~zfr~𝔷~zhcy~ж~zigrarr~⇝~zopf~𝕫~zscr~𝓏~~AMP~&~COPY~©~GT~>~LT~<~QUOT~"~REG~®', J.html4);
+var da = {
   0: 65533,
   128: 8364,
   130: 8218,
@@ -1693,246 +1836,246 @@ var As = {
   156: 339,
   158: 382,
   159: 376
-}, Cs = String.fromCodePoint || function(e) {
+}, ha = String.fromCodePoint || function(e) {
   return String.fromCharCode(Math.floor((e - 65536) / 1024) + 55296, (e - 65536) % 1024 + 56320);
-}, _ = function() {
-  return _ = Object.assign || function(e) {
-    for (var a, t = 1, n = arguments.length; t < n; t++) {
-      a = arguments[t];
-      for (var l in a) Object.prototype.hasOwnProperty.call(a, l) && (e[l] = a[l]);
+}, Q = function() {
+  return Q = Object.assign || function(e) {
+    for (var t, r = 1, n = arguments.length; r < n; r++) {
+      t = arguments[r];
+      for (var i in t) Object.prototype.hasOwnProperty.call(t, i) && (e[i] = t[i]);
     }
     return e;
-  }, _.apply(this, arguments);
-}, ks = _(_({}, J), { all: J.html5 }), qs = {
+  }, Q.apply(this, arguments);
+}, fa = Q(Q({}, J), { all: J.html5 }), ma = {
   scope: "body",
   level: "all"
-}, Oe = /&(?:#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+);/g, ve = /&(?:#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+)[;=]?/g, na = {
+}, Se = /&(?:#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+);/g, we = /&(?:#\d+|#[xX][\da-fA-F]+|[0-9a-zA-Z]+)[;=]?/g, at = {
   xml: {
-    strict: Oe,
-    attribute: ve,
-    body: be.xml
+    strict: Se,
+    attribute: we,
+    body: ve.xml
   },
   html4: {
-    strict: Oe,
-    attribute: ve,
-    body: be.html4
+    strict: Se,
+    attribute: we,
+    body: ve.html4
   },
   html5: {
-    strict: Oe,
-    attribute: ve,
-    body: be.html5
+    strict: Se,
+    attribute: we,
+    body: ve.html5
   }
-}, xs = _(_({}, na), { all: na.html5 }), Ca = String.fromCharCode, Rs = Ca(65533);
-function Es(e, a, t, n) {
-  var l = e, o = e[e.length - 1];
-  if (t && o === "=")
-    l = e;
-  else if (n && o !== ";")
-    l = e;
+}, ya = Q(Q({}, at), { all: at.html5 }), Rt = String.fromCharCode, ba = Rt(65533);
+function va(e, t, r, n) {
+  var i = e, s = e[e.length - 1];
+  if (r && s === "=")
+    i = e;
+  else if (n && s !== ";")
+    i = e;
   else {
-    var g = a[e];
-    if (g)
-      l = g;
+    var u = t[e];
+    if (u)
+      i = u;
     else if (e[0] === "&" && e[1] === "#") {
-      var r = e[2], d = r == "x" || r == "X" ? parseInt(e.substr(3), 16) : parseInt(e.substr(2));
-      l = d >= 1114111 ? Rs : d > 65535 ? Cs(d) : Ca(As[d] || d);
+      var a = e[2], c = a == "x" || a == "X" ? parseInt(e.substr(3), 16) : parseInt(e.substr(2));
+      i = c >= 1114111 ? ba : c > 65535 ? ha(c) : Rt(da[c] || c);
     }
   }
-  return l;
+  return i;
 }
-function ra(e, a) {
-  var t = a === void 0 ? qs : a, n = t.level, l = n === void 0 ? "all" : n, o = t.scope, g = o === void 0 ? l === "xml" ? "strict" : "body" : o;
+function st(e, t) {
+  var r = t === void 0 ? ma : t, n = r.level, i = n === void 0 ? "all" : n, s = r.scope, u = s === void 0 ? i === "xml" ? "strict" : "body" : s;
   if (!e)
     return "";
-  var r = xs[l][g], d = ks[l].entities, s = g === "attribute", u = g === "strict";
-  return e.replace(r, function(c) {
-    return Es(c, d, s, u);
+  var a = ya[i][u], c = fa[i].entities, l = u === "attribute", g = u === "strict";
+  return e.replace(a, function(d) {
+    return va(d, c, l, g);
   });
 }
-var Gs = { strictlyTwoElementsInRangeArrays: !1, progressFn: null };
-function ce(e, a) {
+var Sa = { strictlyTwoElementsInRangeArrays: !1, progressFn: null };
+function ce(e, t) {
   if (!Array.isArray(e) || !e.length) return e;
-  let t = { ...Gs, ...a }, n, l;
-  if (t.strictlyTwoElementsInRangeArrays && !e.every((r, d) => !Array.isArray(r) || r.length !== 2 ? (n = d, l = r.length, !1) : !0)) throw new TypeError(`ranges-sort: [THROW_ID_03] The first argument should be an array and must consist of arrays which are natural number indexes representing TWO string index ranges. However, ${n}th range (${JSON.stringify(e[n], null, 4)}) has not two but ${l} elements!`);
-  if (!e.every((r, d) => !Array.isArray(r) || !Number.isInteger(r[0]) || r[0] < 0 || !Number.isInteger(r[1]) || r[1] < 0 ? (n = d, !1) : !0)) throw new TypeError(`ranges-sort: [THROW_ID_04] The first argument should be an array and must consist of arrays which are natural number indexes representing string index ranges. However, ${n}th range (${JSON.stringify(e[n], null, 4)}) does not consist of only natural numbers!`);
-  let o = e.length ** 2, g = 0;
-  return Array.from(e).sort((r, d) => (t.progressFn && (g += 1, t.progressFn(Math.floor(g * 100 / o))), r[0] === d[0] ? r[1] < d[1] ? -1 : r[1] > d[1] ? 1 : 0 : r[0] < d[0] ? -1 : 1));
+  let r = { ...Sa, ...t }, n, i;
+  if (r.strictlyTwoElementsInRangeArrays && !e.every((a, c) => !Array.isArray(a) || a.length !== 2 ? (n = c, i = a.length, !1) : !0)) throw new TypeError(`ranges-sort: [THROW_ID_03] The first argument should be an array and must consist of arrays which are natural number indexes representing TWO string index ranges. However, ${n}th range (${JSON.stringify(e[n], null, 4)}) has not two but ${i} elements!`);
+  if (!e.every((a, c) => !Array.isArray(a) || !Number.isInteger(a[0]) || a[0] < 0 || !Number.isInteger(a[1]) || a[1] < 0 ? (n = c, !1) : !0)) throw new TypeError(`ranges-sort: [THROW_ID_04] The first argument should be an array and must consist of arrays which are natural number indexes representing string index ranges. However, ${n}th range (${JSON.stringify(e[n], null, 4)}) does not consist of only natural numbers!`);
+  let s = e.length ** 2, u = 0;
+  return Array.from(e).sort((a, c) => (r.progressFn && (u += 1, r.progressFn(Math.floor(u * 100 / s))), a[0] === c[0] ? a[1] < c[1] ? -1 : a[1] > c[1] ? 1 : 0 : a[0] < c[0] ? -1 : 1));
 }
-var ta = { mergeType: 1, progressFn: null, joinRangesThatTouchEdges: !0 };
-function Is(e, a) {
-  function t(s) {
-    return !!s && typeof s == "object" && !Array.isArray(s);
+var it = { mergeType: 1, progressFn: null, joinRangesThatTouchEdges: !0 };
+function wa(e, t) {
+  function r(l) {
+    return !!l && typeof l == "object" && !Array.isArray(l);
   }
   if (!Array.isArray(e) || !e.length) return null;
   let n;
-  if (a) if (t(a)) {
-    if (n = { ...ta, ...a }, n.progressFn && t(n.progressFn) && !Object.keys(n.progressFn).length) n.progressFn = null;
+  if (t) if (r(t)) {
+    if (n = { ...it, ...t }, n.progressFn && r(n.progressFn) && !Object.keys(n.progressFn).length) n.progressFn = null;
     else if (n.progressFn && typeof n.progressFn != "function") throw new Error(`ranges-merge: [THROW_ID_01] opts.progressFn must be a function! It was given of a type: "${typeof n.progressFn}", equal to ${JSON.stringify(n.progressFn, null, 4)}`);
     if (![1, 2, "1", "2"].includes(n.mergeType)) throw new Error(`ranges-merge: [THROW_ID_02] opts.mergeType was customised to a wrong thing! It was given of a type: "${typeof n.mergeType}", equal to ${JSON.stringify(n.mergeType, null, 4)}`);
     if (typeof n.joinRangesThatTouchEdges != "boolean") throw new Error(`ranges-merge: [THROW_ID_04] opts.joinRangesThatTouchEdges was customised to a wrong thing! It was given of a type: "${typeof n.joinRangesThatTouchEdges}", equal to ${JSON.stringify(n.joinRangesThatTouchEdges, null, 4)}`);
   } else throw new Error(`emlint: [THROW_ID_03] the second input argument must be a plain object. It was given as:
-${JSON.stringify(a, null, 4)} (type ${typeof a})`);
-  else n = { ...ta };
-  let l = e.filter((s) => Array.isArray(s)).map((s) => [...s]).filter((s) => s[2] !== void 0 || s[0] !== s[1]), o, g, r;
-  n.progressFn ? o = ce(l, { progressFn: (s) => {
-    r = Math.floor(s / 5), r !== g && (g = r, n.progressFn(r));
-  } }) : o = ce(l);
-  let d = o.length - 1;
-  for (let s = d; s > 0; s--) n.progressFn && (r = Math.floor((1 - s / d) * 78) + 21, r !== g && r > g && (g = r, n.progressFn(r))), (o[s][0] <= o[s - 1][0] || !n.joinRangesThatTouchEdges && o[s][0] < o[s - 1][1] || n.joinRangesThatTouchEdges && o[s][0] <= o[s - 1][1]) && (o[s - 1][0] = Math.min(o[s][0], o[s - 1][0]), o[s - 1][1] = Math.max(o[s][1], o[s - 1][1]), o[s][2] !== void 0 && (o[s - 1][0] >= o[s][0] || o[s - 1][1] <= o[s][1]) && o[s - 1][2] !== null && (o[s][2] === null && o[s - 1][2] !== null ? o[s - 1][2] = null : o[s - 1][2] != null ? +n.mergeType == 2 && o[s - 1][0] === o[s][0] ? o[s - 1][2] = o[s][2] : o[s - 1][2] += o[s][2] : o[s - 1][2] = o[s][2]), o.splice(s, 1), s = o.length);
-  return o.length ? o : null;
+${JSON.stringify(t, null, 4)} (type ${typeof t})`);
+  else n = { ...it };
+  let i = e.filter((l) => Array.isArray(l)).map((l) => [...l]).filter((l) => l[2] !== void 0 || l[0] !== l[1]), s, u, a;
+  n.progressFn ? s = ce(i, { progressFn: (l) => {
+    a = Math.floor(l / 5), a !== u && (u = a, n.progressFn(a));
+  } }) : s = ce(i);
+  let c = s.length - 1;
+  for (let l = c; l > 0; l--) n.progressFn && (a = Math.floor((1 - l / c) * 78) + 21, a !== u && a > u && (u = a, n.progressFn(a))), (s[l][0] <= s[l - 1][0] || !n.joinRangesThatTouchEdges && s[l][0] < s[l - 1][1] || n.joinRangesThatTouchEdges && s[l][0] <= s[l - 1][1]) && (s[l - 1][0] = Math.min(s[l][0], s[l - 1][0]), s[l - 1][1] = Math.max(s[l][1], s[l - 1][1]), s[l][2] !== void 0 && (s[l - 1][0] >= s[l][0] || s[l - 1][1] <= s[l][1]) && s[l - 1][2] !== null && (s[l][2] === null && s[l - 1][2] !== null ? s[l - 1][2] = null : s[l - 1][2] != null ? +n.mergeType == 2 && s[l - 1][0] === s[l][0] ? s[l - 1][2] = s[l][2] : s[l - 1][2] += s[l][2] : s[l - 1][2] = s[l][2]), s.splice(l, 1), l = s.length);
+  return s.length ? s : null;
 }
-var Ts = {}, Ms = Ts.NODE_ENV === "production", oa = "Invariant failed";
-function Hs(e, a) {
+var Oa = {}, Aa = Oa.NODE_ENV === "production", ot = "Invariant failed";
+function ka(e, t) {
   if (!e) {
-    if (Ms)
-      throw new Error(oa);
-    var t = oa;
-    throw new Error(t);
+    if (Aa)
+      throw new Error(ot);
+    var r = ot;
+    throw new Error(r);
   }
 }
-function Ds(e, a, t) {
+function Ta(e, t, r) {
   if (arguments.length === 0) throw new Error("ranges-apply: [THROW_ID_01] inputs missing!");
   if (typeof e != "string") throw new TypeError(`ranges-apply: [THROW_ID_02] first input argument must be a string! Currently it's: ${typeof e}, equal to: ${JSON.stringify(e, null, 4)}`);
-  if (a && !Array.isArray(a)) throw new TypeError(`ranges-apply: [THROW_ID_03] second input argument must be an array (or null)! Currently it's: ${typeof a}, equal to: ${JSON.stringify(a, null, 4)}`);
-  if (!a?.filter((g) => g).length) return e;
+  if (t && !Array.isArray(t)) throw new TypeError(`ranges-apply: [THROW_ID_03] second input argument must be an array (or null)! Currently it's: ${typeof t}, equal to: ${JSON.stringify(t, null, 4)}`);
+  if (!t?.filter((u) => u).length) return e;
   let n;
-  Array.isArray(a) && Number.isInteger(a[0]) && Number.isInteger(a[1]) ? n = [Array.from(a)] : n = Array.from(a), n.length, n.filter((g) => g).forEach((g, r) => {
-    if (!Array.isArray(g)) throw new TypeError(`ranges-apply: [THROW_ID_05] ranges array, second input arg., has ${r}th element not an array: ${JSON.stringify(g, null, 4)}, which is ${typeof g}`);
-    if (!Number.isInteger(g[0])) {
-      if (!Number.isInteger(+g[0]) || +g[0] < 0) throw new TypeError(`ranges-apply: [THROW_ID_06] ranges array, second input arg. has ${r}th element, array ${JSON.stringify(g, null, 0)}. Its first element is not an integer, string index, but ${typeof g[0]}, equal to: ${JSON.stringify(g[0], null, 4)}.`);
-      n[r][0] = +n[r][0];
+  Array.isArray(t) && Number.isInteger(t[0]) && Number.isInteger(t[1]) ? n = [Array.from(t)] : n = Array.from(t), n.length, n.filter((u) => u).forEach((u, a) => {
+    if (!Array.isArray(u)) throw new TypeError(`ranges-apply: [THROW_ID_05] ranges array, second input arg., has ${a}th element not an array: ${JSON.stringify(u, null, 4)}, which is ${typeof u}`);
+    if (!Number.isInteger(u[0])) {
+      if (!Number.isInteger(+u[0]) || +u[0] < 0) throw new TypeError(`ranges-apply: [THROW_ID_06] ranges array, second input arg. has ${a}th element, array ${JSON.stringify(u, null, 0)}. Its first element is not an integer, string index, but ${typeof u[0]}, equal to: ${JSON.stringify(u[0], null, 4)}.`);
+      n[a][0] = +n[a][0];
     }
-    if (!Number.isInteger(g[1])) {
-      if (!Number.isInteger(+g[1]) || +g[1] < 0) throw new TypeError(`ranges-apply: [THROW_ID_07] ranges array, second input arg. has ${r}th element, array ${JSON.stringify(g, null, 0)}. Its second element is not an integer, string index, but ${typeof g[1]}, equal to: ${JSON.stringify(g[1], null, 4)}.`);
-      n[r][1] = +n[r][1];
+    if (!Number.isInteger(u[1])) {
+      if (!Number.isInteger(+u[1]) || +u[1] < 0) throw new TypeError(`ranges-apply: [THROW_ID_07] ranges array, second input arg. has ${a}th element, array ${JSON.stringify(u, null, 0)}. Its second element is not an integer, string index, but ${typeof u[1]}, equal to: ${JSON.stringify(u[1], null, 4)}.`);
+      n[a][1] = +n[a][1];
     }
   });
-  let l = Is(n, { progressFn: (g) => {
+  let i = wa(n, { progressFn: (u) => {
   } });
-  Hs(l);
-  let o = l.length;
-  if (o > 0) {
-    let g = e.slice(l[o - 1][1]);
-    e = l.reduce((r, d, s, u) => {
-      let c = s === 0 ? 0 : u[s - 1][1], m = u[s][0];
-      return `${r}${e.slice(c, m)}${u[s][2] || ""}`;
-    }, ""), e += g;
+  ka(i);
+  let s = i.length;
+  if (s > 0) {
+    let u = e.slice(i[s - 1][1]);
+    e = i.reduce((a, c, l, g) => {
+      let d = l === 0 ? 0 : g[l - 1][1], h = g[l][0];
+      return `${a}${e.slice(d, h)}${g[l][2] || ""}`;
+    }, ""), e += u;
   }
   return e;
 }
-function we(e, a = 1) {
-  let t = " ";
-  function n(o) {
-    return Array.from(o).reverse().join("");
+function Oe(e, t = 1) {
+  let r = " ";
+  function n(s) {
+    return Array.from(s).reverse().join("");
   }
-  function l(o, g, r) {
-    let d = r ? `
-` : "\r", s = r ? "\r" : `
+  function i(s, u, a) {
+    let c = a ? `
+` : "\r", l = a ? "\r" : `
 `;
-    if (!o) return o;
-    let u = 0, c = "";
-    for (let m = 0, h = o.length; m < h; m++) (o[m] === d || o[m] === s && o[m - 1] !== d) && u++, `\r
-`.includes(o[m]) || o[m] === t ? o[m] === t ? c += o[m] : o[m] === d ? u <= g && (c += o[m], o[m + 1] === s && (c += o[m + 1], m++)) : o[m] === s && o?.[m - 1] !== d && u <= g && (c += o[m]) : !o[m + 1] && !u && (c += " ");
-    return c;
+    if (!s) return s;
+    let g = 0, d = "";
+    for (let h = 0, p = s.length; h < p; h++) (s[h] === c || s[h] === l && s[h - 1] !== c) && g++, `\r
+`.includes(s[h]) || s[h] === r ? s[h] === r ? d += s[h] : s[h] === c ? g <= u && (d += s[h], s[h + 1] === l && (d += s[h + 1], h++)) : s[h] === l && s?.[h - 1] !== c && g <= u && (d += s[h]) : !s[h + 1] && !g && (d += " ");
+    return d;
   }
   if (typeof e == "string" && e.length) {
-    let o = 1;
-    typeof +a == "number" && Number.isInteger(+a) && +a >= 0 && (o = +a);
-    let g = "", r = "";
-    if (!e.trim()) g = e;
+    let s = 1;
+    typeof +t == "number" && Number.isInteger(+t) && +t >= 0 && (s = +t);
+    let u = "", a = "";
+    if (!e.trim()) u = e;
     else if (!e[0].trim()) {
-      for (let d = 0, s = e.length; d < s; d++) if (e[d].trim()) {
-        g = e.slice(0, d);
+      for (let c = 0, l = e.length; c < l; c++) if (e[c].trim()) {
+        u = e.slice(0, c);
         break;
       }
     }
-    if (e.trim() && (e.slice(-1).trim() === "" || e.slice(-1) === t)) {
-      for (let d = e.length; d--; ) if (e[d].trim()) {
-        r = e.slice(d + 1);
+    if (e.trim() && (e.slice(-1).trim() === "" || e.slice(-1) === r)) {
+      for (let c = e.length; c--; ) if (e[c].trim()) {
+        a = e.slice(c + 1);
         break;
       }
     }
-    return `${l(g, o, !1)}${e.trim()}${n(l(n(r), o, !0))}`;
+    return `${i(u, s, !1)}${e.trim()}${n(i(n(a), s, !0))}`;
   }
   return e;
 }
-var la = { mergeType: 1, progressFn: null, joinRangesThatTouchEdges: !0 };
-function Ps(e, a) {
-  function t(s) {
-    return !!s && typeof s == "object" && !Array.isArray(s);
+var lt = { mergeType: 1, progressFn: null, joinRangesThatTouchEdges: !0 };
+function Ra(e, t) {
+  function r(l) {
+    return !!l && typeof l == "object" && !Array.isArray(l);
   }
   if (!Array.isArray(e) || !e.length) return null;
   let n;
-  if (a) if (t(a)) {
-    if (n = { ...la, ...a }, n.progressFn && t(n.progressFn) && !Object.keys(n.progressFn).length) n.progressFn = null;
+  if (t) if (r(t)) {
+    if (n = { ...lt, ...t }, n.progressFn && r(n.progressFn) && !Object.keys(n.progressFn).length) n.progressFn = null;
     else if (n.progressFn && typeof n.progressFn != "function") throw new Error(`ranges-merge: [THROW_ID_01] resolvedOpts.progressFn must be a function! It was given of a type: "${typeof n.progressFn}", equal to ${JSON.stringify(n.progressFn, null, 4)}`);
     if (![1, 2, "1", "2"].includes(n.mergeType)) throw new Error(`ranges-merge: [THROW_ID_02] resolvedOpts.mergeType was customised to a wrong thing! It was given of a type: "${typeof n.mergeType}", equal to ${JSON.stringify(n.mergeType, null, 4)}`);
     if (typeof n.joinRangesThatTouchEdges != "boolean") throw new Error(`ranges-merge: [THROW_ID_04] resolvedOpts.joinRangesThatTouchEdges was customised to a wrong thing! It was given of a type: "${typeof n.joinRangesThatTouchEdges}", equal to ${JSON.stringify(n.joinRangesThatTouchEdges, null, 4)}`);
   } else throw new Error(`ranges-merge: [THROW_ID_03] the second input argument must be a plain object. It was given as:
-${JSON.stringify(a, null, 4)} (type ${typeof a})`);
-  else n = { ...la };
-  let l = e.filter((s) => Array.isArray(s)).map((s) => [...s]).filter((s) => s[2] !== void 0 || s[0] !== s[1]), o, g, r;
-  n.progressFn ? o = ce(l, { progressFn: (s) => {
-    r = Math.floor(s / 5), r !== g && (g = r, n.progressFn != null && n.progressFn(r));
-  } }) : o = ce(l);
-  let d = o.length - 1;
-  for (let s = d; s > 0; s--) n.progressFn && (r = Math.floor((1 - s / d) * 78) + 21, r !== g && r > g && (g = r, n.progressFn(r))), (o[s][0] <= o[s - 1][0] || !n.joinRangesThatTouchEdges && o[s][0] < o[s - 1][1] || n.joinRangesThatTouchEdges && o[s][0] <= o[s - 1][1]) && (o[s - 1][0] = Math.min(o[s][0], o[s - 1][0]), o[s - 1][1] = Math.max(o[s][1], o[s - 1][1]), o[s][2] !== void 0 && (o[s - 1][0] >= o[s][0] || o[s - 1][1] <= o[s][1]) && o[s - 1][2] !== null && (o[s][2] === null && o[s - 1][2] !== null ? o[s - 1][2] = null : o[s - 1][2] != null ? +(n || {})?.mergeType == 2 && o[s - 1][0] === o[s][0] ? o[s - 1][2] = o[s][2] : o[s - 1][2] += o[s][2] : o[s - 1][2] = o[s][2]), o.splice(s, 1), s = o.length);
-  return o.length ? o : null;
+${JSON.stringify(t, null, 4)} (type ${typeof t})`);
+  else n = { ...lt };
+  let i = e.filter((l) => Array.isArray(l)).map((l) => [...l]).filter((l) => l[2] !== void 0 || l[0] !== l[1]), s, u, a;
+  n.progressFn ? s = ce(i, { progressFn: (l) => {
+    a = Math.floor(l / 5), a !== u && (u = a, n.progressFn != null && n.progressFn(a));
+  } }) : s = ce(i);
+  let c = s.length - 1;
+  for (let l = c; l > 0; l--) n.progressFn && (a = Math.floor((1 - l / c) * 78) + 21, a !== u && a > u && (u = a, n.progressFn(a))), (s[l][0] <= s[l - 1][0] || !n.joinRangesThatTouchEdges && s[l][0] < s[l - 1][1] || n.joinRangesThatTouchEdges && s[l][0] <= s[l - 1][1]) && (s[l - 1][0] = Math.min(s[l][0], s[l - 1][0]), s[l - 1][1] = Math.max(s[l][1], s[l - 1][1]), s[l][2] !== void 0 && (s[l - 1][0] >= s[l][0] || s[l - 1][1] <= s[l][1]) && s[l - 1][2] !== null && (s[l][2] === null && s[l - 1][2] !== null ? s[l - 1][2] = null : s[l - 1][2] != null ? +(n || {})?.mergeType == 2 && s[l - 1][0] === s[l][0] ? s[l - 1][2] = s[l][2] : s[l - 1][2] += s[l][2] : s[l - 1][2] = s[l][2]), s.splice(l, 1), l = s.length);
+  return s.length ? s : null;
 }
-var Ls = { limitToBeAddedWhitespace: !1, limitLinebreaksCount: 1, mergeType: 1 }, Us = class {
+var Ca = { limitToBeAddedWhitespace: !1, limitLinebreaksCount: 1, mergeType: 1 }, Ea = class {
   constructor(e) {
-    let a = { ...Ls, ...e };
-    if (a.mergeType && a.mergeType !== 1 && a.mergeType !== 2) if (V(a.mergeType) && a.mergeType.trim() === "1") a.mergeType = 1;
-    else if (V(a.mergeType) && a.mergeType.trim() === "2") a.mergeType = 2;
-    else throw new Error(`ranges-push: [THROW_ID_02] opts.mergeType was customised to a wrong thing! It was given of a type: "${typeof a.mergeType}", equal to ${JSON.stringify(a.mergeType, null, 4)}`);
-    this.opts = a, this.ranges = [];
+    let t = { ...Ca, ...e };
+    if (t.mergeType && t.mergeType !== 1 && t.mergeType !== 2) if (G(t.mergeType) && t.mergeType.trim() === "1") t.mergeType = 1;
+    else if (G(t.mergeType) && t.mergeType.trim() === "2") t.mergeType = 2;
+    else throw new Error(`ranges-push: [THROW_ID_02] opts.mergeType was customised to a wrong thing! It was given of a type: "${typeof t.mergeType}", equal to ${JSON.stringify(t.mergeType, null, 4)}`);
+    this.opts = t, this.ranges = [];
   }
   ranges;
   opts;
-  add(e, a, t) {
-    if (e == null && a == null) return;
-    if (P(e) && !P(a)) {
+  add(e, t, r) {
+    if (e == null && t == null) return;
+    if (B(e) && !B(t)) {
       if (Array.isArray(e)) {
         if (e.length) {
-          if (e.some((o) => Array.isArray(o))) {
-            e.forEach((o) => {
-              Array.isArray(o) && this.add(...o);
+          if (e.some((s) => Array.isArray(s))) {
+            e.forEach((s) => {
+              Array.isArray(s) && this.add(...s);
             });
             return;
           }
-          e.length && F(+e[0]) && F(+e[1]) && this.add(...e);
+          e.length && _(+e[0]) && _(+e[1]) && this.add(...e);
         }
         return;
       }
-      throw new TypeError(`ranges-push/Ranges/add(): [THROW_ID_12] the first input argument, "from" is set (${JSON.stringify(e, null, 0)}) but second-one, "to" is not (${JSON.stringify(a, null, 0)})`);
-    } else if (!P(e) && P(a)) throw new TypeError(`ranges-push/Ranges/add(): [THROW_ID_13] the second input argument, "to" is set (${JSON.stringify(a, null, 0)}) but first-one, "from" is not (${JSON.stringify(e, null, 0)})`);
-    let n = +e, l = +a;
-    if (F(n) && F(l)) {
-      if (P(t) && !V(t) && !ml(t)) throw new TypeError(`ranges-push/Ranges/add(): [THROW_ID_08] The third argument, the value to add, was given not as string but ${typeof t}, equal to:
-${JSON.stringify(t, null, 4)}`);
-      if (P(this.ranges) && Array.isArray(this.last()) && n === this.last()[1]) {
-        if (this.last()[1] = l, this.last()[2], this.last()[2] !== null && P(t)) {
-          let o = this.last()[2] && this.last()[2].length && (!this.opts?.mergeType || this.opts.mergeType === 1) ? `${this.last()[2]}${t}` : t;
-          this.opts.limitToBeAddedWhitespace && (o = we(o, this.opts.limitLinebreaksCount)), V(o) && !o.length || (this.last()[2] = o);
+      throw new TypeError(`ranges-push/Ranges/add(): [THROW_ID_12] the first input argument, "from" is set (${JSON.stringify(e, null, 0)}) but second-one, "to" is not (${JSON.stringify(t, null, 0)})`);
+    } else if (!B(e) && B(t)) throw new TypeError(`ranges-push/Ranges/add(): [THROW_ID_13] the second input argument, "to" is set (${JSON.stringify(t, null, 0)}) but first-one, "from" is not (${JSON.stringify(e, null, 0)})`);
+    let n = +e, i = +t;
+    if (_(n) && _(i)) {
+      if (B(r) && !G(r) && !rr(r)) throw new TypeError(`ranges-push/Ranges/add(): [THROW_ID_08] The third argument, the value to add, was given not as string but ${typeof r}, equal to:
+${JSON.stringify(r, null, 4)}`);
+      if (B(this.ranges) && Array.isArray(this.last()) && n === this.last()[1]) {
+        if (this.last()[1] = i, this.last()[2], this.last()[2] !== null && B(r)) {
+          let s = this.last()[2] && this.last()[2].length && (!this.opts?.mergeType || this.opts.mergeType === 1) ? `${this.last()[2]}${r}` : r;
+          this.opts.limitToBeAddedWhitespace && (s = Oe(s, this.opts.limitLinebreaksCount)), G(s) && !s.length || (this.last()[2] = s);
         }
       } else {
         this.ranges || (this.ranges = []);
-        let o = t !== void 0 && !(V(t) && !t.length) ? [n, l, t && this.opts.limitToBeAddedWhitespace ? we(t, this.opts.limitLinebreaksCount) : t] : [n, l];
-        this.ranges.push(o);
+        let s = r !== void 0 && !(G(r) && !r.length) ? [n, i, r && this.opts.limitToBeAddedWhitespace ? Oe(r, this.opts.limitLinebreaksCount) : r] : [n, i];
+        this.ranges.push(s);
       }
-    } else throw F(n) && n >= 0 ? new TypeError(`ranges-push/Ranges/add(): [THROW_ID_10] "to" value, the second input argument, must be a natural number or zero! Currently it's of a type "${typeof l}" equal to: ${JSON.stringify(l, null, 4)}`) : new TypeError(`ranges-push/Ranges/add(): [THROW_ID_09] "from" value, the first input argument, must be a natural number or zero! Currently it's of a type "${typeof n}" equal to: ${JSON.stringify(n, null, 4)}`);
+    } else throw _(n) && n >= 0 ? new TypeError(`ranges-push/Ranges/add(): [THROW_ID_10] "to" value, the second input argument, must be a natural number or zero! Currently it's of a type "${typeof i}" equal to: ${JSON.stringify(i, null, 4)}`) : new TypeError(`ranges-push/Ranges/add(): [THROW_ID_09] "from" value, the first input argument, must be a natural number or zero! Currently it's of a type "${typeof n}" equal to: ${JSON.stringify(n, null, 4)}`);
   }
-  push(e, a, t) {
-    this.add(e, a, t);
+  push(e, t, r) {
+    this.add(e, t, r);
   }
   current() {
-    return Array.isArray(this.ranges) && this.ranges.length ? (this.ranges = Ps(this.ranges, { mergeType: this.opts.mergeType }), this.ranges && this.opts.limitToBeAddedWhitespace ? this.ranges.map((e) => P(e[2]) ? [e[0], e[1], we(e[2], this.opts.limitLinebreaksCount)] : e) : this.ranges) : null;
+    return Array.isArray(this.ranges) && this.ranges.length ? (this.ranges = Ra(this.ranges, { mergeType: this.opts.mergeType }), this.ranges && this.opts.limitToBeAddedWhitespace ? this.ranges.map((e) => B(e[2]) ? [e[0], e[1], Oe(e[2], this.opts.limitLinebreaksCount)] : e) : this.ranges) : null;
   }
   wipe() {
     this.ranges = [];
   }
   replace(e) {
-    if (Array.isArray(e) && e.length) if (Array.isArray(e[0]) && F(e[0][0])) this.ranges = Array.from(e);
+    if (Array.isArray(e) && e.length) if (Array.isArray(e[0]) && _(e[0][0])) this.ranges = Array.from(e);
     else throw new Error(`ranges-push/Ranges/replace(): [THROW_ID_11] Single range was given but we expected array of arrays! The first element, ${JSON.stringify(e[0], null, 4)} should be an array and its first element should be an integer, a string index.`);
     else this.ranges = [];
   }
@@ -1940,76 +2083,76 @@ ${JSON.stringify(t, null, 4)}`);
     return Array.isArray(this.ranges) && this.ranges.length ? this.ranges[this.ranges.length - 1] : null;
   }
 };
-ua();
-var Ne = " ";
-function zs({ str: e, idx: a = 0, stopAtNewlines: t = !1, stopAtRawNbsp: n = !1 }) {
-  if (typeof e != "string" || !e.length || ((!a || typeof a != "number") && (a = 0), !e[a + 1])) return null;
-  if (e[a + 1] && (e[a + 1].trim() || t && `
-\r`.includes(e[a + 1]) || n && e[a + 1] === Ne)) return a + 1;
-  if (e[a + 2] && (e[a + 2].trim() || t && `
-\r`.includes(e[a + 2]) || n && e[a + 2] === Ne)) return a + 2;
-  for (let l = a + 1, o = e.length; l < o; l++) if (e[l].trim() || t && `
-\r`.includes(e[l]) || n && e[l] === Ne) return l;
+dt();
+var Ae = " ";
+function qa({ str: e, idx: t = 0, stopAtNewlines: r = !1, stopAtRawNbsp: n = !1 }) {
+  if (typeof e != "string" || !e.length || ((!t || typeof t != "number") && (t = 0), !e[t + 1])) return null;
+  if (e[t + 1] && (e[t + 1].trim() || r && `
+\r`.includes(e[t + 1]) || n && e[t + 1] === Ae)) return t + 1;
+  if (e[t + 2] && (e[t + 2].trim() || r && `
+\r`.includes(e[t + 2]) || n && e[t + 2] === Ae)) return t + 2;
+  for (let i = t + 1, s = e.length; i < s; i++) if (e[i].trim() || r && `
+\r`.includes(e[i]) || n && e[i] === Ae) return i;
   return null;
 }
-function E(e, a = 0) {
-  return zs({ str: e, idx: a, stopAtNewlines: !1, stopAtRawNbsp: !1 });
+function N(e, t = 0) {
+  return qa({ str: e, idx: t, stopAtNewlines: !1, stopAtRawNbsp: !1 });
 }
-function Bs(e) {
+function Na(e) {
   return /[-_A-Za-z0-9]/.test(e);
 }
-function ia(e, a) {
+function ut(e, t) {
   if (!e) return [];
-  if (Array.isArray(e)) return e.filter((t) => typeof t == "string" && t.trim());
+  if (Array.isArray(e)) return e.filter((r) => typeof r == "string" && r.trim());
   if (typeof e == "string") return e.trim() ? [e] : [];
-  throw new TypeError(`string-strip-html/stripHtml(): [THROW_ID_05] ${a} must be array containing zero or more strings or something falsey. Currently it's equal to: ${e}, that a type of ${typeof e}.`);
+  throw new TypeError(`string-strip-html/stripHtml(): [THROW_ID_05] ${t} must be array containing zero or more strings or something falsey. Currently it's equal to: ${e}, that a type of ${typeof e}.`);
 }
-function ie(e, a, t, n) {
-  for (let l = a, o = e.length; l < o; l++) {
-    if (e.startsWith(t, l)) return !0;
-    if (e.startsWith(n, l)) return !1;
+function oe(e, t, r, n) {
+  for (let i = t, s = e.length; i < s; i++) {
+    if (e.startsWith(r, i)) return !0;
+    if (e.startsWith(n, i)) return !1;
   }
   return !1;
 }
-function sa(e, a, t) {
-  return e?.quotes, e?.quotes?.value && ie(a, t + 1, e.quotes.value, ">"), e?.quotes?.next, ie(a, e?.quotes?.next - 1, e?.quotes?.value, ">"), !e?.quotes || !ie(a, t + 1, e.quotes.value, ">") && e?.quotes?.next !== -1 && ie(a, e?.quotes?.next - 1, e?.quotes?.value, ">");
+function ct(e, t, r) {
+  return e?.quotes, e?.quotes?.value && oe(t, r + 1, e.quotes.value, ">"), e?.quotes?.next, oe(t, e?.quotes?.next - 1, e?.quotes?.value, ">"), !e?.quotes || !oe(t, r + 1, e.quotes.value, ">") && e?.quotes?.next !== -1 && oe(t, e?.quotes?.next - 1, e?.quotes?.value, ">");
 }
-function $s(e, a) {
-  return (a.match(new RegExp(e, "g")) || []).length;
+function La(e, t) {
+  return (t.match(new RegExp(e, "g")) || []).length;
 }
-var ae = /* @__PURE__ */ new Set(["!doctype", "abbr", "address", "area", "article", "aside", "audio", "base", "bdi", "bdo", "blockquote", "body", "br", "button", "canvas", "caption", "cite", "code", "col", "colgroup", "data", "datalist", "dd", "del", "details", "dfn", "dialog", "div", "dl", "doctype", "dt", "em", "embed", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup", "hr", "html", "iframe", "img", "input", "ins", "kbd", "keygen", "label", "legend", "li", "link", "main", "map", "mark", "math", "menu", "menuitem", "meta", "meter", "nav", "noscript", "object", "ol", "optgroup", "option", "output", "param", "picture", "pre", "progress", "rb", "rp", "rt", "rtc", "ruby", "samp", "script", "section", "select", "slot", "small", "source", "span", "strong", "style", "sub", "summary", "sup", "svg", "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead", "time", "title", "tr", "track", "ul", "var", "video", "wbr", "xml"]), Ae = /* @__PURE__ */ new Set(["a", "b", "i", "p", "q", "s", "u"]), Ce = /* @__PURE__ */ new Set([".", ",", ";", "!", "?"]), ga = /* @__PURE__ */ new Set([".", ",", "?", ";", ")", "…", '"', "»"]), js = /* @__PURE__ */ new Set(["a", "abbr", "acronym", "audio", "b", "bdi", "bdo", "big", "button", "canvas", "cite", "code", "data", "datalist", "del", "dfn", "em", "embed", "i", "iframe", "input", "ins", "kbd", "label", "map", "mark", "meter", "noscript", "object", "output", "picture", "progress", "q", "ruby", "s", "samp", "select", "slot", "small", "span", "strong", "sub", "sup", "svg", "template", "textarea", "time", "u", "tt", "var", "video", "wbr"]), da = { ignoreTags: [], ignoreTagsWithTheirContents: [], onlyStripTags: [], stripTogetherWithTheirContents: ["script", "style", "xml"], skipHtmlDecoding: !1, trimOnlySpaces: !1, stripRecognisedHTMLOnly: !1, dumpLinkHrefsNearby: { enabled: !1, putOnNewLine: !1, wrapHeads: "", wrapTails: "" }, ignoreIndentations: !1, cb: null, reportProgressFunc: null, reportProgressFuncFrom: 0, reportProgressFuncTo: 100 };
-function ka(e, a) {
-  let t = Date.now(), n = [], l = [], o = [], g = [], r = {};
-  function d() {
-    r = { attributes: [] };
+var te = /* @__PURE__ */ new Set(["!doctype", "abbr", "address", "area", "article", "aside", "audio", "base", "bdi", "bdo", "blockquote", "body", "br", "button", "canvas", "caption", "cite", "code", "col", "colgroup", "data", "datalist", "dd", "del", "details", "dfn", "dialog", "div", "dl", "doctype", "dt", "em", "embed", "fieldset", "figcaption", "figure", "footer", "form", "h1", "h2", "h3", "h4", "h5", "h6", "head", "header", "hgroup", "hr", "html", "iframe", "img", "input", "ins", "kbd", "keygen", "label", "legend", "li", "link", "main", "map", "mark", "math", "menu", "menuitem", "meta", "meter", "nav", "noscript", "object", "ol", "optgroup", "option", "output", "param", "picture", "pre", "progress", "rb", "rp", "rt", "rtc", "ruby", "samp", "script", "section", "select", "slot", "small", "source", "span", "strong", "style", "sub", "summary", "sup", "svg", "table", "tbody", "td", "template", "textarea", "tfoot", "th", "thead", "time", "title", "tr", "track", "ul", "var", "video", "wbr", "xml"]), ke = /* @__PURE__ */ new Set(["a", "b", "i", "p", "q", "s", "u"]), Te = /* @__PURE__ */ new Set([".", ",", ";", "!", "?"]), gt = /* @__PURE__ */ new Set([".", ",", "?", ";", ")", "…", '"', "»"]), Ia = /* @__PURE__ */ new Set(["a", "abbr", "acronym", "audio", "b", "bdi", "bdo", "big", "button", "canvas", "cite", "code", "data", "datalist", "del", "dfn", "em", "embed", "i", "iframe", "input", "ins", "kbd", "label", "map", "mark", "meter", "noscript", "object", "output", "picture", "progress", "q", "ruby", "s", "samp", "select", "slot", "small", "span", "strong", "sub", "sup", "svg", "template", "textarea", "time", "u", "tt", "var", "video", "wbr"]), pt = { ignoreTags: [], ignoreTagsWithTheirContents: [], onlyStripTags: [], stripTogetherWithTheirContents: ["script", "style", "xml"], skipHtmlDecoding: !1, trimOnlySpaces: !1, stripRecognisedHTMLOnly: !1, dumpLinkHrefsNearby: { enabled: !1, putOnNewLine: !1, wrapHeads: "", wrapTails: "" }, ignoreIndentations: !1, cb: null, reportProgressFunc: null, reportProgressFuncFrom: 0, reportProgressFuncTo: 100 };
+function Ct(e, t) {
+  let r = Date.now(), n = [], i = [], s = [], u = [], a = {};
+  function c() {
+    a = { attributes: [] };
   }
-  d();
-  let s = null, u = null, c = null, m = !1, h = {}, S = { tagName: "", hrefValue: "", openingTagEnds: void 0 }, w = "", q = !1, k = null, G = !0;
-  function te(i, f, b) {
-    if (Array.isArray(f.stripTogetherWithTheirContents) && (f.stripTogetherWithTheirContents.includes(r.name) || f.stripTogetherWithTheirContents.includes("*"))) if (r.slashPresent && Array.isArray(n) && n.some((y) => y.name === r.name)) {
-      for (let y = n.length; y--; ) if (n[y].name === r.name) {
-        g = g.filter(([N, C]) => (N < n[y].lastOpeningBracketAt || N >= i + 1) && (C <= n[y].lastOpeningBracketAt || C > i + 1));
-        let A = i + 1;
-        r.lastClosingBracketAt && (A = r.lastClosingBracketAt + 1), g.push([n[y].lastOpeningBracketAt, A]), ga.has(e[i]) && f.cb ? f.cb({ tag: r, deleteFrom: n[y].lastOpeningBracketAt, deleteTo: i + 1, insert: null, rangesArr: b, proposedReturn: [n[y].lastOpeningBracketAt, i, null] }) : f.cb && f.cb({ tag: r, deleteFrom: n[y].lastOpeningBracketAt, deleteTo: i, insert: "", rangesArr: b, proposedReturn: [n[y].lastOpeningBracketAt, i, ""] }), n.splice(y, 1);
+  c();
+  let l = null, g = null, d = null, h = !1, p = {}, v = { tagName: "", hrefValue: "", openingTagEnds: void 0 }, O = "", C = !1, R = null, I = !0;
+  function ae(o, m, b) {
+    if (Array.isArray(m.stripTogetherWithTheirContents) && (m.stripTogetherWithTheirContents.includes(a.name) || m.stripTogetherWithTheirContents.includes("*"))) if (a.slashPresent && Array.isArray(n) && n.some((y) => y.name === a.name)) {
+      for (let y = n.length; y--; ) if (n[y].name === a.name) {
+        u = u.filter(([A, T]) => (A < n[y].lastOpeningBracketAt || A >= o + 1) && (T <= n[y].lastOpeningBracketAt || T > o + 1));
+        let k = o + 1;
+        a.lastClosingBracketAt && (k = a.lastClosingBracketAt + 1), u.push([n[y].lastOpeningBracketAt, k]), gt.has(e[o]) && m.cb ? m.cb({ tag: a, deleteFrom: n[y].lastOpeningBracketAt, deleteTo: o + 1, insert: null, rangesArr: b, proposedReturn: [n[y].lastOpeningBracketAt, o, null] }) : m.cb && m.cb({ tag: a, deleteFrom: n[y].lastOpeningBracketAt, deleteTo: o, insert: "", rangesArr: b, proposedReturn: [n[y].lastOpeningBracketAt, o, ""] }), n.splice(y, 1);
         break;
       }
-    } else r.slashPresent || n.push(r);
-    else Array.isArray(f.ignoreTagsWithTheirContents) && pe(i, f, r) && (G = !1);
+    } else a.slashPresent || n.push(a);
+    else Array.isArray(m.ignoreTagsWithTheirContents) && he(o, m, a) && (I = !1);
   }
-  function $(i, f, b, y, A, N) {
-    if (Array.isArray(v.current()) && typeof b == "number" && v.current()[0][0] === 0 && v.current()[0][1] >= b) return "";
-    if (e.length === y && N && !p?.dumpLinkHrefsNearby?.enabled) return null;
-    let C = "";
-    if (Number.isInteger(b) && b < A && (C += i.slice(b, A)), Number.isInteger(y) && y > N + 1) {
-      let T = i.slice(N + 1, y);
-      y && !E(e, y - 1) && (T = T.trimEnd()), T.includes(`
-`) && I(y, i) ? C += " " : C += T;
+  function V(o, m, b, y, k, A) {
+    if (Array.isArray(w.current()) && typeof b == "number" && w.current()[0][0] === 0 && w.current()[0][1] >= b) return "";
+    if (e.length === y && A && !f?.dumpLinkHrefsNearby?.enabled) return null;
+    let T = "";
+    if (Number.isInteger(b) && b < k && (T += o.slice(b, k)), Number.isInteger(y) && y > A + 1) {
+      let j = o.slice(A + 1, y);
+      y && !N(e, y - 1) && (j = j.trimEnd()), j.includes(`
+`) && x(y, o) ? T += " " : T += j;
     }
-    let j = !ga.has(i[f]), ze = i[y - 1] !== ">" || !i[b].trim(), Be = !['"', "("].includes(i[A - 1]), xa = ![";", ".", ":", "!"].includes(i[f]);
-    if ((j || ze && Be && xa) && (ze || Be) && i[f] !== "!" && (!js.has(r.name) || typeof b == "number" && b < A || typeof y == "number" && y > N + 1)) {
-      let T = C.match(/\n/g);
-      return Array.isArray(T) && T.length ? T.length === 1 ? `
-` : T.length === 2 ? `
+    let z = !gt.has(o[m]), He = o[y - 1] !== ">" || !o[b].trim(), Ve = !['"', "("].includes(o[k - 1]), qt = ![";", ".", ":", "!"].includes(o[m]);
+    if ((z || He && Ve && qt) && (He || Ve) && o[m] !== "!" && (!Ia.has(a.name) || typeof b == "number" && b < k || typeof y == "number" && y > A + 1)) {
+      let j = T.match(/\n/g);
+      return Array.isArray(j) && j.length ? j.length === 1 ? `
+` : j.length === 2 ? `
 
 ` : `
 
@@ -2018,196 +2161,196 @@ function ka(e, a) {
     }
     return "";
   }
-  function me(i, f) {
-    if (i.dumpLinkHrefsNearby?.enabled && S.tagName && S.tagName === r.name && r.lastOpeningBracketAt && (S.openingTagEnds && r.lastOpeningBracketAt > S.openingTagEnds || !S.openingTagEnds) && (q = !0), q) {
-      let b = i.dumpLinkHrefsNearby?.putOnNewLine ? `
+  function de(o, m) {
+    if (o.dumpLinkHrefsNearby?.enabled && v.tagName && v.tagName === a.name && a.lastOpeningBracketAt && (v.openingTagEnds && a.lastOpeningBracketAt > v.openingTagEnds || !v.openingTagEnds) && (C = !0), C) {
+      let b = o.dumpLinkHrefsNearby?.putOnNewLine ? `
 
 ` : "";
-      w = `${b}${S.hrefValue}`, (typeof f != "number" || E(e, f - 1)) && (w += b);
+      O = `${b}${v.hrefValue}`, (typeof m != "number" || N(e, m - 1)) && (O += b);
     }
   }
-  function I(i, f) {
-    return f ? f[i] === "<" && f[i + 1] !== "%" : e[i] === "<" && e[i + 1] !== "%";
+  function x(o, m) {
+    return m ? m[o] === "<" && m[o + 1] !== "%" : e[o] === "<" && e[o + 1] !== "%";
   }
-  function H(i) {
-    return e[i] === ">" && e[i - 1] !== "%";
+  function U(o) {
+    return e[o] === ">" && e[o - 1] !== "%";
   }
-  function pe(i, f, b) {
-    if (f.ignoreTagsWithTheirContents.includes("*")) return !0;
-    let y = e.indexOf(`<${b.name}`, i), A = e.indexOf(`</${b.name}`, i);
-    return !b.slashPresent && A === -1 || b.slashPresent && !l.some((N) => N.name === b.name) || A > -1 && y > -1 && y < A ? !1 : f.ignoreTagsWithTheirContents.includes(b.name);
+  function he(o, m, b) {
+    if (m.ignoreTagsWithTheirContents.includes("*")) return !0;
+    let y = e.indexOf(`<${b.name}`, o), k = e.indexOf(`</${b.name}`, o);
+    return !b.slashPresent && k === -1 || b.slashPresent && !i.some((A) => A.name === b.name) || k > -1 && y > -1 && y < k ? !1 : m.ignoreTagsWithTheirContents.includes(b.name);
   }
   if (typeof e != "string") throw new TypeError(`string-strip-html/stripHtml(): [THROW_ID_01] Input must be string! Currently it's: ${(typeof e).toLowerCase()}, equal to:
 ${JSON.stringify(e, null, 4)}`);
-  if (a) if (Re(a)) {
-    if (a.reportProgressFunc && typeof a.reportProgressFunc != "function") throw new Error(`string-strip-html/stripHtml(): [THROW_ID_03] The Optional Options Object's key reportProgressFunc, callback function, should be a function but it was given as type ${typeof a.reportProgressFunc}, equal to ${JSON.stringify(a.reportProgressFunc, null, 4)}`);
-    if (typeof a.dumpLinkHrefsNearby == "boolean" && a.dumpLinkHrefsNearby != null) throw new Error(`string-strip-html/stripHtml(): [THROW_ID_04] The Optional Options Object's key should be a plain object but it was given as type ${typeof a.dumpLinkHrefsNearby}, equal to ${JSON.stringify(a.dumpLinkHrefsNearby, null, 4)}`);
-  } else throw new TypeError(`string-strip-html/stripHtml(): [THROW_ID_02] Optional Options Object must be a plain object! Currently it's: ${(typeof a).toLowerCase()}, equal to:
-${JSON.stringify(a, null, 4)}`);
+  if (t) if (Ne(t)) {
+    if (t.reportProgressFunc && typeof t.reportProgressFunc != "function") throw new Error(`string-strip-html/stripHtml(): [THROW_ID_03] The Optional Options Object's key reportProgressFunc, callback function, should be a function but it was given as type ${typeof t.reportProgressFunc}, equal to ${JSON.stringify(t.reportProgressFunc, null, 4)}`);
+    if (typeof t.dumpLinkHrefsNearby == "boolean" && t.dumpLinkHrefsNearby != null) throw new Error(`string-strip-html/stripHtml(): [THROW_ID_04] The Optional Options Object's key should be a plain object but it was given as type ${typeof t.dumpLinkHrefsNearby}, equal to ${JSON.stringify(t.dumpLinkHrefsNearby, null, 4)}`);
+  } else throw new TypeError(`string-strip-html/stripHtml(): [THROW_ID_02] Optional Options Object must be a plain object! Currently it's: ${(typeof t).toLowerCase()}, equal to:
+${JSON.stringify(t, null, 4)}`);
   function fe() {
-    q && (S = { tagName: "", hrefValue: "", openingTagEnds: void 0 }, q = !1);
+    C && (v = { tagName: "", hrefValue: "", openingTagEnds: void 0 }, C = !1);
   }
-  let p = { ...da, ...a, dumpLinkHrefsNearby: Object.assign({}, da.dumpLinkHrefsNearby, a?.dumpLinkHrefsNearby) };
-  if (pl(p, "returnRangesOnly")) throw new TypeError("string-strip-html/stripHtml(): [THROW_ID_05] The Optional Options Object's key returnRangesOnly has been removed from the API since v.5 release.");
-  if (p.reportProgressFunc) {
-    if (typeof p.reportProgressFuncFrom != "number") throw new Error(`string-strip-html/stripHtml(): [THROW_ID_06] The Optional Options Object's key reportProgressFuncFrom, callback function's "from" range, should be a number but it was given as type ${typeof p.reportProgressFuncFrom}, equal to ${JSON.stringify(p.reportProgressFuncFrom, null, 4)}`);
-    if (typeof p.reportProgressFuncTo != "number") throw new Error(`string-strip-html/stripHtml(): [THROW_ID_07] The Optional Options Object's key reportProgressFuncTo, callback function's "to" range, should be a number but it was given as type ${typeof p.reportProgressFuncTo}, equal to ${JSON.stringify(p.reportProgressFuncTo, null, 4)}`);
+  let f = { ...pt, ...t, dumpLinkHrefsNearby: Object.assign({}, pt.dumpLinkHrefsNearby, t?.dumpLinkHrefsNearby) };
+  if (nr(f, "returnRangesOnly")) throw new TypeError("string-strip-html/stripHtml(): [THROW_ID_05] The Optional Options Object's key returnRangesOnly has been removed from the API since v.5 release.");
+  if (f.reportProgressFunc) {
+    if (typeof f.reportProgressFuncFrom != "number") throw new Error(`string-strip-html/stripHtml(): [THROW_ID_06] The Optional Options Object's key reportProgressFuncFrom, callback function's "from" range, should be a number but it was given as type ${typeof f.reportProgressFuncFrom}, equal to ${JSON.stringify(f.reportProgressFuncFrom, null, 4)}`);
+    if (typeof f.reportProgressFuncTo != "number") throw new Error(`string-strip-html/stripHtml(): [THROW_ID_07] The Optional Options Object's key reportProgressFuncTo, callback function's "to" range, should be a number but it was given as type ${typeof f.reportProgressFuncTo}, equal to ${JSON.stringify(f.reportProgressFuncTo, null, 4)}`);
   }
-  p.ignoreTags = ia(p.ignoreTags, "resolvedOpts.ignoreTags"), p.onlyStripTags = ia(p.onlyStripTags, "resolvedOpts.onlyStripTags");
-  let Le = !!p.onlyStripTags.length;
-  p.onlyStripTags.length && p.ignoreTags.length && (p.onlyStripTags = vs(p.onlyStripTags, ...p.ignoreTags)), p.stripTogetherWithTheirContents ? typeof p.stripTogetherWithTheirContents == "string" && p.stripTogetherWithTheirContents.length && (p.stripTogetherWithTheirContents = [p.stripTogetherWithTheirContents]) : p.stripTogetherWithTheirContents = [];
-  let Z = {};
-  if (p.stripTogetherWithTheirContents && Array.isArray(p.stripTogetherWithTheirContents) && p.stripTogetherWithTheirContents.length && !p.stripTogetherWithTheirContents.every((i, f) => typeof i != "string" ? (Z.el = i, Z.i = f, !1) : !0)) throw new TypeError(`string-strip-html/stripHtml(): [THROW_ID_08] Optional Options Object's key stripTogetherWithTheirContents was set to contain not just string elements! For example, element at index ${Z.i} has a value ${Z.el} which is not string but ${(typeof Z.el).toLowerCase()}.`);
-  p.cb || (p.cb = ({ rangesArr: i, proposedReturn: f }) => {
-    f && i.push(...f);
+  f.ignoreTags = ut(f.ignoreTags, "resolvedOpts.ignoreTags"), f.onlyStripTags = ut(f.onlyStripTags, "resolvedOpts.onlyStripTags");
+  let Fe = !!f.onlyStripTags.length;
+  f.onlyStripTags.length && f.ignoreTags.length && (f.onlyStripTags = ca(f.onlyStripTags, ...f.ignoreTags)), f.stripTogetherWithTheirContents ? typeof f.stripTogetherWithTheirContents == "string" && f.stripTogetherWithTheirContents.length && (f.stripTogetherWithTheirContents = [f.stripTogetherWithTheirContents]) : f.stripTogetherWithTheirContents = [];
+  let X = {};
+  if (f.stripTogetherWithTheirContents && Array.isArray(f.stripTogetherWithTheirContents) && f.stripTogetherWithTheirContents.length && !f.stripTogetherWithTheirContents.every((o, m) => typeof o != "string" ? (X.el = o, X.i = m, !1) : !0)) throw new TypeError(`string-strip-html/stripHtml(): [THROW_ID_08] Optional Options Object's key stripTogetherWithTheirContents was set to contain not just string elements! For example, element at index ${X.i} has a value ${X.el} which is not string but ${(typeof X.el).toLowerCase()}.`);
+  f.cb || (f.cb = ({ rangesArr: o, proposedReturn: m }) => {
+    m && o.push(...m);
   });
-  let v = new Us({ limitToBeAddedWhitespace: !0, limitLinebreaksCount: 2 });
-  if (!p.skipHtmlDecoding) for (; e !== ra(e, { scope: "strict" }); ) e = ra(e, { scope: "strict" });
-  let U = !1, D = !1, oe = 0, Ue = 0, x = e.length, qa = Math.floor(x / 2);
-  for (let i = 0; i < x; i++) {
-    if (p.reportProgressFunc && (x > 1e3 && x < 2e3 ? i === qa && p.reportProgressFunc(Math.floor((p.reportProgressFuncTo - p.reportProgressFuncFrom) / 2)) : x >= 2e3 && (oe = p.reportProgressFuncFrom + Math.floor(i / x * (p.reportProgressFuncTo - p.reportProgressFuncFrom)), oe !== Ue && (Ue = oe, p.reportProgressFunc(oe)))), Object.keys(r).length > 1 && r.lastClosingBracketAt && r.lastClosingBracketAt < i && e[i] !== " " && k === null && (k = i), !U && e[i] === "%" && e[i - 1] === "{" && e.includes("%}", i + 1)) {
-      c = null;
-      let f = e.indexOf("%}", i) - 1;
-      if (f > i) {
-        i = f;
+  let w = new Ea({ limitToBeAddedWhitespace: !0, limitLinebreaksCount: 2 });
+  if (!f.skipHtmlDecoding) for (; e !== st(e, { scope: "strict" }); ) e = st(e, { scope: "strict" });
+  let $ = !1, D = !1, se = 0, $e = 0, E = e.length, Et = Math.floor(E / 2);
+  for (let o = 0; o < E; o++) {
+    if (f.reportProgressFunc && (E > 1e3 && E < 2e3 ? o === Et && f.reportProgressFunc(Math.floor((f.reportProgressFuncTo - f.reportProgressFuncFrom) / 2)) : E >= 2e3 && (se = f.reportProgressFuncFrom + Math.floor(o / E * (f.reportProgressFuncTo - f.reportProgressFuncFrom)), se !== $e && ($e = se, f.reportProgressFunc(se)))), Object.keys(a).length > 1 && a.lastClosingBracketAt && a.lastClosingBracketAt < o && e[o] !== " " && R === null && (R = o), !$ && e[o] === "%" && e[o - 1] === "{" && e.includes("%}", o + 1)) {
+      d = null;
+      let m = e.indexOf("%}", o) - 1;
+      if (m > o) {
+        o = m;
         continue;
       }
     }
-    if (!U && H(i) && (!r || Object.keys(r).length < 2) && i > 1) {
-      for (let f = i; f--; ) if (e[f - 1] === void 0 || H(f)) {
-        let b = e[f - 1] === void 0 ? f : f + 1, y = e.slice(b, i + 1) || "";
-        if ((y.includes("/>") || y.includes("/ >") || y.includes('="') || y.includes("='")) && e !== `<${aa(y.trim(), "/>")}>` && [...ae].some((A) => aa(y.trim().split(/\s+/).filter((N) => N.trim()).filter((N, C) => C === 0), "/>").toLowerCase() === A) && ka(`<${y.trim()}>`, p).result === "") {
-          (!o.length || o[o.length - 1][0] !== r.lastOpeningBracketAt) && o.push([b, i + 1]), (!g.length || g[g.length - 1][0] !== r.lastOpeningBracketAt) && g.push([b, i + 1]);
-          let A = $(e, i, b, i + 1, b, i + 1), N = i + 1;
-          if (e[N] && !e[N].trim()) {
-            for (let C = N; C < x; C++) if (e[C].trim()) {
-              N = C;
+    if (!$ && U(o) && (!a || Object.keys(a).length < 2) && o > 1) {
+      for (let m = o; m--; ) if (e[m - 1] === void 0 || U(m)) {
+        let b = e[m - 1] === void 0 ? m : m + 1, y = e.slice(b, o + 1) || "";
+        if ((y.includes("/>") || y.includes("/ >") || y.includes('="') || y.includes("='")) && e !== `<${nt(y.trim(), "/>")}>` && [...te].some((k) => nt(y.trim().split(/\s+/).filter((A) => A.trim()).filter((A, T) => T === 0), "/>").toLowerCase() === k) && Ct(`<${y.trim()}>`, f).result === "") {
+          (!s.length || s[s.length - 1][0] !== a.lastOpeningBracketAt) && s.push([b, o + 1]), (!u.length || u[u.length - 1][0] !== a.lastOpeningBracketAt) && u.push([b, o + 1]);
+          let k = V(e, o, b, o + 1, b, o + 1), A = o + 1;
+          if (e[A] && !e[A].trim()) {
+            for (let T = A; T < E; T++) if (e[T].trim()) {
+              A = T;
               break;
             }
           }
-          p.cb({ tag: r, deleteFrom: b, deleteTo: N, insert: A, rangesArr: v, proposedReturn: [b, N, A] });
+          f.cb({ tag: a, deleteFrom: b, deleteTo: A, insert: k, rangesArr: w, proposedReturn: [b, A, k] });
         }
         break;
       }
     }
-    if (!D && e[i] === "/" && !r.quotes?.value && Number.isInteger(r.lastOpeningBracketAt) && !Number.isInteger(r.lastClosingBracketAt) && (r.slashPresent = i), e[i] === '"' || e[i] === "'") if (!D && r.nameStarts && r?.quotes?.value === e[i]) if (h.valueStarts === void 0) h = {}, delete r.quotes;
+    if (!D && e[o] === "/" && !a.quotes?.value && Number.isInteger(a.lastOpeningBracketAt) && !Number.isInteger(a.lastClosingBracketAt) && (a.slashPresent = o), e[o] === '"' || e[o] === "'") if (!D && a.nameStarts && a?.quotes?.value === e[o]) if (p.valueStarts === void 0) p = {}, delete a.quotes;
     else {
-      h.valueEnds = i, h.value = e.slice(h.valueStarts, i), r.attributes.push(h), h = {}, delete r.quotes;
-      let f;
-      p.dumpLinkHrefsNearby?.enabled && !n.length && r.attributes.some((b) => {
-        if (typeof b.name == "string" && b.name.toLowerCase() === "href") return f = `${p.dumpLinkHrefsNearby?.wrapHeads || ""}${b.value}${p.dumpLinkHrefsNearby?.wrapTails || ""}`, !0;
-      }) && (S = { tagName: r.name, hrefValue: f, openingTagEnds: void 0 });
+      p.valueEnds = o, p.value = e.slice(p.valueStarts, o), a.attributes.push(p), p = {}, delete a.quotes;
+      let m;
+      f.dumpLinkHrefsNearby?.enabled && !n.length && a.attributes.some((b) => {
+        if (typeof b.name == "string" && b.name.toLowerCase() === "href") return m = `${f.dumpLinkHrefsNearby?.wrapHeads || ""}${b.value}${f.dumpLinkHrefsNearby?.wrapTails || ""}`, !0;
+      }) && (v = { tagName: a.name, hrefValue: m, openingTagEnds: void 0 });
     }
-    else !D && !r.quotes && r.nameStarts && (r.quotes = {}, r.quotes.value = e[i], r.quotes.start = i, r.quotes.next = e.indexOf(e[i], i + 1), h.nameStarts && h.nameEnds && h.nameEnds < i && h.nameStarts < i && !h.valueStarts && (h.name = e.slice(h.nameStarts, h.nameEnds)));
-    if (r.nameStarts !== void 0 && r.nameEnds === void 0 && (!e[i].trim() || !Bs(e[i]))) {
-      if (r.nameEnds = i, r.name = e.slice(r.nameStarts, r.nameEnds + (!H(i) && e[i] !== "/" && e[i + 1] === void 0 ? 1 : 0)), e[r.nameStarts - 1] !== "!" && !r.name.replace(/-/g, "").length || /^\d+$/.test(r.name[0])) {
-        r = {};
+    else !D && !a.quotes && a.nameStarts && (a.quotes = {}, a.quotes.value = e[o], a.quotes.start = o, a.quotes.next = e.indexOf(e[o], o + 1), p.nameStarts && p.nameEnds && p.nameEnds < o && p.nameStarts < o && !p.valueStarts && (p.name = e.slice(p.nameStarts, p.nameEnds)));
+    if (a.nameStarts !== void 0 && a.nameEnds === void 0 && (!e[o].trim() || !Na(e[o]))) {
+      if (a.nameEnds = o, a.name = e.slice(a.nameStarts, a.nameEnds + (!U(o) && e[o] !== "/" && e[o + 1] === void 0 ? 1 : 0)), e[a.nameStarts - 1] !== "!" && !a.name.replace(/-/g, "").length || /^\d+$/.test(a.name[0])) {
+        a = {};
         continue;
       }
-      if (typeof r.name == "string" && r.name.toLowerCase() === "doctype" && (D = !0), I(i)) {
-        me(p);
-        let f = $(e, i, r.leftOuterWhitespace, i, r.lastOpeningBracketAt, i);
-        (p.stripTogetherWithTheirContents.includes(r.name) || p.stripTogetherWithTheirContents.includes("*")) && (g = g.filter(([b, y]) => !(b === r.leftOuterWhitespace && y === i))), p.cb({ tag: r, deleteFrom: r.leftOuterWhitespace, deleteTo: i, insert: `${f}${w}${f}`, rangesArr: v, proposedReturn: [r.leftOuterWhitespace, i, `${f}${w}${f}`] }), fe(), te(i, p, v);
+      if (typeof a.name == "string" && a.name.toLowerCase() === "doctype" && (D = !0), x(o)) {
+        de(f);
+        let m = V(e, o, a.leftOuterWhitespace, o, a.lastOpeningBracketAt, o);
+        (f.stripTogetherWithTheirContents.includes(a.name) || f.stripTogetherWithTheirContents.includes("*")) && (u = u.filter(([b, y]) => !(b === a.leftOuterWhitespace && y === o))), f.cb({ tag: a, deleteFrom: a.leftOuterWhitespace, deleteTo: o, insert: `${m}${O}${m}`, rangesArr: w, proposedReturn: [a.leftOuterWhitespace, o, `${m}${O}${m}`] }), fe(), ae(o, f, w);
       }
     }
-    if (r.quotes?.start && r.quotes.start < i && !r.quotes.end && h.nameEnds && h.equalsAt && !h.valueStarts && (h.valueStarts = i), !r.quotes && h.nameEnds && e[i] === "=" && !h.valueStarts && !h.equalsAt && (h.equalsAt = i), !r.quotes && h.nameStarts && h.nameEnds && !h.valueStarts && e[i].trim() && e[i] !== "=" && (r.attributes.push(h), h = {}), !r.quotes && h.nameStarts && !h.nameEnds && (D && `'"`.includes(e[h.nameStarts]) ? h.nameStarts < i && e[i] === e[h.nameStarts] && (h.nameEnds = i + 1, h.name = e.slice(h.nameStarts, h.nameEnds)) : e[i].trim() ? e[i] === "=" ? h.equalsAt || (h.nameEnds = i, h.equalsAt = i, h.name = e.slice(h.nameStarts, h.nameEnds)) : e[i] === "/" || H(i) ? (h.nameEnds = i, h.name = e.slice(h.nameStarts, h.nameEnds), r.attributes.push(h), h = {}) : I(i) && (h.nameEnds = i, h.name = e.slice(h.nameStarts, h.nameEnds), r.attributes.push(h), h = {}) : (h.nameEnds = i, h.name = e.slice(h.nameStarts, h.nameEnds))), !r.quotes && r.nameEnds < i && !e[i - 1].trim() && e[i].trim() && !"<>/!".includes(e[i]) && !h.nameStarts && !r.lastClosingBracketAt && (h.nameStarts = i), r.lastOpeningBracketAt !== null && r.lastOpeningBracketAt < i && e[i] === "/" && r.onlyPlausible && (r.onlyPlausible = !1), r.lastOpeningBracketAt !== null && r.lastOpeningBracketAt < i && e[i] !== "/" && (r.onlyPlausible === void 0 && ((!e[i].trim() || I(i)) && !r.slashPresent ? r.onlyPlausible = !0 : r.onlyPlausible = !1), e[i].trim() && r.nameStarts === void 0 && !I(i) && e[i] !== "/" && !H(i) && e[i] !== "!" && (r.nameStarts = i, r.nameContainsLetters = !1)), r.nameStarts && !r.quotes && typeof e[i] == "string" && e[i].toLowerCase() !== e[i].toUpperCase() && (r.nameContainsLetters = !0), H(i) && (sa(r, e, i) || r.quotes.value && typeof r.lastOpeningBracketAt == "number" && $s(r.quotes.value, e.slice(r.lastOpeningBracketAt, i)) % 2 === 1 && !e.slice(r.lastOpeningBracketAt + 1, i).includes("<") && !e.slice(r.lastOpeningBracketAt + 1, i).includes(">")) && r.lastOpeningBracketAt !== void 0 && (r.lastClosingBracketAt = i, k = null, Object.keys(h).length && (r.attributes.push(h), h = {}), p.dumpLinkHrefsNearby?.enabled && S.tagName && !S.openingTagEnds && (S.openingTagEnds = i)), (!D || e[i] === ">") && r.lastOpeningBracketAt !== void 0) {
-      if (r.lastClosingBracketAt === void 0) {
-        if (r.lastOpeningBracketAt < i && !I(i) && (e[i + 1] === void 0 || I(i + 1) && !r?.quotes?.value) && r.nameContainsLetters && typeof r.nameStarts == "number") {
-          if (r.name = e.slice(r.nameStarts, r.nameEnds || i + 1).toLowerCase(), (!o.length || o[o.length - 1][0] !== r.lastOpeningBracketAt) && o.push([r.lastOpeningBracketAt, i + 1]), p.ignoreTags.includes(r.name) || pe(i, p, r) || !ae.has(r.name) && (r.onlyPlausible || p.stripRecognisedHTMLOnly)) {
-            r = {}, h = {};
+    if (a.quotes?.start && a.quotes.start < o && !a.quotes.end && p.nameEnds && p.equalsAt && !p.valueStarts && (p.valueStarts = o), !a.quotes && p.nameEnds && e[o] === "=" && !p.valueStarts && !p.equalsAt && (p.equalsAt = o), !a.quotes && p.nameStarts && p.nameEnds && !p.valueStarts && e[o].trim() && e[o] !== "=" && (a.attributes.push(p), p = {}), !a.quotes && p.nameStarts && !p.nameEnds && (D && `'"`.includes(e[p.nameStarts]) ? p.nameStarts < o && e[o] === e[p.nameStarts] && (p.nameEnds = o + 1, p.name = e.slice(p.nameStarts, p.nameEnds)) : e[o].trim() ? e[o] === "=" ? p.equalsAt || (p.nameEnds = o, p.equalsAt = o, p.name = e.slice(p.nameStarts, p.nameEnds)) : e[o] === "/" || U(o) ? (p.nameEnds = o, p.name = e.slice(p.nameStarts, p.nameEnds), a.attributes.push(p), p = {}) : x(o) && (p.nameEnds = o, p.name = e.slice(p.nameStarts, p.nameEnds), a.attributes.push(p), p = {}) : (p.nameEnds = o, p.name = e.slice(p.nameStarts, p.nameEnds))), !a.quotes && a.nameEnds < o && !e[o - 1].trim() && e[o].trim() && !"<>/!".includes(e[o]) && !p.nameStarts && !a.lastClosingBracketAt && (p.nameStarts = o), a.lastOpeningBracketAt !== null && a.lastOpeningBracketAt < o && e[o] === "/" && a.onlyPlausible && (a.onlyPlausible = !1), a.lastOpeningBracketAt !== null && a.lastOpeningBracketAt < o && e[o] !== "/" && (a.onlyPlausible === void 0 && ((!e[o].trim() || x(o)) && !a.slashPresent ? a.onlyPlausible = !0 : a.onlyPlausible = !1), e[o].trim() && a.nameStarts === void 0 && !x(o) && e[o] !== "/" && !U(o) && e[o] !== "!" && (a.nameStarts = o, a.nameContainsLetters = !1)), a.nameStarts && !a.quotes && typeof e[o] == "string" && e[o].toLowerCase() !== e[o].toUpperCase() && (a.nameContainsLetters = !0), U(o) && (ct(a, e, o) || a.quotes.value && typeof a.lastOpeningBracketAt == "number" && La(a.quotes.value, e.slice(a.lastOpeningBracketAt, o)) % 2 === 1 && !e.slice(a.lastOpeningBracketAt + 1, o).includes("<") && !e.slice(a.lastOpeningBracketAt + 1, o).includes(">")) && a.lastOpeningBracketAt !== void 0 && (a.lastClosingBracketAt = o, R = null, Object.keys(p).length && (a.attributes.push(p), p = {}), f.dumpLinkHrefsNearby?.enabled && v.tagName && !v.openingTagEnds && (v.openingTagEnds = o)), (!D || e[o] === ">") && a.lastOpeningBracketAt !== void 0) {
+      if (a.lastClosingBracketAt === void 0) {
+        if (a.lastOpeningBracketAt < o && !x(o) && (e[o + 1] === void 0 || x(o + 1) && !a?.quotes?.value) && a.nameContainsLetters && typeof a.nameStarts == "number") {
+          if (a.name = e.slice(a.nameStarts, a.nameEnds || o + 1).toLowerCase(), (!s.length || s[s.length - 1][0] !== a.lastOpeningBracketAt) && s.push([a.lastOpeningBracketAt, o + 1]), f.ignoreTags.includes(a.name) || he(o, f, a) || !te.has(a.name) && (a.onlyPlausible || f.stripRecognisedHTMLOnly)) {
+            a = {}, p = {};
             continue;
           }
-          if ((ae.has(r.name) || Ae.has(r.name)) && (r.onlyPlausible === !1 || r.onlyPlausible === !0 && r.attributes.length) || e[i + 1] === void 0) {
-            me(p);
-            let f = $(e, i, r.leftOuterWhitespace, i + 1, r.lastOpeningBracketAt, r.lastClosingBracketAt);
-            U && r.name === "script" && r.slashPresent && (U = !1);
+          if ((te.has(a.name) || ke.has(a.name)) && (a.onlyPlausible === !1 || a.onlyPlausible === !0 && a.attributes.length) || e[o + 1] === void 0) {
+            de(f);
+            let m = V(e, o, a.leftOuterWhitespace, o + 1, a.lastOpeningBracketAt, a.lastClosingBracketAt);
+            $ && a.name === "script" && a.slashPresent && ($ = !1);
             let b;
-            f === null || w === null ? b = null : b = `${f}${w}${f}`, p.cb({ tag: r, deleteFrom: r.leftOuterWhitespace, deleteTo: i + 1, insert: b, rangesArr: v, proposedReturn: [r.leftOuterWhitespace, i + 1, b] }), fe(), te(i, p, v);
+            m === null || O === null ? b = null : b = `${m}${O}${m}`, f.cb({ tag: a, deleteFrom: a.leftOuterWhitespace, deleteTo: o + 1, insert: b, rangesArr: w, proposedReturn: [a.leftOuterWhitespace, o + 1, b] }), fe(), ae(o, f, w);
           }
-          if (!g.length || g[g.length - 1][0] !== r.lastOpeningBracketAt && g[g.length - 1][1] !== i + 1) if (p.stripTogetherWithTheirContents.includes(r.name) || p.stripTogetherWithTheirContents.includes("*")) {
-            let f;
-            for (let b = n.length; b--; ) n[b].name === r.name && (f = n[b]);
-            f ? (g = g.filter(([b]) => b !== f.lastOpeningBracketAt), g.push([f.lastOpeningBracketAt, i + 1])) : g.push([r.lastOpeningBracketAt, i + 1]);
-          } else g.push([r.lastOpeningBracketAt, i + 1]);
+          if (!u.length || u[u.length - 1][0] !== a.lastOpeningBracketAt && u[u.length - 1][1] !== o + 1) if (f.stripTogetherWithTheirContents.includes(a.name) || f.stripTogetherWithTheirContents.includes("*")) {
+            let m;
+            for (let b = n.length; b--; ) n[b].name === a.name && (m = n[b]);
+            m ? (u = u.filter(([b]) => b !== m.lastOpeningBracketAt), u.push([m.lastOpeningBracketAt, o + 1])) : u.push([a.lastOpeningBracketAt, o + 1]);
+          } else u.push([a.lastOpeningBracketAt, o + 1]);
         }
-      } else if (i > r.lastClosingBracketAt && e[i].trim() || e[i + 1] === void 0 || p.ignoreIndentations && `\r
-`.includes(e[i])) {
-        let f = r.lastClosingBracketAt === i ? i + 1 : i;
-        p.trimOnlySpaces && f === x - 1 && k !== null && k < i && (f = k), (!o.length || o[o.length - 1][0] !== r.lastOpeningBracketAt) && o.push([r.lastOpeningBracketAt, r.lastClosingBracketAt + 1]);
-        let b = p.ignoreTags.includes(r.name), y = pe(i, p, r);
-        if (!G || p.stripRecognisedHTMLOnly && typeof r.name == "string" && !ae.has(r.name.toLowerCase()) && !Ae.has(r.name.toLowerCase()) || !Le && (b || y) || Le && !p.onlyStripTags.includes(r.name) || p.ignoreTagsWithTheirContents.includes(r.name)) {
-          if (y) if (r.slashPresent) {
-            for (let A = l.length; A--; ) if (l[A].name === r.name) {
-              l.splice(A, 1);
+      } else if (o > a.lastClosingBracketAt && e[o].trim() || e[o + 1] === void 0 || f.ignoreIndentations && `\r
+`.includes(e[o])) {
+        let m = a.lastClosingBracketAt === o ? o + 1 : o;
+        f.trimOnlySpaces && m === E - 1 && R !== null && R < o && (m = R), (!s.length || s[s.length - 1][0] !== a.lastOpeningBracketAt) && s.push([a.lastOpeningBracketAt, a.lastClosingBracketAt + 1]);
+        let b = f.ignoreTags.includes(a.name), y = he(o, f, a);
+        if (!I || f.stripRecognisedHTMLOnly && typeof a.name == "string" && !te.has(a.name.toLowerCase()) && !ke.has(a.name.toLowerCase()) || !Fe && (b || y) || Fe && !f.onlyStripTags.includes(a.name) || f.ignoreTagsWithTheirContents.includes(a.name)) {
+          if (y) if (a.slashPresent) {
+            for (let k = i.length; k--; ) if (i[k].name === a.name) {
+              i.splice(k, 1);
               break;
             }
-            l.length || (G = !0);
-          } else G && (G = !1), l.push(r);
-          p.cb({ tag: r, deleteFrom: null, deleteTo: null, insert: null, rangesArr: v, proposedReturn: null }), r = {}, h = {};
-        } else if (!r.onlyPlausible || r.attributes.length === 0 && r.name && (ae.has(r.name.toLowerCase()) || Ae.has(r.name.toLowerCase())) || r.attributes?.some((A) => A.equalsAt)) {
-          (!g.length || g[g.length - 1][0] !== r.lastOpeningBracketAt) && g.push([r.lastOpeningBracketAt, r.lastClosingBracketAt + 1]);
-          let A = $(e, i, r.leftOuterWhitespace, f, r.lastOpeningBracketAt, r.lastClosingBracketAt);
-          w = "", q = !1, me(p, f);
-          let N;
-          typeof w == "string" && w.length ? (N = `${A}${w}${A === `
+            i.length || (I = !0);
+          } else I && (I = !1), i.push(a);
+          f.cb({ tag: a, deleteFrom: null, deleteTo: null, insert: null, rangesArr: w, proposedReturn: null }), a = {}, p = {};
+        } else if (!a.onlyPlausible || a.attributes.length === 0 && a.name && (te.has(a.name.toLowerCase()) || ke.has(a.name.toLowerCase())) || a.attributes?.some((k) => k.equalsAt)) {
+          (!u.length || u[u.length - 1][0] !== a.lastOpeningBracketAt) && u.push([a.lastOpeningBracketAt, a.lastClosingBracketAt + 1]);
+          let k = V(e, o, a.leftOuterWhitespace, m, a.lastOpeningBracketAt, a.lastClosingBracketAt);
+          O = "", C = !1, de(f, m);
+          let A;
+          typeof O == "string" && O.length ? (A = `${k}${O}${k === `
 
 ` ? `
-` : A}`, f === r.lastClosingBracketAt + 1 && (!e[f] || !Ce.has(e[f])) && (N += " "), r.leftOuterWhitespace === r.lastOpeningBracketAt && v.last() && v.last()[1] < r.lastOpeningBracketAt && (!p?.dumpLinkHrefsNearby?.putOnNewLine || !Ce.has(e[f])) && (N = " " + N)) : N = A, N !== null && (r.leftOuterWhitespace === 0 || !E(e, f - 1)) && (!p.dumpLinkHrefsNearby?.enabled || r.name !== "a") && (N = void 0);
-          let C = 0;
-          if (q && Ce.has(e[f])) {
-            p.dumpLinkHrefsNearby?.putOnNewLine && (N = `${e[f]}${N || ""}`);
-            let j = E(e, f);
-            j && N?.endsWith(`
-`) ? C += j - i : (!j || j > i) && C++;
+` : k}`, m === a.lastClosingBracketAt + 1 && (!e[m] || !Te.has(e[m])) && (A += " "), a.leftOuterWhitespace === a.lastOpeningBracketAt && w.last() && w.last()[1] < a.lastOpeningBracketAt && (!f?.dumpLinkHrefsNearby?.putOnNewLine || !Te.has(e[m])) && (A = " " + A)) : A = k, A !== null && (a.leftOuterWhitespace === 0 || !N(e, m - 1)) && (!f.dumpLinkHrefsNearby?.enabled || a.name !== "a") && (A = void 0);
+          let T = 0;
+          if (C && Te.has(e[m])) {
+            f.dumpLinkHrefsNearby?.putOnNewLine && (A = `${e[m]}${A || ""}`);
+            let z = N(e, m);
+            z && A?.endsWith(`
+`) ? T += z - o : (!z || z > o) && T++;
           }
-          p.cb({ tag: r, deleteFrom: r.leftOuterWhitespace, deleteTo: f + C, insert: N, rangesArr: v, proposedReturn: [r.leftOuterWhitespace, f + C, N] }), fe(), te(i, p, v);
-        } else r = {};
-        H(i) || (r = {});
+          f.cb({ tag: a, deleteFrom: a.leftOuterWhitespace, deleteTo: m + T, insert: A, rangesArr: w, proposedReturn: [a.leftOuterWhitespace, m + T, A] }), fe(), ae(o, f, w);
+        } else a = {};
+        U(o) || (a = {});
       }
       D && (D = !1);
     }
-    if ((!U || e[i] === "<" && E(e, E(e, i)) && e[E(e, i)] === "/" && e.startsWith("script", E(e, E(e, i)))) && I(i) && !I(i - 1) && !`'"`.includes(e[i + 1]) && (!`'"`.includes(e[i + 2]) || /\w/.test(e[i + 1])) && !(e[i + 1] === "c" && e[i + 2] === ":") && !(e[i + 1] === "f" && e[i + 2] === "m" && e[i + 3] === "t" && e[i + 4] === ":") && !(e[i + 1] === "s" && e[i + 2] === "q" && e[i + 3] === "l" && e[i + 4] === ":") && !(e[i + 1] === "x" && e[i + 2] === ":") && !(e[i + 1] === "f" && e[i + 2] === "n" && e[i + 3] === ":") && sa(r, e, i)) {
-      if (H(E(e, i))) continue;
-      if (r.nameEnds && r.nameEnds < i && !r.lastClosingBracketAt && (r.onlyPlausible === !0 && r.attributes?.length || r.onlyPlausible === !1)) {
-        let f = $(e, i, r.leftOuterWhitespace, i, r.lastOpeningBracketAt, i);
-        p.cb({ tag: r, deleteFrom: r.leftOuterWhitespace, deleteTo: i, insert: f, rangesArr: v, proposedReturn: [r.leftOuterWhitespace, i, f] }), te(i, p, v), r = {}, h = {};
+    if ((!$ || e[o] === "<" && N(e, N(e, o)) && e[N(e, o)] === "/" && e.startsWith("script", N(e, N(e, o)))) && x(o) && !x(o - 1) && !`'"`.includes(e[o + 1]) && (!`'"`.includes(e[o + 2]) || /\w/.test(e[o + 1])) && !(e[o + 1] === "c" && e[o + 2] === ":") && !(e[o + 1] === "f" && e[o + 2] === "m" && e[o + 3] === "t" && e[o + 4] === ":") && !(e[o + 1] === "s" && e[o + 2] === "q" && e[o + 3] === "l" && e[o + 4] === ":") && !(e[o + 1] === "x" && e[o + 2] === ":") && !(e[o + 1] === "f" && e[o + 2] === "n" && e[o + 3] === ":") && ct(a, e, o)) {
+      if (U(N(e, o))) continue;
+      if (a.nameEnds && a.nameEnds < o && !a.lastClosingBracketAt && (a.onlyPlausible === !0 && a.attributes?.length || a.onlyPlausible === !1)) {
+        let m = V(e, o, a.leftOuterWhitespace, o, a.lastOpeningBracketAt, o);
+        f.cb({ tag: a, deleteFrom: a.leftOuterWhitespace, deleteTo: o, insert: m, rangesArr: w, proposedReturn: [a.leftOuterWhitespace, o, m] }), ae(o, f, w), a = {}, p = {};
       }
-      if (r.lastOpeningBracketAt !== void 0 && r.onlyPlausible && r.name && !r.quotes && (r.lastOpeningBracketAt = void 0, r.name = void 0, r.onlyPlausible = !1), (r.lastOpeningBracketAt === void 0 || !r.onlyPlausible) && !r.quotes && (r.lastOpeningBracketAt = i, r.slashPresent = !1, r.attributes = [], s === null ? r.leftOuterWhitespace = i : p.trimOnlySpaces && s === 0 ? r.leftOuterWhitespace = u || i : r.leftOuterWhitespace = s, `${e[i + 1]}${e[i + 2]}${e[i + 3]}` == "!--" || `${e[i + 1]}${e[i + 2]}${e[i + 3]}${e[i + 4]}${e[i + 5]}${e[i + 6]}${e[i + 7]}${e[i + 8]}` == "![CDATA[")) {
-        let f = !0;
-        e[i + 2] === "-" && (f = !1);
+      if (a.lastOpeningBracketAt !== void 0 && a.onlyPlausible && a.name && !a.quotes && (a.lastOpeningBracketAt = void 0, a.name = void 0, a.onlyPlausible = !1), (a.lastOpeningBracketAt === void 0 || !a.onlyPlausible) && !a.quotes && (a.lastOpeningBracketAt = o, a.slashPresent = !1, a.attributes = [], l === null ? a.leftOuterWhitespace = o : f.trimOnlySpaces && l === 0 ? a.leftOuterWhitespace = g || o : a.leftOuterWhitespace = l, `${e[o + 1]}${e[o + 2]}${e[o + 3]}` == "!--" || `${e[o + 1]}${e[o + 2]}${e[o + 3]}${e[o + 4]}${e[o + 5]}${e[o + 6]}${e[o + 7]}${e[o + 8]}` == "![CDATA[")) {
+        let m = !0;
+        e[o + 2] === "-" && (m = !1);
         let b;
-        for (let y = i; y < x; y++) if ((!b && f && `${e[y - 2]}${e[y - 1]}${e[y]}` == "]]>" || !f && `${e[y - 2]}${e[y - 1]}${e[y]}` == "-->") && (b = y), b && (b < y && e[y].trim() || e[y + 1] === void 0)) {
-          let A = y;
-          (e[y + 1] === void 0 && !e[y].trim() || e[y] === ">") && (A += 1), (!o.length || o[o.length - 1][0] !== r.lastOpeningBracketAt) && o.push([r.lastOpeningBracketAt, b + 1]), (!g.length || g[g.length - 1][0] !== r.lastOpeningBracketAt) && g.push([r.lastOpeningBracketAt, b + 1]);
-          let N = $(e, y, r.leftOuterWhitespace, A, r.lastOpeningBracketAt, b);
-          p.cb({ tag: r, deleteFrom: r.leftOuterWhitespace, deleteTo: A, insert: N, rangesArr: v, proposedReturn: [r.leftOuterWhitespace, A, N] }), i = y - 1, e[y] === ">" && (i = y), r = {}, h = {};
+        for (let y = o; y < E; y++) if ((!b && m && `${e[y - 2]}${e[y - 1]}${e[y]}` == "]]>" || !m && `${e[y - 2]}${e[y - 1]}${e[y]}` == "-->") && (b = y), b && (b < y && e[y].trim() || e[y + 1] === void 0)) {
+          let k = y;
+          (e[y + 1] === void 0 && !e[y].trim() || e[y] === ">") && (k += 1), (!s.length || s[s.length - 1][0] !== a.lastOpeningBracketAt) && s.push([a.lastOpeningBracketAt, b + 1]), (!u.length || u[u.length - 1][0] !== a.lastOpeningBracketAt) && u.push([a.lastOpeningBracketAt, b + 1]);
+          let A = V(e, y, a.leftOuterWhitespace, k, a.lastOpeningBracketAt, b);
+          f.cb({ tag: a, deleteFrom: a.leftOuterWhitespace, deleteTo: k, insert: A, rangesArr: w, proposedReturn: [a.leftOuterWhitespace, k, A] }), o = y - 1, e[y] === ">" && (o = y), a = {}, p = {};
           break;
         }
       }
     }
-    !e[i].trim() || e[i].charCodeAt(0) === 847 ? (s === null && (s = i, r.lastOpeningBracketAt !== void 0 && r.lastOpeningBracketAt < i && r.nameStarts && r.nameStarts < r.lastOpeningBracketAt && i === r.lastOpeningBracketAt + 1 && !n.some((f) => f.name === r.name) && (r.onlyPlausible = !0, r.name = void 0, r.nameStarts = void 0)), (e[i] === `
-` || e[i] === "\r") && (c = i, m && (m = !1))) : (s !== null && (!r.quotes && h.equalsAt > s - 1 && h.nameEnds && h.equalsAt > h.nameEnds && e[i] !== '"' && e[i] !== "'" && (Re(h) && r.attributes.push(h), h = {}, r.equalsSpottedAt = void 0), s = null), m || (m = !0, G && !U && typeof c == "number" && i && c < i - 1 && (e.slice(c + 1, i).trim() ? c = null : p.ignoreIndentations || v.push([c + 1, i])))), e[i] === " " ? u === null && (u = i) : u !== null && (u = null), r.name === "script" && (U = !r.slashPresent);
+    !e[o].trim() || e[o].charCodeAt(0) === 847 ? (l === null && (l = o, a.lastOpeningBracketAt !== void 0 && a.lastOpeningBracketAt < o && a.nameStarts && a.nameStarts < a.lastOpeningBracketAt && o === a.lastOpeningBracketAt + 1 && !n.some((m) => m.name === a.name) && (a.onlyPlausible = !0, a.name = void 0, a.nameStarts = void 0)), (e[o] === `
+` || e[o] === "\r") && (d = o, h && (h = !1))) : (l !== null && (!a.quotes && p.equalsAt > l - 1 && p.nameEnds && p.equalsAt > p.nameEnds && e[o] !== '"' && e[o] !== "'" && (Ne(p) && a.attributes.push(p), p = {}, a.equalsSpottedAt = void 0), l = null), h || (h = !0, I && !$ && typeof d == "number" && o && d < o - 1 && (e.slice(d + 1, o).trim() ? d = null : f.ignoreIndentations || w.push([d + 1, o])))), e[o] === " " ? g === null && (g = o) : g !== null && (g = null), a.name === "script" && ($ = !a.slashPresent);
   }
-  if (e && !p.ignoreIndentations && (p.trimOnlySpaces && e[0] === " " || !p.trimOnlySpaces && !e[0].trim())) for (let i = 0; i < x; i++) if (p.trimOnlySpaces && e[i] !== " " || !p.trimOnlySpaces && e[i].trim()) {
-    v.push([0, i]);
+  if (e && !f.ignoreIndentations && (f.trimOnlySpaces && e[0] === " " || !f.trimOnlySpaces && !e[0].trim())) for (let o = 0; o < E; o++) if (f.trimOnlySpaces && e[o] !== " " || !f.trimOnlySpaces && e[o].trim()) {
+    w.push([0, o]);
     break;
-  } else e[i + 1] || v.push([0, i + 1]);
-  if (e && (p.trimOnlySpaces && e[~-e.length] === " " || !p.trimOnlySpaces && !e[~-e.length].trim())) {
-    for (let i = e.length; i--; ) if (p.trimOnlySpaces && e[i] !== " " || !p.trimOnlySpaces && e[i].trim()) {
-      v.push([i + 1, x]);
+  } else e[o + 1] || w.push([0, o + 1]);
+  if (e && (f.trimOnlySpaces && e[~-e.length] === " " || !f.trimOnlySpaces && !e[~-e.length].trim())) {
+    for (let o = e.length; o--; ) if (f.trimOnlySpaces && e[o] !== " " || !f.trimOnlySpaces && e[o].trim()) {
+      w.push([o + 1, E]);
       break;
     }
   }
-  let R = v.current();
-  if (!a?.cb && R && (R[0] && !R[0][0] && (R[0][1], v.ranges[0] = [v.ranges[0][0], v.ranges[0][1]]), R[R.length - 1] && R[R.length - 1][1] === e.length && (R[R.length - 1][0], v.ranges))) {
-    let i = v.ranges[v.ranges.length - 1][0];
-    e[i - 1] && (p.trimOnlySpaces && e[i - 1] === " " || !p.trimOnlySpaces && !e[i - 1].trim()) && (i -= 1);
-    let f = v.ranges[v.ranges.length - 1][2];
-    v.ranges[v.ranges.length - 1] = [i, v.ranges[v.ranges.length - 1][1]], f?.trim() && v.ranges[v.ranges.length - 1].push(f.trimEnd());
+  let q = w.current();
+  if (!t?.cb && q && (q[0] && !q[0][0] && (q[0][1], w.ranges[0] = [w.ranges[0][0], w.ranges[0][1]]), q[q.length - 1] && q[q.length - 1][1] === e.length && (q[q.length - 1][0], w.ranges))) {
+    let o = w.ranges[w.ranges.length - 1][0];
+    e[o - 1] && (f.trimOnlySpaces && e[o - 1] === " " || !f.trimOnlySpaces && !e[o - 1].trim()) && (o -= 1);
+    let m = w.ranges[w.ranges.length - 1][2];
+    w.ranges[w.ranges.length - 1] = [o, w.ranges[w.ranges.length - 1][1]], m?.trim() && w.ranges[w.ranges.length - 1].push(m.trimEnd());
   }
-  return { log: { timeTakenInMilliseconds: Date.now() - t }, result: Ds(e, v.current()), ranges: v.current(), allTagLocations: o, filteredTagLocations: g };
+  return { log: { timeTakenInMilliseconds: Date.now() - r }, result: Ta(e, w.current()), ranges: w.current(), allTagLocations: s, filteredTagLocations: u };
 }
-class Ie {
+class xe {
   speechSynthesis;
   speechSynthesisUtterance;
   currentVoice = null;
@@ -2237,7 +2380,7 @@ class Ie {
   features;
   patches;
   constructor() {
-    if (this.features = gl(), this.patches = dl(), !this.features.speechSynthesis || !this.features.speechSynthesisUtterance)
+    if (this.features = Zt(), this.patches = Xt(), !this.features.speechSynthesis || !this.features.speechSynthesisUtterance)
       throw new Error("Web Speech API is not available in this environment");
     this.speechSynthesis = this.features.speechSynthesis, this.speechSynthesisUtterance = this.features.speechSynthesisUtterance;
   }
@@ -2245,27 +2388,33 @@ class Ie {
   // Check infinity pattern for long texts (except on problematic platforms)
   // Skip resume infinity for Microsoft Natural voices as they have different behavior 
   shouldUseResumeInfinity() {
-    const a = this.currentVoice, t = !!(a?.name && typeof a.name == "string" && a.name.toLocaleLowerCase().includes("(natural)"));
-    return this.patches.isAndroid !== !0 && !this.patches.isFirefox && !this.patches.isSafari && !t;
+    const t = this.currentVoice, r = !!(t?.name && typeof t.name == "string" && t.name.toLocaleLowerCase().includes("(natural)"));
+    return this.patches.isAndroid !== !0 && !this.patches.isFirefox && !this.patches.isSafari && !r;
   }
   // Creates a new SpeechSynthesisUtterance using detected constructor
-  createUtterance(a) {
-    return new this.speechSynthesisUtterance(a);
+  createUtterance(t) {
+    return new this.speechSynthesisUtterance(t);
   }
-  async initialize(a = {}) {
-    const { maxTimeout: t, interval: n, maxLengthExceeded: l = "warn" } = a;
+  async initialize(t = {}) {
+    const { languages: r, maxTimeout: n, interval: i, maxLengthExceeded: s = "warn" } = t;
     if (this.initialized)
       return !1;
-    this.maxLengthExceeded = l;
+    this.maxLengthExceeded = s;
     try {
-      return this.voiceManager = await O.initialize(t, n), this.voices = this.voiceManager.getVoices(), this.defaultVoice = this.voiceManager.getDefaultVoice([...navigator.languages || ["en"]], this.voices), this.initialized = !0, !0;
-    } catch (o) {
-      return console.error("Failed to initialize WebSpeechEngine:", o), this.initialized = !1, !1;
+      this.voiceManager = await S.initialize({
+        languages: r,
+        maxTimeout: n,
+        interval: i
+      }), this.voices = this.voiceManager.getVoices();
+      const u = r || [...navigator.languages || ["en"]];
+      return this.defaultVoice = await this.voiceManager.getDefaultVoice(u, this.voices), this.initialized = !0, !0;
+    } catch (u) {
+      return console.error("Failed to initialize WebSpeechEngine:", u), this.initialized = !1, !1;
     }
   }
   // Text length validation matching EasySpeech
-  validateText(a) {
-    if (new TextEncoder().encode(a).length > 4096) {
+  validateText(t) {
+    if (new TextEncoder().encode(t).length > 4096) {
       const n = "Text exceeds max length of 4096 bytes, which may not work with some voices.";
       switch (this.maxLengthExceeded) {
         case "none":
@@ -2278,54 +2427,54 @@ class Ie {
       }
     }
   }
-  getCurrentVoiceForUtterance(a) {
-    return a && typeof a == "object" ? a : typeof a == "string" ? this.voices.find((t) => t.name === a || t.language === a) || null : this.currentVoice || this.defaultVoice;
+  getCurrentVoiceForUtterance(t) {
+    return t && typeof t == "object" ? t : typeof t == "string" ? this.voices.find((r) => r.name === t || r.language === t) || null : this.currentVoice || this.defaultVoice;
   }
   getCurrentVoice() {
     return this.currentVoice;
   }
   // SSML Escaping
-  escapeSSML(a) {
-    return a.map((t) => ({
-      ...t,
-      text: t.ssml ? ka(t.text).result : t.text
+  escapeSSML(t) {
+    return t.map((r) => ({
+      ...r,
+      text: r.ssml ? Ct(r.text).result : r.text
     }));
   }
   // Queue Management
-  loadUtterances(a) {
-    this.currentUtterances = this.escapeSSML(a), this.currentUtteranceIndex = 0, this.setState("ready"), this.emitEvent({ type: "ready" });
+  loadUtterances(t) {
+    this.currentUtterances = this.escapeSSML(t), this.currentUtteranceIndex = 0, this.setState("ready"), this.emitEvent({ type: "ready" });
   }
   // Voice Configuration
-  setVoice(a) {
-    const t = this.currentVoice;
-    if (typeof a == "string") {
-      const n = this.voices.find((l) => l.name === a || l.language === a);
-      n ? (this.currentVoice = n, t && t.name !== n.name && (this.currentUtteranceIndex = 0)) : console.warn(`Voice "${a}" not found`);
+  async setVoice(t) {
+    const r = this.currentVoice;
+    if (typeof t == "string") {
+      const n = this.voices.find((i) => i.name === t || i.language === t);
+      n ? (this.currentVoice = n, r && r.name !== n.name && (this.currentUtteranceIndex = 0)) : console.warn(`Voice "${t}" not found`);
     } else
-      this.currentVoice = a, t && t.name !== a.name && (this.currentUtteranceIndex = 0);
-    this.voiceManager && this.defaultVoice && this.currentVoice && this.currentVoice.language !== this.defaultVoice.language && (this.defaultVoice = this.voiceManager.getDefaultVoice([this.currentVoice.language], this.voices));
+      this.currentVoice = t, r && r.name !== t.name && (this.currentUtteranceIndex = 0);
+    this.voiceManager && this.defaultVoice && this.currentVoice && this.currentVoice.language !== this.defaultVoice.language && (this.defaultVoice = await this.voiceManager.getDefaultVoice([this.currentVoice.language], this.voices));
   }
-  getAvailableVoices() {
-    return new Promise((a) => {
-      this.voices.length > 0 ? a(this.voices) : this.initialize().then(() => {
-        a(this.voices);
-      }).catch(() => {
-        a([]);
-      });
-    });
+  async getAvailableVoices() {
+    if (this.voices.length > 0)
+      return this.voices;
+    try {
+      return await this.initialize(), this.voices;
+    } catch {
+      return [];
+    }
   }
   // Playback Control
-  speak(a) {
-    if (a !== void 0) {
-      if (a < 0 || a >= this.currentUtterances.length)
+  speak(t) {
+    if (t !== void 0) {
+      if (t < 0 || t >= this.currentUtterances.length)
         throw new Error("Invalid utterance index");
-      this.currentUtteranceIndex = a;
+      this.currentUtteranceIndex = t;
     }
     if (this.currentUtterances.length === 0) {
       console.warn("No utterances loaded");
       return;
     }
-    this.cancelCurrentSpeech(), this.isSpeakingInternal = !0, this.isPausedInternal = !1, this.setState("playing"), this.emitEvent({ type: "start" }), this.stopResumeInfinity(), this.currentUtteranceIndex = a ?? 0, this.currentUtteranceIndex >= this.currentUtterances.length && (this.currentUtteranceIndex = 0), this.speakCurrentUtterance();
+    this.cancelCurrentSpeech(), this.isSpeakingInternal = !0, this.isPausedInternal = !1, this.setState("playing"), this.emitEvent({ type: "start" }), this.stopResumeInfinity(), this.currentUtteranceIndex = t ?? 0, this.currentUtteranceIndex >= this.currentUtterances.length && (this.currentUtteranceIndex = 0), this.speakCurrentUtterance();
   }
   cancelCurrentSpeech() {
     this.patches.isFirefox && this.speechSynthesis.speaking && (this.utterancesBeingCancelled = !0, setTimeout(() => {
@@ -2337,14 +2486,14 @@ class Ie {
       this.setState("idle"), this.emitEvent({ type: "end" });
       return;
     }
-    const a = this.currentUtterances[this.currentUtteranceIndex], t = (a.ssml, a.text);
-    this.validateText(t);
-    const n = this.createUtterance(t), l = this.getCurrentVoiceForUtterance(this.currentVoice);
-    if (l && this.voiceManager) {
-      const o = this.voiceManager.convertToSpeechSynthesisVoice(l);
-      o && (n.voice = o, n.lang = o.lang);
+    const t = this.currentUtterances[this.currentUtteranceIndex], r = (t.ssml, t.text);
+    this.validateText(r);
+    const n = this.createUtterance(r), i = this.getCurrentVoiceForUtterance(this.currentVoice);
+    if (i && this.voiceManager) {
+      const s = this.voiceManager.convertToSpeechSynthesisVoice(i);
+      s && (n.voice = s, n.lang = s.lang);
     }
-    a.language && (n.lang = a.language), n.rate = this.rate, n.pitch = this.pitch, n.volume = this.volume, n.onstart = () => {
+    t.language && (n.lang = t.language), n.rate = this.rate, n.pitch = this.pitch, n.volume = this.volume, n.onstart = () => {
       this.isSpeakingInternal = !0, this.isPausedInternal = !1, this.setState("playing"), this.emitEvent({ type: "start" }), this.patches.isAndroid && this.isAndroidPaused && (this.isAndroidPaused = !1), this.shouldUseResumeInfinity() && this.startResumeInfinity(n);
     }, n.onend = () => {
       if (this.utterancesBeingCancelled) {
@@ -2352,47 +2501,47 @@ class Ie {
         return;
       }
       this.playbackState !== "idle" && (this.isSpeakingInternal = !1, this.isPausedInternal = !1, this.stopResumeInfinity(), this.currentUtteranceIndex >= this.currentUtterances.length - 1 && this.setState("idle"), this.emitEvent({ type: "end" }));
-    }, n.onerror = (o) => {
-      if (o.error === "interrupted" && this.patches.isAndroid && this.isAndroidPaused)
+    }, n.onerror = (s) => {
+      if (s.error === "interrupted" && this.patches.isAndroid && this.isAndroidPaused)
         return;
-      this.isSpeakingInternal = !1, this.isPausedInternal = !1, this.stopResumeInfinity(), this.setState("idle"), ["synthesis-unavailable", "audio-hardware", "voice-unavailable"].includes(o.error) && (console.log("[ENGINE] fatal error detected, resetting index to 0"), this.currentUtteranceIndex = 0), o.error === "interrupted" || o.error === "canceled" ? this.emitEvent({ type: "stop" }) : this.emitEvent({
+      this.isSpeakingInternal = !1, this.isPausedInternal = !1, this.stopResumeInfinity(), this.setState("idle"), ["synthesis-unavailable", "audio-hardware", "voice-unavailable"].includes(s.error) && (console.log("[ENGINE] fatal error detected, resetting index to 0"), this.currentUtteranceIndex = 0), s.error === "interrupted" || s.error === "canceled" ? this.emitEvent({ type: "stop" }) : this.emitEvent({
         type: "error",
         detail: {
-          error: o.error,
+          error: s.error,
           // Preserve original error type
-          message: `Speech synthesis error: ${o.error}`
+          message: `Speech synthesis error: ${s.error}`
         }
       });
     }, n.onpause = () => {
       this.isPausedInternal = !0, this.isSpeakingInternal = !1, this.emitEvent({ type: "pause" });
     }, n.onresume = () => {
       this.isPausedInternal = !1, this.isSpeakingInternal = !0, this.emitEvent({ type: "resume" });
-    }, n.onboundary = (o) => {
+    }, n.onboundary = (s) => {
       this.emitEvent({
         type: "boundary",
         detail: {
-          charIndex: o.charIndex,
-          charLength: o.charLength,
-          elapsedTime: o.elapsedTime,
-          name: o.name
+          charIndex: s.charIndex,
+          charLength: s.charLength,
+          elapsedTime: s.elapsedTime,
+          name: s.name
         }
       });
-    }, n.onmark = (o) => {
+    }, n.onmark = (s) => {
       this.emitEvent({
         type: "mark",
         detail: {
-          name: o.name
+          name: s.name
         }
       });
     }, this.speechSynthesis.speak(n);
   }
-  startResumeInfinity(a) {
+  startResumeInfinity(t) {
     this.shouldUseResumeInfinity() && (this.resumeInfinityTimer = window.setTimeout(() => {
-      if (a) {
-        const { paused: n, speaking: l } = this.speechSynthesis, o = l || this.isSpeakingInternal, g = n || this.isPausedInternal;
-        o && !g && (this.speechSynthesis.pause(), this.speechSynthesis.resume());
+      if (t) {
+        const { paused: n, speaking: i } = this.speechSynthesis, s = i || this.isSpeakingInternal, u = n || this.isPausedInternal;
+        s && !u && (this.speechSynthesis.pause(), this.speechSynthesis.resume());
       }
-      this.startResumeInfinity(a);
+      this.startResumeInfinity(t);
     }, 5e3));
   }
   stopResumeInfinity() {
@@ -2408,20 +2557,20 @@ class Ie {
     this.speechSynthesis.cancel(), this.currentUtteranceIndex = 0, this.patches.isAndroid && (this.isAndroidPaused = !1), this.setState("idle"), this.emitEvent({ type: "stop" });
   }
   // Playback Parameters
-  setRate(a) {
-    this.rate = Math.max(0.1, Math.min(10, a));
+  setRate(t) {
+    this.rate = Math.max(0.1, Math.min(10, t));
   }
   getRate() {
     return this.rate;
   }
-  setPitch(a) {
-    this.pitch = Math.max(0, Math.min(2, a));
+  setPitch(t) {
+    this.pitch = Math.max(0, Math.min(2, t));
   }
   getPitch() {
     return this.pitch;
   }
-  setVolume(a) {
-    this.volume = Math.max(0, Math.min(1, a));
+  setVolume(t) {
+    this.volume = Math.max(0, Math.min(1, t));
   }
   getVolume() {
     return this.volume;
@@ -2433,34 +2582,34 @@ class Ie {
   getCurrentUtteranceIndex() {
     return this.currentUtteranceIndex;
   }
-  setCurrentUtteranceIndex(a, t) {
-    if (a < 0 || a >= this.currentUtterances.length) {
-      t?.(!1);
+  setCurrentUtteranceIndex(t, r) {
+    if (t < 0 || t >= this.currentUtterances.length) {
+      r?.(!1);
       return;
     }
-    a !== this.currentUtteranceIndex && (!this.isPausedInternal && this.isSpeakingInternal && this.cancelCurrentSpeech(), this.currentUtteranceIndex = a, t?.(!0));
+    t !== this.currentUtteranceIndex && (!this.isPausedInternal && this.isSpeakingInternal && this.cancelCurrentSpeech(), this.currentUtteranceIndex = t, r?.(!0));
   }
   getUtteranceCount() {
     return this.currentUtterances.length;
   }
   // Events
-  on(a, t) {
-    return this.eventListeners.has(a) || this.eventListeners.set(a, []), this.eventListeners.get(a).push(t), () => {
-      const n = this.eventListeners.get(a);
+  on(t, r) {
+    return this.eventListeners.has(t) || this.eventListeners.set(t, []), this.eventListeners.get(t).push(r), () => {
+      const n = this.eventListeners.get(t);
       if (n) {
-        const l = n.indexOf(t);
-        l > -1 && n.splice(l, 1);
+        const i = n.indexOf(r);
+        i > -1 && n.splice(i, 1);
       }
     };
   }
-  emitEvent(a) {
-    const t = this.eventListeners.get(a.type);
-    t && t.forEach((n) => n(a));
+  emitEvent(t) {
+    const r = this.eventListeners.get(t.type);
+    r && r.forEach((n) => n(t));
   }
-  setState(a) {
-    const t = this.playbackState;
-    if (this.playbackState = a, t !== a)
-      switch (a) {
+  setState(t) {
+    const r = this.playbackState;
+    if (this.playbackState = t, r !== t)
+      switch (t) {
         case "idle":
           this.emitEvent({ type: "idle" });
           break;
@@ -2477,7 +2626,7 @@ class Ie {
     this.stop(), this.stopResumeInfinity(), this.eventListeners.clear(), this.currentUtterances = [], this.currentVoice = null, this.voices = [], this.defaultVoice = null, this.initialized = !1;
   }
 }
-class Vs {
+class ja {
   id = "webspeech";
   name = "Web Speech API";
   engine = null;
@@ -2486,76 +2635,76 @@ class Vs {
       throw new Error("No engine available. Create an engine first.");
     return this.engine.getAvailableVoices();
   }
-  async createEngine(a) {
-    const t = new Ie();
-    return await t.initialize(), a && await t.setVoice(a), t;
+  async createEngine(t) {
+    const r = new xe();
+    return await r.initialize(), t && await r.setVoice(t), r;
   }
   async destroy() {
     this.engine && (await this.engine.destroy(), this.engine = null);
   }
 }
-class Ks {
+class Pa {
   engine;
   contentQueue = [];
   eventListeners = /* @__PURE__ */ new Map();
   // Navigator owns the state, not the engine
   navigatorState = "idle";
-  constructor(a) {
-    this.engine = a || new Ie(), this.setupEngineListeners(), this.initializeEngine();
+  constructor(t) {
+    this.engine = t || new xe(), this.setupEngineListeners(), this.initializeEngine();
   }
   async initializeEngine() {
-    if (this.engine instanceof Ie)
+    if (this.engine instanceof xe)
       try {
         await this.engine.initialize();
-      } catch (a) {
-        console.warn("Failed to initialize WebSpeechEngine:", a);
+      } catch (t) {
+        console.warn("Failed to initialize WebSpeechEngine:", t);
       }
   }
   setupEngineListeners() {
     this.engine.on("start", () => {
       this.setNavigatorState("playing"), this.emitEvent({ type: "start" });
     }), this.engine.on("end", () => {
-      const a = this.engine.getCurrentUtteranceIndex(), t = this.engine.getUtteranceCount();
-      a < t - 1 ? this.engine.speak(a + 1) : this.setNavigatorState("idle"), this.emitEvent({ type: "end" });
+      const t = this.engine.getCurrentUtteranceIndex(), r = this.engine.getUtteranceCount();
+      t < r - 1 ? this.engine.speak(t + 1) : this.setNavigatorState("idle"), this.emitEvent({ type: "end" });
     }), this.engine.on("pause", () => {
       this.setNavigatorState("paused"), this.emitEvent({ type: "pause" });
     }), this.engine.on("resume", () => {
       this.setNavigatorState("playing"), this.emitEvent({ type: "resume" });
     }), this.engine.on("stop", () => {
       this.setNavigatorState("idle"), this.emitEvent({ type: "stop" });
-    }), this.engine.on("error", (a) => {
-      this.setNavigatorState("idle"), this.emitEvent(a);
+    }), this.engine.on("error", (t) => {
+      this.setNavigatorState("idle"), this.emitEvent(t);
     }), this.engine.on("ready", () => {
       this.contentQueue.length > 0 && (this.setNavigatorState("ready"), this.emitEvent({ type: "ready" }));
-    }), this.engine.on("boundary", (a) => {
-      this.emitEvent(a);
-    }), this.engine.on("mark", (a) => {
-      this.emitEvent(a);
+    }), this.engine.on("boundary", (t) => {
+      this.emitEvent(t);
+    }), this.engine.on("mark", (t) => {
+      this.emitEvent(t);
     }), this.engine.on("voiceschanged", () => {
       this.emitEvent({ type: "voiceschanged" });
     });
   }
-  setNavigatorState(a) {
-    this.navigatorState = a;
+  setNavigatorState(t) {
+    this.navigatorState = t;
   }
   // Voice Management
   async getVoices() {
     return this.engine.getAvailableVoices();
   }
-  setVoice(a) {
-    this.engine.setVoice(a);
+  setVoice(t) {
+    this.engine.setVoice(t);
   }
   getCurrentVoice() {
     return this.engine.getCurrentVoice();
   }
   // Content Management
-  loadContent(a) {
-    const t = Array.isArray(a) ? a : [a];
-    this.contentQueue = [...t], this.engine.loadUtterances(t), this.setNavigatorState("ready"), this.emitContentChangeEvent({ content: t });
+  loadContent(t) {
+    const r = Array.isArray(t) ? t : [t];
+    this.contentQueue = [...r], this.engine.loadUtterances(r), this.setNavigatorState("ready"), this.emitContentChangeEvent({ content: r });
   }
   getCurrentContent() {
-    const a = this.getCurrentUtteranceIndex();
-    return a < this.contentQueue.length ? this.contentQueue[a] : null;
+    const t = this.getCurrentUtteranceIndex();
+    return t < this.contentQueue.length ? this.contentQueue[t] : null;
   }
   getContentQueue() {
     return [...this.contentQueue];
@@ -2578,42 +2727,42 @@ class Ks {
   stop() {
     this.setNavigatorState("idle"), this.engine.stop(), this.emitEvent({ type: "stop" });
   }
-  skipToPosition(a, t = !1) {
+  skipToPosition(t, r = !1) {
     const n = this.getCurrentUtteranceIndex();
-    return a < 0 || a >= this.contentQueue.length ? !1 : (a === n || (this.navigatorState === "paused" && !t ? this.engine.setCurrentUtteranceIndex(a, (l) => {
-      l && this.emitEvent({
+    return t < 0 || t >= this.contentQueue.length ? !1 : (t === n || (this.navigatorState === "paused" && !r ? this.engine.setCurrentUtteranceIndex(t, (i) => {
+      i && this.emitEvent({
         type: "skip",
-        detail: { position: a }
+        detail: { position: t }
       });
-    }) : (this.setNavigatorState("playing"), this.engine.speak(a))), !0);
+    }) : (this.setNavigatorState("playing"), this.engine.speak(t))), !0);
   }
   // Navigation - Navigator coordinates with proper state management
-  next(a = !1) {
-    const t = this.getCurrentUtteranceIndex();
-    return this.skipToPosition(t + 1, a);
+  next(t = !1) {
+    const r = this.getCurrentUtteranceIndex();
+    return this.skipToPosition(r + 1, t);
   }
-  previous(a = !1) {
-    const t = this.getCurrentUtteranceIndex();
-    return this.skipToPosition(t - 1, a);
+  previous(t = !1) {
+    const r = this.getCurrentUtteranceIndex();
+    return this.skipToPosition(r - 1, t);
   }
-  jumpTo(a, t = !1) {
-    return this.skipToPosition(a, t);
+  jumpTo(t, r = !1) {
+    return this.skipToPosition(t, r);
   }
   // Playback Parameters
-  setRate(a) {
-    this.engine.setRate(a);
+  setRate(t) {
+    this.engine.setRate(t);
   }
   getRate() {
     return this.engine.getRate();
   }
-  setPitch(a) {
-    this.engine.setPitch(a);
+  setPitch(t) {
+    this.engine.setPitch(t);
   }
   getPitch() {
     return this.engine.getPitch();
   }
-  setVolume(a) {
-    this.engine.setVolume(a);
+  setVolume(t) {
+    this.engine.setVolume(t);
   }
   getVolume() {
     return this.engine.getVolume();
@@ -2623,37 +2772,37 @@ class Ks {
     return this.navigatorState;
   }
   // Events
-  on(a, t) {
-    return this.eventListeners.has(a) || this.eventListeners.set(a, []), this.eventListeners.get(a).push(t), () => {
-      const n = this.eventListeners.get(a);
+  on(t, r) {
+    return this.eventListeners.has(t) || this.eventListeners.set(t, []), this.eventListeners.get(t).push(r), () => {
+      const n = this.eventListeners.get(t);
       if (n) {
-        const l = n.indexOf(t);
-        l > -1 && n.splice(l, 1);
+        const i = n.indexOf(r);
+        i > -1 && n.splice(i, 1);
       }
     };
   }
-  emitEvent(a) {
-    const t = this.eventListeners.get(a.type);
-    t && t.forEach((n) => n(a));
+  emitEvent(t) {
+    const r = this.eventListeners.get(t.type);
+    r && r.forEach((n) => n(t));
   }
-  emitContentChangeEvent(a) {
-    const t = this.eventListeners.get("contentchange");
-    t && t.forEach((n) => n({ type: "contentchange", detail: a }));
+  emitContentChangeEvent(t) {
+    const r = this.eventListeners.get("contentchange");
+    r && r.forEach((n) => n({ type: "contentchange", detail: t }));
   }
   async destroy() {
     this.eventListeners.clear(), await this.engine.destroy();
   }
 }
 export {
-  Ie as WebSpeechEngine,
-  Vs as WebSpeechEngineProvider,
-  Ks as WebSpeechReadAloudNavigator,
-  O as WebSpeechVoiceManager,
-  ne as chineseVariantMap,
-  Fs as getAvailableLanguages,
-  se as getDefaultRegion,
-  $e as getTestUtterance,
-  ge as getVoices,
-  z as normalizeLanguageCode,
-  je as processLanguages
+  xe as WebSpeechEngine,
+  ja as WebSpeechEngineProvider,
+  Pa as WebSpeechReadAloudNavigator,
+  S as WebSpeechVoiceManager,
+  re as chineseVariantMap,
+  xa as getAvailableLanguages,
+  le as getDefaultRegion,
+  _e as getTestUtterance,
+  Re as getVoices,
+  P as normalizeLanguageCode,
+  Ge as processLanguages
 };

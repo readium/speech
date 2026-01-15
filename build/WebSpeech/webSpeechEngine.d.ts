@@ -30,6 +30,7 @@ export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     private shouldUseResumeInfinity;
     private createUtterance;
     initialize(options?: {
+        languages?: string[];
         maxTimeout?: number;
         interval?: number;
         maxLengthExceeded?: "error" | "none" | "warn";
@@ -39,7 +40,7 @@ export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     getCurrentVoice(): ReadiumSpeechVoice | null;
     private escapeSSML;
     loadUtterances(contents: ReadiumSpeechUtterance[]): void;
-    setVoice(voice: ReadiumSpeechVoice | string): void;
+    setVoice(voice: ReadiumSpeechVoice | string): Promise<void>;
     getAvailableVoices(): Promise<ReadiumSpeechVoice[]>;
     speak(utteranceIndex?: number): void;
     private cancelCurrentSpeech;

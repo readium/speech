@@ -15,9 +15,9 @@ export declare const normalizeLanguageCode: (lang: string) => string;
 /**
  * Get all voices for a specific language
  * @param {string} lang - Language code (e.g., "en", "fr", "zh-CN")
- * @returns {ReadiumSpeechVoice[]} Array of voices for the specified language
+ * @returns {Promise<ReadiumSpeechVoice[]>} Promise resolving to array of voices for the specified language
  */
-export declare const getVoices: (lang: string) => ReadiumSpeechVoice[];
+export declare const getVoices: (lang: string) => Promise<ReadiumSpeechVoice[]>;
 /**
  * Get all available language codes
  * @returns {string[]} Array of available language codes
