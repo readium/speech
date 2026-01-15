@@ -26,7 +26,7 @@ testWithContext.afterEach.always((t: ExecutionContext<TestContext>) => {
 // sortVoices Tests
 // =============================================
 
-testWithContext("sortVoices: sorts by quality", (t: ExecutionContext<TestContext>) => {
+testWithContext("sortVoices: sorts by quality", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   // Create test voices with different quality levels
@@ -39,7 +39,7 @@ testWithContext("sortVoices: sorts by quality", (t: ExecutionContext<TestContext
     createTestVoice({ name: "Unknown Quality Voice", language: "en-US", quality: null })
   ];
   
-  const sortedAsc = manager.sortVoicesByQuality(testVoices);
+  const sortedAsc = await manager.sortVoicesByQuality(testVoices);
   t.is(sortedAsc[0].quality, "veryHigh");
   t.is(sortedAsc[1].quality, "high");
   t.is(sortedAsc[2].quality, "normal");
@@ -48,7 +48,7 @@ testWithContext("sortVoices: sorts by quality", (t: ExecutionContext<TestContext
   t.is(sortedAsc[5].quality, null);
 });
 
-testWithContext("sortVoices: sorts by quality across languages", (t: ExecutionContext<TestContext>) => {
+testWithContext("sortVoices: sorts by quality across languages", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   // Create test voices with different languages and quality levels
@@ -61,7 +61,7 @@ testWithContext("sortVoices: sorts by quality across languages", (t: ExecutionCo
     createTestVoice({ name: "Portuguese Unknown Quality", language: "pt-BR", quality: null })
   ];
   
-  const sortedAsc = manager.sortVoicesByQuality(testVoices);
+  const sortedAsc = await manager.sortVoicesByQuality(testVoices);
   
   // Check both quality and language to ensure correct sorting
   t.is(sortedAsc[0].quality, "veryHigh");
@@ -83,7 +83,7 @@ testWithContext("sortVoices: sorts by quality across languages", (t: ExecutionCo
   t.is(sortedAsc[5].language, "pt-BR");
 });
 
-testWithContext("sortVoices: sorts by language", (t: ExecutionContext<TestContext>) => {
+testWithContext("sortVoices: sorts by language", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   // Create test voices with different languages
@@ -94,14 +94,14 @@ testWithContext("sortVoices: sorts by language", (t: ExecutionContext<TestContex
     createTestVoice({ name: "German Voice", language: "de-DE" })
   ];
   
-const sortedAsc = manager.sortVoicesByLanguages(undefined, testVoices);
+const sortedAsc = await manager.sortVoicesByLanguages(undefined, testVoices);
   t.is(sortedAsc[0].language, "de-DE");
   t.is(sortedAsc[1].language, "en-US");
   t.is(sortedAsc[2].language, "es-ES");
   t.is(sortedAsc[3].language, "fr-FR");
 });
 
-testWithContext("sortVoices: sorts languages by preferred", (t: ExecutionContext<TestContext>) => {
+testWithContext("sortVoices: sorts languages by preferred", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   // Create test voices with different languages and regions
@@ -116,7 +116,7 @@ testWithContext("sortVoices: sorts languages by preferred", (t: ExecutionContext
   ];
   
   // Test with preferred languages
-  const sortedPreferred = manager.sortVoicesByLanguages(["fr", "en"], testVoices);
+  const sortedPreferred = await manager.sortVoicesByLanguages(["fr", "en"], testVoices);
   
   // French voices should come first (preferred language)
   t.is(sortedPreferred[0].language, "fr-FR");
@@ -132,7 +132,7 @@ testWithContext("sortVoices: sorts languages by preferred", (t: ExecutionContext
   t.is(sortedPreferred[6].language, "es-MX");
 });
 
-testWithContext("sortVoices: sorts by JSON order", (t: ExecutionContext<TestContext>) => {
+testWithContext("sortVoices: sorts by JSON order", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   // Create test voices using actual names from JSON files in their exact JSON order
@@ -146,7 +146,7 @@ testWithContext("sortVoices: sorts by JSON order", (t: ExecutionContext<TestCont
   ];
   
   // Test with preferred language
-  const sorted = manager.sortVoicesByLanguages(["fr"], testVoices);
+  const sorted = await manager.sortVoicesByLanguages(["fr"], testVoices);
   
   // Should be in exact JSON order
   t.is(sorted[0].name, "Microsoft VivienneMultilingual Online (Natural) - French (France)");
@@ -156,7 +156,7 @@ testWithContext("sortVoices: sorts by JSON order", (t: ExecutionContext<TestCont
   t.is(sorted[4].name, "Microsoft Henri Online (Natural) - French (France)");
 });
 
-testWithContext("sortVoices: sorts by region", (t: ExecutionContext<TestContext>) => {
+testWithContext("sortVoices: sorts by region", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   // Create test voices with different regions
@@ -167,7 +167,7 @@ testWithContext("sortVoices: sorts by region", (t: ExecutionContext<TestContext>
     createTestVoice({ name: "Australia Voice", language: "en-AU" })
   ];
   
-  const sortedAsc = manager.sortVoicesByRegions([], testVoices);
+  const sortedAsc = await manager.sortVoicesByRegions([], testVoices);
   t.is(sortedAsc[0].language, "en-US");
   t.is(sortedAsc[1].language, "en-AU");
   t.is(sortedAsc[2].language, "en-CA");
@@ -176,7 +176,7 @@ testWithContext("sortVoices: sorts by region", (t: ExecutionContext<TestContext>
 
 
 
-testWithContext("sortVoices: sorts regions by preferred", (t: ExecutionContext<TestContext>) => {
+testWithContext("sortVoices: sorts regions by preferred", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   // Create test voices with different languages and regions
@@ -193,7 +193,7 @@ testWithContext("sortVoices: sorts regions by preferred", (t: ExecutionContext<T
   ];
 
   // Test 1: Basic language code should use default region
-  const defaultRegionTest = manager.sortVoicesByRegions(["fr"], testVoices);
+  const defaultRegionTest = await manager.sortVoicesByRegions(["fr"], testVoices);
 
   // French voices should come first, with fr-FR (default) first
   t.is(defaultRegionTest[0].language, getDefaultRegion("fr"), "Default region should come first");
@@ -201,7 +201,7 @@ testWithContext("sortVoices: sorts regions by preferred", (t: ExecutionContext<T
   t.is(defaultRegionTest[2].language, "fr-CA", "Other French regions should follow alphabetically");
 
   // Test 2: Region inference from other languages
-  const inferredRegionTest = manager.sortVoicesByRegions(["fr", "en-CA"], testVoices);
+  const inferredRegionTest = await manager.sortVoicesByRegions(["fr", "en-CA"], testVoices);
 
   // fr-CA should come first because en-CA provides the CA region hint
   t.is(inferredRegionTest[0].language, "fr-CA", "Should infer fr-CA from en-CA");
@@ -209,7 +209,7 @@ testWithContext("sortVoices: sorts regions by preferred", (t: ExecutionContext<T
   t.is(inferredRegionTest[2].language, "fr-BE", "Other French regions should follow alphabetically");
 
   // Test 3: Multiple regional preferences
-  const multipleRegionsTest = manager.sortVoicesByRegions(["fr-BE", "fr-CA", "es"], testVoices);
+  const multipleRegionsTest = await manager.sortVoicesByRegions(["fr-BE", "fr-CA", "es"], testVoices);
 
   // Should respect the order of regional preferences
   t.is(multipleRegionsTest[0].language, "fr-BE", "First regional preference should come first");
@@ -219,7 +219,7 @@ testWithContext("sortVoices: sorts regions by preferred", (t: ExecutionContext<T
   t.is(multipleRegionsTest[4].language, "es-MX", "Other Spanish regions should follow");
 
   // Test 4: Keeping prioritization of regions
-  const prioritizedRegionsTest = manager.sortVoicesByRegions(["en-CA", "fr-BE", "fr-FR"], testVoices);
+  const prioritizedRegionsTest = await manager.sortVoicesByRegions(["en-CA", "fr-BE", "fr-FR"], testVoices);
 
   // Should respect the exact order of regional preferences
   t.is(prioritizedRegionsTest[0].language, "en-CA", "First explicit preference should be en-CA");
@@ -230,7 +230,7 @@ testWithContext("sortVoices: sorts regions by preferred", (t: ExecutionContext<T
   t.is(prioritizedRegionsTest[5].language, "fr-FR", "French French should come sixth");
 
   // Test 5: Empty/undefined preferred languages (should sort default then alphabetically)
-  const emptyPreferred = manager.sortVoicesByRegions([], testVoices);
+  const emptyPreferred = await manager.sortVoicesByRegions([], testVoices);
   t.is(emptyPreferred[0].language, "de-DE");
   t.is(emptyPreferred[1].language, "en-US");
   t.is(emptyPreferred[2].language, "en-CA");
@@ -242,7 +242,7 @@ testWithContext("sortVoices: sorts regions by preferred", (t: ExecutionContext<T
   t.is(emptyPreferred[8].language, "fr-CA");
 });
 
-testWithContext("sortVoices: sorts regions by JSON order", (t: ExecutionContext<TestContext>) => {
+testWithContext("sortVoices: sorts regions by JSON order", async (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   
   // Create test voices using actual names from JSON files in their exact JSON order
@@ -259,7 +259,7 @@ testWithContext("sortVoices: sorts regions by JSON order", (t: ExecutionContext<
   ];
   
   // Test with preferred language
-  const sorted = manager.sortVoicesByRegions(["fr-FR"], testVoices);
+  const sorted = await manager.sortVoicesByRegions(["fr-FR"], testVoices);
   
   // Should be in exact JSON order for same quality, then quality ordering
   t.is(sorted[0].name, "Microsoft VivienneMultilingual Online (Natural) - French (France)");

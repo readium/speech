@@ -103,9 +103,14 @@ async function setupVoices() {
       excludeVeryLowQuality: true
     });
     
-    // Get voices grouped by language
-    const voices = voiceManager.getVoices();
-    const groupedByLanguage = voiceManager.groupVoices(voices, "languages");
+    // Sort by quality
+    const sortedByQuality = await voiceManager.sortVoicesByQuality(filteredVoices);
+
+    // Sort by preferred languages
+    const sortedByLanguage = await voiceManager.sortVoicesByLanguages(["en", "fr"], filteredVoices);
+
+    // Sort by preferred languages and regions
+    const sortedByRegion = await voiceManager.sortVoicesByRegions(["en-US", "en-GB"], filteredVoices);
     
     // Get a test utterance for a specific language
     const testText = voiceManager.getTestUtterance("en");
@@ -134,11 +139,16 @@ The main class for managing Web Speech API voices with enhanced functionality.
 #### Initialize the Voice Manager
 
 ```typescript
-static initialize(maxTimeout?: number, interval?: number): Promise<WebSpeechVoiceManager>
+static initialize(options?: {
+  languages?: string[];
+  maxTimeout?: number;
+  interval?: number;
+}): Promise<WebSpeechVoiceManager>
 ```
 
 Creates and initializes a new WebSpeechVoiceManager instance. This static factory method must be called to create an instance.
 
+- `languages`: Optional array of preferred language codes to filter voices during initialization
 - `maxTimeout`: Maximum time in milliseconds to wait for voices to load (default: 10000ms)
 - `interval`: Interval in milliseconds between voice loading checks (default: 100ms)
 - Returns: Promise that resolves with a new WebSpeechVoiceManager instance
@@ -179,20 +189,20 @@ Returns arrays of languages and regions with their display names and voice count
 #### Get Default Voice
 
 ```typescript
-voiceManager.getDefaultVoice(languages: string | string[], voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice | null
+async voiceManager.getDefaultVoice(languages: string | string[], voices?: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice | null>
 ```
 
 Automatically selects the best available voice based on quality and language preferences. This is the recommended method for getting a suitable voice without manual selection.
 
 ```typescript
 // Get the best voice for user's browser language
-const defaultVoice = voiceManager.getDefaultVoice(navigator.languages || ["en"]);
+const defaultVoice = await voiceManager.getDefaultVoice(navigator.languages || ["en"]);
 
 // Get the best voice for specific preferred languages
-const frenchVoice = voiceManager.getDefaultVoice(["fr-FR", "fr-CA"]);
+const frenchVoice = await voiceManager.getDefaultVoice(["fr-FR", "fr-CA"]);
 
 // Get the best voice from a pre-filtered voice list
-const customVoice = voiceManager.getDefaultVoice(["en-US", "en-GB"], customVoiceList);
+const customVoice = await voiceManager.getDefaultVoice(["en-US", "en-GB"], customVoiceList);
 ```
 
 The selection algorithm:
@@ -236,7 +246,7 @@ If you need more control over the sorting process, you can implement and apply y
 Sort voices from highest to lowest quality:
 
 ```typescript
-voiceManager.sortVoicesByQuality(voices?: ReadiumSpeechVoice[]);
+async voiceManager.sortVoicesByQuality(voices?: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice[]>;
 // Returns: [veryHigh, high, normal, low, veryLow, null]
 ```
 
@@ -247,7 +257,7 @@ If no voices are provided, it sorts the instance's internal voice list.
 Prioritize specific languages while maintaining JSON data’s quality order within each language group:
 
 ```typescript
-voiceManager.sortVoicesByLanguages(preferredLanguages?: string[], voices?: ReadiumSpeechVoice[]);
+async voiceManager.sortVoicesByLanguages(preferredLanguages?: string[], voices?: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice[]>;
 // Returns: [preferred languages voices, other languages voices...]
 ```
 
@@ -258,7 +268,7 @@ If no voices are provided, it sorts the instance's internal voice list.
 Sort voices by preferred languages and regions, while maintaining JSON data’s quality order within each region group:
 
 ```typescript
-voiceManager.sortVoicesByRegions(preferredLanguages?: string[], voices?: ReadiumSpeechVoice[]);
+async voiceManager.sortVoicesByRegions(preferredLanguages?: string[], voices?: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice[]>;
 // Returns: [languages in preferred then alphabetical order → regions: preferred regions → default region → alphabetical regions → voice quality within each region]
 ```
 

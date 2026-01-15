@@ -59,7 +59,10 @@ testWithContext("systemLocale: initializes with first navigator.language", async
     (WebSpeechVoiceManager as any).initializationPromise = null;
     
     // Test initialization with the modified navigator.languages
-    const manager = await WebSpeechVoiceManager.initialize(1000, 10);
+    const manager = await WebSpeechVoiceManager.initialize({
+      maxTimeout: 1000,
+      interval: 10
+    });
     
     // Verify systemLocale is set to the first language code from navigator.languages
     t.is((manager as any).systemLocale, "fr");

@@ -291,7 +291,7 @@ testWithContext("filterOutVeryLowQualityVoices: removes very low quality voices"
   t.false(filtered.some((v: ReadiumSpeechVoice) => v.quality === "veryLow"));
 });
 
-testWithContext("filterVoices: deduplication keeps higher quality voice from voiceURI package name", (t) => {
+testWithContext("filterVoices: deduplication keeps higher quality voice from voiceURI package name", async (t) => {
   const manager = t.context.manager;
   
   // Define test voices once
@@ -312,7 +312,7 @@ testWithContext("filterVoices: deduplication keeps higher quality voice from voi
   };
 
   // Parse both voices and apply deduplication through filtering
-  const parsedVoices = (manager as any).parseToReadiumSpeechVoices([lowVoice, normalVoice]);
+  const parsedVoices = await (manager as any).parseToReadiumSpeechVoices([lowVoice, normalVoice]);
   const deduped = manager.filterVoices({ removeDuplicates: true }, parsedVoices);
   
   // Verify the result
@@ -323,7 +323,7 @@ testWithContext("filterVoices: deduplication keeps higher quality voice from voi
   t.deepEqual(resultVoice.quality, "normal", "Should keep the voice with normal quality");
 });
 
-testWithContext("filterVoices: deduplication keeps higher quality voice from voiceURI string", (t) => {
+testWithContext("filterVoices: deduplication keeps higher quality voice from voiceURI string", async (t) => {
   const manager = t.context.manager;
   
   // Define test voices once
@@ -344,7 +344,7 @@ testWithContext("filterVoices: deduplication keeps higher quality voice from voi
   };
 
   // Parse both voices and apply deduplication through filtering
-  const parsedVoices = (manager as any).parseToReadiumSpeechVoices([basicVoice, enhancedVoice]);
+  const parsedVoices = await (manager as any).parseToReadiumSpeechVoices([basicVoice, enhancedVoice]);
   const deduped = manager.filterVoices({ removeDuplicates: true }, parsedVoices);
   
   // Verify the result
@@ -355,11 +355,11 @@ testWithContext("filterVoices: deduplication keeps higher quality voice from voi
   t.deepEqual(resultVoice.quality, "high", "Should keep the voice with high quality");
 });
 
-testWithContext("filterVoices: deduplication keeps higher quality voice from json quality array", (t) => {
+testWithContext("filterVoices: deduplication keeps higher quality voice from json quality array", async (t) => {
   const manager = t.context.manager;
   
   // Parse both voices together to get correct duplicate counts
-  const voices = (manager as any).parseToReadiumSpeechVoices([
+  const voices = await (manager as any).parseToReadiumSpeechVoices([
     {
       voiceURI: "Samantha",
       name: "Samantha",
@@ -386,7 +386,7 @@ testWithContext("filterVoices: deduplication keeps higher quality voice from jso
   t.deepEqual(deduped[0].quality, "normal", "Should find the voice with normal quality from the array");
 });
 
-testWithContext("filterVoices: deduplication prefers voice with matching name over altNames", (t) => {
+testWithContext("filterVoices: deduplication prefers voice with matching name over altNames", async (t) => {
   const manager = t.context.manager;
   
   // Test scenario: two browser voices
@@ -408,7 +408,7 @@ testWithContext("filterVoices: deduplication prefers voice with matching name ov
     }
   ];
   
-  const parsedVoices = (manager as any).parseToReadiumSpeechVoices(voices);
+  const parsedVoices = await (manager as any).parseToReadiumSpeechVoices(voices);
   const deduped = manager.filterVoices({ removeDuplicates: true }, parsedVoices);
   
   // Should only keep one voice
@@ -418,7 +418,7 @@ testWithContext("filterVoices: deduplication prefers voice with matching name ov
   t.is(deduped[0].originalName, "Google US English 5 (Natural)", "Should keep the original name of preferred voice");
 });
 
-testWithContext("filterVoices: deduplication prefers voice with earlier altName over later altName", (t) => {
+testWithContext("filterVoices: deduplication prefers voice with earlier altName over later altName", async (t) => {
   const manager = t.context.manager;
   
   // Test scenario: two browser voices 
@@ -440,7 +440,7 @@ testWithContext("filterVoices: deduplication prefers voice with earlier altName 
     }
   ];
   
-  const parsedVoices = (manager as any).parseToReadiumSpeechVoices(voices);
+  const parsedVoices = await (manager as any).parseToReadiumSpeechVoices(voices);
   const deduped = manager.filterVoices({ removeDuplicates: true }, parsedVoices);
   
   // Should only keep one voice

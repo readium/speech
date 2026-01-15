@@ -7,7 +7,7 @@ import { extractLangRegionFromBCP47 } from "../utils/language";
  * @param voices Array of voices to analyze
  * @returns Map where key is language code and value is a map of voice names to their original JSON indices
  */
-export function createJsonOrderMap(voices: ReadiumSpeechVoice[]): Map<string, Map<string, number>> {
+export async function createJsonOrderMap(voices: ReadiumSpeechVoice[]): Promise<Map<string, Map<string, number>>> {
   // First, group voices by language
   const voicesByLanguage = new Map<string, ReadiumSpeechVoice[]>();
   
@@ -26,13 +26,13 @@ export function createJsonOrderMap(voices: ReadiumSpeechVoice[]): Map<string, Ma
   
   for (const [baseLang, langVoices] of voicesByLanguage.entries()) {
     const langOrderMap = new Map<string, number>();
-    const jsonVoices = getVoices(baseLang);
+    const jsonVoices = await getVoices(baseLang);
     
     // Create a lookup map for faster searching
     const voiceLookup = new Map<string, number>();
-    jsonVoices.forEach((v, i) => {
+    jsonVoices.forEach((v: any, i: number) => {
       voiceLookup.set(v.name.toLowerCase(), i);
-      v.altNames?.forEach(altName => {
+      v.altNames?.forEach((altName: any) => {
         voiceLookup.set(altName.toLowerCase(), i);
       });
     });

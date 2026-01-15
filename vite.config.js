@@ -14,9 +14,7 @@ export default defineConfig({
     rollupOptions: {
       external: [],
       output: {
-        inlineDynamicImports: true,
-        exports: "named",
-        preserveModules: false
+        exports: "named"
       }
     }
   },

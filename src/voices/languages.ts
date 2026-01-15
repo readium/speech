@@ -1,57 +1,56 @@
 import { extractLangRegionFromBCP47 } from "../utils/language";
 import type { ReadiumSpeechVoice, VoiceData, TGender, TQuality, TLocalizedName } from "./types";
-
-// Import all language JSON files statically
-import ar from "@json/ar.json";
-import bg from "@json/bg.json";
-import bho from "@json/bho.json";
-import bn from "@json/bn.json";
-import ca from "@json/ca.json";
-import cmn from "@json/cmn.json";
-import cs from "@json/cs.json";
-import da from "@json/da.json";
-import de from "@json/de.json";
-import el from "@json/el.json";
-import en from "@json/en.json";
-import es from "@json/es.json";
-import eu from "@json/eu.json";
-import fa from "@json/fa.json";
-import fi from "@json/fi.json";
-import fr from "@json/fr.json";
-import gl from "@json/gl.json";
-import he from "@json/he.json";
-import hi from "@json/hi.json";
-import hr from "@json/hr.json";
-import hu from "@json/hu.json";
-import id from "@json/id.json";
-import it from "@json/it.json";
-import ja from "@json/ja.json";
-import kk from "@json/kk.json";
-import kn from "@json/kn.json";
-import ko from "@json/ko.json";
-import mr from "@json/mr.json";
-import ms from "@json/ms.json";
-import nb from "@json/nb.json";
-import nl from "@json/nl.json";
-import pl from "@json/pl.json";
-import pt from "@json/pt.json";
-import ro from "@json/ro.json";
-import ru from "@json/ru.json";
-import sk from "@json/sk.json";
-import sl from "@json/sl.json";
-import sv from "@json/sv.json";
-import ta from "@json/ta.json";
-import te from "@json/te.json";
-import th from "@json/th.json";
-import tr from "@json/tr.json";
-import uk from "@json/uk.json";
-import vi from "@json/vi.json";
-import wuu from "@json/wuu.json";
-import yue from "@json/yue.json";
+import { LANGUAGE_METADATA } from '../generated/language-metadata';
 
 export interface LanguageWithRegions {
   baseLang: string;              // Base language code (e.g., "en", "fr")
   regions: string[];             // Regions to use for this language (explicit, inferred, or default)
+}
+
+// Cache for loaded language data
+const voiceDataCache = new Map<string, Promise<VoiceData>>();
+
+// Use import.meta.glob to dynamically import JSON files
+const jsonLoaders = import.meta.glob<{ default: VoiceData }>('../../json/*.json');
+
+/**
+ * Dynamically imports and caches language data
+ */
+async function loadVoiceData(lang: string): Promise<VoiceData> {
+  try {
+    // Extract language subtag (first part of BCP-47)
+    const langSubtag = lang.split("-")[0];
+    const loader = jsonLoaders[`../../json/${langSubtag}.json`];
+    if (!loader) {
+      throw new Error(`No voice data found for language: ${lang}`);
+    }
+    const module = await loader();
+    const voiceData = module.default;
+    return {
+      ...voiceData,
+      voices: voiceData.voices.map(castVoice)
+    };
+  } catch (error) {
+    // Log warning instead of error for unsupported languages
+    console.warn(`Failed to load voice data for ${lang}:`, error);
+    // Return empty voice data to prevent breaking the voice loading process
+    return {
+      language: lang,
+      defaultRegion: "",
+      testUtterance: "",
+      voices: []
+    };
+  }
+}
+
+/**
+ * Gets voice data for a language, loading it if necessary
+ */
+function getVoiceData(lang: string): Promise<VoiceData> {
+  if (!voiceDataCache.has(lang)) {
+    voiceDataCache.set(lang, loadVoiceData(lang));
+  }
+  return voiceDataCache.get(lang)!;
 }
 
 // Helper function to cast voice data to the correct type
@@ -70,24 +69,6 @@ const castVoice = (voice: any): ReadiumSpeechVoice => ({
     ? voice.localizedName as TLocalizedName 
     : undefined
 });
-
-// Map of language codes to their respective voice data with proper casting
-const voiceDataMap: Record<string, VoiceData> = Object.fromEntries(
-  Object.entries({
-    ar, bg, bho, bn, ca, cmn, cs, da, de, el, en, es, eu, fa, fi, fr, gl, he, hi,
-    hr, hu, id, it, ja, kk, kn, ko, mr, ms, nb, nl, pl, pt, ro, ru, sk, sl, sv, ta,
-    te, th, tr, uk, vi, wuu, yue
-  }).map(([lang, data]) => [
-    lang,
-    {
-      ...data,
-      voices: data.voices.map(castVoice)
-    }
-  ])
-);
-
-// Helper function to get voice data synchronously
-const getVoiceData = (lang: string): VoiceData | undefined => voiceDataMap[lang];
 
 // Chinese variant mapping for special handling
 export const chineseVariantMap: {[key: string]: string} = {
@@ -128,9 +109,9 @@ export const normalizeLanguageCode = (lang: string): string => {
 /**
  * Get all voices for a specific language
  * @param {string} lang - Language code (e.g., "en", "fr", "zh-CN")
- * @returns {ReadiumSpeechVoice[]} Array of voices for the specified language
+ * @returns {Promise<ReadiumSpeechVoice[]>} Promise resolving to array of voices for the specified language
  */
-export const getVoices = (lang: string): ReadiumSpeechVoice[] => {
+export const getVoices = async (lang: string): Promise<ReadiumSpeechVoice[]> => {
   if (!lang) return [];
   
   try {
@@ -138,19 +119,31 @@ export const getVoices = (lang: string): ReadiumSpeechVoice[] => {
     const normalizedLang = normalizeLanguageCode(lang);
     
     // Try with the normalized language code
-    let voiceData = getVoiceData(normalizedLang);
+    try {
+      const voiceData = await getVoiceData(normalizedLang);
+      if (voiceData?.voices?.length) {
+        return voiceData.voices;
+      }
+    } catch (error) {
+      console.warn(`Failed to load voices for ${normalizedLang}:`, error);
+    }
     
     // If still no voices, try with the base language code
-    if (!voiceData || !voiceData.voices?.length) {
-      const [baseLang] = extractLangRegionFromBCP47(normalizedLang);
-      if (baseLang !== normalizedLang) {
-        voiceData = getVoiceData(baseLang);
+    const [baseLang] = extractLangRegionFromBCP47(normalizedLang);
+    if (baseLang !== normalizedLang) {
+      try {
+        const baseLangData = await getVoiceData(baseLang);
+        if (baseLangData?.voices?.length) {
+          return baseLangData.voices;
+        }
+      } catch (error) {
+        console.warn(`Failed to load voices for base language ${baseLang}:`, error);
       }
     }
     
-    return voiceData?.voices || [];
+    return [];
   } catch (error) {
-    console.error(`Failed to load voices for ${lang}:`, error);
+    console.error(`Error in getVoices for ${lang}:`, error);
     return [];
   }
 };
@@ -159,7 +152,7 @@ export const getVoices = (lang: string): ReadiumSpeechVoice[] => {
  * Get all available language codes
  * @returns {string[]} Array of available language codes
  */
-export const getAvailableLanguages = (): string[] => Object.keys(voiceDataMap);
+export const getAvailableLanguages = (): string[] => Object.keys(LANGUAGE_METADATA);
 
 /**
  * Get the test utterance for a language
@@ -170,37 +163,31 @@ export const getTestUtterance = (lang: string): string => {
   if (!lang) return "";
   
   try {
-    // Normalize the language code first
     const normalizedLang = normalizeLanguageCode(lang);
     
     // Try with the normalized language code
-    let voiceData = getVoiceData(normalizedLang);
+    const metadata = LANGUAGE_METADATA[normalizedLang];
+    if (metadata?.testUtterance) {
+      return metadata.testUtterance;
+    }
     
-    // If no test utterance found and it's a Chinese variant, try with the mapped variant code
-    if ((!voiceData?.testUtterance) && normalizedLang in chineseVariantMap) {
+    // Handle Chinese variants
+    if (normalizedLang in chineseVariantMap) {
       const variantCode = chineseVariantMap[normalizedLang];
-      if (variantCode) {
-        const variantData = getVoiceData(variantCode);
-        if (variantData?.testUtterance) {
-          return variantData.testUtterance;
-        }
+      if (variantCode && LANGUAGE_METADATA[variantCode]?.testUtterance) {
+        return LANGUAGE_METADATA[variantCode].testUtterance;
       }
     }
     
-    // If still no test utterance, try with the base language code
-    if (!voiceData?.testUtterance) {
-      const [baseLang] = extractLangRegionFromBCP47(normalizedLang);
-      if (baseLang !== normalizedLang) {
-        const baseLangData = getVoiceData(baseLang);
-        if (baseLangData?.testUtterance) {
-          return baseLangData.testUtterance;
-        }
-      }
+    // Try with base language
+    const [baseLang] = extractLangRegionFromBCP47(normalizedLang);
+    if (baseLang !== normalizedLang && LANGUAGE_METADATA[baseLang]?.testUtterance) {
+      return LANGUAGE_METADATA[baseLang].testUtterance;
     }
     
-    return voiceData?.testUtterance ?? "";
+    return "";
   } catch (error) {
-    console.error(`Failed to get test utterance for ${lang}:`, error);
+    console.error(`Error in getTestUtterance for ${lang}:`, error);
     return "";
   }
 };
@@ -217,32 +204,33 @@ export const getDefaultRegion = (lang: string): string => {
     // Normalize the language code first
     const normalizedLang = normalizeLanguageCode(lang);
     
-    // Try with the normalized language code
-    let voiceData = getVoiceData(normalizedLang);
+    // Use metadata for fast lookup
+    const metadata = LANGUAGE_METADATA[normalizedLang];
+    if (metadata?.defaultRegion) {
+      return `${normalizedLang}-${metadata.defaultRegion}`;
+    }
     
     // If no default region found and it's a Chinese variant, try with the mapped variant code
-    if ((!voiceData?.defaultRegion) && normalizedLang in chineseVariantMap) {
+    if (normalizedLang in chineseVariantMap) {
       const variantCode = chineseVariantMap[normalizedLang];
       if (variantCode) {
-        const variantData = getVoiceData(variantCode);
-        if (variantData?.defaultRegion) {
-          return variantData.defaultRegion;
+        const variantMetadata = LANGUAGE_METADATA[variantCode];
+        if (variantMetadata?.defaultRegion) {
+          return `${variantCode}-${variantMetadata.defaultRegion}`;
         }
       }
     }
     
     // If still no default region, try with the base language code
-    if (!voiceData?.defaultRegion) {
-      const [baseLang] = extractLangRegionFromBCP47(normalizedLang);
-      if (baseLang !== normalizedLang) {
-        const baseLangData = getVoiceData(baseLang);
-        if (baseLangData?.defaultRegion) {
-          return baseLangData.defaultRegion;
-        }
+    const [baseLang] = extractLangRegionFromBCP47(normalizedLang);
+    if (baseLang !== normalizedLang) {
+      const baseLangMetadata = LANGUAGE_METADATA[baseLang];
+      if (baseLangMetadata?.defaultRegion) {
+        return `${baseLang}-${baseLangMetadata.defaultRegion}`;
       }
     }
     
-    return voiceData?.defaultRegion || "";
+    return "";
   } catch (error) {
     console.error(`Failed to get default region for ${lang}:`, error);
     return "";
@@ -289,13 +277,9 @@ export const processLanguages = (languages: string[]): LanguageWithRegions[] => 
 
   // Convert to the output format
   return Array.from(langMap.entries()).map(([baseLang, explicitRegionsSet]) => {
-    // Get all regions from the voices for this language
-    const allLangVoices = getVoices(baseLang);
+    // Get all available regions for this language from metadata
     const validRegionsForLang = new Set(
-      allLangVoices.map(voice => {
-        const [, region] = extractLangRegionFromBCP47(voice.language);
-        return region;
-      }).filter(Boolean)
+      LANGUAGE_METADATA[baseLang]?.availableRegions || []
     );
 
     // Get explicit regions with their original priority

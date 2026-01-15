@@ -81,15 +81,19 @@ export class WebSpeechVoiceManager {
   }
 
   /**
-   * Initialize the voice manager
+   * Initialize voice manager
    * @param options Configuration options for voice loading
-   * @param options.maxTime Maximum time in milliseconds to wait for voices to load (passed to getBrowserVoices)
+   * @param options.languages Optional array of preferred language codes to filter voices during initialization
+   * @param options.maxTimeout Maximum time in milliseconds to wait for voices to load (passed to getBrowserVoices)
    * @param options.interval Interval in milliseconds between voice loading checks (passed to getBrowserVoices)
    * @returns Promise that resolves with the WebSpeechVoiceManager instance
    */
   static async initialize(
-    maxTimeout?: number,
-    interval?: number
+    options?: {
+      languages?: string[];
+      maxTimeout?: number;
+      interval?: number;
+    }
   ): Promise<WebSpeechVoiceManager> {
     // If we already have an initialized instance, return it
     if (WebSpeechVoiceManager.instance?.isInitialized) {
@@ -107,9 +111,16 @@ export class WebSpeechVoiceManager {
         const instance = new WebSpeechVoiceManager();
         WebSpeechVoiceManager.instance = instance;
         
-        instance.browserVoices = await instance.getBrowserVoices(maxTimeout, interval);
+        instance.browserVoices = await instance.getBrowserVoices(options?.maxTimeout, options?.interval);
         instance.updateSystemLocale(instance.browserVoices);
-        instance.voices = await instance.parseToReadiumSpeechVoices(instance.browserVoices);
+        
+        // Filter browser voices if languages are provided
+        let voicesToParse = instance.browserVoices;
+        if (options?.languages && options.languages.length > 0) {
+          voicesToParse = instance.filterBrowserVoicesByLanguages(instance.browserVoices, options.languages);
+        }
+        
+        instance.voices = await instance.parseToReadiumSpeechVoices(voicesToParse);
         instance.isInitialized = true;
         
         return instance;
@@ -122,6 +133,33 @@ export class WebSpeechVoiceManager {
     })();
 
     return WebSpeechVoiceManager.initializationPromise;
+  }
+
+  /**
+   * Filter browser voices based on preferred languages
+   * @private
+   */
+  private filterBrowserVoicesByLanguages(browserVoices: SpeechSynthesisVoice[], languages: string[]): SpeechSynthesisVoice[] {
+    if (!languages?.length) return browserVoices;
+    
+    // Extract just the base languages from input
+    const allowedBaseLangs = new Set(
+      languages.map(lang => {
+        const normalized = normalizeLanguageCode(lang);
+        const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(normalized);
+        return baseLang;
+      })
+    );
+    
+    return browserVoices.filter(voice => {
+      if (!voice?.lang) return false;
+      
+      const normalizedVoiceLang = normalizeLanguageCode(voice.lang);
+      const [voiceBaseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(normalizedVoiceLang);
+      
+      // Include all voices for matching base languages, regardless of region
+      return allowedBaseLangs.has(voiceBaseLang);
+    });
   }
 
   /**
@@ -426,7 +464,7 @@ export class WebSpeechVoiceManager {
    * @param voices Optional pre-filtered voices array to use instead of fetching voices
    * @returns The default voice for the language, or null if no voices are available
    */
-  getDefaultVoice(languages: string | string[], voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice | null {
+  async getDefaultVoice(languages: string | string[], voices?: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice | null> {
     if (!languages) return null;
     
     // Convert single language to array for consistent handling
@@ -437,7 +475,7 @@ export class WebSpeechVoiceManager {
     if (!filteredVoices.length) return null;
   
     // Then sort by region to ensure we get the best match for the requested language(s)
-    filteredVoices = this.sortVoicesByRegions(languageArray, filteredVoices);
+    filteredVoices = await this.sortVoicesByRegions(languageArray, filteredVoices);
   
     // Return the best available voice (already sorted by quality and language)
     return filteredVoices[0];
@@ -507,40 +545,57 @@ export class WebSpeechVoiceManager {
    * Convert SpeechSynthesisVoice array to ReadiumSpeechVoice array
    * @private
    */
-  private parseToReadiumSpeechVoices(speechVoices: SpeechSynthesisVoice[]): ReadiumSpeechVoice[] {
+  private async parseToReadiumSpeechVoices(speechVoices: SpeechSynthesisVoice[]): Promise<ReadiumSpeechVoice[]> {
     // Count duplicates first
     const duplicateCounts = this.countVoiceDuplicates(speechVoices);
 
     // Map all browser voices to ReadiumSpeechVoice format
-    const mappedVoices = speechVoices
-      .filter(voice => voice?.name && voice?.lang)
-      .map(voice => {
-        const normalizedLang = normalizeLanguageCode(voice.lang);
-        const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(normalizedLang);
-        const normalizedName = this.normalizeVoiceName(voice.name);
-        const voiceKey = `${voice.lang.toLowerCase()}_${normalizedName}`;
-        const duplicatesCount = duplicateCounts.get(voiceKey) || 1;
-        
-        // First try with the full language code to handle variants like zh-HK
-        let langVoices = getVoices(normalizedLang);
-        
-        // If no voices found, try with the base language code
-        if (!langVoices || langVoices.length === 0) {
-          langVoices = getVoices(baseLang);
-        }
-        
-        // Find matching JSON voice
-        const jsonVoice = this.findMatchingJsonVoice(langVoices, normalizedName);
-        
-        // Infer quality using the helper method
-        const quality = this.inferVoiceQuality(voice, jsonVoice, duplicatesCount);
-        
-        if (jsonVoice) {
-          // Create the voice object with the determined quality
+    const mappedVoices = await Promise.all(
+      speechVoices
+        .filter(voice => voice?.name && voice?.lang)
+        .map(async (voice) => {
+          const normalizedLang = normalizeLanguageCode(voice.lang);
+          const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(normalizedLang);
+          const normalizedName = this.normalizeVoiceName(voice.name);
+          const voiceKey = `${voice.lang.toLowerCase()}_${normalizedName}`;
+          const duplicatesCount = duplicateCounts.get(voiceKey) || 1;
+          
+          // First try with the full language code to handle variants like zh-HK
+          let langVoices = await getVoices(normalizedLang);
+          
+          // If no voices found, try with the base language code
+          if (!langVoices || langVoices.length === 0) {
+            langVoices = await getVoices(baseLang);
+          }
+          
+          // Find matching JSON voice
+          const jsonVoice = this.findMatchingJsonVoice(langVoices, normalizedName);
+          
+          // Infer quality using the helper method
+          const quality = this.inferVoiceQuality(voice, jsonVoice, duplicatesCount);
+          
+          if (jsonVoice) {
+            // Create the voice object with the determined quality
+            return {
+              ...jsonVoice,
+              source: "json",
+              originalName: voice.name,
+              voiceURI: voice.voiceURI,
+              quality,
+              isDefault: voice.default || false,
+              offlineAvailability: voice.localService || false,
+              isNovelty: isNoveltyVoice(voice.name, voice.voiceURI),
+              isLowQuality: isVeryLowQualityVoice(voice.name, quality)
+            } as ReadiumSpeechVoice;
+          }
+
+          // No match found in JSON, create basic voice object
           return {
-            ...jsonVoice,
-            source: "json",
+            source: "browser",
+            label: this.cleanVoiceName(voice.name),
+            name: voice.name,
             originalName: voice.name,
+            language: normalizedLang,
             voiceURI: voice.voiceURI,
             quality,
             isDefault: voice.default || false,
@@ -548,23 +603,8 @@ export class WebSpeechVoiceManager {
             isNovelty: isNoveltyVoice(voice.name, voice.voiceURI),
             isLowQuality: isVeryLowQualityVoice(voice.name, quality)
           } as ReadiumSpeechVoice;
-        }
-
-        // No match found in JSON, create basic voice object
-        return {
-          source: "browser",
-          label: this.cleanVoiceName(voice.name),
-          name: voice.name,
-          originalName: voice.name,
-          language: normalizedLang,
-          voiceURI: voice.voiceURI,
-          quality,
-          isDefault: voice.default || false,
-          offlineAvailability: voice.localService || false,
-          isNovelty: isNoveltyVoice(voice.name, voice.voiceURI),
-          isLowQuality: isVeryLowQualityVoice(voice.name, quality)
-        } as ReadiumSpeechVoice;
-      });
+        })
+    );
 
     return mappedVoices;
   }
@@ -737,11 +777,11 @@ private static sortByQuality(
    * @param voices Array of voices to sort
    * @returns Sorted array of voices
    */
-  sortVoicesByQuality(voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
+  async sortVoicesByQuality(voices?: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice[]> {
     const voicesToSort = voices || this.voices;
     if (!voicesToSort?.length) return [];
     
-    const jsonOrderMaps = createJsonOrderMap(voicesToSort);
+    const jsonOrderMaps = await createJsonOrderMap(voicesToSort);
     return [...voicesToSort].sort((a, b) => WebSpeechVoiceManager.sortByQuality(a, b, jsonOrderMaps));
   }
 
@@ -776,11 +816,11 @@ private static sortByQuality(
   /**
    * Sort regions by default then alphabetically, sort voices by quality
    */
-  private static sortByDefaultRegion(
+  private static async sortByDefaultRegion(
     voices: ReadiumSpeechVoice[],
     baseLang: string
-  ): void {
-    const jsonOrderMaps = createJsonOrderMap(voices);
+  ): Promise<void> {
+    const jsonOrderMaps = await createJsonOrderMap(voices);
     const defaultRegion = getDefaultRegion(baseLang);
     
     voices.sort((a, b) => {
@@ -802,9 +842,11 @@ private static sortByQuality(
   /**
    * Sort voices alphabetically by language, then region, then quality
    */
-  private static sortAlphabetically(
+  private static async sortAlphabetically(
     voices: ReadiumSpeechVoice[]
-  ): void {
+  ): Promise<void> {
+    const jsonOrderMaps = await createJsonOrderMap(voices);
+    
     voices.sort((a, b) => {
       const [aLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
       const [bLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(b.language);
@@ -840,7 +882,6 @@ private static sortByQuality(
         if (bRegion) return 1;
         
         // Same language group - sort by quality
-        const jsonOrderMaps = createJsonOrderMap(voices);
         return WebSpeechVoiceManager.sortByQuality(a, b, jsonOrderMaps, aLang);
       }
       
@@ -854,7 +895,7 @@ private static sortByQuality(
    * @param preferredLanguages Array of preferred language codes in order of preference
    * @returns Sorted array of voices
    */
-  sortVoicesByLanguages(preferredLanguages?: string[], voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
+  async sortVoicesByLanguages(preferredLanguages?: string[], voices?: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice[]> {
     const voicesToSort = voices || this.voices;
 
     if (!voicesToSort?.length) return [];
@@ -863,7 +904,7 @@ private static sortByQuality(
       // If no preferred languages, sort alphabetically by language display name,
       // but prioritize default region voices within each language group
       const sortedVoices = [...voicesToSort];
-      WebSpeechVoiceManager.sortAlphabetically(sortedVoices);
+      await WebSpeechVoiceManager.sortAlphabetically(sortedVoices);
       return sortedVoices;
     }
 
@@ -876,13 +917,13 @@ private static sortByQuality(
     for (const processedLang of processedLangs) {
       const langVoices = voicesByLang.get(processedLang.baseLang);
       if (langVoices) {
-        WebSpeechVoiceManager.sortByDefaultRegion(langVoices, processedLang.baseLang);
+        await WebSpeechVoiceManager.sortByDefaultRegion(langVoices, processedLang.baseLang);
         langSortedResult.push(...langVoices);
       }
     }
     
     // Add other voices sorted alphabetically with region and quality fallback
-    WebSpeechVoiceManager.sortAlphabetically(otherLangVoices);
+    await WebSpeechVoiceManager.sortAlphabetically(otherLangVoices);
     langSortedResult.push(...otherLangVoices);
     return langSortedResult;
   }
@@ -890,11 +931,11 @@ private static sortByQuality(
   /**
    * Sort languages by region preference, then voices by quality
    */
-  private static sortByPreferredRegion(
+  private static async sortByPreferredRegion(
     voices: ReadiumSpeechVoice[],
     processedLang: LanguageWithRegions
-  ): void {
-    const jsonOrderMaps = createJsonOrderMap(voices);
+  ): Promise<void> {
+    const jsonOrderMaps = await createJsonOrderMap(voices);
     
     voices.sort((a, b) => {
       const [, aRegion] = WebSpeechVoiceManager.extractLangRegionFromBCP47(a.language);
@@ -953,7 +994,7 @@ private static sortByQuality(
    * @param preferredLanguages Array of preferred language codes in order of preference
    * @returns Sorted array of voices
    */
-  sortVoicesByRegions(preferredLanguages: string[], voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
+  async sortVoicesByRegions(preferredLanguages: string[], voices?: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice[]> {
     const voicesToSort = voices || this.voices;
 
     if (!voicesToSort?.length) return [];
@@ -967,13 +1008,13 @@ private static sortByQuality(
     for (const processedLang of processedLangs) {
       const langVoices = voicesByLang.get(processedLang.baseLang);
       if (langVoices) {
-        WebSpeechVoiceManager.sortByPreferredRegion(langVoices, processedLang);
+        await WebSpeechVoiceManager.sortByPreferredRegion(langVoices, processedLang);
         langSortedResult.push(...langVoices);
       }
     }
     
     // Add other voices sorted alphabetically with region and quality fallback
-    WebSpeechVoiceManager.sortAlphabetically(otherLangVoices);
+    await WebSpeechVoiceManager.sortAlphabetically(otherLangVoices);
     langSortedResult.push(...otherLangVoices);
     return langSortedResult;
   }
