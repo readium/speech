@@ -82,46 +82,29 @@ The second demo focuses on in-context reading with seamless voice selection (gro
 ### Basic Usage
 
 ```typescript
-import { WebSpeechVoiceManager } from "readium-speech";
+import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator } from "readium-speech";
 
-async function setupVoices() {
-  try {
-    // Initialize the voice manager
-    const voiceManager = await WebSpeechVoiceManager.initialize();
-    
-    // Get all available voices
-    const allVoices = voiceManager.getVoices();
-    console.log("Available voices:", allVoices);
-    
-    // Get voices with filters
-    const filteredVoices = voiceManager.getVoices({
-      languages: ["en", "fr"],
-      gender: "female",
-      quality: "high",
-      offlineOnly: true,
-      excludeNovelty: true,
-      excludeVeryLowQuality: true,
-      removeDuplicates: true
-    });
-    
-    // Sort by quality
-    const sortedByQuality = await voiceManager.sortVoicesByQuality(filteredVoices);
+// 1. Initialize voice manager and get default (best quality) voice
+const voiceManager = await WebSpeechVoiceManager.initialize({ languages: ["en"] });
+const defaultVoice = await voiceManager.getDefaultVoice("en-US");
 
-    // Sort by preferred languages
-    const sortedByLanguage = await voiceManager.sortVoicesByLanguages(["en", "fr"], filteredVoices);
+// 2. Create navigator and set voice
+const navigator = new WebSpeechReadAloudNavigator(); // Will use WebSpeech engine
+await navigator.setVoice(defaultVoice);
 
-    // Sort by preferred languages and regions
-    const sortedByRegion = await voiceManager.sortVoicesByRegions(["en-US", "en-GB"], filteredVoices);
-    
-    // Get a test utterance for a specific language
-    const testText = voiceManager.getTestUtterance("en");
-    
-  } catch (error) {
-    console.error("Error initializing voice manager:", error);
-  }
-}
+// 3. Handle play event
+navigator.on("play", () => {
+  console.log("Playback started");
+});
 
-await setupVoices();
+// 4. Load and play content
+navigator.loadContent([{
+  text: "This is a test of the readium speech library.",
+  language: "en"
+}]);
+
+// 5. Start playback
+navigator.play();
 ```
 
 ## Docs
