@@ -1,7 +1,7 @@
 {
   "language": "kk",
   "defaultRegion": "kk-KZ",
-  "testUtterance": "Sälemetsiz be, meniñ atım {name} jäne men qazaq dawısımın.",
+  "testUtterance": "Сәлеметсіз бе, менің атым {name} және мен қазақ дауыстымын.",
   "voices": [
     {
       "label": "Aigul",
