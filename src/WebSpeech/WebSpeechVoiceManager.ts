@@ -878,14 +878,16 @@ private static sortByQuality(
             return regionCompare;
           }
         }
-        if (aRegion) return -1;
-        if (bRegion) return 1;
+        // If one has region and the other doesn't, the one with region comes first
+        if (aRegion && !bRegion) return -1;
+        if (!aRegion && bRegion) return 1;
         
         // Same language group - sort by quality
         return WebSpeechVoiceManager.sortByQuality(a, b, jsonOrderMaps, aLang);
       }
       
-      return langCompare;
+      // Fallback - should not reach here but ensure we return a number
+      return WebSpeechVoiceManager.sortByQuality(a, b, jsonOrderMaps, aLang);
     });
   }
 
