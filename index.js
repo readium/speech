@@ -530,13 +530,13 @@ const It = (e) => ({
       L[i]?.availableRegions || []
     ), a = Array.from(s), c = Array.from(t).filter(
       (g) => u.has(g) && !a.includes(g)
-    ), l = Array.from(/* @__PURE__ */ new Set([...a, ...c])).sort((g, d) => {
-      const h = n.get(g) ?? Number.MAX_SAFE_INTEGER, p = n.get(d) ?? Number.MAX_SAFE_INTEGER;
-      return h - p;
+    ), l = Array.from(/* @__PURE__ */ new Set([...a, ...c])).sort((g, p) => {
+      const h = n.get(g) ?? Number.MAX_SAFE_INTEGER, d = n.get(p) ?? Number.MAX_SAFE_INTEGER;
+      return h - d;
     });
     if (l.length === 0) {
-      const g = le(i), [, d] = F(g);
-      d && l.push(d);
+      const g = le(i), [, p] = F(g);
+      p && l.push(p);
     }
     return {
       baseLang: i,
@@ -842,10 +842,10 @@ class S {
     for (const c of s) {
       const g = P(c.language).split("-")[0];
       if (!a.has(g)) {
-        const d = S.getLanguageDisplayName(g, t), h = s.filter(
-          (p) => P(p.language).split("-")[0] === g
+        const p = S.getLanguageDisplayName(g, t), h = s.filter(
+          (d) => P(d.language).split("-")[0] === g
         ).length;
-        u.push({ code: g, label: d, count: h }), a.add(g);
+        u.push({ code: g, label: p, count: h }), a.add(g);
       }
     }
     return n ? u : u.sort((c, l) => c.label.localeCompare(l.label));
@@ -867,16 +867,16 @@ class S {
     for (const l of s) {
       const [, g] = S.extractLangRegionFromBCP47(l.language);
       if (g && !a.has(g)) {
-        let d = l.language;
+        let p = l.language;
         try {
           const h = t || navigator.language;
-          d = new Intl.DisplayNames([h], { type: "region" }).of(g) || l.language;
+          p = new Intl.DisplayNames([h], { type: "region" }).of(g) || l.language;
         } catch (h) {
           console.warn(`Failed to get display name for region ${g}`, h);
         }
         u.push({
           code: g,
-          label: d,
+          label: p,
           count: c.get(g) || 0
         }), a.add(g);
       }
@@ -908,8 +908,8 @@ class S {
         const g = () => {
           if (a < 1) return s([]);
           --a;
-          const d = n();
-          if (Array.isArray(d) && d.length) return s(d);
+          const p = n();
+          if (Array.isArray(p) && p.length) return s(p);
           setTimeout(g, r);
         };
         setTimeout(g, r);
@@ -931,9 +931,9 @@ class S {
         const s = P(i.lang), [u] = S.extractLangRegionFromBCP47(s), a = this.normalizeVoiceName(i.name), c = `${i.lang.toLowerCase()}_${a}`, l = r.get(c) || 1;
         let g = await Re(s);
         (!g || g.length === 0) && (g = await Re(u));
-        const d = this.findMatchingJsonVoice(g, a), h = this.inferVoiceQuality(i, d, l);
-        return d ? {
-          ...d,
+        const p = this.findMatchingJsonVoice(g, a), h = this.inferVoiceQuality(i, p, l);
+        return p ? {
+          ...p,
           source: "json",
           originalName: i.name,
           voiceURI: i.voiceURI,
@@ -988,8 +988,8 @@ class S {
         const c = a.toLowerCase(), l = u.language?.toLowerCase(), g = u.altLanguage?.toLowerCase();
         if (l === c || g === c)
           return !0;
-        const [d] = c.split("-");
-        return l && l.startsWith(d) || g && g.startsWith(d);
+        const [p] = c.split("-");
+        return l && l.startsWith(p) || g && g.startsWith(p);
       }));
     }
     if (i.source && (n = n.filter((s) => s.source === i.source)), i.gender && (n = n.filter((s) => s.gender === i.gender)), i.quality) {
@@ -1094,17 +1094,17 @@ class S {
       if (l !== 0)
         return l;
       if (s === u) {
-        const g = le(s), [, d] = S.extractLangRegionFromBCP47(n.language), [, h] = S.extractLangRegionFromBCP47(i.language), p = g && d === g.split("-")[1], v = g && h === g.split("-")[1];
-        if (p && !v) return -1;
-        if (!p && v) return 1;
-        if (d && h) {
-          const O = d.localeCompare(h);
+        const g = le(s), [, p] = S.extractLangRegionFromBCP47(n.language), [, h] = S.extractLangRegionFromBCP47(i.language), d = g && p === g.split("-")[1], v = g && h === g.split("-")[1];
+        if (d && !v) return -1;
+        if (!d && v) return 1;
+        if (p && h) {
+          const O = p.localeCompare(h);
           if (O !== 0)
             return O;
         }
-        return d ? -1 : h ? 1 : S.sortByQuality(n, i, r, s);
+        return p && !h ? -1 : !p && h ? 1 : S.sortByQuality(n, i, r, s);
       }
-      return l;
+      return S.sortByQuality(n, i, r, s);
     });
   }
   /**
@@ -1140,9 +1140,9 @@ class S {
       }
       if (c) return -1;
       if (l) return 1;
-      const g = le(r.baseLang), [, d] = S.extractLangRegionFromBCP47(g), h = u === d, p = a === d;
-      if (h && !p) return -1;
-      if (!h && p) return 1;
+      const g = le(r.baseLang), [, p] = S.extractLangRegionFromBCP47(g), h = u === p, d = a === p;
+      if (h && !d) return -1;
+      if (!h && d) return 1;
       if (u && a) {
         const v = u.localeCompare(a);
         return v !== 0 ? v : S.sortByQuality(i, s, n, r.baseLang);
@@ -1251,9 +1251,9 @@ function er() {
     let s = null;
     return n.proto ? c : a;
     function u(l, g) {
-      const d = Object.keys(l), h = new Array(d.length);
-      for (let p = 0; p < d.length; p++) {
-        const v = d[p], O = l[v];
+      const p = Object.keys(l), h = new Array(p.length);
+      for (let d = 0; d < p.length; d++) {
+        const v = p[d], O = l[v];
         typeof O != "object" || O === null ? h[v] = O : O.constructor !== Object && (s = i.get(O.constructor)) ? h[v] = s(O, g) : ArrayBuffer.isView(O) ? h[v] = e(O) : h[v] = g(O);
       }
       return h;
@@ -1264,10 +1264,10 @@ function er() {
       if (l.constructor !== Object && (s = i.get(l.constructor)))
         return s(l, a);
       const g = {};
-      for (const d in l) {
-        if (Object.hasOwnProperty.call(l, d) === !1) continue;
-        const h = l[d];
-        typeof h != "object" || h === null ? g[d] = h : h.constructor !== Object && (s = i.get(h.constructor)) ? g[d] = s(h, a) : ArrayBuffer.isView(h) ? g[d] = e(h) : g[d] = a(h);
+      for (const p in l) {
+        if (Object.hasOwnProperty.call(l, p) === !1) continue;
+        const h = l[p];
+        typeof h != "object" || h === null ? g[p] = h : h.constructor !== Object && (s = i.get(h.constructor)) ? g[p] = s(h, a) : ArrayBuffer.isView(h) ? g[p] = e(h) : g[p] = a(h);
       }
       return g;
     }
@@ -1277,24 +1277,24 @@ function er() {
       if (l.constructor !== Object && (s = i.get(l.constructor)))
         return s(l, c);
       const g = {};
-      for (const d in l) {
-        const h = l[d];
-        typeof h != "object" || h === null ? g[d] = h : h.constructor !== Object && (s = i.get(h.constructor)) ? g[d] = s(h, c) : ArrayBuffer.isView(h) ? g[d] = e(h) : g[d] = c(h);
+      for (const p in l) {
+        const h = l[p];
+        typeof h != "object" || h === null ? g[p] = h : h.constructor !== Object && (s = i.get(h.constructor)) ? g[p] = s(h, c) : ArrayBuffer.isView(h) ? g[p] = e(h) : g[p] = c(h);
       }
       return g;
     }
   }
   function r(n) {
     const i = [], s = [], u = /* @__PURE__ */ new Map();
-    if (u.set(Date, (d) => new Date(d)), u.set(Map, (d, h) => new Map(c(Array.from(d), h))), u.set(Set, (d, h) => new Set(c(Array.from(d), h))), n.constructorHandlers)
-      for (const d of n.constructorHandlers)
-        u.set(d[0], d[1]);
+    if (u.set(Date, (p) => new Date(p)), u.set(Map, (p, h) => new Map(c(Array.from(p), h))), u.set(Set, (p, h) => new Set(c(Array.from(p), h))), n.constructorHandlers)
+      for (const p of n.constructorHandlers)
+        u.set(p[0], p[1]);
     let a = null;
     return n.proto ? g : l;
-    function c(d, h) {
-      const p = Object.keys(d), v = new Array(p.length);
-      for (let O = 0; O < p.length; O++) {
-        const C = p[O], R = d[C];
+    function c(p, h) {
+      const d = Object.keys(p), v = new Array(d.length);
+      for (let O = 0; O < d.length; O++) {
+        const C = d[O], R = p[C];
         if (typeof R != "object" || R === null)
           v[C] = R;
         else if (R.constructor !== Object && (a = u.get(R.constructor)))
@@ -1308,47 +1308,47 @@ function er() {
       }
       return v;
     }
-    function l(d) {
-      if (typeof d != "object" || d === null) return d;
-      if (Array.isArray(d)) return c(d, l);
-      if (d.constructor !== Object && (a = u.get(d.constructor)))
-        return a(d, l);
+    function l(p) {
+      if (typeof p != "object" || p === null) return p;
+      if (Array.isArray(p)) return c(p, l);
+      if (p.constructor !== Object && (a = u.get(p.constructor)))
+        return a(p, l);
       const h = {};
-      i.push(d), s.push(h);
-      for (const p in d) {
-        if (Object.hasOwnProperty.call(d, p) === !1) continue;
-        const v = d[p];
+      i.push(p), s.push(h);
+      for (const d in p) {
+        if (Object.hasOwnProperty.call(p, d) === !1) continue;
+        const v = p[d];
         if (typeof v != "object" || v === null)
-          h[p] = v;
+          h[d] = v;
         else if (v.constructor !== Object && (a = u.get(v.constructor)))
-          h[p] = a(v, l);
+          h[d] = a(v, l);
         else if (ArrayBuffer.isView(v))
-          h[p] = e(v);
+          h[d] = e(v);
         else {
           const O = i.indexOf(v);
-          O !== -1 ? h[p] = s[O] : h[p] = l(v);
+          O !== -1 ? h[d] = s[O] : h[d] = l(v);
         }
       }
       return i.pop(), s.pop(), h;
     }
-    function g(d) {
-      if (typeof d != "object" || d === null) return d;
-      if (Array.isArray(d)) return c(d, g);
-      if (d.constructor !== Object && (a = u.get(d.constructor)))
-        return a(d, g);
+    function g(p) {
+      if (typeof p != "object" || p === null) return p;
+      if (Array.isArray(p)) return c(p, g);
+      if (p.constructor !== Object && (a = u.get(p.constructor)))
+        return a(p, g);
       const h = {};
-      i.push(d), s.push(h);
-      for (const p in d) {
-        const v = d[p];
+      i.push(p), s.push(h);
+      for (const d in p) {
+        const v = p[d];
         if (typeof v != "object" || v === null)
-          h[p] = v;
+          h[d] = v;
         else if (v.constructor !== Object && (a = u.get(v.constructor)))
-          h[p] = a(v, g);
+          h[d] = a(v, g);
         else if (ArrayBuffer.isView(v))
-          h[p] = e(v);
+          h[d] = e(v);
         else {
           const O = i.indexOf(v);
-          O !== -1 ? h[p] = s[O] : h[p] = g(v);
+          O !== -1 ? h[d] = s[O] : h[d] = g(v);
         }
       }
       return i.pop(), s.pop(), h;
@@ -1750,13 +1750,13 @@ function oa(e, t, r, n) {
   t.length >= ia && (s = aa, u = !1, t = new ue(t));
   e:
     for (; ++i < a; ) {
-      var g = e[i], d = g;
-      if (g = g !== 0 ? g : 0, u && d === d) {
+      var g = e[i], p = g;
+      if (g = g !== 0 ? g : 0, u && p === p) {
         for (var h = l; h--; )
-          if (t[h] === d)
+          if (t[h] === p)
             continue e;
         c.push(g);
-      } else s(t, d, n) || c.push(g);
+      } else s(t, p, n) || c.push(g);
     }
   return c;
 }
@@ -1792,8 +1792,8 @@ var ca = Yr(function(e, t) {
 function Be(e, t) {
   for (var r = {}, n = {}, i = e.split(pa), s = !1, u = 0; i.length > u; u++) {
     for (var a = i[u].split(ga), c = 0; c < a.length; c += 2) {
-      var l = a[c], g = a[c + 1], d = "&" + l + ";";
-      r[d] = g, s && (r["&" + l] = g), n[g] = d;
+      var l = a[c], g = a[c + 1], p = "&" + l + ";";
+      r[p] = g, s && (r["&" + l] = g), n[g] = p;
     }
     s = !0;
   }
@@ -1888,8 +1888,8 @@ function st(e, t) {
   if (!e)
     return "";
   var a = ya[i][u], c = fa[i].entities, l = u === "attribute", g = u === "strict";
-  return e.replace(a, function(d) {
-    return va(d, c, l, g);
+  return e.replace(a, function(p) {
+    return va(p, c, l, g);
   });
 }
 var Sa = { strictlyTwoElementsInRangeArrays: !1, progressFn: null };
@@ -1957,8 +1957,8 @@ function Ta(e, t, r) {
   if (s > 0) {
     let u = e.slice(i[s - 1][1]);
     e = i.reduce((a, c, l, g) => {
-      let d = l === 0 ? 0 : g[l - 1][1], h = g[l][0];
-      return `${a}${e.slice(d, h)}${g[l][2] || ""}`;
+      let p = l === 0 ? 0 : g[l - 1][1], h = g[l][0];
+      return `${a}${e.slice(p, h)}${g[l][2] || ""}`;
     }, ""), e += u;
   }
   return e;
@@ -1973,10 +1973,10 @@ function Oe(e, t = 1) {
 ` : "\r", l = a ? "\r" : `
 `;
     if (!s) return s;
-    let g = 0, d = "";
-    for (let h = 0, p = s.length; h < p; h++) (s[h] === c || s[h] === l && s[h - 1] !== c) && g++, `\r
-`.includes(s[h]) || s[h] === r ? s[h] === r ? d += s[h] : s[h] === c ? g <= u && (d += s[h], s[h + 1] === l && (d += s[h + 1], h++)) : s[h] === l && s?.[h - 1] !== c && g <= u && (d += s[h]) : !s[h + 1] && !g && (d += " ");
-    return d;
+    let g = 0, p = "";
+    for (let h = 0, d = s.length; h < d; h++) (s[h] === c || s[h] === l && s[h - 1] !== c) && g++, `\r
+`.includes(s[h]) || s[h] === r ? s[h] === r ? p += s[h] : s[h] === c ? g <= u && (p += s[h], s[h + 1] === l && (p += s[h + 1], h++)) : s[h] === l && s?.[h - 1] !== c && g <= u && (p += s[h]) : !s[h + 1] && !g && (p += " ");
+    return p;
   }
   if (typeof e == "string" && e.length) {
     let s = 1;
@@ -2127,7 +2127,7 @@ function Ct(e, t) {
     a = { attributes: [] };
   }
   c();
-  let l = null, g = null, d = null, h = !1, p = {}, v = { tagName: "", hrefValue: "", openingTagEnds: void 0 }, O = "", C = !1, R = null, I = !0;
+  let l = null, g = null, p = null, h = !1, d = {}, v = { tagName: "", hrefValue: "", openingTagEnds: void 0 }, O = "", C = !1, R = null, I = !0;
   function ae(o, m, b) {
     if (Array.isArray(m.stripTogetherWithTheirContents) && (m.stripTogetherWithTheirContents.includes(a.name) || m.stripTogetherWithTheirContents.includes("*"))) if (a.slashPresent && Array.isArray(n) && n.some((y) => y.name === a.name)) {
       for (let y = n.length; y--; ) if (n[y].name === a.name) {
@@ -2209,7 +2209,7 @@ ${JSON.stringify(t, null, 4)}`);
   let $ = !1, D = !1, se = 0, $e = 0, E = e.length, Et = Math.floor(E / 2);
   for (let o = 0; o < E; o++) {
     if (f.reportProgressFunc && (E > 1e3 && E < 2e3 ? o === Et && f.reportProgressFunc(Math.floor((f.reportProgressFuncTo - f.reportProgressFuncFrom) / 2)) : E >= 2e3 && (se = f.reportProgressFuncFrom + Math.floor(o / E * (f.reportProgressFuncTo - f.reportProgressFuncFrom)), se !== $e && ($e = se, f.reportProgressFunc(se)))), Object.keys(a).length > 1 && a.lastClosingBracketAt && a.lastClosingBracketAt < o && e[o] !== " " && R === null && (R = o), !$ && e[o] === "%" && e[o - 1] === "{" && e.includes("%}", o + 1)) {
-      d = null;
+      p = null;
       let m = e.indexOf("%}", o) - 1;
       if (m > o) {
         o = m;
@@ -2233,15 +2233,15 @@ ${JSON.stringify(t, null, 4)}`);
         break;
       }
     }
-    if (!D && e[o] === "/" && !a.quotes?.value && Number.isInteger(a.lastOpeningBracketAt) && !Number.isInteger(a.lastClosingBracketAt) && (a.slashPresent = o), e[o] === '"' || e[o] === "'") if (!D && a.nameStarts && a?.quotes?.value === e[o]) if (p.valueStarts === void 0) p = {}, delete a.quotes;
+    if (!D && e[o] === "/" && !a.quotes?.value && Number.isInteger(a.lastOpeningBracketAt) && !Number.isInteger(a.lastClosingBracketAt) && (a.slashPresent = o), e[o] === '"' || e[o] === "'") if (!D && a.nameStarts && a?.quotes?.value === e[o]) if (d.valueStarts === void 0) d = {}, delete a.quotes;
     else {
-      p.valueEnds = o, p.value = e.slice(p.valueStarts, o), a.attributes.push(p), p = {}, delete a.quotes;
+      d.valueEnds = o, d.value = e.slice(d.valueStarts, o), a.attributes.push(d), d = {}, delete a.quotes;
       let m;
       f.dumpLinkHrefsNearby?.enabled && !n.length && a.attributes.some((b) => {
         if (typeof b.name == "string" && b.name.toLowerCase() === "href") return m = `${f.dumpLinkHrefsNearby?.wrapHeads || ""}${b.value}${f.dumpLinkHrefsNearby?.wrapTails || ""}`, !0;
       }) && (v = { tagName: a.name, hrefValue: m, openingTagEnds: void 0 });
     }
-    else !D && !a.quotes && a.nameStarts && (a.quotes = {}, a.quotes.value = e[o], a.quotes.start = o, a.quotes.next = e.indexOf(e[o], o + 1), p.nameStarts && p.nameEnds && p.nameEnds < o && p.nameStarts < o && !p.valueStarts && (p.name = e.slice(p.nameStarts, p.nameEnds)));
+    else !D && !a.quotes && a.nameStarts && (a.quotes = {}, a.quotes.value = e[o], a.quotes.start = o, a.quotes.next = e.indexOf(e[o], o + 1), d.nameStarts && d.nameEnds && d.nameEnds < o && d.nameStarts < o && !d.valueStarts && (d.name = e.slice(d.nameStarts, d.nameEnds)));
     if (a.nameStarts !== void 0 && a.nameEnds === void 0 && (!e[o].trim() || !Na(e[o]))) {
       if (a.nameEnds = o, a.name = e.slice(a.nameStarts, a.nameEnds + (!U(o) && e[o] !== "/" && e[o + 1] === void 0 ? 1 : 0)), e[a.nameStarts - 1] !== "!" && !a.name.replace(/-/g, "").length || /^\d+$/.test(a.name[0])) {
         a = {};
@@ -2253,11 +2253,11 @@ ${JSON.stringify(t, null, 4)}`);
         (f.stripTogetherWithTheirContents.includes(a.name) || f.stripTogetherWithTheirContents.includes("*")) && (u = u.filter(([b, y]) => !(b === a.leftOuterWhitespace && y === o))), f.cb({ tag: a, deleteFrom: a.leftOuterWhitespace, deleteTo: o, insert: `${m}${O}${m}`, rangesArr: w, proposedReturn: [a.leftOuterWhitespace, o, `${m}${O}${m}`] }), fe(), ae(o, f, w);
       }
     }
-    if (a.quotes?.start && a.quotes.start < o && !a.quotes.end && p.nameEnds && p.equalsAt && !p.valueStarts && (p.valueStarts = o), !a.quotes && p.nameEnds && e[o] === "=" && !p.valueStarts && !p.equalsAt && (p.equalsAt = o), !a.quotes && p.nameStarts && p.nameEnds && !p.valueStarts && e[o].trim() && e[o] !== "=" && (a.attributes.push(p), p = {}), !a.quotes && p.nameStarts && !p.nameEnds && (D && `'"`.includes(e[p.nameStarts]) ? p.nameStarts < o && e[o] === e[p.nameStarts] && (p.nameEnds = o + 1, p.name = e.slice(p.nameStarts, p.nameEnds)) : e[o].trim() ? e[o] === "=" ? p.equalsAt || (p.nameEnds = o, p.equalsAt = o, p.name = e.slice(p.nameStarts, p.nameEnds)) : e[o] === "/" || U(o) ? (p.nameEnds = o, p.name = e.slice(p.nameStarts, p.nameEnds), a.attributes.push(p), p = {}) : x(o) && (p.nameEnds = o, p.name = e.slice(p.nameStarts, p.nameEnds), a.attributes.push(p), p = {}) : (p.nameEnds = o, p.name = e.slice(p.nameStarts, p.nameEnds))), !a.quotes && a.nameEnds < o && !e[o - 1].trim() && e[o].trim() && !"<>/!".includes(e[o]) && !p.nameStarts && !a.lastClosingBracketAt && (p.nameStarts = o), a.lastOpeningBracketAt !== null && a.lastOpeningBracketAt < o && e[o] === "/" && a.onlyPlausible && (a.onlyPlausible = !1), a.lastOpeningBracketAt !== null && a.lastOpeningBracketAt < o && e[o] !== "/" && (a.onlyPlausible === void 0 && ((!e[o].trim() || x(o)) && !a.slashPresent ? a.onlyPlausible = !0 : a.onlyPlausible = !1), e[o].trim() && a.nameStarts === void 0 && !x(o) && e[o] !== "/" && !U(o) && e[o] !== "!" && (a.nameStarts = o, a.nameContainsLetters = !1)), a.nameStarts && !a.quotes && typeof e[o] == "string" && e[o].toLowerCase() !== e[o].toUpperCase() && (a.nameContainsLetters = !0), U(o) && (ct(a, e, o) || a.quotes.value && typeof a.lastOpeningBracketAt == "number" && La(a.quotes.value, e.slice(a.lastOpeningBracketAt, o)) % 2 === 1 && !e.slice(a.lastOpeningBracketAt + 1, o).includes("<") && !e.slice(a.lastOpeningBracketAt + 1, o).includes(">")) && a.lastOpeningBracketAt !== void 0 && (a.lastClosingBracketAt = o, R = null, Object.keys(p).length && (a.attributes.push(p), p = {}), f.dumpLinkHrefsNearby?.enabled && v.tagName && !v.openingTagEnds && (v.openingTagEnds = o)), (!D || e[o] === ">") && a.lastOpeningBracketAt !== void 0) {
+    if (a.quotes?.start && a.quotes.start < o && !a.quotes.end && d.nameEnds && d.equalsAt && !d.valueStarts && (d.valueStarts = o), !a.quotes && d.nameEnds && e[o] === "=" && !d.valueStarts && !d.equalsAt && (d.equalsAt = o), !a.quotes && d.nameStarts && d.nameEnds && !d.valueStarts && e[o].trim() && e[o] !== "=" && (a.attributes.push(d), d = {}), !a.quotes && d.nameStarts && !d.nameEnds && (D && `'"`.includes(e[d.nameStarts]) ? d.nameStarts < o && e[o] === e[d.nameStarts] && (d.nameEnds = o + 1, d.name = e.slice(d.nameStarts, d.nameEnds)) : e[o].trim() ? e[o] === "=" ? d.equalsAt || (d.nameEnds = o, d.equalsAt = o, d.name = e.slice(d.nameStarts, d.nameEnds)) : e[o] === "/" || U(o) ? (d.nameEnds = o, d.name = e.slice(d.nameStarts, d.nameEnds), a.attributes.push(d), d = {}) : x(o) && (d.nameEnds = o, d.name = e.slice(d.nameStarts, d.nameEnds), a.attributes.push(d), d = {}) : (d.nameEnds = o, d.name = e.slice(d.nameStarts, d.nameEnds))), !a.quotes && a.nameEnds < o && !e[o - 1].trim() && e[o].trim() && !"<>/!".includes(e[o]) && !d.nameStarts && !a.lastClosingBracketAt && (d.nameStarts = o), a.lastOpeningBracketAt !== null && a.lastOpeningBracketAt < o && e[o] === "/" && a.onlyPlausible && (a.onlyPlausible = !1), a.lastOpeningBracketAt !== null && a.lastOpeningBracketAt < o && e[o] !== "/" && (a.onlyPlausible === void 0 && ((!e[o].trim() || x(o)) && !a.slashPresent ? a.onlyPlausible = !0 : a.onlyPlausible = !1), e[o].trim() && a.nameStarts === void 0 && !x(o) && e[o] !== "/" && !U(o) && e[o] !== "!" && (a.nameStarts = o, a.nameContainsLetters = !1)), a.nameStarts && !a.quotes && typeof e[o] == "string" && e[o].toLowerCase() !== e[o].toUpperCase() && (a.nameContainsLetters = !0), U(o) && (ct(a, e, o) || a.quotes.value && typeof a.lastOpeningBracketAt == "number" && La(a.quotes.value, e.slice(a.lastOpeningBracketAt, o)) % 2 === 1 && !e.slice(a.lastOpeningBracketAt + 1, o).includes("<") && !e.slice(a.lastOpeningBracketAt + 1, o).includes(">")) && a.lastOpeningBracketAt !== void 0 && (a.lastClosingBracketAt = o, R = null, Object.keys(d).length && (a.attributes.push(d), d = {}), f.dumpLinkHrefsNearby?.enabled && v.tagName && !v.openingTagEnds && (v.openingTagEnds = o)), (!D || e[o] === ">") && a.lastOpeningBracketAt !== void 0) {
       if (a.lastClosingBracketAt === void 0) {
         if (a.lastOpeningBracketAt < o && !x(o) && (e[o + 1] === void 0 || x(o + 1) && !a?.quotes?.value) && a.nameContainsLetters && typeof a.nameStarts == "number") {
           if (a.name = e.slice(a.nameStarts, a.nameEnds || o + 1).toLowerCase(), (!s.length || s[s.length - 1][0] !== a.lastOpeningBracketAt) && s.push([a.lastOpeningBracketAt, o + 1]), f.ignoreTags.includes(a.name) || he(o, f, a) || !te.has(a.name) && (a.onlyPlausible || f.stripRecognisedHTMLOnly)) {
-            a = {}, p = {};
+            a = {}, d = {};
             continue;
           }
           if ((te.has(a.name) || ke.has(a.name)) && (a.onlyPlausible === !1 || a.onlyPlausible === !0 && a.attributes.length) || e[o + 1] === void 0) {
@@ -2286,7 +2286,7 @@ ${JSON.stringify(t, null, 4)}`);
             }
             i.length || (I = !0);
           } else I && (I = !1), i.push(a);
-          f.cb({ tag: a, deleteFrom: null, deleteTo: null, insert: null, rangesArr: w, proposedReturn: null }), a = {}, p = {};
+          f.cb({ tag: a, deleteFrom: null, deleteTo: null, insert: null, rangesArr: w, proposedReturn: null }), a = {}, d = {};
         } else if (!a.onlyPlausible || a.attributes.length === 0 && a.name && (te.has(a.name.toLowerCase()) || ke.has(a.name.toLowerCase())) || a.attributes?.some((k) => k.equalsAt)) {
           (!u.length || u[u.length - 1][0] !== a.lastOpeningBracketAt) && u.push([a.lastOpeningBracketAt, a.lastClosingBracketAt + 1]);
           let k = V(e, o, a.leftOuterWhitespace, m, a.lastOpeningBracketAt, a.lastClosingBracketAt);
@@ -2313,7 +2313,7 @@ ${JSON.stringify(t, null, 4)}`);
       if (U(N(e, o))) continue;
       if (a.nameEnds && a.nameEnds < o && !a.lastClosingBracketAt && (a.onlyPlausible === !0 && a.attributes?.length || a.onlyPlausible === !1)) {
         let m = V(e, o, a.leftOuterWhitespace, o, a.lastOpeningBracketAt, o);
-        f.cb({ tag: a, deleteFrom: a.leftOuterWhitespace, deleteTo: o, insert: m, rangesArr: w, proposedReturn: [a.leftOuterWhitespace, o, m] }), ae(o, f, w), a = {}, p = {};
+        f.cb({ tag: a, deleteFrom: a.leftOuterWhitespace, deleteTo: o, insert: m, rangesArr: w, proposedReturn: [a.leftOuterWhitespace, o, m] }), ae(o, f, w), a = {}, d = {};
       }
       if (a.lastOpeningBracketAt !== void 0 && a.onlyPlausible && a.name && !a.quotes && (a.lastOpeningBracketAt = void 0, a.name = void 0, a.onlyPlausible = !1), (a.lastOpeningBracketAt === void 0 || !a.onlyPlausible) && !a.quotes && (a.lastOpeningBracketAt = o, a.slashPresent = !1, a.attributes = [], l === null ? a.leftOuterWhitespace = o : f.trimOnlySpaces && l === 0 ? a.leftOuterWhitespace = g || o : a.leftOuterWhitespace = l, `${e[o + 1]}${e[o + 2]}${e[o + 3]}` == "!--" || `${e[o + 1]}${e[o + 2]}${e[o + 3]}${e[o + 4]}${e[o + 5]}${e[o + 6]}${e[o + 7]}${e[o + 8]}` == "![CDATA[")) {
         let m = !0;
@@ -2323,13 +2323,13 @@ ${JSON.stringify(t, null, 4)}`);
           let k = y;
           (e[y + 1] === void 0 && !e[y].trim() || e[y] === ">") && (k += 1), (!s.length || s[s.length - 1][0] !== a.lastOpeningBracketAt) && s.push([a.lastOpeningBracketAt, b + 1]), (!u.length || u[u.length - 1][0] !== a.lastOpeningBracketAt) && u.push([a.lastOpeningBracketAt, b + 1]);
           let A = V(e, y, a.leftOuterWhitespace, k, a.lastOpeningBracketAt, b);
-          f.cb({ tag: a, deleteFrom: a.leftOuterWhitespace, deleteTo: k, insert: A, rangesArr: w, proposedReturn: [a.leftOuterWhitespace, k, A] }), o = y - 1, e[y] === ">" && (o = y), a = {}, p = {};
+          f.cb({ tag: a, deleteFrom: a.leftOuterWhitespace, deleteTo: k, insert: A, rangesArr: w, proposedReturn: [a.leftOuterWhitespace, k, A] }), o = y - 1, e[y] === ">" && (o = y), a = {}, d = {};
           break;
         }
       }
     }
     !e[o].trim() || e[o].charCodeAt(0) === 847 ? (l === null && (l = o, a.lastOpeningBracketAt !== void 0 && a.lastOpeningBracketAt < o && a.nameStarts && a.nameStarts < a.lastOpeningBracketAt && o === a.lastOpeningBracketAt + 1 && !n.some((m) => m.name === a.name) && (a.onlyPlausible = !0, a.name = void 0, a.nameStarts = void 0)), (e[o] === `
-` || e[o] === "\r") && (d = o, h && (h = !1))) : (l !== null && (!a.quotes && p.equalsAt > l - 1 && p.nameEnds && p.equalsAt > p.nameEnds && e[o] !== '"' && e[o] !== "'" && (Ne(p) && a.attributes.push(p), p = {}, a.equalsSpottedAt = void 0), l = null), h || (h = !0, I && !$ && typeof d == "number" && o && d < o - 1 && (e.slice(d + 1, o).trim() ? d = null : f.ignoreIndentations || w.push([d + 1, o])))), e[o] === " " ? g === null && (g = o) : g !== null && (g = null), a.name === "script" && ($ = !a.slashPresent);
+` || e[o] === "\r") && (p = o, h && (h = !1))) : (l !== null && (!a.quotes && d.equalsAt > l - 1 && d.nameEnds && d.equalsAt > d.nameEnds && e[o] !== '"' && e[o] !== "'" && (Ne(d) && a.attributes.push(d), d = {}, a.equalsSpottedAt = void 0), l = null), h || (h = !0, I && !$ && typeof p == "number" && o && p < o - 1 && (e.slice(p + 1, o).trim() ? p = null : f.ignoreIndentations || w.push([p + 1, o])))), e[o] === " " ? g === null && (g = o) : g !== null && (g = null), a.name === "script" && ($ = !a.slashPresent);
   }
   if (e && !f.ignoreIndentations && (f.trimOnlySpaces && e[0] === " " || !f.trimOnlySpaces && !e[0].trim())) for (let o = 0; o < E; o++) if (f.trimOnlySpaces && e[o] !== " " || !f.trimOnlySpaces && e[o].trim()) {
     w.push([0, o]);
