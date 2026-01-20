@@ -142,3 +142,8 @@ To run the test suite for `WebSpeechVoiceManager`:
 ```bash
 npm test
 ```
+## Acknowledgments
+
+This project is based on the work done initially by [Hadrien Gardeur](https://github.com/hadriengardeur) in the [web-speech-recommended-voices](https://github.com/HadrienGardeur/web-speech-recommended-voices) repository.
+
+Hundreds of voices have been documented as JSON and [released under a CC0 license](https://github.com/HadrienGardeur/web-speech-recommended-voices/tree/main?tab=CC0-1.0-1-ov-file#readme).
