@@ -1,5 +1,6 @@
 export * from './WebSpeech';
-export * from './voices/languages';
+export { chineseVariantMap } from './voices/languages';
+export * from './voices/types';
 export * from './engine';
 export * from './navigator';
 export * from './provider';

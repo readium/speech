@@ -47,63 +47,45 @@ The first demo showcases the following features:
 
 The second demo focuses on in-context reading with seamless voice selection (grouped by region and sorted based on quality), and playback control, providing an optional read-along experience that integrates naturally with the content.
 
-## QuickStart
+## Installation
 
-### Prerequisites
+Install the package using npm:
 
-- Node.js
-- npm
+```bash
+npm install @readium/speech
+```
 
-### Installation
+Or using yarn:
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/readium/speech.git
-   cd speech
-   ```
+```bash
+yarn add @readium/speech
+```
 
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-
-3. Build the package:
-   ```bash
-   npm run build
-   ```
-
-4. Link the package locally (optional, for development):
-   ```bash
-   npm link
-   # Then in your project directory:
-   # npm link readium-speech
-   ```
-
-### Basic Usage
+## Quick Start
 
 ```typescript
-import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator } from "readium-speech";
+import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator } from "@readium/speech";
 
-// 1. Initialize voice manager and get default (best quality) voice
-const voiceManager = await WebSpeechVoiceManager.initialize({ languages: ["en"] });
-const defaultVoice = await voiceManager.getDefaultVoice("en-US");
-
-// 2. Create navigator and set voice
-const navigator = new WebSpeechReadAloudNavigator(); // Will use WebSpeech engine
-await navigator.setVoice(defaultVoice);
-
-// 3. Handle play event
-navigator.on("play", () => {
-  console.log("Playback started");
+// Initialize voice manager
+const voiceManager = await WebSpeechVoiceManager.initialize({ 
+  languages: ["en", "fr", "es"] // List of languages to fetch voices for
 });
 
-// 4. Load and play content
-navigator.loadContent([{
-  text: "This is a test of the readium speech library.",
-  language: "en"
-}]);
+// Get the best available voice for a specific language
+const voice = await voiceManager.getDefaultVoice("en-US");
 
-// 5. Start playback
+// Create a navigator instance
+const navigator = new WebSpeechReadAloudNavigator();
+await navigator.setVoice(voice);
+
+// Handle playback events
+navigator.on("play", () => console.log("Playback started"));
+navigator.on("pause", () => console.log("Playback paused"));
+navigator.on("end", () => console.log("Playback completed"));
+
+// Load and play content
+const content = document.getElementById("content");
+navigator.loadContent(content);
 navigator.play();
 ```
 
@@ -139,7 +121,7 @@ The project includes two demo applications that can be served locally:
 
 1. Start the local development server:
    ```bash
-   npm run serve
+   npm run start
    ```
 
 2. Open your browser to:
