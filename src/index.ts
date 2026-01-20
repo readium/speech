@@ -2,9 +2,10 @@
 export * from "./WebSpeech";
 
 // Data exports
-export * from "./voices/languages";
+export { chineseVariantMap } from "./voices/languages";
 
 // Other exports
+export * from "./voices/types";
 export * from "./engine";
 export * from "./navigator";
 export * from "./provider";
