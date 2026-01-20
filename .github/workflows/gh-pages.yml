@@ -4,7 +4,7 @@ name: Deploy demo page to gh-pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["main"]
+    branches: ["develop"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -40,22 +40,27 @@ jobs:
           ls -la ./
           ls -laR ./build
           ls -laR ./demo
+          ls -laR ./json
+          ls -laR ./docs
           mkdir build-demo
           cp README.md ./build-demo/
           cp -r ./build ./build-demo/
           cp -r ./demo ./build-demo/
+          cp -r ./json ./build-demo/
+          cp -r ./docs ./build-demo/
+          cp ./voices.schema.json ./build-demo/
           ls -laR ./build-demo
 
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v4
-        # If you're changing the branch from main,
-        # also change the `main` in `refs/heads/main`
+        # If you're changing the branch from develop,
+        # also change the `main` in `refs/heads/develop`
         # below accordingly.
-        if: github.ref == 'refs/heads/main'
+        if: github.ref == 'refs/heads/develop'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build-demo
           publish_branch: gh-pages # default: gh-pages
           destination_dir: ./
-          enable_jekyll: true # yes for README.md
+          enable_jekyll: true # yes for markdown files

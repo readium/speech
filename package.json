@@ -1,26 +1,51 @@
 {
-  "name": "readium-speech",
-  "version": "2.0.0-alpha.2",
-  "description": "Readium Speech is a TypeScript library for implementing a read aloud feature with Web technologies. It follows [best practices](https://github.com/HadrienGardeur/read-aloud-best-practices) gathered through interviews with members of the digital publishing industry.",
-  "main": "build/index.js",
-  "module": "build/index.js",
-  "scripts": {
-    "test": "ava test/**/*.test.ts",
-    "clean": "rimraf ./build",
-    "types": "tsc -p tsconfig-types.json",
-    "build": "vite build",
-    "start": "node build/index.js",
-    "extract-json-data": "node script/extract-json.mjs",
-    "serve": "http-server ./",
-    "watch": "tsc -w"
+  "name": "@readium/speech",
+  "version": "0.1.0",
+  "description": "A TypeScript library for implementing read aloud features with Web technologies, following best practices for digital publishing.",
+  "author": "Readium Foundation",
+  "keywords": [
+    "readium", 
+    "speech", 
+    "tts", 
+    "text-to-speech", 
+    "read-aloud", 
+    "accessibility"
+  ],
+  "homepage": "https://readium.org/speech/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/readium/speech.git"
   },
-  "author": "",
+  "bugs": {
+    "url": "https://github.com/readium/speech/issues"
+  },
   "license": "BSD-3-Clause",
   "type": "module",
+  "main": "./build/index.cjs",
+  "module": "./build/index.js",
+  "types": "./build/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "build"
+  ],
+  "exports": {
+    ".": {
+      "types": "./build/index.d.ts",
+      "import": "./build/index.js",
+      "require": "./build/index.cjs"
+    }
+  },
+  "scripts": {
+    "test": "npm run build && NODE_NO_WARNINGS=1 ava test/**/*.test.ts",
+    "generate-metadata": "node scripts/generate-metadata.js",
+    "clean": "rimraf ./build",
+    "build": "vite build",
+    "start": "http-server ./",
+    "watch": "tsc -w"
+  },
   "devDependencies": {
     "@ava/typescript": "^6.0.0",
     "ava": "^6.4.0",
-    "cpy-cli": "^5.0.0",
     "http-server": "^14.1.1",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",

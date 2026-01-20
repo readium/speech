@@ -1,5 +1,16 @@
 {
   "extends": "./tsconfig-base.json",
-  "include": ["src/**/*"],
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "outDir": "build",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@json/*": ["json/*"]
+    }
+  },
+  "include": ["src/**/*", "json"],
   "exclude": ["node_modules", "dist", "test", "demo", "build"]
 }

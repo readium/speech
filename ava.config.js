@@ -1,11 +1,9 @@
 export default {
   extensions: {
-    ts: 'module'
-  },
-  environmentVariables: {
-    TS_NODE_COMPILER_OPTIONS: '{"module":"ES2022"}'
+    ts: "module"
   },
   nodeArguments: [
-    '--loader=ts-node/esm'
+    "--import",
+    'data:text/javascript,import { register } from "node:module"; import { pathToFileURL } from "node:url"; register("ts-node/esm", pathToFileURL("./"));'
   ]
 }
