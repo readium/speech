@@ -14,7 +14,7 @@ const F = (e) => {
       r[1]?.toUpperCase()
     ];
   }
-}, L = {
+}, x = {
   ar: {
     defaultRegion: "SA",
     availableRegions: [
@@ -445,7 +445,7 @@ const It = (e) => ({
   "zh-HK": "yue-HK",
   wuu: "wuu",
   "wuu-CN": "wuu-CN"
-}, P = (e) => {
+}, j = (e) => {
   if (!e) return "";
   let t = e.toLowerCase().replace(/_/g, "-");
   if (/\w{2,3}-\w{2,3}/.test(t)) {
@@ -456,7 +456,7 @@ const It = (e) => ({
 }, Re = async (e) => {
   if (!e) return [];
   try {
-    const t = P(e);
+    const t = j(e);
     try {
       const n = await ze(t);
       if (n?.voices?.length)
@@ -477,39 +477,39 @@ const It = (e) => ({
   } catch (t) {
     return console.error(`Error in getVoices for ${e}:`, t), [];
   }
-}, xa = () => Object.keys(L), _e = (e) => {
+}, _e = (e) => {
   if (!e) return "";
   try {
-    const t = P(e), r = L[t];
+    const t = j(e), r = x[t];
     if (r?.testUtterance)
       return r.testUtterance;
     if (t in re) {
       const i = re[t];
-      if (i && L[i]?.testUtterance)
-        return L[i].testUtterance;
+      if (i && x[i]?.testUtterance)
+        return x[i].testUtterance;
     }
     const [n] = F(t);
-    return n !== t && L[n]?.testUtterance ? L[n].testUtterance : "";
+    return n !== t && x[n]?.testUtterance ? x[n].testUtterance : "";
   } catch (t) {
     return console.error(`Error in getTestUtterance for ${e}:`, t), "";
   }
 }, le = (e) => {
   if (!e) return "";
   try {
-    const t = P(e), r = L[t];
+    const t = j(e), r = x[t];
     if (r?.defaultRegion)
       return `${t}-${r.defaultRegion}`;
     if (t in re) {
       const i = re[t];
       if (i) {
-        const s = L[i];
+        const s = x[i];
         if (s?.defaultRegion)
           return `${i}-${s.defaultRegion}`;
       }
     }
     const [n] = F(t);
     if (n !== t) {
-      const i = L[n];
+      const i = x[n];
       if (i?.defaultRegion)
         return `${n}-${i.defaultRegion}`;
     }
@@ -522,12 +522,12 @@ const It = (e) => ({
   const t = /* @__PURE__ */ new Set(), r = /* @__PURE__ */ new Map(), n = /* @__PURE__ */ new Map();
   for (const [i, s] of e.entries()) {
     if (!s) continue;
-    const u = P(s), [a, c] = F(u);
+    const u = j(s), [a, c] = F(u);
     c && (t.add(c), n.has(c) || n.set(c, i)), r.has(a) || r.set(a, /* @__PURE__ */ new Set()), c && r.get(a).add(c);
   }
   return Array.from(r.entries()).map(([i, s]) => {
     const u = new Set(
-      L[i]?.availableRegions || []
+      x[i]?.availableRegions || []
     ), a = Array.from(s), c = Array.from(t).filter(
       (g) => u.has(g) && !a.includes(g)
     ), l = Array.from(/* @__PURE__ */ new Set([...a, ...c])).sort((g, p) => {
@@ -674,13 +674,13 @@ class S {
     if (!r?.length) return t;
     const n = new Set(
       r.map((i) => {
-        const s = P(i), [u] = S.extractLangRegionFromBCP47(s);
+        const s = j(i), [u] = S.extractLangRegionFromBCP47(s);
         return u;
       })
     );
     return t.filter((i) => {
       if (!i?.lang) return !1;
-      const s = P(i.lang), [u] = S.extractLangRegionFromBCP47(s);
+      const s = j(i.lang), [u] = S.extractLangRegionFromBCP47(s);
       return n.has(u);
     });
   }
@@ -840,10 +840,10 @@ class S {
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
     const i = n ?? this.voices, s = r ? this.filterVoices(r, i) : i, u = [], a = /* @__PURE__ */ new Set();
     for (const c of s) {
-      const g = P(c.language).split("-")[0];
+      const g = j(c.language).split("-")[0];
       if (!a.has(g)) {
         const p = S.getLanguageDisplayName(g, t), h = s.filter(
-          (d) => P(d.language).split("-")[0] === g
+          (d) => j(d.language).split("-")[0] === g
         ).length;
         u.push({ code: g, label: p, count: h }), a.add(g);
       }
@@ -928,7 +928,7 @@ class S {
     const r = this.countVoiceDuplicates(t);
     return await Promise.all(
       t.filter((i) => i?.name && i?.lang).map(async (i) => {
-        const s = P(i.lang), [u] = S.extractLangRegionFromBCP47(s), a = this.normalizeVoiceName(i.name), c = `${i.lang.toLowerCase()}_${a}`, l = r.get(c) || 1;
+        const s = j(i.lang), [u] = S.extractLangRegionFromBCP47(s), a = this.normalizeVoiceName(i.name), c = `${i.lang.toLowerCase()}_${a}`, l = r.get(c) || 1;
         let g = await Re(s);
         (!g || g.length === 0) && (g = await Re(u));
         const p = this.findMatchingJsonVoice(g, a), h = this.inferVoiceQuality(i, p, l);
@@ -1302,8 +1302,8 @@ function er() {
         else if (ArrayBuffer.isView(R))
           v[C] = e(R);
         else {
-          const I = i.indexOf(R);
-          I !== -1 ? v[C] = s[I] : v[C] = h(R);
+          const N = i.indexOf(R);
+          N !== -1 ? v[C] = s[N] : v[C] = h(R);
         }
       }
       return v;
@@ -2095,7 +2095,7 @@ function qa({ str: e, idx: t = 0, stopAtNewlines: r = !1, stopAtRawNbsp: n = !1 
 \r`.includes(e[i]) || n && e[i] === Ae) return i;
   return null;
 }
-function N(e, t = 0) {
+function q(e, t = 0) {
   return qa({ str: e, idx: t, stopAtNewlines: !1, stopAtRawNbsp: !1 });
 }
 function Na(e) {
@@ -2127,7 +2127,7 @@ function Ct(e, t) {
     a = { attributes: [] };
   }
   c();
-  let l = null, g = null, p = null, h = !1, d = {}, v = { tagName: "", hrefValue: "", openingTagEnds: void 0 }, O = "", C = !1, R = null, I = !0;
+  let l = null, g = null, p = null, h = !1, d = {}, v = { tagName: "", hrefValue: "", openingTagEnds: void 0 }, O = "", C = !1, R = null, N = !0;
   function ae(o, m, b) {
     if (Array.isArray(m.stripTogetherWithTheirContents) && (m.stripTogetherWithTheirContents.includes(a.name) || m.stripTogetherWithTheirContents.includes("*"))) if (a.slashPresent && Array.isArray(n) && n.some((y) => y.name === a.name)) {
       for (let y = n.length; y--; ) if (n[y].name === a.name) {
@@ -2137,22 +2137,22 @@ function Ct(e, t) {
         break;
       }
     } else a.slashPresent || n.push(a);
-    else Array.isArray(m.ignoreTagsWithTheirContents) && he(o, m, a) && (I = !1);
+    else Array.isArray(m.ignoreTagsWithTheirContents) && he(o, m, a) && (N = !1);
   }
   function V(o, m, b, y, k, A) {
     if (Array.isArray(w.current()) && typeof b == "number" && w.current()[0][0] === 0 && w.current()[0][1] >= b) return "";
     if (e.length === y && A && !f?.dumpLinkHrefsNearby?.enabled) return null;
     let T = "";
     if (Number.isInteger(b) && b < k && (T += o.slice(b, k)), Number.isInteger(y) && y > A + 1) {
-      let j = o.slice(A + 1, y);
-      y && !N(e, y - 1) && (j = j.trimEnd()), j.includes(`
-`) && x(y, o) ? T += " " : T += j;
+      let I = o.slice(A + 1, y);
+      y && !q(e, y - 1) && (I = I.trimEnd()), I.includes(`
+`) && L(y, o) ? T += " " : T += I;
     }
     let z = !gt.has(o[m]), He = o[y - 1] !== ">" || !o[b].trim(), Ve = !['"', "("].includes(o[k - 1]), qt = ![";", ".", ":", "!"].includes(o[m]);
     if ((z || He && Ve && qt) && (He || Ve) && o[m] !== "!" && (!Ia.has(a.name) || typeof b == "number" && b < k || typeof y == "number" && y > A + 1)) {
-      let j = T.match(/\n/g);
-      return Array.isArray(j) && j.length ? j.length === 1 ? `
-` : j.length === 2 ? `
+      let I = T.match(/\n/g);
+      return Array.isArray(I) && I.length ? I.length === 1 ? `
+` : I.length === 2 ? `
 
 ` : `
 
@@ -2166,13 +2166,13 @@ function Ct(e, t) {
       let b = o.dumpLinkHrefsNearby?.putOnNewLine ? `
 
 ` : "";
-      O = `${b}${v.hrefValue}`, (typeof m != "number" || N(e, m - 1)) && (O += b);
+      O = `${b}${v.hrefValue}`, (typeof m != "number" || q(e, m - 1)) && (O += b);
     }
   }
-  function x(o, m) {
+  function L(o, m) {
     return m ? m[o] === "<" && m[o + 1] !== "%" : e[o] === "<" && e[o + 1] !== "%";
   }
-  function U(o) {
+  function P(o) {
     return e[o] === ">" && e[o - 1] !== "%";
   }
   function he(o, m, b) {
@@ -2206,7 +2206,7 @@ ${JSON.stringify(t, null, 4)}`);
   });
   let w = new Ea({ limitToBeAddedWhitespace: !0, limitLinebreaksCount: 2 });
   if (!f.skipHtmlDecoding) for (; e !== st(e, { scope: "strict" }); ) e = st(e, { scope: "strict" });
-  let $ = !1, D = !1, se = 0, $e = 0, E = e.length, Et = Math.floor(E / 2);
+  let $ = !1, U = !1, se = 0, $e = 0, E = e.length, Et = Math.floor(E / 2);
   for (let o = 0; o < E; o++) {
     if (f.reportProgressFunc && (E > 1e3 && E < 2e3 ? o === Et && f.reportProgressFunc(Math.floor((f.reportProgressFuncTo - f.reportProgressFuncFrom) / 2)) : E >= 2e3 && (se = f.reportProgressFuncFrom + Math.floor(o / E * (f.reportProgressFuncTo - f.reportProgressFuncFrom)), se !== $e && ($e = se, f.reportProgressFunc(se)))), Object.keys(a).length > 1 && a.lastClosingBracketAt && a.lastClosingBracketAt < o && e[o] !== " " && R === null && (R = o), !$ && e[o] === "%" && e[o - 1] === "{" && e.includes("%}", o + 1)) {
       p = null;
@@ -2216,8 +2216,8 @@ ${JSON.stringify(t, null, 4)}`);
         continue;
       }
     }
-    if (!$ && U(o) && (!a || Object.keys(a).length < 2) && o > 1) {
-      for (let m = o; m--; ) if (e[m - 1] === void 0 || U(m)) {
+    if (!$ && P(o) && (!a || Object.keys(a).length < 2) && o > 1) {
+      for (let m = o; m--; ) if (e[m - 1] === void 0 || P(m)) {
         let b = e[m - 1] === void 0 ? m : m + 1, y = e.slice(b, o + 1) || "";
         if ((y.includes("/>") || y.includes("/ >") || y.includes('="') || y.includes("='")) && e !== `<${nt(y.trim(), "/>")}>` && [...te].some((k) => nt(y.trim().split(/\s+/).filter((A) => A.trim()).filter((A, T) => T === 0), "/>").toLowerCase() === k) && Ct(`<${y.trim()}>`, f).result === "") {
           (!s.length || s[s.length - 1][0] !== a.lastOpeningBracketAt) && s.push([b, o + 1]), (!u.length || u[u.length - 1][0] !== a.lastOpeningBracketAt) && u.push([b, o + 1]);
@@ -2233,7 +2233,7 @@ ${JSON.stringify(t, null, 4)}`);
         break;
       }
     }
-    if (!D && e[o] === "/" && !a.quotes?.value && Number.isInteger(a.lastOpeningBracketAt) && !Number.isInteger(a.lastClosingBracketAt) && (a.slashPresent = o), e[o] === '"' || e[o] === "'") if (!D && a.nameStarts && a?.quotes?.value === e[o]) if (d.valueStarts === void 0) d = {}, delete a.quotes;
+    if (!U && e[o] === "/" && !a.quotes?.value && Number.isInteger(a.lastOpeningBracketAt) && !Number.isInteger(a.lastClosingBracketAt) && (a.slashPresent = o), e[o] === '"' || e[o] === "'") if (!U && a.nameStarts && a?.quotes?.value === e[o]) if (d.valueStarts === void 0) d = {}, delete a.quotes;
     else {
       d.valueEnds = o, d.value = e.slice(d.valueStarts, o), a.attributes.push(d), d = {}, delete a.quotes;
       let m;
@@ -2241,21 +2241,21 @@ ${JSON.stringify(t, null, 4)}`);
         if (typeof b.name == "string" && b.name.toLowerCase() === "href") return m = `${f.dumpLinkHrefsNearby?.wrapHeads || ""}${b.value}${f.dumpLinkHrefsNearby?.wrapTails || ""}`, !0;
       }) && (v = { tagName: a.name, hrefValue: m, openingTagEnds: void 0 });
     }
-    else !D && !a.quotes && a.nameStarts && (a.quotes = {}, a.quotes.value = e[o], a.quotes.start = o, a.quotes.next = e.indexOf(e[o], o + 1), d.nameStarts && d.nameEnds && d.nameEnds < o && d.nameStarts < o && !d.valueStarts && (d.name = e.slice(d.nameStarts, d.nameEnds)));
+    else !U && !a.quotes && a.nameStarts && (a.quotes = {}, a.quotes.value = e[o], a.quotes.start = o, a.quotes.next = e.indexOf(e[o], o + 1), d.nameStarts && d.nameEnds && d.nameEnds < o && d.nameStarts < o && !d.valueStarts && (d.name = e.slice(d.nameStarts, d.nameEnds)));
     if (a.nameStarts !== void 0 && a.nameEnds === void 0 && (!e[o].trim() || !Na(e[o]))) {
-      if (a.nameEnds = o, a.name = e.slice(a.nameStarts, a.nameEnds + (!U(o) && e[o] !== "/" && e[o + 1] === void 0 ? 1 : 0)), e[a.nameStarts - 1] !== "!" && !a.name.replace(/-/g, "").length || /^\d+$/.test(a.name[0])) {
+      if (a.nameEnds = o, a.name = e.slice(a.nameStarts, a.nameEnds + (!P(o) && e[o] !== "/" && e[o + 1] === void 0 ? 1 : 0)), e[a.nameStarts - 1] !== "!" && !a.name.replace(/-/g, "").length || /^\d+$/.test(a.name[0])) {
         a = {};
         continue;
       }
-      if (typeof a.name == "string" && a.name.toLowerCase() === "doctype" && (D = !0), x(o)) {
+      if (typeof a.name == "string" && a.name.toLowerCase() === "doctype" && (U = !0), L(o)) {
         de(f);
         let m = V(e, o, a.leftOuterWhitespace, o, a.lastOpeningBracketAt, o);
         (f.stripTogetherWithTheirContents.includes(a.name) || f.stripTogetherWithTheirContents.includes("*")) && (u = u.filter(([b, y]) => !(b === a.leftOuterWhitespace && y === o))), f.cb({ tag: a, deleteFrom: a.leftOuterWhitespace, deleteTo: o, insert: `${m}${O}${m}`, rangesArr: w, proposedReturn: [a.leftOuterWhitespace, o, `${m}${O}${m}`] }), fe(), ae(o, f, w);
       }
     }
-    if (a.quotes?.start && a.quotes.start < o && !a.quotes.end && d.nameEnds && d.equalsAt && !d.valueStarts && (d.valueStarts = o), !a.quotes && d.nameEnds && e[o] === "=" && !d.valueStarts && !d.equalsAt && (d.equalsAt = o), !a.quotes && d.nameStarts && d.nameEnds && !d.valueStarts && e[o].trim() && e[o] !== "=" && (a.attributes.push(d), d = {}), !a.quotes && d.nameStarts && !d.nameEnds && (D && `'"`.includes(e[d.nameStarts]) ? d.nameStarts < o && e[o] === e[d.nameStarts] && (d.nameEnds = o + 1, d.name = e.slice(d.nameStarts, d.nameEnds)) : e[o].trim() ? e[o] === "=" ? d.equalsAt || (d.nameEnds = o, d.equalsAt = o, d.name = e.slice(d.nameStarts, d.nameEnds)) : e[o] === "/" || U(o) ? (d.nameEnds = o, d.name = e.slice(d.nameStarts, d.nameEnds), a.attributes.push(d), d = {}) : x(o) && (d.nameEnds = o, d.name = e.slice(d.nameStarts, d.nameEnds), a.attributes.push(d), d = {}) : (d.nameEnds = o, d.name = e.slice(d.nameStarts, d.nameEnds))), !a.quotes && a.nameEnds < o && !e[o - 1].trim() && e[o].trim() && !"<>/!".includes(e[o]) && !d.nameStarts && !a.lastClosingBracketAt && (d.nameStarts = o), a.lastOpeningBracketAt !== null && a.lastOpeningBracketAt < o && e[o] === "/" && a.onlyPlausible && (a.onlyPlausible = !1), a.lastOpeningBracketAt !== null && a.lastOpeningBracketAt < o && e[o] !== "/" && (a.onlyPlausible === void 0 && ((!e[o].trim() || x(o)) && !a.slashPresent ? a.onlyPlausible = !0 : a.onlyPlausible = !1), e[o].trim() && a.nameStarts === void 0 && !x(o) && e[o] !== "/" && !U(o) && e[o] !== "!" && (a.nameStarts = o, a.nameContainsLetters = !1)), a.nameStarts && !a.quotes && typeof e[o] == "string" && e[o].toLowerCase() !== e[o].toUpperCase() && (a.nameContainsLetters = !0), U(o) && (ct(a, e, o) || a.quotes.value && typeof a.lastOpeningBracketAt == "number" && La(a.quotes.value, e.slice(a.lastOpeningBracketAt, o)) % 2 === 1 && !e.slice(a.lastOpeningBracketAt + 1, o).includes("<") && !e.slice(a.lastOpeningBracketAt + 1, o).includes(">")) && a.lastOpeningBracketAt !== void 0 && (a.lastClosingBracketAt = o, R = null, Object.keys(d).length && (a.attributes.push(d), d = {}), f.dumpLinkHrefsNearby?.enabled && v.tagName && !v.openingTagEnds && (v.openingTagEnds = o)), (!D || e[o] === ">") && a.lastOpeningBracketAt !== void 0) {
+    if (a.quotes?.start && a.quotes.start < o && !a.quotes.end && d.nameEnds && d.equalsAt && !d.valueStarts && (d.valueStarts = o), !a.quotes && d.nameEnds && e[o] === "=" && !d.valueStarts && !d.equalsAt && (d.equalsAt = o), !a.quotes && d.nameStarts && d.nameEnds && !d.valueStarts && e[o].trim() && e[o] !== "=" && (a.attributes.push(d), d = {}), !a.quotes && d.nameStarts && !d.nameEnds && (U && `'"`.includes(e[d.nameStarts]) ? d.nameStarts < o && e[o] === e[d.nameStarts] && (d.nameEnds = o + 1, d.name = e.slice(d.nameStarts, d.nameEnds)) : e[o].trim() ? e[o] === "=" ? d.equalsAt || (d.nameEnds = o, d.equalsAt = o, d.name = e.slice(d.nameStarts, d.nameEnds)) : e[o] === "/" || P(o) ? (d.nameEnds = o, d.name = e.slice(d.nameStarts, d.nameEnds), a.attributes.push(d), d = {}) : L(o) && (d.nameEnds = o, d.name = e.slice(d.nameStarts, d.nameEnds), a.attributes.push(d), d = {}) : (d.nameEnds = o, d.name = e.slice(d.nameStarts, d.nameEnds))), !a.quotes && a.nameEnds < o && !e[o - 1].trim() && e[o].trim() && !"<>/!".includes(e[o]) && !d.nameStarts && !a.lastClosingBracketAt && (d.nameStarts = o), a.lastOpeningBracketAt !== null && a.lastOpeningBracketAt < o && e[o] === "/" && a.onlyPlausible && (a.onlyPlausible = !1), a.lastOpeningBracketAt !== null && a.lastOpeningBracketAt < o && e[o] !== "/" && (a.onlyPlausible === void 0 && ((!e[o].trim() || L(o)) && !a.slashPresent ? a.onlyPlausible = !0 : a.onlyPlausible = !1), e[o].trim() && a.nameStarts === void 0 && !L(o) && e[o] !== "/" && !P(o) && e[o] !== "!" && (a.nameStarts = o, a.nameContainsLetters = !1)), a.nameStarts && !a.quotes && typeof e[o] == "string" && e[o].toLowerCase() !== e[o].toUpperCase() && (a.nameContainsLetters = !0), P(o) && (ct(a, e, o) || a.quotes.value && typeof a.lastOpeningBracketAt == "number" && La(a.quotes.value, e.slice(a.lastOpeningBracketAt, o)) % 2 === 1 && !e.slice(a.lastOpeningBracketAt + 1, o).includes("<") && !e.slice(a.lastOpeningBracketAt + 1, o).includes(">")) && a.lastOpeningBracketAt !== void 0 && (a.lastClosingBracketAt = o, R = null, Object.keys(d).length && (a.attributes.push(d), d = {}), f.dumpLinkHrefsNearby?.enabled && v.tagName && !v.openingTagEnds && (v.openingTagEnds = o)), (!U || e[o] === ">") && a.lastOpeningBracketAt !== void 0) {
       if (a.lastClosingBracketAt === void 0) {
-        if (a.lastOpeningBracketAt < o && !x(o) && (e[o + 1] === void 0 || x(o + 1) && !a?.quotes?.value) && a.nameContainsLetters && typeof a.nameStarts == "number") {
+        if (a.lastOpeningBracketAt < o && !L(o) && (e[o + 1] === void 0 || L(o + 1) && !a?.quotes?.value) && a.nameContainsLetters && typeof a.nameStarts == "number") {
           if (a.name = e.slice(a.nameStarts, a.nameEnds || o + 1).toLowerCase(), (!s.length || s[s.length - 1][0] !== a.lastOpeningBracketAt) && s.push([a.lastOpeningBracketAt, o + 1]), f.ignoreTags.includes(a.name) || he(o, f, a) || !te.has(a.name) && (a.onlyPlausible || f.stripRecognisedHTMLOnly)) {
             a = {}, d = {};
             continue;
@@ -2278,14 +2278,14 @@ ${JSON.stringify(t, null, 4)}`);
         let m = a.lastClosingBracketAt === o ? o + 1 : o;
         f.trimOnlySpaces && m === E - 1 && R !== null && R < o && (m = R), (!s.length || s[s.length - 1][0] !== a.lastOpeningBracketAt) && s.push([a.lastOpeningBracketAt, a.lastClosingBracketAt + 1]);
         let b = f.ignoreTags.includes(a.name), y = he(o, f, a);
-        if (!I || f.stripRecognisedHTMLOnly && typeof a.name == "string" && !te.has(a.name.toLowerCase()) && !ke.has(a.name.toLowerCase()) || !Fe && (b || y) || Fe && !f.onlyStripTags.includes(a.name) || f.ignoreTagsWithTheirContents.includes(a.name)) {
+        if (!N || f.stripRecognisedHTMLOnly && typeof a.name == "string" && !te.has(a.name.toLowerCase()) && !ke.has(a.name.toLowerCase()) || !Fe && (b || y) || Fe && !f.onlyStripTags.includes(a.name) || f.ignoreTagsWithTheirContents.includes(a.name)) {
           if (y) if (a.slashPresent) {
             for (let k = i.length; k--; ) if (i[k].name === a.name) {
               i.splice(k, 1);
               break;
             }
-            i.length || (I = !0);
-          } else I && (I = !1), i.push(a);
+            i.length || (N = !0);
+          } else N && (N = !1), i.push(a);
           f.cb({ tag: a, deleteFrom: null, deleteTo: null, insert: null, rangesArr: w, proposedReturn: null }), a = {}, d = {};
         } else if (!a.onlyPlausible || a.attributes.length === 0 && a.name && (te.has(a.name.toLowerCase()) || ke.has(a.name.toLowerCase())) || a.attributes?.some((k) => k.equalsAt)) {
           (!u.length || u[u.length - 1][0] !== a.lastOpeningBracketAt) && u.push([a.lastOpeningBracketAt, a.lastClosingBracketAt + 1]);
@@ -2295,22 +2295,22 @@ ${JSON.stringify(t, null, 4)}`);
           typeof O == "string" && O.length ? (A = `${k}${O}${k === `
 
 ` ? `
-` : k}`, m === a.lastClosingBracketAt + 1 && (!e[m] || !Te.has(e[m])) && (A += " "), a.leftOuterWhitespace === a.lastOpeningBracketAt && w.last() && w.last()[1] < a.lastOpeningBracketAt && (!f?.dumpLinkHrefsNearby?.putOnNewLine || !Te.has(e[m])) && (A = " " + A)) : A = k, A !== null && (a.leftOuterWhitespace === 0 || !N(e, m - 1)) && (!f.dumpLinkHrefsNearby?.enabled || a.name !== "a") && (A = void 0);
+` : k}`, m === a.lastClosingBracketAt + 1 && (!e[m] || !Te.has(e[m])) && (A += " "), a.leftOuterWhitespace === a.lastOpeningBracketAt && w.last() && w.last()[1] < a.lastOpeningBracketAt && (!f?.dumpLinkHrefsNearby?.putOnNewLine || !Te.has(e[m])) && (A = " " + A)) : A = k, A !== null && (a.leftOuterWhitespace === 0 || !q(e, m - 1)) && (!f.dumpLinkHrefsNearby?.enabled || a.name !== "a") && (A = void 0);
           let T = 0;
           if (C && Te.has(e[m])) {
             f.dumpLinkHrefsNearby?.putOnNewLine && (A = `${e[m]}${A || ""}`);
-            let z = N(e, m);
+            let z = q(e, m);
             z && A?.endsWith(`
 `) ? T += z - o : (!z || z > o) && T++;
           }
           f.cb({ tag: a, deleteFrom: a.leftOuterWhitespace, deleteTo: m + T, insert: A, rangesArr: w, proposedReturn: [a.leftOuterWhitespace, m + T, A] }), fe(), ae(o, f, w);
         } else a = {};
-        U(o) || (a = {});
+        P(o) || (a = {});
       }
-      D && (D = !1);
+      U && (U = !1);
     }
-    if ((!$ || e[o] === "<" && N(e, N(e, o)) && e[N(e, o)] === "/" && e.startsWith("script", N(e, N(e, o)))) && x(o) && !x(o - 1) && !`'"`.includes(e[o + 1]) && (!`'"`.includes(e[o + 2]) || /\w/.test(e[o + 1])) && !(e[o + 1] === "c" && e[o + 2] === ":") && !(e[o + 1] === "f" && e[o + 2] === "m" && e[o + 3] === "t" && e[o + 4] === ":") && !(e[o + 1] === "s" && e[o + 2] === "q" && e[o + 3] === "l" && e[o + 4] === ":") && !(e[o + 1] === "x" && e[o + 2] === ":") && !(e[o + 1] === "f" && e[o + 2] === "n" && e[o + 3] === ":") && ct(a, e, o)) {
-      if (U(N(e, o))) continue;
+    if ((!$ || e[o] === "<" && q(e, q(e, o)) && e[q(e, o)] === "/" && e.startsWith("script", q(e, q(e, o)))) && L(o) && !L(o - 1) && !`'"`.includes(e[o + 1]) && (!`'"`.includes(e[o + 2]) || /\w/.test(e[o + 1])) && !(e[o + 1] === "c" && e[o + 2] === ":") && !(e[o + 1] === "f" && e[o + 2] === "m" && e[o + 3] === "t" && e[o + 4] === ":") && !(e[o + 1] === "s" && e[o + 2] === "q" && e[o + 3] === "l" && e[o + 4] === ":") && !(e[o + 1] === "x" && e[o + 2] === ":") && !(e[o + 1] === "f" && e[o + 2] === "n" && e[o + 3] === ":") && ct(a, e, o)) {
+      if (P(q(e, o))) continue;
       if (a.nameEnds && a.nameEnds < o && !a.lastClosingBracketAt && (a.onlyPlausible === !0 && a.attributes?.length || a.onlyPlausible === !1)) {
         let m = V(e, o, a.leftOuterWhitespace, o, a.lastOpeningBracketAt, o);
         f.cb({ tag: a, deleteFrom: a.leftOuterWhitespace, deleteTo: o, insert: m, rangesArr: w, proposedReturn: [a.leftOuterWhitespace, o, m] }), ae(o, f, w), a = {}, d = {};
@@ -2329,7 +2329,7 @@ ${JSON.stringify(t, null, 4)}`);
       }
     }
     !e[o].trim() || e[o].charCodeAt(0) === 847 ? (l === null && (l = o, a.lastOpeningBracketAt !== void 0 && a.lastOpeningBracketAt < o && a.nameStarts && a.nameStarts < a.lastOpeningBracketAt && o === a.lastOpeningBracketAt + 1 && !n.some((m) => m.name === a.name) && (a.onlyPlausible = !0, a.name = void 0, a.nameStarts = void 0)), (e[o] === `
-` || e[o] === "\r") && (p = o, h && (h = !1))) : (l !== null && (!a.quotes && d.equalsAt > l - 1 && d.nameEnds && d.equalsAt > d.nameEnds && e[o] !== '"' && e[o] !== "'" && (Ne(d) && a.attributes.push(d), d = {}, a.equalsSpottedAt = void 0), l = null), h || (h = !0, I && !$ && typeof p == "number" && o && p < o - 1 && (e.slice(p + 1, o).trim() ? p = null : f.ignoreIndentations || w.push([p + 1, o])))), e[o] === " " ? g === null && (g = o) : g !== null && (g = null), a.name === "script" && ($ = !a.slashPresent);
+` || e[o] === "\r") && (p = o, h && (h = !1))) : (l !== null && (!a.quotes && d.equalsAt > l - 1 && d.nameEnds && d.equalsAt > d.nameEnds && e[o] !== '"' && e[o] !== "'" && (Ne(d) && a.attributes.push(d), d = {}, a.equalsSpottedAt = void 0), l = null), h || (h = !0, N && !$ && typeof p == "number" && o && p < o - 1 && (e.slice(p + 1, o).trim() ? p = null : f.ignoreIndentations || w.push([p + 1, o])))), e[o] === " " ? g === null && (g = o) : g !== null && (g = null), a.name === "script" && ($ = !a.slashPresent);
   }
   if (e && !f.ignoreIndentations && (f.trimOnlySpaces && e[0] === " " || !f.trimOnlySpaces && !e[0].trim())) for (let o = 0; o < E; o++) if (f.trimOnlySpaces && e[o] !== " " || !f.trimOnlySpaces && e[o].trim()) {
     w.push([0, o]);
@@ -2341,8 +2341,8 @@ ${JSON.stringify(t, null, 4)}`);
       break;
     }
   }
-  let q = w.current();
-  if (!t?.cb && q && (q[0] && !q[0][0] && (q[0][1], w.ranges[0] = [w.ranges[0][0], w.ranges[0][1]]), q[q.length - 1] && q[q.length - 1][1] === e.length && (q[q.length - 1][0], w.ranges))) {
+  let D = w.current();
+  if (!t?.cb && D && (D[0] && !D[0][0] && (D[0][1], w.ranges[0] = [w.ranges[0][0], w.ranges[0][1]]), D[D.length - 1]?.[1] === e.length && (D[D.length - 1][0], w.ranges))) {
     let o = w.ranges[w.ranges.length - 1][0];
     e[o - 1] && (f.trimOnlySpaces && e[o - 1] === " " || !f.trimOnlySpaces && !e[o - 1].trim()) && (o -= 1);
     let m = w.ranges[w.ranges.length - 1][2];
@@ -2421,7 +2421,6 @@ class xe {
           break;
         case "error":
           throw new Error(`WebSpeechEngine: ${n}`);
-        case "warn":
         default:
           console.warn(`WebSpeechEngine: ${n}`);
       }
@@ -2626,7 +2625,7 @@ class xe {
     this.stop(), this.stopResumeInfinity(), this.eventListeners.clear(), this.currentUtterances = [], this.currentVoice = null, this.voices = [], this.defaultVoice = null, this.initialized = !1;
   }
 }
-class ja {
+class xa {
   id = "webspeech";
   name = "Web Speech API";
   engine = null;
@@ -2643,7 +2642,7 @@ class ja {
     this.engine && (await this.engine.destroy(), this.engine = null);
   }
 }
-class Pa {
+class ja {
   engine;
   contentQueue = [];
   eventListeners = /* @__PURE__ */ new Map();
@@ -2795,14 +2794,8 @@ class Pa {
 }
 export {
   xe as WebSpeechEngine,
-  ja as WebSpeechEngineProvider,
-  Pa as WebSpeechReadAloudNavigator,
+  xa as WebSpeechEngineProvider,
+  ja as WebSpeechReadAloudNavigator,
   S as WebSpeechVoiceManager,
-  re as chineseVariantMap,
-  xa as getAvailableLanguages,
-  le as getDefaultRegion,
-  _e as getTestUtterance,
-  Re as getVoices,
-  P as normalizeLanguageCode,
-  Ge as processLanguages
+  re as chineseVariantMap
 };
