@@ -1262,6 +1262,24 @@
       ]
     },
     {
+      "label": "Veena ",
+      "name": "Veena",
+      "localizedName": "apple",
+      "language": "en-IN",
+      "gender": "female",
+      "quality": [
+        "low",
+        "normal"
+      ],
+      "rate": 1,
+      "pitch": 1,
+      "os": [
+        "macOS",
+        "iOS",
+        "iPadOS"
+      ]
+    },
+    {
       "label": "Rishi",
       "name": "Rishi",
       "localizedName": "apple",
