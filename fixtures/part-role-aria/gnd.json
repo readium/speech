@@ -1,0 +1,13 @@
+{
+  "role": [
+    "part"
+  ],
+  "children": [
+    {
+      "role": [
+        "heading1"
+      ],
+      "text": "Title of the part"
+    }
+  ]
+}

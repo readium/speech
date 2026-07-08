@@ -1,0 +1,28 @@
+{
+  "role": [
+    "loa"
+  ],
+  "children": [
+    {
+      "role": [
+        "list"
+      ],
+      "children": [
+        {
+          "role": [
+            "listItem"
+          ],
+          "text": "Audio 1. Foghorn recording",
+          "textref": "chapter1.xhtml#audio1"
+        },
+        {
+          "role": [
+            "listItem"
+          ],
+          "text": "Audio 2. Keeper's log reading",
+          "textref": "chapter2.xhtml#audio2"
+        }
+      ]
+    }
+  ]
+}

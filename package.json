@@ -4,11 +4,11 @@
   "description": "A TypeScript library for implementing read aloud features with Web technologies, following best practices for digital publishing.",
   "author": "Readium Foundation",
   "keywords": [
-    "readium", 
-    "speech", 
-    "tts", 
-    "text-to-speech", 
-    "read-aloud", 
+    "readium",
+    "speech",
+    "tts",
+    "text-to-speech",
+    "read-aloud",
     "accessibility"
   ],
   "homepage": "https://readium.org/speech/",
@@ -38,6 +38,7 @@
   "scripts": {
     "test": "npm run build && NODE_NO_WARNINGS=1 ava test/**/*.test.ts",
     "generate-metadata": "node scripts/generate-metadata.js",
+    "generate-fixtures-manifest": "node scripts/build-fixtures-manifest.js",
     "clean": "rimraf ./build",
     "build": "vite build",
     "start": "http-server ./",
@@ -47,6 +48,7 @@
     "@ava/typescript": "^6.0.0",
     "ava": "^6.4.0",
     "http-server": "^14.1.1",
+    "linkedom": "^0.18.13",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",

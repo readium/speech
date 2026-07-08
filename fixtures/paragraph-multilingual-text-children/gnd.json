@@ -1,0 +1,25 @@
+{
+  "role": [
+    "paragraph"
+  ],
+  "children": [
+    {
+      "text": {
+        "plain": "This job requires a certain",
+        "language": "en"
+      }
+    },
+    {
+      "text": {
+        "plain": "savoir faire",
+        "language": "fr"
+      }
+    },
+    {
+      "text": {
+        "plain": "that can only be acquired over time.",
+        "language": "en"
+      }
+    }
+  ]
+}

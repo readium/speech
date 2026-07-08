@@ -1,0 +1,31 @@
+{
+  "role": [
+    "glossary"
+  ],
+  "children": [
+    {
+      "role": [
+        "term"
+      ],
+      "text": "Fresnel lens"
+    },
+    {
+      "role": [
+        "definition"
+      ],
+      "text": "A compact lens for focusing light."
+    },
+    {
+      "role": [
+        "term"
+      ],
+      "text": "Keeper"
+    },
+    {
+      "role": [
+        "definition"
+      ],
+      "text": "A person responsible for maintaining a lighthouse."
+    }
+  ]
+}

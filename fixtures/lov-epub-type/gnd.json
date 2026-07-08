@@ -1,0 +1,28 @@
+{
+  "role": [
+    "lov"
+  ],
+  "children": [
+    {
+      "role": [
+        "list"
+      ],
+      "children": [
+        {
+          "role": [
+            "listItem"
+          ],
+          "text": "Video 1. Lamp mechanism in motion",
+          "textref": "chapter1.xhtml#video1"
+        },
+        {
+          "role": [
+            "listItem"
+          ],
+          "text": "Video 2. Automation retrofit",
+          "textref": "chapter3.xhtml#video2"
+        }
+      ]
+    }
+  ]
+}

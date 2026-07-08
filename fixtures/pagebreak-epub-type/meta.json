@@ -1,0 +1,10 @@
+{
+  "id": "pagebreak-epub-type",
+  "description": "A standalone pagebreak between two paragraphs, via epub:type=\"pagebreak\"",
+  "role": "pagebreak",
+  "rolesCovered": [
+    "pagebreak"
+  ],
+  "sourceRef": "https://github.com/readium/guided-navigation/tree/main/examples/read-aloud",
+  "inputKind": "document"
+}

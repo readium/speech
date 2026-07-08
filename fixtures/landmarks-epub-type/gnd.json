@@ -1,0 +1,35 @@
+{
+  "role": [
+    "landmarks"
+  ],
+  "children": [
+    {
+      "role": [
+        "list"
+      ],
+      "children": [
+        {
+          "role": [
+            "listItem"
+          ],
+          "text": "Cover",
+          "textref": "cover.xhtml"
+        },
+        {
+          "role": [
+            "listItem"
+          ],
+          "text": "Table of Contents",
+          "textref": "toc.xhtml"
+        },
+        {
+          "role": [
+            "listItem"
+          ],
+          "text": "Start of Content",
+          "textref": "chapter1.xhtml"
+        }
+      ]
+    }
+  ]
+}

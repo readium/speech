@@ -1,0 +1,35 @@
+{
+  "role": [
+    "toc"
+  ],
+  "children": [
+    {
+      "role": [
+        "list"
+      ],
+      "children": [
+        {
+          "role": [
+            "listItem"
+          ],
+          "text": "Chapter One",
+          "textref": "chapter1.xhtml"
+        },
+        {
+          "role": [
+            "listItem"
+          ],
+          "text": "Chapter Two",
+          "textref": "chapter2.xhtml"
+        },
+        {
+          "role": [
+            "listItem"
+          ],
+          "text": "Chapter Three",
+          "textref": "chapter3.xhtml"
+        }
+      ]
+    }
+  ]
+}

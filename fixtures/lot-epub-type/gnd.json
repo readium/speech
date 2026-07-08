@@ -1,0 +1,28 @@
+{
+  "role": [
+    "lot"
+  ],
+  "children": [
+    {
+      "role": [
+        "list"
+      ],
+      "children": [
+        {
+          "role": [
+            "listItem"
+          ],
+          "text": "Table 1. Lighthouse construction dates",
+          "textref": "appendix.xhtml#table1"
+        },
+        {
+          "role": [
+            "listItem"
+          ],
+          "text": "Table 2. Keeper staffing by decade",
+          "textref": "appendix.xhtml#table2"
+        }
+      ]
+    }
+  ]
+}

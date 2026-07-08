@@ -1,0 +1,10 @@
+{
+  "id": "paragraph-multilingual-ssml-lang",
+  "description": "A paragraph with an inline foreign-language phrase, represented via SSML",
+  "role": "paragraph",
+  "rolesCovered": [
+    "paragraph"
+  ],
+  "sourceRef": "https://github.com/readium/guided-navigation/tree/main/examples/read-aloud#multilingual-text",
+  "inputKind": "fragment"
+}

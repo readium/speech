@@ -1,0 +1,11 @@
+{
+  "id": "footnote-role-aria",
+  "description": "A paragraph with one footnote reference and its footnote content, via explicit ARIA roles",
+  "role": "footnote",
+  "rolesCovered": [
+    "footnote",
+    "noteref"
+  ],
+  "sourceRef": "https://github.com/readium/guided-navigation/tree/main/examples/read-aloud",
+  "inputKind": "fragment"
+}
