@@ -36,6 +36,7 @@ renaming, or removing a fixture.
 | `example` | `example-epub-type`, `example-role-aria` |
 | `figure` | `figure-basic-epub-type`, `figure-basic-html-native`, `figure-basic-role-aria`, `figure-caption-html-native`, `figure-caption-role-aria`, `figure-describedby` |
 | `footnote` | `footnote-epub-type`, `footnote-role-aria` |
+| `foreword` | `foreword-epub-type`, `foreword-role-aria` |
 | `glossary` | `glossary-epub-type`, `glossary-role-aria` |
 | `glossref` | `glossref-epub-type`, `glossref-role-aria` |
 | `header` | `header-html-native` |
@@ -55,7 +56,7 @@ renaming, or removing a fixture.
 | `notice` | `notice-epub-type`, `notice-role-aria` |
 | `pagebreak` | `pagebreak-epub-type`, `pagebreak-role-aria` |
 | `pagelist` | `pagelist-epub-type`, `pagelist-role-aria` |
-| `paragraph` | `paragraph-basic`, `paragraph-multilingual-ssml-lang`, `paragraph-multilingual-text-children` |
+| `paragraph` | `paragraph-basic`, `paragraph-multilingual-ssml-lang` |
 | `part` | `part-epub-type`, `part-role-aria` |
 | `preface` | `preface-epub-type`, `preface-role-aria` |
 | `preformatted` | `preformatted-html-native` |
@@ -64,6 +65,7 @@ renaming, or removing a fixture.
 | `pullquote` | `pullquote-epub-type`, `pullquote-role-aria` |
 | `qna` | `qna-epub-type`, `qna-role-aria` |
 | `region` | `region-role-aria` |
+| `section` | `section-html-native` |
 | `separator` | `separator-html-native`, `separator-role-aria` |
 | `subtitle` | `subtitle-epub-type`, `subtitle-role-aria` |
 | `summary` | `summary-html-native` |
@@ -73,4 +75,4 @@ renaming, or removing a fixture.
 | `toc` | `toc-epub-type`, `toc-role-aria` |
 | `video` | `video-html-native` |
 
-121 fixtures across 65 roles.
+123 fixtures across 67 roles.

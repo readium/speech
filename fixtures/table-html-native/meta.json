@@ -1,11 +1,12 @@
 {
   "id": "table-html-native",
-  "description": "A table with a header row, via native <table>/<tr>/<th>/<td>",
+  "description": "A table with a header row and row headers, via native <table>/<tr>/<th>/<td>",
   "role": "table",
   "rolesCovered": [
     "table",
     "row",
     "columnheader",
+    "rowheader",
     "cell"
   ],
   "sourceRef": "https://github.com/readium/guided-navigation/tree/main/examples/read-aloud",

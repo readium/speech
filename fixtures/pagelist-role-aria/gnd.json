@@ -1,5 +1,6 @@
 {
   "role": [
+    "navigation",
     "pagelist"
   ],
   "children": [

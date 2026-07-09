@@ -29,7 +29,7 @@
       "children": [
         {
           "role": [
-            "cell"
+            "rowheader"
           ],
           "text": "Ada"
         },
@@ -48,7 +48,7 @@
       "children": [
         {
           "role": [
-            "cell"
+            "rowheader"
           ],
           "text": "Grace"
         },

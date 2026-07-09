@@ -616,6 +616,28 @@
     }
   },
   {
+    "id": "foreword-epub-type",
+    "dir": "foreword-epub-type",
+    "role": "foreword",
+    "description": "foreword role via epub:type=\"foreword\"",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "foreword-role-aria",
+    "dir": "foreword-role-aria",
+    "role": "foreword",
+    "description": "foreword role via explicit ARIA role=\"doc-foreword\"",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
     "id": "glossary-epub-type",
     "dir": "glossary-epub-type",
     "role": "glossary",
@@ -1012,17 +1034,6 @@
     }
   },
   {
-    "id": "paragraph-multilingual-text-children",
-    "dir": "paragraph-multilingual-text-children",
-    "role": "paragraph",
-    "description": "A paragraph with an inline foreign-language phrase, represented as separate text children per language",
-    "files": {
-      "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
-    }
-  },
-  {
     "id": "part-epub-type",
     "dir": "part-epub-type",
     "role": "part",
@@ -1166,6 +1177,17 @@
     }
   },
   {
+    "id": "section-html-native",
+    "dir": "section-html-native",
+    "role": "section",
+    "description": "section role via native <section> element with no more specific semantic",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
     "id": "separator-html-native",
     "dir": "separator-html-native",
     "role": "separator",
@@ -1224,7 +1246,7 @@
     "id": "table-html-native",
     "dir": "table-html-native",
     "role": "table",
-    "description": "A table with a header row, via native <table>/<tr>/<th>/<td>",
+    "description": "A table with a header row and row headers, via native <table>/<tr>/<th>/<td>",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
@@ -1235,7 +1257,7 @@
     "id": "table-role-aria",
     "dir": "table-role-aria",
     "role": "table",
-    "description": "A table with a header row, via explicit ARIA table/row/columnheader/cell roles",
+    "description": "A table with a header row and row headers, via explicit ARIA table/row/columnheader/rowheader/cell roles",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
