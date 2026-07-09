@@ -1,6 +1,16 @@
 {
-  "role": [
-    "separator"
-  ],
-  "text": ""
+  "children": [
+    {
+      "role": [
+        "paragraph"
+      ],
+      "text": "Section one."
+    },
+    {
+      "role": [
+        "paragraph"
+      ],
+      "text": "Section two."
+    }
+  ]
 }
