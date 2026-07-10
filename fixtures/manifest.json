@@ -971,7 +971,7 @@
     "id": "pagebreak-epub-type",
     "dir": "pagebreak-epub-type",
     "role": "pagebreak",
-    "description": "A standalone pagebreak between two paragraphs, via epub:type=\"pagebreak\"",
+    "description": "A standalone pagebreak and one falling in the middle of a sentence, via epub:type=\"pagebreak\"",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
@@ -982,7 +982,7 @@
     "id": "pagebreak-role-aria",
     "dir": "pagebreak-role-aria",
     "role": "pagebreak",
-    "description": "A standalone pagebreak between two paragraphs, via role=\"doc-pagebreak\"",
+    "description": "A standalone pagebreak and one falling in the middle of a sentence, via role=\"doc-pagebreak\"",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
