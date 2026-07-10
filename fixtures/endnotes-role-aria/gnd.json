@@ -10,31 +10,19 @@
       "children": [
         {
           "role": [
-            "listItem"
+            "listItem",
+            "footnote"
           ],
-          "children": [
-            {
-              "role": [
-                "footnote"
-              ],
-              "id": "note1",
-              "text": "See introduction for background."
-            }
-          ]
+          "id": "note1",
+          "text": "See introduction for background."
         },
         {
           "role": [
-            "listItem"
+            "listItem",
+            "footnote"
           ],
-          "children": [
-            {
-              "role": [
-                "footnote"
-              ],
-              "id": "note2",
-              "text": "See chapter three for details."
-            }
-          ]
+          "id": "note2",
+          "text": "See chapter three for details."
         }
       ]
     }

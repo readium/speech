@@ -1,0 +1,62 @@
+import type { GndTextAlternative } from "./types.js";
+
+export interface TextBuilder {
+  plain: string;
+  ssml: string;
+  language: string;
+}
+
+export function textIsEmpty(t: TextBuilder): boolean {
+  return t.plain === "" && t.ssml === "" && t.language === "";
+}
+
+export function finalizeText(t?: TextBuilder): string | GndTextAlternative | undefined {
+  if (!t || textIsEmpty(t)) return undefined;
+  if (t.ssml === "" && t.language === "") return t.plain;
+  const alt: GndTextAlternative = { language: t.language };
+  if (t.plain !== "") alt.plain = t.plain;
+  if (t.ssml !== "") alt.ssml = t.ssml;
+  return alt;
+}
+
+export interface SSMLContext {
+  lang: string;
+  tag: string;
+  attrs?: Record<string, string>;
+}
+
+export function ctxEqual(a: SSMLContext, b: SSMLContext): boolean {
+  if (a.lang !== b.lang || a.tag !== b.tag) return false;
+  const ae = Object.entries(a.attrs ?? {});
+  const be = Object.entries(b.attrs ?? {});
+  if (ae.length !== be.length) return false;
+  return ae.every(([k, v]) => b.attrs?.[k] === v);
+}
+
+export const ssmlTextEscape = (s: string) =>
+  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+export const ssmlAttrEscape = (s: string) =>
+  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+
+export function startsWithBindingPunct(s: string): boolean {
+  return /^[.,;:!?)\]}]/.test(s);
+}
+
+export function normalizeWhitespace(text: string, stripLeading: boolean): string {
+  let out = "";
+  let lastWasWhite = false;
+  let reachedNonWhite = false;
+  for (const ch of text) {
+    if (/\s/.test(ch)) {
+      if ((stripLeading && !reachedNonWhite) || lastWasWhite) continue;
+      out += " ";
+      lastWasWhite = true;
+    } else if (ch !== "​" && ch !== "­") {
+      // zero width space, soft hyphen
+      out += ch;
+      lastWasWhite = false;
+      reachedNonWhite = true;
+    }
+  }
+  return out;
+}

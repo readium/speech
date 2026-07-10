@@ -2,5 +2,5 @@
   "role": [
     "preformatted"
   ],
-  "text": "  10 PRINT \"HELLO\"\n  20 GOTO 10"
+  "text": "10 PRINT \"HELLO\" 20 GOTO 10"
 }

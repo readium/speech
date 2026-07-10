@@ -9,16 +9,17 @@ const utterancesExpectedEl = document.getElementById("utterances-expected");
 const utterancesActualEl = document.getElementById("utterances-actual");
 const utterancesBadgeEl = document.getElementById("utterances-badge");
 
-// Feature-detect a real pipeline, if/when @readium/speech exports one. Until
-// then, every "actual" pane just shows a "not implemented yet" badge.
-let pipeline = null;
+// Feature-detect the GND converter, if/when @readium/speech exports one.
+// Utterance extraction (GND -> utterances) isn't implemented yet, so that
+// pane always shows a "not implemented yet" badge regardless.
+let converter = null;
 try {
   const mod = await import("../../build/index.js");
-  if (typeof mod.htmlToGnd === "function" && typeof mod.gndToUtterances === "function") {
-    pipeline = mod;
+  if (typeof mod.convert === "function") {
+    converter = mod;
   }
 } catch {
-  // build/index.js may not export a pipeline yet; that's expected pre-implementation.
+  // build/index.js may not export a converter yet; that's expected pre-implementation.
 }
 
 const manifest = await fetch("../../fixtures/manifest.json").then((r) => r.json());
@@ -101,6 +102,56 @@ function sortKeysDeep(value) {
   return value;
 }
 
+// Property order per object.schema.json, for display only — fixtures are
+// hand-authored and don't consistently follow it, and JSON key order carries
+// no semantic meaning, but showing both panes in the schema's own order keeps
+// the visual diff free of that noise.
+const SCHEMA_KEY_ORDER = [
+  "id",
+  "audioref",
+  "imgref",
+  "textref",
+  "videoref",
+  "text",
+  "role",
+  "children",
+  "description",
+];
+
+function withSchemaKeyOrder(value) {
+  if (Array.isArray(value)) return value.map(withSchemaKeyOrder);
+  if (value && typeof value === "object") {
+    const ordered = {};
+    for (const key of SCHEMA_KEY_ORDER) {
+      if (key in value) ordered[key] = withSchemaKeyOrder(value[key]);
+    }
+    for (const key of Object.keys(value)) {
+      if (!(key in ordered)) ordered[key] = withSchemaKeyOrder(value[key]);
+    }
+    return ordered;
+  }
+  return value;
+}
+
+// gnd.json stores a single fixture's expected top-level item(s) directly —
+// a bare object for one item, or a role-less/id-less `{children: [...]}` for
+// several siblings — while `convert()` always returns an array. This maps
+// the stored file format onto that array shape for comparison.
+function expectedTopLevel(gnd) {
+  if (gnd && typeof gnd === "object" && !Array.isArray(gnd)) {
+    const keys = Object.keys(gnd);
+    if (keys.length === 1 && keys[0] === "children") return gnd.children;
+  }
+  return [gnd];
+}
+
+// Inverse of expectedTopLevel: reshapes convert()'s array output into the
+// same bare-object/`{children}` convention gnd.json is stored in, so the
+// "actual" pane displays in the fixture's own reference shape.
+function toStoredShape(items) {
+  return items.length === 1 ? items[0] : { children: items };
+}
+
 function setBadge(el, state) {
   el.textContent = state === "pass" ? "pass" : state === "fail" ? "fail" : "not implemented yet";
   el.className = `badge ${state}`;
@@ -134,30 +185,27 @@ async function selectFixture(id) {
   fixtureMetaEl.appendChild(idLine);
 
   inputHtmlEl.textContent = inputHtml;
-  gndExpectedEl.textContent = JSON.stringify(gnd, null, 2);
+  gndExpectedEl.textContent = JSON.stringify(withSchemaKeyOrder(gnd), null, 2);
   utterancesExpectedEl.textContent = JSON.stringify(utterances, null, 2);
 
-  if (!pipeline) {
+  // Utterance extraction is out of scope for now, so that pane never has
+  // anything to run.
+  utterancesActualEl.textContent = "";
+  setBadge(utterancesBadgeEl, "pending");
+
+  if (!converter) {
     gndActualEl.textContent = "";
-    utterancesActualEl.textContent = "";
     setBadge(gndBadgeEl, "pending");
-    setBadge(utterancesBadgeEl, "pending");
     return;
   }
 
   try {
-    const actualGnd = pipeline.htmlToGnd(inputHtml, { inputKind: meta.inputKind });
-    gndActualEl.textContent = JSON.stringify(actualGnd, null, 2);
-    setBadge(gndBadgeEl, deepEqual(actualGnd, gnd) ? "pass" : "fail");
-
-    const actualUtterances = pipeline.gndToUtterances(actualGnd);
-    utterancesActualEl.textContent = JSON.stringify(actualUtterances, null, 2);
-    setBadge(utterancesBadgeEl, deepEqual(actualUtterances, utterances) ? "pass" : "fail");
+    const actual = converter.convert(inputHtml);
+    gndActualEl.textContent = JSON.stringify(withSchemaKeyOrder(toStoredShape(actual)), null, 2);
+    setBadge(gndBadgeEl, deepEqual(actual, expectedTopLevel(gnd)) ? "pass" : "fail");
   } catch (err) {
     gndActualEl.textContent = String(err);
-    utterancesActualEl.textContent = "";
     setBadge(gndBadgeEl, "fail");
-    setBadge(utterancesBadgeEl, "fail");
   }
 }
 

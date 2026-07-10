@@ -19,8 +19,8 @@
           "children": [
             {
               "role": [
-                "footnote",
-                "aside"
+                "aside",
+                "footnote"
               ],
               "text": "Text of the footnote."
             }

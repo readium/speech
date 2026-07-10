@@ -1,5 +1,7 @@
+import "./setup.js";
 import test from "ava";
 import { loadManifest, loadFixture } from "../testUtils.js";
+import { convert } from "../../src/gnd/converter.js";
 
 const manifest = loadManifest();
 
@@ -12,6 +14,39 @@ test("manifest has no duplicate ids", (t) => {
   const ids = manifest.map((entry) => entry.id);
   t.is(new Set(ids).size, ids.length);
 });
+
+function sortKeysDeep(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(sortKeysDeep);
+  if (value && typeof value === "object") {
+    return Object.keys(value)
+      .sort()
+      .reduce((acc: Record<string, unknown>, key) => {
+        acc[key] = sortKeysDeep((value as Record<string, unknown>)[key]);
+        return acc;
+      }, {});
+  }
+  return value;
+}
+
+// gnd.json stores a single fixture's expected top-level item(s) directly —
+// a bare object for one item, or a role-less/id-less `{children: [...]}` for
+// several siblings — while `convert()` always returns an array. This maps
+// the stored file format onto that array shape for comparison.
+function expectedTopLevel(gnd: unknown): unknown[] {
+  if (gnd && typeof gnd === "object" && !Array.isArray(gnd)) {
+    const keys = Object.keys(gnd);
+    if (keys.length === 1 && keys[0] === "children") {
+      return (gnd as { children: unknown[] }).children;
+    }
+  }
+  return [gnd];
+}
+
+// <body> is always the traversal root, never content in its own right, so
+// convert() never produces a "body"-rolebearing object for it to check
+// against — this fixture documents the expected role mapping but can't be
+// exercised through convert(); it's excluded from that check only.
+const excludedFromConvertCheck = new Set(["body-html-native"]);
 
 for (const entry of manifest) {
   test(`fixture "${entry.id}": loads and has the expected shape`, (t) => {
@@ -35,4 +70,12 @@ for (const entry of manifest) {
       t.true(typeof utterance.text === "string", "each utterance needs a text field");
     }
   });
+
+  if (!excludedFromConvertCheck.has(entry.id)) {
+    test(`fixture "${entry.id}": convert matches gnd.json`, (t) => {
+      const fixture = loadFixture(entry.id);
+      const actual = convert(fixture.inputHtml);
+      t.deepEqual(sortKeysDeep(actual), sortKeysDeep(expectedTopLevel(fixture.gnd)));
+    });
+  }
 }

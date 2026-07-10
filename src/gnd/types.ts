@@ -30,7 +30,11 @@ export interface GndNode {
   children?: GndNode[];
 }
 
-// TODO: root shape (single node vs. an implicit multi-node fragment) is not
-// yet settled upstream; fixtures with multiple top-level siblings currently
-// use a bare `{ children: GndNode[] }` with no role.
-export type GndDocument = GndNode;
+// A Guided Navigation Document — https://readium.org/guided-navigation/schema/document.schema.json
+// Always a complete document: `guided` holds every top-level item produced
+// from the input, however many there are (one item, several siblings, or —
+// for a piece of input that describes no navigable content at all — none).
+export interface GndDocument {
+  links?: unknown[];
+  guided: GndNode[];
+}
