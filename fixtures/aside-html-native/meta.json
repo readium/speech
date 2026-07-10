@@ -6,5 +6,6 @@
     "aside"
   ],
   "sourceRef": "https://github.com/readium/guided-navigation/blob/main/roles.md",
-  "inputKind": "fragment"
+  "inputKind": "fragment",
+  "skip": ["aside"]
 }

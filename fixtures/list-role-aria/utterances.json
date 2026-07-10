@@ -1,11 +1,11 @@
 [
   {
-    "text": "First item"
+    "plain": "First item"
   },
   {
-    "text": "Second item"
+    "plain": "Second item"
   },
   {
-    "text": "Third item"
+    "plain": "Third item"
   }
 ]

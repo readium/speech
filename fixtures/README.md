@@ -29,6 +29,8 @@ fixtures/
     input.html             the HTML input (a fragment or a full document, see meta.json.inputKind)
     gnd.json               the expected Guided Navigation document produced from input.html
     utterances.json        the expected ordered utterance list produced from gnd.json
+    utterances-skipped.json  only present when meta.json.skip is set — the expected
+                             utterance list when skipping the role(s) listed there
 ```
 
 `manifest.json` and `ROLES_COVERAGE.md` are both generated from the
@@ -74,9 +76,29 @@ Each fixture directory is fully self-contained and independently loadable.
   "role": "footnote",                     // the roles.md role name this fixture targets
   "rolesCovered": ["footnote", "noteref"],// every role name this fixture's markup exercises
   "sourceRef": "https://github.com/readium/guided-navigation/blob/main/roles.md",
-  "inputKind": "document"                 // "fragment" | "document"
+  "inputKind": "document",                // "fragment" | "document"
+  "skip": ["footnote"]                    // optional — see "Skippable roles" below
 }
 ```
+
+## Skippable roles
+
+[roles.md#list-of-skippable-roles](https://github.com/readium/guided-navigation/blob/main/roles.md#list-of-skippable-roles)
+documents roles a *reader* may choose to skip past during playback (asides,
+footnotes, pagebreaks, tables of contents...) — they aren't omitted from
+utterance extraction by default, since every fixture's `utterances.json` is
+the unfiltered baseline. Skipping is instead a filter a consumer opts into
+at extraction time, given a set of roles to omit.
+
+A fixture that exercises a skippable role may set `meta.json`'s optional
+`skip` field to the role(s) to test skipping for, and ship a sibling
+`utterances-skipped.json`: the exact `utterances.json` output, minus every
+node (and its whole subtree) whose role is in `skip`. Consuming this is the
+same as the base utterance check (see below), just with the role filter
+applied and compared against this file instead.
+
+Not every fixture needs this — only ones where skipping is illustrative
+(a footnote reached via noteref, a whole aside, a pagebreak announcement).
 
 ## `epub:type` fixtures are full XHTML documents
 
@@ -127,14 +149,19 @@ A flat JSON array, one entry per fixture:
     "dir": "footnote-epub-type",
     "role": "footnote",
     "description": "Footnote encoded via epub:type, referenced by a noteref",
+    "skip": ["footnote"],
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "utterances": "utterances.json",
+      "utterancesSkipped": "utterances-skipped.json"
     }
   }
 ]
 ```
+
+`skip` and `files.utterancesSkipped` are only present on fixtures that ship
+`utterances-skipped.json`.
 
 Any test runner, in any language, reads this one file to discover every
 fixture and resolve its file paths — no directory listing required.
@@ -146,7 +173,10 @@ fixture and resolve its file paths — no directory listing required.
    of stage 1 (HTML → GND) — compare the result to `gnd.json`.
 3. Run the resulting GND document through your implementation of stage 2
    (GND → utterances) — compare the result to `utterances.json`.
-4. A fixture "passes" when both comparisons match exactly.
+4. If the entry has a `skip` field, run stage 2 again with that role set
+   passed as your implementation's skip filter — compare the result to
+   `utterances-skipped.json`.
+5. A fixture "passes" when every comparison it has files for matches exactly.
 
 ## Adding a new fixture
 
@@ -154,8 +184,11 @@ fixture and resolve its file paths — no directory listing required.
    markup being tested.
 2. Hand-author `gnd.json` and `utterances.json` — there is no generator for
    these; they are the ground truth implementations must match.
-3. Write `meta.json`.
-4. Run `npm run generate-fixtures-manifest` to regenerate `manifest.json`
+3. If the fixture is illustrative for skipping (see "Skippable roles"
+   above), also hand-author `utterances-skipped.json` and set `meta.json`'s
+   `skip` field.
+4. Write `meta.json`.
+5. Run `npm run generate-fixtures-manifest` to regenerate `manifest.json`
    and `ROLES_COVERAGE.md` from what's now on disk.
 
 ## This suite is not finished

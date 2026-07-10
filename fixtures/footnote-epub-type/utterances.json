@@ -1,8 +1,15 @@
 [
   {
-    "text": "This text has a footnote."
+    "plain": "This text has a footnote.",
+    "language": "en"
   },
   {
-    "text": "Start of the footnote. Text of the footnote. End of the footnote."
+    "plain": "Start of the footnote."
+  },
+  {
+    "plain": "Text of the footnote."
+  },
+  {
+    "plain": "End of the footnote."
   }
 ]

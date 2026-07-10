@@ -32,8 +32,11 @@ const manifest = fixtureIds.map((id) => {
   if (meta.id !== id) {
     throw new Error(`fixtures/${id}/meta.json has id "${meta.id}", expected "${id}"`);
   }
+  if (meta.skip && !fs.existsSync(path.join(dir, "utterances-skipped.json"))) {
+    throw new Error(`fixtures/${id} sets meta.skip but is missing utterances-skipped.json`);
+  }
 
-  return {
+  const entry = {
     id,
     dir: id,
     role: meta.role,
@@ -44,6 +47,11 @@ const manifest = fixtureIds.map((id) => {
       utterances: "utterances.json",
     },
   };
+  if (meta.skip) {
+    entry.skip = meta.skip;
+    entry.files.utterancesSkipped = "utterances-skipped.json";
+  }
+  return entry;
 });
 
 const ids = manifest.map((e) => e.id);

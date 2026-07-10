@@ -20,10 +20,12 @@ export interface FixtureManifestEntry {
   dir: string;
   role: string;
   description: string;
+  skip?: string[];
   files: {
     input: string;
     gnd: string;
     utterances: string;
+    utterancesSkipped?: string;
   };
 }
 
@@ -34,6 +36,7 @@ export interface FixtureMeta {
   rolesCovered: string[];
   sourceRef: string;
   inputKind: "fragment" | "document";
+  skip?: string[];
 }
 
 export interface LoadedFixture {
@@ -41,6 +44,7 @@ export interface LoadedFixture {
   inputHtml: string;
   gnd: unknown;
   utterances: unknown[];
+  utterancesSkipped?: unknown[];
 }
 
 const fixturesDir = join(__dirname, "../fixtures");
@@ -61,5 +65,8 @@ export function loadFixture(id: string): LoadedFixture {
   const inputHtml = readFileSync(join(dir, "input.html"), "utf-8");
   const gnd = JSON.parse(readFileSync(join(dir, "gnd.json"), "utf-8"));
   const utterances = JSON.parse(readFileSync(join(dir, "utterances.json"), "utf-8"));
-  return { meta, inputHtml, gnd, utterances };
+  const utterancesSkipped = meta.skip
+    ? JSON.parse(readFileSync(join(dir, "utterances-skipped.json"), "utf-8"))
+    : undefined;
+  return { meta, inputHtml, gnd, utterances, utterancesSkipped };
 }

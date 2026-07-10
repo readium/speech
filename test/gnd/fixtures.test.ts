@@ -1,7 +1,7 @@
 import "./setup.js";
 import test from "ava";
 import { loadManifest, loadFixture } from "../testUtils.js";
-import { convert } from "../../src/gnd/converter.js";
+import { parseMarkup } from "../../src/gnd/converter.js";
 
 const manifest = loadManifest();
 
@@ -30,7 +30,7 @@ function sortKeysDeep(value: unknown): unknown {
 
 // gnd.json stores a single fixture's expected top-level item(s) directly —
 // a bare object for one item, or a role-less/id-less `{children: [...]}` for
-// several siblings — while `convert()` always returns an array. This maps
+// several siblings — while `parseMarkup()` always returns an array. This maps
 // the stored file format onto that array shape for comparison.
 function expectedTopLevel(gnd: unknown): unknown[] {
   if (gnd && typeof gnd === "object" && !Array.isArray(gnd)) {
@@ -43,9 +43,9 @@ function expectedTopLevel(gnd: unknown): unknown[] {
 }
 
 // <body> is always the traversal root, never content in its own right, so
-// convert() never produces a "body"-rolebearing object for it to check
+// parseMarkup() never produces a "body"-rolebearing object for it to check
 // against — this fixture documents the expected role mapping but can't be
-// exercised through convert(); it's excluded from that check only.
+// exercised through parseMarkup(); it's excluded from that check only.
 const excludedFromConvertCheck = new Set(["body-html-native"]);
 
 for (const entry of manifest) {
@@ -67,14 +67,17 @@ for (const entry of manifest) {
     t.true(Array.isArray(fixture.utterances), "utterances.json must parse to an array");
     for (const utterance of fixture.utterances as Record<string, unknown>[]) {
       t.true(typeof utterance === "object" && utterance !== null);
-      t.true(typeof utterance.text === "string", "each utterance needs a text field");
+      t.true(
+        typeof utterance.plain === "string" || typeof utterance.ssml === "string",
+        "each utterance needs a plain or ssml field",
+      );
     }
   });
 
   if (!excludedFromConvertCheck.has(entry.id)) {
-    test(`fixture "${entry.id}": convert matches gnd.json`, (t) => {
+    test(`fixture "${entry.id}": parseMarkup matches gnd.json`, (t) => {
       const fixture = loadFixture(entry.id);
-      const actual = convert(fixture.inputHtml);
+      const actual = parseMarkup(fixture.inputHtml);
       t.deepEqual(sortKeysDeep(actual), sortKeysDeep(expectedTopLevel(fixture.gnd)));
     });
   }

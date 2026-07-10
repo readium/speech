@@ -1,5 +1,5 @@
 [
   {
-    "text": "10 PRINT \"HELLO\" 20 GOTO 10"
+    "plain": "10 PRINT \"HELLO\" 20 GOTO 10"
   }
 ]

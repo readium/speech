@@ -610,7 +610,7 @@ export class Converter {
  * Converts the children of an HTML or XHTML fragment or document's <body>
  * into Guided Navigation objects.
  */
-export function convert(input: string, mediaType?: GndMediaType): GndNode[] {
+export function parseMarkup(input: string, mediaType?: GndMediaType): GndNode[] {
   const mt = mediaType ?? sniffMediaType(input);
   const doc = new DOMParser().parseFromString(input, mt);
   const body = doc.querySelector("body");

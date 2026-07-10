@@ -1,0 +1,10 @@
+{
+  "id": "paragraph-block-level-language",
+  "description": "Sibling paragraphs each declaring their own language, overriding the document's default",
+  "role": "paragraph",
+  "rolesCovered": [
+    "paragraph"
+  ],
+  "sourceRef": "https://github.com/readium/guided-navigation/tree/main/examples/read-aloud#multilingual-text",
+  "inputKind": "document"
+}

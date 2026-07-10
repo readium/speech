@@ -9,17 +9,20 @@ const utterancesExpectedEl = document.getElementById("utterances-expected");
 const utterancesActualEl = document.getElementById("utterances-actual");
 const utterancesBadgeEl = document.getElementById("utterances-badge");
 
-// Feature-detect the GND converter, if/when @readium/speech exports one.
-// Utterance extraction (GND -> utterances) isn't implemented yet, so that
-// pane always shows a "not implemented yet" badge regardless.
+// Feature-detect the GND converter and the utterance extractor, if/when
+// @readium/speech exports them.
 let converter = null;
+let utteranceExtractor = null;
 try {
   const mod = await import("../../build/index.js");
   if (typeof mod.convert === "function") {
     converter = mod;
   }
+  if (typeof mod.extractUtterances === "function") {
+    utteranceExtractor = mod;
+  }
 } catch {
-  // build/index.js may not export a converter yet; that's expected pre-implementation.
+  // build/index.js may not export these yet; that's expected pre-implementation.
 }
 
 const manifest = await fetch("../../fixtures/manifest.json").then((r) => r.json());
@@ -188,24 +191,37 @@ async function selectFixture(id) {
   gndExpectedEl.textContent = JSON.stringify(withSchemaKeyOrder(gnd), null, 2);
   utterancesExpectedEl.textContent = JSON.stringify(utterances, null, 2);
 
-  // Utterance extraction is out of scope for now, so that pane never has
-  // anything to run.
-  utterancesActualEl.textContent = "";
-  setBadge(utterancesBadgeEl, "pending");
-
   if (!converter) {
     gndActualEl.textContent = "";
     setBadge(gndBadgeEl, "pending");
+    utterancesActualEl.textContent = "";
+    setBadge(utterancesBadgeEl, "pending");
     return;
   }
 
+  let actual;
   try {
-    const actual = converter.convert(inputHtml);
+    actual = converter.convert(inputHtml);
     gndActualEl.textContent = JSON.stringify(withSchemaKeyOrder(toStoredShape(actual)), null, 2);
     setBadge(gndBadgeEl, deepEqual(actual, expectedTopLevel(gnd)) ? "pass" : "fail");
   } catch (err) {
     gndActualEl.textContent = String(err);
     setBadge(gndBadgeEl, "fail");
+  }
+
+  if (!utteranceExtractor || actual === undefined) {
+    utterancesActualEl.textContent = "";
+    setBadge(utterancesBadgeEl, "pending");
+    return;
+  }
+
+  try {
+    const actualUtterances = utteranceExtractor.extractUtterances(actual);
+    utterancesActualEl.textContent = JSON.stringify(actualUtterances, null, 2);
+    setBadge(utterancesBadgeEl, deepEqual(actualUtterances, utterances) ? "pass" : "fail");
+  } catch (err) {
+    utterancesActualEl.textContent = String(err);
+    setBadge(utterancesBadgeEl, "fail");
   }
 }
 

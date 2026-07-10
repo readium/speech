@@ -1,0 +1,6 @@
+[
+  {
+    "ssml": "Start <lang xml:lang=\"fr\">middle </lang><lang xml:lang=\"es\">nested</lang><lang xml:lang=\"fr\"> end</lang> after.",
+    "language": "en"
+  }
+]

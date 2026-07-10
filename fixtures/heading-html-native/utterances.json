@@ -1,20 +1,20 @@
 [
   {
-    "text": "Chapter One"
+    "plain": "Chapter One"
   },
   {
-    "text": "Section A"
+    "plain": "Section A"
   },
   {
-    "text": "Subsection i"
+    "plain": "Subsection i"
   },
   {
-    "text": "Detail heading"
+    "plain": "Detail heading"
   },
   {
-    "text": "Note heading"
+    "plain": "Note heading"
   },
   {
-    "text": "Aside heading"
+    "plain": "Aside heading"
   }
 ]
