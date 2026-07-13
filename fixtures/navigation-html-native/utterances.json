@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "Link to the next chapter."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Link to the next chapter."
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Link to the next chapter."
+      }
+    ]
   }
-]
+}

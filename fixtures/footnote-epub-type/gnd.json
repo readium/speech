@@ -1,28 +1,31 @@
 {
+  "role": [
+    "body"
+  ],
   "children": [
     {
+      "text": {
+        "language": "en",
+        "plain": "This text has a footnote.",
+        "ssml": "This text has a footnote <readium:noteref id=\"note1\" />."
+      },
       "role": [
         "paragraph"
       ],
-      "text": {
-        "plain": "This text has a footnote.",
-        "ssml": "This text has a footnote <readium:noteref id=\"note1\" />.",
-        "language": "en"
-      },
       "children": [
         {
+          "id": "note1",
+          "text": "[1]",
           "role": [
             "noteref"
           ],
-          "id": "note1",
-          "text": "[1]",
           "children": [
             {
+              "text": "Text of the footnote.",
               "role": [
                 "aside",
                 "footnote"
-              ],
-              "text": "Text of the footnote."
+              ]
             }
           ]
         }

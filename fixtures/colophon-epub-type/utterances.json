@@ -1,5 +1,46 @@
-[
-  {
-    "plain": "Set in Georgia, 11pt, on recycled paper."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Colophon."
+      },
+      {
+        "plain": "Set in Georgia, 11pt, on recycled paper."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "Set in Georgia, 11pt, on recycled paper."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Colophon."
+      },
+      {
+        "ssml": "Set in Georgia, 11pt, on recycled paper."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "Set in Georgia, 11pt, on recycled paper."
+          }
+        ]
+      }
+    ]
   }
-]
+}

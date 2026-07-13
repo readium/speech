@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "Decorative content with no semantic meaning."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Decorative content with no semantic meaning."
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Decorative content with no semantic meaning."
+      }
+    ]
   }
-]
+}

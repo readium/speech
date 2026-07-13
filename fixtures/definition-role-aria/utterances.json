@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "A structure that contains an enumeration of related content items."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "A structure that contains an enumeration of related content items."
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "A structure that contains an enumeration of related content items."
+      }
+    ]
   }
-]
+}

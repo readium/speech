@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "The central topic of this document."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "The central topic of this document."
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "The central topic of this document."
+      }
+    ]
   }
-]
+}

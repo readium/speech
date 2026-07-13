@@ -45,6 +45,35 @@
         <h2>3. Utterances</h2>
         <span id="utterances-badge" class="badge"></span>
       </div>
+
+      <div id="utterances-options" class="options-bar">
+        <fieldset class="options-group">
+          <legend>Format</legend>
+          <label><input type="radio" name="format" value="plain" checked> plain</label>
+          <label><input type="radio" name="format" value="ssml"> ssml</label>
+        </fieldset>
+
+        <fieldset class="options-group">
+          <legend>Language</legend>
+          <select id="option-language">
+            <option value="">(default)</option>
+            <option value="never">never</option>
+            <option value="block">block</option>
+            <option value="inline">inline</option>
+          </select>
+        </fieldset>
+
+        <fieldset class="options-group">
+          <label><input type="checkbox" id="option-interrupt"> interruptSentence</label>
+          <label><input type="checkbox" id="option-contextualize" checked> contextualize</label>
+        </fieldset>
+
+        <fieldset class="options-group">
+          <legend>Skip roles</legend>
+          <select id="option-skip" multiple></select>
+        </fieldset>
+      </div>
+
       <div class="compare-grid">
         <div>
           <h3>Expected</h3>

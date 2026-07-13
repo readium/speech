@@ -1,8 +1,64 @@
-[
-  {
-    "plain": "Fresnel lens"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the index."
+      },
+      {
+        "plain": "Fresnel lens"
+      },
+      {
+        "plain": "Keepers"
+      },
+      {
+        "plain": "End of the index."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "Fresnel lens"
+          },
+          {
+            "plain": "Keepers"
+          }
+        ]
+      }
+    ]
   },
-  {
-    "plain": "Keepers"
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the index."
+      },
+      {
+        "ssml": "Fresnel lens"
+      },
+      {
+        "ssml": "Keepers"
+      },
+      {
+        "ssml": "End of the index."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "Fresnel lens"
+          },
+          {
+            "ssml": "Keepers"
+          }
+        ]
+      }
+    ]
   }
-]
+}

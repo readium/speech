@@ -1,7 +1,14 @@
 {
   "role": [
-    "biblioref"
+    "body"
   ],
-  "text": "See Smith, 1988",
-  "textref": "#smith1988"
+  "children": [
+    {
+      "textref": "#smith1988",
+      "text": "See Smith, 1988",
+      "role": [
+        "biblioref"
+      ]
+    }
+  ]
 }

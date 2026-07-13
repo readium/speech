@@ -77,3 +77,57 @@ export function resolveNodeText(text: GndNode["text"]): ResolvedNodeText | undef
 
   return result.plain || result.ssml ? result : undefined;
 }
+
+// Strips every SSML tag (not just `<readium:...>` placeholders — `<lang>`,
+// `<emphasis>`, `<break/>`...) and unescapes the entities `ssmlTextEscape`
+// applies, for synthesizing a `plain` variant from a node that only
+// naturally has `ssml` (e.g. an inline language shift with no embedded
+// placeholder, so the GND converter never generated a `plain` variant for
+// it — see `converter.ts`'s `flushText()`).
+export function stripSsmlTags(ssml: string): string {
+  return ssml
+    .replace(/<[^>]+>/g, "")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&")
+    .replace(/ {2,}/g, " ")
+    .trim();
+}
+
+export interface SsmlSegment {
+  // A run of ssml (may itself carry further tags, e.g. `<lang>`) between
+  // placeholders. Mutually exclusive with `placeholderId`.
+  ssml?: string;
+  // The `id` of a `<readium:TAG id="...">` placeholder at this position,
+  // linking to the sibling/child `GndNode` carrying that `id`.
+  placeholderId?: string;
+}
+
+// Matches a raw, unstripped `<readium:TAG id="...">` placeholder — the same
+// marker `stripPlaceholders` removes, but captured here (with its `id`) for
+// splitting the surrounding text apart instead of discarding it.
+const RAW_PLACEHOLDER_RE = /<readium:[a-zA-Z][\w-]*\s+id="([^"]*)"\s*\/>/g;
+
+export function hasPlaceholder(ssml: string): boolean {
+  return new RegExp(RAW_PLACEHOLDER_RE).test(ssml);
+}
+
+/**
+ * Splits a raw (pre-`stripPlaceholders`) SSML string on its embedded
+ * `<readium:TAG id="...">` placeholders, for `interruptSentence`: each
+ * placeholder becomes its own segment (resolved via the `GndNode` sharing
+ * its `id`) instead of being spoken after the whole enclosing text.
+ */
+export function splitOnPlaceholders(ssml: string): SsmlSegment[] {
+  const segments: SsmlSegment[] = [];
+  let lastIndex = 0;
+  for (const match of ssml.matchAll(RAW_PLACEHOLDER_RE)) {
+    const before = ssml.slice(lastIndex, match.index).trim();
+    if (before) segments.push({ ssml: before });
+    segments.push({ placeholderId: match[1] });
+    lastIndex = match.index! + match[0].length;
+  }
+  const after = ssml.slice(lastIndex).trim();
+  if (after) segments.push({ ssml: after });
+  return segments;
+}

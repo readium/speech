@@ -1,5 +1,46 @@
-[
-  {
-    "plain": "This work examines the maintenance of coastal lighthouses in the 19th century."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Abstract."
+      },
+      {
+        "plain": "This work examines the maintenance of coastal lighthouses in the 19th century."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "This work examines the maintenance of coastal lighthouses in the 19th century."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Abstract."
+      },
+      {
+        "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century."
+          }
+        ]
+      }
+    ]
   }
-]
+}

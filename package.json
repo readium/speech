@@ -42,6 +42,7 @@
     "test:utterances": "NODE_NO_WARNINGS=1 ava test/utterances/*.test.ts",
     "generate-metadata": "node scripts/generate-metadata.js",
     "generate-fixtures-manifest": "node scripts/build-fixtures-manifest.js",
+    "generate-utterances": "npm run build && node scripts/generate-utterances.js",
     "clean": "rimraf ./build",
     "build": "vite build",
     "start": "http-server ./",

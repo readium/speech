@@ -1,34 +1,41 @@
 {
   "role": [
-    "navigation",
-    "landmarks"
+    "body"
   ],
   "children": [
     {
       "role": [
-        "list"
+        "navigation",
+        "landmarks"
       ],
       "children": [
         {
           "role": [
-            "listItem"
+            "list"
           ],
-          "text": "Cover",
-          "textref": "cover.xhtml"
-        },
-        {
-          "role": [
-            "listItem"
-          ],
-          "text": "Table of Contents",
-          "textref": "toc.xhtml"
-        },
-        {
-          "role": [
-            "listItem"
-          ],
-          "text": "Start of Content",
-          "textref": "chapter1.xhtml"
+          "children": [
+            {
+              "textref": "cover.xhtml",
+              "text": "Cover",
+              "role": [
+                "listItem"
+              ]
+            },
+            {
+              "textref": "toc.xhtml",
+              "text": "Table of Contents",
+              "role": [
+                "listItem"
+              ]
+            },
+            {
+              "textref": "chapter1.xhtml",
+              "text": "Start of Content",
+              "role": [
+                "listItem"
+              ]
+            }
+          ]
         }
       ]
     }

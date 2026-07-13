@@ -1,6 +1,13 @@
 {
   "role": [
-    "dedication"
+    "body"
   ],
-  "text": "For every keeper who lit the lamp at dusk."
+  "children": [
+    {
+      "text": "For every keeper who lit the lamp at dusk.",
+      "role": [
+        "dedication"
+      ]
+    }
+  ]
 }

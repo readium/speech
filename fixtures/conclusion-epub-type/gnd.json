@@ -1,6 +1,13 @@
 {
   "role": [
-    "conclusion"
+    "body"
   ],
-  "text": "Lighthouses remain a symbol of safe passage."
+  "children": [
+    {
+      "text": "Lighthouses remain a symbol of safe passage.",
+      "role": [
+        "conclusion"
+      ]
+    }
+  ]
 }

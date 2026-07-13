@@ -1,5 +1,52 @@
-[
-  {
-    "plain": "This work explores the history of coastal lighthouses."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the introduction."
+      },
+      {
+        "plain": "This work explores the history of coastal lighthouses."
+      },
+      {
+        "plain": "End of the introduction."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "This work explores the history of coastal lighthouses."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the introduction."
+      },
+      {
+        "ssml": "This work explores the history of coastal lighthouses."
+      },
+      {
+        "ssml": "End of the introduction."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "This work explores the history of coastal lighthouses."
+          }
+        ]
+      }
+    ]
   }
-]
+}

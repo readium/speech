@@ -163,6 +163,56 @@ body {
   margin: 0;
 }
 
+.options-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 10px 0 14px;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+.options-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.options-group legend {
+  font-size: 0.78em;
+  font-weight: 600;
+  color: #666;
+  padding: 0 4px 0 0;
+}
+
+.options-group label {
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+
+#option-skip {
+  /* <select multiple> inside a `display: flex` <fieldset> is a known
+     cross-browser sizing trap — fieldsets don't reliably compute a flex
+     child's intrinsic size, so the select can collapse to near-zero
+     width despite min-width. `flex: none` plus an explicit `width`
+     (not just `min-width`) sidesteps that entirely. */
+  flex: none;
+  width: 180px;
+  height: 5.5em;
+  font-size: 0.85em;
+}
+
+.badge.none {
+  background: #fff3cd;
+  color: #856404;
+}
+
 .compare-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;

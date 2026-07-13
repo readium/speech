@@ -1,8 +1,22 @@
-[
-  {
-    "plain": "Before the divider."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Before the divider."
+      },
+      {
+        "plain": "After the divider."
+      }
+    ]
   },
-  {
-    "plain": "After the divider."
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Before the divider."
+      },
+      {
+        "ssml": "After the divider."
+      }
+    ]
   }
-]
+}

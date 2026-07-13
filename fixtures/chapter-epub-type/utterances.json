@@ -1,5 +1,58 @@
-[
-  {
-    "plain": "Title of the chapter"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the chapter."
+      },
+      {
+        "plain": "Heading level 1."
+      },
+      {
+        "plain": "Title of the chapter"
+      },
+      {
+        "plain": "End of the chapter."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "Title of the chapter"
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the chapter."
+      },
+      {
+        "ssml": "Heading level 1."
+      },
+      {
+        "ssml": "Title of the chapter"
+      },
+      {
+        "ssml": "End of the chapter."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "Title of the chapter"
+          }
+        ]
+      }
+    ]
   }
-]
+}

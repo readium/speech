@@ -1,5 +1,58 @@
-[
-  {
-    "plain": "Title of the part"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the part."
+      },
+      {
+        "plain": "Heading level 1."
+      },
+      {
+        "plain": "Title of the part"
+      },
+      {
+        "plain": "End of the part."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "Title of the part"
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the part."
+      },
+      {
+        "ssml": "Heading level 1."
+      },
+      {
+        "ssml": "Title of the part"
+      },
+      {
+        "ssml": "End of the part."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "Title of the part"
+          }
+        ]
+      }
+    ]
   }
-]
+}

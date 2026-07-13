@@ -1,6 +1,13 @@
 {
   "role": [
-    "colophon"
+    "body"
   ],
-  "text": "Set in Georgia, 11pt, on recycled paper."
+  "children": [
+    {
+      "text": "Set in Georgia, 11pt, on recycled paper.",
+      "role": [
+        "colophon"
+      ]
+    }
+  ]
 }

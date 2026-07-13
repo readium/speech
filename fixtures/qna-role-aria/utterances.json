@@ -1,5 +1,52 @@
-[
-  {
-    "plain": "Q: How often was the lamp refueled? A: Nightly, by hand."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the questions and answers."
+      },
+      {
+        "plain": "Q: How often was the lamp refueled? A: Nightly, by hand."
+      },
+      {
+        "plain": "End of the questions and answers."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "Q: How often was the lamp refueled? A: Nightly, by hand."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the questions and answers."
+      },
+      {
+        "ssml": "Q: How often was the lamp refueled? A: Nightly, by hand."
+      },
+      {
+        "ssml": "End of the questions and answers."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "Q: How often was the lamp refueled? A: Nightly, by hand."
+          }
+        ]
+      }
+    ]
   }
-]
+}

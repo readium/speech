@@ -1,6 +1,13 @@
 {
   "role": [
-    "notice"
+    "body"
   ],
-  "text": "Caution: the tower stairs are uneven."
+  "children": [
+    {
+      "text": "Caution: the tower stairs are uneven.",
+      "role": [
+        "notice"
+      ]
+    }
+  ]
 }

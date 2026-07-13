@@ -1,6 +1,6 @@
 import "./setup.js";
 import test from "ava";
-import { loadManifest, loadFixture } from "../testUtils.js";
+import { loadManifest, loadFixture, type UtterancesVariant } from "../testUtils.js";
 import { parseMarkup } from "../../src/gnd/converter.js";
 
 const manifest = loadManifest();
@@ -42,14 +42,8 @@ function expectedTopLevel(gnd: unknown): unknown[] {
   return [gnd];
 }
 
-// <body> is always the traversal root, never content in its own right, so
-// parseMarkup() never produces a "body"-rolebearing object for it to check
-// against — this fixture documents the expected role mapping but can't be
-// exercised through parseMarkup(); it's excluded from that check only.
-const excludedFromConvertCheck = new Set(["body-html-native"]);
-
 for (const entry of manifest) {
-  test(`fixture "${entry.id}": loads and has the expected shape`, (t) => {
+  test(`fixture "${entry.id}": loads and matches gnd.json`, (t) => {
     t.is(entry.dir, entry.id);
 
     const fixture = loadFixture(entry.id);
@@ -57,28 +51,31 @@ for (const entry of manifest) {
     t.is(fixture.meta.id, entry.id);
     t.is(fixture.meta.role, entry.role);
 
-    t.true(fixture.inputHtml.trim().length > 0, "input.html must not be empty");
+    t.true(fixture.inputHtml.trim().length > 0, "input file must not be empty");
 
     t.true(
       typeof fixture.gnd === "object" && fixture.gnd !== null,
       "gnd.json must parse to an object",
     );
 
-    t.true(Array.isArray(fixture.utterances), "utterances.json must parse to an array");
-    for (const utterance of fixture.utterances as Record<string, unknown>[]) {
-      t.true(typeof utterance === "object" && utterance !== null);
-      t.true(
-        typeof utterance.plain === "string" || typeof utterance.ssml === "string",
-        "each utterance needs a plain or ssml field",
-      );
+    for (const [format, branch] of Object.entries(fixture.utterances)) {
+      t.true(Array.isArray(branch.base), `utterances.json's "${format}" branch must have a base array`);
+      const lists = [
+        branch.base,
+        ...(branch.variants ?? []).map((v: UtterancesVariant) => v.utterances),
+      ];
+      for (const list of lists) {
+        for (const utterance of list as Record<string, unknown>[]) {
+          t.true(typeof utterance === "object" && utterance !== null);
+          t.true(
+            typeof utterance[format] === "string",
+            `each utterance in the "${format}" branch needs a ${format} field`,
+          );
+        }
+      }
     }
-  });
 
-  if (!excludedFromConvertCheck.has(entry.id)) {
-    test(`fixture "${entry.id}": parseMarkup matches gnd.json`, (t) => {
-      const fixture = loadFixture(entry.id);
-      const actual = parseMarkup(fixture.inputHtml);
-      t.deepEqual(sortKeysDeep(actual), sortKeysDeep(expectedTopLevel(fixture.gnd)));
-    });
-  }
+    const actual = parseMarkup(fixture.inputHtml);
+    t.deepEqual(sortKeysDeep(actual), sortKeysDeep(expectedTopLevel(fixture.gnd)));
+  });
 }

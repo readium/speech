@@ -1,6 +1,13 @@
 {
   "role": [
-    "errata"
+    "body"
   ],
-  "text": "Page 42: 'lightouse' should read 'lighthouse'."
+  "children": [
+    {
+      "text": "Page 42: 'lightouse' should read 'lighthouse'.",
+      "role": [
+        "errata"
+      ]
+    }
+  ]
 }

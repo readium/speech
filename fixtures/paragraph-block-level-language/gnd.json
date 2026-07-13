@@ -1,22 +1,25 @@
 {
+  "role": [
+    "body"
+  ],
   "children": [
     {
+      "text": {
+        "language": "en",
+        "plain": "Hello."
+      },
       "role": [
         "paragraph"
-      ],
-      "text": {
-        "plain": "Hello.",
-        "language": "en"
-      }
+      ]
     },
     {
+      "text": {
+        "language": "fr",
+        "plain": "Bonjour."
+      },
       "role": [
         "paragraph"
-      ],
-      "text": {
-        "plain": "Bonjour.",
-        "language": "fr"
-      }
+      ]
     }
   ]
 }

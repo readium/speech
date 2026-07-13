@@ -1,6 +1,13 @@
 {
   "role": [
-    "subtitle"
+    "body"
   ],
-  "text": "A History of Coastal Lights"
+  "children": [
+    {
+      "text": "A History of Coastal Lights",
+      "role": [
+        "subtitle"
+      ]
+    }
+  ]
 }

@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "The full content of the document."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "The full content of the document."
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "The full content of the document."
+      }
+    ]
   }
-]
+}

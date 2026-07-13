@@ -1,6 +1,13 @@
 {
   "role": [
-    "prologue"
+    "body"
   ],
-  "text": "Before the lamp was ever lit, the rock was already feared."
+  "children": [
+    {
+      "text": "Before the lamp was ever lit, the rock was already feared.",
+      "role": [
+        "prologue"
+      ]
+    }
+  ]
 }

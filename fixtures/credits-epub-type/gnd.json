@@ -1,36 +1,43 @@
 {
   "role": [
-    "credits"
+    "body"
   ],
   "children": [
     {
       "role": [
-        "list"
+        "credits"
       ],
       "children": [
         {
           "role": [
-            "listItem"
+            "list"
           ],
           "children": [
             {
               "role": [
-                "credit"
+                "listItem"
               ],
-              "text": "Cover photograph by A. Keeper."
-            }
-          ]
-        },
-        {
-          "role": [
-            "listItem"
-          ],
-          "children": [
+              "children": [
+                {
+                  "text": "Cover photograph by A. Keeper.",
+                  "role": [
+                    "credit"
+                  ]
+                }
+              ]
+            },
             {
               "role": [
-                "credit"
+                "listItem"
               ],
-              "text": "Maps by B. Cartographer."
+              "children": [
+                {
+                  "text": "Maps by B. Cartographer.",
+                  "role": [
+                    "credit"
+                  ]
+                }
+              ]
             }
           ]
         }

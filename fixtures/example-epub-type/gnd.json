@@ -1,6 +1,13 @@
 {
   "role": [
-    "example"
+    "body"
   ],
-  "text": "For instance, a Fresnel lens focuses light into a narrow beam."
+  "children": [
+    {
+      "text": "For instance, a Fresnel lens focuses light into a narrow beam.",
+      "role": [
+        "example"
+      ]
+    }
+  ]
 }

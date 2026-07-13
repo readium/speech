@@ -1,5 +1,68 @@
-[
-  {
-    "plain": "By the way, lighthouses were once staffed around the clock."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the aside."
+      },
+      {
+        "plain": "By the way, lighthouses were once staffed around the clock."
+      },
+      {
+        "plain": "End of the aside."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "skip": [
+            "aside"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "By the way, lighthouses were once staffed around the clock."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the aside."
+      },
+      {
+        "ssml": "By the way, lighthouses were once staffed around the clock."
+      },
+      {
+        "ssml": "End of the aside."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "skip": [
+            "aside"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "By the way, lighthouses were once staffed around the clock."
+          }
+        ]
+      }
+    ]
   }
-]
+}

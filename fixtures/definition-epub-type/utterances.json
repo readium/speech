@@ -1,5 +1,52 @@
-[
-  {
-    "plain": "A structure that contains an enumeration of related content items."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the glossary."
+      },
+      {
+        "plain": "A structure that contains an enumeration of related content items."
+      },
+      {
+        "plain": "End of the glossary."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "A structure that contains an enumeration of related content items."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the glossary."
+      },
+      {
+        "ssml": "A structure that contains an enumeration of related content items."
+      },
+      {
+        "ssml": "End of the glossary."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "A structure that contains an enumeration of related content items."
+          }
+        ]
+      }
+    ]
   }
-]
+}

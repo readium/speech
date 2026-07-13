@@ -1,5 +1,52 @@
-[
-  {
-    "plain": "A bar chart showing sales growth"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the figure."
+      },
+      {
+        "plain": "A bar chart showing sales growth"
+      },
+      {
+        "plain": "End of the figure."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "A bar chart showing sales growth"
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the figure."
+      },
+      {
+        "ssml": "A bar chart showing sales growth"
+      },
+      {
+        "ssml": "End of the figure."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "A bar chart showing sales growth"
+          }
+        ]
+      }
+    ]
   }
-]
+}

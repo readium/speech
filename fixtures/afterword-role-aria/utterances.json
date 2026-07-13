@@ -1,5 +1,52 @@
-[
-  {
-    "plain": "Years later, the last lighthouse keeper reflects on automation."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the afterword."
+      },
+      {
+        "plain": "Years later, the last lighthouse keeper reflects on automation."
+      },
+      {
+        "plain": "End of the afterword."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "Years later, the last lighthouse keeper reflects on automation."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the afterword."
+      },
+      {
+        "ssml": "Years later, the last lighthouse keeper reflects on automation."
+      },
+      {
+        "ssml": "End of the afterword."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "Years later, the last lighthouse keeper reflects on automation."
+          }
+        ]
+      }
+    ]
   }
-]
+}

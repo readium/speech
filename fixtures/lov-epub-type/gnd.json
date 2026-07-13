@@ -1,27 +1,34 @@
 {
   "role": [
-    "navigation",
-    "lov"
+    "body"
   ],
   "children": [
     {
       "role": [
-        "list"
+        "navigation",
+        "lov"
       ],
       "children": [
         {
           "role": [
-            "listItem"
+            "list"
           ],
-          "text": "Video 1. Lamp mechanism in motion",
-          "textref": "chapter1.xhtml#video1"
-        },
-        {
-          "role": [
-            "listItem"
-          ],
-          "text": "Video 2. Automation retrofit",
-          "textref": "chapter3.xhtml#video2"
+          "children": [
+            {
+              "textref": "chapter1.xhtml#video1",
+              "text": "Video 1. Lamp mechanism in motion",
+              "role": [
+                "listItem"
+              ]
+            },
+            {
+              "textref": "chapter3.xhtml#video2",
+              "text": "Video 2. Automation retrofit",
+              "role": [
+                "listItem"
+              ]
+            }
+          ]
         }
       ]
     }

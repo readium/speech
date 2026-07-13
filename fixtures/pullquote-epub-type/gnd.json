@@ -1,7 +1,14 @@
 {
   "role": [
-    "aside",
-    "pullquote"
+    "body"
   ],
-  "text": "The lamp still turns, though no one climbs the stairs anymore."
+  "children": [
+    {
+      "text": "The lamp still turns, though no one climbs the stairs anymore.",
+      "role": [
+        "aside",
+        "pullquote"
+      ]
+    }
+  ]
 }

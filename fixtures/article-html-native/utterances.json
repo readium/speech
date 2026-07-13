@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "A self-contained article about lighthouse keeping."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "A self-contained article about lighthouse keeping."
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "A self-contained article about lighthouse keeping."
+      }
+    ]
   }
-]
+}

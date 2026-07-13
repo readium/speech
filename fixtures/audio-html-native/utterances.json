@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "Foghorn recording from the 1962 restoration"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Foghorn recording from the 1962 restoration"
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Foghorn recording from the 1962 restoration"
+      }
+    ]
   }
-]
+}

@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "Return to reference"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Return to reference"
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Return to reference"
+      }
+    ]
   }
-]
+}

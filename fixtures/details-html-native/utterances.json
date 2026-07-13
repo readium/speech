@@ -1,5 +1,68 @@
-[
-  {
-    "plain": "Additional details the reader can expand."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the details."
+      },
+      {
+        "plain": "Additional details the reader can expand."
+      },
+      {
+        "plain": "End of the details."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "skip": [
+            "details"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "Additional details the reader can expand."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the details."
+      },
+      {
+        "ssml": "Additional details the reader can expand."
+      },
+      {
+        "ssml": "End of the details."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "skip": [
+            "details"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "Additional details the reader can expand."
+          }
+        ]
+      }
+    ]
   }
-]
+}

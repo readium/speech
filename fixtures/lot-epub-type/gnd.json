@@ -1,27 +1,34 @@
 {
   "role": [
-    "navigation",
-    "lot"
+    "body"
   ],
   "children": [
     {
       "role": [
-        "list"
+        "navigation",
+        "lot"
       ],
       "children": [
         {
           "role": [
-            "listItem"
+            "list"
           ],
-          "text": "Table 1. Lighthouse construction dates",
-          "textref": "appendix.xhtml#table1"
-        },
-        {
-          "role": [
-            "listItem"
-          ],
-          "text": "Table 2. Keeper staffing by decade",
-          "textref": "appendix.xhtml#table2"
+          "children": [
+            {
+              "textref": "appendix.xhtml#table1",
+              "text": "Table 1. Lighthouse construction dates",
+              "role": [
+                "listItem"
+              ]
+            },
+            {
+              "textref": "appendix.xhtml#table2",
+              "text": "Table 2. Keeper staffing by decade",
+              "role": [
+                "listItem"
+              ]
+            }
+          ]
         }
       ]
     }

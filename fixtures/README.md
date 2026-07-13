@@ -26,11 +26,13 @@ fixtures/
   ROLES_COVERAGE.md       flat list of every role covered and its fixtures (generated — do not hand-edit)
   <fixture-id>/
     meta.json             fixture metadata
-    input.html             the HTML input (a fragment or a full document, see meta.json.inputKind)
-    gnd.json               the expected Guided Navigation document produced from input.html
-    utterances.json        the expected ordered utterance list produced from gnd.json
-    utterances-skipped.json  only present when meta.json.skip is set — the expected
-                             utterance list when skipping the role(s) listed there
+    input.html             the input markup as HTML (a fragment or a full document, see meta.json.inputKind);
+                            or input.xhtml when the fixture's content is XHTML (all *-epub-type fixtures)
+    gnd.json               the expected Guided Navigation document produced from the input file
+    utterances.json        the expected utterance lists produced from gnd.json, forked by
+                            extraction format (plain/ssml), each with a baseline plus any
+                            option variants this fixture illustrates — see "Utterance
+                            extraction options" below
 ```
 
 `manifest.json` and `ROLES_COVERAGE.md` are both generated from the
@@ -76,29 +78,64 @@ Each fixture directory is fully self-contained and independently loadable.
   "role": "footnote",                     // the roles.md role name this fixture targets
   "rolesCovered": ["footnote", "noteref"],// every role name this fixture's markup exercises
   "sourceRef": "https://github.com/readium/guided-navigation/blob/main/roles.md",
-  "inputKind": "document",                // "fragment" | "document"
-  "skip": ["footnote"]                    // optional — see "Skippable roles" below
+  "inputKind": "document"                 // "fragment" | "document"
 }
 ```
 
-## Skippable roles
+## Utterance extraction options
 
-[roles.md#list-of-skippable-roles](https://github.com/readium/guided-navigation/blob/main/roles.md#list-of-skippable-roles)
-documents roles a *reader* may choose to skip past during playback (asides,
-footnotes, pagebreaks, tables of contents...) — they aren't omitted from
-utterance extraction by default, since every fixture's `utterances.json` is
-the unfiltered baseline. Skipping is instead a filter a consumer opts into
-at extraction time, given a set of roles to omit.
+Stage 2 (GND → utterances) takes options controlling *how* a fixed GND tree
+is turned into utterances — the tree itself never changes shape based on
+these; only the resulting utterance list does. `format` (`"plain"` or
+`"ssml"`) is required on every extraction, so `utterances.json` is forked
+into two top-level branches, `plain` and `ssml`, each holding:
 
-A fixture that exercises a skippable role may set `meta.json`'s optional
-`skip` field to the role(s) to test skipping for, and ship a sibling
-`utterances-skipped.json`: the exact `utterances.json` output, minus every
-node (and its whole subtree) whose role is in `skip`. Consuming this is the
-same as the base utterance check (see below), just with the role filter
-applied and compared against this file instead.
+```jsonc
+{
+  "plain": {
+    "base": [ /* the plain extraction with no other options */ ],
+    "variants": [
+      {
+        "options": { "skip": ["footnote"] },
+        "utterances": [ /* extraction with these options, plain format */ ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [ /* the ssml extraction with no other options */ ],
+    "variants": [ /* same options, ssml format */ ]
+  }
+}
+```
 
-Not every fixture needs this — only ones where skipping is illustrative
-(a footnote reached via noteref, a whole aside, a pagebreak announcement).
+`variants` entries never repeat `format` inside their own `options` — it's
+implied by which branch they live under. The other extraction options are:
+
+- `skip: GndRole[]` — omit a role (and its whole subtree) from the output,
+  e.g. so a reader can skip past footnotes or pagebreaks during playback.
+  See [roles.md#list-of-skippable-roles](https://github.com/readium/guided-navigation/blob/main/roles.md#list-of-skippable-roles)
+  for the roles.md-documented set a reader may choose to skip.
+- `contextualize: boolean` — whether synthesized announcements (pagebreak,
+  footnote start/end, and any role that gains one later) are spoken at all,
+  independent of the underlying content (which `skip` would instead omit
+  entirely). Default `true`.
+- `interruptSentence: boolean` — whether a pagebreak/footnote reference
+  that falls mid-sentence splits the sentence at that exact point, instead
+  of being spoken after the whole sentence finishes (the default).
+- `language: "never" | "block" | "inline"` — how a language shift between
+  adjacent text is rendered: dropped entirely, kept as separate
+  single-language utterances, or merged into one utterance with embedded
+  `<lang>` tags (`ssml` format only).
+
+Each `variants` entry is illustrative, not exhaustive — a fixture ships one
+only when that option actually changes its output, the same "not every
+fixture needs this" principle as fixture granularity in general (a
+footnote reached via noteref, a whole aside, a pagebreak announcement,
+...). Every fixture that ships an announcement-bearing base output should
+also illustrate `contextualize: false` — this isn't limited to today's
+`pagebreak`/`footnote`, since the announcement catalog is expected to grow
+to cover much of roles.md's structural vocabulary (chapters, headings,
+parts, credits, navigational lists...) over time.
 
 ## `epub:type` fixtures are full XHTML documents
 
@@ -107,7 +144,7 @@ the document root — it is **not** a plain-HTML attribute, and there is no
 "parse it as a literal attribute name in an HTML5 document" fallback: real
 EPUB reading systems parse content documents as namespace-aware XHTML. Every
 `*-epub-type` fixture therefore has `inputKind: "document"` and its
-`input.html` is a complete document:
+`input.xhtml` is a complete document:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -149,19 +186,14 @@ A flat JSON array, one entry per fixture:
     "dir": "footnote-epub-type",
     "role": "footnote",
     "description": "Footnote encoded via epub:type, referenced by a noteref",
-    "skip": ["footnote"],
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
-      "utterances": "utterances.json",
-      "utterancesSkipped": "utterances-skipped.json"
+      "utterances": "utterances.json"
     }
   }
 ]
 ```
-
-`skip` and `files.utterancesSkipped` are only present on fixtures that ship
-`utterances-skipped.json`.
 
 Any test runner, in any language, reads this one file to discover every
 fixture and resolve its file paths — no directory listing required.
@@ -169,24 +201,40 @@ fixture and resolve its file paths — no directory listing required.
 ## Consuming a fixture (any platform)
 
 1. Read `manifest.json`, iterate its entries.
-2. For each entry, read `input.html` and run it through your implementation
-   of stage 1 (HTML → GND) — compare the result to `gnd.json`.
+2. For each entry, read `files.input` (`input.html` or `input.xhtml`) and run
+   it through your implementation of stage 1 (HTML → GND) — compare the
+   result to `gnd.json`.
 3. Run the resulting GND document through your implementation of stage 2
-   (GND → utterances) — compare the result to `utterances.json`.
-4. If the entry has a `skip` field, run stage 2 again with that role set
-   passed as your implementation's skip filter — compare the result to
-   `utterances-skipped.json`.
+   (GND → utterances) twice, once with `{ format: "plain" }` and once with
+   `{ format: "ssml" }` — compare each to `utterances.json`'s corresponding
+   `plain.base`/`ssml.base`.
+4. For each entry in a branch's `variants` (if any), run stage 2 again with
+   that branch's format plus the variant's `options` — compare the result
+   to that variant's `utterances`.
 5. A fixture "passes" when every comparison it has files for matches exactly.
 
 ## Adding a new fixture
 
-1. `mkdir fixtures/<id>` and hand-write `input.html` for the specific
-   markup being tested.
-2. Hand-author `gnd.json` and `utterances.json` — there is no generator for
-   these; they are the ground truth implementations must match.
-3. If the fixture is illustrative for skipping (see "Skippable roles"
-   above), also hand-author `utterances-skipped.json` and set `meta.json`'s
-   `skip` field.
+1. `mkdir fixtures/<id>` and hand-write `input.html` (or `input.xhtml` for an
+   `epub:type` fixture, since `epub:type` requires XHTML — see above) for the
+   specific markup being tested.
+2. Hand-author `gnd.json` — there is no generator for it; it is the ground
+   truth implementations must match. This step still requires the same
+   scrutiny it always has: nothing here derives `gnd.json` from the input
+   file for you.
+3. Run `npm run generate-utterances` to derive `utterances.json` (both
+   format branches' `base`, plus whichever `variants` apply — see
+   "Utterance extraction options" above) from the `gnd.json` you just wrote,
+   using this package's own `extractUtterances()`. **Review the diff before
+   committing it** — `utterances.json` is still the ground truth other,
+   non-TypeScript implementations are meant to match, so generating it from
+   this repo's own implementation doesn't replace checking that what it
+   produced is actually correct for every option combination shown. This
+   also means: whenever `extractUtterances.ts`, `announcements.ts`, or
+   `skippableRoles` changes (a reworded announcement, a newly
+   contextualized role, a new skippable role), rerun this for every
+   affected fixture — hand-editing `utterances.json` to patch around a
+   wording change invites exactly the drift this script exists to prevent.
 4. Write `meta.json`.
 5. Run `npm run generate-fixtures-manifest` to regenerate `manifest.json`
    and `ROLES_COVERAGE.md` from what's now on disk.

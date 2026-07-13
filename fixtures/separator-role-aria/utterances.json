@@ -1,8 +1,22 @@
-[
-  {
-    "plain": "Section one."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Section one."
+      },
+      {
+        "plain": "Section two."
+      }
+    ]
   },
-  {
-    "plain": "Section two."
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Section one."
+      },
+      {
+        "ssml": "Section two."
+      }
+    ]
   }
-]
+}

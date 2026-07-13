@@ -20,19 +20,23 @@ function sortKeysDeep(value: unknown): unknown {
 }
 
 for (const entry of manifest) {
-  test(`fixture "${entry.id}": extractUtterances matches utterances.json`, (t) => {
-    const fixture = loadFixture(entry.id);
-    const gnd = parseMarkup(fixture.inputHtml);
-    const actual = extractUtterances(gnd);
-    t.deepEqual(sortKeysDeep(actual), sortKeysDeep(fixture.utterances));
-  });
+  const fixture = loadFixture(entry.id);
 
-  if (entry.skip) {
-    test(`fixture "${entry.id}": extractUtterances with skip matches utterances-skipped.json`, (t) => {
-      const fixture = loadFixture(entry.id);
+  for (const format of ["plain", "ssml"] as const) {
+    const branch = fixture.utterances[format];
+
+    test(`fixture "${entry.id}": extractUtterances matches utterances.json's "${format}" base`, (t) => {
       const gnd = parseMarkup(fixture.inputHtml);
-      const actual = extractUtterances(gnd, { skip: entry.skip });
-      t.deepEqual(sortKeysDeep(actual), sortKeysDeep(fixture.utterancesSkipped));
+      const actual = extractUtterances(gnd, { format });
+      t.deepEqual(sortKeysDeep(actual), sortKeysDeep(branch.base));
     });
+
+    for (const variant of branch.variants ?? []) {
+      test(`fixture "${entry.id}": extractUtterances matches utterances.json's "${format}" variant ${JSON.stringify(variant.options)}`, (t) => {
+        const gnd = parseMarkup(fixture.inputHtml);
+        const actual = extractUtterances(gnd, { format, ...variant.options });
+        t.deepEqual(sortKeysDeep(actual), sortKeysDeep(variant.utterances));
+      });
+    }
   }
 }

@@ -1,5 +1,46 @@
-[
-  {
-    "plain": "A lighthouse is a compromise with the sea. — Anonymous"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Epigraph."
+      },
+      {
+        "plain": "A lighthouse is a compromise with the sea. — Anonymous"
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "A lighthouse is a compromise with the sea. — Anonymous"
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Epigraph."
+      },
+      {
+        "ssml": "A lighthouse is a compromise with the sea. — Anonymous"
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "A lighthouse is a compromise with the sea. — Anonymous"
+          }
+        ]
+      }
+    ]
   }
-]
+}

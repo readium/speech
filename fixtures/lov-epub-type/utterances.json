@@ -1,8 +1,80 @@
-[
-  {
-    "plain": "Video 1. Lamp mechanism in motion"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the list of video clips."
+      },
+      {
+        "plain": "Video 1. Lamp mechanism in motion"
+      },
+      {
+        "plain": "Video 2. Automation retrofit"
+      },
+      {
+        "plain": "End of the list of video clips."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "skip": [
+            "lov"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "Video 1. Lamp mechanism in motion"
+          },
+          {
+            "plain": "Video 2. Automation retrofit"
+          }
+        ]
+      }
+    ]
   },
-  {
-    "plain": "Video 2. Automation retrofit"
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the list of video clips."
+      },
+      {
+        "ssml": "Video 1. Lamp mechanism in motion"
+      },
+      {
+        "ssml": "Video 2. Automation retrofit"
+      },
+      {
+        "ssml": "End of the list of video clips."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "skip": [
+            "lov"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "Video 1. Lamp mechanism in motion"
+          },
+          {
+            "ssml": "Video 2. Automation retrofit"
+          }
+        ]
+      }
+    ]
   }
-]
+}

@@ -1,11 +1,92 @@
-[
-  {
-    "plain": "Chapter One"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the table of contents."
+      },
+      {
+        "plain": "Chapter One"
+      },
+      {
+        "plain": "Chapter Two"
+      },
+      {
+        "plain": "Chapter Three"
+      },
+      {
+        "plain": "End of the table of contents."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "skip": [
+            "toc"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "Chapter One"
+          },
+          {
+            "plain": "Chapter Two"
+          },
+          {
+            "plain": "Chapter Three"
+          }
+        ]
+      }
+    ]
   },
-  {
-    "plain": "Chapter Two"
-  },
-  {
-    "plain": "Chapter Three"
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the table of contents."
+      },
+      {
+        "ssml": "Chapter One"
+      },
+      {
+        "ssml": "Chapter Two"
+      },
+      {
+        "ssml": "Chapter Three"
+      },
+      {
+        "ssml": "End of the table of contents."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "skip": [
+            "toc"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "Chapter One"
+          },
+          {
+            "ssml": "Chapter Two"
+          },
+          {
+            "ssml": "Chapter Three"
+          }
+        ]
+      }
+    ]
   }
-]
+}

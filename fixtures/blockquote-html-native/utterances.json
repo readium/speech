@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "To be, or not to be, that is the question."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "To be, or not to be, that is the question."
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "To be, or not to be, that is the question."
+      }
+    ]
   }
-]
+}

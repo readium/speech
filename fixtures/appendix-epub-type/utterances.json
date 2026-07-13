@@ -1,5 +1,52 @@
-[
-  {
-    "plain": "A table of lighthouse construction dates referenced in the text."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the appendix."
+      },
+      {
+        "plain": "A table of lighthouse construction dates referenced in the text."
+      },
+      {
+        "plain": "End of the appendix."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "A table of lighthouse construction dates referenced in the text."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the appendix."
+      },
+      {
+        "ssml": "A table of lighthouse construction dates referenced in the text."
+      },
+      {
+        "ssml": "End of the appendix."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "A table of lighthouse construction dates referenced in the text."
+          }
+        ]
+      }
+    ]
   }
-]
+}

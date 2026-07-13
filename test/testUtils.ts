@@ -1,4 +1,4 @@
-import { readFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
@@ -20,12 +20,10 @@ export interface FixtureManifestEntry {
   dir: string;
   role: string;
   description: string;
-  skip?: string[];
   files: {
     input: string;
     gnd: string;
     utterances: string;
-    utterancesSkipped?: string;
   };
 }
 
@@ -36,15 +34,33 @@ export interface FixtureMeta {
   rolesCovered: string[];
   sourceRef: string;
   inputKind: "fragment" | "document";
-  skip?: string[];
+}
+
+// One extraction-options combination and its expected output, beyond the
+// format branch's own `base` (no extra options).
+export interface UtterancesVariant {
+  options: Record<string, unknown>;
+  utterances: unknown[];
+}
+
+export interface UtterancesBranch {
+  base: unknown[];
+  variants?: UtterancesVariant[];
+}
+
+// `utterances.json`'s shape: format is the fork (see fixtures/README.md),
+// each branch holding its own `base` plus whichever option variants that
+// fixture illustrates.
+export interface UtterancesFile {
+  plain: UtterancesBranch;
+  ssml: UtterancesBranch;
 }
 
 export interface LoadedFixture {
   meta: FixtureMeta;
   inputHtml: string;
   gnd: unknown;
-  utterances: unknown[];
-  utterancesSkipped?: unknown[];
+  utterances: UtterancesFile;
 }
 
 const fixturesDir = join(__dirname, "../fixtures");
@@ -62,11 +78,9 @@ export function loadManifest(): FixtureManifestEntry[] {
 export function loadFixture(id: string): LoadedFixture {
   const dir = join(fixturesDir, id);
   const meta: FixtureMeta = JSON.parse(readFileSync(join(dir, "meta.json"), "utf-8"));
-  const inputHtml = readFileSync(join(dir, "input.html"), "utf-8");
+  const inputFile = existsSync(join(dir, "input.xhtml")) ? "input.xhtml" : "input.html";
+  const inputHtml = readFileSync(join(dir, inputFile), "utf-8");
   const gnd = JSON.parse(readFileSync(join(dir, "gnd.json"), "utf-8"));
-  const utterances = JSON.parse(readFileSync(join(dir, "utterances.json"), "utf-8"));
-  const utterancesSkipped = meta.skip
-    ? JSON.parse(readFileSync(join(dir, "utterances-skipped.json"), "utf-8"))
-    : undefined;
-  return { meta, inputHtml, gnd, utterances, utterancesSkipped };
+  const utterances: UtterancesFile = JSON.parse(readFileSync(join(dir, "utterances.json"), "utf-8"));
+  return { meta, inputHtml, gnd, utterances };
 }

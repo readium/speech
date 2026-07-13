@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "A supporting note related to the main content."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "A supporting note related to the main content."
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "A supporting note related to the main content."
+      }
+    ]
   }
-]
+}

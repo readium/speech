@@ -1,5 +1,52 @@
-[
-  {
-    "plain": "The lamp still turns, though no one climbs the stairs anymore."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the epilogue."
+      },
+      {
+        "plain": "The lamp still turns, though no one climbs the stairs anymore."
+      },
+      {
+        "plain": "End of the epilogue."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "The lamp still turns, though no one climbs the stairs anymore."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the epilogue."
+      },
+      {
+        "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+      },
+      {
+        "ssml": "End of the epilogue."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+          }
+        ]
+      }
+    ]
   }
-]
+}

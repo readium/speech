@@ -1,7 +1,14 @@
 {
   "role": [
-    "section",
-    "appendix"
+    "body"
   ],
-  "text": "A table of lighthouse construction dates referenced in the text."
+  "children": [
+    {
+      "text": "A table of lighthouse construction dates referenced in the text.",
+      "role": [
+        "section",
+        "appendix"
+      ]
+    }
+  ]
 }

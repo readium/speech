@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "Chapter One"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Chapter One"
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Chapter One"
+      }
+    ]
   }
-]
+}

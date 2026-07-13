@@ -1,5 +1,52 @@
-[
-  {
-    "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the acknowledgments."
+      },
+      {
+        "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
+      },
+      {
+        "plain": "End of the acknowledgments."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the acknowledgments."
+      },
+      {
+        "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
+      },
+      {
+        "ssml": "End of the acknowledgments."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
+          }
+        ]
+      }
+    ]
   }
-]
+}

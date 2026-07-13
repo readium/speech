@@ -1,5 +1,52 @@
-[
-  {
-    "plain": "lighthouse"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the glossary."
+      },
+      {
+        "plain": "lighthouse"
+      },
+      {
+        "plain": "End of the glossary."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "lighthouse"
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the glossary."
+      },
+      {
+        "ssml": "lighthouse"
+      },
+      {
+        "ssml": "End of the glossary."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "lighthouse"
+          }
+        ]
+      }
+    ]
   }
-]
+}

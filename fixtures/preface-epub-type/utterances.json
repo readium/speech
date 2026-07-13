@@ -1,5 +1,52 @@
-[
-  {
-    "plain": "This edition adds a chapter on automation."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the preface."
+      },
+      {
+        "plain": "This edition adds a chapter on automation."
+      },
+      {
+        "plain": "End of the preface."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "This edition adds a chapter on automation."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the preface."
+      },
+      {
+        "ssml": "This edition adds a chapter on automation."
+      },
+      {
+        "ssml": "End of the preface."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "This edition adds a chapter on automation."
+          }
+        ]
+      }
+    ]
   }
-]
+}

@@ -1,13 +1,20 @@
 {
   "role": [
-    "glossary"
+    "body"
   ],
   "children": [
     {
       "role": [
-        "definition"
+        "glossary"
       ],
-      "text": "A structure that contains an enumeration of related content items."
+      "children": [
+        {
+          "text": "A structure that contains an enumeration of related content items.",
+          "role": [
+            "definition"
+          ]
+        }
+      ]
     }
   ]
 }

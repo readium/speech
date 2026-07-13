@@ -1,5 +1,90 @@
-[
-  {
-    "plain": "The lamp still turns, though no one climbs the stairs anymore."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the aside."
+      },
+      {
+        "plain": "Pull quote."
+      },
+      {
+        "plain": "The lamp still turns, though no one climbs the stairs anymore."
+      },
+      {
+        "plain": "End of the aside."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "skip": [
+            "aside"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "skip": [
+            "pullquote"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "The lamp still turns, though no one climbs the stairs anymore."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the aside."
+      },
+      {
+        "ssml": "Pull quote."
+      },
+      {
+        "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+      },
+      {
+        "ssml": "End of the aside."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "skip": [
+            "aside"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "skip": [
+            "pullquote"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+          }
+        ]
+      }
+    ]
   }
-]
+}

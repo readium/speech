@@ -1,6 +1,53 @@
-[
-  {
-    "ssml": "Start <lang xml:lang=\"fr\">middle </lang><lang xml:lang=\"es\">nested</lang><lang xml:lang=\"fr\"> end</lang> after.",
-    "language": "en"
+{
+  "plain": {
+    "base": [
+      {
+        "language": "en",
+        "plain": "Start middle nested end after."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "language": "never"
+        },
+        "utterances": [
+          {
+            "plain": "Start middle nested end after."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "language": "en",
+        "ssml": "Start <lang xml:lang=\"fr\">middle </lang><lang xml:lang=\"es\">nested</lang><lang xml:lang=\"fr\"> end</lang> after."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "language": "never"
+        },
+        "utterances": [
+          {
+            "ssml": "Start middle nested end after."
+          }
+        ]
+      },
+      {
+        "options": {
+          "language": "block"
+        },
+        "utterances": [
+          {
+            "language": "en",
+            "ssml": "Start middle nested end after."
+          }
+        ]
+      }
+    ]
   }
-]
+}

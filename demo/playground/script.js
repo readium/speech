@@ -8,6 +8,11 @@ const gndBadgeEl = document.getElementById("gnd-badge");
 const utterancesExpectedEl = document.getElementById("utterances-expected");
 const utterancesActualEl = document.getElementById("utterances-actual");
 const utterancesBadgeEl = document.getElementById("utterances-badge");
+const optionSkipEl = document.getElementById("option-skip");
+const optionLanguageEl = document.getElementById("option-language");
+const optionInterruptEl = document.getElementById("option-interrupt");
+const optionContextualizeEl = document.getElementById("option-contextualize");
+const formatRadios = [...document.querySelectorAll('input[name="format"]')];
 
 // Feature-detect the GND converter and the utterance extractor, if/when
 // @readium/speech exports them.
@@ -15,14 +20,58 @@ let converter = null;
 let utteranceExtractor = null;
 try {
   const mod = await import("../../build/index.js");
-  if (typeof mod.convert === "function") {
+  if (typeof mod.parseMarkup === "function") {
     converter = mod;
   }
   if (typeof mod.extractUtterances === "function") {
     utteranceExtractor = mod;
   }
-} catch {
-  // build/index.js may not export these yet; that's expected pre-implementation.
+  if (Array.isArray(mod.skippableRoles)) {
+    for (const role of mod.skippableRoles) {
+      const option = document.createElement("option");
+      option.value = role;
+      option.textContent = role;
+      optionSkipEl.appendChild(option);
+    }
+    optionSkipEl.addEventListener("change", () => renderUtterances());
+  }
+} catch (err) {
+  // build/index.js may not exist yet (run `npm run build`) or may not
+  // export these yet; logged rather than silently swallowed so a real
+  // failure here doesn't just look like an empty options list.
+  console.error("Failed to load @readium/speech build/index.js:", err);
+}
+
+// The extraction options currently selected in the toolbar, beyond the
+// required `format` — mirrors exactly how fixtures/*/utterances.json's
+// `variants[].options` are shaped, so it can be compared against them
+// directly (see `matchingExpected`).
+function currentExtraOptions() {
+  const extra = {};
+  const skip = optionSkipEl
+    ? [...optionSkipEl.selectedOptions].map((option) => option.value)
+    : [];
+  if (skip.length > 0) extra.skip = skip;
+  if (optionLanguageEl?.value) extra.language = optionLanguageEl.value;
+  if (optionInterruptEl?.checked) extra.interruptSentence = true;
+  if (optionContextualizeEl && !optionContextualizeEl.checked) extra.contextualize = false;
+  return extra;
+}
+
+function currentFormat() {
+  return formatRadios.find((r) => r.checked)?.value ?? "plain";
+}
+
+// Finds the fixture's expected output for the exact combination of options
+// currently selected: the branch's `base` when no extra options are set, or
+// the `variants` entry whose `options` deep-equals the selection. Returns
+// `undefined` when this fixture doesn't illustrate that combination.
+function matchingExpected(utterances, format, extraOptions) {
+  const branch = utterances[format];
+  if (!branch) return undefined;
+  if (Object.keys(extraOptions).length === 0) return branch.base;
+  const variant = (branch.variants ?? []).find((v) => deepEqual(v.options, extraOptions));
+  return variant?.utterances;
 }
 
 const manifest = await fetch("../../fixtures/manifest.json").then((r) => r.json());
@@ -138,7 +187,7 @@ function withSchemaKeyOrder(value) {
 
 // gnd.json stores a single fixture's expected top-level item(s) directly —
 // a bare object for one item, or a role-less/id-less `{children: [...]}` for
-// several siblings — while `convert()` always returns an array. This maps
+// several siblings — while `parseMarkup()` always returns an array. This maps
 // the stored file format onto that array shape for comparison.
 function expectedTopLevel(gnd) {
   if (gnd && typeof gnd === "object" && !Array.isArray(gnd)) {
@@ -148,16 +197,50 @@ function expectedTopLevel(gnd) {
   return [gnd];
 }
 
-// Inverse of expectedTopLevel: reshapes convert()'s array output into the
-// same bare-object/`{children}` convention gnd.json is stored in, so the
-// "actual" pane displays in the fixture's own reference shape.
+// Inverse of expectedTopLevel: reshapes parseMarkup()'s array output into
+// the same bare-object/`{children}` convention gnd.json is stored in, so
+// the "actual" pane displays in the fixture's own reference shape.
 function toStoredShape(items) {
   return items.length === 1 ? items[0] : { children: items };
 }
 
 function setBadge(el, state) {
-  el.textContent = state === "pass" ? "pass" : state === "fail" ? "fail" : "not implemented yet";
+  el.textContent =
+    state === "pass" ? "pass" : state === "fail" ? "fail" : state === "none" ? "no fixture data for this combination" : "not implemented yet";
   el.className = `badge ${state}`;
+}
+
+// Cached across options-toolbar changes, so toggling an option re-runs
+// extraction without refetching the fixture's files.
+let currentFixture = null;
+
+function renderUtterances() {
+  if (!currentFixture) return;
+  const { gndActual, utterances } = currentFixture;
+  const format = currentFormat();
+  const extraOptions = currentExtraOptions();
+  const expected = matchingExpected(utterances, format, extraOptions);
+
+  utterancesExpectedEl.textContent =
+    expected !== undefined ? JSON.stringify(expected, null, 2) : "(none — this fixture doesn't illustrate this combination of options)";
+
+  if (!utteranceExtractor || gndActual === undefined) {
+    utterancesActualEl.textContent = "";
+    setBadge(utterancesBadgeEl, "pending");
+    return;
+  }
+
+  try {
+    const actualUtterances = utteranceExtractor.extractUtterances(gndActual, { format, ...extraOptions });
+    utterancesActualEl.textContent = JSON.stringify(actualUtterances, null, 2);
+    setBadge(
+      utterancesBadgeEl,
+      expected === undefined ? "none" : deepEqual(actualUtterances, expected) ? "pass" : "fail",
+    );
+  } catch (err) {
+    utterancesActualEl.textContent = String(err);
+    setBadge(utterancesBadgeEl, "fail");
+  }
 }
 
 async function selectFixture(id) {
@@ -189,42 +272,30 @@ async function selectFixture(id) {
 
   inputHtmlEl.textContent = inputHtml;
   gndExpectedEl.textContent = JSON.stringify(withSchemaKeyOrder(gnd), null, 2);
-  utterancesExpectedEl.textContent = JSON.stringify(utterances, null, 2);
 
+  let gndActual;
   if (!converter) {
     gndActualEl.textContent = "";
     setBadge(gndBadgeEl, "pending");
-    utterancesActualEl.textContent = "";
-    setBadge(utterancesBadgeEl, "pending");
-    return;
+  } else {
+    try {
+      gndActual = converter.parseMarkup(inputHtml);
+      gndActualEl.textContent = JSON.stringify(withSchemaKeyOrder(toStoredShape(gndActual)), null, 2);
+      setBadge(gndBadgeEl, deepEqual(gndActual, expectedTopLevel(gnd)) ? "pass" : "fail");
+    } catch (err) {
+      gndActualEl.textContent = String(err);
+      setBadge(gndBadgeEl, "fail");
+    }
   }
 
-  let actual;
-  try {
-    actual = converter.convert(inputHtml);
-    gndActualEl.textContent = JSON.stringify(withSchemaKeyOrder(toStoredShape(actual)), null, 2);
-    setBadge(gndBadgeEl, deepEqual(actual, expectedTopLevel(gnd)) ? "pass" : "fail");
-  } catch (err) {
-    gndActualEl.textContent = String(err);
-    setBadge(gndBadgeEl, "fail");
-  }
-
-  if (!utteranceExtractor || actual === undefined) {
-    utterancesActualEl.textContent = "";
-    setBadge(utterancesBadgeEl, "pending");
-    return;
-  }
-
-  try {
-    const actualUtterances = utteranceExtractor.extractUtterances(actual);
-    utterancesActualEl.textContent = JSON.stringify(actualUtterances, null, 2);
-    setBadge(utterancesBadgeEl, deepEqual(actualUtterances, utterances) ? "pass" : "fail");
-  } catch (err) {
-    utterancesActualEl.textContent = String(err);
-    setBadge(utterancesBadgeEl, "fail");
-  }
+  currentFixture = { gndActual, utterances };
+  renderUtterances();
 }
 
 filterInput.addEventListener("input", renderList);
+for (const radio of formatRadios) radio.addEventListener("change", renderUtterances);
+optionLanguageEl?.addEventListener("change", renderUtterances);
+optionInterruptEl?.addEventListener("change", renderUtterances);
+optionContextualizeEl?.addEventListener("change", renderUtterances);
 
 renderList();

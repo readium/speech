@@ -24,7 +24,8 @@ const manifest = fixtureIds.map((id) => {
   const dir = path.join(FIXTURES_DIR, id);
   const meta = JSON.parse(fs.readFileSync(path.join(dir, "meta.json"), "utf-8"));
 
-  for (const file of ["input.html", "gnd.json", "utterances.json"]) {
+  const inputFile = fs.existsSync(path.join(dir, "input.xhtml")) ? "input.xhtml" : "input.html";
+  for (const file of [inputFile, "gnd.json", "utterances.json"]) {
     if (!fs.existsSync(path.join(dir, file))) {
       throw new Error(`fixtures/${id} is missing ${file}`);
     }
@@ -32,26 +33,18 @@ const manifest = fixtureIds.map((id) => {
   if (meta.id !== id) {
     throw new Error(`fixtures/${id}/meta.json has id "${meta.id}", expected "${id}"`);
   }
-  if (meta.skip && !fs.existsSync(path.join(dir, "utterances-skipped.json"))) {
-    throw new Error(`fixtures/${id} sets meta.skip but is missing utterances-skipped.json`);
-  }
 
-  const entry = {
+  return {
     id,
     dir: id,
     role: meta.role,
     description: meta.description,
     files: {
-      input: "input.html",
+      input: inputFile,
       gnd: "gnd.json",
       utterances: "utterances.json",
     },
   };
-  if (meta.skip) {
-    entry.skip = meta.skip;
-    entry.files.utterancesSkipped = "utterances-skipped.json";
-  }
-  return entry;
 });
 
 const ids = manifest.map((e) => e.id);

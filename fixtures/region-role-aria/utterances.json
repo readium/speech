@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "A named region of interest within the page."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "A named region of interest within the page."
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "A named region of interest within the page."
+      }
+    ]
   }
-]
+}

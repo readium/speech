@@ -1,6 +1,42 @@
-[
-  {
-    "plain": "Bonjour, comment allez-vous ?",
-    "language": "fr"
+{
+  "plain": {
+    "base": [
+      {
+        "language": "fr",
+        "plain": "Bonjour, comment allez-vous ?"
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "language": "never"
+        },
+        "utterances": [
+          {
+            "plain": "Bonjour, comment allez-vous ?"
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "language": "fr",
+        "ssml": "Bonjour, comment allez-vous ?"
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "language": "never"
+        },
+        "utterances": [
+          {
+            "ssml": "Bonjour, comment allez-vous ?"
+          }
+        ]
+      }
+    ]
   }
-]
+}

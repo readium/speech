@@ -606,17 +606,29 @@ export class Converter {
   }
 }
 
+// A DOM <body> only counts as real content when the input actually wrote
+// one — text/html parsing synthesizes a <body> around any fragment
+// regardless of what was passed in, and that synthesized wrapper was
+// never "in the input" just because the parser added it.
+const BODY_TAG_RE = /<body[\s>]/i;
+
 /**
- * Converts the children of an HTML or XHTML fragment or document's <body>
- * into Guided Navigation objects.
+ * Converts an HTML or XHTML fragment or document into Guided Navigation
+ * objects, reflecting exactly the input it's given: a real, author-written
+ * <body> becomes its own role: ["body"] node like any other element; a
+ * <body> synthesized only by text/html parsing around a bodyless fragment
+ * is not content and is skipped through; a bodyless XHTML fragment's root
+ * element is itself the content.
  */
 export function parseMarkup(input: string, mediaType?: GndMediaType): GndNode[] {
   const mt = mediaType ?? sniffMediaType(input);
   const doc = new DOMParser().parseFromString(input, mt);
-  const body = doc.querySelector("body");
-  const root = body ?? doc.documentElement;
-
   const converter = new Converter(mt === "application/xhtml+xml");
-  converter.convertChildren(root);
+  const body = doc.querySelector("body");
+  if (body && !BODY_TAG_RE.test(input)) {
+    converter.convertChildren(body);
+  } else {
+    converter.convert(body ?? doc.documentElement);
+  }
   return converter.result();
 }

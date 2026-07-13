@@ -1,5 +1,46 @@
-[
-  {
-    "plain": "Caution: the tower stairs are uneven."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Notice."
+      },
+      {
+        "plain": "Caution: the tower stairs are uneven."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "Caution: the tower stairs are uneven."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Notice."
+      },
+      {
+        "ssml": "Caution: the tower stairs are uneven."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "Caution: the tower stairs are uneven."
+          }
+        ]
+      }
+    ]
   }
-]
+}

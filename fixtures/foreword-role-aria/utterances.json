@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "A respected maritime historian introduces this account of the coastline's lighthouses."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "A respected maritime historian introduces this account of the coastline's lighthouses."
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "A respected maritime historian introduces this account of the coastline's lighthouses."
+      }
+    ]
   }
-]
+}

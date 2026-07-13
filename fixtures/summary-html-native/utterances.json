@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "Click to expand"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Click to expand"
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Click to expand"
+      }
+    ]
   }
-]
+}

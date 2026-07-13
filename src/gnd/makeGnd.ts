@@ -9,8 +9,5 @@ export type { GndMediaType };
  * document, following https://github.com/readium/guided-navigation.
  */
 export function makeGnd(input: string, mediaType?: GndMediaType): GndDocument {
-  const children = parseMarkup(input, mediaType);
-  const body: GndDocument["guided"][number] = { role: ["body"] };
-  if (children.length > 0) body.children = children;
-  return { guided: [body] };
+  return { guided: parseMarkup(input, mediaType) };
 }

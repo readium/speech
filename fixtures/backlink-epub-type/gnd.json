@@ -1,7 +1,14 @@
 {
   "role": [
-    "backlink"
+    "body"
   ],
-  "text": "Return to reference",
-  "textref": "#ref1"
+  "children": [
+    {
+      "textref": "#ref1",
+      "text": "Return to reference",
+      "role": [
+        "backlink"
+      ]
+    }
+  ]
 }

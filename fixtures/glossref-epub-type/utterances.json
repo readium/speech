@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "See glossary: Fresnel lens"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "See glossary: Fresnel lens"
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "See glossary: Fresnel lens"
+      }
+    ]
   }
-]
+}

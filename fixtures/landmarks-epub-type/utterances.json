@@ -1,11 +1,92 @@
-[
-  {
-    "plain": "Cover"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the landmarks."
+      },
+      {
+        "plain": "Cover"
+      },
+      {
+        "plain": "Table of Contents"
+      },
+      {
+        "plain": "Start of Content"
+      },
+      {
+        "plain": "End of the landmarks."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "skip": [
+            "landmarks"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "Cover"
+          },
+          {
+            "plain": "Table of Contents"
+          },
+          {
+            "plain": "Start of Content"
+          }
+        ]
+      }
+    ]
   },
-  {
-    "plain": "Table of Contents"
-  },
-  {
-    "plain": "Start of Content"
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the landmarks."
+      },
+      {
+        "ssml": "Cover"
+      },
+      {
+        "ssml": "Table of Contents"
+      },
+      {
+        "ssml": "Start of Content"
+      },
+      {
+        "ssml": "End of the landmarks."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "skip": [
+            "landmarks"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "Cover"
+          },
+          {
+            "ssml": "Table of Contents"
+          },
+          {
+            "ssml": "Start of Content"
+          }
+        ]
+      }
+    ]
   }
-]
+}

@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "lighthouse"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "lighthouse"
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "lighthouse"
+      }
+    ]
   }
-]
+}

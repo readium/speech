@@ -1,5 +1,46 @@
-[
-  {
-    "plain": "Cover photograph by A. Keeper."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Credit."
+      },
+      {
+        "plain": "Cover photograph by A. Keeper."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "Cover photograph by A. Keeper."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Credit."
+      },
+      {
+        "ssml": "Cover photograph by A. Keeper."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "Cover photograph by A. Keeper."
+          }
+        ]
+      }
+    ]
   }
-]
+}

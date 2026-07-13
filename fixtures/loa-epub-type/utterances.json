@@ -1,8 +1,80 @@
-[
-  {
-    "plain": "Audio 1. Foghorn recording"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Start of the list of audio clips."
+      },
+      {
+        "plain": "Audio 1. Foghorn recording"
+      },
+      {
+        "plain": "Audio 2. Keeper's log reading"
+      },
+      {
+        "plain": "End of the list of audio clips."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "skip": [
+            "loa"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "Audio 1. Foghorn recording"
+          },
+          {
+            "plain": "Audio 2. Keeper's log reading"
+          }
+        ]
+      }
+    ]
   },
-  {
-    "plain": "Audio 2. Keeper's log reading"
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Start of the list of audio clips."
+      },
+      {
+        "ssml": "Audio 1. Foghorn recording"
+      },
+      {
+        "ssml": "Audio 2. Keeper's log reading"
+      },
+      {
+        "ssml": "End of the list of audio clips."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "skip": [
+            "loa"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "Audio 1. Foghorn recording"
+          },
+          {
+            "ssml": "Audio 2. Keeper's log reading"
+          }
+        ]
+      }
+    ]
   }
-]
+}

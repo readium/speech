@@ -1,5 +1,46 @@
-[
-  {
-    "plain": "Tip: wind the mechanism fully before dusk."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Tip."
+      },
+      {
+        "plain": "Tip: wind the mechanism fully before dusk."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "Tip: wind the mechanism fully before dusk."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Tip."
+      },
+      {
+        "ssml": "Tip: wind the mechanism fully before dusk."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "Tip: wind the mechanism fully before dusk."
+          }
+        ]
+      }
+    ]
   }
-]
+}

@@ -1,34 +1,41 @@
 {
   "role": [
-    "navigation",
-    "toc"
+    "body"
   ],
   "children": [
     {
       "role": [
-        "list"
+        "navigation",
+        "toc"
       ],
       "children": [
         {
           "role": [
-            "listItem"
+            "list"
           ],
-          "text": "Chapter One",
-          "textref": "chapter1.xhtml"
-        },
-        {
-          "role": [
-            "listItem"
-          ],
-          "text": "Chapter Two",
-          "textref": "chapter2.xhtml"
-        },
-        {
-          "role": [
-            "listItem"
-          ],
-          "text": "Chapter Three",
-          "textref": "chapter3.xhtml"
+          "children": [
+            {
+              "textref": "chapter1.xhtml",
+              "text": "Chapter One",
+              "role": [
+                "listItem"
+              ]
+            },
+            {
+              "textref": "chapter2.xhtml",
+              "text": "Chapter Two",
+              "role": [
+                "listItem"
+              ]
+            },
+            {
+              "textref": "chapter3.xhtml",
+              "text": "Chapter Three",
+              "role": [
+                "listItem"
+              ]
+            }
+          ]
         }
       ]
     }

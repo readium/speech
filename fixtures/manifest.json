@@ -5,7 +5,7 @@
     "role": "abstract",
     "description": "abstract role via epub:type=\"abstract\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -27,7 +27,7 @@
     "role": "acknowledgments",
     "description": "acknowledgments role via epub:type=\"acknowledgments\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -49,7 +49,7 @@
     "role": "afterword",
     "description": "afterword role via epub:type=\"afterword\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -71,7 +71,7 @@
     "role": "appendix",
     "description": "appendix role via epub:type=\"appendix\" on a <section>",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -106,12 +106,8 @@
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
-      "utterances": "utterances.json",
-      "utterancesSkipped": "utterances-skipped.json"
-    },
-    "skip": [
-      "aside"
-    ]
+      "utterances": "utterances.json"
+    }
   },
   {
     "id": "audio-html-native",
@@ -130,7 +126,7 @@
     "role": "backlink",
     "description": "backlink role via epub:type=\"backlink\" on an <a href>",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -152,7 +148,7 @@
     "role": "bibliography",
     "description": "A bibliography list of cited references, via epub:type=\"bibliography\" on a <section>",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -174,7 +170,7 @@
     "role": "biblioref",
     "description": "biblioref role via epub:type=\"biblioref\" on an <a href>",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -218,7 +214,7 @@
     "role": "chapter",
     "description": "chapter role via epub:type=\"chapter\", containing a heading",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -240,7 +236,7 @@
     "role": "colophon",
     "description": "colophon role via epub:type=\"colophon\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -273,7 +269,7 @@
     "role": "conclusion",
     "description": "conclusion role via epub:type=\"conclusion\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -295,7 +291,7 @@
     "role": "cover",
     "description": "cover role via epub:type=\"cover\" on a <section> wrapping the cover image",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -317,7 +313,7 @@
     "role": "credit",
     "description": "credit role via epub:type=\"credit\" on a <span>",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -339,7 +335,7 @@
     "role": "credits",
     "description": "A collection of credits, via epub:type=\"credits\"; each entry is a <span epub:type=\"credit\">",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -361,7 +357,7 @@
     "role": "dedication",
     "description": "dedication role via epub:type=\"dedication\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -383,7 +379,7 @@
     "role": "definition",
     "description": "definition role via epub:type=\"glossdef\" on a <dd>, nested in a <dl epub:type=\"glossary\">",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -427,7 +423,7 @@
     "role": "endnotes",
     "description": "A collection of endnotes, via epub:type=\"endnotes\" on a <section>; each entry is an <aside epub:type=\"footnote\">",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -449,7 +445,7 @@
     "role": "epigraph",
     "description": "epigraph role via epub:type=\"epigraph\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -471,7 +467,7 @@
     "role": "epilogue",
     "description": "epilogue role via epub:type=\"epilogue\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -493,7 +489,7 @@
     "role": "errata",
     "description": "errata role via epub:type=\"errata\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -515,7 +511,7 @@
     "role": "example",
     "description": "example role via epub:type=\"example\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -537,7 +533,7 @@
     "role": "figure",
     "description": "A figure containing an image, with no caption, via epub:type=\"figure\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -603,14 +599,10 @@
     "role": "footnote",
     "description": "A paragraph with one footnote reference and its footnote content, via epub:type",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
-      "utterances": "utterances.json",
-      "utterancesSkipped": "utterances-skipped.json"
-    },
-    "skip": [
-      "footnote"
-    ]
+      "utterances": "utterances.json"
+    }
   },
   {
     "id": "footnote-role-aria",
@@ -620,12 +612,8 @@
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
-      "utterances": "utterances.json",
-      "utterancesSkipped": "utterances-skipped.json"
-    },
-    "skip": [
-      "footnote"
-    ]
+      "utterances": "utterances.json"
+    }
   },
   {
     "id": "foreword-epub-type",
@@ -633,7 +621,7 @@
     "role": "foreword",
     "description": "foreword role via epub:type=\"foreword\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -655,7 +643,7 @@
     "role": "glossary",
     "description": "A glossary of term/definition entries via epub:type=\"glossary\" on a <dl>, with term/definition as its directly owned elements",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -677,7 +665,7 @@
     "role": "glossref",
     "description": "glossref role via epub:type=\"glossref\" on an <a href>",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -776,7 +764,7 @@
     "role": "index",
     "description": "An index navigation list, containing links to key subjects and names, via epub:type",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -798,7 +786,7 @@
     "role": "introduction",
     "description": "introduction role via epub:type=\"introduction\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -820,7 +808,7 @@
     "role": "landmarks",
     "description": "A landmarks navigation list, containing links to the cover, table of contents, and start of content",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -853,7 +841,7 @@
     "role": "loa",
     "description": "A list-of-audio-clips navigation list, containing links to audio clips in the work",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -864,7 +852,7 @@
     "role": "loi",
     "description": "A list-of-illustrations navigation list, containing links to illustrations in the work",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -875,7 +863,7 @@
     "role": "lot",
     "description": "A list-of-tables navigation list, containing links to tables in the work",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -886,7 +874,7 @@
     "role": "lov",
     "description": "A list-of-video-clips navigation list, containing links to video clips in the work",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -963,7 +951,7 @@
     "role": "notice",
     "description": "notice role via epub:type=\"notice\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -985,14 +973,10 @@
     "role": "pagebreak",
     "description": "A standalone pagebreak and one falling in the middle of a sentence, via epub:type=\"pagebreak\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
-      "utterances": "utterances.json",
-      "utterancesSkipped": "utterances-skipped.json"
-    },
-    "skip": [
-      "pagebreak"
-    ]
+      "utterances": "utterances.json"
+    }
   },
   {
     "id": "pagebreak-role-aria",
@@ -1002,12 +986,8 @@
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
-      "utterances": "utterances.json",
-      "utterancesSkipped": "utterances-skipped.json"
-    },
-    "skip": [
-      "pagebreak"
-    ]
+      "utterances": "utterances.json"
+    }
   },
   {
     "id": "pagelist-epub-type",
@@ -1015,7 +995,7 @@
     "role": "pagelist",
     "description": "A page-list navigation list, containing links to pagebreaks, via epub:type",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -1125,7 +1105,7 @@
     "role": "part",
     "description": "part role via epub:type=\"part\", containing a heading",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -1147,7 +1127,7 @@
     "role": "preface",
     "description": "preface role via epub:type=\"preface\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -1191,7 +1171,7 @@
     "role": "prologue",
     "description": "prologue role via epub:type=\"prologue\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -1213,7 +1193,7 @@
     "role": "pullquote",
     "description": "pullquote role via epub:type=\"pullquote\" on an <aside>",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -1235,7 +1215,7 @@
     "role": "qna",
     "description": "qna role via epub:type=\"qna\" on a <section>",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -1301,7 +1281,7 @@
     "role": "subtitle",
     "description": "subtitle role via epub:type=\"subtitle\"",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -1356,7 +1336,7 @@
     "role": "term",
     "description": "term role via epub:type=\"glossterm\" on a <dt>, nested in a <dl epub:type=\"glossary\">",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -1389,7 +1369,7 @@
     "role": "tip",
     "description": "tip role via epub:type=\"tip\" on an <aside>",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }
@@ -1411,7 +1391,7 @@
     "role": "toc",
     "description": "A table-of-contents navigation list, containing links to sectional headings, via epub:type",
     "files": {
-      "input": "input.html",
+      "input": "input.xhtml",
       "gnd": "gnd.json",
       "utterances": "utterances.json"
     }

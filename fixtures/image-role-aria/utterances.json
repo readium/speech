@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "Rating: 4 out of 5 stars"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Rating: 4 out of 5 stars"
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Rating: 4 out of 5 stars"
+      }
+    ]
   }
-]
+}

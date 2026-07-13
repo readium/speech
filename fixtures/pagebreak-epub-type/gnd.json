@@ -1,27 +1,30 @@
 {
+  "role": [
+    "body"
+  ],
   "children": [
     {
+      "text": "4",
       "role": [
         "pagebreak"
-      ],
-      "text": "4"
+      ]
     },
     {
+      "text": {
+        "language": "en",
+        "plain": "And the next pagebreak is in the middle of a sentence.",
+        "ssml": "And the next pagebreak is in the middle <readium:pagebreak id=\"pagebreak1\" /> of a sentence."
+      },
       "role": [
         "paragraph"
       ],
-      "text": {
-        "plain": "And the next pagebreak is in the middle of a sentence.",
-        "ssml": "And the next pagebreak is in the middle <readium:pagebreak id=\"pagebreak1\" /> of a sentence.",
-        "language": "en"
-      },
       "children": [
         {
+          "id": "pagebreak1",
+          "text": "5",
           "role": [
             "pagebreak"
-          ],
-          "id": "pagebreak1",
-          "text": "5"
+          ]
         }
       ]
     }

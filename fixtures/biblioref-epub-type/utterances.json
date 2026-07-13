@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "See Smith, 1988"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "See Smith, 1988"
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "See Smith, 1988"
+      }
+    ]
   }
-]
+}

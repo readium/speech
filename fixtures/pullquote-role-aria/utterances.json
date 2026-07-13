@@ -1,5 +1,62 @@
-[
-  {
-    "plain": "The lamp still turns, though no one climbs the stairs anymore."
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Pull quote."
+      },
+      {
+        "plain": "The lamp still turns, though no one climbs the stairs anymore."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "skip": [
+            "pullquote"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "The lamp still turns, though no one climbs the stairs anymore."
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Pull quote."
+      },
+      {
+        "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "skip": [
+            "pullquote"
+          ]
+        },
+        "utterances": []
+      },
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+          }
+        ]
+      }
+    ]
   }
-]
+}

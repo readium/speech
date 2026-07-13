@@ -1,5 +1,46 @@
-[
-  {
-    "plain": "Lighthouses of the Atlantic, by J. Smith"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "Cover."
+      },
+      {
+        "plain": "Lighthouses of the Atlantic, by J. Smith"
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "plain": "Lighthouses of the Atlantic, by J. Smith"
+          }
+        ]
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "Cover."
+      },
+      {
+        "ssml": "Lighthouses of the Atlantic, by J. Smith"
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "contextualize": false
+        },
+        "utterances": [
+          {
+            "ssml": "Lighthouses of the Atlantic, by J. Smith"
+          }
+        ]
+      }
+    ]
   }
-]
+}

@@ -1,27 +1,34 @@
 {
   "role": [
-    "navigation",
-    "loi"
+    "body"
   ],
   "children": [
     {
       "role": [
-        "list"
+        "navigation",
+        "loi"
       ],
       "children": [
         {
           "role": [
-            "listItem"
+            "list"
           ],
-          "text": "Figure 1. Lighthouse cross-section",
-          "textref": "chapter1.xhtml#fig1"
-        },
-        {
-          "role": [
-            "listItem"
-          ],
-          "text": "Figure 2. Fresnel lens diagram",
-          "textref": "chapter2.xhtml#fig2"
+          "children": [
+            {
+              "textref": "chapter1.xhtml#fig1",
+              "text": "Figure 1. Lighthouse cross-section",
+              "role": [
+                "listItem"
+              ]
+            },
+            {
+              "textref": "chapter2.xhtml#fig2",
+              "text": "Figure 2. Fresnel lens diagram",
+              "role": [
+                "listItem"
+              ]
+            }
+          ]
         }
       ]
     }

@@ -1,10 +1,56 @@
-[
-  {
-    "plain": "Hello.",
-    "language": "en"
+{
+  "plain": {
+    "base": [
+      {
+        "language": "en",
+        "plain": "Hello."
+      },
+      {
+        "language": "fr",
+        "plain": "Bonjour."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "language": "never"
+        },
+        "utterances": [
+          {
+            "plain": "Hello."
+          },
+          {
+            "plain": "Bonjour."
+          }
+        ]
+      }
+    ]
   },
-  {
-    "plain": "Bonjour.",
-    "language": "fr"
+  "ssml": {
+    "base": [
+      {
+        "language": "en",
+        "ssml": "Hello."
+      },
+      {
+        "language": "fr",
+        "ssml": "Bonjour."
+      }
+    ],
+    "variants": [
+      {
+        "options": {
+          "language": "never"
+        },
+        "utterances": [
+          {
+            "ssml": "Hello."
+          },
+          {
+            "ssml": "Bonjour."
+          }
+        ]
+      }
+    ]
   }
-]
+}

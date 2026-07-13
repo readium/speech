@@ -1,6 +1,13 @@
 {
   "role": [
-    "abstract"
+    "body"
   ],
-  "text": "This work examines the maintenance of coastal lighthouses in the 19th century."
+  "children": [
+    {
+      "text": "This work examines the maintenance of coastal lighthouses in the 19th century.",
+      "role": [
+        "abstract"
+      ]
+    }
+  ]
 }

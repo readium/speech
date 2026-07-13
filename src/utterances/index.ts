@@ -1,3 +1,11 @@
 export { extractUtterances } from "./extractUtterances.js";
 export { skippableRoles } from "./roles.js";
-export type { Announcement, AnnouncementKey, Announcements, ExtractUtterancesOptions } from "./types.js";
+export { defaultAnnouncements } from "./announcements.js";
+export type {
+  Announcement,
+  AnnouncementKey,
+  AnnouncementPair,
+  Announcements,
+  RoleAnnouncement,
+  ExtractUtterancesOptions,
+} from "./types.js";

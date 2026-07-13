@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "x squared plus y squared equals z squared"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "x squared plus y squared equals z squared"
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "x squared plus y squared equals z squared"
+      }
+    ]
   }
-]
+}

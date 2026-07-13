@@ -1,5 +1,16 @@
-[
-  {
-    "plain": "The lamp mechanism rotating at dusk"
+{
+  "plain": {
+    "base": [
+      {
+        "plain": "The lamp mechanism rotating at dusk"
+      }
+    ]
+  },
+  "ssml": {
+    "base": [
+      {
+        "ssml": "The lamp mechanism rotating at dusk"
+      }
+    ]
   }
-]
+}
