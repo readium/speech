@@ -259,6 +259,39 @@ body {
   color: #383d41;
 }
 
+.badge.playing {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.badge.paused {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.badge.idle,
+.badge.ready {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+.speech-utterances {
+  margin: 0;
+  padding-left: 1.4em;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+.speech-utterances li {
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.speech-utterances li.speaking {
+  background: #cce5ff;
+  font-weight: 600;
+}
+
 @media (max-width: 800px) {
   body {
     flex-direction: column;

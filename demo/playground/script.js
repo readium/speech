@@ -13,11 +13,18 @@ const optionLanguageEl = document.getElementById("option-language");
 const optionInterruptEl = document.getElementById("option-interrupt");
 const optionContextualizeEl = document.getElementById("option-contextualize");
 const formatRadios = [...document.querySelectorAll('input[name="format"]')];
+const speechBadgeEl = document.getElementById("speech-badge");
+const speechUtterancesEl = document.getElementById("speech-utterances");
+const speechPlayEl = document.getElementById("speech-play");
+const speechPauseEl = document.getElementById("speech-pause");
+const speechResumeEl = document.getElementById("speech-resume");
+const speechStopEl = document.getElementById("speech-stop");
 
-// Feature-detect the GND converter and the utterance extractor, if/when
-// @readium/speech exports them.
+// Feature-detect the GND converter, the utterance extractor, and the
+// WebSpeech read-aloud navigator, if/when @readium/speech exports them.
 let converter = null;
 let utteranceExtractor = null;
+let NavigatorClass = null;
 try {
   const mod = await import("../../build/index.js");
   if (typeof mod.parseMarkup === "function") {
@@ -25,6 +32,9 @@ try {
   }
   if (typeof mod.extractUtterances === "function") {
     utteranceExtractor = mod;
+  }
+  if (typeof mod.WebSpeechReadAloudNavigator === "function") {
+    NavigatorClass = mod.WebSpeechReadAloudNavigator;
   }
   if (Array.isArray(mod.skippableRoles)) {
     for (const role of mod.skippableRoles) {
@@ -214,7 +224,54 @@ function setBadge(el, state) {
 // extraction without refetching the fixture's files.
 let currentFixture = null;
 
+// WebSpeechReadAloudNavigator wraps the playback engine and handles
+// advancing through the queued utterances on its own — created once, lazily
+// (its constructor kicks off async engine/voice initialization), not per
+// fixture/option change.
+let playbackNavigator = null;
+
+function ensurePlaybackNavigator() {
+  if (!NavigatorClass) return null;
+  if (!playbackNavigator) {
+    playbackNavigator = new NavigatorClass();
+    for (const type of ["start", "pause", "resume", "end", "stop", "ready", "error"]) {
+      playbackNavigator.on(type, syncSpeechUi);
+    }
+  }
+  return playbackNavigator;
+}
+
+function setSpeechBadge(state) {
+  speechBadgeEl.textContent = state;
+  speechBadgeEl.className = `badge ${state}`;
+}
+
+let speechListItems = [];
+
+function renderSpeechList(utterances) {
+  speechUtterancesEl.innerHTML = "";
+  speechListItems = utterances.map((utterance) => {
+    const li = document.createElement("li");
+    li.textContent = utterance.plain ?? utterance.ssml ?? "(empty)";
+    speechUtterancesEl.appendChild(li);
+    return li;
+  });
+}
+
+function syncSpeechUi() {
+  const state = playbackNavigator.getState();
+  setSpeechBadge(state);
+  const speaking = state === "playing" || state === "paused" ? playbackNavigator.getCurrentUtteranceIndex() : -1;
+  speechListItems.forEach((li, index) => li.classList.toggle("speaking", index === speaking));
+}
+
+// The utterances currently loaded into the speech list, kept in sync with
+// the "Actual" pane above so Play always speaks what's on screen.
+let currentSpeechUtterances = [];
+
 function renderUtterances() {
+  playbackNavigator?.stop();
+
   if (!currentFixture) return;
   const { gndActual, utterances } = currentFixture;
   const format = currentFormat();
@@ -227,6 +284,8 @@ function renderUtterances() {
   if (!utteranceExtractor || gndActual === undefined) {
     utterancesActualEl.textContent = "";
     setBadge(utterancesBadgeEl, "pending");
+    currentSpeechUtterances = [];
+    renderSpeechList(currentSpeechUtterances);
     return;
   }
 
@@ -237,9 +296,13 @@ function renderUtterances() {
       utterancesBadgeEl,
       expected === undefined ? "none" : deepEqual(actualUtterances, expected) ? "pass" : "fail",
     );
+    currentSpeechUtterances = actualUtterances;
+    renderSpeechList(currentSpeechUtterances);
   } catch (err) {
     utterancesActualEl.textContent = String(err);
     setBadge(utterancesBadgeEl, "fail");
+    currentSpeechUtterances = [];
+    renderSpeechList(currentSpeechUtterances);
   }
 }
 
@@ -297,5 +360,23 @@ for (const radio of formatRadios) radio.addEventListener("change", renderUtteran
 optionLanguageEl?.addEventListener("change", renderUtterances);
 optionInterruptEl?.addEventListener("change", renderUtterances);
 optionContextualizeEl?.addEventListener("change", renderUtterances);
+
+if (!NavigatorClass) {
+  speechBadgeEl.textContent = "not implemented yet";
+  speechBadgeEl.className = "badge pending";
+} else {
+  setSpeechBadge("idle");
+}
+
+speechPlayEl.addEventListener("click", () => {
+  if (currentSpeechUtterances.length === 0) return;
+  const navigator = ensurePlaybackNavigator();
+  if (!navigator) return;
+  navigator.loadContent(currentSpeechUtterances);
+  navigator.play();
+});
+speechPauseEl.addEventListener("click", () => playbackNavigator?.pause());
+speechResumeEl.addEventListener("click", () => playbackNavigator?.play());
+speechStopEl.addEventListener("click", () => playbackNavigator?.stop());
 
 renderList();
