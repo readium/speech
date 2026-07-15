@@ -1,7 +1,7 @@
 {
-  "id": "paragraph-block-level-language",
+  "id": "language-block",
   "description": "Sibling paragraphs each declaring their own language, overriding the document's default",
-  "role": "paragraph",
+  "role": "language",
   "rolesCovered": [
     "paragraph"
   ],

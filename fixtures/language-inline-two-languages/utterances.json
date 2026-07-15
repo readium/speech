@@ -1,0 +1,128 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Hello",
+          "language": "en"
+        },
+        {
+          "plain": "bonjour",
+          "language": "fr"
+        },
+        {
+          "plain": "and",
+          "language": "en"
+        },
+        {
+          "plain": "hola",
+          "language": "es"
+        },
+        {
+          "plain": "there.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "Hello",
+          "language": "en"
+        },
+        {
+          "plain": "bonjour",
+          "language": "fr"
+        },
+        {
+          "plain": "and",
+          "language": "en"
+        },
+        {
+          "plain": "hola",
+          "language": "es"
+        },
+        {
+          "plain": "there.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "Hello bonjour and hola there."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "Hello bonjour and hola there."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "Hello <lang xml:lang=\"fr\">bonjour</lang> and <lang xml:lang=\"es\">hola</lang> there."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "Hello <lang xml:lang=\"fr\">bonjour</lang> and <lang xml:lang=\"es\">hola</lang> there."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "Hello bonjour and hola there."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "ssml": "Hello bonjour and hola there."
+        }
+      ]
+    }
+  ]
+}

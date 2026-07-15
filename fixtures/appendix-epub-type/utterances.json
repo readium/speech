@@ -1,52 +1,58 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Start of the appendix."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "A table of lighthouse construction dates referenced in the text."
-      },
-      {
-        "plain": "End of the appendix."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "plain": "Start of the appendix."
         },
-        "utterances": [
-          {
-            "plain": "A table of lighthouse construction dates referenced in the text."
-          }
-        ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Start of the appendix."
-      },
-      {
-        "ssml": "A table of lighthouse construction dates referenced in the text."
-      },
-      {
-        "ssml": "End of the appendix."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+        {
+          "plain": "A table of lighthouse construction dates referenced in the text."
         },
-        "utterances": [
-          {
-            "ssml": "A table of lighthouse construction dates referenced in the text."
-          }
-        ]
-      }
-    ]
-  }
+        {
+          "plain": "End of the appendix."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "A table of lighthouse construction dates referenced in the text."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the appendix."
+        },
+        {
+          "ssml": "A table of lighthouse construction dates referenced in the text."
+        },
+        {
+          "ssml": "End of the appendix."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "A table of lighthouse construction dates referenced in the text."
+        }
+      ]
+    }
+  ]
 }

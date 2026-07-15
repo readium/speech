@@ -1,76 +1,82 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Start of the credits."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "Credit."
-      },
-      {
-        "plain": "Cover photograph by A. Keeper."
-      },
-      {
-        "plain": "Credit."
-      },
-      {
-        "plain": "Maps by B. Cartographer."
-      },
-      {
-        "plain": "End of the credits."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "plain": "Start of the credits."
         },
-        "utterances": [
-          {
-            "plain": "Cover photograph by A. Keeper."
-          },
-          {
-            "plain": "Maps by B. Cartographer."
-          }
-        ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Start of the credits."
-      },
-      {
-        "ssml": "Credit."
-      },
-      {
-        "ssml": "Cover photograph by A. Keeper."
-      },
-      {
-        "ssml": "Credit."
-      },
-      {
-        "ssml": "Maps by B. Cartographer."
-      },
-      {
-        "ssml": "End of the credits."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+        {
+          "plain": "Credit."
         },
-        "utterances": [
-          {
-            "ssml": "Cover photograph by A. Keeper."
-          },
-          {
-            "ssml": "Maps by B. Cartographer."
-          }
-        ]
-      }
-    ]
-  }
+        {
+          "plain": "Cover photograph by A. Keeper."
+        },
+        {
+          "plain": "Credit."
+        },
+        {
+          "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the credits."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Cover photograph by A. Keeper."
+        },
+        {
+          "plain": "Maps by B. Cartographer."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the credits."
+        },
+        {
+          "ssml": "Credit."
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        },
+        {
+          "ssml": "Credit."
+        },
+        {
+          "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the credits."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        },
+        {
+          "ssml": "Maps by B. Cartographer."
+        }
+      ]
+    }
+  ]
 }

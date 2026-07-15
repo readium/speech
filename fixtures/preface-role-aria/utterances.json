@@ -1,52 +1,58 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Start of the preface."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "This edition adds a chapter on automation."
-      },
-      {
-        "plain": "End of the preface."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "plain": "Start of the preface."
         },
-        "utterances": [
-          {
-            "plain": "This edition adds a chapter on automation."
-          }
-        ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Start of the preface."
-      },
-      {
-        "ssml": "This edition adds a chapter on automation."
-      },
-      {
-        "ssml": "End of the preface."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+        {
+          "plain": "This edition adds a chapter on automation."
         },
-        "utterances": [
-          {
-            "ssml": "This edition adds a chapter on automation."
-          }
-        ]
-      }
-    ]
-  }
+        {
+          "plain": "End of the preface."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "This edition adds a chapter on automation."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the preface."
+        },
+        {
+          "ssml": "This edition adds a chapter on automation."
+        },
+        {
+          "ssml": "End of the preface."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "This edition adds a chapter on automation."
+        }
+      ]
+    }
+  ]
 }

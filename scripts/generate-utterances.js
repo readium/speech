@@ -5,13 +5,13 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const FIXTURES_DIR = path.join(__dirname, "../fixtures");
 
-// Regenerates every fixture's utterances.json (both `plain`/`ssml` branches'
-// `base` and option `variants`) from its gnd.json, using the actual
-// @readium/speech build — the exact same extractUtterances() a consumer
-// would call. Run this after any change to extractUtterances.ts,
-// announcements.ts, or roles.ts's skippableRoles that should propagate to
-// the fixture suite (e.g. rewording an announcement, adding a role's
-// contextualization). `npm run build` first.
+// Regenerates every fixture's utterances.json — a flat `cases` array, each
+// a full ExtractUtterancesOptions object paired with its expected
+// utterances — from its gnd.json, using the actual @readium/speech build —
+// the exact same extractUtterances() a consumer would call. Run this after
+// any change to extractUtterances.ts, announcements.ts, or roles.ts's
+// skippableRoles that should propagate to the fixture suite (e.g. rewording
+// an announcement, adding a role's contextualization). `npm run build` first.
 //
 // This is *not* a substitute for reviewing what changed: utterances.json is
 // still the ground truth other (non-TypeScript) implementations are meant
@@ -77,23 +77,28 @@ for (const id of ids) {
 
   if (containsPlaceholder(gnd)) variantSpecs.push({ interruptSentence: true });
 
-  if (id.startsWith("paragraph-") && (id.includes("language") || id.includes("multilingual"))) {
-    for (const language of ["never", "block", "inline"]) variantSpecs.push({ language });
-  }
+  // Every `language` state gets its own case for `language-*` fixtures,
+  // per format, regardless of whether it matches the base case.
+  const languageSpecs = id.startsWith("language-") ? ["inline", "block", "never"] : [];
 
-  const branches = {};
+  const cases = [];
   for (const format of ["plain", "ssml"]) {
     const base = extractUtterances(nodes, { format });
-    const variants = [];
+    cases.push({ options: { format }, utterances: base });
+
     for (const options of variantSpecs) {
       const utterances = extractUtterances(nodes, { format, ...options });
       if (JSON.stringify(utterances) === JSON.stringify(base)) continue;
-      variants.push({ options, utterances });
+      cases.push({ options: { format, ...options }, utterances });
     }
-    branches[format] = variants.length > 0 ? { base, variants } : { base };
+
+    for (const language of languageSpecs) {
+      const utterances = extractUtterances(nodes, { format, language });
+      cases.push({ options: { format, language }, utterances });
+    }
   }
 
-  writeFileSync(path.join(dir, "utterances.json"), JSON.stringify(branches, null, 2) + "\n");
+  writeFileSync(path.join(dir, "utterances.json"), JSON.stringify({ cases }, null, 2) + "\n");
 }
 
 console.log(`Regenerated utterances.json for ${ids.length} fixtures.`);

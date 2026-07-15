@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Foghorn recording from the 1962 restoration"
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Foghorn recording from the 1962 restoration"
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Foghorn recording from the 1962 restoration"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Foghorn recording from the 1962 restoration"
+        }
+      ]
+    }
+  ]
 }

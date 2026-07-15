@@ -1,92 +1,100 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Start of the landmarks."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "Cover"
-      },
-      {
-        "plain": "Table of Contents"
-      },
-      {
-        "plain": "Start of Content"
-      },
-      {
-        "plain": "End of the landmarks."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "skip": [
-            "landmarks"
-          ]
+      "utterances": [
+        {
+          "plain": "Start of the landmarks."
         },
-        "utterances": []
-      },
-      {
-        "options": {
-          "contextualize": false
+        {
+          "plain": "Cover"
         },
-        "utterances": [
-          {
-            "plain": "Cover"
-          },
-          {
-            "plain": "Table of Contents"
-          },
-          {
-            "plain": "Start of Content"
-          }
+        {
+          "plain": "Table of Contents"
+        },
+        {
+          "plain": "Start of Content"
+        },
+        {
+          "plain": "End of the landmarks."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "landmarks"
         ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Start of the landmarks."
       },
-      {
-        "ssml": "Cover"
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
       },
-      {
-        "ssml": "Table of Contents"
-      },
-      {
-        "ssml": "Start of Content"
-      },
-      {
-        "ssml": "End of the landmarks."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "skip": [
-            "landmarks"
-          ]
+      "utterances": [
+        {
+          "plain": "Cover"
         },
-        "utterances": []
-      },
-      {
-        "options": {
-          "contextualize": false
+        {
+          "plain": "Table of Contents"
         },
-        "utterances": [
-          {
-            "ssml": "Cover"
-          },
-          {
-            "ssml": "Table of Contents"
-          },
-          {
-            "ssml": "Start of Content"
-          }
+        {
+          "plain": "Start of Content"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the landmarks."
+        },
+        {
+          "ssml": "Cover"
+        },
+        {
+          "ssml": "Table of Contents"
+        },
+        {
+          "ssml": "Start of Content"
+        },
+        {
+          "ssml": "End of the landmarks."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "landmarks"
         ]
-      }
-    ]
-  }
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Cover"
+        },
+        {
+          "ssml": "Table of Contents"
+        },
+        {
+          "ssml": "Start of Content"
+        }
+      ]
+    }
+  ]
 }

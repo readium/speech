@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "A supporting note related to the main content."
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "A supporting note related to the main content."
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "A supporting note related to the main content."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "A supporting note related to the main content."
+        }
+      ]
+    }
+  ]
 }

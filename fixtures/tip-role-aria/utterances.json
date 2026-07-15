@@ -1,46 +1,52 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Tip."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "Tip: wind the mechanism fully before dusk."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "plain": "Tip."
         },
-        "utterances": [
-          {
-            "plain": "Tip: wind the mechanism fully before dusk."
-          }
-        ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Tip."
+        {
+          "plain": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
       },
-      {
-        "ssml": "Tip: wind the mechanism fully before dusk."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "plain": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Tip."
         },
-        "utterances": [
-          {
-            "ssml": "Tip: wind the mechanism fully before dusk."
-          }
-        ]
-      }
-    ]
-  }
+        {
+          "ssml": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    }
+  ]
 }

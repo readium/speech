@@ -1,0 +1,126 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "Hello."
+        },
+        {
+          "language": "fr",
+          "plain": "Bonjour."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "Hello."
+        },
+        {
+          "language": "fr",
+          "plain": "Bonjour."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "Hello."
+        },
+        {
+          "language": "fr",
+          "plain": "Bonjour."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "Hello."
+        },
+        {
+          "plain": "Bonjour."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "Hello."
+        },
+        {
+          "language": "fr",
+          "ssml": "Bonjour."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "Hello."
+        },
+        {
+          "language": "fr",
+          "ssml": "Bonjour."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "Hello."
+        },
+        {
+          "language": "fr",
+          "ssml": "Bonjour."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "ssml": "Hello."
+        },
+        {
+          "ssml": "Bonjour."
+        }
+      ]
+    }
+  ]
+}

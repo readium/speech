@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "10 PRINT \"HELLO\" 20 GOTO 10"
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "10 PRINT \"HELLO\" 20 GOTO 10"
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "10 PRINT \"HELLO\" 20 GOTO 10"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "10 PRINT \"HELLO\" 20 GOTO 10"
+        }
+      ]
+    }
+  ]
 }

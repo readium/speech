@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "lighthouse"
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "lighthouse"
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "lighthouse"
+        }
+      ]
+    }
+  ]
 }

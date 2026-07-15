@@ -1,52 +1,58 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Start of the prologue."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "Before the lamp was ever lit, the rock was already feared."
-      },
-      {
-        "plain": "End of the prologue."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "plain": "Start of the prologue."
         },
-        "utterances": [
-          {
-            "plain": "Before the lamp was ever lit, the rock was already feared."
-          }
-        ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Start of the prologue."
-      },
-      {
-        "ssml": "Before the lamp was ever lit, the rock was already feared."
-      },
-      {
-        "ssml": "End of the prologue."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+        {
+          "plain": "Before the lamp was ever lit, the rock was already feared."
         },
-        "utterances": [
-          {
-            "ssml": "Before the lamp was ever lit, the rock was already feared."
-          }
-        ]
-      }
-    ]
-  }
+        {
+          "plain": "End of the prologue."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Before the lamp was ever lit, the rock was already feared."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the prologue."
+        },
+        {
+          "ssml": "Before the lamp was ever lit, the rock was already feared."
+        },
+        {
+          "ssml": "End of the prologue."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Before the lamp was ever lit, the rock was already feared."
+        }
+      ]
+    }
+  ]
 }

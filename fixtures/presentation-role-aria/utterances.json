@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Decorative content with no semantic meaning."
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Decorative content with no semantic meaning."
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Decorative content with no semantic meaning."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Decorative content with no semantic meaning."
+        }
+      ]
+    }
+  ]
 }

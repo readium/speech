@@ -1,64 +1,70 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Start of the index."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "Fresnel lens"
-      },
-      {
-        "plain": "Keepers"
-      },
-      {
-        "plain": "End of the index."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "plain": "Start of the index."
         },
-        "utterances": [
-          {
-            "plain": "Fresnel lens"
-          },
-          {
-            "plain": "Keepers"
-          }
-        ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Start of the index."
-      },
-      {
-        "ssml": "Fresnel lens"
-      },
-      {
-        "ssml": "Keepers"
-      },
-      {
-        "ssml": "End of the index."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+        {
+          "plain": "Fresnel lens"
         },
-        "utterances": [
-          {
-            "ssml": "Fresnel lens"
-          },
-          {
-            "ssml": "Keepers"
-          }
-        ]
-      }
-    ]
-  }
+        {
+          "plain": "Keepers"
+        },
+        {
+          "plain": "End of the index."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Fresnel lens"
+        },
+        {
+          "plain": "Keepers"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the index."
+        },
+        {
+          "ssml": "Fresnel lens"
+        },
+        {
+          "ssml": "Keepers"
+        },
+        {
+          "ssml": "End of the index."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Fresnel lens"
+        },
+        {
+          "ssml": "Keepers"
+        }
+      ]
+    }
+  ]
 }

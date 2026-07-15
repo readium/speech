@@ -1,80 +1,88 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Start of the list of illustrations."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "Figure 1. Lighthouse cross-section"
-      },
-      {
-        "plain": "Figure 2. Fresnel lens diagram"
-      },
-      {
-        "plain": "End of the list of illustrations."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "skip": [
-            "loi"
-          ]
+      "utterances": [
+        {
+          "plain": "Start of the list of illustrations."
         },
-        "utterances": []
-      },
-      {
-        "options": {
-          "contextualize": false
+        {
+          "plain": "Figure 1. Lighthouse cross-section"
         },
-        "utterances": [
-          {
-            "plain": "Figure 1. Lighthouse cross-section"
-          },
-          {
-            "plain": "Figure 2. Fresnel lens diagram"
-          }
+        {
+          "plain": "Figure 2. Fresnel lens diagram"
+        },
+        {
+          "plain": "End of the list of illustrations."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "loi"
         ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Start of the list of illustrations."
       },
-      {
-        "ssml": "Figure 1. Lighthouse cross-section"
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
       },
-      {
-        "ssml": "Figure 2. Fresnel lens diagram"
-      },
-      {
-        "ssml": "End of the list of illustrations."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "skip": [
-            "loi"
-          ]
+      "utterances": [
+        {
+          "plain": "Figure 1. Lighthouse cross-section"
         },
-        "utterances": []
+        {
+          "plain": "Figure 2. Fresnel lens diagram"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
       },
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "ssml": "Start of the list of illustrations."
         },
-        "utterances": [
-          {
-            "ssml": "Figure 1. Lighthouse cross-section"
-          },
-          {
-            "ssml": "Figure 2. Fresnel lens diagram"
-          }
+        {
+          "ssml": "Figure 1. Lighthouse cross-section"
+        },
+        {
+          "ssml": "Figure 2. Fresnel lens diagram"
+        },
+        {
+          "ssml": "End of the list of illustrations."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "loi"
         ]
-      }
-    ]
-  }
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Figure 1. Lighthouse cross-section"
+        },
+        {
+          "ssml": "Figure 2. Fresnel lens diagram"
+        }
+      ]
+    }
+  ]
 }

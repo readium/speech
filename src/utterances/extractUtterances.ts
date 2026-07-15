@@ -4,8 +4,10 @@ import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { defaultAnnouncements } from "./announcements.js";
 import { stripLangTags } from "./language.js";
 import {
+  hasLangTag,
   hasPlaceholder,
   resolveNodeText,
+  splitOnLangTags,
   splitOnPlaceholders,
   stripSsmlTags,
   type ResolvedNodeText,
@@ -69,10 +71,9 @@ function isSkipped(roles: GndRole[], skip: ReadonlySet<GndRole>): boolean {
 // `language` — which only ever affects *this one node's own* inline
 // `<lang>` spans (never merges across sibling nodes, which each already
 // have their own separate utterance and stay that way regardless):
-//  - "inline" or omitted: no change — a node's own inline spans are
-//    honored as-is (already true of `ssml`; `plain` never had a way to
-//    show them anyway, so this is also the shape "block" reduces to for
-//    that format).
+//  - "inline" or omitted: honored as declared — `ssml` keeps spans tagged
+//    in one string; `plain` has no such markup, so it's split into one
+//    utterance per language run instead (see `splitOnLangTags`).
 //  - "block": ignore this node's own inline spans — unwrap any `<lang>`
 //    tags in its `ssml`, merging their text into the surrounding flow
 //    with no language of its own. Keeps this node's own `language`.
@@ -83,7 +84,15 @@ function applyFormat(
   resolved: ResolvedNodeText,
   format: "plain" | "ssml",
   language: "never" | "block" | "inline" | undefined,
-): ReadiumSpeechUtterance {
+): ReadiumSpeechUtterance[] {
+  if (format === "plain" && language !== "block" && language !== "never" && resolved.ssml && hasLangTag(resolved.ssml)) {
+    return splitOnLangTags(resolved.ssml, resolved.language).map((segment) => {
+      const utterance: ReadiumSpeechUtterance = { plain: segment.plain };
+      if (segment.language) utterance.language = segment.language;
+      return utterance;
+    });
+  }
+
   const utterance: ReadiumSpeechUtterance = {};
   if (resolved.language) utterance.language = resolved.language;
   if (format === "ssml") {
@@ -95,7 +104,7 @@ function applyFormat(
     if (utterance.ssml) utterance.ssml = stripLangTags(utterance.ssml);
     if (language === "never") delete utterance.language;
   }
-  return utterance;
+  return [utterance];
 }
 
 // `interruptSentence`: a node whose raw `ssml` embeds a placeholder always
@@ -118,6 +127,19 @@ function emitInterrupted(
       continue;
     }
     if (!segment.ssml) continue;
+    if (
+      ctx.format === "plain" &&
+      ctx.language !== "block" &&
+      ctx.language !== "never" &&
+      hasLangTag(segment.ssml)
+    ) {
+      for (const langSegment of splitOnLangTags(segment.ssml, language)) {
+        const utterance: ReadiumSpeechUtterance = { plain: langSegment.plain };
+        if (langSegment.language) utterance.language = langSegment.language;
+        out.push(utterance);
+      }
+      continue;
+    }
     const utterance: ReadiumSpeechUtterance = {};
     if (language) utterance.language = language;
     if (ctx.format === "ssml") utterance.ssml = segment.ssml;
@@ -176,7 +198,7 @@ function walkNode(node: GndNode, out: ReadiumSpeechUtterance[], ctx: WalkContext
     } else {
       const resolved = resolveNodeText(node.text);
       if (resolved) {
-        out.push(applyFormat(resolved, ctx.format, ctx.language));
+        out.push(...applyFormat(resolved, ctx.format, ctx.language));
       }
       if (node.children) walk(node.children, out, ctx);
     }

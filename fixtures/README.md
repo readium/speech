@@ -82,34 +82,50 @@ Each fixture directory is fully self-contained and independently loadable.
 }
 ```
 
+`role` is a roles.md role name for the vast majority of fixtures — one
+covering a stage-2/3 (extraction-option) concern that cuts across roles
+rather than targeting one, such as language resolution, instead uses a
+short pseudo-role naming that concern (e.g. `"language"`) not found in
+roles.md. `rolesCovered` still lists the real roles.md role(s) the
+fixture's markup exercises, so that coverage tracking in
+`ROLES_COVERAGE.md` stays accurate either way.
+
 ## Utterance extraction options
 
 Stage 2 (GND → utterances) takes options controlling *how* a fixed GND tree
 is turned into utterances — the tree itself never changes shape based on
-these; only the resulting utterance list does. `format` (`"plain"` or
-`"ssml"`) is required on every extraction, so `utterances.json` is forked
-into two top-level branches, `plain` and `ssml`, each holding:
+these; only the resulting utterance list does. `utterances.json` is a flat
+list of cases, each a full `ExtractUtterancesOptions` object (`format`
+included, same as every other option) paired with the utterance list that
+combination produces:
 
 ```jsonc
 {
-  "plain": {
-    "base": [ /* the plain extraction with no other options */ ],
-    "variants": [
-      {
-        "options": { "skip": ["footnote"] },
-        "utterances": [ /* extraction with these options, plain format */ ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [ /* the ssml extraction with no other options */ ],
-    "variants": [ /* same options, ssml format */ ]
-  }
+  "cases": [
+    {
+      "options": { "format": "plain" },
+      "utterances": [ /* the plain extraction with no other options set */ ]
+    },
+    {
+      "options": { "format": "plain", "skip": ["footnote"] },
+      "utterances": [ /* plain extraction with skip set */ ]
+    },
+    {
+      "options": { "format": "ssml" },
+      "utterances": [ /* the ssml extraction with no other options set */ ]
+    },
+    {
+      "options": { "format": "ssml", "skip": ["footnote"] },
+      "utterances": [ /* ssml extraction with skip set */ ]
+    }
+  ]
 }
 ```
 
-`variants` entries never repeat `format` inside their own `options` — it's
-implied by which branch they live under. The other extraction options are:
+`format: "plain" | "ssml"` is required on every case, since `extractUtterances`
+itself requires it — there's no such thing as calling it without picking one,
+so neither format is treated as more "default" than the other. The other
+options are:
 
 - `skip: GndRole[]` — omit a role (and its whole subtree) from the output,
   e.g. so a reader can skip past footnotes or pagebreaks during playback.
@@ -123,19 +139,26 @@ implied by which branch they live under. The other extraction options are:
   that falls mid-sentence splits the sentence at that exact point, instead
   of being spoken after the whole sentence finishes (the default).
 - `language: "never" | "block" | "inline"` — how a language shift between
-  adjacent text is rendered: dropped entirely, kept as separate
-  single-language utterances, or merged into one utterance with embedded
-  `<lang>` tags (`ssml` format only).
+  adjacent text is rendered: dropped entirely; kept as separate
+  single-language utterances for `plain` (default `"inline"` has no other
+  way to represent the shift) or merged into one utterance with embedded
+  `<lang>` tags for `ssml`.
 
-Each `variants` entry is illustrative, not exhaustive — a fixture ships one
-only when that option actually changes its output, the same "not every
+A case for `skip`/`contextualize`/`interruptSentence` ships only when that
+option actually changes the output for that fixture, the same "not every
 fixture needs this" principle as fixture granularity in general (a
 footnote reached via noteref, a whole aside, a pagebreak announcement,
-...). Every fixture that ships an announcement-bearing base output should
+...). Every fixture that ships an announcement-bearing base case should
 also illustrate `contextualize: false` — this isn't limited to today's
 `pagebreak`/`footnote`, since the announcement catalog is expected to grow
 to cover much of roles.md's structural vocabulary (chapters, headings,
 parts, credits, navigational lists...) over time.
+
+`language-*` fixtures are the one exception to "only ship a case when it
+changes the output": every `language` state gets its own case per format,
+even when it produces output identical to the base case (e.g. `"inline"` is
+the default, so it *should* match) — the option's full state space is the
+thing under test there, not just its distinct outputs.
 
 ## `epub:type` fixtures are full XHTML documents
 

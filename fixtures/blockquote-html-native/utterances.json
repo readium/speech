@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "To be, or not to be, that is the question."
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "To be, or not to be, that is the question."
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "To be, or not to be, that is the question."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "To be, or not to be, that is the question."
+        }
+      ]
+    }
+  ]
 }

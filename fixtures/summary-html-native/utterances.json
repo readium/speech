@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Click to expand"
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Click to expand"
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Click to expand"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Click to expand"
+        }
+      ]
+    }
+  ]
 }

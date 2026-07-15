@@ -64,9 +64,9 @@ export interface ExtractUtterancesOptions {
   // changes how *a single node's own* inline language spans (e.g.
   // `<em lang="fr">`, embedded as SSML `<lang>` tags by the GND converter)
   // are treated:
-  //  - "inline" or omitted: honor them as declared — a node's own inline
-  //    spans stay tagged in `ssml`; there's no plain-text equivalent, so
-  //    `format: "plain"` looks the same as "block" regardless.
+  //  - "inline" or omitted: honor them as declared — `ssml` keeps spans
+  //    tagged in one string; `plain` splits into one utterance per
+  //    language run instead.
   //  - "block": ignore a node's own inline spans — merge their text into
   //    the surrounding utterance untagged, keeping only that node's own
   //    (block-level) `language`.

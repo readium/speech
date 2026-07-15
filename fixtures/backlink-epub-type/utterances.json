@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Return to reference"
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Return to reference"
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Return to reference"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Return to reference"
+        }
+      ]
+    }
+  ]
 }

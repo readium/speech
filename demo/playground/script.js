@@ -52,20 +52,20 @@ try {
   console.error("Failed to load @readium/speech build/index.js:", err);
 }
 
-// The extraction options currently selected in the toolbar, beyond the
-// required `format` — mirrors exactly how fixtures/*/utterances.json's
-// `variants[].options` are shaped, so it can be compared against them
-// directly (see `matchingExpected`).
-function currentExtraOptions() {
-  const extra = {};
+// The full extraction options currently selected in the toolbar, `format`
+// included alongside the rest — mirrors exactly how fixtures/*/
+// utterances.json's `cases[].options` are shaped, so it can be compared
+// against them directly (see `matchingExpected`).
+function currentOptions() {
+  const options = { format: currentFormat() };
   const skip = optionSkipEl
     ? [...optionSkipEl.selectedOptions].map((option) => option.value)
     : [];
-  if (skip.length > 0) extra.skip = skip;
-  if (optionLanguageEl?.value) extra.language = optionLanguageEl.value;
-  if (optionInterruptEl?.checked) extra.interruptSentence = true;
-  if (optionContextualizeEl && !optionContextualizeEl.checked) extra.contextualize = false;
-  return extra;
+  if (skip.length > 0) options.skip = skip;
+  if (optionLanguageEl?.value) options.language = optionLanguageEl.value;
+  if (optionInterruptEl?.checked) options.interruptSentence = true;
+  if (optionContextualizeEl && !optionContextualizeEl.checked) options.contextualize = false;
+  return options;
 }
 
 function currentFormat() {
@@ -73,15 +73,12 @@ function currentFormat() {
 }
 
 // Finds the fixture's expected output for the exact combination of options
-// currently selected: the branch's `base` when no extra options are set, or
-// the `variants` entry whose `options` deep-equals the selection. Returns
-// `undefined` when this fixture doesn't illustrate that combination.
-function matchingExpected(utterances, format, extraOptions) {
-  const branch = utterances[format];
-  if (!branch) return undefined;
-  if (Object.keys(extraOptions).length === 0) return branch.base;
-  const variant = (branch.variants ?? []).find((v) => deepEqual(v.options, extraOptions));
-  return variant?.utterances;
+// currently selected: the `cases` entry whose `options` deep-equals the
+// selection. Returns `undefined` when this fixture doesn't illustrate that
+// combination.
+function matchingExpected(utterances, options) {
+  const kase = (utterances.cases ?? []).find((c) => deepEqual(c.options, options));
+  return kase?.utterances;
 }
 
 const manifest = await fetch("../../fixtures/manifest.json").then((r) => r.json());
@@ -274,9 +271,8 @@ function renderUtterances() {
 
   if (!currentFixture) return;
   const { gndActual, utterances } = currentFixture;
-  const format = currentFormat();
-  const extraOptions = currentExtraOptions();
-  const expected = matchingExpected(utterances, format, extraOptions);
+  const options = currentOptions();
+  const expected = matchingExpected(utterances, options);
 
   utterancesExpectedEl.textContent =
     expected !== undefined ? JSON.stringify(expected, null, 2) : "(none — this fixture doesn't illustrate this combination of options)";
@@ -290,7 +286,7 @@ function renderUtterances() {
   }
 
   try {
-    const actualUtterances = utteranceExtractor.extractUtterances(gndActual, { format, ...extraOptions });
+    const actualUtterances = utteranceExtractor.extractUtterances(gndActual, options);
     utterancesActualEl.textContent = JSON.stringify(actualUtterances, null, 2);
     setBadge(
       utterancesBadgeEl,

@@ -1,194 +1,208 @@
 {
-  "plain": {
-    "base": [
-      {
-        "language": "en",
-        "plain": "This text has a footnote."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "Start of the footnote."
-      },
-      {
-        "plain": "Text of the footnote."
-      },
-      {
-        "plain": "End of the footnote."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "skip": [
-            "aside"
-          ]
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote."
         },
-        "utterances": [
-          {
-            "language": "en",
-            "plain": "This text has a footnote."
-          }
+        {
+          "plain": "Start of the footnote."
+        },
+        {
+          "plain": "Text of the footnote."
+        },
+        {
+          "plain": "End of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
         ]
       },
-      {
-        "options": {
-          "skip": [
-            "footnote"
-          ]
-        },
-        "utterances": [
-          {
-            "language": "en",
-            "plain": "This text has a footnote."
-          }
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
         ]
       },
-      {
-        "options": {
-          "skip": [
-            "noteref"
-          ]
-        },
-        "utterances": [
-          {
-            "language": "en",
-            "plain": "This text has a footnote."
-          }
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
         ]
       },
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote."
         },
-        "utterances": [
-          {
-            "language": "en",
-            "plain": "This text has a footnote."
-          },
-          {
-            "plain": "Text of the footnote."
-          }
+        {
+          "plain": "Text of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "interruptSentence": true
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote"
+        },
+        {
+          "plain": "Start of the footnote."
+        },
+        {
+          "plain": "Text of the footnote."
+        },
+        {
+          "plain": "End of the footnote."
+        },
+        {
+          "language": "en",
+          "plain": "."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote."
+        },
+        {
+          "ssml": "Start of the footnote."
+        },
+        {
+          "ssml": "Text of the footnote."
+        },
+        {
+          "ssml": "End of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
         ]
       },
-      {
-        "options": {
-          "interruptSentence": true
-        },
-        "utterances": [
-          {
-            "language": "en",
-            "plain": "This text has a footnote"
-          },
-          {
-            "plain": "Start of the footnote."
-          },
-          {
-            "plain": "Text of the footnote."
-          },
-          {
-            "plain": "End of the footnote."
-          },
-          {
-            "language": "en",
-            "plain": "."
-          }
-        ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "language": "en",
-        "ssml": "This text has a footnote."
-      },
-      {
-        "ssml": "Start of the footnote."
-      },
-      {
-        "ssml": "Text of the footnote."
-      },
-      {
-        "ssml": "End of the footnote."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "skip": [
-            "aside"
-          ]
-        },
-        "utterances": [
-          {
-            "language": "en",
-            "ssml": "This text has a footnote."
-          }
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
         ]
       },
-      {
-        "options": {
-          "skip": [
-            "footnote"
-          ]
-        },
-        "utterances": [
-          {
-            "language": "en",
-            "ssml": "This text has a footnote."
-          }
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
         ]
       },
-      {
-        "options": {
-          "skip": [
-            "noteref"
-          ]
-        },
-        "utterances": [
-          {
-            "language": "en",
-            "ssml": "This text has a footnote."
-          }
-        ]
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
       },
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote."
         },
-        "utterances": [
-          {
-            "language": "en",
-            "ssml": "This text has a footnote."
-          },
-          {
-            "ssml": "Text of the footnote."
-          }
-        ]
+        {
+          "ssml": "Text of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "interruptSentence": true
       },
-      {
-        "options": {
-          "interruptSentence": true
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote"
         },
-        "utterances": [
-          {
-            "language": "en",
-            "ssml": "This text has a footnote"
-          },
-          {
-            "ssml": "Start of the footnote."
-          },
-          {
-            "ssml": "Text of the footnote."
-          },
-          {
-            "ssml": "End of the footnote."
-          },
-          {
-            "language": "en",
-            "ssml": "."
-          }
-        ]
-      }
-    ]
-  }
+        {
+          "ssml": "Start of the footnote."
+        },
+        {
+          "ssml": "Text of the footnote."
+        },
+        {
+          "ssml": "End of the footnote."
+        },
+        {
+          "language": "en",
+          "ssml": "."
+        }
+      ]
+    }
+  ]
 }

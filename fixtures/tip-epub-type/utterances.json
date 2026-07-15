@@ -1,74 +1,82 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Start of the aside."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "Tip."
-      },
-      {
-        "plain": "Tip: wind the mechanism fully before dusk."
-      },
-      {
-        "plain": "End of the aside."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "skip": [
-            "aside"
-          ]
+      "utterances": [
+        {
+          "plain": "Start of the aside."
         },
-        "utterances": []
-      },
-      {
-        "options": {
-          "contextualize": false
+        {
+          "plain": "Tip."
         },
-        "utterances": [
-          {
-            "plain": "Tip: wind the mechanism fully before dusk."
-          }
+        {
+          "plain": "Tip: wind the mechanism fully before dusk."
+        },
+        {
+          "plain": "End of the aside."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
         ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Start of the aside."
       },
-      {
-        "ssml": "Tip."
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
       },
-      {
-        "ssml": "Tip: wind the mechanism fully before dusk."
+      "utterances": [
+        {
+          "plain": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
       },
-      {
-        "ssml": "End of the aside."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "skip": [
-            "aside"
-          ]
+      "utterances": [
+        {
+          "ssml": "Start of the aside."
         },
-        "utterances": []
-      },
-      {
-        "options": {
-          "contextualize": false
+        {
+          "ssml": "Tip."
         },
-        "utterances": [
-          {
-            "ssml": "Tip: wind the mechanism fully before dusk."
-          }
+        {
+          "ssml": "Tip: wind the mechanism fully before dusk."
+        },
+        {
+          "ssml": "End of the aside."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
         ]
-      }
-    ]
-  }
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    }
+  ]
 }

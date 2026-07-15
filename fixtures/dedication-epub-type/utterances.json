@@ -1,46 +1,52 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Dedication."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "For every keeper who lit the lamp at dusk."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "plain": "Dedication."
         },
-        "utterances": [
-          {
-            "plain": "For every keeper who lit the lamp at dusk."
-          }
-        ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Dedication."
+        {
+          "plain": "For every keeper who lit the lamp at dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
       },
-      {
-        "ssml": "For every keeper who lit the lamp at dusk."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "plain": "For every keeper who lit the lamp at dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Dedication."
         },
-        "utterances": [
-          {
-            "ssml": "For every keeper who lit the lamp at dusk."
-          }
-        ]
-      }
-    ]
-  }
+        {
+          "ssml": "For every keeper who lit the lamp at dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "For every keeper who lit the lamp at dusk."
+        }
+      ]
+    }
+  ]
 }

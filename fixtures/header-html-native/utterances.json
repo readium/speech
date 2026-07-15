@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Chapter One"
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Chapter One"
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Chapter One"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Chapter One"
+        }
+      ]
+    }
+  ]
 }

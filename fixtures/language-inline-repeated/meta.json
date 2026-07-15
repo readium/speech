@@ -1,7 +1,7 @@
 {
-  "id": "paragraph-multilingual-ssml-lang",
-  "description": "A paragraph with an inline foreign-language phrase, represented via SSML",
-  "role": "paragraph",
+  "id": "language-inline-repeated",
+  "description": "A paragraph where the same foreign language appears twice, separated by base-language text",
+  "role": "language",
   "rolesCovered": [
     "paragraph"
   ],

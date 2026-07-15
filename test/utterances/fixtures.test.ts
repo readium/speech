@@ -3,6 +3,7 @@ import test from "ava";
 import { loadManifest, loadFixture } from "../testUtils.js";
 import { parseMarkup } from "../../src/gnd/converter.js";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
+import type { ExtractUtterancesOptions } from "../../src/utterances/types.js";
 
 const manifest = loadManifest();
 
@@ -22,21 +23,11 @@ function sortKeysDeep(value: unknown): unknown {
 for (const entry of manifest) {
   const fixture = loadFixture(entry.id);
 
-  for (const format of ["plain", "ssml"] as const) {
-    const branch = fixture.utterances[format];
-
-    test(`fixture "${entry.id}": extractUtterances matches utterances.json's "${format}" base`, (t) => {
+  for (const { options, utterances } of fixture.utterances.cases) {
+    test(`fixture "${entry.id}": extractUtterances matches utterances.json's case ${JSON.stringify(options)}`, (t) => {
       const gnd = parseMarkup(fixture.inputHtml);
-      const actual = extractUtterances(gnd, { format });
-      t.deepEqual(sortKeysDeep(actual), sortKeysDeep(branch.base));
+      const actual = extractUtterances(gnd, options as ExtractUtterancesOptions);
+      t.deepEqual(sortKeysDeep(actual), sortKeysDeep(utterances));
     });
-
-    for (const variant of branch.variants ?? []) {
-      test(`fixture "${entry.id}": extractUtterances matches utterances.json's "${format}" variant ${JSON.stringify(variant.options)}`, (t) => {
-        const gnd = parseMarkup(fixture.inputHtml);
-        const actual = extractUtterances(gnd, { format, ...variant.options });
-        t.deepEqual(sortKeysDeep(actual), sortKeysDeep(variant.utterances));
-      });
-    }
   }
 }

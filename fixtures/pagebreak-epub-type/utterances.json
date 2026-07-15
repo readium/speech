@@ -1,160 +1,170 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Pagebreak."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "4"
-      },
-      {
-        "language": "en",
-        "plain": "And the next pagebreak is in the middle of a sentence."
-      },
-      {
-        "plain": "Pagebreak."
-      },
-      {
-        "plain": "5"
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "skip": [
-            "pagebreak"
-          ]
+      "utterances": [
+        {
+          "plain": "Pagebreak."
         },
-        "utterances": [
-          {
-            "language": "en",
-            "plain": "And the next pagebreak is in the middle of a sentence."
-          }
+        {
+          "plain": "4"
+        },
+        {
+          "language": "en",
+          "plain": "And the next pagebreak is in the middle of a sentence."
+        },
+        {
+          "plain": "Pagebreak."
+        },
+        {
+          "plain": "5"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "pagebreak"
         ]
       },
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "And the next pagebreak is in the middle of a sentence."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "4"
         },
-        "utterances": [
-          {
-            "plain": "4"
-          },
-          {
-            "language": "en",
-            "plain": "And the next pagebreak is in the middle of a sentence."
-          },
-          {
-            "plain": "5"
-          }
+        {
+          "language": "en",
+          "plain": "And the next pagebreak is in the middle of a sentence."
+        },
+        {
+          "plain": "5"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "interruptSentence": true
+      },
+      "utterances": [
+        {
+          "plain": "Pagebreak."
+        },
+        {
+          "plain": "4"
+        },
+        {
+          "language": "en",
+          "plain": "And the next pagebreak is in the middle"
+        },
+        {
+          "plain": "Pagebreak."
+        },
+        {
+          "plain": "5"
+        },
+        {
+          "language": "en",
+          "plain": "of a sentence."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Pagebreak."
+        },
+        {
+          "ssml": "4"
+        },
+        {
+          "language": "en",
+          "ssml": "And the next pagebreak is in the middle of a sentence."
+        },
+        {
+          "ssml": "Pagebreak."
+        },
+        {
+          "ssml": "5"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "pagebreak"
         ]
       },
-      {
-        "options": {
-          "interruptSentence": true
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "And the next pagebreak is in the middle of a sentence."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "4"
         },
-        "utterances": [
-          {
-            "plain": "Pagebreak."
-          },
-          {
-            "plain": "4"
-          },
-          {
-            "language": "en",
-            "plain": "And the next pagebreak is in the middle"
-          },
-          {
-            "plain": "Pagebreak."
-          },
-          {
-            "plain": "5"
-          },
-          {
-            "language": "en",
-            "plain": "of a sentence."
-          }
-        ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Pagebreak."
-      },
-      {
-        "ssml": "4"
-      },
-      {
-        "language": "en",
-        "ssml": "And the next pagebreak is in the middle of a sentence."
-      },
-      {
-        "ssml": "Pagebreak."
-      },
-      {
-        "ssml": "5"
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "skip": [
-            "pagebreak"
-          ]
+        {
+          "language": "en",
+          "ssml": "And the next pagebreak is in the middle of a sentence."
         },
-        "utterances": [
-          {
-            "language": "en",
-            "ssml": "And the next pagebreak is in the middle of a sentence."
-          }
-        ]
+        {
+          "ssml": "5"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "interruptSentence": true
       },
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "ssml": "Pagebreak."
         },
-        "utterances": [
-          {
-            "ssml": "4"
-          },
-          {
-            "language": "en",
-            "ssml": "And the next pagebreak is in the middle of a sentence."
-          },
-          {
-            "ssml": "5"
-          }
-        ]
-      },
-      {
-        "options": {
-          "interruptSentence": true
+        {
+          "ssml": "4"
         },
-        "utterances": [
-          {
-            "ssml": "Pagebreak."
-          },
-          {
-            "ssml": "4"
-          },
-          {
-            "language": "en",
-            "ssml": "And the next pagebreak is in the middle"
-          },
-          {
-            "ssml": "Pagebreak."
-          },
-          {
-            "ssml": "5"
-          },
-          {
-            "language": "en",
-            "ssml": "of a sentence."
-          }
-        ]
-      }
-    ]
-  }
+        {
+          "language": "en",
+          "ssml": "And the next pagebreak is in the middle"
+        },
+        {
+          "ssml": "Pagebreak."
+        },
+        {
+          "ssml": "5"
+        },
+        {
+          "language": "en",
+          "ssml": "of a sentence."
+        }
+      ]
+    }
+  ]
 }

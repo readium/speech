@@ -1,7 +1,7 @@
 {
-  "id": "paragraph-multilingual-two-languages",
+  "id": "language-inline-two-languages",
   "description": "A paragraph with two different inline foreign-language phrases",
-  "role": "paragraph",
+  "role": "language",
   "rolesCovered": [
     "paragraph"
   ],

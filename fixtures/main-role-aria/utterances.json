@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "The central topic of this document."
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "The central topic of this document."
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "The central topic of this document."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "The central topic of this document."
+        }
+      ]
+    }
+  ]
 }

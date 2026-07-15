@@ -36,24 +36,15 @@ export interface FixtureMeta {
   inputKind: "fragment" | "document";
 }
 
-// One extraction-options combination and its expected output, beyond the
-// format branch's own `base` (no extra options).
-export interface UtterancesVariant {
-  options: Record<string, unknown>;
+// One full ExtractUtterancesOptions combination and its expected output.
+export interface UtterancesCase {
+  options: Record<string, unknown> & { format: "plain" | "ssml" };
   utterances: unknown[];
 }
 
-export interface UtterancesBranch {
-  base: unknown[];
-  variants?: UtterancesVariant[];
-}
-
-// `utterances.json`'s shape: format is the fork (see fixtures/README.md),
-// each branch holding its own `base` plus whichever option variants that
-// fixture illustrates.
+// `utterances.json`'s shape: a flat list of cases (see fixtures/README.md).
 export interface UtterancesFile {
-  plain: UtterancesBranch;
-  ssml: UtterancesBranch;
+  cases: UtterancesCase[];
 }
 
 export interface LoadedFixture {

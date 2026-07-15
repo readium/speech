@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "A named region of interest within the page."
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "A named region of interest within the page."
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "A named region of interest within the page."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "A named region of interest within the page."
+        }
+      ]
+    }
+  ]
 }

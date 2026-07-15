@@ -1,6 +1,6 @@
 import "./setup.js";
 import test from "ava";
-import { loadManifest, loadFixture, type UtterancesVariant } from "../testUtils.js";
+import { loadManifest, loadFixture } from "../testUtils.js";
 import { parseMarkup } from "../../src/gnd/converter.js";
 
 const manifest = loadManifest();
@@ -58,20 +58,15 @@ for (const entry of manifest) {
       "gnd.json must parse to an object",
     );
 
-    for (const [format, branch] of Object.entries(fixture.utterances)) {
-      t.true(Array.isArray(branch.base), `utterances.json's "${format}" branch must have a base array`);
-      const lists = [
-        branch.base,
-        ...(branch.variants ?? []).map((v: UtterancesVariant) => v.utterances),
-      ];
-      for (const list of lists) {
-        for (const utterance of list as Record<string, unknown>[]) {
-          t.true(typeof utterance === "object" && utterance !== null);
-          t.true(
-            typeof utterance[format] === "string",
-            `each utterance in the "${format}" branch needs a ${format} field`,
-          );
-        }
+    t.true(Array.isArray(fixture.utterances.cases), "utterances.json must have a cases array");
+    for (const { options, utterances } of fixture.utterances.cases) {
+      t.true(Array.isArray(utterances), `utterances.json case ${JSON.stringify(options)} must have a utterances array`);
+      for (const utterance of utterances as Record<string, unknown>[]) {
+        t.true(typeof utterance === "object" && utterance !== null);
+        t.true(
+          typeof utterance[options.format] === "string",
+          `each utterance in the ${JSON.stringify(options)} case needs a ${options.format} field`,
+        );
       }
     }
 

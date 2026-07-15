@@ -1,140 +1,152 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Start of the endnotes."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "See introduction for background."
-      },
-      {
-        "plain": "See chapter three for details."
-      },
-      {
-        "plain": "End of the endnotes."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "skip": [
-            "aside"
-          ]
+      "utterances": [
+        {
+          "plain": "Start of the endnotes."
         },
-        "utterances": [
-          {
-            "plain": "Start of the endnotes."
-          },
-          {
-            "plain": "End of the endnotes."
-          }
+        {
+          "plain": "See introduction for background."
+        },
+        {
+          "plain": "See chapter three for details."
+        },
+        {
+          "plain": "End of the endnotes."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
         ]
       },
-      {
-        "options": {
-          "skip": [
-            "endnotes"
-          ]
+      "utterances": [
+        {
+          "plain": "Start of the endnotes."
         },
-        "utterances": []
-      },
-      {
-        "options": {
-          "skip": [
-            "footnote"
-          ]
-        },
-        "utterances": [
-          {
-            "plain": "Start of the endnotes."
-          },
-          {
-            "plain": "End of the endnotes."
-          }
+        {
+          "plain": "End of the endnotes."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "endnotes"
         ]
       },
-      {
-        "options": {
-          "contextualize": false
-        },
-        "utterances": [
-          {
-            "plain": "See introduction for background."
-          },
-          {
-            "plain": "See chapter three for details."
-          }
-        ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Start of the endnotes."
-      },
-      {
-        "ssml": "See introduction for background."
-      },
-      {
-        "ssml": "See chapter three for details."
-      },
-      {
-        "ssml": "End of the endnotes."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "skip": [
-            "aside"
-          ]
-        },
-        "utterances": [
-          {
-            "ssml": "Start of the endnotes."
-          },
-          {
-            "ssml": "End of the endnotes."
-          }
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
         ]
       },
-      {
-        "options": {
-          "skip": [
-            "endnotes"
-          ]
+      "utterances": [
+        {
+          "plain": "Start of the endnotes."
         },
-        "utterances": []
+        {
+          "plain": "End of the endnotes."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
       },
-      {
-        "options": {
-          "skip": [
-            "footnote"
-          ]
+      "utterances": [
+        {
+          "plain": "See introduction for background."
         },
-        "utterances": [
-          {
-            "ssml": "Start of the endnotes."
-          },
-          {
-            "ssml": "End of the endnotes."
-          }
+        {
+          "plain": "See chapter three for details."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the endnotes."
+        },
+        {
+          "ssml": "See introduction for background."
+        },
+        {
+          "ssml": "See chapter three for details."
+        },
+        {
+          "ssml": "End of the endnotes."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
         ]
       },
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "ssml": "Start of the endnotes."
         },
-        "utterances": [
-          {
-            "ssml": "See introduction for background."
-          },
-          {
-            "ssml": "See chapter three for details."
-          }
+        {
+          "ssml": "End of the endnotes."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "endnotes"
         ]
-      }
-    ]
-  }
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the endnotes."
+        },
+        {
+          "ssml": "End of the endnotes."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "See introduction for background."
+        },
+        {
+          "ssml": "See chapter three for details."
+        }
+      ]
+    }
+  ]
 }

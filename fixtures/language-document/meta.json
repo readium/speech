@@ -1,7 +1,7 @@
 {
-  "id": "paragraph-document-language",
+  "id": "language-document",
   "description": "A paragraph in a document whose <html lang> differs from the default, with no inline language shift or other SSML trigger",
-  "role": "paragraph",
+  "role": "language",
   "rolesCovered": [
     "paragraph"
   ],

@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "See glossary: Fresnel lens"
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "See glossary: Fresnel lens"
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "See glossary: Fresnel lens"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "See glossary: Fresnel lens"
+        }
+      ]
+    }
+  ]
 }

@@ -1,58 +1,64 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Start of the part."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "Heading level 1."
-      },
-      {
-        "plain": "Title of the part"
-      },
-      {
-        "plain": "End of the part."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "plain": "Start of the part."
         },
-        "utterances": [
-          {
-            "plain": "Title of the part"
-          }
-        ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Start of the part."
-      },
-      {
-        "ssml": "Heading level 1."
-      },
-      {
-        "ssml": "Title of the part"
-      },
-      {
-        "ssml": "End of the part."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+        {
+          "plain": "Heading level 1."
         },
-        "utterances": [
-          {
-            "ssml": "Title of the part"
-          }
-        ]
-      }
-    ]
-  }
+        {
+          "plain": "Title of the part"
+        },
+        {
+          "plain": "End of the part."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Title of the part"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the part."
+        },
+        {
+          "ssml": "Heading level 1."
+        },
+        {
+          "ssml": "Title of the part"
+        },
+        {
+          "ssml": "End of the part."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Title of the part"
+        }
+      ]
+    }
+  ]
 }

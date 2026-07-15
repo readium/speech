@@ -13,9 +13,9 @@ import {
   ctxEqual,
   ssmlTextEscape,
   ssmlAttrEscape,
-  startsWithBindingPunct,
   normalizeWhitespace,
 } from "./text.js";
+import { startsWithBindingPunct } from "../utils/text.js";
 import { type ObjBuilder, NavObject, isEmptyObj, finalizeToGndNode, gndNodeToObjBuilder } from "./object.js";
 import { type GndMediaType, nodeLanguage, hasElementChild, isAncestorOf, sniffMediaType } from "./dom.js";
 

@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Rating: 4 out of 5 stars"
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Rating: 4 out of 5 stars"
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Rating: 4 out of 5 stars"
+        }
+      ]
+    }
+  ]
 }

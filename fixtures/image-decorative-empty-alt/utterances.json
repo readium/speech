@@ -1,22 +1,30 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Before the divider."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "After the divider."
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Before the divider."
+      "utterances": [
+        {
+          "plain": "Before the divider."
+        },
+        {
+          "plain": "After the divider."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
       },
-      {
-        "ssml": "After the divider."
-      }
-    ]
-  }
+      "utterances": [
+        {
+          "ssml": "Before the divider."
+        },
+        {
+          "ssml": "After the divider."
+        }
+      ]
+    }
+  ]
 }

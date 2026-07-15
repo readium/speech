@@ -1,52 +1,58 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Start of the glossary."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "A structure that contains an enumeration of related content items."
-      },
-      {
-        "plain": "End of the glossary."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "plain": "Start of the glossary."
         },
-        "utterances": [
-          {
-            "plain": "A structure that contains an enumeration of related content items."
-          }
-        ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Start of the glossary."
-      },
-      {
-        "ssml": "A structure that contains an enumeration of related content items."
-      },
-      {
-        "ssml": "End of the glossary."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+        {
+          "plain": "A structure that contains an enumeration of related content items."
         },
-        "utterances": [
-          {
-            "ssml": "A structure that contains an enumeration of related content items."
-          }
-        ]
-      }
-    ]
-  }
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "A structure that contains an enumeration of related content items."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary."
+        },
+        {
+          "ssml": "A structure that contains an enumeration of related content items."
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "A structure that contains an enumeration of related content items."
+        }
+      ]
+    }
+  ]
 }

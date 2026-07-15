@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "See Smith, 1988"
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "See Smith, 1988"
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "See Smith, 1988"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "See Smith, 1988"
+        }
+      ]
+    }
+  ]
 }

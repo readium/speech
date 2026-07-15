@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "The lamp mechanism rotating at dusk"
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "The lamp mechanism rotating at dusk"
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "The lamp mechanism rotating at dusk"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "The lamp mechanism rotating at dusk"
+        }
+      ]
+    }
+  ]
 }

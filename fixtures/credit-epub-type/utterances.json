@@ -1,46 +1,52 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Credit."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "Cover photograph by A. Keeper."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "plain": "Credit."
         },
-        "utterances": [
-          {
-            "plain": "Cover photograph by A. Keeper."
-          }
-        ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Credit."
+        {
+          "plain": "Cover photograph by A. Keeper."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
       },
-      {
-        "ssml": "Cover photograph by A. Keeper."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "plain": "Cover photograph by A. Keeper."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Credit."
         },
-        "utterances": [
-          {
-            "ssml": "Cover photograph by A. Keeper."
-          }
-        ]
-      }
-    ]
-  }
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        }
+      ]
+    }
+  ]
 }

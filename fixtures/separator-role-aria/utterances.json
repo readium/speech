@@ -1,22 +1,30 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Section one."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "Section two."
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Section one."
+      "utterances": [
+        {
+          "plain": "Section one."
+        },
+        {
+          "plain": "Section two."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
       },
-      {
-        "ssml": "Section two."
-      }
-    ]
-  }
+      "utterances": [
+        {
+          "ssml": "Section one."
+        },
+        {
+          "ssml": "Section two."
+        }
+      ]
+    }
+  ]
 }

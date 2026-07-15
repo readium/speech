@@ -814,6 +814,72 @@
     }
   },
   {
+    "id": "language-block",
+    "dir": "language-block",
+    "role": "language",
+    "description": "Sibling paragraphs each declaring their own language, overriding the document's default",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "language-document",
+    "dir": "language-document",
+    "role": "language",
+    "description": "A paragraph in a document whose <html lang> differs from the default, with no inline language shift or other SSML trigger",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "language-inline-lang-attribute",
+    "dir": "language-inline-lang-attribute",
+    "role": "language",
+    "description": "An inline foreign-language phrase using the HTML lang attribute (not xml:lang) on a plain, non-semantic span",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "language-inline-nested",
+    "dir": "language-inline-nested",
+    "role": "language",
+    "description": "A paragraph with a language switch nested inside another language switch",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "language-inline-repeated",
+    "dir": "language-inline-repeated",
+    "role": "language",
+    "description": "A paragraph where the same foreign language appears twice, separated by base-language text",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "language-inline-two-languages",
+    "dir": "language-inline-two-languages",
+    "role": "language",
+    "description": "A paragraph with two different inline foreign-language phrases",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
     "id": "list-html-native",
     "dir": "list-html-native",
     "role": "list",
@@ -1016,83 +1082,6 @@
     "dir": "paragraph-basic",
     "role": "paragraph",
     "description": "A single paragraph, the only encoding pathway for this role",
-    "files": {
-      "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
-    }
-  },
-  {
-    "id": "paragraph-block-level-language",
-    "dir": "paragraph-block-level-language",
-    "role": "paragraph",
-    "description": "Sibling paragraphs each declaring their own language, overriding the document's default",
-    "files": {
-      "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
-    }
-  },
-  {
-    "id": "paragraph-document-language",
-    "dir": "paragraph-document-language",
-    "role": "paragraph",
-    "description": "A paragraph in a document whose <html lang> differs from the default, with no inline language shift or other SSML trigger",
-    "files": {
-      "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
-    }
-  },
-  {
-    "id": "paragraph-multilingual-lang-attribute",
-    "dir": "paragraph-multilingual-lang-attribute",
-    "role": "paragraph",
-    "description": "An inline foreign-language phrase using the HTML lang attribute (not xml:lang) on a plain, non-semantic span",
-    "files": {
-      "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
-    }
-  },
-  {
-    "id": "paragraph-multilingual-nested",
-    "dir": "paragraph-multilingual-nested",
-    "role": "paragraph",
-    "description": "A paragraph with a language switch nested inside another language switch",
-    "files": {
-      "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
-    }
-  },
-  {
-    "id": "paragraph-multilingual-repeated-language",
-    "dir": "paragraph-multilingual-repeated-language",
-    "role": "paragraph",
-    "description": "A paragraph where the same foreign language appears twice, separated by base-language text",
-    "files": {
-      "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
-    }
-  },
-  {
-    "id": "paragraph-multilingual-ssml-lang",
-    "dir": "paragraph-multilingual-ssml-lang",
-    "role": "paragraph",
-    "description": "A paragraph with an inline foreign-language phrase, represented via SSML",
-    "files": {
-      "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
-    }
-  },
-  {
-    "id": "paragraph-multilingual-two-languages",
-    "dir": "paragraph-multilingual-two-languages",
-    "role": "paragraph",
-    "description": "A paragraph with two different inline foreign-language phrases",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",

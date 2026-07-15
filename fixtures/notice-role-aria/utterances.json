@@ -1,46 +1,52 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Notice."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "Caution: the tower stairs are uneven."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "plain": "Notice."
         },
-        "utterances": [
-          {
-            "plain": "Caution: the tower stairs are uneven."
-          }
-        ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Notice."
+        {
+          "plain": "Caution: the tower stairs are uneven."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
       },
-      {
-        "ssml": "Caution: the tower stairs are uneven."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "plain": "Caution: the tower stairs are uneven."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Notice."
         },
-        "utterances": [
-          {
-            "ssml": "Caution: the tower stairs are uneven."
-          }
-        ]
-      }
-    ]
-  }
+        {
+          "ssml": "Caution: the tower stairs are uneven."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Caution: the tower stairs are uneven."
+        }
+      ]
+    }
+  ]
 }

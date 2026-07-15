@@ -1,28 +1,36 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "First item"
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "Second item"
+      "utterances": [
+        {
+          "plain": "First item"
+        },
+        {
+          "plain": "Second item"
+        },
+        {
+          "plain": "Third item"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
       },
-      {
-        "plain": "Third item"
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "First item"
-      },
-      {
-        "ssml": "Second item"
-      },
-      {
-        "ssml": "Third item"
-      }
-    ]
-  }
+      "utterances": [
+        {
+          "ssml": "First item"
+        },
+        {
+          "ssml": "Second item"
+        },
+        {
+          "ssml": "Third item"
+        }
+      ]
+    }
+  ]
 }

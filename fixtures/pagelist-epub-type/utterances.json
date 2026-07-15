@@ -1,76 +1,82 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Start of the page list."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "Page 1"
-      },
-      {
-        "plain": "Page 2"
-      },
-      {
-        "plain": "Page 3"
-      },
-      {
-        "plain": "End of the page list."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "plain": "Start of the page list."
         },
-        "utterances": [
-          {
-            "plain": "Page 1"
-          },
-          {
-            "plain": "Page 2"
-          },
-          {
-            "plain": "Page 3"
-          }
-        ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Start of the page list."
-      },
-      {
-        "ssml": "Page 1"
-      },
-      {
-        "ssml": "Page 2"
-      },
-      {
-        "ssml": "Page 3"
-      },
-      {
-        "ssml": "End of the page list."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+        {
+          "plain": "Page 1"
         },
-        "utterances": [
-          {
-            "ssml": "Page 1"
-          },
-          {
-            "ssml": "Page 2"
-          },
-          {
-            "ssml": "Page 3"
-          }
-        ]
-      }
-    ]
-  }
+        {
+          "plain": "Page 2"
+        },
+        {
+          "plain": "Page 3"
+        },
+        {
+          "plain": "End of the page list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Page 1"
+        },
+        {
+          "plain": "Page 2"
+        },
+        {
+          "plain": "Page 3"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the page list."
+        },
+        {
+          "ssml": "Page 1"
+        },
+        {
+          "ssml": "Page 2"
+        },
+        {
+          "ssml": "Page 3"
+        },
+        {
+          "ssml": "End of the page list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Page 1"
+        },
+        {
+          "ssml": "Page 2"
+        },
+        {
+          "ssml": "Page 3"
+        }
+      ]
+    }
+  ]
 }

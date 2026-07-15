@@ -1,7 +1,7 @@
 {
-  "id": "paragraph-multilingual-lang-attribute",
+  "id": "language-inline-lang-attribute",
   "description": "An inline foreign-language phrase using the HTML lang attribute (not xml:lang) on a plain, non-semantic span",
-  "role": "paragraph",
+  "role": "language",
   "rolesCovered": [
     "paragraph"
   ],

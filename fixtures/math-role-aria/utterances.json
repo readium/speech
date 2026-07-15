@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "x squared plus y squared equals z squared"
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "x squared plus y squared equals z squared"
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "x squared plus y squared equals z squared"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "x squared plus y squared equals z squared"
+        }
+      ]
+    }
+  ]
 }

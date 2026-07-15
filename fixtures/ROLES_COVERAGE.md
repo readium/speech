@@ -45,6 +45,7 @@ renaming, or removing a fixture.
 | `index` | `index-epub-type`, `index-role-aria` |
 | `introduction` | `introduction-epub-type`, `introduction-role-aria` |
 | `landmarks` | `landmarks-epub-type` |
+| `language` | `language-block`, `language-document`, `language-inline-lang-attribute`, `language-inline-nested`, `language-inline-repeated`, `language-inline-two-languages` |
 | `list` | `list-html-native`, `list-role-aria` |
 | `loa` | `loa-epub-type` |
 | `loi` | `loi-epub-type` |
@@ -56,7 +57,7 @@ renaming, or removing a fixture.
 | `notice` | `notice-epub-type`, `notice-role-aria` |
 | `pagebreak` | `pagebreak-epub-type`, `pagebreak-role-aria` |
 | `pagelist` | `pagelist-epub-type`, `pagelist-role-aria` |
-| `paragraph` | `paragraph-basic`, `paragraph-block-level-language`, `paragraph-document-language`, `paragraph-multilingual-lang-attribute`, `paragraph-multilingual-nested`, `paragraph-multilingual-repeated-language`, `paragraph-multilingual-ssml-lang`, `paragraph-multilingual-two-languages` |
+| `paragraph` | `paragraph-basic` |
 | `part` | `part-epub-type`, `part-role-aria` |
 | `preface` | `preface-epub-type`, `preface-role-aria` |
 | `preformatted` | `preformatted-html-native` |
@@ -75,4 +76,4 @@ renaming, or removing a fixture.
 | `toc` | `toc-epub-type`, `toc-role-aria` |
 | `video` | `video-html-native` |
 
-129 fixtures across 67 roles.
+128 fixtures across 68 roles.

@@ -38,8 +38,11 @@ export const ssmlTextEscape = (s: string) =>
 export const ssmlAttrEscape = (s: string) =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
-export function startsWithBindingPunct(s: string): boolean {
-  return /^[.,;:!?)\]}]/.test(s);
+// Unicode's Line_Break=GL ("glue") space codepoints; no `\p{...}` covers this directly.
+const NO_BREAK_SPACE_RE = /[\u00A0\u2007\u202F]/;
+
+export function isNoBreakSpace(ch: string): boolean {
+  return NO_BREAK_SPACE_RE.test(ch);
 }
 
 export function normalizeWhitespace(text: string, stripLeading: boolean): string {
@@ -47,7 +50,12 @@ export function normalizeWhitespace(text: string, stripLeading: boolean): string
   let lastWasWhite = false;
   let reachedNonWhite = false;
   for (const ch of text) {
-    if (/\s/.test(ch)) {
+    if (isNoBreakSpace(ch)) {
+      // Never collapsed or stripped as leading, unlike an ordinary space.
+      out += ch;
+      lastWasWhite = false;
+      reachedNonWhite = true;
+    } else if (/\s/.test(ch)) {
       if ((stripLeading && !reachedNonWhite) || lastWasWhite) continue;
       out += " ";
       lastWasWhite = true;

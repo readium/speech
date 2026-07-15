@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Link to the next chapter."
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Link to the next chapter."
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Link to the next chapter."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Link to the next chapter."
+        }
+      ]
+    }
+  ]
 }

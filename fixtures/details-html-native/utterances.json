@@ -1,68 +1,76 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Start of the details."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "Additional details the reader can expand."
-      },
-      {
-        "plain": "End of the details."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "skip": [
-            "details"
-          ]
+      "utterances": [
+        {
+          "plain": "Start of the details."
         },
-        "utterances": []
-      },
-      {
-        "options": {
-          "contextualize": false
+        {
+          "plain": "Additional details the reader can expand."
         },
-        "utterances": [
-          {
-            "plain": "Additional details the reader can expand."
-          }
+        {
+          "plain": "End of the details."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "details"
         ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Start of the details."
       },
-      {
-        "ssml": "Additional details the reader can expand."
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
       },
-      {
-        "ssml": "End of the details."
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "skip": [
-            "details"
-          ]
+      "utterances": [
+        {
+          "plain": "Additional details the reader can expand."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the details."
         },
-        "utterances": []
-      },
-      {
-        "options": {
-          "contextualize": false
+        {
+          "ssml": "Additional details the reader can expand."
         },
-        "utterances": [
-          {
-            "ssml": "Additional details the reader can expand."
-          }
+        {
+          "ssml": "End of the details."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "details"
         ]
-      }
-    ]
-  }
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Additional details the reader can expand."
+        }
+      ]
+    }
+  ]
 }

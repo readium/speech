@@ -1,16 +1,24 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Alternative text using the alt attribute"
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Alternative text using the alt attribute"
-      }
-    ]
-  }
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Alternative text using the alt attribute"
+        }
+      ]
+    }
+  ]
 }

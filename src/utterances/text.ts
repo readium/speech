@@ -1,5 +1,10 @@
-import { startsWithBindingPunct } from "../gnd/text.js";
 import type { GndNode } from "../gnd/types.js";
+import {
+  BINDING_PUNCT_CLASS,
+  OPENING_PUNCT_CLASS,
+  startsWithBindingPunct,
+  startsWithOpeningPunct,
+} from "../utils/text.js";
 
 export interface ResolvedNodeText {
   plain?: string;
@@ -21,7 +26,7 @@ const PLACEHOLDER_RE = /\s*<readium:[a-zA-Z][\w-]*\s+id="[^"]*"\s*\/>\s*/g;
  * walk), so the placeholder itself is just removed, using the same
  * binding-punctuation rule the GND converter itself uses when omitting a
  * placeholder from its plain-text variant (see `startsWithBindingPunct` in
- * `../gnd/text.ts`): no space is inserted before punctuation that binds to
+ * `../utils/text.ts`): no space is inserted before punctuation that binds to
  * the preceding word (e.g. ".", ","), but a single space is inserted
  * between two words that would otherwise run together.
  */
@@ -92,6 +97,136 @@ export function stripSsmlTags(ssml: string): string {
     .replace(/&amp;/g, "&")
     .replace(/ {2,}/g, " ")
     .trim();
+}
+
+export interface LangSegment {
+  plain: string;
+  language?: string;
+}
+
+// Matches a raw (pre-`stripLangTags`) `<lang xml:lang="...">...</lang>` span
+// — the same wrapping `stripLangTags` unwraps, but captured here (with its
+// `xml:lang`) for splitting the surrounding text apart instead of merging it.
+const RAW_LANG_TAG_RE = /<lang xml:lang="([^"]*)">([\s\S]*?)<\/lang>/g;
+
+export function hasLangTag(ssml: string): boolean {
+  return new RegExp(RAW_LANG_TAG_RE).test(ssml);
+}
+
+// Same as `stripSsmlTags`, minus the final trim.
+function stripSsmlTagsKeepEdges(ssml: string): string {
+  return ssml
+    .replace(/<[^>]+>/g, "")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&")
+    .replace(/ {2,}/g, " ");
+}
+
+// An atom of a run's text: a word, a punctuation run (open/close), or whitespace.
+// `space` tokens carry no text — only a signal that `renderTokens` should put a
+// space there — since whitespace type never matters, only its presence.
+type Token =
+  | { kind: "word" | "open" | "close"; text: string }
+  | { kind: "space" };
+
+const TOKEN_RE = new RegExp(
+  `\\s+|[${OPENING_PUNCT_CLASS}]+|[${BINDING_PUNCT_CLASS}]+|[^\\s${OPENING_PUNCT_CLASS}${BINDING_PUNCT_CLASS}]+`,
+  "gu",
+);
+
+function tokenize(text: string): Token[] {
+  const tokens: Token[] = [];
+  for (const [chunk] of text.matchAll(TOKEN_RE)) {
+    if (/^\s/.test(chunk)) tokens.push({ kind: "space" });
+    else if (startsWithOpeningPunct(chunk)) tokens.push({ kind: "open", text: chunk });
+    else if (startsWithBindingPunct(chunk)) tokens.push({ kind: "close", text: chunk });
+    else tokens.push({ kind: "word", text: chunk });
+  }
+  return tokens;
+}
+
+// Joins tokens with a single space wherever a `space` token sat between two
+// atoms; leading/trailing `space` tokens are dropped.
+function renderTokens(tokens: Token[]): string {
+  let out = "";
+  let pendingSpace = false;
+  for (const token of tokens) {
+    if (token.kind === "space") {
+      if (out) pendingSpace = true;
+      continue;
+    }
+    if (pendingSpace) out += " ";
+    out += token.text;
+    pendingSpace = false;
+  }
+  return out;
+}
+
+// Removes a trailing (whitespace | open-punct) run, only if it contains
+// punctuation, for the caller to prepend onto the next segment.
+function peelTrailingOpen(tokens: Token[]): Token[] {
+  let i = tokens.length;
+  while (i > 0 && (tokens[i - 1].kind === "space" || tokens[i - 1].kind === "open")) i--;
+  if (!tokens.slice(i).some((t) => t.kind === "open")) return [];
+  return tokens.splice(i);
+}
+
+// Mirror of `peelTrailingOpen` for a leading (whitespace | close-punct) run.
+function peelLeadingClose(tokens: Token[]): Token[] {
+  let i = 0;
+  while (i < tokens.length && (tokens[i].kind === "space" || tokens[i].kind === "close")) i++;
+  if (!tokens.slice(0, i).some((t) => t.kind === "close")) return [];
+  return tokens.splice(0, i);
+}
+
+/**
+ * Splits an SSML string into per-language runs of plain text (`format:
+ * "plain"` has no `<lang>` markup, so a language shift mid-string becomes
+ * separate segments instead). Punctuation touching a `<lang>` boundary —
+ * separated by nothing or only whitespace — joins the tagged run rather
+ * than staying with its lexical run: close-punct after `</lang>` joins the
+ * run that just closed, open-punct before `<lang>` joins the run about to
+ * start.
+ */
+export function splitOnLangTags(ssml: string, baseLanguage: string | undefined): LangSegment[] {
+  interface Run {
+    tokens: Token[];
+    language: string | undefined;
+    tagged: boolean;
+  }
+  const runs: Run[] = [];
+
+  let lastIndex = 0;
+  for (const match of ssml.matchAll(RAW_LANG_TAG_RE)) {
+    runs.push({
+      tokens: tokenize(stripSsmlTagsKeepEdges(ssml.slice(lastIndex, match.index))),
+      language: baseLanguage,
+      tagged: false,
+    });
+    runs.push({ tokens: tokenize(stripSsmlTags(match[2])), language: match[1], tagged: true });
+    lastIndex = match.index! + match[0].length;
+  }
+  runs.push({
+    tokens: tokenize(stripSsmlTagsKeepEdges(ssml.slice(lastIndex))),
+    language: baseLanguage,
+    tagged: false,
+  });
+
+  for (let i = 0; i < runs.length - 1; i++) {
+    if (!runs[i].tagged && runs[i + 1].tagged) {
+      runs[i + 1].tokens.unshift(...peelTrailingOpen(runs[i].tokens));
+    } else if (runs[i].tagged && !runs[i + 1].tagged) {
+      runs[i].tokens.push(...peelLeadingClose(runs[i + 1].tokens));
+    }
+  }
+
+  const segments: LangSegment[] = [];
+  for (const run of runs) {
+    const plain = renderTokens(run.tokens);
+    if (plain) segments.push({ plain, language: run.language });
+  }
+  return segments;
 }
 
 export interface SsmlSegment {

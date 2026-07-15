@@ -1,136 +1,142 @@
 {
-  "plain": {
-    "base": [
-      {
-        "plain": "Heading level 1."
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
       },
-      {
-        "plain": "Chapter One"
-      },
-      {
-        "plain": "Heading level 2."
-      },
-      {
-        "plain": "Section A"
-      },
-      {
-        "plain": "Heading level 3."
-      },
-      {
-        "plain": "Subsection i"
-      },
-      {
-        "plain": "Heading level 4."
-      },
-      {
-        "plain": "Detail heading"
-      },
-      {
-        "plain": "Heading level 5."
-      },
-      {
-        "plain": "Note heading"
-      },
-      {
-        "plain": "Heading level 6."
-      },
-      {
-        "plain": "Aside heading"
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+      "utterances": [
+        {
+          "plain": "Heading level 1."
         },
-        "utterances": [
-          {
-            "plain": "Chapter One"
-          },
-          {
-            "plain": "Section A"
-          },
-          {
-            "plain": "Subsection i"
-          },
-          {
-            "plain": "Detail heading"
-          },
-          {
-            "plain": "Note heading"
-          },
-          {
-            "plain": "Aside heading"
-          }
-        ]
-      }
-    ]
-  },
-  "ssml": {
-    "base": [
-      {
-        "ssml": "Heading level 1."
-      },
-      {
-        "ssml": "Chapter One"
-      },
-      {
-        "ssml": "Heading level 2."
-      },
-      {
-        "ssml": "Section A"
-      },
-      {
-        "ssml": "Heading level 3."
-      },
-      {
-        "ssml": "Subsection i"
-      },
-      {
-        "ssml": "Heading level 4."
-      },
-      {
-        "ssml": "Detail heading"
-      },
-      {
-        "ssml": "Heading level 5."
-      },
-      {
-        "ssml": "Note heading"
-      },
-      {
-        "ssml": "Heading level 6."
-      },
-      {
-        "ssml": "Aside heading"
-      }
-    ],
-    "variants": [
-      {
-        "options": {
-          "contextualize": false
+        {
+          "plain": "Chapter One"
         },
-        "utterances": [
-          {
-            "ssml": "Chapter One"
-          },
-          {
-            "ssml": "Section A"
-          },
-          {
-            "ssml": "Subsection i"
-          },
-          {
-            "ssml": "Detail heading"
-          },
-          {
-            "ssml": "Note heading"
-          },
-          {
-            "ssml": "Aside heading"
-          }
-        ]
-      }
-    ]
-  }
+        {
+          "plain": "Heading level 2."
+        },
+        {
+          "plain": "Section A"
+        },
+        {
+          "plain": "Heading level 3."
+        },
+        {
+          "plain": "Subsection i"
+        },
+        {
+          "plain": "Heading level 4."
+        },
+        {
+          "plain": "Detail heading"
+        },
+        {
+          "plain": "Heading level 5."
+        },
+        {
+          "plain": "Note heading"
+        },
+        {
+          "plain": "Heading level 6."
+        },
+        {
+          "plain": "Aside heading"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Chapter One"
+        },
+        {
+          "plain": "Section A"
+        },
+        {
+          "plain": "Subsection i"
+        },
+        {
+          "plain": "Detail heading"
+        },
+        {
+          "plain": "Note heading"
+        },
+        {
+          "plain": "Aside heading"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Heading level 1."
+        },
+        {
+          "ssml": "Chapter One"
+        },
+        {
+          "ssml": "Heading level 2."
+        },
+        {
+          "ssml": "Section A"
+        },
+        {
+          "ssml": "Heading level 3."
+        },
+        {
+          "ssml": "Subsection i"
+        },
+        {
+          "ssml": "Heading level 4."
+        },
+        {
+          "ssml": "Detail heading"
+        },
+        {
+          "ssml": "Heading level 5."
+        },
+        {
+          "ssml": "Note heading"
+        },
+        {
+          "ssml": "Heading level 6."
+        },
+        {
+          "ssml": "Aside heading"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Chapter One"
+        },
+        {
+          "ssml": "Section A"
+        },
+        {
+          "ssml": "Subsection i"
+        },
+        {
+          "ssml": "Detail heading"
+        },
+        {
+          "ssml": "Note heading"
+        },
+        {
+          "ssml": "Aside heading"
+        }
+      ]
+    }
+  ]
 }
