@@ -35,6 +35,66 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the index."
+        },
+        {
+          "plain": "Fresnel lens"
+        },
+        {
+          "plain": "Keepers"
+        },
+        {
+          "plain": "End of the index."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the index."
+        },
+        {
+          "plain": "Fresnel lens"
+        },
+        {
+          "plain": "Keepers"
+        },
+        {
+          "plain": "End of the index."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the index."
+        },
+        {
+          "plain": "Fresnel lens"
+        },
+        {
+          "plain": "Keepers"
+        },
+        {
+          "plain": "End of the index."
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
       },
       "utterances": [
@@ -63,6 +123,66 @@
         },
         {
           "ssml": "Keepers"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the index."
+        },
+        {
+          "ssml": "Fresnel lens"
+        },
+        {
+          "ssml": "Keepers"
+        },
+        {
+          "ssml": "End of the index."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the index."
+        },
+        {
+          "ssml": "Fresnel lens"
+        },
+        {
+          "ssml": "Keepers"
+        },
+        {
+          "ssml": "End of the index."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the index."
+        },
+        {
+          "ssml": "Fresnel lens"
+        },
+        {
+          "ssml": "Keepers"
+        },
+        {
+          "ssml": "End of the index."
         }
       ]
     }

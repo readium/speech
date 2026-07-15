@@ -44,6 +44,66 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list of video clips."
+        },
+        {
+          "plain": "Video 1. Lamp mechanism in motion"
+        },
+        {
+          "plain": "Video 2. Automation retrofit"
+        },
+        {
+          "plain": "End of the list of video clips."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list of video clips."
+        },
+        {
+          "plain": "Video 1. Lamp mechanism in motion"
+        },
+        {
+          "plain": "Video 2. Automation retrofit"
+        },
+        {
+          "plain": "End of the list of video clips."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list of video clips."
+        },
+        {
+          "plain": "Video 1. Lamp mechanism in motion"
+        },
+        {
+          "plain": "Video 2. Automation retrofit"
+        },
+        {
+          "plain": "End of the list of video clips."
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
       },
       "utterances": [
@@ -81,6 +141,66 @@
         },
         {
           "ssml": "Video 2. Automation retrofit"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list of video clips."
+        },
+        {
+          "ssml": "Video 1. Lamp mechanism in motion"
+        },
+        {
+          "ssml": "Video 2. Automation retrofit"
+        },
+        {
+          "ssml": "End of the list of video clips."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list of video clips."
+        },
+        {
+          "ssml": "Video 1. Lamp mechanism in motion"
+        },
+        {
+          "ssml": "Video 2. Automation retrofit"
+        },
+        {
+          "ssml": "End of the list of video clips."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list of video clips."
+        },
+        {
+          "ssml": "Video 1. Lamp mechanism in motion"
+        },
+        {
+          "ssml": "Video 2. Automation retrofit"
+        },
+        {
+          "ssml": "End of the list of video clips."
         }
       ]
     }

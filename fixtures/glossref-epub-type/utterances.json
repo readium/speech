@@ -12,7 +12,73 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "See glossary: Fresnel lens"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "See glossary: Fresnel lens"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "See glossary: Fresnel lens"
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "See glossary: Fresnel lens"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "See glossary: Fresnel lens"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "See glossary: Fresnel lens"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
       },
       "utterances": [
         {

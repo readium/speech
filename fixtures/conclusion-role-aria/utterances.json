@@ -29,6 +29,57 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the conclusion."
+        },
+        {
+          "plain": "Lighthouses remain a symbol of safe passage."
+        },
+        {
+          "plain": "End of the conclusion."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the conclusion."
+        },
+        {
+          "plain": "Lighthouses remain a symbol of safe passage."
+        },
+        {
+          "plain": "End of the conclusion."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the conclusion."
+        },
+        {
+          "plain": "Lighthouses remain a symbol of safe passage."
+        },
+        {
+          "plain": "End of the conclusion."
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
       },
       "utterances": [
@@ -51,6 +102,57 @@
       "utterances": [
         {
           "ssml": "Lighthouses remain a symbol of safe passage."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the conclusion."
+        },
+        {
+          "ssml": "Lighthouses remain a symbol of safe passage."
+        },
+        {
+          "ssml": "End of the conclusion."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the conclusion."
+        },
+        {
+          "ssml": "Lighthouses remain a symbol of safe passage."
+        },
+        {
+          "ssml": "End of the conclusion."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the conclusion."
+        },
+        {
+          "ssml": "Lighthouses remain a symbol of safe passage."
+        },
+        {
+          "ssml": "End of the conclusion."
         }
       ]
     }

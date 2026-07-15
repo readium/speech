@@ -12,7 +12,73 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "The full content of the document."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "The full content of the document."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "The full content of the document."
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "The full content of the document."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "The full content of the document."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "The full content of the document."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
       },
       "utterances": [
         {

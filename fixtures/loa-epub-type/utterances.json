@@ -44,6 +44,66 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list of audio clips."
+        },
+        {
+          "plain": "Audio 1. Foghorn recording"
+        },
+        {
+          "plain": "Audio 2. Keeper's log reading"
+        },
+        {
+          "plain": "End of the list of audio clips."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list of audio clips."
+        },
+        {
+          "plain": "Audio 1. Foghorn recording"
+        },
+        {
+          "plain": "Audio 2. Keeper's log reading"
+        },
+        {
+          "plain": "End of the list of audio clips."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list of audio clips."
+        },
+        {
+          "plain": "Audio 1. Foghorn recording"
+        },
+        {
+          "plain": "Audio 2. Keeper's log reading"
+        },
+        {
+          "plain": "End of the list of audio clips."
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
       },
       "utterances": [
@@ -81,6 +141,66 @@
         },
         {
           "ssml": "Audio 2. Keeper's log reading"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list of audio clips."
+        },
+        {
+          "ssml": "Audio 1. Foghorn recording"
+        },
+        {
+          "ssml": "Audio 2. Keeper's log reading"
+        },
+        {
+          "ssml": "End of the list of audio clips."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list of audio clips."
+        },
+        {
+          "ssml": "Audio 1. Foghorn recording"
+        },
+        {
+          "ssml": "Audio 2. Keeper's log reading"
+        },
+        {
+          "ssml": "End of the list of audio clips."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list of audio clips."
+        },
+        {
+          "ssml": "Audio 1. Foghorn recording"
+        },
+        {
+          "ssml": "Audio 2. Keeper's log reading"
+        },
+        {
+          "ssml": "End of the list of audio clips."
         }
       ]
     }

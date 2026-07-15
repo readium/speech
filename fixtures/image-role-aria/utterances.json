@@ -12,7 +12,73 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
       },
       "utterances": [
         {

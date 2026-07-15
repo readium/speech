@@ -32,6 +32,66 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the chapter."
+        },
+        {
+          "plain": "Heading level 1."
+        },
+        {
+          "plain": "Title of the chapter"
+        },
+        {
+          "plain": "End of the chapter."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the chapter."
+        },
+        {
+          "plain": "Heading level 1."
+        },
+        {
+          "plain": "Title of the chapter"
+        },
+        {
+          "plain": "End of the chapter."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the chapter."
+        },
+        {
+          "plain": "Heading level 1."
+        },
+        {
+          "plain": "Title of the chapter"
+        },
+        {
+          "plain": "End of the chapter."
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
       },
       "utterances": [
@@ -57,6 +117,66 @@
       "utterances": [
         {
           "ssml": "Title of the chapter"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the chapter."
+        },
+        {
+          "ssml": "Heading level 1."
+        },
+        {
+          "ssml": "Title of the chapter"
+        },
+        {
+          "ssml": "End of the chapter."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the chapter."
+        },
+        {
+          "ssml": "Heading level 1."
+        },
+        {
+          "ssml": "Title of the chapter"
+        },
+        {
+          "ssml": "End of the chapter."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the chapter."
+        },
+        {
+          "ssml": "Heading level 1."
+        },
+        {
+          "ssml": "Title of the chapter"
+        },
+        {
+          "ssml": "End of the chapter."
         }
       ]
     }

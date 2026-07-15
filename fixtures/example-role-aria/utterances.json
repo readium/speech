@@ -26,6 +26,48 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "Example."
+        },
+        {
+          "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "Example."
+        },
+        {
+          "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "Example."
+        },
+        {
+          "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
       },
       "utterances": [
@@ -43,6 +85,48 @@
         "contextualize": false
       },
       "utterances": [
+        {
+          "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "Example."
+        },
+        {
+          "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "Example."
+        },
+        {
+          "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "ssml": "Example."
+        },
         {
           "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
         }

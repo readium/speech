@@ -12,7 +12,73 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "The lamp mechanism rotating at dusk"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "The lamp mechanism rotating at dusk"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "The lamp mechanism rotating at dusk"
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "The lamp mechanism rotating at dusk"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "The lamp mechanism rotating at dusk"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "The lamp mechanism rotating at dusk"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
       },
       "utterances": [
         {

@@ -77,18 +77,18 @@ for (const id of ids) {
 
   if (containsPlaceholder(gnd)) variantSpecs.push({ interruptSentence: true });
 
-  // Every `language` state gets its own case for `language-*` fixtures,
-  // per format, regardless of whether it matches the base case.
-  const languageSpecs = id.startsWith("language-") ? ["inline", "block", "never"] : [];
+  // Every `language` state gets its own case for every fixture, per format,
+  // regardless of whether it matches the base case.
+  const languageSpecs = ["inline", "block", "never"];
 
   const cases = [];
   for (const format of ["plain", "ssml"]) {
     const base = extractUtterances(nodes, { format });
     cases.push({ options: { format }, utterances: base });
 
+    // Ships every applicable variant's case, even when identical to base.
     for (const options of variantSpecs) {
       const utterances = extractUtterances(nodes, { format, ...options });
-      if (JSON.stringify(utterances) === JSON.stringify(base)) continue;
       cases.push({ options: { format, ...options }, utterances });
     }
 

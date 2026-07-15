@@ -50,6 +50,75 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the table of contents."
+        },
+        {
+          "plain": "Chapter One"
+        },
+        {
+          "plain": "Chapter Two"
+        },
+        {
+          "plain": "Chapter Three"
+        },
+        {
+          "plain": "End of the table of contents."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the table of contents."
+        },
+        {
+          "plain": "Chapter One"
+        },
+        {
+          "plain": "Chapter Two"
+        },
+        {
+          "plain": "Chapter Three"
+        },
+        {
+          "plain": "End of the table of contents."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the table of contents."
+        },
+        {
+          "plain": "Chapter One"
+        },
+        {
+          "plain": "Chapter Two"
+        },
+        {
+          "plain": "Chapter Three"
+        },
+        {
+          "plain": "End of the table of contents."
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
       },
       "utterances": [
@@ -93,6 +162,75 @@
         },
         {
           "ssml": "Chapter Three"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the table of contents."
+        },
+        {
+          "ssml": "Chapter One"
+        },
+        {
+          "ssml": "Chapter Two"
+        },
+        {
+          "ssml": "Chapter Three"
+        },
+        {
+          "ssml": "End of the table of contents."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the table of contents."
+        },
+        {
+          "ssml": "Chapter One"
+        },
+        {
+          "ssml": "Chapter Two"
+        },
+        {
+          "ssml": "Chapter Three"
+        },
+        {
+          "ssml": "End of the table of contents."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the table of contents."
+        },
+        {
+          "ssml": "Chapter One"
+        },
+        {
+          "ssml": "Chapter Two"
+        },
+        {
+          "ssml": "Chapter Three"
+        },
+        {
+          "ssml": "End of the table of contents."
         }
       ]
     }

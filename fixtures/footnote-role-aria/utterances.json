@@ -104,6 +104,68 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote."
+        },
+        {
+          "plain": "Start of the footnote."
+        },
+        {
+          "plain": "Text of the footnote."
+        },
+        {
+          "plain": "End of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote."
+        },
+        {
+          "plain": "Start of the footnote."
+        },
+        {
+          "plain": "Text of the footnote."
+        },
+        {
+          "plain": "End of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote."
+        },
+        {
+          "plain": "Start of the footnote."
+        },
+        {
+          "plain": "Text of the footnote."
+        },
+        {
+          "plain": "End of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
       },
       "utterances": [
@@ -201,6 +263,68 @@
         {
           "language": "en",
           "ssml": "."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote."
+        },
+        {
+          "ssml": "Start of the footnote."
+        },
+        {
+          "ssml": "Text of the footnote."
+        },
+        {
+          "ssml": "End of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote."
+        },
+        {
+          "ssml": "Start of the footnote."
+        },
+        {
+          "ssml": "Text of the footnote."
+        },
+        {
+          "ssml": "End of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote."
+        },
+        {
+          "ssml": "Start of the footnote."
+        },
+        {
+          "ssml": "Text of the footnote."
+        },
+        {
+          "ssml": "End of the footnote."
         }
       ]
     }

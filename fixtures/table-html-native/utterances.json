@@ -59,6 +59,102 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the table."
+        },
+        {
+          "plain": "Name"
+        },
+        {
+          "plain": "Role"
+        },
+        {
+          "plain": "Ada"
+        },
+        {
+          "plain": "Engineer"
+        },
+        {
+          "plain": "Grace"
+        },
+        {
+          "plain": "Admiral"
+        },
+        {
+          "plain": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the table."
+        },
+        {
+          "plain": "Name"
+        },
+        {
+          "plain": "Role"
+        },
+        {
+          "plain": "Ada"
+        },
+        {
+          "plain": "Engineer"
+        },
+        {
+          "plain": "Grace"
+        },
+        {
+          "plain": "Admiral"
+        },
+        {
+          "plain": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the table."
+        },
+        {
+          "plain": "Name"
+        },
+        {
+          "plain": "Role"
+        },
+        {
+          "plain": "Ada"
+        },
+        {
+          "plain": "Engineer"
+        },
+        {
+          "plain": "Grace"
+        },
+        {
+          "plain": "Admiral"
+        },
+        {
+          "plain": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
       },
       "utterances": [
@@ -111,6 +207,102 @@
         },
         {
           "ssml": "Admiral"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the table."
+        },
+        {
+          "ssml": "Name"
+        },
+        {
+          "ssml": "Role"
+        },
+        {
+          "ssml": "Ada"
+        },
+        {
+          "ssml": "Engineer"
+        },
+        {
+          "ssml": "Grace"
+        },
+        {
+          "ssml": "Admiral"
+        },
+        {
+          "ssml": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the table."
+        },
+        {
+          "ssml": "Name"
+        },
+        {
+          "ssml": "Role"
+        },
+        {
+          "ssml": "Ada"
+        },
+        {
+          "ssml": "Engineer"
+        },
+        {
+          "ssml": "Grace"
+        },
+        {
+          "ssml": "Admiral"
+        },
+        {
+          "ssml": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the table."
+        },
+        {
+          "ssml": "Name"
+        },
+        {
+          "ssml": "Role"
+        },
+        {
+          "ssml": "Ada"
+        },
+        {
+          "ssml": "Engineer"
+        },
+        {
+          "ssml": "Grace"
+        },
+        {
+          "ssml": "Admiral"
+        },
+        {
+          "ssml": "End of the table."
         }
       ]
     }

@@ -29,6 +29,57 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary."
+        },
+        {
+          "plain": "A structure that contains an enumeration of related content items."
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary."
+        },
+        {
+          "plain": "A structure that contains an enumeration of related content items."
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary."
+        },
+        {
+          "plain": "A structure that contains an enumeration of related content items."
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
       },
       "utterances": [
@@ -51,6 +102,57 @@
       "utterances": [
         {
           "ssml": "A structure that contains an enumeration of related content items."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary."
+        },
+        {
+          "ssml": "A structure that contains an enumeration of related content items."
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary."
+        },
+        {
+          "ssml": "A structure that contains an enumeration of related content items."
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary."
+        },
+        {
+          "ssml": "A structure that contains an enumeration of related content items."
+        },
+        {
+          "ssml": "End of the glossary."
         }
       ]
     }

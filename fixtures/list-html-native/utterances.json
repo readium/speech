@@ -18,7 +18,109 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "First item"
+        },
+        {
+          "plain": "Second item"
+        },
+        {
+          "plain": "Third item"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "First item"
+        },
+        {
+          "plain": "Second item"
+        },
+        {
+          "plain": "Third item"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "First item"
+        },
+        {
+          "plain": "Second item"
+        },
+        {
+          "plain": "Third item"
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "First item"
+        },
+        {
+          "ssml": "Second item"
+        },
+        {
+          "ssml": "Third item"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "First item"
+        },
+        {
+          "ssml": "Second item"
+        },
+        {
+          "ssml": "Third item"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "First item"
+        },
+        {
+          "ssml": "Second item"
+        },
+        {
+          "ssml": "Third item"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
       },
       "utterances": [
         {

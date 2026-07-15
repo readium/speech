@@ -35,6 +35,48 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "Pull quote."
+        },
+        {
+          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "Pull quote."
+        },
+        {
+          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "Pull quote."
+        },
+        {
+          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
       },
       "utterances": [
@@ -61,6 +103,48 @@
         "contextualize": false
       },
       "utterances": [
+        {
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "Pull quote."
+        },
+        {
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "Pull quote."
+        },
+        {
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "ssml": "Pull quote."
+        },
         {
           "ssml": "The lamp still turns, though no one climbs the stairs anymore."
         }

@@ -144,21 +144,8 @@ options are:
   way to represent the shift) or merged into one utterance with embedded
   `<lang>` tags for `ssml`.
 
-A case for `skip`/`contextualize`/`interruptSentence` ships only when that
-option actually changes the output for that fixture, the same "not every
-fixture needs this" principle as fixture granularity in general (a
-footnote reached via noteref, a whole aside, a pagebreak announcement,
-...). Every fixture that ships an announcement-bearing base case should
-also illustrate `contextualize: false` — this isn't limited to today's
-`pagebreak`/`footnote`, since the announcement catalog is expected to grow
-to cover much of roles.md's structural vocabulary (chapters, headings,
-parts, credits, navigational lists...) over time.
-
-`language-*` fixtures are the one exception to "only ship a case when it
-changes the output": every `language` state gets its own case per format,
-even when it produces output identical to the base case (e.g. `"inline"` is
-the default, so it *should* match) — the option's full state space is the
-thing under test there, not just its distinct outputs.
+Every fixture ships a case for every option that applies to it, even when
+identical to the base case.
 
 ## `epub:type` fixtures are full XHTML documents
 

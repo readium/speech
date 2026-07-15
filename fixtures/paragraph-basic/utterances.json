@@ -12,7 +12,73 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife."
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
       },
       "utterances": [
         {

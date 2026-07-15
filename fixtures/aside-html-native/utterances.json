@@ -38,6 +38,57 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the aside."
+        },
+        {
+          "plain": "By the way, lighthouses were once staffed around the clock."
+        },
+        {
+          "plain": "End of the aside."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the aside."
+        },
+        {
+          "plain": "By the way, lighthouses were once staffed around the clock."
+        },
+        {
+          "plain": "End of the aside."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the aside."
+        },
+        {
+          "plain": "By the way, lighthouses were once staffed around the clock."
+        },
+        {
+          "plain": "End of the aside."
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
       },
       "utterances": [
@@ -69,6 +120,57 @@
       "utterances": [
         {
           "ssml": "By the way, lighthouses were once staffed around the clock."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the aside."
+        },
+        {
+          "ssml": "By the way, lighthouses were once staffed around the clock."
+        },
+        {
+          "ssml": "End of the aside."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the aside."
+        },
+        {
+          "ssml": "By the way, lighthouses were once staffed around the clock."
+        },
+        {
+          "ssml": "End of the aside."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the aside."
+        },
+        {
+          "ssml": "By the way, lighthouses were once staffed around the clock."
+        },
+        {
+          "ssml": "End of the aside."
         }
       ]
     }

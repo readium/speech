@@ -50,6 +50,66 @@
     },
     {
       "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the aside."
+        },
+        {
+          "plain": "Pull quote."
+        },
+        {
+          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "plain": "End of the aside."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the aside."
+        },
+        {
+          "plain": "Pull quote."
+        },
+        {
+          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "plain": "End of the aside."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the aside."
+        },
+        {
+          "plain": "Pull quote."
+        },
+        {
+          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "plain": "End of the aside."
+        }
+      ]
+    },
+    {
+      "options": {
         "format": "ssml"
       },
       "utterances": [
@@ -93,6 +153,66 @@
       "utterances": [
         {
           "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the aside."
+        },
+        {
+          "ssml": "Pull quote."
+        },
+        {
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "ssml": "End of the aside."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the aside."
+        },
+        {
+          "ssml": "Pull quote."
+        },
+        {
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "ssml": "End of the aside."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the aside."
+        },
+        {
+          "ssml": "Pull quote."
+        },
+        {
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "ssml": "End of the aside."
         }
       ]
     }
