@@ -59,15 +59,8 @@
           "plain": "Pagebreak. 4."
         },
         {
-          "language": "en",
-          "plain": "And the next pagebreak is in the middle"
-        },
-        {
-          "plain": "Pagebreak. 5."
-        },
-        {
-          "language": "en",
-          "plain": "of a sentence."
+          "plain": "And the next pagebreak is in the middle Pagebreak. 5. of a sentence.",
+          "language": "en"
         }
       ]
     },
@@ -183,15 +176,8 @@
           "ssml": "Pagebreak. 4."
         },
         {
-          "language": "en",
-          "ssml": "And the next pagebreak is in the middle"
-        },
-        {
-          "ssml": "Pagebreak. 5."
-        },
-        {
-          "language": "en",
-          "ssml": "of a sentence."
+          "ssml": "And the next pagebreak is in the middle Pagebreak. 5. of a sentence.",
+          "language": "en"
         }
       ]
     },

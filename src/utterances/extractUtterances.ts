@@ -13,6 +13,7 @@ import {
   type ResolvedNodeText,
 } from "./text.js";
 import { isAnnouncementPair, type Announcement, type Announcements, type ExtractUtterancesOptions } from "./types.js";
+import { startsWithBindingPunct } from "../utils/text.js";
 
 interface WalkContext {
   announcements: Announcements;
@@ -65,14 +66,8 @@ function isSkipped(roles: GndRole[], skip: ReadonlySet<GndRole>): boolean {
   return skip.size > 0 && roles.some((role) => skip.has(role));
 }
 
-// Joins a run of utterances — an announcement plus the content it
-// contextualizes, e.g. "Pagebreak." + its label, or a footnote's start/end
-// pair around its own content — into a single utterance, since together
-// they're read as one indivisible occurrence rather than separate utterance
-// boundaries. Bails out (returning `undefined`, leaving the pieces as they
-// were) if the pieces don't all agree on one `language`: a single utterance
-// can only carry one `language` field, so forcing a merge across genuinely
-// different languages would silently drop that information.
+// Joins pieces read as one continuous occurrence into a single utterance.
+// Bails out (returns `undefined`) if they don't all agree on one `language`.
 function mergeUtterances(
   pieces: ReadiumSpeechUtterance[],
   format: "plain" | "ssml",
@@ -91,16 +86,19 @@ function mergeUtterances(
     }
   }
   if (parts.length === 0) return undefined;
-  const merged: ReadiumSpeechUtterance = format === "ssml" ? { ssml: parts.join(" ") } : { plain: parts.join(" ") };
+  let joined = "";
+  for (const part of parts) {
+    if (part.length === 1 && joined.endsWith(part)) continue; // redundant punctuation
+    if (joined && !startsWithBindingPunct(part)) joined += " ";
+    joined += part;
+  }
+  const merged: ReadiumSpeechUtterance = format === "ssml" ? { ssml: joined } : { plain: joined };
   if (language) merged.language = language;
   return merged;
 }
 
-// A pagebreak's own text is a bare locator label (a page number), not
-// content in its own right — read together with its "Pagebreak." announcement
-// as one utterance, with a synthesized trailing period since the label alone
-// isn't a full sentence. Falls through to the announcement-less label alone
-// when `contextualize` is off or the catalog has no `pagebreak` entry.
+// A pagebreak's label merges into its "Pagebreak." announcement as one
+// utterance, with a synthesized trailing period.
 function buildPagebreakUtterance(node: GndNode, ctx: WalkContext): ReadiumSpeechUtterance[] {
   const resolved = resolveNodeText(node.text);
   const own = resolved ? applyFormat(resolved, ctx.format, ctx.language) : [];
@@ -158,11 +156,9 @@ function applyFormat(
   return [utterance];
 }
 
-// `interruptSentence`: a node whose raw `ssml` embeds a placeholder always
-// got that placeholder because the converter decided `needSSML` (see
-// `flushText()` in `../gnd/converter.ts`), so the split point always comes
-// from the placeholder's position in `ssml` — regardless of the requested
-// `format`, which is only applied to each resulting fragment afterward.
+// `interruptSentence`: splits the sentence on its embedded placeholder,
+// then merges the fragments and the referenced node's own utterance back
+// into one continuous utterance.
 function emitInterrupted(
   node: GndNode,
   rawSsml: string,
@@ -171,10 +167,11 @@ function emitInterrupted(
 ): void {
   const language = typeof node.text === "object" ? node.text.language : undefined;
   const childrenById = new Map((node.children ?? []).map((child) => [child.id, child] as const));
+  const pieces: ReadiumSpeechUtterance[] = [];
   for (const segment of splitOnPlaceholders(rawSsml)) {
     if (segment.placeholderId !== undefined) {
       const child = childrenById.get(segment.placeholderId);
-      if (child) walkNode(child, out, ctx);
+      if (child) walkNode(child, pieces, ctx);
       continue;
     }
     if (!segment.ssml) continue;
@@ -187,7 +184,7 @@ function emitInterrupted(
       for (const langSegment of splitOnLangTags(segment.ssml, language)) {
         const utterance: ReadiumSpeechUtterance = { plain: langSegment.plain };
         if (langSegment.language) utterance.language = langSegment.language;
-        out.push(utterance);
+        pieces.push(utterance);
       }
       continue;
     }
@@ -199,22 +196,18 @@ function emitInterrupted(
       if (utterance.ssml) utterance.ssml = stripLangTags(utterance.ssml);
       if (ctx.language === "never") delete utterance.language;
     }
-    out.push(utterance);
+    pieces.push(utterance);
   }
+  const merged = pieces.length > 1 ? mergeUtterances(pieces, ctx.format) : undefined;
+  out.push(...(merged ? [merged] : pieces));
 }
 
 function walkNode(node: GndNode, out: ReadiumSpeechUtterance[], ctx: WalkContext): void {
   const roles = node.role ?? [];
   if (isSkipped(roles, ctx.skip)) return;
 
-  // A footnote node is always reached as a noteref's child (see the
-  // noteref branch below), which speaks its announcement explicitly around
-  // walking it — excluded here so the generic loop doesn't speak it a
-  // second time. It's also commonly marked "aside" (DPUB-ARIA models it as
-  // a kind of aside), which would otherwise double-announce the same
-  // region redundantly, so that's excluded too. A pagebreak is likewise
-  // handled specially below (its announcement merges with its own label
-  // into one utterance), so it's excluded from the generic loop as well.
+  // Footnote and pagebreak are handled specially below (merged with their
+  // own content/label), so they're excluded from the generic loop here.
   const isFootnoteNode = roles.includes("footnote");
   const announcedRoles = roles.filter(
     (role) => !(isFootnoteNode && (role === "footnote" || role === "aside")) && role !== "pagebreak",
@@ -229,10 +222,8 @@ function walkNode(node: GndNode, out: ReadiumSpeechUtterance[], ctx: WalkContext
   }
 
   // A noteref's own visible text (e.g. "[1]") is a visual marker only,
-  // never spoken. Its footnote target's start/end announcements and its
-  // own content are read as a single indivisible occurrence
-  // (`mergeUtterances`), the same principle as a pagebreak's announcement
-  // merging with its label; any other kind of child is walked as-is.
+  // never spoken. Its footnote target's announcements and content merge
+  // into one utterance; any other kind of child is walked as-is.
   if (roles.includes("noteref")) {
     for (const child of node.children ?? []) {
       const childRoles = child.role ?? [];
