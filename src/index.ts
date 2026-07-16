@@ -1,6 +1,10 @@
 // Core exports
 export * from "./WebSpeech";
 
+// Decorator re-exports
+export * from "@readium/decorator";
+export { Locator } from "@readium/shared";
+
 // Data exports
 export { chineseVariantMap } from "./voices/languages";
 

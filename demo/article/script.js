@@ -1,4 +1,10 @@
-import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator } from "../../build/index.js";
+import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator, DirectCommsChannel, Decorator, DecorationController, DecorationStyleType, Locator } from "../../build/index.js";
+
+// Set up the Decorator for TTS word highlights
+const _channel = new DirectCommsChannel();
+const _decorator = new Decorator();
+_decorator.mount(window, _channel.frame);
+const decoCtrl = new DecorationController(_channel.host);
 
 // DOM Elements
 const content = document.getElementById("content");
@@ -18,8 +24,8 @@ let enVoices = [];
 let currentVoice = null;
 let isPlaying = false;
 let utterances = [];
-let currentWordHighlight = null;
 let readAlongEnabled = true; // Default to true to match default checkbox state
+let currentSentenceIndex = -1;
 
 // Initialize voice manager and navigator
 async function initialize() {
@@ -355,103 +361,62 @@ async function handleVoiceChange(e) {
   }
 }
 
-// Clear any previous highlighting
+// Clear TTS highlights
 function clearWordHighlighting() {
-  if (window.CSS?.highlights) {
-    CSS.highlights.clear();
-  }
+  decoCtrl.applyDecorations([], "tts-sentence");
+  decoCtrl.applyDecorations([], "tts-word");
+  currentSentenceIndex = -1;
 }
 
-// Highlight current word in the content
+// Highlight the current word using the Decorator
 function highlightCurrentWord(charIndex, charLength) {
-  // Check if read-along is enabled
   if (!readAlongEnabled) return;
-  
-  // Clear previous highlighting
-  clearWordHighlighting();
 
-  // Get the current utterance
   const currentIndex = navigator.getCurrentUtteranceIndex();
   const currentUtterance = utterances[currentIndex];
   if (!currentUtterance) return;
 
-  // Get the content element
-  const contentElement = document.getElementById("content");
-  if (!contentElement) return;
+  const word = currentUtterance.text.substring(charIndex, charIndex + charLength);
+  if (!word.trim()) return;
 
-  // Create a range for the current word
-  const range = document.createRange();
-  const walker = document.createTreeWalker(
-    contentElement,
-    NodeFilter.SHOW_TEXT,
-    null,
-    false
-  );
+  const before = currentUtterance.text.substring(0, charIndex);
+  const after = currentUtterance.text.substring(charIndex + charLength);
 
-  let node;
-  let found = false;
+  if (currentIndex !== currentSentenceIndex) {
+    currentSentenceIndex = currentIndex;
+    decoCtrl.applyDecorations([{
+      id: "tts-sentence",
+      locator: new Locator({
+        href: window.location.href,
+        type: "text/html",
+        text: { highlight: currentUtterance.text },
+      }),
+      style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
+    }], "tts-sentence");
+  }
 
-  while ((node = walker.nextNode())) {
-    const nodeText = node.nodeValue;
-    const nodeLength = nodeText.length;
+  decoCtrl.applyDecorations([{
+    id: "tts-word",
+    locator: new Locator({
+      href: window.location.href,
+      type: "text/html",
+      text: { highlight: word, before, after },
+    }),
+    style: { type: DecorationStyleType.Underline, tint: "#e53935", enforceContrast: false },
+  }], "tts-word");
 
-    // Check if this node contains the current utterance
-    const utteranceText = currentUtterance.text;
-    const nodeStart = nodeText.indexOf(utteranceText);
-    
-    if (nodeStart !== -1) {
-      // Calculate the position within this node
-      const startPos = nodeStart + charIndex;
-      const endPos = Math.min(startPos + charLength, nodeLength);
-      
-      // Ensure the range is valid
-      if (startPos >= 0 && endPos <= nodeLength) {
-        try {
-          range.setStart(node, startPos);
-          range.setEnd(node, endPos);
-          
-          // Use CSS Highlight API
-          const highlight = new Highlight(range);
-          if (window.CSS?.highlights) {
-            CSS.highlights.set("current-word", highlight);
-          }
-          
-          // Store current highlight info
-          currentWordHighlight = {
-            utteranceIndex: currentIndex,
-            charIndex: charIndex,
-            charLength: charLength,
-            range: range
-          };
-          
-          // Scroll the highlighted word into view with smooth behavior
-          const rect = range.getBoundingClientRect();
-          const isVisible = (
-            rect.top >= 0 &&
-            rect.left >= 0 &&
-            rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
-            rect.right <= (window.innerWidth || document.documentElement.clientWidth)
-          );
-          
-          if (!isVisible) {
-            range.startContainer.parentElement.scrollIntoView({
-              behavior: "smooth",
-              block: "center",
-              inline: "nearest"
-            });
-          }
-          
-          found = true;
-        } catch (e) {
-          console.error("Error setting highlight range:", e);
-        }
+  // Scroll current sentence into view
+  const content = document.getElementById("content");
+  const paragraphs = Array.from(content.querySelectorAll("p, h1, h2, h3, h4, h5, h6"));
+  for (const p of paragraphs) {
+    if (p.textContent.includes(currentUtterance.text)) {
+      const rect = p.getBoundingClientRect();
+      const inView = rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
+      if (!inView) {
+        p.scrollIntoView({ behavior: "smooth", block: "center" });
       }
       break;
     }
-  }
-
-  if (!found) {
-    console.warn("Could not find position for highlight");
   }
 }
 

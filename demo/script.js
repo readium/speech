@@ -1,10 +1,12 @@
-import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator, chineseVariantMap } from "../build/index.js";
+import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator, chineseVariantMap, DirectCommsChannel, Decorator, DecorationController, DecorationStyleType, Locator } from "../build/index.js";
+
+// Set up the Decorator for TTS word highlights
+const _channel = new DirectCommsChannel();
+const _decorator = new Decorator();
+_decorator.mount(window, _channel.frame);
+const decoCtrl = new DecorationController(_channel.host);
 
 let samples = null;
-
-const highlight = new Highlight();
-CSS.highlights.set("readium-speech-highlight", highlight);
-let currentWordHighlight = null;
 
 // DOM Elements
 const languageSelect = document.getElementById("language-select");
@@ -841,48 +843,35 @@ function jumpToUtterance() {
   }
 }
 
-// Clear any previous highlighting
+// Clear TTS highlight
 function clearWordHighlighting() {
-  if (window.CSS?.highlights) {
-    CSS.highlights.clear();
-  }
+  decoCtrl.applyDecorations([], "tts");
 }
 
-// Highlight current word in the sample text
+// Highlight the current word using the Decorator
 function highlightCurrentWord(charIndex, charLength) {
-  // Clear previous highlighting
-  clearWordHighlighting();
-  
-  // Get the current utterance element
   const currentIndex = speechNavigator.getCurrentUtteranceIndex();
   const utteranceElement = document.querySelector(`.utterance[data-utterance-index="${currentIndex}"] .utterance-text`);
   if (!utteranceElement) return;
-  
+
   const text = utteranceElement.textContent;
   if (charIndex < 0 || charIndex >= text.length) return;
-  
-  // Create a range for the current word
-  const range = document.createRange();
-  const textNode = utteranceElement.firstChild || utteranceElement;
-  
-  try {
-    range.setStart(textNode, charIndex);
-    range.setEnd(textNode, charIndex + charLength);
-    
-    // Use CSS Highlight API
-    const highlight = new Highlight(range);
-    CSS.highlights.set("current-word", highlight);
-    
-    // Update current word highlight
-    currentWordHighlight = {
-      utteranceIndex: currentIndex,
-      charIndex: charIndex,
-      charLength: charLength,
-      range: range
-    };
-  } catch (e) {
-    console.error("Error highlighting word:", e);
-  }
+
+  const word = text.substring(charIndex, charIndex + charLength);
+  if (!word.trim()) return;
+
+  const before = text.substring(0, charIndex);
+  const after = text.substring(charIndex + charLength);
+
+  decoCtrl.applyDecorations([{
+    id: "tts-word",
+    locator: new Locator({
+      href: window.location.href,
+      type: "text/html",
+      text: { highlight: word, before, after },
+    }),
+    style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
+  }], "tts");
 }
 
 // Update UI based on current state
