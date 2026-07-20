@@ -1,7 +1,7 @@
-import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator, createDecorations, decorate, DecorationStyleType } from "../../build/index.js";
+import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator, setupDecorations, DecorationStyleType } from "../../build/index.js";
 
 // Set up the Decorator for TTS word highlights
-const decoCtrl = createDecorations();
+const decoCtrl = setupDecorations();
 
 // DOM Elements
 const content = document.getElementById("content");
@@ -381,34 +381,34 @@ function highlightCurrentWord(charIndex, charLength) {
 
   if (currentIndex !== currentSentenceIndex) {
     currentSentenceIndex = currentIndex;
-    decorate(decoCtrl, [{
+    decoCtrl.decorate([{
       id: "tts-sentence",
       style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
       highlight: currentUtterance.text,
     }], "tts-sentence");
+
+    // Scroll current sentence into view
+    const content = document.getElementById("content");
+    const paragraphs = Array.from(content.querySelectorAll("p, h1, h2, h3, h4, h5, h6"));
+    for (const p of paragraphs) {
+      if (p.textContent.includes(currentUtterance.text)) {
+        const rect = p.getBoundingClientRect();
+        const inView = rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
+        if (!inView) {
+          p.scrollIntoView({ behavior: "smooth", block: "center" });
+        }
+        break;
+      }
+    }
   }
 
-  decorate(decoCtrl, [{
+  decoCtrl.decorate([{
     id: "tts-word",
     style: { type: DecorationStyleType.Underline, tint: "#e53935", enforceContrast: false },
     highlight: word,
     before,
     after,
   }], "tts-word");
-
-  // Scroll current sentence into view
-  const content = document.getElementById("content");
-  const paragraphs = Array.from(content.querySelectorAll("p, h1, h2, h3, h4, h5, h6"));
-  for (const p of paragraphs) {
-    if (p.textContent.includes(currentUtterance.text)) {
-      const rect = p.getBoundingClientRect();
-      const inView = rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
-      if (!inView) {
-        p.scrollIntoView({ behavior: "smooth", block: "center" });
-      }
-      break;
-    }
-  }
 }
 
 // Update UI

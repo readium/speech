@@ -1,3 +1,2 @@
-export * from "./createDecorations";
+export * from "./setupDecorations";
 export * from "./createLocator";
-export * from "./decorate";

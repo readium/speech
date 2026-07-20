@@ -6,19 +6,21 @@ Highlighting is handled by [`@readium/decorator`](https://github.com/readium/ts-
 
 ## Setting it up
 
-`createDecorations()` wires up decoration support for the current window (as opposed to inside a navigator iframe) and returns a ready-to-use `DecorationController`:
+`setupDecorations()` wires up decoration support for the current window (as opposed to inside a navigator iframe) and returns a ready-to-use `ReadiumSpeechDecorationController`:
 
 ```typescript
-function createDecorations(
+function setupDecorations(
   wnd?: Window,                        // defaults to `window`
   config?: DecorationControllerConfig
-): DecorationController;
+): ReadiumSpeechDecorationController;
 ```
 
-`DecorationController` exposes:
+`ReadiumSpeechDecorationController` extends `@readium/decorator`'s `DecorationController` with one extra convenience method (`decorate`, see below):
 
 ```typescript
-interface DecorationController {
+class ReadiumSpeechDecorationController extends DecorationController {
+  decorate(decorations: DecorationInput[], group: string): void;
+  // plus everything inherited from DecorationController:
   applyDecorations(decorations: Decoration[], group: string): void;
   supportsDecorationStyle(styleTypeId: string): boolean;
   registerDecorationObserver(group: string, observer: DecorationObserver): void;
@@ -43,11 +45,11 @@ group into a single `decorate` call rather than calling it once per
 decoration (which would clobber the previous one).
 
 ```typescript
-import { createDecorations, decorate, DecorationStyleType } from "@readium/speech";
+import { setupDecorations, DecorationStyleType } from "@readium/speech";
 
-const decorations = createDecorations();
+const decorations = setupDecorations();
 
-decorate(decorations, [{
+decorations.decorate([{
   id: "tts-word",
   style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
   highlight: "world",
@@ -67,9 +69,9 @@ search to that selector). You still build the `Decoration` array and manage
 the group yourself.
 
 ```typescript
-import { createDecorations, createLocator, DecorationStyleType } from "@readium/speech";
+import { setupDecorations, createLocator, DecorationStyleType } from "@readium/speech";
 
-const decorations = createDecorations();
+const decorations = setupDecorations();
 
 decorations.applyDecorations([{
   id: "tts-word",
@@ -90,9 +92,9 @@ rather than a plain object literal when going beyond what `createLocator`
 covers.
 
 ```typescript
-import { createDecorations, DecorationStyleType, Locator } from "@readium/speech";
+import { setupDecorations, DecorationStyleType, Locator } from "@readium/speech";
 
-const decorations = createDecorations();
+const decorations = setupDecorations();
 
 decorations.applyDecorations([{
   id: "tts-word",
