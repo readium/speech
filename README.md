@@ -95,7 +95,9 @@ Documentation provides guides for:
 
 - [SpeechSynthesis in browsers and OSes](docs/WebSpeech.md)
 - [Voices and Filtering](docs/VoicesAndFiltering.md)
-- [API Reference](docs/API.md)
+- [Voice Management](docs/VoiceManagement.md)
+- [Playback API](docs/Playback.md)
+- [Highlighting](docs/Highlighting.md)
 
 ## Development
 
