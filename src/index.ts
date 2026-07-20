@@ -3,6 +3,7 @@ export * from "./WebSpeech";
 
 // Decorator re-exports
 export * from "@readium/decorator";
+export * from "./decorator";
 export { Locator } from "@readium/shared";
 
 // Data exports

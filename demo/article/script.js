@@ -1,10 +1,7 @@
-import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator, DirectCommsChannel, Decorator, DecorationController, DecorationStyleType, Locator } from "../../build/index.js";
+import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator, createDecorations, DecorationStyleType, Locator } from "../../build/index.js";
 
 // Set up the Decorator for TTS word highlights
-const _channel = new DirectCommsChannel();
-const _decorator = new Decorator();
-_decorator.mount(window, _channel.frame);
-const decoCtrl = new DecorationController(_channel.host);
+const decoCtrl = createDecorations();
 
 // DOM Elements
 const content = document.getElementById("content");
