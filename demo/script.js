@@ -1,4 +1,4 @@
-import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator, chineseVariantMap, createDecorations, DecorationStyleType, Locator } from "../build/index.js";
+import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator, chineseVariantMap, createDecorations, decorate, DecorationStyleType } from "../build/index.js";
 
 // Set up the Decorator for TTS word highlights
 const decoCtrl = createDecorations();
@@ -857,17 +857,12 @@ function highlightCurrentWord(charIndex, charLength) {
   const word = text.substring(charIndex, charIndex + charLength);
   if (!word.trim()) return;
 
-  const before = text.substring(0, charIndex);
-  const after = text.substring(charIndex + charLength);
-
-  decoCtrl.applyDecorations([{
+  decorate(decoCtrl, [{
     id: "tts-word",
-    locator: new Locator({
-      href: window.location.href,
-      type: "text/html",
-      text: { highlight: word, before, after },
-    }),
     style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
+    highlight: word,
+    before: text.substring(0, charIndex),
+    after: text.substring(charIndex + charLength),
   }], "tts");
 }
 

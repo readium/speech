@@ -1,4 +1,4 @@
-import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator, createDecorations, DecorationStyleType, Locator } from "../../build/index.js";
+import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator, createDecorations, decorate, DecorationStyleType } from "../../build/index.js";
 
 // Set up the Decorator for TTS word highlights
 const decoCtrl = createDecorations();
@@ -381,25 +381,19 @@ function highlightCurrentWord(charIndex, charLength) {
 
   if (currentIndex !== currentSentenceIndex) {
     currentSentenceIndex = currentIndex;
-    decoCtrl.applyDecorations([{
+    decorate(decoCtrl, [{
       id: "tts-sentence",
-      locator: new Locator({
-        href: window.location.href,
-        type: "text/html",
-        text: { highlight: currentUtterance.text },
-      }),
       style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
+      highlight: currentUtterance.text,
     }], "tts-sentence");
   }
 
-  decoCtrl.applyDecorations([{
+  decorate(decoCtrl, [{
     id: "tts-word",
-    locator: new Locator({
-      href: window.location.href,
-      type: "text/html",
-      text: { highlight: word, before, after },
-    }),
     style: { type: DecorationStyleType.Underline, tint: "#e53935", enforceContrast: false },
+    highlight: word,
+    before,
+    after,
   }], "tts-word");
 
   // Scroll current sentence into view
