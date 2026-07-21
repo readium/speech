@@ -46,13 +46,6 @@ export interface ReadiumSpeechJSONVoice {
     browser?: TBrowser[];
     preloaded?: boolean;
 }
-export interface VoiceFilterData {
-    voices: Array<{
-        name: string;
-        altNames?: string[];
-        [key: string]: any;
-    }>;
-}
 export interface ReadiumSpeechVoice {
     source: TSource;
     label: string;
@@ -77,11 +70,14 @@ export interface ReadiumSpeechVoice {
     nativeID?: string | string[];
     note?: string;
     provider?: string;
-    [key: string]: any;
+    isDefault?: boolean;
+    offlineAvailability?: boolean;
+    isNovelty?: boolean;
+    isLowQuality?: boolean;
 }
 export interface VoiceData {
     language: string;
     defaultRegion: string;
     testUtterance: string;
-    voices: ReadiumSpeechVoice[];
+    voices: ReadiumSpeechJSONVoice[];
 }
