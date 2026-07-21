@@ -854,7 +854,7 @@ function highlightCurrentWord(charIndex, charLength) {
   const utteranceElement = document.querySelector(`.utterance[data-utterance-index="${currentIndex}"] .utterance-text`);
   if (!utteranceElement) return;
 
-  const text = utteranceElement.textContent;
+  const text = utteranceElement.textContent || "";
   if (charIndex < 0 || charIndex >= text.length) return;
 
   const word = text.substring(charIndex, charIndex + charLength);

@@ -147,7 +147,7 @@ async function initializeContent() {
   
   // Process each paragraph/heading
   paragraphs.forEach((p) => {
-    const text = p.textContent;
+    const text = p.textContent || "";
     if (!text.trim()) return;
     
     // Use Intl.Segmenter for sentence segmentation
@@ -389,9 +389,10 @@ function highlightCurrentWord(charIndex, charLength) {
 
     // Scroll current sentence into view
     const content = document.getElementById("content");
+    if (!content) return;
     const paragraphs = Array.from(content.querySelectorAll("p, h1, h2, h3, h4, h5, h6"));
     for (const p of paragraphs) {
-      if (p.textContent.includes(currentUtterance.text)) {
+      if ((p.textContent ?? "").includes(currentUtterance.text)) {
         const rect = p.getBoundingClientRect();
         const inView = rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
         if (!inView) {
