@@ -30,9 +30,9 @@ export async function createJsonOrderMap(voices: ReadiumSpeechVoice[]): Promise<
     
     // Create a lookup map for faster searching
     const voiceLookup = new Map<string, number>();
-    jsonVoices.forEach((v: any, i: number) => {
+    jsonVoices.forEach((v, i) => {
       voiceLookup.set(v.name.toLowerCase(), i);
-      v.altNames?.forEach((altName: any) => {
+      v.altNames?.forEach(altName => {
         voiceLookup.set(altName.toLowerCase(), i);
       });
     });

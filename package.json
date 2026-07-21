@@ -1,14 +1,14 @@
 {
   "name": "@readium/speech",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "A TypeScript library for implementing read aloud features with Web technologies, following best practices for digital publishing.",
   "author": "Readium Foundation",
   "keywords": [
-    "readium", 
-    "speech", 
-    "tts", 
-    "text-to-speech", 
-    "read-aloud", 
+    "readium",
+    "speech",
+    "tts",
+    "text-to-speech",
+    "read-aloud",
     "accessibility"
   ],
   "homepage": "https://readium.org/speech/",
@@ -54,6 +54,8 @@
     "vite-plugin-dts": "^4.5.4"
   },
   "dependencies": {
+    "@readium/decorator": "^1.0.1",
+    "@readium/shared": "^2.3.1",
     "string-strip-html": "^13.4.23"
   }
 }

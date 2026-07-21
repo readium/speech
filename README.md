@@ -30,6 +30,10 @@ In the second phase, we focused on implementing a WebSpeech API-based solution w
 
 Key features include advanced voice selection, cross-browser playback control, flexible content loading, and comprehensive event handling for UI feedback. The architecture is designed to be extensible for different TTS backends while maintaining TypeScript-first development practices.
 
+In the third phase, we added highlighting: content currently being spoken (e.g. the current word or sentence) can be highlighted as playback progresses. See the [Highlighting guide](docs/Highlighting.md).
+
+We are now focused on the fourth phase: extracting [Guided Navigation objects](https://readium.org/guided-navigation) from a document (or a fragment of a document), and generating utterances from these objects.
+
 ## Demos
 
 Two live demos are available:
@@ -45,7 +49,7 @@ The first demo showcases the following features:
 - using embedded test utterances to demo voices
 - using the current Navigator for playback control
 
-The second demo focuses on in-context reading with seamless voice selection (grouped by region and sorted based on quality), and playback control, providing an optional read-along experience that integrates naturally with the content.
+The second demo focuses on in-context reading with seamless voice selection (grouped by region and sorted based on quality), and playback control, providing an optional read-along experience that integrates naturally with the content. Both demos also showcase highlighting: as playback progresses, the current word/sentence is highlighted.
 
 ## Installation
 
@@ -64,7 +68,12 @@ yarn add @readium/speech
 ## Quick Start
 
 ```typescript
-import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator } from "@readium/speech";
+import {
+  WebSpeechVoiceManager,
+  WebSpeechReadAloudNavigator,
+  setupDecorations,
+  DecorationStyleType,
+} from "@readium/speech";
 
 // Initialize voice manager
 const voiceManager = await WebSpeechVoiceManager.initialize({ 
@@ -78,16 +87,36 @@ const voice = await voiceManager.getDefaultVoice("en-US");
 const navigator = new WebSpeechReadAloudNavigator();
 await navigator.setVoice(voice);
 
+const content = document.getElementById("content");
+if (!content) throw new Error("Missing #content element");
+
+// Set up highlighting for the current window
+const decorations = setupDecorations();
+
 // Handle playback events
 navigator.on("play", () => console.log("Playback started"));
 navigator.on("pause", () => console.log("Playback paused"));
 navigator.on("end", () => console.log("Playback completed"));
 
+// Highlight each word as it's spoken
+navigator.on("boundary", (event) => {
+  const { charIndex, charLength } = event.detail;
+  const utterance = content.textContent ?? "";
+  const word = utterance.substring(charIndex, charIndex + charLength);
+
+  decorations.decorate([{
+    id: "tts-word",
+    style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b" },
+    highlight: word,
+  }], "tts");
+});
+
 // Load and play content
-const content = document.getElementById("content");
 navigator.loadContent(content);
 navigator.play();
 ```
+
+See the [Highlighting guide](docs/Highlighting.md) for the other ways to build and apply decorations.
 
 ## Docs
 
@@ -95,7 +124,9 @@ Documentation provides guides for:
 
 - [SpeechSynthesis in browsers and OSes](docs/WebSpeech.md)
 - [Voices and Filtering](docs/VoicesAndFiltering.md)
-- [API Reference](docs/API.md)
+- [Voice Management](docs/VoiceManagement.md)
+- [Playback API](docs/Playback.md)
+- [Highlighting](docs/Highlighting.md)
 
 ## Development
 

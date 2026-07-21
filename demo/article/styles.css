@@ -145,11 +145,6 @@ button:hover:not(:disabled) {
   margin-bottom: 1.2em;
 }
 
-/* Highlight for current word */
-::highlight(current-word) {
-  background-color: #ffeb3b;
-  color: black;
-}
 
 /* Footer */
 footer {
