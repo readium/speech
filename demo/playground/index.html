@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Guided Navigation Fixture Playground</title>
+  <title>Extraction Playground</title>
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
   <aside class="sidebar">
     <div class="sidebar-header">
-      <h1>Fixtures</h1>
+      <h1>Samples</h1>
       <input type="search" id="filter-input" placeholder="Filter (e.g. footnote, epub-type)">
     </div>
     <div id="fixture-list" class="fixture-list"></div>
@@ -57,9 +57,9 @@
           <legend>Language</legend>
           <select id="option-language">
             <option value="">(default)</option>
-            <option value="never">never</option>
-            <option value="block">block</option>
-            <option value="inline">inline</option>
+            <option value="always">always</option>
+            <option value="block-level">block-level</option>
+            <option value="none">none</option>
           </select>
         </fieldset>
 

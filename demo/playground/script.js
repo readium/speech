@@ -113,7 +113,7 @@ function renderList() {
   if (filtered.length === 0) {
     const empty = document.createElement("div");
     empty.className = "no-results";
-    empty.textContent = "No fixtures match.";
+    empty.textContent = "No samples match.";
     fixtureListEl.appendChild(empty);
     return;
   }
@@ -236,7 +236,7 @@ function utteranceDisplayText(utterance) {
 
 function setBadge(el, state) {
   el.textContent =
-    state === "pass" ? "pass" : state === "fail" ? "fail" : state === "none" ? "no fixture data for this combination" : "not implemented yet";
+    state === "pass" ? "pass" : state === "fail" ? "fail" : state === "none" ? "no expected data for this combination" : "not implemented yet";
   el.className = `badge ${state}`;
 }
 
@@ -369,7 +369,7 @@ function renderUtterances() {
   const expected = matchingExpected(utterances, options);
 
   utterancesExpectedEl.textContent =
-    expected !== undefined ? JSON.stringify(expected, null, 2) : "(none — this fixture doesn't illustrate this combination of options)";
+    expected !== undefined ? JSON.stringify(expected, null, 2) : "(none — this sample doesn't illustrate this combination of options)";
 
   if (!utteranceExtractor || gndActual === undefined) {
     utterancesActualEl.textContent = "";
