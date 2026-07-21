@@ -25,6 +25,9 @@ const speechStopEl = document.getElementById("speech-stop");
 let converter = null;
 let utteranceExtractor = null;
 let NavigatorClass = null;
+let VoiceManagerClass = null;
+let setupDecorations = null;
+let DecorationStyleType = null;
 try {
   const mod = await import("../../build/index.js");
   if (typeof mod.parseMarkup === "function") {
@@ -35,6 +38,13 @@ try {
   }
   if (typeof mod.WebSpeechReadAloudNavigator === "function") {
     NavigatorClass = mod.WebSpeechReadAloudNavigator;
+  }
+  if (typeof mod.WebSpeechVoiceManager === "function") {
+    VoiceManagerClass = mod.WebSpeechVoiceManager;
+  }
+  if (typeof mod.setupDecorations === "function" && mod.DecorationStyleType) {
+    setupDecorations = mod.setupDecorations;
+    DecorationStyleType = mod.DecorationStyleType;
   }
   if (Array.isArray(mod.skippableRoles)) {
     for (const role of mod.skippableRoles) {
@@ -227,6 +237,73 @@ let currentFixture = null;
 // fixture/option change.
 let playbackNavigator = null;
 
+// Lazily created, same rationale as playbackNavigator: mounting the Decorator
+// kicks off its own setup, so it's only done once actual playback happens.
+let decorationController = null;
+
+function ensureDecorationController() {
+  if (!setupDecorations) return null;
+  if (!decorationController) decorationController = setupDecorations();
+  return decorationController;
+}
+
+function clearWordHighlight() {
+  decorationController?.applyDecorations([], "playground-word");
+}
+
+// Highlights the word currently being spoken by searching for it (with
+// surrounding context) in the utterance text — the same text rendered into
+// the <li> in #speech-utterances, so the Decorator finds it there.
+function highlightWordBoundary(event) {
+  if (event.detail?.name !== "word") return;
+  const ctrl = ensureDecorationController();
+  if (!ctrl) return;
+
+  const index = playbackNavigator.getCurrentUtteranceIndex();
+  const utterance = currentSpeechUtterances[index];
+  const text = utterance?.plain ?? utterance?.ssml;
+  if (!text) return;
+
+  const { charIndex, charLength } = event.detail;
+  const word = text.substring(charIndex, charIndex + charLength);
+  if (!word.trim()) return;
+
+  ctrl.decorate([{
+    id: "playground-word",
+    style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
+    selector: "#speech-utterances",
+    highlight: word,
+    before: text.substring(0, charIndex),
+    after: text.substring(charIndex + charLength),
+  }], "playground-word");
+}
+
+// Fixtures are all English text, so playback defaults to an English voice —
+// otherwise the engine falls back to the browser's own language preference,
+// which may pick a non-English voice/lang that mispronounces the fixture and
+// can fail to fire "word" boundary events at all. Chrome additionally only
+// fires "word" boundary events for offline (local) voices — its network
+// voices silently drop them — so an offline voice is preferred here, falling
+// back to any English voice if none is installed.
+async function setupDefaultVoice(navigator) {
+  if (!VoiceManagerClass) return;
+  try {
+    const voiceManager = await VoiceManagerClass.initialize({ languages: ["en"] });
+    const offlineVoices = await voiceManager.getVoices({ languages: "en", offlineOnly: true, removeDuplicates: true });
+    const voices = offlineVoices.length > 0
+      ? offlineVoices
+      : await voiceManager.getVoices({ languages: "en", removeDuplicates: true });
+    const voice = await voiceManager.getDefaultVoice("en", voices);
+    if (voice) navigator.setVoice(voice);
+  } catch (err) {
+    console.error("Failed to set up an English voice for playback:", err);
+  }
+}
+
+// Resolves once the default voice has been set, so Play can await it before
+// speaking — set once, alongside the navigator, in ensurePlaybackNavigator.
+let voiceReadyPromise = null;
+
 function ensurePlaybackNavigator() {
   if (!NavigatorClass) return null;
   if (!playbackNavigator) {
@@ -234,6 +311,10 @@ function ensurePlaybackNavigator() {
     for (const type of ["start", "pause", "resume", "end", "stop", "ready", "error"]) {
       playbackNavigator.on(type, syncSpeechUi);
     }
+    playbackNavigator.on("boundary", highlightWordBoundary);
+    playbackNavigator.on("end", clearWordHighlight);
+    playbackNavigator.on("stop", clearWordHighlight);
+    voiceReadyPromise = setupDefaultVoice(playbackNavigator);
   }
   return playbackNavigator;
 }
@@ -364,10 +445,11 @@ if (!NavigatorClass) {
   setSpeechBadge("idle");
 }
 
-speechPlayEl.addEventListener("click", () => {
+speechPlayEl.addEventListener("click", async () => {
   if (currentSpeechUtterances.length === 0) return;
   const navigator = ensurePlaybackNavigator();
   if (!navigator) return;
+  await voiceReadyPromise;
   navigator.loadContent(currentSpeechUtterances);
   navigator.play();
 });
