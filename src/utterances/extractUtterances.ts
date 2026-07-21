@@ -263,14 +263,15 @@ function walkNode(node: GndNode, out: ReadiumSpeechUtterance[], ctx: WalkContext
     }
   }
 
-  for (const role of announcedRoles) {
-    pushRoleAnnouncement(out, ctx, role, "after");
-  }
-
   // A description is supplementary/elaborating content (e.g. an extended
-  // audio description), spoken after the primary content it describes.
+  // audio description), spoken after the primary content but still within
+  // the node's own start/end announcement boundary.
   if (node.description !== undefined) {
     out.push(formatPlain(node.description, ctx.format));
+  }
+
+  for (const role of announcedRoles) {
+    pushRoleAnnouncement(out, ctx, role, "after");
   }
 }
 
