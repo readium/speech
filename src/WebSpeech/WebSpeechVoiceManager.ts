@@ -297,7 +297,7 @@ export class WebSpeechVoiceManager {
    * Find matching JSON voice by name or alternative names
    * @private
    */
-  private findMatchingJsonVoice(langVoices: any[], normalizedName: string): ReadiumSpeechJSONVoice | undefined {
+  private findMatchingJsonVoice(langVoices: ReadiumSpeechJSONVoice[], normalizedName: string): ReadiumSpeechJSONVoice | undefined {
     return langVoices.find(v => 
       this.normalizeVoiceName(v.name) === normalizedName || 
       v.altNames?.some((alt: string) => this.normalizeVoiceName(alt) === normalizedName)

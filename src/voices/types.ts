@@ -53,14 +53,6 @@ export interface ReadiumSpeechJSONVoice {
   preloaded?: boolean;
 }
 
-export interface VoiceFilterData {
-  voices: Array<{
-    name: string;
-    altNames?: string[];
-    [key: string]: any;
-  }>;
-}
-
 export interface ReadiumSpeechVoice {
   source: TSource;       // Source of the voice data
 
@@ -111,5 +103,5 @@ export interface VoiceData {
   language: string;        // BCP-47 language tag
   defaultRegion: string;   // Default region for this language
   testUtterance: string;   // Sample text for testing the voice
-  voices: ReadiumSpeechVoice[]; // Array of available voices
+  voices: ReadiumSpeechJSONVoice[]; // Array of available voices, as loaded from JSON
 }
