@@ -88,6 +88,7 @@ const navigator = new WebSpeechReadAloudNavigator();
 await navigator.setVoice(voice);
 
 const content = document.getElementById("content");
+if (!content) throw new Error("Missing #content element");
 
 // Set up highlighting for the current window
 const decorations = setupDecorations();
@@ -100,7 +101,7 @@ navigator.on("end", () => console.log("Playback completed"));
 // Highlight each word as it's spoken
 navigator.on("boundary", (event) => {
   const { charIndex, charLength } = event.detail;
-  const utterance = content.textContent;
+  const utterance = content.textContent ?? "";
   const word = utterance.substring(charIndex, charIndex + charLength);
 
   decorations.decorate([{
