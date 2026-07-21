@@ -25,9 +25,11 @@ export function normalizedNodeText(el: Node): string {
 }
 
 /**
- * https://www.w3.org/TR/accname/#terminology
- * Returns the node's accessibility text if existent, and whether or not the node
- * is visible in the first place.
+ * Computes the text that becomes a node's `GndObject.description`, and
+ * whether the node is visible in the first place. Follows the AccName
+ * precedence order (https://www.w3.org/TR/accname/#terminology, 2.A-2.D)
+ * for its accessible-name sources, with a non-AccName `aria-describedby`
+ * fallback spliced in between 2.C and 2.D — see that branch below.
  */
 export function extractNodeAria(el: Element): [GndText | null, boolean] {
   // 2.A
