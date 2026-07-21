@@ -451,7 +451,7 @@ async function loadSampleText(languageCode) {
       const textSpan = document.createElement("span");
       textSpan.className = "utterance-text";
       textSpan.dataset.utteranceId = utterance.id;
-      textSpan.textContent = utterance.text;
+      textSpan.textContent = utterance.plain;
       
       // Assemble the elements
       utteranceElement.appendChild(numberSpan);
@@ -526,7 +526,7 @@ function createUtterancesFromText(text) {
   // Create utterances from sentences
   return sentences.map((sentence, index) => ({
     id: `utterance-${index}`,
-    text: sentence,
+    plain: sentence,
     language: languageSelect.value || "en"
   }));
 }
