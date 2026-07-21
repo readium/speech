@@ -297,7 +297,7 @@ export class WebSpeechVoiceManager {
    * Find matching JSON voice by name or alternative names
    * @private
    */
-  private findMatchingJsonVoice(langVoices: any[], normalizedName: string): ReadiumSpeechJSONVoice | undefined {
+  private findMatchingJsonVoice(langVoices: ReadiumSpeechJSONVoice[], normalizedName: string): ReadiumSpeechJSONVoice | undefined {
     return langVoices.find(v => 
       this.normalizeVoiceName(v.name) === normalizedName || 
       v.altNames?.some((alt: string) => this.normalizeVoiceName(alt) === normalizedName)
@@ -578,15 +578,17 @@ export class WebSpeechVoiceManager {
             // Create the voice object with the determined quality
             return {
               ...jsonVoice,
+              label: jsonVoice.label ?? this.cleanVoiceName(voice.name),
               source: "json",
               originalName: voice.name,
+              language: jsonVoice.language ?? normalizedLang,
               voiceURI: voice.voiceURI,
               quality,
               isDefault: voice.default || false,
               offlineAvailability: voice.localService || false,
               isNovelty: isNoveltyVoice(voice.name, voice.voiceURI),
               isLowQuality: isVeryLowQualityVoice(voice.name, quality)
-            } as ReadiumSpeechVoice;
+            } satisfies ReadiumSpeechVoice;
           }
 
           // No match found in JSON, create basic voice object
@@ -602,7 +604,7 @@ export class WebSpeechVoiceManager {
             offlineAvailability: voice.localService || false,
             isNovelty: isNoveltyVoice(voice.name, voice.voiceURI),
             isLowQuality: isVeryLowQualityVoice(voice.name, quality)
-          } as ReadiumSpeechVoice;
+          } satisfies ReadiumSpeechVoice;
         })
     );
 

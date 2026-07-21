@@ -1,5 +1,5 @@
 import { extractLangRegionFromBCP47 } from "../utils/language";
-import type { ReadiumSpeechVoice, VoiceData, TGender, TQuality, TLocalizedName } from "./types";
+import type { ReadiumSpeechJSONVoice, VoiceData, TQuality, TLocalizedName } from "./types";
 import { LANGUAGE_METADATA } from '../generated/language-metadata';
 
 export interface LanguageWithRegions {
@@ -53,20 +53,16 @@ function getVoiceData(lang: string): Promise<VoiceData> {
   return voiceDataCache.get(lang)!;
 }
 
-// Helper function to cast voice data to the correct type
-const castVoice = (voice: any): ReadiumSpeechVoice => ({
+const VALID_QUALITIES: TQuality[] = ["veryLow", "low", "normal", "high", "veryHigh"];
+const VALID_LOCALIZED_NAMES: TLocalizedName[] = ["android", "apple"];
+
+// Sanitizes a JSON-loaded voice entry, filtering out any quality/localizedName
+// values that don't match the schema's enums (JSON files aren't validated at runtime)
+const castVoice = (voice: ReadiumSpeechJSONVoice): ReadiumSpeechJSONVoice => ({
   ...voice,
-  gender: voice.gender as TGender | undefined,
-  quality: voice.quality ? (Array.isArray(voice.quality) 
-    ? voice.quality.filter((q: any) => 
-        ["veryLow", "low", "normal", "high", "veryHigh"].includes(q)
-      ) as TQuality[] 
-    : [voice.quality].filter((q: any) => 
-        ["veryLow", "low", "normal", "high", "veryHigh"].includes(q)
-      ) as TQuality[]
-  ) : undefined,
-  localizedName: voice.localizedName && ["android", "apple"].includes(voice.localizedName) 
-    ? voice.localizedName as TLocalizedName 
+  quality: voice.quality?.filter(q => VALID_QUALITIES.includes(q)),
+  localizedName: voice.localizedName && VALID_LOCALIZED_NAMES.includes(voice.localizedName)
+    ? voice.localizedName
     : undefined
 });
 
@@ -109,9 +105,9 @@ export const normalizeLanguageCode = (lang: string): string => {
 /**
  * Get all voices for a specific language
  * @param {string} lang - Language code (e.g., "en", "fr", "zh-CN")
- * @returns {Promise<ReadiumSpeechVoice[]>} Promise resolving to array of voices for the specified language
+ * @returns {Promise<ReadiumSpeechJSONVoice[]>} Promise resolving to array of voices for the specified language
  */
-export const getVoices = async (lang: string): Promise<ReadiumSpeechVoice[]> => {
+export const getVoices = async (lang: string): Promise<ReadiumSpeechJSONVoice[]> => {
   if (!lang) return [];
   
   try {
