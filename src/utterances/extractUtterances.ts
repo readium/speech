@@ -21,7 +21,7 @@ interface WalkContext {
   format: "plain" | "ssml";
   contextualize: boolean;
   interruptSentence: boolean;
-  language?: "never" | "block" | "inline";
+  language?: "none" | "block-level" | "always";
 }
 
 function resolveAnnouncement(announcement: Announcement, params?: Record<string, string>): string {
@@ -120,21 +120,21 @@ function buildPagebreakUtterance(node: GndNode, ctx: WalkContext): ReadiumSpeech
 // `language` — which only ever affects *this one node's own* inline
 // `<lang>` spans (never merges across sibling nodes, which each already
 // have their own separate utterance and stay that way regardless):
-//  - "inline" or omitted: honored as declared — `ssml` keeps spans tagged
+//  - "always" or omitted: honored as declared — `ssml` keeps spans tagged
 //    in one string; `plain` has no such markup, so it's split into one
 //    utterance per language run instead (see `splitOnLangTags`).
-//  - "block": ignore this node's own inline spans — unwrap any `<lang>`
-//    tags in its `ssml`, merging their text into the surrounding flow
-//    with no language of its own. Keeps this node's own `language`.
-//  - "never": same unwrapping as "block", and additionally drops this
+//  - "block-level": ignore this node's own inline spans — unwrap any
+//    `<lang>` tags in its `ssml`, merging their text into the surrounding
+//    flow with no language of its own. Keeps this node's own `language`.
+//  - "none": same unwrapping as "block-level", and additionally drops this
 //    node's own `language` — the document is being treated as one
 //    language throughout, so nothing gets tagged at all.
 function applyFormat(
   resolved: ResolvedNodeText,
   format: "plain" | "ssml",
-  language: "never" | "block" | "inline" | undefined,
+  language: "none" | "block-level" | "always" | undefined,
 ): ReadiumSpeechUtterance[] {
-  if (format === "plain" && language !== "block" && language !== "never" && resolved.ssml && hasLangTag(resolved.ssml)) {
+  if (format === "plain" && language !== "block-level" && language !== "none" && resolved.ssml && hasLangTag(resolved.ssml)) {
     return splitOnLangTags(resolved.ssml, resolved.language).map((segment) => {
       const utterance: ReadiumSpeechUtterance = { plain: segment.plain };
       if (segment.language) utterance.language = segment.language;
@@ -149,9 +149,9 @@ function applyFormat(
   } else {
     utterance.plain = resolved.plain ?? stripSsmlTags(resolved.ssml ?? "");
   }
-  if (language === "block" || language === "never") {
+  if (language === "block-level" || language === "none") {
     if (utterance.ssml) utterance.ssml = stripLangTags(utterance.ssml);
-    if (language === "never") delete utterance.language;
+    if (language === "none") delete utterance.language;
   }
   return [utterance];
 }
@@ -177,8 +177,8 @@ function emitInterrupted(
     if (!segment.ssml) continue;
     if (
       ctx.format === "plain" &&
-      ctx.language !== "block" &&
-      ctx.language !== "never" &&
+      ctx.language !== "block-level" &&
+      ctx.language !== "none" &&
       hasLangTag(segment.ssml)
     ) {
       for (const langSegment of splitOnLangTags(segment.ssml, language)) {
@@ -192,9 +192,9 @@ function emitInterrupted(
     if (language) utterance.language = language;
     if (ctx.format === "ssml") utterance.ssml = segment.ssml;
     else utterance.plain = stripSsmlTags(segment.ssml);
-    if (ctx.language === "block" || ctx.language === "never") {
+    if (ctx.language === "block-level" || ctx.language === "none") {
       if (utterance.ssml) utterance.ssml = stripLangTags(utterance.ssml);
-      if (ctx.language === "never") delete utterance.language;
+      if (ctx.language === "none") delete utterance.language;
     }
     pieces.push(utterance);
   }
@@ -294,7 +294,7 @@ export function extractUtterances(
   const ctx: WalkContext = {
     announcements: { ...defaultAnnouncements, ...options.announcements },
     skip: new Set(options.skip ?? []),
-    format: options.format,
+    format: options.format ?? "plain",
     contextualize: options.contextualize ?? true,
     interruptSentence: options.interruptSentence ?? false,
     language: options.language,

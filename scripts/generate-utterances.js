@@ -79,7 +79,7 @@ for (const id of ids) {
 
   // Every `language` state gets its own case for every fixture, per format,
   // regardless of whether it matches the base case.
-  const languageSpecs = ["inline", "block", "never"];
+  const languageSpecs = ["always", "block-level", "none"];
 
   const cases = [];
   for (const format of ["plain", "ssml"]) {

@@ -40,12 +40,12 @@ export function isAnnouncementPair(a: RoleAnnouncement): a is AnnouncementPair {
 export type Announcements = Record<AnnouncementKey, RoleAnnouncement>;
 
 export interface ExtractUtterancesOptions {
-  // Every extraction is fully plain or fully SSML — required, not
-  // optional, and not a passthrough of "whatever the node happens to
-  // have". Forces exactly one field on every utterance, synthesizing it
-  // when a node only naturally has the other (escape plain into ssml with
-  // no markup; strip tags/placeholders from ssml into plain).
-  format: "plain" | "ssml";
+  // Every extraction is fully plain or fully SSML, never a per-node
+  // passthrough of "whatever the node happens to have". Forces exactly
+  // one field on every utterance, synthesizing it when a node only
+  // naturally has the other (escape plain into ssml with no markup;
+  // strip tags/placeholders from ssml into plain). Default "plain".
+  format?: "plain" | "ssml";
 
   // A plain string index signature (not `Partial<Announcements>`): callers
   // can supply any subset of keys, known or new, without needing an
@@ -64,16 +64,16 @@ export interface ExtractUtterancesOptions {
   // changes how *a single node's own* inline language spans (e.g.
   // `<em lang="fr">`, embedded as SSML `<lang>` tags by the GND converter)
   // are treated:
-  //  - "inline" or omitted: honor them as declared — `ssml` keeps spans
+  //  - "always" or omitted: honor them as declared — `ssml` keeps spans
   //    tagged in one string; `plain` splits into one utterance per
   //    language run instead.
-  //  - "block": ignore a node's own inline spans — merge their text into
-  //    the surrounding utterance untagged, keeping only that node's own
-  //    (block-level) `language`.
-  //  - "never": same merging as "block", and every utterance's `language`
-  //    is dropped entirely — the whole document is being treated as one
-  //    language, so nothing gets tagged at all.
-  language?: "never" | "block" | "inline";
+  //  - "block-level": ignore a node's own inline spans — merge their text
+  //    into the surrounding utterance untagged, keeping only that node's
+  //    own (block-level) `language`.
+  //  - "none": same merging as "block-level", and every utterance's
+  //    `language` is dropped entirely — the whole document is being
+  //    treated as one language, so nothing gets tagged at all.
+  language?: "none" | "block-level" | "always";
 
   // Whether a pagebreak/footnote placeholder that falls mid-sentence
   // splits the enclosing utterance at that exact point (announcement/

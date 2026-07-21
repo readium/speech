@@ -127,6 +127,8 @@ Documentation provides guides for:
 - [Voice Management](docs/VoiceManagement.md)
 - [Playback API](docs/Playback.md)
 - [Highlighting](docs/Highlighting.md)
+- [Guided Navigation](docs/GuidedNavigation.md) — extracting [Guided Navigation objects](https://readium.org/guided-navigation) from HTML/XHTML content
+- [Utterance Extraction](docs/UtteranceExtraction.md) — extracting utterances from Guided Navigation objects
 
 ## Development
 
@@ -167,12 +169,19 @@ For ChromeOS development, the project includes a debug mode that mocks the Web S
 
 2. The debug page loads mock voices from a json file which contains a snapshot of ChromeOS voices.
 
-### Running Tests
+### Testing
 
-To run the test suite for `WebSpeechVoiceManager`:
+`npm test` builds the library and runs the full test suite (`ava`) across `test/**/*.test.ts`. Narrower scripts are available for working on one area at a time:
+
 ```bash
-npm test
+npm test           # build + full suite
+npm run test:voices     # WebSpeechVoiceManager only
+npm run test:gnd        # HTML/XHTML -> Guided Navigation conversion
+npm run test:utterances # Guided Navigation -> utterance extraction
 ```
+
+`test:gnd` and `test:utterances` are both driven by [`fixtures/`](fixtures/README.md), a language-agnostic conformance suite of paired input/expected-output files (`input.html`/`input.xhtml`, `gnd.json`, `utterances.json`) covering the [Guided Navigation](docs/GuidedNavigation.md) and [utterance extraction](docs/UtteranceExtraction.md) stages one role/encoding/option at a time. Each fixture is a plain-file test case any platform implementation can consume, not just this TypeScript one — see [fixtures/README.md](fixtures/README.md) for the format, how to add a fixture, and how a fixture "passes".
+
 ## Acknowledgments
 
 This project is based on the work done initially by [Hadrien Gardeur](https://github.com/hadriengardeur) in the [web-speech-recommended-voices](https://github.com/HadrienGardeur/web-speech-recommended-voices) repository.

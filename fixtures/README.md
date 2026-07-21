@@ -122,11 +122,12 @@ combination produces:
 }
 ```
 
-`format: "plain" | "ssml"` is required on every case, since `extractUtterances`
-itself requires it — there's no such thing as calling it without picking one,
-so neither format is treated as more "default" than the other. The other
-options are:
+The options are:
 
+- `format: "plain" | "ssml"` (default `"plain"`) — stated explicitly on
+  every case regardless of the default, since a fixture needs both variants
+  covered and omitting it on the `"ssml"` case would leave it
+  indistinguishable from implicit default behavior.
 - `skip: GndRole[]` — omit a role (and its whole subtree) from the output,
   e.g. so a reader can skip past footnotes or pagebreaks during playback.
   See [roles.md#list-of-skippable-roles](https://github.com/readium/guided-navigation/blob/main/roles.md#list-of-skippable-roles)
@@ -138,9 +139,9 @@ options are:
 - `interruptSentence: boolean` — whether a pagebreak/footnote reference
   that falls mid-sentence splits the sentence at that exact point, instead
   of being spoken after the whole sentence finishes (the default).
-- `language: "never" | "block" | "inline"` — how a language shift between
+- `language: "none" | "block-level" | "always"` — how a language shift between
   adjacent text is rendered: dropped entirely; kept as separate
-  single-language utterances for `plain` (default `"inline"` has no other
+  single-language utterances for `plain` (default `"always"` has no other
   way to represent the shift) or merged into one utterance with embedded
   `<lang>` tags for `ssml`.
 
@@ -228,23 +229,14 @@ fixture and resolve its file paths — no directory listing required.
 1. `mkdir fixtures/<id>` and hand-write `input.html` (or `input.xhtml` for an
    `epub:type` fixture, since `epub:type` requires XHTML — see above) for the
    specific markup being tested.
-2. Hand-author `gnd.json` — there is no generator for it; it is the ground
-   truth implementations must match. This step still requires the same
-   scrutiny it always has: nothing here derives `gnd.json` from the input
-   file for you.
-3. Run `npm run generate-utterances` to derive `utterances.json` (both
-   format branches' `base`, plus whichever `variants` apply — see
-   "Utterance extraction options" above) from the `gnd.json` you just wrote,
-   using this package's own `extractUtterances()`. **Review the diff before
-   committing it** — `utterances.json` is still the ground truth other,
-   non-TypeScript implementations are meant to match, so generating it from
-   this repo's own implementation doesn't replace checking that what it
-   produced is actually correct for every option combination shown. This
-   also means: whenever `extractUtterances.ts`, `announcements.ts`, or
-   `skippableRoles` changes (a reworded announcement, a newly
-   contextualized role, a new skippable role), rerun this for every
-   affected fixture — hand-editing `utterances.json` to patch around a
-   wording change invites exactly the drift this script exists to prevent.
+2. Hand-author `gnd.json` — the ground truth implementations must match.
+3. Hand-author `utterances.json` — one case per applicable option
+   combination (both format branches' base case, plus whichever variants
+   apply — see "Utterance extraction options" above) — from the `gnd.json`
+   you just wrote. When a change to extraction behavior (a reworded
+   announcement, a newly contextualized role, a new skippable role) should
+   propagate to the fixture suite, every affected fixture's
+   `utterances.json` needs to be re-authored by hand to match.
 4. Write `meta.json`.
 5. Run `npm run generate-fixtures-manifest` to regenerate `manifest.json`
    and `ROLES_COVERAGE.md` from what's now on disk.

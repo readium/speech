@@ -42,7 +42,7 @@
     {
       "options": {
         "format": "plain",
-        "language": "inline"
+        "language": "always"
       },
       "utterances": [
         {
@@ -68,7 +68,7 @@
     {
       "options": {
         "format": "plain",
-        "language": "block"
+        "language": "block-level"
       },
       "utterances": [
         {
@@ -94,7 +94,7 @@
     {
       "options": {
         "format": "plain",
-        "language": "never"
+        "language": "none"
       },
       "utterances": [
         {
@@ -159,7 +159,7 @@
     {
       "options": {
         "format": "ssml",
-        "language": "inline"
+        "language": "always"
       },
       "utterances": [
         {
@@ -185,7 +185,7 @@
     {
       "options": {
         "format": "ssml",
-        "language": "block"
+        "language": "block-level"
       },
       "utterances": [
         {
@@ -211,7 +211,7 @@
     {
       "options": {
         "format": "ssml",
-        "language": "never"
+        "language": "none"
       },
       "utterances": [
         {
