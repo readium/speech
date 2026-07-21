@@ -221,6 +221,19 @@ function toStoredShape(items) {
   return items.length === 1 ? items[0] : { children: items };
 }
 
+// Utterances without a `plain` variant only carry `ssml` (e.g. an inline
+// `<lang xml:lang="...">` shift) — strip its tags for display/highlighting
+// purposes so the preview shows spoken text, not raw markup.
+function utteranceDisplayText(utterance) {
+  if (utterance?.plain) return utterance.plain;
+  if (!utterance?.ssml) return undefined;
+  return utterance.ssml
+    .replace(/<[^>]+>/g, "")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&amp;/g, "&");
+}
+
 function setBadge(el, state) {
   el.textContent =
     state === "pass" ? "pass" : state === "fail" ? "fail" : state === "none" ? "no fixture data for this combination" : "not implemented yet";
@@ -261,7 +274,7 @@ function highlightWordBoundary(event) {
 
   const index = playbackNavigator.getCurrentUtteranceIndex();
   const utterance = currentSpeechUtterances[index];
-  const text = utterance?.plain ?? utterance?.ssml;
+  const text = utteranceDisplayText(utterance);
   if (!text) return;
 
   const { charIndex, charLength } = event.detail;
@@ -330,7 +343,7 @@ function renderSpeechList(utterances) {
   speechUtterancesEl.innerHTML = "";
   speechListItems = utterances.map((utterance) => {
     const li = document.createElement("li");
-    li.textContent = utterance.plain ?? utterance.ssml ?? "(empty)";
+    li.textContent = utteranceDisplayText(utterance) ?? "(empty)";
     speechUtterancesEl.appendChild(li);
     return li;
   });
