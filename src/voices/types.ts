@@ -99,9 +99,12 @@ export interface ReadiumSpeechVoice {
   // Additional metadata
   note?: string;          // Additional notes about the voice
   provider?: string;      // Voice provider (e.g., "Microsoft", "Google")
-  
-  // Allow any additional properties that might be in the JSON
-  [key: string]: any;
+
+  // Runtime-derived flags
+  isDefault?: boolean;    // Whether this is the platform's default voice
+  offlineAvailability?: boolean; // Whether the voice works without a network connection
+  isNovelty?: boolean;    // Whether this is a novelty/joke voice
+  isLowQuality?: boolean; // Whether this voice was inferred to be very low quality
 }
 
 export interface VoiceData {
