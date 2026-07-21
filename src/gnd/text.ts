@@ -59,7 +59,7 @@ export function normalizeWhitespace(text: string, stripLeading: boolean): string
       if ((stripLeading && !reachedNonWhite) || lastWasWhite) continue;
       out += " ";
       lastWasWhite = true;
-    } else if (ch !== "​" && ch !== "­") {
+    } else if (ch !== "\u200B" && ch !== "\u00AD") {
       // zero width space, soft hyphen
       out += ch;
       lastWasWhite = false;
