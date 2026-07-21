@@ -1,0 +1,16 @@
+{
+  "role": [
+    "details"
+  ],
+  "children": [
+    {
+      "role": [
+        "summary"
+      ],
+      "text": "Click to expand"
+    },
+    {
+      "text": "Additional details the reader can expand."
+    }
+  ]
+}

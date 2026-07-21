@@ -418,6 +418,17 @@
     }
   },
   {
+    "id": "details-summary-html-native",
+    "dir": "details-summary-html-native",
+    "role": "details",
+    "description": "details role via native <details> element, with its <summary> as the visible disclosure label",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
     "id": "endnotes-epub-type",
     "dir": "endnotes-epub-type",
     "role": "endnotes",
@@ -528,17 +539,6 @@
     }
   },
   {
-    "id": "figure-basic-epub-type",
-    "dir": "figure-basic-epub-type",
-    "role": "figure",
-    "description": "A figure containing an image, with no caption, via epub:type=\"figure\"",
-    "files": {
-      "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
-    }
-  },
-  {
     "id": "figure-basic-html-native",
     "dir": "figure-basic-html-native",
     "role": "figure",
@@ -608,7 +608,7 @@
     "id": "footnote-role-aria",
     "dir": "footnote-role-aria",
     "role": "footnote",
-    "description": "A paragraph with one footnote reference and its footnote content, via explicit ARIA roles",
+    "description": "A paragraph with one footnote reference and its footnote content, including the backlink back to the reference, via explicit ARIA roles",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
@@ -652,7 +652,7 @@
     "id": "glossary-role-aria",
     "dir": "glossary-role-aria",
     "role": "glossary",
-    "description": "A glossary of term/definition entries via explicit ARIA role=\"doc-glossary\" on a <dl>, with term/definition as its directly owned elements",
+    "description": "A glossary of term/definition entries via explicit ARIA role=\"doc-glossary\" on a <dl>, with each term wrapped in <dfn id=\"...\"> so a doc-glossref can target it, matching the spec's own worked example",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
@@ -708,6 +708,28 @@
     "dir": "heading-role-aria",
     "role": "heading",
     "description": "heading1 through heading6 via role=\"heading\" + aria-level (bundled: same pathway, repeated depth)",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "hidden-aria-hidden-html-native",
+    "dir": "hidden-aria-hidden-html-native",
+    "role": "presentation",
+    "description": "An element marked aria-hidden=\"true\" is excluded from the GND tree entirely, producing no node and no utterance",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "hidden-attribute-html-native",
+    "dir": "hidden-attribute-html-native",
+    "role": "presentation",
+    "description": "An element marked with the native hidden attribute is excluded from the GND tree entirely, producing no node and no utterance",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
@@ -1005,6 +1027,17 @@
     "dir": "navigation-role-aria",
     "role": "navigation",
     "description": "navigation role via explicit ARIA role=\"navigation\"",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "noteref-role-aria",
+    "dir": "noteref-role-aria",
+    "role": "noteref",
+    "description": "A standalone noteref link, via explicit ARIA role=\"doc-noteref\", with no resolvable footnote/endnote target",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",

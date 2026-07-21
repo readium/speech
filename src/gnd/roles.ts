@@ -20,6 +20,7 @@ const ariaRoles: Record<string, GndRole> = {
   "doc-appendix": "appendix",
   article: "article",
   "doc-backlink": "backlink",
+  "doc-biblioentry": "listItem", // Deprecated in DPUB-ARIA 1.1
   "doc-bibliography": "bibliography",
   "doc-biblioref": "biblioref",
   blockquote: "blockquote",
@@ -86,6 +87,7 @@ const epubTypeRoles: Record<string, GndRole> = {
   appendix: "appendix",
   aside: "aside",
   backlink: "backlink",
+  biblioentry: "listItem", // Deprecated in DPUB-ARIA 1.1
   bibliography: "bibliography",
   biblioref: "biblioref",
   "table-cell": "cell",

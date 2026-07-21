@@ -6,21 +6,10 @@
       },
       "utterances": [
         {
-          "plain": "Audio."
+          "plain": "Before the hidden content."
         },
         {
-          "plain": "Foghorn recording from the 1962 restoration"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "plain": "Foghorn recording from the 1962 restoration"
+          "plain": "After the hidden content."
         }
       ]
     },
@@ -31,10 +20,10 @@
       },
       "utterances": [
         {
-          "plain": "Audio."
+          "plain": "Before the hidden content."
         },
         {
-          "plain": "Foghorn recording from the 1962 restoration"
+          "plain": "After the hidden content."
         }
       ]
     },
@@ -45,10 +34,10 @@
       },
       "utterances": [
         {
-          "plain": "Audio."
+          "plain": "Before the hidden content."
         },
         {
-          "plain": "Foghorn recording from the 1962 restoration"
+          "plain": "After the hidden content."
         }
       ]
     },
@@ -59,10 +48,10 @@
       },
       "utterances": [
         {
-          "plain": "Audio."
+          "plain": "Before the hidden content."
         },
         {
-          "plain": "Foghorn recording from the 1962 restoration"
+          "plain": "After the hidden content."
         }
       ]
     },
@@ -72,21 +61,10 @@
       },
       "utterances": [
         {
-          "ssml": "Audio."
+          "ssml": "Before the hidden content."
         },
         {
-          "ssml": "Foghorn recording from the 1962 restoration"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "ssml": "Foghorn recording from the 1962 restoration"
+          "ssml": "After the hidden content."
         }
       ]
     },
@@ -97,10 +75,10 @@
       },
       "utterances": [
         {
-          "ssml": "Audio."
+          "ssml": "Before the hidden content."
         },
         {
-          "ssml": "Foghorn recording from the 1962 restoration"
+          "ssml": "After the hidden content."
         }
       ]
     },
@@ -111,10 +89,10 @@
       },
       "utterances": [
         {
-          "ssml": "Audio."
+          "ssml": "Before the hidden content."
         },
         {
-          "ssml": "Foghorn recording from the 1962 restoration"
+          "ssml": "After the hidden content."
         }
       ]
     },
@@ -125,10 +103,10 @@
       },
       "utterances": [
         {
-          "ssml": "Audio."
+          "ssml": "Before the hidden content."
         },
         {
-          "ssml": "Foghorn recording from the 1962 restoration"
+          "ssml": "After the hidden content."
         }
       ]
     }

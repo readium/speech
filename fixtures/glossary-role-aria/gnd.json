@@ -7,7 +7,15 @@
       "role": [
         "term"
       ],
-      "text": "Fresnel lens"
+      "id": "fresnel-lens",
+      "children": [
+        {
+          "role": [
+            "term"
+          ],
+          "text": "Fresnel lens"
+        }
+      ]
     },
     {
       "role": [
@@ -19,7 +27,15 @@
       "role": [
         "term"
       ],
-      "text": "Keeper"
+      "id": "keeper",
+      "children": [
+        {
+          "role": [
+            "term"
+          ],
+          "text": "Keeper"
+        }
+      ]
     },
     {
       "role": [

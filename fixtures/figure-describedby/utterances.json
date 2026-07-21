@@ -9,6 +9,9 @@
           "plain": "Start of the figure."
         },
         {
+          "plain": "Image."
+        },
+        {
           "plain": "Sales chart"
         },
         {
@@ -43,6 +46,9 @@
           "plain": "Start of the figure."
         },
         {
+          "plain": "Image."
+        },
+        {
           "plain": "Sales chart"
         },
         {
@@ -63,6 +69,9 @@
           "plain": "Start of the figure."
         },
         {
+          "plain": "Image."
+        },
+        {
           "plain": "Sales chart"
         },
         {
@@ -81,6 +90,9 @@
       "utterances": [
         {
           "plain": "Start of the figure."
+        },
+        {
+          "plain": "Image."
         },
         {
           "plain": "Sales chart"
@@ -102,6 +114,9 @@
           "ssml": "Start of the figure."
         },
         {
+          "ssml": "Image."
+        },
+        {
           "ssml": "Sales chart"
         },
         {
@@ -136,6 +151,9 @@
           "ssml": "Start of the figure."
         },
         {
+          "ssml": "Image."
+        },
+        {
           "ssml": "Sales chart"
         },
         {
@@ -156,6 +174,9 @@
           "ssml": "Start of the figure."
         },
         {
+          "ssml": "Image."
+        },
+        {
           "ssml": "Sales chart"
         },
         {
@@ -174,6 +195,9 @@
       "utterances": [
         {
           "ssml": "Start of the figure."
+        },
+        {
+          "ssml": "Image."
         },
         {
           "ssml": "Sales chart"

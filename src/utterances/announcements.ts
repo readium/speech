@@ -71,4 +71,7 @@ export const defaultAnnouncements: Announcements = {
   tip: "Tip.",
   pullquote: "Pull quote.",
   credit: "Credit.",
+  image: "Image.",
+  audio: "Audio.",
+  video: "Video.",
 };

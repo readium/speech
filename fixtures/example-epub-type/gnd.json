@@ -4,9 +4,24 @@
   ],
   "children": [
     {
-      "text": "For instance, a Fresnel lens focuses light into a narrow beam.",
       "role": [
-        "example"
+        "section"
+      ],
+      "children": [
+        {
+          "role": [
+            "article"
+          ],
+          "children": [
+            {
+              "text": "For instance, a Fresnel lens focuses light into a narrow beam.",
+              "role": [
+                "paragraph",
+                "example"
+              ]
+            }
+          ]
+        }
       ]
     }
   ]

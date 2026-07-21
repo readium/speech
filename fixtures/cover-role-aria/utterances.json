@@ -6,6 +6,9 @@
       },
       "utterances": [
         {
+          "plain": "Image."
+        },
+        {
           "plain": "Cover."
         },
         {
@@ -31,6 +34,9 @@
       },
       "utterances": [
         {
+          "plain": "Image."
+        },
+        {
           "plain": "Cover."
         },
         {
@@ -45,6 +51,9 @@
       },
       "utterances": [
         {
+          "plain": "Image."
+        },
+        {
           "plain": "Cover."
         },
         {
@@ -58,6 +67,9 @@
         "language": "never"
       },
       "utterances": [
+        {
+          "plain": "Image."
+        },
         {
           "plain": "Cover."
         },
@@ -72,6 +84,9 @@
       },
       "utterances": [
         {
+          "ssml": "Image."
+        },
+        {
           "ssml": "Cover."
         },
         {
@@ -97,6 +112,9 @@
       },
       "utterances": [
         {
+          "ssml": "Image."
+        },
+        {
           "ssml": "Cover."
         },
         {
@@ -111,6 +129,9 @@
       },
       "utterances": [
         {
+          "ssml": "Image."
+        },
+        {
           "ssml": "Cover."
         },
         {
@@ -124,6 +145,9 @@
         "language": "never"
       },
       "utterances": [
+        {
+          "ssml": "Image."
+        },
         {
           "ssml": "Cover."
         },

@@ -1,0 +1,208 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the details."
+        },
+        {
+          "plain": "Click to expand"
+        },
+        {
+          "plain": "Additional details the reader can expand."
+        },
+        {
+          "plain": "End of the details."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "details"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Click to expand"
+        },
+        {
+          "plain": "Additional details the reader can expand."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the details."
+        },
+        {
+          "plain": "Click to expand"
+        },
+        {
+          "plain": "Additional details the reader can expand."
+        },
+        {
+          "plain": "End of the details."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the details."
+        },
+        {
+          "plain": "Click to expand"
+        },
+        {
+          "plain": "Additional details the reader can expand."
+        },
+        {
+          "plain": "End of the details."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the details."
+        },
+        {
+          "plain": "Click to expand"
+        },
+        {
+          "plain": "Additional details the reader can expand."
+        },
+        {
+          "plain": "End of the details."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the details."
+        },
+        {
+          "ssml": "Click to expand"
+        },
+        {
+          "ssml": "Additional details the reader can expand."
+        },
+        {
+          "ssml": "End of the details."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "details"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Click to expand"
+        },
+        {
+          "ssml": "Additional details the reader can expand."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "inline"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the details."
+        },
+        {
+          "ssml": "Click to expand"
+        },
+        {
+          "ssml": "Additional details the reader can expand."
+        },
+        {
+          "ssml": "End of the details."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the details."
+        },
+        {
+          "ssml": "Click to expand"
+        },
+        {
+          "ssml": "Additional details the reader can expand."
+        },
+        {
+          "ssml": "End of the details."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "never"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the details."
+        },
+        {
+          "ssml": "Click to expand"
+        },
+        {
+          "ssml": "Additional details the reader can expand."
+        },
+        {
+          "ssml": "End of the details."
+        }
+      ]
+    }
+  ]
+}

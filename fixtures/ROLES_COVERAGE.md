@@ -28,13 +28,13 @@ renaming, or removing a fixture.
 | `credits` | `credits-epub-type`, `credits-role-aria` |
 | `dedication` | `dedication-epub-type`, `dedication-role-aria` |
 | `definition` | `definition-epub-type`, `definition-html-native`, `definition-role-aria` |
-| `details` | `details-html-native` |
+| `details` | `details-html-native`, `details-summary-html-native` |
 | `endnotes` | `endnotes-epub-type`, `endnotes-role-aria` |
 | `epigraph` | `epigraph-epub-type`, `epigraph-role-aria` |
 | `epilogue` | `epilogue-epub-type`, `epilogue-role-aria` |
 | `errata` | `errata-epub-type`, `errata-role-aria` |
 | `example` | `example-epub-type`, `example-role-aria` |
-| `figure` | `figure-basic-epub-type`, `figure-basic-html-native`, `figure-basic-role-aria`, `figure-caption-html-native`, `figure-caption-role-aria`, `figure-describedby` |
+| `figure` | `figure-basic-html-native`, `figure-basic-role-aria`, `figure-caption-html-native`, `figure-caption-role-aria`, `figure-describedby` |
 | `footnote` | `footnote-epub-type`, `footnote-role-aria` |
 | `foreword` | `foreword-epub-type`, `foreword-role-aria` |
 | `glossary` | `glossary-epub-type`, `glossary-role-aria` |
@@ -54,6 +54,7 @@ renaming, or removing a fixture.
 | `main` | `main-html-native`, `main-role-aria` |
 | `math` | `math-html-native`, `math-role-aria` |
 | `navigation` | `navigation-html-native`, `navigation-role-aria` |
+| `noteref` | `noteref-role-aria` |
 | `notice` | `notice-epub-type`, `notice-role-aria` |
 | `pagebreak` | `pagebreak-epub-type`, `pagebreak-role-aria` |
 | `pagelist` | `pagelist-epub-type`, `pagelist-role-aria` |
@@ -61,7 +62,7 @@ renaming, or removing a fixture.
 | `part` | `part-epub-type`, `part-role-aria` |
 | `preface` | `preface-epub-type`, `preface-role-aria` |
 | `preformatted` | `preformatted-html-native` |
-| `presentation` | `image-decorative-empty-alt`, `image-decorative-role-presentation`, `presentation-role-aria` |
+| `presentation` | `hidden-aria-hidden-html-native`, `hidden-attribute-html-native`, `image-decorative-empty-alt`, `image-decorative-role-presentation`, `presentation-role-aria` |
 | `prologue` | `prologue-epub-type`, `prologue-role-aria` |
 | `pullquote` | `pullquote-epub-type`, `pullquote-role-aria` |
 | `qna` | `qna-epub-type`, `qna-role-aria` |
@@ -76,4 +77,4 @@ renaming, or removing a fixture.
 | `toc` | `toc-epub-type`, `toc-role-aria` |
 | `video` | `video-html-native` |
 
-128 fixtures across 68 roles.
+131 fixtures across 69 roles.
