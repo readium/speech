@@ -1,4 +1,4 @@
-import type { GndNode, GndRole } from "./types.js";
+import type { GndObject, GndRole } from "./types.js";
 import { type TextBuilder, textIsEmpty, finalizeText } from "./text.js";
 
 export interface ObjBuilder {
@@ -88,8 +88,8 @@ export class NavObject {
   }
 }
 
-export function finalizeToGndNode(o: ObjBuilder): GndNode {
-  const node: GndNode = {};
+export function finalizeToGndObject(o: ObjBuilder): GndObject {
+  const node: GndObject = {};
   if (o.id) node.id = o.id;
   if (o.textref) node.textref = o.textref;
   if (o.imgref) node.imgref = o.imgref;
@@ -98,12 +98,12 @@ export function finalizeToGndNode(o: ObjBuilder): GndNode {
   const text = finalizeText(o.text);
   if (text !== undefined) node.text = text;
   if (o.role && o.role.length > 0) node.role = o.role;
-  if (o.children && o.children.length > 0) node.children = o.children.map(finalizeToGndNode);
+  if (o.children && o.children.length > 0) node.children = o.children.map(finalizeToGndObject);
   if (o.description) node.description = o.description;
   return node;
 }
 
-export function gndNodeToObjBuilder(n: GndNode): ObjBuilder {
+export function gndObjectToObjBuilder(n: GndObject): ObjBuilder {
   const o: ObjBuilder = {};
   if (n.id) o.id = n.id;
   if (n.textref) o.textref = n.textref;
@@ -117,6 +117,6 @@ export function gndNodeToObjBuilder(n: GndNode): ObjBuilder {
   } else if (n.text) {
     o.text = { plain: n.text.plain ?? "", ssml: n.text.ssml ?? "", language: n.text.language };
   }
-  if (n.children) o.children = n.children.map(gndNodeToObjBuilder);
+  if (n.children) o.children = n.children.map(gndObjectToObjBuilder);
   return o;
 }

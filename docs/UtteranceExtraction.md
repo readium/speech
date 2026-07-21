@@ -11,7 +11,7 @@ extractUtterances(gnd.guided, { format: "plain" });
 // [{ language: "en", plain: "It was a dark and stormy night." }]
 ```
 
-Takes `GndNode[]` (`parseMarkup()`'s return / `GndDocument.guided`), not a wrapped `GndDocument`.
+Takes `GndObject[]` (`parseMarkup()`'s return / `GndDocument.guided`), not a wrapped `GndDocument`.
 
 ```typescript
 interface ReadiumSpeechUtterance {
@@ -36,7 +36,7 @@ interface ExtractUtterancesOptions {
 }
 ```
 
-- **`format`** — default `"plain"`. Picks the one field every utterance in the result carries, so a consumer never has to check per-utterance which of `plain`/`ssml` is populated. Whichever a `GndNode` doesn't natively have is synthesized (`plain` → escaped `ssml`; `ssml` → tags stripped to `plain`).
+- **`format`** — default `"plain"`. Picks the one field every utterance in the result carries, so a consumer never has to check per-utterance which of `plain`/`ssml` is populated. Whichever a `GndObject` doesn't natively have is synthesized (`plain` → escaped `ssml`; `ssml` → tags stripped to `plain`).
 - **`skip`** — drop a role and its subtree entirely (content + announcement). `skippableRoles` export is the [roles.md skippable set](https://github.com/readium/guided-navigation/blob/main/roles.md#list-of-skippable-roles): `aside`, `bibliography`, `details`, `endnotes`, `footnote`, `noteref`, `pullquote`, `landmarks`, `loa`, `loi`, `lot`, `lov`, `pagebreak`, `toc`. Default: nothing skipped.
 - **`contextualize`** — on/off switch for all announcements, content still spoken. Default `true`.
 - **`language`** — how a node's own inline spans (`<em lang="fr">`) render. Never merges across sibling utterances.

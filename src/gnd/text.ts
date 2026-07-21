@@ -1,4 +1,4 @@
-import type { GndTextAlternative } from "./types.js";
+import type { GndText } from "./types.js";
 
 export interface TextBuilder {
   plain: string;
@@ -10,10 +10,10 @@ export function textIsEmpty(t: TextBuilder): boolean {
   return t.plain === "" && t.ssml === "" && t.language === "";
 }
 
-export function finalizeText(t?: TextBuilder): string | GndTextAlternative | undefined {
+export function finalizeText(t?: TextBuilder): string | GndText | undefined {
   if (!t || textIsEmpty(t)) return undefined;
   if (t.ssml === "" && t.language === "") return t.plain;
-  const alt: GndTextAlternative = { language: t.language };
+  const alt: GndText = { language: t.language };
   if (t.plain !== "") alt.plain = t.plain;
   if (t.ssml !== "") alt.ssml = t.ssml;
   return alt;

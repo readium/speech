@@ -1,4 +1,4 @@
-import type { GndNode } from "../gnd/types.js";
+import type { GndObject } from "../gnd/types.js";
 import {
   BINDING_PUNCT_CLASS,
   OPENING_PUNCT_CLASS,
@@ -51,7 +51,7 @@ function hasSsmlMarkup(s: string): boolean {
 }
 
 /**
- * Resolves a `GndNode.text` value (a plain string, or a `GndTextAlternative`
+ * Resolves a `GndObject.text` value (a plain string, or a `GndText`
  * carrying separate plain/SSML variants) into the shape an utterance needs.
  *
  * Mirrors the Readium text object as-is: `plain` and `ssml` are independent
@@ -69,7 +69,7 @@ function hasSsmlMarkup(s: string): boolean {
  * text node under it, so this is the only place that document-declared
  * language would otherwise be lost.
  */
-export function resolveNodeText(text: GndNode["text"]): ResolvedNodeText | undefined {
+export function resolveNodeText(text: GndObject["text"]): ResolvedNodeText | undefined {
   if (text === undefined) return undefined;
   if (typeof text === "string") return { plain: text };
 
@@ -234,7 +234,7 @@ export interface SsmlSegment {
   // placeholders. Mutually exclusive with `placeholderId`.
   ssml?: string;
   // The `id` of a `<readium:TAG id="...">` placeholder at this position,
-  // linking to the sibling/child `GndNode` carrying that `id`.
+  // linking to the sibling/child `GndObject` carrying that `id`.
   placeholderId?: string;
 }
 
@@ -250,7 +250,7 @@ export function hasPlaceholder(ssml: string): boolean {
 /**
  * Splits a raw (pre-`stripPlaceholders`) SSML string on its embedded
  * `<readium:TAG id="...">` placeholders, for `interruptSentence`: each
- * placeholder becomes its own segment (resolved via the `GndNode` sharing
+ * placeholder becomes its own segment (resolved via the `GndObject` sharing
  * its `id`) instead of being spoken after the whole enclosing text.
  */
 export function splitOnPlaceholders(ssml: string): SsmlSegment[] {

@@ -1,9 +1,5 @@
-// Guided Navigation document model.
-//
-// This is a minimal, intentionally loose type stub for the fixture suite in
-// `fixtures/` to type-check against. It does not implement HTML parsing or
-// utterance extraction — see fixtures/README.md for the fixture format this
-// is meant to satisfy.
+// Guided Navigation document model, produced by `parseMarkup()`/`makeGnd()`
+// (see `converter.ts`) and consumed by `extractUtterances()`.
 //
 // The upstream spec is still evolving: https://github.com/readium/guided-navigation
 
@@ -11,23 +7,22 @@
 // rather than a union so new roles don't require a type change here.
 export type GndRole = string;
 
-export interface GndTextAlternative {
+export interface GndText {
   language: string;
   plain?: string;
   ssml?: string;
 }
 
-export interface GndNode {
+export interface GndObject {
   role?: GndRole[];
-  text?: string | GndTextAlternative;
+  text?: string | GndText;
   description?: string;
   imgref?: string;
   audioref?: string;
   videoref?: string;
   textref?: string;
   id?: string;
-  lang?: string;
-  children?: GndNode[];
+  children?: GndObject[];
 }
 
 // A Guided Navigation Document — https://readium.org/guided-navigation/schema/document.schema.json
@@ -36,5 +31,5 @@ export interface GndNode {
 // for a piece of input that describes no navigable content at all — none).
 export interface GndDocument {
   links?: unknown[];
-  guided: GndNode[];
+  guided: GndObject[];
 }

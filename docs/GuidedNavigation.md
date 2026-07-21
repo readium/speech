@@ -13,7 +13,7 @@ const gnd = makeGnd(`
     <p>It was a dark and stormy night.</p>
   </section>
 `);
-// gnd.guided: GndNode[]
+// gnd.guided: GndObject[]
 ```
 
 ```typescript
@@ -21,42 +21,42 @@ function makeGnd(input: string, mediaType?: GndMediaType): GndDocument;
 
 interface GndDocument {
   links?: unknown[];
-  guided: GndNode[];
+  guided: GndObject[];
 }
 ```
 
 `mediaType` is `"text/html" | "application/xhtml+xml"`. Omit it to sniff from `input` (XML declaration, `xmlns:epub`, XHTML doctype → XHTML; else HTML).
 
-Skip the `GndDocument` wrapper by calling `parseMarkup(html): GndNode[]` directly.
+Skip the `GndDocument` wrapper by calling `parseMarkup(html): GndObject[]` directly.
 
 Parsing uses the native `DOMParser` — no HTML/XML library bundled or loaded at runtime.
 
-## `GndNode`
+## `GndObject`
 
 ```typescript
 type GndRole = string; // open-ended, see roles.ts
 
-interface GndTextAlternative {
+interface GndText {
   language: string;
   plain?: string;
   ssml?: string;
 }
 
-interface GndNode {
+interface GndObject {
   role?: GndRole[];
-  text?: string | GndTextAlternative;
+  text?: string | GndText;
   description?: string;
   imgref?: string;
   audioref?: string;
   videoref?: string;
   textref?: string;
   id?: string;
-  children?: GndNode[];
+  children?: GndObject[];
 }
 ```
 
 - **`role`** can have multiple entries: tag name, ARIA `role`, `epub:type` all contribute, in that order (e.g. `<section epub:type="chapter">` → `["section", "chapter"]`). `role="presentation"`/`"none"` overrides everything to `["presentation"]`.
-- **`text`** is a plain string when unformatted, a `GndTextAlternative` when it needs SSML (inline formatting, a language shift, or an embedded footnote/pagebreak/image mid-sentence). `ssml` marks embedded objects with a `<readium:noteref id="..." />`-style placeholder whose `id` matches a sibling in `children`.
+- **`text`** is a plain string when unformatted, a `GndText` when it needs SSML (inline formatting, a language shift, or an embedded footnote/pagebreak/image mid-sentence). `ssml` marks embedded objects with a `<readium:noteref id="..." />`-style placeholder whose `id` matches a sibling in `children`.
 - **`imgref`/`audioref`/`videoref`** are a media element's `src`. **`textref`** is an `href` — reused for navigational-list items (`toc`, `index`...), `noteref`/`backlink`/`biblioref`/`glossref`, and plain links.
 - **`description`** is a node's accessible name (`aria-label`, `alt`, `<figcaption>`...) when it differs from its visible text.
 - Empty/presentational/`aria-hidden`/`hidden` content and role-less wrapper `<div>`s are dropped from the tree, not kept as empty nodes.

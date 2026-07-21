@@ -1,4 +1,4 @@
-import type { GndNode, GndRole, GndTextAlternative } from "./types.js";
+import type { GndObject, GndRole, GndText } from "./types.js";
 import { extractNodeRoles } from "./roles.js";
 import {
   extractNodeAria,
@@ -16,7 +16,7 @@ import {
   normalizeWhitespace,
 } from "./text.js";
 import { startsWithBindingPunct } from "../utils/text.js";
-import { type ObjBuilder, NavObject, isEmptyObj, finalizeToGndNode, gndNodeToObjBuilder } from "./object.js";
+import { type ObjBuilder, NavObject, isEmptyObj, finalizeToGndObject, gndObjectToObjBuilder } from "./object.js";
 import { type GndMediaType, nodeLanguage, hasElementChild, isAncestorOf, sniffMediaType } from "./dom.js";
 
 const TEXT_NODE = 3;
@@ -139,13 +139,13 @@ export class Converter {
     this.flushText();
   }
 
-  result(): GndNode[] {
+  result(): GndObject[] {
     const res = this.root.finalize();
     if (!res.children || res.children.length === 0) {
       if (isEmptyObj(res)) return [];
-      return [finalizeToGndNode(res)];
+      return [finalizeToGndObject(res)];
     }
-    return res.children.map(finalizeToGndNode);
+    return res.children.map(finalizeToGndObject);
   }
 
   private descend(el: Element) {
@@ -361,7 +361,7 @@ export class Converter {
     this.flowEndsWithSpace = false;
   }
 
-  private pagebreak(el: Element, aria: GndTextAlternative | null, roles: GndRole[]): boolean {
+  private pagebreak(el: Element, aria: GndText | null, roles: GndRole[]): boolean {
     const obj: ObjBuilder = { role: roles };
     const title = (el.getAttribute("title") ?? "").trim();
     if (title) {
@@ -409,7 +409,7 @@ export class Converter {
           // noteref's own id — repeating it on the embedded content would
           // be redundant.
           obj.children = children.map((c) => {
-            const o = gndNodeToObjBuilder(c);
+            const o = gndObjectToObjBuilder(c);
             delete o.id;
             return o;
           });
@@ -620,7 +620,7 @@ const BODY_TAG_RE = /<body[\s>]/i;
  * is not content and is skipped through; a bodyless XHTML fragment's root
  * element is itself the content.
  */
-export function parseMarkup(input: string, mediaType?: GndMediaType): GndNode[] {
+export function parseMarkup(input: string, mediaType?: GndMediaType): GndObject[] {
   const mt = mediaType ?? sniffMediaType(input);
   const doc = new DOMParser().parseFromString(input, mt);
   const converter = new Converter(mt === "application/xhtml+xml");

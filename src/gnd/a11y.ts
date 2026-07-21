@@ -1,4 +1,4 @@
-import type { GndTextAlternative } from "./types.js";
+import type { GndText } from "./types.js";
 import { normalizeWhitespace } from "./text.js";
 
 function nodeIsHidden(el: Element): boolean {
@@ -29,7 +29,7 @@ export function normalizedNodeText(el: Node): string {
  * Returns the node's accessibility text if existent, and whether or not the node
  * is visible in the first place.
  */
-export function extractNodeAria(el: Element): [GndTextAlternative | null, boolean] {
+export function extractNodeAria(el: Element): [GndText | null, boolean] {
   // 2.A
   if (nodeIsHidden(el)) {
     return [null, false];

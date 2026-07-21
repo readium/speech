@@ -1,4 +1,4 @@
-import type { GndNode, GndRole } from "../gnd/types.js";
+import type { GndObject, GndRole } from "../gnd/types.js";
 import { ssmlTextEscape } from "../gnd/text.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { defaultAnnouncements } from "./announcements.js";
@@ -99,7 +99,7 @@ function mergeUtterances(
 
 // A pagebreak's label merges into its "Pagebreak." announcement as one
 // utterance, with a synthesized trailing period.
-function buildPagebreakUtterance(node: GndNode, ctx: WalkContext): ReadiumSpeechUtterance[] {
+function buildPagebreakUtterance(node: GndObject, ctx: WalkContext): ReadiumSpeechUtterance[] {
   const resolved = resolveNodeText(node.text);
   const own = resolved ? applyFormat(resolved, ctx.format, ctx.language) : [];
   if (!ctx.contextualize) return own;
@@ -160,7 +160,7 @@ function applyFormat(
 // then merges the fragments and the referenced node's own utterance back
 // into one continuous utterance.
 function emitInterrupted(
-  node: GndNode,
+  node: GndObject,
   rawSsml: string,
   out: ReadiumSpeechUtterance[],
   ctx: WalkContext,
@@ -202,7 +202,7 @@ function emitInterrupted(
   out.push(...(merged ? [merged] : pieces));
 }
 
-function walkNode(node: GndNode, out: ReadiumSpeechUtterance[], ctx: WalkContext): void {
+function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], ctx: WalkContext): void {
   const roles = node.role ?? [];
   if (isSkipped(roles, ctx.skip)) return;
 
@@ -275,7 +275,7 @@ function walkNode(node: GndNode, out: ReadiumSpeechUtterance[], ctx: WalkContext
   }
 }
 
-function walk(nodes: GndNode[], out: ReadiumSpeechUtterance[], ctx: WalkContext): void {
+function walk(nodes: GndObject[], out: ReadiumSpeechUtterance[], ctx: WalkContext): void {
   for (const node of nodes) walkNode(node, out, ctx);
 }
 
@@ -284,11 +284,11 @@ function walk(nodes: GndNode[], out: ReadiumSpeechUtterance[], ctx: WalkContext)
  * Navigation node tree, following the patterns documented at
  * https://github.com/readium/guided-navigation/tree/main/examples/read-aloud.
  *
- * Accepts `GndNode[]` (as returned by `parseMarkup()`, or `GndDocument.guided`)
+ * Accepts `GndObject[]` (as returned by `parseMarkup()`, or `GndDocument.guided`)
  * rather than a wrapped document.
  */
 export function extractUtterances(
-  nodes: GndNode[],
+  nodes: GndObject[],
   options: ExtractUtterancesOptions,
 ): ReadiumSpeechUtterance[] {
   const ctx: WalkContext = {
