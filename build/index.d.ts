@@ -1,4 +1,7 @@
 export * from './WebSpeech';
+export * from '@readium/decorator';
+export * from './decorator';
+export { Locator, LocatorLocations, LocatorText } from '@readium/shared';
 export { chineseVariantMap } from './voices/languages';
 export * from './voices/types';
 export * from './engine';

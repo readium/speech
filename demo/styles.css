@@ -438,11 +438,6 @@ form > div {
   background-color: #7b1fa2; /* Darker purple on hover */
 }
 
-/* Simple highlight style for the current word */
-::highlight(current-word) {
-  background-color: #ffeb3b;
-  color: black;
-}
 
 /* Current utterance styling */
 .utterance.current {
