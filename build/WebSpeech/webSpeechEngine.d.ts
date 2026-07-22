@@ -38,7 +38,7 @@ export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     private validateText;
     private getCurrentVoiceForUtterance;
     getCurrentVoice(): ReadiumSpeechVoice | null;
-    private escapeSSML;
+    private toPlainText;
     loadUtterances(contents: ReadiumSpeechUtterance[]): void;
     setVoice(voice: ReadiumSpeechVoice | string): Promise<void>;
     getAvailableVoices(): Promise<ReadiumSpeechVoice[]>;

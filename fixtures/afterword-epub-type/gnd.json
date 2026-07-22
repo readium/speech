@@ -1,0 +1,13 @@
+{
+  "role": [
+    "body"
+  ],
+  "children": [
+    {
+      "text": "Years later, the last lighthouse keeper reflects on automation.",
+      "role": [
+        "afterword"
+      ]
+    }
+  ]
+}

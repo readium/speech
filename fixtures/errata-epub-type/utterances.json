@@ -1,0 +1,136 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Errata."
+        },
+        {
+          "plain": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Errata."
+        },
+        {
+          "plain": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Errata."
+        },
+        {
+          "plain": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Errata."
+        },
+        {
+          "plain": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Errata."
+        },
+        {
+          "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Errata."
+        },
+        {
+          "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Errata."
+        },
+        {
+          "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Errata."
+        },
+        {
+          "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    }
+  ]
+}

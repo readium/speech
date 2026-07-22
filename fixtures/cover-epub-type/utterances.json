@@ -1,0 +1,160 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Cover."
+        },
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "Lighthouses of the Atlantic, by J. Smith"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Lighthouses of the Atlantic, by J. Smith"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Cover."
+        },
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "Lighthouses of the Atlantic, by J. Smith"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Cover."
+        },
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "Lighthouses of the Atlantic, by J. Smith"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Cover."
+        },
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "Lighthouses of the Atlantic, by J. Smith"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Cover."
+        },
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "Lighthouses of the Atlantic, by J. Smith"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Lighthouses of the Atlantic, by J. Smith"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Cover."
+        },
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "Lighthouses of the Atlantic, by J. Smith"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Cover."
+        },
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "Lighthouses of the Atlantic, by J. Smith"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Cover."
+        },
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "Lighthouses of the Atlantic, by J. Smith"
+        }
+      ]
+    }
+  ]
+}

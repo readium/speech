@@ -1,0 +1,208 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list of tables."
+        },
+        {
+          "plain": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "plain": "Table 2. Keeper staffing by decade"
+        },
+        {
+          "plain": "End of the list of tables."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "lot"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "plain": "Table 2. Keeper staffing by decade"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list of tables."
+        },
+        {
+          "plain": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "plain": "Table 2. Keeper staffing by decade"
+        },
+        {
+          "plain": "End of the list of tables."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list of tables."
+        },
+        {
+          "plain": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "plain": "Table 2. Keeper staffing by decade"
+        },
+        {
+          "plain": "End of the list of tables."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list of tables."
+        },
+        {
+          "plain": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "plain": "Table 2. Keeper staffing by decade"
+        },
+        {
+          "plain": "End of the list of tables."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list of tables."
+        },
+        {
+          "ssml": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "ssml": "Table 2. Keeper staffing by decade"
+        },
+        {
+          "ssml": "End of the list of tables."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "lot"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "ssml": "Table 2. Keeper staffing by decade"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list of tables."
+        },
+        {
+          "ssml": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "ssml": "Table 2. Keeper staffing by decade"
+        },
+        {
+          "ssml": "End of the list of tables."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list of tables."
+        },
+        {
+          "ssml": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "ssml": "Table 2. Keeper staffing by decade"
+        },
+        {
+          "ssml": "End of the list of tables."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list of tables."
+        },
+        {
+          "ssml": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "ssml": "Table 2. Keeper staffing by decade"
+        },
+        {
+          "ssml": "End of the list of tables."
+        }
+      ]
+    }
+  ]
+}

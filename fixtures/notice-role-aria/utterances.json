@@ -1,0 +1,136 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Notice."
+        },
+        {
+          "plain": "Caution: the tower stairs are uneven."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Caution: the tower stairs are uneven."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Notice."
+        },
+        {
+          "plain": "Caution: the tower stairs are uneven."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Notice."
+        },
+        {
+          "plain": "Caution: the tower stairs are uneven."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Notice."
+        },
+        {
+          "plain": "Caution: the tower stairs are uneven."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Notice."
+        },
+        {
+          "ssml": "Caution: the tower stairs are uneven."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Caution: the tower stairs are uneven."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Notice."
+        },
+        {
+          "ssml": "Caution: the tower stairs are uneven."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Notice."
+        },
+        {
+          "ssml": "Caution: the tower stairs are uneven."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Notice."
+        },
+        {
+          "ssml": "Caution: the tower stairs are uneven."
+        }
+      ]
+    }
+  ]
+}

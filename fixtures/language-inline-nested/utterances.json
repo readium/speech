@@ -1,0 +1,128 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Start",
+          "language": "en"
+        },
+        {
+          "plain": "middle",
+          "language": "fr"
+        },
+        {
+          "plain": "nested",
+          "language": "es"
+        },
+        {
+          "plain": "end",
+          "language": "fr"
+        },
+        {
+          "plain": "after.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Start",
+          "language": "en"
+        },
+        {
+          "plain": "middle",
+          "language": "fr"
+        },
+        {
+          "plain": "nested",
+          "language": "es"
+        },
+        {
+          "plain": "end",
+          "language": "fr"
+        },
+        {
+          "plain": "after.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "Start middle nested end after."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Start middle nested end after."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "Start <lang xml:lang=\"fr\">middle </lang><lang xml:lang=\"es\">nested</lang><lang xml:lang=\"fr\"> end</lang> after."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "Start <lang xml:lang=\"fr\">middle </lang><lang xml:lang=\"es\">nested</lang><lang xml:lang=\"fr\"> end</lang> after."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "Start middle nested end after."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Start middle nested end after."
+        }
+      ]
+    }
+  ]
+}

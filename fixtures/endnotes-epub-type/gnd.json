@@ -1,0 +1,52 @@
+{
+  "role": [
+    "body"
+  ],
+  "children": [
+    {
+      "role": [
+        "section",
+        "endnotes"
+      ],
+      "children": [
+        {
+          "role": [
+            "list"
+          ],
+          "children": [
+            {
+              "role": [
+                "listItem"
+              ],
+              "children": [
+                {
+                  "id": "note1",
+                  "text": "See introduction for background.",
+                  "role": [
+                    "aside",
+                    "footnote"
+                  ]
+                }
+              ]
+            },
+            {
+              "role": [
+                "listItem"
+              ],
+              "children": [
+                {
+                  "id": "note2",
+                  "text": "See chapter three for details.",
+                  "role": [
+                    "aside",
+                    "footnote"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "role": [
+    "body"
+  ],
+  "children": [
+    {
+      "text": "Tip: wind the mechanism fully before dusk.",
+      "role": [
+        "aside",
+        "tip"
+      ]
+    }
+  ]
+}

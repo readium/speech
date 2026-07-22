@@ -1,0 +1,43 @@
+{
+  "role": [
+    "body"
+  ],
+  "children": [
+    {
+      "role": [
+        "navigation",
+        "pagelist"
+      ],
+      "children": [
+        {
+          "role": [
+            "list"
+          ],
+          "children": [
+            {
+              "textref": "#pg1",
+              "text": "Page 1",
+              "role": [
+                "listItem"
+              ]
+            },
+            {
+              "textref": "#pg2",
+              "text": "Page 2",
+              "role": [
+                "listItem"
+              ]
+            },
+            {
+              "textref": "#pg3",
+              "text": "Page 3",
+              "role": [
+                "listItem"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

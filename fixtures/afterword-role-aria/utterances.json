@@ -1,0 +1,160 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the afterword."
+        },
+        {
+          "plain": "Years later, the last lighthouse keeper reflects on automation."
+        },
+        {
+          "plain": "End of the afterword."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Years later, the last lighthouse keeper reflects on automation."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the afterword."
+        },
+        {
+          "plain": "Years later, the last lighthouse keeper reflects on automation."
+        },
+        {
+          "plain": "End of the afterword."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the afterword."
+        },
+        {
+          "plain": "Years later, the last lighthouse keeper reflects on automation."
+        },
+        {
+          "plain": "End of the afterword."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the afterword."
+        },
+        {
+          "plain": "Years later, the last lighthouse keeper reflects on automation."
+        },
+        {
+          "plain": "End of the afterword."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the afterword."
+        },
+        {
+          "ssml": "Years later, the last lighthouse keeper reflects on automation."
+        },
+        {
+          "ssml": "End of the afterword."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Years later, the last lighthouse keeper reflects on automation."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the afterword."
+        },
+        {
+          "ssml": "Years later, the last lighthouse keeper reflects on automation."
+        },
+        {
+          "ssml": "End of the afterword."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the afterword."
+        },
+        {
+          "ssml": "Years later, the last lighthouse keeper reflects on automation."
+        },
+        {
+          "ssml": "End of the afterword."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the afterword."
+        },
+        {
+          "ssml": "Years later, the last lighthouse keeper reflects on automation."
+        },
+        {
+          "ssml": "End of the afterword."
+        }
+      ]
+    }
+  ]
+}

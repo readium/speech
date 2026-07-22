@@ -1,0 +1,160 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the appendix."
+        },
+        {
+          "plain": "A table of lighthouse construction dates referenced in the text."
+        },
+        {
+          "plain": "End of the appendix."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "A table of lighthouse construction dates referenced in the text."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the appendix."
+        },
+        {
+          "plain": "A table of lighthouse construction dates referenced in the text."
+        },
+        {
+          "plain": "End of the appendix."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the appendix."
+        },
+        {
+          "plain": "A table of lighthouse construction dates referenced in the text."
+        },
+        {
+          "plain": "End of the appendix."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the appendix."
+        },
+        {
+          "plain": "A table of lighthouse construction dates referenced in the text."
+        },
+        {
+          "plain": "End of the appendix."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the appendix."
+        },
+        {
+          "ssml": "A table of lighthouse construction dates referenced in the text."
+        },
+        {
+          "ssml": "End of the appendix."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "A table of lighthouse construction dates referenced in the text."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the appendix."
+        },
+        {
+          "ssml": "A table of lighthouse construction dates referenced in the text."
+        },
+        {
+          "ssml": "End of the appendix."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the appendix."
+        },
+        {
+          "ssml": "A table of lighthouse construction dates referenced in the text."
+        },
+        {
+          "ssml": "End of the appendix."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the appendix."
+        },
+        {
+          "ssml": "A table of lighthouse construction dates referenced in the text."
+        },
+        {
+          "ssml": "End of the appendix."
+        }
+      ]
+    }
+  ]
+}

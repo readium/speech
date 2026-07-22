@@ -1,0 +1,138 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "First item"
+        },
+        {
+          "plain": "Second item"
+        },
+        {
+          "plain": "Third item"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "First item"
+        },
+        {
+          "plain": "Second item"
+        },
+        {
+          "plain": "Third item"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "First item"
+        },
+        {
+          "plain": "Second item"
+        },
+        {
+          "plain": "Third item"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "First item"
+        },
+        {
+          "plain": "Second item"
+        },
+        {
+          "plain": "Third item"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "First item"
+        },
+        {
+          "ssml": "Second item"
+        },
+        {
+          "ssml": "Third item"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "First item"
+        },
+        {
+          "ssml": "Second item"
+        },
+        {
+          "ssml": "Third item"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "First item"
+        },
+        {
+          "ssml": "Second item"
+        },
+        {
+          "ssml": "Third item"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "First item"
+        },
+        {
+          "ssml": "Second item"
+        },
+        {
+          "ssml": "Third item"
+        }
+      ]
+    }
+  ]
+}

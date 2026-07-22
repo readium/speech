@@ -1,0 +1,20 @@
+{
+  "role": [
+    "body"
+  ],
+  "children": [
+    {
+      "role": [
+        "paragraph"
+      ],
+      "children": [
+        {
+          "text": "Cover photograph by A. Keeper.",
+          "role": [
+            "credit"
+          ]
+        }
+      ]
+    }
+  ]
+}

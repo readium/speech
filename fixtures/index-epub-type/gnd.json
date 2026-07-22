@@ -1,0 +1,36 @@
+{
+  "role": [
+    "body"
+  ],
+  "children": [
+    {
+      "role": [
+        "navigation",
+        "index"
+      ],
+      "children": [
+        {
+          "role": [
+            "list"
+          ],
+          "children": [
+            {
+              "textref": "chapter1.xhtml#fresnel",
+              "text": "Fresnel lens",
+              "role": [
+                "listItem"
+              ]
+            },
+            {
+              "textref": "chapter3.xhtml#keepers",
+              "text": "Keepers",
+              "role": [
+                "listItem"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
