@@ -1,0 +1,64 @@
+{
+  "role": [
+    "table"
+  ],
+  "children": [
+    {
+      "role": [
+        "row"
+      ],
+      "children": [
+        {
+          "role": [
+            "columnheader"
+          ],
+          "text": "Name"
+        },
+        {
+          "role": [
+            "columnheader"
+          ],
+          "text": "Role"
+        }
+      ]
+    },
+    {
+      "role": [
+        "row"
+      ],
+      "children": [
+        {
+          "role": [
+            "rowheader"
+          ],
+          "text": "Ada"
+        },
+        {
+          "role": [
+            "cell"
+          ],
+          "text": "Engineer"
+        }
+      ]
+    },
+    {
+      "role": [
+        "row"
+      ],
+      "children": [
+        {
+          "role": [
+            "rowheader"
+          ],
+          "text": "Grace"
+        },
+        {
+          "role": [
+            "cell"
+          ],
+          "text": "Admiral"
+        }
+      ]
+    }
+  ]
+}

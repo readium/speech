@@ -1,0 +1,208 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    }
+  ]
+}

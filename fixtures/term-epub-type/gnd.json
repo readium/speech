@@ -1,0 +1,20 @@
+{
+  "role": [
+    "body"
+  ],
+  "children": [
+    {
+      "role": [
+        "glossary"
+      ],
+      "children": [
+        {
+          "text": "lighthouse",
+          "role": [
+            "term"
+          ]
+        }
+      ]
+    }
+  ]
+}

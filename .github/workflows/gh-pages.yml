@@ -42,12 +42,14 @@ jobs:
           ls -laR ./demo
           ls -laR ./json
           ls -laR ./docs
+          ls -laR ./fixtures
           mkdir build-demo
           cp README.md ./build-demo/
           cp -r ./build ./build-demo/
           cp -r ./demo ./build-demo/
           cp -r ./json ./build-demo/
           cp -r ./docs ./build-demo/
+          cp -r ./fixtures ./build-demo/
           cp ./voices.schema.json ./build-demo/
           ls -laR ./build-demo
 

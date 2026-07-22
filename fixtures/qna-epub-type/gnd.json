@@ -1,0 +1,14 @@
+{
+  "role": [
+    "body"
+  ],
+  "children": [
+    {
+      "text": "Q: How often was the lamp refueled? A: Nightly, by hand.",
+      "role": [
+        "section",
+        "qna"
+      ]
+    }
+  ]
+}

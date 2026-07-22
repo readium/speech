@@ -1,0 +1,136 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Audio."
+        },
+        {
+          "plain": "Foghorn recording from the 1962 restoration"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Foghorn recording from the 1962 restoration"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Audio."
+        },
+        {
+          "plain": "Foghorn recording from the 1962 restoration"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Audio."
+        },
+        {
+          "plain": "Foghorn recording from the 1962 restoration"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Audio."
+        },
+        {
+          "plain": "Foghorn recording from the 1962 restoration"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Audio."
+        },
+        {
+          "ssml": "Foghorn recording from the 1962 restoration"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Foghorn recording from the 1962 restoration"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Audio."
+        },
+        {
+          "ssml": "Foghorn recording from the 1962 restoration"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Audio."
+        },
+        {
+          "ssml": "Foghorn recording from the 1962 restoration"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Audio."
+        },
+        {
+          "ssml": "Foghorn recording from the 1962 restoration"
+        }
+      ]
+    }
+  ]
+}

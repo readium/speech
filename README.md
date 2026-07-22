@@ -36,20 +36,28 @@ We are now focused on the fourth phase: extracting [Guided Navigation objects](h
 
 ## Demos
 
-Two live demos are available:
-
-1. [Voice selection with playback demo](https://readium.org/speech/demo)
-2. [In-context demo](https://readium.org/speech/demo/article)
-
-The first demo showcases the following features:
+### [Voice selection with playback demo](https://readium.org/speech/demo)
 
 - fetching a list of all available languages, translating them to the user's locale and sorting them based on these translations
 - returning a list of voices for a given language, grouped by region and sorted based on quality
 - filtering languages and voices based on gender and offline availability
 - using embedded test utterances to demo voices
 - using the current Navigator for playback control
+- highlighting: as playback progresses, the current word/sentence is highlighted
 
-The second demo focuses on in-context reading with seamless voice selection (grouped by region and sorted based on quality), and playback control, providing an optional read-along experience that integrates naturally with the content. Both demos also showcase highlighting: as playback progresses, the current word/sentence is highlighted.
+### [In-context demo](https://readium.org/speech/demo/article)
+
+In-context reading with seamless voice selection (grouped by region and sorted based on quality), and playback control, providing an optional read-along experience that integrates naturally with the content. Also showcases highlighting, as above.
+
+### [Extraction playground](https://readium.org/speech/demo/playground)
+
+Pick a sample piece of markup and watch it move through the whole pipeline:
+
+- the [Guided Navigation](docs/GuidedNavigation.md) document it produces
+- the [utterances](docs/UtteranceExtraction.md) extracted from that, with every extraction option (format, language handling, skipped roles, sentence interruption, contextualization) adjustable live
+- playback of the resulting utterances through the WebSpeech navigator, with word-boundary highlighting
+
+The sample markup is drawn from this project's own conformance test suite ([`fixtures/`](fixtures/README.md)), so each pane also shows a pass/fail badge against that suite's expected output — a side effect of reusing real test content, not the point of the demo.
 
 ## Installation
 
@@ -127,6 +135,8 @@ Documentation provides guides for:
 - [Voice Management](docs/VoiceManagement.md)
 - [Playback API](docs/Playback.md)
 - [Highlighting](docs/Highlighting.md)
+- [Guided Navigation](docs/GuidedNavigation.md) — extracting [Guided Navigation objects](https://readium.org/guided-navigation) from HTML/XHTML content
+- [Utterance Extraction](docs/UtteranceExtraction.md) — extracting utterances from Guided Navigation objects
 
 ## Development
 
@@ -148,7 +158,7 @@ This will compile the TypeScript code and generate the following outputs in the 
 
 ### Running Demos Locally
 
-The project includes two demo applications that can be served locally:
+The project includes demo applications that can be served locally:
 
 1. Start the local development server:
    ```bash
@@ -158,6 +168,7 @@ The project includes two demo applications that can be served locally:
 2. Open your browser to:
    - [Voice selection demo](http://localhost:8080/demo)
    - [In-context reading demo](http://localhost:8080/demo/article)
+   - [Extraction playground](http://localhost:8080/demo/playground)
 
 ### ChromeOS Debugging
 
@@ -167,12 +178,19 @@ For ChromeOS development, the project includes a debug mode that mocks the Web S
 
 2. The debug page loads mock voices from a json file which contains a snapshot of ChromeOS voices.
 
-### Running Tests
+### Testing
 
-To run the test suite for `WebSpeechVoiceManager`:
+`npm test` builds the library and runs the full test suite (`ava`) across `test/**/*.test.ts`. Narrower scripts are available for working on one area at a time:
+
 ```bash
-npm test
+npm test           # build + full suite
+npm run test:voices     # WebSpeechVoiceManager only
+npm run test:gnd        # HTML/XHTML -> Guided Navigation conversion
+npm run test:utterances # Guided Navigation -> utterance extraction
 ```
+
+`test:gnd` and `test:utterances` are both driven by [`fixtures/`](fixtures/README.md), a language-agnostic conformance suite of paired input/expected-output files (`input.html`/`input.xhtml`, `gnd.json`, `utterances.json`) covering the [Guided Navigation](docs/GuidedNavigation.md) and [utterance extraction](docs/UtteranceExtraction.md) stages one role/encoding/option at a time. Each fixture is a plain-file test case any platform implementation can consume, not just this TypeScript one — see [fixtures/README.md](fixtures/README.md) for the format, how to add a fixture, and how a fixture "passes".
+
 ## Acknowledgments
 
 This project is based on the work done initially by [Hadrien Gardeur](https://github.com/hadriengardeur) in the [web-speech-recommended-voices](https://github.com/HadrienGardeur/web-speech-recommended-voices) repository.

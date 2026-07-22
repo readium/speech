@@ -1,0 +1,7 @@
+{
+  "role": [
+    "image"
+  ],
+  "imgref": "image1.avif",
+  "description": "Alternative text using the alt attribute"
+}

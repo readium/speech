@@ -1,0 +1,160 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the prologue."
+        },
+        {
+          "plain": "Before the lamp was ever lit, the rock was already feared."
+        },
+        {
+          "plain": "End of the prologue."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Before the lamp was ever lit, the rock was already feared."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the prologue."
+        },
+        {
+          "plain": "Before the lamp was ever lit, the rock was already feared."
+        },
+        {
+          "plain": "End of the prologue."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the prologue."
+        },
+        {
+          "plain": "Before the lamp was ever lit, the rock was already feared."
+        },
+        {
+          "plain": "End of the prologue."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the prologue."
+        },
+        {
+          "plain": "Before the lamp was ever lit, the rock was already feared."
+        },
+        {
+          "plain": "End of the prologue."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the prologue."
+        },
+        {
+          "ssml": "Before the lamp was ever lit, the rock was already feared."
+        },
+        {
+          "ssml": "End of the prologue."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Before the lamp was ever lit, the rock was already feared."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the prologue."
+        },
+        {
+          "ssml": "Before the lamp was ever lit, the rock was already feared."
+        },
+        {
+          "ssml": "End of the prologue."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the prologue."
+        },
+        {
+          "ssml": "Before the lamp was ever lit, the rock was already feared."
+        },
+        {
+          "ssml": "End of the prologue."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the prologue."
+        },
+        {
+          "ssml": "Before the lamp was ever lit, the rock was already feared."
+        },
+        {
+          "ssml": "End of the prologue."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,220 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the page list."
+        },
+        {
+          "plain": "Page 1"
+        },
+        {
+          "plain": "Page 2"
+        },
+        {
+          "plain": "Page 3"
+        },
+        {
+          "plain": "End of the page list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Page 1"
+        },
+        {
+          "plain": "Page 2"
+        },
+        {
+          "plain": "Page 3"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the page list."
+        },
+        {
+          "plain": "Page 1"
+        },
+        {
+          "plain": "Page 2"
+        },
+        {
+          "plain": "Page 3"
+        },
+        {
+          "plain": "End of the page list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the page list."
+        },
+        {
+          "plain": "Page 1"
+        },
+        {
+          "plain": "Page 2"
+        },
+        {
+          "plain": "Page 3"
+        },
+        {
+          "plain": "End of the page list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the page list."
+        },
+        {
+          "plain": "Page 1"
+        },
+        {
+          "plain": "Page 2"
+        },
+        {
+          "plain": "Page 3"
+        },
+        {
+          "plain": "End of the page list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the page list."
+        },
+        {
+          "ssml": "Page 1"
+        },
+        {
+          "ssml": "Page 2"
+        },
+        {
+          "ssml": "Page 3"
+        },
+        {
+          "ssml": "End of the page list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Page 1"
+        },
+        {
+          "ssml": "Page 2"
+        },
+        {
+          "ssml": "Page 3"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the page list."
+        },
+        {
+          "ssml": "Page 1"
+        },
+        {
+          "ssml": "Page 2"
+        },
+        {
+          "ssml": "Page 3"
+        },
+        {
+          "ssml": "End of the page list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the page list."
+        },
+        {
+          "ssml": "Page 1"
+        },
+        {
+          "ssml": "Page 2"
+        },
+        {
+          "ssml": "Page 3"
+        },
+        {
+          "ssml": "End of the page list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the page list."
+        },
+        {
+          "ssml": "Page 1"
+        },
+        {
+          "ssml": "Page 2"
+        },
+        {
+          "ssml": "Page 3"
+        },
+        {
+          "ssml": "End of the page list."
+        }
+      ]
+    }
+  ]
+}

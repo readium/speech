@@ -131,7 +131,7 @@ function handleReadAlongChange(e) {
     if (currentIndex !== undefined) {
       const utterance = utterances[currentIndex];
       if (utterance) {
-        const charIndex = utterance.text.indexOf(utterance.word);
+        const charIndex = utterance.plain.indexOf(utterance.word);
         if (charIndex !== -1) {
           highlightCurrentWord(charIndex, utterance.word?.length || 0);
         }
@@ -162,7 +162,7 @@ async function initializeContent() {
       // Add to utterances
       utterances.push({
         id: `utterance-${utterances.length}`,
-        text: sentence,
+        plain: sentence,
         language: "en"
       });
     });
@@ -373,18 +373,18 @@ function highlightCurrentWord(charIndex, charLength) {
   const currentUtterance = utterances[currentIndex];
   if (!currentUtterance) return;
 
-  const word = currentUtterance.text.substring(charIndex, charIndex + charLength);
+  const word = currentUtterance.plain.substring(charIndex, charIndex + charLength);
   if (!word.trim()) return;
 
-  const before = currentUtterance.text.substring(0, charIndex);
-  const after = currentUtterance.text.substring(charIndex + charLength);
+  const before = currentUtterance.plain.substring(0, charIndex);
+  const after = currentUtterance.plain.substring(charIndex + charLength);
 
   if (currentIndex !== currentSentenceIndex) {
     currentSentenceIndex = currentIndex;
     decoCtrl.decorate([{
       id: "tts-sentence",
       style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
-      highlight: currentUtterance.text,
+      highlight: currentUtterance.plain,
     }], "tts-sentence");
 
     // Scroll current sentence into view
@@ -392,7 +392,7 @@ function highlightCurrentWord(charIndex, charLength) {
     if (!content) return;
     const paragraphs = Array.from(content.querySelectorAll("p, h1, h2, h3, h4, h5, h6"));
     for (const p of paragraphs) {
-      if ((p.textContent ?? "").includes(currentUtterance.text)) {
+      if ((p.textContent ?? "").includes(currentUtterance.plain)) {
         const rect = p.getBoundingClientRect();
         const inView = rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
         if (!inView) {

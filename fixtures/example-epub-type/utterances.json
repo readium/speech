@@ -1,0 +1,136 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Example."
+        },
+        {
+          "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Example."
+        },
+        {
+          "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Example."
+        },
+        {
+          "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Example."
+        },
+        {
+          "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Example."
+        },
+        {
+          "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Example."
+        },
+        {
+          "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Example."
+        },
+        {
+          "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Example."
+        },
+        {
+          "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
+        }
+      ]
+    }
+  ]
+}

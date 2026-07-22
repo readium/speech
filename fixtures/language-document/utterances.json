@@ -1,0 +1,96 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "language": "fr",
+          "plain": "Bonjour, comment allez-vous ?"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "fr",
+          "plain": "Bonjour, comment allez-vous ?"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "fr",
+          "plain": "Bonjour, comment allez-vous ?"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Bonjour, comment allez-vous ?"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "language": "fr",
+          "ssml": "Bonjour, comment allez-vous ?"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "fr",
+          "ssml": "Bonjour, comment allez-vous ?"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "fr",
+          "ssml": "Bonjour, comment allez-vous ?"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Bonjour, comment allez-vous ?"
+        }
+      ]
+    }
+  ]
+}

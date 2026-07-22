@@ -1,0 +1,136 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Credit."
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Cover photograph by A. Keeper."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Credit."
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Credit."
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Credit."
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Credit."
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Credit."
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Credit."
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Credit."
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        }
+      ]
+    }
+  ]
+}

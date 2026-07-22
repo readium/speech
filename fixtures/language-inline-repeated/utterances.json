@@ -1,0 +1,128 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "One",
+          "language": "en"
+        },
+        {
+          "plain": "deux",
+          "language": "fr"
+        },
+        {
+          "plain": "three",
+          "language": "en"
+        },
+        {
+          "plain": "quatre",
+          "language": "fr"
+        },
+        {
+          "plain": "five.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "One",
+          "language": "en"
+        },
+        {
+          "plain": "deux",
+          "language": "fr"
+        },
+        {
+          "plain": "three",
+          "language": "en"
+        },
+        {
+          "plain": "quatre",
+          "language": "fr"
+        },
+        {
+          "plain": "five.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "One deux three quatre five."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "One deux three quatre five."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "One <lang xml:lang=\"fr\">deux</lang> three <lang xml:lang=\"fr\">quatre</lang> five."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "One <lang xml:lang=\"fr\">deux</lang> three <lang xml:lang=\"fr\">quatre</lang> five."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "One deux three quatre five."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "One deux three quatre five."
+        }
+      ]
+    }
+  ]
+}

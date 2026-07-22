@@ -136,18 +136,19 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return this.currentVoice;
   }
 
-  // SSML Escaping
-  private escapeSSML(utterances: ReadiumSpeechUtterance[]): ReadiumSpeechUtterance[] {
+  // Web Speech API has no SSML support: use the authored plain text, falling
+  // back to a tag-stripped rendering of the SSML only when no plain
+  // alternative was provided by the source.
+  private toPlainText(utterances: ReadiumSpeechUtterance[]): ReadiumSpeechUtterance[] {
     return utterances.map(content => ({
       ...content,
-      text: content.ssml ? stripHtml(content.text).result : content.text
+      plain: content.plain ?? (content.ssml ? stripHtml(content.ssml).result : "")
     }));
   }
 
   // Queue Management
   loadUtterances(contents: ReadiumSpeechUtterance[]): void {
-    // Escape SSML entirely for the time being
-    this.currentUtterances = this.escapeSSML(contents);
+    this.currentUtterances = this.toPlainText(contents);
     this.currentUtteranceIndex = 0;
     this.setState("ready");
     this.emitEvent({ type: "ready" });
@@ -261,7 +262,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     }
 
     const content = this.currentUtterances[this.currentUtteranceIndex];
-    const text = content.ssml ? content.text : content.text;
+    const text = content.plain ?? "";
 
     // Validate text length
     this.validateText(text);

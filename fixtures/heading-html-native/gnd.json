@@ -1,0 +1,40 @@
+{
+  "children": [
+    {
+      "role": [
+        "heading1"
+      ],
+      "text": "Chapter One"
+    },
+    {
+      "role": [
+        "heading2"
+      ],
+      "text": "Section A"
+    },
+    {
+      "role": [
+        "heading3"
+      ],
+      "text": "Subsection i"
+    },
+    {
+      "role": [
+        "heading4"
+      ],
+      "text": "Detail heading"
+    },
+    {
+      "role": [
+        "heading5"
+      ],
+      "text": "Note heading"
+    },
+    {
+      "role": [
+        "heading6"
+      ],
+      "text": "Aside heading"
+    }
+  ]
+}

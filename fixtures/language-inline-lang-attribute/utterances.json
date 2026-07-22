@@ -1,0 +1,104 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Hello",
+          "language": "en"
+        },
+        {
+          "plain": "bonjour.",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Hello",
+          "language": "en"
+        },
+        {
+          "plain": "bonjour.",
+          "language": "fr"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "Hello bonjour."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Hello bonjour."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "Hello <lang xml:lang=\"fr\">bonjour</lang>."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "Hello <lang xml:lang=\"fr\">bonjour</lang>."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "Hello bonjour."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Hello bonjour."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "Alternative text using the alt attribute"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Tip."
+        },
+        {
+          "plain": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Tip."
+        },
+        {
+          "plain": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Tip."
+        },
+        {
+          "plain": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Tip."
+        },
+        {
+          "plain": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Tip."
+        },
+        {
+          "ssml": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Tip."
+        },
+        {
+          "ssml": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Tip."
+        },
+        {
+          "ssml": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Tip."
+        },
+        {
+          "ssml": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    }
+  ]
+}

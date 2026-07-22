@@ -1,0 +1,114 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Before the divider."
+        },
+        {
+          "plain": "After the divider."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Before the divider."
+        },
+        {
+          "plain": "After the divider."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Before the divider."
+        },
+        {
+          "plain": "After the divider."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Before the divider."
+        },
+        {
+          "plain": "After the divider."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Before the divider."
+        },
+        {
+          "ssml": "After the divider."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Before the divider."
+        },
+        {
+          "ssml": "After the divider."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Before the divider."
+        },
+        {
+          "ssml": "After the divider."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Before the divider."
+        },
+        {
+          "ssml": "After the divider."
+        }
+      ]
+    }
+  ]
+}

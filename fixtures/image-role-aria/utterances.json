@@ -1,0 +1,136 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "Rating: 4 out of 5 stars"
+        }
+      ]
+    }
+  ]
+}

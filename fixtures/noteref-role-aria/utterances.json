@@ -1,0 +1,76 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": []
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "cases": [
+    {
+      "options": {
+        "format": "plain"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary."
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "plain": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary."
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary."
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary."
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary."
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": false
+      },
+      "utterances": [
+        {
+          "ssml": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary."
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary."
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary."
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    }
+  ]
+}

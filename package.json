@@ -1,6 +1,6 @@
 {
   "name": "@readium/speech",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A TypeScript library for implementing read aloud features with Web technologies, following best practices for digital publishing.",
   "author": "Readium Foundation",
   "keywords": [
@@ -37,7 +37,12 @@
   },
   "scripts": {
     "test": "npm run build && NODE_NO_WARNINGS=1 ava test/**/*.test.ts",
+    "test:voices": "npm run build && NODE_NO_WARNINGS=1 ava test/WebSpeechVoiceManager/*.test.ts",
+    "test:gnd": "NODE_NO_WARNINGS=1 ava test/gnd/*.test.ts",
+    "test:utterances": "NODE_NO_WARNINGS=1 ava test/utterances/*.test.ts",
     "generate-metadata": "node scripts/generate-metadata.js",
+    "generate-fixtures-manifest": "node scripts/build-fixtures-manifest.js",
+    "generate-utterances": "npm run build && node scripts/generate-utterances.js",
     "clean": "rimraf ./build",
     "build": "vite build",
     "start": "http-server ./",
@@ -47,6 +52,7 @@
     "@ava/typescript": "^6.0.0",
     "ava": "^6.4.0",
     "http-server": "^14.1.1",
+    "linkedom": "^0.18.13",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",

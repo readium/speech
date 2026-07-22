@@ -1,0 +1,309 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #333;
+}
+
+body {
+  display: flex;
+  align-items: stretch;
+}
+
+/* ---- Sidebar: every fixture, one flat scrollable list, no gating step ---- */
+
+.sidebar {
+  width: 320px;
+  flex-shrink: 0;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid #ddd;
+  background: #f7f7f8;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  position: sticky;
+  top: 0;
+  background: #f7f7f8;
+  padding: 14px 14px 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.sidebar-header h1 {
+  font-size: 1.1em;
+  margin: 0 0 8px 0;
+}
+
+#filter-input {
+  width: 100%;
+  padding: 6px 8px;
+  border: 1px solid #767676;
+  border-radius: 5px;
+  font-size: 0.9em;
+  color: #333;
+  background: #fff;
+}
+
+.fixture-list {
+  padding: 6px 0;
+  flex: 1;
+}
+
+.fixture-list .role-group {
+  border-bottom: 1px solid #eaeaea;
+}
+
+.fixture-list .role-group summary {
+  cursor: pointer;
+  padding: 8px 14px;
+  font-size: 0.9em;
+  font-weight: 700;
+  color: #333;
+  list-style: none;
+  user-select: none;
+}
+
+.fixture-list .role-group summary::-webkit-details-marker {
+  display: none;
+}
+
+.fixture-list .role-group summary::before {
+  content: "▸";
+  display: inline-block;
+  width: 1em;
+  color: #555;
+}
+
+.fixture-list .role-group[open] summary::before {
+  content: "▾";
+}
+
+.fixture-list .role-group summary:hover {
+  background: #ececee;
+}
+
+.fixture-list .role-group ul {
+  list-style: none;
+  margin: 0;
+  padding: 0 0 4px;
+}
+
+.fixture-list li {
+  padding: 6px 14px 6px 26px;
+  cursor: pointer;
+  font-size: 0.88em;
+  line-height: 1.3;
+  border-left: 3px solid transparent;
+}
+
+.fixture-list li:hover {
+  background: #ececee;
+}
+
+.fixture-list li.active {
+  background: #e4e9fd;
+  border-left-color: #3a5cf5;
+  font-weight: 600;
+}
+
+.fixture-list .no-results {
+  padding: 10px 14px;
+  color: #5a5a5a;
+  font-size: 0.88em;
+}
+
+/* ---- Main content ---- */
+
+.content {
+  flex: 1;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 20px 28px;
+}
+
+.fixture-meta {
+  margin-bottom: 20px;
+  font-size: 0.95em;
+  color: #444;
+}
+
+.fixture-meta h2 {
+  margin: 0 0 4px 0;
+}
+
+.fixture-meta .fixture-id {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8em;
+  color: #666;
+  margin: 8px 0 0 0;
+}
+
+.pane {
+  margin-bottom: 24px;
+}
+
+.pane h2 {
+  font-size: 1.05em;
+}
+
+.pane-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.pane-header h2 {
+  margin: 0;
+}
+
+.options-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 10px 0 14px;
+  padding: 10px 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fafafa;
+}
+
+.options-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 10px;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+.options-group legend {
+  font-size: 0.78em;
+  font-weight: 600;
+  color: #666;
+  padding: 0 4px 0 0;
+}
+
+.options-group label {
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+
+#option-skip {
+  /* <select multiple> inside a `display: flex` <fieldset> is a known
+     cross-browser sizing trap — fieldsets don't reliably compute a flex
+     child's intrinsic size, so the select can collapse to near-zero
+     width despite min-width. `flex: none` plus an explicit `width`
+     (not just `min-width`) sidesteps that entirely. */
+  flex: none;
+  width: 180px;
+  height: 5.5em;
+  font-size: 0.85em;
+}
+
+.badge.none {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.compare-grid h3 {
+  margin: 0 0 6px 0;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.code-block {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px;
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+  font-size: 0.85em;
+}
+
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 0.8em;
+  font-weight: 600;
+}
+
+.badge.pass {
+  background: #d4edda;
+  color: #155724;
+}
+
+.badge.fail {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.badge.pending {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+.badge.playing {
+  background: #cce5ff;
+  color: #004085;
+}
+
+.badge.paused {
+  background: #fff3cd;
+  color: #856404;
+}
+
+.badge.idle,
+.badge.ready {
+  background: #e2e3e5;
+  color: #383d41;
+}
+
+.speech-utterances {
+  margin: 0;
+  padding-left: 1.4em;
+  font-size: 0.9em;
+  line-height: 1.5;
+}
+
+.speech-utterances li {
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.speech-utterances li.speaking {
+  background: #cce5ff;
+  font-weight: 600;
+}
+
+@media (max-width: 800px) {
+  body {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    height: 40vh;
+  }
+  .content {
+    height: 60vh;
+  }
+  .compare-grid {
+    grid-template-columns: 1fr;
+  }
+}
