@@ -1,6 +1,6 @@
 export interface ReadiumSpeechUtterance {
     id?: string;
-    text: string;
-    ssml?: boolean;
+    plain?: string;
+    ssml?: string;
     language?: string;
 }
