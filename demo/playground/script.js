@@ -327,6 +327,7 @@ function ensurePlaybackNavigator() {
   if (!NavigatorClass) return null;
   if (!playbackNavigator) {
     playbackNavigator = new NavigatorClass();
+    playbackNavigator.setSpeakInContentLanguage(true);
     for (const type of ["start", "pause", "resume", "end", "stop", "ready", "error"]) {
       playbackNavigator.on(type, syncSpeechUi);
     }

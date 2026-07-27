@@ -10,6 +10,8 @@ export interface ReadiumSpeechPlaybackEngine {
   setVoice(voice: ReadiumSpeechVoice | string): void;
   getCurrentVoice(): ReadiumSpeechVoice | null;
   getAvailableVoices(): Promise<ReadiumSpeechVoice[]>;
+  setSpeakInContentLanguage(enabled: boolean): void;
+  getSpeakInContentLanguage(): boolean;
   
   // Playback Control
   speak(utteranceIndex?: number): void;

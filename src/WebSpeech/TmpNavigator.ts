@@ -88,6 +88,10 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
     this.engine.on("voiceschanged", () => {
       this.emitEvent({ type: "voiceschanged" });
     });
+
+    this.engine.on("languagefallback", (event) => {
+      this.emitEvent(event);
+    });
   }
 
   private setNavigatorState(state: ReadiumSpeechPlaybackState): void {
@@ -105,6 +109,14 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
 
   getCurrentVoice(): ReadiumSpeechVoice | null {
     return this.engine.getCurrentVoice();
+  }
+
+  setSpeakInContentLanguage(enabled: boolean): void {
+    this.engine.setSpeakInContentLanguage(enabled);
+  }
+
+  getSpeakInContentLanguage(): boolean {
+    return this.engine.getSpeakInContentLanguage();
   }
 
   // Content Management
