@@ -323,9 +323,15 @@ async function setupDefaultVoice(navigator) {
 // speaking — set once, alongside the navigator, in ensurePlaybackNavigator.
 let voiceReadyPromise = null;
 
+// Fixture content is only ever en/es/fr — scope the singleton to just those
+// languages before the navigator's own unscoped engine.initialize() call can
+// win the race and load JSON for every language the browser has voices for.
+const PLAYGROUND_LANGUAGES = ["en", "es", "fr"];
+
 function ensurePlaybackNavigator() {
   if (!NavigatorClass) return null;
   if (!playbackNavigator) {
+    void VoiceManagerClass?.initialize({ languages: PLAYGROUND_LANGUAGES });
     playbackNavigator = new NavigatorClass();
     playbackNavigator.setSpeakInContentLanguage(true);
     for (const type of ["start", "pause", "resume", "end", "stop", "ready", "error"]) {
