@@ -16,7 +16,18 @@ export type TLocalizedName = "android" | "apple";
 /**
  * Source of the voice data
  */
-export type TSource = "json" | "browser";
+export type TSource = "json" | "browser" | "server";
+
+/**
+ * Controls a speech-server voice reports as enabled, e.g. {ssml: true}.
+ * A control absent from this object is not supported by that voice.
+ */
+export interface TServerVoiceControls {
+  pitch?: boolean;
+  speed?: boolean;
+  ssml?: boolean;
+  boundary?: boolean;
+}
 
 /**
  * Supported operating systems for voices
@@ -90,7 +101,9 @@ export interface ReadiumSpeechVoice {
   
   // Additional metadata
   note?: string;          // Additional notes about the voice
-  provider?: string;      // Voice provider (e.g., "Microsoft", "Google")
+  provider?: string;      // Voice provider (e.g., "Microsoft", "Google", or a speech-server provider id)
+  identifier?: string;    // Opaque id to send back to a server provider (e.g. a speech-server voice URN)
+  controls?: TServerVoiceControls; // Which playback controls a server-sourced voice actually honors
 
   // Runtime-derived flags
   isDefault?: boolean;    // Whether this is the platform's default voice

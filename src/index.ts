@@ -1,5 +1,6 @@
 // Core exports
 export * from "./WebSpeech";
+export * from "./SpeechServer";
 
 // Decorator re-exports
 export * from "@readium/decorator";
