@@ -22,6 +22,8 @@ Creates and initializes a new WebSpeechVoiceManager instance. This static factor
 
 Returns a Promise that resolves with a `WebSpeechSpeechManager` instance. This instance is a singleton to ensure the same voice manager is used whether initialized directly or through the PlaybackEngine.
 
+Calling `initialize()` again on an already-initialized singleton doesn't create a new instance or reset it — it broadens the existing one to also cover any newly requested `languages`, keeping voices already loaded for earlier languages. Omitting `languages` on that later call is a no-op (not a retroactive "load everything"); only the very first call's absence of `languages` loads every voice.
+
 ### Get Voices
 
 By default, the instance keeps all voices in memory. You can filter them using the `getVoices` method with optional filter criteria and use this array instead.
