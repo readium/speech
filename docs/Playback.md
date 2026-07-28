@@ -12,6 +12,8 @@ interface ReadiumSpeechNavigator {
   getVoices(): Promise<ReadiumSpeechVoice[]>;
   setVoice(voice: ReadiumSpeechVoice | string): Promise<void>;
   getCurrentVoice(): ReadiumSpeechVoice | null;
+  setSpeakInContentLanguage(enabled: boolean): void;
+  getSpeakInContentLanguage(): boolean;
   
   // Content Management
   loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
@@ -59,7 +61,7 @@ import { WebSpeechReadAloudNavigator } from "@readium/speech";
 const navigator = new WebSpeechReadAloudNavigator();
 
 navigator.loadContent([
-  { text: "Hello world.", language: "en" }
+  { plain: "Hello world.", language: "en" }
 ]);
 
 function togglePlayback() {
@@ -93,10 +95,15 @@ type ReadiumSpeechPlaybackEvent = {
     | "idle"            // No content loaded
     | "loading"         // Loading content
     | "ready"           // Ready to play
-    | "voiceschanged";   // Available voices changed
+    | "voiceschanged"   // Available voices changed
+    | "languagefallback"; // No voice matched an utterance's content language
   detail?: any;  // Event-specific data
 };
 ```
+
+### Speaking in an utterance's own content language
+
+By default, playback always uses the selected/default voice. Call `setSpeakInContentLanguage(true)` to instead match each utterance's own `language` field to the best available voice for that language, falling back to the selected/default voice when no match exists (which also fires a `"languagefallback"` event with `detail: { language, reason: "no-matching-voice" }`).
 
 ### `ReadiumSpeechPlaybackState`
 
@@ -109,10 +116,10 @@ type ReadiumSpeechPlaybackState = "playing" | "paused" | "idle" | "loading" | "r
 ```typescript
 interface ReadiumSpeechUtterance {
   id?: string;          // Unique identifier for this content
-  text: string;         // Text or SSML content
-  ssml?: boolean;       // If true, text contains SSML
+  plain?: string;       // Plain-text rendering, when available
+  ssml?: string;        // SSML rendering, when available
   language?: string;    // Language of this content (BCP 47)
 }
 ```
 
-Represents a single piece of content to be spoken. Can contain plain text or SSML markup.
+Represents a single piece of content to be spoken, as plain text and/or SSML.

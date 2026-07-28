@@ -17,7 +17,8 @@ export interface ReadiumSpeechPlaybackEvent {
     | "idle"            // No content loaded
     | "loading"         // Loading content
     | "ready"           // Ready to play
-    | "voiceschanged";   // Available voices changed
+    | "voiceschanged"   // Available voices changed
+    | "languagefallback"; // No voice matched an utterance's content language
   detail?: any;  // Event-specific data
 }
 
@@ -28,6 +29,8 @@ export interface ReadiumSpeechNavigator {
   getVoices(): Promise<ReadiumSpeechVoice[]>;
   setVoice(voice: ReadiumSpeechVoice | string): void;
   getCurrentVoice(): ReadiumSpeechVoice | null;
+  setSpeakInContentLanguage(enabled: boolean): void;
+  getSpeakInContentLanguage(): boolean;
   
   // Content Management
   loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;

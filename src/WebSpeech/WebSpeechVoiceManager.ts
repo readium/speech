@@ -73,6 +73,10 @@ export class WebSpeechVoiceManager {
   private browserVoices: SpeechSynthesisVoice[] = [];
   private isInitialized = false;
 
+  // Base language codes already parsed into `voices`; null means unscoped (everything loaded)
+  private scopedLanguages: Set<string> | null = null;
+  private broadenPromises: Map<string, Promise<void>> = new Map();
+
   private constructor() {
     if (typeof window === "undefined" || !window.speechSynthesis) {
       throw new Error("Web Speech API is not available in this environment");
@@ -81,11 +85,15 @@ export class WebSpeechVoiceManager {
   }
 
   /**
-   * Initialize voice manager
+   * Initialize voice manager, or broaden an already-initialized singleton to
+   * also cover new languages. `languages` scope voice parsing to reduce
+   * per-language JSON loading; omitting it on the first call loads everything,
+   * but omitting it on a later call to an already-scoped instance is a no-op,
+   * not a retroactive broaden-to-everything.
    * @param options Configuration options for voice loading
-   * @param options.languages Optional array of preferred language codes to filter voices during initialization
-   * @param options.maxTimeout Maximum time in milliseconds to wait for voices to load (passed to getBrowserVoices)
-   * @param options.interval Interval in milliseconds between voice loading checks (passed to getBrowserVoices)
+   * @param options.languages Optional array of preferred language codes to filter (or broaden to) voices
+   * @param options.maxTimeout Maximum time in milliseconds to wait for voices to load (passed to getBrowserVoices, first call only)
+   * @param options.interval Interval in milliseconds between voice loading checks (passed to getBrowserVoices, first call only)
    * @returns Promise that resolves with the WebSpeechVoiceManager instance
    */
   static async initialize(
@@ -95,9 +103,14 @@ export class WebSpeechVoiceManager {
       interval?: number;
     }
   ): Promise<WebSpeechVoiceManager> {
-    // If we already have an initialized instance, return it
+    // If we already have an initialized instance, broaden it to cover any newly
+    // requested languages it doesn't have yet, then return it.
     if (WebSpeechVoiceManager.instance?.isInitialized) {
-      return WebSpeechVoiceManager.instance;
+      const instance = WebSpeechVoiceManager.instance;
+      if (options?.languages && options.languages.length > 0) {
+        await instance.broadenLanguages(options.languages);
+      }
+      return instance;
     }
 
     // If initialization is in progress, return the existing promise
@@ -118,8 +131,11 @@ export class WebSpeechVoiceManager {
         let voicesToParse = instance.browserVoices;
         if (options?.languages && options.languages.length > 0) {
           voicesToParse = instance.filterBrowserVoicesByLanguages(instance.browserVoices, options.languages);
+          instance.scopedLanguages = WebSpeechVoiceManager.toBaseLangSet(options.languages);
+        } else {
+          instance.scopedLanguages = null;
         }
-        
+
         instance.voices = await instance.parseToReadiumSpeechVoices(voicesToParse);
         instance.isInitialized = true;
         
@@ -141,25 +157,67 @@ export class WebSpeechVoiceManager {
    */
   private filterBrowserVoicesByLanguages(browserVoices: SpeechSynthesisVoice[], languages: string[]): SpeechSynthesisVoice[] {
     if (!languages?.length) return browserVoices;
-    
-    // Extract just the base languages from input
-    const allowedBaseLangs = new Set(
+
+    const allowedBaseLangs = WebSpeechVoiceManager.toBaseLangSet(languages);
+
+    return browserVoices.filter(voice => {
+      if (!voice?.lang) return false;
+
+      const normalizedVoiceLang = normalizeLanguageCode(voice.lang);
+      const [voiceBaseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(normalizedVoiceLang);
+
+      // Include all voices for matching base languages, regardless of region
+      return allowedBaseLangs.has(voiceBaseLang);
+    });
+  }
+
+  /**
+   * Extract base language codes (e.g. "en", "fr") from a list of BCP47 tags
+   * @private
+   */
+  private static toBaseLangSet(languages: string[]): Set<string> {
+    return new Set(
       languages.map(lang => {
         const normalized = normalizeLanguageCode(lang);
         const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(normalized);
         return baseLang;
       })
     );
-    
-    return browserVoices.filter(voice => {
-      if (!voice?.lang) return false;
-      
-      const normalizedVoiceLang = normalizeLanguageCode(voice.lang);
-      const [voiceBaseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(normalizedVoiceLang);
-      
-      // Include all voices for matching base languages, regardless of region
-      return allowedBaseLangs.has(voiceBaseLang);
-    });
+  }
+
+  /**
+   * Broaden an already-initialized instance to also cover the given languages,
+   * reusing the already-fetched `browserVoices` (no new speechSynthesis fetch).
+   * No-op if the instance is already unscoped or already covers these languages.
+   * @private
+   */
+  private async broadenLanguages(languages: string[]): Promise<void> {
+    if (this.scopedLanguages === null) return;
+
+    const requestedBaseLangs = WebSpeechVoiceManager.toBaseLangSet(languages);
+    const newLangs = [...requestedBaseLangs].filter(lang => !this.scopedLanguages!.has(lang));
+    if (newLangs.length === 0) return;
+
+    // Dedupe concurrent broaden calls for the same language
+    const pending = newLangs.filter(lang => this.broadenPromises.has(lang));
+    const toFetch = newLangs.filter(lang => !this.broadenPromises.has(lang));
+
+    let fetchPromise: Promise<void> | undefined;
+    if (toFetch.length > 0) {
+      fetchPromise = (async () => {
+        const voicesToParse = this.filterBrowserVoicesByLanguages(this.browserVoices, toFetch);
+        const newVoices = await this.parseToReadiumSpeechVoices(voicesToParse);
+        this.voices = [...this.voices, ...newVoices];
+        toFetch.forEach(lang => this.scopedLanguages!.add(lang));
+        toFetch.forEach(lang => this.broadenPromises.delete(lang));
+      })();
+      toFetch.forEach(lang => this.broadenPromises.set(lang, fetchPromise!));
+    }
+
+    await Promise.all([
+      ...(fetchPromise ? [fetchPromise] : []),
+      ...pending.map(lang => this.broadenPromises.get(lang)!)
+    ]);
   }
 
   /**

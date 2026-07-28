@@ -3,6 +3,8 @@ import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navig
 import { ReadiumSpeechUtterance } from "../utterance";
 import { ReadiumSpeechVoice } from "../voices/types";
 import { WebSpeechVoiceManager } from "./WebSpeechVoiceManager";
+import { normalizeLanguageCode } from "../voices/languages";
+import { extractLangRegionFromBCP47 } from "../utils/language";
 
 import { detectFeatures, WebSpeechFeatures } from "../utils/features";
 import { detectPlatformFeatures, WebSpeechPlatformPatches } from "../utils/patches";
@@ -21,6 +23,11 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private voiceManager: WebSpeechVoiceManager | null = null;
   private voices: ReadiumSpeechVoice[] = [];
   private defaultVoice: ReadiumSpeechVoice | null = null;
+
+  private speakInContentLanguage: boolean = false;
+  private languageVoiceCache: Map<string, ReadiumSpeechVoice | null> = new Map();
+  private warmingLanguages: Map<string, Promise<void>> = new Map();
+  private speakGeneration: number = 0;
 
   // Enhanced properties for cross-browser compatibility
   private resumeInfinityTimer?: number;
@@ -132,8 +139,102 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return this.currentVoice || this.defaultVoice;
   }
 
+  // No cross-region fallback: fr-FR content must not match an fr-CA voice.
+  private voiceMatchesLanguage(voice: ReadiumSpeechVoice, language: string): boolean {
+    const [lang, region] = extractLangRegionFromBCP47(language);
+    const [voiceLang, voiceRegion] = extractLangRegionFromBCP47(voice.language);
+    return voiceLang === lang && (!region || voiceRegion === region);
+  }
+
+  // Returns `undefined` (not a fallback voice) when content.language hasn't
+  // been warmed into languageVoiceCache yet — callers must await for it.
+  private voiceForUtteranceSync(content: ReadiumSpeechUtterance): ReadiumSpeechVoice | null | undefined {
+    const selectedVoice = this.getCurrentVoiceForUtterance(this.currentVoice);
+
+    if (!this.speakInContentLanguage || !content.language) {
+      return selectedVoice;
+    }
+
+    const language = normalizeLanguageCode(content.language);
+
+    if (selectedVoice && this.voiceMatchesLanguage(selectedVoice, language)) {
+      return selectedVoice;
+    }
+
+    if (this.languageVoiceCache.has(language)) {
+      return this.languageVoiceCache.get(language) ?? selectedVoice;
+    }
+
+    return undefined;
+  }
+
+  // Awaits warming for a not-yet-seen content language rather than falling back
+  // to the wrong-language voice.
+  private async voiceForUtterance(content: ReadiumSpeechUtterance): Promise<ReadiumSpeechVoice | null> {
+    const sync = this.voiceForUtteranceSync(content);
+    if (sync !== undefined) {
+      return sync;
+    }
+
+    await this.warmLanguageVoiceCache([content]);
+    return this.voiceForUtteranceSync(content) ?? this.getCurrentVoiceForUtterance(this.currentVoice);
+  }
+
+  // Dedupes in-flight warms per language so an awaited call and a
+  // fire-and-forget one for the same language don't redo the work.
+  private async warmLanguageVoiceCache(contents: ReadiumSpeechUtterance[]): Promise<void> {
+    if (!this.speakInContentLanguage || !this.voiceManager) {
+      return;
+    }
+
+    const languages = new Set(
+      contents
+        .map(content => content.language)
+        .filter((language): language is string => !!language)
+        .map(language => normalizeLanguageCode(language))
+        .filter(language => !this.languageVoiceCache.has(language))
+    );
+
+    const pending = [...languages].filter(language => this.warmingLanguages.has(language));
+    const toWarm = [...languages].filter(language => !this.warmingLanguages.has(language));
+
+    const warmPromises = toWarm.map((language) => {
+      const promise = (async () => {
+        // Broaden the singleton in case initialize() was scoped narrower than this content needs
+        await WebSpeechVoiceManager.initialize({ languages: [language] });
+        this.voices = this.voiceManager!.getVoices();
+
+        const candidates = this.voices.filter(voice => this.voiceMatchesLanguage(voice, language));
+        const sorted = await this.voiceManager!.sortVoicesByQuality(candidates);
+        const matched = sorted[0] ?? null;
+        this.languageVoiceCache.set(language, matched);
+        if (!matched) {
+          this.emitEvent({ type: "languagefallback", detail: { language, reason: "no-matching-voice" } });
+        }
+      })();
+      this.warmingLanguages.set(language, promise.finally(() => this.warmingLanguages.delete(language)));
+      return this.warmingLanguages.get(language)!;
+    });
+
+    await Promise.all([
+      ...warmPromises,
+      ...pending.map(language => this.warmingLanguages.get(language)!)
+    ]);
+  }
+
   getCurrentVoice(): ReadiumSpeechVoice | null {
     return this.currentVoice;
+  }
+
+  setSpeakInContentLanguage(enabled: boolean): void {
+    this.speakInContentLanguage = enabled;
+    if (enabled) {
+      void this.warmLanguageVoiceCache(this.currentUtterances);
+    }
+  }
+
+  getSpeakInContentLanguage(): boolean {
+    return this.speakInContentLanguage;
   }
 
   // Web Speech API has no SSML support: use the authored plain text, falling
@@ -150,6 +251,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   loadUtterances(contents: ReadiumSpeechUtterance[]): void {
     this.currentUtterances = this.toPlainText(contents);
     this.currentUtteranceIndex = 0;
+    void this.warmLanguageVoiceCache(this.currentUtterances);
     this.setState("ready");
     this.emitEvent({ type: "ready" });
   }
@@ -218,11 +320,12 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     // Cancel any ongoing speech with Firefox workaround
     this.cancelCurrentSpeech();
+    const generation = ++this.speakGeneration;
 
     // Reset internal state
     this.isSpeakingInternal = true;
     this.isPausedInternal = false;
-    
+
     // Set state to playing before starting new speech
     this.setState("playing");
     this.emitEvent({ type: "start" });
@@ -236,8 +339,9 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.currentUtteranceIndex = 0;
     }
 
-    // Speak immediately for responsive navigation
-    this.speakCurrentUtterance();
+    // Speak immediately for responsive navigation; voice resolution only
+    // actually awaits anything when the content's language isn't cached yet
+    void this.speakCurrentUtterance(generation);
   }
 
   private cancelCurrentSpeech(): void {
@@ -254,7 +358,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.speechSynthesis.cancel();
   }
   
-  private speakCurrentUtterance(): void {
+  private async speakCurrentUtterance(generation: number): Promise<void> {
     if (this.currentUtteranceIndex >= this.currentUtterances.length) {
       this.setState("idle");
       this.emitEvent({ type: "end" });
@@ -269,8 +373,14 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     const utterance = this.createUtterance(text);
 
-    // Enhanced voice selection with MSNatural detection
-    const selectedVoice = this.getCurrentVoiceForUtterance(this.currentVoice);
+    // Enhanced voice selection with MSNatural detection, optionally
+    // matched to this utterance's own content language
+    const selectedVoice = await this.voiceForUtterance(content);
+
+    // A newer speak()/stop() call superseded this one while resolving the voice
+    if (generation !== this.speakGeneration) {
+      return;
+    }
 
     if (selectedVoice && this.voiceManager) {
       // Convert ReadiumSpeechVoice to SpeechSynthesisVoice using the initialized voiceManager
@@ -487,6 +597,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   stop(): void {
     this.speechSynthesis.cancel();
+    this.speakGeneration++;
     this.currentUtteranceIndex = 0;  // Reset to beginning when stopped
     
     // Reset Android paused state when stopping
@@ -613,6 +724,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.currentVoice = null;
     this.voices = [];
     this.defaultVoice = null;
+    this.languageVoiceCache.clear();
+    this.warmingLanguages.clear();
     this.initialized = false;
   }
 }
