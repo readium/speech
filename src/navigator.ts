@@ -22,9 +22,7 @@ export interface ReadiumSpeechPlaybackEvent {
   detail?: any;  // Event-specific data
 }
 
-// This should evolve dramatically as WebSpeech is kind of an outlier
-// And it will be impacted by adapters from external services
-export interface ReadiumSpeechNavigator {
+export interface ReadiumSpeechNavigatorContract {
   // Voice Management
   getVoices(): Promise<ReadiumSpeechVoice[]>;
   setVoice(voice: ReadiumSpeechVoice | string): void;

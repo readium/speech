@@ -1,4 +1,4 @@
-import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator, chineseVariantMap, setupDecorations, DecorationStyleType } from "../build/index.js";
+import { WebSpeechVoiceManager, WebSpeechEngine, ReadiumSpeechNavigator, chineseVariantMap, setupDecorations, DecorationStyleType } from "../build/index.js";
 
 // Set up the Decorator for TTS word highlights
 const decoCtrl = setupDecorations();
@@ -35,7 +35,7 @@ let testUtterance = "";
 let userCustomUtterance = "";
 let lastNavigatorPosition = 1;
 
-const speechNavigator = new WebSpeechReadAloudNavigator();
+const speechNavigator = new ReadiumSpeechNavigator(new WebSpeechEngine());
 
 // Set up event listeners for the navigator
 speechNavigator.on("boundary", (event) => {

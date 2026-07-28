@@ -15,6 +15,8 @@ export * from "./voices/types";
 export * from "./engine";
 export * from "./navigator";
 export * from "./provider";
+export * from "./providerRegistry";
+export * from "./speechNavigator";
 export * from "./utterance";
 export * from "./gnd";
 export * from "./utterances";

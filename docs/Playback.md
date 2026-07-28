@@ -1,16 +1,18 @@
 # Playback API
 
-The playback API is a high-level API that provides a simple interface for playing, pausing, and stopping speech. It relies on an engine that you provide to it, or fallback to WebSpeech if none is provided.
+The playback API is a high-level API that provides a simple interface for playing, pausing, and stopping speech. `ReadiumSpeechNavigator` wraps a `ReadiumSpeechPlaybackEngine` that you provide — e.g. `WebSpeechEngine` or `SpeechServerEngine`.
 
 Once initialized, you can use the navigator to load content (utterances) and control playback.
 
 ## ReadiumSpeechNavigator
 
+`ReadiumSpeechNavigator` implements `ReadiumSpeechNavigatorContract`:
+
 ```typescript
-interface ReadiumSpeechNavigator {
+interface ReadiumSpeechNavigatorContract {
   // Voice Management
   getVoices(): Promise<ReadiumSpeechVoice[]>;
-  setVoice(voice: ReadiumSpeechVoice | string): Promise<void>;
+  setVoice(voice: ReadiumSpeechVoice | string): void;
   getCurrentVoice(): ReadiumSpeechVoice | null;
   setSpeakInContentLanguage(enabled: boolean): void;
   getSpeakInContentLanguage(): boolean;
@@ -40,25 +42,24 @@ interface ReadiumSpeechNavigator {
   
   // State
   getState(): ReadiumSpeechPlaybackState;
-  getCurrentUtteranceIndex(): number;
   
   // Events
   on(
-    event: ReadiumSpeechPlaybackEvent["type"],
+    event: ReadiumSpeechPlaybackEvent["type"] | "contentchange",
     listener: (event: ReadiumSpeechPlaybackEvent) => void
-  ): void;
+  ): () => void;
   
-  // Cleanup
-  destroy(): void;
+  // Lifecycle
+  destroy(): Promise<void>;
 }
 ```
 
 ### Example Usage
 
 ```typescript
-import { WebSpeechReadAloudNavigator } from "@readium/speech";
+import { WebSpeechEngine, ReadiumSpeechNavigator } from "@readium/speech";
 
-const navigator = new WebSpeechReadAloudNavigator();
+const navigator = new ReadiumSpeechNavigator(new WebSpeechEngine());
 
 navigator.loadContent([
   { plain: "Hello world.", language: "en" }
