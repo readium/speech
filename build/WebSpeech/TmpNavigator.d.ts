@@ -14,6 +14,8 @@ export declare class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigat
     getVoices(): Promise<ReadiumSpeechVoice[]>;
     setVoice(voice: ReadiumSpeechVoice | string): void;
     getCurrentVoice(): ReadiumSpeechVoice | null;
+    setSpeakInContentLanguage(enabled: boolean): void;
+    getSpeakInContentLanguage(): boolean;
     loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
     getCurrentContent(): ReadiumSpeechUtterance | null;
     getContentQueue(): ReadiumSpeechUtterance[];

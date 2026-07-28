@@ -41,13 +41,19 @@ export declare class WebSpeechVoiceManager {
     private voices;
     private browserVoices;
     private isInitialized;
+    private scopedLanguages;
+    private broadenPromises;
     private constructor();
     /**
-     * Initialize voice manager
+     * Initialize voice manager, or broaden an already-initialized singleton to
+     * also cover new languages. `languages` scope voice parsing to reduce
+     * per-language JSON loading; omitting it on the first call loads everything,
+     * but omitting it on a later call to an already-scoped instance is a no-op,
+     * not a retroactive broaden-to-everything.
      * @param options Configuration options for voice loading
-     * @param options.languages Optional array of preferred language codes to filter voices during initialization
-     * @param options.maxTimeout Maximum time in milliseconds to wait for voices to load (passed to getBrowserVoices)
-     * @param options.interval Interval in milliseconds between voice loading checks (passed to getBrowserVoices)
+     * @param options.languages Optional array of preferred language codes to filter (or broaden to) voices
+     * @param options.maxTimeout Maximum time in milliseconds to wait for voices to load (passed to getBrowserVoices, first call only)
+     * @param options.interval Interval in milliseconds between voice loading checks (passed to getBrowserVoices, first call only)
      * @returns Promise that resolves with the WebSpeechVoiceManager instance
      */
     static initialize(options?: {
@@ -60,6 +66,18 @@ export declare class WebSpeechVoiceManager {
      * @private
      */
     private filterBrowserVoicesByLanguages;
+    /**
+     * Extract base language codes (e.g. "en", "fr") from a list of BCP47 tags
+     * @private
+     */
+    private static toBaseLangSet;
+    /**
+     * Broaden an already-initialized instance to also cover the given languages,
+     * reusing the already-fetched `browserVoices` (no new speechSynthesis fetch).
+     * No-op if the instance is already unscoped or already covers these languages.
+     * @private
+     */
+    private broadenLanguages;
     /**
      * Extract language and region from BCP47 language tag
      * @param lang - The BCP47 language tag (e.g., "en-US", "zh-CN")

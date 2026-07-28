@@ -296,17 +296,23 @@ function highlightWordBoundary(event) {
 // which may pick a non-English voice/lang that mispronounces the fixture and
 // can fail to fire "word" boundary events at all. Chrome additionally only
 // fires "word" boundary events for offline (local) voices — its network
-// voices silently drop them — so an offline voice is preferred here, falling
-// back to any English voice if none is installed.
+// voices silently drop them — so on Chrome only, an offline voice is
+// preferred, falling back to any English voice if none is installed. Other
+// browsers (e.g. Edge) keep their best voices network-only, so restricting to
+// offline there would throw away the highest-quality ones for no benefit.
 async function setupDefaultVoice(navigator) {
   if (!VoiceManagerClass) return;
   try {
-    const voiceManager = await VoiceManagerClass.initialize({ languages: ["en"] });
-    const offlineVoices = await voiceManager.getVoices({ languages: "en", offlineOnly: true, removeDuplicates: true });
+    const voiceManager = await VoiceManagerClass.initialize({ languages: ["en-US"] });
+    const ua = window.navigator.userAgent;
+    const isChrome = /Chrome/.test(ua) && !/Edg|OPR|Brave/.test(ua);
+    const offlineVoices = isChrome
+      ? await voiceManager.getVoices({ languages: "en-US", offlineOnly: true, removeDuplicates: true })
+      : [];
     const voices = offlineVoices.length > 0
       ? offlineVoices
-      : await voiceManager.getVoices({ languages: "en", removeDuplicates: true });
-    const voice = await voiceManager.getDefaultVoice("en", voices);
+      : await voiceManager.getVoices({ languages: "en-US", removeDuplicates: true });
+    const voice = await voiceManager.getDefaultVoice("en-US", voices);
     if (voice) navigator.setVoice(voice);
   } catch (err) {
     console.error("Failed to set up an English voice for playback:", err);
@@ -317,10 +323,17 @@ async function setupDefaultVoice(navigator) {
 // speaking — set once, alongside the navigator, in ensurePlaybackNavigator.
 let voiceReadyPromise = null;
 
+// Fixture content is only ever en/es/fr — scope the singleton to just those
+// languages before the navigator's own unscoped engine.initialize() call can
+// win the race and load JSON for every language the browser has voices for.
+const PLAYGROUND_LANGUAGES = ["en", "es", "fr"];
+
 function ensurePlaybackNavigator() {
   if (!NavigatorClass) return null;
   if (!playbackNavigator) {
+    void VoiceManagerClass?.initialize({ languages: PLAYGROUND_LANGUAGES });
     playbackNavigator = new NavigatorClass();
+    playbackNavigator.setSpeakInContentLanguage(true);
     for (const type of ["start", "pause", "resume", "end", "stop", "ready", "error"]) {
       playbackNavigator.on(type, syncSpeechUi);
     }

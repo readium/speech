@@ -13,6 +13,10 @@ export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     private voiceManager;
     private voices;
     private defaultVoice;
+    private speakInContentLanguage;
+    private languageVoiceCache;
+    private warmingLanguages;
+    private speakGeneration;
     private resumeInfinityTimer?;
     private isSpeakingInternal;
     private isPausedInternal;
@@ -37,7 +41,13 @@ export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     }): Promise<boolean>;
     private validateText;
     private getCurrentVoiceForUtterance;
+    private voiceMatchesLanguage;
+    private voiceForUtteranceSync;
+    private voiceForUtterance;
+    private warmLanguageVoiceCache;
     getCurrentVoice(): ReadiumSpeechVoice | null;
+    setSpeakInContentLanguage(enabled: boolean): void;
+    getSpeakInContentLanguage(): boolean;
     private toPlainText;
     loadUtterances(contents: ReadiumSpeechUtterance[]): void;
     setVoice(voice: ReadiumSpeechVoice | string): Promise<void>;
