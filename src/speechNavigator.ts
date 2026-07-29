@@ -121,11 +121,12 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     const contents = Array.isArray(content) ? content : [content];
     this.contentQueue = [...contents];
 
-    // Load utterances first
+    // Readiness comes from the engine's own "ready" event (see setupEngineListeners),
+    // not set here — engines that buffer ahead (e.g. SpeechServerEngine) fire it once
+    // they're confident playback won't immediately stall.
+    this.setNavigatorState("loading");
+    this.emitEvent({ type: "loading" });
     this.engine.loadUtterances(contents);
-
-    // Then set navigator state to ready
-    this.setNavigatorState("ready");
     this.emitContentChangeEvent({ content: contents });
   }
 

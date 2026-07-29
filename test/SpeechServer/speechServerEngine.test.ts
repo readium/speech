@@ -82,7 +82,7 @@ test.serial("speak() sends the queue's neighboring utterances as prev_utterance/
   engine.speak(1);
   await flush();
 
-  const body = JSON.parse(calls[0].init.body);
+  const body = JSON.parse(calls.find(c => JSON.parse(c.init.body).text === "Second.")!.init.body);
   t.is(body.text, "Second.");
   t.is(body.prev_utterance, "First.");
   t.is(body.next_utterance, "Third.");
@@ -166,12 +166,16 @@ test.serial("speak() plays audio and fires loading/start/end events", async (t) 
     synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
   });
   const engine = new SpeechServerEngine({ baseUrl: "http://localhost:8000", fetch: fetchImpl });
-  engine.loadUtterances([{ plain: "Hello" }]);
 
   const events: string[] = [];
   engine.on("loading", () => events.push("loading"));
   engine.on("start", () => events.push("start"));
   engine.on("end", () => events.push("end"));
+
+  engine.loadUtterances([{ plain: "Hello" }]);
+  await flush();
+  t.is(engine.getState(), "ready", "buffering resolves before playback is requested");
+  events.length = 0; // drop the "loading" from initial buffering; only speak()'s own events matter here
 
   engine.speak();
   await flush();

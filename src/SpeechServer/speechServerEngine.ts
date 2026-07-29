@@ -11,9 +11,15 @@ export interface SpeechServerEngineOptions {
   fetch?: typeof fetch;
   // Utterances to keep pre-fetched ahead of playback (buffer depth, not concurrency — requests are chained one at a time).
   prefetchWindow?: number;
+  // Combined character count to have buffered before declaring "ready", so playback doesn't
+  // outrun the buffer right after the first utterance.
+  readyBufferChars?: number;
 }
 
 const DEFAULT_PREFETCH_WINDOW = 3;
+// ~30s of speech at an average reading pace (~150wpm, ~5 chars/word) — an unmeasured guess at
+// how much buffer is needed to outlast a typical synth request, not tuned against real latency.
+const DEFAULT_READY_BUFFER_CHARS = 400;
 
 interface SynthesizeResult {
   audioUrl: string;
@@ -74,9 +80,11 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
 
   private speakInContentLanguage: boolean = false;
   private speakGeneration: number = 0;
+  private loadGeneration: number = 0;
 
   // Rolling buffer of upcoming utterances' audio, fetched one at a time via prefetchChainTail.
   private readonly prefetchWindow: number;
+  private readonly readyBufferChars: number;
   private prefetchCache: Map<number, Promise<SynthesizeResult>> = new Map();
   private prefetchChainTail: Promise<void> = Promise.resolve();
 
@@ -94,6 +102,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     this.baseUrl = options.baseUrl.replace(/\/$/, "");
     this.fetchImpl = options.fetch ?? fetch.bind(globalThis);
     this.prefetchWindow = options.prefetchWindow ?? DEFAULT_PREFETCH_WINDOW;
+    this.readyBufferChars = options.readyBufferChars ?? DEFAULT_READY_BUFFER_CHARS;
   }
 
   // Lets a provider that already fetched /voices seed this engine without a second request.
@@ -105,8 +114,50 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     this.clearPrefetchCache();
     this.currentUtterances = contents;
     this.currentUtteranceIndex = 0;
+    this.setState("loading");
+    void this.bufferUntilReady(++this.loadGeneration);
+  }
+
+  // Buffers enough leading utterances to cover readyBufferChars before declaring "ready",
+  // so playback doesn't catch up to an empty prefetch cache right after the first utterance.
+  private async bufferUntilReady(generation: number): Promise<void> {
+    // Bounded by prefetchWindow too — the initial buffer is just the front of that same
+    // lookahead, not a second, larger one.
+    const targetIndex = Math.min(this.indexCoveringChars(this.readyBufferChars), this.prefetchWindow);
+    const pending: Promise<SynthesizeResult>[] = [];
+    for (let index = 0; index <= targetIndex; index++) {
+      this.queuePrefetch(index);
+      const cached = this.prefetchCache.get(index);
+      if (cached) {
+        pending.push(cached);
+      }
+    }
+
+    try {
+      await Promise.all(pending);
+    } catch {
+      // A failed prefetch still unblocks "ready" — the actual error surfaces when speak() retries it.
+    }
+
+    if (generation !== this.loadGeneration) {
+      return;
+    }
     this.setState("ready");
     this.emitEvent({ type: "ready" });
+  }
+
+  private indexCoveringChars(targetChars: number): number {
+    if (this.currentUtterances.length === 0) {
+      return -1;
+    }
+    let total = 0;
+    for (let index = 0; index < this.currentUtterances.length; index++) {
+      total += (utteranceText(this.currentUtterances[index]) ?? "").length;
+      if (total >= targetChars) {
+        return index;
+      }
+    }
+    return this.currentUtterances.length - 1;
   }
 
   setVoice(voice: ReadiumSpeechVoice | string): void {
@@ -371,6 +422,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
 
   stop(): void {
     this.speakGeneration++;
+    this.loadGeneration++;
     this.stopAudio();
     this.clearPrefetchCache();
     this.currentUtteranceIndex = 0;
