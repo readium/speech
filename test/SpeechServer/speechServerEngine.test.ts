@@ -72,6 +72,37 @@ test.serial("speak() POSTs /synthesize with the loaded utterance and current voi
   t.is(body.language, undefined, "language omitted when speakInContentLanguage is off");
 });
 
+test.serial("speak() sends the queue's neighboring utterances as prev_utterance/next_utterance", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ baseUrl: "http://localhost:8000", fetch: fetchImpl });
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }, { plain: "Third." }]);
+
+  engine.speak(1);
+  await flush();
+
+  const body = JSON.parse(calls[0].init.body);
+  t.is(body.text, "Second.");
+  t.is(body.prev_utterance, "First.");
+  t.is(body.next_utterance, "Third.");
+});
+
+test.serial("prev_utterance/next_utterance are omitted at the start/end of the queue", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ baseUrl: "http://localhost:8000", fetch: fetchImpl });
+  engine.loadUtterances([{ plain: "Only one." }]);
+
+  engine.speak();
+  await flush();
+
+  const body = JSON.parse(calls[0].init.body);
+  t.is(body.prev_utterance, undefined);
+  t.is(body.next_utterance, undefined);
+});
+
 test.serial("ssml-only content (no plain) is sent as text with ssml:true", async (t) => {
   const { fetchImpl, calls } = createMockFetch({
     synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
@@ -198,6 +229,125 @@ test.serial("pause/resume control the underlying audio element", async (t) => {
   t.is(engine.getState(), "playing");
 });
 
+test.serial("speak() prefetches the next utterance while the current one plays", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ baseUrl: "http://localhost:8000", fetch: fetchImpl, prefetchWindow: 1 });
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }, { plain: "Third." }]);
+
+  engine.speak(0);
+  await flush();
+
+  const synthCalls = calls.filter(c => c.url.endsWith("/synthesize"));
+  t.is(synthCalls.length, 2, "prefetch for the next utterance fires without waiting for the current one to end");
+  t.is(JSON.parse(synthCalls[0].init.body).text, "First.");
+  t.is(JSON.parse(synthCalls[1].init.body).text, "Second.");
+});
+
+test.serial("the default prefetch window buffers several utterances ahead, not just one", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ baseUrl: "http://localhost:8000", fetch: fetchImpl });
+  engine.loadUtterances([
+    { plain: "One" }, { plain: "Two" }, { plain: "Three" }, { plain: "Four" }, { plain: "Five" }
+  ]);
+
+  engine.speak(0);
+  await flush();
+
+  const texts = calls.filter(c => c.url.endsWith("/synthesize")).map(c => JSON.parse(c.init.body).text);
+  t.deepEqual(texts, ["One", "Two", "Three", "Four"], "current utterance plus 3 ahead (the default window), not the whole queue");
+});
+
+test.serial("prefetch requests are chained: never more than one /synthesize in flight at once", async (t) => {
+  const calls: string[] = [];
+  const pending: Array<() => void> = [];
+
+  const fetchImpl = (async (url: string, init?: any) => {
+    if (!url.endsWith("/synthesize")) {
+      throw new Error(`Unhandled mock fetch URL: ${url}`);
+    }
+    calls.push(JSON.parse(init.body).text);
+    await new Promise<void>((resolve) => pending.push(resolve));
+    return {
+      ok: true,
+      status: 200,
+      headers: { get: () => "application/json" },
+      json: async () => ({ audio: wavBase64(), format: "wav", boundaries: null })
+    };
+  }) as unknown as typeof fetch;
+
+  const engine = new SpeechServerEngine({ baseUrl: "http://localhost:8000", fetch: fetchImpl, prefetchWindow: 3 });
+  engine.loadUtterances([{ plain: "One" }, { plain: "Two" }, { plain: "Three" }, { plain: "Four" }]);
+
+  engine.speak(0);
+  await flush();
+  t.deepEqual(calls, ["One"], "only the current utterance's own request has been sent so far");
+
+  pending.shift()!();
+  await flush();
+  t.deepEqual(calls, ["One", "Two"], "prefetch for the next utterance starts once the current one's request resolves");
+
+  pending.shift()!();
+  await flush();
+  t.deepEqual(calls, ["One", "Two", "Three"], "the following prefetch only starts once the previous one resolves, not concurrently");
+
+  pending.shift()!();
+  await flush();
+  t.deepEqual(calls, ["One", "Two", "Three", "Four"]);
+});
+
+test.serial("a completed prefetch is reused instead of triggering a second fetch", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ baseUrl: "http://localhost:8000", fetch: fetchImpl });
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }]);
+
+  engine.speak(0);
+  await flush();
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, 2, "First. fetched, Second. prefetched");
+
+  engine.speak(1);
+  await flush();
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, 2, "speak(1) reused the prefetch instead of fetching again");
+});
+
+test.serial("changing rate invalidates a pending prefetch", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ baseUrl: "http://localhost:8000", fetch: fetchImpl });
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }]);
+
+  engine.speak(0);
+  await flush();
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, 2);
+
+  engine.setRate(2);
+  engine.speak(1);
+  await flush();
+
+  const synthCalls = calls.filter(c => c.url.endsWith("/synthesize"));
+  t.is(synthCalls.length, 3, "the rate-2 speak(1) re-fetched instead of reusing the stale rate-1 prefetch");
+  t.is(JSON.parse(synthCalls[2].init.body).output.speed, 2);
+});
+
+test.serial("no prefetch happens past the end of the queue", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ baseUrl: "http://localhost:8000", fetch: fetchImpl });
+  engine.loadUtterances([{ plain: "Only one." }]);
+
+  engine.speak(0);
+  await flush();
+
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, 1);
+});
+
 test.serial("stop() resets to idle and index 0", async (t) => {
   const { fetchImpl } = createMockFetch({
     synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
@@ -218,7 +368,7 @@ test.serial("a non-ok /synthesize response surfaces as an error event, not a thr
       status: 404,
       ok: false,
       json: {
-        type: "https://readium.org/speech-server/error#voice_not_found",
+        type: "urn:example:voice-not-found",
         title: "Voice Not Found",
         status: 404,
         detail: "Voice 'x' not found."
@@ -237,6 +387,8 @@ test.serial("a non-ok /synthesize response surfaces as an error event, not a thr
 
   t.is(errors.length, 1);
   t.is(errors[0].message, "Voice 'x' not found.");
+  t.is(errors[0].status, 404);
+  t.is(errors[0].type, "urn:example:voice-not-found");
   t.is(engine.getState(), "idle");
 });
 

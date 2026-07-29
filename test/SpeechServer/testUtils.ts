@@ -73,7 +73,7 @@ export function makeServerVoice(overrides: Record<string, any> = {}) {
 
 export function problemDetails(overrides: Record<string, any> = {}) {
   return {
-    type: "https://readium.org/speech-server/error#voice_not_found",
+    type: "urn:example:voice-not-found",
     title: "Voice Not Found",
     status: 404,
     detail: "Voice not found.",

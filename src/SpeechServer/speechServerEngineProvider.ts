@@ -9,6 +9,7 @@ import { SpeechServerVoice } from "./types";
 export interface SpeechServerEngineProviderOptions {
   baseUrl: string;
   fetch?: typeof fetch;
+  prefetchWindow?: number;
 }
 
 export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
@@ -17,11 +18,13 @@ export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
 
   private baseUrl: string;
   private fetchImpl: typeof fetch;
+  private prefetchWindow: number | undefined;
   private voices: ReadiumSpeechVoice[] = [];
 
   constructor(options: SpeechServerEngineProviderOptions) {
     this.baseUrl = options.baseUrl.replace(/\/$/, "");
     this.fetchImpl = options.fetch ?? fetch.bind(globalThis);
+    this.prefetchWindow = options.prefetchWindow;
   }
 
   async getVoices(): Promise<ReadiumSpeechVoice[]> {
@@ -39,7 +42,7 @@ export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
   }
 
   async createEngine(voice?: ReadiumSpeechVoice | string): Promise<ReadiumSpeechPlaybackEngine> {
-    const engine = new SpeechServerEngine({ baseUrl: this.baseUrl, fetch: this.fetchImpl });
+    const engine = new SpeechServerEngine({ baseUrl: this.baseUrl, fetch: this.fetchImpl, prefetchWindow: this.prefetchWindow });
     if (this.voices.length > 0) {
       engine.setAvailableVoices(this.voices);
     }
