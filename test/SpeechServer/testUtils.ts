@@ -17,6 +17,15 @@ export interface MockFetchResult {
 export interface MockFetchHandlers {
   voices?: () => any[] | MockFetchResult;
   synthesize?: (body: any) => MockFetchResult;
+  service?: () => MockFetchResult;
+}
+
+export function defaultServiceInfo() {
+  return {
+    output: { formats: ["wav", "mp3", "opus"], default: "wav" },
+    limits: { maxTextLength: 2000, maxConcurrentSyntheses: 2 },
+    providers: [{ id: "pocket", installedLanguages: ["en"] }]
+  };
 }
 
 function mockResponse(status: number, ok: boolean, data: any, contentType: string) {
@@ -47,6 +56,11 @@ export function createMockFetch(handlers: MockFetchHandlers) {
       const result: MockFetchResult = handlers.synthesize
         ? handlers.synthesize(body)
         : { json: { audio: "", format: "wav", boundaries: null } };
+      return mockResponse(result.status ?? 200, result.ok ?? true, result.json, result.contentType ?? "application/json");
+    }
+
+    if (url.endsWith("/service")) {
+      const result: MockFetchResult = handlers.service ? handlers.service() : { json: defaultServiceInfo() };
       return mockResponse(result.status ?? 200, result.ok ?? true, result.json, result.contentType ?? "application/json");
     }
 

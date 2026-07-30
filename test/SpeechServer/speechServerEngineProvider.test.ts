@@ -1,6 +1,6 @@
 import test from "ava";
 import { SpeechServerEngineProvider } from "../../build/index.js";
-import { createMockFetch, makeServerVoice, problemDetails } from "./testUtils.js";
+import { createMockFetch, makeServerVoice, problemDetails, defaultServiceInfo } from "./testUtils.js";
 
 test("getVoices maps server voices into ReadiumSpeechVoice shape and caches", async (t) => {
   const { fetchImpl, calls } = createMockFetch({
@@ -14,7 +14,7 @@ test("getVoices maps server voices into ReadiumSpeechVoice shape and caches", as
       })
     ]
   });
-  const provider = new SpeechServerEngineProvider({ baseUrl: "http://localhost:8000", fetch: fetchImpl });
+  const provider = new SpeechServerEngineProvider({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl });
 
   const voices = await provider.getVoices();
   t.is(voices.length, 2);
@@ -36,7 +36,7 @@ test("getVoices throws a SpeechServerError carrying the server's problem details
       contentType: "application/problem+json"
     })
   });
-  const provider = new SpeechServerEngineProvider({ baseUrl: "http://localhost:8000", fetch: fetchImpl });
+  const provider = new SpeechServerEngineProvider({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl });
 
   const error = await t.throwsAsync(() => provider.getVoices());
   t.is((error as any).status, 404);
@@ -47,7 +47,7 @@ test("createEngine seeds the engine's voice cache from an already-fetched voice 
   const { fetchImpl, calls } = createMockFetch({
     voices: () => [makeServerVoice()]
   });
-  const provider = new SpeechServerEngineProvider({ baseUrl: "http://localhost:8000", fetch: fetchImpl });
+  const provider = new SpeechServerEngineProvider({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl });
   await provider.getVoices();
 
   const engine = await provider.createEngine("urn:readium:tts:pocket:alba");
@@ -60,9 +60,34 @@ test("createEngine seeds the engine's voice cache from an already-fetched voice 
 
 test("createEngine without a prior getVoices call still lets the engine fetch its own voices lazily", async (t) => {
   const { fetchImpl } = createMockFetch({ voices: () => [makeServerVoice()] });
-  const provider = new SpeechServerEngineProvider({ baseUrl: "http://localhost:8000", fetch: fetchImpl });
+  const provider = new SpeechServerEngineProvider({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl });
 
   const engine = await provider.createEngine();
   const voices = await engine.getAvailableVoices();
   t.is(voices.length, 1);
+});
+
+test("createEngine forwards overLengthText/format/readyBufferChars to the engine it creates, not just endpoints/fetch/prefetchWindow", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    service: () => ({ json: { ...defaultServiceInfo(), limits: { maxTextLength: 5, maxConcurrentSyntheses: 2 } } })
+  });
+  const provider = new SpeechServerEngineProvider({
+    endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" },
+    fetch: fetchImpl,
+    overLengthText: "error"
+  });
+
+  const engine = await provider.createEngine();
+  engine.loadUtterances([{ plain: "Way too long for the limit" }]);
+
+  const errors: any[] = [];
+  engine.on("error", (e: any) => errors.push(e.detail));
+
+  engine.speak();
+  await new Promise(resolve => setTimeout(resolve, 0));
+  await new Promise(resolve => setTimeout(resolve, 0));
+
+  t.is(errors.length, 1, "the provider's overLengthText: \"error\" reached the engine, instead of silently defaulting to \"split\"");
+  t.is(errors[0].status, 413);
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, 0);
 });

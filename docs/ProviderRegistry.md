@@ -1,6 +1,6 @@
 # Provider Registry
 
-`@readium/speech` now ships two `ReadiumSpeechEngineProvider` implementations — [`WebSpeechEngineProvider`](WebSpeech.md) (the browser's built-in TTS) and `SpeechServerEngineProvider` (a remote TTS HTTP service). An app that only ever uses one of them doesn't need anything beyond that provider directly:
+`@readium/speech` now ships two `ReadiumSpeechEngineProvider` implementations — [`WebSpeechEngineProvider`](WebSpeechEngine.md) (the browser's built-in TTS) and [`SpeechServerEngineProvider`](SpeechServerEngine.md) (a remote TTS HTTP service). An app that only ever uses one of them doesn't need anything beyond that provider directly — see each engine's doc for its full options reference:
 
 ```ts
 const provider = new WebSpeechEngineProvider();
@@ -44,7 +44,13 @@ import {
 
 const registry = new ReadiumSpeechProviderRegistry();
 registry.register(new WebSpeechEngineProvider());
-registry.register(new SpeechServerEngineProvider({ baseUrl: "http://localhost:8000" }));
+registry.register(new SpeechServerEngineProvider({
+  endpoints: {
+    voices: "http://localhost:8000/voices",
+    synthesize: "http://localhost:8000/synthesize",
+    service: "http://localhost:8000/service"
+  }
+}));
 
 // [{ providerId: "webspeech", voices }, { providerId: "speech-server", voices }]
 const grouped = await registry.getAllVoices();
@@ -73,7 +79,13 @@ registry.register(new WebSpeechEngineProvider());
 
 try {
   await fetch("http://localhost:8000/readyz");
-  registry.register(new SpeechServerEngineProvider({ baseUrl: "http://localhost:8000" }));
+  registry.register(new SpeechServerEngineProvider({
+    endpoints: {
+      voices: "http://localhost:8000/voices",
+      synthesize: "http://localhost:8000/synthesize",
+      service: "http://localhost:8000/service"
+    }
+  }));
 } catch {
   // No speech-server reachable — registry.list() only has "webspeech".
 }

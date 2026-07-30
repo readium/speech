@@ -1,30 +1,26 @@
 import { ReadiumSpeechEngineProvider } from "../provider";
 import { ReadiumSpeechPlaybackEngine } from "../engine";
 import { ReadiumSpeechVoice } from "../voices/types";
-import { SpeechServerEngine } from "./speechServerEngine";
+import { SpeechServerEngine, SpeechServerEngineOptions } from "./speechServerEngine";
 import { mapServerVoice } from "./speechServerVoiceMapping";
 import { toSpeechServerError } from "./errors";
 import { SpeechServerVoice } from "./types";
 
-export interface SpeechServerEngineProviderOptions {
-  baseUrl: string;
-  fetch?: typeof fetch;
-  prefetchWindow?: number;
-}
+// Reuses SpeechServerEngineOptions wholesale (not a hand-picked subset) so every option the
+// engine accepts is also available through the provider, with nothing to keep in sync.
+export type SpeechServerEngineProviderOptions = SpeechServerEngineOptions;
 
 export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
   readonly id: string = "speech-server";
   readonly name: string = "Readium Speech Server";
 
-  private baseUrl: string;
+  private options: SpeechServerEngineProviderOptions;
   private fetchImpl: typeof fetch;
-  private prefetchWindow: number | undefined;
   private voices: ReadiumSpeechVoice[] = [];
 
   constructor(options: SpeechServerEngineProviderOptions) {
-    this.baseUrl = options.baseUrl.replace(/\/$/, "");
+    this.options = options;
     this.fetchImpl = options.fetch ?? fetch.bind(globalThis);
-    this.prefetchWindow = options.prefetchWindow;
   }
 
   async getVoices(): Promise<ReadiumSpeechVoice[]> {
@@ -32,7 +28,7 @@ export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
       return this.voices;
     }
 
-    const response = await this.fetchImpl(`${this.baseUrl}/voices`);
+    const response = await this.fetchImpl(this.options.endpoints.voices);
     if (!response.ok) {
       throw await toSpeechServerError(response);
     }
@@ -42,7 +38,7 @@ export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
   }
 
   async createEngine(voice?: ReadiumSpeechVoice | string): Promise<ReadiumSpeechPlaybackEngine> {
-    const engine = new SpeechServerEngine({ baseUrl: this.baseUrl, fetch: this.fetchImpl, prefetchWindow: this.prefetchWindow });
+    const engine = new SpeechServerEngine(this.options);
     if (this.voices.length > 0) {
       engine.setAvailableVoices(this.voices);
     }
