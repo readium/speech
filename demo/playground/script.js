@@ -8,10 +8,15 @@ const gndBadgeEl = document.getElementById("gnd-badge");
 const utterancesExpectedEl = document.getElementById("utterances-expected");
 const utterancesActualEl = document.getElementById("utterances-actual");
 const utterancesBadgeEl = document.getElementById("utterances-badge");
+const optionVerbosityEl = document.getElementById("option-verbosity");
+const customVerbosityGroupEl = document.getElementById("custom-verbosity-group");
 const optionSkipEl = document.getElementById("option-skip");
 const optionLanguageEl = document.getElementById("option-language");
 const optionInterruptEl = document.getElementById("option-interrupt");
 const optionContextualizeEl = document.getElementById("option-contextualize");
+const optionPauseDurationEl = document.getElementById("option-pause-duration");
+const optionPauseDurationValueEl = document.getElementById("option-pause-duration-value");
+const optionAutoPauseEl = document.getElementById("option-auto-pause");
 const formatRadios = [...document.querySelectorAll('input[name="format"]')];
 const speechBadgeEl = document.getElementById("speech-badge");
 const speechUtterancesEl = document.getElementById("speech-utterances");
@@ -29,6 +34,11 @@ let EngineClass = null;
 let VoiceManagerClass = null;
 let setupDecorations = null;
 let DecorationStyleType = null;
+let SpeechPreferencesClass = null;
+let skippableAtVerbosity = null;
+let contextualizedAtVerbosity = null;
+let skippableRolesList = null;
+let announcementCatalog = null;
 try {
   const mod = await import("../../build/index.js");
   if (typeof mod.parseMarkup === "function") {
@@ -50,14 +60,34 @@ try {
     setupDecorations = mod.setupDecorations;
     DecorationStyleType = mod.DecorationStyleType;
   }
+  if (typeof mod.SpeechPreferences === "function") {
+    SpeechPreferencesClass = mod.SpeechPreferences;
+  }
+  if (mod.skippableAtVerbosity && mod.contextualizedAtVerbosity) {
+    skippableAtVerbosity = mod.skippableAtVerbosity;
+    contextualizedAtVerbosity = mod.contextualizedAtVerbosity;
+  }
   if (Array.isArray(mod.skippableRoles)) {
+    skippableRolesList = mod.skippableRoles;
     for (const role of mod.skippableRoles) {
       const option = document.createElement("option");
       option.value = role;
       option.textContent = role;
       optionSkipEl.appendChild(option);
     }
-    optionSkipEl.addEventListener("change", () => renderUtterances());
+  }
+  // Contextualize can only ever say something for a role with a catalog
+  // entry — deriving the option list from the catalog itself (rather than
+  // e.g. reusing skippableRoles) keeps it exactly in sync with what
+  // `contextualize` actually does anything for.
+  if (mod.defaultAnnouncements && typeof mod.defaultAnnouncements === "object") {
+    announcementCatalog = mod.defaultAnnouncements;
+    for (const role of Object.keys(mod.defaultAnnouncements)) {
+      const option = document.createElement("option");
+      option.value = role;
+      option.textContent = role;
+      optionContextualizeEl.appendChild(option);
+    }
   }
 } catch (err) {
   // build/index.js may not exist yet (run `npm run build`) or may not
@@ -66,30 +96,101 @@ try {
   console.error("Failed to load @readium/speech build/index.js:", err);
 }
 
-// The full extraction options currently selected in the toolbar, `format`
-// included alongside the rest — mirrors exactly how fixtures/*/
-// utterances.json's `cases[].options` are shaped, so it can be compared
-// against them directly (see `matchingExpected`).
-function currentOptions() {
-  const options = { format: currentFormat() };
-  const skip = optionSkipEl
-    ? [...optionSkipEl.selectedOptions].map((option) => option.value)
-    : [];
-  if (skip.length > 0) options.skip = skip;
-  if (optionLanguageEl?.value) options.language = optionLanguageEl.value;
-  if (optionInterruptEl?.checked) options.interruptSentence = true;
-  if (optionContextualizeEl && !optionContextualizeEl.checked) options.contextualize = false;
-  return options;
-}
-
 function currentFormat() {
   return formatRadios.find((r) => r.checked)?.value ?? "plain";
 }
 
-// Finds the fixture's expected output for the exact combination of options
-// currently selected: the `cases` entry whose `options` deep-equals the
-// selection. Returns `undefined` when this fixture doesn't illustrate that
-// combination.
+// Builds a SpeechPreferences (or a plain object of the same shape, if the
+// build predates that export) from the toolbar's current state. `skip`/
+// `contextualize` are only meaningful — and only sent — under "custom":
+// every other verbosity preset ignores them in favor of its own fixed
+// table (see SpeechSettings), so leaving the multi-selects' state in here
+// unconditionally would misrepresent what's actually applied.
+function preferencesFromToolbar() {
+  const verbosity = optionVerbosityEl?.value || "few";
+  const prefs = {
+    format: currentFormat(),
+    interruptSentence: optionInterruptEl?.checked ?? false,
+    verbosity,
+    language: optionLanguageEl?.value || null,
+    pauseDuration: Number(optionPauseDurationEl?.value ?? 300),
+    automaticPausesBetweenUtterances: optionAutoPauseEl?.checked ?? false,
+  };
+  if (verbosity === "custom") {
+    prefs.skip = optionSkipEl ? [...optionSkipEl.selectedOptions].map((o) => o.value) : [];
+    prefs.contextualize = optionContextualizeEl ? [...optionContextualizeEl.selectedOptions].map((o) => o.value) : [];
+  }
+  return SpeechPreferencesClass ? new SpeechPreferencesClass(prefs) : prefs;
+}
+
+// Mirrors SpeechSettings' own resolution rule (skip/contextualize come from
+// the fixed verbosity tables outside "custom") so the standalone-extractor
+// fallback path (used when playbackNavigator is unavailable) computes
+// exactly the same ExtractUtterancesOptions the Navigator would have.
+function resolveExtractionOptions(prefs) {
+  const options = { format: prefs.format };
+  if (prefs.interruptSentence) options.interruptSentence = true;
+  if (prefs.language) options.language = prefs.language;
+
+  if (prefs.verbosity === "custom") {
+    options.skip = prefs.skip ?? [];
+    options.contextualize = prefs.contextualize ?? [];
+  } else if (skippableAtVerbosity && contextualizedAtVerbosity) {
+    options.skip = [...skippableAtVerbosity[prefs.verbosity]];
+    options.contextualize = [...contextualizedAtVerbosity[prefs.verbosity]];
+  } else {
+    options.skip = [];
+    options.contextualize = [];
+  }
+  return options;
+}
+
+// Same tree walk as scripts/generate-utterances.js's collectRoles(), so the
+// bridge below can reconstruct exactly the role set each fixture's cases
+// were generated against.
+function collectRoles(nodes, acc = new Set()) {
+  for (const node of nodes) {
+    for (const role of node.role ?? []) acc.add(role);
+    if (node.children) collectRoles(node.children, acc);
+  }
+  return acc;
+}
+
+// The bridge between the Preferences API (high-level: verbosity resolves to
+// a role *set*, spanning roles a given fixture may not even contain) and
+// fixtures/*/utterances.json (low-level: generated with exactly one
+// skip role at a time, or one combined "every announcable role in this
+// tree" contextualize case — see scripts/generate-utterances.js — never
+// several skip roles together, never skip+contextualize combined).
+//
+// Reducing the resolved skip/contextualize sets down to only the roles this
+// fixture's tree actually contains (and, for skip, that are in the curated
+// skippableRoles list; for contextualize, that have a catalog entry) turns
+// a verbosity-resolved combination into the same shape the generator
+// produced — so it can still be matched against a real case whenever it
+// reduces to one of those two axes. When it doesn't (e.g. the tree contains
+// two skippable roles at once, both resolved on), there genuinely is no
+// hand-authored case for that combination — "none" is the honest answer,
+// not a bug — this bridge only recovers the cases fixtures actually cover.
+function bridgeToFixtureOptions(resolvedOptions, rolesInTree) {
+  const skippable = new Set(skippableRolesList ?? []);
+  const effectiveSkip = (resolvedOptions.skip ?? []).filter((role) => rolesInTree.has(role) && skippable.has(role));
+  const effectiveContextualize = (resolvedOptions.contextualize ?? []).filter(
+    (role) => rolesInTree.has(role) && announcementCatalog?.[role] !== undefined,
+  );
+
+  const bridged = { ...resolvedOptions };
+  delete bridged.skip;
+  delete bridged.contextualize;
+  if (effectiveSkip.length > 0) bridged.skip = effectiveSkip;
+  if (effectiveContextualize.length > 0) bridged.contextualize = effectiveContextualize;
+  return bridged;
+}
+
+// Finds the fixture's expected output for the exact combination of
+// (bridged) options currently in effect: the `cases` entry whose `options`
+// deep-equals the selection. Returns `undefined` when this fixture doesn't
+// illustrate that combination.
 function matchingExpected(utterances, options) {
   const kase = (utterances.cases ?? []).find((c) => deepEqual(c.options, options));
   return kase?.utterances;
@@ -244,14 +345,16 @@ function setBadge(el, state) {
   el.className = `badge ${state}`;
 }
 
-// Cached across options-toolbar changes, so toggling an option re-runs
-// extraction without refetching the fixture's files.
+// Cached across options-toolbar changes and fixture switches, so the
+// fallback extraction path (see renderUtterancesPanel) doesn't need to
+// refetch the fixture's files.
 let currentFixture = null;
 
-// ReadiumSpeechNavigator wraps the playback engine and handles
-// advancing through the queued utterances on its own — created once, lazily
-// (its constructor kicks off async engine/voice initialization), not per
-// fixture/option change.
+// ReadiumSpeechNavigator wraps the playback engine and handles advancing
+// through the queued utterances on its own — created eagerly (see
+// initPlaybackNavigator below), not lazily on first Play, so
+// loadGndContent()/submitPreferences() can drive the "Utterances actual"
+// panel on every fixture/option change.
 let playbackNavigator = null;
 
 // Lazily created, same rationale as playbackNavigator: mounting the Decorator
@@ -277,7 +380,7 @@ function highlightWordBoundary(event) {
   if (!ctrl) return;
 
   const index = playbackNavigator.getCurrentUtteranceIndex();
-  const utterance = currentSpeechUtterances[index];
+  const utterance = playbackNavigator.getContentQueue()[index];
   const text = utteranceDisplayText(utterance);
   if (!text) return;
 
@@ -324,7 +427,7 @@ async function setupDefaultVoice(navigator) {
 }
 
 // Resolves once the default voice has been set, so Play can await it before
-// speaking — set once, alongside the navigator, in ensurePlaybackNavigator.
+// speaking — set once, alongside the navigator, in initPlaybackNavigator.
 let voiceReadyPromise = null;
 
 // Fixture content is only ever en/es/fr — scope the singleton to just those
@@ -332,21 +435,29 @@ let voiceReadyPromise = null;
 // win the race and load JSON for every language the browser has voices for.
 const PLAYGROUND_LANGUAGES = ["en", "es", "fr"];
 
-function ensurePlaybackNavigator() {
+// Constructs the Navigator eagerly (unlike the old lazy-on-first-Play
+// pattern), guarded: `new WebSpeechEngine()` throws synchronously when the
+// Web Speech API isn't available, so a failure here degrades to the same
+// "not implemented yet" state the rest of the UI already falls back to when
+// a library export is missing, rather than crashing the page at load time.
+function initPlaybackNavigator() {
   if (!NavigatorClass || !EngineClass) return null;
-  if (!playbackNavigator) {
+  try {
     void VoiceManagerClass?.initialize({ languages: PLAYGROUND_LANGUAGES });
-    playbackNavigator = new NavigatorClass(new EngineClass());
-    playbackNavigator.setSpeakInContentLanguage(true);
+    const nav = new NavigatorClass(new EngineClass());
+    nav.setSpeakInContentLanguage(true);
     for (const type of ["start", "pause", "resume", "end", "stop", "ready", "error"]) {
-      playbackNavigator.on(type, syncSpeechUi);
+      nav.on(type, syncSpeechUi);
     }
-    playbackNavigator.on("boundary", highlightWordBoundary);
-    playbackNavigator.on("end", clearWordHighlight);
-    playbackNavigator.on("stop", clearWordHighlight);
-    voiceReadyPromise = setupDefaultVoice(playbackNavigator);
+    nav.on("boundary", highlightWordBoundary);
+    nav.on("end", clearWordHighlight);
+    nav.on("stop", clearWordHighlight);
+    voiceReadyPromise = setupDefaultVoice(nav);
+    return nav;
+  } catch (err) {
+    console.error("Failed to construct playback engine (Web Speech API unavailable?):", err);
+    return null;
   }
-  return playbackNavigator;
 }
 
 function setSpeechBadge(state) {
@@ -373,44 +484,55 @@ function syncSpeechUi() {
   speechListItems.forEach((li, index) => li.classList.toggle("speaking", index === speaking));
 }
 
-// The utterances currently loaded into the speech list, kept in sync with
-// the "Actual" pane above so Play always speaks what's on screen.
-let currentSpeechUtterances = [];
-
-function renderUtterances() {
-  playbackNavigator?.stop();
-
+// Re-renders the "Expected"/"Actual" utterances compare panel and the
+// speech-preview list for `currentFixture`, from whatever's currently
+// loaded into `playbackNavigator` — kept current by loadGndContent()/
+// submitPreferences() (see selectFixture/applyPreferencesFromToolbar below)
+// — or, when no Navigator is available (e.g. the Web Speech API isn't
+// supported), a standalone extractUtterances() call using the same
+// settings-resolution rules, so the compare panel still works degraded.
+function renderUtterancesPanel() {
   if (!currentFixture) return;
-  const { gndActual, utterances } = currentFixture;
-  const options = currentOptions();
-  const expected = matchingExpected(utterances, options);
+  const { gndActual, utterances, rolesInTree } = currentFixture;
+  const resolvedOptions = resolveExtractionOptions(preferencesFromToolbar());
+  const expected = matchingExpected(utterances, bridgeToFixtureOptions(resolvedOptions, rolesInTree));
 
   utterancesExpectedEl.textContent =
     expected !== undefined ? JSON.stringify(expected, null, 2) : "(none — this sample doesn't illustrate this combination of options)";
 
-  if (!utteranceExtractor || gndActual === undefined) {
+  if (gndActual === undefined || (!playbackNavigator && !utteranceExtractor)) {
     utterancesActualEl.textContent = "";
     setBadge(utterancesBadgeEl, "pending");
-    currentSpeechUtterances = [];
-    renderSpeechList(currentSpeechUtterances);
+    renderSpeechList([]);
     return;
   }
 
   try {
-    const actualUtterances = utteranceExtractor.extractUtterances(gndActual, options);
+    const actualUtterances = playbackNavigator
+      ? playbackNavigator.getContentQueue()
+      : utteranceExtractor.extractUtterances(gndActual, resolvedOptions);
     utterancesActualEl.textContent = JSON.stringify(actualUtterances, null, 2);
     setBadge(
       utterancesBadgeEl,
       expected === undefined ? "none" : deepEqual(actualUtterances, expected) ? "pass" : "fail",
     );
-    currentSpeechUtterances = actualUtterances;
-    renderSpeechList(currentSpeechUtterances);
+    renderSpeechList(actualUtterances);
   } catch (err) {
     utterancesActualEl.textContent = String(err);
     setBadge(utterancesBadgeEl, "fail");
-    currentSpeechUtterances = [];
-    renderSpeechList(currentSpeechUtterances);
+    renderSpeechList([]);
   }
+}
+
+// Stops any in-progress playback first — submitPreferences() reloads the
+// Navigator's content queue without pausing/cancelling audio already
+// scheduled, so a stale queue could otherwise keep playing underneath the
+// newly-applied one — then submits the toolbar's current state and
+// re-renders the compare panel.
+function applyPreferencesFromToolbar() {
+  playbackNavigator?.stop();
+  playbackNavigator?.submitPreferences(preferencesFromToolbar());
+  renderUtterancesPanel();
 }
 
 async function selectFixture(id) {
@@ -458,17 +580,33 @@ async function selectFixture(id) {
     }
   }
 
-  currentFixture = { gndActual, utterances };
-  renderUtterances();
+  currentFixture = { gndActual, utterances, rolesInTree: collectRoles(expectedTopLevel(gnd)) };
+  playbackNavigator?.stop();
+  if (playbackNavigator && gndActual !== undefined) {
+    playbackNavigator.loadGndContent(gndActual); // re-extracts internally, using current settings
+  }
+  renderUtterancesPanel();
 }
 
 filterInput.addEventListener("input", renderList);
-for (const radio of formatRadios) radio.addEventListener("change", renderUtterances);
-optionLanguageEl?.addEventListener("change", renderUtterances);
-optionInterruptEl?.addEventListener("change", renderUtterances);
-optionContextualizeEl?.addEventListener("change", renderUtterances);
+for (const radio of formatRadios) radio.addEventListener("change", applyPreferencesFromToolbar);
+optionVerbosityEl?.addEventListener("change", () => {
+  if (customVerbosityGroupEl) customVerbosityGroupEl.hidden = optionVerbosityEl.value !== "custom";
+  applyPreferencesFromToolbar();
+});
+optionLanguageEl?.addEventListener("change", applyPreferencesFromToolbar);
+optionInterruptEl?.addEventListener("change", applyPreferencesFromToolbar);
+optionSkipEl?.addEventListener("change", applyPreferencesFromToolbar);
+optionContextualizeEl?.addEventListener("change", applyPreferencesFromToolbar);
+optionPauseDurationEl?.addEventListener("input", () => {
+  if (optionPauseDurationValueEl) optionPauseDurationValueEl.textContent = `${optionPauseDurationEl.value}ms`;
+});
+optionPauseDurationEl?.addEventListener("change", applyPreferencesFromToolbar);
+optionAutoPauseEl?.addEventListener("change", applyPreferencesFromToolbar);
 
-if (!NavigatorClass) {
+playbackNavigator = initPlaybackNavigator();
+
+if (!playbackNavigator) {
   speechBadgeEl.textContent = "not implemented yet";
   speechBadgeEl.className = "badge pending";
 } else {
@@ -476,12 +614,9 @@ if (!NavigatorClass) {
 }
 
 speechPlayEl.addEventListener("click", async () => {
-  if (currentSpeechUtterances.length === 0) return;
-  const navigator = ensurePlaybackNavigator();
-  if (!navigator) return;
+  if (!playbackNavigator || playbackNavigator.getContentQueue().length === 0) return;
   await voiceReadyPromise;
-  navigator.loadContent(currentSpeechUtterances);
-  navigator.play();
+  playbackNavigator.play();
 });
 speechPauseEl.addEventListener("click", () => playbackNavigator?.pause());
 speechResumeEl.addEventListener("click", () => playbackNavigator?.play());

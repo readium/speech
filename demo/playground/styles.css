@@ -184,6 +184,10 @@ body {
   padding: 0;
 }
 
+.options-group[hidden] {
+  display: none;
+}
+
 .options-group legend {
   font-size: 0.78em;
   font-weight: 600;
@@ -196,7 +200,8 @@ body {
   white-space: nowrap;
 }
 
-#option-skip {
+#option-skip,
+#option-contextualize {
   /* <select multiple> inside a `display: flex` <fieldset> is a known
      cross-browser sizing trap — fieldsets don't reliably compute a flex
      child's intrinsic size, so the select can collapse to near-zero
