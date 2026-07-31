@@ -473,7 +473,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       this.masterGain.connect(this.audioContext.destination);
     }
     if (this.audioContext.state === "suspended") {
-      void this.audioContext.resume();
+      this.audioContext.resume().catch(() => {});
     }
     return this.audioContext;
   }
@@ -614,7 +614,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
 
   pause(): void {
     if (this.playbackState === "playing" && this.audioContext) {
-      void this.audioContext.suspend();
+      this.audioContext.suspend().catch(() => {});
       this.stopBoundaryPolling();
       this.setState("paused");
       this.emitEvent({ type: "pause" });
@@ -623,7 +623,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
 
   resume(): void {
     if (this.playbackState === "paused" && this.audioContext) {
-      void this.audioContext.resume();
+      this.audioContext.resume().catch(() => {});
       this.startBoundaryPolling(this.speakGeneration);
       this.setState("playing");
       this.emitEvent({ type: "resume" });

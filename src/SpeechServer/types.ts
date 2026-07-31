@@ -19,7 +19,7 @@ export interface SpeechServerTimingMark {
   elapsedTime: number;
 }
 
-export type SpeechServerAudioFormat = "wav" | "mp3" | "opus";
+export type SpeechServerAudioFormat = "wav" | "mp3" | "opus" | "aac" | "flac" | "ogg" | "webm" | "m4a";
 
 export interface SpeechServerSynthesizeRequest {
   id?: string;
