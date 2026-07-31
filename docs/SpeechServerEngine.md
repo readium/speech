@@ -70,3 +70,14 @@ By default the engine picks a format from the intersection of what the server ad
 ## Errors
 
 Failures surface as `"error"` events (see [Playback.md](Playback.md#readiumspeechplaybackevent)), with `detail` shaped like a `SpeechServerError`: `{ message, status, type, title, instance }`, following [RFC 9457 Problem Details](https://www.rfc-editor.org/rfc/rfc9457) when the server returns one.
+
+## Minimizing gaps between utterances
+
+- **Gapless scheduling**: chunks/utterances are decoded into `AudioBuffer`s and scheduled back-to-back on one continuous `AudioContext` timeline (`node.start(t)`, with `t` advanced by each buffer's own duration) rather than played one at a time via sequential `<audio>` elements — there's no stop/start gap between them.
+- **Prefetching ahead**: while an utterance plays, the engine fetches up to `prefetchWindow` upcoming utterances so they're already decoded by the time playback reaches them. Requests are chained one at a time (never more than one `/synthesize` in flight), so this doesn't compete with `maxConcurrentSyntheses` on the server.
+- **Buffering before "ready"**: `readyBufferChars` holds off the `"ready"` event until enough of the front of the queue is prefetched, so playback doesn't immediately outrun an empty buffer right after the first utterance starts.
+- **Chunk-level streaming for long utterances**: when `overLengthText: "split"` breaks an utterance into multiple requests, playback starts on the first chunk as soon as it's ready — it doesn't wait for the rest — while later chunks keep fetching and get scheduled onto the same gapless timeline as they resolve. Callers still only see a single `"start"`/`"end"` pair for the whole utterance, not one per chunk.
+
+## Known limitations
+
+`/synthesize` returns a complete base64-encoded audio payload per request, not a stream — the engine waits for the full response, then decodes it whole via `AudioContext.decodeAudioData`. There's no Media Source Extensions (MSE) usage and no incremental playback within a single chunk. `prefetchWindow`/`readyBufferChars`/`overLengthText: "split"` reduce the perceived gap between utterances by overlapping requests and keeping individual requests small, but a single long chunk still has to finish downloading before any of it can play.
