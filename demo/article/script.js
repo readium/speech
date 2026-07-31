@@ -1,4 +1,4 @@
-import { WebSpeechVoiceManager, WebSpeechReadAloudNavigator, setupDecorations, DecorationStyleType } from "../../build/index.js";
+import { WebSpeechVoiceManager, WebSpeechEngine, ReadiumSpeechNavigator, setupDecorations, DecorationStyleType } from "../../build/index.js";
 
 // Set up the Decorator for TTS word highlights
 const decoCtrl = setupDecorations();
@@ -34,7 +34,7 @@ async function initialize() {
     enVoices = await voiceManager.getVoices({removeDuplicates: true});
     
     // Initialize the navigator
-    navigator = new WebSpeechReadAloudNavigator();
+    navigator = new ReadiumSpeechNavigator(new WebSpeechEngine());
     
     // Set up event listeners
     setupEventListeners();

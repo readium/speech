@@ -1,10 +1,9 @@
-import { ReadiumSpeechPlaybackEngine } from "../engine";
-import { ReadiumSpeechNavigator, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navigator";
-import { ReadiumSpeechUtterance } from "../utterance";
-import { ReadiumSpeechVoice } from "../voices/types";
-import { WebSpeechEngine } from "./webSpeechEngine";
+import { ReadiumSpeechPlaybackEngine } from "./engine";
+import { ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator";
+import { ReadiumSpeechUtterance } from "./utterance";
+import { ReadiumSpeechVoice } from "./voices/types";
 
-export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
+export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private engine: ReadiumSpeechPlaybackEngine;
   private contentQueue: ReadiumSpeechUtterance[] = [];
   private eventListeners: Map<ReadiumSpeechPlaybackEvent["type"] | "contentchange", ((event: ReadiumSpeechPlaybackEvent) => void)[]> = new Map();
@@ -12,19 +11,17 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
   // Navigator owns the state, not the engine
   private navigatorState: ReadiumSpeechPlaybackState = "idle";
 
-  constructor(engine?: ReadiumSpeechPlaybackEngine) {
-    this.engine = engine || new WebSpeechEngine();
+  constructor(engine: ReadiumSpeechPlaybackEngine) {
+    this.engine = engine;
     this.setupEngineListeners();
-    this.initializeEngine();
+    void this.initializeEngine();
   }
 
   private async initializeEngine(): Promise<void> {
-    if (this.engine instanceof WebSpeechEngine) {
-      try {
-        await this.engine.initialize();
-      } catch (error) {
-        console.warn("Failed to initialize WebSpeechEngine:", error);
-      }
+    try {
+      await this.engine.initialize?.();
+    } catch (error) {
+      console.warn("Failed to initialize speech engine:", error);
     }
   }
 
@@ -46,7 +43,7 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
         // Reached end - set navigator to idle
         this.setNavigatorState("idle");
       }
-      
+
       this.emitEvent({ type: "end" });
     });
 
@@ -124,11 +121,12 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
     const contents = Array.isArray(content) ? content : [content];
     this.contentQueue = [...contents];
 
-    // Load utterances first
+    // Readiness comes from the engine's own "ready" event (see setupEngineListeners),
+    // not set here — engines that buffer ahead (e.g. SpeechServerEngine) fire it once
+    // they're confident playback won't immediately stall.
+    this.setNavigatorState("loading");
+    this.emitEvent({ type: "loading" });
     this.engine.loadUtterances(contents);
-
-    // Then set navigator state to ready
-    this.setNavigatorState("ready");
     this.emitContentChangeEvent({ content: contents });
   }
 
@@ -176,7 +174,7 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
 
   private skipToPosition(targetIndex: number, forcePlay: boolean = false): boolean {
     const currentIndex = this.getCurrentUtteranceIndex();
-    
+
     // Check if the target index is valid
     if (targetIndex < 0 || targetIndex >= this.contentQueue.length) {
       return false;
@@ -201,7 +199,7 @@ export class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
       this.setNavigatorState("playing");
       this.engine.speak(targetIndex);
     }
-    
+
     return true;
   }
 
