@@ -6,7 +6,8 @@
       },
       "utterances": [
         {
-          "plain": "A self-contained article about lighthouse keeping."
+          "plain": "A self-contained article about lighthouse keeping.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -17,7 +18,8 @@
       },
       "utterances": [
         {
-          "plain": "A self-contained article about lighthouse keeping."
+          "plain": "A self-contained article about lighthouse keeping.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -28,7 +30,8 @@
       },
       "utterances": [
         {
-          "plain": "A self-contained article about lighthouse keeping."
+          "plain": "A self-contained article about lighthouse keeping.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -39,7 +42,8 @@
       },
       "utterances": [
         {
-          "plain": "A self-contained article about lighthouse keeping."
+          "plain": "A self-contained article about lighthouse keeping.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -49,7 +53,8 @@
       },
       "utterances": [
         {
-          "ssml": "A self-contained article about lighthouse keeping."
+          "ssml": "A self-contained article about lighthouse keeping.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -60,7 +65,8 @@
       },
       "utterances": [
         {
-          "ssml": "A self-contained article about lighthouse keeping."
+          "ssml": "A self-contained article about lighthouse keeping.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -71,7 +77,8 @@
       },
       "utterances": [
         {
-          "ssml": "A self-contained article about lighthouse keeping."
+          "ssml": "A self-contained article about lighthouse keeping.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -82,7 +89,8 @@
       },
       "utterances": [
         {
-          "ssml": "A self-contained article about lighthouse keeping."
+          "ssml": "A self-contained article about lighthouse keeping.",
+          "startsNewBlock": true
         }
       ]
     }

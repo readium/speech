@@ -6,7 +6,8 @@
       },
       "utterances": [
         {
-          "plain": "Set in Georgia, 11pt, on recycled paper."
+          "plain": "Set in Georgia, 11pt, on recycled paper.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -19,7 +20,8 @@
       },
       "utterances": [
         {
-          "plain": "Colophon."
+          "plain": "Colophon.",
+          "startsNewBlock": true
         },
         {
           "plain": "Set in Georgia, 11pt, on recycled paper."
@@ -33,7 +35,8 @@
       },
       "utterances": [
         {
-          "plain": "Set in Georgia, 11pt, on recycled paper."
+          "plain": "Set in Georgia, 11pt, on recycled paper.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -44,7 +47,8 @@
       },
       "utterances": [
         {
-          "plain": "Set in Georgia, 11pt, on recycled paper."
+          "plain": "Set in Georgia, 11pt, on recycled paper.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -55,7 +59,8 @@
       },
       "utterances": [
         {
-          "plain": "Set in Georgia, 11pt, on recycled paper."
+          "plain": "Set in Georgia, 11pt, on recycled paper.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -65,7 +70,8 @@
       },
       "utterances": [
         {
-          "ssml": "Set in Georgia, 11pt, on recycled paper."
+          "ssml": "Set in Georgia, 11pt, on recycled paper.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -78,7 +84,8 @@
       },
       "utterances": [
         {
-          "ssml": "Colophon."
+          "ssml": "Colophon.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Set in Georgia, 11pt, on recycled paper."
@@ -92,7 +99,8 @@
       },
       "utterances": [
         {
-          "ssml": "Set in Georgia, 11pt, on recycled paper."
+          "ssml": "Set in Georgia, 11pt, on recycled paper.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -103,7 +111,8 @@
       },
       "utterances": [
         {
-          "ssml": "Set in Georgia, 11pt, on recycled paper."
+          "ssml": "Set in Georgia, 11pt, on recycled paper.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -114,7 +123,8 @@
       },
       "utterances": [
         {
-          "ssml": "Set in Georgia, 11pt, on recycled paper."
+          "ssml": "Set in Georgia, 11pt, on recycled paper.",
+          "startsNewBlock": true
         }
       ]
     }

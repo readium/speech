@@ -7,7 +7,8 @@
       "utterances": [
         {
           "plain": "One",
-          "language": "en"
+          "language": "en",
+          "startsNewBlock": true
         },
         {
           "plain": "deux",
@@ -35,7 +36,8 @@
       "utterances": [
         {
           "plain": "One",
-          "language": "en"
+          "language": "en",
+          "startsNewBlock": true
         },
         {
           "plain": "deux",
@@ -63,7 +65,8 @@
       "utterances": [
         {
           "language": "en",
-          "plain": "One deux three quatre five."
+          "plain": "One deux three quatre five.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -74,7 +77,8 @@
       },
       "utterances": [
         {
-          "plain": "One deux three quatre five."
+          "plain": "One deux three quatre five.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -85,7 +89,8 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "One <lang xml:lang=\"fr\">deux</lang> three <lang xml:lang=\"fr\">quatre</lang> five."
+          "ssml": "One <lang xml:lang=\"fr\">deux</lang> three <lang xml:lang=\"fr\">quatre</lang> five.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -97,7 +102,8 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "One <lang xml:lang=\"fr\">deux</lang> three <lang xml:lang=\"fr\">quatre</lang> five."
+          "ssml": "One <lang xml:lang=\"fr\">deux</lang> three <lang xml:lang=\"fr\">quatre</lang> five.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -109,7 +115,8 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "One deux three quatre five."
+          "ssml": "One deux three quatre five.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -120,7 +127,8 @@
       },
       "utterances": [
         {
-          "ssml": "One deux three quatre five."
+          "ssml": "One deux three quatre five.",
+          "startsNewBlock": true
         }
       ]
     }

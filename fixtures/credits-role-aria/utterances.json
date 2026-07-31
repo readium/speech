@@ -6,10 +6,12 @@
       },
       "utterances": [
         {
-          "plain": "Cover photograph by A. Keeper."
+          "plain": "Cover photograph by A. Keeper.",
+          "startsNewBlock": true
         },
         {
-          "plain": "Maps by B. Cartographer."
+          "plain": "Maps by B. Cartographer.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -28,7 +30,8 @@
           "plain": "Start of the credits."
         },
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "startsNewBlock": true
         },
         {
           "plain": "List item."
@@ -40,7 +43,8 @@
           "plain": "Cover photograph by A. Keeper."
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "Credit."
@@ -63,10 +67,12 @@
       },
       "utterances": [
         {
-          "plain": "Cover photograph by A. Keeper."
+          "plain": "Cover photograph by A. Keeper.",
+          "startsNewBlock": true
         },
         {
-          "plain": "Maps by B. Cartographer."
+          "plain": "Maps by B. Cartographer.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -77,10 +83,12 @@
       },
       "utterances": [
         {
-          "plain": "Cover photograph by A. Keeper."
+          "plain": "Cover photograph by A. Keeper.",
+          "startsNewBlock": true
         },
         {
-          "plain": "Maps by B. Cartographer."
+          "plain": "Maps by B. Cartographer.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -91,10 +99,12 @@
       },
       "utterances": [
         {
-          "plain": "Cover photograph by A. Keeper."
+          "plain": "Cover photograph by A. Keeper.",
+          "startsNewBlock": true
         },
         {
-          "plain": "Maps by B. Cartographer."
+          "plain": "Maps by B. Cartographer.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -104,10 +114,12 @@
       },
       "utterances": [
         {
-          "ssml": "Cover photograph by A. Keeper."
+          "ssml": "Cover photograph by A. Keeper.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Maps by B. Cartographer."
+          "ssml": "Maps by B. Cartographer.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -126,7 +138,8 @@
           "ssml": "Start of the credits."
         },
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
         },
         {
           "ssml": "List item."
@@ -138,7 +151,8 @@
           "ssml": "Cover photograph by A. Keeper."
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Credit."
@@ -161,10 +175,12 @@
       },
       "utterances": [
         {
-          "ssml": "Cover photograph by A. Keeper."
+          "ssml": "Cover photograph by A. Keeper.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Maps by B. Cartographer."
+          "ssml": "Maps by B. Cartographer.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -175,10 +191,12 @@
       },
       "utterances": [
         {
-          "ssml": "Cover photograph by A. Keeper."
+          "ssml": "Cover photograph by A. Keeper.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Maps by B. Cartographer."
+          "ssml": "Maps by B. Cartographer.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -189,10 +207,12 @@
       },
       "utterances": [
         {
-          "ssml": "Cover photograph by A. Keeper."
+          "ssml": "Cover photograph by A. Keeper.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Maps by B. Cartographer."
+          "ssml": "Maps by B. Cartographer.",
+          "startsNewBlock": true
         }
       ]
     }

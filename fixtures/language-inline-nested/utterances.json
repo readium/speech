@@ -7,7 +7,8 @@
       "utterances": [
         {
           "plain": "Start",
-          "language": "en"
+          "language": "en",
+          "startsNewBlock": true
         },
         {
           "plain": "middle",
@@ -35,7 +36,8 @@
       "utterances": [
         {
           "plain": "Start",
-          "language": "en"
+          "language": "en",
+          "startsNewBlock": true
         },
         {
           "plain": "middle",
@@ -63,7 +65,8 @@
       "utterances": [
         {
           "language": "en",
-          "plain": "Start middle nested end after."
+          "plain": "Start middle nested end after.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -74,7 +77,8 @@
       },
       "utterances": [
         {
-          "plain": "Start middle nested end after."
+          "plain": "Start middle nested end after.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -85,7 +89,8 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "Start <lang xml:lang=\"fr\">middle </lang><lang xml:lang=\"es\">nested</lang><lang xml:lang=\"fr\"> end</lang> after."
+          "ssml": "Start <lang xml:lang=\"fr\">middle </lang><lang xml:lang=\"es\">nested</lang><lang xml:lang=\"fr\"> end</lang> after.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -97,7 +102,8 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "Start <lang xml:lang=\"fr\">middle </lang><lang xml:lang=\"es\">nested</lang><lang xml:lang=\"fr\"> end</lang> after."
+          "ssml": "Start <lang xml:lang=\"fr\">middle </lang><lang xml:lang=\"es\">nested</lang><lang xml:lang=\"fr\"> end</lang> after.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -109,7 +115,8 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "Start middle nested end after."
+          "ssml": "Start middle nested end after.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -120,7 +127,8 @@
       },
       "utterances": [
         {
-          "ssml": "Start middle nested end after."
+          "ssml": "Start middle nested end after.",
+          "startsNewBlock": true
         }
       ]
     }

@@ -6,10 +6,12 @@
       },
       "utterances": [
         {
-          "plain": "Before the divider."
+          "plain": "Before the divider.",
+          "startsNewBlock": true
         },
         {
-          "plain": "After the divider."
+          "plain": "After the divider.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -20,10 +22,12 @@
       },
       "utterances": [
         {
-          "plain": "Before the divider."
+          "plain": "Before the divider.",
+          "startsNewBlock": true
         },
         {
-          "plain": "After the divider."
+          "plain": "After the divider.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -34,10 +38,12 @@
       },
       "utterances": [
         {
-          "plain": "Before the divider."
+          "plain": "Before the divider.",
+          "startsNewBlock": true
         },
         {
-          "plain": "After the divider."
+          "plain": "After the divider.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -48,10 +54,12 @@
       },
       "utterances": [
         {
-          "plain": "Before the divider."
+          "plain": "Before the divider.",
+          "startsNewBlock": true
         },
         {
-          "plain": "After the divider."
+          "plain": "After the divider.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -61,10 +69,12 @@
       },
       "utterances": [
         {
-          "ssml": "Before the divider."
+          "ssml": "Before the divider.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "After the divider."
+          "ssml": "After the divider.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -75,10 +85,12 @@
       },
       "utterances": [
         {
-          "ssml": "Before the divider."
+          "ssml": "Before the divider.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "After the divider."
+          "ssml": "After the divider.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -89,10 +101,12 @@
       },
       "utterances": [
         {
-          "ssml": "Before the divider."
+          "ssml": "Before the divider.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "After the divider."
+          "ssml": "After the divider.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -103,10 +117,12 @@
       },
       "utterances": [
         {
-          "ssml": "Before the divider."
+          "ssml": "Before the divider.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "After the divider."
+          "ssml": "After the divider.",
+          "startsNewBlock": true
         }
       ]
     }

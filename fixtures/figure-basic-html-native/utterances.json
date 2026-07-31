@@ -6,7 +6,8 @@
       },
       "utterances": [
         {
-          "plain": "A bar chart showing sales growth"
+          "plain": "A bar chart showing sales growth",
+          "startsNewBlock": true
         }
       ]
     },
@@ -20,7 +21,8 @@
       },
       "utterances": [
         {
-          "plain": "Start of the figure."
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
         },
         {
           "plain": "Image."
@@ -40,7 +42,8 @@
       },
       "utterances": [
         {
-          "plain": "A bar chart showing sales growth"
+          "plain": "A bar chart showing sales growth",
+          "startsNewBlock": true
         }
       ]
     },
@@ -51,7 +54,8 @@
       },
       "utterances": [
         {
-          "plain": "A bar chart showing sales growth"
+          "plain": "A bar chart showing sales growth",
+          "startsNewBlock": true
         }
       ]
     },
@@ -62,7 +66,8 @@
       },
       "utterances": [
         {
-          "plain": "A bar chart showing sales growth"
+          "plain": "A bar chart showing sales growth",
+          "startsNewBlock": true
         }
       ]
     },
@@ -72,7 +77,8 @@
       },
       "utterances": [
         {
-          "ssml": "A bar chart showing sales growth"
+          "ssml": "A bar chart showing sales growth",
+          "startsNewBlock": true
         }
       ]
     },
@@ -86,7 +92,8 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the figure."
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Image."
@@ -106,7 +113,8 @@
       },
       "utterances": [
         {
-          "ssml": "A bar chart showing sales growth"
+          "ssml": "A bar chart showing sales growth",
+          "startsNewBlock": true
         }
       ]
     },
@@ -117,7 +125,8 @@
       },
       "utterances": [
         {
-          "ssml": "A bar chart showing sales growth"
+          "ssml": "A bar chart showing sales growth",
+          "startsNewBlock": true
         }
       ]
     },
@@ -128,7 +137,8 @@
       },
       "utterances": [
         {
-          "ssml": "A bar chart showing sales growth"
+          "ssml": "A bar chart showing sales growth",
+          "startsNewBlock": true
         }
       ]
     }

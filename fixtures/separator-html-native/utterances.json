@@ -6,10 +6,12 @@
       },
       "utterances": [
         {
-          "plain": "Section one."
+          "plain": "Section one.",
+          "startsNewBlock": true
         },
         {
-          "plain": "Section two."
+          "plain": "Section two.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -20,10 +22,12 @@
       },
       "utterances": [
         {
-          "plain": "Section one."
+          "plain": "Section one.",
+          "startsNewBlock": true
         },
         {
-          "plain": "Section two."
+          "plain": "Section two.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -34,10 +38,12 @@
       },
       "utterances": [
         {
-          "plain": "Section one."
+          "plain": "Section one.",
+          "startsNewBlock": true
         },
         {
-          "plain": "Section two."
+          "plain": "Section two.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -48,10 +54,12 @@
       },
       "utterances": [
         {
-          "plain": "Section one."
+          "plain": "Section one.",
+          "startsNewBlock": true
         },
         {
-          "plain": "Section two."
+          "plain": "Section two.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -61,10 +69,12 @@
       },
       "utterances": [
         {
-          "ssml": "Section one."
+          "ssml": "Section one.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Section two."
+          "ssml": "Section two.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -75,10 +85,12 @@
       },
       "utterances": [
         {
-          "ssml": "Section one."
+          "ssml": "Section one.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Section two."
+          "ssml": "Section two.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -89,10 +101,12 @@
       },
       "utterances": [
         {
-          "ssml": "Section one."
+          "ssml": "Section one.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Section two."
+          "ssml": "Section two.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -103,10 +117,12 @@
       },
       "utterances": [
         {
-          "ssml": "Section one."
+          "ssml": "Section one.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Section two."
+          "ssml": "Section two.",
+          "startsNewBlock": true
         }
       ]
     }

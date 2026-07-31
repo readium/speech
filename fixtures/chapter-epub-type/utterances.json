@@ -6,7 +6,8 @@
       },
       "utterances": [
         {
-          "plain": "Title of the chapter"
+          "plain": "Title of the chapter",
+          "startsNewBlock": true
         }
       ]
     },
@@ -20,7 +21,8 @@
       },
       "utterances": [
         {
-          "plain": "Start of the chapter."
+          "plain": "Start of the chapter.",
+          "startsNewBlock": true
         },
         {
           "plain": "Heading level 1."
@@ -40,7 +42,8 @@
       },
       "utterances": [
         {
-          "plain": "Title of the chapter"
+          "plain": "Title of the chapter",
+          "startsNewBlock": true
         }
       ]
     },
@@ -51,7 +54,8 @@
       },
       "utterances": [
         {
-          "plain": "Title of the chapter"
+          "plain": "Title of the chapter",
+          "startsNewBlock": true
         }
       ]
     },
@@ -62,7 +66,8 @@
       },
       "utterances": [
         {
-          "plain": "Title of the chapter"
+          "plain": "Title of the chapter",
+          "startsNewBlock": true
         }
       ]
     },
@@ -72,7 +77,8 @@
       },
       "utterances": [
         {
-          "ssml": "Title of the chapter"
+          "ssml": "Title of the chapter",
+          "startsNewBlock": true
         }
       ]
     },
@@ -86,7 +92,8 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the chapter."
+          "ssml": "Start of the chapter.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Heading level 1."
@@ -106,7 +113,8 @@
       },
       "utterances": [
         {
-          "ssml": "Title of the chapter"
+          "ssml": "Title of the chapter",
+          "startsNewBlock": true
         }
       ]
     },
@@ -117,7 +125,8 @@
       },
       "utterances": [
         {
-          "ssml": "Title of the chapter"
+          "ssml": "Title of the chapter",
+          "startsNewBlock": true
         }
       ]
     },
@@ -128,7 +137,8 @@
       },
       "utterances": [
         {
-          "ssml": "Title of the chapter"
+          "ssml": "Title of the chapter",
+          "startsNewBlock": true
         }
       ]
     }

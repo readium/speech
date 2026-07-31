@@ -6,7 +6,8 @@
       },
       "utterances": [
         {
-          "plain": "Before the lamp was ever lit, the rock was already feared."
+          "plain": "Before the lamp was ever lit, the rock was already feared.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -19,7 +20,8 @@
       },
       "utterances": [
         {
-          "plain": "Start of the prologue."
+          "plain": "Start of the prologue.",
+          "startsNewBlock": true
         },
         {
           "plain": "Before the lamp was ever lit, the rock was already feared."
@@ -36,7 +38,8 @@
       },
       "utterances": [
         {
-          "plain": "Before the lamp was ever lit, the rock was already feared."
+          "plain": "Before the lamp was ever lit, the rock was already feared.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -47,7 +50,8 @@
       },
       "utterances": [
         {
-          "plain": "Before the lamp was ever lit, the rock was already feared."
+          "plain": "Before the lamp was ever lit, the rock was already feared.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -58,7 +62,8 @@
       },
       "utterances": [
         {
-          "plain": "Before the lamp was ever lit, the rock was already feared."
+          "plain": "Before the lamp was ever lit, the rock was already feared.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -68,7 +73,8 @@
       },
       "utterances": [
         {
-          "ssml": "Before the lamp was ever lit, the rock was already feared."
+          "ssml": "Before the lamp was ever lit, the rock was already feared.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -81,7 +87,8 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the prologue."
+          "ssml": "Start of the prologue.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Before the lamp was ever lit, the rock was already feared."
@@ -98,7 +105,8 @@
       },
       "utterances": [
         {
-          "ssml": "Before the lamp was ever lit, the rock was already feared."
+          "ssml": "Before the lamp was ever lit, the rock was already feared.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -109,7 +117,8 @@
       },
       "utterances": [
         {
-          "ssml": "Before the lamp was ever lit, the rock was already feared."
+          "ssml": "Before the lamp was ever lit, the rock was already feared.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -120,7 +129,8 @@
       },
       "utterances": [
         {
-          "ssml": "Before the lamp was ever lit, the rock was already feared."
+          "ssml": "Before the lamp was ever lit, the rock was already feared.",
+          "startsNewBlock": true
         }
       ]
     }

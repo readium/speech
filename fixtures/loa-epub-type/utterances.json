@@ -6,10 +6,12 @@
       },
       "utterances": [
         {
-          "plain": "Audio 1. Foghorn recording"
+          "plain": "Audio 1. Foghorn recording",
+          "startsNewBlock": true
         },
         {
-          "plain": "Audio 2. Keeper's log reading"
+          "plain": "Audio 2. Keeper's log reading",
+          "startsNewBlock": true
         }
       ]
     },
@@ -36,7 +38,8 @@
           "plain": "Start of the list of audio clips."
         },
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "startsNewBlock": true
         },
         {
           "plain": "List item."
@@ -45,7 +48,8 @@
           "plain": "Audio 1. Foghorn recording"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "Audio 2. Keeper's log reading"
@@ -65,10 +69,12 @@
       },
       "utterances": [
         {
-          "plain": "Audio 1. Foghorn recording"
+          "plain": "Audio 1. Foghorn recording",
+          "startsNewBlock": true
         },
         {
-          "plain": "Audio 2. Keeper's log reading"
+          "plain": "Audio 2. Keeper's log reading",
+          "startsNewBlock": true
         }
       ]
     },
@@ -79,10 +85,12 @@
       },
       "utterances": [
         {
-          "plain": "Audio 1. Foghorn recording"
+          "plain": "Audio 1. Foghorn recording",
+          "startsNewBlock": true
         },
         {
-          "plain": "Audio 2. Keeper's log reading"
+          "plain": "Audio 2. Keeper's log reading",
+          "startsNewBlock": true
         }
       ]
     },
@@ -93,10 +101,12 @@
       },
       "utterances": [
         {
-          "plain": "Audio 1. Foghorn recording"
+          "plain": "Audio 1. Foghorn recording",
+          "startsNewBlock": true
         },
         {
-          "plain": "Audio 2. Keeper's log reading"
+          "plain": "Audio 2. Keeper's log reading",
+          "startsNewBlock": true
         }
       ]
     },
@@ -106,10 +116,12 @@
       },
       "utterances": [
         {
-          "ssml": "Audio 1. Foghorn recording"
+          "ssml": "Audio 1. Foghorn recording",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Audio 2. Keeper's log reading"
+          "ssml": "Audio 2. Keeper's log reading",
+          "startsNewBlock": true
         }
       ]
     },
@@ -136,7 +148,8 @@
           "ssml": "Start of the list of audio clips."
         },
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
         },
         {
           "ssml": "List item."
@@ -145,7 +158,8 @@
           "ssml": "Audio 1. Foghorn recording"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Audio 2. Keeper's log reading"
@@ -165,10 +179,12 @@
       },
       "utterances": [
         {
-          "ssml": "Audio 1. Foghorn recording"
+          "ssml": "Audio 1. Foghorn recording",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Audio 2. Keeper's log reading"
+          "ssml": "Audio 2. Keeper's log reading",
+          "startsNewBlock": true
         }
       ]
     },
@@ -179,10 +195,12 @@
       },
       "utterances": [
         {
-          "ssml": "Audio 1. Foghorn recording"
+          "ssml": "Audio 1. Foghorn recording",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Audio 2. Keeper's log reading"
+          "ssml": "Audio 2. Keeper's log reading",
+          "startsNewBlock": true
         }
       ]
     },
@@ -193,10 +211,12 @@
       },
       "utterances": [
         {
-          "ssml": "Audio 1. Foghorn recording"
+          "ssml": "Audio 1. Foghorn recording",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Audio 2. Keeper's log reading"
+          "ssml": "Audio 2. Keeper's log reading",
+          "startsNewBlock": true
         }
       ]
     }

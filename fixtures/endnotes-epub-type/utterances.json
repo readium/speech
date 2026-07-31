@@ -6,10 +6,12 @@
       },
       "utterances": [
         {
-          "plain": "See introduction for background."
+          "plain": "See introduction for background.",
+          "startsNewBlock": true
         },
         {
-          "plain": "See chapter three for details."
+          "plain": "See chapter three for details.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -53,7 +55,8 @@
       },
       "utterances": [
         {
-          "plain": "Start of the endnotes."
+          "plain": "Start of the endnotes.",
+          "startsNewBlock": true
         },
         {
           "plain": "Start of the list."
@@ -65,7 +68,8 @@
           "plain": "See introduction for background."
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "See chapter three for details."
@@ -85,10 +89,12 @@
       },
       "utterances": [
         {
-          "plain": "See introduction for background."
+          "plain": "See introduction for background.",
+          "startsNewBlock": true
         },
         {
-          "plain": "See chapter three for details."
+          "plain": "See chapter three for details.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -99,10 +105,12 @@
       },
       "utterances": [
         {
-          "plain": "See introduction for background."
+          "plain": "See introduction for background.",
+          "startsNewBlock": true
         },
         {
-          "plain": "See chapter three for details."
+          "plain": "See chapter three for details.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -113,10 +121,12 @@
       },
       "utterances": [
         {
-          "plain": "See introduction for background."
+          "plain": "See introduction for background.",
+          "startsNewBlock": true
         },
         {
-          "plain": "See chapter three for details."
+          "plain": "See chapter three for details.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -126,10 +136,12 @@
       },
       "utterances": [
         {
-          "ssml": "See introduction for background."
+          "ssml": "See introduction for background.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "See chapter three for details."
+          "ssml": "See chapter three for details.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -173,7 +185,8 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the endnotes."
+          "ssml": "Start of the endnotes.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Start of the list."
@@ -185,7 +198,8 @@
           "ssml": "See introduction for background."
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "See chapter three for details."
@@ -205,10 +219,12 @@
       },
       "utterances": [
         {
-          "ssml": "See introduction for background."
+          "ssml": "See introduction for background.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "See chapter three for details."
+          "ssml": "See chapter three for details.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -219,10 +235,12 @@
       },
       "utterances": [
         {
-          "ssml": "See introduction for background."
+          "ssml": "See introduction for background.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "See chapter three for details."
+          "ssml": "See chapter three for details.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -233,10 +251,12 @@
       },
       "utterances": [
         {
-          "ssml": "See introduction for background."
+          "ssml": "See introduction for background.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "See chapter three for details."
+          "ssml": "See chapter three for details.",
+          "startsNewBlock": true
         }
       ]
     }

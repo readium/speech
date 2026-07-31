@@ -20,7 +20,8 @@
       },
       "utterances": [
         {
-          "plain": "Image."
+          "plain": "Image.",
+          "startsNewBlock": true
         },
         {
           "plain": "Cover."
@@ -83,7 +84,8 @@
       },
       "utterances": [
         {
-          "ssml": "Image."
+          "ssml": "Image.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Cover."

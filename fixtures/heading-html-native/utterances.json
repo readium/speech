@@ -6,22 +6,28 @@
       },
       "utterances": [
         {
-          "plain": "Chapter One"
+          "plain": "Chapter One",
+          "startsNewBlock": true
         },
         {
-          "plain": "Section A"
+          "plain": "Section A",
+          "startsNewBlock": true
         },
         {
-          "plain": "Subsection i"
+          "plain": "Subsection i",
+          "startsNewBlock": true
         },
         {
-          "plain": "Detail heading"
+          "plain": "Detail heading",
+          "startsNewBlock": true
         },
         {
-          "plain": "Note heading"
+          "plain": "Note heading",
+          "startsNewBlock": true
         },
         {
-          "plain": "Aside heading"
+          "plain": "Aside heading",
+          "startsNewBlock": true
         }
       ]
     },
@@ -39,37 +45,43 @@
       },
       "utterances": [
         {
-          "plain": "Heading level 1."
+          "plain": "Heading level 1.",
+          "startsNewBlock": true
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2."
+          "plain": "Heading level 2.",
+          "startsNewBlock": true
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Heading level 3."
+          "plain": "Heading level 3.",
+          "startsNewBlock": true
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4."
+          "plain": "Heading level 4.",
+          "startsNewBlock": true
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5."
+          "plain": "Heading level 5.",
+          "startsNewBlock": true
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6."
+          "plain": "Heading level 6.",
+          "startsNewBlock": true
         },
         {
           "plain": "Aside heading"
@@ -83,22 +95,28 @@
       },
       "utterances": [
         {
-          "plain": "Chapter One"
+          "plain": "Chapter One",
+          "startsNewBlock": true
         },
         {
-          "plain": "Section A"
+          "plain": "Section A",
+          "startsNewBlock": true
         },
         {
-          "plain": "Subsection i"
+          "plain": "Subsection i",
+          "startsNewBlock": true
         },
         {
-          "plain": "Detail heading"
+          "plain": "Detail heading",
+          "startsNewBlock": true
         },
         {
-          "plain": "Note heading"
+          "plain": "Note heading",
+          "startsNewBlock": true
         },
         {
-          "plain": "Aside heading"
+          "plain": "Aside heading",
+          "startsNewBlock": true
         }
       ]
     },
@@ -109,22 +127,28 @@
       },
       "utterances": [
         {
-          "plain": "Chapter One"
+          "plain": "Chapter One",
+          "startsNewBlock": true
         },
         {
-          "plain": "Section A"
+          "plain": "Section A",
+          "startsNewBlock": true
         },
         {
-          "plain": "Subsection i"
+          "plain": "Subsection i",
+          "startsNewBlock": true
         },
         {
-          "plain": "Detail heading"
+          "plain": "Detail heading",
+          "startsNewBlock": true
         },
         {
-          "plain": "Note heading"
+          "plain": "Note heading",
+          "startsNewBlock": true
         },
         {
-          "plain": "Aside heading"
+          "plain": "Aside heading",
+          "startsNewBlock": true
         }
       ]
     },
@@ -135,22 +159,28 @@
       },
       "utterances": [
         {
-          "plain": "Chapter One"
+          "plain": "Chapter One",
+          "startsNewBlock": true
         },
         {
-          "plain": "Section A"
+          "plain": "Section A",
+          "startsNewBlock": true
         },
         {
-          "plain": "Subsection i"
+          "plain": "Subsection i",
+          "startsNewBlock": true
         },
         {
-          "plain": "Detail heading"
+          "plain": "Detail heading",
+          "startsNewBlock": true
         },
         {
-          "plain": "Note heading"
+          "plain": "Note heading",
+          "startsNewBlock": true
         },
         {
-          "plain": "Aside heading"
+          "plain": "Aside heading",
+          "startsNewBlock": true
         }
       ]
     },
@@ -160,22 +190,28 @@
       },
       "utterances": [
         {
-          "ssml": "Chapter One"
+          "ssml": "Chapter One",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Section A"
+          "ssml": "Section A",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Subsection i"
+          "ssml": "Subsection i",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Detail heading"
+          "ssml": "Detail heading",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Note heading"
+          "ssml": "Note heading",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Aside heading"
+          "ssml": "Aside heading",
+          "startsNewBlock": true
         }
       ]
     },
@@ -193,37 +229,43 @@
       },
       "utterances": [
         {
-          "ssml": "Heading level 1."
+          "ssml": "Heading level 1.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2."
+          "ssml": "Heading level 2.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3."
+          "ssml": "Heading level 3.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4."
+          "ssml": "Heading level 4.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5."
+          "ssml": "Heading level 5.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6."
+          "ssml": "Heading level 6.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Aside heading"
@@ -237,22 +279,28 @@
       },
       "utterances": [
         {
-          "ssml": "Chapter One"
+          "ssml": "Chapter One",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Section A"
+          "ssml": "Section A",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Subsection i"
+          "ssml": "Subsection i",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Detail heading"
+          "ssml": "Detail heading",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Note heading"
+          "ssml": "Note heading",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Aside heading"
+          "ssml": "Aside heading",
+          "startsNewBlock": true
         }
       ]
     },
@@ -263,22 +311,28 @@
       },
       "utterances": [
         {
-          "ssml": "Chapter One"
+          "ssml": "Chapter One",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Section A"
+          "ssml": "Section A",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Subsection i"
+          "ssml": "Subsection i",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Detail heading"
+          "ssml": "Detail heading",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Note heading"
+          "ssml": "Note heading",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Aside heading"
+          "ssml": "Aside heading",
+          "startsNewBlock": true
         }
       ]
     },
@@ -289,22 +343,28 @@
       },
       "utterances": [
         {
-          "ssml": "Chapter One"
+          "ssml": "Chapter One",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Section A"
+          "ssml": "Section A",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Subsection i"
+          "ssml": "Subsection i",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Detail heading"
+          "ssml": "Detail heading",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Note heading"
+          "ssml": "Note heading",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Aside heading"
+          "ssml": "Aside heading",
+          "startsNewBlock": true
         }
       ]
     }

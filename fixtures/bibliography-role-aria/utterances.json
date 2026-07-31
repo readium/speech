@@ -6,10 +6,12 @@
       },
       "utterances": [
         {
-          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988.",
+          "startsNewBlock": true
         },
         {
-          "plain": "Doe, A. Coastal Illumination. 1975."
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -33,7 +35,8 @@
       },
       "utterances": [
         {
-          "plain": "Start of the bibliography."
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
         },
         {
           "plain": "Start of the list."
@@ -45,7 +48,8 @@
           "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "Doe, A. Coastal Illumination. 1975."
@@ -65,10 +69,12 @@
       },
       "utterances": [
         {
-          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988.",
+          "startsNewBlock": true
         },
         {
-          "plain": "Doe, A. Coastal Illumination. 1975."
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -79,10 +85,12 @@
       },
       "utterances": [
         {
-          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988.",
+          "startsNewBlock": true
         },
         {
-          "plain": "Doe, A. Coastal Illumination. 1975."
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -93,10 +101,12 @@
       },
       "utterances": [
         {
-          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988.",
+          "startsNewBlock": true
         },
         {
-          "plain": "Doe, A. Coastal Illumination. 1975."
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -106,10 +116,12 @@
       },
       "utterances": [
         {
-          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Doe, A. Coastal Illumination. 1975."
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -133,7 +145,8 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the bibliography."
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Start of the list."
@@ -145,7 +158,8 @@
           "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Doe, A. Coastal Illumination. 1975."
@@ -165,10 +179,12 @@
       },
       "utterances": [
         {
-          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Doe, A. Coastal Illumination. 1975."
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -179,10 +195,12 @@
       },
       "utterances": [
         {
-          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Doe, A. Coastal Illumination. 1975."
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -193,10 +211,12 @@
       },
       "utterances": [
         {
-          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Doe, A. Coastal Illumination. 1975."
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
         }
       ]
     }

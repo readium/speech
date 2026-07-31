@@ -6,7 +6,8 @@
       },
       "utterances": [
         {
-          "plain": "This edition adds a chapter on automation."
+          "plain": "This edition adds a chapter on automation.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -19,7 +20,8 @@
       },
       "utterances": [
         {
-          "plain": "Start of the preface."
+          "plain": "Start of the preface.",
+          "startsNewBlock": true
         },
         {
           "plain": "This edition adds a chapter on automation."
@@ -36,7 +38,8 @@
       },
       "utterances": [
         {
-          "plain": "This edition adds a chapter on automation."
+          "plain": "This edition adds a chapter on automation.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -47,7 +50,8 @@
       },
       "utterances": [
         {
-          "plain": "This edition adds a chapter on automation."
+          "plain": "This edition adds a chapter on automation.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -58,7 +62,8 @@
       },
       "utterances": [
         {
-          "plain": "This edition adds a chapter on automation."
+          "plain": "This edition adds a chapter on automation.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -68,7 +73,8 @@
       },
       "utterances": [
         {
-          "ssml": "This edition adds a chapter on automation."
+          "ssml": "This edition adds a chapter on automation.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -81,7 +87,8 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the preface."
+          "ssml": "Start of the preface.",
+          "startsNewBlock": true
         },
         {
           "ssml": "This edition adds a chapter on automation."
@@ -98,7 +105,8 @@
       },
       "utterances": [
         {
-          "ssml": "This edition adds a chapter on automation."
+          "ssml": "This edition adds a chapter on automation.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -109,7 +117,8 @@
       },
       "utterances": [
         {
-          "ssml": "This edition adds a chapter on automation."
+          "ssml": "This edition adds a chapter on automation.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -120,7 +129,8 @@
       },
       "utterances": [
         {
-          "ssml": "This edition adds a chapter on automation."
+          "ssml": "This edition adds a chapter on automation.",
+          "startsNewBlock": true
         }
       ]
     }

@@ -6,10 +6,12 @@
       },
       "utterances": [
         {
-          "plain": "Before the hidden content."
+          "plain": "Before the hidden content.",
+          "startsNewBlock": true
         },
         {
-          "plain": "After the hidden content."
+          "plain": "After the hidden content.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -20,10 +22,12 @@
       },
       "utterances": [
         {
-          "plain": "Before the hidden content."
+          "plain": "Before the hidden content.",
+          "startsNewBlock": true
         },
         {
-          "plain": "After the hidden content."
+          "plain": "After the hidden content.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -34,10 +38,12 @@
       },
       "utterances": [
         {
-          "plain": "Before the hidden content."
+          "plain": "Before the hidden content.",
+          "startsNewBlock": true
         },
         {
-          "plain": "After the hidden content."
+          "plain": "After the hidden content.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -48,10 +54,12 @@
       },
       "utterances": [
         {
-          "plain": "Before the hidden content."
+          "plain": "Before the hidden content.",
+          "startsNewBlock": true
         },
         {
-          "plain": "After the hidden content."
+          "plain": "After the hidden content.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -61,10 +69,12 @@
       },
       "utterances": [
         {
-          "ssml": "Before the hidden content."
+          "ssml": "Before the hidden content.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "After the hidden content."
+          "ssml": "After the hidden content.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -75,10 +85,12 @@
       },
       "utterances": [
         {
-          "ssml": "Before the hidden content."
+          "ssml": "Before the hidden content.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "After the hidden content."
+          "ssml": "After the hidden content.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -89,10 +101,12 @@
       },
       "utterances": [
         {
-          "ssml": "Before the hidden content."
+          "ssml": "Before the hidden content.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "After the hidden content."
+          "ssml": "After the hidden content.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -103,10 +117,12 @@
       },
       "utterances": [
         {
-          "ssml": "Before the hidden content."
+          "ssml": "Before the hidden content.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "After the hidden content."
+          "ssml": "After the hidden content.",
+          "startsNewBlock": true
         }
       ]
     }

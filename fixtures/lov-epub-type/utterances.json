@@ -6,10 +6,12 @@
       },
       "utterances": [
         {
-          "plain": "Video 1. Lamp mechanism in motion"
+          "plain": "Video 1. Lamp mechanism in motion",
+          "startsNewBlock": true
         },
         {
-          "plain": "Video 2. Automation retrofit"
+          "plain": "Video 2. Automation retrofit",
+          "startsNewBlock": true
         }
       ]
     },
@@ -36,7 +38,8 @@
           "plain": "Start of the list of video clips."
         },
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "startsNewBlock": true
         },
         {
           "plain": "List item."
@@ -45,7 +48,8 @@
           "plain": "Video 1. Lamp mechanism in motion"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "Video 2. Automation retrofit"
@@ -65,10 +69,12 @@
       },
       "utterances": [
         {
-          "plain": "Video 1. Lamp mechanism in motion"
+          "plain": "Video 1. Lamp mechanism in motion",
+          "startsNewBlock": true
         },
         {
-          "plain": "Video 2. Automation retrofit"
+          "plain": "Video 2. Automation retrofit",
+          "startsNewBlock": true
         }
       ]
     },
@@ -79,10 +85,12 @@
       },
       "utterances": [
         {
-          "plain": "Video 1. Lamp mechanism in motion"
+          "plain": "Video 1. Lamp mechanism in motion",
+          "startsNewBlock": true
         },
         {
-          "plain": "Video 2. Automation retrofit"
+          "plain": "Video 2. Automation retrofit",
+          "startsNewBlock": true
         }
       ]
     },
@@ -93,10 +101,12 @@
       },
       "utterances": [
         {
-          "plain": "Video 1. Lamp mechanism in motion"
+          "plain": "Video 1. Lamp mechanism in motion",
+          "startsNewBlock": true
         },
         {
-          "plain": "Video 2. Automation retrofit"
+          "plain": "Video 2. Automation retrofit",
+          "startsNewBlock": true
         }
       ]
     },
@@ -106,10 +116,12 @@
       },
       "utterances": [
         {
-          "ssml": "Video 1. Lamp mechanism in motion"
+          "ssml": "Video 1. Lamp mechanism in motion",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Video 2. Automation retrofit"
+          "ssml": "Video 2. Automation retrofit",
+          "startsNewBlock": true
         }
       ]
     },
@@ -136,7 +148,8 @@
           "ssml": "Start of the list of video clips."
         },
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
         },
         {
           "ssml": "List item."
@@ -145,7 +158,8 @@
           "ssml": "Video 1. Lamp mechanism in motion"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Video 2. Automation retrofit"
@@ -165,10 +179,12 @@
       },
       "utterances": [
         {
-          "ssml": "Video 1. Lamp mechanism in motion"
+          "ssml": "Video 1. Lamp mechanism in motion",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Video 2. Automation retrofit"
+          "ssml": "Video 2. Automation retrofit",
+          "startsNewBlock": true
         }
       ]
     },
@@ -179,10 +195,12 @@
       },
       "utterances": [
         {
-          "ssml": "Video 1. Lamp mechanism in motion"
+          "ssml": "Video 1. Lamp mechanism in motion",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Video 2. Automation retrofit"
+          "ssml": "Video 2. Automation retrofit",
+          "startsNewBlock": true
         }
       ]
     },
@@ -193,10 +211,12 @@
       },
       "utterances": [
         {
-          "ssml": "Video 1. Lamp mechanism in motion"
+          "ssml": "Video 1. Lamp mechanism in motion",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Video 2. Automation retrofit"
+          "ssml": "Video 2. Automation retrofit",
+          "startsNewBlock": true
         }
       ]
     }

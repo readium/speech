@@ -6,7 +6,8 @@
       },
       "utterances": [
         {
-          "plain": "This work examines the maintenance of coastal lighthouses in the 19th century."
+          "plain": "This work examines the maintenance of coastal lighthouses in the 19th century.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -19,7 +20,8 @@
       },
       "utterances": [
         {
-          "plain": "Abstract."
+          "plain": "Abstract.",
+          "startsNewBlock": true
         },
         {
           "plain": "This work examines the maintenance of coastal lighthouses in the 19th century."
@@ -33,7 +35,8 @@
       },
       "utterances": [
         {
-          "plain": "This work examines the maintenance of coastal lighthouses in the 19th century."
+          "plain": "This work examines the maintenance of coastal lighthouses in the 19th century.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -44,7 +47,8 @@
       },
       "utterances": [
         {
-          "plain": "This work examines the maintenance of coastal lighthouses in the 19th century."
+          "plain": "This work examines the maintenance of coastal lighthouses in the 19th century.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -55,7 +59,8 @@
       },
       "utterances": [
         {
-          "plain": "This work examines the maintenance of coastal lighthouses in the 19th century."
+          "plain": "This work examines the maintenance of coastal lighthouses in the 19th century.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -65,7 +70,8 @@
       },
       "utterances": [
         {
-          "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century."
+          "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -78,7 +84,8 @@
       },
       "utterances": [
         {
-          "ssml": "Abstract."
+          "ssml": "Abstract.",
+          "startsNewBlock": true
         },
         {
           "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century."
@@ -92,7 +99,8 @@
       },
       "utterances": [
         {
-          "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century."
+          "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -103,7 +111,8 @@
       },
       "utterances": [
         {
-          "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century."
+          "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -114,7 +123,8 @@
       },
       "utterances": [
         {
-          "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century."
+          "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century.",
+          "startsNewBlock": true
         }
       ]
     }

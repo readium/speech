@@ -6,7 +6,8 @@
       },
       "utterances": [
         {
-          "plain": "Click to expand"
+          "plain": "Click to expand",
+          "startsNewBlock": true
         }
       ]
     },
@@ -19,7 +20,8 @@
       },
       "utterances": [
         {
-          "plain": "Summary."
+          "plain": "Summary.",
+          "startsNewBlock": true
         },
         {
           "plain": "Click to expand"
@@ -33,7 +35,8 @@
       },
       "utterances": [
         {
-          "plain": "Click to expand"
+          "plain": "Click to expand",
+          "startsNewBlock": true
         }
       ]
     },
@@ -44,7 +47,8 @@
       },
       "utterances": [
         {
-          "plain": "Click to expand"
+          "plain": "Click to expand",
+          "startsNewBlock": true
         }
       ]
     },
@@ -55,7 +59,8 @@
       },
       "utterances": [
         {
-          "plain": "Click to expand"
+          "plain": "Click to expand",
+          "startsNewBlock": true
         }
       ]
     },
@@ -65,7 +70,8 @@
       },
       "utterances": [
         {
-          "ssml": "Click to expand"
+          "ssml": "Click to expand",
+          "startsNewBlock": true
         }
       ]
     },
@@ -78,7 +84,8 @@
       },
       "utterances": [
         {
-          "ssml": "Summary."
+          "ssml": "Summary.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Click to expand"
@@ -92,7 +99,8 @@
       },
       "utterances": [
         {
-          "ssml": "Click to expand"
+          "ssml": "Click to expand",
+          "startsNewBlock": true
         }
       ]
     },
@@ -103,7 +111,8 @@
       },
       "utterances": [
         {
-          "ssml": "Click to expand"
+          "ssml": "Click to expand",
+          "startsNewBlock": true
         }
       ]
     },
@@ -114,7 +123,8 @@
       },
       "utterances": [
         {
-          "ssml": "Click to expand"
+          "ssml": "Click to expand",
+          "startsNewBlock": true
         }
       ]
     }

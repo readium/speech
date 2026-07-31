@@ -6,10 +6,12 @@
       },
       "utterances": [
         {
-          "plain": "Table 1. Lighthouse construction dates"
+          "plain": "Table 1. Lighthouse construction dates",
+          "startsNewBlock": true
         },
         {
-          "plain": "Table 2. Keeper staffing by decade"
+          "plain": "Table 2. Keeper staffing by decade",
+          "startsNewBlock": true
         }
       ]
     },
@@ -36,7 +38,8 @@
           "plain": "Start of the list of tables."
         },
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "startsNewBlock": true
         },
         {
           "plain": "List item."
@@ -45,7 +48,8 @@
           "plain": "Table 1. Lighthouse construction dates"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "Table 2. Keeper staffing by decade"
@@ -65,10 +69,12 @@
       },
       "utterances": [
         {
-          "plain": "Table 1. Lighthouse construction dates"
+          "plain": "Table 1. Lighthouse construction dates",
+          "startsNewBlock": true
         },
         {
-          "plain": "Table 2. Keeper staffing by decade"
+          "plain": "Table 2. Keeper staffing by decade",
+          "startsNewBlock": true
         }
       ]
     },
@@ -79,10 +85,12 @@
       },
       "utterances": [
         {
-          "plain": "Table 1. Lighthouse construction dates"
+          "plain": "Table 1. Lighthouse construction dates",
+          "startsNewBlock": true
         },
         {
-          "plain": "Table 2. Keeper staffing by decade"
+          "plain": "Table 2. Keeper staffing by decade",
+          "startsNewBlock": true
         }
       ]
     },
@@ -93,10 +101,12 @@
       },
       "utterances": [
         {
-          "plain": "Table 1. Lighthouse construction dates"
+          "plain": "Table 1. Lighthouse construction dates",
+          "startsNewBlock": true
         },
         {
-          "plain": "Table 2. Keeper staffing by decade"
+          "plain": "Table 2. Keeper staffing by decade",
+          "startsNewBlock": true
         }
       ]
     },
@@ -106,10 +116,12 @@
       },
       "utterances": [
         {
-          "ssml": "Table 1. Lighthouse construction dates"
+          "ssml": "Table 1. Lighthouse construction dates",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Table 2. Keeper staffing by decade"
+          "ssml": "Table 2. Keeper staffing by decade",
+          "startsNewBlock": true
         }
       ]
     },
@@ -136,7 +148,8 @@
           "ssml": "Start of the list of tables."
         },
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
         },
         {
           "ssml": "List item."
@@ -145,7 +158,8 @@
           "ssml": "Table 1. Lighthouse construction dates"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Table 2. Keeper staffing by decade"
@@ -165,10 +179,12 @@
       },
       "utterances": [
         {
-          "ssml": "Table 1. Lighthouse construction dates"
+          "ssml": "Table 1. Lighthouse construction dates",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Table 2. Keeper staffing by decade"
+          "ssml": "Table 2. Keeper staffing by decade",
+          "startsNewBlock": true
         }
       ]
     },
@@ -179,10 +195,12 @@
       },
       "utterances": [
         {
-          "ssml": "Table 1. Lighthouse construction dates"
+          "ssml": "Table 1. Lighthouse construction dates",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Table 2. Keeper staffing by decade"
+          "ssml": "Table 2. Keeper staffing by decade",
+          "startsNewBlock": true
         }
       ]
     },
@@ -193,10 +211,12 @@
       },
       "utterances": [
         {
-          "ssml": "Table 1. Lighthouse construction dates"
+          "ssml": "Table 1. Lighthouse construction dates",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Table 2. Keeper staffing by decade"
+          "ssml": "Table 2. Keeper staffing by decade",
+          "startsNewBlock": true
         }
       ]
     }

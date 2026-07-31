@@ -6,13 +6,16 @@
       },
       "utterances": [
         {
-          "plain": "Chapter One"
+          "plain": "Chapter One",
+          "startsNewBlock": true
         },
         {
-          "plain": "Chapter Two"
+          "plain": "Chapter Two",
+          "startsNewBlock": true
         },
         {
-          "plain": "Chapter Three"
+          "plain": "Chapter Three",
+          "startsNewBlock": true
         }
       ]
     },
@@ -39,7 +42,8 @@
           "plain": "Start of the table of contents."
         },
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "startsNewBlock": true
         },
         {
           "plain": "List item."
@@ -48,13 +52,15 @@
           "plain": "Chapter One"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "Chapter Two"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "Chapter Three"
@@ -74,13 +80,16 @@
       },
       "utterances": [
         {
-          "plain": "Chapter One"
+          "plain": "Chapter One",
+          "startsNewBlock": true
         },
         {
-          "plain": "Chapter Two"
+          "plain": "Chapter Two",
+          "startsNewBlock": true
         },
         {
-          "plain": "Chapter Three"
+          "plain": "Chapter Three",
+          "startsNewBlock": true
         }
       ]
     },
@@ -91,13 +100,16 @@
       },
       "utterances": [
         {
-          "plain": "Chapter One"
+          "plain": "Chapter One",
+          "startsNewBlock": true
         },
         {
-          "plain": "Chapter Two"
+          "plain": "Chapter Two",
+          "startsNewBlock": true
         },
         {
-          "plain": "Chapter Three"
+          "plain": "Chapter Three",
+          "startsNewBlock": true
         }
       ]
     },
@@ -108,13 +120,16 @@
       },
       "utterances": [
         {
-          "plain": "Chapter One"
+          "plain": "Chapter One",
+          "startsNewBlock": true
         },
         {
-          "plain": "Chapter Two"
+          "plain": "Chapter Two",
+          "startsNewBlock": true
         },
         {
-          "plain": "Chapter Three"
+          "plain": "Chapter Three",
+          "startsNewBlock": true
         }
       ]
     },
@@ -124,13 +139,16 @@
       },
       "utterances": [
         {
-          "ssml": "Chapter One"
+          "ssml": "Chapter One",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Chapter Two"
+          "ssml": "Chapter Two",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Chapter Three"
+          "ssml": "Chapter Three",
+          "startsNewBlock": true
         }
       ]
     },
@@ -157,7 +175,8 @@
           "ssml": "Start of the table of contents."
         },
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
         },
         {
           "ssml": "List item."
@@ -166,13 +185,15 @@
           "ssml": "Chapter One"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Chapter Two"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Chapter Three"
@@ -192,13 +213,16 @@
       },
       "utterances": [
         {
-          "ssml": "Chapter One"
+          "ssml": "Chapter One",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Chapter Two"
+          "ssml": "Chapter Two",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Chapter Three"
+          "ssml": "Chapter Three",
+          "startsNewBlock": true
         }
       ]
     },
@@ -209,13 +233,16 @@
       },
       "utterances": [
         {
-          "ssml": "Chapter One"
+          "ssml": "Chapter One",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Chapter Two"
+          "ssml": "Chapter Two",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Chapter Three"
+          "ssml": "Chapter Three",
+          "startsNewBlock": true
         }
       ]
     },
@@ -226,13 +253,16 @@
       },
       "utterances": [
         {
-          "ssml": "Chapter One"
+          "ssml": "Chapter One",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Chapter Two"
+          "ssml": "Chapter Two",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Chapter Three"
+          "ssml": "Chapter Three",
+          "startsNewBlock": true
         }
       ]
     }

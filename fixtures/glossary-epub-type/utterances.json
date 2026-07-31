@@ -6,7 +6,8 @@
       },
       "utterances": [
         {
-          "plain": "Fresnel lens"
+          "plain": "Fresnel lens",
+          "startsNewBlock": true
         },
         {
           "plain": "A compact lens for focusing light."
@@ -29,7 +30,8 @@
       },
       "utterances": [
         {
-          "plain": "Start of the glossary."
+          "plain": "Start of the glossary.",
+          "startsNewBlock": true
         },
         {
           "plain": "Term."
@@ -61,7 +63,8 @@
       },
       "utterances": [
         {
-          "plain": "Fresnel lens"
+          "plain": "Fresnel lens",
+          "startsNewBlock": true
         },
         {
           "plain": "A compact lens for focusing light."
@@ -81,7 +84,8 @@
       },
       "utterances": [
         {
-          "plain": "Fresnel lens"
+          "plain": "Fresnel lens",
+          "startsNewBlock": true
         },
         {
           "plain": "A compact lens for focusing light."
@@ -101,7 +105,8 @@
       },
       "utterances": [
         {
-          "plain": "Fresnel lens"
+          "plain": "Fresnel lens",
+          "startsNewBlock": true
         },
         {
           "plain": "A compact lens for focusing light."
@@ -120,7 +125,8 @@
       },
       "utterances": [
         {
-          "ssml": "Fresnel lens"
+          "ssml": "Fresnel lens",
+          "startsNewBlock": true
         },
         {
           "ssml": "A compact lens for focusing light."
@@ -143,7 +149,8 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the glossary."
+          "ssml": "Start of the glossary.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Term."
@@ -175,7 +182,8 @@
       },
       "utterances": [
         {
-          "ssml": "Fresnel lens"
+          "ssml": "Fresnel lens",
+          "startsNewBlock": true
         },
         {
           "ssml": "A compact lens for focusing light."
@@ -195,7 +203,8 @@
       },
       "utterances": [
         {
-          "ssml": "Fresnel lens"
+          "ssml": "Fresnel lens",
+          "startsNewBlock": true
         },
         {
           "ssml": "A compact lens for focusing light."
@@ -215,7 +224,8 @@
       },
       "utterances": [
         {
-          "ssml": "Fresnel lens"
+          "ssml": "Fresnel lens",
+          "startsNewBlock": true
         },
         {
           "ssml": "A compact lens for focusing light."

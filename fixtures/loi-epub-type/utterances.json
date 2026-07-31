@@ -6,10 +6,12 @@
       },
       "utterances": [
         {
-          "plain": "Figure 1. Lighthouse cross-section"
+          "plain": "Figure 1. Lighthouse cross-section",
+          "startsNewBlock": true
         },
         {
-          "plain": "Figure 2. Fresnel lens diagram"
+          "plain": "Figure 2. Fresnel lens diagram",
+          "startsNewBlock": true
         }
       ]
     },
@@ -36,7 +38,8 @@
           "plain": "Start of the list of illustrations."
         },
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "startsNewBlock": true
         },
         {
           "plain": "List item."
@@ -45,7 +48,8 @@
           "plain": "Figure 1. Lighthouse cross-section"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "Figure 2. Fresnel lens diagram"
@@ -65,10 +69,12 @@
       },
       "utterances": [
         {
-          "plain": "Figure 1. Lighthouse cross-section"
+          "plain": "Figure 1. Lighthouse cross-section",
+          "startsNewBlock": true
         },
         {
-          "plain": "Figure 2. Fresnel lens diagram"
+          "plain": "Figure 2. Fresnel lens diagram",
+          "startsNewBlock": true
         }
       ]
     },
@@ -79,10 +85,12 @@
       },
       "utterances": [
         {
-          "plain": "Figure 1. Lighthouse cross-section"
+          "plain": "Figure 1. Lighthouse cross-section",
+          "startsNewBlock": true
         },
         {
-          "plain": "Figure 2. Fresnel lens diagram"
+          "plain": "Figure 2. Fresnel lens diagram",
+          "startsNewBlock": true
         }
       ]
     },
@@ -93,10 +101,12 @@
       },
       "utterances": [
         {
-          "plain": "Figure 1. Lighthouse cross-section"
+          "plain": "Figure 1. Lighthouse cross-section",
+          "startsNewBlock": true
         },
         {
-          "plain": "Figure 2. Fresnel lens diagram"
+          "plain": "Figure 2. Fresnel lens diagram",
+          "startsNewBlock": true
         }
       ]
     },
@@ -106,10 +116,12 @@
       },
       "utterances": [
         {
-          "ssml": "Figure 1. Lighthouse cross-section"
+          "ssml": "Figure 1. Lighthouse cross-section",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Figure 2. Fresnel lens diagram"
+          "ssml": "Figure 2. Fresnel lens diagram",
+          "startsNewBlock": true
         }
       ]
     },
@@ -136,7 +148,8 @@
           "ssml": "Start of the list of illustrations."
         },
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
         },
         {
           "ssml": "List item."
@@ -145,7 +158,8 @@
           "ssml": "Figure 1. Lighthouse cross-section"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Figure 2. Fresnel lens diagram"
@@ -165,10 +179,12 @@
       },
       "utterances": [
         {
-          "ssml": "Figure 1. Lighthouse cross-section"
+          "ssml": "Figure 1. Lighthouse cross-section",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Figure 2. Fresnel lens diagram"
+          "ssml": "Figure 2. Fresnel lens diagram",
+          "startsNewBlock": true
         }
       ]
     },
@@ -179,10 +195,12 @@
       },
       "utterances": [
         {
-          "ssml": "Figure 1. Lighthouse cross-section"
+          "ssml": "Figure 1. Lighthouse cross-section",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Figure 2. Fresnel lens diagram"
+          "ssml": "Figure 2. Fresnel lens diagram",
+          "startsNewBlock": true
         }
       ]
     },
@@ -193,10 +211,12 @@
       },
       "utterances": [
         {
-          "ssml": "Figure 1. Lighthouse cross-section"
+          "ssml": "Figure 1. Lighthouse cross-section",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Figure 2. Fresnel lens diagram"
+          "ssml": "Figure 2. Fresnel lens diagram",
+          "startsNewBlock": true
         }
       ]
     }

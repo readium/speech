@@ -6,7 +6,8 @@
       },
       "utterances": [
         {
-          "plain": "A table of lighthouse construction dates referenced in the text."
+          "plain": "A table of lighthouse construction dates referenced in the text.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -19,7 +20,8 @@
       },
       "utterances": [
         {
-          "plain": "Start of the appendix."
+          "plain": "Start of the appendix.",
+          "startsNewBlock": true
         },
         {
           "plain": "A table of lighthouse construction dates referenced in the text."
@@ -36,7 +38,8 @@
       },
       "utterances": [
         {
-          "plain": "A table of lighthouse construction dates referenced in the text."
+          "plain": "A table of lighthouse construction dates referenced in the text.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -47,7 +50,8 @@
       },
       "utterances": [
         {
-          "plain": "A table of lighthouse construction dates referenced in the text."
+          "plain": "A table of lighthouse construction dates referenced in the text.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -58,7 +62,8 @@
       },
       "utterances": [
         {
-          "plain": "A table of lighthouse construction dates referenced in the text."
+          "plain": "A table of lighthouse construction dates referenced in the text.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -68,7 +73,8 @@
       },
       "utterances": [
         {
-          "ssml": "A table of lighthouse construction dates referenced in the text."
+          "ssml": "A table of lighthouse construction dates referenced in the text.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -81,7 +87,8 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the appendix."
+          "ssml": "Start of the appendix.",
+          "startsNewBlock": true
         },
         {
           "ssml": "A table of lighthouse construction dates referenced in the text."
@@ -98,7 +105,8 @@
       },
       "utterances": [
         {
-          "ssml": "A table of lighthouse construction dates referenced in the text."
+          "ssml": "A table of lighthouse construction dates referenced in the text.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -109,7 +117,8 @@
       },
       "utterances": [
         {
-          "ssml": "A table of lighthouse construction dates referenced in the text."
+          "ssml": "A table of lighthouse construction dates referenced in the text.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -120,7 +129,8 @@
       },
       "utterances": [
         {
-          "ssml": "A table of lighthouse construction dates referenced in the text."
+          "ssml": "A table of lighthouse construction dates referenced in the text.",
+          "startsNewBlock": true
         }
       ]
     }

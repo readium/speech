@@ -19,7 +19,8 @@
       },
       "utterances": [
         {
-          "plain": "Video."
+          "plain": "Video.",
+          "startsNewBlock": true
         },
         {
           "plain": "The lamp mechanism rotating at dusk"
@@ -78,7 +79,8 @@
       },
       "utterances": [
         {
-          "ssml": "Video."
+          "ssml": "Video.",
+          "startsNewBlock": true
         },
         {
           "ssml": "The lamp mechanism rotating at dusk"

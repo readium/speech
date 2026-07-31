@@ -6,7 +6,8 @@
       },
       "utterances": [
         {
-          "plain": "Click to expand"
+          "plain": "Click to expand",
+          "startsNewBlock": true
         },
         {
           "plain": "Additional details the reader can expand."
@@ -35,7 +36,8 @@
           "plain": "Start of the details."
         },
         {
-          "plain": "Summary."
+          "plain": "Summary.",
+          "startsNewBlock": true
         },
         {
           "plain": "Click to expand"
@@ -55,7 +57,8 @@
       },
       "utterances": [
         {
-          "plain": "Click to expand"
+          "plain": "Click to expand",
+          "startsNewBlock": true
         },
         {
           "plain": "Additional details the reader can expand."
@@ -69,7 +72,8 @@
       },
       "utterances": [
         {
-          "plain": "Click to expand"
+          "plain": "Click to expand",
+          "startsNewBlock": true
         },
         {
           "plain": "Additional details the reader can expand."
@@ -83,7 +87,8 @@
       },
       "utterances": [
         {
-          "plain": "Click to expand"
+          "plain": "Click to expand",
+          "startsNewBlock": true
         },
         {
           "plain": "Additional details the reader can expand."
@@ -96,7 +101,8 @@
       },
       "utterances": [
         {
-          "ssml": "Click to expand"
+          "ssml": "Click to expand",
+          "startsNewBlock": true
         },
         {
           "ssml": "Additional details the reader can expand."
@@ -125,7 +131,8 @@
           "ssml": "Start of the details."
         },
         {
-          "ssml": "Summary."
+          "ssml": "Summary.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Click to expand"
@@ -145,7 +152,8 @@
       },
       "utterances": [
         {
-          "ssml": "Click to expand"
+          "ssml": "Click to expand",
+          "startsNewBlock": true
         },
         {
           "ssml": "Additional details the reader can expand."
@@ -159,7 +167,8 @@
       },
       "utterances": [
         {
-          "ssml": "Click to expand"
+          "ssml": "Click to expand",
+          "startsNewBlock": true
         },
         {
           "ssml": "Additional details the reader can expand."
@@ -173,7 +182,8 @@
       },
       "utterances": [
         {
-          "ssml": "Click to expand"
+          "ssml": "Click to expand",
+          "startsNewBlock": true
         },
         {
           "ssml": "Additional details the reader can expand."

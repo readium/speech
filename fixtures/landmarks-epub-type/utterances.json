@@ -6,13 +6,16 @@
       },
       "utterances": [
         {
-          "plain": "Cover"
+          "plain": "Cover",
+          "startsNewBlock": true
         },
         {
-          "plain": "Table of Contents"
+          "plain": "Table of Contents",
+          "startsNewBlock": true
         },
         {
-          "plain": "Start of Content"
+          "plain": "Start of Content",
+          "startsNewBlock": true
         }
       ]
     },
@@ -39,7 +42,8 @@
           "plain": "Start of the landmarks."
         },
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "startsNewBlock": true
         },
         {
           "plain": "List item."
@@ -48,13 +52,15 @@
           "plain": "Cover"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "Table of Contents"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "Start of Content"
@@ -74,13 +80,16 @@
       },
       "utterances": [
         {
-          "plain": "Cover"
+          "plain": "Cover",
+          "startsNewBlock": true
         },
         {
-          "plain": "Table of Contents"
+          "plain": "Table of Contents",
+          "startsNewBlock": true
         },
         {
-          "plain": "Start of Content"
+          "plain": "Start of Content",
+          "startsNewBlock": true
         }
       ]
     },
@@ -91,13 +100,16 @@
       },
       "utterances": [
         {
-          "plain": "Cover"
+          "plain": "Cover",
+          "startsNewBlock": true
         },
         {
-          "plain": "Table of Contents"
+          "plain": "Table of Contents",
+          "startsNewBlock": true
         },
         {
-          "plain": "Start of Content"
+          "plain": "Start of Content",
+          "startsNewBlock": true
         }
       ]
     },
@@ -108,13 +120,16 @@
       },
       "utterances": [
         {
-          "plain": "Cover"
+          "plain": "Cover",
+          "startsNewBlock": true
         },
         {
-          "plain": "Table of Contents"
+          "plain": "Table of Contents",
+          "startsNewBlock": true
         },
         {
-          "plain": "Start of Content"
+          "plain": "Start of Content",
+          "startsNewBlock": true
         }
       ]
     },
@@ -124,13 +139,16 @@
       },
       "utterances": [
         {
-          "ssml": "Cover"
+          "ssml": "Cover",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Table of Contents"
+          "ssml": "Table of Contents",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Start of Content"
+          "ssml": "Start of Content",
+          "startsNewBlock": true
         }
       ]
     },
@@ -157,7 +175,8 @@
           "ssml": "Start of the landmarks."
         },
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
         },
         {
           "ssml": "List item."
@@ -166,13 +185,15 @@
           "ssml": "Cover"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Table of Contents"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Start of Content"
@@ -192,13 +213,16 @@
       },
       "utterances": [
         {
-          "ssml": "Cover"
+          "ssml": "Cover",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Table of Contents"
+          "ssml": "Table of Contents",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Start of Content"
+          "ssml": "Start of Content",
+          "startsNewBlock": true
         }
       ]
     },
@@ -209,13 +233,16 @@
       },
       "utterances": [
         {
-          "ssml": "Cover"
+          "ssml": "Cover",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Table of Contents"
+          "ssml": "Table of Contents",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Start of Content"
+          "ssml": "Start of Content",
+          "startsNewBlock": true
         }
       ]
     },
@@ -226,13 +253,16 @@
       },
       "utterances": [
         {
-          "ssml": "Cover"
+          "ssml": "Cover",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Table of Contents"
+          "ssml": "Table of Contents",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Start of Content"
+          "ssml": "Start of Content",
+          "startsNewBlock": true
         }
       ]
     }

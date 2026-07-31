@@ -6,22 +6,28 @@
       },
       "utterances": [
         {
-          "plain": "Name"
+          "plain": "Name",
+          "startsNewBlock": true
         },
         {
-          "plain": "Role"
+          "plain": "Role",
+          "startsNewBlock": true
         },
         {
-          "plain": "Ada"
+          "plain": "Ada",
+          "startsNewBlock": true
         },
         {
-          "plain": "Engineer"
+          "plain": "Engineer",
+          "startsNewBlock": true
         },
         {
-          "plain": "Grace"
+          "plain": "Grace",
+          "startsNewBlock": true
         },
         {
-          "plain": "Admiral"
+          "plain": "Admiral",
+          "startsNewBlock": true
         }
       ]
     },
@@ -38,7 +44,8 @@
       },
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Start of the table.",
+          "startsNewBlock": true
         },
         {
           "plain": "Start of the row."
@@ -50,7 +57,8 @@
           "plain": "Name"
         },
         {
-          "plain": "Column header."
+          "plain": "Column header.",
+          "startsNewBlock": true
         },
         {
           "plain": "Role"
@@ -59,7 +67,8 @@
           "plain": "End of the row."
         },
         {
-          "plain": "Start of the row."
+          "plain": "Start of the row.",
+          "startsNewBlock": true
         },
         {
           "plain": "Row header."
@@ -68,7 +77,8 @@
           "plain": "Ada"
         },
         {
-          "plain": "Cell."
+          "plain": "Cell.",
+          "startsNewBlock": true
         },
         {
           "plain": "Engineer"
@@ -77,7 +87,8 @@
           "plain": "End of the row."
         },
         {
-          "plain": "Start of the row."
+          "plain": "Start of the row.",
+          "startsNewBlock": true
         },
         {
           "plain": "Row header."
@@ -86,7 +97,8 @@
           "plain": "Grace"
         },
         {
-          "plain": "Cell."
+          "plain": "Cell.",
+          "startsNewBlock": true
         },
         {
           "plain": "Admiral"
@@ -106,22 +118,28 @@
       },
       "utterances": [
         {
-          "plain": "Name"
+          "plain": "Name",
+          "startsNewBlock": true
         },
         {
-          "plain": "Role"
+          "plain": "Role",
+          "startsNewBlock": true
         },
         {
-          "plain": "Ada"
+          "plain": "Ada",
+          "startsNewBlock": true
         },
         {
-          "plain": "Engineer"
+          "plain": "Engineer",
+          "startsNewBlock": true
         },
         {
-          "plain": "Grace"
+          "plain": "Grace",
+          "startsNewBlock": true
         },
         {
-          "plain": "Admiral"
+          "plain": "Admiral",
+          "startsNewBlock": true
         }
       ]
     },
@@ -132,22 +150,28 @@
       },
       "utterances": [
         {
-          "plain": "Name"
+          "plain": "Name",
+          "startsNewBlock": true
         },
         {
-          "plain": "Role"
+          "plain": "Role",
+          "startsNewBlock": true
         },
         {
-          "plain": "Ada"
+          "plain": "Ada",
+          "startsNewBlock": true
         },
         {
-          "plain": "Engineer"
+          "plain": "Engineer",
+          "startsNewBlock": true
         },
         {
-          "plain": "Grace"
+          "plain": "Grace",
+          "startsNewBlock": true
         },
         {
-          "plain": "Admiral"
+          "plain": "Admiral",
+          "startsNewBlock": true
         }
       ]
     },
@@ -158,22 +182,28 @@
       },
       "utterances": [
         {
-          "plain": "Name"
+          "plain": "Name",
+          "startsNewBlock": true
         },
         {
-          "plain": "Role"
+          "plain": "Role",
+          "startsNewBlock": true
         },
         {
-          "plain": "Ada"
+          "plain": "Ada",
+          "startsNewBlock": true
         },
         {
-          "plain": "Engineer"
+          "plain": "Engineer",
+          "startsNewBlock": true
         },
         {
-          "plain": "Grace"
+          "plain": "Grace",
+          "startsNewBlock": true
         },
         {
-          "plain": "Admiral"
+          "plain": "Admiral",
+          "startsNewBlock": true
         }
       ]
     },
@@ -183,22 +213,28 @@
       },
       "utterances": [
         {
-          "ssml": "Name"
+          "ssml": "Name",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Role"
+          "ssml": "Role",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Ada"
+          "ssml": "Ada",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Engineer"
+          "ssml": "Engineer",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Grace"
+          "ssml": "Grace",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Admiral"
+          "ssml": "Admiral",
+          "startsNewBlock": true
         }
       ]
     },
@@ -215,7 +251,8 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Start of the table.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Start of the row."
@@ -227,7 +264,8 @@
           "ssml": "Name"
         },
         {
-          "ssml": "Column header."
+          "ssml": "Column header.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Role"
@@ -236,7 +274,8 @@
           "ssml": "End of the row."
         },
         {
-          "ssml": "Start of the row."
+          "ssml": "Start of the row.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Row header."
@@ -245,7 +284,8 @@
           "ssml": "Ada"
         },
         {
-          "ssml": "Cell."
+          "ssml": "Cell.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Engineer"
@@ -254,7 +294,8 @@
           "ssml": "End of the row."
         },
         {
-          "ssml": "Start of the row."
+          "ssml": "Start of the row.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Row header."
@@ -263,7 +304,8 @@
           "ssml": "Grace"
         },
         {
-          "ssml": "Cell."
+          "ssml": "Cell.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Admiral"
@@ -283,22 +325,28 @@
       },
       "utterances": [
         {
-          "ssml": "Name"
+          "ssml": "Name",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Role"
+          "ssml": "Role",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Ada"
+          "ssml": "Ada",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Engineer"
+          "ssml": "Engineer",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Grace"
+          "ssml": "Grace",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Admiral"
+          "ssml": "Admiral",
+          "startsNewBlock": true
         }
       ]
     },
@@ -309,22 +357,28 @@
       },
       "utterances": [
         {
-          "ssml": "Name"
+          "ssml": "Name",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Role"
+          "ssml": "Role",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Ada"
+          "ssml": "Ada",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Engineer"
+          "ssml": "Engineer",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Grace"
+          "ssml": "Grace",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Admiral"
+          "ssml": "Admiral",
+          "startsNewBlock": true
         }
       ]
     },
@@ -335,22 +389,28 @@
       },
       "utterances": [
         {
-          "ssml": "Name"
+          "ssml": "Name",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Role"
+          "ssml": "Role",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Ada"
+          "ssml": "Ada",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Engineer"
+          "ssml": "Engineer",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Grace"
+          "ssml": "Grace",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Admiral"
+          "ssml": "Admiral",
+          "startsNewBlock": true
         }
       ]
     }

@@ -6,7 +6,8 @@
       },
       "utterances": [
         {
-          "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
+          "plain": "The author thanks the keepers of Fastnet Rock for their recollections.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -19,7 +20,8 @@
       },
       "utterances": [
         {
-          "plain": "Start of the acknowledgments."
+          "plain": "Start of the acknowledgments.",
+          "startsNewBlock": true
         },
         {
           "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
@@ -36,7 +38,8 @@
       },
       "utterances": [
         {
-          "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
+          "plain": "The author thanks the keepers of Fastnet Rock for their recollections.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -47,7 +50,8 @@
       },
       "utterances": [
         {
-          "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
+          "plain": "The author thanks the keepers of Fastnet Rock for their recollections.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -58,7 +62,8 @@
       },
       "utterances": [
         {
-          "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
+          "plain": "The author thanks the keepers of Fastnet Rock for their recollections.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -68,7 +73,8 @@
       },
       "utterances": [
         {
-          "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
+          "ssml": "The author thanks the keepers of Fastnet Rock for their recollections.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -81,7 +87,8 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the acknowledgments."
+          "ssml": "Start of the acknowledgments.",
+          "startsNewBlock": true
         },
         {
           "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
@@ -98,7 +105,8 @@
       },
       "utterances": [
         {
-          "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
+          "ssml": "The author thanks the keepers of Fastnet Rock for their recollections.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -109,7 +117,8 @@
       },
       "utterances": [
         {
-          "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
+          "ssml": "The author thanks the keepers of Fastnet Rock for their recollections.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -120,7 +129,8 @@
       },
       "utterances": [
         {
-          "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
+          "ssml": "The author thanks the keepers of Fastnet Rock for their recollections.",
+          "startsNewBlock": true
         }
       ]
     }

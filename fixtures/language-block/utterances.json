@@ -7,11 +7,13 @@
       "utterances": [
         {
           "language": "en",
-          "plain": "Hello."
+          "plain": "Hello.",
+          "startsNewBlock": true
         },
         {
           "language": "fr",
-          "plain": "Bonjour."
+          "plain": "Bonjour.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -23,11 +25,13 @@
       "utterances": [
         {
           "language": "en",
-          "plain": "Hello."
+          "plain": "Hello.",
+          "startsNewBlock": true
         },
         {
           "language": "fr",
-          "plain": "Bonjour."
+          "plain": "Bonjour.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -39,11 +43,13 @@
       "utterances": [
         {
           "language": "en",
-          "plain": "Hello."
+          "plain": "Hello.",
+          "startsNewBlock": true
         },
         {
           "language": "fr",
-          "plain": "Bonjour."
+          "plain": "Bonjour.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -54,10 +60,12 @@
       },
       "utterances": [
         {
-          "plain": "Hello."
+          "plain": "Hello.",
+          "startsNewBlock": true
         },
         {
-          "plain": "Bonjour."
+          "plain": "Bonjour.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -68,11 +76,13 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "Hello."
+          "ssml": "Hello.",
+          "startsNewBlock": true
         },
         {
           "language": "fr",
-          "ssml": "Bonjour."
+          "ssml": "Bonjour.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -84,11 +94,13 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "Hello."
+          "ssml": "Hello.",
+          "startsNewBlock": true
         },
         {
           "language": "fr",
-          "ssml": "Bonjour."
+          "ssml": "Bonjour.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -100,11 +112,13 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "Hello."
+          "ssml": "Hello.",
+          "startsNewBlock": true
         },
         {
           "language": "fr",
-          "ssml": "Bonjour."
+          "ssml": "Bonjour.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -115,10 +129,12 @@
       },
       "utterances": [
         {
-          "ssml": "Hello."
+          "ssml": "Hello.",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Bonjour."
+          "ssml": "Bonjour.",
+          "startsNewBlock": true
         }
       ]
     }

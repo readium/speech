@@ -6,13 +6,16 @@
       },
       "utterances": [
         {
-          "plain": "First item"
+          "plain": "First item",
+          "startsNewBlock": true
         },
         {
-          "plain": "Second item"
+          "plain": "Second item",
+          "startsNewBlock": true
         },
         {
-          "plain": "Third item"
+          "plain": "Third item",
+          "startsNewBlock": true
         }
       ]
     },
@@ -26,7 +29,8 @@
       },
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "startsNewBlock": true
         },
         {
           "plain": "List item."
@@ -35,13 +39,15 @@
           "plain": "First item"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "Second item"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "Third item"
@@ -58,13 +64,16 @@
       },
       "utterances": [
         {
-          "plain": "First item"
+          "plain": "First item",
+          "startsNewBlock": true
         },
         {
-          "plain": "Second item"
+          "plain": "Second item",
+          "startsNewBlock": true
         },
         {
-          "plain": "Third item"
+          "plain": "Third item",
+          "startsNewBlock": true
         }
       ]
     },
@@ -75,13 +84,16 @@
       },
       "utterances": [
         {
-          "plain": "First item"
+          "plain": "First item",
+          "startsNewBlock": true
         },
         {
-          "plain": "Second item"
+          "plain": "Second item",
+          "startsNewBlock": true
         },
         {
-          "plain": "Third item"
+          "plain": "Third item",
+          "startsNewBlock": true
         }
       ]
     },
@@ -92,13 +104,16 @@
       },
       "utterances": [
         {
-          "plain": "First item"
+          "plain": "First item",
+          "startsNewBlock": true
         },
         {
-          "plain": "Second item"
+          "plain": "Second item",
+          "startsNewBlock": true
         },
         {
-          "plain": "Third item"
+          "plain": "Third item",
+          "startsNewBlock": true
         }
       ]
     },
@@ -108,13 +123,16 @@
       },
       "utterances": [
         {
-          "ssml": "First item"
+          "ssml": "First item",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Second item"
+          "ssml": "Second item",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Third item"
+          "ssml": "Third item",
+          "startsNewBlock": true
         }
       ]
     },
@@ -128,7 +146,8 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
         },
         {
           "ssml": "List item."
@@ -137,13 +156,15 @@
           "ssml": "First item"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Second item"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Third item"
@@ -160,13 +181,16 @@
       },
       "utterances": [
         {
-          "ssml": "First item"
+          "ssml": "First item",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Second item"
+          "ssml": "Second item",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Third item"
+          "ssml": "Third item",
+          "startsNewBlock": true
         }
       ]
     },
@@ -177,13 +201,16 @@
       },
       "utterances": [
         {
-          "ssml": "First item"
+          "ssml": "First item",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Second item"
+          "ssml": "Second item",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Third item"
+          "ssml": "Third item",
+          "startsNewBlock": true
         }
       ]
     },
@@ -194,13 +221,16 @@
       },
       "utterances": [
         {
-          "ssml": "First item"
+          "ssml": "First item",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Second item"
+          "ssml": "Second item",
+          "startsNewBlock": true
         },
         {
-          "ssml": "Third item"
+          "ssml": "Third item",
+          "startsNewBlock": true
         }
       ]
     }

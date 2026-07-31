@@ -6,7 +6,8 @@
       },
       "utterances": [
         {
-          "plain": "Lighthouses remain a symbol of safe passage."
+          "plain": "Lighthouses remain a symbol of safe passage.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -19,7 +20,8 @@
       },
       "utterances": [
         {
-          "plain": "Start of the conclusion."
+          "plain": "Start of the conclusion.",
+          "startsNewBlock": true
         },
         {
           "plain": "Lighthouses remain a symbol of safe passage."
@@ -36,7 +38,8 @@
       },
       "utterances": [
         {
-          "plain": "Lighthouses remain a symbol of safe passage."
+          "plain": "Lighthouses remain a symbol of safe passage.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -47,7 +50,8 @@
       },
       "utterances": [
         {
-          "plain": "Lighthouses remain a symbol of safe passage."
+          "plain": "Lighthouses remain a symbol of safe passage.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -58,7 +62,8 @@
       },
       "utterances": [
         {
-          "plain": "Lighthouses remain a symbol of safe passage."
+          "plain": "Lighthouses remain a symbol of safe passage.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -68,7 +73,8 @@
       },
       "utterances": [
         {
-          "ssml": "Lighthouses remain a symbol of safe passage."
+          "ssml": "Lighthouses remain a symbol of safe passage.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -81,7 +87,8 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the conclusion."
+          "ssml": "Start of the conclusion.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Lighthouses remain a symbol of safe passage."
@@ -98,7 +105,8 @@
       },
       "utterances": [
         {
-          "ssml": "Lighthouses remain a symbol of safe passage."
+          "ssml": "Lighthouses remain a symbol of safe passage.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -109,7 +117,8 @@
       },
       "utterances": [
         {
-          "ssml": "Lighthouses remain a symbol of safe passage."
+          "ssml": "Lighthouses remain a symbol of safe passage.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -120,7 +129,8 @@
       },
       "utterances": [
         {
-          "ssml": "Lighthouses remain a symbol of safe passage."
+          "ssml": "Lighthouses remain a symbol of safe passage.",
+          "startsNewBlock": true
         }
       ]
     }

@@ -6,7 +6,8 @@
       },
       "utterances": [
         {
-          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+          "plain": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -19,7 +20,8 @@
       },
       "utterances": [
         {
-          "plain": "Start of the epilogue."
+          "plain": "Start of the epilogue.",
+          "startsNewBlock": true
         },
         {
           "plain": "The lamp still turns, though no one climbs the stairs anymore."
@@ -36,7 +38,8 @@
       },
       "utterances": [
         {
-          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+          "plain": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -47,7 +50,8 @@
       },
       "utterances": [
         {
-          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+          "plain": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -58,7 +62,8 @@
       },
       "utterances": [
         {
-          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+          "plain": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -68,7 +73,8 @@
       },
       "utterances": [
         {
-          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -81,7 +87,8 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the epilogue."
+          "ssml": "Start of the epilogue.",
+          "startsNewBlock": true
         },
         {
           "ssml": "The lamp still turns, though no one climbs the stairs anymore."
@@ -98,7 +105,8 @@
       },
       "utterances": [
         {
-          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -109,7 +117,8 @@
       },
       "utterances": [
         {
-          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -120,7 +129,8 @@
       },
       "utterances": [
         {
-          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
         }
       ]
     }

@@ -6,7 +6,8 @@
       },
       "utterances": [
         {
-          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+          "plain": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -38,7 +39,8 @@
       },
       "utterances": [
         {
-          "plain": "Start of the aside."
+          "plain": "Start of the aside.",
+          "startsNewBlock": true
         },
         {
           "plain": "Pull quote."
@@ -58,7 +60,8 @@
       },
       "utterances": [
         {
-          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+          "plain": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -69,7 +72,8 @@
       },
       "utterances": [
         {
-          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+          "plain": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -80,7 +84,8 @@
       },
       "utterances": [
         {
-          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+          "plain": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -90,7 +95,8 @@
       },
       "utterances": [
         {
-          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -122,7 +128,8 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the aside."
+          "ssml": "Start of the aside.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Pull quote."
@@ -142,7 +149,8 @@
       },
       "utterances": [
         {
-          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -153,7 +161,8 @@
       },
       "utterances": [
         {
-          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -164,7 +173,8 @@
       },
       "utterances": [
         {
-          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
         }
       ]
     }

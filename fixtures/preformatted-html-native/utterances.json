@@ -6,7 +6,8 @@
       },
       "utterances": [
         {
-          "plain": "10 PRINT \"HELLO\" 20 GOTO 10"
+          "plain": "10 PRINT \"HELLO\" 20 GOTO 10",
+          "startsNewBlock": true
         }
       ]
     },
@@ -19,7 +20,8 @@
       },
       "utterances": [
         {
-          "plain": "Start of the preformatted text."
+          "plain": "Start of the preformatted text.",
+          "startsNewBlock": true
         },
         {
           "plain": "10 PRINT \"HELLO\" 20 GOTO 10"
@@ -36,7 +38,8 @@
       },
       "utterances": [
         {
-          "plain": "10 PRINT \"HELLO\" 20 GOTO 10"
+          "plain": "10 PRINT \"HELLO\" 20 GOTO 10",
+          "startsNewBlock": true
         }
       ]
     },
@@ -47,7 +50,8 @@
       },
       "utterances": [
         {
-          "plain": "10 PRINT \"HELLO\" 20 GOTO 10"
+          "plain": "10 PRINT \"HELLO\" 20 GOTO 10",
+          "startsNewBlock": true
         }
       ]
     },
@@ -58,7 +62,8 @@
       },
       "utterances": [
         {
-          "plain": "10 PRINT \"HELLO\" 20 GOTO 10"
+          "plain": "10 PRINT \"HELLO\" 20 GOTO 10",
+          "startsNewBlock": true
         }
       ]
     },
@@ -68,7 +73,8 @@
       },
       "utterances": [
         {
-          "ssml": "10 PRINT \"HELLO\" 20 GOTO 10"
+          "ssml": "10 PRINT \"HELLO\" 20 GOTO 10",
+          "startsNewBlock": true
         }
       ]
     },
@@ -81,7 +87,8 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the preformatted text."
+          "ssml": "Start of the preformatted text.",
+          "startsNewBlock": true
         },
         {
           "ssml": "10 PRINT \"HELLO\" 20 GOTO 10"
@@ -98,7 +105,8 @@
       },
       "utterances": [
         {
-          "ssml": "10 PRINT \"HELLO\" 20 GOTO 10"
+          "ssml": "10 PRINT \"HELLO\" 20 GOTO 10",
+          "startsNewBlock": true
         }
       ]
     },
@@ -109,7 +117,8 @@
       },
       "utterances": [
         {
-          "ssml": "10 PRINT \"HELLO\" 20 GOTO 10"
+          "ssml": "10 PRINT \"HELLO\" 20 GOTO 10",
+          "startsNewBlock": true
         }
       ]
     },
@@ -120,7 +129,8 @@
       },
       "utterances": [
         {
-          "ssml": "10 PRINT \"HELLO\" 20 GOTO 10"
+          "ssml": "10 PRINT \"HELLO\" 20 GOTO 10",
+          "startsNewBlock": true
         }
       ]
     }
