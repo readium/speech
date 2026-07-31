@@ -13,7 +13,7 @@ test("defaults to the few preset and the rest of SpeechDefaults", (t) => {
   t.is(settings.interruptSentence, false);
   t.is(settings.language, "always");
   t.is(settings.pauseDuration, 300);
-  t.is(settings.automaticPausesBetweenUtterances, false);
+  t.is(settings.pauseScope, "utterance");
   t.is(settings.automaticPausesAtPageOrSpreadEnd, false);
   t.deepEqual([...settings.skip].sort(), [...skippableAtVerbosity.few].sort());
   t.deepEqual([...settings.contextualize].sort(), [...contextualizedAtVerbosity.few].sort());

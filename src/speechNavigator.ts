@@ -54,13 +54,15 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       const totalCount = this.engine.getUtteranceCount();
 
       if (currentIndex < totalCount - 1) {
-        // Navigator handles continuous playback, optionally spaced out by
-        // a Prosody pause between utterances.
-        if (this._settings.automaticPausesBetweenUtterances) {
-          setTimeout(() => this.engine.speak(currentIndex + 1), this._settings.pauseDuration);
-        } else {
-          this.engine.speak(currentIndex + 1);
-        }
+        // Navigator handles continuous playback. `pauseScope` picks which
+        // transitions get `pauseDuration`: every one ("utterance", default),
+        // or only where the next utterance starts a new block ("block").
+        // Out-of-scope transitions still yield to the event loop (delay 0),
+        // never a synchronous call.
+        const inPauseScope =
+          this._settings.pauseScope === "utterance" || this.contentQueue[currentIndex + 1]?.startsNewBlock === true;
+        const delay = inPauseScope ? this._settings.pauseDuration : 0;
+        setTimeout(() => this.engine.speak(currentIndex + 1), delay);
       } else {
         // Reached end - set navigator to idle
         this.setNavigatorState("idle");

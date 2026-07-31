@@ -45,6 +45,21 @@ test("pauseDuration is a range preference with the expected bounds", (t) => {
   t.is(editor.pauseDuration.effectiveValue, 300);
 });
 
+test("pauseScope: unset preference reports the effective default and isEffective false", (t) => {
+  const editor = makeEditor();
+  t.is(editor.pauseScope.value, null);
+  t.is(editor.pauseScope.effectiveValue, "utterance");
+  t.false(editor.pauseScope.isEffective);
+  t.deepEqual(editor.pauseScope.supportedValues, ["utterance", "block"]);
+});
+
+test("pauseScope: an explicit preference is effective and matches the resolved settings", (t) => {
+  const editor = makeEditor(new SpeechPreferences({ pauseScope: "block" }));
+  t.is(editor.pauseScope.value, "block");
+  t.is(editor.pauseScope.effectiveValue, "block");
+  t.true(editor.pauseScope.isEffective);
+});
+
 test("clear() resets preferences to an empty SpeechPreferences", (t) => {
   const editor = makeEditor(new SpeechPreferences({ verbosity: "most", pauseDuration: 500 }));
   editor.clear();

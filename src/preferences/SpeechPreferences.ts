@@ -6,6 +6,8 @@ export type LanguageMode = "none" | "block-level" | "always";
 
 export type ExtractionFormat = "plain" | "ssml";
 
+export type PauseScope = "utterance" | "block";
+
 export interface ISpeechPreferences {
   // Extraction rendering — consumed by extractUtterances via the
   // Navigator's reextract(), or directly by a standalone
@@ -20,8 +22,8 @@ export interface ISpeechPreferences {
   language?: LanguageMode | null;
 
   // Prosody group — consumed by ReadiumSpeechNavigator's playback sequencing.
-  pauseDuration?: number | null; // ms between utterances
-  automaticPausesBetweenUtterances?: boolean | null; // actionable
+  pauseDuration?: number | null; // ms, default 300
+  pauseScope?: PauseScope | null; // "utterance" (default, pause between every utterance) | "block" (pause only at block boundaries)
   automaticPausesAtPageOrSpreadEnd?: boolean | null; // typed, no-op today — see speechNavigator.ts
 }
 
@@ -33,7 +35,7 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
   public contextualize: GndRole[] | null | undefined;
   public language: LanguageMode | null | undefined;
   public pauseDuration: number | null | undefined;
-  public automaticPausesBetweenUtterances: boolean | null | undefined;
+  public pauseScope: PauseScope | null | undefined;
   public automaticPausesAtPageOrSpreadEnd: boolean | null | undefined;
 
   constructor(preferences: ISpeechPreferences = {}) {
@@ -44,7 +46,7 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
     this.contextualize = preferences.contextualize;
     this.language = preferences.language;
     this.pauseDuration = preferences.pauseDuration;
-    this.automaticPausesBetweenUtterances = preferences.automaticPausesBetweenUtterances;
+    this.pauseScope = preferences.pauseScope;
     this.automaticPausesAtPageOrSpreadEnd = preferences.automaticPausesAtPageOrSpreadEnd;
   }
 

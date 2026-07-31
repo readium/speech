@@ -29,12 +29,12 @@ new SpeechPreferences({ verbosity: "custom", contextualize: ["chapter", "footnot
 ## Prosody
 
 ```typescript
-pauseDuration?: number;                      // ms between utterances, default 300
-automaticPausesBetweenUtterances?: boolean;  // default false
+pauseDuration?: number;                      // ms, default 300
+pauseScope?: "utterance" | "block";          // which transitions get pauseDuration, default "utterance"
 automaticPausesAtPageOrSpreadEnd?: boolean;  // typed, no effect yet
 ```
 
-`automaticPausesBetweenUtterances` delays the navigator's next `speak()` call by `pauseDuration`. `automaticPausesAtPageOrSpreadEnd` has no effect today — this library has no concept of a "page" or "spread" boundary, so nothing can trigger it yet.
+`pauseDuration` delays the navigator's next `speak()` call after each utterance ends, scoped by `pauseScope`: `"utterance"` (the default) applies it between every utterance; `"block"` applies it only where the next utterance starts a new block-level element (a paragraph, heading, list item, table cell, ...), derived from the source Guided Navigation document by `extractUtterances()` — transitions within the same block get no pause. `automaticPausesAtPageOrSpreadEnd` is typed but has no effect today: pausing at a page/spread boundary needs context (where a page actually ends) that this library doesn't have — likely a concern for the consuming app, not something resolved here.
 
 `language` (`"none" | "block-level" | "always"`) is the same option documented in [Utterance Extraction](UtteranceExtraction.md#options).
 

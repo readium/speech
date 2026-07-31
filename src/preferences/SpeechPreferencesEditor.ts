@@ -1,12 +1,13 @@
 import type { GndRole } from "../gnd/types.js";
 import type { IPreferencesEditor } from "./PreferencesEditor.js";
 import { EnumPreference, Preference, RangePreference } from "./Preference.js";
-import { SpeechPreferences, VerbosityPreset, LanguageMode, ExtractionFormat } from "./SpeechPreferences.js";
+import { SpeechPreferences, VerbosityPreset, LanguageMode, ExtractionFormat, PauseScope } from "./SpeechPreferences.js";
 import { SpeechSettings } from "./SpeechSettings.js";
 
 const verbosityPresets: VerbosityPreset[] = ["none", "few", "some", "most", "custom"];
 const languageModes: LanguageMode[] = ["none", "block-level", "always"];
 const extractionFormats: ExtractionFormat[] = ["plain", "ssml"];
+const pauseScopes: PauseScope[] = ["utterance", "block"];
 const pauseDurationRange: [number, number] = [0, 5000];
 const pauseDurationStep = 100;
 
@@ -95,12 +96,13 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
     });
   }
 
-  get automaticPausesBetweenUtterances(): Preference<boolean> {
-    return new Preference<boolean>({
-      initialValue: this.preferences.automaticPausesBetweenUtterances,
-      effectiveValue: this.settings.automaticPausesBetweenUtterances,
-      isEffective: this.preferences.automaticPausesBetweenUtterances != null,
-      onChange: (value) => this.updatePreference("automaticPausesBetweenUtterances", value ?? null),
+  get pauseScope(): EnumPreference<PauseScope> {
+    return new EnumPreference<PauseScope>({
+      initialValue: this.preferences.pauseScope,
+      effectiveValue: this.settings.pauseScope,
+      isEffective: this.preferences.pauseScope != null,
+      onChange: (value) => this.updatePreference("pauseScope", value ?? null),
+      supportedValues: pauseScopes,
     });
   }
 

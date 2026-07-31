@@ -16,7 +16,6 @@ const optionInterruptEl = document.getElementById("option-interrupt");
 const optionContextualizeEl = document.getElementById("option-contextualize");
 const optionPauseDurationEl = document.getElementById("option-pause-duration");
 const optionPauseDurationValueEl = document.getElementById("option-pause-duration-value");
-const optionAutoPauseEl = document.getElementById("option-auto-pause");
 const formatRadios = [...document.querySelectorAll('input[name="format"]')];
 const speechBadgeEl = document.getElementById("speech-badge");
 const speechUtterancesEl = document.getElementById("speech-utterances");
@@ -114,7 +113,6 @@ function preferencesFromToolbar() {
     verbosity,
     language: optionLanguageEl?.value || null,
     pauseDuration: Number(optionPauseDurationEl?.value ?? 300),
-    automaticPausesBetweenUtterances: optionAutoPauseEl?.checked ?? false,
   };
   if (verbosity === "custom") {
     prefs.skip = optionSkipEl ? [...optionSkipEl.selectedOptions].map((o) => o.value) : [];
@@ -602,7 +600,6 @@ optionPauseDurationEl?.addEventListener("input", () => {
   if (optionPauseDurationValueEl) optionPauseDurationValueEl.textContent = `${optionPauseDurationEl.value}ms`;
 });
 optionPauseDurationEl?.addEventListener("change", applyPreferencesFromToolbar);
-optionAutoPauseEl?.addEventListener("change", applyPreferencesFromToolbar);
 
 playbackNavigator = initPlaybackNavigator();
 

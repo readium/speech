@@ -13,6 +13,7 @@ import {
   type ResolvedNodeText,
 } from "./text.js";
 import { isAnnouncementPair, type Announcement, type Announcements, type ExtractUtterancesOptions } from "./types.js";
+import { blockLevelRoles } from "./roles.js";
 import { startsWithBindingPunct } from "../utils/text.js";
 
 interface WalkContext {
@@ -23,6 +24,8 @@ interface WalkContext {
   interruptSentence: boolean;
   language?: "none" | "block-level" | "always";
 }
+
+const blockLevelRoleSet: ReadonlySet<GndRole> = new Set(blockLevelRoles);
 
 function resolveAnnouncement(announcement: Announcement, params?: Record<string, string>): string {
   return typeof announcement === "function" ? announcement(params) : announcement;
@@ -164,6 +167,7 @@ function emitInterrupted(
   rawSsml: string,
   out: ReadiumSpeechUtterance[],
   ctx: WalkContext,
+  suppress: boolean,
 ): void {
   const language = typeof node.text === "object" ? node.text.language : undefined;
   const childrenById = new Map((node.children ?? []).map((child) => [child.id, child] as const));
@@ -171,7 +175,7 @@ function emitInterrupted(
   for (const segment of splitOnPlaceholders(rawSsml)) {
     if (segment.placeholderId !== undefined) {
       const child = childrenById.get(segment.placeholderId);
-      if (child) walkNode(child, pieces, ctx);
+      if (child) walkNode(child, pieces, ctx, suppress);
       continue;
     }
     if (!segment.ssml) continue;
@@ -202,9 +206,22 @@ function emitInterrupted(
   out.push(...(merged ? [merged] : pieces));
 }
 
-function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], ctx: WalkContext): void {
+function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], ctx: WalkContext, suppress: boolean): void {
   const roles = node.role ?? [];
   if (isSkipped(roles, ctx.skip)) return;
+
+  // A node carrying a block-level role opens a new block — unless
+  // `suppress` says an ancestor already claimed this same boundary. That
+  // happens when the ancestor is itself a block-level node reached with
+  // nothing in between: nested containers with no content of their own
+  // (e.g. a bare <blockquote> around a <p>) collapse onto whichever
+  // descendant utterance turns out to be first; a container that *did*
+  // speak something of its own (e.g. a contextualized announcement)
+  // claims the boundary itself and suppresses every nested block reached
+  // through it, so entering deeply nested markup never stacks pauses.
+  const isBlockRole = roles.some((role) => blockLevelRoleSet.has(role));
+  const eligible = isBlockRole && !suppress;
+  const beforeLength = out.length;
 
   // Footnote and pagebreak are handled specially below (merged with their
   // own content/label), so they're excluded from the generic loop here.
@@ -230,7 +247,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], ctx: WalkConte
       if (isSkipped(childRoles, ctx.skip)) continue;
       if (childRoles.includes("footnote")) {
         const inner: ReadiumSpeechUtterance[] = [];
-        walk([child], inner, ctx);
+        walk([child], inner, ctx, suppress);
         const entry = ctx.contextualize.has("footnote") ? ctx.announcements.footnote : undefined;
         const pieces: ReadiumSpeechUtterance[] = [];
         if (entry !== undefined) {
@@ -244,23 +261,33 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], ctx: WalkConte
         const merged = entry !== undefined && pieces.length > 1 ? mergeUtterances(pieces, ctx.format) : undefined;
         out.push(...(merged ? [merged] : pieces));
       } else {
-        walk([child], out, ctx);
+        walk([child], out, ctx, suppress);
       }
     }
   } else {
     const rawSsml = typeof node.text === "object" ? node.text.ssml : undefined;
     if (ctx.interruptSentence && rawSsml && hasPlaceholder(rawSsml)) {
-      emitInterrupted(node, rawSsml, out, ctx);
+      emitInterrupted(node, rawSsml, out, ctx, suppress);
     } else if (roles.includes("pagebreak")) {
       out.push(...buildPagebreakUtterance(node, ctx));
-      if (node.children) walk(node.children, out, ctx);
+      if (node.children) {
+        const childSuppress = suppress || (isBlockRole && out.length > beforeLength);
+        walk(node.children, out, ctx, childSuppress);
+      }
     } else {
       const resolved = resolveNodeText(node.text);
       if (resolved) {
         out.push(...applyFormat(resolved, ctx.format, ctx.language));
       }
-      if (node.children) walk(node.children, out, ctx);
+      if (node.children) {
+        const childSuppress = suppress || (isBlockRole && out.length > beforeLength);
+        walk(node.children, out, ctx, childSuppress);
+      }
     }
+  }
+
+  if (eligible && out.length > beforeLength) {
+    out[beforeLength].startsNewBlock = true;
   }
 
   // A description is supplementary/elaborating content (e.g. an extended
@@ -275,8 +302,12 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], ctx: WalkConte
   }
 }
 
-function walk(nodes: GndObject[], out: ReadiumSpeechUtterance[], ctx: WalkContext): void {
-  for (const node of nodes) walkNode(node, out, ctx);
+// `suppress` only carries forward to the first node — once we move on to a
+// sibling, whatever a prior sibling's subtree spoke has already broken any
+// "nothing in between" chain, so each subsequent sibling is free to open
+// its own boundary.
+function walk(nodes: GndObject[], out: ReadiumSpeechUtterance[], ctx: WalkContext, suppress: boolean): void {
+  nodes.forEach((node, index) => walkNode(node, out, ctx, index === 0 ? suppress : false));
 }
 
 /**
@@ -300,6 +331,6 @@ export function extractUtterances(
     language: options.language,
   };
   const out: ReadiumSpeechUtterance[] = [];
-  walk(nodes, out, ctx);
+  walk(nodes, out, ctx, false);
   return out;
 }
