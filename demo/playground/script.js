@@ -16,6 +16,7 @@ const optionInterruptEl = document.getElementById("option-interrupt");
 const optionContextualizeEl = document.getElementById("option-contextualize");
 const optionPauseDurationEl = document.getElementById("option-pause-duration");
 const optionPauseDurationValueEl = document.getElementById("option-pause-duration-value");
+const optionPauseScopeEl = document.getElementById("option-pause-scope");
 const formatRadios = [...document.querySelectorAll('input[name="format"]')];
 const speechBadgeEl = document.getElementById("speech-badge");
 const speechUtterancesEl = document.getElementById("speech-utterances");
@@ -113,6 +114,7 @@ function preferencesFromToolbar() {
     verbosity,
     language: optionLanguageEl?.value || null,
     pauseDuration: Number(optionPauseDurationEl?.value ?? 300),
+    pauseScope: optionPauseScopeEl?.value || "utterance",
   };
   if (verbosity === "custom") {
     prefs.skip = optionSkipEl ? [...optionSkipEl.selectedOptions].map((o) => o.value) : [];
@@ -470,6 +472,7 @@ function renderSpeechList(utterances) {
   speechListItems = utterances.map((utterance) => {
     const li = document.createElement("li");
     li.textContent = utteranceDisplayText(utterance) ?? "(empty)";
+    li.classList.toggle("starts-new-block", utterance?.startsNewBlock === true);
     speechUtterancesEl.appendChild(li);
     return li;
   });
@@ -600,6 +603,7 @@ optionPauseDurationEl?.addEventListener("input", () => {
   if (optionPauseDurationValueEl) optionPauseDurationValueEl.textContent = `${optionPauseDurationEl.value}ms`;
 });
 optionPauseDurationEl?.addEventListener("change", applyPreferencesFromToolbar);
+optionPauseScopeEl?.addEventListener("change", applyPreferencesFromToolbar);
 
 playbackNavigator = initPlaybackNavigator();
 

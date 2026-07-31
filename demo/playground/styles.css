@@ -297,6 +297,14 @@ body {
   font-weight: 600;
 }
 
+/* Marks where extractUtterances() detected a block boundary — the point
+   pauseDuration lands on under pauseScope: "block". */
+.speech-utterances li.starts-new-block {
+  border-top: 2px solid #999;
+  margin-top: 6px;
+  padding-top: 8px;
+}
+
 @media (max-width: 800px) {
   body {
     flex-direction: column;
