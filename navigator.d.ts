@@ -5,7 +5,7 @@ export interface ReadiumSpeechPlaybackEvent {
     type: "start" | "pause" | "resume" | "end" | "stop" | "skip" | "error" | "boundary" | "mark" | "idle" | "loading" | "ready" | "voiceschanged" | "languagefallback";
     detail?: any;
 }
-export interface ReadiumSpeechNavigator {
+export interface ReadiumSpeechNavigatorContract {
     getVoices(): Promise<ReadiumSpeechVoice[]>;
     setVoice(voice: ReadiumSpeechVoice | string): void;
     getCurrentVoice(): ReadiumSpeechVoice | null;

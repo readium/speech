@@ -2,6 +2,7 @@ import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from './naviga
 import { ReadiumSpeechUtterance } from './utterance';
 import { ReadiumSpeechVoice } from './voices/types';
 export interface ReadiumSpeechPlaybackEngine {
+    initialize?(): Promise<unknown>;
     loadUtterances(contents: ReadiumSpeechUtterance[]): void;
     setVoice(voice: ReadiumSpeechVoice | string): void;
     getCurrentVoice(): ReadiumSpeechVoice | null;
