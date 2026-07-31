@@ -1,13 +1,13 @@
-import { ReadiumSpeechPlaybackEngine } from '../engine';
-import { ReadiumSpeechNavigator, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from '../navigator';
-import { ReadiumSpeechUtterance } from '../utterance';
-import { ReadiumSpeechVoice } from '../voices/types';
-export declare class WebSpeechReadAloudNavigator implements ReadiumSpeechNavigator {
+import { ReadiumSpeechPlaybackEngine } from './engine';
+import { ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from './navigator';
+import { ReadiumSpeechUtterance } from './utterance';
+import { ReadiumSpeechVoice } from './voices/types';
+export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     private engine;
     private contentQueue;
     private eventListeners;
     private navigatorState;
-    constructor(engine?: ReadiumSpeechPlaybackEngine);
+    constructor(engine: ReadiumSpeechPlaybackEngine);
     private initializeEngine;
     private setupEngineListeners;
     private setNavigatorState;

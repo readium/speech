@@ -21,10 +21,11 @@ const speechResumeEl = document.getElementById("speech-resume");
 const speechStopEl = document.getElementById("speech-stop");
 
 // Feature-detect the GND converter, the utterance extractor, and the
-// WebSpeech read-aloud navigator, if/when @readium/speech exports them.
+// read-aloud navigator, if/when @readium/speech exports them.
 let converter = null;
 let utteranceExtractor = null;
 let NavigatorClass = null;
+let EngineClass = null;
 let VoiceManagerClass = null;
 let setupDecorations = null;
 let DecorationStyleType = null;
@@ -36,8 +37,11 @@ try {
   if (typeof mod.extractUtterances === "function") {
     utteranceExtractor = mod;
   }
-  if (typeof mod.WebSpeechReadAloudNavigator === "function") {
-    NavigatorClass = mod.WebSpeechReadAloudNavigator;
+  if (typeof mod.ReadiumSpeechNavigator === "function") {
+    NavigatorClass = mod.ReadiumSpeechNavigator;
+  }
+  if (typeof mod.WebSpeechEngine === "function") {
+    EngineClass = mod.WebSpeechEngine;
   }
   if (typeof mod.WebSpeechVoiceManager === "function") {
     VoiceManagerClass = mod.WebSpeechVoiceManager;
@@ -244,7 +248,7 @@ function setBadge(el, state) {
 // extraction without refetching the fixture's files.
 let currentFixture = null;
 
-// WebSpeechReadAloudNavigator wraps the playback engine and handles
+// ReadiumSpeechNavigator wraps the playback engine and handles
 // advancing through the queued utterances on its own — created once, lazily
 // (its constructor kicks off async engine/voice initialization), not per
 // fixture/option change.
@@ -329,10 +333,10 @@ let voiceReadyPromise = null;
 const PLAYGROUND_LANGUAGES = ["en", "es", "fr"];
 
 function ensurePlaybackNavigator() {
-  if (!NavigatorClass) return null;
+  if (!NavigatorClass || !EngineClass) return null;
   if (!playbackNavigator) {
     void VoiceManagerClass?.initialize({ languages: PLAYGROUND_LANGUAGES });
-    playbackNavigator = new NavigatorClass();
+    playbackNavigator = new NavigatorClass(new EngineClass());
     playbackNavigator.setSpeakInContentLanguage(true);
     for (const type of ["start", "pause", "resume", "end", "stop", "ready", "error"]) {
       playbackNavigator.on(type, syncSpeechUi);

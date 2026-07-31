@@ -24,7 +24,7 @@ The outline of this work has been explored in a [GitHub discussion](https://gith
 In the second phase, we focused on implementing a WebSpeech API-based solution with an architecture designed for future extensibility:
 
 - **Engine Layer**: Core TTS functionality through `ReadiumSpeechPlaybackEngine`
-- **Navigator Layer**: Content and playback management via (a temporary) `ReadiumSpeechNavigator`
+- **Navigator Layer**: Content and playback management via `ReadiumSpeechNavigator`
 - **Current Implementation**: WebSpeech API with cross-browser compatibility
 - **Future-Proof Design**: Architecture prepared for additional TTS service adapters
 
@@ -32,7 +32,9 @@ Key features include advanced voice selection, cross-browser playback control, f
 
 In the third phase, we added highlighting: content currently being spoken (e.g. the current word or sentence) can be highlighted as playback progresses. See the [Highlighting guide](docs/Highlighting.md).
 
-We are now focused on the fourth phase: extracting [Guided Navigation objects](https://readium.org/guided-navigation) from a document (or a fragment of a document), and generating utterances from these objects.
+In the fourth phase, we extracted [Guided Navigation objects](https://readium.org/guided-navigation) from a document (or a fragment of a document), and generated utterances from these objects.
+
+We are now on the fifth phase: a second `ReadiumSpeechPlaybackEngine` implementation, backed by [speech-server](https://github.com/readium/speech-server) instead of the browser's Web Speech API.
 
 ## Demos
 
@@ -78,7 +80,8 @@ yarn add @readium/speech
 ```typescript
 import {
   WebSpeechVoiceManager,
-  WebSpeechReadAloudNavigator,
+  WebSpeechEngine,
+  ReadiumSpeechNavigator,
   setupDecorations,
   DecorationStyleType,
 } from "@readium/speech";
@@ -92,7 +95,7 @@ const voiceManager = await WebSpeechVoiceManager.initialize({
 const voice = await voiceManager.getDefaultVoice("en-US");
 
 // Create a navigator instance
-const navigator = new WebSpeechReadAloudNavigator();
+const navigator = new ReadiumSpeechNavigator(new WebSpeechEngine());
 await navigator.setVoice(voice);
 
 const content = document.getElementById("content");
@@ -137,6 +140,7 @@ Documentation provides guides for:
 - [Highlighting](docs/Highlighting.md)
 - [Guided Navigation](docs/GuidedNavigation.md) — extracting [Guided Navigation objects](https://readium.org/guided-navigation) from HTML/XHTML content
 - [Utterance Extraction](docs/UtteranceExtraction.md) — extracting utterances from Guided Navigation objects
+- [Provider Registry](docs/ProviderRegistry.md) — using more than one `ReadiumSpeechEngineProvider` (e.g. WebSpeech and speech-server) side by side
 
 ## Development
 
