@@ -2,6 +2,19 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.5.0] - 2026-07-31
+
+### Added
+
+- `SpeechServerEngine` / `SpeechServerEngineProvider`, a second `ReadiumSpeechPlaybackEngine` implementation backed by a [Readium Speech Server](https://github.com/readium/speech-server) HTTP service — with utterance prefetching, chunk-streaming for long/over-limit utterances, gapless Web Audio API scheduling, format/bitrate selection, and RFC 9457 error handling. See [SpeechServerEngine.md](docs/SpeechServerEngine.md).
+- `ReadiumSpeechProviderRegistry`, for registering multiple `ReadiumSpeechEngineProvider`s (e.g. WebSpeech and speech-server) side by side and querying voices/creating engines across all of them. See [ProviderRegistry.md](docs/ProviderRegistry.md).
+- `ReadiumSpeechVoice.identifier` and `ReadiumSpeechVoice.controls` (which playback controls a server-sourced voice actually honors), and `"server"` added to `TSource`.
+
+### Changed
+
+- `ReadiumSpeechNavigator` (renamed from `WebSpeechReadAloudNavigator`) is now engine-agnostic: its constructor requires an explicit `ReadiumSpeechPlaybackEngine` (e.g. `new ReadiumSpeechNavigator(new WebSpeechEngine())`), instead of defaulting to WebSpeech.
+- `WebSpeechEngineProvider.getVoices()` no longer requires an engine to have been created first.
+
 ## [0.4.0] - 2026-07-28
 
 ### Added
