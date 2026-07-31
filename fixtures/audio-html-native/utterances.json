@@ -6,9 +6,6 @@
       },
       "utterances": [
         {
-          "plain": "Audio."
-        },
-        {
           "plain": "Foghorn recording from the 1962 restoration"
         }
       ]
@@ -16,9 +13,14 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "audio"
+        ]
       },
       "utterances": [
+        {
+          "plain": "Audio."
+        },
         {
           "plain": "Foghorn recording from the 1962 restoration"
         }
@@ -31,9 +33,6 @@
       },
       "utterances": [
         {
-          "plain": "Audio."
-        },
-        {
           "plain": "Foghorn recording from the 1962 restoration"
         }
       ]
@@ -45,9 +44,6 @@
       },
       "utterances": [
         {
-          "plain": "Audio."
-        },
-        {
           "plain": "Foghorn recording from the 1962 restoration"
         }
       ]
@@ -58,9 +54,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "plain": "Audio."
-        },
         {
           "plain": "Foghorn recording from the 1962 restoration"
         }
@@ -72,9 +65,6 @@
       },
       "utterances": [
         {
-          "ssml": "Audio."
-        },
-        {
           "ssml": "Foghorn recording from the 1962 restoration"
         }
       ]
@@ -82,9 +72,14 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "audio"
+        ]
       },
       "utterances": [
+        {
+          "ssml": "Audio."
+        },
         {
           "ssml": "Foghorn recording from the 1962 restoration"
         }
@@ -97,9 +92,6 @@
       },
       "utterances": [
         {
-          "ssml": "Audio."
-        },
-        {
           "ssml": "Foghorn recording from the 1962 restoration"
         }
       ]
@@ -111,9 +103,6 @@
       },
       "utterances": [
         {
-          "ssml": "Audio."
-        },
-        {
           "ssml": "Foghorn recording from the 1962 restoration"
         }
       ]
@@ -124,9 +113,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "ssml": "Audio."
-        },
         {
           "ssml": "Foghorn recording from the 1962 restoration"
         }

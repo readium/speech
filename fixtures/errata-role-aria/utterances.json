@@ -6,9 +6,6 @@
       },
       "utterances": [
         {
-          "plain": "Errata."
-        },
-        {
           "plain": "Page 42: 'lightouse' should read 'lighthouse'."
         }
       ]
@@ -16,9 +13,14 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "errata"
+        ]
       },
       "utterances": [
+        {
+          "plain": "Errata."
+        },
         {
           "plain": "Page 42: 'lightouse' should read 'lighthouse'."
         }
@@ -31,9 +33,6 @@
       },
       "utterances": [
         {
-          "plain": "Errata."
-        },
-        {
           "plain": "Page 42: 'lightouse' should read 'lighthouse'."
         }
       ]
@@ -45,9 +44,6 @@
       },
       "utterances": [
         {
-          "plain": "Errata."
-        },
-        {
           "plain": "Page 42: 'lightouse' should read 'lighthouse'."
         }
       ]
@@ -58,9 +54,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "plain": "Errata."
-        },
         {
           "plain": "Page 42: 'lightouse' should read 'lighthouse'."
         }
@@ -72,9 +65,6 @@
       },
       "utterances": [
         {
-          "ssml": "Errata."
-        },
-        {
           "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
         }
       ]
@@ -82,9 +72,14 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "errata"
+        ]
       },
       "utterances": [
+        {
+          "ssml": "Errata."
+        },
         {
           "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
         }
@@ -97,9 +92,6 @@
       },
       "utterances": [
         {
-          "ssml": "Errata."
-        },
-        {
           "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
         }
       ]
@@ -111,9 +103,6 @@
       },
       "utterances": [
         {
-          "ssml": "Errata."
-        },
-        {
           "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
         }
       ]
@@ -124,9 +113,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "ssml": "Errata."
-        },
         {
           "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
         }

@@ -6,9 +6,6 @@
       },
       "utterances": [
         {
-          "plain": "Image."
-        },
-        {
           "plain": "Rating: 4 out of 5 stars"
         }
       ]
@@ -16,9 +13,14 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "image"
+        ]
       },
       "utterances": [
+        {
+          "plain": "Image."
+        },
         {
           "plain": "Rating: 4 out of 5 stars"
         }
@@ -31,9 +33,6 @@
       },
       "utterances": [
         {
-          "plain": "Image."
-        },
-        {
           "plain": "Rating: 4 out of 5 stars"
         }
       ]
@@ -45,9 +44,6 @@
       },
       "utterances": [
         {
-          "plain": "Image."
-        },
-        {
           "plain": "Rating: 4 out of 5 stars"
         }
       ]
@@ -58,9 +54,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "plain": "Image."
-        },
         {
           "plain": "Rating: 4 out of 5 stars"
         }
@@ -72,9 +65,6 @@
       },
       "utterances": [
         {
-          "ssml": "Image."
-        },
-        {
           "ssml": "Rating: 4 out of 5 stars"
         }
       ]
@@ -82,9 +72,14 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "image"
+        ]
       },
       "utterances": [
+        {
+          "ssml": "Image."
+        },
         {
           "ssml": "Rating: 4 out of 5 stars"
         }
@@ -97,9 +92,6 @@
       },
       "utterances": [
         {
-          "ssml": "Image."
-        },
-        {
           "ssml": "Rating: 4 out of 5 stars"
         }
       ]
@@ -111,9 +103,6 @@
       },
       "utterances": [
         {
-          "ssml": "Image."
-        },
-        {
           "ssml": "Rating: 4 out of 5 stars"
         }
       ]
@@ -124,9 +113,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "ssml": "Image."
-        },
         {
           "ssml": "Rating: 4 out of 5 stars"
         }

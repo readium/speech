@@ -6,9 +6,6 @@
       },
       "utterances": [
         {
-          "plain": "Example."
-        },
-        {
           "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
         }
       ]
@@ -16,9 +13,14 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "example"
+        ]
       },
       "utterances": [
+        {
+          "plain": "Example."
+        },
         {
           "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
         }
@@ -31,9 +33,6 @@
       },
       "utterances": [
         {
-          "plain": "Example."
-        },
-        {
           "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
         }
       ]
@@ -45,9 +44,6 @@
       },
       "utterances": [
         {
-          "plain": "Example."
-        },
-        {
           "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
         }
       ]
@@ -58,9 +54,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "plain": "Example."
-        },
         {
           "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
         }
@@ -72,9 +65,6 @@
       },
       "utterances": [
         {
-          "ssml": "Example."
-        },
-        {
           "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
         }
       ]
@@ -82,9 +72,14 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "example"
+        ]
       },
       "utterances": [
+        {
+          "ssml": "Example."
+        },
         {
           "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
         }
@@ -97,9 +92,6 @@
       },
       "utterances": [
         {
-          "ssml": "Example."
-        },
-        {
           "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
         }
       ]
@@ -111,9 +103,6 @@
       },
       "utterances": [
         {
-          "ssml": "Example."
-        },
-        {
           "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
         }
       ]
@@ -124,9 +113,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "ssml": "Example."
-        },
         {
           "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
         }

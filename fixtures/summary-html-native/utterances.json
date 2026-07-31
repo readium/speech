@@ -13,6 +13,22 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "summary"
+        ]
+      },
+      "utterances": [
+        {
+          "plain": "Summary."
+        },
+        {
+          "plain": "Click to expand"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
         "language": "always"
       },
       "utterances": [
@@ -48,6 +64,22 @@
         "format": "ssml"
       },
       "utterances": [
+        {
+          "ssml": "Click to expand"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "summary"
+        ]
+      },
+      "utterances": [
+        {
+          "ssml": "Summary."
+        },
         {
           "ssml": "Click to expand"
         }

@@ -6,6 +6,20 @@
       },
       "utterances": [
         {
+          "plain": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "figure",
+          "image"
+        ]
+      },
+      "utterances": [
+        {
           "plain": "Start of the figure."
         },
         {
@@ -16,17 +30,6 @@
         },
         {
           "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "plain": "A bar chart showing sales growth"
         }
       ]
     },
@@ -37,16 +40,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the figure."
-        },
-        {
-          "plain": "Image."
-        },
-        {
           "plain": "A bar chart showing sales growth"
-        },
-        {
-          "plain": "End of the figure."
         }
       ]
     },
@@ -57,16 +51,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the figure."
-        },
-        {
-          "plain": "Image."
-        },
-        {
           "plain": "A bar chart showing sales growth"
-        },
-        {
-          "plain": "End of the figure."
         }
       ]
     },
@@ -77,16 +62,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the figure."
-        },
-        {
-          "plain": "Image."
-        },
-        {
           "plain": "A bar chart showing sales growth"
-        },
-        {
-          "plain": "End of the figure."
         }
       ]
     },
@@ -96,6 +72,20 @@
       },
       "utterances": [
         {
+          "ssml": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "figure",
+          "image"
+        ]
+      },
+      "utterances": [
+        {
           "ssml": "Start of the figure."
         },
         {
@@ -106,17 +96,6 @@
         },
         {
           "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "ssml": "A bar chart showing sales growth"
         }
       ]
     },
@@ -127,16 +106,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the figure."
-        },
-        {
-          "ssml": "Image."
-        },
-        {
           "ssml": "A bar chart showing sales growth"
-        },
-        {
-          "ssml": "End of the figure."
         }
       ]
     },
@@ -147,16 +117,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the figure."
-        },
-        {
-          "ssml": "Image."
-        },
-        {
           "ssml": "A bar chart showing sales growth"
-        },
-        {
-          "ssml": "End of the figure."
         }
       ]
     },
@@ -167,16 +128,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the figure."
-        },
-        {
-          "ssml": "Image."
-        },
-        {
           "ssml": "A bar chart showing sales growth"
-        },
-        {
-          "ssml": "End of the figure."
         }
       ]
     }

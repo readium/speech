@@ -6,16 +6,10 @@
       },
       "utterances": [
         {
-          "plain": "Start of the details."
-        },
-        {
           "plain": "Click to expand"
         },
         {
           "plain": "Additional details the reader can expand."
-        },
-        {
-          "plain": "End of the details."
         }
       ]
     },
@@ -31,14 +25,26 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "details",
+          "summary"
+        ]
       },
       "utterances": [
+        {
+          "plain": "Start of the details."
+        },
+        {
+          "plain": "Summary."
+        },
         {
           "plain": "Click to expand"
         },
         {
           "plain": "Additional details the reader can expand."
+        },
+        {
+          "plain": "End of the details."
         }
       ]
     },
@@ -49,16 +55,10 @@
       },
       "utterances": [
         {
-          "plain": "Start of the details."
-        },
-        {
           "plain": "Click to expand"
         },
         {
           "plain": "Additional details the reader can expand."
-        },
-        {
-          "plain": "End of the details."
         }
       ]
     },
@@ -69,16 +69,10 @@
       },
       "utterances": [
         {
-          "plain": "Start of the details."
-        },
-        {
           "plain": "Click to expand"
         },
         {
           "plain": "Additional details the reader can expand."
-        },
-        {
-          "plain": "End of the details."
         }
       ]
     },
@@ -89,16 +83,10 @@
       },
       "utterances": [
         {
-          "plain": "Start of the details."
-        },
-        {
           "plain": "Click to expand"
         },
         {
           "plain": "Additional details the reader can expand."
-        },
-        {
-          "plain": "End of the details."
         }
       ]
     },
@@ -108,16 +96,10 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the details."
-        },
-        {
           "ssml": "Click to expand"
         },
         {
           "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
         }
       ]
     },
@@ -133,14 +115,26 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "details",
+          "summary"
+        ]
       },
       "utterances": [
+        {
+          "ssml": "Start of the details."
+        },
+        {
+          "ssml": "Summary."
+        },
         {
           "ssml": "Click to expand"
         },
         {
           "ssml": "Additional details the reader can expand."
+        },
+        {
+          "ssml": "End of the details."
         }
       ]
     },
@@ -151,16 +145,10 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the details."
-        },
-        {
           "ssml": "Click to expand"
         },
         {
           "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
         }
       ]
     },
@@ -171,16 +159,10 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the details."
-        },
-        {
           "ssml": "Click to expand"
         },
         {
           "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
         }
       ]
     },
@@ -191,16 +173,10 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the details."
-        },
-        {
           "ssml": "Click to expand"
         },
         {
           "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
         }
       ]
     }

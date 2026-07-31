@@ -6,9 +6,6 @@
       },
       "utterances": [
         {
-          "plain": "Start of the table."
-        },
-        {
           "plain": "Name"
         },
         {
@@ -25,35 +22,80 @@
         },
         {
           "plain": "Admiral"
-        },
-        {
-          "plain": "End of the table."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "table",
+          "row",
+          "columnheader",
+          "rowheader",
+          "cell"
+        ]
       },
       "utterances": [
         {
+          "plain": "Start of the table."
+        },
+        {
+          "plain": "Start of the row."
+        },
+        {
+          "plain": "Column header."
+        },
+        {
           "plain": "Name"
+        },
+        {
+          "plain": "Column header."
         },
         {
           "plain": "Role"
         },
         {
+          "plain": "End of the row."
+        },
+        {
+          "plain": "Start of the row."
+        },
+        {
+          "plain": "Row header."
+        },
+        {
           "plain": "Ada"
+        },
+        {
+          "plain": "Cell."
         },
         {
           "plain": "Engineer"
         },
         {
+          "plain": "End of the row."
+        },
+        {
+          "plain": "Start of the row."
+        },
+        {
+          "plain": "Row header."
+        },
+        {
           "plain": "Grace"
         },
         {
+          "plain": "Cell."
+        },
+        {
           "plain": "Admiral"
+        },
+        {
+          "plain": "End of the row."
+        },
+        {
+          "plain": "End of the table."
         }
       ]
     },
@@ -64,9 +106,6 @@
       },
       "utterances": [
         {
-          "plain": "Start of the table."
-        },
-        {
           "plain": "Name"
         },
         {
@@ -83,9 +122,6 @@
         },
         {
           "plain": "Admiral"
-        },
-        {
-          "plain": "End of the table."
         }
       ]
     },
@@ -96,9 +132,6 @@
       },
       "utterances": [
         {
-          "plain": "Start of the table."
-        },
-        {
           "plain": "Name"
         },
         {
@@ -115,9 +148,6 @@
         },
         {
           "plain": "Admiral"
-        },
-        {
-          "plain": "End of the table."
         }
       ]
     },
@@ -128,9 +158,6 @@
       },
       "utterances": [
         {
-          "plain": "Start of the table."
-        },
-        {
           "plain": "Name"
         },
         {
@@ -147,9 +174,6 @@
         },
         {
           "plain": "Admiral"
-        },
-        {
-          "plain": "End of the table."
         }
       ]
     },
@@ -159,9 +183,6 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the table."
-        },
-        {
           "ssml": "Name"
         },
         {
@@ -178,35 +199,80 @@
         },
         {
           "ssml": "Admiral"
-        },
-        {
-          "ssml": "End of the table."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "table",
+          "row",
+          "columnheader",
+          "rowheader",
+          "cell"
+        ]
       },
       "utterances": [
         {
+          "ssml": "Start of the table."
+        },
+        {
+          "ssml": "Start of the row."
+        },
+        {
+          "ssml": "Column header."
+        },
+        {
           "ssml": "Name"
+        },
+        {
+          "ssml": "Column header."
         },
         {
           "ssml": "Role"
         },
         {
+          "ssml": "End of the row."
+        },
+        {
+          "ssml": "Start of the row."
+        },
+        {
+          "ssml": "Row header."
+        },
+        {
           "ssml": "Ada"
+        },
+        {
+          "ssml": "Cell."
         },
         {
           "ssml": "Engineer"
         },
         {
+          "ssml": "End of the row."
+        },
+        {
+          "ssml": "Start of the row."
+        },
+        {
+          "ssml": "Row header."
+        },
+        {
           "ssml": "Grace"
         },
         {
+          "ssml": "Cell."
+        },
+        {
           "ssml": "Admiral"
+        },
+        {
+          "ssml": "End of the row."
+        },
+        {
+          "ssml": "End of the table."
         }
       ]
     },
@@ -217,9 +283,6 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the table."
-        },
-        {
           "ssml": "Name"
         },
         {
@@ -236,9 +299,6 @@
         },
         {
           "ssml": "Admiral"
-        },
-        {
-          "ssml": "End of the table."
         }
       ]
     },
@@ -249,9 +309,6 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the table."
-        },
-        {
           "ssml": "Name"
         },
         {
@@ -268,9 +325,6 @@
         },
         {
           "ssml": "Admiral"
-        },
-        {
-          "ssml": "End of the table."
         }
       ]
     },
@@ -281,9 +335,6 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the table."
-        },
-        {
           "ssml": "Name"
         },
         {
@@ -300,9 +351,6 @@
         },
         {
           "ssml": "Admiral"
-        },
-        {
-          "ssml": "End of the table."
         }
       ]
     }

@@ -6,9 +6,6 @@
       },
       "utterances": [
         {
-          "plain": "Tip."
-        },
-        {
           "plain": "Tip: wind the mechanism fully before dusk."
         }
       ]
@@ -16,9 +13,14 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "tip"
+        ]
       },
       "utterances": [
+        {
+          "plain": "Tip."
+        },
         {
           "plain": "Tip: wind the mechanism fully before dusk."
         }
@@ -31,9 +33,6 @@
       },
       "utterances": [
         {
-          "plain": "Tip."
-        },
-        {
           "plain": "Tip: wind the mechanism fully before dusk."
         }
       ]
@@ -45,9 +44,6 @@
       },
       "utterances": [
         {
-          "plain": "Tip."
-        },
-        {
           "plain": "Tip: wind the mechanism fully before dusk."
         }
       ]
@@ -58,9 +54,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "plain": "Tip."
-        },
         {
           "plain": "Tip: wind the mechanism fully before dusk."
         }
@@ -72,9 +65,6 @@
       },
       "utterances": [
         {
-          "ssml": "Tip."
-        },
-        {
           "ssml": "Tip: wind the mechanism fully before dusk."
         }
       ]
@@ -82,9 +72,14 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "tip"
+        ]
       },
       "utterances": [
+        {
+          "ssml": "Tip."
+        },
         {
           "ssml": "Tip: wind the mechanism fully before dusk."
         }
@@ -97,9 +92,6 @@
       },
       "utterances": [
         {
-          "ssml": "Tip."
-        },
-        {
           "ssml": "Tip: wind the mechanism fully before dusk."
         }
       ]
@@ -111,9 +103,6 @@
       },
       "utterances": [
         {
-          "ssml": "Tip."
-        },
-        {
           "ssml": "Tip: wind the mechanism fully before dusk."
         }
       ]
@@ -124,9 +113,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "ssml": "Tip."
-        },
         {
           "ssml": "Tip: wind the mechanism fully before dusk."
         }

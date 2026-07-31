@@ -6,9 +6,6 @@
       },
       "utterances": [
         {
-          "plain": "Start of the page list."
-        },
-        {
           "plain": "Page 1"
         },
         {
@@ -16,26 +13,48 @@
         },
         {
           "plain": "Page 3"
-        },
-        {
-          "plain": "End of the page list."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "pagelist",
+          "list",
+          "listItem"
+        ]
       },
       "utterances": [
         {
+          "plain": "Start of the page list."
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
+        {
           "plain": "Page 1"
+        },
+        {
+          "plain": "List item."
         },
         {
           "plain": "Page 2"
         },
         {
+          "plain": "List item."
+        },
+        {
           "plain": "Page 3"
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the page list."
         }
       ]
     },
@@ -46,9 +65,6 @@
       },
       "utterances": [
         {
-          "plain": "Start of the page list."
-        },
-        {
           "plain": "Page 1"
         },
         {
@@ -56,9 +72,6 @@
         },
         {
           "plain": "Page 3"
-        },
-        {
-          "plain": "End of the page list."
         }
       ]
     },
@@ -69,9 +82,6 @@
       },
       "utterances": [
         {
-          "plain": "Start of the page list."
-        },
-        {
           "plain": "Page 1"
         },
         {
@@ -79,9 +89,6 @@
         },
         {
           "plain": "Page 3"
-        },
-        {
-          "plain": "End of the page list."
         }
       ]
     },
@@ -92,9 +99,6 @@
       },
       "utterances": [
         {
-          "plain": "Start of the page list."
-        },
-        {
           "plain": "Page 1"
         },
         {
@@ -102,9 +106,6 @@
         },
         {
           "plain": "Page 3"
-        },
-        {
-          "plain": "End of the page list."
         }
       ]
     },
@@ -114,9 +115,6 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the page list."
-        },
-        {
           "ssml": "Page 1"
         },
         {
@@ -124,26 +122,48 @@
         },
         {
           "ssml": "Page 3"
-        },
-        {
-          "ssml": "End of the page list."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "pagelist",
+          "list",
+          "listItem"
+        ]
       },
       "utterances": [
         {
+          "ssml": "Start of the page list."
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
+        {
           "ssml": "Page 1"
+        },
+        {
+          "ssml": "List item."
         },
         {
           "ssml": "Page 2"
         },
         {
+          "ssml": "List item."
+        },
+        {
           "ssml": "Page 3"
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the page list."
         }
       ]
     },
@@ -154,9 +174,6 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the page list."
-        },
-        {
           "ssml": "Page 1"
         },
         {
@@ -164,9 +181,6 @@
         },
         {
           "ssml": "Page 3"
-        },
-        {
-          "ssml": "End of the page list."
         }
       ]
     },
@@ -177,9 +191,6 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the page list."
-        },
-        {
           "ssml": "Page 1"
         },
         {
@@ -187,9 +198,6 @@
         },
         {
           "ssml": "Page 3"
-        },
-        {
-          "ssml": "End of the page list."
         }
       ]
     },
@@ -200,9 +208,6 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the page list."
-        },
-        {
           "ssml": "Page 1"
         },
         {
@@ -210,9 +215,6 @@
         },
         {
           "ssml": "Page 3"
-        },
-        {
-          "ssml": "End of the page list."
         }
       ]
     }

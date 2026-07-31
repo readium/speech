@@ -6,9 +6,6 @@
       },
       "utterances": [
         {
-          "plain": "Image."
-        },
-        {
           "plain": "Alternative text using the alt attribute"
         }
       ]
@@ -16,9 +13,14 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "image"
+        ]
       },
       "utterances": [
+        {
+          "plain": "Image."
+        },
         {
           "plain": "Alternative text using the alt attribute"
         }
@@ -31,9 +33,6 @@
       },
       "utterances": [
         {
-          "plain": "Image."
-        },
-        {
           "plain": "Alternative text using the alt attribute"
         }
       ]
@@ -45,9 +44,6 @@
       },
       "utterances": [
         {
-          "plain": "Image."
-        },
-        {
           "plain": "Alternative text using the alt attribute"
         }
       ]
@@ -58,9 +54,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "plain": "Image."
-        },
         {
           "plain": "Alternative text using the alt attribute"
         }
@@ -72,9 +65,6 @@
       },
       "utterances": [
         {
-          "ssml": "Image."
-        },
-        {
           "ssml": "Alternative text using the alt attribute"
         }
       ]
@@ -82,9 +72,14 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "image"
+        ]
       },
       "utterances": [
+        {
+          "ssml": "Image."
+        },
         {
           "ssml": "Alternative text using the alt attribute"
         }
@@ -97,9 +92,6 @@
       },
       "utterances": [
         {
-          "ssml": "Image."
-        },
-        {
           "ssml": "Alternative text using the alt attribute"
         }
       ]
@@ -111,9 +103,6 @@
       },
       "utterances": [
         {
-          "ssml": "Image."
-        },
-        {
           "ssml": "Alternative text using the alt attribute"
         }
       ]
@@ -124,9 +113,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "ssml": "Image."
-        },
         {
           "ssml": "Alternative text using the alt attribute"
         }

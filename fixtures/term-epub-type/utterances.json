@@ -6,24 +6,30 @@
       },
       "utterances": [
         {
-          "plain": "Start of the glossary."
-        },
-        {
           "plain": "lighthouse"
-        },
-        {
-          "plain": "End of the glossary."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "glossary",
+          "term"
+        ]
       },
       "utterances": [
         {
+          "plain": "Start of the glossary."
+        },
+        {
+          "plain": "Term."
+        },
+        {
           "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
         }
       ]
     },
@@ -34,13 +40,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the glossary."
-        },
-        {
           "plain": "lighthouse"
-        },
-        {
-          "plain": "End of the glossary."
         }
       ]
     },
@@ -51,13 +51,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the glossary."
-        },
-        {
           "plain": "lighthouse"
-        },
-        {
-          "plain": "End of the glossary."
         }
       ]
     },
@@ -68,13 +62,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the glossary."
-        },
-        {
           "plain": "lighthouse"
-        },
-        {
-          "plain": "End of the glossary."
         }
       ]
     },
@@ -84,24 +72,30 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the glossary."
-        },
-        {
           "ssml": "lighthouse"
-        },
-        {
-          "ssml": "End of the glossary."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "glossary",
+          "term"
+        ]
       },
       "utterances": [
         {
+          "ssml": "Start of the glossary."
+        },
+        {
+          "ssml": "Term."
+        },
+        {
           "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
         }
       ]
     },
@@ -112,13 +106,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the glossary."
-        },
-        {
           "ssml": "lighthouse"
-        },
-        {
-          "ssml": "End of the glossary."
         }
       ]
     },
@@ -129,13 +117,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the glossary."
-        },
-        {
           "ssml": "lighthouse"
-        },
-        {
-          "ssml": "End of the glossary."
         }
       ]
     },
@@ -146,13 +128,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the glossary."
-        },
-        {
           "ssml": "lighthouse"
-        },
-        {
-          "ssml": "End of the glossary."
         }
       ]
     }

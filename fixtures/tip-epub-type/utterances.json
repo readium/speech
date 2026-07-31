@@ -6,16 +6,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the aside."
-        },
-        {
-          "plain": "Tip."
-        },
-        {
           "plain": "Tip: wind the mechanism fully before dusk."
-        },
-        {
-          "plain": "End of the aside."
         }
       ]
     },
@@ -31,11 +22,23 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "aside",
+          "tip"
+        ]
       },
       "utterances": [
         {
+          "plain": "Start of the aside."
+        },
+        {
+          "plain": "Tip."
+        },
+        {
           "plain": "Tip: wind the mechanism fully before dusk."
+        },
+        {
+          "plain": "End of the aside."
         }
       ]
     },
@@ -46,16 +49,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the aside."
-        },
-        {
-          "plain": "Tip."
-        },
-        {
           "plain": "Tip: wind the mechanism fully before dusk."
-        },
-        {
-          "plain": "End of the aside."
         }
       ]
     },
@@ -66,16 +60,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the aside."
-        },
-        {
-          "plain": "Tip."
-        },
-        {
           "plain": "Tip: wind the mechanism fully before dusk."
-        },
-        {
-          "plain": "End of the aside."
         }
       ]
     },
@@ -86,16 +71,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the aside."
-        },
-        {
-          "plain": "Tip."
-        },
-        {
           "plain": "Tip: wind the mechanism fully before dusk."
-        },
-        {
-          "plain": "End of the aside."
         }
       ]
     },
@@ -105,16 +81,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the aside."
-        },
-        {
-          "ssml": "Tip."
-        },
-        {
           "ssml": "Tip: wind the mechanism fully before dusk."
-        },
-        {
-          "ssml": "End of the aside."
         }
       ]
     },
@@ -130,11 +97,23 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "aside",
+          "tip"
+        ]
       },
       "utterances": [
         {
+          "ssml": "Start of the aside."
+        },
+        {
+          "ssml": "Tip."
+        },
+        {
           "ssml": "Tip: wind the mechanism fully before dusk."
+        },
+        {
+          "ssml": "End of the aside."
         }
       ]
     },
@@ -145,16 +124,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the aside."
-        },
-        {
-          "ssml": "Tip."
-        },
-        {
           "ssml": "Tip: wind the mechanism fully before dusk."
-        },
-        {
-          "ssml": "End of the aside."
         }
       ]
     },
@@ -165,16 +135,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the aside."
-        },
-        {
-          "ssml": "Tip."
-        },
-        {
           "ssml": "Tip: wind the mechanism fully before dusk."
-        },
-        {
-          "ssml": "End of the aside."
         }
       ]
     },
@@ -185,16 +146,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the aside."
-        },
-        {
-          "ssml": "Tip."
-        },
-        {
           "ssml": "Tip: wind the mechanism fully before dusk."
-        },
-        {
-          "ssml": "End of the aside."
         }
       ]
     }

@@ -6,6 +6,19 @@
       },
       "utterances": [
         {
+          "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "acknowledgments"
+        ]
+      },
+      "utterances": [
+        {
           "plain": "Start of the acknowledgments."
         },
         {
@@ -13,17 +26,6 @@
         },
         {
           "plain": "End of the acknowledgments."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
         }
       ]
     },
@@ -34,13 +36,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the acknowledgments."
-        },
-        {
           "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
-        },
-        {
-          "plain": "End of the acknowledgments."
         }
       ]
     },
@@ -51,13 +47,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the acknowledgments."
-        },
-        {
           "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
-        },
-        {
-          "plain": "End of the acknowledgments."
         }
       ]
     },
@@ -68,13 +58,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the acknowledgments."
-        },
-        {
           "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
-        },
-        {
-          "plain": "End of the acknowledgments."
         }
       ]
     },
@@ -84,6 +68,19 @@
       },
       "utterances": [
         {
+          "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "acknowledgments"
+        ]
+      },
+      "utterances": [
+        {
           "ssml": "Start of the acknowledgments."
         },
         {
@@ -91,17 +88,6 @@
         },
         {
           "ssml": "End of the acknowledgments."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
         }
       ]
     },
@@ -112,13 +98,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the acknowledgments."
-        },
-        {
           "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
-        },
-        {
-          "ssml": "End of the acknowledgments."
         }
       ]
     },
@@ -129,13 +109,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the acknowledgments."
-        },
-        {
           "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
-        },
-        {
-          "ssml": "End of the acknowledgments."
         }
       ]
     },
@@ -146,13 +120,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the acknowledgments."
-        },
-        {
           "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
-        },
-        {
-          "ssml": "End of the acknowledgments."
         }
       ]
     }

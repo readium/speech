@@ -10,8 +10,11 @@
           "plain": "This text has a footnote."
         },
         {
-          "plain": "Start of the footnote. Text of the footnote. 1. End of the footnote.",
-          "language": "en"
+          "language": "en",
+          "plain": "Text of the footnote."
+        },
+        {
+          "plain": "1."
         }
       ]
     },
@@ -60,7 +63,38 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote."
+        },
+        {
+          "plain": "Start of the footnote. Text of the footnote. 1. End of the footnote.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "interruptSentence": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote 1. Text of the footnote.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
       },
       "utterances": [
         {
@@ -79,34 +113,6 @@
     {
       "options": {
         "format": "plain",
-        "interruptSentence": true
-      },
-      "utterances": [
-        {
-          "plain": "This text has a footnote Start of the footnote. 1. Text of the footnote. End of the footnote.",
-          "language": "en"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "language": "en",
-          "plain": "This text has a footnote."
-        },
-        {
-          "plain": "Start of the footnote. Text of the footnote. 1. End of the footnote.",
-          "language": "en"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
         "language": "block-level"
       },
       "utterances": [
@@ -115,8 +121,11 @@
           "plain": "This text has a footnote."
         },
         {
-          "plain": "Start of the footnote. Text of the footnote. 1. End of the footnote.",
-          "language": "en"
+          "language": "en",
+          "plain": "Text of the footnote."
+        },
+        {
+          "plain": "1."
         }
       ]
     },
@@ -130,7 +139,10 @@
           "plain": "This text has a footnote."
         },
         {
-          "plain": "Start of the footnote. Text of the footnote. 1. End of the footnote."
+          "plain": "Text of the footnote."
+        },
+        {
+          "plain": "1."
         }
       ]
     },
@@ -144,8 +156,11 @@
           "ssml": "This text has a footnote."
         },
         {
-          "ssml": "Start of the footnote. Text of the footnote. 1. End of the footnote.",
-          "language": "en"
+          "language": "en",
+          "ssml": "Text of the footnote."
+        },
+        {
+          "ssml": "1."
         }
       ]
     },
@@ -194,7 +209,38 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote."
+        },
+        {
+          "ssml": "Start of the footnote. Text of the footnote. 1. End of the footnote.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "interruptSentence": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote 1. Text of the footnote.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
       },
       "utterances": [
         {
@@ -213,34 +259,6 @@
     {
       "options": {
         "format": "ssml",
-        "interruptSentence": true
-      },
-      "utterances": [
-        {
-          "ssml": "This text has a footnote Start of the footnote. 1. Text of the footnote. End of the footnote.",
-          "language": "en"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "language": "en",
-          "ssml": "This text has a footnote."
-        },
-        {
-          "ssml": "Start of the footnote. Text of the footnote. 1. End of the footnote.",
-          "language": "en"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
         "language": "block-level"
       },
       "utterances": [
@@ -249,8 +267,11 @@
           "ssml": "This text has a footnote."
         },
         {
-          "ssml": "Start of the footnote. Text of the footnote. 1. End of the footnote.",
-          "language": "en"
+          "language": "en",
+          "ssml": "Text of the footnote."
+        },
+        {
+          "ssml": "1."
         }
       ]
     },
@@ -264,7 +285,10 @@
           "ssml": "This text has a footnote."
         },
         {
-          "ssml": "Start of the footnote. Text of the footnote. 1. End of the footnote."
+          "ssml": "Text of the footnote."
+        },
+        {
+          "ssml": "1."
         }
       ]
     }

@@ -6,36 +6,53 @@
       },
       "utterances": [
         {
-          "plain": "Start of the credits."
-        },
-        {
-          "plain": "Credit."
-        },
-        {
           "plain": "Cover photograph by A. Keeper."
         },
         {
-          "plain": "Credit."
-        },
-        {
           "plain": "Maps by B. Cartographer."
-        },
-        {
-          "plain": "End of the credits."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "credits",
+          "list",
+          "listItem",
+          "credit"
+        ]
       },
       "utterances": [
+        {
+          "plain": "Start of the credits."
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Credit."
+        },
         {
           "plain": "Cover photograph by A. Keeper."
         },
         {
+          "plain": "List item."
+        },
+        {
+          "plain": "Credit."
+        },
+        {
           "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the credits."
         }
       ]
     },
@@ -46,22 +63,10 @@
       },
       "utterances": [
         {
-          "plain": "Start of the credits."
-        },
-        {
-          "plain": "Credit."
-        },
-        {
           "plain": "Cover photograph by A. Keeper."
         },
         {
-          "plain": "Credit."
-        },
-        {
           "plain": "Maps by B. Cartographer."
-        },
-        {
-          "plain": "End of the credits."
         }
       ]
     },
@@ -72,22 +77,10 @@
       },
       "utterances": [
         {
-          "plain": "Start of the credits."
-        },
-        {
-          "plain": "Credit."
-        },
-        {
           "plain": "Cover photograph by A. Keeper."
         },
         {
-          "plain": "Credit."
-        },
-        {
           "plain": "Maps by B. Cartographer."
-        },
-        {
-          "plain": "End of the credits."
         }
       ]
     },
@@ -98,22 +91,10 @@
       },
       "utterances": [
         {
-          "plain": "Start of the credits."
-        },
-        {
-          "plain": "Credit."
-        },
-        {
           "plain": "Cover photograph by A. Keeper."
         },
         {
-          "plain": "Credit."
-        },
-        {
           "plain": "Maps by B. Cartographer."
-        },
-        {
-          "plain": "End of the credits."
         }
       ]
     },
@@ -123,36 +104,53 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the credits."
-        },
-        {
-          "ssml": "Credit."
-        },
-        {
           "ssml": "Cover photograph by A. Keeper."
         },
         {
-          "ssml": "Credit."
-        },
-        {
           "ssml": "Maps by B. Cartographer."
-        },
-        {
-          "ssml": "End of the credits."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "credits",
+          "list",
+          "listItem",
+          "credit"
+        ]
       },
       "utterances": [
+        {
+          "ssml": "Start of the credits."
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Credit."
+        },
         {
           "ssml": "Cover photograph by A. Keeper."
         },
         {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Credit."
+        },
+        {
           "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the credits."
         }
       ]
     },
@@ -163,22 +161,10 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the credits."
-        },
-        {
-          "ssml": "Credit."
-        },
-        {
           "ssml": "Cover photograph by A. Keeper."
         },
         {
-          "ssml": "Credit."
-        },
-        {
           "ssml": "Maps by B. Cartographer."
-        },
-        {
-          "ssml": "End of the credits."
         }
       ]
     },
@@ -189,22 +175,10 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the credits."
-        },
-        {
-          "ssml": "Credit."
-        },
-        {
           "ssml": "Cover photograph by A. Keeper."
         },
         {
-          "ssml": "Credit."
-        },
-        {
           "ssml": "Maps by B. Cartographer."
-        },
-        {
-          "ssml": "End of the credits."
         }
       ]
     },
@@ -215,22 +189,10 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the credits."
-        },
-        {
-          "ssml": "Credit."
-        },
-        {
           "ssml": "Cover photograph by A. Keeper."
         },
         {
-          "ssml": "Credit."
-        },
-        {
           "ssml": "Maps by B. Cartographer."
-        },
-        {
-          "ssml": "End of the credits."
         }
       ]
     }

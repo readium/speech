@@ -6,9 +6,6 @@
       },
       "utterances": [
         {
-          "plain": "Notice."
-        },
-        {
           "plain": "Caution: the tower stairs are uneven."
         }
       ]
@@ -16,9 +13,14 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "notice"
+        ]
       },
       "utterances": [
+        {
+          "plain": "Notice."
+        },
         {
           "plain": "Caution: the tower stairs are uneven."
         }
@@ -31,9 +33,6 @@
       },
       "utterances": [
         {
-          "plain": "Notice."
-        },
-        {
           "plain": "Caution: the tower stairs are uneven."
         }
       ]
@@ -45,9 +44,6 @@
       },
       "utterances": [
         {
-          "plain": "Notice."
-        },
-        {
           "plain": "Caution: the tower stairs are uneven."
         }
       ]
@@ -58,9 +54,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "plain": "Notice."
-        },
         {
           "plain": "Caution: the tower stairs are uneven."
         }
@@ -72,9 +65,6 @@
       },
       "utterances": [
         {
-          "ssml": "Notice."
-        },
-        {
           "ssml": "Caution: the tower stairs are uneven."
         }
       ]
@@ -82,9 +72,14 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "notice"
+        ]
       },
       "utterances": [
+        {
+          "ssml": "Notice."
+        },
         {
           "ssml": "Caution: the tower stairs are uneven."
         }
@@ -97,9 +92,6 @@
       },
       "utterances": [
         {
-          "ssml": "Notice."
-        },
-        {
           "ssml": "Caution: the tower stairs are uneven."
         }
       ]
@@ -111,9 +103,6 @@
       },
       "utterances": [
         {
-          "ssml": "Notice."
-        },
-        {
           "ssml": "Caution: the tower stairs are uneven."
         }
       ]
@@ -124,9 +113,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "ssml": "Notice."
-        },
         {
           "ssml": "Caution: the tower stairs are uneven."
         }

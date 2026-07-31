@@ -6,6 +6,20 @@
       },
       "utterances": [
         {
+          "plain": "Title of the part"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "part",
+          "heading1"
+        ]
+      },
+      "utterances": [
+        {
           "plain": "Start of the part."
         },
         {
@@ -16,17 +30,6 @@
         },
         {
           "plain": "End of the part."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "plain": "Title of the part"
         }
       ]
     },
@@ -37,16 +40,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the part."
-        },
-        {
-          "plain": "Heading level 1."
-        },
-        {
           "plain": "Title of the part"
-        },
-        {
-          "plain": "End of the part."
         }
       ]
     },
@@ -57,16 +51,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the part."
-        },
-        {
-          "plain": "Heading level 1."
-        },
-        {
           "plain": "Title of the part"
-        },
-        {
-          "plain": "End of the part."
         }
       ]
     },
@@ -77,16 +62,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the part."
-        },
-        {
-          "plain": "Heading level 1."
-        },
-        {
           "plain": "Title of the part"
-        },
-        {
-          "plain": "End of the part."
         }
       ]
     },
@@ -96,6 +72,20 @@
       },
       "utterances": [
         {
+          "ssml": "Title of the part"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "part",
+          "heading1"
+        ]
+      },
+      "utterances": [
+        {
           "ssml": "Start of the part."
         },
         {
@@ -106,17 +96,6 @@
         },
         {
           "ssml": "End of the part."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "ssml": "Title of the part"
         }
       ]
     },
@@ -127,16 +106,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the part."
-        },
-        {
-          "ssml": "Heading level 1."
-        },
-        {
           "ssml": "Title of the part"
-        },
-        {
-          "ssml": "End of the part."
         }
       ]
     },
@@ -147,16 +117,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the part."
-        },
-        {
-          "ssml": "Heading level 1."
-        },
-        {
           "ssml": "Title of the part"
-        },
-        {
-          "ssml": "End of the part."
         }
       ]
     },
@@ -167,16 +128,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the part."
-        },
-        {
-          "ssml": "Heading level 1."
-        },
-        {
           "ssml": "Title of the part"
-        },
-        {
-          "ssml": "End of the part."
         }
       ]
     }

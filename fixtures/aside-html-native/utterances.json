@@ -6,13 +6,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the aside."
-        },
-        {
           "plain": "By the way, lighthouses were once staffed around the clock."
-        },
-        {
-          "plain": "End of the aside."
         }
       ]
     },
@@ -28,11 +22,19 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "aside"
+        ]
       },
       "utterances": [
         {
+          "plain": "Start of the aside."
+        },
+        {
           "plain": "By the way, lighthouses were once staffed around the clock."
+        },
+        {
+          "plain": "End of the aside."
         }
       ]
     },
@@ -43,13 +45,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the aside."
-        },
-        {
           "plain": "By the way, lighthouses were once staffed around the clock."
-        },
-        {
-          "plain": "End of the aside."
         }
       ]
     },
@@ -60,13 +56,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the aside."
-        },
-        {
           "plain": "By the way, lighthouses were once staffed around the clock."
-        },
-        {
-          "plain": "End of the aside."
         }
       ]
     },
@@ -77,13 +67,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the aside."
-        },
-        {
           "plain": "By the way, lighthouses were once staffed around the clock."
-        },
-        {
-          "plain": "End of the aside."
         }
       ]
     },
@@ -93,13 +77,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the aside."
-        },
-        {
           "ssml": "By the way, lighthouses were once staffed around the clock."
-        },
-        {
-          "ssml": "End of the aside."
         }
       ]
     },
@@ -115,11 +93,19 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "aside"
+        ]
       },
       "utterances": [
         {
+          "ssml": "Start of the aside."
+        },
+        {
           "ssml": "By the way, lighthouses were once staffed around the clock."
+        },
+        {
+          "ssml": "End of the aside."
         }
       ]
     },
@@ -130,13 +116,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the aside."
-        },
-        {
           "ssml": "By the way, lighthouses were once staffed around the clock."
-        },
-        {
-          "ssml": "End of the aside."
         }
       ]
     },
@@ -147,13 +127,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the aside."
-        },
-        {
           "ssml": "By the way, lighthouses were once staffed around the clock."
-        },
-        {
-          "ssml": "End of the aside."
         }
       ]
     },
@@ -164,13 +138,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the aside."
-        },
-        {
           "ssml": "By the way, lighthouses were once staffed around the clock."
-        },
-        {
-          "ssml": "End of the aside."
         }
       ]
     }

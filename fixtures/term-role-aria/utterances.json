@@ -13,6 +13,22 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "term"
+        ]
+      },
+      "utterances": [
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
         "language": "always"
       },
       "utterances": [
@@ -48,6 +64,22 @@
         "format": "ssml"
       },
       "utterances": [
+        {
+          "ssml": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "term"
+        ]
+      },
+      "utterances": [
+        {
+          "ssml": "Term."
+        },
         {
           "ssml": "lighthouse"
         }

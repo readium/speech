@@ -19,6 +19,41 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "list",
+          "listItem"
+        ]
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "First item"
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Second item"
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Third item"
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
         "language": "always"
       },
       "utterances": [
@@ -80,6 +115,41 @@
         },
         {
           "ssml": "Third item"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "list",
+          "listItem"
+        ]
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "First item"
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Second item"
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Third item"
+        },
+        {
+          "ssml": "End of the list."
         }
       ]
     },

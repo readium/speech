@@ -10,7 +10,7 @@
           "plain": "This text has a footnote."
         },
         {
-          "plain": "Start of the footnote. Text of the footnote. End of the footnote."
+          "plain": "Text of the footnote."
         }
       ]
     },
@@ -59,7 +59,37 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote."
+        },
+        {
+          "plain": "Start of the footnote. Text of the footnote. End of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "interruptSentence": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote Text of the footnote.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
       },
       "utterances": [
         {
@@ -74,33 +104,6 @@
     {
       "options": {
         "format": "plain",
-        "interruptSentence": true
-      },
-      "utterances": [
-        {
-          "plain": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
-          "language": "en"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "language": "en",
-          "plain": "This text has a footnote."
-        },
-        {
-          "plain": "Start of the footnote. Text of the footnote. End of the footnote."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
         "language": "block-level"
       },
       "utterances": [
@@ -109,7 +112,7 @@
           "plain": "This text has a footnote."
         },
         {
-          "plain": "Start of the footnote. Text of the footnote. End of the footnote."
+          "plain": "Text of the footnote."
         }
       ]
     },
@@ -123,7 +126,7 @@
           "plain": "This text has a footnote."
         },
         {
-          "plain": "Start of the footnote. Text of the footnote. End of the footnote."
+          "plain": "Text of the footnote."
         }
       ]
     },
@@ -137,7 +140,7 @@
           "ssml": "This text has a footnote."
         },
         {
-          "ssml": "Start of the footnote. Text of the footnote. End of the footnote."
+          "ssml": "Text of the footnote."
         }
       ]
     },
@@ -186,7 +189,10 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
       },
       "utterances": [
         {
@@ -194,7 +200,7 @@
           "ssml": "This text has a footnote."
         },
         {
-          "ssml": "Text of the footnote."
+          "ssml": "Start of the footnote. Text of the footnote. End of the footnote."
         }
       ]
     },
@@ -205,7 +211,7 @@
       },
       "utterances": [
         {
-          "ssml": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
+          "ssml": "This text has a footnote Text of the footnote.",
           "language": "en"
         }
       ]
@@ -221,7 +227,7 @@
           "ssml": "This text has a footnote."
         },
         {
-          "ssml": "Start of the footnote. Text of the footnote. End of the footnote."
+          "ssml": "Text of the footnote."
         }
       ]
     },
@@ -236,7 +242,7 @@
           "ssml": "This text has a footnote."
         },
         {
-          "ssml": "Start of the footnote. Text of the footnote. End of the footnote."
+          "ssml": "Text of the footnote."
         }
       ]
     },
@@ -250,7 +256,7 @@
           "ssml": "This text has a footnote."
         },
         {
-          "ssml": "Start of the footnote. Text of the footnote. End of the footnote."
+          "ssml": "Text of the footnote."
         }
       ]
     }

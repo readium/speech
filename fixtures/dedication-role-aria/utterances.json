@@ -6,9 +6,6 @@
       },
       "utterances": [
         {
-          "plain": "Dedication."
-        },
-        {
           "plain": "For every keeper who lit the lamp at dusk."
         }
       ]
@@ -16,9 +13,14 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "dedication"
+        ]
       },
       "utterances": [
+        {
+          "plain": "Dedication."
+        },
         {
           "plain": "For every keeper who lit the lamp at dusk."
         }
@@ -31,9 +33,6 @@
       },
       "utterances": [
         {
-          "plain": "Dedication."
-        },
-        {
           "plain": "For every keeper who lit the lamp at dusk."
         }
       ]
@@ -45,9 +44,6 @@
       },
       "utterances": [
         {
-          "plain": "Dedication."
-        },
-        {
           "plain": "For every keeper who lit the lamp at dusk."
         }
       ]
@@ -58,9 +54,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "plain": "Dedication."
-        },
         {
           "plain": "For every keeper who lit the lamp at dusk."
         }
@@ -72,9 +65,6 @@
       },
       "utterances": [
         {
-          "ssml": "Dedication."
-        },
-        {
           "ssml": "For every keeper who lit the lamp at dusk."
         }
       ]
@@ -82,9 +72,14 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "dedication"
+        ]
       },
       "utterances": [
+        {
+          "ssml": "Dedication."
+        },
         {
           "ssml": "For every keeper who lit the lamp at dusk."
         }
@@ -97,9 +92,6 @@
       },
       "utterances": [
         {
-          "ssml": "Dedication."
-        },
-        {
           "ssml": "For every keeper who lit the lamp at dusk."
         }
       ]
@@ -111,9 +103,6 @@
       },
       "utterances": [
         {
-          "ssml": "Dedication."
-        },
-        {
           "ssml": "For every keeper who lit the lamp at dusk."
         }
       ]
@@ -124,9 +113,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "ssml": "Dedication."
-        },
         {
           "ssml": "For every keeper who lit the lamp at dusk."
         }

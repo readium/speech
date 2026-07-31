@@ -6,14 +6,14 @@
       },
       "utterances": [
         {
-          "plain": "Pagebreak. 4."
+          "plain": "4"
         },
         {
           "language": "en",
           "plain": "And the next pagebreak is in the middle of a sentence."
         },
         {
-          "plain": "Pagebreak. 5."
+          "plain": "5"
         }
       ]
     },
@@ -34,7 +34,42 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "pagebreak"
+        ]
+      },
+      "utterances": [
+        {
+          "plain": "Pagebreak. 4."
+        },
+        {
+          "language": "en",
+          "plain": "And the next pagebreak is in the middle of a sentence."
+        },
+        {
+          "plain": "Pagebreak. 5."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "interruptSentence": true
+      },
+      "utterances": [
+        {
+          "plain": "4"
+        },
+        {
+          "plain": "And the next pagebreak is in the middle 5 of a sentence.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "always"
       },
       "utterances": [
         {
@@ -52,51 +87,18 @@
     {
       "options": {
         "format": "plain",
-        "interruptSentence": true
-      },
-      "utterances": [
-        {
-          "plain": "Pagebreak. 4."
-        },
-        {
-          "plain": "And the next pagebreak is in the middle Pagebreak. 5. of a sentence.",
-          "language": "en"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Pagebreak. 4."
-        },
-        {
-          "language": "en",
-          "plain": "And the next pagebreak is in the middle of a sentence."
-        },
-        {
-          "plain": "Pagebreak. 5."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
         "language": "block-level"
       },
       "utterances": [
         {
-          "plain": "Pagebreak. 4."
+          "plain": "4"
         },
         {
           "language": "en",
           "plain": "And the next pagebreak is in the middle of a sentence."
         },
         {
-          "plain": "Pagebreak. 5."
+          "plain": "5"
         }
       ]
     },
@@ -107,13 +109,13 @@
       },
       "utterances": [
         {
-          "plain": "Pagebreak. 4."
+          "plain": "4"
         },
         {
           "plain": "And the next pagebreak is in the middle of a sentence."
         },
         {
-          "plain": "Pagebreak. 5."
+          "plain": "5"
         }
       ]
     },
@@ -123,14 +125,14 @@
       },
       "utterances": [
         {
-          "ssml": "Pagebreak. 4."
+          "ssml": "4"
         },
         {
           "language": "en",
           "ssml": "And the next pagebreak is in the middle of a sentence."
         },
         {
-          "ssml": "Pagebreak. 5."
+          "ssml": "5"
         }
       ]
     },
@@ -151,7 +153,42 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "pagebreak"
+        ]
+      },
+      "utterances": [
+        {
+          "ssml": "Pagebreak. 4."
+        },
+        {
+          "language": "en",
+          "ssml": "And the next pagebreak is in the middle of a sentence."
+        },
+        {
+          "ssml": "Pagebreak. 5."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "interruptSentence": true
+      },
+      "utterances": [
+        {
+          "ssml": "4"
+        },
+        {
+          "ssml": "And the next pagebreak is in the middle 5 of a sentence.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "always"
       },
       "utterances": [
         {
@@ -169,51 +206,18 @@
     {
       "options": {
         "format": "ssml",
-        "interruptSentence": true
-      },
-      "utterances": [
-        {
-          "ssml": "Pagebreak. 4."
-        },
-        {
-          "ssml": "And the next pagebreak is in the middle Pagebreak. 5. of a sentence.",
-          "language": "en"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Pagebreak. 4."
-        },
-        {
-          "language": "en",
-          "ssml": "And the next pagebreak is in the middle of a sentence."
-        },
-        {
-          "ssml": "Pagebreak. 5."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
         "language": "block-level"
       },
       "utterances": [
         {
-          "ssml": "Pagebreak. 4."
+          "ssml": "4"
         },
         {
           "language": "en",
           "ssml": "And the next pagebreak is in the middle of a sentence."
         },
         {
-          "ssml": "Pagebreak. 5."
+          "ssml": "5"
         }
       ]
     },
@@ -224,13 +228,13 @@
       },
       "utterances": [
         {
-          "ssml": "Pagebreak. 4."
+          "ssml": "4"
         },
         {
           "ssml": "And the next pagebreak is in the middle of a sentence."
         },
         {
-          "ssml": "Pagebreak. 5."
+          "ssml": "5"
         }
       ]
     }

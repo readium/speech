@@ -6,9 +6,6 @@
       },
       "utterances": [
         {
-          "plain": "Credit."
-        },
-        {
           "plain": "Cover photograph by A. Keeper."
         }
       ]
@@ -16,9 +13,14 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "credit"
+        ]
       },
       "utterances": [
+        {
+          "plain": "Credit."
+        },
         {
           "plain": "Cover photograph by A. Keeper."
         }
@@ -31,9 +33,6 @@
       },
       "utterances": [
         {
-          "plain": "Credit."
-        },
-        {
           "plain": "Cover photograph by A. Keeper."
         }
       ]
@@ -45,9 +44,6 @@
       },
       "utterances": [
         {
-          "plain": "Credit."
-        },
-        {
           "plain": "Cover photograph by A. Keeper."
         }
       ]
@@ -58,9 +54,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "plain": "Credit."
-        },
         {
           "plain": "Cover photograph by A. Keeper."
         }
@@ -72,9 +65,6 @@
       },
       "utterances": [
         {
-          "ssml": "Credit."
-        },
-        {
           "ssml": "Cover photograph by A. Keeper."
         }
       ]
@@ -82,9 +72,14 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "credit"
+        ]
       },
       "utterances": [
+        {
+          "ssml": "Credit."
+        },
         {
           "ssml": "Cover photograph by A. Keeper."
         }
@@ -97,9 +92,6 @@
       },
       "utterances": [
         {
-          "ssml": "Credit."
-        },
-        {
           "ssml": "Cover photograph by A. Keeper."
         }
       ]
@@ -111,9 +103,6 @@
       },
       "utterances": [
         {
-          "ssml": "Credit."
-        },
-        {
           "ssml": "Cover photograph by A. Keeper."
         }
       ]
@@ -124,9 +113,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "ssml": "Credit."
-        },
         {
           "ssml": "Cover photograph by A. Keeper."
         }

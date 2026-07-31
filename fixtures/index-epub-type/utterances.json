@@ -6,30 +6,46 @@
       },
       "utterances": [
         {
-          "plain": "Start of the index."
-        },
-        {
           "plain": "Fresnel lens"
         },
         {
           "plain": "Keepers"
-        },
-        {
-          "plain": "End of the index."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "index",
+          "list",
+          "listItem"
+        ]
       },
       "utterances": [
+        {
+          "plain": "Start of the index."
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
         {
           "plain": "Fresnel lens"
         },
         {
+          "plain": "List item."
+        },
+        {
           "plain": "Keepers"
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the index."
         }
       ]
     },
@@ -40,16 +56,10 @@
       },
       "utterances": [
         {
-          "plain": "Start of the index."
-        },
-        {
           "plain": "Fresnel lens"
         },
         {
           "plain": "Keepers"
-        },
-        {
-          "plain": "End of the index."
         }
       ]
     },
@@ -60,16 +70,10 @@
       },
       "utterances": [
         {
-          "plain": "Start of the index."
-        },
-        {
           "plain": "Fresnel lens"
         },
         {
           "plain": "Keepers"
-        },
-        {
-          "plain": "End of the index."
         }
       ]
     },
@@ -80,16 +84,10 @@
       },
       "utterances": [
         {
-          "plain": "Start of the index."
-        },
-        {
           "plain": "Fresnel lens"
         },
         {
           "plain": "Keepers"
-        },
-        {
-          "plain": "End of the index."
         }
       ]
     },
@@ -99,30 +97,46 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the index."
-        },
-        {
           "ssml": "Fresnel lens"
         },
         {
           "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the index."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "index",
+          "list",
+          "listItem"
+        ]
       },
       "utterances": [
+        {
+          "ssml": "Start of the index."
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
         {
           "ssml": "Fresnel lens"
         },
         {
+          "ssml": "List item."
+        },
+        {
           "ssml": "Keepers"
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the index."
         }
       ]
     },
@@ -133,16 +147,10 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the index."
-        },
-        {
           "ssml": "Fresnel lens"
         },
         {
           "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the index."
         }
       ]
     },
@@ -153,16 +161,10 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the index."
-        },
-        {
           "ssml": "Fresnel lens"
         },
         {
           "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the index."
         }
       ]
     },
@@ -173,16 +175,10 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the index."
-        },
-        {
           "ssml": "Fresnel lens"
         },
         {
           "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the index."
         }
       ]
     }

@@ -6,9 +6,6 @@
       },
       "utterances": [
         {
-          "plain": "Start of the landmarks."
-        },
-        {
           "plain": "Cover"
         },
         {
@@ -16,9 +13,6 @@
         },
         {
           "plain": "Start of Content"
-        },
-        {
-          "plain": "End of the landmarks."
         }
       ]
     },
@@ -34,17 +28,42 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "landmarks",
+          "list",
+          "listItem"
+        ]
       },
       "utterances": [
         {
+          "plain": "Start of the landmarks."
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
+        {
           "plain": "Cover"
+        },
+        {
+          "plain": "List item."
         },
         {
           "plain": "Table of Contents"
         },
         {
+          "plain": "List item."
+        },
+        {
           "plain": "Start of Content"
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the landmarks."
         }
       ]
     },
@@ -55,9 +74,6 @@
       },
       "utterances": [
         {
-          "plain": "Start of the landmarks."
-        },
-        {
           "plain": "Cover"
         },
         {
@@ -65,9 +81,6 @@
         },
         {
           "plain": "Start of Content"
-        },
-        {
-          "plain": "End of the landmarks."
         }
       ]
     },
@@ -78,9 +91,6 @@
       },
       "utterances": [
         {
-          "plain": "Start of the landmarks."
-        },
-        {
           "plain": "Cover"
         },
         {
@@ -88,9 +98,6 @@
         },
         {
           "plain": "Start of Content"
-        },
-        {
-          "plain": "End of the landmarks."
         }
       ]
     },
@@ -101,9 +108,6 @@
       },
       "utterances": [
         {
-          "plain": "Start of the landmarks."
-        },
-        {
           "plain": "Cover"
         },
         {
@@ -111,9 +115,6 @@
         },
         {
           "plain": "Start of Content"
-        },
-        {
-          "plain": "End of the landmarks."
         }
       ]
     },
@@ -123,9 +124,6 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the landmarks."
-        },
-        {
           "ssml": "Cover"
         },
         {
@@ -133,9 +131,6 @@
         },
         {
           "ssml": "Start of Content"
-        },
-        {
-          "ssml": "End of the landmarks."
         }
       ]
     },
@@ -151,17 +146,42 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "landmarks",
+          "list",
+          "listItem"
+        ]
       },
       "utterances": [
         {
+          "ssml": "Start of the landmarks."
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
+        {
           "ssml": "Cover"
+        },
+        {
+          "ssml": "List item."
         },
         {
           "ssml": "Table of Contents"
         },
         {
+          "ssml": "List item."
+        },
+        {
           "ssml": "Start of Content"
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the landmarks."
         }
       ]
     },
@@ -172,9 +192,6 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the landmarks."
-        },
-        {
           "ssml": "Cover"
         },
         {
@@ -182,9 +199,6 @@
         },
         {
           "ssml": "Start of Content"
-        },
-        {
-          "ssml": "End of the landmarks."
         }
       ]
     },
@@ -195,9 +209,6 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the landmarks."
-        },
-        {
           "ssml": "Cover"
         },
         {
@@ -205,9 +216,6 @@
         },
         {
           "ssml": "Start of Content"
-        },
-        {
-          "ssml": "End of the landmarks."
         }
       ]
     },
@@ -218,9 +226,6 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the landmarks."
-        },
-        {
           "ssml": "Cover"
         },
         {
@@ -228,9 +233,6 @@
         },
         {
           "ssml": "Start of Content"
-        },
-        {
-          "ssml": "End of the landmarks."
         }
       ]
     }

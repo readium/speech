@@ -6,16 +6,10 @@
       },
       "utterances": [
         {
-          "plain": "Start of the list of audio clips."
-        },
-        {
           "plain": "Audio 1. Foghorn recording"
         },
         {
           "plain": "Audio 2. Keeper's log reading"
-        },
-        {
-          "plain": "End of the list of audio clips."
         }
       ]
     },
@@ -31,14 +25,36 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "loa",
+          "list",
+          "listItem"
+        ]
       },
       "utterances": [
+        {
+          "plain": "Start of the list of audio clips."
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
         {
           "plain": "Audio 1. Foghorn recording"
         },
         {
+          "plain": "List item."
+        },
+        {
           "plain": "Audio 2. Keeper's log reading"
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the list of audio clips."
         }
       ]
     },
@@ -49,16 +65,10 @@
       },
       "utterances": [
         {
-          "plain": "Start of the list of audio clips."
-        },
-        {
           "plain": "Audio 1. Foghorn recording"
         },
         {
           "plain": "Audio 2. Keeper's log reading"
-        },
-        {
-          "plain": "End of the list of audio clips."
         }
       ]
     },
@@ -69,16 +79,10 @@
       },
       "utterances": [
         {
-          "plain": "Start of the list of audio clips."
-        },
-        {
           "plain": "Audio 1. Foghorn recording"
         },
         {
           "plain": "Audio 2. Keeper's log reading"
-        },
-        {
-          "plain": "End of the list of audio clips."
         }
       ]
     },
@@ -89,16 +93,10 @@
       },
       "utterances": [
         {
-          "plain": "Start of the list of audio clips."
-        },
-        {
           "plain": "Audio 1. Foghorn recording"
         },
         {
           "plain": "Audio 2. Keeper's log reading"
-        },
-        {
-          "plain": "End of the list of audio clips."
         }
       ]
     },
@@ -108,16 +106,10 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the list of audio clips."
-        },
-        {
           "ssml": "Audio 1. Foghorn recording"
         },
         {
           "ssml": "Audio 2. Keeper's log reading"
-        },
-        {
-          "ssml": "End of the list of audio clips."
         }
       ]
     },
@@ -133,14 +125,36 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "loa",
+          "list",
+          "listItem"
+        ]
       },
       "utterances": [
+        {
+          "ssml": "Start of the list of audio clips."
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
         {
           "ssml": "Audio 1. Foghorn recording"
         },
         {
+          "ssml": "List item."
+        },
+        {
           "ssml": "Audio 2. Keeper's log reading"
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the list of audio clips."
         }
       ]
     },
@@ -151,16 +165,10 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the list of audio clips."
-        },
-        {
           "ssml": "Audio 1. Foghorn recording"
         },
         {
           "ssml": "Audio 2. Keeper's log reading"
-        },
-        {
-          "ssml": "End of the list of audio clips."
         }
       ]
     },
@@ -171,16 +179,10 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the list of audio clips."
-        },
-        {
           "ssml": "Audio 1. Foghorn recording"
         },
         {
           "ssml": "Audio 2. Keeper's log reading"
-        },
-        {
-          "ssml": "End of the list of audio clips."
         }
       ]
     },
@@ -191,16 +193,10 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the list of audio clips."
-        },
-        {
           "ssml": "Audio 1. Foghorn recording"
         },
         {
           "ssml": "Audio 2. Keeper's log reading"
-        },
-        {
-          "ssml": "End of the list of audio clips."
         }
       ]
     }

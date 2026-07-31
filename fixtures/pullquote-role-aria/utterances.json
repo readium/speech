@@ -6,9 +6,6 @@
       },
       "utterances": [
         {
-          "plain": "Pull quote."
-        },
-        {
           "plain": "The lamp still turns, though no one climbs the stairs anymore."
         }
       ]
@@ -25,9 +22,14 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "pullquote"
+        ]
       },
       "utterances": [
+        {
+          "plain": "Pull quote."
+        },
         {
           "plain": "The lamp still turns, though no one climbs the stairs anymore."
         }
@@ -40,9 +42,6 @@
       },
       "utterances": [
         {
-          "plain": "Pull quote."
-        },
-        {
           "plain": "The lamp still turns, though no one climbs the stairs anymore."
         }
       ]
@@ -54,9 +53,6 @@
       },
       "utterances": [
         {
-          "plain": "Pull quote."
-        },
-        {
           "plain": "The lamp still turns, though no one climbs the stairs anymore."
         }
       ]
@@ -67,9 +63,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "plain": "Pull quote."
-        },
         {
           "plain": "The lamp still turns, though no one climbs the stairs anymore."
         }
@@ -81,9 +74,6 @@
       },
       "utterances": [
         {
-          "ssml": "Pull quote."
-        },
-        {
           "ssml": "The lamp still turns, though no one climbs the stairs anymore."
         }
       ]
@@ -100,9 +90,14 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "pullquote"
+        ]
       },
       "utterances": [
+        {
+          "ssml": "Pull quote."
+        },
         {
           "ssml": "The lamp still turns, though no one climbs the stairs anymore."
         }
@@ -115,9 +110,6 @@
       },
       "utterances": [
         {
-          "ssml": "Pull quote."
-        },
-        {
           "ssml": "The lamp still turns, though no one climbs the stairs anymore."
         }
       ]
@@ -129,9 +121,6 @@
       },
       "utterances": [
         {
-          "ssml": "Pull quote."
-        },
-        {
           "ssml": "The lamp still turns, though no one climbs the stairs anymore."
         }
       ]
@@ -142,9 +131,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "ssml": "Pull quote."
-        },
         {
           "ssml": "The lamp still turns, though no one climbs the stairs anymore."
         }

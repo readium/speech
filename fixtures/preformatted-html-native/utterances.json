@@ -13,6 +13,25 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "preformatted"
+        ]
+      },
+      "utterances": [
+        {
+          "plain": "Start of the preformatted text."
+        },
+        {
+          "plain": "10 PRINT \"HELLO\" 20 GOTO 10"
+        },
+        {
+          "plain": "End of the preformatted text."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
         "language": "always"
       },
       "utterances": [
@@ -50,6 +69,25 @@
       "utterances": [
         {
           "ssml": "10 PRINT \"HELLO\" 20 GOTO 10"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "preformatted"
+        ]
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the preformatted text."
+        },
+        {
+          "ssml": "10 PRINT \"HELLO\" 20 GOTO 10"
+        },
+        {
+          "ssml": "End of the preformatted text."
         }
       ]
     },

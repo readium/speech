@@ -13,6 +13,25 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "complementary"
+        ]
+      },
+      "utterances": [
+        {
+          "plain": "Start of the complementary content."
+        },
+        {
+          "plain": "A supporting note related to the main content."
+        },
+        {
+          "plain": "End of the complementary content."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
         "language": "always"
       },
       "utterances": [
@@ -50,6 +69,25 @@
       "utterances": [
         {
           "ssml": "A supporting note related to the main content."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "complementary"
+        ]
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the complementary content."
+        },
+        {
+          "ssml": "A supporting note related to the main content."
+        },
+        {
+          "ssml": "End of the complementary content."
         }
       ]
     },

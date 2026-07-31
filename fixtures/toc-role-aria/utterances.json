@@ -6,9 +6,6 @@
       },
       "utterances": [
         {
-          "plain": "Start of the table of contents."
-        },
-        {
           "plain": "Chapter One"
         },
         {
@@ -16,9 +13,6 @@
         },
         {
           "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the table of contents."
         }
       ]
     },
@@ -34,17 +28,42 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "toc",
+          "list",
+          "listItem"
+        ]
       },
       "utterances": [
         {
+          "plain": "Start of the table of contents."
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
+        {
           "plain": "Chapter One"
+        },
+        {
+          "plain": "List item."
         },
         {
           "plain": "Chapter Two"
         },
         {
+          "plain": "List item."
+        },
+        {
           "plain": "Chapter Three"
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the table of contents."
         }
       ]
     },
@@ -55,9 +74,6 @@
       },
       "utterances": [
         {
-          "plain": "Start of the table of contents."
-        },
-        {
           "plain": "Chapter One"
         },
         {
@@ -65,9 +81,6 @@
         },
         {
           "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the table of contents."
         }
       ]
     },
@@ -78,9 +91,6 @@
       },
       "utterances": [
         {
-          "plain": "Start of the table of contents."
-        },
-        {
           "plain": "Chapter One"
         },
         {
@@ -88,9 +98,6 @@
         },
         {
           "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the table of contents."
         }
       ]
     },
@@ -101,9 +108,6 @@
       },
       "utterances": [
         {
-          "plain": "Start of the table of contents."
-        },
-        {
           "plain": "Chapter One"
         },
         {
@@ -111,9 +115,6 @@
         },
         {
           "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the table of contents."
         }
       ]
     },
@@ -123,9 +124,6 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the table of contents."
-        },
-        {
           "ssml": "Chapter One"
         },
         {
@@ -133,9 +131,6 @@
         },
         {
           "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the table of contents."
         }
       ]
     },
@@ -151,17 +146,42 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "toc",
+          "list",
+          "listItem"
+        ]
       },
       "utterances": [
         {
+          "ssml": "Start of the table of contents."
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
+        {
           "ssml": "Chapter One"
+        },
+        {
+          "ssml": "List item."
         },
         {
           "ssml": "Chapter Two"
         },
         {
+          "ssml": "List item."
+        },
+        {
           "ssml": "Chapter Three"
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the table of contents."
         }
       ]
     },
@@ -172,9 +192,6 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the table of contents."
-        },
-        {
           "ssml": "Chapter One"
         },
         {
@@ -182,9 +199,6 @@
         },
         {
           "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the table of contents."
         }
       ]
     },
@@ -195,9 +209,6 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the table of contents."
-        },
-        {
           "ssml": "Chapter One"
         },
         {
@@ -205,9 +216,6 @@
         },
         {
           "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the table of contents."
         }
       ]
     },
@@ -218,9 +226,6 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the table of contents."
-        },
-        {
           "ssml": "Chapter One"
         },
         {
@@ -228,9 +233,6 @@
         },
         {
           "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the table of contents."
         }
       ]
     }

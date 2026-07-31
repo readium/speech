@@ -6,6 +6,19 @@
       },
       "utterances": [
         {
+          "plain": "Lighthouses remain a symbol of safe passage."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "conclusion"
+        ]
+      },
+      "utterances": [
+        {
           "plain": "Start of the conclusion."
         },
         {
@@ -13,17 +26,6 @@
         },
         {
           "plain": "End of the conclusion."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "plain": "Lighthouses remain a symbol of safe passage."
         }
       ]
     },
@@ -34,13 +36,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the conclusion."
-        },
-        {
           "plain": "Lighthouses remain a symbol of safe passage."
-        },
-        {
-          "plain": "End of the conclusion."
         }
       ]
     },
@@ -51,13 +47,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the conclusion."
-        },
-        {
           "plain": "Lighthouses remain a symbol of safe passage."
-        },
-        {
-          "plain": "End of the conclusion."
         }
       ]
     },
@@ -68,13 +58,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the conclusion."
-        },
-        {
           "plain": "Lighthouses remain a symbol of safe passage."
-        },
-        {
-          "plain": "End of the conclusion."
         }
       ]
     },
@@ -84,6 +68,19 @@
       },
       "utterances": [
         {
+          "ssml": "Lighthouses remain a symbol of safe passage."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "conclusion"
+        ]
+      },
+      "utterances": [
+        {
           "ssml": "Start of the conclusion."
         },
         {
@@ -91,17 +88,6 @@
         },
         {
           "ssml": "End of the conclusion."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "ssml": "Lighthouses remain a symbol of safe passage."
         }
       ]
     },
@@ -112,13 +98,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the conclusion."
-        },
-        {
           "ssml": "Lighthouses remain a symbol of safe passage."
-        },
-        {
-          "ssml": "End of the conclusion."
         }
       ]
     },
@@ -129,13 +109,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the conclusion."
-        },
-        {
           "ssml": "Lighthouses remain a symbol of safe passage."
-        },
-        {
-          "ssml": "End of the conclusion."
         }
       ]
     },
@@ -146,13 +120,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the conclusion."
-        },
-        {
           "ssml": "Lighthouses remain a symbol of safe passage."
-        },
-        {
-          "ssml": "End of the conclusion."
         }
       ]
     }

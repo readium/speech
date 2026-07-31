@@ -6,16 +6,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the aside."
-        },
-        {
-          "plain": "Pull quote."
-        },
-        {
           "plain": "The lamp still turns, though no one climbs the stairs anymore."
-        },
-        {
-          "plain": "End of the aside."
         }
       ]
     },
@@ -40,11 +31,23 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "aside",
+          "pullquote"
+        ]
       },
       "utterances": [
         {
+          "plain": "Start of the aside."
+        },
+        {
+          "plain": "Pull quote."
+        },
+        {
           "plain": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "plain": "End of the aside."
         }
       ]
     },
@@ -55,16 +58,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the aside."
-        },
-        {
-          "plain": "Pull quote."
-        },
-        {
           "plain": "The lamp still turns, though no one climbs the stairs anymore."
-        },
-        {
-          "plain": "End of the aside."
         }
       ]
     },
@@ -75,16 +69,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the aside."
-        },
-        {
-          "plain": "Pull quote."
-        },
-        {
           "plain": "The lamp still turns, though no one climbs the stairs anymore."
-        },
-        {
-          "plain": "End of the aside."
         }
       ]
     },
@@ -95,16 +80,7 @@
       },
       "utterances": [
         {
-          "plain": "Start of the aside."
-        },
-        {
-          "plain": "Pull quote."
-        },
-        {
           "plain": "The lamp still turns, though no one climbs the stairs anymore."
-        },
-        {
-          "plain": "End of the aside."
         }
       ]
     },
@@ -114,16 +90,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the aside."
-        },
-        {
-          "ssml": "Pull quote."
-        },
-        {
           "ssml": "The lamp still turns, though no one climbs the stairs anymore."
-        },
-        {
-          "ssml": "End of the aside."
         }
       ]
     },
@@ -148,11 +115,23 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "aside",
+          "pullquote"
+        ]
       },
       "utterances": [
         {
+          "ssml": "Start of the aside."
+        },
+        {
+          "ssml": "Pull quote."
+        },
+        {
           "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "ssml": "End of the aside."
         }
       ]
     },
@@ -163,16 +142,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the aside."
-        },
-        {
-          "ssml": "Pull quote."
-        },
-        {
           "ssml": "The lamp still turns, though no one climbs the stairs anymore."
-        },
-        {
-          "ssml": "End of the aside."
         }
       ]
     },
@@ -183,16 +153,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the aside."
-        },
-        {
-          "ssml": "Pull quote."
-        },
-        {
           "ssml": "The lamp still turns, though no one climbs the stairs anymore."
-        },
-        {
-          "ssml": "End of the aside."
         }
       ]
     },
@@ -203,16 +164,7 @@
       },
       "utterances": [
         {
-          "ssml": "Start of the aside."
-        },
-        {
-          "ssml": "Pull quote."
-        },
-        {
           "ssml": "The lamp still turns, though no one climbs the stairs anymore."
-        },
-        {
-          "ssml": "End of the aside."
         }
       ]
     }

@@ -6,9 +6,6 @@
       },
       "utterances": [
         {
-          "plain": "Colophon."
-        },
-        {
           "plain": "Set in Georgia, 11pt, on recycled paper."
         }
       ]
@@ -16,9 +13,14 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "colophon"
+        ]
       },
       "utterances": [
+        {
+          "plain": "Colophon."
+        },
         {
           "plain": "Set in Georgia, 11pt, on recycled paper."
         }
@@ -31,9 +33,6 @@
       },
       "utterances": [
         {
-          "plain": "Colophon."
-        },
-        {
           "plain": "Set in Georgia, 11pt, on recycled paper."
         }
       ]
@@ -45,9 +44,6 @@
       },
       "utterances": [
         {
-          "plain": "Colophon."
-        },
-        {
           "plain": "Set in Georgia, 11pt, on recycled paper."
         }
       ]
@@ -58,9 +54,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "plain": "Colophon."
-        },
         {
           "plain": "Set in Georgia, 11pt, on recycled paper."
         }
@@ -72,9 +65,6 @@
       },
       "utterances": [
         {
-          "ssml": "Colophon."
-        },
-        {
           "ssml": "Set in Georgia, 11pt, on recycled paper."
         }
       ]
@@ -82,9 +72,14 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "colophon"
+        ]
       },
       "utterances": [
+        {
+          "ssml": "Colophon."
+        },
         {
           "ssml": "Set in Georgia, 11pt, on recycled paper."
         }
@@ -97,9 +92,6 @@
       },
       "utterances": [
         {
-          "ssml": "Colophon."
-        },
-        {
           "ssml": "Set in Georgia, 11pt, on recycled paper."
         }
       ]
@@ -111,9 +103,6 @@
       },
       "utterances": [
         {
-          "ssml": "Colophon."
-        },
-        {
           "ssml": "Set in Georgia, 11pt, on recycled paper."
         }
       ]
@@ -124,9 +113,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "ssml": "Colophon."
-        },
         {
           "ssml": "Set in Georgia, 11pt, on recycled paper."
         }

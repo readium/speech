@@ -6,9 +6,6 @@
       },
       "utterances": [
         {
-          "plain": "Subtitle."
-        },
-        {
           "plain": "A History of Coastal Lights"
         }
       ]
@@ -16,9 +13,14 @@
     {
       "options": {
         "format": "plain",
-        "contextualize": false
+        "contextualize": [
+          "subtitle"
+        ]
       },
       "utterances": [
+        {
+          "plain": "Subtitle."
+        },
         {
           "plain": "A History of Coastal Lights"
         }
@@ -31,9 +33,6 @@
       },
       "utterances": [
         {
-          "plain": "Subtitle."
-        },
-        {
           "plain": "A History of Coastal Lights"
         }
       ]
@@ -45,9 +44,6 @@
       },
       "utterances": [
         {
-          "plain": "Subtitle."
-        },
-        {
           "plain": "A History of Coastal Lights"
         }
       ]
@@ -58,9 +54,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "plain": "Subtitle."
-        },
         {
           "plain": "A History of Coastal Lights"
         }
@@ -72,9 +65,6 @@
       },
       "utterances": [
         {
-          "ssml": "Subtitle."
-        },
-        {
           "ssml": "A History of Coastal Lights"
         }
       ]
@@ -82,9 +72,14 @@
     {
       "options": {
         "format": "ssml",
-        "contextualize": false
+        "contextualize": [
+          "subtitle"
+        ]
       },
       "utterances": [
+        {
+          "ssml": "Subtitle."
+        },
         {
           "ssml": "A History of Coastal Lights"
         }
@@ -97,9 +92,6 @@
       },
       "utterances": [
         {
-          "ssml": "Subtitle."
-        },
-        {
           "ssml": "A History of Coastal Lights"
         }
       ]
@@ -111,9 +103,6 @@
       },
       "utterances": [
         {
-          "ssml": "Subtitle."
-        },
-        {
           "ssml": "A History of Coastal Lights"
         }
       ]
@@ -124,9 +113,6 @@
         "language": "none"
       },
       "utterances": [
-        {
-          "ssml": "Subtitle."
-        },
         {
           "ssml": "A History of Coastal Lights"
         }

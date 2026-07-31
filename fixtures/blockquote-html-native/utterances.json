@@ -13,6 +13,25 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "blockquote"
+        ]
+      },
+      "utterances": [
+        {
+          "plain": "Start of the quote."
+        },
+        {
+          "plain": "To be, or not to be, that is the question."
+        },
+        {
+          "plain": "End of the quote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
         "language": "always"
       },
       "utterances": [
@@ -50,6 +69,25 @@
       "utterances": [
         {
           "ssml": "To be, or not to be, that is the question."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "blockquote"
+        ]
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the quote."
+        },
+        {
+          "ssml": "To be, or not to be, that is the question."
+        },
+        {
+          "ssml": "End of the quote."
         }
       ]
     },
