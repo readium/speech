@@ -203,15 +203,28 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   setVoice(voice: ReadiumSpeechVoice | string): void {
     if (typeof voice === "string") {
       const found = this.voices.find(v => v.identifier === voice || v.name === voice);
-      // Not cached yet — the server accepts a raw identifier/originalName directly.
-      this.currentVoice = found ?? {
-        source: "server",
-        label: voice,
-        name: voice,
-        originalName: voice,
-        language: "",
-        identifier: voice
-      };
+      if (found) {
+        this.currentVoice = found;
+      } else {
+        // Placeholder has no `controls` — resolve the real voice in the background so it's not mistaken for one the server can't adjust speed on.
+        this.currentVoice = {
+          source: "server",
+          label: voice,
+          name: voice,
+          originalName: voice,
+          language: "",
+          identifier: voice
+        };
+        void this.getAvailableVoices().then(voices => {
+          if (this.currentVoice?.identifier !== voice) {
+            return; // setVoice() was called again in the meantime
+          }
+          const match = voices.find(v => v.identifier === voice || v.name === voice);
+          if (match) {
+            this.currentVoice = match;
+          }
+        }).catch(() => {});
+      }
     } else {
       this.currentVoice = voice;
     }
