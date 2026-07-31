@@ -1,0 +1,172 @@
+export interface IPreference<T> {
+  value: T | null | undefined;
+  effectiveValue: T | null | undefined;
+  isEffective: boolean;
+  clear(): void;
+}
+
+export interface IEnumPreference<T> extends IPreference<T> {
+  supportedValues: T[];
+}
+
+export interface IRangePreference<T> extends IPreference<T> {
+  supportedRange: [T, T];
+  step: number;
+  increment(): void;
+  decrement(): void;
+  format(value: T): string;
+}
+
+export class Preference<T> implements IPreference<T> {
+  protected _value?: T | null;
+  protected readonly _effectiveValue?: T | null;
+  protected readonly _isEffective: boolean;
+  protected _onChange: (newValue: T | null | undefined) => void;
+
+  constructor({
+    initialValue = null,
+    effectiveValue,
+    isEffective,
+    onChange,
+  }: {
+    initialValue?: T | null;
+    effectiveValue?: T | null;
+    isEffective: boolean;
+    onChange: (newValue: T | null | undefined) => void;
+  }) {
+    this._value = initialValue;
+    this._effectiveValue = effectiveValue;
+    this._isEffective = isEffective;
+    this._onChange = onChange;
+  }
+
+  set value(value: T | null | undefined) {
+    this._value = value;
+    this._onChange(this._value);
+  }
+
+  get value(): T | null | undefined {
+    return this._value;
+  }
+
+  get effectiveValue(): T | null | undefined {
+    return this._effectiveValue;
+  }
+
+  get isEffective(): boolean {
+    return this._isEffective;
+  }
+
+  clear(): void {
+    this._value = null;
+    this._onChange(this._value);
+  }
+}
+
+export class EnumPreference<T extends string | number | symbol> extends Preference<T> implements IEnumPreference<T> {
+  private readonly _supportedValues: T[];
+
+  constructor({
+    initialValue = null,
+    effectiveValue,
+    isEffective,
+    onChange,
+    supportedValues,
+  }: {
+    initialValue?: T | null;
+    effectiveValue?: T | null;
+    isEffective: boolean;
+    onChange: (newValue: T | null | undefined) => void;
+    supportedValues: T[];
+  }) {
+    super({ initialValue, effectiveValue, isEffective, onChange });
+    this._supportedValues = supportedValues;
+  }
+
+  set value(value: T | null | undefined) {
+    if (value && !this._supportedValues.includes(value)) {
+      throw new Error(`Value '${String(value)}' is not in the supported values for this preference.`);
+    }
+    this._value = value;
+    this._onChange(this._value);
+  }
+
+  get value(): T | null | undefined {
+    return this._value;
+  }
+
+  get supportedValues(): T[] {
+    return this._supportedValues;
+  }
+}
+
+export class RangePreference<T extends number> extends Preference<T> implements IRangePreference<T> {
+  private readonly _supportedRange: [T, T];
+  private readonly _step: number;
+  private readonly _decimals: number;
+
+  constructor({
+    initialValue = null,
+    effectiveValue,
+    isEffective,
+    onChange,
+    supportedRange,
+    step,
+  }: {
+    initialValue?: T | null;
+    effectiveValue?: T | null;
+    isEffective: boolean;
+    onChange: (newValue: T | null | undefined) => void;
+    supportedRange: [T, T];
+    step: number;
+  }) {
+    super({ initialValue, effectiveValue, isEffective, onChange });
+    this._supportedRange = supportedRange;
+    this._step = step;
+    this._decimals = this._step.toString().includes(".") ? this._step.toString().split(".")[1].length : 0;
+  }
+
+  set value(value: T | null | undefined) {
+    if (value != null && (value < this._supportedRange[0] || value > this._supportedRange[1])) {
+      throw new Error(`Value '${String(value)}' is out of the supported range for this preference.`);
+    }
+    this._value = value;
+    this._onChange(this._value);
+  }
+
+  get value(): T | null | undefined {
+    return this._value;
+  }
+
+  get supportedRange(): [T, T] {
+    return this._supportedRange;
+  }
+
+  get step(): number {
+    return this._step;
+  }
+
+  increment(): void {
+    if (this._value != null && this._value < this._supportedRange[1]) {
+      this._value = Math.min(
+        Math.round((this._value + this._step) * 10 ** this._decimals) / 10 ** this._decimals,
+        this._supportedRange[1],
+      ) as T;
+      this._onChange(this._value);
+    }
+  }
+
+  decrement(): void {
+    if (this._value != null && this._value > this._supportedRange[0]) {
+      this._value = Math.max(
+        Math.round((this._value - this._step) * 10 ** this._decimals) / 10 ** this._decimals,
+        this._supportedRange[0],
+      ) as T;
+      this._onChange(this._value);
+    }
+  }
+
+  format(value: T): string {
+    return value.toString();
+  }
+}

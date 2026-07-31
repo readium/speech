@@ -1,3 +1,7 @@
+import { GndObject } from "./gnd/types";
+import { Configurable } from "./preferences/Configurable";
+import { SpeechPreferences } from "./preferences/SpeechPreferences";
+import { SpeechSettings } from "./preferences/SpeechSettings";
 import { ReadiumSpeechVoice } from "./voices/types";
 import { ReadiumSpeechUtterance } from "./utterance";
 
@@ -22,16 +26,21 @@ export interface ReadiumSpeechPlaybackEvent {
   detail?: any;  // Event-specific data
 }
 
-export interface ReadiumSpeechNavigatorContract {
+export interface ReadiumSpeechNavigatorContract extends Configurable<SpeechSettings, SpeechPreferences> {
   // Voice Management
   getVoices(): Promise<ReadiumSpeechVoice[]>;
   setVoice(voice: ReadiumSpeechVoice | string): void;
   getCurrentVoice(): ReadiumSpeechVoice | null;
   setSpeakInContentLanguage(enabled: boolean): void;
   getSpeakInContentLanguage(): boolean;
-  
+
   // Content Management
   loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
+  // Loads a raw Guided Navigation tree and re-runs extraction whenever
+  // preferences change via `submitPreferences()`. `loadContent()` above
+  // keeps no source, so preference changes are no-ops on content loaded
+  // that way.
+  loadGndContent(nodes: GndObject[]): void;
   getCurrentContent(): ReadiumSpeechUtterance | null;
   getContentQueue(): ReadiumSpeechUtterance[];
   

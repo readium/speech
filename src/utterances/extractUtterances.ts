@@ -18,8 +18,8 @@ import { startsWithBindingPunct } from "../utils/text.js";
 interface WalkContext {
   announcements: Announcements;
   skip: ReadonlySet<GndRole>;
+  contextualize: ReadonlySet<GndRole>;
   format: "plain" | "ssml";
-  contextualize: boolean;
   interruptSentence: boolean;
   language?: "none" | "block-level" | "always";
 }
@@ -41,7 +41,7 @@ function formatPlain(text: string, format: "plain" | "ssml"): ReadiumSpeechUtter
 // "before" (a single, self-contained announcement); a `{start, end}` pair
 // says its `start` at "before" and its `end` at "after". No-ops when the
 // role has no entry, or the shape doesn't have anything for this phase
-// (a plain entry at "after", or `contextualize: false`).
+// (a plain entry at "after"), or `contextualize` doesn't include this role.
 function pushRoleAnnouncement(
   out: ReadiumSpeechUtterance[],
   ctx: WalkContext,
@@ -49,7 +49,7 @@ function pushRoleAnnouncement(
   phase: "before" | "after",
   params?: Record<string, string>,
 ): void {
-  if (!ctx.contextualize) return;
+  if (!ctx.contextualize.has(role)) return;
   const entry = ctx.announcements[role];
   if (entry === undefined) return;
   if (isAnnouncementPair(entry)) {
@@ -102,7 +102,7 @@ function mergeUtterances(
 function buildPagebreakUtterance(node: GndObject, ctx: WalkContext): ReadiumSpeechUtterance[] {
   const resolved = resolveNodeText(node.text);
   const own = resolved ? applyFormat(resolved, ctx.format, ctx.language) : [];
-  if (!ctx.contextualize) return own;
+  if (!ctx.contextualize.has("pagebreak")) return own;
   const entry = ctx.announcements.pagebreak;
   if (entry === undefined) return own;
   const announcement = formatPlain(resolveAnnouncement(isAnnouncementPair(entry) ? entry.start : entry), ctx.format);
@@ -231,7 +231,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], ctx: WalkConte
       if (childRoles.includes("footnote")) {
         const inner: ReadiumSpeechUtterance[] = [];
         walk([child], inner, ctx);
-        const entry = ctx.contextualize ? ctx.announcements.footnote : undefined;
+        const entry = ctx.contextualize.has("footnote") ? ctx.announcements.footnote : undefined;
         const pieces: ReadiumSpeechUtterance[] = [];
         if (entry !== undefined) {
           const startText = isAnnouncementPair(entry) ? entry.start : entry;
@@ -294,8 +294,8 @@ export function extractUtterances(
   const ctx: WalkContext = {
     announcements: { ...defaultAnnouncements, ...options.announcements },
     skip: new Set(options.skip ?? []),
+    contextualize: new Set(options.contextualize ?? []),
     format: options.format ?? "plain",
-    contextualize: options.contextualize ?? true,
     interruptSentence: options.interruptSentence ?? false,
     language: options.language,
   };

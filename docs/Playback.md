@@ -6,7 +6,7 @@ Once initialized, you can use the navigator to load content (utterances) and con
 
 ## ReadiumSpeechNavigator
 
-`ReadiumSpeechNavigator` implements `ReadiumSpeechNavigatorContract`:
+`ReadiumSpeechNavigator` implements `ReadiumSpeechNavigatorContract`, which extends `Configurable<SpeechSettings, SpeechPreferences>` — see [Preferences](Preferences.md) for verbosity/prosody settings (`settings`, `preferencesEditor`, `submitPreferences()`, omitted below):
 
 ```typescript
 interface ReadiumSpeechNavigatorContract {
@@ -19,6 +19,7 @@ interface ReadiumSpeechNavigatorContract {
   
   // Content Management
   loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
+  loadGndContent(nodes: GndObject[]): void;
   getCurrentContent(): ReadiumSpeechUtterance | null;
   getContentQueue(): ReadiumSpeechUtterance[];
   
@@ -76,6 +77,8 @@ function togglePlayback() {
 
 togglePlayback();
 ```
+
+`loadContent()` takes already-extracted `ReadiumSpeechUtterance`s. `loadGndContent(nodes)` instead takes a raw [Guided Navigation](GuidedNavigation.md) tree — the navigator retains it and re-runs [`extractUtterances`](UtteranceExtraction.md) itself whenever verbosity/prosody preferences change via `submitPreferences()`. Content loaded via `loadContent()` has no such source, so preference changes are no-ops on it; see [Preferences](Preferences.md).
 
 ## Events
 

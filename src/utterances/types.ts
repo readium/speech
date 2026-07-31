@@ -58,6 +58,11 @@ export interface ExtractUtterancesOptions {
   // Nothing is skipped by default (`[]`).
   skip?: GndRole[];
 
+  // Which roles' announcements are spoken (still needs a catalog entry to
+  // say anything). Nothing announces by default, same as `skip` defaulting
+  // to nothing skipped — unlike `skip`, the underlying content still plays.
+  contextualize?: GndRole[];
+
   // Which language declarations in the *input* the extraction respects.
   // This never merges separate sibling nodes into one utterance — each
   // already has its own utterance and keeps it regardless — it only
@@ -81,12 +86,4 @@ export interface ExtractUtterancesOptions {
   // sentence finishes (default, `false` — today's only behavior, for
   // either `format`).
   interruptSentence?: boolean;
-
-  // Master on/off switch for all synthesized contextualizing
-  // announcements (see `Announcements` for the growing per-role catalog).
-  // Default `true` (today's behavior). Distinct from `announcements`,
-  // which customizes *text*, not whether announcements happen at all;
-  // distinct from `skip`, which omits the underlying content too, not
-  // just its announcement.
-  contextualize?: boolean;
 }

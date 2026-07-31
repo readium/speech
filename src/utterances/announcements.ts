@@ -50,6 +50,11 @@ export const defaultAnnouncements: Announcements = {
   aside: { start: "Start of the aside.", end: "End of the aside." },
   details: { start: "Start of the details.", end: "End of the details." },
   credits: { start: "Start of the credits.", end: "End of the credits." },
+  blockquote: { start: "Start of the quote.", end: "End of the quote." },
+  list: { start: "Start of the list.", end: "End of the list." },
+  preformatted: { start: "Start of the preformatted text.", end: "End of the preformatted text." },
+  row: { start: "Start of the row.", end: "End of the row." },
+  complementary: { start: "Start of the complementary content.", end: "End of the complementary content." },
 
   // Single, self-contained pieces of content — one announcement each.
   pagebreak: "Pagebreak.",
@@ -74,4 +79,12 @@ export const defaultAnnouncements: Announcements = {
   image: "Image.",
   audio: "Audio.",
   video: "Video.",
+  caption: "Caption.",
+  listItem: "List item.",
+  cell: "Cell.",
+  columnheader: "Column header.",
+  rowheader: "Row header.",
+  term: "Term.",
+  summary: "Summary.",
+  separator: "Separator.",
 };

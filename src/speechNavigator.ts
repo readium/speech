@@ -1,6 +1,12 @@
 import { ReadiumSpeechPlaybackEngine } from "./engine";
+import { GndObject } from "./gnd/types";
 import { ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator";
+import { SpeechDefaults } from "./preferences/SpeechDefaults";
+import { SpeechPreferences } from "./preferences/SpeechPreferences";
+import { SpeechPreferencesEditor } from "./preferences/SpeechPreferencesEditor";
+import { SpeechSettings } from "./preferences/SpeechSettings";
 import { ReadiumSpeechUtterance } from "./utterance";
+import { extractUtterances } from "./utterances/extractUtterances";
 import { ReadiumSpeechVoice } from "./voices/types";
 
 export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
@@ -10,6 +16,17 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   // Navigator owns the state, not the engine
   private navigatorState: ReadiumSpeechPlaybackState = "idle";
+
+  // Preferences API (Configurable<SpeechSettings, SpeechPreferences>)
+  private _defaults = new SpeechDefaults();
+  private _preferences = new SpeechPreferences();
+  private _settings = new SpeechSettings(this._preferences, this._defaults);
+  private _preferencesEditor: SpeechPreferencesEditor | null = null;
+
+  // The raw GND source, retained only when content was loaded via
+  // `loadGndContent()` — content loaded via plain `loadContent()` has no
+  // source to re-extract from, so preferences changes are no-ops on it.
+  private source: GndObject[] | undefined;
 
   constructor(engine: ReadiumSpeechPlaybackEngine) {
     this.engine = engine;
@@ -37,8 +54,13 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       const totalCount = this.engine.getUtteranceCount();
 
       if (currentIndex < totalCount - 1) {
-        // Navigator handles continuous playback
-        this.engine.speak(currentIndex + 1);
+        // Navigator handles continuous playback, optionally spaced out by
+        // a Prosody pause between utterances.
+        if (this._settings.automaticPausesBetweenUtterances) {
+          setTimeout(() => this.engine.speak(currentIndex + 1), this._settings.pauseDuration);
+        } else {
+          this.engine.speak(currentIndex + 1);
+        }
       } else {
         // Reached end - set navigator to idle
         this.setNavigatorState("idle");
@@ -128,6 +150,24 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.emitEvent({ type: "loading" });
     this.engine.loadUtterances(contents);
     this.emitContentChangeEvent({ content: contents });
+  }
+
+  loadGndContent(nodes: GndObject[]): void {
+    this.source = nodes;
+    this.reextract();
+  }
+
+  // Re-runs extraction from `this.source` using the resolved settings.
+  private reextract(): void {
+    if (!this.source) return;
+    const utterances = extractUtterances(this.source, {
+      format: this._settings.format,
+      interruptSentence: this._settings.interruptSentence,
+      skip: this._settings.skip,
+      contextualize: this._settings.contextualize,
+      language: this._settings.language,
+    });
+    this.loadContent(utterances);
   }
 
   getCurrentContent(): ReadiumSpeechUtterance | null {
@@ -278,6 +318,36 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     if (listeners) {
       listeners.forEach(callback => callback({ type: "contentchange", detail: event } as unknown as ReadiumSpeechPlaybackEvent));
     }
+  }
+
+  // Preferences API (Configurable<SpeechSettings, SpeechPreferences>)
+  get settings(): SpeechSettings {
+    return this._settings;
+  }
+
+  get preferencesEditor(): SpeechPreferencesEditor {
+    if (this._preferencesEditor === null) {
+      this._preferencesEditor = new SpeechPreferencesEditor(this._preferences, this.settings);
+    }
+    return this._preferencesEditor;
+  }
+
+  submitPreferences(preferences: SpeechPreferences): void {
+    this._preferences = this._preferences.merging(preferences);
+    this.applyPreferences();
+  }
+
+  private applyPreferences(): void {
+    this._settings = new SpeechSettings(this._preferences, this._defaults);
+
+    if (this._preferencesEditor !== null) {
+      this._preferencesEditor = new SpeechPreferencesEditor(this._preferences, this._settings);
+    }
+
+    // Only takes effect on content loaded via loadGndContent(); prosody
+    // settings need no push here since the `end` handler reads
+    // `this._settings` live.
+    this.reextract();
   }
 
   async destroy(): Promise<void> {

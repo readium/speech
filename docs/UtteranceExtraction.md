@@ -30,15 +30,15 @@ Some roles get a synthesized navigational announcement spoken around their conte
 interface ExtractUtterancesOptions {
   format: "plain" | "ssml";
   skip?: GndRole[];
+  contextualize?: GndRole[];
   language?: "none" | "block-level" | "always";
   interruptSentence?: boolean;
-  contextualize?: boolean;
 }
 ```
 
 - **`format`** — default `"plain"`. Picks the one field every utterance in the result carries, so a consumer never has to check per-utterance which of `plain`/`ssml` is populated. Whichever a `GndObject` doesn't natively have is synthesized (`plain` → escaped `ssml`; `ssml` → tags stripped to `plain`).
 - **`skip`** — drop a role and its subtree entirely (content + announcement). `skippableRoles` export is the [roles.md skippable set](https://github.com/readium/guided-navigation/blob/main/roles.md#list-of-skippable-roles): `aside`, `bibliography`, `details`, `endnotes`, `footnote`, `noteref`, `pullquote`, `landmarks`, `loa`, `loi`, `lot`, `lov`, `pagebreak`, `toc`. Default: nothing skipped.
-- **`contextualize`** — on/off switch for all announcements, content still spoken. Default `true`.
+- **`contextualize`** — which roles' announcements are spoken (a role still needs a `defaultAnnouncements`/`announcements` entry to say anything). Default: nothing announced, same polarity as `skip` — unlike `skip`, the underlying content still plays either way.
 - **`language`** — how a node's own inline spans (`<em lang="fr">`) render. Never merges across sibling utterances.
   - `"always"` (default) — `ssml` keeps spans tagged; `plain` splits into one utterance per language run.
   - `"block-level"` — inline spans merge untagged into the surrounding text; block-level `language` kept.
@@ -47,11 +47,11 @@ interface ExtractUtterancesOptions {
 
 ```typescript
 // <p>...in the middle <span epub:type="pagebreak" title="5"/> of a sentence.</p>
-extractUtterances(gnd, { format: "plain", contextualize: false });
-// [{ language: "en", plain: "...in the middle of a sentence." }, { plain: "5" }]
+extractUtterances(gnd, { format: "plain" });
+// [{ plain: "4" }, { language: "en", plain: "...in the middle of a sentence." }, { plain: "5" }]
 
-extractUtterances(gnd, { format: "plain", contextualize: false, interruptSentence: true });
-// [{ language: "en", plain: "...in the middle 5 of a sentence." }]
+extractUtterances(gnd, { format: "plain", contextualize: ["pagebreak"] });
+// [{ plain: "Pagebreak. 4." }, { language: "en", plain: "...in the middle of a sentence." }, { plain: "Pagebreak. 5." }]
 
 extractUtterances(gnd, { format: "plain", skip: ["pagebreak"] });
 // [{ language: "en", plain: "...in the middle of a sentence." }]

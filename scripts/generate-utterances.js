@@ -72,8 +72,10 @@ for (const id of ids) {
     if (rolesInTree.has(role)) variantSpecs.push({ skip: [role] });
   }
 
-  const hasAnnouncement = [...rolesInTree].some((role) => mod.defaultAnnouncements?.[role] !== undefined);
-  if (hasAnnouncement) variantSpecs.push({ contextualize: false });
+  // Nothing announces by default (symmetric with skip); the meaningful
+  // variant is opting every role in the tree with a catalog entry *in*.
+  const announcableRoles = [...rolesInTree].filter((role) => mod.defaultAnnouncements?.[role] !== undefined);
+  if (announcableRoles.length > 0) variantSpecs.push({ contextualize: announcableRoles });
 
   if (containsPlaceholder(gnd)) variantSpecs.push({ interruptSentence: true });
 

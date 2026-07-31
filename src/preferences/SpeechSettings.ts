@@ -1,0 +1,40 @@
+import type { GndRole } from "../gnd/types.js";
+import type { ConfigurableSettings } from "./Configurable.js";
+import { SpeechDefaults } from "./SpeechDefaults.js";
+import type { ExtractionFormat, LanguageMode, SpeechPreferences, VerbosityPreset } from "./SpeechPreferences.js";
+import { contextualizedAtVerbosity, skippableAtVerbosity } from "./verbosityTables.js";
+
+export class SpeechSettings implements ConfigurableSettings {
+  [key: string]: unknown;
+
+  public readonly format: ExtractionFormat;
+  public readonly interruptSentence: boolean;
+  public readonly verbosity: VerbosityPreset;
+  public readonly skip: GndRole[];
+  public readonly contextualize: GndRole[];
+  public readonly language: LanguageMode;
+  public readonly pauseDuration: number;
+  public readonly automaticPausesBetweenUtterances: boolean;
+  public readonly automaticPausesAtPageOrSpreadEnd: boolean;
+
+  constructor(preferences: SpeechPreferences, defaults: SpeechDefaults) {
+    this.format = preferences.format ?? defaults.format;
+    this.interruptSentence = preferences.interruptSentence ?? defaults.interruptSentence;
+    this.verbosity = preferences.verbosity ?? defaults.verbosity;
+
+    // `skip`/`contextualize` only apply under "custom" — every other preset
+    // uses its own fixed table, ignoring whatever `skip`/`contextualize`
+    // were set to.
+    if (this.verbosity === "custom") {
+      this.skip = preferences.skip ?? defaults.skip;
+      this.contextualize = preferences.contextualize ?? defaults.contextualize;
+    } else {
+      this.skip = [...skippableAtVerbosity[this.verbosity]];
+      this.contextualize = [...contextualizedAtVerbosity[this.verbosity]];
+    }
+    this.language = preferences.language ?? defaults.language;
+    this.pauseDuration = preferences.pauseDuration ?? defaults.pauseDuration;
+    this.automaticPausesBetweenUtterances = preferences.automaticPausesBetweenUtterances ?? defaults.automaticPausesBetweenUtterances;
+    this.automaticPausesAtPageOrSpreadEnd = preferences.automaticPausesAtPageOrSpreadEnd ?? defaults.automaticPausesAtPageOrSpreadEnd;
+  }
+}
