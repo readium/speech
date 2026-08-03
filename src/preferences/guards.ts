@@ -5,9 +5,9 @@ export function ensureBoolean(value: boolean | null | undefined): boolean | null
   return typeof value === "boolean" ? value : undefined;
 }
 
-export function ensureEnumValue<T extends string>(value: T | null | undefined, supportedValues: readonly T[]): T | null | undefined {
+export function ensureEnumValue<T extends string | number | symbol>(value: T | null | undefined, supportedValues: readonly T[]): T | null | undefined {
   if (value === undefined || value === null) return value;
-  return (supportedValues as readonly string[]).includes(value) ? value : undefined;
+  return supportedValues.includes(value) ? value : undefined;
 }
 
 export function ensureValueInRange(value: number | null | undefined, range: [number, number]): number | null | undefined {

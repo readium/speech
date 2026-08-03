@@ -10,7 +10,7 @@ import {
   volumeRangeConfig,
 } from "./constraints.js";
 import type { IPreferencesEditor } from "./PreferencesEditor.js";
-import { EnumPreference, Preference, RangePreference } from "./Preference.js";
+import { BooleanPreference, EnumPreference, RangePreference, StringArrayPreference } from "./Preference.js";
 import { SpeechPreferences, VerbosityPreset, LanguageMode, ExtractionFormat, PauseScope } from "./SpeechPreferences.js";
 import { SpeechSettings } from "./SpeechSettings.js";
 
@@ -60,8 +60,8 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
     });
   }
 
-  get inlineContextualization(): Preference<boolean> {
-    return new Preference<boolean>({
+  get inlineContextualization(): BooleanPreference {
+    return new BooleanPreference({
       initialValue: this.preferences.inlineContextualization,
       effectiveValue: this.settings.inlineContextualization,
       isEffective: this.preferences.inlineContextualization != null,
@@ -79,21 +79,21 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
     });
   }
 
-  get skip(): Preference<GndRole[]> {
-    return new Preference<GndRole[]>({
+  get skip(): StringArrayPreference {
+    return new StringArrayPreference({
       initialValue: this.preferences.skip,
       effectiveValue: this.settings.skip,
       isEffective: this.preferences.skip != null,
-      onChange: (value) => this.updatePreference("skip", value ?? null),
+      onChange: (value) => this.updatePreference("skip", (value ?? null) as GndRole[] | null),
     });
   }
 
-  get contextualize(): Preference<GndRole[]> {
-    return new Preference<GndRole[]>({
+  get contextualize(): StringArrayPreference {
+    return new StringArrayPreference({
       initialValue: this.preferences.contextualize,
       effectiveValue: this.settings.contextualize,
       isEffective: this.preferences.contextualize != null,
-      onChange: (value) => this.updatePreference("contextualize", value ?? null),
+      onChange: (value) => this.updatePreference("contextualize", (value ?? null) as GndRole[] | null),
     });
   }
 
@@ -130,8 +130,8 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
 
   // No page/spread boundary signal exists in this library yet, so this
   // has no effect on playback.
-  get automaticPausesAtPageOrSpreadEnd(): Preference<boolean> {
-    return new Preference<boolean>({
+  get automaticPausesAtPageOrSpreadEnd(): BooleanPreference {
+    return new BooleanPreference({
       initialValue: this.preferences.automaticPausesAtPageOrSpreadEnd,
       effectiveValue: this.settings.automaticPausesAtPageOrSpreadEnd,
       isEffective: this.preferences.automaticPausesAtPageOrSpreadEnd != null,

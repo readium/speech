@@ -1,3 +1,5 @@
+import { ensureBoolean, ensureEnumValue, ensureStringArray, ensureValueInRange } from "./guards.js";
+
 export interface IPreference<T> {
   value: T | null | undefined;
   effectiveValue: T | null | undefined;
@@ -84,7 +86,7 @@ export class EnumPreference<T extends string | number | symbol> extends Preferen
   }
 
   set value(value: T | null | undefined) {
-    if (value && !this._supportedValues.includes(value)) {
+    if (value != null && ensureEnumValue(value, this._supportedValues) === undefined) {
       throw new Error(`Value '${String(value)}' is not in the supported values for this preference.`);
     }
     this._value = value;
@@ -97,6 +99,34 @@ export class EnumPreference<T extends string | number | symbol> extends Preferen
 
   get supportedValues(): T[] {
     return this._supportedValues;
+  }
+}
+
+export class BooleanPreference extends Preference<boolean> {
+  set value(value: boolean | null | undefined) {
+    if (value != null && ensureBoolean(value) === undefined) {
+      throw new Error(`Value '${String(value)}' is not a boolean.`);
+    }
+    this._value = value;
+    this._onChange(this._value);
+  }
+
+  get value(): boolean | null | undefined {
+    return this._value;
+  }
+}
+
+export class StringArrayPreference extends Preference<string[]> {
+  set value(value: string[] | null | undefined) {
+    if (value != null && ensureStringArray(value) === undefined) {
+      throw new Error(`Value '${String(value)}' is not an array of strings.`);
+    }
+    this._value = value;
+    this._onChange(this._value);
+  }
+
+  get value(): string[] | null | undefined {
+    return this._value;
   }
 }
 
@@ -127,7 +157,7 @@ export class RangePreference<T extends number> extends Preference<T> implements 
   }
 
   set value(value: T | null | undefined) {
-    if (value != null && (value < this._supportedRange[0] || value > this._supportedRange[1])) {
+    if (value != null && ensureValueInRange(value, this._supportedRange) === undefined) {
       throw new Error(`Value '${String(value)}' is out of the supported range for this preference.`);
     }
     this._value = value;
