@@ -16,6 +16,9 @@ export class SpeechSettings implements ConfigurableSettings {
   public readonly pauseDuration: number;
   public readonly pauseScope: PauseScope;
   public readonly automaticPausesAtPageOrSpreadEnd: boolean;
+  public readonly rate: number;
+  public readonly pitch: number;
+  public readonly volume: number;
 
   constructor(preferences: SpeechPreferences, defaults: SpeechDefaults) {
     this.format = preferences.format ?? defaults.format;
@@ -36,5 +39,8 @@ export class SpeechSettings implements ConfigurableSettings {
     this.pauseDuration = preferences.pauseDuration ?? defaults.pauseDuration;
     this.pauseScope = preferences.pauseScope ?? defaults.pauseScope;
     this.automaticPausesAtPageOrSpreadEnd = preferences.automaticPausesAtPageOrSpreadEnd ?? defaults.automaticPausesAtPageOrSpreadEnd;
+    this.rate = preferences.rate ?? defaults.rate;
+    this.pitch = preferences.pitch ?? defaults.pitch;
+    this.volume = preferences.volume ?? defaults.volume;
   }
 }

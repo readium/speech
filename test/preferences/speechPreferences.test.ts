@@ -8,13 +8,19 @@ test("defaults to every field undefined", (t) => {
   t.is(prefs.contextualize, undefined);
   t.is(prefs.format, undefined);
   t.is(prefs.pauseDuration, undefined);
+  t.is(prefs.rate, undefined);
+  t.is(prefs.pitch, undefined);
+  t.is(prefs.volume, undefined);
 });
 
 test("constructor copies given fields", (t) => {
-  const prefs = new SpeechPreferences({ verbosity: "most", skip: ["toc"], pauseDuration: 500 });
+  const prefs = new SpeechPreferences({ verbosity: "most", skip: ["toc"], pauseDuration: 500, rate: 1.5, pitch: 0.8, volume: 0.5 });
   t.is(prefs.verbosity, "most");
   t.deepEqual(prefs.skip, ["toc"]);
   t.is(prefs.pauseDuration, 500);
+  t.is(prefs.rate, 1.5);
+  t.is(prefs.pitch, 0.8);
+  t.is(prefs.volume, 0.5);
 });
 
 test("merging overrides only fields explicitly set on the other", (t) => {

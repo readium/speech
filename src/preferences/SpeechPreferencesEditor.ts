@@ -10,6 +10,12 @@ const extractionFormats: ExtractionFormat[] = ["plain", "ssml"];
 const pauseScopes: PauseScope[] = ["utterance", "block"];
 const pauseDurationRange: [number, number] = [0, 5000];
 const pauseDurationStep = 100;
+const rateRange: [number, number] = [0.1, 10];
+const rateStep = 0.1;
+const pitchRange: [number, number] = [0, 2];
+const pitchStep = 0.1;
+const volumeRange: [number, number] = [0, 1];
+const volumeStep = 0.05;
 
 export class SpeechPreferencesEditor implements IPreferencesEditor {
   preferences: SpeechPreferences;
@@ -114,6 +120,39 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
       effectiveValue: this.settings.automaticPausesAtPageOrSpreadEnd,
       isEffective: this.preferences.automaticPausesAtPageOrSpreadEnd != null,
       onChange: (value) => this.updatePreference("automaticPausesAtPageOrSpreadEnd", value ?? null),
+    });
+  }
+
+  get rate(): RangePreference<number> {
+    return new RangePreference<number>({
+      initialValue: this.preferences.rate,
+      effectiveValue: this.settings.rate,
+      isEffective: this.preferences.rate != null,
+      onChange: (value) => this.updatePreference("rate", value ?? null),
+      supportedRange: rateRange,
+      step: rateStep,
+    });
+  }
+
+  get pitch(): RangePreference<number> {
+    return new RangePreference<number>({
+      initialValue: this.preferences.pitch,
+      effectiveValue: this.settings.pitch,
+      isEffective: this.preferences.pitch != null,
+      onChange: (value) => this.updatePreference("pitch", value ?? null),
+      supportedRange: pitchRange,
+      step: pitchStep,
+    });
+  }
+
+  get volume(): RangePreference<number> {
+    return new RangePreference<number>({
+      initialValue: this.preferences.volume,
+      effectiveValue: this.settings.volume,
+      isEffective: this.preferences.volume != null,
+      onChange: (value) => this.updatePreference("volume", value ?? null),
+      supportedRange: volumeRange,
+      step: volumeStep,
     });
   }
 }

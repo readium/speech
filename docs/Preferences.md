@@ -32,9 +32,14 @@ new SpeechPreferences({ verbosity: "custom", contextualize: ["chapter", "footnot
 pauseDuration?: number;                      // ms, default 300
 pauseScope?: "utterance" | "block";          // which transitions get pauseDuration, default "utterance"
 automaticPausesAtPageOrSpreadEnd?: boolean;  // typed, no effect yet
+rate?: number;                               // default 1.0, range [0.1, 10]
+pitch?: number;                              // default 1.0, range [0, 2]
+volume?: number;                             // default 1.0, range [0, 1]
 ```
 
 `pauseDuration` delays the navigator's next `speak()` call after each utterance ends, scoped by `pauseScope`: `"utterance"` (the default) applies it between every utterance; `"block"` applies it only where the next utterance starts a new block-level element (a paragraph, heading, list item, table cell, ...), derived from the source Guided Navigation document by `extractUtterances()` — transitions within the same block get no pause. `automaticPausesAtPageOrSpreadEnd` is typed but has no effect today: pausing at a page/spread boundary needs context (where a page actually ends) that this library doesn't have — likely a concern for the consuming app, not something resolved here.
+
+`rate`/`pitch`/`volume` are pushed straight to the engine's own `setRate`/`setPitch`/`setVolume` on every `submitPreferences()` call — unlike the extraction-time preferences below, they apply immediately to whatever's currently loaded, not just the next `loadGndContent()`/`reextract()`.
 
 `language` (`"none" | "block-level" | "always"`) is the same option documented in [Utterance Extraction](UtteranceExtraction.md#options).
 

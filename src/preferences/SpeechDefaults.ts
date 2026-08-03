@@ -11,4 +11,7 @@ export class SpeechDefaults {
   public readonly pauseDuration: number = 300;
   public readonly pauseScope: PauseScope = "utterance";
   public readonly automaticPausesAtPageOrSpreadEnd: boolean = false;
+  public readonly rate: number = 1.0;
+  public readonly pitch: number = 1.0;
+  public readonly volume: number = 1.0;
 }

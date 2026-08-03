@@ -37,17 +37,27 @@ export class MockEngine implements ReadiumSpeechPlaybackEngine {
   resume(): void {}
   stop(): void {}
 
-  setRate(): void {}
+  rate = 1;
+  pitch = 1;
+  volume = 1;
+
+  setRate(rate: number): void {
+    this.rate = rate;
+  }
   getRate(): number {
-    return 1;
+    return this.rate;
   }
-  setPitch(): void {}
+  setPitch(pitch: number): void {
+    this.pitch = pitch;
+  }
   getPitch(): number {
-    return 1;
+    return this.pitch;
   }
-  setVolume(): void {}
+  setVolume(volume: number): void {
+    this.volume = volume;
+  }
   getVolume(): number {
-    return 1;
+    return this.volume;
   }
 
   getState(): ReadiumSpeechPlaybackState {

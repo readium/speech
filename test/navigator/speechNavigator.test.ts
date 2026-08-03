@@ -41,6 +41,25 @@ test("settings/preferencesEditor reflect submitted preferences", (t) => {
   t.is(navigator.preferencesEditor.verbosity.effectiveValue, "most");
 });
 
+test("constructing a navigator pushes the default rate/pitch/volume to the engine", (t) => {
+  const engine = new MockEngine();
+  new ReadiumSpeechNavigator(engine);
+  t.is(engine.rate, 1);
+  t.is(engine.pitch, 1);
+  t.is(engine.volume, 1);
+});
+
+test("submitPreferences pushes rate/pitch/volume to the engine", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.submitPreferences(new SpeechPreferences({ rate: 1.5, pitch: 0.5, volume: 0.2 }));
+  t.is(engine.rate, 1.5);
+  t.is(engine.pitch, 0.5);
+  t.is(engine.volume, 0.2);
+  t.is(navigator.settings.rate, 1.5);
+  t.is(navigator.preferencesEditor.rate.effectiveValue, 1.5);
+});
+
 test("pauseDuration delays the next speak() call under the default pauseScope (utterance)", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);

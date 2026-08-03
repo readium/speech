@@ -53,15 +53,7 @@ export interface ReadiumSpeechNavigatorContract extends Configurable<SpeechSetti
   next(): boolean; 
   previous(): boolean;
   jumpTo(utteranceIndex: number): void;
-  
-  // Playback Parameters
-  setRate(rate: number): void;
-  getRate(): number;
-  setPitch(pitch: number): void;
-  getPitch(): number;
-  setVolume(volume: number): void;
-  getVolume(): number;
-  
+
   // State
   getState(): ReadiumSpeechPlaybackState;
   

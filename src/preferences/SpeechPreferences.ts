@@ -25,6 +25,9 @@ export interface ISpeechPreferences {
   pauseDuration?: number | null; // ms, default 300
   pauseScope?: PauseScope | null; // "utterance" (default, pause between every utterance) | "block" (pause only at block boundaries)
   automaticPausesAtPageOrSpreadEnd?: boolean | null; // typed, no-op today — see speechNavigator.ts
+  rate?: number | null; // default 1.0, engine range [0.1, 10]
+  pitch?: number | null; // default 1.0, engine range [0, 2]
+  volume?: number | null; // default 1.0, engine range [0, 1]
 }
 
 export class SpeechPreferences implements ISpeechPreferences, ConfigurablePreferences<SpeechPreferences> {
@@ -37,6 +40,9 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
   public pauseDuration: number | null | undefined;
   public pauseScope: PauseScope | null | undefined;
   public automaticPausesAtPageOrSpreadEnd: boolean | null | undefined;
+  public rate: number | null | undefined;
+  public pitch: number | null | undefined;
+  public volume: number | null | undefined;
 
   constructor(preferences: ISpeechPreferences = {}) {
     this.format = preferences.format;
@@ -48,6 +54,9 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
     this.pauseDuration = preferences.pauseDuration;
     this.pauseScope = preferences.pauseScope;
     this.automaticPausesAtPageOrSpreadEnd = preferences.automaticPausesAtPageOrSpreadEnd;
+    this.rate = preferences.rate;
+    this.pitch = preferences.pitch;
+    this.volume = preferences.volume;
   }
 
   merging(other: SpeechPreferences): SpeechPreferences {

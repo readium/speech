@@ -73,3 +73,24 @@ test("automaticPausesAtPageOrSpreadEnd is a plain, settable preference", (t) => 
   editor.automaticPausesAtPageOrSpreadEnd.value = true;
   t.is(editor.preferences.automaticPausesAtPageOrSpreadEnd, true);
 });
+
+test("rate is a range preference with the expected bounds", (t) => {
+  const editor = makeEditor();
+  t.deepEqual(editor.rate.supportedRange, [0.1, 10]);
+  t.is(editor.rate.step, 0.1);
+  t.is(editor.rate.effectiveValue, 1);
+});
+
+test("pitch is a range preference with the expected bounds", (t) => {
+  const editor = makeEditor();
+  t.deepEqual(editor.pitch.supportedRange, [0, 2]);
+  t.is(editor.pitch.step, 0.1);
+  t.is(editor.pitch.effectiveValue, 1);
+});
+
+test("volume is a range preference with the expected bounds", (t) => {
+  const editor = makeEditor();
+  t.deepEqual(editor.volume.supportedRange, [0, 1]);
+  t.is(editor.volume.step, 0.05);
+  t.is(editor.volume.effectiveValue, 1);
+});

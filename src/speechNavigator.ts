@@ -31,7 +31,17 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   constructor(engine: ReadiumSpeechPlaybackEngine) {
     this.engine = engine;
     this.setupEngineListeners();
+    this.applyEngineParameters();
     void this.initializeEngine();
+  }
+
+  // Pushes the resolved rate/pitch/volume to the engine — unlike pauseDuration/pauseScope
+  // (read live off `this._settings` at end-of-utterance), the engine owns rate/pitch/volume
+  // itself and applies them on its next speak() call, so they must be pushed on every change.
+  private applyEngineParameters(): void {
+    this.engine.setRate(this._settings.rate);
+    this.engine.setPitch(this._settings.pitch);
+    this.engine.setVolume(this._settings.volume);
   }
 
   private async initializeEngine(): Promise<void> {
@@ -260,31 +270,6 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     return this.skipToPosition(utteranceIndex, forcePlay);
   }
 
-  // Playback Parameters
-  setRate(rate: number): void {
-    this.engine.setRate(rate);
-  }
-
-  getRate(): number {
-    return this.engine.getRate();
-  }
-
-  setPitch(pitch: number): void {
-    this.engine.setPitch(pitch);
-  }
-
-  getPitch(): number {
-    return this.engine.getPitch();
-  }
-
-  setVolume(volume: number): void {
-    this.engine.setVolume(volume);
-  }
-
-  getVolume(): number {
-    return this.engine.getVolume();
-  }
-
   // State - Navigator is the single source of truth
   getState(): ReadiumSpeechPlaybackState {
     return this.navigatorState;
@@ -341,6 +326,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   private applyPreferences(): void {
     this._settings = new SpeechSettings(this._preferences, this._defaults);
+    this.applyEngineParameters();
 
     if (this._preferencesEditor !== null) {
       this._preferencesEditor = new SpeechPreferencesEditor(this._preferences, this._settings);
