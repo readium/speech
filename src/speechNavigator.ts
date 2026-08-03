@@ -1,6 +1,7 @@
 import { ReadiumSpeechPlaybackEngine } from "./engine";
 import { GndObject } from "./gnd/types";
 import { ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator";
+import { extractionPreferenceKeys } from "./preferences/constraints";
 import { ISpeechDefaults, SpeechDefaults } from "./preferences/SpeechDefaults";
 import { ISpeechPreferences, SpeechPreferences } from "./preferences/SpeechPreferences";
 import { SpeechPreferencesEditor } from "./preferences/SpeechPreferencesEditor";
@@ -29,8 +30,10 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private _preferencesEditor: SpeechPreferencesEditor | null = null;
 
   // The raw GND source, retained only when content was loaded via
-  // `loadGndContent()`. Its presence/absence is what makes loadContent()
-  // and submitPreferences() mutually exclusive with loadGndContent().
+  // `loadGndContent()`. Its absence is what makes submitPreferences()'s
+  // extraction-affecting fields (format, verbosity, skip, contextualize,
+  // language) a no-op on content loaded via loadContent() — prosody
+  // fields (rate/pitch/volume/pauseDuration/pauseScope) still apply.
   private source: GndObject[] | undefined;
 
   constructor(engine: ReadiumSpeechPlaybackEngine, configuration: ReadiumSpeechNavigatorConfiguration = {}) {
@@ -334,8 +337,10 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   submitPreferences(preferences: SpeechPreferences): void {
-    if (!this.source) {
-      throw new Error("submitPreferences() cannot be used with content loaded via loadContent() — it requires loadGndContent().");
+    if (!this.source && extractionPreferenceKeys.some((key) => preferences[key] !== undefined)) {
+      console.warn(
+        "submitPreferences(): extraction-affecting preferences (format, inlineContextualization, verbosity, skip, contextualize, language) have no effect on content loaded via loadContent() — use loadGndContent() to re-extract on submission.",
+      );
     }
 
     this._preferences = this._preferences.merging(preferences);

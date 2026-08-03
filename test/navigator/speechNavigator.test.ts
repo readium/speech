@@ -32,6 +32,39 @@ test("submitPreferences is a no-op on content loaded via plain loadContent", (t)
   t.deepEqual(navigator.getContentQueue(), [{ plain: "Hello world.", language: "en" }]);
 });
 
+test("submitPreferences warns when an extraction-affecting preference has no source to re-extract from", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([{ plain: "Hello world.", language: "en" }]);
+
+  const calls: unknown[][] = [];
+  const original = console.warn;
+  console.warn = (...args: unknown[]) => calls.push(args);
+  try {
+    navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  } finally {
+    console.warn = original;
+  }
+  t.is(calls.length, 1);
+  t.true(String(calls[0][0]).includes("no effect on content loaded via loadContent()"));
+});
+
+test("submitPreferences does not warn for prosody-only preferences on plain loadContent", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([{ plain: "Hello world.", language: "en" }]);
+
+  const calls: unknown[][] = [];
+  const original = console.warn;
+  console.warn = (...args: unknown[]) => calls.push(args);
+  try {
+    navigator.submitPreferences(new SpeechPreferences({ rate: 1.5 }));
+  } finally {
+    console.warn = original;
+  }
+  t.is(calls.length, 0);
+});
+
 test("settings/preferencesEditor reflect submitted preferences", (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);

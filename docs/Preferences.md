@@ -12,7 +12,7 @@ editor.pauseDuration.value = 500;
 navigator.submitPreferences(editor.preferences);
 ```
 
-Preferences only take effect on content loaded via `loadGndContent()` — see [Playback](Playback.md#example-usage). `extractUtterances()` itself never sees a "preference": `SpeechSettings` resolves everything down to the plain `skip`/`contextualize`/`language`/`format`/`inlineContextualization` options it already accepts (see [Utterance Extraction](UtteranceExtraction.md)).
+`submitPreferences()` always resolves `navigator.settings` from the submitted preferences, whatever content is loaded. But only the prosody group (`pauseDuration`, `pauseScope`, `rate`, `pitch`, `volume`) actually changes anything on content loaded via plain `loadContent()` — the extraction group (`format`, `inlineContextualization`, `verbosity`, `skip`, `contextualize`, `language`) has nowhere to re-run extraction without a retained source, so it's a no-op there. Load content via `loadGndContent()` instead to get re-extraction on every submission — see [Playback](Playback.md#example-usage). `extractUtterances()` itself never sees a "preference": `SpeechSettings` resolves everything down to the plain `skip`/`contextualize`/`language`/`format`/`inlineContextualization` options it already accepts (see [Utterance Extraction](UtteranceExtraction.md)).
 
 ## Defaults
 
