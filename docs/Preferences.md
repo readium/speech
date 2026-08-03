@@ -12,6 +12,7 @@ editor.pauseDuration.value = 500;
 navigator.submitPreferences(editor.preferences);
 ```
 
+Preferences only take effect on content loaded via `loadGndContent()` — see [Playback](Playback.md#example-usage). `extractUtterances()` itself never sees a "preference": `SpeechSettings` resolves everything down to the plain `skip`/`contextualize`/`language`/`format`/`inlineContextualization` options it already accepts (see [Utterance Extraction](UtteranceExtraction.md)).
 
 ## Verbosity
 
