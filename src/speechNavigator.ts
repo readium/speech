@@ -182,6 +182,14 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   private setContentQueue(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void {
+    // Cancel in-flight speech and any scheduled pause before swapping the
+    // queue out from under them — loadUtterances() resets the engine's index
+    // regardless, so leaving them running would race a mismatched queue.
+    this.clearPendingAdvance();
+    if (this.navigatorState === "playing" || this.navigatorState === "paused") {
+      this.engine.stop();
+    }
+
     const contents = Array.isArray(content) ? content : [content];
     this.contentQueue = [...contents];
 

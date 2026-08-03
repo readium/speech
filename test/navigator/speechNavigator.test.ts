@@ -5,6 +5,11 @@ import { MockEngine } from "./mockEngine.js";
 
 const chapterTree: GndObject[] = [{ role: ["chapter"], text: { language: "en", plain: "Hello world." } }];
 
+const twoParagraphTree: GndObject[] = [
+  { role: ["paragraph"], text: { language: "en", plain: "First." } },
+  { role: ["paragraph"], text: { language: "en", plain: "Second." } },
+];
+
 test("loadGndContent extracts with the default (few) verbosity", (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
@@ -200,4 +205,29 @@ test("pauseScope 'block' applies pauseDuration when the next utterance starts a 
   await new Promise((resolve) => setTimeout(resolve, 120));
   t.is(engine.speakCalls.length, 1);
   t.true(engine.speakCalls[0] - before >= 50);
+});
+
+test("submitPreferences mid-playback cancels in-flight engine speech and clears the pending pause timer", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadGndContent(twoParagraphTree);
+  engine.emit({ type: "ready" });
+  navigator.play();
+  t.is(navigator.getState(), "playing");
+
+  engine.emit({ type: "end" }); // schedules a delayed speak() under the default pauseDuration
+  t.is(engine.speakCalls.length, 1, "still just play()'s own initial speak() — the delayed one hasn't fired yet");
+
+  navigator.submitPreferences(new SpeechPreferences({ rate: 1.5 }));
+  t.is(engine.stopCalls, 1);
+
+  await new Promise((resolve) => setTimeout(resolve, 350));
+  t.is(engine.speakCalls.length, 1, "the pre-reload timer must not fire a stale speak()");
+});
+
+test("setContentQueue does not call engine.stop() when the navigator is idle", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([{ plain: "Hello world.", language: "en" }]);
+  t.is(engine.stopCalls, 0);
 });

@@ -9,6 +9,7 @@ import type { ReadiumSpeechVoice } from "../../src/voices/types.js";
 export class MockEngine implements ReadiumSpeechPlaybackEngine {
   loadedUtterances: ReadiumSpeechUtterance[] = [];
   speakCalls: number[] = [];
+  stopCalls = 0;
   private index = 0;
   private listeners = new Map<ReadiumSpeechPlaybackEvent["type"], ((event: ReadiumSpeechPlaybackEvent) => void)[]>();
 
@@ -35,7 +36,10 @@ export class MockEngine implements ReadiumSpeechPlaybackEngine {
   }
   pause(): void {}
   resume(): void {}
-  stop(): void {}
+  stop(): void {
+    this.stopCalls++;
+    this.emit({ type: "stop" });
+  }
 
   rate = 1;
   pitch = 1;
