@@ -2,6 +2,21 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.6.0] - 2026-08-04
+
+### Added
+
+- Preferences API on `ReadiumSpeechNavigator` (`submitPreferences()`, `settings`, `preferencesEditor`), covering verbosity presets and prosody (`pauseDuration`, `pauseScope`, `rate`, `pitch`, `volume`). See [Preferences.md](docs/Preferences.md).
+- `ReadiumSpeechNavigator.loadGndContent()`, retaining a Guided Navigation tree so preferences can re-run extraction on it.
+- `ReadiumSpeechUtterance.startsNewBlock`, marking utterances that begin a new block-level element — used by `pauseScope: "block"`.
+- Default announcements for several previously-uncataloged roles.
+
+### Changed
+
+- `ExtractUtterancesOptions.contextualize` is now `GndRole[]` (which roles announce), replacing the previous on/off `boolean`; default is now nothing contextualized.
+- `ExtractUtterancesOptions.interruptSentence` renamed to `inlineContextualization`.
+- `ReadiumSpeechNavigatorContract` drops `setRate`/`getRate`/`setPitch`/`getPitch`/`setVolume`/`getVolume` — use the Preferences API instead.
+
 ## [0.5.0] - 2026-07-31
 
 ### Added
