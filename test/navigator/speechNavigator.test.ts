@@ -74,6 +74,25 @@ test("settings/preferencesEditor reflect submitted preferences", (t) => {
   t.is(navigator.preferencesEditor.verbosity.effectiveValue, "most");
 });
 
+test("editing the preferencesEditor without submitting does not affect the navigator's settings", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.preferencesEditor.verbosity.value = "most";
+  // Staged on the editor's own (cloned) preferences...
+  t.is(navigator.preferencesEditor.preferences.verbosity, "most");
+  // ...but not committed to the navigator until submitPreferences() is called.
+  t.is(navigator.settings.verbosity, "few");
+});
+
+test("editing the preferencesEditor without submitting does not leak into a later, unrelated submitPreferences call", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.preferencesEditor.pauseDuration.value = 500;
+  navigator.submitPreferences(new SpeechPreferences({ rate: 1.5 }));
+  t.is(navigator.settings.rate, 1.5);
+  t.is(navigator.settings.pauseDuration, 300);
+});
+
 test("constructing a navigator pushes the default rate/pitch/volume to the engine", (t) => {
   const engine = new MockEngine();
   new ReadiumSpeechNavigator(engine);

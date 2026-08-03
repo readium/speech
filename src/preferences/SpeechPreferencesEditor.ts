@@ -18,8 +18,12 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
   preferences: SpeechPreferences;
   private settings: SpeechSettings;
 
+  // Cloned rather than aliased: edits made through this editor's setters
+  // are staged on this copy and only reach the navigator's own preferences
+  // once explicitly passed to submitPreferences() — discarding the editor
+  // without submitting must leave the navigator untouched.
   constructor(initialPreferences: SpeechPreferences, settings: SpeechSettings) {
-    this.preferences = initialPreferences;
+    this.preferences = new SpeechPreferences({ ...initialPreferences });
     this.settings = settings;
   }
 
