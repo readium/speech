@@ -34,36 +34,150 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "epilogue"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the epilogue.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "plain": "End of the epilogue."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "epilogue"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "plain": "The lamp still turns, though no one climbs the stairs anymore.",
+          "plain": "Start of the epilogue.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "plain": "End of the epilogue."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "epilogue"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the epilogue.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "plain": "End of the epilogue."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "epilogue"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "plain": "The lamp still turns, though no one climbs the stairs anymore.",
+          "plain": "Start of the epilogue.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "plain": "End of the epilogue."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "epilogue"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the epilogue.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "plain": "End of the epilogue."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "epilogue"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "plain": "The lamp still turns, though no one climbs the stairs anymore.",
+          "plain": "Start of the epilogue.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "plain": "End of the epilogue."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "epilogue"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the epilogue.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "plain": "End of the epilogue."
         }
       ]
     },
@@ -101,36 +215,150 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "epilogue"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the epilogue.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "ssml": "End of the epilogue."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "epilogue"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "ssml": "The lamp still turns, though no one climbs the stairs anymore.",
+          "ssml": "Start of the epilogue.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "ssml": "End of the epilogue."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "epilogue"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the epilogue.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "ssml": "End of the epilogue."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "epilogue"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "ssml": "The lamp still turns, though no one climbs the stairs anymore.",
+          "ssml": "Start of the epilogue.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "ssml": "End of the epilogue."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "epilogue"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the epilogue.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "ssml": "End of the epilogue."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "epilogue"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "ssml": "The lamp still turns, though no one climbs the stairs anymore.",
+          "ssml": "Start of the epilogue.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "ssml": "End of the epilogue."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "epilogue"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the epilogue.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
+        },
+        {
+          "ssml": "End of the epilogue."
         }
       ]
     }

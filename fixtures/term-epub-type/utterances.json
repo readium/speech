@@ -15,6 +15,322 @@
       "options": {
         "format": "plain",
         "contextualize": [
+          "glossary"
+        ]
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "glossary"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "glossary"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "glossary"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "glossary"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "glossary"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "glossary"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "glossary"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "term"
+        ]
+      },
+      "utterances": [
+        {
+          "plain": "Term.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "term"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Term.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "term"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Term.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "term"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Term.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "term"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Term.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "term"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Term.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "term"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Term.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "term"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Term.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
           "glossary",
           "term"
         ]
@@ -38,36 +354,178 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "glossary",
+          "term"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "glossary",
+          "term"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "plain": "lighthouse",
+          "plain": "Start of the glossary.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "glossary",
+          "term"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "glossary",
+          "term"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "plain": "lighthouse",
+          "plain": "Start of the glossary.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "glossary",
+          "term"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "glossary",
+          "term"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "plain": "lighthouse",
+          "plain": "Start of the glossary.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "glossary",
+          "term"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary."
         }
       ]
     },
@@ -79,6 +537,322 @@
         {
           "ssml": "lighthouse",
           "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "glossary"
+        ]
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "glossary"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "glossary"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "glossary"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "glossary"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "glossary"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "glossary"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "glossary"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "term"
+        ]
+      },
+      "utterances": [
+        {
+          "ssml": "Term.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "term"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Term.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "term"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Term.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "term"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Term.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "term"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Term.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "term"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Term.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "term"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Term.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "term"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Term.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "lighthouse"
         }
       ]
     },
@@ -109,36 +883,178 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "glossary",
+          "term"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "glossary",
+          "term"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "ssml": "lighthouse",
+          "ssml": "Start of the glossary.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "glossary",
+          "term"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "glossary",
+          "term"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "ssml": "lighthouse",
+          "ssml": "Start of the glossary.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "glossary",
+          "term"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "glossary",
+          "term"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "ssml": "lighthouse",
+          "ssml": "Start of the glossary.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "glossary",
+          "term"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary."
         }
       ]
     }

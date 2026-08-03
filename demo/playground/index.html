@@ -47,37 +47,37 @@
       </div>
 
       <div id="utterances-options" class="options-bar">
-        <fieldset class="options-group" id="format-group">
-          <legend>Format</legend>
-          <small class="default-hint" id="format-hint"></small>
-        </fieldset>
+        <fieldset class="options-group options-grid">
+          <legend>Utterances options</legend>
 
-        <fieldset class="options-group">
-          <legend>Language</legend>
-          <select id="option-language"></select>
-          <small class="default-hint" id="language-hint"></small>
-        </fieldset>
+          <div class="field" id="format-group">
+            <span class="field-caption">Format</span>
+            <small class="default-hint" id="format-hint"></small>
+          </div>
 
-        <fieldset class="options-group">
-          <legend>Verbosity</legend>
-          <select id="option-verbosity"></select>
-          <small class="default-hint" id="verbosity-hint"></small>
-        </fieldset>
+          <div class="field">
+            <label><span class="field-caption">Language</span> <select id="option-language"></select></label>
+            <small class="default-hint" id="language-hint"></small>
+          </div>
 
-        <fieldset class="options-group">
-          <label><input type="checkbox" id="option-interrupt"> inlineContextualization</label>
-          <small class="default-hint" id="inline-contextualization-hint"></small>
-        </fieldset>
+          <div class="field">
+            <label><input type="checkbox" id="option-interrupt"> inlineContextualization</label>
+            <small class="default-hint" id="inline-contextualization-hint"></small>
+          </div>
 
-        <fieldset class="options-group" id="custom-verbosity-group" hidden>
-          <legend>Skip roles (custom)</legend>
-          <select id="option-skip" multiple></select>
-          <legend>Contextualize roles (custom)</legend>
-          <select id="option-contextualize" multiple></select>
-        </fieldset>
+          <div class="field field-composite">
+            <label><span class="field-caption">Verbosity</span> <select id="option-verbosity"></select></label>
+            <small class="default-hint" id="verbosity-hint"></small>
+            <div class="field-sub">
+              <span class="field-caption">Only used when verbosity is "custom":</span>
+              <label><span class="field-caption">Skip roles</span> <select id="option-skip" multiple></select></label>
+              <label><span class="field-caption">Contextualize roles</span> <select id="option-contextualize" multiple></select></label>
+            </div>
+          </div>
 
-        <fieldset class="options-group">
-          <button id="reset-preferences" type="button">Reset to defaults</button>
+          <div class="field">
+            <button id="reset-extraction-preferences" type="button">Reset options</button>
+          </div>
         </fieldset>
       </div>
 
@@ -101,45 +101,64 @@
 
       <div class="options-bar">
         <fieldset class="options-group">
-          <button id="speech-play" type="button">Play</button>
-          <button id="speech-pause" type="button">Pause</button>
-          <button id="speech-resume" type="button">Resume</button>
+          <button id="speech-toggle" type="button">Play</button>
           <button id="speech-stop" type="button">Stop</button>
         </fieldset>
       </div>
 
       <div class="options-bar">
-        <fieldset class="options-group">
+        <fieldset class="options-group options-grid">
           <legend>Prosody</legend>
-          <label>
-            pauseDuration
-            <input type="range" id="option-pause-duration">
-            <output id="option-pause-duration-value"></output>
-          </label>
-          <small class="default-hint" id="pause-duration-hint"></small>
-          <label>
-            pauseScope
-            <select id="option-pause-scope"></select>
-          </label>
-          <small class="default-hint" id="pause-scope-hint"></small>
-          <label>
-            rate
-            <input type="range" id="option-rate">
-            <output id="option-rate-value"></output>
-          </label>
-          <small class="default-hint" id="rate-hint"></small>
-          <label>
-            pitch
-            <input type="range" id="option-pitch">
-            <output id="option-pitch-value"></output>
-          </label>
-          <small class="default-hint" id="pitch-hint"></small>
-          <label>
-            volume
-            <input type="range" id="option-volume">
-            <output id="option-volume-value"></output>
-          </label>
-          <small class="default-hint" id="volume-hint"></small>
+          <div class="field">
+            <label>
+              <span class="field-caption">pauseDuration</span>
+              <span class="field-control">
+                <input type="range" id="option-pause-duration">
+                <output id="option-pause-duration-value"></output>
+              </span>
+            </label>
+            <small class="default-hint" id="pause-duration-hint"></small>
+          </div>
+          <div class="field">
+            <label>
+              <span class="field-caption">pauseScope</span>
+              <select id="option-pause-scope"></select>
+            </label>
+            <small class="default-hint" id="pause-scope-hint"></small>
+          </div>
+          <div class="field">
+            <label>
+              <span class="field-caption">rate</span>
+              <span class="field-control">
+                <input type="range" id="option-rate">
+                <output id="option-rate-value"></output>
+              </span>
+            </label>
+            <small class="default-hint" id="rate-hint"></small>
+          </div>
+          <div class="field">
+            <label>
+              <span class="field-caption">pitch</span>
+              <span class="field-control">
+                <input type="range" id="option-pitch">
+                <output id="option-pitch-value"></output>
+              </span>
+            </label>
+            <small class="default-hint" id="pitch-hint"></small>
+          </div>
+          <div class="field">
+            <label>
+              <span class="field-caption">volume</span>
+              <span class="field-control">
+                <input type="range" id="option-volume">
+                <output id="option-volume-value"></output>
+              </span>
+            </label>
+            <small class="default-hint" id="volume-hint"></small>
+          </div>
+          <div class="field">
+            <button id="reset-prosody-preferences" type="button">Reset prosody</button>
+          </div>
         </fieldset>
       </div>
 

@@ -31,36 +31,129 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "errata"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Errata.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "errata"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "plain": "Page 42: 'lightouse' should read 'lighthouse'.",
+          "plain": "Errata.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Page 42: 'lightouse' should read 'lighthouse'."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "errata"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Errata.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "errata"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "plain": "Page 42: 'lightouse' should read 'lighthouse'.",
+          "plain": "Errata.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Page 42: 'lightouse' should read 'lighthouse'."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "errata"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Errata.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "errata"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "plain": "Page 42: 'lightouse' should read 'lighthouse'.",
+          "plain": "Errata.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "errata"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Errata.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Page 42: 'lightouse' should read 'lighthouse'."
         }
       ]
     },
@@ -95,36 +188,129 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "errata"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Errata.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "errata"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "ssml": "Page 42: 'lightouse' should read 'lighthouse'.",
+          "ssml": "Errata.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "errata"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Errata.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "errata"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "ssml": "Page 42: 'lightouse' should read 'lighthouse'.",
+          "ssml": "Errata.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "errata"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Errata.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "errata"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "ssml": "Page 42: 'lightouse' should read 'lighthouse'.",
+          "ssml": "Errata.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "errata"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Errata.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
         }
       ]
     }

@@ -31,36 +31,129 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "epigraph"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Epigraph.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A lighthouse is a compromise with the sea. — Anonymous"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "epigraph"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "plain": "A lighthouse is a compromise with the sea. — Anonymous",
+          "plain": "Epigraph.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "A lighthouse is a compromise with the sea. — Anonymous"
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "epigraph"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Epigraph.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A lighthouse is a compromise with the sea. — Anonymous"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "epigraph"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "plain": "A lighthouse is a compromise with the sea. — Anonymous",
+          "plain": "Epigraph.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "A lighthouse is a compromise with the sea. — Anonymous"
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "epigraph"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Epigraph.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A lighthouse is a compromise with the sea. — Anonymous"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "epigraph"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "plain": "A lighthouse is a compromise with the sea. — Anonymous",
+          "plain": "Epigraph.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "A lighthouse is a compromise with the sea. — Anonymous"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "epigraph"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Epigraph.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A lighthouse is a compromise with the sea. — Anonymous"
         }
       ]
     },
@@ -95,36 +188,129 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "epigraph"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Epigraph.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A lighthouse is a compromise with the sea. — Anonymous"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "epigraph"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "ssml": "A lighthouse is a compromise with the sea. — Anonymous",
+          "ssml": "Epigraph.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "A lighthouse is a compromise with the sea. — Anonymous"
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "epigraph"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Epigraph.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A lighthouse is a compromise with the sea. — Anonymous"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "epigraph"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "ssml": "A lighthouse is a compromise with the sea. — Anonymous",
+          "ssml": "Epigraph.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "A lighthouse is a compromise with the sea. — Anonymous"
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "epigraph"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Epigraph.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A lighthouse is a compromise with the sea. — Anonymous"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "epigraph"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "ssml": "A lighthouse is a compromise with the sea. — Anonymous",
+          "ssml": "Epigraph.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "A lighthouse is a compromise with the sea. — Anonymous"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "epigraph"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Epigraph.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A lighthouse is a compromise with the sea. — Anonymous"
         }
       ]
     }

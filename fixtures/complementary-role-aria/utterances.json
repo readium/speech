@@ -32,33 +32,143 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "complementary"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the complementary content."
+        },
+        {
+          "plain": "A supporting note related to the main content."
+        },
+        {
+          "plain": "End of the complementary content."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "complementary"
+        ],
         "language": "always"
       },
       "utterances": [
         {
+          "plain": "Start of the complementary content."
+        },
+        {
           "plain": "A supporting note related to the main content."
+        },
+        {
+          "plain": "End of the complementary content."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "complementary"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the complementary content."
+        },
+        {
+          "plain": "A supporting note related to the main content."
+        },
+        {
+          "plain": "End of the complementary content."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "complementary"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
+          "plain": "Start of the complementary content."
+        },
+        {
           "plain": "A supporting note related to the main content."
+        },
+        {
+          "plain": "End of the complementary content."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "complementary"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the complementary content."
+        },
+        {
+          "plain": "A supporting note related to the main content."
+        },
+        {
+          "plain": "End of the complementary content."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "complementary"
+        ],
         "language": "none"
       },
       "utterances": [
         {
+          "plain": "Start of the complementary content."
+        },
+        {
           "plain": "A supporting note related to the main content."
+        },
+        {
+          "plain": "End of the complementary content."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "complementary"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the complementary content."
+        },
+        {
+          "plain": "A supporting note related to the main content."
+        },
+        {
+          "plain": "End of the complementary content."
         }
       ]
     },
@@ -94,33 +204,143 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "complementary"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the complementary content."
+        },
+        {
+          "ssml": "A supporting note related to the main content."
+        },
+        {
+          "ssml": "End of the complementary content."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "complementary"
+        ],
         "language": "always"
       },
       "utterances": [
         {
+          "ssml": "Start of the complementary content."
+        },
+        {
           "ssml": "A supporting note related to the main content."
+        },
+        {
+          "ssml": "End of the complementary content."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "complementary"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the complementary content."
+        },
+        {
+          "ssml": "A supporting note related to the main content."
+        },
+        {
+          "ssml": "End of the complementary content."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "complementary"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
+          "ssml": "Start of the complementary content."
+        },
+        {
           "ssml": "A supporting note related to the main content."
+        },
+        {
+          "ssml": "End of the complementary content."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "complementary"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the complementary content."
+        },
+        {
+          "ssml": "A supporting note related to the main content."
+        },
+        {
+          "ssml": "End of the complementary content."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "complementary"
+        ],
         "language": "none"
       },
       "utterances": [
         {
+          "ssml": "Start of the complementary content."
+        },
+        {
           "ssml": "A supporting note related to the main content."
+        },
+        {
+          "ssml": "End of the complementary content."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "complementary"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the complementary content."
+        },
+        {
+          "ssml": "A supporting note related to the main content."
+        },
+        {
+          "ssml": "End of the complementary content."
         }
       ]
     }

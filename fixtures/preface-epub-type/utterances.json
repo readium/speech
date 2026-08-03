@@ -34,36 +34,150 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "preface"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the preface.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "This edition adds a chapter on automation."
+        },
+        {
+          "plain": "End of the preface."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "preface"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "plain": "This edition adds a chapter on automation.",
+          "plain": "Start of the preface.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "This edition adds a chapter on automation."
+        },
+        {
+          "plain": "End of the preface."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "preface"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the preface.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "This edition adds a chapter on automation."
+        },
+        {
+          "plain": "End of the preface."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "preface"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "plain": "This edition adds a chapter on automation.",
+          "plain": "Start of the preface.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "This edition adds a chapter on automation."
+        },
+        {
+          "plain": "End of the preface."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "preface"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the preface.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "This edition adds a chapter on automation."
+        },
+        {
+          "plain": "End of the preface."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "preface"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "plain": "This edition adds a chapter on automation.",
+          "plain": "Start of the preface.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "This edition adds a chapter on automation."
+        },
+        {
+          "plain": "End of the preface."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "preface"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the preface.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "This edition adds a chapter on automation."
+        },
+        {
+          "plain": "End of the preface."
         }
       ]
     },
@@ -101,36 +215,150 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "preface"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the preface.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "This edition adds a chapter on automation."
+        },
+        {
+          "ssml": "End of the preface."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "preface"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "ssml": "This edition adds a chapter on automation.",
+          "ssml": "Start of the preface.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "This edition adds a chapter on automation."
+        },
+        {
+          "ssml": "End of the preface."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "preface"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the preface.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "This edition adds a chapter on automation."
+        },
+        {
+          "ssml": "End of the preface."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "preface"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "ssml": "This edition adds a chapter on automation.",
+          "ssml": "Start of the preface.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "This edition adds a chapter on automation."
+        },
+        {
+          "ssml": "End of the preface."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "preface"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the preface.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "This edition adds a chapter on automation."
+        },
+        {
+          "ssml": "End of the preface."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "preface"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "ssml": "This edition adds a chapter on automation.",
+          "ssml": "Start of the preface.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "This edition adds a chapter on automation."
+        },
+        {
+          "ssml": "End of the preface."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "preface"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the preface.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "This edition adds a chapter on automation."
+        },
+        {
+          "ssml": "End of the preface."
         }
       ]
     }

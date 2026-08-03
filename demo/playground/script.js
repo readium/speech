@@ -9,7 +9,6 @@ const utterancesExpectedEl = document.getElementById("utterances-expected");
 const utterancesActualEl = document.getElementById("utterances-actual");
 const utterancesBadgeEl = document.getElementById("utterances-badge");
 const optionVerbosityEl = document.getElementById("option-verbosity");
-const customVerbosityGroupEl = document.getElementById("custom-verbosity-group");
 const optionSkipEl = document.getElementById("option-skip");
 const optionLanguageEl = document.getElementById("option-language");
 const optionInterruptEl = document.getElementById("option-interrupt");
@@ -33,7 +32,8 @@ const pauseScopeHintEl = document.getElementById("pause-scope-hint");
 const rateHintEl = document.getElementById("rate-hint");
 const pitchHintEl = document.getElementById("pitch-hint");
 const volumeHintEl = document.getElementById("volume-hint");
-const resetPreferencesEl = document.getElementById("reset-preferences");
+const resetExtractionPreferencesEl = document.getElementById("reset-extraction-preferences");
+const resetProsodyPreferencesEl = document.getElementById("reset-prosody-preferences");
 let formatRadios = [];
 
 // Every RangePreference-backed control, driven generically by key.
@@ -45,9 +45,7 @@ const rangeControls = [
 ];
 const speechBadgeEl = document.getElementById("speech-badge");
 const speechUtterancesEl = document.getElementById("speech-utterances");
-const speechPlayEl = document.getElementById("speech-play");
-const speechPauseEl = document.getElementById("speech-pause");
-const speechResumeEl = document.getElementById("speech-resume");
+const speechToggleEl = document.getElementById("speech-toggle");
 const speechStopEl = document.getElementById("speech-stop");
 
 // Feature-detect the GND converter, the utterance extractor, and the
@@ -219,7 +217,9 @@ function renderToolbarState() {
 
   setDefaultLabel(verbosityHintEl, libraryDefaults?.verbosity);
   optionVerbosityEl.value = editor.verbosity.value ?? editor.verbosity.effectiveValue;
-  if (customVerbosityGroupEl) customVerbosityGroupEl.hidden = optionVerbosityEl.value !== "custom";
+  const customRolesDisabled = optionVerbosityEl.value !== "custom";
+  optionSkipEl.disabled = customRolesDisabled;
+  optionContextualizeEl.disabled = customRolesDisabled;
 
   setDefaultLabel(inlineContextualizationHintEl, libraryDefaults?.inlineContextualization);
   optionInterruptEl.checked = editor.inlineContextualization.value ?? editor.inlineContextualization.effectiveValue;
@@ -261,11 +261,27 @@ function applyPreferencesFromToolbar() {
   renderUtterancesPanel();
 }
 
-function resetPreferences() {
+// Prosody has its own separate reset — the two toolbars are separate sections.
+function resetExtractionPreferences() {
   if (!configurable) return;
   playbackNavigator?.stop();
   const editor = configurable.preferencesEditor;
-  editor.clear();
+  editor.format.clear();
+  editor.language.clear();
+  editor.verbosity.clear();
+  editor.inlineContextualization.clear();
+  editor.skip.clear();
+  editor.contextualize.clear();
+  configurable.submitPreferences(editor.preferences);
+  renderToolbarState();
+  renderUtterancesPanel();
+}
+
+function resetProsodyPreferences() {
+  if (!configurable) return;
+  const editor = configurable.preferencesEditor;
+  for (const { key } of rangeControls) editor[key].clear();
+  editor.pauseScope.clear();
   configurable.submitPreferences(editor.preferences);
   renderToolbarState();
   renderUtterancesPanel();
@@ -292,22 +308,8 @@ function collectRoles(nodes, acc = new Set()) {
   return acc;
 }
 
-// The bridge between the Preferences API (high-level: verbosity resolves to
-// a role *set*, spanning roles a given fixture may not even contain) and
-// fixtures/*/utterances.json (low-level: generated with exactly one
-// skip role at a time, or one combined "every announcable role in this
-// tree" contextualize case — see scripts/generate-utterances.js — never
-// several skip roles together, never skip+contextualize combined).
-//
-// Reducing the resolved skip/contextualize sets down to only the roles this
-// fixture's tree actually contains (and, for skip, that are in the curated
-// skippableRoles list; for contextualize, that have a catalog entry) turns
-// a verbosity-resolved combination into the same shape the generator
-// produced — so it can still be matched against a real case whenever it
-// reduces to one of those two axes. When it doesn't (e.g. the tree contains
-// two skippable roles at once, both resolved on), there genuinely is no
-// hand-authored case for that combination — "none" is the honest answer,
-// not a bug — this bridge only recovers the cases fixtures actually cover.
+// Reduces to the scope scripts/generate-utterances.js enumerates per fixture
+// (fixtures/README.md), so the result always falls inside it.
 function bridgeToFixtureOptions(resolvedOptions, rolesInTree) {
   const skippable = new Set(skippableRolesList ?? []);
   const effectiveSkip = (resolvedOptions.skip ?? []).filter((role) => rolesInTree.has(role) && skippable.has(role));
@@ -323,13 +325,13 @@ function bridgeToFixtureOptions(resolvedOptions, rolesInTree) {
   return bridged;
 }
 
-// Finds the fixture's expected output for the exact combination of
-// (bridged) options currently in effect: the `cases` entry whose `options`
-// deep-equals the selection. Returns `undefined` when this fixture doesn't
-// illustrate that combination.
+// Unlisted in-scope combinations mean "equals the default" (fixtures/README.md).
 function matchingExpected(utterances, options) {
-  const kase = (utterances.cases ?? []).find((c) => deepEqual(c.options, options));
-  return kase?.utterances;
+  const cases = utterances.cases ?? [];
+  const exact = cases.find((c) => deepEqual(c.options, options));
+  if (exact) return exact.utterances;
+  const defaultCase = cases.find((c) => deepEqual(c.options, { format: options.format }));
+  return defaultCase?.utterances;
 }
 
 const manifest = await fetch("../../fixtures/manifest.json").then((r) => r.json());
@@ -617,6 +619,7 @@ function renderSpeechList(utterances) {
 function syncSpeechUi() {
   const state = playbackNavigator.getState();
   setSpeechBadge(state);
+  speechToggleEl.textContent = state === "playing" ? "Pause" : "Play";
   const speaking = state === "playing" || state === "paused" ? playbackNavigator.getCurrentUtteranceIndex() : -1;
   speechListItems.forEach((li, index) => li.classList.toggle("speaking", index === speaking));
 }
@@ -737,7 +740,8 @@ for (const { inputEl, valueEl, unit } of rangeControls) {
   inputEl.addEventListener("change", applyPreferencesFromToolbar);
 }
 optionPauseScopeEl?.addEventListener("change", applyPreferencesFromToolbar);
-resetPreferencesEl?.addEventListener("click", resetPreferences);
+resetExtractionPreferencesEl?.addEventListener("click", resetExtractionPreferences);
+resetProsodyPreferencesEl?.addEventListener("click", resetProsodyPreferences);
 
 if (!playbackNavigator) {
   speechBadgeEl.textContent = "not implemented yet";
@@ -746,13 +750,16 @@ if (!playbackNavigator) {
   setSpeechBadge("idle");
 }
 
-speechPlayEl.addEventListener("click", async () => {
-  if (!playbackNavigator || playbackNavigator.getContentQueue().length === 0) return;
+speechToggleEl.addEventListener("click", async () => {
+  if (!playbackNavigator) return;
+  if (playbackNavigator.getState() === "playing") {
+    playbackNavigator.pause();
+    return;
+  }
+  if (playbackNavigator.getContentQueue().length === 0) return;
   await voiceReadyPromise;
   playbackNavigator.play();
 });
-speechPauseEl.addEventListener("click", () => playbackNavigator?.pause());
-speechResumeEl.addEventListener("click", () => playbackNavigator?.play());
 speechStopEl.addEventListener("click", () => playbackNavigator?.stop());
 
 renderList();

@@ -34,36 +34,150 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "introduction"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the introduction.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "This work explores the history of coastal lighthouses."
+        },
+        {
+          "plain": "End of the introduction."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "introduction"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "plain": "This work explores the history of coastal lighthouses.",
+          "plain": "Start of the introduction.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "This work explores the history of coastal lighthouses."
+        },
+        {
+          "plain": "End of the introduction."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "introduction"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the introduction.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "This work explores the history of coastal lighthouses."
+        },
+        {
+          "plain": "End of the introduction."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "introduction"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "plain": "This work explores the history of coastal lighthouses.",
+          "plain": "Start of the introduction.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "This work explores the history of coastal lighthouses."
+        },
+        {
+          "plain": "End of the introduction."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "introduction"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the introduction.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "This work explores the history of coastal lighthouses."
+        },
+        {
+          "plain": "End of the introduction."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "introduction"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "plain": "This work explores the history of coastal lighthouses.",
+          "plain": "Start of the introduction.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "This work explores the history of coastal lighthouses."
+        },
+        {
+          "plain": "End of the introduction."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "introduction"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the introduction.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "This work explores the history of coastal lighthouses."
+        },
+        {
+          "plain": "End of the introduction."
         }
       ]
     },
@@ -101,36 +215,150 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "introduction"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the introduction.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "This work explores the history of coastal lighthouses."
+        },
+        {
+          "ssml": "End of the introduction."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "introduction"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "ssml": "This work explores the history of coastal lighthouses.",
+          "ssml": "Start of the introduction.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "This work explores the history of coastal lighthouses."
+        },
+        {
+          "ssml": "End of the introduction."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "introduction"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the introduction.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "This work explores the history of coastal lighthouses."
+        },
+        {
+          "ssml": "End of the introduction."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "introduction"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "ssml": "This work explores the history of coastal lighthouses.",
+          "ssml": "Start of the introduction.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "This work explores the history of coastal lighthouses."
+        },
+        {
+          "ssml": "End of the introduction."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "introduction"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the introduction.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "This work explores the history of coastal lighthouses."
+        },
+        {
+          "ssml": "End of the introduction."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "introduction"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "ssml": "This work explores the history of coastal lighthouses.",
+          "ssml": "Start of the introduction.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "This work explores the history of coastal lighthouses."
+        },
+        {
+          "ssml": "End of the introduction."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "introduction"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the introduction.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "This work explores the history of coastal lighthouses."
+        },
+        {
+          "ssml": "End of the introduction."
         }
       ]
     }

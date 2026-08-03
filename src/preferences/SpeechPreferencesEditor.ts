@@ -23,8 +23,23 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
     this.settings = settings;
   }
 
+  // Explicit `null`s, not `undefined` — merging() skips `undefined` fields,
+  // so only `null` actually clears them once submitted.
   clear(): void {
-    this.preferences = new SpeechPreferences();
+    this.preferences = new SpeechPreferences({
+      format: null,
+      inlineContextualization: null,
+      verbosity: null,
+      skip: null,
+      contextualize: null,
+      language: null,
+      pauseDuration: null,
+      pauseScope: null,
+      automaticPausesAtPageOrSpreadEnd: null,
+      rate: null,
+      pitch: null,
+      volume: null,
+    });
   }
 
   private updatePreference<K extends keyof SpeechPreferences>(key: K, value: SpeechPreferences[K]) {

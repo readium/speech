@@ -31,36 +31,129 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "dedication"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Dedication.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "For every keeper who lit the lamp at dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "dedication"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "plain": "For every keeper who lit the lamp at dusk.",
+          "plain": "Dedication.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "For every keeper who lit the lamp at dusk."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "dedication"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Dedication.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "For every keeper who lit the lamp at dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "dedication"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "plain": "For every keeper who lit the lamp at dusk.",
+          "plain": "Dedication.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "For every keeper who lit the lamp at dusk."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "dedication"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Dedication.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "For every keeper who lit the lamp at dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "dedication"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "plain": "For every keeper who lit the lamp at dusk.",
+          "plain": "Dedication.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "For every keeper who lit the lamp at dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "dedication"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Dedication.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "For every keeper who lit the lamp at dusk."
         }
       ]
     },
@@ -95,36 +188,129 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "dedication"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Dedication.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "For every keeper who lit the lamp at dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "dedication"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "ssml": "For every keeper who lit the lamp at dusk.",
+          "ssml": "Dedication.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "For every keeper who lit the lamp at dusk."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "dedication"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Dedication.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "For every keeper who lit the lamp at dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "dedication"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "ssml": "For every keeper who lit the lamp at dusk.",
+          "ssml": "Dedication.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "For every keeper who lit the lamp at dusk."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "dedication"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Dedication.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "For every keeper who lit the lamp at dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "dedication"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "ssml": "For every keeper who lit the lamp at dusk.",
+          "ssml": "Dedication.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "For every keeper who lit the lamp at dusk."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "dedication"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Dedication.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "For every keeper who lit the lamp at dusk."
         }
       ]
     }

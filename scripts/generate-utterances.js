@@ -5,19 +5,11 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const FIXTURES_DIR = path.join(__dirname, "../fixtures");
 
-// Regenerates every fixture's utterances.json — a flat `cases` array, each
-// a full ExtractUtterancesOptions object paired with its expected
-// utterances — from its gnd.json, using the actual @readium/speech build —
-// the exact same extractUtterances() a consumer would call. Run this after
-// any change to extractUtterances.ts, announcements.ts, or roles.ts's
-// skippableRoles that should propagate to the fixture suite (e.g. rewording
-// an announcement, adding a role's contextualization). `npm run build` first.
+// Regenerates every fixture's utterances.json from its gnd.json, using the
+// real @readium/speech build. `npm run build` first.
 //
-// This is *not* a substitute for reviewing what changed: utterances.json is
-// still the ground truth other (non-TypeScript) implementations are meant
-// to match, so a diff this script produces should be read over — did the
-// change do what was intended, everywhere it applies — not blindly
-// committed.
+// A case is only stored when it diverges from that fixture's default —
+// unlisted in-scope combinations are implicitly the default (fixtures/README.md).
 let mod;
 try {
   mod = await import("../build/index.js");
@@ -25,7 +17,7 @@ try {
   console.error("Run `npm run build` first — could not import build/index.js.");
   throw err;
 }
-const { extractUtterances, skippableRoles } = mod;
+const { extractUtterances, skippableRoles, defaultAnnouncements } = mod;
 
 function expectedTopLevel(gnd) {
   if (gnd && typeof gnd === "object" && !Array.isArray(gnd)) {
@@ -43,9 +35,30 @@ function collectRoles(nodes, acc = new Set()) {
   return acc;
 }
 
-function containsPlaceholder(gnd) {
-  return JSON.stringify(gnd).includes("<readium:");
+// The full powerset of `items` — typically 0-3 entries, so naive is fine.
+function subsets(items) {
+  return items.reduce((acc, item) => acc.concat(acc.map((set) => [...set, item])), [[]]);
 }
+
+function sortKeysDeep(value) {
+  if (Array.isArray(value)) return value.map(sortKeysDeep);
+  if (value && typeof value === "object") {
+    return Object.keys(value)
+      .sort()
+      .reduce((acc, key) => {
+        acc[key] = sortKeysDeep(value[key]);
+        return acc;
+      }, {});
+  }
+  return value;
+}
+
+function sameUtterances(a, b) {
+  return JSON.stringify(sortKeysDeep(a)) === JSON.stringify(sortKeysDeep(b));
+}
+
+const languageValues = [undefined, "always", "block-level", "none"];
+const inlineContextualizationValues = [false, true];
 
 const ids = readdirSync(FIXTURES_DIR, { withFileTypes: true })
   .filter((e) => e.isDirectory())
@@ -66,37 +79,36 @@ for (const id of ids) {
   const nodes = expectedTopLevel(gnd);
   const rolesInTree = collectRoles(nodes);
 
-  const variantSpecs = [];
-
-  for (const role of skippableRoles) {
-    if (rolesInTree.has(role)) variantSpecs.push({ skip: [role] });
-  }
-
-  // Nothing announces by default (symmetric with skip); the meaningful
-  // variant is opting every role in the tree with a catalog entry *in*.
-  const announcableRoles = [...rolesInTree].filter((role) => mod.defaultAnnouncements?.[role] !== undefined);
-  if (announcableRoles.length > 0) variantSpecs.push({ contextualize: announcableRoles });
-
-  if (containsPlaceholder(gnd)) variantSpecs.push({ inlineContextualization: true });
-
-  // Every `language` state gets its own case for every fixture, per format,
-  // regardless of whether it matches the base case.
-  const languageSpecs = ["always", "block-level", "none"];
+  const skipSubsets = subsets(skippableRoles.filter((role) => rolesInTree.has(role)));
+  const contextualizeSubsets = subsets(
+    [...rolesInTree].filter((role) => defaultAnnouncements?.[role] !== undefined),
+  );
 
   const cases = [];
   for (const format of ["plain", "ssml"]) {
-    const base = extractUtterances(nodes, { format });
-    cases.push({ options: { format }, utterances: base });
+    const defaultUtterances = extractUtterances(nodes, { format });
+    cases.push({ options: { format }, utterances: defaultUtterances });
 
-    // Ships every applicable variant's case, even when identical to base.
-    for (const options of variantSpecs) {
-      const utterances = extractUtterances(nodes, { format, ...options });
-      cases.push({ options: { format, ...options }, utterances });
-    }
+    for (const skip of skipSubsets) {
+      for (const contextualize of contextualizeSubsets) {
+        for (const language of languageValues) {
+          for (const inlineContextualization of inlineContextualizationValues) {
+            if (skip.length === 0 && contextualize.length === 0 && language === undefined && !inlineContextualization) {
+              continue; // the default case itself, already pushed above
+            }
+            const options = { format };
+            if (skip.length > 0) options.skip = skip;
+            if (contextualize.length > 0) options.contextualize = contextualize;
+            if (language !== undefined) options.language = language;
+            if (inlineContextualization) options.inlineContextualization = true;
 
-    for (const language of languageSpecs) {
-      const utterances = extractUtterances(nodes, { format, language });
-      cases.push({ options: { format, language }, utterances });
+            const utterances = extractUtterances(nodes, options);
+            if (!sameUtterances(utterances, defaultUtterances)) {
+              cases.push({ options, utterances });
+            }
+          }
+        }
+      }
     }
   }
 

@@ -29,10 +29,9 @@ fixtures/
     input.html             the input markup as HTML (a fragment or a full document, see meta.json.inputKind);
                             or input.xhtml when the fixture's content is XHTML (all *-epub-type fixtures)
     gnd.json               the expected Guided Navigation document produced from the input file
-    utterances.json        the expected utterance lists produced from gnd.json, forked by
-                            extraction format (plain/ssml), each with a baseline plus any
-                            option variants this fixture illustrates — see "Utterance
-                            extraction options" below
+    utterances.json        the expected utterances from gnd.json — a default case per
+                            format, plus any option combination that diverges from it —
+                            see "Utterance extraction options" below
 ```
 
 `manifest.json` and `ROLES_COVERAGE.md` are both generated from the
@@ -96,57 +95,53 @@ Stage 2 (GND → utterances) takes options controlling *how* a fixed GND tree
 is turned into utterances — the tree itself never changes shape based on
 these; only the resulting utterance list does. `utterances.json` is a flat
 list of cases, each a full `ExtractUtterancesOptions` object (`format`
-included, same as every other option) paired with the utterance list that
-combination produces:
+included) paired with the utterance list that combination produces:
 
 ```jsonc
 {
   "cases": [
     {
       "options": { "format": "plain" },
-      "utterances": [ /* the plain extraction with no other options set */ ]
+      "utterances": [ /* the default: no skip/contextualize/language/inlineContextualization */ ]
     },
     {
       "options": { "format": "plain", "skip": ["footnote"] },
-      "utterances": [ /* plain extraction with skip set */ ]
-    },
-    {
-      "options": { "format": "ssml" },
-      "utterances": [ /* the ssml extraction with no other options set */ ]
-    },
-    {
-      "options": { "format": "ssml", "skip": ["footnote"] },
-      "utterances": [ /* ssml extraction with skip set */ ]
+      "utterances": [ /* differs from the default above */ ]
     }
   ]
 }
 ```
 
-The options are:
+**A case is only present when its options produce output different from
+that fixture's default** — the bare `{ format }` call, always the first
+case for each format. An option combination *within scope* (below) that
+has no case is understood to equal the default: absence is a positive
+claim, not a gap. Outside that scope, a fixture makes no claim either way.
+
+Scope, per format: `language` × `inlineContextualization` × every subset of
+(this fixture's roles ∩ [roles.md's skippable-roles list]) × every subset
+of (this fixture's roles ∩ roles with an announcement-catalog entry).
+Every point in that space is either an explicit case or implicitly the
+default — nothing in between.
+
+The options:
 
 - `format: "plain" | "ssml"` (default `"plain"`) — stated explicitly on
-  every case regardless of the default, since a fixture needs both variants
-  covered and omitting it on the `"ssml"` case would leave it
-  indistinguishable from implicit default behavior.
-- `skip: GndRole[]` — omit a role (and its whole subtree) from the output,
-  e.g. so a reader can skip past footnotes or pagebreaks during playback.
-  See [roles.md#list-of-skippable-roles](https://github.com/readium/guided-navigation/blob/main/roles.md#list-of-skippable-roles)
-  for the roles.md-documented set a reader may choose to skip.
-- `contextualize: boolean` — whether synthesized announcements (pagebreak,
-  footnote start/end, and any role that gains one later) are spoken at all,
-  independent of the underlying content (which `skip` would instead omit
-  entirely). Default `true`.
-- `inlineContextualization: boolean` — whether a pagebreak/footnote reference
-  that falls mid-sentence splits the sentence at that exact point, instead
-  of being spoken after the whole sentence finishes (the default).
-- `language: "none" | "block-level" | "always"` — how a language shift between
-  adjacent text is rendered: dropped entirely; kept as separate
-  single-language utterances for `plain` (default `"always"` has no other
-  way to represent the shift) or merged into one utterance with embedded
-  `<lang>` tags for `ssml`.
-
-Every fixture ships a case for every option that applies to it, even when
-identical to the base case.
+  every case, since a fixture needs both variants covered and omitting it
+  on the `"ssml"` case would leave it indistinguishable from `"plain"`.
+- `skip: GndRole[]` — omit roles (and their whole subtree) from the output.
+  See [roles.md#list-of-skippable-roles](https://github.com/readium/guided-navigation/blob/main/roles.md#list-of-skippable-roles).
+- `contextualize: GndRole[]` — which roles' synthesized announcements
+  (pagebreak, footnote start/end, ...) are spoken, independent of the
+  underlying content (which `skip` would instead omit entirely). Nothing
+  contextualizes by default.
+- `inlineContextualization: boolean` — whether a pagebreak/footnote
+  reference that falls mid-sentence splits the sentence at that exact
+  point, instead of after the whole sentence finishes (the default).
+- `language: "none" | "block-level" | "always"` — how a language shift
+  between adjacent text is rendered: dropped entirely; kept as separate
+  single-language utterances for `plain`, or merged into one utterance
+  with embedded `<lang>` tags for `ssml`. Omitted means unset.
 
 ## `epub:type` fixtures are full XHTML documents
 
@@ -216,13 +211,17 @@ fixture and resolve its file paths — no directory listing required.
    it through your implementation of stage 1 (HTML → GND) — compare the
    result to `gnd.json`.
 3. Run the resulting GND document through your implementation of stage 2
-   (GND → utterances) twice, once with `{ format: "plain" }` and once with
-   `{ format: "ssml" }` — compare each to `utterances.json`'s corresponding
-   `plain.base`/`ssml.base`.
-4. For each entry in a branch's `variants` (if any), run stage 2 again with
-   that branch's format plus the variant's `options` — compare the result
-   to that variant's `utterances`.
-5. A fixture "passes" when every comparison it has files for matches exactly.
+   (GND → utterances) with `{ format: "plain" }`, then `{ format: "ssml" }`
+   — each must match `utterances.json`'s first case for that format (the
+   default; see "Utterance extraction options" above).
+4. For any other option combination you want to test: look for a case in
+   `utterances.json` whose `options` matches it exactly. If found, compare
+   your result to it. If not found, and the combination is within the
+   documented scope, your result must match the default case instead —
+   there's no separate case for it precisely because it produces the same
+   output.
+5. A fixture "passes" when every comparison it has data for (explicit or
+   default-inferred) matches exactly.
 
 ## Adding a new fixture
 
@@ -230,13 +229,8 @@ fixture and resolve its file paths — no directory listing required.
    `epub:type` fixture, since `epub:type` requires XHTML — see above) for the
    specific markup being tested.
 2. Hand-author `gnd.json` — the ground truth implementations must match.
-3. Hand-author `utterances.json` — one case per applicable option
-   combination (both format branches' base case, plus whichever variants
-   apply — see "Utterance extraction options" above) — from the `gnd.json`
-   you just wrote. When a change to extraction behavior (a reworded
-   announcement, a newly contextualized role, a new skippable role) should
-   propagate to the fixture suite, every affected fixture's
-   `utterances.json` needs to be re-authored by hand to match.
+3. Hand-author `utterances.json` — the ground truth implementations must
+   match. See "Utterance extraction options" above for the case shape and scope.
 4. Write `meta.json`.
 5. Run `npm run generate-fixtures-manifest` to regenerate `manifest.json`
    and `ROLES_COVERAGE.md` from what's now on disk.

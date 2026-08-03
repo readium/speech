@@ -31,36 +31,21 @@
     {
       "options": {
         "format": "plain",
-        "language": "always"
+        "language": "block-level"
       },
       "utterances": [
         {
-          "plain": "One",
           "language": "en",
+          "plain": "One deux three quatre five.",
           "startsNewBlock": true
-        },
-        {
-          "plain": "deux",
-          "language": "fr"
-        },
-        {
-          "plain": "three",
-          "language": "en"
-        },
-        {
-          "plain": "quatre",
-          "language": "fr"
-        },
-        {
-          "plain": "five.",
-          "language": "en"
         }
       ]
     },
     {
       "options": {
         "format": "plain",
-        "language": "block-level"
+        "language": "block-level",
+        "inlineContextualization": true
       },
       "utterances": [
         {
@@ -84,20 +69,20 @@
     },
     {
       "options": {
-        "format": "ssml"
+        "format": "plain",
+        "language": "none",
+        "inlineContextualization": true
       },
       "utterances": [
         {
-          "language": "en",
-          "ssml": "One <lang xml:lang=\"fr\">deux</lang> three <lang xml:lang=\"fr\">quatre</lang> five.",
+          "plain": "One deux three quatre five.",
           "startsNewBlock": true
         }
       ]
     },
     {
       "options": {
-        "format": "ssml",
-        "language": "always"
+        "format": "ssml"
       },
       "utterances": [
         {
@@ -123,7 +108,34 @@
     {
       "options": {
         "format": "ssml",
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "One deux three quatre five.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
         "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "One deux three quatre five.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none",
+        "inlineContextualization": true
       },
       "utterances": [
         {

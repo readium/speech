@@ -13,79 +13,7 @@
     },
     {
       "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "The lighthouse was decommissioned in 1998, though its light still functions as a private aid to navigation.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "The lighthouse was decommissioned in 1998, though its light still functions as a private aid to navigation.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "The lighthouse was decommissioned in 1998, though its light still functions as a private aid to navigation.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
         "format": "ssml"
-      },
-      "utterances": [
-        {
-          "ssml": "The lighthouse was decommissioned in 1998, though its light still functions as a private aid to navigation.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "The lighthouse was decommissioned in 1998, though its light still functions as a private aid to navigation.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "The lighthouse was decommissioned in 1998, though its light still functions as a private aid to navigation.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
       },
       "utterances": [
         {

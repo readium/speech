@@ -184,10 +184,6 @@ body {
   padding: 0;
 }
 
-.options-group[hidden] {
-  display: none;
-}
-
 .options-group legend {
   font-size: 0.78em;
   font-weight: 600;
@@ -200,8 +196,79 @@ body {
   white-space: nowrap;
 }
 
-.default-hint {
+.field label {
+  white-space: normal;
+}
+
+.field label:has(.field-caption) {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-caption {
+  font-size: 0.78em;
+  font-weight: 600;
+  color: #666;
+}
+
+.field-control {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.options-group output {
   display: inline-block;
+  width: 4.5em;
+  font-variant-numeric: tabular-nums;
+}
+
+.options-group select {
+  width: 8em;
+}
+
+/* Fixed-size grid tracks — one control's content can't shift its neighbors. */
+.options-group.options-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 180px);
+  align-items: start;
+  gap: 20px 24px;
+  width: 100%;
+}
+
+.options-group.options-grid legend {
+  grid-column: 1 / -1;
+  font-size: 0.95em;
+  margin-bottom: 4px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
+/* Groups skip/contextualize with the Verbosity field they depend on. */
+.field-composite {
+  grid-column: span 2;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  padding: 10px;
+  gap: 10px;
+}
+
+.field-sub {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #e5e5e5;
+}
+
+.default-hint {
+  display: block;
   font-size: 0.75em;
   color: #888;
   font-style: italic;

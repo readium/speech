@@ -34,36 +34,150 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "qna"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the questions and answers.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Q: How often was the lamp refueled? A: Nightly, by hand."
+        },
+        {
+          "plain": "End of the questions and answers."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "qna"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "plain": "Q: How often was the lamp refueled? A: Nightly, by hand.",
+          "plain": "Start of the questions and answers.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Q: How often was the lamp refueled? A: Nightly, by hand."
+        },
+        {
+          "plain": "End of the questions and answers."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "qna"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the questions and answers.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Q: How often was the lamp refueled? A: Nightly, by hand."
+        },
+        {
+          "plain": "End of the questions and answers."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "qna"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "plain": "Q: How often was the lamp refueled? A: Nightly, by hand.",
+          "plain": "Start of the questions and answers.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Q: How often was the lamp refueled? A: Nightly, by hand."
+        },
+        {
+          "plain": "End of the questions and answers."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "qna"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the questions and answers.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Q: How often was the lamp refueled? A: Nightly, by hand."
+        },
+        {
+          "plain": "End of the questions and answers."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "qna"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "plain": "Q: How often was the lamp refueled? A: Nightly, by hand.",
+          "plain": "Start of the questions and answers.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Q: How often was the lamp refueled? A: Nightly, by hand."
+        },
+        {
+          "plain": "End of the questions and answers."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "qna"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the questions and answers.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Q: How often was the lamp refueled? A: Nightly, by hand."
+        },
+        {
+          "plain": "End of the questions and answers."
         }
       ]
     },
@@ -101,36 +215,150 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "qna"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the questions and answers.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Q: How often was the lamp refueled? A: Nightly, by hand."
+        },
+        {
+          "ssml": "End of the questions and answers."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "qna"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "ssml": "Q: How often was the lamp refueled? A: Nightly, by hand.",
+          "ssml": "Start of the questions and answers.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Q: How often was the lamp refueled? A: Nightly, by hand."
+        },
+        {
+          "ssml": "End of the questions and answers."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "qna"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the questions and answers.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Q: How often was the lamp refueled? A: Nightly, by hand."
+        },
+        {
+          "ssml": "End of the questions and answers."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "qna"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "ssml": "Q: How often was the lamp refueled? A: Nightly, by hand.",
+          "ssml": "Start of the questions and answers.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Q: How often was the lamp refueled? A: Nightly, by hand."
+        },
+        {
+          "ssml": "End of the questions and answers."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "qna"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the questions and answers.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Q: How often was the lamp refueled? A: Nightly, by hand."
+        },
+        {
+          "ssml": "End of the questions and answers."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "qna"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "ssml": "Q: How often was the lamp refueled? A: Nightly, by hand.",
+          "ssml": "Start of the questions and answers.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Q: How often was the lamp refueled? A: Nightly, by hand."
+        },
+        {
+          "ssml": "End of the questions and answers."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "qna"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the questions and answers.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Q: How often was the lamp refueled? A: Nightly, by hand."
+        },
+        {
+          "ssml": "End of the questions and answers."
         }
       ]
     }

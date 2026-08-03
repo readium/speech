@@ -31,36 +31,129 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "summary"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Summary.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Click to expand"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "summary"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "plain": "Click to expand",
+          "plain": "Summary.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Click to expand"
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "summary"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Summary.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Click to expand"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "summary"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "plain": "Click to expand",
+          "plain": "Summary.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Click to expand"
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "summary"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Summary.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Click to expand"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "summary"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "plain": "Click to expand",
+          "plain": "Summary.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Click to expand"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "summary"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Summary.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Click to expand"
         }
       ]
     },
@@ -95,36 +188,129 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "summary"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Summary.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Click to expand"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "summary"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "ssml": "Click to expand",
+          "ssml": "Summary.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Click to expand"
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "summary"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Summary.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Click to expand"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "summary"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "ssml": "Click to expand",
+          "ssml": "Summary.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Click to expand"
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "summary"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Summary.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Click to expand"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "summary"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "ssml": "Click to expand",
+          "ssml": "Summary.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Click to expand"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "summary"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Summary.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Click to expand"
         }
       ]
     }

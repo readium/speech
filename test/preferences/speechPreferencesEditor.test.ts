@@ -60,11 +60,22 @@ test("pauseScope: an explicit preference is effective and matches the resolved s
   t.true(editor.pauseScope.isEffective);
 });
 
-test("clear() resets preferences to an empty SpeechPreferences", (t) => {
+test("clear() resets preferences to explicit nulls, not undefined", (t) => {
   const editor = makeEditor(new SpeechPreferences({ verbosity: "most", pauseDuration: 500 }));
   editor.clear();
-  t.is(editor.preferences.verbosity, undefined);
-  t.is(editor.preferences.pauseDuration, undefined);
+  t.is(editor.preferences.verbosity, null);
+  t.is(editor.preferences.pauseDuration, null);
+});
+
+test("clear() actually resets preferences submitted through submitPreferences()", (t) => {
+  const initial = new SpeechPreferences({ verbosity: "most", pauseDuration: 500 });
+  const editor = makeEditor(initial);
+  editor.clear();
+  // Mirrors what ReadiumSpeechNavigator.submitPreferences() does internally —
+  // undefined-only clears would be silently swallowed by merging() here.
+  const merged = initial.merging(editor.preferences);
+  t.is(merged.verbosity, null);
+  t.is(merged.pauseDuration, null);
 });
 
 test("automaticPausesAtPageOrSpreadEnd is a plain, settable preference", (t) => {

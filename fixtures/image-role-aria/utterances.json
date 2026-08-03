@@ -30,20 +30,34 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "image"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "plain": "Rating: 4 out of 5 stars"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
-      "utterances": [
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
         {
           "plain": "Rating: 4 out of 5 stars"
         }
@@ -52,9 +66,91 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "image"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ],
         "language": "none"
       },
       "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
         {
           "plain": "Rating: 4 out of 5 stars"
         }
@@ -90,20 +186,34 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "ssml": "Rating: 4 out of 5 stars"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
         {
           "ssml": "Rating: 4 out of 5 stars"
         }
@@ -112,9 +222,91 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
         "language": "none"
       },
       "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Rating: 4 out of 5 stars"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
         {
           "ssml": "Rating: 4 out of 5 stars"
         }

@@ -33,33 +33,150 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "figure"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "ASCII Art of a cat face"
+        },
+        {
+          "plain": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "figure"
+        ],
         "language": "always"
       },
       "utterances": [
         {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
           "plain": "ASCII Art of a cat face"
+        },
+        {
+          "plain": "End of the figure."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "ASCII Art of a cat face"
+        },
+        {
+          "plain": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "figure"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
           "plain": "ASCII Art of a cat face"
+        },
+        {
+          "plain": "End of the figure."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "ASCII Art of a cat face"
+        },
+        {
+          "plain": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "figure"
+        ],
         "language": "none"
       },
       "utterances": [
         {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
           "plain": "ASCII Art of a cat face"
+        },
+        {
+          "plain": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "ASCII Art of a cat face"
+        },
+        {
+          "plain": "End of the figure."
         }
       ]
     },
@@ -96,33 +213,150 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "figure"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "ASCII Art of a cat face"
+        },
+        {
+          "ssml": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "figure"
+        ],
         "language": "always"
       },
       "utterances": [
         {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
           "ssml": "ASCII Art of a cat face"
+        },
+        {
+          "ssml": "End of the figure."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "ASCII Art of a cat face"
+        },
+        {
+          "ssml": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "figure"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
           "ssml": "ASCII Art of a cat face"
+        },
+        {
+          "ssml": "End of the figure."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "ASCII Art of a cat face"
+        },
+        {
+          "ssml": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "figure"
+        ],
         "language": "none"
       },
       "utterances": [
         {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
           "ssml": "ASCII Art of a cat face"
+        },
+        {
+          "ssml": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "ASCII Art of a cat face"
+        },
+        {
+          "ssml": "End of the figure."
         }
       ]
     }

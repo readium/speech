@@ -30,20 +30,34 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "image"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "plain": "Alternative text using the alt attribute"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
-      "utterances": [
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
         {
           "plain": "Alternative text using the alt attribute"
         }
@@ -52,9 +66,91 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "image"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ],
         "language": "none"
       },
       "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
         {
           "plain": "Alternative text using the alt attribute"
         }
@@ -90,20 +186,34 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "ssml": "Alternative text using the alt attribute"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
         {
           "ssml": "Alternative text using the alt attribute"
         }
@@ -112,9 +222,91 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
         "language": "none"
       },
       "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Alternative text using the alt attribute"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
         {
           "ssml": "Alternative text using the alt attribute"
         }

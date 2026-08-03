@@ -31,36 +31,21 @@
     {
       "options": {
         "format": "plain",
-        "language": "always"
+        "language": "block-level"
       },
       "utterances": [
         {
-          "plain": "Start",
           "language": "en",
+          "plain": "Start middle nested end after.",
           "startsNewBlock": true
-        },
-        {
-          "plain": "middle",
-          "language": "fr"
-        },
-        {
-          "plain": "nested",
-          "language": "es"
-        },
-        {
-          "plain": "end",
-          "language": "fr"
-        },
-        {
-          "plain": "after.",
-          "language": "en"
         }
       ]
     },
     {
       "options": {
         "format": "plain",
-        "language": "block-level"
+        "language": "block-level",
+        "inlineContextualization": true
       },
       "utterances": [
         {
@@ -84,20 +69,20 @@
     },
     {
       "options": {
-        "format": "ssml"
+        "format": "plain",
+        "language": "none",
+        "inlineContextualization": true
       },
       "utterances": [
         {
-          "language": "en",
-          "ssml": "Start <lang xml:lang=\"fr\">middle </lang><lang xml:lang=\"es\">nested</lang><lang xml:lang=\"fr\"> end</lang> after.",
+          "plain": "Start middle nested end after.",
           "startsNewBlock": true
         }
       ]
     },
     {
       "options": {
-        "format": "ssml",
-        "language": "always"
+        "format": "ssml"
       },
       "utterances": [
         {
@@ -123,7 +108,34 @@
     {
       "options": {
         "format": "ssml",
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "Start middle nested end after.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
         "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Start middle nested end after.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none",
+        "inlineContextualization": true
       },
       "utterances": [
         {

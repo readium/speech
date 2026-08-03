@@ -15,6 +15,322 @@
       "options": {
         "format": "plain",
         "contextualize": [
+          "figure"
+        ]
+      },
+      "utterances": [
+        {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        },
+        {
+          "plain": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "figure"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        },
+        {
+          "plain": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        },
+        {
+          "plain": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        },
+        {
+          "plain": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        },
+        {
+          "plain": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        },
+        {
+          "plain": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        },
+        {
+          "plain": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        },
+        {
+          "plain": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ]
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "image"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
           "figure",
           "image"
         ]
@@ -38,36 +354,178 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "figure",
+          "image"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        },
+        {
+          "plain": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "figure",
+          "image"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "plain": "A bar chart showing sales growth",
+          "plain": "Start of the figure.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        },
+        {
+          "plain": "End of the figure."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "figure",
+          "image"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        },
+        {
+          "plain": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "figure",
+          "image"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "plain": "A bar chart showing sales growth",
+          "plain": "Start of the figure.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        },
+        {
+          "plain": "End of the figure."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "figure",
+          "image"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        },
+        {
+          "plain": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "figure",
+          "image"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "plain": "A bar chart showing sales growth",
+          "plain": "Start of the figure.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        },
+        {
+          "plain": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "figure",
+          "image"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Image."
+        },
+        {
+          "plain": "A bar chart showing sales growth"
+        },
+        {
+          "plain": "End of the figure."
         }
       ]
     },
@@ -79,6 +537,322 @@
         {
           "ssml": "A bar chart showing sales growth",
           "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "figure"
+        ]
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        },
+        {
+          "ssml": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "figure"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        },
+        {
+          "ssml": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        },
+        {
+          "ssml": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        },
+        {
+          "ssml": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        },
+        {
+          "ssml": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        },
+        {
+          "ssml": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        },
+        {
+          "ssml": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "figure"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        },
+        {
+          "ssml": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ]
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "image"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Image.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
         }
       ]
     },
@@ -109,36 +883,178 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "figure",
+          "image"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        },
+        {
+          "ssml": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "figure",
+          "image"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "ssml": "A bar chart showing sales growth",
+          "ssml": "Start of the figure.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        },
+        {
+          "ssml": "End of the figure."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "figure",
+          "image"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        },
+        {
+          "ssml": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "figure",
+          "image"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "ssml": "A bar chart showing sales growth",
+          "ssml": "Start of the figure.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        },
+        {
+          "ssml": "End of the figure."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "figure",
+          "image"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        },
+        {
+          "ssml": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "figure",
+          "image"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "ssml": "A bar chart showing sales growth",
+          "ssml": "Start of the figure.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        },
+        {
+          "ssml": "End of the figure."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "figure",
+          "image"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Image."
+        },
+        {
+          "ssml": "A bar chart showing sales growth"
+        },
+        {
+          "ssml": "End of the figure."
         }
       ]
     }

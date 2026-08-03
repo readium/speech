@@ -18,11 +18,1382 @@
     {
       "options": {
         "format": "plain",
-        "skip": [
+        "contextualize": [
           "bibliography"
         ]
       },
-      "utterances": []
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "list"
+        ]
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "list"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "list"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "list"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "list"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "list"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "list"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "list"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "list"
+        ]
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "listItem"
+        ]
+      },
+      "utterances": [
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "listItem"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ]
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "list",
+          "listItem"
+        ]
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
     },
     {
       "options": {
@@ -65,50 +1436,1142 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "plain": "Smith, J. Lighthouses of the Atlantic. 1988.",
+          "plain": "Start of the bibliography.",
           "startsNewBlock": true
         },
         {
-          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the bibliography."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "plain": "Smith, J. Lighthouses of the Atlantic. 1988.",
+          "plain": "Start of the bibliography.",
           "startsNewBlock": true
         },
         {
-          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the bibliography."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "plain": "Smith, J. Lighthouses of the Atlantic. 1988.",
+          "plain": "Start of the bibliography.",
           "startsNewBlock": true
         },
         {
-          "plain": "Doe, A. Coastal Illumination. 1975.",
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the bibliography."
         }
       ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "language": "none"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "none"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list"
+        ],
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list"
+        ],
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list"
+        ],
+        "language": "none"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "none"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "listItem"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "listItem"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "none"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "none"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list",
+          "listItem"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "none"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "none"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": []
     },
     {
       "options": {
@@ -128,11 +2591,1382 @@
     {
       "options": {
         "format": "ssml",
-        "skip": [
+        "contextualize": [
           "bibliography"
         ]
       },
-      "utterances": []
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "list"
+        ]
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "list"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "list"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "list"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "list"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "list"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "list"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "list"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "list"
+        ]
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "listItem"
+        ]
+      },
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "listItem"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ]
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "list",
+          "listItem"
+        ]
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
     },
     {
       "options": {
@@ -175,50 +4009,1142 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988.",
+          "ssml": "Start of the bibliography.",
           "startsNewBlock": true
         },
         {
-          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the bibliography."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
         "language": "block-level"
       },
       "utterances": [
         {
-          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988.",
+          "ssml": "Start of the bibliography.",
           "startsNewBlock": true
         },
         {
-          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the bibliography."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
         "language": "none"
       },
       "utterances": [
         {
-          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988.",
+          "ssml": "Start of the bibliography.",
           "startsNewBlock": true
         },
         {
-          "ssml": "Doe, A. Coastal Illumination. 1975.",
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the bibliography."
         }
       ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Start of the bibliography.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the bibliography."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "language": "none"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "none"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list"
+        ],
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list"
+        ],
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list"
+        ],
+        "language": "none"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "none"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "listItem"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "listItem"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "none"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "listItem"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "none"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "listItem"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list",
+          "listItem"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "none"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "list",
+          "listItem"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ]
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "always"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "block-level"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "none"
+      },
+      "utterances": []
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "bibliography"
+        ],
+        "contextualize": [
+          "bibliography",
+          "list",
+          "listItem"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": []
     }
   ]
 }

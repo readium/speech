@@ -29,20 +29,32 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "subtitle"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Subtitle."
+        },
+        {
+          "plain": "A History of Coastal Lights"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "subtitle"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "plain": "A History of Coastal Lights"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
-      "utterances": [
+          "plain": "Subtitle."
+        },
         {
           "plain": "A History of Coastal Lights"
         }
@@ -51,9 +63,86 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "subtitle"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Subtitle."
+        },
+        {
+          "plain": "A History of Coastal Lights"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "subtitle"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "plain": "Subtitle."
+        },
+        {
+          "plain": "A History of Coastal Lights"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "subtitle"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Subtitle."
+        },
+        {
+          "plain": "A History of Coastal Lights"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "subtitle"
+        ],
         "language": "none"
       },
       "utterances": [
+        {
+          "plain": "Subtitle."
+        },
+        {
+          "plain": "A History of Coastal Lights"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "subtitle"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "Subtitle."
+        },
         {
           "plain": "A History of Coastal Lights"
         }
@@ -88,20 +177,32 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "subtitle"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Subtitle."
+        },
+        {
+          "ssml": "A History of Coastal Lights"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "subtitle"
+        ],
         "language": "always"
       },
       "utterances": [
         {
-          "ssml": "A History of Coastal Lights"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
+          "ssml": "Subtitle."
+        },
         {
           "ssml": "A History of Coastal Lights"
         }
@@ -110,9 +211,86 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "subtitle"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Subtitle."
+        },
+        {
+          "ssml": "A History of Coastal Lights"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "subtitle"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "ssml": "Subtitle."
+        },
+        {
+          "ssml": "A History of Coastal Lights"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "subtitle"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Subtitle."
+        },
+        {
+          "ssml": "A History of Coastal Lights"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "subtitle"
+        ],
         "language": "none"
       },
       "utterances": [
+        {
+          "ssml": "Subtitle."
+        },
+        {
+          "ssml": "A History of Coastal Lights"
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "subtitle"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "Subtitle."
+        },
         {
           "ssml": "A History of Coastal Lights"
         }

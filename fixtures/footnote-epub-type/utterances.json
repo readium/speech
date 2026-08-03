@@ -18,14 +18,12 @@
     {
       "options": {
         "format": "plain",
-        "skip": [
-          "aside"
-        ]
+        "inlineContextualization": true
       },
       "utterances": [
         {
+          "plain": "This text has a footnote Text of the footnote.",
           "language": "en",
-          "plain": "This text has a footnote.",
           "startsNewBlock": true
         }
       ]
@@ -33,7 +31,147 @@
     {
       "options": {
         "format": "plain",
-        "skip": [
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote Text of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote Text of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Text of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote Text of the footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote Text of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote Text of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote Text of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Text of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote Text of the footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
           "footnote"
         ]
       },
@@ -42,20 +180,130 @@
           "language": "en",
           "plain": "This text has a footnote.",
           "startsNewBlock": true
+        },
+        {
+          "plain": "Start of the footnote. Text of the footnote. End of the footnote."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
-        "skip": [
-          "noteref"
-        ]
+        "contextualize": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always"
       },
       "utterances": [
         {
           "language": "en",
           "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of the footnote. Text of the footnote. End of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of the footnote. Text of the footnote. End of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of the footnote. Text of the footnote. End of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
           "startsNewBlock": true
         }
       ]
@@ -82,11 +330,15 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
         "inlineContextualization": true
       },
       "utterances": [
         {
-          "plain": "This text has a footnote Text of the footnote.",
+          "plain": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
           "language": "en",
           "startsNewBlock": true
         }
@@ -95,6 +347,10 @@
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
         "language": "always"
       },
       "utterances": [
@@ -104,13 +360,35 @@
           "startsNewBlock": true
         },
         {
-          "plain": "Text of the footnote."
+          "plain": "Start of the footnote. Text of the footnote. End of the footnote."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
         "language": "block-level"
       },
       "utterances": [
@@ -120,13 +398,35 @@
           "startsNewBlock": true
         },
         {
-          "plain": "Text of the footnote."
+          "plain": "Start of the footnote. Text of the footnote. End of the footnote."
         }
       ]
     },
     {
       "options": {
         "format": "plain",
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
         "language": "none"
       },
       "utterances": [
@@ -135,7 +435,4328 @@
           "startsNewBlock": true
         },
         {
-          "plain": "Text of the footnote."
+          "plain": "Start of the footnote. Text of the footnote. End of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "plain": "This text has a footnote.",
+          "startsNewBlock": true
         }
       ]
     },
@@ -157,14 +4778,12 @@
     {
       "options": {
         "format": "ssml",
-        "skip": [
-          "aside"
-        ]
+        "inlineContextualization": true
       },
       "utterances": [
         {
+          "ssml": "This text has a footnote Text of the footnote.",
           "language": "en",
-          "ssml": "This text has a footnote.",
           "startsNewBlock": true
         }
       ]
@@ -172,7 +4791,147 @@
     {
       "options": {
         "format": "ssml",
-        "skip": [
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote Text of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote Text of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Text of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote Text of the footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote Text of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote Text of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote Text of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Text of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote Text of the footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
           "footnote"
         ]
       },
@@ -181,20 +4940,130 @@
           "language": "en",
           "ssml": "This text has a footnote.",
           "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of the footnote. Text of the footnote. End of the footnote."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
-        "skip": [
-          "noteref"
-        ]
+        "contextualize": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always"
       },
       "utterances": [
         {
           "language": "en",
           "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of the footnote. Text of the footnote. End of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of the footnote. Text of the footnote. End of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of the footnote. Text of the footnote. End of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
           "startsNewBlock": true
         }
       ]
@@ -221,11 +5090,15 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
         "inlineContextualization": true
       },
       "utterances": [
         {
-          "ssml": "This text has a footnote Text of the footnote.",
+          "ssml": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
           "language": "en",
           "startsNewBlock": true
         }
@@ -234,6 +5107,10 @@
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
         "language": "always"
       },
       "utterances": [
@@ -243,13 +5120,35 @@
           "startsNewBlock": true
         },
         {
-          "ssml": "Text of the footnote."
+          "ssml": "Start of the footnote. Text of the footnote. End of the footnote."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
         "language": "block-level"
       },
       "utterances": [
@@ -259,13 +5158,35 @@
           "startsNewBlock": true
         },
         {
-          "ssml": "Text of the footnote."
+          "ssml": "Start of the footnote. Text of the footnote. End of the footnote."
         }
       ]
     },
     {
       "options": {
         "format": "ssml",
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
         "language": "none"
       },
       "utterances": [
@@ -274,7 +5195,4328 @@
           "startsNewBlock": true
         },
         {
-          "ssml": "Text of the footnote."
+          "ssml": "Start of the footnote. Text of the footnote. End of the footnote."
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ]
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "always",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level"
+      },
+      "utterances": [
+        {
+          "language": "en",
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "block-level",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "language": "en",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "skip": [
+          "aside",
+          "footnote",
+          "noteref"
+        ],
+        "contextualize": [
+          "aside",
+          "footnote"
+        ],
+        "language": "none",
+        "inlineContextualization": true
+      },
+      "utterances": [
+        {
+          "ssml": "This text has a footnote.",
+          "startsNewBlock": true
         }
       ]
     }

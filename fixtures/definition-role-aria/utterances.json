@@ -12,73 +12,7 @@
     },
     {
       "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "A structure that contains an enumeration of related content items."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "A structure that contains an enumeration of related content items."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "A structure that contains an enumeration of related content items."
-        }
-      ]
-    },
-    {
-      "options": {
         "format": "ssml"
-      },
-      "utterances": [
-        {
-          "ssml": "A structure that contains an enumeration of related content items."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "A structure that contains an enumeration of related content items."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "A structure that contains an enumeration of related content items."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
       },
       "utterances": [
         {

@@ -20,43 +20,24 @@
     {
       "options": {
         "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "language": "en",
-          "plain": "Hello.",
-          "startsNewBlock": true
-        },
-        {
-          "language": "fr",
-          "plain": "Bonjour.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "language": "en",
-          "plain": "Hello.",
-          "startsNewBlock": true
-        },
-        {
-          "language": "fr",
-          "plain": "Bonjour.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
         "language": "none"
+      },
+      "utterances": [
+        {
+          "plain": "Hello.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Bonjour.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "plain",
+        "language": "none",
+        "inlineContextualization": true
       },
       "utterances": [
         {
@@ -89,43 +70,24 @@
     {
       "options": {
         "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "language": "en",
-          "ssml": "Hello.",
-          "startsNewBlock": true
-        },
-        {
-          "language": "fr",
-          "ssml": "Bonjour.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "language": "en",
-          "ssml": "Hello.",
-          "startsNewBlock": true
-        },
-        {
-          "language": "fr",
-          "ssml": "Bonjour.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
         "language": "none"
+      },
+      "utterances": [
+        {
+          "ssml": "Hello.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Bonjour.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": {
+        "format": "ssml",
+        "language": "none",
+        "inlineContextualization": true
       },
       "utterances": [
         {
