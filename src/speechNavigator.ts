@@ -29,8 +29,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private _preferencesEditor: SpeechPreferencesEditor | null = null;
 
   // The raw GND source, retained only when content was loaded via
-  // `loadGndContent()` — content loaded via plain `loadContent()` has no
-  // source to re-extract from, so preferences changes are no-ops on it.
+  // `loadGndContent()`. Its presence/absence is what makes loadContent()
+  // and submitPreferences() mutually exclusive with loadGndContent().
   private source: GndObject[] | undefined;
 
   constructor(engine: ReadiumSpeechPlaybackEngine, configuration: ReadiumSpeechNavigatorConfiguration = {}) {
@@ -158,6 +158,19 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   // Content Management
   loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void {
+    if (this.source) {
+      throw new Error("loadContent() cannot be used after loadGndContent() — the two are exclusive. Create a new navigator instance to switch content sources.");
+    }
+
+    this.setContentQueue(content);
+  }
+
+  loadGndContent(nodes: GndObject[]): void {
+    this.source = nodes;
+    this.reextract();
+  }
+
+  private setContentQueue(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void {
     const contents = Array.isArray(content) ? content : [content];
     this.contentQueue = [...contents];
 
@@ -170,11 +183,6 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.emitContentChangeEvent({ content: contents });
   }
 
-  loadGndContent(nodes: GndObject[]): void {
-    this.source = nodes;
-    this.reextract();
-  }
-
   // Re-runs extraction from `this.source` using the resolved settings.
   private reextract(): void {
     if (!this.source) return;
@@ -185,7 +193,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       contextualize: this._settings.contextualize,
       language: this._settings.language,
     });
-    this.loadContent(utterances);
+    this.setContentQueue(utterances);
   }
 
   getCurrentContent(): ReadiumSpeechUtterance | null {
@@ -326,6 +334,10 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   submitPreferences(preferences: SpeechPreferences): void {
+    if (!this.source) {
+      throw new Error("submitPreferences() cannot be used with content loaded via loadContent() — it requires loadGndContent().");
+    }
+
     this._preferences = this._preferences.merging(preferences);
     this.applyPreferences();
   }
