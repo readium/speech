@@ -13,7 +13,7 @@ export interface ISpeechPreferences {
   // Navigator's reextract(), or directly by a standalone
   // extractUtterances() caller.
   format?: ExtractionFormat | null; // default "plain"
-  interruptSentence?: boolean | null; // default false
+  inlineContextualization?: boolean | null; // default false
 
   // Verbosity group — same consumers as above.
   verbosity?: VerbosityPreset | null; // default "few"
@@ -29,7 +29,7 @@ export interface ISpeechPreferences {
 
 export class SpeechPreferences implements ISpeechPreferences, ConfigurablePreferences<SpeechPreferences> {
   public format: ExtractionFormat | null | undefined;
-  public interruptSentence: boolean | null | undefined;
+  public inlineContextualization: boolean | null | undefined;
   public verbosity: VerbosityPreset | null | undefined;
   public skip: GndRole[] | null | undefined;
   public contextualize: GndRole[] | null | undefined;
@@ -40,7 +40,7 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
 
   constructor(preferences: ISpeechPreferences = {}) {
     this.format = preferences.format;
-    this.interruptSentence = preferences.interruptSentence;
+    this.inlineContextualization = preferences.inlineContextualization;
     this.verbosity = preferences.verbosity;
     this.skip = preferences.skip;
     this.contextualize = preferences.contextualize;

@@ -8,7 +8,7 @@ export class SpeechSettings implements ConfigurableSettings {
   [key: string]: unknown;
 
   public readonly format: ExtractionFormat;
-  public readonly interruptSentence: boolean;
+  public readonly inlineContextualization: boolean;
   public readonly verbosity: VerbosityPreset;
   public readonly skip: GndRole[];
   public readonly contextualize: GndRole[];
@@ -19,7 +19,7 @@ export class SpeechSettings implements ConfigurableSettings {
 
   constructor(preferences: SpeechPreferences, defaults: SpeechDefaults) {
     this.format = preferences.format ?? defaults.format;
-    this.interruptSentence = preferences.interruptSentence ?? defaults.interruptSentence;
+    this.inlineContextualization = preferences.inlineContextualization ?? defaults.inlineContextualization;
     this.verbosity = preferences.verbosity ?? defaults.verbosity;
 
     // `skip`/`contextualize` only apply under "custom" — every other preset

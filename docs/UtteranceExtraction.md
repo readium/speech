@@ -35,7 +35,7 @@ interface ExtractUtterancesOptions {
   skip?: GndRole[];
   contextualize?: GndRole[];
   language?: "none" | "block-level" | "always";
-  interruptSentence?: boolean;
+  inlineContextualization?: boolean;
 }
 ```
 
@@ -46,7 +46,7 @@ interface ExtractUtterancesOptions {
   - `"always"` (default) — `ssml` keeps spans tagged; `plain` splits into one utterance per language run.
   - `"block-level"` — inline spans merge untagged into the surrounding text; block-level `language` kept.
   - `"none"` — same merge as `"block-level"`, plus `language` dropped everywhere.
-- **`interruptSentence`** — a mid-sentence pagebreak/footnote splits the sentence at that point instead of after it finishes. Default `false`.
+- **`inlineContextualization`** — a mid-sentence pagebreak/footnote splits the sentence at that point instead of after it finishes. Default `false`.
 
 ```typescript
 // <p>...in the middle <span epub:type="pagebreak" title="5"/> of a sentence.</p>

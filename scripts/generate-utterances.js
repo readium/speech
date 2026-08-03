@@ -77,7 +77,7 @@ for (const id of ids) {
   const announcableRoles = [...rolesInTree].filter((role) => mod.defaultAnnouncements?.[role] !== undefined);
   if (announcableRoles.length > 0) variantSpecs.push({ contextualize: announcableRoles });
 
-  if (containsPlaceholder(gnd)) variantSpecs.push({ interruptSentence: true });
+  if (containsPlaceholder(gnd)) variantSpecs.push({ inlineContextualization: true });
 
   // Every `language` state gets its own case for every fixture, per format,
   // regardless of whether it matches the base case.

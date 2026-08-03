@@ -164,7 +164,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     if (!this.source) return;
     const utterances = extractUtterances(this.source, {
       format: this._settings.format,
-      interruptSentence: this._settings.interruptSentence,
+      inlineContextualization: this._settings.inlineContextualization,
       skip: this._settings.skip,
       contextualize: this._settings.contextualize,
       language: this._settings.language,

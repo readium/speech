@@ -3,7 +3,7 @@ import type { ExtractionFormat, LanguageMode, PauseScope, VerbosityPreset } from
 
 export class SpeechDefaults {
   public readonly format: ExtractionFormat = "plain";
-  public readonly interruptSentence: boolean = false;
+  public readonly inlineContextualization: boolean = false;
   public readonly verbosity: VerbosityPreset = "few";
   public readonly skip: GndRole[] = [];
   public readonly contextualize: GndRole[] = [];

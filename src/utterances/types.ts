@@ -85,5 +85,5 @@ export interface ExtractUtterancesOptions {
   // content spoken *during* the sentence) instead of after the whole
   // sentence finishes (default, `false` — today's only behavior, for
   // either `format`).
-  interruptSentence?: boolean;
+  inlineContextualization?: boolean;
 }

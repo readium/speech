@@ -57,7 +57,7 @@
     {
       "options": {
         "format": "plain",
-        "interruptSentence": true
+        "inlineContextualization": true
       },
       "utterances": [
         {
@@ -183,7 +183,7 @@
     {
       "options": {
         "format": "ssml",
-        "interruptSentence": true
+        "inlineContextualization": true
       },
       "utterances": [
         {

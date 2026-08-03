@@ -136,7 +136,7 @@ The options are:
   footnote start/end, and any role that gains one later) are spoken at all,
   independent of the underlying content (which `skip` would instead omit
   entirely). Default `true`.
-- `interruptSentence: boolean` — whether a pagebreak/footnote reference
+- `inlineContextualization: boolean` — whether a pagebreak/footnote reference
   that falls mid-sentence splits the sentence at that exact point, instead
   of being spoken after the whole sentence finishes (the default).
 - `language: "none" | "block-level" | "always"` — how a language shift between

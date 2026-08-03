@@ -110,7 +110,7 @@ function preferencesFromToolbar() {
   const verbosity = optionVerbosityEl?.value || "few";
   const prefs = {
     format: currentFormat(),
-    interruptSentence: optionInterruptEl?.checked ?? false,
+    inlineContextualization: optionInterruptEl?.checked ?? false,
     verbosity,
     language: optionLanguageEl?.value || null,
     pauseDuration: Number(optionPauseDurationEl?.value ?? 300),
@@ -129,7 +129,7 @@ function preferencesFromToolbar() {
 // exactly the same ExtractUtterancesOptions the Navigator would have.
 function resolveExtractionOptions(prefs) {
   const options = { format: prefs.format };
-  if (prefs.interruptSentence) options.interruptSentence = true;
+  if (prefs.inlineContextualization) options.inlineContextualization = true;
   if (prefs.language) options.language = prefs.language;
 
   if (prefs.verbosity === "custom") {

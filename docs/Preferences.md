@@ -12,7 +12,6 @@ editor.pauseDuration.value = 500;
 navigator.submitPreferences(editor.preferences);
 ```
 
-Preferences only take effect on content loaded via `loadGndContent()` — see [Playback](Playback.md#example-usage). `extractUtterances()` itself never sees a "preference": `SpeechSettings` resolves everything down to the plain `skip`/`contextualize`/`language`/`format`/`interruptSentence` options it already accepts (see [Utterance Extraction](UtteranceExtraction.md)).
 
 ## Verbosity
 
@@ -38,11 +37,11 @@ automaticPausesAtPageOrSpreadEnd?: boolean;  // typed, no effect yet
 
 `language` (`"none" | "block-level" | "always"`) is the same option documented in [Utterance Extraction](UtteranceExtraction.md#options).
 
-## `format` / `interruptSentence`
+## `format` / `inlineContextualization`
 
 Set once via `submitPreferences()` instead of on every `extractUtterances()` call:
 
 ```typescript
 format?: "plain" | "ssml";     // default "plain"
-interruptSentence?: boolean;   // default false
+inlineContextualization?: boolean;   // default false
 ```

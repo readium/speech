@@ -38,12 +38,12 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
     });
   }
 
-  get interruptSentence(): Preference<boolean> {
+  get inlineContextualization(): Preference<boolean> {
     return new Preference<boolean>({
-      initialValue: this.preferences.interruptSentence,
-      effectiveValue: this.settings.interruptSentence,
-      isEffective: this.preferences.interruptSentence != null,
-      onChange: (value) => this.updatePreference("interruptSentence", value ?? null),
+      initialValue: this.preferences.inlineContextualization,
+      effectiveValue: this.settings.inlineContextualization,
+      isEffective: this.preferences.inlineContextualization != null,
+      onChange: (value) => this.updatePreference("inlineContextualization", value ?? null),
     });
   }
 

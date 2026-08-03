@@ -21,7 +21,7 @@ interface WalkContext {
   skip: ReadonlySet<GndRole>;
   contextualize: ReadonlySet<GndRole>;
   format: "plain" | "ssml";
-  interruptSentence: boolean;
+  inlineContextualization: boolean;
   language?: "none" | "block-level" | "always";
 }
 
@@ -159,7 +159,7 @@ function applyFormat(
   return [utterance];
 }
 
-// `interruptSentence`: splits the sentence on its embedded placeholder,
+// `inlineContextualization`: splits the sentence on its embedded placeholder,
 // then merges the fragments and the referenced node's own utterance back
 // into one continuous utterance.
 function emitInterrupted(
@@ -266,7 +266,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], ctx: WalkConte
     }
   } else {
     const rawSsml = typeof node.text === "object" ? node.text.ssml : undefined;
-    if (ctx.interruptSentence && rawSsml && hasPlaceholder(rawSsml)) {
+    if (ctx.inlineContextualization && rawSsml && hasPlaceholder(rawSsml)) {
       emitInterrupted(node, rawSsml, out, ctx, suppress);
     } else if (roles.includes("pagebreak")) {
       out.push(...buildPagebreakUtterance(node, ctx));
@@ -327,7 +327,7 @@ export function extractUtterances(
     skip: new Set(options.skip ?? []),
     contextualize: new Set(options.contextualize ?? []),
     format: options.format ?? "plain",
-    interruptSentence: options.interruptSentence ?? false,
+    inlineContextualization: options.inlineContextualization ?? false,
     language: options.language,
   };
   const out: ReadiumSpeechUtterance[] = [];
