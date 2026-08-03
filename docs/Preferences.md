@@ -14,6 +14,25 @@ navigator.submitPreferences(editor.preferences);
 
 Preferences only take effect on content loaded via `loadGndContent()` — see [Playback](Playback.md#example-usage). `extractUtterances()` itself never sees a "preference": `SpeechSettings` resolves everything down to the plain `skip`/`contextualize`/`language`/`format`/`inlineContextualization` options it already accepts (see [Utterance Extraction](UtteranceExtraction.md)).
 
+## Defaults
+
+Every default (`"few"` verbosity, 300ms `pauseDuration`, rate/pitch/volume of `1.0`, ...) is itself configurable — pass a `defaults` object to `ReadiumSpeechNavigator`'s constructor, alongside optional initial `preferences`:
+
+```typescript
+const navigator = new ReadiumSpeechNavigator(engine, {
+  preferences: { verbosity: "most" },
+  defaults: { pauseDuration: 500, rate: 1.2 },
+});
+```
+
+Both `preferences` and `defaults` go through the same validation as `submitPreferences()`: an out-of-range or unsupported value is dropped, falling back to the built-in literal default rather than propagating.
+
+## Validation
+
+Every field on `SpeechPreferences` (and `SpeechDefaults`) is checked against its declared range/enum/type when constructed — an out-of-range number, an unrecognized enum value, or a wrong-typed value is dropped to `undefined` (or, for `SpeechDefaults`, falls back to the built-in literal) rather than silently accepted. This applies however the value arrives — `new SpeechPreferences(...)`, `submitPreferences(...)`, or a value deserialized from storage — not just when set through `SpeechPreferencesEditor`, whose per-field setters additionally throw immediately for interactive feedback (e.g. a UI slider going out of bounds).
+
+`skip`/`contextualize` are only checked for shape (an array of strings), not role membership — GND roles are an open vocabulary, not a fixed catalog.
+
 ## Verbosity
 
 ```typescript

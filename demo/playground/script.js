@@ -17,7 +17,32 @@ const optionContextualizeEl = document.getElementById("option-contextualize");
 const optionPauseDurationEl = document.getElementById("option-pause-duration");
 const optionPauseDurationValueEl = document.getElementById("option-pause-duration-value");
 const optionPauseScopeEl = document.getElementById("option-pause-scope");
-const formatRadios = [...document.querySelectorAll('input[name="format"]')];
+const optionRateEl = document.getElementById("option-rate");
+const optionRateValueEl = document.getElementById("option-rate-value");
+const optionPitchEl = document.getElementById("option-pitch");
+const optionPitchValueEl = document.getElementById("option-pitch-value");
+const optionVolumeEl = document.getElementById("option-volume");
+const optionVolumeValueEl = document.getElementById("option-volume-value");
+const formatGroupEl = document.getElementById("format-group");
+const formatHintEl = document.getElementById("format-hint");
+const languageHintEl = document.getElementById("language-hint");
+const verbosityHintEl = document.getElementById("verbosity-hint");
+const inlineContextualizationHintEl = document.getElementById("inline-contextualization-hint");
+const pauseDurationHintEl = document.getElementById("pause-duration-hint");
+const pauseScopeHintEl = document.getElementById("pause-scope-hint");
+const rateHintEl = document.getElementById("rate-hint");
+const pitchHintEl = document.getElementById("pitch-hint");
+const volumeHintEl = document.getElementById("volume-hint");
+const resetPreferencesEl = document.getElementById("reset-preferences");
+let formatRadios = [];
+
+// Every RangePreference-backed control, driven generically by key.
+const rangeControls = [
+  { key: "pauseDuration", inputEl: optionPauseDurationEl, valueEl: optionPauseDurationValueEl, hintEl: pauseDurationHintEl, unit: "ms" },
+  { key: "rate", inputEl: optionRateEl, valueEl: optionRateValueEl, hintEl: rateHintEl, unit: "x" },
+  { key: "pitch", inputEl: optionPitchEl, valueEl: optionPitchValueEl, hintEl: pitchHintEl, unit: "" },
+  { key: "volume", inputEl: optionVolumeEl, valueEl: optionVolumeValueEl, hintEl: volumeHintEl, unit: "" },
+];
 const speechBadgeEl = document.getElementById("speech-badge");
 const speechUtterancesEl = document.getElementById("speech-utterances");
 const speechPlayEl = document.getElementById("speech-play");
@@ -35,8 +60,9 @@ let VoiceManagerClass = null;
 let setupDecorations = null;
 let DecorationStyleType = null;
 let SpeechPreferencesClass = null;
-let skippableAtVerbosity = null;
-let contextualizedAtVerbosity = null;
+let SpeechDefaultsClass = null;
+let SpeechSettingsClass = null;
+let SpeechPreferencesEditorClass = null;
 let skippableRolesList = null;
 let announcementCatalog = null;
 try {
@@ -63,9 +89,14 @@ try {
   if (typeof mod.SpeechPreferences === "function") {
     SpeechPreferencesClass = mod.SpeechPreferences;
   }
-  if (mod.skippableAtVerbosity && mod.contextualizedAtVerbosity) {
-    skippableAtVerbosity = mod.skippableAtVerbosity;
-    contextualizedAtVerbosity = mod.contextualizedAtVerbosity;
+  if (typeof mod.SpeechDefaults === "function") {
+    SpeechDefaultsClass = mod.SpeechDefaults;
+  }
+  if (typeof mod.SpeechSettings === "function") {
+    SpeechSettingsClass = mod.SpeechSettings;
+  }
+  if (typeof mod.SpeechPreferencesEditor === "function") {
+    SpeechPreferencesEditorClass = mod.SpeechPreferencesEditor;
   }
   if (Array.isArray(mod.skippableRoles)) {
     skippableRolesList = mod.skippableRoles;
@@ -96,52 +127,157 @@ try {
   console.error("Failed to load @readium/speech build/index.js:", err);
 }
 
+// Fixed fallback values — unlike `Preference.effectiveValue`, which tracks
+// whatever's currently submitted, this never changes.
+const libraryDefaults = SpeechDefaultsClass ? new SpeechDefaultsClass() : null;
+
 function currentFormat() {
   return formatRadios.find((r) => r.checked)?.value ?? "plain";
 }
 
-// Builds a SpeechPreferences (or a plain object of the same shape, if the
-// build predates that export) from the toolbar's current state. `skip`/
-// `contextualize` are only meaningful — and only sent — under "custom":
-// every other verbosity preset ignores them in favor of its own fixed
-// table (see SpeechSettings), so leaving the multi-selects' state in here
-// unconditionally would misrepresent what's actually applied.
-function preferencesFromToolbar() {
-  const verbosity = optionVerbosityEl?.value || "few";
-  const prefs = {
-    format: currentFormat(),
-    inlineContextualization: optionInterruptEl?.checked ?? false,
-    verbosity,
-    language: optionLanguageEl?.value || null,
-    pauseDuration: Number(optionPauseDurationEl?.value ?? 300),
-    pauseScope: optionPauseScopeEl?.value || "utterance",
+// Drives the toolbar — playbackNavigator itself, or (when unavailable) a
+// standalone stand-in of the same Configurable shape.
+let configurable = null;
+
+// Same shape as ReadiumSpeechNavigator's own submitPreferences/settings/
+// preferencesEditor (see speechNavigator.ts's applyPreferences()).
+function makeStandaloneConfigurable() {
+  let preferences = new SpeechPreferencesClass();
+  const defaults = new SpeechDefaultsClass();
+  let settings = new SpeechSettingsClass(preferences, defaults);
+  return {
+    get settings() {
+      return settings;
+    },
+    get preferencesEditor() {
+      return new SpeechPreferencesEditorClass(preferences, settings);
+    },
+    submitPreferences(next) {
+      preferences = preferences.merging(next);
+      settings = new SpeechSettingsClass(preferences, defaults);
+    },
   };
-  if (verbosity === "custom") {
-    prefs.skip = optionSkipEl ? [...optionSkipEl.selectedOptions].map((o) => o.value) : [];
-    prefs.contextualize = optionContextualizeEl ? [...optionContextualizeEl.selectedOptions].map((o) => o.value) : [];
-  }
-  return SpeechPreferencesClass ? new SpeechPreferencesClass(prefs) : prefs;
 }
 
-// Mirrors SpeechSettings' own resolution rule (skip/contextualize come from
-// the fixed verbosity tables outside "custom") so the standalone-extractor
-// fallback path (used when playbackNavigator is unavailable) computes
-// exactly the same ExtractUtterancesOptions the Navigator would have.
-function resolveExtractionOptions(prefs) {
-  const options = { format: prefs.format };
-  if (prefs.inlineContextualization) options.inlineContextualization = true;
-  if (prefs.language) options.language = prefs.language;
+// Populates each control's options/range from the editor's Preference
+// objects instead of hardcoding them in the HTML. Called once at startup.
+function renderToolbarOptions() {
+  if (!configurable) return;
+  const editor = configurable.preferencesEditor;
 
-  if (prefs.verbosity === "custom") {
-    options.skip = prefs.skip ?? [];
-    options.contextualize = prefs.contextualize ?? [];
-  } else if (skippableAtVerbosity && contextualizedAtVerbosity) {
-    options.skip = [...skippableAtVerbosity[prefs.verbosity]];
-    options.contextualize = [...contextualizedAtVerbosity[prefs.verbosity]];
-  } else {
-    options.skip = [];
-    options.contextualize = [];
+  for (const radio of formatGroupEl.querySelectorAll('input[name="format"]')) radio.parentElement.remove();
+  for (const value of editor.format.supportedValues) {
+    const label = document.createElement("label");
+    const input = document.createElement("input");
+    input.type = "radio";
+    input.name = "format";
+    input.value = value;
+    label.append(input, ` ${value}`);
+    formatGroupEl.insertBefore(label, formatHintEl);
   }
+  formatRadios = [...formatGroupEl.querySelectorAll('input[name="format"]')];
+
+  populateEnumSelect(optionLanguageEl, editor.language.supportedValues, { includeDefaultOption: true });
+  populateEnumSelect(optionVerbosityEl, editor.verbosity.supportedValues);
+  populateEnumSelect(optionPauseScopeEl, editor.pauseScope.supportedValues);
+
+  for (const { key, inputEl } of rangeControls) {
+    const [min, max] = editor[key].supportedRange;
+    inputEl.min = String(min);
+    inputEl.max = String(max);
+    inputEl.step = String(editor[key].step);
+  }
+}
+
+function populateEnumSelect(selectEl, values, { includeDefaultOption = false } = {}) {
+  selectEl.innerHTML = "";
+  if (includeDefaultOption) {
+    const option = document.createElement("option");
+    option.value = "";
+    option.textContent = "(default)";
+    selectEl.appendChild(option);
+  }
+  for (const value of values) {
+    const option = document.createElement("option");
+    option.value = value;
+    option.textContent = value;
+    selectEl.appendChild(option);
+  }
+}
+
+// Syncs each control's displayed value and "(default: ...)" label.
+function renderToolbarState() {
+  if (!configurable) return;
+  const editor = configurable.preferencesEditor;
+
+  setDefaultLabel(formatHintEl, libraryDefaults?.format);
+  const format = editor.format.value ?? editor.format.effectiveValue;
+  for (const radio of formatRadios) radio.checked = radio.value === format;
+
+  setDefaultLabel(languageHintEl, libraryDefaults?.language);
+  optionLanguageEl.value = editor.language.value ?? "";
+
+  setDefaultLabel(verbosityHintEl, libraryDefaults?.verbosity);
+  optionVerbosityEl.value = editor.verbosity.value ?? editor.verbosity.effectiveValue;
+  if (customVerbosityGroupEl) customVerbosityGroupEl.hidden = optionVerbosityEl.value !== "custom";
+
+  setDefaultLabel(inlineContextualizationHintEl, libraryDefaults?.inlineContextualization);
+  optionInterruptEl.checked = editor.inlineContextualization.value ?? editor.inlineContextualization.effectiveValue;
+
+  for (const { key, inputEl, valueEl, hintEl, unit } of rangeControls) {
+    setDefaultLabel(hintEl, libraryDefaults?.[key]);
+    inputEl.value = String(editor[key].value ?? editor[key].effectiveValue);
+    valueEl.textContent = `${inputEl.value}${unit}`;
+  }
+
+  setDefaultLabel(pauseScopeHintEl, libraryDefaults?.pauseScope);
+  optionPauseScopeEl.value = editor.pauseScope.value ?? editor.pauseScope.effectiveValue;
+}
+
+function setDefaultLabel(hintEl, defaultValue) {
+  hintEl.textContent = defaultValue !== undefined ? `(default: ${defaultValue})` : "";
+}
+
+// `skip`/`contextualize` are only meaningful under "custom" — every other
+// preset ignores them in favor of its own fixed table (see SpeechSettings).
+function applyPreferencesFromToolbar() {
+  if (!configurable) return;
+  playbackNavigator?.stop();
+  const editor = configurable.preferencesEditor;
+  editor.format.value = currentFormat();
+  editor.inlineContextualization.value = optionInterruptEl?.checked ?? false;
+  editor.verbosity.value = optionVerbosityEl?.value || "few";
+  editor.language.value = optionLanguageEl?.value || null;
+  editor.pauseScope.value = optionPauseScopeEl?.value || "utterance";
+  for (const { key, inputEl } of rangeControls) {
+    editor[key].value = Number(inputEl.value);
+  }
+  if (editor.verbosity.value === "custom") {
+    editor.skip.value = optionSkipEl ? [...optionSkipEl.selectedOptions].map((o) => o.value) : [];
+    editor.contextualize.value = optionContextualizeEl ? [...optionContextualizeEl.selectedOptions].map((o) => o.value) : [];
+  }
+  configurable.submitPreferences(editor.preferences);
+  renderToolbarState();
+  renderUtterancesPanel();
+}
+
+function resetPreferences() {
+  if (!configurable) return;
+  playbackNavigator?.stop();
+  const editor = configurable.preferencesEditor;
+  editor.clear();
+  configurable.submitPreferences(editor.preferences);
+  renderToolbarState();
+  renderUtterancesPanel();
+}
+
+// Reuses SpeechSettings' own verbosity resolution instead of reimplementing it.
+function currentExtractionOptions() {
+  if (!configurable) return { format: currentFormat(), skip: [], contextualize: [] };
+  const settings = configurable.settings;
+  const options = { format: settings.format, skip: settings.skip, contextualize: settings.contextualize };
+  if (settings.inlineContextualization) options.inlineContextualization = true;
+  if (settings.language) options.language = settings.language;
   return options;
 }
 
@@ -495,7 +631,7 @@ function syncSpeechUi() {
 function renderUtterancesPanel() {
   if (!currentFixture) return;
   const { gndActual, utterances, rolesInTree } = currentFixture;
-  const resolvedOptions = resolveExtractionOptions(preferencesFromToolbar());
+  const resolvedOptions = currentExtractionOptions();
   const expected = matchingExpected(utterances, bridgeToFixtureOptions(resolvedOptions, rolesInTree));
 
   utterancesExpectedEl.textContent =
@@ -523,17 +659,6 @@ function renderUtterancesPanel() {
     setBadge(utterancesBadgeEl, "fail");
     renderSpeechList([]);
   }
-}
-
-// Stops any in-progress playback first — submitPreferences() reloads the
-// Navigator's content queue without pausing/cancelling audio already
-// scheduled, so a stale queue could otherwise keep playing underneath the
-// newly-applied one — then submits the toolbar's current state and
-// re-renders the compare panel.
-function applyPreferencesFromToolbar() {
-  playbackNavigator?.stop();
-  playbackNavigator?.submitPreferences(preferencesFromToolbar());
-  renderUtterancesPanel();
 }
 
 async function selectFixture(id) {
@@ -589,23 +714,30 @@ async function selectFixture(id) {
   renderUtterancesPanel();
 }
 
+playbackNavigator = initPlaybackNavigator();
+configurable =
+  playbackNavigator ??
+  (SpeechPreferencesClass && SpeechDefaultsClass && SpeechSettingsClass && SpeechPreferencesEditorClass
+    ? makeStandaloneConfigurable()
+    : null);
+renderToolbarOptions();
+renderToolbarState();
+
 filterInput.addEventListener("input", renderList);
 for (const radio of formatRadios) radio.addEventListener("change", applyPreferencesFromToolbar);
-optionVerbosityEl?.addEventListener("change", () => {
-  if (customVerbosityGroupEl) customVerbosityGroupEl.hidden = optionVerbosityEl.value !== "custom";
-  applyPreferencesFromToolbar();
-});
+optionVerbosityEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionLanguageEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionInterruptEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionSkipEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionContextualizeEl?.addEventListener("change", applyPreferencesFromToolbar);
-optionPauseDurationEl?.addEventListener("input", () => {
-  if (optionPauseDurationValueEl) optionPauseDurationValueEl.textContent = `${optionPauseDurationEl.value}ms`;
-});
-optionPauseDurationEl?.addEventListener("change", applyPreferencesFromToolbar);
+for (const { inputEl, valueEl, unit } of rangeControls) {
+  inputEl.addEventListener("input", () => {
+    valueEl.textContent = `${inputEl.value}${unit}`;
+  });
+  inputEl.addEventListener("change", applyPreferencesFromToolbar);
+}
 optionPauseScopeEl?.addEventListener("change", applyPreferencesFromToolbar);
-
-playbackNavigator = initPlaybackNavigator();
+resetPreferencesEl?.addEventListener("click", resetPreferences);
 
 if (!playbackNavigator) {
   speechBadgeEl.textContent = "not implemented yet";

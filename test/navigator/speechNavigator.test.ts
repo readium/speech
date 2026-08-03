@@ -60,6 +60,28 @@ test("submitPreferences pushes rate/pitch/volume to the engine", (t) => {
   t.is(navigator.preferencesEditor.rate.effectiveValue, 1.5);
 });
 
+test("defaults are configurable via the constructor and pushed to the engine on construction", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { defaults: { rate: 1.5, verbosity: "most" } });
+  t.is(engine.rate, 1.5);
+  t.is(navigator.settings.rate, 1.5);
+  t.is(navigator.settings.verbosity, "most");
+});
+
+test("an out-of-range constructor default falls back to the literal default", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { defaults: { rate: 999 } });
+  t.is(engine.rate, 1);
+  t.is(navigator.settings.rate, 1);
+});
+
+test("initial preferences are configurable via the constructor", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { rate: 2 } });
+  t.is(engine.rate, 2);
+  t.is(navigator.settings.rate, 2);
+});
+
 test("pauseDuration delays the next speak() call under the default pauseScope (utterance)", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);

@@ -5,6 +5,7 @@ export type { IEnumPreference, IPreference, IRangePreference } from "./Preferenc
 export { SpeechPreferences } from "./SpeechPreferences.js";
 export type { ISpeechPreferences, LanguageMode, VerbosityPreset } from "./SpeechPreferences.js";
 export { SpeechDefaults } from "./SpeechDefaults.js";
+export type { ISpeechDefaults } from "./SpeechDefaults.js";
 export { SpeechSettings } from "./SpeechSettings.js";
 export { SpeechPreferencesEditor } from "./SpeechPreferencesEditor.js";
 export { contextualizedAtVerbosity, skippableAtVerbosity } from "./verbosityTables.js";

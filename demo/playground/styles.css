@@ -200,6 +200,13 @@ body {
   white-space: nowrap;
 }
 
+.default-hint {
+  display: inline-block;
+  font-size: 0.75em;
+  color: #888;
+  font-style: italic;
+}
+
 #option-skip,
 #option-contextualize {
   /* <select multiple> inside a `display: flex` <fieldset> is a known

@@ -1,13 +1,18 @@
 import { ReadiumSpeechPlaybackEngine } from "./engine";
 import { GndObject } from "./gnd/types";
 import { ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator";
-import { SpeechDefaults } from "./preferences/SpeechDefaults";
-import { SpeechPreferences } from "./preferences/SpeechPreferences";
+import { ISpeechDefaults, SpeechDefaults } from "./preferences/SpeechDefaults";
+import { ISpeechPreferences, SpeechPreferences } from "./preferences/SpeechPreferences";
 import { SpeechPreferencesEditor } from "./preferences/SpeechPreferencesEditor";
 import { SpeechSettings } from "./preferences/SpeechSettings";
 import { ReadiumSpeechUtterance } from "./utterance";
 import { extractUtterances } from "./utterances/extractUtterances";
 import { ReadiumSpeechVoice } from "./voices/types";
+
+export interface ReadiumSpeechNavigatorConfiguration {
+  preferences?: ISpeechPreferences;
+  defaults?: ISpeechDefaults;
+}
 
 export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private engine: ReadiumSpeechPlaybackEngine;
@@ -18,9 +23,9 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private navigatorState: ReadiumSpeechPlaybackState = "idle";
 
   // Preferences API (Configurable<SpeechSettings, SpeechPreferences>)
-  private _defaults = new SpeechDefaults();
-  private _preferences = new SpeechPreferences();
-  private _settings = new SpeechSettings(this._preferences, this._defaults);
+  private _defaults: SpeechDefaults;
+  private _preferences: SpeechPreferences;
+  private _settings: SpeechSettings;
   private _preferencesEditor: SpeechPreferencesEditor | null = null;
 
   // The raw GND source, retained only when content was loaded via
@@ -28,16 +33,17 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // source to re-extract from, so preferences changes are no-ops on it.
   private source: GndObject[] | undefined;
 
-  constructor(engine: ReadiumSpeechPlaybackEngine) {
+  constructor(engine: ReadiumSpeechPlaybackEngine, configuration: ReadiumSpeechNavigatorConfiguration = {}) {
     this.engine = engine;
+    this._defaults = new SpeechDefaults(configuration.defaults);
+    this._preferences = new SpeechPreferences(configuration.preferences);
+    this._settings = new SpeechSettings(this._preferences, this._defaults);
     this.setupEngineListeners();
     this.applyEngineParameters();
     void this.initializeEngine();
   }
 
-  // Pushes the resolved rate/pitch/volume to the engine — unlike pauseDuration/pauseScope
-  // (read live off `this._settings` at end-of-utterance), the engine owns rate/pitch/volume
-  // itself and applies them on its next speak() call, so they must be pushed on every change.
+  // Unlike pauseDuration/pauseScope (read live off settings), the engine owns rate/pitch/volume and must be pushed.
   private applyEngineParameters(): void {
     this.engine.setRate(this._settings.rate);
     this.engine.setPitch(this._settings.pitch);

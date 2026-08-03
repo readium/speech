@@ -1,5 +1,16 @@
 import type { GndRole } from "../gnd/types.js";
 import type { ConfigurablePreferences } from "./Configurable.js";
+import {
+  extractionFormats,
+  languageModes,
+  pauseDurationRangeConfig,
+  pauseScopes,
+  pitchRangeConfig,
+  rateRangeConfig,
+  verbosityPresets,
+  volumeRangeConfig,
+} from "./constraints.js";
+import { ensureBoolean, ensureEnumValue, ensureStringArray, ensureValueInRange } from "./guards.js";
 
 export type VerbosityPreset = "none" | "few" | "some" | "most" | "custom";
 export type LanguageMode = "none" | "block-level" | "always";
@@ -45,18 +56,18 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
   public volume: number | null | undefined;
 
   constructor(preferences: ISpeechPreferences = {}) {
-    this.format = preferences.format;
-    this.inlineContextualization = preferences.inlineContextualization;
-    this.verbosity = preferences.verbosity;
-    this.skip = preferences.skip;
-    this.contextualize = preferences.contextualize;
-    this.language = preferences.language;
-    this.pauseDuration = preferences.pauseDuration;
-    this.pauseScope = preferences.pauseScope;
-    this.automaticPausesAtPageOrSpreadEnd = preferences.automaticPausesAtPageOrSpreadEnd;
-    this.rate = preferences.rate;
-    this.pitch = preferences.pitch;
-    this.volume = preferences.volume;
+    this.format = ensureEnumValue(preferences.format, extractionFormats);
+    this.inlineContextualization = ensureBoolean(preferences.inlineContextualization);
+    this.verbosity = ensureEnumValue(preferences.verbosity, verbosityPresets);
+    this.skip = ensureStringArray(preferences.skip);
+    this.contextualize = ensureStringArray(preferences.contextualize);
+    this.language = ensureEnumValue(preferences.language, languageModes);
+    this.pauseDuration = ensureValueInRange(preferences.pauseDuration, pauseDurationRangeConfig.range);
+    this.pauseScope = ensureEnumValue(preferences.pauseScope, pauseScopes);
+    this.automaticPausesAtPageOrSpreadEnd = ensureBoolean(preferences.automaticPausesAtPageOrSpreadEnd);
+    this.rate = ensureValueInRange(preferences.rate, rateRangeConfig.range);
+    this.pitch = ensureValueInRange(preferences.pitch, pitchRangeConfig.range);
+    this.volume = ensureValueInRange(preferences.volume, volumeRangeConfig.range);
   }
 
   merging(other: SpeechPreferences): SpeechPreferences {
