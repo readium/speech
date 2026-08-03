@@ -23,6 +23,11 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // Navigator owns the state, not the engine
   private navigatorState: ReadiumSpeechPlaybackState = "idle";
 
+  // Scheduled by the "end" handler's pauseDuration delay — cleared on
+  // stop()/pause()/destroy() so a stale delayed speak() can't fire after
+  // playback was told to stop or pause.
+  private pendingAdvanceTimeout: ReturnType<typeof setTimeout> | null = null;
+
   // Preferences API (Configurable<SpeechSettings, SpeechPreferences>)
   private _defaults: SpeechDefaults;
   private _preferences: SpeechPreferences;
@@ -81,7 +86,10 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
         const inPauseScope =
           this._settings.pauseScope === "utterance" || this.contentQueue[currentIndex + 1]?.startsNewBlock === true;
         const delay = inPauseScope ? this._settings.pauseDuration : 0;
-        setTimeout(() => this.engine.speak(currentIndex + 1), delay);
+        this.pendingAdvanceTimeout = setTimeout(() => {
+          this.pendingAdvanceTimeout = null;
+          this.engine.speak(currentIndex + 1);
+        }, delay);
       } else {
         // Reached end - set navigator to idle
         this.setNavigatorState("idle");
@@ -230,15 +238,24 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   pause(): void {
     if (this.navigatorState === "playing") {
+      this.clearPendingAdvance();
       this.setNavigatorState("paused");
       this.engine.pause();
     }
   }
 
   stop(): void {
+    this.clearPendingAdvance();
     this.setNavigatorState("idle");
     this.engine.stop();  // Reset engine index first
     this.emitEvent({ type: "stop" });  // Then emit event for UI update
+  }
+
+  private clearPendingAdvance(): void {
+    if (this.pendingAdvanceTimeout !== null) {
+      clearTimeout(this.pendingAdvanceTimeout);
+      this.pendingAdvanceTimeout = null;
+    }
   }
 
   private skipToPosition(targetIndex: number, forcePlay: boolean = false): boolean {
@@ -253,6 +270,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     if (targetIndex === currentIndex) {
       return true;
     }
+
+    this.clearPendingAdvance();
 
     if (this.navigatorState === "paused" && !forcePlay) {
       // For paused state, just update the index without speaking
@@ -362,6 +381,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   async destroy(): Promise<void> {
+    this.clearPendingAdvance();
     this.eventListeners.clear();
     await this.engine.destroy();
   }
