@@ -70,7 +70,10 @@ function togglePlayback() {
 togglePlayback();
 ```
 
-`loadContent()` takes already-extracted `ReadiumSpeechUtterance`s. `loadGndContent(nodes)` instead takes a raw [Guided Navigation](GuidedNavigation.md) tree — the navigator retains it and re-runs [`extractUtterances`](UtteranceExtraction.md) itself whenever verbosity/prosody preferences change via `submitPreferences()`. Content loaded via `loadContent()` has no such source, so preference changes are no-ops on it; see [Preferences](Preferences.md).
+Two ways to load content — simple and advanced:
+
+- `loadContent()` takes already-extracted `ReadiumSpeechUtterance`s directly. No GND, no extraction options — you own the utterance list.
+- `loadGndContent(nodes)` takes a raw [Guided Navigation](GuidedNavigation.md) tree instead. The navigator retains it and re-runs [`extractUtterances`](UtteranceExtraction.md) itself when an extraction-affecting preference changes via `submitPreferences()`, so verbosity/skip/contextualize/language stay live over the whole tree — `loadContent()` keeps no such source, so those preferences are no-ops on it; prosody preferences still apply either way — see [Preferences](Preferences.md).
 
 ## Events
 

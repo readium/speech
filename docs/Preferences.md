@@ -12,7 +12,7 @@ editor.pauseDuration.value = 500;
 navigator.submitPreferences(editor.preferences);
 ```
 
-`submitPreferences()` always resolves `navigator.settings` from the submitted preferences, whatever content is loaded. But only the prosody group (`pauseDuration`, `pauseScope`, `rate`, `pitch`, `volume`) actually changes anything on content loaded via plain `loadContent()` — the extraction group (`format`, `inlineContextualization`, `verbosity`, `skip`, `contextualize`, `language`) has nowhere to re-run extraction without a retained source, so it's a no-op there. Load content via `loadGndContent()` instead to get re-extraction on every submission — see [Playback](Playback.md#example-usage). `extractUtterances()` itself never sees a "preference": `SpeechSettings` resolves everything down to the plain `skip`/`contextualize`/`language`/`format`/`inlineContextualization` options it already accepts (see [Utterance Extraction](UtteranceExtraction.md)).
+`submitPreferences()` always resolves `navigator.settings`. Prosody (`pauseDuration`, `pauseScope`, `rate`, `pitch`, `volume`) applies regardless of how content was loaded. The extraction group (`format`, `inlineContextualization`, `verbosity`, `skip`, `contextualize`, `language`) only takes effect on content loaded via `loadGndContent()` — see [Playback](Playback.md) — and only reloads the queue when one of those fields actually changes value. A reload during playback resumes at the same content rather than restarting, falling back to the nearest earlier point still present if that exact content got skipped by the new settings.
 
 ## Defaults
 
@@ -58,7 +58,7 @@ volume?: number;                             // default 1.0, range [0, 1]
 
 `pauseDuration` delays the navigator's next `speak()` call after each utterance ends, scoped by `pauseScope`: `"utterance"` (the default) applies it between every utterance; `"block"` applies it only where the next utterance starts a new block-level element (a paragraph, heading, list item, table cell, ...), derived from the source Guided Navigation document by `extractUtterances()` — transitions within the same block get no pause. `automaticPausesAtPageOrSpreadEnd` is typed but has no effect today: pausing at a page/spread boundary needs context (where a page actually ends) that this library doesn't have — likely a concern for the consuming app, not something resolved here.
 
-`rate`/`pitch`/`volume` are pushed straight to the engine's own `setRate`/`setPitch`/`setVolume` on every `submitPreferences()` call — unlike the extraction-time preferences below, they apply immediately to whatever's currently loaded, not just the next `loadGndContent()`/`reextract()`.
+`rate`/`pitch`/`volume` are pushed straight to the engine's own `setRate`/`setPitch`/`setVolume` on every `submitPreferences()` call — unlike the extraction-time preferences, no reload. An engine that needs to re-synthesize already-buffered content on parameter changes handles that itself inside those setters.
 
 `language` (`"none" | "block-level" | "always"`) is the same option documented in [Utterance Extraction](UtteranceExtraction.md#options).
 

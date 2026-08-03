@@ -7,7 +7,7 @@ import { ISpeechPreferences, SpeechPreferences } from "./preferences/SpeechPrefe
 import { SpeechPreferencesEditor } from "./preferences/SpeechPreferencesEditor";
 import { SpeechSettings } from "./preferences/SpeechSettings";
 import { ReadiumSpeechUtterance } from "./utterance";
-import { extractUtterances } from "./utterances/extractUtterances";
+import { extractUtterancesWithSources } from "./utterances/extractUtterances";
 import { ReadiumSpeechVoice } from "./voices/types";
 
 export interface ReadiumSpeechNavigatorConfiguration {
@@ -40,6 +40,15 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // language) a no-op on content loaded via loadContent() — prosody
   // fields (rate/pitch/volume/pauseDuration/pauseScope) still apply.
   private source: GndObject[] | undefined;
+
+  // Parallel to `contentQueue`, from the extraction that produced it — lets
+  // reextract() find where to resume after a reload (see resolveResumeIndex).
+  private contentSources: (GndObject | undefined)[] = [];
+
+  // Set by setContentQueue() when a reload should resume mid-queue rather
+  // than at the start; consumed once by the engine's "ready" handler.
+  private pendingResumeIndex: number | null = null;
+  private pendingResumeState: "playing" | "paused" | null = null;
 
   constructor(engine: ReadiumSpeechPlaybackEngine, configuration: ReadiumSpeechNavigatorConfiguration = {}) {
     this.engine = engine;
@@ -119,10 +128,28 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     });
 
     this.engine.on("ready", () => {
-      if (this.contentQueue.length > 0) {
-        this.setNavigatorState("ready");
-        this.emitEvent({ type: "ready" });
+      if (this.contentQueue.length === 0) return;
+
+      const resumeIndex = this.pendingResumeIndex;
+      const resumeState = this.pendingResumeState;
+      this.pendingResumeIndex = null;
+      this.pendingResumeState = null;
+      if (this.navigatorState !== "loading") return; // stop()/pause()/play() already took over
+
+      if (resumeState === "playing") {
+        this.setNavigatorState("playing");
+        this.engine.speak(resumeIndex ?? 0);
+        return;
       }
+      if (resumeState === "paused") {
+        const index = resumeIndex ?? 0;
+        if (index > 0) this.engine.setCurrentUtteranceIndex(index, () => this.setNavigatorState("paused"));
+        else this.setNavigatorState("paused");
+        return;
+      }
+
+      this.setNavigatorState("ready");
+      this.emitEvent({ type: "ready" });
     });
 
     this.engine.on("boundary", (event) => {
@@ -181,10 +208,12 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.reextract();
   }
 
-  private setContentQueue(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void {
-    // Cancel in-flight speech and any scheduled pause before swapping the
-    // queue out from under them — loadUtterances() resets the engine's index
-    // regardless, so leaving them running would race a mismatched queue.
+  private setContentQueue(
+    content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[],
+    resumeIndex: number | null = null,
+    resumeState: "playing" | "paused" | null = null,
+  ): void {
+    // Cancel any in-flight speech/pause before the reload — loadUtterances() resets the engine's index regardless.
     this.clearPendingAdvance();
     if (this.navigatorState === "playing" || this.navigatorState === "paused") {
       this.engine.stop();
@@ -192,6 +221,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
     const contents = Array.isArray(content) ? content : [content];
     this.contentQueue = [...contents];
+    this.pendingResumeIndex = resumeIndex;
+    this.pendingResumeState = resumeState;
 
     // Readiness comes from the engine's own "ready" event (see setupEngineListeners),
     // not set here — engines that buffer ahead (e.g. SpeechServerEngine) fire it once
@@ -202,17 +233,35 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.emitContentChangeEvent({ content: contents });
   }
 
-  // Re-runs extraction from `this.source` using the resolved settings.
+  // Re-runs extraction from `this.source`, resuming near the old position if playback was underway.
   private reextract(): void {
     if (!this.source) return;
-    const utterances = extractUtterances(this.source, {
+    const resumeState = this.navigatorState === "playing" || this.navigatorState === "paused" ? this.navigatorState : null;
+    const oldSources = this.contentSources;
+    const oldIndex = this.getCurrentUtteranceIndex();
+
+    const { utterances, sources } = extractUtterancesWithSources(this.source, {
       format: this._settings.format,
       inlineContextualization: this._settings.inlineContextualization,
       skip: this._settings.skip,
       contextualize: this._settings.contextualize,
       language: this._settings.language,
     });
-    this.setContentQueue(utterances);
+    this.contentSources = sources;
+
+    const resumeIndex = resumeState ? this.resolveResumeIndex(oldSources, oldIndex, sources) : null;
+    this.setContentQueue(utterances, resumeIndex, resumeState);
+  }
+
+  // Nearest node at or before oldIndex that's still present in newSources.
+  private resolveResumeIndex(oldSources: (GndObject | undefined)[], oldIndex: number, newSources: (GndObject | undefined)[]): number | null {
+    for (let i = Math.min(oldIndex, oldSources.length - 1); i >= 0; i--) {
+      const node = oldSources[i];
+      if (node === undefined) continue;
+      const found = newSources.indexOf(node);
+      if (found !== -1) return found;
+    }
+    return null;
   }
 
   getCurrentContent(): ReadiumSpeechUtterance | null {
@@ -375,6 +424,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   private applyPreferences(): void {
+    const previousSettings = this._settings;
     this._settings = new SpeechSettings(this._preferences, this._defaults);
     this.applyEngineParameters();
 
@@ -382,10 +432,18 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       this._preferencesEditor = new SpeechPreferencesEditor(this._preferences, this._settings);
     }
 
-    // Only takes effect on content loaded via loadGndContent(); prosody
-    // settings need no push here since the `end` handler reads
-    // `this._settings` live.
-    this.reextract();
+    // Skip reextract() unless it would actually produce a different queue.
+    if (extractionPreferenceKeys.some((key) => !this.sameSettingValue(previousSettings[key], this._settings[key]))) {
+      this.reextract();
+    }
+  }
+
+  // Arrays (skip/contextualize) compare as sets, not by reference.
+  private sameSettingValue(a: unknown, b: unknown): boolean {
+    if (Array.isArray(a) && Array.isArray(b)) {
+      return a.length === b.length && a.every((role) => b.includes(role));
+    }
+    return a === b;
   }
 
   async destroy(): Promise<void> {

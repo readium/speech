@@ -10,6 +10,13 @@ const twoParagraphTree: GndObject[] = [
   { role: ["paragraph"], text: { language: "en", plain: "Second." } },
 ];
 
+// "few" skips the footnote entirely; "most" doesn't — shifts every later index.
+const footnoteThenParagraphsTree: GndObject[] = [
+  { role: ["footnote"], text: { language: "en", plain: "A footnote." } },
+  { role: ["paragraph"], text: { language: "en", plain: "First." } },
+  { role: ["paragraph"], text: { language: "en", plain: "Second." } },
+];
+
 test("loadGndContent extracts with the default (few) verbosity", (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
@@ -207,22 +214,85 @@ test("pauseScope 'block' applies pauseDuration when the next utterance starts a 
   t.true(engine.speakCalls[0] - before >= 50);
 });
 
-test("submitPreferences mid-playback cancels in-flight engine speech and clears the pending pause timer", async (t) => {
+test("prosody-only submitPreferences mid-playback does not reload the queue", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
   navigator.loadGndContent(twoParagraphTree);
   engine.emit({ type: "ready" });
   navigator.play();
+
+  engine.emit({ type: "end" }); // schedules a delayed speak()
+  navigator.submitPreferences(new SpeechPreferences({ rate: 1.5 }));
+  t.is(engine.stopCalls, 0);
   t.is(navigator.getState(), "playing");
 
-  engine.emit({ type: "end" }); // schedules a delayed speak() under the default pauseDuration
-  t.is(engine.speakCalls.length, 1, "still just play()'s own initial speak() — the delayed one hasn't fired yet");
+  await new Promise((resolve) => setTimeout(resolve, 350));
+  t.is(engine.speakCalls.length, 2, "the pre-existing timer still fires normally");
+});
 
-  navigator.submitPreferences(new SpeechPreferences({ rate: 1.5 }));
+test("extraction-affecting submitPreferences mid-playback cancels speech and the pending timer", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadGndContent(twoParagraphTree);
+  engine.emit({ type: "ready" });
+  navigator.play();
+
+  engine.emit({ type: "end" }); // schedules a delayed speak()
+  navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
   t.is(engine.stopCalls, 1);
 
   await new Promise((resolve) => setTimeout(resolve, 350));
-  t.is(engine.speakCalls.length, 1, "the pre-reload timer must not fire a stale speak()");
+  t.is(engine.speakCalls.length, 1, "no stale speak() from the pre-reload timer");
+});
+
+test("an extraction-affecting change mid-playback resumes at the same content, not index 0", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadGndContent(footnoteThenParagraphsTree);
+  engine.emit({ type: "ready" });
+  navigator.play();
+  navigator.jumpTo(1, true); // "Second." under "few" (footnote skipped, indices 0/1)
+
+  navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" })); // footnote no longer skipped, shifts indices
+  engine.emit({ type: "ready" });
+
+  t.is(navigator.getState(), "playing");
+  const expectedIndex = navigator.getContentQueue().findIndex((u) => u.plain === "Second.");
+  t.true(expectedIndex > 1, "the footnote now takes up earlier slots");
+  t.is(engine.getCurrentUtteranceIndex(), expectedIndex);
+});
+
+test("an extraction-affecting change mid-pause resumes paused at the same content", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadGndContent(footnoteThenParagraphsTree);
+  engine.emit({ type: "ready" });
+  navigator.play();
+  navigator.jumpTo(1, true);
+  navigator.pause();
+
+  navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  engine.emit({ type: "ready" });
+
+  t.is(navigator.getState(), "paused");
+  const expectedIndex = navigator.getContentQueue().findIndex((u) => u.plain === "Second.");
+  t.is(engine.getCurrentUtteranceIndex(), expectedIndex);
+});
+
+test("resuming falls back to the nearest earlier node still present when the current one got skipped", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadGndContent(footnoteThenParagraphsTree);
+  navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" })); // footnote included
+  engine.emit({ type: "ready" });
+  navigator.play();
+  navigator.jumpTo(0, true); // the footnote's own utterance
+
+  navigator.submitPreferences(new SpeechPreferences({ verbosity: "few" })); // footnote skipped again
+  engine.emit({ type: "ready" });
+
+  t.is(navigator.getState(), "playing");
+  t.is(engine.getCurrentUtteranceIndex(), 0, "falls back to the start — nothing earlier to land on");
 });
 
 test("setContentQueue does not call engine.stop() when the navigator is idle", (t) => {
