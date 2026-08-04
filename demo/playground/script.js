@@ -99,7 +99,7 @@ try {
   if (Array.isArray(mod.skippableRoles)) {
     // skippableAtVerbosity.none reaches beyond roles.md's skippableRoles (e.g. `audio`, `table`).
     const verbosityRoles = mod.skippableAtVerbosity?.none ?? [];
-    skippableRolesList = [...new Set([...mod.skippableRoles, ...verbosityRoles])];
+    skippableRolesList = [...new Set([...mod.skippableRoles, ...verbosityRoles])].sort();
     for (const role of skippableRolesList) {
       const option = document.createElement("option");
       option.value = role;
@@ -113,7 +113,7 @@ try {
   // `contextualize` actually does anything for.
   if (mod.defaultAnnouncements && typeof mod.defaultAnnouncements === "object") {
     announcementCatalog = mod.defaultAnnouncements;
-    for (const role of Object.keys(mod.defaultAnnouncements)) {
+    for (const role of Object.keys(mod.defaultAnnouncements).sort()) {
       const option = document.createElement("option");
       option.value = role;
       option.textContent = role;
@@ -327,10 +327,22 @@ function bridgeToFixtureOptions(resolvedOptions, rolesInTree) {
   return bridged;
 }
 
+// `skip`/`contextualize` are sets (extractUtterances takes them as
+// ReadonlySet<GndRole>), but stored/passed around as arrays — sort them so
+// role order (tree-walk order in fixtures, catalog/DOM order in this UI)
+// never causes a false mismatch.
+function normalizeOptions(options) {
+  const normalized = { ...options };
+  if (normalized.skip) normalized.skip = [...normalized.skip].sort();
+  if (normalized.contextualize) normalized.contextualize = [...normalized.contextualize].sort();
+  return normalized;
+}
+
 // Unlisted in-scope combinations mean "equals the default" (fixtures/README.md).
 function matchingExpected(utterances, options) {
   const cases = utterances.cases ?? [];
-  const exact = cases.find((c) => deepEqual(c.options, options));
+  const target = normalizeOptions(options);
+  const exact = cases.find((c) => deepEqual(normalizeOptions(c.options), target));
   if (exact) return exact.utterances;
   const defaultCase = cases.find((c) => deepEqual(c.options, { format: options.format }));
   return defaultCase?.utterances;
