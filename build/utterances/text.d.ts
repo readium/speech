@@ -47,7 +47,7 @@ export interface SsmlSegment {
 export declare function hasPlaceholder(ssml: string): boolean;
 /**
  * Splits a raw (pre-`stripPlaceholders`) SSML string on its embedded
- * `<readium:TAG id="...">` placeholders, for `interruptSentence`: each
+ * `<readium:TAG id="...">` placeholders, for `inlineContextualization`: each
  * placeholder becomes its own segment (resolved via the `GndObject` sharing
  * its `id`) instead of being spoken after the whole enclosing text.
  */

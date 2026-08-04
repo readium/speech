@@ -1,88 +1,28 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
-          "plain": "A self-contained article about lighthouse keeping."
+          "plain": "A self-contained article about lighthouse keeping.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "A self-contained article about lighthouse keeping."
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
+      ],
       "utterances": [
         {
-          "plain": "A self-contained article about lighthouse keeping."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "A self-contained article about lighthouse keeping."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
-      "utterances": [
-        {
-          "ssml": "A self-contained article about lighthouse keeping."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "A self-contained article about lighthouse keeping."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "A self-contained article about lighthouse keeping."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "A self-contained article about lighthouse keeping."
+          "ssml": "A self-contained article about lighthouse keeping.",
+          "startsNewBlock": true
         }
       ]
     }

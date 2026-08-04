@@ -1,12 +1,82 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
-          "plain": "Start of the figure."
+          "plain": "ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the figure.",
+          "startsNewBlock": true
         },
         {
           "plain": "ASCII Art of a cat face"
@@ -17,74 +87,227 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": []
+    },
+    {
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
       "utterances": [
         {
-          "plain": "ASCII Art of a cat face"
+          "ssml": "ASCII Art of a cat face"
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the figure."
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ]
         },
         {
-          "plain": "ASCII Art of a cat face"
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "End of the figure."
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
+      ],
       "utterances": [
         {
-          "plain": "Start of the figure."
-        },
-        {
-          "plain": "ASCII Art of a cat face"
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure."
-        },
-        {
-          "plain": "ASCII Art of a cat face"
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure."
+          "ssml": "Start of the figure.",
+          "startsNewBlock": true
         },
         {
           "ssml": "ASCII Art of a cat face"
@@ -95,66 +318,149 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "ASCII Art of a cat face"
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure."
-        },
-        {
-          "ssml": "ASCII Art of a cat face"
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure."
-        },
-        {
-          "ssml": "ASCII Art of a cat face"
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure."
-        },
-        {
-          "ssml": "ASCII Art of a cat face"
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
+      ],
+      "utterances": []
     }
   ]
 }

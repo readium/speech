@@ -1,18 +1,461 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Cover",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Table of Contents",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of Content",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Start of the landmarks."
         },
         {
+          "plain": "Cover",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Table of Contents",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of Content",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the landmarks."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
           "plain": "Cover"
         },
         {
+          "plain": "Table of Contents",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of Content",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "list"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the landmarks."
+        },
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Cover"
+        },
+        {
+          "plain": "Table of Contents",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of Content",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the landmarks."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Cover"
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
           "plain": "Table of Contents"
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of Content"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the landmarks."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Cover"
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Table of Contents"
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "Start of Content"
@@ -23,113 +466,1350 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "landmarks"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Cover"
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Table of Contents"
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of Content"
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the landmarks."
+        },
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Cover"
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Table of Contents"
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Start of Content"
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the landmarks."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": []
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
       "utterances": [
         {
-          "plain": "Cover"
+          "ssml": "Cover",
+          "startsNewBlock": true
         },
         {
-          "plain": "Table of Contents"
+          "ssml": "Table of Contents",
+          "startsNewBlock": true
         },
         {
-          "plain": "Start of Content"
+          "ssml": "Start of Content",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the landmarks."
+          "format": "ssml",
+          "contextualize": [
+            "landmarks"
+          ]
         },
         {
-          "plain": "Cover"
+          "format": "ssml",
+          "contextualize": [
+            "landmarks"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Table of Contents"
+          "format": "ssml",
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "always"
         },
         {
-          "plain": "Start of Content"
+          "format": "ssml",
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "End of the landmarks."
+          "format": "ssml",
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the landmarks."
-        },
-        {
-          "plain": "Cover"
-        },
-        {
-          "plain": "Table of Contents"
-        },
-        {
-          "plain": "Start of Content"
-        },
-        {
-          "plain": "End of the landmarks."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the landmarks."
-        },
-        {
-          "plain": "Cover"
-        },
-        {
-          "plain": "Table of Contents"
-        },
-        {
-          "plain": "Start of Content"
-        },
-        {
-          "plain": "End of the landmarks."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the landmarks."
         },
         {
+          "ssml": "Cover",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Table of Contents",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of Content",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the landmarks."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
           "ssml": "Cover"
         },
         {
+          "ssml": "Table of Contents",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of Content",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "list"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the landmarks."
+        },
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Cover"
+        },
+        {
+          "ssml": "Table of Contents",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of Content",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the landmarks."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Cover"
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
           "ssml": "Table of Contents"
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of Content"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the landmarks."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Cover"
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Table of Contents"
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Start of Content"
@@ -140,99 +1820,893 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "landmarks"
-        ]
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Cover"
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Table of Contents"
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of Content"
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the landmarks."
+        },
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Cover"
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Table of Contents"
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Start of Content"
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the landmarks."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "landmarks"
+          ],
+          "contextualize": [
+            "landmarks",
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "ssml": "Cover"
-        },
-        {
-          "ssml": "Table of Contents"
-        },
-        {
-          "ssml": "Start of Content"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the landmarks."
-        },
-        {
-          "ssml": "Cover"
-        },
-        {
-          "ssml": "Table of Contents"
-        },
-        {
-          "ssml": "Start of Content"
-        },
-        {
-          "ssml": "End of the landmarks."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the landmarks."
-        },
-        {
-          "ssml": "Cover"
-        },
-        {
-          "ssml": "Table of Contents"
-        },
-        {
-          "ssml": "Start of Content"
-        },
-        {
-          "ssml": "End of the landmarks."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the landmarks."
-        },
-        {
-          "ssml": "Cover"
-        },
-        {
-          "ssml": "Table of Contents"
-        },
-        {
-          "ssml": "Start of Content"
-        },
-        {
-          "ssml": "End of the landmarks."
-        }
-      ]
     }
   ]
 }

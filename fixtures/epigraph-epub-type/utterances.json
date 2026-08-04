@@ -1,12 +1,83 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
-          "plain": "Epigraph."
+          "plain": "A lighthouse is a compromise with the sea. — Anonymous",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "epigraph"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "epigraph"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "epigraph"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "epigraph"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "epigraph"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "epigraph"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "epigraph"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "epigraph"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Epigraph.",
+          "startsNewBlock": true
         },
         {
           "plain": "A lighthouse is a compromise with the sea. — Anonymous"
@@ -14,118 +85,83 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
       "utterances": [
         {
-          "plain": "A lighthouse is a compromise with the sea. — Anonymous"
+          "ssml": "A lighthouse is a compromise with the sea. — Anonymous",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Epigraph."
+          "format": "ssml",
+          "contextualize": [
+            "epigraph"
+          ]
         },
         {
-          "plain": "A lighthouse is a compromise with the sea. — Anonymous"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Epigraph."
+          "format": "ssml",
+          "contextualize": [
+            "epigraph"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "A lighthouse is a compromise with the sea. — Anonymous"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Epigraph."
+          "format": "ssml",
+          "contextualize": [
+            "epigraph"
+          ],
+          "language": "always"
         },
         {
-          "plain": "A lighthouse is a compromise with the sea. — Anonymous"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
-      "utterances": [
-        {
-          "ssml": "Epigraph."
+          "format": "ssml",
+          "contextualize": [
+            "epigraph"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "A lighthouse is a compromise with the sea. — Anonymous"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "ssml": "A lighthouse is a compromise with the sea. — Anonymous"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Epigraph."
+          "format": "ssml",
+          "contextualize": [
+            "epigraph"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "A lighthouse is a compromise with the sea. — Anonymous"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Epigraph."
+          "format": "ssml",
+          "contextualize": [
+            "epigraph"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "A lighthouse is a compromise with the sea. — Anonymous"
+          "format": "ssml",
+          "contextualize": [
+            "epigraph"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "epigraph"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
+      ],
       "utterances": [
         {
-          "ssml": "Epigraph."
+          "ssml": "Epigraph.",
+          "startsNewBlock": true
         },
         {
           "ssml": "A lighthouse is a compromise with the sea. — Anonymous"

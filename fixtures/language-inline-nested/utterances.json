@@ -1,13 +1,16 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "Start",
-          "language": "en"
+          "language": "en",
+          "startsNewBlock": true
         },
         {
           "plain": "middle",
@@ -28,99 +31,94 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start",
-          "language": "en"
+          "format": "plain",
+          "language": "block-level"
         },
         {
-          "plain": "middle",
-          "language": "fr"
-        },
-        {
-          "plain": "nested",
-          "language": "es"
-        },
-        {
-          "plain": "end",
-          "language": "fr"
-        },
-        {
-          "plain": "after.",
-          "language": "en"
+          "format": "plain",
+          "language": "block-level",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
+      ],
       "utterances": [
         {
           "language": "en",
-          "plain": "Start middle nested end after."
+          "plain": "Start middle nested end after.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
+      "options": [
+        {
+          "format": "plain",
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
-          "plain": "Start middle nested end after."
+          "plain": "Start middle nested end after.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "ssml"
-      },
-      "utterances": [
+      "options": [
         {
-          "language": "en",
-          "ssml": "Start <lang xml:lang=\"fr\">middle </lang><lang xml:lang=\"es\">nested</lang><lang xml:lang=\"fr\"> end</lang> after."
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "language": "en",
-          "ssml": "Start <lang xml:lang=\"fr\">middle </lang><lang xml:lang=\"es\">nested</lang><lang xml:lang=\"fr\"> end</lang> after."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
+      ],
       "utterances": [
         {
           "language": "en",
-          "ssml": "Start middle nested end after."
+          "ssml": "Start <lang xml:lang=\"fr\">middle </lang><lang xml:lang=\"es\">nested</lang><lang xml:lang=\"fr\"> end</lang> after.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
-          "ssml": "Start middle nested end after."
+          "language": "en",
+          "ssml": "Start middle nested end after.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start middle nested end after.",
+          "startsNewBlock": true
         }
       ]
     }

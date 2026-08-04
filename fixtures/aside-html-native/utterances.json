@@ -1,12 +1,83 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
-          "plain": "Start of the aside."
+          "plain": "By the way, lighthouses were once staffed around the clock.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the aside.",
+          "startsNewBlock": true
         },
         {
           "plain": "By the way, lighthouses were once staffed around the clock."
@@ -17,83 +88,228 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "aside"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": []
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
       "utterances": [
         {
-          "plain": "By the way, lighthouses were once staffed around the clock."
+          "ssml": "By the way, lighthouses were once staffed around the clock.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the aside."
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ]
         },
         {
-          "plain": "By the way, lighthouses were once staffed around the clock."
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "End of the aside."
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
+      ],
       "utterances": [
         {
-          "plain": "Start of the aside."
-        },
-        {
-          "plain": "By the way, lighthouses were once staffed around the clock."
-        },
-        {
-          "plain": "End of the aside."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the aside."
-        },
-        {
-          "plain": "By the way, lighthouses were once staffed around the clock."
-        },
-        {
-          "plain": "End of the aside."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the aside."
+          "ssml": "Start of the aside.",
+          "startsNewBlock": true
         },
         {
           "ssml": "By the way, lighthouses were once staffed around the clock."
@@ -104,75 +320,149 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "aside"
-        ]
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "ssml": "By the way, lighthouses were once staffed around the clock."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the aside."
-        },
-        {
-          "ssml": "By the way, lighthouses were once staffed around the clock."
-        },
-        {
-          "ssml": "End of the aside."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the aside."
-        },
-        {
-          "ssml": "By the way, lighthouses were once staffed around the clock."
-        },
-        {
-          "ssml": "End of the aside."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the aside."
-        },
-        {
-          "ssml": "By the way, lighthouses were once staffed around the clock."
-        },
-        {
-          "ssml": "End of the aside."
-        }
-      ]
     }
   ]
 }

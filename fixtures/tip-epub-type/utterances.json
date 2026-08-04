@@ -1,12 +1,236 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
-          "plain": "Start of the aside."
+          "plain": "Tip: wind the mechanism fully before dusk.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the aside.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Tip: wind the mechanism fully before dusk."
+        },
+        {
+          "plain": "End of the aside."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "tip"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "tip"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Tip.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside",
+            "tip"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the aside.",
+          "startsNewBlock": true
         },
         {
           "plain": "Tip."
@@ -20,92 +244,553 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "aside"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "tip"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "tip"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "tip"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "tip"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "tip"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "tip"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "tip"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "tip"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "tip"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": []
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
       "utterances": [
         {
-          "plain": "Tip: wind the mechanism fully before dusk."
+          "ssml": "Tip: wind the mechanism fully before dusk.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
-          "plain": "Start of the aside."
+          "ssml": "Start of the aside.",
+          "startsNewBlock": true
         },
         {
-          "plain": "Tip."
+          "ssml": "Tip: wind the mechanism fully before dusk."
         },
         {
-          "plain": "Tip: wind the mechanism fully before dusk."
-        },
-        {
-          "plain": "End of the aside."
+          "ssml": "End of the aside."
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "tip"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "tip"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
-          "plain": "Start of the aside."
+          "ssml": "Tip.",
+          "startsNewBlock": true
         },
         {
-          "plain": "Tip."
-        },
-        {
-          "plain": "Tip: wind the mechanism fully before dusk."
-        },
-        {
-          "plain": "End of the aside."
+          "ssml": "Tip: wind the mechanism fully before dusk."
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the aside."
+          "format": "ssml",
+          "contextualize": [
+            "aside",
+            "tip"
+          ]
         },
         {
-          "plain": "Tip."
+          "format": "ssml",
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Tip: wind the mechanism fully before dusk."
+          "format": "ssml",
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "always"
         },
         {
-          "plain": "End of the aside."
+          "format": "ssml",
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
-          "ssml": "Start of the aside."
+          "ssml": "Start of the aside.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Tip."
@@ -119,84 +804,321 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "aside"
-        ]
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "tip"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "tip"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "tip"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "tip"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "tip"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "tip"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "tip"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "tip"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "tip"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "tip"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "ssml": "Tip: wind the mechanism fully before dusk."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the aside."
-        },
-        {
-          "ssml": "Tip."
-        },
-        {
-          "ssml": "Tip: wind the mechanism fully before dusk."
-        },
-        {
-          "ssml": "End of the aside."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the aside."
-        },
-        {
-          "ssml": "Tip."
-        },
-        {
-          "ssml": "Tip: wind the mechanism fully before dusk."
-        },
-        {
-          "ssml": "End of the aside."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the aside."
-        },
-        {
-          "ssml": "Tip."
-        },
-        {
-          "ssml": "Tip: wind the mechanism fully before dusk."
-        },
-        {
-          "ssml": "End of the aside."
-        }
-      ]
     }
   ]
 }

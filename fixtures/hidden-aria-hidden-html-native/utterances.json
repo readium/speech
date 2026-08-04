@@ -1,112 +1,36 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
-          "plain": "Before the hidden content."
+          "plain": "Before the hidden content.",
+          "startsNewBlock": true
         },
         {
-          "plain": "After the hidden content."
+          "plain": "After the hidden content.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Before the hidden content."
-        },
-        {
-          "plain": "After the hidden content."
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
+      ],
       "utterances": [
         {
-          "plain": "Before the hidden content."
+          "ssml": "Before the hidden content.",
+          "startsNewBlock": true
         },
         {
-          "plain": "After the hidden content."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Before the hidden content."
-        },
-        {
-          "plain": "After the hidden content."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
-      "utterances": [
-        {
-          "ssml": "Before the hidden content."
-        },
-        {
-          "ssml": "After the hidden content."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Before the hidden content."
-        },
-        {
-          "ssml": "After the hidden content."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Before the hidden content."
-        },
-        {
-          "ssml": "After the hidden content."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Before the hidden content."
-        },
-        {
-          "ssml": "After the hidden content."
+          "ssml": "After the hidden content.",
+          "startsNewBlock": true
         }
       ]
     }

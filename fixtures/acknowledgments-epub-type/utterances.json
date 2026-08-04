@@ -1,12 +1,83 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
-          "plain": "Start of the acknowledgments."
+          "plain": "The author thanks the keepers of Fastnet Rock for their recollections.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "acknowledgments"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "acknowledgments"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "acknowledgments"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "acknowledgments"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "acknowledgments"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "acknowledgments"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "acknowledgments"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "acknowledgments"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the acknowledgments.",
+          "startsNewBlock": true
         },
         {
           "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
@@ -17,136 +88,83 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
       "utterances": [
         {
-          "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
+          "ssml": "The author thanks the keepers of Fastnet Rock for their recollections.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the acknowledgments."
+          "format": "ssml",
+          "contextualize": [
+            "acknowledgments"
+          ]
         },
         {
-          "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
+          "format": "ssml",
+          "contextualize": [
+            "acknowledgments"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "End of the acknowledgments."
+          "format": "ssml",
+          "contextualize": [
+            "acknowledgments"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "acknowledgments"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "acknowledgments"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "acknowledgments"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "acknowledgments"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "acknowledgments"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
+      ],
       "utterances": [
         {
-          "plain": "Start of the acknowledgments."
-        },
-        {
-          "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
-        },
-        {
-          "plain": "End of the acknowledgments."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the acknowledgments."
-        },
-        {
-          "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
-        },
-        {
-          "plain": "End of the acknowledgments."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the acknowledgments."
-        },
-        {
-          "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
-        },
-        {
-          "ssml": "End of the acknowledgments."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the acknowledgments."
-        },
-        {
-          "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
-        },
-        {
-          "ssml": "End of the acknowledgments."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the acknowledgments."
-        },
-        {
-          "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
-        },
-        {
-          "ssml": "End of the acknowledgments."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the acknowledgments."
+          "ssml": "Start of the acknowledgments.",
+          "startsNewBlock": true
         },
         {
           "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."

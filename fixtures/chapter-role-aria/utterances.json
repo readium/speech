@@ -1,12 +1,236 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
-          "plain": "Start of the chapter."
+          "plain": "Title of the chapter",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "chapter"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "chapter"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "chapter"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "chapter"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "chapter"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "chapter"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "chapter"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "chapter"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the chapter.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Title of the chapter"
+        },
+        {
+          "plain": "End of the chapter."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "heading1"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "heading1"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "heading1"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "heading1"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "heading1"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "heading1"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "heading1"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "heading1"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Heading level 1.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Title of the chapter"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "chapter",
+            "heading1"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "chapter",
+            "heading1"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "chapter",
+            "heading1"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "chapter",
+            "heading1"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "chapter",
+            "heading1"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "chapter",
+            "heading1"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "chapter",
+            "heading1"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "chapter",
+            "heading1"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the chapter.",
+          "startsNewBlock": true
         },
         {
           "plain": "Heading level 1."
@@ -20,86 +244,83 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
       "utterances": [
         {
-          "plain": "Title of the chapter"
+          "ssml": "Title of the chapter",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the chapter."
+          "format": "ssml",
+          "contextualize": [
+            "chapter"
+          ]
         },
         {
-          "plain": "Heading level 1."
+          "format": "ssml",
+          "contextualize": [
+            "chapter"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Title of the chapter"
+          "format": "ssml",
+          "contextualize": [
+            "chapter"
+          ],
+          "language": "always"
         },
         {
-          "plain": "End of the chapter."
+          "format": "ssml",
+          "contextualize": [
+            "chapter"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "chapter"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "chapter"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "chapter"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "chapter"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
+      ],
       "utterances": [
         {
-          "plain": "Start of the chapter."
-        },
-        {
-          "plain": "Heading level 1."
-        },
-        {
-          "plain": "Title of the chapter"
-        },
-        {
-          "plain": "End of the chapter."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the chapter."
-        },
-        {
-          "plain": "Heading level 1."
-        },
-        {
-          "plain": "Title of the chapter"
-        },
-        {
-          "plain": "End of the chapter."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the chapter."
-        },
-        {
-          "ssml": "Heading level 1."
+          "ssml": "Start of the chapter.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Title of the chapter"
@@ -110,64 +331,149 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "heading1"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "heading1"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "heading1"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "heading1"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "heading1"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "heading1"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "heading1"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "heading1"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
+        {
+          "ssml": "Heading level 1.",
+          "startsNewBlock": true
+        },
         {
           "ssml": "Title of the chapter"
         }
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the chapter."
+          "format": "ssml",
+          "contextualize": [
+            "chapter",
+            "heading1"
+          ]
         },
         {
-          "ssml": "Heading level 1."
+          "format": "ssml",
+          "contextualize": [
+            "chapter",
+            "heading1"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Title of the chapter"
+          "format": "ssml",
+          "contextualize": [
+            "chapter",
+            "heading1"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "End of the chapter."
+          "format": "ssml",
+          "contextualize": [
+            "chapter",
+            "heading1"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "chapter",
+            "heading1"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "chapter",
+            "heading1"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "chapter",
+            "heading1"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "chapter",
+            "heading1"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
+      ],
       "utterances": [
         {
-          "ssml": "Start of the chapter."
-        },
-        {
-          "ssml": "Heading level 1."
-        },
-        {
-          "ssml": "Title of the chapter"
-        },
-        {
-          "ssml": "End of the chapter."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the chapter."
+          "ssml": "Start of the chapter.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Heading level 1."

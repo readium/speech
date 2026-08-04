@@ -12,7 +12,7 @@ export interface ExtractUtterancesOptions {
     format?: "plain" | "ssml";
     announcements?: Announcements;
     skip?: GndRole[];
+    contextualize?: GndRole[];
     language?: "none" | "block-level" | "always";
-    interruptSentence?: boolean;
-    contextualize?: boolean;
+    inlineContextualization?: boolean;
 }

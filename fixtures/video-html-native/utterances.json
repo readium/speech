@@ -1,23 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Video."
-        },
-        {
-          "plain": "The lamp mechanism rotating at dusk"
+          "format": "plain"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
+      ],
       "utterances": [
         {
           "plain": "The lamp mechanism rotating at dusk"
@@ -25,13 +13,70 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
-          "plain": "Video."
+          "plain": "Video.",
+          "startsNewBlock": true
         },
         {
           "plain": "The lamp mechanism rotating at dusk"
@@ -39,40 +84,227 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Video."
+          "format": "plain",
+          "skip": [
+            "video"
+          ]
         },
         {
-          "plain": "The lamp mechanism rotating at dusk"
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": []
+    },
+    {
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The lamp mechanism rotating at dusk"
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Video."
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ]
         },
         {
-          "plain": "The lamp mechanism rotating at dusk"
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
-          "ssml": "Video."
+          "ssml": "Video.",
+          "startsNewBlock": true
         },
         {
           "ssml": "The lamp mechanism rotating at dusk"
@@ -80,57 +312,149 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "The lamp mechanism rotating at dusk"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Video."
+          "format": "ssml",
+          "skip": [
+            "video"
+          ]
         },
         {
-          "ssml": "The lamp mechanism rotating at dusk"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Video."
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "The lamp mechanism rotating at dusk"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Video."
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "The lamp mechanism rotating at dusk"
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
+      ],
+      "utterances": []
     }
   ]
 }

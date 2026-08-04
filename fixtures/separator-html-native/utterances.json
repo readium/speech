@@ -1,112 +1,36 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
-          "plain": "Section one."
+          "plain": "Section one.",
+          "startsNewBlock": true
         },
         {
-          "plain": "Section two."
+          "plain": "Section two.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Section one."
-        },
-        {
-          "plain": "Section two."
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
+      ],
       "utterances": [
         {
-          "plain": "Section one."
+          "ssml": "Section one.",
+          "startsNewBlock": true
         },
         {
-          "plain": "Section two."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Section one."
-        },
-        {
-          "plain": "Section two."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
-      "utterances": [
-        {
-          "ssml": "Section one."
-        },
-        {
-          "ssml": "Section two."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Section one."
-        },
-        {
-          "ssml": "Section two."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Section one."
-        },
-        {
-          "ssml": "Section two."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Section one."
-        },
-        {
-          "ssml": "Section two."
+          "ssml": "Section two.",
+          "startsNewBlock": true
         }
       ]
     }

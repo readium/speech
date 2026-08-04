@@ -1,12 +1,83 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
-          "plain": "Abstract."
+          "plain": "This work examines the maintenance of coastal lighthouses in the 19th century.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "abstract"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "abstract"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "abstract"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "abstract"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "abstract"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "abstract"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "abstract"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "abstract"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Abstract.",
+          "startsNewBlock": true
         },
         {
           "plain": "This work examines the maintenance of coastal lighthouses in the 19th century."
@@ -14,118 +85,83 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
       "utterances": [
         {
-          "plain": "This work examines the maintenance of coastal lighthouses in the 19th century."
+          "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Abstract."
+          "format": "ssml",
+          "contextualize": [
+            "abstract"
+          ]
         },
         {
-          "plain": "This work examines the maintenance of coastal lighthouses in the 19th century."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Abstract."
+          "format": "ssml",
+          "contextualize": [
+            "abstract"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "This work examines the maintenance of coastal lighthouses in the 19th century."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Abstract."
+          "format": "ssml",
+          "contextualize": [
+            "abstract"
+          ],
+          "language": "always"
         },
         {
-          "plain": "This work examines the maintenance of coastal lighthouses in the 19th century."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
-      "utterances": [
-        {
-          "ssml": "Abstract."
+          "format": "ssml",
+          "contextualize": [
+            "abstract"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Abstract."
+          "format": "ssml",
+          "contextualize": [
+            "abstract"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Abstract."
+          "format": "ssml",
+          "contextualize": [
+            "abstract"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century."
+          "format": "ssml",
+          "contextualize": [
+            "abstract"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "abstract"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
+      ],
       "utterances": [
         {
-          "ssml": "Abstract."
+          "ssml": "Abstract.",
+          "startsNewBlock": true
         },
         {
           "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century."

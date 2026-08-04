@@ -10,3 +10,10 @@ import { ExtractUtterancesOptions } from './types.js';
  * rather than a wrapped document.
  */
 export declare function extractUtterances(nodes: GndObject[], options: ExtractUtterancesOptions): ReadiumSpeechUtterance[];
+/**
+ * Same as `extractUtterances()`, plus `sources[i]`: the node that produced `utterances[i]`.
+ */
+export declare function extractUtterancesWithSources(nodes: GndObject[], options: ExtractUtterancesOptions): {
+    utterances: ReadiumSpeechUtterance[];
+    sources: (GndObject | undefined)[];
+};

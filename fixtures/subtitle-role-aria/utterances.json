@@ -1,9 +1,78 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "A History of Coastal Lights"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "subtitle"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "subtitle"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "subtitle"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "subtitle"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "subtitle"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "subtitle"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "subtitle"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "subtitle"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Subtitle."
@@ -14,76 +83,11 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "A History of Coastal Lights"
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Subtitle."
-        },
-        {
-          "plain": "A History of Coastal Lights"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Subtitle."
-        },
-        {
-          "plain": "A History of Coastal Lights"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Subtitle."
-        },
-        {
-          "plain": "A History of Coastal Lights"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
-      "utterances": [
-        {
-          "ssml": "Subtitle."
-        },
-        {
-          "ssml": "A History of Coastal Lights"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
+      ],
       "utterances": [
         {
           "ssml": "A History of Coastal Lights"
@@ -91,38 +95,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Subtitle."
+          "format": "ssml",
+          "contextualize": [
+            "subtitle"
+          ]
         },
         {
-          "ssml": "A History of Coastal Lights"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Subtitle."
+          "format": "ssml",
+          "contextualize": [
+            "subtitle"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "A History of Coastal Lights"
+          "format": "ssml",
+          "contextualize": [
+            "subtitle"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "subtitle"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "subtitle"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "subtitle"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "subtitle"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "subtitle"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
+      ],
       "utterances": [
         {
           "ssml": "Subtitle."
