@@ -16,6 +16,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - `ExtractUtterancesOptions.contextualize` is now `GndRole[]` (which roles announce), replacing the previous on/off `boolean`; default is now nothing contextualized.
 - `ExtractUtterancesOptions.interruptSentence` renamed to `inlineContextualization`.
 - `ReadiumSpeechNavigatorContract` drops `setRate`/`getRate`/`setPitch`/`getPitch`/`setVolume`/`getVolume` — use the Preferences API instead.
+- Each fixture's `utterances.json` now pairs one result with every option-set that produces it (`options` is an array), instead of repeating identical results per option-set — see [fixtures/README.md](fixtures/README.md).
 
 ## [0.5.0] - 2026-07-31
 
