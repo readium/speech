@@ -48,7 +48,7 @@ export class SpeechDefaults {
     this.verbosity = ensureEnumValue(defaults.verbosity, verbosityPresets) ?? "few";
     this.skip = ensureStringArray(defaults.skip) ?? [];
     this.contextualize = ensureStringArray(defaults.contextualize) ?? [];
-    this.language = ensureEnumValue(defaults.language, languageModes) ?? "always";
+    this.language = ensureEnumValue(defaults.language, languageModes) ?? "block-level";
     this.pauseDuration = ensureValueInRange(defaults.pauseDuration, pauseDurationRangeConfig.range) ?? 300;
     this.pauseScope = ensureEnumValue(defaults.pauseScope, pauseScopes) ?? "utterance";
     this.automaticPausesAtPageOrSpreadEnd = ensureBoolean(defaults.automaticPausesAtPageOrSpreadEnd) ?? false;
