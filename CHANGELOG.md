@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.7.0] - 2026-08-04
+
+### Changed
+
+- `SpeechDefaults.language` default is now `"block-level"`, was `"always"`.
+- `ReadiumSpeechUtterance` drops `startsNewBlock`. Block-boundary info is now internal to extraction — `pauseScope: "block"` only has effect on content loaded via `loadGndContent()`; content loaded via `loadContent()` never gets a pause under it.
+
 ## [0.6.0] - 2026-08-04
 
 ### Added
