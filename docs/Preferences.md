@@ -12,7 +12,7 @@ editor.pauseDuration.value = 500;
 navigator.submitPreferences(editor.preferences);
 ```
 
-`submitPreferences()` always resolves `navigator.settings`. Prosody (`pauseDuration`, `pauseScope`, `rate`, `pitch`, `volume`) applies regardless of how content was loaded. The extraction group (`format`, `inlineContextualization`, `verbosity`, `skip`, `contextualize`, `language`) only takes effect on content loaded via `loadGndContent()` — see [Playback](Playback.md) — and only reloads the queue when one of those fields actually changes value. A reload during playback resumes at the same content rather than restarting, falling back to the nearest earlier point still present if that exact content got skipped by the new settings.
+`submitPreferences()` always resolves `navigator.settings`. Prosody (`pauseDuration`, `pauseScope`, `rate`, `pitch`, `volume`) applies regardless of how content was loaded, except that `pauseScope: "block"` only has block boundaries to work with on content loaded via `loadGndContent()` — content loaded via `loadContent()` has none, so no transition ever gets `pauseDuration` there. The extraction group (`format`, `inlineContextualization`, `verbosity`, `skip`, `contextualize`, `language`) only takes effect on content loaded via `loadGndContent()` — see [Playback](Playback.md) — and only reloads the queue when one of those fields actually changes value. A reload during playback resumes at the same content rather than restarting, falling back to the nearest earlier point still present if that exact content got skipped by the new settings.
 
 ## Defaults
 
@@ -50,13 +50,12 @@ new SpeechPreferences({ verbosity: "custom", contextualize: ["chapter", "footnot
 ```typescript
 pauseDuration?: number;                      // ms, default 300
 pauseScope?: "utterance" | "block";          // which transitions get pauseDuration, default "utterance"
-automaticPausesAtPageOrSpreadEnd?: boolean;  // typed, no effect yet
 rate?: number;                               // default 1.0, range [0.1, 10]
 pitch?: number;                              // default 1.0, range [0, 2]
 volume?: number;                             // default 1.0, range [0, 1]
 ```
 
-`pauseDuration` delays the navigator's next `speak()` call after each utterance ends, scoped by `pauseScope`: `"utterance"` (the default) applies it between every utterance; `"block"` applies it only where the next utterance starts a new block-level element (a paragraph, heading, list item, table cell, ...), derived from the source Guided Navigation document by `extractUtterances()` — transitions within the same block get no pause. `automaticPausesAtPageOrSpreadEnd` is typed but has no effect today: pausing at a page/spread boundary needs context (where a page actually ends) that this library doesn't have — likely a concern for the consuming app, not something resolved here.
+`pauseDuration` delays the navigator's next `speak()` call after each utterance ends, scoped by `pauseScope`: `"utterance"` (the default) applies it between every utterance; `"block"` applies it only where the next utterance starts a new block-level element (a paragraph, heading, list item, table cell, ...).
 
 `rate`/`pitch`/`volume` are pushed straight to the engine's own `setRate`/`setPitch`/`setVolume` on every `submitPreferences()` call — unlike the extraction-time preferences, no reload. An engine that needs to re-synthesize already-buffered content on parameter changes handles that itself inside those setters.
 

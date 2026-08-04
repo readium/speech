@@ -45,6 +45,12 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // reextract() find where to resume after a reload (see resolveResumeIndex).
   private contentSources: (GndObject | undefined)[] = [];
 
+  // Parallel to `contentQueue`: whether each utterance begins a new
+  // block-level element. Only extraction knows this, so content loaded via
+  // loadContent() has no boundaries of its own — pauseScope: "block" never
+  // applies a pause there, same as if none of it started a new block.
+  private contentBlockStarts: boolean[] = [];
+
   // Set by setContentQueue() when a reload should resume mid-queue rather
   // than at the start; consumed once by the engine's "ready" handler.
   private pendingResumeIndex: number | null = null;
@@ -93,7 +99,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
         // Out-of-scope transitions still yield to the event loop (delay 0),
         // never a synchronous call.
         const inPauseScope =
-          this._settings.pauseScope === "utterance" || this.contentQueue[currentIndex + 1]?.startsNewBlock === true;
+          this._settings.pauseScope === "utterance" || this.contentBlockStarts[currentIndex + 1] === true;
         const delay = inPauseScope ? this._settings.pauseDuration : 0;
         this.pendingAdvanceTimeout = setTimeout(() => {
           this.pendingAdvanceTimeout = null;
@@ -240,7 +246,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     const oldSources = this.contentSources;
     const oldIndex = this.getCurrentUtteranceIndex();
 
-    const { utterances, sources } = extractUtterancesWithSources(this.source, {
+    const { utterances, sources, blockStarts } = extractUtterancesWithSources(this.source, {
       format: this._settings.format,
       inlineContextualization: this._settings.inlineContextualization,
       skip: this._settings.skip,
@@ -248,6 +254,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       language: this._settings.language,
     });
     this.contentSources = sources;
+    this.contentBlockStarts = blockStarts;
 
     const resumeIndex = resumeState ? this.resolveResumeIndex(oldSources, oldIndex, sources) : null;
     this.setContentQueue(utterances, resumeIndex, resumeState);

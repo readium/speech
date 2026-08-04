@@ -23,6 +23,10 @@ interface WalkContext {
   format: "plain" | "ssml";
   inlineContextualization: boolean;
   language?: "none" | "block-level" | "always";
+  // Tracked by object identity rather than threaded as a parallel array,
+  // since utterances get merged/reordered across several local `out` arrays
+  // (pieces, inner, ...) before reaching the caller's own `out`.
+  blockStarts: Set<ReadiumSpeechUtterance>;
 }
 
 // Parallel to `out`: which node produced each utterance, `undefined` when none (e.g. a merged span).
@@ -316,7 +320,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
   }
 
   if (eligible && out.length > beforeLength) {
-    out[beforeLength].startsNewBlock = true;
+    ctx.blockStarts.add(out[beforeLength]);
   }
 
   // A description is supplementary/elaborating content (e.g. an extended
@@ -347,6 +351,7 @@ function makeWalkContext(options: ExtractUtterancesOptions): WalkContext {
     format: options.format ?? "plain",
     inlineContextualization: options.inlineContextualization ?? false,
     language: options.language,
+    blockStarts: new Set(),
   };
 }
 
@@ -368,14 +373,17 @@ export function extractUtterances(
 }
 
 /**
- * Same as `extractUtterances()`, plus `sources[i]`: the node that produced `utterances[i]`.
+ * Same as `extractUtterances()`, plus `sources[i]`: the node that produced `utterances[i]`,
+ * and `blockStarts[i]`: whether `utterances[i]` begins a new block-level element.
  */
 export function extractUtterancesWithSources(
   nodes: GndObject[],
   options: ExtractUtterancesOptions,
-): { utterances: ReadiumSpeechUtterance[]; sources: (GndObject | undefined)[] } {
+): { utterances: ReadiumSpeechUtterance[]; sources: (GndObject | undefined)[]; blockStarts: boolean[] } {
   const utterances: ReadiumSpeechUtterance[] = [];
   const sources: SourceTrace = [];
-  walk(nodes, utterances, sources, makeWalkContext(options), false);
-  return { utterances, sources };
+  const ctx = makeWalkContext(options);
+  walk(nodes, utterances, sources, ctx, false);
+  const blockStarts = utterances.map((utterance) => ctx.blockStarts.has(utterance));
+  return { utterances, sources, blockStarts };
 }

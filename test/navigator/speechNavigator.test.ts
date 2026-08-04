@@ -21,7 +21,7 @@ test("loadGndContent extracts with the default (few) verbosity", (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
   navigator.loadGndContent(chapterTree);
-  t.deepEqual(navigator.getContentQueue(), [{ language: "en", plain: "Hello world.", startsNewBlock: true }]);
+  t.deepEqual(navigator.getContentQueue(), [{ language: "en", plain: "Hello world." }]);
 });
 
 test("submitPreferences re-extracts content loaded via loadGndContent", (t) => {
@@ -30,7 +30,7 @@ test("submitPreferences re-extracts content loaded via loadGndContent", (t) => {
   navigator.loadGndContent(chapterTree);
   navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
   t.deepEqual(navigator.getContentQueue(), [
-    { plain: "Start of the chapter.", startsNewBlock: true },
+    { plain: "Start of the chapter." },
     { language: "en", plain: "Hello world." },
     { plain: "End of the chapter." },
   ]);
@@ -199,10 +199,7 @@ test("pauseScope 'block' skips pauseDuration when the next utterance doesn't sta
 test("pauseScope 'block' applies pauseDuration when the next utterance starts a new block", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  navigator.loadContent([
-    { plain: "First.", language: "en" },
-    { plain: "New paragraph.", language: "en", startsNewBlock: true },
-  ]);
+  navigator.loadGndContent(twoParagraphTree);
   navigator.submitPreferences(new SpeechPreferences({ pauseDuration: 60, pauseScope: "block" }));
 
   const before = Date.now();
