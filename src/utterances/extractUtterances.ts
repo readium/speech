@@ -51,6 +51,28 @@ function push(out: ReadiumSpeechUtterance[], sources: SourceTrace, node: GndObje
   for (let i = 0; i < items.length; i++) sources.push(node);
 }
 
+// Pushes `pieces` (or their `merged` replacement, if provided) to `out`.
+// `mergeUtterances()` returns a new object rather than one of `pieces` —
+// this carries a block-start marker over from any input piece that had
+// one, so merging never silently drops it.
+function pushPiecesOrMerged(
+  out: ReadiumSpeechUtterance[],
+  sources: SourceTrace,
+  ctx: WalkContext,
+  node: GndObject,
+  pieces: ReadiumSpeechUtterance[],
+  pieceSources: SourceTrace,
+  merged: ReadiumSpeechUtterance | undefined,
+): void {
+  if (merged) {
+    if (pieces.some((piece) => ctx.blockStarts.has(piece))) ctx.blockStarts.add(merged);
+    push(out, sources, pieceSources[0] ?? node, [merged]);
+  } else {
+    out.push(...pieces);
+    sources.push(...pieceSources);
+  }
+}
+
 // Looks up `role`'s entry in the catalog and speaks the appropriate half
 // of it for this `phase`: a plain entry only has anything to say at
 // "before" (a single, self-contained announcement); a `{start, end}` pair
@@ -221,12 +243,7 @@ function emitInterrupted(
     pieceSources.push(node);
   }
   const merged = pieces.length > 1 ? mergeUtterances(pieces, ctx.format) : undefined;
-  if (merged) {
-    push(out, sources, pieceSources[0] ?? node, [merged]);
-  } else {
-    out.push(...pieces);
-    sources.push(...pieceSources);
-  }
+  pushPiecesOrMerged(out, sources, ctx, node, pieces, pieceSources, merged);
 }
 
 function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, suppress: boolean): void {
@@ -287,12 +304,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
           pieceSources.push(child);
         }
         const merged = entry !== undefined && pieces.length > 1 ? mergeUtterances(pieces, ctx.format) : undefined;
-        if (merged) {
-          push(out, sources, pieceSources[0] ?? child, [merged]);
-        } else {
-          out.push(...pieces);
-          sources.push(...pieceSources);
-        }
+        pushPiecesOrMerged(out, sources, ctx, child, pieces, pieceSources, merged);
       } else {
         walk([child], out, sources, ctx, suppress);
       }
