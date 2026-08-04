@@ -38,7 +38,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // `loadGndContent()`. Its absence is what makes submitPreferences()'s
   // extraction-affecting fields (format, verbosity, skip, contextualize,
   // language) a no-op on content loaded via loadContent() — prosody
-  // fields (rate/pitch/volume/pauseDuration/pauseScope) still apply.
+  // fields (rate/pitch/volume/pauseDuration/autoPause) still apply.
   private source: GndObject[] | undefined;
 
   // Parallel to `contentQueue`, from the extraction that produced it — lets
@@ -46,15 +46,16 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private contentSources: (GndObject | undefined)[] = [];
 
   // Parallel to `contentQueue`: whether each utterance begins a new
-  // block-level element. Only extraction knows this, so content loaded via
-  // loadContent() has no boundaries of its own — pauseScope: "block" never
-  // applies a pause there, same as if none of it started a new block.
+  // block-level element. loadContent() content has no boundaries of its own.
   private contentBlockStarts: boolean[] = [];
 
   // Set by setContentQueue() when a reload should resume mid-queue rather
   // than at the start; consumed once by the engine's "ready" handler.
   private pendingResumeIndex: number | null = null;
   private pendingResumeState: "playing" | "paused" | null = null;
+
+  // Index to speak() on the next play() when autoPause has stopped playback between utterances.
+  private pendingAutoPauseIndex: number | null = null;
 
   constructor(engine: ReadiumSpeechPlaybackEngine, configuration: ReadiumSpeechNavigatorConfiguration = {}) {
     this.engine = engine;
@@ -66,7 +67,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     void this.initializeEngine();
   }
 
-  // Unlike pauseDuration/pauseScope (read live off settings), the engine owns rate/pitch/volume and must be pushed.
+  // Unlike pauseDuration/autoPause (read live off settings), the engine owns rate/pitch/volume and must be pushed.
   private applyEngineParameters(): void {
     this.engine.setRate(this._settings.rate);
     this.engine.setPitch(this._settings.pitch);
@@ -93,18 +94,18 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       const totalCount = this.engine.getUtteranceCount();
 
       if (currentIndex < totalCount - 1) {
-        // Navigator handles continuous playback. `pauseScope` picks which
-        // transitions get `pauseDuration`: every one ("utterance", default),
-        // or only where the next utterance starts a new block ("block").
-        // Out-of-scope transitions still yield to the event loop (delay 0),
-        // never a synchronous call.
-        const inPauseScope =
-          this._settings.pauseScope === "utterance" || this.contentBlockStarts[currentIndex + 1] === true;
-        const delay = inPauseScope ? this._settings.pauseDuration : 0;
-        this.pendingAdvanceTimeout = setTimeout(() => {
-          this.pendingAdvanceTimeout = null;
-          this.engine.speak(currentIndex + 1);
-        }, delay);
+        const inAutoPauseScope =
+          this._settings.autoPause === "utterance" || this.contentBlockStarts[currentIndex + 1] === true;
+        if (this._settings.autoPause !== "none" && inAutoPauseScope) {
+          this.pendingAutoPauseIndex = currentIndex + 1;
+          this.setNavigatorState("paused");
+          this.emitEvent({ type: "pause" });
+        } else {
+          this.pendingAdvanceTimeout = setTimeout(() => {
+            this.pendingAdvanceTimeout = null;
+            this.engine.speak(currentIndex + 1);
+          }, this._settings.pauseDuration);
+        }
       } else {
         // Reached end - set navigator to idle
         this.setNavigatorState("idle");
@@ -221,6 +222,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   ): void {
     // Cancel any in-flight speech/pause before the reload — loadUtterances() resets the engine's index regardless.
     this.clearPendingAdvance();
+    this.pendingAutoPauseIndex = null;
     if (this.navigatorState === "playing" || this.navigatorState === "paused") {
       this.engine.stop();
     }
@@ -287,9 +289,16 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // Playback Control - Navigator coordinates engine operations
   play(): void {
     if (this.navigatorState === "paused") {
-      // Resume from pause
       this.setNavigatorState("playing");
-      this.engine.resume();
+      if (this.pendingAutoPauseIndex !== null) {
+        // autoPause stopped playback between utterances — nothing for the
+        // engine to resume, so speak() the utterance it was withheld on.
+        const index = this.pendingAutoPauseIndex;
+        this.pendingAutoPauseIndex = null;
+        this.engine.speak(index);
+      } else {
+        this.engine.resume();
+      }
     } else if (this.navigatorState === "ready" || this.navigatorState === "idle") {
       // Start playing from beginning
       this.setNavigatorState("playing");
@@ -303,6 +312,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   pause(): void {
     if (this.navigatorState === "playing") {
       this.clearPendingAdvance();
+      this.pendingAutoPauseIndex = null;
       this.setNavigatorState("paused");
       this.engine.pause();
     }
@@ -310,6 +320,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   stop(): void {
     this.clearPendingAdvance();
+    this.pendingAutoPauseIndex = null;
     this.setNavigatorState("idle");
     this.engine.stop();  // Reset engine index first
     this.emitEvent({ type: "stop" });  // Then emit event for UI update
@@ -338,6 +349,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.clearPendingAdvance();
 
     if (this.navigatorState === "paused" && !forcePlay) {
+      if (this.pendingAutoPauseIndex !== null) this.pendingAutoPauseIndex = targetIndex;
       // For paused state, just update the index without speaking
       this.engine.setCurrentUtteranceIndex(targetIndex, (success) => {
         if (success) {
@@ -348,6 +360,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
         }
       });
     } else {
+      this.pendingAutoPauseIndex = null;
       this.setNavigatorState("playing");
       this.engine.speak(targetIndex);
     }

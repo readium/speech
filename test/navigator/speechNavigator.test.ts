@@ -146,7 +146,7 @@ test("initial preferences are configurable via the constructor", (t) => {
   t.is(navigator.settings.rate, 2);
 });
 
-test("pauseDuration delays the next speak() call under the default pauseScope (utterance)", async (t) => {
+test("pauseDuration delays the next speak() call", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
   navigator.loadContent([
@@ -180,35 +180,77 @@ test("a zero pauseDuration still yields to the event loop, but resolves on the n
   t.is(engine.speakCalls.length, 1);
 });
 
-test("pauseScope 'block' skips pauseDuration when the next utterance doesn't start a new block", async (t) => {
+test("autoPause 'utterance' fully pauses instead of continuing automatically", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([
+    { plain: "First.", language: "en" },
+    { plain: "Second.", language: "en" },
+  ]);
+  navigator.submitPreferences(new SpeechPreferences({ autoPause: "utterance" }));
+
+  engine.emit({ type: "end" });
+  t.is(navigator.getState(), "paused");
+  t.is(engine.speakCalls.length, 0, "no automatic continuation while auto-paused");
+
+  await new Promise((resolve) => setTimeout(resolve, 50));
+  t.is(engine.speakCalls.length, 0, "still paused after a delay — this isn't pauseDuration");
+
+  navigator.play();
+  t.is(navigator.getState(), "playing");
+  t.is(engine.speakCalls.length, 1);
+  t.is(engine.getCurrentUtteranceIndex(), 1);
+});
+
+test("autoPause 'block' does not pause when the next utterance doesn't start a new block", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
   navigator.loadContent([
     { plain: "First.", language: "en" },
     { plain: "Still the same block.", language: "en" },
   ]);
-  navigator.submitPreferences(new SpeechPreferences({ pauseDuration: 60, pauseScope: "block" }));
+  navigator.submitPreferences(new SpeechPreferences({ autoPause: "block", pauseDuration: 0 }));
 
   engine.emit({ type: "end" });
-  t.is(engine.speakCalls.length, 0, "still async — setTimeout with delay 0, not a synchronous call");
+  t.is(engine.speakCalls.length, 0, "still async — setTimeout, not a synchronous call");
+  t.not(navigator.getState(), "paused", "no block boundary here, so autoPause never triggers");
 
   await new Promise((resolve) => setTimeout(resolve, 0));
-  t.is(engine.speakCalls.length, 1);
+  t.is(engine.speakCalls.length, 1, "continues automatically, delayed only by pauseDuration");
 });
 
-test("pauseScope 'block' applies pauseDuration when the next utterance starts a new block", async (t) => {
+test("autoPause 'block' pauses when the next utterance starts a new block", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
   navigator.loadGndContent(twoParagraphTree);
-  navigator.submitPreferences(new SpeechPreferences({ pauseDuration: 60, pauseScope: "block" }));
+  navigator.submitPreferences(new SpeechPreferences({ autoPause: "block" }));
 
-  const before = Date.now();
   engine.emit({ type: "end" });
-  t.is(engine.speakCalls.length, 0, "speak() must not fire synchronously when a pause is configured");
+  t.is(navigator.getState(), "paused");
+  t.is(engine.speakCalls.length, 0);
 
-  await new Promise((resolve) => setTimeout(resolve, 120));
+  navigator.play();
   t.is(engine.speakCalls.length, 1);
-  t.true(engine.speakCalls[0] - before >= 50);
+  t.is(engine.getCurrentUtteranceIndex(), 1);
+});
+
+test("jumping while auto-paused resumes at the jumped-to index, not the original one", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([
+    { plain: "First.", language: "en" },
+    { plain: "Second.", language: "en" },
+    { plain: "Third.", language: "en" },
+  ]);
+  navigator.submitPreferences(new SpeechPreferences({ autoPause: "utterance" }));
+
+  engine.emit({ type: "end" }); // finishes index 0, auto-pauses before index 1
+  t.is(navigator.getState(), "paused");
+
+  navigator.jumpTo(2, false);
+  navigator.play();
+  t.is(engine.speakCalls.length, 1);
+  t.is(engine.getCurrentUtteranceIndex(), 2);
 });
 
 test("prosody-only submitPreferences mid-playback does not reload the queue", async (t) => {

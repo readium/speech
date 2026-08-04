@@ -15,7 +15,7 @@ const optionInterruptEl = document.getElementById("option-interrupt");
 const optionContextualizeEl = document.getElementById("option-contextualize");
 const optionPauseDurationEl = document.getElementById("option-pause-duration");
 const optionPauseDurationValueEl = document.getElementById("option-pause-duration-value");
-const optionPauseScopeEl = document.getElementById("option-pause-scope");
+const optionAutoPauseEl = document.getElementById("option-auto-pause");
 const optionRateEl = document.getElementById("option-rate");
 const optionRateValueEl = document.getElementById("option-rate-value");
 const optionPitchEl = document.getElementById("option-pitch");
@@ -28,7 +28,7 @@ const languageHintEl = document.getElementById("language-hint");
 const verbosityHintEl = document.getElementById("verbosity-hint");
 const inlineContextualizationHintEl = document.getElementById("inline-contextualization-hint");
 const pauseDurationHintEl = document.getElementById("pause-duration-hint");
-const pauseScopeHintEl = document.getElementById("pause-scope-hint");
+const autoPauseHintEl = document.getElementById("auto-pause-hint");
 const rateHintEl = document.getElementById("rate-hint");
 const pitchHintEl = document.getElementById("pitch-hint");
 const volumeHintEl = document.getElementById("volume-hint");
@@ -179,7 +179,7 @@ function renderToolbarOptions() {
 
   populateEnumSelect(optionLanguageEl, editor.language.supportedValues, { includeDefaultOption: true });
   populateEnumSelect(optionVerbosityEl, editor.verbosity.supportedValues);
-  populateEnumSelect(optionPauseScopeEl, editor.pauseScope.supportedValues);
+  populateEnumSelect(optionAutoPauseEl, editor.autoPause.supportedValues);
 
   for (const { key, inputEl } of rangeControls) {
     const [min, max] = editor[key].supportedRange;
@@ -232,8 +232,8 @@ function renderToolbarState() {
     valueEl.textContent = `${inputEl.value}${unit}`;
   }
 
-  setDefaultLabel(pauseScopeHintEl, libraryDefaults?.pauseScope);
-  optionPauseScopeEl.value = editor.pauseScope.value ?? editor.pauseScope.effectiveValue;
+  setDefaultLabel(autoPauseHintEl, libraryDefaults?.autoPause);
+  optionAutoPauseEl.value = editor.autoPause.value ?? editor.autoPause.effectiveValue;
 }
 
 function setDefaultLabel(hintEl, defaultValue) {
@@ -250,7 +250,7 @@ function applyPreferencesFromToolbar() {
   editor.inlineContextualization.value = optionInterruptEl?.checked ?? false;
   editor.verbosity.value = optionVerbosityEl?.value || "few";
   editor.language.value = optionLanguageEl?.value || null;
-  editor.pauseScope.value = optionPauseScopeEl?.value || "utterance";
+  editor.autoPause.value = optionAutoPauseEl?.value || "none";
   for (const { key, inputEl } of rangeControls) {
     editor[key].value = Number(inputEl.value);
   }
@@ -283,7 +283,7 @@ function resetProsodyPreferences() {
   if (!configurable) return;
   const editor = configurable.preferencesEditor;
   for (const { key } of rangeControls) editor[key].clear();
-  editor.pauseScope.clear();
+  editor.autoPause.clear();
   configurable.submitPreferences(editor.preferences);
   renderToolbarState();
   renderUtterancesPanel();
@@ -754,7 +754,7 @@ for (const { inputEl, valueEl, unit } of rangeControls) {
   });
   inputEl.addEventListener("change", applyPreferencesFromToolbar);
 }
-optionPauseScopeEl?.addEventListener("change", applyPreferencesFromToolbar);
+optionAutoPauseEl?.addEventListener("change", applyPreferencesFromToolbar);
 resetExtractionPreferencesEl?.addEventListener("click", resetExtractionPreferences);
 resetProsodyPreferencesEl?.addEventListener("click", resetProsodyPreferences);
 

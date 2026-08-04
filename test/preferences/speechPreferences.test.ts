@@ -65,14 +65,14 @@ test("an unsupported enum value is dropped to undefined", (t) => {
     // @ts-expect-error deliberately invalid
     verbosity: "everything",
     // @ts-expect-error deliberately invalid
-    pauseScope: "sentence",
+    autoPause: "sentence",
     // @ts-expect-error deliberately invalid
     format: "audio",
     // @ts-expect-error deliberately invalid
     language: "sometimes",
   });
   t.is(prefs.verbosity, undefined);
-  t.is(prefs.pauseScope, undefined);
+  t.is(prefs.autoPause, undefined);
   t.is(prefs.format, undefined);
   t.is(prefs.language, undefined);
 });

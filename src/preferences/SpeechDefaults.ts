@@ -1,16 +1,16 @@
 import type { GndRole } from "../gnd/types.js";
 import {
+  autoPauseScopes,
   extractionFormats,
   languageModes,
   pauseDurationRangeConfig,
-  pauseScopes,
   pitchRangeConfig,
   rateRangeConfig,
   verbosityPresets,
   volumeRangeConfig,
 } from "./constraints.js";
 import { ensureBoolean, ensureEnumValue, ensureStringArray, ensureValueInRange } from "./guards.js";
-import type { ExtractionFormat, LanguageMode, PauseScope, VerbosityPreset } from "./SpeechPreferences.js";
+import type { AutoPauseScope, ExtractionFormat, LanguageMode, VerbosityPreset } from "./SpeechPreferences.js";
 
 // Guarded like ISpeechPreferences — an invalid value here falls back to the literal default below.
 export interface ISpeechDefaults {
@@ -21,7 +21,7 @@ export interface ISpeechDefaults {
   contextualize?: GndRole[] | null;
   language?: LanguageMode | null;
   pauseDuration?: number | null;
-  pauseScope?: PauseScope | null;
+  autoPause?: AutoPauseScope | null;
   rate?: number | null;
   pitch?: number | null;
   volume?: number | null;
@@ -35,7 +35,7 @@ export class SpeechDefaults {
   public readonly contextualize: GndRole[];
   public readonly language: LanguageMode;
   public readonly pauseDuration: number;
-  public readonly pauseScope: PauseScope;
+  public readonly autoPause: AutoPauseScope;
   public readonly rate: number;
   public readonly pitch: number;
   public readonly volume: number;
@@ -48,7 +48,7 @@ export class SpeechDefaults {
     this.contextualize = ensureStringArray(defaults.contextualize) ?? [];
     this.language = ensureEnumValue(defaults.language, languageModes) ?? "block-level";
     this.pauseDuration = ensureValueInRange(defaults.pauseDuration, pauseDurationRangeConfig.range) ?? 300;
-    this.pauseScope = ensureEnumValue(defaults.pauseScope, pauseScopes) ?? "utterance";
+    this.autoPause = ensureEnumValue(defaults.autoPause, autoPauseScopes) ?? "none";
     this.rate = ensureValueInRange(defaults.rate, rateRangeConfig.range) ?? 1.0;
     this.pitch = ensureValueInRange(defaults.pitch, pitchRangeConfig.range) ?? 1.0;
     this.volume = ensureValueInRange(defaults.volume, volumeRangeConfig.range) ?? 1.0;
