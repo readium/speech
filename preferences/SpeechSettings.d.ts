@@ -1,7 +1,7 @@
 import { GndRole } from '../gnd/types.js';
 import { ConfigurableSettings } from './Configurable.js';
 import { SpeechDefaults } from './SpeechDefaults.js';
-import { ExtractionFormat, LanguageMode, PauseScope, SpeechPreferences, VerbosityPreset } from './SpeechPreferences.js';
+import { AutoPauseScope, ExtractionFormat, LanguageMode, SpeechPreferences, VerbosityPreset } from './SpeechPreferences.js';
 export declare class SpeechSettings implements ConfigurableSettings {
     [key: string]: unknown;
     readonly format: ExtractionFormat;
@@ -11,8 +11,7 @@ export declare class SpeechSettings implements ConfigurableSettings {
     readonly contextualize: GndRole[];
     readonly language: LanguageMode;
     readonly pauseDuration: number;
-    readonly pauseScope: PauseScope;
-    readonly automaticPausesAtPageOrSpreadEnd: boolean;
+    readonly autoPause: AutoPauseScope;
     readonly rate: number;
     readonly pitch: number;
     readonly volume: number;

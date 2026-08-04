@@ -3,5 +3,4 @@ export interface ReadiumSpeechUtterance {
     plain?: string;
     ssml?: string;
     language?: string;
-    startsNewBlock?: true;
 }

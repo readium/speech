@@ -23,8 +23,10 @@ export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorCon
     private _preferencesEditor;
     private source;
     private contentSources;
+    private contentBlockStarts;
     private pendingResumeIndex;
     private pendingResumeState;
+    private pendingAutoPauseIndex;
     constructor(engine: ReadiumSpeechPlaybackEngine, configuration?: ReadiumSpeechNavigatorConfiguration);
     private applyEngineParameters;
     private initializeEngine;
