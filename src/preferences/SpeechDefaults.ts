@@ -22,7 +22,6 @@ export interface ISpeechDefaults {
   language?: LanguageMode | null;
   pauseDuration?: number | null;
   pauseScope?: PauseScope | null;
-  automaticPausesAtPageOrSpreadEnd?: boolean | null;
   rate?: number | null;
   pitch?: number | null;
   volume?: number | null;
@@ -37,7 +36,6 @@ export class SpeechDefaults {
   public readonly language: LanguageMode;
   public readonly pauseDuration: number;
   public readonly pauseScope: PauseScope;
-  public readonly automaticPausesAtPageOrSpreadEnd: boolean;
   public readonly rate: number;
   public readonly pitch: number;
   public readonly volume: number;
@@ -51,7 +49,6 @@ export class SpeechDefaults {
     this.language = ensureEnumValue(defaults.language, languageModes) ?? "block-level";
     this.pauseDuration = ensureValueInRange(defaults.pauseDuration, pauseDurationRangeConfig.range) ?? 300;
     this.pauseScope = ensureEnumValue(defaults.pauseScope, pauseScopes) ?? "utterance";
-    this.automaticPausesAtPageOrSpreadEnd = ensureBoolean(defaults.automaticPausesAtPageOrSpreadEnd) ?? false;
     this.rate = ensureValueInRange(defaults.rate, rateRangeConfig.range) ?? 1.0;
     this.pitch = ensureValueInRange(defaults.pitch, pitchRangeConfig.range) ?? 1.0;
     this.volume = ensureValueInRange(defaults.volume, volumeRangeConfig.range) ?? 1.0;

@@ -78,13 +78,6 @@ test("clear() actually resets preferences submitted through submitPreferences()"
   t.is(merged.pauseDuration, null);
 });
 
-test("automaticPausesAtPageOrSpreadEnd is a plain, settable preference", (t) => {
-  const editor = makeEditor();
-  t.false(editor.automaticPausesAtPageOrSpreadEnd.isEffective);
-  editor.automaticPausesAtPageOrSpreadEnd.value = true;
-  t.is(editor.preferences.automaticPausesAtPageOrSpreadEnd, true);
-});
-
 test("rate is a range preference with the expected bounds", (t) => {
   const editor = makeEditor();
   t.deepEqual(editor.rate.supportedRange, [0.1, 10]);

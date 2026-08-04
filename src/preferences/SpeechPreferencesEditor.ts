@@ -39,7 +39,6 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
       language: null,
       pauseDuration: null,
       pauseScope: null,
-      automaticPausesAtPageOrSpreadEnd: null,
       rate: null,
       pitch: null,
       volume: null,
@@ -125,17 +124,6 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
       isEffective: this.preferences.pauseScope != null,
       onChange: (value) => this.updatePreference("pauseScope", value ?? null),
       supportedValues: pauseScopes,
-    });
-  }
-
-  // No page/spread boundary signal exists in this library yet, so this
-  // has no effect on playback.
-  get automaticPausesAtPageOrSpreadEnd(): BooleanPreference {
-    return new BooleanPreference({
-      initialValue: this.preferences.automaticPausesAtPageOrSpreadEnd,
-      effectiveValue: this.settings.automaticPausesAtPageOrSpreadEnd,
-      isEffective: this.preferences.automaticPausesAtPageOrSpreadEnd != null,
-      onChange: (value) => this.updatePreference("automaticPausesAtPageOrSpreadEnd", value ?? null),
     });
   }
 

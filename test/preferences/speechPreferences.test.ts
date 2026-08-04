@@ -81,11 +81,8 @@ test("a non-boolean value for a boolean field is dropped to undefined", (t) => {
   const prefs = new SpeechPreferences({
     // @ts-expect-error deliberately invalid
     inlineContextualization: "yes",
-    // @ts-expect-error deliberately invalid
-    automaticPausesAtPageOrSpreadEnd: 1,
   });
   t.is(prefs.inlineContextualization, undefined);
-  t.is(prefs.automaticPausesAtPageOrSpreadEnd, undefined);
 });
 
 test("explicit null is preserved (not coerced to undefined) for guarded fields", (t) => {
