@@ -13,3 +13,4 @@ export * from './speechNavigator';
 export * from './utterance';
 export * from './gnd';
 export * from './utterances';
+export * from './preferences';
