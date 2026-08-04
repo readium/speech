@@ -9,8 +9,7 @@
       "utterances": [
         {
           "language": "fr",
-          "plain": "Bonjour, comment allez-vous ?",
-          "startsNewBlock": true
+          "plain": "Bonjour, comment allez-vous ?"
         }
       ]
     },
@@ -28,8 +27,7 @@
       ],
       "utterances": [
         {
-          "plain": "Bonjour, comment allez-vous ?",
-          "startsNewBlock": true
+          "plain": "Bonjour, comment allez-vous ?"
         }
       ]
     },
@@ -42,8 +40,7 @@
       "utterances": [
         {
           "language": "fr",
-          "ssml": "Bonjour, comment allez-vous ?",
-          "startsNewBlock": true
+          "ssml": "Bonjour, comment allez-vous ?"
         }
       ]
     },
@@ -61,8 +58,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Bonjour, comment allez-vous ?",
-          "startsNewBlock": true
+          "ssml": "Bonjour, comment allez-vous ?"
         }
       ]
     }

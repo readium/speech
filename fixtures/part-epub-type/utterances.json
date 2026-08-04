@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Title of the part",
-          "startsNewBlock": true
+          "plain": "Title of the part"
         }
       ]
     },
@@ -76,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the part.",
-          "startsNewBlock": true
+          "plain": "Start of the part."
         },
         {
           "plain": "Title of the part"
@@ -150,8 +148,7 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Title of the part"
@@ -229,8 +226,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the part.",
-          "startsNewBlock": true
+          "plain": "Start of the part."
         },
         {
           "plain": "Heading level 1."
@@ -251,8 +247,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Title of the part",
-          "startsNewBlock": true
+          "ssml": "Title of the part"
         }
       ]
     },
@@ -319,8 +314,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the part.",
-          "startsNewBlock": true
+          "ssml": "Start of the part."
         },
         {
           "ssml": "Title of the part"
@@ -393,8 +387,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Title of the part"
@@ -472,8 +465,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the part.",
-          "startsNewBlock": true
+          "ssml": "Start of the part."
         },
         {
           "ssml": "Heading level 1."

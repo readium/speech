@@ -75,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Image.",
-          "startsNewBlock": true
+          "plain": "Image."
         },
         {
           "plain": "Alternative text using the alt attribute"
@@ -303,8 +302,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Image.",
-          "startsNewBlock": true
+          "ssml": "Image."
         },
         {
           "ssml": "Alternative text using the alt attribute"

@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "To be, or not to be, that is the question.",
-          "startsNewBlock": true
+          "plain": "To be, or not to be, that is the question."
         }
       ]
     },
@@ -76,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the quote.",
-          "startsNewBlock": true
+          "plain": "Start of the quote."
         },
         {
           "plain": "To be, or not to be, that is the question."
@@ -95,8 +93,7 @@
       ],
       "utterances": [
         {
-          "ssml": "To be, or not to be, that is the question.",
-          "startsNewBlock": true
+          "ssml": "To be, or not to be, that is the question."
         }
       ]
     },
@@ -163,8 +160,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the quote.",
-          "startsNewBlock": true
+          "ssml": "Start of the quote."
         },
         {
           "ssml": "To be, or not to be, that is the question."

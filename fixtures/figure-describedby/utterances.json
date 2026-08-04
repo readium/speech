@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Sales chart",
-          "startsNewBlock": true
+          "plain": "Sales chart"
         },
         {
           "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
@@ -79,8 +78,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
+          "plain": "Start of the figure."
         },
         {
           "plain": "Sales chart"
@@ -156,8 +154,7 @@
       ],
       "utterances": [
         {
-          "plain": "Image.",
-          "startsNewBlock": true
+          "plain": "Image."
         },
         {
           "plain": "Sales chart"
@@ -238,8 +235,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
+          "plain": "Start of the figure."
         },
         {
           "plain": "Image."
@@ -581,8 +577,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
+          "plain": "Start of the figure."
         },
         {
           "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
@@ -1261,8 +1256,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Sales chart",
-          "startsNewBlock": true
+          "ssml": "Sales chart"
         },
         {
           "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
@@ -1332,8 +1326,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
+          "ssml": "Start of the figure."
         },
         {
           "ssml": "Sales chart"
@@ -1409,8 +1402,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Image.",
-          "startsNewBlock": true
+          "ssml": "Image."
         },
         {
           "ssml": "Sales chart"
@@ -1491,8 +1483,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
+          "ssml": "Start of the figure."
         },
         {
           "ssml": "Image."
@@ -1834,8 +1825,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
+          "ssml": "Start of the figure."
         },
         {
           "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."

@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Cover photograph by A. Keeper.",
-          "startsNewBlock": true
+          "plain": "Cover photograph by A. Keeper."
         }
       ]
     },
@@ -76,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Credit.",
-          "startsNewBlock": true
+          "plain": "Credit."
         },
         {
           "plain": "Cover photograph by A. Keeper."
@@ -92,8 +90,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Cover photograph by A. Keeper.",
-          "startsNewBlock": true
+          "ssml": "Cover photograph by A. Keeper."
         }
       ]
     },
@@ -160,8 +157,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Credit.",
-          "startsNewBlock": true
+          "ssml": "Credit."
         },
         {
           "ssml": "Cover photograph by A. Keeper."

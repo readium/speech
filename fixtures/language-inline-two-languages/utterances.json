@@ -9,8 +9,7 @@
       "utterances": [
         {
           "plain": "Hello",
-          "language": "en",
-          "startsNewBlock": true
+          "language": "en"
         },
         {
           "plain": "bonjour",
@@ -45,8 +44,7 @@
       "utterances": [
         {
           "language": "en",
-          "plain": "Hello bonjour and hola there.",
-          "startsNewBlock": true
+          "plain": "Hello bonjour and hola there."
         }
       ]
     },
@@ -64,8 +62,7 @@
       ],
       "utterances": [
         {
-          "plain": "Hello bonjour and hola there.",
-          "startsNewBlock": true
+          "plain": "Hello bonjour and hola there."
         }
       ]
     },
@@ -78,8 +75,7 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "Hello <lang xml:lang=\"fr\">bonjour</lang> and <lang xml:lang=\"es\">hola</lang> there.",
-          "startsNewBlock": true
+          "ssml": "Hello <lang xml:lang=\"fr\">bonjour</lang> and <lang xml:lang=\"es\">hola</lang> there."
         }
       ]
     },
@@ -98,8 +94,7 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "Hello bonjour and hola there.",
-          "startsNewBlock": true
+          "ssml": "Hello bonjour and hola there."
         }
       ]
     },
@@ -117,8 +112,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Hello bonjour and hola there.",
-          "startsNewBlock": true
+          "ssml": "Hello bonjour and hola there."
         }
       ]
     }

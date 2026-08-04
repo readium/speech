@@ -9,13 +9,11 @@
       "utterances": [
         {
           "language": "en",
-          "plain": "Hello.",
-          "startsNewBlock": true
+          "plain": "Hello."
         },
         {
           "language": "fr",
-          "plain": "Bonjour.",
-          "startsNewBlock": true
+          "plain": "Bonjour."
         }
       ]
     },
@@ -33,12 +31,10 @@
       ],
       "utterances": [
         {
-          "plain": "Hello.",
-          "startsNewBlock": true
+          "plain": "Hello."
         },
         {
-          "plain": "Bonjour.",
-          "startsNewBlock": true
+          "plain": "Bonjour."
         }
       ]
     },
@@ -51,13 +47,11 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "Hello.",
-          "startsNewBlock": true
+          "ssml": "Hello."
         },
         {
           "language": "fr",
-          "ssml": "Bonjour.",
-          "startsNewBlock": true
+          "ssml": "Bonjour."
         }
       ]
     },
@@ -75,12 +69,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Hello.",
-          "startsNewBlock": true
+          "ssml": "Hello."
         },
         {
-          "ssml": "Bonjour.",
-          "startsNewBlock": true
+          "ssml": "Bonjour."
         }
       ]
     }

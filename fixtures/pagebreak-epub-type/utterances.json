@@ -12,8 +12,7 @@
         },
         {
           "language": "en",
-          "plain": "And the next pagebreak is in the middle of a sentence.",
-          "startsNewBlock": true
+          "plain": "And the next pagebreak is in the middle of a sentence."
         },
         {
           "plain": "5"
@@ -43,8 +42,7 @@
         },
         {
           "plain": "And the next pagebreak is in the middle 5 of a sentence.",
-          "language": "en",
-          "startsNewBlock": true
+          "language": "en"
         }
       ]
     },
@@ -60,8 +58,7 @@
           "plain": "4"
         },
         {
-          "plain": "And the next pagebreak is in the middle of a sentence.",
-          "startsNewBlock": true
+          "plain": "And the next pagebreak is in the middle of a sentence."
         },
         {
           "plain": "5"
@@ -81,8 +78,7 @@
           "plain": "4"
         },
         {
-          "plain": "And the next pagebreak is in the middle 5 of a sentence.",
-          "startsNewBlock": true
+          "plain": "And the next pagebreak is in the middle 5 of a sentence."
         }
       ]
     },
@@ -115,8 +111,7 @@
         },
         {
           "language": "en",
-          "plain": "And the next pagebreak is in the middle of a sentence.",
-          "startsNewBlock": true
+          "plain": "And the next pagebreak is in the middle of a sentence."
         },
         {
           "plain": "Pagebreak. 5."
@@ -155,8 +150,7 @@
         },
         {
           "plain": "And the next pagebreak is in the middle Pagebreak. 5. of a sentence.",
-          "language": "en",
-          "startsNewBlock": true
+          "language": "en"
         }
       ]
     },
@@ -175,8 +169,7 @@
           "plain": "Pagebreak. 4."
         },
         {
-          "plain": "And the next pagebreak is in the middle of a sentence.",
-          "startsNewBlock": true
+          "plain": "And the next pagebreak is in the middle of a sentence."
         },
         {
           "plain": "Pagebreak. 5."
@@ -199,8 +192,7 @@
           "plain": "Pagebreak. 4."
         },
         {
-          "plain": "And the next pagebreak is in the middle Pagebreak. 5. of a sentence.",
-          "startsNewBlock": true
+          "plain": "And the next pagebreak is in the middle Pagebreak. 5. of a sentence."
         }
       ]
     },
@@ -314,8 +306,7 @@
       "utterances": [
         {
           "language": "en",
-          "plain": "And the next pagebreak is in the middle of a sentence.",
-          "startsNewBlock": true
+          "plain": "And the next pagebreak is in the middle of a sentence."
         }
       ]
     },
@@ -360,8 +351,7 @@
       ],
       "utterances": [
         {
-          "plain": "And the next pagebreak is in the middle of a sentence.",
-          "startsNewBlock": true
+          "plain": "And the next pagebreak is in the middle of a sentence."
         }
       ]
     },
@@ -377,8 +367,7 @@
         },
         {
           "language": "en",
-          "ssml": "And the next pagebreak is in the middle of a sentence.",
-          "startsNewBlock": true
+          "ssml": "And the next pagebreak is in the middle of a sentence."
         },
         {
           "ssml": "5"
@@ -408,8 +397,7 @@
         },
         {
           "ssml": "And the next pagebreak is in the middle 5 of a sentence.",
-          "language": "en",
-          "startsNewBlock": true
+          "language": "en"
         }
       ]
     },
@@ -425,8 +413,7 @@
           "ssml": "4"
         },
         {
-          "ssml": "And the next pagebreak is in the middle of a sentence.",
-          "startsNewBlock": true
+          "ssml": "And the next pagebreak is in the middle of a sentence."
         },
         {
           "ssml": "5"
@@ -446,8 +433,7 @@
           "ssml": "4"
         },
         {
-          "ssml": "And the next pagebreak is in the middle 5 of a sentence.",
-          "startsNewBlock": true
+          "ssml": "And the next pagebreak is in the middle 5 of a sentence."
         }
       ]
     },
@@ -480,8 +466,7 @@
         },
         {
           "language": "en",
-          "ssml": "And the next pagebreak is in the middle of a sentence.",
-          "startsNewBlock": true
+          "ssml": "And the next pagebreak is in the middle of a sentence."
         },
         {
           "ssml": "Pagebreak. 5."
@@ -520,8 +505,7 @@
         },
         {
           "ssml": "And the next pagebreak is in the middle Pagebreak. 5. of a sentence.",
-          "language": "en",
-          "startsNewBlock": true
+          "language": "en"
         }
       ]
     },
@@ -540,8 +524,7 @@
           "ssml": "Pagebreak. 4."
         },
         {
-          "ssml": "And the next pagebreak is in the middle of a sentence.",
-          "startsNewBlock": true
+          "ssml": "And the next pagebreak is in the middle of a sentence."
         },
         {
           "ssml": "Pagebreak. 5."
@@ -564,8 +547,7 @@
           "ssml": "Pagebreak. 4."
         },
         {
-          "ssml": "And the next pagebreak is in the middle Pagebreak. 5. of a sentence.",
-          "startsNewBlock": true
+          "ssml": "And the next pagebreak is in the middle Pagebreak. 5. of a sentence."
         }
       ]
     },
@@ -679,8 +661,7 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "And the next pagebreak is in the middle of a sentence.",
-          "startsNewBlock": true
+          "ssml": "And the next pagebreak is in the middle of a sentence."
         }
       ]
     },
@@ -725,8 +706,7 @@
       ],
       "utterances": [
         {
-          "ssml": "And the next pagebreak is in the middle of a sentence.",
-          "startsNewBlock": true
+          "ssml": "And the next pagebreak is in the middle of a sentence."
         }
       ]
     }

@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Years later, the last lighthouse keeper reflects on automation.",
-          "startsNewBlock": true
+          "plain": "Years later, the last lighthouse keeper reflects on automation."
         }
       ]
     },
@@ -76,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the afterword.",
-          "startsNewBlock": true
+          "plain": "Start of the afterword."
         },
         {
           "plain": "Years later, the last lighthouse keeper reflects on automation."
@@ -95,8 +93,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Years later, the last lighthouse keeper reflects on automation.",
-          "startsNewBlock": true
+          "ssml": "Years later, the last lighthouse keeper reflects on automation."
         }
       ]
     },
@@ -163,8 +160,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the afterword.",
-          "startsNewBlock": true
+          "ssml": "Start of the afterword."
         },
         {
           "ssml": "Years later, the last lighthouse keeper reflects on automation."
