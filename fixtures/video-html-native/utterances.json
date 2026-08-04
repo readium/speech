@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "The lamp mechanism rotating at dusk"
@@ -11,12 +13,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "video"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Video.",
@@ -28,326 +84,156 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "video"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Video.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "video"
+          ]
         },
         {
-          "plain": "The lamp mechanism rotating at dusk"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "video"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Video.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "The lamp mechanism rotating at dusk"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "video"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Video.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "language": "always"
         },
         {
-          "plain": "The lamp mechanism rotating at dusk"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "video"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Video.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "The lamp mechanism rotating at dusk"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "video"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Video.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "language": "block-level"
         },
         {
-          "plain": "The lamp mechanism rotating at dusk"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "video"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Video.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "plain": "The lamp mechanism rotating at dusk"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "video"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Video.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "language": "none"
         },
         {
-          "plain": "The lamp mechanism rotating at dusk"
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "video"
-        ]
-      },
+      ],
       "utterances": []
     },
     {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "video"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "video"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "video"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "video"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "video"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "video"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "video"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "video"
-        ],
-        "contextualize": [
-          "video"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "video"
-        ],
-        "contextualize": [
-          "video"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "video"
-        ],
-        "contextualize": [
-          "video"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "video"
-        ],
-        "contextualize": [
-          "video"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "video"
-        ],
-        "contextualize": [
-          "video"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "video"
-        ],
-        "contextualize": [
-          "video"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "video"
-        ],
-        "contextualize": [
-          "video"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "video"
-        ],
-        "contextualize": [
-          "video"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
       "utterances": [
         {
           "ssml": "The lamp mechanism rotating at dusk"
@@ -355,12 +241,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "video"
-        ]
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "ssml": "Video.",
@@ -372,320 +312,148 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "video"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Video.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "video"
+          ]
         },
         {
-          "ssml": "The lamp mechanism rotating at dusk"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "video"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Video.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "The lamp mechanism rotating at dusk"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "video"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Video.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "The lamp mechanism rotating at dusk"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "video"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Video.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "The lamp mechanism rotating at dusk"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "video"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Video.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "The lamp mechanism rotating at dusk"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "video"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Video.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "The lamp mechanism rotating at dusk"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "video"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Video.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "language": "none"
         },
         {
-          "ssml": "The lamp mechanism rotating at dusk"
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "video"
+          ],
+          "contextualize": [
+            "video"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "video"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "video"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "video"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "video"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "video"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "video"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "video"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "video"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "video"
-        ],
-        "contextualize": [
-          "video"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "video"
-        ],
-        "contextualize": [
-          "video"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "video"
-        ],
-        "contextualize": [
-          "video"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "video"
-        ],
-        "contextualize": [
-          "video"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "video"
-        ],
-        "contextualize": [
-          "video"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "video"
-        ],
-        "contextualize": [
-          "video"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "video"
-        ],
-        "contextualize": [
-          "video"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "video"
-        ],
-        "contextualize": [
-          "video"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": []
     }
   ]

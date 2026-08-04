@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "Hello",
@@ -17,10 +19,17 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
+      "options": [
+        {
+          "format": "plain",
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "language": "en",
@@ -30,24 +39,17 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "language": "en",
-          "plain": "Hello bonjour.",
-          "startsNewBlock": true
+          "format": "plain",
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
+      ],
       "utterances": [
         {
           "plain": "Hello bonjour.",
@@ -56,22 +58,11 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Hello bonjour.",
-          "startsNewBlock": true
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "language": "en",
@@ -81,10 +72,17 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "language": "en",
@@ -94,37 +92,17 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "language": "en",
-          "ssml": "Hello bonjour.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
-      "utterances": [
+          "format": "ssml",
+          "language": "none"
+        },
         {
-          "ssml": "Hello bonjour.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "ssml": "Hello bonjour.",

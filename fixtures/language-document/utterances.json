@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "language": "fr",
@@ -13,10 +15,17 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
+      "options": [
+        {
+          "format": "plain",
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Bonjour, comment allez-vous ?",
@@ -25,22 +34,11 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Bonjour, comment allez-vous ?",
-          "startsNewBlock": true
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "language": "fr",
@@ -50,23 +48,17 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Bonjour, comment allez-vous ?",
-          "startsNewBlock": true
+          "format": "ssml",
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "ssml": "Bonjour, comment allez-vous ?",

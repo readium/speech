@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "Sales chart",
@@ -15,12 +17,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "figure"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Start of the figure.",
@@ -38,183 +94,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "figure"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ]
         },
         {
-          "plain": "Sales chart"
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
         },
         {
-          "plain": "End of the figure."
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "figure"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "figure"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "figure"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "figure"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "figure"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "figure"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "image"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "Image.",
@@ -229,163 +168,74 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Image.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ]
         },
         {
-          "plain": "Sales chart"
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Image.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Image.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Image.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Image.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Image.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Image.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "figure",
-          "image"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "Start of the figure.",
@@ -406,211 +256,148 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "image"
+          ]
         },
         {
-          "plain": "Image."
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Sales chart"
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "always"
         },
         {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "End of the figure."
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Image."
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Image."
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Image."
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Image."
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Image."
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Image."
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
@@ -618,140 +405,180 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure"
-        ]
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ]
         },
         {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "End of the figure."
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "plain": "Start of the figure.",
@@ -766,1344 +593,672 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "figure"
+          ]
         },
         {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "End of the figure."
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
+      ],
+      "utterances": []
     },
     {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ]
-      },
-      "utterances": [
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ]
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "ssml": "Sales chart",
@@ -2115,12 +1270,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "figure"
-        ]
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "ssml": "Start of the figure.",
@@ -2138,183 +1347,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "figure"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ]
         },
         {
-          "ssml": "Sales chart"
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "End of the figure."
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "figure"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "figure"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "figure"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "figure"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "figure"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "figure"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "image"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "Image.",
@@ -2329,163 +1421,74 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Image.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image"
+          ]
         },
         {
-          "ssml": "Sales chart"
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Image.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Image.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Image.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Image.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Image.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Image.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "figure",
-          "image"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the figure.",
@@ -2506,211 +1509,148 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "image"
+          ]
         },
         {
-          "ssml": "Image."
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Sales chart"
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "End of the figure."
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Image."
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Image."
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Image."
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Image."
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Image."
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Image."
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
@@ -2718,140 +1658,180 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure"
-        ]
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ]
         },
         {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "End of the figure."
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the figure.",
@@ -2866,1338 +1846,664 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ]
         },
         {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "End of the figure."
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image",
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ]
-      },
-      "utterances": [
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ]
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image",
-          "figure"
-        ],
-        "contextualize": [
-          "figure",
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": []
     }
   ]

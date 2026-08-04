@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "A structure that contains an enumeration of related content items.",
@@ -12,12 +14,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "glossary"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Start of the glossary.",
@@ -32,159 +88,11 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "glossary"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the glossary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "A structure that contains an enumeration of related content items."
-        },
-        {
-          "plain": "End of the glossary."
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "glossary"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the glossary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "A structure that contains an enumeration of related content items."
-        },
-        {
-          "plain": "End of the glossary."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "glossary"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the glossary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "A structure that contains an enumeration of related content items."
-        },
-        {
-          "plain": "End of the glossary."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "glossary"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the glossary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "A structure that contains an enumeration of related content items."
-        },
-        {
-          "plain": "End of the glossary."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "glossary"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the glossary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "A structure that contains an enumeration of related content items."
-        },
-        {
-          "plain": "End of the glossary."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "glossary"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the glossary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "A structure that contains an enumeration of related content items."
-        },
-        {
-          "plain": "End of the glossary."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "glossary"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the glossary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "A structure that contains an enumeration of related content items."
-        },
-        {
-          "plain": "End of the glossary."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "ssml": "A structure that contains an enumeration of related content items.",
@@ -193,162 +101,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "glossary"
-        ]
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the glossary.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "glossary"
+          ]
         },
         {
-          "ssml": "A structure that contains an enumeration of related content items."
+          "format": "ssml",
+          "contextualize": [
+            "glossary"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "End of the glossary."
+          "format": "ssml",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "glossary"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the glossary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "A structure that contains an enumeration of related content items."
-        },
-        {
-          "ssml": "End of the glossary."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "glossary"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the glossary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "A structure that contains an enumeration of related content items."
-        },
-        {
-          "ssml": "End of the glossary."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "glossary"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the glossary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "A structure that contains an enumeration of related content items."
-        },
-        {
-          "ssml": "End of the glossary."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "glossary"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the glossary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "A structure that contains an enumeration of related content items."
-        },
-        {
-          "ssml": "End of the glossary."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "glossary"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the glossary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "A structure that contains an enumeration of related content items."
-        },
-        {
-          "ssml": "End of the glossary."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "glossary"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the glossary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "A structure that contains an enumeration of related content items."
-        },
-        {
-          "ssml": "End of the glossary."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "glossary"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the glossary.",

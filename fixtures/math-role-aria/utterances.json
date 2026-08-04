@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "x squared plus y squared equals z squared"
@@ -11,9 +13,11 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml"
-      },
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
       "utterances": [
         {
           "ssml": "x squared plus y squared equals z squared"

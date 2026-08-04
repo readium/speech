@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
@@ -12,9 +14,11 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml"
-      },
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
       "utterances": [
         {
           "ssml": "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",

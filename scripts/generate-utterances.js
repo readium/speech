@@ -8,8 +8,9 @@ const FIXTURES_DIR = path.join(__dirname, "../fixtures");
 // Regenerates every fixture's utterances.json from its gnd.json, using the
 // real @readium/speech build. `npm run build` first.
 //
-// A case is only stored when it diverges from that fixture's default —
-// unlisted in-scope combinations are implicitly the default (fixtures/README.md).
+// A case is only stored when it diverges from that fixture's default, and option-sets
+// producing identical output share one case — unlisted in-scope combinations are
+// implicitly the default (fixtures/README.md).
 let mod;
 try {
   mod = await import("../build/index.js");
@@ -90,7 +91,11 @@ for (const id of ids) {
   const cases = [];
   for (const format of ["plain", "ssml"]) {
     const defaultUtterances = extractUtterances(nodes, { format });
-    cases.push({ options: { format }, utterances: defaultUtterances });
+    cases.push({ options: [{ format }], utterances: defaultUtterances });
+
+    // Groups diverging combinations by their resulting utterances, so option-sets that
+    // produce byte-identical output share one entry instead of repeating the payload.
+    const groups = new Map();
 
     for (const skip of skipSubsets) {
       for (const contextualize of contextualizeSubsets) {
@@ -107,12 +112,20 @@ for (const id of ids) {
 
             const utterances = extractUtterances(nodes, options);
             if (!sameUtterances(utterances, defaultUtterances)) {
-              cases.push({ options, utterances });
+              const key = JSON.stringify(sortKeysDeep(utterances));
+              const group = groups.get(key);
+              if (group) {
+                group.options.push(options);
+              } else {
+                groups.set(key, { options: [options], utterances });
+              }
             }
           }
         }
       }
     }
+
+    cases.push(...groups.values());
   }
 
   writeFileSync(path.join(dir, "utterances.json"), JSON.stringify({ cases }, null, 2) + "\n");

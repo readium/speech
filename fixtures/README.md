@@ -94,19 +94,24 @@ fixture's markup exercises, so that coverage tracking in
 Stage 2 (GND → utterances) takes options controlling *how* a fixed GND tree
 is turned into utterances — the tree itself never changes shape based on
 these; only the resulting utterance list does. `utterances.json` is a flat
-list of cases, each a full `ExtractUtterancesOptions` object (`format`
-included) paired with the utterance list that combination produces:
+list of cases, each pairing an utterance list with every full
+`ExtractUtterancesOptions` object (`format` included) that produces it —
+option-sets that produce identical output share one case instead of
+repeating the payload:
 
 ```jsonc
 {
   "cases": [
     {
-      "options": { "format": "plain" },
+      "options": [{ "format": "plain" }],
       "utterances": [ /* the default: no skip/contextualize/language/inlineContextualization */ ]
     },
     {
-      "options": { "format": "plain", "skip": ["footnote"] },
-      "utterances": [ /* differs from the default above */ ]
+      "options": [
+        { "format": "plain", "skip": ["footnote"] },
+        { "format": "plain", "skip": ["footnote"], "language": "none" }
+      ],
+      "utterances": [ /* shared result for both option-sets above, differs from the default */ ]
     }
   ]
 }
@@ -114,9 +119,10 @@ included) paired with the utterance list that combination produces:
 
 **A case is only present when its options produce output different from
 that fixture's default** — the bare `{ format }` call, always the first
-case for each format. An option combination *within scope* (below) that
-has no case is understood to equal the default: absence is a positive
-claim, not a gap. Outside that scope, a fixture makes no claim either way.
+case for each format (as a single-element `options` array). An option
+combination *within scope* (below) that appears in no case's `options` is
+understood to equal the default: absence is a positive claim, not a gap.
+Outside that scope, a fixture makes no claim either way.
 
 Scope, per format: `language` × `inlineContextualization` × every subset of
 (this fixture's roles ∩ [roles.md's skippable-roles list]) × every subset

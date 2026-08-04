@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "Tip: wind the mechanism fully before dusk.",
@@ -12,12 +14,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "tip"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "tip"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "tip"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Tip.",
@@ -29,138 +85,11 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "tip"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Tip.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Tip: wind the mechanism fully before dusk."
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "tip"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Tip.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Tip: wind the mechanism fully before dusk."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "tip"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Tip.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Tip: wind the mechanism fully before dusk."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "tip"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Tip.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Tip: wind the mechanism fully before dusk."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "tip"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Tip.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Tip: wind the mechanism fully before dusk."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "tip"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Tip.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Tip: wind the mechanism fully before dusk."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "tip"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Tip.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Tip: wind the mechanism fully before dusk."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "ssml": "Tip: wind the mechanism fully before dusk.",
@@ -169,141 +98,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "tip"
-        ]
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Tip.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "tip"
+          ]
         },
         {
-          "ssml": "Tip: wind the mechanism fully before dusk."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "tip"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Tip.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "tip"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Tip: wind the mechanism fully before dusk."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "tip"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Tip.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "Tip: wind the mechanism fully before dusk."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "tip"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Tip.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Tip: wind the mechanism fully before dusk."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "tip"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Tip.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "Tip: wind the mechanism fully before dusk."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "tip"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Tip.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Tip: wind the mechanism fully before dusk."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "tip"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Tip.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "none"
         },
         {
-          "ssml": "Tip: wind the mechanism fully before dusk."
+          "format": "ssml",
+          "contextualize": [
+            "tip"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "tip"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "ssml": "Tip.",

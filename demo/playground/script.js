@@ -339,12 +339,13 @@ function normalizeOptions(options) {
 }
 
 // Unlisted in-scope combinations mean "equals the default" (fixtures/README.md).
+// Each case now lists every option-set sharing its result (see fixtures/README.md).
 function matchingExpected(utterances, options) {
   const cases = utterances.cases ?? [];
   const target = normalizeOptions(options);
-  const exact = cases.find((c) => deepEqual(normalizeOptions(c.options), target));
+  const exact = cases.find((c) => c.options.some((o) => deepEqual(normalizeOptions(o), target)));
   if (exact) return exact.utterances;
-  const defaultCase = cases.find((c) => deepEqual(c.options, { format: options.format }));
+  const defaultCase = cases.find((c) => c.options.some((o) => deepEqual(o, { format: options.format })));
   return defaultCase?.utterances;
 }
 

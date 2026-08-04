@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "Fresnel lens",
@@ -16,12 +18,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "index"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "index"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "index"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "index"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "index"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "index"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "index"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "index"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Start of the index.",
@@ -40,190 +96,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ]
         },
         {
-          "plain": "Fresnel lens"
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Keepers",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always"
         },
         {
-          "plain": "End of the index."
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "Start of the list.",
@@ -242,191 +174,74 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "list"
+          ]
         },
         {
-          "plain": "Fresnel lens"
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "list"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Keepers",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "list"
+          ],
+          "language": "always"
         },
         {
-          "plain": "End of the list."
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "list"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "Start of the index.",
@@ -451,239 +266,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "list"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ]
         },
         {
-          "plain": "Start of the list."
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Fresnel lens"
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always"
         },
         {
-          "plain": "Keepers",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "End of the list."
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level"
         },
         {
-          "plain": "End of the index."
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "list"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Start of the list."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "list"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Start of the list."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "list"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Start of the list."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "list"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Start of the list."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "list"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Start of the list."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "list"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Start of the list."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "listItem"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "List item.",
@@ -702,191 +344,74 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "listItem"
+          ]
         },
         {
-          "plain": "Fresnel lens"
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "listItem"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "listItem"
+          ],
+          "language": "always"
         },
         {
-          "plain": "Keepers"
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "listItem"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "Start of the index.",
@@ -911,240 +436,74 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
         },
         {
-          "plain": "List item."
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Fresnel lens"
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "Keepers"
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
         },
         {
-          "plain": "End of the index."
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list",
-          "listItem"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "Start of the list.",
@@ -1169,241 +528,82 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "list",
+            "listItem"
+          ]
         },
         {
-          "plain": "List item."
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Fresnel lens"
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "list",
+            "listItem"
+          ],
+          "language": "always"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "Keepers"
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
         },
         {
-          "plain": "End of the list."
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "index",
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "list",
-          "listItem"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "Start of the index.",
@@ -1434,285 +634,11 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "list",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Start of the list."
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the index."
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "list",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Start of the list."
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "list",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Start of the list."
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "list",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Start of the list."
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "list",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Start of the list."
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "list",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Start of the list."
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "index",
-          "list",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Start of the list."
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Fresnel lens"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Keepers"
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "ssml": "Fresnel lens",
@@ -1725,12 +651,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index"
-        ]
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "ssml": "Start of the index.",
@@ -1749,190 +729,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ]
         },
         {
-          "ssml": "Fresnel lens"
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Keepers",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "End of the index."
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the list.",
@@ -1951,191 +807,74 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "list"
+          ]
         },
         {
-          "ssml": "Fresnel lens"
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "list"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Keepers",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "list"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "End of the list."
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "list"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the index.",
@@ -2160,239 +899,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "list"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ]
         },
         {
-          "ssml": "Start of the list."
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Fresnel lens"
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "Keepers",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "End of the list."
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "End of the index."
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "list"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Start of the list."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "list"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Start of the list."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "list"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Start of the list."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "list"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Start of the list."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "list"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Start of the list."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "list"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Start of the list."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "Keepers",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "listItem"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "List item.",
@@ -2411,191 +977,74 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "listItem"
+          ]
         },
         {
-          "ssml": "Fresnel lens"
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "listItem"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "listItem"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "Keepers"
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "listItem"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the index.",
@@ -2620,240 +1069,74 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
         },
         {
-          "ssml": "List item."
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Fresnel lens"
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Keepers"
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "End of the index."
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list",
-          "listItem"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the list.",
@@ -2878,517 +1161,82 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "list",
+            "listItem"
+          ]
         },
         {
-          "ssml": "List item."
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Fresnel lens"
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "list",
+            "listItem"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Keepers"
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "End of the list."
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "index",
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "list",
-          "listItem"
-        ]
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Start of the list."
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "list",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Start of the list."
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "list",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Start of the list."
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "list",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Start of the list."
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "list",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Start of the list."
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "list",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Start of the list."
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "list",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Start of the list."
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Fresnel lens"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Keepers"
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the index."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "index",
-          "list",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the index.",

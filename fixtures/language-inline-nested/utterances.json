@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "Start",
@@ -29,10 +31,17 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
+      "options": [
+        {
+          "format": "plain",
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "language": "en",
@@ -42,24 +51,17 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "language": "en",
-          "plain": "Start middle nested end after.",
-          "startsNewBlock": true
+          "format": "plain",
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
+      ],
       "utterances": [
         {
           "plain": "Start middle nested end after.",
@@ -68,22 +70,11 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start middle nested end after.",
-          "startsNewBlock": true
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "language": "en",
@@ -93,10 +84,17 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "language": "en",
@@ -106,37 +104,17 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "language": "en",
-          "ssml": "Start middle nested end after.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
-      "utterances": [
+          "format": "ssml",
+          "language": "none"
+        },
         {
-          "ssml": "Start middle nested end after.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start middle nested end after.",

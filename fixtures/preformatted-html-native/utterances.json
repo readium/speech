@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "10 PRINT \"HELLO\" 20 GOTO 10",
@@ -12,12 +14,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "preformatted"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "preformatted"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "preformatted"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "preformatted"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "preformatted"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "preformatted"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "preformatted"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "preformatted"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "preformatted"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Start of the preformatted text.",
@@ -32,159 +88,11 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "preformatted"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the preformatted text.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "10 PRINT \"HELLO\" 20 GOTO 10"
-        },
-        {
-          "plain": "End of the preformatted text."
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "preformatted"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the preformatted text.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "10 PRINT \"HELLO\" 20 GOTO 10"
-        },
-        {
-          "plain": "End of the preformatted text."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "preformatted"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the preformatted text.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "10 PRINT \"HELLO\" 20 GOTO 10"
-        },
-        {
-          "plain": "End of the preformatted text."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "preformatted"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the preformatted text.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "10 PRINT \"HELLO\" 20 GOTO 10"
-        },
-        {
-          "plain": "End of the preformatted text."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "preformatted"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the preformatted text.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "10 PRINT \"HELLO\" 20 GOTO 10"
-        },
-        {
-          "plain": "End of the preformatted text."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "preformatted"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the preformatted text.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "10 PRINT \"HELLO\" 20 GOTO 10"
-        },
-        {
-          "plain": "End of the preformatted text."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "preformatted"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the preformatted text.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "10 PRINT \"HELLO\" 20 GOTO 10"
-        },
-        {
-          "plain": "End of the preformatted text."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "ssml": "10 PRINT \"HELLO\" 20 GOTO 10",
@@ -193,162 +101,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "preformatted"
-        ]
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the preformatted text.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "preformatted"
+          ]
         },
         {
-          "ssml": "10 PRINT \"HELLO\" 20 GOTO 10"
+          "format": "ssml",
+          "contextualize": [
+            "preformatted"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "End of the preformatted text."
+          "format": "ssml",
+          "contextualize": [
+            "preformatted"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "preformatted"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "preformatted"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "preformatted"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "preformatted"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "preformatted"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "preformatted"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the preformatted text.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "10 PRINT \"HELLO\" 20 GOTO 10"
-        },
-        {
-          "ssml": "End of the preformatted text."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "preformatted"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the preformatted text.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "10 PRINT \"HELLO\" 20 GOTO 10"
-        },
-        {
-          "ssml": "End of the preformatted text."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "preformatted"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the preformatted text.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "10 PRINT \"HELLO\" 20 GOTO 10"
-        },
-        {
-          "ssml": "End of the preformatted text."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "preformatted"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the preformatted text.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "10 PRINT \"HELLO\" 20 GOTO 10"
-        },
-        {
-          "ssml": "End of the preformatted text."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "preformatted"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the preformatted text.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "10 PRINT \"HELLO\" 20 GOTO 10"
-        },
-        {
-          "ssml": "End of the preformatted text."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "preformatted"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the preformatted text.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "10 PRINT \"HELLO\" 20 GOTO 10"
-        },
-        {
-          "ssml": "End of the preformatted text."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "preformatted"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the preformatted text.",

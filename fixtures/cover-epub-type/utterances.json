@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "Lighthouses of the Atlantic, by J. Smith",
@@ -12,12 +14,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "cover"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "cover"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "cover"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "cover"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "cover"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "cover"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "cover"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "cover"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "cover"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Cover.",
@@ -29,141 +85,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "cover"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ]
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "cover"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "cover"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "cover"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "cover"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "cover"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "cover"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "image"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "Image.",
@@ -175,142 +156,74 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Image.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "cover",
+            "image"
+          ]
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Image.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Image.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "always"
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Image.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Image.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "block-level"
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Image.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Image.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "none"
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
+          "format": "plain",
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "cover",
-          "image"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "Cover.",
@@ -325,254 +238,325 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "image"
+          ]
         },
         {
-          "plain": "Image."
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "always"
         },
         {
-          "plain": "Image."
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level"
         },
         {
-          "plain": "Image."
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "none"
         },
         {
-          "plain": "Image."
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ]
         },
         {
-          "plain": "Image."
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
         },
         {
-          "plain": "Image."
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
         },
         {
-          "plain": "Image."
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ]
-      },
+      ],
       "utterances": []
     },
     {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover",
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Cover.",
@@ -581,398 +565,11 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover",
-          "image"
-        ]
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "ssml": "Lighthouses of the Atlantic, by J. Smith",
@@ -981,12 +578,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "cover"
-        ]
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "cover"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "cover"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "cover"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "cover"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "cover"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "cover"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "cover"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "cover"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "ssml": "Cover.",
@@ -998,141 +649,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "cover"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ]
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "cover"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "cover"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "cover"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "cover"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "cover"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "cover"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "image"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "Image.",
@@ -1144,142 +720,74 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Image.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "cover",
+            "image"
+          ]
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Image.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Image.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Image.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Image.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Image.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Image.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "none"
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
+          "format": "ssml",
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "cover",
-          "image"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "Cover.",
@@ -1294,643 +802,325 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "image"
+          ]
         },
         {
-          "ssml": "Image."
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "Image."
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "Image."
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "none"
         },
         {
-          "ssml": "Image."
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ]
         },
         {
-          "ssml": "Image."
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "Image."
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "Image."
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover"
-        ]
-      },
-      "utterances": [
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
         {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ]
-      },
+      ],
       "utterances": []
     },
     {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover",
-          "image"
-        ]
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ]
+        },
         {
-          "ssml": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "always"
-      },
-      "utterances": [
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "inlineContextualization": true
+        },
         {
-          "ssml": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "language": "always"
+        },
         {
-          "ssml": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
         {
-          "ssml": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "language": "block-level"
+        },
         {
-          "ssml": "Cover.",
-          "startsNewBlock": true
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "none"
-      },
-      "utterances": [
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
         {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover",
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "image"
-        ],
-        "contextualize": [
-          "cover",
-          "image"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "ssml": "Cover.",

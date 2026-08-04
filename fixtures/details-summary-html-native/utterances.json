@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "Click to expand",
@@ -15,85 +17,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "details"
-        ]
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the details."
+          "format": "plain",
+          "contextualize": [
+            "details"
+          ]
         },
         {
-          "plain": "Click to expand",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "details"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Additional details the reader can expand."
+          "format": "plain",
+          "contextualize": [
+            "details"
+          ],
+          "language": "always"
         },
         {
-          "plain": "End of the details."
+          "format": "plain",
+          "contextualize": [
+            "details"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "details"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "details"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "details"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "details"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "details"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the details."
-        },
-        {
-          "plain": "Click to expand",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        },
-        {
-          "plain": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "details"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the details."
-        },
-        {
-          "plain": "Click to expand",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        },
-        {
-          "plain": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "details"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "plain": "Start of the details."
@@ -111,110 +94,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "details"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the details."
+          "format": "plain",
+          "contextualize": [
+            "summary"
+          ]
         },
         {
-          "plain": "Click to expand",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "summary"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Additional details the reader can expand."
+          "format": "plain",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "always"
         },
         {
-          "plain": "End of the details."
+          "format": "plain",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "details"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the details."
-        },
-        {
-          "plain": "Click to expand",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        },
-        {
-          "plain": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "details"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the details."
-        },
-        {
-          "plain": "Click to expand",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        },
-        {
-          "plain": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "details"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the details."
-        },
-        {
-          "plain": "Click to expand",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        },
-        {
-          "plain": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "summary"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "Summary.",
@@ -229,163 +168,74 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "summary"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Summary.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "details",
+            "summary"
+          ]
         },
         {
-          "plain": "Click to expand"
+          "format": "plain",
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Additional details the reader can expand."
+          "format": "plain",
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "details",
-          "summary"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "Start of the details."
@@ -406,616 +256,328 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the details."
+          "format": "plain",
+          "skip": [
+            "details"
+          ]
         },
         {
-          "plain": "Summary.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Click to expand"
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "language": "always"
         },
         {
-          "plain": "Additional details the reader can expand."
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "End of the details."
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "summary"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "summary"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "summary"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "summary"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "summary"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "summary"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "summary"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "summary"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details",
+            "summary"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
+      ],
+      "utterances": []
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the details."
-        },
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        },
-        {
-          "plain": "End of the details."
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the details."
-        },
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        },
-        {
-          "plain": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the details."
-        },
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        },
-        {
-          "plain": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the details."
-        },
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        },
-        {
-          "plain": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the details."
-        },
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        },
-        {
-          "plain": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the details."
-        },
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        },
-        {
-          "plain": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "summary"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "summary"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "summary"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "summary"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "summary"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "summary"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "summary"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "summary"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details",
-          "summary"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "ssml": "Click to expand",
@@ -1027,12 +589,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "details"
-        ]
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "ssml": "Start of the details."
@@ -1050,183 +666,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "details"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the details."
+          "format": "ssml",
+          "contextualize": [
+            "summary"
+          ]
         },
         {
-          "ssml": "Click to expand",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "summary"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Additional details the reader can expand."
+          "format": "ssml",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "End of the details."
+          "format": "ssml",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "details"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the details."
-        },
-        {
-          "ssml": "Click to expand",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "details"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the details."
-        },
-        {
-          "ssml": "Click to expand",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "details"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the details."
-        },
-        {
-          "ssml": "Click to expand",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "details"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the details."
-        },
-        {
-          "ssml": "Click to expand",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "details"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the details."
-        },
-        {
-          "ssml": "Click to expand",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "details"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the details."
-        },
-        {
-          "ssml": "Click to expand",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "summary"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "Summary.",
@@ -1241,163 +740,74 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "summary"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Summary.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "details",
+            "summary"
+          ]
         },
         {
-          "ssml": "Click to expand"
+          "format": "ssml",
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Additional details the reader can expand."
+          "format": "ssml",
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Click to expand"
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Click to expand"
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Click to expand"
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Click to expand"
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Click to expand"
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Click to expand"
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "details",
-          "summary"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the details."
@@ -1418,610 +828,320 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the details."
+          "format": "ssml",
+          "skip": [
+            "details"
+          ]
         },
         {
-          "ssml": "Summary.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Click to expand"
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "Additional details the reader can expand."
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "End of the details."
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "summary"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "summary"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "summary"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "summary"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "summary"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "summary"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "summary"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "summary"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details",
+            "summary"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the details."
-        },
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Click to expand"
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the details."
-        },
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Click to expand"
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the details."
-        },
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Click to expand"
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the details."
-        },
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Click to expand"
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the details."
-        },
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Click to expand"
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the details."
-        },
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Click to expand"
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "summary"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "summary"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "summary"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "summary"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "summary"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "summary"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "summary"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "summary"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details",
-          "summary"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ],
-        "contextualize": [
-          "details",
-          "summary"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": []
     }
   ]

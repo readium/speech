@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "lighthouse"
@@ -11,12 +13,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "term"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Term."
@@ -27,131 +83,11 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "term"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Term."
-        },
-        {
-          "plain": "lighthouse"
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "term"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Term."
-        },
-        {
-          "plain": "lighthouse"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "term"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Term."
-        },
-        {
-          "plain": "lighthouse"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "term"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Term."
-        },
-        {
-          "plain": "lighthouse"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "term"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Term."
-        },
-        {
-          "plain": "lighthouse"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "term"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Term."
-        },
-        {
-          "plain": "lighthouse"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "term"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Term."
-        },
-        {
-          "plain": "lighthouse"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "ssml": "lighthouse"
@@ -159,134 +95,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "term"
-        ]
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Term."
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ]
         },
         {
-          "ssml": "lighthouse"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "term"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Term."
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "lighthouse"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "term"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Term."
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "lighthouse"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "term"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Term."
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "lighthouse"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "term"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Term."
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "lighthouse"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "term"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Term."
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "lighthouse"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "term"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Term."
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none"
         },
         {
-          "ssml": "lighthouse"
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "term"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "ssml": "Term."

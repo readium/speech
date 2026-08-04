@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "Click to expand",
@@ -12,12 +14,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "summary"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "summary"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "summary"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Summary.",
@@ -29,138 +85,11 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "summary"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Summary.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Click to expand"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "ssml": "Click to expand",
@@ -169,141 +98,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "summary"
-        ]
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Summary.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "summary"
+          ]
         },
         {
-          "ssml": "Click to expand"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "summary"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "summary"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Click to expand"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "Click to expand"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Click to expand"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "Click to expand"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Click to expand"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Summary.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "none"
         },
         {
-          "ssml": "Click to expand"
+          "format": "ssml",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "summary"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "ssml": "Summary.",

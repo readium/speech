@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "Set in Georgia, 11pt, on recycled paper.",
@@ -12,12 +14,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "colophon"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "colophon"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "colophon"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "colophon"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "colophon"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "colophon"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "colophon"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "colophon"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "colophon"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Colophon.",
@@ -29,138 +85,11 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "colophon"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Colophon.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Set in Georgia, 11pt, on recycled paper."
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "colophon"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Colophon.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Set in Georgia, 11pt, on recycled paper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "colophon"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Colophon.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Set in Georgia, 11pt, on recycled paper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "colophon"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Colophon.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Set in Georgia, 11pt, on recycled paper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "colophon"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Colophon.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Set in Georgia, 11pt, on recycled paper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "colophon"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Colophon.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Set in Georgia, 11pt, on recycled paper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "colophon"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Colophon.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Set in Georgia, 11pt, on recycled paper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "ssml": "Set in Georgia, 11pt, on recycled paper.",
@@ -169,141 +98,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "colophon"
-        ]
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Colophon.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "colophon"
+          ]
         },
         {
-          "ssml": "Set in Georgia, 11pt, on recycled paper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "colophon"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Colophon.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "colophon"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Set in Georgia, 11pt, on recycled paper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "colophon"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Colophon.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "colophon"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "Set in Georgia, 11pt, on recycled paper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "colophon"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Colophon.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "colophon"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Set in Georgia, 11pt, on recycled paper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "colophon"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Colophon.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "colophon"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "Set in Georgia, 11pt, on recycled paper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "colophon"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Colophon.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "colophon"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Set in Georgia, 11pt, on recycled paper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "colophon"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Colophon.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "colophon"
+          ],
+          "language": "none"
         },
         {
-          "ssml": "Set in Georgia, 11pt, on recycled paper."
+          "format": "ssml",
+          "contextualize": [
+            "colophon"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "colophon"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "ssml": "Colophon.",

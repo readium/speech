@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "Chapter One",
@@ -20,100 +22,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc"
-        ]
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the table of contents."
+          "format": "plain",
+          "contextualize": [
+            "toc"
+          ]
         },
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "toc"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "toc"
+          ],
+          "language": "always"
         },
         {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "toc"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "End of the table of contents."
+          "format": "plain",
+          "contextualize": [
+            "toc"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "toc"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "toc"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "toc"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "Chapter One",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "Chapter One",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "plain": "Start of the table of contents."
@@ -136,130 +104,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the table of contents."
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ]
         },
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always"
         },
         {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "End of the table of contents."
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "Chapter One",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "Chapter One",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "Chapter One",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "Start of the list.",
@@ -282,219 +186,74 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "list"
+          ]
         },
         {
-          "plain": "Chapter One"
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "always"
         },
         {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "End of the list."
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "list"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "Start of the table of contents."
@@ -523,267 +282,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the table of contents."
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ]
         },
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Chapter One"
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always"
         },
         {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level"
         },
         {
-          "plain": "End of the list."
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "plain": "End of the table of contents."
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "listItem"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "List item.",
@@ -809,240 +367,74 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "listItem"
+          ]
         },
         {
-          "plain": "Chapter One"
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "always"
         },
         {
-          "plain": "Chapter Two"
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "block-level"
         },
         {
-          "plain": "Chapter Three"
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "listItem"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "Start of the table of contents."
@@ -1074,289 +466,74 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the table of contents."
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Chapter One"
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "Chapter Two"
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "plain": "Chapter Three"
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
         },
         {
-          "plain": "End of the table of contents."
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list",
-          "listItem"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "Start of the list.",
@@ -1388,290 +565,82 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ]
         },
         {
-          "plain": "List item."
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Chapter One"
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "always"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "Chapter Two"
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "plain": "Chapter Three"
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "none"
         },
         {
-          "plain": "End of the list."
+          "format": "plain",
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ]
-      },
+      ],
       "utterances": [
         {
           "plain": "Start of the table of contents."
@@ -1709,1198 +678,688 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the table of contents."
+          "format": "plain",
+          "skip": [
+            "toc"
+          ]
         },
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "List item."
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "language": "always"
         },
         {
-          "plain": "Chapter One"
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "language": "block-level"
         },
         {
-          "plain": "Chapter Two"
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "language": "none"
         },
         {
-          "plain": "Chapter Three"
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         },
         {
-          "plain": "End of the list."
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc"
+          ]
         },
         {
-          "plain": "End of the table of contents."
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
+      ],
+      "utterances": []
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the table of contents."
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the table of contents."
-        },
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "List item."
-        },
-        {
-          "plain": "Chapter One"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Two"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the list."
-        },
-        {
-          "plain": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "listItem"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "listItem"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list",
-          "listItem"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "ssml": "Chapter One",
@@ -2917,12 +1376,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc"
-        ]
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "toc"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "toc"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "toc"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "toc"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "toc"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "toc"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "toc"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "toc"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "ssml": "Start of the table of contents."
@@ -2945,218 +1458,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the table of contents."
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ]
         },
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "End of the table of contents."
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the list.",
@@ -3179,219 +1540,74 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "list"
+          ]
         },
         {
-          "ssml": "Chapter One"
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "End of the list."
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "list"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the table of contents."
@@ -3420,267 +1636,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the table of contents."
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ]
         },
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Chapter One"
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "End of the list."
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "End of the table of contents."
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "Chapter Two",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "listItem"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "List item.",
@@ -3706,240 +1721,74 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "listItem"
+          ]
         },
         {
-          "ssml": "Chapter One"
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "Chapter Two"
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "Chapter Three"
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "listItem"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the table of contents."
@@ -3971,289 +1820,74 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the table of contents."
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Chapter One"
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Chapter Two"
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Chapter Three"
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
         },
         {
-          "ssml": "End of the table of contents."
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list",
-          "listItem"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the list.",
@@ -4285,290 +1919,82 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ]
         },
         {
-          "ssml": "List item."
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Chapter One"
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Chapter Two"
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Chapter Three"
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "none"
         },
         {
-          "ssml": "End of the list."
+          "format": "ssml",
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the list."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ]
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the table of contents."
@@ -4606,1192 +2032,680 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the table of contents."
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ]
         },
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "List item."
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "Chapter One"
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "Chapter Two"
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "language": "none"
         },
         {
-          "ssml": "Chapter Three"
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         },
         {
-          "ssml": "End of the list."
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc"
+          ]
         },
         {
-          "ssml": "End of the table of contents."
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "toc"
+          ],
+          "contextualize": [
+            "toc",
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the table of contents."
-        },
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "List item."
-        },
-        {
-          "ssml": "Chapter One"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Two"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the list."
-        },
-        {
-          "ssml": "End of the table of contents."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "listItem"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "listItem"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list",
-          "listItem"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "list",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ]
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "always"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "block-level"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "none"
-      },
-      "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "toc"
-        ],
-        "contextualize": [
-          "toc",
-          "list",
-          "listItem"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": []
     }
   ]

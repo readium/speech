@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "For instance, a Fresnel lens focuses light into a narrow beam.",
@@ -12,12 +14,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "example"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "example"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "example"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "example"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "example"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "example"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "example"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "example"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "example"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Example.",
@@ -29,138 +85,11 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "example"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Example.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "example"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Example.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "example"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Example.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "example"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Example.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "example"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Example.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "example"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Example.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "example"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Example.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "ssml": "For instance, a Fresnel lens focuses light into a narrow beam.",
@@ -169,141 +98,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "example"
-        ]
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Example.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "example"
+          ]
         },
         {
-          "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "example"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Example.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "example"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "example"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Example.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "example"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "example"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Example.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "example"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "example"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Example.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "example"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "example"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Example.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "example"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "example"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Example.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "example"
+          ],
+          "language": "none"
         },
         {
-          "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
+          "format": "ssml",
+          "contextualize": [
+            "example"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "example"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "ssml": "Example.",

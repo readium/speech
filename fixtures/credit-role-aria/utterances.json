@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "Cover photograph by A. Keeper."
@@ -11,12 +13,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "credit"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "credit"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credit"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Credit."
@@ -27,131 +83,11 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "credit"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Credit."
-        },
-        {
-          "plain": "Cover photograph by A. Keeper."
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "credit"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Credit."
-        },
-        {
-          "plain": "Cover photograph by A. Keeper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "credit"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Credit."
-        },
-        {
-          "plain": "Cover photograph by A. Keeper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "credit"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Credit."
-        },
-        {
-          "plain": "Cover photograph by A. Keeper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "credit"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Credit."
-        },
-        {
-          "plain": "Cover photograph by A. Keeper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "credit"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Credit."
-        },
-        {
-          "plain": "Cover photograph by A. Keeper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "credit"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Credit."
-        },
-        {
-          "plain": "Cover photograph by A. Keeper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "ssml": "Cover photograph by A. Keeper."
@@ -159,134 +95,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "credit"
-        ]
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Credit."
+          "format": "ssml",
+          "contextualize": [
+            "credit"
+          ]
         },
         {
-          "ssml": "Cover photograph by A. Keeper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "credit"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Credit."
+          "format": "ssml",
+          "contextualize": [
+            "credit"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Cover photograph by A. Keeper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "credit"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Credit."
+          "format": "ssml",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "always"
         },
         {
-          "ssml": "Cover photograph by A. Keeper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "credit"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Credit."
+          "format": "ssml",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Cover photograph by A. Keeper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "credit"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Credit."
+          "format": "ssml",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "Cover photograph by A. Keeper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "credit"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Credit."
+          "format": "ssml",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Cover photograph by A. Keeper."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "credit"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Credit."
+          "format": "ssml",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "none"
         },
         {
-          "ssml": "Cover photograph by A. Keeper."
+          "format": "ssml",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "credit"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "ssml": "Credit."

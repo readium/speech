@@ -1,9 +1,11 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "To be, or not to be, that is the question.",
@@ -12,12 +14,66 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "blockquote"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "blockquote"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "blockquote"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "blockquote"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "blockquote"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "blockquote"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "blockquote"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "blockquote"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "blockquote"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Start of the quote.",
@@ -32,159 +88,11 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "blockquote"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the quote.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "To be, or not to be, that is the question."
-        },
-        {
-          "plain": "End of the quote."
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "blockquote"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the quote.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "To be, or not to be, that is the question."
-        },
-        {
-          "plain": "End of the quote."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "blockquote"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the quote.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "To be, or not to be, that is the question."
-        },
-        {
-          "plain": "End of the quote."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "blockquote"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the quote.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "To be, or not to be, that is the question."
-        },
-        {
-          "plain": "End of the quote."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "blockquote"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the quote.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "To be, or not to be, that is the question."
-        },
-        {
-          "plain": "End of the quote."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "blockquote"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the quote.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "To be, or not to be, that is the question."
-        },
-        {
-          "plain": "End of the quote."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "contextualize": [
-          "blockquote"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "plain": "Start of the quote.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "To be, or not to be, that is the question."
-        },
-        {
-          "plain": "End of the quote."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "ssml": "To be, or not to be, that is the question.",
@@ -193,162 +101,66 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "blockquote"
-        ]
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "Start of the quote.",
-          "startsNewBlock": true
+          "format": "ssml",
+          "contextualize": [
+            "blockquote"
+          ]
         },
         {
-          "ssml": "To be, or not to be, that is the question."
+          "format": "ssml",
+          "contextualize": [
+            "blockquote"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "End of the quote."
+          "format": "ssml",
+          "contextualize": [
+            "blockquote"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "blockquote"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "blockquote"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "blockquote"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "blockquote"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "blockquote"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "blockquote"
-        ],
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the quote.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "To be, or not to be, that is the question."
-        },
-        {
-          "ssml": "End of the quote."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "blockquote"
-        ],
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the quote.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "To be, or not to be, that is the question."
-        },
-        {
-          "ssml": "End of the quote."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "blockquote"
-        ],
-        "language": "always",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the quote.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "To be, or not to be, that is the question."
-        },
-        {
-          "ssml": "End of the quote."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "blockquote"
-        ],
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the quote.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "To be, or not to be, that is the question."
-        },
-        {
-          "ssml": "End of the quote."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "blockquote"
-        ],
-        "language": "block-level",
-        "inlineContextualization": true
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the quote.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "To be, or not to be, that is the question."
-        },
-        {
-          "ssml": "End of the quote."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "blockquote"
-        ],
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the quote.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "To be, or not to be, that is the question."
-        },
-        {
-          "ssml": "End of the quote."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": [
-          "blockquote"
-        ],
-        "language": "none",
-        "inlineContextualization": true
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the quote.",
