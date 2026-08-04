@@ -8,16 +8,13 @@
       ],
       "utterances": [
         {
-          "plain": "Page 1",
-          "startsNewBlock": true
+          "plain": "Page 1"
         },
         {
-          "plain": "Page 2",
-          "startsNewBlock": true
+          "plain": "Page 2"
         },
         {
-          "plain": "Page 3",
-          "startsNewBlock": true
+          "plain": "Page 3"
         }
       ]
     },
@@ -87,16 +84,13 @@
           "plain": "Start of the page list."
         },
         {
-          "plain": "Page 1",
-          "startsNewBlock": true
+          "plain": "Page 1"
         },
         {
-          "plain": "Page 2",
-          "startsNewBlock": true
+          "plain": "Page 2"
         },
         {
-          "plain": "Page 3",
-          "startsNewBlock": true
+          "plain": "Page 3"
         },
         {
           "plain": "End of the page list."
@@ -166,19 +160,16 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "plain": "Start of the list."
         },
         {
           "plain": "Page 1"
         },
         {
-          "plain": "Page 2",
-          "startsNewBlock": true
+          "plain": "Page 2"
         },
         {
-          "plain": "Page 3",
-          "startsNewBlock": true
+          "plain": "Page 3"
         },
         {
           "plain": "End of the list."
@@ -259,19 +250,16 @@
           "plain": "Start of the page list."
         },
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "plain": "Start of the list."
         },
         {
           "plain": "Page 1"
         },
         {
-          "plain": "Page 2",
-          "startsNewBlock": true
+          "plain": "Page 2"
         },
         {
-          "plain": "Page 3",
-          "startsNewBlock": true
+          "plain": "Page 3"
         },
         {
           "plain": "End of the list."
@@ -344,22 +332,19 @@
       ],
       "utterances": [
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Page 1"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Page 2"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Page 3"
@@ -438,106 +423,6 @@
       "utterances": [
         {
           "plain": "Start of the page list."
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Page 1"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Page 2"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Page 3"
-        },
-        {
-          "plain": "End of the page list."
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ]
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        }
-      ],
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
         },
         {
           "plain": "List item."
@@ -546,15 +431,109 @@
           "plain": "Page 1"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Page 2"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
+        },
+        {
+          "plain": "Page 3"
+        },
+        {
+          "plain": "End of the page list."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Page 1"
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Page 2"
+        },
+        {
+          "plain": "List item."
         },
         {
           "plain": "Page 3"
@@ -646,8 +625,7 @@
           "plain": "Start of the page list."
         },
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "plain": "Start of the list."
         },
         {
           "plain": "List item."
@@ -656,15 +634,13 @@
           "plain": "Page 1"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Page 2"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Page 3"
@@ -685,16 +661,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Page 1",
-          "startsNewBlock": true
+          "ssml": "Page 1"
         },
         {
-          "ssml": "Page 2",
-          "startsNewBlock": true
+          "ssml": "Page 2"
         },
         {
-          "ssml": "Page 3",
-          "startsNewBlock": true
+          "ssml": "Page 3"
         }
       ]
     },
@@ -764,16 +737,13 @@
           "ssml": "Start of the page list."
         },
         {
-          "ssml": "Page 1",
-          "startsNewBlock": true
+          "ssml": "Page 1"
         },
         {
-          "ssml": "Page 2",
-          "startsNewBlock": true
+          "ssml": "Page 2"
         },
         {
-          "ssml": "Page 3",
-          "startsNewBlock": true
+          "ssml": "Page 3"
         },
         {
           "ssml": "End of the page list."
@@ -843,19 +813,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "ssml": "Start of the list."
         },
         {
           "ssml": "Page 1"
         },
         {
-          "ssml": "Page 2",
-          "startsNewBlock": true
+          "ssml": "Page 2"
         },
         {
-          "ssml": "Page 3",
-          "startsNewBlock": true
+          "ssml": "Page 3"
         },
         {
           "ssml": "End of the list."
@@ -936,19 +903,16 @@
           "ssml": "Start of the page list."
         },
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "ssml": "Start of the list."
         },
         {
           "ssml": "Page 1"
         },
         {
-          "ssml": "Page 2",
-          "startsNewBlock": true
+          "ssml": "Page 2"
         },
         {
-          "ssml": "Page 3",
-          "startsNewBlock": true
+          "ssml": "Page 3"
         },
         {
           "ssml": "End of the list."
@@ -1021,22 +985,19 @@
       ],
       "utterances": [
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Page 1"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Page 2"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Page 3"
@@ -1115,106 +1076,6 @@
       "utterances": [
         {
           "ssml": "Start of the page list."
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Page 1"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Page 2"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Page 3"
-        },
-        {
-          "ssml": "End of the page list."
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ]
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        }
-      ],
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
         },
         {
           "ssml": "List item."
@@ -1223,15 +1084,109 @@
           "ssml": "Page 1"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Page 2"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Page 3"
+        },
+        {
+          "ssml": "End of the page list."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Page 1"
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Page 2"
+        },
+        {
+          "ssml": "List item."
         },
         {
           "ssml": "Page 3"
@@ -1323,8 +1278,7 @@
           "ssml": "Start of the page list."
         },
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "ssml": "Start of the list."
         },
         {
           "ssml": "List item."
@@ -1333,15 +1287,13 @@
           "ssml": "Page 1"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Page 2"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Page 3"

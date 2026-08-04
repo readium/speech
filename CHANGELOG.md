@@ -2,6 +2,22 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.7.0] - 2026-08-04
+
+### Added
+
+- `autoPause` preference (`"none" | "utterance" | "block"`, default `"none"`) — fully pauses playback between utterances or blocks (fires `pause`, `navigator.getState()` becomes `"paused"`) instead of continuing on its own; playback resumes only when `play()` is called. See [Preferences.md](docs/Preferences.md#prosody).
+
+### Changed
+
+- `SpeechDefaults.language` default is now `"block-level"`, was `"always"`.
+- `ReadiumSpeechUtterance` drops `startsNewBlock`. Block-boundary info is now internal to extraction — `autoPause: "block"` only has effect on content loaded via `loadGndContent()`; content loaded via `loadContent()` never triggers it.
+- `pauseDuration` always delays the next automatic continuation now that `pauseScope` is gone — it's no longer scoped to a subset of transitions.
+
+### Removed
+
+- `SpeechPreferences.pauseScope` / `SpeechDefaults.pauseScope`, added in 0.6.0. It was meant to implement automatic pausing between utterances/paragraphs but only ever delayed an automatic continuation rather than actually pausing — replaced by `autoPause`.
+
 ## [0.6.0] - 2026-08-04
 
 ### Added

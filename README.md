@@ -34,7 +34,9 @@ In the third phase, we added highlighting: content currently being spoken (e.g. 
 
 In the fourth phase, we extracted [Guided Navigation objects](https://readium.org/guided-navigation) from a document (or a fragment of a document), and generated utterances from these objects.
 
-We are now on the fifth phase: a second `ReadiumSpeechPlaybackEngine` implementation, backed by [speech-server](https://github.com/readium/speech-server) instead of the browser's Web Speech API.
+In the fifth phase, we added a second `ReadiumSpeechPlaybackEngine` implementation, backed by [speech-server](https://github.com/readium/speech-server) instead of the browser's Web Speech API.
+
+We are now on the sixth phase: verbosity and prosody, in particular contextualization — synthesized announcements spoken around content based on its role (entering/leaving a chapter, a footnote, a pagebreak…). See [Preferences](docs/Preferences.md).
 
 ## Demos
 

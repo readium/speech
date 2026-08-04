@@ -9,8 +9,7 @@
       "utterances": [
         {
           "language": "en",
-          "plain": "This text has a footnote.",
-          "startsNewBlock": true
+          "plain": "This text has a footnote."
         },
         {
           "plain": "Text of the footnote."
@@ -60,8 +59,7 @@
       "utterances": [
         {
           "plain": "This text has a footnote Text of the footnote.",
-          "language": "en",
-          "startsNewBlock": true
+          "language": "en"
         }
       ]
     },
@@ -81,8 +79,7 @@
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote.",
-          "startsNewBlock": true
+          "plain": "This text has a footnote."
         },
         {
           "plain": "Text of the footnote."
@@ -107,8 +104,7 @@
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote Text of the footnote.",
-          "startsNewBlock": true
+          "plain": "This text has a footnote Text of the footnote."
         }
       ]
     },
@@ -161,8 +157,7 @@
       "utterances": [
         {
           "language": "en",
-          "plain": "This text has a footnote.",
-          "startsNewBlock": true
+          "plain": "This text has a footnote."
         },
         {
           "plain": "Start of the footnote. Text of the footnote. End of the footnote."
@@ -224,8 +219,7 @@
       "utterances": [
         {
           "plain": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
-          "language": "en",
-          "startsNewBlock": true
+          "language": "en"
         }
       ]
     },
@@ -249,8 +243,7 @@
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote.",
-          "startsNewBlock": true
+          "plain": "This text has a footnote."
         },
         {
           "plain": "Start of the footnote. Text of the footnote. End of the footnote."
@@ -279,8 +272,7 @@
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
-          "startsNewBlock": true
+          "plain": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote."
         }
       ]
     },
@@ -2034,8 +2026,7 @@
       "utterances": [
         {
           "language": "en",
-          "plain": "This text has a footnote.",
-          "startsNewBlock": true
+          "plain": "This text has a footnote."
         }
       ]
     },
@@ -2644,8 +2635,7 @@
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote.",
-          "startsNewBlock": true
+          "plain": "This text has a footnote."
         }
       ]
     },
@@ -2658,8 +2648,7 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "This text has a footnote.",
-          "startsNewBlock": true
+          "ssml": "This text has a footnote."
         },
         {
           "ssml": "Text of the footnote."
@@ -2709,8 +2698,7 @@
       "utterances": [
         {
           "ssml": "This text has a footnote Text of the footnote.",
-          "language": "en",
-          "startsNewBlock": true
+          "language": "en"
         }
       ]
     },
@@ -2730,8 +2718,7 @@
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote.",
-          "startsNewBlock": true
+          "ssml": "This text has a footnote."
         },
         {
           "ssml": "Text of the footnote."
@@ -2756,8 +2743,7 @@
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote Text of the footnote.",
-          "startsNewBlock": true
+          "ssml": "This text has a footnote Text of the footnote."
         }
       ]
     },
@@ -2810,8 +2796,7 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "This text has a footnote.",
-          "startsNewBlock": true
+          "ssml": "This text has a footnote."
         },
         {
           "ssml": "Start of the footnote. Text of the footnote. End of the footnote."
@@ -2873,8 +2858,7 @@
       "utterances": [
         {
           "ssml": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
-          "language": "en",
-          "startsNewBlock": true
+          "language": "en"
         }
       ]
     },
@@ -2898,8 +2882,7 @@
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote.",
-          "startsNewBlock": true
+          "ssml": "This text has a footnote."
         },
         {
           "ssml": "Start of the footnote. Text of the footnote. End of the footnote."
@@ -2928,8 +2911,7 @@
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote.",
-          "startsNewBlock": true
+          "ssml": "This text has a footnote Start of the footnote. Text of the footnote. End of the footnote."
         }
       ]
     },
@@ -4683,8 +4665,7 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "This text has a footnote.",
-          "startsNewBlock": true
+          "ssml": "This text has a footnote."
         }
       ]
     },
@@ -5293,8 +5274,7 @@
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote.",
-          "startsNewBlock": true
+          "ssml": "This text has a footnote."
         }
       ]
     }

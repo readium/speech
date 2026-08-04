@@ -23,6 +23,10 @@ interface WalkContext {
   format: "plain" | "ssml";
   inlineContextualization: boolean;
   language?: "none" | "block-level" | "always";
+  // Tracked by object identity rather than threaded as a parallel array,
+  // since utterances get merged/reordered across several local `out` arrays
+  // (pieces, inner, ...) before reaching the caller's own `out`.
+  blockStarts: Set<ReadiumSpeechUtterance>;
 }
 
 // Parallel to `out`: which node produced each utterance, `undefined` when none (e.g. a merged span).
@@ -45,6 +49,28 @@ function formatPlain(text: string, format: "plain" | "ssml"): ReadiumSpeechUtter
 function push(out: ReadiumSpeechUtterance[], sources: SourceTrace, node: GndObject | undefined, items: ReadiumSpeechUtterance[]): void {
   out.push(...items);
   for (let i = 0; i < items.length; i++) sources.push(node);
+}
+
+// Pushes `pieces` (or their `merged` replacement, if provided) to `out`.
+// `mergeUtterances()` returns a new object rather than one of `pieces` —
+// this carries a block-start marker over from any input piece that had
+// one, so merging never silently drops it.
+function pushPiecesOrMerged(
+  out: ReadiumSpeechUtterance[],
+  sources: SourceTrace,
+  ctx: WalkContext,
+  node: GndObject,
+  pieces: ReadiumSpeechUtterance[],
+  pieceSources: SourceTrace,
+  merged: ReadiumSpeechUtterance | undefined,
+): void {
+  if (merged) {
+    if (pieces.some((piece) => ctx.blockStarts.has(piece))) ctx.blockStarts.add(merged);
+    push(out, sources, pieceSources[0] ?? node, [merged]);
+  } else {
+    out.push(...pieces);
+    sources.push(...pieceSources);
+  }
 }
 
 // Looks up `role`'s entry in the catalog and speaks the appropriate half
@@ -217,12 +243,7 @@ function emitInterrupted(
     pieceSources.push(node);
   }
   const merged = pieces.length > 1 ? mergeUtterances(pieces, ctx.format) : undefined;
-  if (merged) {
-    push(out, sources, pieceSources[0] ?? node, [merged]);
-  } else {
-    out.push(...pieces);
-    sources.push(...pieceSources);
-  }
+  pushPiecesOrMerged(out, sources, ctx, node, pieces, pieceSources, merged);
 }
 
 function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, suppress: boolean): void {
@@ -283,12 +304,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
           pieceSources.push(child);
         }
         const merged = entry !== undefined && pieces.length > 1 ? mergeUtterances(pieces, ctx.format) : undefined;
-        if (merged) {
-          push(out, sources, pieceSources[0] ?? child, [merged]);
-        } else {
-          out.push(...pieces);
-          sources.push(...pieceSources);
-        }
+        pushPiecesOrMerged(out, sources, ctx, child, pieces, pieceSources, merged);
       } else {
         walk([child], out, sources, ctx, suppress);
       }
@@ -316,7 +332,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
   }
 
   if (eligible && out.length > beforeLength) {
-    out[beforeLength].startsNewBlock = true;
+    ctx.blockStarts.add(out[beforeLength]);
   }
 
   // A description is supplementary/elaborating content (e.g. an extended
@@ -347,6 +363,7 @@ function makeWalkContext(options: ExtractUtterancesOptions): WalkContext {
     format: options.format ?? "plain",
     inlineContextualization: options.inlineContextualization ?? false,
     language: options.language,
+    blockStarts: new Set(),
   };
 }
 
@@ -368,14 +385,17 @@ export function extractUtterances(
 }
 
 /**
- * Same as `extractUtterances()`, plus `sources[i]`: the node that produced `utterances[i]`.
+ * Same as `extractUtterances()`, plus `sources[i]`: the node that produced `utterances[i]`,
+ * and `blockStarts[i]`: whether `utterances[i]` begins a new block-level element.
  */
 export function extractUtterancesWithSources(
   nodes: GndObject[],
   options: ExtractUtterancesOptions,
-): { utterances: ReadiumSpeechUtterance[]; sources: (GndObject | undefined)[] } {
+): { utterances: ReadiumSpeechUtterance[]; sources: (GndObject | undefined)[]; blockStarts: boolean[] } {
   const utterances: ReadiumSpeechUtterance[] = [];
   const sources: SourceTrace = [];
-  walk(nodes, utterances, sources, makeWalkContext(options), false);
-  return { utterances, sources };
+  const ctx = makeWalkContext(options);
+  walk(nodes, utterances, sources, ctx, false);
+  const blockStarts = utterances.map((utterance) => ctx.blockStarts.has(utterance));
+  return { utterances, sources, blockStarts };
 }

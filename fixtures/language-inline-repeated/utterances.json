@@ -9,8 +9,7 @@
       "utterances": [
         {
           "plain": "One",
-          "language": "en",
-          "startsNewBlock": true
+          "language": "en"
         },
         {
           "plain": "deux",
@@ -45,8 +44,7 @@
       "utterances": [
         {
           "language": "en",
-          "plain": "One deux three quatre five.",
-          "startsNewBlock": true
+          "plain": "One deux three quatre five."
         }
       ]
     },
@@ -64,8 +62,7 @@
       ],
       "utterances": [
         {
-          "plain": "One deux three quatre five.",
-          "startsNewBlock": true
+          "plain": "One deux three quatre five."
         }
       ]
     },
@@ -78,8 +75,7 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "One <lang xml:lang=\"fr\">deux</lang> three <lang xml:lang=\"fr\">quatre</lang> five.",
-          "startsNewBlock": true
+          "ssml": "One <lang xml:lang=\"fr\">deux</lang> three <lang xml:lang=\"fr\">quatre</lang> five."
         }
       ]
     },
@@ -98,8 +94,7 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "One deux three quatre five.",
-          "startsNewBlock": true
+          "ssml": "One deux three quatre five."
         }
       ]
     },
@@ -117,8 +112,7 @@
       ],
       "utterances": [
         {
-          "ssml": "One deux three quatre five.",
-          "startsNewBlock": true
+          "ssml": "One deux three quatre five."
         }
       ]
     }

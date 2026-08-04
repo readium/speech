@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "For every keeper who lit the lamp at dusk.",
-          "startsNewBlock": true
+          "plain": "For every keeper who lit the lamp at dusk."
         }
       ]
     },
@@ -76,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Dedication.",
-          "startsNewBlock": true
+          "plain": "Dedication."
         },
         {
           "plain": "For every keeper who lit the lamp at dusk."
@@ -92,8 +90,7 @@
       ],
       "utterances": [
         {
-          "ssml": "For every keeper who lit the lamp at dusk.",
-          "startsNewBlock": true
+          "ssml": "For every keeper who lit the lamp at dusk."
         }
       ]
     },
@@ -160,8 +157,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Dedication.",
-          "startsNewBlock": true
+          "ssml": "Dedication."
         },
         {
           "ssml": "For every keeper who lit the lamp at dusk."

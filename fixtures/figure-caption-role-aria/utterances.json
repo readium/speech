@@ -75,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the figure.",
-          "startsNewBlock": true
+          "plain": "Start of the figure."
         },
         {
           "plain": "ASCII Art of a cat face"
@@ -306,8 +305,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the figure.",
-          "startsNewBlock": true
+          "ssml": "Start of the figure."
         },
         {
           "ssml": "ASCII Art of a cat face"

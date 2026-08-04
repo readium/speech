@@ -1,9 +1,9 @@
 import type { GndRole } from "../gnd/types.js";
 import {
+  autoPauseScopes,
   extractionFormats,
   languageModes,
   pauseDurationRangeConfig,
-  pauseScopes,
   pitchRangeConfig,
   rateRangeConfig,
   verbosityPresets,
@@ -11,7 +11,7 @@ import {
 } from "./constraints.js";
 import type { IPreferencesEditor } from "./PreferencesEditor.js";
 import { BooleanPreference, EnumPreference, RangePreference, StringArrayPreference } from "./Preference.js";
-import { SpeechPreferences, VerbosityPreset, LanguageMode, ExtractionFormat, PauseScope } from "./SpeechPreferences.js";
+import { SpeechPreferences, VerbosityPreset, LanguageMode, ExtractionFormat, AutoPauseScope } from "./SpeechPreferences.js";
 import { SpeechSettings } from "./SpeechSettings.js";
 
 export class SpeechPreferencesEditor implements IPreferencesEditor {
@@ -38,8 +38,7 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
       contextualize: null,
       language: null,
       pauseDuration: null,
-      pauseScope: null,
-      automaticPausesAtPageOrSpreadEnd: null,
+      autoPause: null,
       rate: null,
       pitch: null,
       volume: null,
@@ -118,24 +117,13 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
     });
   }
 
-  get pauseScope(): EnumPreference<PauseScope> {
-    return new EnumPreference<PauseScope>({
-      initialValue: this.preferences.pauseScope,
-      effectiveValue: this.settings.pauseScope,
-      isEffective: this.preferences.pauseScope != null,
-      onChange: (value) => this.updatePreference("pauseScope", value ?? null),
-      supportedValues: pauseScopes,
-    });
-  }
-
-  // No page/spread boundary signal exists in this library yet, so this
-  // has no effect on playback.
-  get automaticPausesAtPageOrSpreadEnd(): BooleanPreference {
-    return new BooleanPreference({
-      initialValue: this.preferences.automaticPausesAtPageOrSpreadEnd,
-      effectiveValue: this.settings.automaticPausesAtPageOrSpreadEnd,
-      isEffective: this.preferences.automaticPausesAtPageOrSpreadEnd != null,
-      onChange: (value) => this.updatePreference("automaticPausesAtPageOrSpreadEnd", value ?? null),
+  get autoPause(): EnumPreference<AutoPauseScope> {
+    return new EnumPreference<AutoPauseScope>({
+      initialValue: this.preferences.autoPause,
+      effectiveValue: this.settings.autoPause,
+      isEffective: this.preferences.autoPause != null,
+      onChange: (value) => this.updatePreference("autoPause", value ?? null),
+      supportedValues: autoPauseScopes,
     });
   }
 

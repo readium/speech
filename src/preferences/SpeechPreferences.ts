@@ -1,10 +1,10 @@
 import type { GndRole } from "../gnd/types.js";
 import type { ConfigurablePreferences } from "./Configurable.js";
 import {
+  autoPauseScopes,
   extractionFormats,
   languageModes,
   pauseDurationRangeConfig,
-  pauseScopes,
   pitchRangeConfig,
   rateRangeConfig,
   verbosityPresets,
@@ -17,7 +17,7 @@ export type LanguageMode = "none" | "block-level" | "always";
 
 export type ExtractionFormat = "plain" | "ssml";
 
-export type PauseScope = "utterance" | "block";
+export type AutoPauseScope = "none" | "utterance" | "block";
 
 export interface ISpeechPreferences {
   // Extraction rendering — consumed by extractUtterances via the
@@ -33,9 +33,8 @@ export interface ISpeechPreferences {
   language?: LanguageMode | null;
 
   // Prosody group — consumed by ReadiumSpeechNavigator's playback sequencing.
-  pauseDuration?: number | null; // ms, default 300
-  pauseScope?: PauseScope | null; // "utterance" (default, pause between every utterance) | "block" (pause only at block boundaries)
-  automaticPausesAtPageOrSpreadEnd?: boolean | null; // typed, no-op today — see speechNavigator.ts
+  pauseDuration?: number | null; // ms, default 300, delays every automatic continuation to the next utterance
+  autoPause?: AutoPauseScope | null; // "none" (default) | "utterance" | "block" — fully pauses playback instead of continuing automatically, until play() is called
   rate?: number | null; // default 1.0, engine range [0.1, 10]
   pitch?: number | null; // default 1.0, engine range [0, 2]
   volume?: number | null; // default 1.0, engine range [0, 1]
@@ -49,8 +48,7 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
   public contextualize: GndRole[] | null | undefined;
   public language: LanguageMode | null | undefined;
   public pauseDuration: number | null | undefined;
-  public pauseScope: PauseScope | null | undefined;
-  public automaticPausesAtPageOrSpreadEnd: boolean | null | undefined;
+  public autoPause: AutoPauseScope | null | undefined;
   public rate: number | null | undefined;
   public pitch: number | null | undefined;
   public volume: number | null | undefined;
@@ -63,8 +61,7 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
     this.contextualize = ensureStringArray(preferences.contextualize);
     this.language = ensureEnumValue(preferences.language, languageModes);
     this.pauseDuration = ensureValueInRange(preferences.pauseDuration, pauseDurationRangeConfig.range);
-    this.pauseScope = ensureEnumValue(preferences.pauseScope, pauseScopes);
-    this.automaticPausesAtPageOrSpreadEnd = ensureBoolean(preferences.automaticPausesAtPageOrSpreadEnd);
+    this.autoPause = ensureEnumValue(preferences.autoPause, autoPauseScopes);
     this.rate = ensureValueInRange(preferences.rate, rateRangeConfig.range);
     this.pitch = ensureValueInRange(preferences.pitch, pitchRangeConfig.range);
     this.volume = ensureValueInRange(preferences.volume, volumeRangeConfig.range);

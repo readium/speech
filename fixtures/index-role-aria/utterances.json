@@ -8,12 +8,10 @@
       ],
       "utterances": [
         {
-          "plain": "Fresnel lens",
-          "startsNewBlock": true
+          "plain": "Fresnel lens"
         },
         {
-          "plain": "Keepers",
-          "startsNewBlock": true
+          "plain": "Keepers"
         }
       ]
     },
@@ -80,15 +78,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
+          "plain": "Start of the index."
         },
         {
           "plain": "Fresnel lens"
         },
         {
-          "plain": "Keepers",
-          "startsNewBlock": true
+          "plain": "Keepers"
         },
         {
           "plain": "End of the index."
@@ -158,15 +154,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "plain": "Start of the list."
         },
         {
           "plain": "Fresnel lens"
         },
         {
-          "plain": "Keepers",
-          "startsNewBlock": true
+          "plain": "Keepers"
         },
         {
           "plain": "End of the list."
@@ -244,8 +238,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
+          "plain": "Start of the index."
         },
         {
           "plain": "Start of the list."
@@ -254,8 +247,7 @@
           "plain": "Fresnel lens"
         },
         {
-          "plain": "Keepers",
-          "startsNewBlock": true
+          "plain": "Keepers"
         },
         {
           "plain": "End of the list."
@@ -328,15 +320,13 @@
       ],
       "utterances": [
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Fresnel lens"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Keepers"
@@ -414,8 +404,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
+          "plain": "Start of the index."
         },
         {
           "plain": "List item."
@@ -424,8 +413,7 @@
           "plain": "Fresnel lens"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Keepers"
@@ -506,8 +494,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "plain": "Start of the list."
         },
         {
           "plain": "List item."
@@ -516,8 +503,7 @@
           "plain": "Fresnel lens"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Keepers"
@@ -606,8 +592,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the index.",
-          "startsNewBlock": true
+          "plain": "Start of the index."
         },
         {
           "plain": "Start of the list."
@@ -619,8 +604,7 @@
           "plain": "Fresnel lens"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Keepers"
@@ -641,12 +625,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Fresnel lens",
-          "startsNewBlock": true
+          "ssml": "Fresnel lens"
         },
         {
-          "ssml": "Keepers",
-          "startsNewBlock": true
+          "ssml": "Keepers"
         }
       ]
     },
@@ -713,15 +695,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
+          "ssml": "Start of the index."
         },
         {
           "ssml": "Fresnel lens"
         },
         {
-          "ssml": "Keepers",
-          "startsNewBlock": true
+          "ssml": "Keepers"
         },
         {
           "ssml": "End of the index."
@@ -791,15 +771,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "ssml": "Start of the list."
         },
         {
           "ssml": "Fresnel lens"
         },
         {
-          "ssml": "Keepers",
-          "startsNewBlock": true
+          "ssml": "Keepers"
         },
         {
           "ssml": "End of the list."
@@ -877,8 +855,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
+          "ssml": "Start of the index."
         },
         {
           "ssml": "Start of the list."
@@ -887,8 +864,7 @@
           "ssml": "Fresnel lens"
         },
         {
-          "ssml": "Keepers",
-          "startsNewBlock": true
+          "ssml": "Keepers"
         },
         {
           "ssml": "End of the list."
@@ -961,15 +937,13 @@
       ],
       "utterances": [
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Fresnel lens"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Keepers"
@@ -1047,8 +1021,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
+          "ssml": "Start of the index."
         },
         {
           "ssml": "List item."
@@ -1057,8 +1030,7 @@
           "ssml": "Fresnel lens"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Keepers"
@@ -1139,8 +1111,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "ssml": "Start of the list."
         },
         {
           "ssml": "List item."
@@ -1149,8 +1120,7 @@
           "ssml": "Fresnel lens"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Keepers"
@@ -1239,8 +1209,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the index.",
-          "startsNewBlock": true
+          "ssml": "Start of the index."
         },
         {
           "ssml": "Start of the list."
@@ -1252,8 +1221,7 @@
           "ssml": "Fresnel lens"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Keepers"

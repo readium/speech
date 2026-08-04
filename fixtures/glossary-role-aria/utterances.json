@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Fresnel lens",
-          "startsNewBlock": true
+          "plain": "Fresnel lens"
         },
         {
           "plain": "A compact lens for focusing light."
@@ -85,8 +84,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the glossary.",
-          "startsNewBlock": true
+          "plain": "Start of the glossary."
         },
         {
           "plain": "Fresnel lens"
@@ -168,8 +166,7 @@
       ],
       "utterances": [
         {
-          "plain": "Term.",
-          "startsNewBlock": true
+          "plain": "Term."
         },
         {
           "plain": "Term."
@@ -265,8 +262,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the glossary.",
-          "startsNewBlock": true
+          "plain": "Start of the glossary."
         },
         {
           "plain": "Term."
@@ -305,8 +301,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Fresnel lens",
-          "startsNewBlock": true
+          "ssml": "Fresnel lens"
         },
         {
           "ssml": "A compact lens for focusing light."
@@ -382,8 +377,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the glossary.",
-          "startsNewBlock": true
+          "ssml": "Start of the glossary."
         },
         {
           "ssml": "Fresnel lens"
@@ -465,8 +459,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Term.",
-          "startsNewBlock": true
+          "ssml": "Term."
         },
         {
           "ssml": "Term."
@@ -562,8 +555,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the glossary.",
-          "startsNewBlock": true
+          "ssml": "Start of the glossary."
         },
         {
           "ssml": "Term."

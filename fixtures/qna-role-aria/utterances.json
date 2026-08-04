@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Q: How often was the lamp refueled? A: Nightly, by hand.",
-          "startsNewBlock": true
+          "plain": "Q: How often was the lamp refueled? A: Nightly, by hand."
         }
       ]
     },
@@ -76,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the questions and answers.",
-          "startsNewBlock": true
+          "plain": "Start of the questions and answers."
         },
         {
           "plain": "Q: How often was the lamp refueled? A: Nightly, by hand."
@@ -95,8 +93,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Q: How often was the lamp refueled? A: Nightly, by hand.",
-          "startsNewBlock": true
+          "ssml": "Q: How often was the lamp refueled? A: Nightly, by hand."
         }
       ]
     },
@@ -163,8 +160,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the questions and answers.",
-          "startsNewBlock": true
+          "ssml": "Start of the questions and answers."
         },
         {
           "ssml": "Q: How often was the lamp refueled? A: Nightly, by hand."

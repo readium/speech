@@ -12,7 +12,7 @@ editor.pauseDuration.value = 500;
 navigator.submitPreferences(editor.preferences);
 ```
 
-`submitPreferences()` always resolves `navigator.settings`. Prosody (`pauseDuration`, `pauseScope`, `rate`, `pitch`, `volume`) applies regardless of how content was loaded. The extraction group (`format`, `inlineContextualization`, `verbosity`, `skip`, `contextualize`, `language`) only takes effect on content loaded via `loadGndContent()` — see [Playback](Playback.md) — and only reloads the queue when one of those fields actually changes value. A reload during playback resumes at the same content rather than restarting, falling back to the nearest earlier point still present if that exact content got skipped by the new settings.
+`submitPreferences()` always resolves `navigator.settings`. Prosody (`pauseDuration`, `autoPause`, `rate`, `pitch`, `volume`) applies regardless of how content was loaded, except that `autoPause: "block"` only has block boundaries to work with on content loaded via `loadGndContent()` — content loaded via `loadContent()` has none, so it never triggers there. The extraction group (`format`, `inlineContextualization`, `verbosity`, `skip`, `contextualize`, `language`) only takes effect on content loaded via `loadGndContent()` — see [Playback](Playback.md) — and only reloads the queue when one of those fields actually changes value. A reload during playback resumes at the same content rather than restarting, falling back to the nearest earlier point still present if that exact content got skipped by the new settings.
 
 ## Defaults
 
@@ -48,15 +48,14 @@ new SpeechPreferences({ verbosity: "custom", contextualize: ["chapter", "footnot
 ## Prosody
 
 ```typescript
-pauseDuration?: number;                      // ms, default 300
-pauseScope?: "utterance" | "block";          // which transitions get pauseDuration, default "utterance"
-automaticPausesAtPageOrSpreadEnd?: boolean;  // typed, no effect yet
-rate?: number;                               // default 1.0, range [0.1, 10]
-pitch?: number;                              // default 1.0, range [0, 2]
-volume?: number;                             // default 1.0, range [0, 1]
+pauseDuration?: number;                          // ms, default 300
+autoPause?: "none" | "utterance" | "block";      // fully pause instead of continuing automatically, default "none"
+rate?: number;                                   // default 1.0, range [0.1, 10]
+pitch?: number;                                  // default 1.0, range [0, 2]
+volume?: number;                                 // default 1.0, range [0, 1]
 ```
 
-`pauseDuration` delays the navigator's next `speak()` call after each utterance ends, scoped by `pauseScope`: `"utterance"` (the default) applies it between every utterance; `"block"` applies it only where the next utterance starts a new block-level element (a paragraph, heading, list item, table cell, ...), derived from the source Guided Navigation document by `extractUtterances()` — transitions within the same block get no pause. `automaticPausesAtPageOrSpreadEnd` is typed but has no effect today: pausing at a page/spread boundary needs context (where a page actually ends) that this library doesn't have — likely a concern for the consuming app, not something resolved here.
+`pauseDuration` and `autoPause` are unrelated. `pauseDuration` always delays the navigator's next automatic `speak()` call after an utterance ends — it's just a gap, playback keeps going on its own. `autoPause` decides whether that automatic continuation happens at all: `"none"` (the default) never interrupts it; `"utterance"` stops playback after every utterance; `"block"` stops it only where the next utterance starts a new block-level element (a paragraph, heading, list item, table cell, ...). An auto-pause fires a `pause` event and moves `navigator.getState()` to `"paused"`, exactly like calling `pause()` yourself — nothing plays again until `play()` is called.
 
 `rate`/`pitch`/`volume` are pushed straight to the engine's own `setRate`/`setPitch`/`setVolume` on every `submitPreferences()` call — unlike the extraction-time preferences, no reload. An engine that needs to re-synthesize already-buffered content on parameter changes handles that itself inside those setters.
 

@@ -8,12 +8,10 @@
       ],
       "utterances": [
         {
-          "plain": "Section one.",
-          "startsNewBlock": true
+          "plain": "Section one."
         },
         {
-          "plain": "Section two.",
-          "startsNewBlock": true
+          "plain": "Section two."
         }
       ]
     },
@@ -25,12 +23,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Section one.",
-          "startsNewBlock": true
+          "ssml": "Section one."
         },
         {
-          "ssml": "Section two.",
-          "startsNewBlock": true
+          "ssml": "Section two."
         }
       ]
     }

@@ -9,8 +9,7 @@
       "utterances": [
         {
           "plain": "Start",
-          "language": "en",
-          "startsNewBlock": true
+          "language": "en"
         },
         {
           "plain": "middle",
@@ -45,8 +44,7 @@
       "utterances": [
         {
           "language": "en",
-          "plain": "Start middle nested end after.",
-          "startsNewBlock": true
+          "plain": "Start middle nested end after."
         }
       ]
     },
@@ -64,8 +62,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start middle nested end after.",
-          "startsNewBlock": true
+          "plain": "Start middle nested end after."
         }
       ]
     },
@@ -78,8 +75,7 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "Start <lang xml:lang=\"fr\">middle </lang><lang xml:lang=\"es\">nested</lang><lang xml:lang=\"fr\"> end</lang> after.",
-          "startsNewBlock": true
+          "ssml": "Start <lang xml:lang=\"fr\">middle </lang><lang xml:lang=\"es\">nested</lang><lang xml:lang=\"fr\"> end</lang> after."
         }
       ]
     },
@@ -98,8 +94,7 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "Start middle nested end after.",
-          "startsNewBlock": true
+          "ssml": "Start middle nested end after."
         }
       ]
     },
@@ -117,8 +112,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start middle nested end after.",
-          "startsNewBlock": true
+          "ssml": "Start middle nested end after."
         }
       ]
     }

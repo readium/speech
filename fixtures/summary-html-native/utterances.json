@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Click to expand",
-          "startsNewBlock": true
+          "plain": "Click to expand"
         }
       ]
     },
@@ -76,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Summary.",
-          "startsNewBlock": true
+          "plain": "Summary."
         },
         {
           "plain": "Click to expand"
@@ -92,8 +90,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Click to expand",
-          "startsNewBlock": true
+          "ssml": "Click to expand"
         }
       ]
     },
@@ -160,8 +157,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Summary.",
-          "startsNewBlock": true
+          "ssml": "Summary."
         },
         {
           "ssml": "Click to expand"

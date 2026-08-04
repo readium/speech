@@ -8,16 +8,13 @@
       ],
       "utterances": [
         {
-          "plain": "Cover",
-          "startsNewBlock": true
+          "plain": "Cover"
         },
         {
-          "plain": "Table of Contents",
-          "startsNewBlock": true
+          "plain": "Table of Contents"
         },
         {
-          "plain": "Start of Content",
-          "startsNewBlock": true
+          "plain": "Start of Content"
         }
       ]
     },
@@ -87,16 +84,13 @@
           "plain": "Start of the landmarks."
         },
         {
-          "plain": "Cover",
-          "startsNewBlock": true
+          "plain": "Cover"
         },
         {
-          "plain": "Table of Contents",
-          "startsNewBlock": true
+          "plain": "Table of Contents"
         },
         {
-          "plain": "Start of Content",
-          "startsNewBlock": true
+          "plain": "Start of Content"
         },
         {
           "plain": "End of the landmarks."
@@ -166,19 +160,16 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "plain": "Start of the list."
         },
         {
           "plain": "Cover"
         },
         {
-          "plain": "Table of Contents",
-          "startsNewBlock": true
+          "plain": "Table of Contents"
         },
         {
-          "plain": "Start of Content",
-          "startsNewBlock": true
+          "plain": "Start of Content"
         },
         {
           "plain": "End of the list."
@@ -259,19 +250,16 @@
           "plain": "Start of the landmarks."
         },
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "plain": "Start of the list."
         },
         {
           "plain": "Cover"
         },
         {
-          "plain": "Table of Contents",
-          "startsNewBlock": true
+          "plain": "Table of Contents"
         },
         {
-          "plain": "Start of Content",
-          "startsNewBlock": true
+          "plain": "Start of Content"
         },
         {
           "plain": "End of the list."
@@ -344,22 +332,19 @@
       ],
       "utterances": [
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Cover"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Table of Contents"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Start of Content"
@@ -438,106 +423,6 @@
       "utterances": [
         {
           "plain": "Start of the landmarks."
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Cover"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Table of Contents"
-        },
-        {
-          "plain": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "plain": "Start of Content"
-        },
-        {
-          "plain": "End of the landmarks."
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ]
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        }
-      ],
-      "utterances": [
-        {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
         },
         {
           "plain": "List item."
@@ -546,15 +431,109 @@
           "plain": "Cover"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Table of Contents"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
+        },
+        {
+          "plain": "Start of Content"
+        },
+        {
+          "plain": "End of the landmarks."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Cover"
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Table of Contents"
+        },
+        {
+          "plain": "List item."
         },
         {
           "plain": "Start of Content"
@@ -646,8 +625,7 @@
           "plain": "Start of the landmarks."
         },
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "plain": "Start of the list."
         },
         {
           "plain": "List item."
@@ -656,15 +634,13 @@
           "plain": "Cover"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Table of Contents"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Start of Content"
@@ -1362,16 +1338,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Cover",
-          "startsNewBlock": true
+          "ssml": "Cover"
         },
         {
-          "ssml": "Table of Contents",
-          "startsNewBlock": true
+          "ssml": "Table of Contents"
         },
         {
-          "ssml": "Start of Content",
-          "startsNewBlock": true
+          "ssml": "Start of Content"
         }
       ]
     },
@@ -1441,16 +1414,13 @@
           "ssml": "Start of the landmarks."
         },
         {
-          "ssml": "Cover",
-          "startsNewBlock": true
+          "ssml": "Cover"
         },
         {
-          "ssml": "Table of Contents",
-          "startsNewBlock": true
+          "ssml": "Table of Contents"
         },
         {
-          "ssml": "Start of Content",
-          "startsNewBlock": true
+          "ssml": "Start of Content"
         },
         {
           "ssml": "End of the landmarks."
@@ -1520,19 +1490,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "ssml": "Start of the list."
         },
         {
           "ssml": "Cover"
         },
         {
-          "ssml": "Table of Contents",
-          "startsNewBlock": true
+          "ssml": "Table of Contents"
         },
         {
-          "ssml": "Start of Content",
-          "startsNewBlock": true
+          "ssml": "Start of Content"
         },
         {
           "ssml": "End of the list."
@@ -1613,19 +1580,16 @@
           "ssml": "Start of the landmarks."
         },
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "ssml": "Start of the list."
         },
         {
           "ssml": "Cover"
         },
         {
-          "ssml": "Table of Contents",
-          "startsNewBlock": true
+          "ssml": "Table of Contents"
         },
         {
-          "ssml": "Start of Content",
-          "startsNewBlock": true
+          "ssml": "Start of Content"
         },
         {
           "ssml": "End of the list."
@@ -1698,22 +1662,19 @@
       ],
       "utterances": [
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Cover"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Table of Contents"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Start of Content"
@@ -1792,106 +1753,6 @@
       "utterances": [
         {
           "ssml": "Start of the landmarks."
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Cover"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Table of Contents"
-        },
-        {
-          "ssml": "List item.",
-          "startsNewBlock": true
-        },
-        {
-          "ssml": "Start of Content"
-        },
-        {
-          "ssml": "End of the landmarks."
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ]
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        }
-      ],
-      "utterances": [
-        {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
         },
         {
           "ssml": "List item."
@@ -1900,15 +1761,109 @@
           "ssml": "Cover"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Table of Contents"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Start of Content"
+        },
+        {
+          "ssml": "End of the landmarks."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Cover"
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Table of Contents"
+        },
+        {
+          "ssml": "List item."
         },
         {
           "ssml": "Start of Content"
@@ -2000,8 +1955,7 @@
           "ssml": "Start of the landmarks."
         },
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "ssml": "Start of the list."
         },
         {
           "ssml": "List item."
@@ -2010,15 +1964,13 @@
           "ssml": "Cover"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Table of Contents"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Start of Content"

@@ -75,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Image.",
-          "startsNewBlock": true
+          "plain": "Image."
         },
         {
           "plain": "Rating: 4 out of 5 stars"
@@ -303,8 +302,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Image.",
-          "startsNewBlock": true
+          "ssml": "Image."
         },
         {
           "ssml": "Rating: 4 out of 5 stars"

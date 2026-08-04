@@ -5,9 +5,9 @@ test("defaults to the built-in literals when constructed with nothing", (t) => {
   const defaults = new SpeechDefaults();
   t.is(defaults.format, "plain");
   t.is(defaults.verbosity, "few");
-  t.is(defaults.language, "always");
+  t.is(defaults.language, "block-level");
   t.is(defaults.pauseDuration, 300);
-  t.is(defaults.pauseScope, "utterance");
+  t.is(defaults.autoPause, "none");
   t.is(defaults.rate, 1);
   t.is(defaults.pitch, 1);
   t.is(defaults.volume, 1);

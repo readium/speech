@@ -8,16 +8,13 @@
       ],
       "utterances": [
         {
-          "plain": "First item",
-          "startsNewBlock": true
+          "plain": "First item"
         },
         {
-          "plain": "Second item",
-          "startsNewBlock": true
+          "plain": "Second item"
         },
         {
-          "plain": "Third item",
-          "startsNewBlock": true
+          "plain": "Third item"
         }
       ]
     },
@@ -84,19 +81,16 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "plain": "Start of the list."
         },
         {
           "plain": "First item"
         },
         {
-          "plain": "Second item",
-          "startsNewBlock": true
+          "plain": "Second item"
         },
         {
-          "plain": "Third item",
-          "startsNewBlock": true
+          "plain": "Third item"
         },
         {
           "plain": "End of the list."
@@ -166,22 +160,19 @@
       ],
       "utterances": [
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "First item"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Second item"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Third item"
@@ -259,8 +250,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "plain": "Start of the list."
         },
         {
           "plain": "List item."
@@ -269,15 +259,13 @@
           "plain": "First item"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Second item"
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "Third item"
@@ -295,16 +283,13 @@
       ],
       "utterances": [
         {
-          "ssml": "First item",
-          "startsNewBlock": true
+          "ssml": "First item"
         },
         {
-          "ssml": "Second item",
-          "startsNewBlock": true
+          "ssml": "Second item"
         },
         {
-          "ssml": "Third item",
-          "startsNewBlock": true
+          "ssml": "Third item"
         }
       ]
     },
@@ -371,19 +356,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "ssml": "Start of the list."
         },
         {
           "ssml": "First item"
         },
         {
-          "ssml": "Second item",
-          "startsNewBlock": true
+          "ssml": "Second item"
         },
         {
-          "ssml": "Third item",
-          "startsNewBlock": true
+          "ssml": "Third item"
         },
         {
           "ssml": "End of the list."
@@ -453,22 +435,19 @@
       ],
       "utterances": [
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "First item"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Second item"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Third item"
@@ -546,8 +525,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "ssml": "Start of the list."
         },
         {
           "ssml": "List item."
@@ -556,15 +534,13 @@
           "ssml": "First item"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Second item"
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "Third item"

@@ -45,19 +45,19 @@ test("pauseDuration is a range preference with the expected bounds", (t) => {
   t.is(editor.pauseDuration.effectiveValue, 300);
 });
 
-test("pauseScope: unset preference reports the effective default and isEffective false", (t) => {
+test("autoPause: unset preference reports the effective default and isEffective false", (t) => {
   const editor = makeEditor();
-  t.is(editor.pauseScope.value, null);
-  t.is(editor.pauseScope.effectiveValue, "utterance");
-  t.false(editor.pauseScope.isEffective);
-  t.deepEqual(editor.pauseScope.supportedValues, ["utterance", "block"]);
+  t.is(editor.autoPause.value, null);
+  t.is(editor.autoPause.effectiveValue, "none");
+  t.false(editor.autoPause.isEffective);
+  t.deepEqual(editor.autoPause.supportedValues, ["none", "utterance", "block"]);
 });
 
-test("pauseScope: an explicit preference is effective and matches the resolved settings", (t) => {
-  const editor = makeEditor(new SpeechPreferences({ pauseScope: "block" }));
-  t.is(editor.pauseScope.value, "block");
-  t.is(editor.pauseScope.effectiveValue, "block");
-  t.true(editor.pauseScope.isEffective);
+test("autoPause: an explicit preference is effective and matches the resolved settings", (t) => {
+  const editor = makeEditor(new SpeechPreferences({ autoPause: "block" }));
+  t.is(editor.autoPause.value, "block");
+  t.is(editor.autoPause.effectiveValue, "block");
+  t.true(editor.autoPause.isEffective);
 });
 
 test("clear() resets preferences to explicit nulls, not undefined", (t) => {
@@ -76,13 +76,6 @@ test("clear() actually resets preferences submitted through submitPreferences()"
   const merged = initial.merging(editor.preferences);
   t.is(merged.verbosity, null);
   t.is(merged.pauseDuration, null);
-});
-
-test("automaticPausesAtPageOrSpreadEnd is a plain, settable preference", (t) => {
-  const editor = makeEditor();
-  t.false(editor.automaticPausesAtPageOrSpreadEnd.isEffective);
-  editor.automaticPausesAtPageOrSpreadEnd.value = true;
-  t.is(editor.preferences.automaticPausesAtPageOrSpreadEnd, true);
 });
 
 test("rate is a range preference with the expected bounds", (t) => {

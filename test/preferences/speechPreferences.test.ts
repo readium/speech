@@ -65,14 +65,14 @@ test("an unsupported enum value is dropped to undefined", (t) => {
     // @ts-expect-error deliberately invalid
     verbosity: "everything",
     // @ts-expect-error deliberately invalid
-    pauseScope: "sentence",
+    autoPause: "sentence",
     // @ts-expect-error deliberately invalid
     format: "audio",
     // @ts-expect-error deliberately invalid
     language: "sometimes",
   });
   t.is(prefs.verbosity, undefined);
-  t.is(prefs.pauseScope, undefined);
+  t.is(prefs.autoPause, undefined);
   t.is(prefs.format, undefined);
   t.is(prefs.language, undefined);
 });
@@ -81,11 +81,8 @@ test("a non-boolean value for a boolean field is dropped to undefined", (t) => {
   const prefs = new SpeechPreferences({
     // @ts-expect-error deliberately invalid
     inlineContextualization: "yes",
-    // @ts-expect-error deliberately invalid
-    automaticPausesAtPageOrSpreadEnd: 1,
   });
   t.is(prefs.inlineContextualization, undefined);
-  t.is(prefs.automaticPausesAtPageOrSpreadEnd, undefined);
 });
 
 test("explicit null is preserved (not coerced to undefined) for guarded fields", (t) => {

@@ -11,10 +11,9 @@ test("defaults to the few preset and the rest of SpeechDefaults", (t) => {
   t.is(settings.verbosity, "few");
   t.is(settings.format, "plain");
   t.is(settings.inlineContextualization, false);
-  t.is(settings.language, "always");
+  t.is(settings.language, "block-level");
   t.is(settings.pauseDuration, 300);
-  t.is(settings.pauseScope, "utterance");
-  t.is(settings.automaticPausesAtPageOrSpreadEnd, false);
+  t.is(settings.autoPause, "none");
   t.is(settings.rate, 1);
   t.is(settings.pitch, 1);
   t.is(settings.volume, 1);

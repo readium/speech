@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Tip: wind the mechanism fully before dusk.",
-          "startsNewBlock": true
+          "plain": "Tip: wind the mechanism fully before dusk."
         }
       ]
     },
@@ -76,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Tip.",
-          "startsNewBlock": true
+          "plain": "Tip."
         },
         {
           "plain": "Tip: wind the mechanism fully before dusk."
@@ -92,8 +90,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Tip: wind the mechanism fully before dusk.",
-          "startsNewBlock": true
+          "ssml": "Tip: wind the mechanism fully before dusk."
         }
       ]
     },
@@ -160,8 +157,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Tip.",
-          "startsNewBlock": true
+          "ssml": "Tip."
         },
         {
           "ssml": "Tip: wind the mechanism fully before dusk."

@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "This work explores the history of coastal lighthouses.",
-          "startsNewBlock": true
+          "plain": "This work explores the history of coastal lighthouses."
         }
       ]
     },
@@ -76,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the introduction.",
-          "startsNewBlock": true
+          "plain": "Start of the introduction."
         },
         {
           "plain": "This work explores the history of coastal lighthouses."
@@ -95,8 +93,7 @@
       ],
       "utterances": [
         {
-          "ssml": "This work explores the history of coastal lighthouses.",
-          "startsNewBlock": true
+          "ssml": "This work explores the history of coastal lighthouses."
         }
       ]
     },
@@ -163,8 +160,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the introduction.",
-          "startsNewBlock": true
+          "ssml": "Start of the introduction."
         },
         {
           "ssml": "This work explores the history of coastal lighthouses."
