@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Page 42: 'lightouse' should read 'lighthouse'.",
-          "startsNewBlock": true
+          "plain": "Page 42: 'lightouse' should read 'lighthouse'."
         }
       ]
     },
@@ -76,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Errata.",
-          "startsNewBlock": true
+          "plain": "Errata."
         },
         {
           "plain": "Page 42: 'lightouse' should read 'lighthouse'."
@@ -92,8 +90,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Page 42: 'lightouse' should read 'lighthouse'.",
-          "startsNewBlock": true
+          "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
         }
       ]
     },
@@ -160,8 +157,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Errata.",
-          "startsNewBlock": true
+          "ssml": "Errata."
         },
         {
           "ssml": "Page 42: 'lightouse' should read 'lighthouse'."

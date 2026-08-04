@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "The lighthouse was decommissioned in 1998, though its light still functions as a private aid to navigation.",
-          "startsNewBlock": true
+          "plain": "The lighthouse was decommissioned in 1998, though its light still functions as a private aid to navigation."
         }
       ]
     },
@@ -21,8 +20,7 @@
       ],
       "utterances": [
         {
-          "ssml": "The lighthouse was decommissioned in 1998, though its light still functions as a private aid to navigation.",
-          "startsNewBlock": true
+          "ssml": "The lighthouse was decommissioned in 1998, though its light still functions as a private aid to navigation."
         }
       ]
     }

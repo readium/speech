@@ -11,9 +11,11 @@ import { ExtractUtterancesOptions } from './types.js';
  */
 export declare function extractUtterances(nodes: GndObject[], options: ExtractUtterancesOptions): ReadiumSpeechUtterance[];
 /**
- * Same as `extractUtterances()`, plus `sources[i]`: the node that produced `utterances[i]`.
+ * Same as `extractUtterances()`, plus `sources[i]`: the node that produced `utterances[i]`,
+ * and `blockStarts[i]`: whether `utterances[i]` begins a new block-level element.
  */
 export declare function extractUtterancesWithSources(nodes: GndObject[], options: ExtractUtterancesOptions): {
     utterances: ReadiumSpeechUtterance[];
     sources: (GndObject | undefined)[];
+    blockStarts: boolean[];
 };

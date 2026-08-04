@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Click to expand",
-          "startsNewBlock": true
+          "plain": "Click to expand"
         },
         {
           "plain": "Additional details the reader can expand."
@@ -82,8 +81,7 @@
           "plain": "Start of the details."
         },
         {
-          "plain": "Click to expand",
-          "startsNewBlock": true
+          "plain": "Click to expand"
         },
         {
           "plain": "Additional details the reader can expand."
@@ -156,8 +154,7 @@
       ],
       "utterances": [
         {
-          "plain": "Summary.",
-          "startsNewBlock": true
+          "plain": "Summary."
         },
         {
           "plain": "Click to expand"
@@ -241,8 +238,7 @@
           "plain": "Start of the details."
         },
         {
-          "plain": "Summary.",
-          "startsNewBlock": true
+          "plain": "Summary."
         },
         {
           "plain": "Click to expand"
@@ -580,8 +576,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Click to expand",
-          "startsNewBlock": true
+          "ssml": "Click to expand"
         },
         {
           "ssml": "Additional details the reader can expand."
@@ -654,8 +649,7 @@
           "ssml": "Start of the details."
         },
         {
-          "ssml": "Click to expand",
-          "startsNewBlock": true
+          "ssml": "Click to expand"
         },
         {
           "ssml": "Additional details the reader can expand."
@@ -728,8 +722,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Summary.",
-          "startsNewBlock": true
+          "ssml": "Summary."
         },
         {
           "ssml": "Click to expand"
@@ -813,8 +806,7 @@
           "ssml": "Start of the details."
         },
         {
-          "ssml": "Summary.",
-          "startsNewBlock": true
+          "ssml": "Summary."
         },
         {
           "ssml": "Click to expand"

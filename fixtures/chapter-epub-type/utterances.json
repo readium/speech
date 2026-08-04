@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Title of the chapter",
-          "startsNewBlock": true
+          "plain": "Title of the chapter"
         }
       ]
     },
@@ -76,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the chapter.",
-          "startsNewBlock": true
+          "plain": "Start of the chapter."
         },
         {
           "plain": "Title of the chapter"
@@ -150,8 +148,7 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Title of the chapter"
@@ -229,8 +226,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the chapter.",
-          "startsNewBlock": true
+          "plain": "Start of the chapter."
         },
         {
           "plain": "Heading level 1."
@@ -251,8 +247,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Title of the chapter",
-          "startsNewBlock": true
+          "ssml": "Title of the chapter"
         }
       ]
     },
@@ -319,8 +314,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the chapter.",
-          "startsNewBlock": true
+          "ssml": "Start of the chapter."
         },
         {
           "ssml": "Title of the chapter"
@@ -393,8 +387,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Title of the chapter"
@@ -472,8 +465,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the chapter.",
-          "startsNewBlock": true
+          "ssml": "Start of the chapter."
         },
         {
           "ssml": "Heading level 1."

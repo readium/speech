@@ -8,12 +8,10 @@
       ],
       "utterances": [
         {
-          "plain": "See introduction for background.",
-          "startsNewBlock": true
+          "plain": "See introduction for background."
         },
         {
-          "plain": "See chapter three for details.",
-          "startsNewBlock": true
+          "plain": "See chapter three for details."
         }
       ]
     },
@@ -146,15 +144,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the endnotes.",
-          "startsNewBlock": true
+          "plain": "Start of the endnotes."
         },
         {
           "plain": "See introduction for background."
         },
         {
-          "plain": "See chapter three for details.",
-          "startsNewBlock": true
+          "plain": "See chapter three for details."
         },
         {
           "plain": "End of the endnotes."
@@ -290,15 +286,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "plain": "Start of the list."
         },
         {
           "plain": "See introduction for background."
         },
         {
-          "plain": "See chapter three for details.",
-          "startsNewBlock": true
+          "plain": "See chapter three for details."
         },
         {
           "plain": "End of the list."
@@ -450,8 +444,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the endnotes.",
-          "startsNewBlock": true
+          "plain": "Start of the endnotes."
         },
         {
           "plain": "Start of the list."
@@ -460,8 +453,7 @@
           "plain": "See introduction for background."
         },
         {
-          "plain": "See chapter three for details.",
-          "startsNewBlock": true
+          "plain": "See chapter three for details."
         },
         {
           "plain": "End of the list."
@@ -600,15 +592,13 @@
       ],
       "utterances": [
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "See introduction for background."
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "See chapter three for details."
@@ -760,8 +750,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the endnotes.",
-          "startsNewBlock": true
+          "plain": "Start of the endnotes."
         },
         {
           "plain": "List item."
@@ -770,8 +759,7 @@
           "plain": "See introduction for background."
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "See chapter three for details."
@@ -926,8 +914,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "plain": "Start of the list."
         },
         {
           "plain": "List item."
@@ -936,8 +923,7 @@
           "plain": "See introduction for background."
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "See chapter three for details."
@@ -1108,8 +1094,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the endnotes.",
-          "startsNewBlock": true
+          "plain": "Start of the endnotes."
         },
         {
           "plain": "Start of the list."
@@ -1121,8 +1106,7 @@
           "plain": "See introduction for background."
         },
         {
-          "plain": "List item.",
-          "startsNewBlock": true
+          "plain": "List item."
         },
         {
           "plain": "See chapter three for details."
@@ -4793,8 +4777,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the endnotes.",
-          "startsNewBlock": true
+          "plain": "Start of the endnotes."
         },
         {
           "plain": "End of the endnotes."
@@ -5166,8 +5149,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list.",
-          "startsNewBlock": true
+          "plain": "Start of the list."
         },
         {
           "plain": "End of the list."
@@ -5571,8 +5553,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the endnotes.",
-          "startsNewBlock": true
+          "plain": "Start of the endnotes."
         },
         {
           "plain": "Start of the list."
@@ -5593,12 +5574,10 @@
       ],
       "utterances": [
         {
-          "ssml": "See introduction for background.",
-          "startsNewBlock": true
+          "ssml": "See introduction for background."
         },
         {
-          "ssml": "See chapter three for details.",
-          "startsNewBlock": true
+          "ssml": "See chapter three for details."
         }
       ]
     },
@@ -5731,15 +5710,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the endnotes.",
-          "startsNewBlock": true
+          "ssml": "Start of the endnotes."
         },
         {
           "ssml": "See introduction for background."
         },
         {
-          "ssml": "See chapter three for details.",
-          "startsNewBlock": true
+          "ssml": "See chapter three for details."
         },
         {
           "ssml": "End of the endnotes."
@@ -5875,15 +5852,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "ssml": "Start of the list."
         },
         {
           "ssml": "See introduction for background."
         },
         {
-          "ssml": "See chapter three for details.",
-          "startsNewBlock": true
+          "ssml": "See chapter three for details."
         },
         {
           "ssml": "End of the list."
@@ -6035,8 +6010,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the endnotes.",
-          "startsNewBlock": true
+          "ssml": "Start of the endnotes."
         },
         {
           "ssml": "Start of the list."
@@ -6045,8 +6019,7 @@
           "ssml": "See introduction for background."
         },
         {
-          "ssml": "See chapter three for details.",
-          "startsNewBlock": true
+          "ssml": "See chapter three for details."
         },
         {
           "ssml": "End of the list."
@@ -6185,15 +6158,13 @@
       ],
       "utterances": [
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "See introduction for background."
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "See chapter three for details."
@@ -6345,8 +6316,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the endnotes.",
-          "startsNewBlock": true
+          "ssml": "Start of the endnotes."
         },
         {
           "ssml": "List item."
@@ -6355,8 +6325,7 @@
           "ssml": "See introduction for background."
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "See chapter three for details."
@@ -6511,8 +6480,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "ssml": "Start of the list."
         },
         {
           "ssml": "List item."
@@ -6521,8 +6489,7 @@
           "ssml": "See introduction for background."
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "See chapter three for details."
@@ -6693,8 +6660,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the endnotes.",
-          "startsNewBlock": true
+          "ssml": "Start of the endnotes."
         },
         {
           "ssml": "Start of the list."
@@ -6706,8 +6672,7 @@
           "ssml": "See introduction for background."
         },
         {
-          "ssml": "List item.",
-          "startsNewBlock": true
+          "ssml": "List item."
         },
         {
           "ssml": "See chapter three for details."
@@ -10378,8 +10343,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the endnotes.",
-          "startsNewBlock": true
+          "ssml": "Start of the endnotes."
         },
         {
           "ssml": "End of the endnotes."
@@ -10751,8 +10715,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list.",
-          "startsNewBlock": true
+          "ssml": "Start of the list."
         },
         {
           "ssml": "End of the list."
@@ -11156,8 +11119,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the endnotes.",
-          "startsNewBlock": true
+          "ssml": "Start of the endnotes."
         },
         {
           "ssml": "Start of the list."

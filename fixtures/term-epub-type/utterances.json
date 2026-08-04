@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "lighthouse",
-          "startsNewBlock": true
+          "plain": "lighthouse"
         }
       ]
     },
@@ -76,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the glossary.",
-          "startsNewBlock": true
+          "plain": "Start of the glossary."
         },
         {
           "plain": "lighthouse"
@@ -150,8 +148,7 @@
       ],
       "utterances": [
         {
-          "plain": "Term.",
-          "startsNewBlock": true
+          "plain": "Term."
         },
         {
           "plain": "lighthouse"
@@ -229,8 +226,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the glossary.",
-          "startsNewBlock": true
+          "plain": "Start of the glossary."
         },
         {
           "plain": "Term."
@@ -251,8 +247,7 @@
       ],
       "utterances": [
         {
-          "ssml": "lighthouse",
-          "startsNewBlock": true
+          "ssml": "lighthouse"
         }
       ]
     },
@@ -319,8 +314,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the glossary.",
-          "startsNewBlock": true
+          "ssml": "Start of the glossary."
         },
         {
           "ssml": "lighthouse"
@@ -393,8 +387,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Term.",
-          "startsNewBlock": true
+          "ssml": "Term."
         },
         {
           "ssml": "lighthouse"
@@ -472,8 +465,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the glossary.",
-          "startsNewBlock": true
+          "ssml": "Start of the glossary."
         },
         {
           "ssml": "Term."

@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "A self-contained article about lighthouse keeping.",
-          "startsNewBlock": true
+          "plain": "A self-contained article about lighthouse keeping."
         }
       ]
     },
@@ -21,8 +20,7 @@
       ],
       "utterances": [
         {
-          "ssml": "A self-contained article about lighthouse keeping.",
-          "startsNewBlock": true
+          "ssml": "A self-contained article about lighthouse keeping."
         }
       ]
     }

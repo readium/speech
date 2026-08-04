@@ -372,7 +372,7 @@ body {
 }
 
 /* Marks where extractUtterances() detected a block boundary — the point
-   pauseDuration lands on under pauseScope: "block". */
+   autoPause: "block" triggers on. */
 .speech-utterances li.starts-new-block {
   border-top: 2px solid #999;
   margin-top: 6px;

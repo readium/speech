@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "The lamp still turns, though no one climbs the stairs anymore.",
-          "startsNewBlock": true
+          "plain": "The lamp still turns, though no one climbs the stairs anymore."
         }
       ]
     },
@@ -76,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Pull quote.",
-          "startsNewBlock": true
+          "plain": "Pull quote."
         },
         {
           "plain": "The lamp still turns, though no one climbs the stairs anymore."
@@ -237,8 +235,7 @@
       ],
       "utterances": [
         {
-          "ssml": "The lamp still turns, though no one climbs the stairs anymore.",
-          "startsNewBlock": true
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
         }
       ]
     },
@@ -305,8 +302,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Pull quote.",
-          "startsNewBlock": true
+          "ssml": "Pull quote."
         },
         {
           "ssml": "The lamp still turns, though no one climbs the stairs anymore."

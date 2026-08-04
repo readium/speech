@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Caution: the tower stairs are uneven.",
-          "startsNewBlock": true
+          "plain": "Caution: the tower stairs are uneven."
         }
       ]
     },
@@ -76,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Notice.",
-          "startsNewBlock": true
+          "plain": "Notice."
         },
         {
           "plain": "Caution: the tower stairs are uneven."
@@ -92,8 +90,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Caution: the tower stairs are uneven.",
-          "startsNewBlock": true
+          "ssml": "Caution: the tower stairs are uneven."
         }
       ]
     },
@@ -160,8 +157,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Notice.",
-          "startsNewBlock": true
+          "ssml": "Notice."
         },
         {
           "ssml": "Caution: the tower stairs are uneven."

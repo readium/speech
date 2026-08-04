@@ -8,12 +8,10 @@
       ],
       "utterances": [
         {
-          "plain": "Before the hidden content.",
-          "startsNewBlock": true
+          "plain": "Before the hidden content."
         },
         {
-          "plain": "After the hidden content.",
-          "startsNewBlock": true
+          "plain": "After the hidden content."
         }
       ]
     },
@@ -25,12 +23,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Before the hidden content.",
-          "startsNewBlock": true
+          "ssml": "Before the hidden content."
         },
         {
-          "ssml": "After the hidden content.",
-          "startsNewBlock": true
+          "ssml": "After the hidden content."
         }
       ]
     }

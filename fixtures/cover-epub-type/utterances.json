@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith",
-          "startsNewBlock": true
+          "plain": "Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },
@@ -76,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "plain": "Cover."
         },
         {
           "plain": "Lighthouses of the Atlantic, by J. Smith"
@@ -147,8 +145,7 @@
       ],
       "utterances": [
         {
-          "plain": "Image.",
-          "startsNewBlock": true
+          "plain": "Image."
         },
         {
           "plain": "Lighthouses of the Atlantic, by J. Smith"
@@ -226,8 +223,7 @@
       ],
       "utterances": [
         {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "plain": "Cover."
         },
         {
           "plain": "Image."
@@ -559,8 +555,7 @@
       ],
       "utterances": [
         {
-          "plain": "Cover.",
-          "startsNewBlock": true
+          "plain": "Cover."
         }
       ]
     },
@@ -572,8 +567,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith",
-          "startsNewBlock": true
+          "ssml": "Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },
@@ -640,8 +634,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "ssml": "Cover."
         },
         {
           "ssml": "Lighthouses of the Atlantic, by J. Smith"
@@ -711,8 +704,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Image.",
-          "startsNewBlock": true
+          "ssml": "Image."
         },
         {
           "ssml": "Lighthouses of the Atlantic, by J. Smith"
@@ -790,8 +782,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "ssml": "Cover."
         },
         {
           "ssml": "Image."
@@ -1123,8 +1114,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Cover.",
-          "startsNewBlock": true
+          "ssml": "Cover."
         }
       ]
     }

@@ -75,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Audio.",
-          "startsNewBlock": true
+          "plain": "Audio."
         },
         {
           "plain": "Foghorn recording from the 1962 restoration"
@@ -303,8 +302,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Audio.",
-          "startsNewBlock": true
+          "ssml": "Audio."
         },
         {
           "ssml": "Foghorn recording from the 1962 restoration"

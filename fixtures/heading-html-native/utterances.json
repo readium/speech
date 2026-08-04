@@ -8,28 +8,22 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -96,31 +90,25 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -187,31 +175,25 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -286,34 +268,28 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -380,31 +356,25 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -479,34 +449,28 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -581,34 +545,28 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -691,37 +649,31 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -788,31 +740,25 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -887,34 +833,28 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -989,34 +929,28 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -1099,37 +1033,31 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -1204,34 +1132,28 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -1314,37 +1236,31 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -1427,37 +1343,31 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -1548,40 +1458,34 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -1648,31 +1552,25 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -1747,34 +1645,28 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -1849,34 +1741,28 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -1959,37 +1845,31 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -2064,34 +1944,28 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -2174,37 +2048,31 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -2287,37 +2155,31 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -2408,40 +2270,34 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -2516,34 +2372,28 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -2626,37 +2476,31 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -2739,37 +2583,31 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -2860,40 +2698,34 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -2976,37 +2808,31 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -3097,40 +2923,34 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -3221,40 +3041,34 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -3353,43 +3167,37 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Aside heading",
-          "startsNewBlock": true
+          "plain": "Aside heading"
         }
       ]
     },
@@ -3456,28 +3264,22 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -3555,31 +3357,25 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -3657,31 +3453,25 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -3767,34 +3557,28 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -3872,31 +3656,25 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -3982,34 +3760,28 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -4095,34 +3867,28 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -4216,37 +3982,31 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -4324,31 +4084,25 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -4434,34 +4188,28 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -4547,34 +4295,28 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -4668,37 +4410,31 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -4784,34 +4520,28 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -4905,37 +4635,31 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -5029,37 +4753,31 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -5161,40 +4879,34 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Note heading",
-          "startsNewBlock": true
+          "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -5272,31 +4984,25 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -5382,34 +5088,28 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -5495,34 +5195,28 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -5616,37 +5310,31 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -5732,34 +5420,28 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -5853,37 +5535,31 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -5977,37 +5653,31 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -6109,40 +5779,34 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Detail heading",
-          "startsNewBlock": true
+          "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -6228,34 +5892,28 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -6349,37 +6007,31 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -6473,37 +6125,31 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -6605,40 +6251,34 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Subsection i",
-          "startsNewBlock": true
+          "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -6732,37 +6372,31 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -6864,40 +6498,34 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Section A",
-          "startsNewBlock": true
+          "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -6999,40 +6627,34 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One",
-          "startsNewBlock": true
+          "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -7142,43 +6764,37 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "startsNewBlock": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Chapter One"
         },
         {
-          "plain": "Heading level 2.",
-          "startsNewBlock": true
+          "plain": "Heading level 2."
         },
         {
           "plain": "Section A"
         },
         {
-          "plain": "Heading level 3.",
-          "startsNewBlock": true
+          "plain": "Heading level 3."
         },
         {
           "plain": "Subsection i"
         },
         {
-          "plain": "Heading level 4.",
-          "startsNewBlock": true
+          "plain": "Heading level 4."
         },
         {
           "plain": "Detail heading"
         },
         {
-          "plain": "Heading level 5.",
-          "startsNewBlock": true
+          "plain": "Heading level 5."
         },
         {
           "plain": "Note heading"
         },
         {
-          "plain": "Heading level 6.",
-          "startsNewBlock": true
+          "plain": "Heading level 6."
         },
         {
           "plain": "Aside heading"
@@ -7193,28 +6809,22 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -7281,31 +6891,25 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -7372,31 +6976,25 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -7471,34 +7069,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -7565,31 +7157,25 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -7664,34 +7250,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -7766,34 +7346,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -7876,37 +7450,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -7973,31 +7541,25 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -8072,34 +7634,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -8174,34 +7730,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -8284,37 +7834,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -8389,34 +7933,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -8499,37 +8037,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -8612,37 +8144,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -8733,40 +8259,34 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -8833,31 +8353,25 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -8932,34 +8446,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -9034,34 +8542,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -9144,37 +8646,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -9249,34 +8745,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -9359,37 +8849,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -9472,37 +8956,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -9593,40 +9071,34 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -9701,34 +9173,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -9811,37 +9277,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -9924,37 +9384,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -10045,40 +9499,34 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -10161,37 +9609,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -10282,40 +9724,34 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -10406,40 +9842,34 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -10538,43 +9968,37 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Aside heading",
-          "startsNewBlock": true
+          "ssml": "Aside heading"
         }
       ]
     },
@@ -10641,28 +10065,22 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -10740,31 +10158,25 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -10842,31 +10254,25 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -10952,34 +10358,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -11057,31 +10457,25 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -11167,34 +10561,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -11280,34 +10668,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -11401,37 +10783,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -11509,31 +10885,25 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -11619,34 +10989,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -11732,34 +11096,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -11853,37 +11211,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -11969,34 +11321,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -12090,37 +11436,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -12214,37 +11554,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -12346,40 +11680,34 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Note heading",
-          "startsNewBlock": true
+          "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -12457,31 +11785,25 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -12567,34 +11889,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -12680,34 +11996,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -12801,37 +12111,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -12917,34 +12221,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -13038,37 +12336,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -13162,37 +12454,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -13294,40 +12580,34 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Detail heading",
-          "startsNewBlock": true
+          "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -13413,34 +12693,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -13534,37 +12808,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -13658,37 +12926,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -13790,40 +13052,34 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Subsection i",
-          "startsNewBlock": true
+          "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -13917,37 +13173,31 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -14049,40 +13299,34 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Section A",
-          "startsNewBlock": true
+          "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -14184,40 +13428,34 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One",
-          "startsNewBlock": true
+          "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"
@@ -14327,43 +13565,37 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "startsNewBlock": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Chapter One"
         },
         {
-          "ssml": "Heading level 2.",
-          "startsNewBlock": true
+          "ssml": "Heading level 2."
         },
         {
           "ssml": "Section A"
         },
         {
-          "ssml": "Heading level 3.",
-          "startsNewBlock": true
+          "ssml": "Heading level 3."
         },
         {
           "ssml": "Subsection i"
         },
         {
-          "ssml": "Heading level 4.",
-          "startsNewBlock": true
+          "ssml": "Heading level 4."
         },
         {
           "ssml": "Detail heading"
         },
         {
-          "ssml": "Heading level 5.",
-          "startsNewBlock": true
+          "ssml": "Heading level 5."
         },
         {
           "ssml": "Note heading"
         },
         {
-          "ssml": "Heading level 6.",
-          "startsNewBlock": true
+          "ssml": "Heading level 6."
         },
         {
           "ssml": "Aside heading"

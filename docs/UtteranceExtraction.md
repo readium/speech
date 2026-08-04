@@ -18,12 +18,9 @@ interface ReadiumSpeechUtterance {
   id?: string;
   plain?: string;
   ssml?: string;
-  language?: string;      // BCP 47
-  startsNewBlock?: true;  // present (and true) only when this utterance begins a new block-level element
+  language?: string; // BCP 47
 }
 ```
-
-`startsNewBlock` marks the first utterance of a node whose role is in `blockLevelRoles` (a paragraph, heading, list item, table cell, ...) whenever it isn't a continuation of the block already in progress — e.g. a `<p>` split into several utterances by inline `<lang>` spans only gets the marker on its first piece. `ReadiumSpeechNavigator` uses it to scope `pauseDuration` under `pauseScope: "block"` (see [Preferences](Preferences.md#prosody)).
 
 Some roles get a synthesized navigational announcement spoken around their content (entering/leaving a chapter, a pagebreak label...); see [`ExtractUtterancesOptions.announcements`](../src/utterances/types.ts) and [`defaultAnnouncements`](../src/utterances/announcements.ts) in source — the catalog is still English-only and expected to move to a localized (Weblate-sourced) format, so it isn't documented here yet.
 
