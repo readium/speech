@@ -1,12 +1,83 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
-          "plain": "Notice."
+          "plain": "Caution: the tower stairs are uneven.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "notice"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "notice"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "notice"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "notice"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "notice"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "notice"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "notice"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "notice"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Notice.",
+          "startsNewBlock": true
         },
         {
           "plain": "Caution: the tower stairs are uneven."
@@ -14,118 +85,83 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
       "utterances": [
         {
-          "plain": "Caution: the tower stairs are uneven."
+          "ssml": "Caution: the tower stairs are uneven.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Notice."
+          "format": "ssml",
+          "contextualize": [
+            "notice"
+          ]
         },
         {
-          "plain": "Caution: the tower stairs are uneven."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Notice."
+          "format": "ssml",
+          "contextualize": [
+            "notice"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Caution: the tower stairs are uneven."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Notice."
+          "format": "ssml",
+          "contextualize": [
+            "notice"
+          ],
+          "language": "always"
         },
         {
-          "plain": "Caution: the tower stairs are uneven."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
-      "utterances": [
-        {
-          "ssml": "Notice."
+          "format": "ssml",
+          "contextualize": [
+            "notice"
+          ],
+          "language": "always",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Caution: the tower stairs are uneven."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "ssml": "Caution: the tower stairs are uneven."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Notice."
+          "format": "ssml",
+          "contextualize": [
+            "notice"
+          ],
+          "language": "block-level"
         },
         {
-          "ssml": "Caution: the tower stairs are uneven."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Notice."
+          "format": "ssml",
+          "contextualize": [
+            "notice"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
         },
         {
-          "ssml": "Caution: the tower stairs are uneven."
+          "format": "ssml",
+          "contextualize": [
+            "notice"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "notice"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
+      ],
       "utterances": [
         {
-          "ssml": "Notice."
+          "ssml": "Notice.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Caution: the tower stairs are uneven."

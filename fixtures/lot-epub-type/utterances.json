@@ -1,15 +1,431 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table 1. Lighthouse construction dates",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Table 2. Keeper staffing by decade",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Start of the list of tables."
         },
         {
+          "plain": "Table 1. Lighthouse construction dates",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Table 2. Keeper staffing by decade",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list of tables."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
           "plain": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "plain": "Table 2. Keeper staffing by decade",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "list"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list of tables."
+        },
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "plain": "Table 2. Keeper staffing by decade",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the list of tables."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Table 2. Keeper staffing by decade"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list of tables."
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "Table 2. Keeper staffing by decade"
@@ -20,98 +436,1306 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "lot"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Table 2. Keeper staffing by decade"
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list of tables."
+        },
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Table 2. Keeper staffing by decade"
+        },
+        {
+          "plain": "End of the list."
+        },
+        {
+          "plain": "End of the list of tables."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": []
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
       "utterances": [
         {
-          "plain": "Table 1. Lighthouse construction dates"
+          "ssml": "Table 1. Lighthouse construction dates",
+          "startsNewBlock": true
         },
         {
-          "plain": "Table 2. Keeper staffing by decade"
+          "ssml": "Table 2. Keeper staffing by decade",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the list of tables."
+          "format": "ssml",
+          "contextualize": [
+            "lot"
+          ]
         },
         {
-          "plain": "Table 1. Lighthouse construction dates"
+          "format": "ssml",
+          "contextualize": [
+            "lot"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "Table 2. Keeper staffing by decade"
+          "format": "ssml",
+          "contextualize": [
+            "lot"
+          ],
+          "language": "always"
         },
         {
-          "plain": "End of the list of tables."
+          "format": "ssml",
+          "contextualize": [
+            "lot"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list of tables."
-        },
-        {
-          "plain": "Table 1. Lighthouse construction dates"
-        },
-        {
-          "plain": "Table 2. Keeper staffing by decade"
-        },
-        {
-          "plain": "End of the list of tables."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the list of tables."
-        },
-        {
-          "plain": "Table 1. Lighthouse construction dates"
-        },
-        {
-          "plain": "Table 2. Keeper staffing by decade"
-        },
-        {
-          "plain": "End of the list of tables."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the list of tables."
         },
         {
+          "ssml": "Table 1. Lighthouse construction dates",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Table 2. Keeper staffing by decade",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list of tables."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
           "ssml": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "ssml": "Table 2. Keeper staffing by decade",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "list"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list of tables."
+        },
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "ssml": "Table 2. Keeper staffing by decade",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the list of tables."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Table 2. Keeper staffing by decade"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list of tables."
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Table 2. Keeper staffing by decade"
@@ -122,87 +1746,879 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "lot"
-        ]
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Table 2. Keeper staffing by decade"
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list of tables."
+        },
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Table 1. Lighthouse construction dates"
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Table 2. Keeper staffing by decade"
+        },
+        {
+          "ssml": "End of the list."
+        },
+        {
+          "ssml": "End of the list of tables."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "lot"
+          ],
+          "contextualize": [
+            "lot",
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "ssml": "Table 1. Lighthouse construction dates"
-        },
-        {
-          "ssml": "Table 2. Keeper staffing by decade"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list of tables."
-        },
-        {
-          "ssml": "Table 1. Lighthouse construction dates"
-        },
-        {
-          "ssml": "Table 2. Keeper staffing by decade"
-        },
-        {
-          "ssml": "End of the list of tables."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list of tables."
-        },
-        {
-          "ssml": "Table 1. Lighthouse construction dates"
-        },
-        {
-          "ssml": "Table 2. Keeper staffing by decade"
-        },
-        {
-          "ssml": "End of the list of tables."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the list of tables."
-        },
-        {
-          "ssml": "Table 1. Lighthouse construction dates"
-        },
-        {
-          "ssml": "Table 2. Keeper staffing by decade"
-        },
-        {
-          "ssml": "End of the list of tables."
-        }
-      ]
     }
   ]
 }

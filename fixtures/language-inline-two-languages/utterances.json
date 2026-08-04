@@ -1,13 +1,16 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "Hello",
-          "language": "en"
+          "language": "en",
+          "startsNewBlock": true
         },
         {
           "plain": "bonjour",
@@ -28,99 +31,94 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Hello",
-          "language": "en"
+          "format": "plain",
+          "language": "block-level"
         },
         {
-          "plain": "bonjour",
-          "language": "fr"
-        },
-        {
-          "plain": "and",
-          "language": "en"
-        },
-        {
-          "plain": "hola",
-          "language": "es"
-        },
-        {
-          "plain": "there.",
-          "language": "en"
+          "format": "plain",
+          "language": "block-level",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
+      ],
       "utterances": [
         {
           "language": "en",
-          "plain": "Hello bonjour and hola there."
+          "plain": "Hello bonjour and hola there.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
+      "options": [
+        {
+          "format": "plain",
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
-          "plain": "Hello bonjour and hola there."
+          "plain": "Hello bonjour and hola there.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "ssml"
-      },
-      "utterances": [
+      "options": [
         {
-          "language": "en",
-          "ssml": "Hello <lang xml:lang=\"fr\">bonjour</lang> and <lang xml:lang=\"es\">hola</lang> there."
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "language": "en",
-          "ssml": "Hello <lang xml:lang=\"fr\">bonjour</lang> and <lang xml:lang=\"es\">hola</lang> there."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
+      ],
       "utterances": [
         {
           "language": "en",
-          "ssml": "Hello bonjour and hola there."
+          "ssml": "Hello <lang xml:lang=\"fr\">bonjour</lang> and <lang xml:lang=\"es\">hola</lang> there.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
-          "ssml": "Hello bonjour and hola there."
+          "language": "en",
+          "ssml": "Hello bonjour and hola there.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Hello bonjour and hola there.",
+          "startsNewBlock": true
         }
       ]
     }

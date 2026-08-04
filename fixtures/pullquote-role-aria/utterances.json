@@ -1,12 +1,83 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
-          "plain": "Pull quote."
+          "plain": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "pullquote"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pullquote"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Pull quote.",
+          "startsNewBlock": true
         },
         {
           "plain": "The lamp still turns, though no one climbs the stairs anymore."
@@ -14,74 +85,228 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "pullquote"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "pullquote"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "pullquote"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "pullquote"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "pullquote"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "pullquote"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "pullquote"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "pullquote"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "pullquote"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "pullquote"
+          ],
+          "contextualize": [
+            "pullquote"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "pullquote"
+          ],
+          "contextualize": [
+            "pullquote"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "pullquote"
+          ],
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "pullquote"
+          ],
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "pullquote"
+          ],
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "pullquote"
+          ],
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "pullquote"
+          ],
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "pullquote"
+          ],
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": []
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
       "utterances": [
         {
-          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+          "ssml": "The lamp still turns, though no one climbs the stairs anymore.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Pull quote."
+          "format": "ssml",
+          "contextualize": [
+            "pullquote"
+          ]
         },
         {
-          "plain": "The lamp still turns, though no one climbs the stairs anymore."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Pull quote."
+          "format": "ssml",
+          "contextualize": [
+            "pullquote"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "The lamp still turns, though no one climbs the stairs anymore."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Pull quote."
+          "format": "ssml",
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "always"
         },
         {
-          "plain": "The lamp still turns, though no one climbs the stairs anymore."
+          "format": "ssml",
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
-          "ssml": "Pull quote."
+          "ssml": "Pull quote.",
+          "startsNewBlock": true
         },
         {
           "ssml": "The lamp still turns, though no one climbs the stairs anymore."
@@ -89,66 +314,149 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "pullquote"
-        ]
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "pullquote"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "pullquote"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "pullquote"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "pullquote"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "pullquote"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "pullquote"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "pullquote"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "pullquote"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "pullquote"
+          ],
+          "contextualize": [
+            "pullquote"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "pullquote"
+          ],
+          "contextualize": [
+            "pullquote"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "pullquote"
+          ],
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "pullquote"
+          ],
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "pullquote"
+          ],
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "pullquote"
+          ],
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "pullquote"
+          ],
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "pullquote"
+          ],
+          "contextualize": [
+            "pullquote"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Pull quote."
-        },
-        {
-          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Pull quote."
-        },
-        {
-          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Pull quote."
-        },
-        {
-          "ssml": "The lamp still turns, though no one climbs the stairs anymore."
-        }
-      ]
     }
   ]
 }

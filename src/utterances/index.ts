@@ -1,5 +1,5 @@
 export { extractUtterances } from "./extractUtterances.js";
-export { skippableRoles } from "./roles.js";
+export { blockLevelRoles, skippableRoles } from "./roles.js";
 export { defaultAnnouncements } from "./announcements.js";
 export type {
   Announcement,

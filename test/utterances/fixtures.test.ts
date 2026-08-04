@@ -23,11 +23,13 @@ function sortKeysDeep(value: unknown): unknown {
 for (const entry of manifest) {
   const fixture = loadFixture(entry.id);
 
-  for (const { options, utterances } of fixture.utterances.cases) {
-    test(`fixture "${entry.id}": extractUtterances matches utterances.json's case ${JSON.stringify(options)}`, (t) => {
-      const gnd = parseMarkup(fixture.inputHtml);
-      const actual = extractUtterances(gnd, options as ExtractUtterancesOptions);
-      t.deepEqual(sortKeysDeep(actual), sortKeysDeep(utterances));
-    });
+  for (const { options: optionSets, utterances } of fixture.utterances.cases) {
+    for (const options of optionSets) {
+      test(`fixture "${entry.id}": extractUtterances matches utterances.json's case ${JSON.stringify(options)}`, (t) => {
+        const gnd = parseMarkup(fixture.inputHtml);
+        const actual = extractUtterances(gnd, options as ExtractUtterancesOptions);
+        t.deepEqual(sortKeysDeep(actual), sortKeysDeep(utterances));
+      });
+    }
   }
 }

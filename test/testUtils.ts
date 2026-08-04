@@ -36,9 +36,9 @@ export interface FixtureMeta {
   inputKind: "fragment" | "document";
 }
 
-// One full ExtractUtterancesOptions combination and its expected output.
+// Every ExtractUtterancesOptions combination that produces this exact output.
 export interface UtterancesCase {
-  options: Record<string, unknown> & { format: "plain" | "ssml" };
+  options: (Record<string, unknown> & { format: "plain" | "ssml" })[];
   utterances: unknown[];
 }
 

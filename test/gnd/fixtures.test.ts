@@ -59,14 +59,16 @@ for (const entry of manifest) {
     );
 
     t.true(Array.isArray(fixture.utterances.cases), "utterances.json must have a cases array");
-    for (const { options, utterances } of fixture.utterances.cases) {
-      t.true(Array.isArray(utterances), `utterances.json case ${JSON.stringify(options)} must have a utterances array`);
-      for (const utterance of utterances as Record<string, unknown>[]) {
-        t.true(typeof utterance === "object" && utterance !== null);
-        t.true(
-          typeof utterance[options.format] === "string",
-          `each utterance in the ${JSON.stringify(options)} case needs a ${options.format} field`,
-        );
+    for (const { options: optionSets, utterances } of fixture.utterances.cases) {
+      t.true(Array.isArray(utterances), `utterances.json case ${JSON.stringify(optionSets)} must have a utterances array`);
+      for (const options of optionSets) {
+        for (const utterance of utterances as Record<string, unknown>[]) {
+          t.true(typeof utterance === "object" && utterance !== null);
+          t.true(
+            typeof utterance[options.format] === "string",
+            `each utterance in the ${JSON.stringify(options)} case needs a ${options.format} field`,
+          );
+        }
       }
     }
 

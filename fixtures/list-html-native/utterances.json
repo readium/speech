@@ -1,15 +1,187 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
+        {
+          "plain": "First item",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Second item",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Third item",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
         {
           "plain": "First item"
         },
         {
+          "plain": "Second item",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "Third item",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "First item"
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
+        },
+        {
           "plain": "Second item"
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "Third item"
@@ -17,66 +189,286 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
+          "plain": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "plain": "List item."
+        },
+        {
           "plain": "First item"
+        },
+        {
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "Second item"
         },
         {
-          "plain": "Third item"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "First item"
-        },
-        {
-          "plain": "Second item"
+          "plain": "List item.",
+          "startsNewBlock": true
         },
         {
           "plain": "Third item"
+        },
+        {
+          "plain": "End of the list."
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
       "utterances": [
         {
-          "plain": "First item"
+          "ssml": "First item",
+          "startsNewBlock": true
         },
         {
-          "plain": "Second item"
+          "ssml": "Second item",
+          "startsNewBlock": true
         },
         {
-          "plain": "Third item"
+          "ssml": "Third item",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "ssml"
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
         {
           "ssml": "First item"
         },
         {
+          "ssml": "Second item",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "Third item",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "First item"
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
+        },
+        {
           "ssml": "Second item"
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Third item"
@@ -84,53 +476,101 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "ssml": "First item"
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ]
         },
         {
-          "ssml": "Second item"
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "inlineContextualization": true
         },
         {
-          "ssml": "Third item"
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
+      ],
       "utterances": [
         {
+          "ssml": "Start of the list.",
+          "startsNewBlock": true
+        },
+        {
+          "ssml": "List item."
+        },
+        {
           "ssml": "First item"
+        },
+        {
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Second item"
         },
         {
-          "ssml": "Third item"
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "First item"
-        },
-        {
-          "ssml": "Second item"
+          "ssml": "List item.",
+          "startsNewBlock": true
         },
         {
           "ssml": "Third item"
+        },
+        {
+          "ssml": "End of the list."
         }
       ]
     }

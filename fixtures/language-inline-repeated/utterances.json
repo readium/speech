@@ -1,13 +1,16 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
       "utterances": [
         {
           "plain": "One",
-          "language": "en"
+          "language": "en",
+          "startsNewBlock": true
         },
         {
           "plain": "deux",
@@ -28,99 +31,94 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "One",
-          "language": "en"
+          "format": "plain",
+          "language": "block-level"
         },
         {
-          "plain": "deux",
-          "language": "fr"
-        },
-        {
-          "plain": "three",
-          "language": "en"
-        },
-        {
-          "plain": "quatre",
-          "language": "fr"
-        },
-        {
-          "plain": "five.",
-          "language": "en"
+          "format": "plain",
+          "language": "block-level",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
+      ],
       "utterances": [
         {
           "language": "en",
-          "plain": "One deux three quatre five."
+          "plain": "One deux three quatre five.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
+      "options": [
+        {
+          "format": "plain",
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
-          "plain": "One deux three quatre five."
+          "plain": "One deux three quatre five.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "ssml"
-      },
-      "utterances": [
+      "options": [
         {
-          "language": "en",
-          "ssml": "One <lang xml:lang=\"fr\">deux</lang> three <lang xml:lang=\"fr\">quatre</lang> five."
+          "format": "ssml"
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "language": "en",
-          "ssml": "One <lang xml:lang=\"fr\">deux</lang> three <lang xml:lang=\"fr\">quatre</lang> five."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
+      ],
       "utterances": [
         {
           "language": "en",
-          "ssml": "One deux three quatre five."
+          "ssml": "One <lang xml:lang=\"fr\">deux</lang> three <lang xml:lang=\"fr\">quatre</lang> five.",
+          "startsNewBlock": true
         }
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
-          "ssml": "One deux three quatre five."
+          "language": "en",
+          "ssml": "One deux three quatre five.",
+          "startsNewBlock": true
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "One deux three quatre five.",
+          "startsNewBlock": true
         }
       ]
     }

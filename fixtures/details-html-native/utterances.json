@@ -1,9 +1,78 @@
 {
   "cases": [
     {
-      "options": {
-        "format": "plain"
-      },
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Additional details the reader can expand."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "details"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "details"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "details"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "details"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "details"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "details"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "details"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "details"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": [
         {
           "plain": "Start of the details."
@@ -17,80 +86,223 @@
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "skip": [
-          "details"
-        ]
-      },
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": []
     },
     {
-      "options": {
-        "format": "plain",
-        "contextualize": false
-      },
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
       "utterances": [
         {
-          "plain": "Additional details the reader can expand."
+          "ssml": "Additional details the reader can expand."
         }
       ]
     },
     {
-      "options": {
-        "format": "plain",
-        "language": "always"
-      },
-      "utterances": [
+      "options": [
         {
-          "plain": "Start of the details."
+          "format": "ssml",
+          "contextualize": [
+            "details"
+          ]
         },
         {
-          "plain": "Additional details the reader can expand."
+          "format": "ssml",
+          "contextualize": [
+            "details"
+          ],
+          "inlineContextualization": true
         },
         {
-          "plain": "End of the details."
+          "format": "ssml",
+          "contextualize": [
+            "details"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details"
+          ],
+          "language": "none",
+          "inlineContextualization": true
         }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the details."
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        },
-        {
-          "plain": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "plain",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "plain": "Start of the details."
-        },
-        {
-          "plain": "Additional details the reader can expand."
-        },
-        {
-          "plain": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml"
-      },
+      ],
       "utterances": [
         {
           "ssml": "Start of the details."
@@ -104,75 +316,149 @@
       ]
     },
     {
-      "options": {
-        "format": "ssml",
-        "skip": [
-          "details"
-        ]
-      },
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "details"
+          ],
+          "contextualize": [
+            "details"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
       "utterances": []
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "contextualize": false
-      },
-      "utterances": [
-        {
-          "ssml": "Additional details the reader can expand."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "always"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the details."
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "block-level"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the details."
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
-        }
-      ]
-    },
-    {
-      "options": {
-        "format": "ssml",
-        "language": "none"
-      },
-      "utterances": [
-        {
-          "ssml": "Start of the details."
-        },
-        {
-          "ssml": "Additional details the reader can expand."
-        },
-        {
-          "ssml": "End of the details."
-        }
-      ]
     }
   ]
 }
