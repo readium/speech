@@ -22,7 +22,8 @@ export interface ReadiumSpeechPlaybackEvent {
     | "loading"         // Loading content
     | "ready"           // Ready to play
     | "voiceschanged"   // Available voices changed
-    | "languagefallback"; // No voice matched an utterance's content language
+    | "languagefallback" // No voice matched an utterance's content language
+    | "enginefallback"; // Swapped to a fallback engine after the primary one failed
   detail?: any;  // Event-specific data
 }
 

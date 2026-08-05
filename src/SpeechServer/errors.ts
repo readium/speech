@@ -22,6 +22,24 @@ export class SpeechServerError extends Error {
   }
 }
 
+// Thrown when the buffer is projected to run dry and the pending chunk still hasn't resolved
+// after the grace period (see SpeechServerEngineOptions.timeoutMs) — not a per-request timeout.
+export class SpeechServerStallError extends SpeechServerError {
+  constructor(message: string) {
+    super(message, { status: 408, type: "https://readium.org/speech-server/error#stall", title: "Synthesis Stalled" });
+    this.name = "SpeechServerStallError";
+  }
+}
+
+// Thrown when a response arrived and parsed fine, but its audio payload couldn't be decoded —
+// unlike SpeechServerError, no HTTP status applies here.
+export class SpeechServerAudioDecodeError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "SpeechServerAudioDecodeError";
+  }
+}
+
 // Server errors are RFC 9457 Problem Details, but nginx (production rate/connection
 // limits) and network failures return plain text or nothing, so parsing is best-effort.
 export async function toSpeechServerError(response: Response): Promise<SpeechServerError> {
