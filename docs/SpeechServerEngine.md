@@ -45,6 +45,7 @@ interface SpeechServerEngineOptions {
   readyBufferChars?: number;    // combined chars to buffer before "ready", default 400
   overLengthText?: "split" | "error"; // default "split"
   format?: SpeechServerFormatOptions;
+  timeoutMs?: number; // default: undefined (never declares a stall)
 }
 ```
 
@@ -52,6 +53,7 @@ interface SpeechServerEngineOptions {
 - `readyBufferChars`: bounded by `prefetchWindow` too — the initial buffer is just the front of that same lookahead.
 - `overLengthText`: an utterance longer than the server's advertised `maxTextLength` (from `/service`) is split into multiple `/synthesize` requests and played back-to-back as one logical utterance by default (`"split"`). Set `"error"` to instead fail fast with a `SpeechServerError` (413, `payload_too_large`) — e.g. if you'd rather pre-chunk text yourself upstream. Splitting is sentence/word-boundary-aware for plain text, and tag-atomic for SSML (never cuts inside a `<tag>...</tag>` span).
 - `format`: see below.
+- `timeoutMs`: see [Stall detection](#stall-detection).
 
 ## Format selection
 
@@ -69,7 +71,13 @@ By default the engine picks a format from the intersection of what the server ad
 
 ## Errors
 
-Failures surface as `"error"` events (see [Playback.md](Playback.md#readiumspeechplaybackevent)), with `detail` shaped like a `SpeechServerError`: `{ message, status, type, title, instance }`, following [RFC 9457 Problem Details](https://www.rfc-editor.org/rfc/rfc9457) when the server returns one.
+Failures surface as `"error"` events (see [Playback.md](Playback.md#readiumspeechplaybackevent)), with `detail` shaped like a `SpeechServerError`: `{ message, status, type, title, instance, recoverable }`, following [RFC 9457 Problem Details](https://www.rfc-editor.org/rfc/rfc9457) when the server returns one. `recoverable` is `true` when the server never responded at all (network failure, or a stall — see below), and `false` when it responded but rejected the request, or the audio payload couldn't be decoded — see [FallbackEngine.md](FallbackEngine.md), which uses this to decide whether swapping to another engine could help.
+
+## Stall detection
+
+`timeoutMs` is a **grace period**, not a per-request cap: `/synthesize` requests aren't given a flat timeout, because prefetching and gapless scheduling mean a single slow chunk is harmless as long as there's still enough already-buffered audio ahead of the playhead to cover it. Instead, the engine only starts a clock once the buffer is projected to run dry with the next chunk still not ready, and only declares a stall — throwing a `SpeechServerStallError` (408, `.../error#stall`) and aborting that specific request — if `timeoutMs` elapses past that point. Every chunk that does resolve pushes the projected buffer-empty point further out, so the deadline effectively rolls forward with playback rather than being fixed at request start.
+
+Left `undefined` (the default), a stalled `/synthesize` request waits forever, same as before this option existed.
 
 ## Minimizing gaps between utterances
 

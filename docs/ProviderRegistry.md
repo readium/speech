@@ -71,7 +71,11 @@ async function onVoicePicked(providerId: string, voice: ReadiumSpeechVoice) {
 
 ## Falling back when a provider isn't available
 
-`register()` doesn't validate that a provider actually works (e.g. that a speech-server is reachable) — that only surfaces the first time `getVoices()`/`createEngine()` is called and the request fails. Check reachability yourself before registering if you need a clean fallback:
+`register()` doesn't validate that a provider actually works (e.g. that a speech-server is reachable) — that only surfaces the first time `getVoices()`/`createEngine()` is called and the request fails.
+
+For an automated fallback — including mid-playback, if the primary starts failing after already working — see [`FallbackEngineProvider`](FallbackEngine.md); it wraps two providers as one and swaps between them on failure, with no registry involved.
+
+The registry itself just holds whichever providers you choose to register. A minimal manual check before registering looks like:
 
 ```ts
 const registry = new ReadiumSpeechProviderRegistry();

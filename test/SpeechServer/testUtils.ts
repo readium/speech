@@ -14,10 +14,12 @@ export interface MockFetchResult {
   contentType?: string;
 }
 
+// Handlers may return a Promise — e.g. one that resolves after a delay, or never resolves at
+// all — to simulate a slow or hung request for stall-detection tests.
 export interface MockFetchHandlers {
-  voices?: () => any[] | MockFetchResult;
-  synthesize?: (body: any) => MockFetchResult;
-  service?: () => MockFetchResult;
+  voices?: () => any[] | MockFetchResult | Promise<any[] | MockFetchResult>;
+  synthesize?: (body: any) => MockFetchResult | Promise<MockFetchResult>;
+  service?: () => MockFetchResult | Promise<MockFetchResult>;
 }
 
 export function defaultServiceInfo() {
@@ -44,7 +46,7 @@ export function createMockFetch(handlers: MockFetchHandlers) {
     calls.push({ url, init });
 
     if (url.endsWith("/voices")) {
-      const result = handlers.voices ? handlers.voices() : [];
+      const result = handlers.voices ? await handlers.voices() : [];
       if (Array.isArray(result)) {
         return mockResponse(200, true, result, "application/json");
       }
@@ -54,13 +56,13 @@ export function createMockFetch(handlers: MockFetchHandlers) {
     if (url.endsWith("/synthesize")) {
       const body = init?.body ? JSON.parse(init.body) : {};
       const result: MockFetchResult = handlers.synthesize
-        ? handlers.synthesize(body)
+        ? await handlers.synthesize(body)
         : { json: { audio: "", format: "wav", boundaries: null } };
       return mockResponse(result.status ?? 200, result.ok ?? true, result.json, result.contentType ?? "application/json");
     }
 
     if (url.endsWith("/service")) {
-      const result: MockFetchResult = handlers.service ? handlers.service() : { json: defaultServiceInfo() };
+      const result: MockFetchResult = handlers.service ? await handlers.service() : { json: defaultServiceInfo() };
       return mockResponse(result.status ?? 200, result.ok ?? true, result.json, result.contentType ?? "application/json");
     }
 

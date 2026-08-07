@@ -2,6 +2,10 @@ import test from "ava";
 import { SpeechServerEngine, chunkPlainText } from "../../build/index.js";
 import { createMockFetch, makeServerVoice, wavBase64, flush, defaultServiceInfo } from "./testUtils.js";
 
+function wait(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // =============================================
 // Mock <audio> (canPlayType probing only)
 // =============================================
@@ -954,4 +958,100 @@ test.serial("format.adaptBitrateToNetwork sends a reduced bitrate when navigator
 
   const body = JSON.parse(calls.find(c => c.url.endsWith("/synthesize"))!.init.body);
   t.is(body.output.bitrate, 48000);
+});
+
+// =============================================
+// Stall detection (timeoutMs)
+// =============================================
+
+test.serial("a /synthesize request that never resolves stalls after timeoutMs with an empty buffer", async (t) => {
+  const { fetchImpl } = createMockFetch({
+    synthesize: () => new Promise(() => {}) // never resolves
+  });
+  const engine = new SpeechServerEngine({
+    endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" },
+    fetch: fetchImpl,
+    timeoutMs: 20
+  });
+  engine.loadUtterances([{ plain: "Hello" }]);
+
+  const errors: any[] = [];
+  engine.on("error", (e: any) => errors.push(e.detail));
+
+  engine.speak();
+  await wait(80);
+
+  t.is(errors.length, 1);
+  t.is(errors[0].type, "https://readium.org/speech-server/error#stall");
+  t.is(errors[0].status, 408);
+  t.is(errors[0].recoverable, true);
+  t.is(engine.getState(), "idle");
+});
+
+test.serial("without timeoutMs, a /synthesize request that never resolves never stalls", async (t) => {
+  const { fetchImpl } = createMockFetch({
+    synthesize: () => new Promise(() => {})
+  });
+  const engine = new SpeechServerEngine({
+    endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" },
+    fetch: fetchImpl
+  });
+  engine.loadUtterances([{ plain: "Hello" }]);
+
+  const errors: any[] = [];
+  engine.on("error", (e: any) => errors.push(e.detail));
+
+  engine.speak();
+  await wait(80);
+
+  t.is(errors.length, 0, "no timeoutMs configured means no stall is ever declared");
+  t.is(engine.getState(), "loading");
+});
+
+test.serial("a later split chunk resolving slower than timeoutMs alone does not stall, as long as buffered audio covers it", async (t) => {
+  let synthesizeCalls = 0;
+  const { fetchImpl } = createMockFetch({
+    service: () => ({ json: { ...defaultServiceInfo(), limits: { maxTextLength: 20, maxConcurrentSyntheses: 2 } } }),
+    synthesize: () => {
+      synthesizeCalls++;
+      const chunk = { json: { audio: wavBase64(), format: "wav", boundaries: null } };
+      // First chunk carries several seconds of buffered audio; later chunks resolve slower than
+      // timeoutMs alone would tolerate, but well within that buffered cushion.
+      return synthesizeCalls === 1 ? chunk : new Promise(resolve => setTimeout(() => resolve(chunk), 60));
+    }
+  });
+  MockAudioContext.decodeDurations = [5, 0.1, 0.1];
+
+  const engine = new SpeechServerEngine({
+    endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" },
+    fetch: fetchImpl,
+    timeoutMs: 20 // far less than the 60ms delay on later chunks, on its own
+  });
+  // Longer than maxTextLength (20), so it's split into multiple /synthesize requests.
+  engine.loadUtterances([{ plain: "One sentence here. Another sentence follows next." }]);
+
+  const errors: any[] = [];
+  engine.on("error", (e: any) => errors.push(e.detail));
+
+  engine.speak();
+  await wait(200);
+
+  t.true(synthesizeCalls >= 2, "text should have been split into multiple chunks");
+  t.is(errors.length, 0, "buffered cushion from the first chunk should absorb the later chunks' delay");
+});
+
+test.serial("timeoutMs doesn't affect /voices or /service, which have no buffer to run dry", async (t) => {
+  const { fetchImpl } = createMockFetch({
+    voices: () => new Promise(resolve => setTimeout(() => resolve([makeServerVoice()]), 60)),
+    service: () => new Promise(resolve => setTimeout(() => resolve({ json: defaultServiceInfo() }), 60)),
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({
+    endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" },
+    fetch: fetchImpl,
+    timeoutMs: 20
+  });
+
+  const voices = await engine.getAvailableVoices();
+  t.is(voices.length, 1);
 });

@@ -174,6 +174,14 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.engine.on("languagefallback", (event) => {
       this.emitEvent(event);
     });
+
+    this.engine.on("enginefallback", (event) => {
+      this.emitEvent(event);
+    });
+
+    this.engine.on("enginerecovered", (event) => {
+      this.emitEvent(event);
+    });
   }
 
   private setNavigatorState(state: ReadiumSpeechPlaybackState): void {
