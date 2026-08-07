@@ -8,11 +8,18 @@ import { isRecoverableFailure } from "./recoverableFailure";
 
 export interface FallbackSpeechEngineOptions {
   primaryEngine: ReadiumSpeechPlaybackEngine;
+  primaryProvider: ReadiumSpeechEngineProvider;
   fallbackProvider: ReadiumSpeechEngineProvider;
   // Mirrors SpeechServerEngineOptions.overLengthText's "split" | "error" shape: using this
   // wrapper at all means you want the permissive behavior by default. Default "fallback".
-  onFailure?: "fallback" | "error";
+  // "fallbackAndRecover" additionally polls the primary while on the fallback and swaps back
+  // once it's reachable again, see healthCheckIntervalMs.
+  onFailure?: "fallback" | "error" | "fallbackAndRecover";
+  // Only used when onFailure is "fallbackAndRecover". Default 30000.
+  healthCheckIntervalMs?: number;
 }
+
+const DEFAULT_HEALTH_CHECK_INTERVAL_MS = 30000;
 
 // Every event a wrapped engine can emit except "error", which is intercepted (see handleError)
 // to decide whether it's worth swapping engines over before being forwarded or not.
@@ -25,15 +32,24 @@ const FORWARDED_EVENTS: ReadiumSpeechPlaybackEvent["type"][] = [
 // reports a recoverable failure, resuming at the same utterance with the best matching voice.
 export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private activeEngine: ReadiumSpeechPlaybackEngine;
+  private readonly primaryProvider: ReadiumSpeechEngineProvider;
   private readonly fallbackProvider: ReadiumSpeechEngineProvider;
-  private readonly onFailure: "fallback" | "error";
+  private readonly onFailure: "fallback" | "error" | "fallbackAndRecover";
+  private readonly healthCheckIntervalMs: number;
 
   // Once true, "error" events are always forwarded as-is — either because we already swapped
   // (nothing left to fall back to), or because falling back itself failed once already.
+  // Reset to false after recovering to the primary, so a later failure can fall back again.
   private hasFallenBack = false;
 
+  private healthCheckTimer: ReturnType<typeof setTimeout> | null = null;
+  // Set once a health-check probe confirms the primary is reachable again; the actual swap still
+  // waits for the active engine to stop playing, see maybeRecoverNow().
+  private primaryReachable = false;
+  private recoveryInFlight = false;
+
   // State the ReadiumSpeechPlaybackEngine interface doesn't expose getters for, kept here so it
-  // can be replayed into a freshly created fallback engine.
+  // can be replayed into a freshly created fallback (or recovered primary) engine.
   private currentUtterances: ReadiumSpeechUtterance[] = [];
   private lastVoiceRequest: ReadiumSpeechVoice | string | undefined;
 
@@ -42,8 +58,10 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   constructor(options: FallbackSpeechEngineOptions) {
     this.activeEngine = options.primaryEngine;
+    this.primaryProvider = options.primaryProvider;
     this.fallbackProvider = options.fallbackProvider;
     this.onFailure = options.onFailure ?? "fallback";
+    this.healthCheckIntervalMs = options.healthCheckIntervalMs ?? DEFAULT_HEALTH_CHECK_INTERVAL_MS;
     this.bindActiveEngine();
   }
 
@@ -159,7 +177,10 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   private bindActiveEngine(): void {
     const engine = this.activeEngine;
-    const unsubscribers = FORWARDED_EVENTS.map(type => engine.on(type, (event) => this.emitEvent(event)));
+    const unsubscribers = FORWARDED_EVENTS.map(type => engine.on(type, (event) => {
+      this.emitEvent(event);
+      this.maybeRecoverNow();
+    }));
     unsubscribers.push(engine.on("error", (event) => this.handleError(event)));
     this.unbindActiveEngine = () => unsubscribers.forEach(unsubscribe => unsubscribe());
   }
@@ -200,11 +221,79 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
       fallbackEngine.loadUtterances(this.currentUtterances);
 
       this.emitEvent({ type: "enginefallback", detail: { reason: originalEvent.detail, voice: bestVoice } });
+
+      if (this.onFailure === "fallbackAndRecover") {
+        this.startHealthCheck();
+      }
+
+      await primaryEngine.destroy();
     } catch {
       // Falling back itself failed (e.g. Web Speech API unavailable too) — nothing more we can
       // do, surface the original failure and stop attempting to fall back on future errors.
       this.hasFallenBack = true;
       this.emitEvent(originalEvent);
+    }
+  }
+
+  // Polls the primary provider until it's reachable again, then hands off to maybeRecoverNow()
+  // to swap back at the next safe moment. Chained setTimeout rather than setInterval so a slow
+  // probe can't overlap with the next one.
+  private startHealthCheck(): void {
+    if (this.healthCheckTimer !== null) return;
+
+    this.healthCheckTimer = setTimeout(async () => {
+      this.healthCheckTimer = null;
+      try {
+        await this.primaryProvider.getVoices();
+        this.primaryReachable = true;
+        this.maybeRecoverNow();
+      } catch {
+        this.startHealthCheck();
+      }
+    }, this.healthCheckIntervalMs);
+  }
+
+  // Swaps back to the primary the moment nothing is audibly playing, so a caller never hears a
+  // voice change mid-utterance.
+  private maybeRecoverNow(): void {
+    if (!this.primaryReachable || this.recoveryInFlight) return;
+    if (this.activeEngine.getState() === "playing") return;
+    void this.recoverToPrimary();
+  }
+
+  private async recoverToPrimary(): Promise<void> {
+    this.recoveryInFlight = true;
+    const fallbackEngine = this.activeEngine;
+    const resumeIndex = fallbackEngine.getCurrentUtteranceIndex();
+    const wasPaused = fallbackEngine.getState() === "paused";
+
+    try {
+      const primaryEngine = await this.primaryProvider.createEngine(this.lastVoiceRequest);
+      primaryEngine.setRate(fallbackEngine.getRate());
+      primaryEngine.setPitch(fallbackEngine.getPitch());
+      primaryEngine.setVolume(fallbackEngine.getVolume());
+      primaryEngine.setSpeakInContentLanguage(fallbackEngine.getSpeakInContentLanguage());
+
+      this.unbindActiveEngine?.();
+      this.activeEngine = primaryEngine;
+      this.hasFallenBack = false;
+      this.primaryReachable = false;
+      this.recoveryInFlight = false;
+      this.bindActiveEngine();
+
+      const unsubscribeReady = primaryEngine.on("ready", () => {
+        unsubscribeReady();
+        if (wasPaused) primaryEngine.setCurrentUtteranceIndex(resumeIndex, () => {});
+      });
+      primaryEngine.loadUtterances(this.currentUtterances);
+
+      this.emitEvent({ type: "enginerecovered", detail: { voice: primaryEngine.getCurrentVoice() } });
+      await fallbackEngine.destroy();
+    } catch {
+      // Still down despite the probe succeeding (e.g. it dropped again in between) — stay on
+      // the fallback and keep polling.
+      this.recoveryInFlight = false;
+      this.startHealthCheck();
     }
   }
 
@@ -225,6 +314,10 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   async destroy(): Promise<void> {
+    if (this.healthCheckTimer !== null) {
+      clearTimeout(this.healthCheckTimer);
+      this.healthCheckTimer = null;
+    }
     this.unbindActiveEngine?.();
     this.eventListeners.clear();
     await this.activeEngine.destroy();

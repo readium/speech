@@ -25,6 +25,11 @@ navigator.on("enginefallback", (event) => {
   showToast("Switched to your device's built-in voice");
   console.log(event.detail.voice, event.detail.reason);
 });
+
+navigator.on("enginerecovered", (event) => {
+  showToast("Reconnected — switched back to the server voice");
+  console.log(event.detail.voice);
+});
 ```
 
 ## When it falls back
@@ -34,7 +39,24 @@ navigator.on("enginefallback", (event) => {
 
 On a mid-playback swap, the new engine resumes at the same utterance, with the best matching Web Speech voice for the failed voice's language *and* gender (falling back to language-only if no matching-gender voice exists), and `rate`/`pitch`/`volume`/`setSpeakInContentLanguage` carried over. A `"enginefallback"` event fires with `detail: { reason, voice }`.
 
-Only ever falls back once — a further failure on the fallback engine itself surfaces as a plain `"error"` event, since there's nothing left to fall back to.
+With `onFailure: "fallback"` (the default), it only ever falls back once per session — a further failure on the fallback engine itself surfaces as a plain `"error"` event, since there's nothing left to fall back to.
+
+## Recovering back to the primary
+
+Set `onFailure: "fallbackAndRecover"` to also poll the primary while on the fallback, and swap back once it's reachable again:
+
+```ts
+const provider = new FallbackEngineProvider({
+  primary: new SpeechServerEngineProvider({ /* ... */ }),
+  fallback: new WebSpeechEngineProvider(),
+  onFailure: "fallbackAndRecover",
+  healthCheckIntervalMs: 30000 // default
+});
+```
+
+Every `healthCheckIntervalMs`, the primary provider's `getVoices()` is called as a reachability probe (it naturally re-hits the network on every failed call, since nothing gets cached until it succeeds). Once it succeeds, the swap back waits for a moment when nothing is audibly playing — the fallback finishing an utterance, pausing, or going idle — so a caller never hears a voice change mid-utterance. It then resumes on a freshly created primary engine at the same utterance, with `rate`/`pitch`/`volume`/`setSpeakInContentLanguage` carried over and the originally requested voice restored. An `"enginerecovered"` event fires with `detail: { voice }`.
+
+Recovering resets fallback state, so the pair can bounce back and forth any number of times across a session (fallback → recover → fallback → recover...) as connectivity comes and goes.
 
 ## Options
 
@@ -42,7 +64,8 @@ Only ever falls back once — a further failure on the fallback engine itself su
 interface FallbackEngineProviderOptions {
   primary: ReadiumSpeechEngineProvider;
   fallback: ReadiumSpeechEngineProvider;
-  onFailure?: "fallback" | "error"; // default "fallback"
+  onFailure?: "fallback" | "error" | "fallbackAndRecover"; // default "fallback"
+  healthCheckIntervalMs?: number; // only used with "fallbackAndRecover", default 30000
 }
 ```
 

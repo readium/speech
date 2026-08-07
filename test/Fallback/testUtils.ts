@@ -13,6 +13,7 @@ export class FakeEngine {
   private pitch = 1;
   private volume = 1;
   private speakInContentLanguage = false;
+  private state = "idle";
 
   setCurrentVoiceForTest(voice: any): void {
     this.currentVoice = voice;
@@ -20,6 +21,10 @@ export class FakeEngine {
 
   setCurrentUtteranceIndexForTest(index: number): void {
     this.currentUtteranceIndex = index;
+  }
+
+  setStateForTest(state: string): void {
+    this.state = state;
   }
 
   async initialize(): Promise<unknown> {
@@ -81,7 +86,7 @@ export class FakeEngine {
   }
 
   getState(): string {
-    return "idle";
+    return this.state;
   }
 
   getCurrentUtteranceIndex(): number {
@@ -144,6 +149,38 @@ export class FakeFallbackProvider {
   async destroy(): Promise<void> {}
 }
 
+// Simulates the primary provider FallbackSpeechEngine reconnects to on recovery. getVoices()
+// re-hits "the network" (never caches) so it doubles as a controllable reachability probe.
+export class FakePrimaryProvider {
+  readonly id = "fake-primary";
+  readonly name = "Fake Primary";
+
+  reachable = true;
+  getVoicesCalls = 0;
+  receivedVoice: any;
+  engine: FakeEngine | null = null;
+  shouldFailCreateEngine = false;
+
+  async getVoices(): Promise<any[]> {
+    this.getVoicesCalls++;
+    if (!this.reachable) {
+      throw new Error("primary unreachable");
+    }
+    return [];
+  }
+
+  async createEngine(voice?: any): Promise<FakeEngine> {
+    this.receivedVoice = voice;
+    if (this.shouldFailCreateEngine) {
+      throw new Error("primary still unreachable");
+    }
+    this.engine = new FakeEngine();
+    return this.engine;
+  }
+
+  async destroy(): Promise<void> {}
+}
+
 export function makeReadiumVoice(overrides: Record<string, any> = {}) {
   return {
     source: "browser",
@@ -158,4 +195,8 @@ export function makeReadiumVoice(overrides: Record<string, any> = {}) {
 export async function tick(): Promise<void> {
   await new Promise(resolve => setTimeout(resolve, 0));
   await new Promise(resolve => setTimeout(resolve, 0));
+}
+
+export async function wait(ms: number): Promise<void> {
+  await new Promise(resolve => setTimeout(resolve, ms));
 }

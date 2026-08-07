@@ -6,7 +6,9 @@ import { FallbackSpeechEngine } from "./fallbackSpeechEngine";
 export interface FallbackEngineProviderOptions {
   primary: ReadiumSpeechEngineProvider;
   fallback: ReadiumSpeechEngineProvider;
-  onFailure?: "fallback" | "error"; // default "fallback"
+  onFailure?: "fallback" | "error" | "fallbackAndRecover"; // default "fallback"
+  // Only used when onFailure is "fallbackAndRecover". Default 30000.
+  healthCheckIntervalMs?: number;
 }
 
 // Pairs a primary provider with a fallback one. getVoices()/createEngine() fall back immediately
@@ -18,12 +20,14 @@ export class FallbackEngineProvider implements ReadiumSpeechEngineProvider {
 
   private readonly primary: ReadiumSpeechEngineProvider;
   private readonly fallback: ReadiumSpeechEngineProvider;
-  private readonly onFailure: "fallback" | "error";
+  private readonly onFailure: "fallback" | "error" | "fallbackAndRecover";
+  private readonly healthCheckIntervalMs?: number;
 
   constructor(options: FallbackEngineProviderOptions) {
     this.primary = options.primary;
     this.fallback = options.fallback;
     this.onFailure = options.onFailure ?? "fallback";
+    this.healthCheckIntervalMs = options.healthCheckIntervalMs;
   }
 
   async getVoices(): Promise<ReadiumSpeechVoice[]> {
@@ -48,7 +52,13 @@ export class FallbackEngineProvider implements ReadiumSpeechEngineProvider {
       return this.fallback.createEngine(voice);
     }
 
-    return new FallbackSpeechEngine({ primaryEngine, fallbackProvider: this.fallback, onFailure: this.onFailure });
+    return new FallbackSpeechEngine({
+      primaryEngine,
+      primaryProvider: this.primary,
+      fallbackProvider: this.fallback,
+      onFailure: this.onFailure,
+      healthCheckIntervalMs: this.healthCheckIntervalMs
+    });
   }
 
   async destroy(): Promise<void> {
