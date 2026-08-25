@@ -1,0 +1,13 @@
+{
+  "role": [
+    "list"
+  ],
+  "children": [
+    {
+      "text": "Fifth of seven",
+      "role": [
+        "listItem"
+      ]
+    }
+  ]
+}

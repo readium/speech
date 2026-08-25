@@ -1,0 +1,11 @@
+{
+  "id": "list-ordered-reversed",
+  "description": "An <ol reversed> — the reversed attribute is not read anywhere in the converter. A future listItem position number needs to count down from the list's effective length (or start, if combined with start) rather than always counting up from 1",
+  "role": "list",
+  "rolesCovered": [
+    "list",
+    "listItem"
+  ],
+  "sourceRef": "https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/ol#reversed",
+  "inputKind": "fragment"
+}

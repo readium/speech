@@ -1001,6 +1001,17 @@
     }
   },
   {
+    "id": "list-aria-posinset-setsize",
+    "dir": "list-aria-posinset-setsize",
+    "role": "list",
+    "description": "An ARIA listitem with explicit aria-posinset/aria-setsize (for lists that don't expose their full membership in the DOM, e.g. paginated or virtualized ones) — neither attribute is read anywhere in the converter. Per ARIA semantics these should take precedence over any DOM-computed position/count when present, which a future position-numbering implementation needs to account for, not just count DOM siblings",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
     "id": "list-epub-type",
     "dir": "list-epub-type",
     "role": "list",
@@ -1016,6 +1027,50 @@
     "dir": "list-html-native",
     "role": "list",
     "description": "An unordered list via native <ul>/<li> elements",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "list-item-value-override",
+    "dir": "list-item-value-override",
+    "role": "list",
+    "description": "An <ol> whose second <li value=\"10\"> resets the running count, so the third item is implicitly 11 — the value attribute is not read anywhere in the converter. A correct position-numbering implementation has to track this running override per HTML's own <li value> semantics (a value change persists to every following sibling until overridden again), not just enumerate DOM child index",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "list-ordered-html-native",
+    "dir": "list-ordered-html-native",
+    "role": "list",
+    "description": "A plain native <ol> with no start/reversed — produces the exact same GND shape as list-html-native's <ul> (both map to a bare \"list\" role via simpleElementTypeRoles, with no ordered/unordered distinction preserved anywhere in the schema). This is the baseline that any future listItem position-numbering feature has to solve first: whether to speak a number at all depends on knowing the list was ordered, which the GND format currently cannot express",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "list-ordered-reversed",
+    "dir": "list-ordered-reversed",
+    "role": "list",
+    "description": "An <ol reversed> — the reversed attribute is not read anywhere in the converter. A future listItem position number needs to count down from the list's effective length (or start, if combined with start) rather than always counting up from 1",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "list-ordered-start",
+    "dir": "list-ordered-start",
+    "role": "list",
+    "description": "An <ol start=\"5\"> — the start attribute is not read anywhere in the converter; items produce no numbering information at all, ordered or otherwise. A future listItem announcement that speaks a position number must read this attribute rather than assuming the first child is always \"1\"",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
