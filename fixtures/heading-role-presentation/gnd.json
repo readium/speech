@@ -1,0 +1,22 @@
+{
+  "children": [
+    {
+      "text": "Before.",
+      "role": [
+        "paragraph"
+      ]
+    },
+    {
+      "text": "Not really a heading",
+      "role": [
+        "presentation"
+      ]
+    },
+    {
+      "text": "After.",
+      "role": [
+        "paragraph"
+      ]
+    }
+  ]
+}

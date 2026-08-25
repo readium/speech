@@ -1,0 +1,33 @@
+{
+  "role": [
+    "presentation"
+  ],
+  "children": [
+    {
+      "role": [
+        "row"
+      ],
+      "children": [
+        {
+          "text": "Name",
+          "role": [
+            "columnheader"
+          ]
+        }
+      ]
+    },
+    {
+      "role": [
+        "row"
+      ],
+      "children": [
+        {
+          "text": "Ada",
+          "role": [
+            "cell"
+          ]
+        }
+      ]
+    }
+  ]
+}

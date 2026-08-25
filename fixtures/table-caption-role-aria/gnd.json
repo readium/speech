@@ -1,0 +1,26 @@
+{
+  "role": [
+    "table"
+  ],
+  "children": [
+    {
+      "text": "Team roster",
+      "role": [
+        "caption"
+      ]
+    },
+    {
+      "role": [
+        "row"
+      ],
+      "children": [
+        {
+          "text": "Name",
+          "role": [
+            "columnheader"
+          ]
+        }
+      ]
+    }
+  ]
+}

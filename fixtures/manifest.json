@@ -99,6 +99,28 @@
     }
   },
   {
+    "id": "article-role-aria",
+    "dir": "article-role-aria",
+    "role": "article",
+    "description": "article role via explicit ARIA role=\"article\" — the only encoding of this role previously untested; article-html-native covers the native <article> element",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "aside-epub-type",
+    "dir": "aside-epub-type",
+    "role": "aside",
+    "description": "aside role via epub:type=\"aside\" on a neutral <div> (isolating the epub:type code path from the native <aside> tag mapping) — the only encoding of this role previously untested; aside-html-native covers the native element",
+    "files": {
+      "input": "input.xhtml",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
     "id": "aside-html-native",
     "dir": "aside-html-native",
     "role": "aside",
@@ -114,6 +136,17 @@
     "dir": "audio-html-native",
     "role": "audio",
     "description": "audio role via native <audio src> element, with an aria-label as the accessible description",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "audio-no-description",
+    "dir": "audio-no-description",
+    "role": "audio",
+    "description": "audio role via native <audio src> element, with no accessible name at all",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
@@ -191,6 +224,17 @@
     "dir": "blockquote-html-native",
     "role": "blockquote",
     "description": "blockquote role via native <blockquote> element",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "blockquote-role-aria",
+    "dir": "blockquote-role-aria",
+    "role": "blockquote",
+    "description": "blockquote role via explicit ARIA role=\"blockquote\" — the only encoding of this role previously untested; blockquote-html-native covers the native <blockquote> element",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
@@ -594,6 +638,28 @@
     }
   },
   {
+    "id": "figure-epub-type",
+    "dir": "figure-epub-type",
+    "role": "figure",
+    "description": "figure role via epub:type=\"figure\" on a neutral <div> (isolating the epub:type code path from the native <figure> tag mapping), containing an image — the only encoding of this role previously untested",
+    "files": {
+      "input": "input.xhtml",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "figure-no-description",
+    "dir": "figure-no-description",
+    "role": "figure",
+    "description": "A figure with no accessible name of its own, containing an image that also has no accessible name of its own — the figure's own announcement has nothing to say (no caption/label anywhere), unlike figure-basic-* where the child image still carries a label",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
     "id": "footnote-epub-type",
     "dir": "footnote-epub-type",
     "role": "footnote",
@@ -715,6 +781,17 @@
     }
   },
   {
+    "id": "heading-role-presentation",
+    "dir": "heading-role-presentation",
+    "role": "presentation",
+    "description": "An <h2> with role=\"presentation\", stripping its native heading semantics — the resulting node carries only the presentation role, no heading2, so no \"Heading level 2.\" announcement or heading block-boundary fires, though its text still reads normally",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
     "id": "hidden-aria-hidden-html-native",
     "dir": "hidden-aria-hidden-html-native",
     "role": "presentation",
@@ -763,6 +840,28 @@
     "dir": "image-decorative-role-presentation",
     "role": "presentation",
     "description": "A decorative image marked with an explicit role=\"presentation\", producing no utterance",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "image-decorative-whitespace-alt",
+    "dir": "image-decorative-whitespace-alt",
+    "role": "presentation",
+    "description": "A decorative image with a whitespace-only alt (not literally empty), still mapping to the presentation role and producing no utterance — exercises the trim() in the decorative-image check rather than a literal empty-string comparison",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "image-no-description",
+    "dir": "image-no-description",
+    "role": "image",
+    "description": "An <img> with no alt attribute at all and no other accessible-name source — distinct from a decorative image (empty alt or role=\"presentation\"), which maps to the presentation role instead",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
@@ -902,6 +1001,17 @@
     }
   },
   {
+    "id": "list-epub-type",
+    "dir": "list-epub-type",
+    "role": "list",
+    "description": "list role via epub:type=\"list\" on neutral <div> elements (isolating the epub:type code path from the native <ul>/<ol> tag mapping), with epub:type=\"list-item\" children — the only encoding of this role previously untested; every other list fixture (including pagelist-epub-type, which nests a plain native <ol>) exercises the list role via the native tag, never epub:type",
+    "files": {
+      "input": "input.xhtml",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
     "id": "list-html-native",
     "dir": "list-html-native",
     "role": "list",
@@ -917,6 +1027,17 @@
     "dir": "list-role-aria",
     "role": "list",
     "description": "An unordered list via explicit role=\"list\"/\"listitem\"",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "listitem-role-presentation",
+    "dir": "listitem-role-presentation",
+    "role": "presentation",
+    "description": "A <li> with role=\"presentation\", stripping its native listItem semantics while its sibling item keeps normal listItem behavior",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
@@ -994,6 +1115,17 @@
     "dir": "math-html-native",
     "role": "math",
     "description": "math role via native MathML <math> markup, with a spoken-form description for read-aloud",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "math-no-description",
+    "dir": "math-no-description",
+    "role": "math",
+    "description": "math role via native MathML <math> markup, with no alttext/aria-label and non-trivial children — no spoken-form description available for read-aloud",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
@@ -1331,6 +1463,72 @@
     }
   },
   {
+    "id": "table-caption",
+    "dir": "table-caption",
+    "role": "table",
+    "description": "A table with an accessible name via aria-label — the {description} branch of table's own announcement template. Uses aria-label rather than a native <caption> element since native <caption>/<figcaption> implicit accessible-name folding is not yet implemented (see CONTEXTUALIZATION_PLAN.md)",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "table-caption-element-html-native",
+    "dir": "table-caption-element-html-native",
+    "role": "table",
+    "description": "A native <table><caption> with no explicit aria-labelledby — the caption becomes a separate child node with role \"caption\", not folded into the table's own description field. Directly demonstrates the caption-folding gap noted in CONTEXTUALIZATION_PLAN.md: table.md's spec assumes <caption> \"can end up in description\", but that implicit association isn't implemented. Contrast with table-caption (which uses explicit aria-label and does populate description) and table-caption-role-aria (the same un-folded-caption behavior via role=\"caption\")",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "table-caption-role-aria",
+    "dir": "table-caption-role-aria",
+    "role": "table",
+    "description": "An ARIA table with an explicit role=\"caption\" child (no aria-labelledby) — same un-folded behavior as table-caption-element-html-native (a separate role \"caption\" child, not folded into the table's own description), confirmed via the explicit-ARIA encoding rather than a native <caption> element",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "table-colspan-html-native",
+    "dir": "table-colspan-html-native",
+    "role": "table",
+    "description": "A native columnheader with colspan=\"2\" spanning two data columns — colspan is not read or tracked at all; the second data row's two cells carry no header-association information reflecting that a single header covers both of them. Relevant to the planned cell/rowheader {header}: {value} template work, which needs real column-index tracking to get this right. See table-colspan-role-aria for the aria-colspan equivalent",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "table-colspan-role-aria",
+    "dir": "table-colspan-role-aria",
+    "role": "table",
+    "description": "An ARIA columnheader with aria-colspan=\"2\" spanning two data columns — same as table-colspan-html-native's native colspan, aria-colspan is not read or tracked at all either, confirmed via the explicit-ARIA encoding",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "table-epub-type",
+    "dir": "table-epub-type",
+    "role": "table",
+    "description": "table role via epub:type=\"table\"/\"table-row\"/\"table-cell\" on neutral <div> elements — the only encoding of table previously untested, despite extensive native/ARIA table coverage. epub:type has no columnheader/rowheader equivalent at all (only table/table-row/table-cell are mapped in epubTypeRoles), so this is necessarily a header-less data grid, same shape as table-no-headers",
+    "files": {
+      "input": "input.xhtml",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
     "id": "table-html-native",
     "dir": "table-html-native",
     "role": "table",
@@ -1342,10 +1540,120 @@
     }
   },
   {
+    "id": "table-nested-html-native",
+    "dir": "table-nested-html-native",
+    "role": "table",
+    "description": "A native <table> nested inside another native table's cell — confirms recursion handles it correctly (the inner table's own row/cell structure resolves independently, nested under the outer cell alongside its own text). See table-nested-role-aria for the ARIA-role equivalent",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "table-nested-role-aria",
+    "dir": "table-nested-role-aria",
+    "role": "table",
+    "description": "An ARIA table (role=\"table\"/role=\"row\"/role=\"cell\") nested inside another ARIA table's cell — same correct recursion as table-nested-html-native, confirmed via the explicit-ARIA encoding",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "table-no-headers",
+    "dir": "table-no-headers",
+    "role": "table",
+    "description": "A bare data table with no columnheader/rowheader row at all — the header-less \"{value}\" branch of cell's announcement template",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
     "id": "table-role-aria",
     "dir": "table-role-aria",
     "role": "table",
     "description": "A table with a header row and row headers, via explicit ARIA table/row/columnheader/rowheader/cell roles",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "table-role-presentation-html-native",
+    "dir": "table-role-presentation-html-native",
+    "role": "presentation",
+    "description": "A native <table role=\"presentation\"> whose rows/cells still resolve to normal row/columnheader/cell roles — role stripping is per-element only and does not cascade down through a table's structure, unlike the ARIA \"presentational table\" rule (HTML-AAM), which drops the whole subtree's table semantics when the table itself is presentational and nothing else in the subtree carries an explicit table role. Captured as a baseline, not an endorsement. See table-role-presentation-role-aria for the equivalent built entirely from ARIA roles",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "table-role-presentation-role-aria",
+    "dir": "table-role-presentation-role-aria",
+    "role": "presentation",
+    "description": "An ARIA table (role=\"presentation\" wrapping role=\"row\"/role=\"columnheader\"/role=\"cell\") — same non-cascading behavior as table-role-presentation-html-native, confirmed via the explicit-ARIA encoding rather than a native <table>",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "table-rowgroup-role-aria",
+    "dir": "table-rowgroup-role-aria",
+    "role": "table",
+    "description": "An ARIA table with an explicit role=\"rowgroup\" wrapper around its rows — rowgroup is not in GND's role vocabulary at all, so the wrapper is treated as an unknown role and spliced away transparently, same as native <thead>/<tbody>/<tfoot> (see table-sectioning). Captured as a baseline confirming this is consistent across both encodings, not a native-only quirk",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "table-rowspan-html-native",
+    "dir": "table-rowspan-html-native",
+    "role": "table",
+    "description": "A native rowheader with rowspan=\"2\" spanning two data rows — rowspan is not read or tracked at all; the second row's cell carries no rowheader association even though the spanned header logically covers it too. Same relevance as table-colspan-html-native for the planned header-association work. See table-rowspan-role-aria for the aria-rowspan equivalent",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "table-rowspan-role-aria",
+    "dir": "table-rowspan-role-aria",
+    "role": "table",
+    "description": "An ARIA rowheader with aria-rowspan=\"2\" spanning two data rows — same as table-rowspan-html-native's native rowspan, aria-rowspan is not read or tracked at all either, confirmed via the explicit-ARIA encoding",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "table-sectioning",
+    "dir": "table-sectioning",
+    "role": "table",
+    "description": "<thead>/<tbody>/<tfoot> are transparent — their rows flatten directly into the table's children with no rowgroup role or boundary marker of any kind. GND's role vocabulary has no rowgroup role at all (not in roles.md), so this is presumed intentional (grouping is visual-only, not meaningful for read-aloud), but was previously unconfirmed by any fixture — a tfoot row like a totals row is indistinguishable from a tbody row",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "table-th-no-scope",
+    "dir": "table-th-no-scope",
+    "role": "table",
+    "description": "A <th> with no scope attribute at all — falls back to a plain cell rather than columnheader/rowheader, since the converter only infers header direction from an explicit scope=\"col\"/\"row\" and does not implement HTML-AAM's implicit header-association algorithm. This is extremely common real-world markup (most authors omit scope), captured here as a baseline, not an endorsement of the current fallback",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
@@ -1434,6 +1742,17 @@
     "dir": "video-html-native",
     "role": "video",
     "description": "video role via native <video src> element, with an aria-label as the accessible description",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "video-no-description",
+    "dir": "video-no-description",
+    "role": "video",
+    "description": "video role via native <video src> element, with no accessible name at all",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
