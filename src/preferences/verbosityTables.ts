@@ -10,9 +10,7 @@ const few: readonly GndRole[] = ["audio", "figure", "image", "math", "table", "v
 const some: readonly GndRole[] = [
   ...few,
   "blockquote",
-  "cell",
   "chapter",
-  "columnheader",
   "cover",
   "details",
   "notice",
@@ -32,7 +30,9 @@ const most: readonly GndRole[] = [
   "afterword",
   "appendix",
   "aside",
+  "backlink",
   "bibliography",
+  "biblioref",
   "caption",
   "colophon",
   "complementary",
@@ -49,6 +49,7 @@ const most: readonly GndRole[] = [
   "footnote",
   "foreword",
   "glossary",
+  "glossref",
   "heading1",
   "heading2",
   "heading3",
@@ -59,6 +60,7 @@ const most: readonly GndRole[] = [
   "introduction",
   "list",
   "listItem",
+  "noteref",
   "pagebreak",
   "pagelist",
   "preface",
@@ -84,15 +86,13 @@ export const skippableAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "cus
     "landmarks", "loa", "loi", "lot", "lov", "toc",
   ]),
   some: new Set([
-    "aside", "bibliography", "endnotes", "footnote", "noteref", "pullquote", "pagebreak",
+    "aside", "bibliography", "columnheader", "endnotes", "footnote", "noteref", "pullquote", "pagebreak",
     "landmarks", "loa", "loi", "lot", "lov", "toc",
   ]),
-  most: new Set(["landmarks", "loa", "loi", "lot", "lov", "toc"]),
+  most: new Set(["columnheader", "landmarks", "loa", "loi", "lot", "lov", "toc"]),
 };
 
 // Roles contextualized (their announcement fires) at each verbosity level.
-// Reference-only roles (`backlink`, `biblioref`, `glossref`, `noteref`)
-// stay out entirely — see `defaultAnnouncements`'s header comment.
 export const contextualizedAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "custom">, ReadonlySet<GndRole>>> = {
   none: new Set(),
   few: new Set(few),
