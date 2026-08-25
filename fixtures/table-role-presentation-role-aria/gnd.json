@@ -5,26 +5,26 @@
   "children": [
     {
       "role": [
-        "row"
+        "presentation"
       ],
       "children": [
         {
           "text": "Name",
           "role": [
-            "columnheader"
+            "presentation"
           ]
         }
       ]
     },
     {
       "role": [
-        "row"
+        "presentation"
       ],
       "children": [
         {
           "text": "Ada",
           "role": [
-            "cell"
+            "presentation"
           ]
         }
       ]

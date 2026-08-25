@@ -1,36 +1,11 @@
 import type { GndRole } from "../gnd/types.js";
 
-// Synthesized navigational text the extractor adds around a node (e.g.
-// entering/leaving a footnote), as opposed to content utterances that
-// speak the document's own text. Keyed by `GndRole`, a plain string since
-// new roles gain entries over time.
-//
-// Each entry tags its shape via an `inline`/`block` key rather than
-// inferring it from the value's type, so a role's shape stays predictable
-// for Weblate/JSON tooling even if it changes later:
-//  - absent: nothing to speak.
-//  - `{ inline }`: one self-contained announcement, spoken once.
-//  - `{ block: { start, end } }`: spoken before and after the node's content.
-export type ContextualizationKey = string;
+// Synthesized navigational text the extractor adds around a node, keyed by
+// `GndRole` and resolved via i18next (`<role>.inline`, `<role>.block.start`/
+// `.end`, nested variants, `<role>.parts.*_one`/`*_other` plurals).
+export type ContextualizationEntry = string | { [key: string]: ContextualizationEntry };
 
-// A plain string speaks as-is (after `{{ token }}` substitution). A
-// named-variants object (e.g. `{ labelled, unlabelled }`) picks one key's
-// template based on context the caller supplies — the catalog can't know,
-// e.g., whether a node has a description.
-export type Contextualization = string | Record<string, string>;
-
-export interface ContextualizationPair {
-  start: Contextualization;
-  end: Contextualization;
-}
-
-export type RoleContextualization = { inline: Contextualization } | { block: ContextualizationPair };
-
-export function isBlockContextualization(a: RoleContextualization): a is { block: ContextualizationPair } {
-  return "block" in a;
-}
-
-export type Contextualizations = Record<ContextualizationKey, RoleContextualization>;
+export type Contextualizations = Record<GndRole, ContextualizationEntry>;
 
 export interface ExtractUtterancesOptions {
   // Every extraction is fully plain or fully SSML, never a per-node
@@ -44,6 +19,11 @@ export interface ExtractUtterancesOptions {
   // callers can supply any subset of keys, known or new, without needing
   // an `| undefined` on every value.
   contextualizations?: Contextualizations;
+
+  // Locale of the contextualization catalog (wording + plural rules).
+  // Falls back to "en". Distinct from `language` below, which governs the
+  // content's own inline spans, not the catalog's.
+  contextualizationLocale?: string;
 
   // Roles to omit entirely (the node and its whole subtree) from the
   // output, e.g. so a reader can skip past footnotes or navigational aids

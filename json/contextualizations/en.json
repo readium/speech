@@ -7,7 +7,12 @@
                     "unlabelled": "Audio with no label."
                 }
             },
-            "cell": { "inline": "Cell." },
+            "cell": {
+                "inline": {
+                    "withHeader": "{{ header }}: {{ value }}",
+                    "withoutHeader": "{{ value }}"
+                }
+            },
             "figure": { "inline": "Figure: {{ description }}" },
             "heading1": { "inline": "Heading level 1." },
             "heading2": { "inline": "Heading level 2." },
@@ -34,17 +39,26 @@
                     "unlabelled": "Math formula with no label."
                 }
             },
-            "row": {
-                "block": {
-                    "end": "End of the row.",
-                    "start": "Start of the row."
+            "row": { "inline": "Row: {{ count }}" },
+            "rowheader": {
+                "inline": {
+                    "withHeader": "{{ header }}: {{ value }}",
+                    "withoutHeader": "{{ value }}"
                 }
             },
-            "rowheader": { "inline": "Row header." },
             "table": {
                 "block": {
                     "end": "End of the table.",
-                    "start": "Start of the table."
+                    "start": {
+                        "labelled": "Table: {{ description }}. {{ lines }}. {{ columns }}.",
+                        "unlabelled": "Table. {{ lines }}. {{ columns }}."
+                    }
+                },
+                "parts": {
+                    "columns_one": "1 column",
+                    "columns_other": "{{ count }} columns",
+                    "lines_one": "1 line",
+                    "lines_other": "{{ count }} lines"
                 }
             },
             "term": { "inline": "Term." },

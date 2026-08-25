@@ -78,7 +78,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 2 columns."
         },
         {
           "plain": "Ada"
@@ -154,16 +154,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the row."
+          "plain": "Row: 1"
         },
         {
           "plain": "Ada"
         },
         {
           "plain": "Engineer"
-        },
-        {
-          "plain": "End of the row."
         }
       ]
     },
@@ -238,19 +235,16 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 2 columns."
         },
         {
-          "plain": "Start of the row."
+          "plain": "Row: 1"
         },
         {
           "plain": "Ada"
         },
         {
           "plain": "Engineer"
-        },
-        {
-          "plain": "End of the row."
         },
         {
           "plain": "End of the table."
@@ -320,13 +314,13 @@
       ],
       "utterances": [
         {
-          "plain": "Cell."
+          "plain": "Ada"
         },
         {
           "plain": "Ada"
         },
         {
-          "plain": "Cell."
+          "plain": "Engineer"
         },
         {
           "plain": "Engineer"
@@ -404,16 +398,16 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
-        },
-        {
-          "plain": "Cell."
+          "plain": "Table. 1 line. 2 columns."
         },
         {
           "plain": "Ada"
         },
         {
-          "plain": "Cell."
+          "plain": "Ada"
+        },
+        {
+          "plain": "Engineer"
         },
         {
           "plain": "Engineer"
@@ -494,22 +488,19 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the row."
-        },
-        {
-          "plain": "Cell."
+          "plain": "Row: 1"
         },
         {
           "plain": "Ada"
         },
         {
-          "plain": "Cell."
+          "plain": "Ada"
         },
         {
           "plain": "Engineer"
         },
         {
-          "plain": "End of the row."
+          "plain": "Engineer"
         }
       ]
     },
@@ -592,25 +583,22 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 2 columns."
         },
         {
-          "plain": "Start of the row."
-        },
-        {
-          "plain": "Cell."
+          "plain": "Row: 1"
         },
         {
           "plain": "Ada"
         },
         {
-          "plain": "Cell."
+          "plain": "Ada"
         },
         {
           "plain": "Engineer"
         },
         {
-          "plain": "End of the row."
+          "plain": "Engineer"
         },
         {
           "plain": "End of the table."
@@ -5291,7 +5279,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 2 columns."
         },
         {
           "plain": "End of the table."
@@ -5475,10 +5463,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the row."
-        },
-        {
-          "plain": "End of the row."
+          "plain": "Row: 1"
         }
       ]
     },
@@ -5675,13 +5660,10 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 2 columns."
         },
         {
-          "plain": "Start of the row."
-        },
-        {
-          "plain": "End of the row."
+          "plain": "Row: 1"
         },
         {
           "plain": "End of the table."
@@ -5766,7 +5748,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 2 columns."
         },
         {
           "ssml": "Ada"
@@ -5842,16 +5824,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the row."
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Ada"
         },
         {
           "ssml": "Engineer"
-        },
-        {
-          "ssml": "End of the row."
         }
       ]
     },
@@ -5926,19 +5905,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 2 columns."
         },
         {
-          "ssml": "Start of the row."
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Ada"
         },
         {
           "ssml": "Engineer"
-        },
-        {
-          "ssml": "End of the row."
         },
         {
           "ssml": "End of the table."
@@ -6008,13 +5984,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Cell."
+          "ssml": "Ada"
         },
         {
           "ssml": "Ada"
         },
         {
-          "ssml": "Cell."
+          "ssml": "Engineer"
         },
         {
           "ssml": "Engineer"
@@ -6092,16 +6068,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
-        },
-        {
-          "ssml": "Cell."
+          "ssml": "Table. 1 line. 2 columns."
         },
         {
           "ssml": "Ada"
         },
         {
-          "ssml": "Cell."
+          "ssml": "Ada"
+        },
+        {
+          "ssml": "Engineer"
         },
         {
           "ssml": "Engineer"
@@ -6182,22 +6158,19 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the row."
-        },
-        {
-          "ssml": "Cell."
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Ada"
         },
         {
-          "ssml": "Cell."
+          "ssml": "Ada"
         },
         {
           "ssml": "Engineer"
         },
         {
-          "ssml": "End of the row."
+          "ssml": "Engineer"
         }
       ]
     },
@@ -6280,25 +6253,22 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 2 columns."
         },
         {
-          "ssml": "Start of the row."
-        },
-        {
-          "ssml": "Cell."
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Ada"
         },
         {
-          "ssml": "Cell."
+          "ssml": "Ada"
         },
         {
           "ssml": "Engineer"
         },
         {
-          "ssml": "End of the row."
+          "ssml": "Engineer"
         },
         {
           "ssml": "End of the table."
@@ -10979,7 +10949,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 2 columns."
         },
         {
           "ssml": "End of the table."
@@ -11163,10 +11133,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the row."
-        },
-        {
-          "ssml": "End of the row."
+          "ssml": "Row: 1"
         }
       ]
     },
@@ -11363,13 +11330,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 2 columns."
         },
         {
-          "ssml": "Start of the row."
-        },
-        {
-          "ssml": "End of the row."
+          "ssml": "Row: 1"
         },
         {
           "ssml": "End of the table."

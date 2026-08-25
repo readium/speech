@@ -75,7 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 1 column."
         },
         {
           "plain": "Name"
@@ -148,13 +148,10 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the row."
+          "plain": "Row: 1"
         },
         {
           "plain": "Name"
-        },
-        {
-          "plain": "End of the row."
         }
       ]
     },
@@ -229,16 +226,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 1 column."
         },
         {
-          "plain": "Start of the row."
+          "plain": "Row: 1"
         },
         {
           "plain": "Name"
-        },
-        {
-          "plain": "End of the row."
         },
         {
           "plain": "End of the table."
@@ -2427,7 +2421,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 1 column."
         },
         {
           "plain": "End of the table."
@@ -2521,10 +2515,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the row."
-        },
-        {
-          "plain": "End of the row."
+          "plain": "Row: 1"
         }
       ]
     },
@@ -2623,13 +2614,10 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 1 column."
         },
         {
-          "plain": "Start of the row."
-        },
-        {
-          "plain": "End of the row."
+          "plain": "Row: 1"
         },
         {
           "plain": "End of the table."
@@ -2711,7 +2699,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 1 column."
         },
         {
           "ssml": "Name"
@@ -2784,13 +2772,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the row."
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Name"
-        },
-        {
-          "ssml": "End of the row."
         }
       ]
     },
@@ -2865,16 +2850,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 1 column."
         },
         {
-          "ssml": "Start of the row."
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Name"
-        },
-        {
-          "ssml": "End of the row."
         },
         {
           "ssml": "End of the table."
@@ -5063,7 +5045,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 1 column."
         },
         {
           "ssml": "End of the table."
@@ -5157,10 +5139,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the row."
-        },
-        {
-          "ssml": "End of the row."
+          "ssml": "Row: 1"
         }
       ]
     },
@@ -5259,13 +5238,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 1 column."
         },
         {
-          "ssml": "Start of the row."
-        },
-        {
-          "ssml": "End of the row."
+          "ssml": "Row: 1"
         },
         {
           "ssml": "End of the table."

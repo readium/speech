@@ -78,13 +78,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 1 column."
         },
         {
           "plain": "Outer"
         },
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 1 column."
         },
         {
           "plain": "Inner"
@@ -160,22 +160,16 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the row."
+          "plain": "Row: 1"
         },
         {
           "plain": "Outer"
         },
         {
-          "plain": "Start of the row."
+          "plain": "Row: 1"
         },
         {
           "plain": "Inner"
-        },
-        {
-          "plain": "End of the row."
-        },
-        {
-          "plain": "End of the row."
         }
       ]
     },
@@ -250,31 +244,25 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 1 column."
         },
         {
-          "plain": "Start of the row."
+          "plain": "Row: 1"
         },
         {
           "plain": "Outer"
         },
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 1 column."
         },
         {
-          "plain": "Start of the row."
+          "plain": "Row: 1"
         },
         {
           "plain": "Inner"
         },
         {
-          "plain": "End of the row."
-        },
-        {
           "plain": "End of the table."
-        },
-        {
-          "plain": "End of the row."
         },
         {
           "plain": "End of the table."
@@ -344,13 +332,10 @@
       ],
       "utterances": [
         {
-          "plain": "Cell."
-        },
-        {
           "plain": "Outer"
         },
         {
-          "plain": "Cell."
+          "plain": "Inner"
         },
         {
           "plain": "Inner"
@@ -428,19 +413,16 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
-        },
-        {
-          "plain": "Cell."
+          "plain": "Table. 1 line. 1 column."
         },
         {
           "plain": "Outer"
         },
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 1 column."
         },
         {
-          "plain": "Cell."
+          "plain": "Inner"
         },
         {
           "plain": "Inner"
@@ -524,28 +506,19 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the row."
-        },
-        {
-          "plain": "Cell."
+          "plain": "Row: 1"
         },
         {
           "plain": "Outer"
         },
         {
-          "plain": "Start of the row."
-        },
-        {
-          "plain": "Cell."
+          "plain": "Row: 1"
         },
         {
           "plain": "Inner"
         },
         {
-          "plain": "End of the row."
-        },
-        {
-          "plain": "End of the row."
+          "plain": "Inner"
         }
       ]
     },
@@ -628,37 +601,28 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 1 column."
         },
         {
-          "plain": "Start of the row."
-        },
-        {
-          "plain": "Cell."
+          "plain": "Row: 1"
         },
         {
           "plain": "Outer"
         },
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 1 column."
         },
         {
-          "plain": "Start of the row."
-        },
-        {
-          "plain": "Cell."
+          "plain": "Row: 1"
         },
         {
           "plain": "Inner"
         },
         {
-          "plain": "End of the row."
+          "plain": "Inner"
         },
         {
           "plain": "End of the table."
-        },
-        {
-          "plain": "End of the row."
         },
         {
           "plain": "End of the table."
@@ -5339,7 +5303,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 1 column."
         },
         {
           "plain": "End of the table."
@@ -5523,10 +5487,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the row."
-        },
-        {
-          "plain": "End of the row."
+          "plain": "Row: 1"
         }
       ]
     },
@@ -5723,13 +5684,10 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 1 line. 1 column."
         },
         {
-          "plain": "Start of the row."
-        },
-        {
-          "plain": "End of the row."
+          "plain": "Row: 1"
         },
         {
           "plain": "End of the table."
@@ -5814,13 +5772,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 1 column."
         },
         {
           "ssml": "Outer"
         },
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 1 column."
         },
         {
           "ssml": "Inner"
@@ -5896,22 +5854,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the row."
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Outer"
         },
         {
-          "ssml": "Start of the row."
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Inner"
-        },
-        {
-          "ssml": "End of the row."
-        },
-        {
-          "ssml": "End of the row."
         }
       ]
     },
@@ -5986,31 +5938,25 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 1 column."
         },
         {
-          "ssml": "Start of the row."
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Outer"
         },
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 1 column."
         },
         {
-          "ssml": "Start of the row."
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Inner"
         },
         {
-          "ssml": "End of the row."
-        },
-        {
           "ssml": "End of the table."
-        },
-        {
-          "ssml": "End of the row."
         },
         {
           "ssml": "End of the table."
@@ -6080,13 +6026,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Cell."
-        },
-        {
           "ssml": "Outer"
         },
         {
-          "ssml": "Cell."
+          "ssml": "Inner"
         },
         {
           "ssml": "Inner"
@@ -6164,19 +6107,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
-        },
-        {
-          "ssml": "Cell."
+          "ssml": "Table. 1 line. 1 column."
         },
         {
           "ssml": "Outer"
         },
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 1 column."
         },
         {
-          "ssml": "Cell."
+          "ssml": "Inner"
         },
         {
           "ssml": "Inner"
@@ -6260,28 +6200,19 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the row."
-        },
-        {
-          "ssml": "Cell."
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Outer"
         },
         {
-          "ssml": "Start of the row."
-        },
-        {
-          "ssml": "Cell."
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Inner"
         },
         {
-          "ssml": "End of the row."
-        },
-        {
-          "ssml": "End of the row."
+          "ssml": "Inner"
         }
       ]
     },
@@ -6364,37 +6295,28 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 1 column."
         },
         {
-          "ssml": "Start of the row."
-        },
-        {
-          "ssml": "Cell."
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Outer"
         },
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 1 column."
         },
         {
-          "ssml": "Start of the row."
-        },
-        {
-          "ssml": "Cell."
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Inner"
         },
         {
-          "ssml": "End of the row."
+          "ssml": "Inner"
         },
         {
           "ssml": "End of the table."
-        },
-        {
-          "ssml": "End of the row."
         },
         {
           "ssml": "End of the table."
@@ -11075,7 +10997,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 1 column."
         },
         {
           "ssml": "End of the table."
@@ -11259,10 +11181,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the row."
-        },
-        {
-          "ssml": "End of the row."
+          "ssml": "Row: 1"
         }
       ]
     },
@@ -11459,13 +11378,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 1 line. 1 column."
         },
         {
-          "ssml": "Start of the row."
-        },
-        {
-          "ssml": "End of the row."
+          "ssml": "Row: 1"
         },
         {
           "ssml": "End of the table."

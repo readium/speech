@@ -78,7 +78,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 2 lines. 1 column."
         },
         {
           "plain": "Team roster"
@@ -157,13 +157,10 @@
           "plain": "Team roster"
         },
         {
-          "plain": "Start of the row."
+          "plain": "Row: 2"
         },
         {
           "plain": "Name"
-        },
-        {
-          "plain": "End of the row."
         }
       ]
     },
@@ -238,19 +235,16 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 2 lines. 1 column."
         },
         {
           "plain": "Team roster"
         },
         {
-          "plain": "Start of the row."
+          "plain": "Row: 2"
         },
         {
           "plain": "Name"
-        },
-        {
-          "plain": "End of the row."
         },
         {
           "plain": "End of the table."
@@ -1067,7 +1061,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 2 lines. 1 column."
         },
         {
           "plain": "Team roster"
@@ -1167,10 +1161,7 @@
           "plain": "Team roster"
         },
         {
-          "plain": "Start of the row."
-        },
-        {
-          "plain": "End of the row."
+          "plain": "Row: 2"
         }
       ]
     },
@@ -1269,16 +1260,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the table."
+          "plain": "Table. 2 lines. 1 column."
         },
         {
           "plain": "Team roster"
         },
         {
-          "plain": "Start of the row."
-        },
-        {
-          "plain": "End of the row."
+          "plain": "Row: 2"
         },
         {
           "plain": "End of the table."
@@ -2744,7 +2732,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 2 lines. 1 column."
         },
         {
           "ssml": "Team roster"
@@ -2823,13 +2811,10 @@
           "ssml": "Team roster"
         },
         {
-          "ssml": "Start of the row."
+          "ssml": "Row: 2"
         },
         {
           "ssml": "Name"
-        },
-        {
-          "ssml": "End of the row."
         }
       ]
     },
@@ -2904,19 +2889,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 2 lines. 1 column."
         },
         {
           "ssml": "Team roster"
         },
         {
-          "ssml": "Start of the row."
+          "ssml": "Row: 2"
         },
         {
           "ssml": "Name"
-        },
-        {
-          "ssml": "End of the row."
         },
         {
           "ssml": "End of the table."
@@ -3733,7 +3715,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 2 lines. 1 column."
         },
         {
           "ssml": "Team roster"
@@ -3833,10 +3815,7 @@
           "ssml": "Team roster"
         },
         {
-          "ssml": "Start of the row."
-        },
-        {
-          "ssml": "End of the row."
+          "ssml": "Row: 2"
         }
       ]
     },
@@ -3935,16 +3914,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the table."
+          "ssml": "Table. 2 lines. 1 column."
         },
         {
           "ssml": "Team roster"
         },
         {
-          "ssml": "Start of the row."
-        },
-        {
-          "ssml": "End of the row."
+          "ssml": "Row: 2"
         },
         {
           "ssml": "End of the table."

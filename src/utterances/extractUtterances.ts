@@ -1,7 +1,8 @@
+import i18next, { type i18n } from "i18next";
 import type { GndObject, GndRole } from "../gnd/types.js";
 import { ssmlTextEscape } from "../gnd/text.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
-import { defaultContextualizations } from "./contextualizations.js";
+import { contextualizationsForLocale } from "./contextualizations.js";
 import { stripLangTags } from "./language.js";
 import {
   hasLangTag,
@@ -12,17 +13,15 @@ import {
   stripSsmlTags,
   type ResolvedNodeText,
 } from "./text.js";
-import {
-  isBlockContextualization,
-  type Contextualization,
-  type Contextualizations,
-  type ExtractUtterancesOptions,
-} from "./types.js";
+import type { Contextualizations, ExtractUtterancesOptions } from "./types.js";
 import { blockLevelRoles } from "./roles.js";
 import { startsWithBindingPunct } from "../utils/text.js";
+import { computeTableStructure, plainTextOf } from "./tableStructure.js";
 
 interface WalkContext {
   contextualizations: Contextualizations;
+  // Backs only `resolvePluralPart()`'s `<role>.parts.<name>` lookups.
+  i18n: i18n;
   skip: ReadonlySet<GndRole>;
   contextualize: ReadonlySet<GndRole>;
   format: "plain" | "ssml";
@@ -32,6 +31,11 @@ interface WalkContext {
   // since utterances get merged/reordered across several local `out` arrays
   // (pieces, inner, ...) before reaching the caller's own `out`.
   blockStarts: Set<ReadiumSpeechUtterance>;
+  // Populated from a table node the moment it's reached, then read back as
+  // its rows/cells are walked — same identity-keyed, single-call-scoped
+  // pattern as `blockStarts`.
+  tableRowNumbers: Map<GndObject, number>;
+  tableCellHeaders: Map<GndObject, string>;
 }
 
 // Parallel to `out`: which node produced each utterance, `undefined` when none (e.g. a merged span).
@@ -39,22 +43,15 @@ type SourceTrace = (GndObject | undefined)[];
 
 const blockLevelRoleSet: ReadonlySet<GndRole> = new Set(blockLevelRoles);
 
-// `{{ name }}` tokens (i18next-style) are substituted from `params`; a token
-// with no matching param is left as-is rather than silently dropped.
-function substituteTokens(template: string, params?: Record<string, string>): string {
-  if (!params) return template;
-  return template.replace(/\{\{\s*(\w+)\s*\}\}/g, (match, name: string) => (name in params ? params[name] : match));
-}
-
-// `variantKey` picks a named-variants template (ignored for a plain string
-// entry); no match resolves to "".
-function resolveContextualization(
-  contextualization: Contextualization,
-  variantKey?: string,
-  params?: Record<string, string>,
-): string {
-  const template = typeof contextualization === "string" ? contextualization : contextualization[variantKey ?? ""];
-  return template !== undefined ? substituteTokens(template, params) : "";
+// `variantKey`, when given, picks a nested named-variant leaf (e.g.
+// `audio.inline.labelled`); falls back to `base` itself when that specific
+// variant isn't defined there (a plain-string entry like `table.block.end`
+// ignores variantKey entirely, same as before).
+function resolveEntryText(ctx: WalkContext, base: string, variantKey?: string, params?: Record<string, string>): string | undefined {
+  const variantPath = variantKey ? `${base}.${variantKey}` : undefined;
+  if (variantPath && ctx.i18n.exists(variantPath)) return ctx.i18n.t(variantPath, params);
+  if (ctx.i18n.exists(base)) return ctx.i18n.t(base, params);
+  return undefined;
 }
 
 // Contextualization/label text is always plain (no markup) — formats it
@@ -103,15 +100,16 @@ function pushRoleContextualization(
   params?: Record<string, string>,
 ): void {
   if (!ctx.contextualize.has(role)) return;
-  const entry = ctx.contextualizations[role];
-  if (entry === undefined) return;
-  if (isBlockContextualization(entry)) {
-    const contextualization = phase === "before" ? entry.block.start : entry.block.end;
-    push(out, sources, node, [formatPlain(resolveContextualization(contextualization, variantKey, params), ctx.format)]);
+  const isBlock = ctx.i18n.exists(`${role}.block.start`) || ctx.i18n.exists(`${role}.block.end`);
+  if (isBlock) {
+    const base = phase === "before" ? `${role}.block.start` : `${role}.block.end`;
+    const text = resolveEntryText(ctx, base, variantKey, params);
+    if (text) push(out, sources, node, [formatPlain(text, ctx.format)]);
     return;
   }
   if (phase === "before") {
-    push(out, sources, node, [formatPlain(resolveContextualization(entry.inline, variantKey, params), ctx.format)]);
+    const text = resolveEntryText(ctx, `${role}.inline`, variantKey, params);
+    if (text) push(out, sources, node, [formatPlain(text, ctx.format)]);
   }
 }
 
@@ -156,12 +154,10 @@ function buildPagebreakUtterance(node: GndObject, ctx: WalkContext): ReadiumSpee
   const resolved = resolveNodeText(node.text);
   const own = resolved ? applyFormat(resolved, ctx.format, ctx.language) : [];
   if (!ctx.contextualize.has("pagebreak")) return own;
-  const entry = ctx.contextualizations.pagebreak;
-  if (entry === undefined) return own;
-  const contextualization = formatPlain(
-    resolveContextualization(isBlockContextualization(entry) ? entry.block.start : entry.inline, undefined),
-    ctx.format,
-  );
+  const base = ctx.i18n.exists("pagebreak.block.start") ? "pagebreak.block.start" : "pagebreak.inline";
+  const text = resolveEntryText(ctx, base);
+  if (text === undefined) return own;
+  const contextualization = formatPlain(text, ctx.format);
   if (own.length === 0) return [contextualization];
   const merged = mergeUtterances([contextualization, ...own], ctx.format);
   if (!merged) return [contextualization, ...own];
@@ -270,7 +266,13 @@ function emitInterrupted(
 const labelVariantRoles: ReadonlySet<string> = new Set(["audio", "video", "image", "math"]);
 const descriptionFoldingRoles: ReadonlySet<string> = new Set(["audio", "video", "image", "figure", "math"]);
 
-function contextualizationParamsFor(role: string, node: GndObject): { variantKey?: string; params?: Record<string, string> } {
+// Falls back to the bare number when the catalog has no `parts` entry.
+function resolvePluralPart(ctx: WalkContext, role: string, name: string, count: number): string {
+  const key = `${role}.parts.${name}`;
+  return ctx.i18n.exists(key, { count }) ? ctx.i18n.t(key, { count }) : String(count);
+}
+
+function contextualizationParamsFor(role: string, node: GndObject, ctx: WalkContext): { variantKey?: string; params?: Record<string, string> } {
   if (labelVariantRoles.has(role)) {
     return {
       variantKey: node.description !== undefined ? "labelled" : "unlabelled",
@@ -279,6 +281,29 @@ function contextualizationParamsFor(role: string, node: GndObject): { variantKey
   }
   if (role === "figure") {
     return { params: { description: node.description ?? "" } };
+  }
+  if (role === "table") {
+    const structure = computeTableStructure(node.children ?? []);
+    for (const [row, count] of structure.rowNumbers) ctx.tableRowNumbers.set(row, count);
+    for (const [cell, header] of structure.cellHeaders) ctx.tableCellHeaders.set(cell, header);
+    return {
+      variantKey: node.description !== undefined ? "labelled" : "unlabelled",
+      params: {
+        description: node.description ?? "",
+        lines: resolvePluralPart(ctx, "table", "lines", structure.lines),
+        columns: resolvePluralPart(ctx, "table", "columns", structure.columns),
+      },
+    };
+  }
+  if (role === "row") {
+    return { params: { count: String(ctx.tableRowNumbers.get(node) ?? "") } };
+  }
+  if (role === "cell" || role === "rowheader") {
+    const header = ctx.tableCellHeaders.get(node);
+    return {
+      variantKey: header !== undefined ? "withHeader" : "withoutHeader",
+      params: { header: header ?? "", value: plainTextOf(node) },
+    };
   }
   return {};
 }
@@ -315,7 +340,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
     // An unlabelled figure has nothing to say and doesn't announce at all
     // (its content still speaks normally) — the only role with this rule.
     if (role === "figure" && node.description === undefined) continue;
-    const { variantKey, params } = contextualizationParamsFor(role, node);
+    const { variantKey, params } = contextualizationParamsFor(role, node, ctx);
     pushRoleContextualization(out, sources, node, ctx, role, "before", variantKey, params);
   }
 
@@ -330,21 +355,26 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
         const inner: ReadiumSpeechUtterance[] = [];
         const innerSources: SourceTrace = [];
         walk([child], inner, innerSources, ctx, suppress);
-        const entry = ctx.contextualize.has("footnote") ? ctx.contextualizations.footnote : undefined;
+        const footnoteContextualized = ctx.contextualize.has("footnote");
+        const footnoteBlock = ctx.i18n.exists("footnote.block.start") || ctx.i18n.exists("footnote.block.end");
+        const startText = footnoteContextualized ? resolveEntryText(ctx, footnoteBlock ? "footnote.block.start" : "footnote.inline") : undefined;
+        const hasEntry = footnoteContextualized && (startText !== undefined || footnoteBlock);
         const pieces: ReadiumSpeechUtterance[] = [];
         const pieceSources: SourceTrace = [];
-        if (entry !== undefined) {
-          const startText = isBlockContextualization(entry) ? entry.block.start : entry.inline;
-          pieces.push(formatPlain(resolveContextualization(startText, undefined), ctx.format));
+        if (startText !== undefined) {
+          pieces.push(formatPlain(startText, ctx.format));
           pieceSources.push(child);
         }
         pieces.push(...inner);
         pieceSources.push(...innerSources);
-        if (entry !== undefined && isBlockContextualization(entry)) {
-          pieces.push(formatPlain(resolveContextualization(entry.block.end, undefined), ctx.format));
-          pieceSources.push(child);
+        if (hasEntry && footnoteBlock) {
+          const endText = resolveEntryText(ctx, "footnote.block.end");
+          if (endText !== undefined) {
+            pieces.push(formatPlain(endText, ctx.format));
+            pieceSources.push(child);
+          }
         }
-        const merged = entry !== undefined && pieces.length > 1 ? mergeUtterances(pieces, ctx.format) : undefined;
+        const merged = hasEntry && pieces.length > 1 ? mergeUtterances(pieces, ctx.format) : undefined;
         pushPiecesOrMerged(out, sources, ctx, child, pieces, pieceSources, merged);
       } else {
         walk([child], out, sources, ctx, suppress);
@@ -387,7 +417,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
 
   for (const role of contextualizedRoles) {
     if (role === "figure" && node.description === undefined) continue;
-    const { variantKey, params } = contextualizationParamsFor(role, node);
+    const { variantKey, params } = contextualizationParamsFor(role, node, ctx);
     pushRoleContextualization(out, sources, node, ctx, role, "after", variantKey, params);
   }
 }
@@ -400,15 +430,31 @@ function walk(nodes: GndObject[], out: ReadiumSpeechUtterance[], sources: Source
   nodes.forEach((node, index) => walkNode(node, out, sources, ctx, index === 0 ? suppress : false));
 }
 
+// Synchronous: resources are supplied inline, no backend plugin involved.
+function makeContextualizer(locale: string, contextualizations: Contextualizations): i18n {
+  const instance = i18next.createInstance();
+  instance.init({
+    lng: locale,
+    resources: { [locale]: { translation: contextualizations } },
+    interpolation: { escapeValue: false },
+  });
+  return instance;
+}
+
 function makeWalkContext(options: ExtractUtterancesOptions): WalkContext {
+  const locale = options.contextualizationLocale ?? "en";
+  const contextualizations = { ...contextualizationsForLocale(locale), ...options.contextualizations };
   return {
-    contextualizations: { ...defaultContextualizations, ...options.contextualizations },
+    contextualizations,
+    i18n: makeContextualizer(locale, contextualizations),
     skip: new Set(options.skip ?? []),
     contextualize: new Set(options.contextualize ?? []),
     format: options.format ?? "plain",
     inlineContextualization: options.inlineContextualization ?? false,
     language: options.language,
     blockStarts: new Set(),
+    tableRowNumbers: new Map(),
+    tableCellHeaders: new Map(),
   };
 }
 
