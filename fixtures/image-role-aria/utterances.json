@@ -75,10 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Image."
-        },
-        {
-          "plain": "Rating: 4 out of 5 stars"
+          "plain": "Image with a label: Rating: 4 out of 5 stars"
         }
       ]
     },
@@ -302,10 +299,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Image."
-        },
-        {
-          "ssml": "Rating: 4 out of 5 stars"
+          "ssml": "Image with a label: Rating: 4 out of 5 stars"
         }
       ]
     },

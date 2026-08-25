@@ -14,6 +14,10 @@ export interface ObjBuilder {
 }
 
 export function isEmptyObj(o: ObjBuilder): boolean {
+  // `math` has no ref field of its own (unlike audio/image/video, it names
+  // no external resource) — without this, an unlabelled `<math>` has
+  // nothing else to survive on and would be dropped like a truly empty node.
+  if (o.role?.includes("math")) return false;
   return (
     !o.audioref &&
     !o.imgref &&

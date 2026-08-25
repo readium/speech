@@ -71,7 +71,7 @@
       ],
       "utterances": [
         {
-          "plain": "Image."
+          "plain": "Image with no label."
         }
       ]
     },
@@ -146,7 +146,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Image."
+          "ssml": "Image with no label."
         }
       ]
     }

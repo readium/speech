@@ -263,6 +263,26 @@ function emitInterrupted(
   pushPiecesOrMerged(out, sources, ctx, node, pieces, pieceSources, merged);
 }
 
+// audio/video/image/math fold `node.description` into a labelled/unlabelled
+// variant of their own announcement; figure folds it into its one template
+// (and skips announcing entirely when absent — see the `figure` check in
+// `walkNode()`'s contextualization loop).
+const labelVariantRoles: ReadonlySet<string> = new Set(["audio", "video", "image", "math"]);
+const descriptionFoldingRoles: ReadonlySet<string> = new Set(["audio", "video", "image", "figure", "math"]);
+
+function contextualizationParamsFor(role: string, node: GndObject): { variantKey?: string; params?: Record<string, string> } {
+  if (labelVariantRoles.has(role)) {
+    return {
+      variantKey: node.description !== undefined ? "labelled" : "unlabelled",
+      params: { description: node.description ?? "" },
+    };
+  }
+  if (role === "figure") {
+    return { params: { description: node.description ?? "" } };
+  }
+  return {};
+}
+
 function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, suppress: boolean): void {
   const roles = node.role ?? [];
   if (isSkipped(roles, ctx.skip)) return;
@@ -292,7 +312,11 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
   // is (see `pushRoleContextualization` and `contextualizations.ts`) — a
   // no-op for the vast majority of roles, which have no entry at all.
   for (const role of contextualizedRoles) {
-    pushRoleContextualization(out, sources, node, ctx, role, "before");
+    // An unlabelled figure has nothing to say and doesn't announce at all
+    // (its content still speaks normally) — the only role with this rule.
+    if (role === "figure" && node.description === undefined) continue;
+    const { variantKey, params } = contextualizationParamsFor(role, node);
+    pushRoleContextualization(out, sources, node, ctx, role, "before", variantKey, params);
   }
 
   // A noteref's own visible text (e.g. "[1]") is a visual marker only,
@@ -354,13 +378,17 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
 
   // A description is supplementary/elaborating content (e.g. an extended
   // audio description), spoken after the primary content but still within
-  // the node's own start/end contextualization boundary.
-  if (node.description !== undefined) {
+  // the node's own start/end contextualization boundary — unless a role
+  // that's actually firing already folded it into its own announcement.
+  const foldsDescription = roles.some((role) => descriptionFoldingRoles.has(role) && ctx.contextualize.has(role));
+  if (node.description !== undefined && !foldsDescription) {
     push(out, sources, node, [formatPlain(node.description, ctx.format)]);
   }
 
   for (const role of contextualizedRoles) {
-    pushRoleContextualization(out, sources, node, ctx, role, "after");
+    if (role === "figure" && node.description === undefined) continue;
+    const { variantKey, params } = contextualizationParamsFor(role, node);
+    pushRoleContextualization(out, sources, node, ctx, role, "after", variantKey, params);
   }
 }
 

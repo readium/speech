@@ -75,13 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the figure."
-        },
-        {
-          "plain": "ASCII Art of a cat face"
-        },
-        {
-          "plain": "End of the figure."
+          "plain": "Figure: ASCII Art of a cat face"
         }
       ]
     },
@@ -305,13 +299,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the figure."
-        },
-        {
-          "ssml": "ASCII Art of a cat face"
-        },
-        {
-          "ssml": "End of the figure."
+          "ssml": "Figure: ASCII Art of a cat face"
         }
       ]
     },

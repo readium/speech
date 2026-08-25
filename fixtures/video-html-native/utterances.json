@@ -75,10 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Video."
-        },
-        {
-          "plain": "The lamp mechanism rotating at dusk"
+          "plain": "Video with a label: The lamp mechanism rotating at dusk"
         }
       ]
     },
@@ -302,10 +299,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Video."
-        },
-        {
-          "ssml": "The lamp mechanism rotating at dusk"
+          "ssml": "Video with a label: The lamp mechanism rotating at dusk"
         }
       ]
     },

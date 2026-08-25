@@ -1,21 +1,26 @@
 {
     "speech": {
         "contextualizations": {
-            "audio": { "inline": "Audio." },
-            "cell": { "inline": "Cell." },
-            "figure": {
-                "block": {
-                    "end": "End of the figure.",
-                    "start": "Start of the figure."
+            "audio": {
+                "inline": {
+                    "labelled": "Audio with a label: {{ description }}",
+                    "unlabelled": "Audio with no label."
                 }
             },
+            "cell": { "inline": "Cell." },
+            "figure": { "inline": "Figure: {{ description }}" },
             "heading1": { "inline": "Heading level 1." },
             "heading2": { "inline": "Heading level 2." },
             "heading3": { "inline": "Heading level 3." },
             "heading4": { "inline": "Heading level 4." },
             "heading5": { "inline": "Heading level 5." },
             "heading6": { "inline": "Heading level 6." },
-            "image": { "inline": "Image." },
+            "image": {
+                "inline": {
+                    "labelled": "Image with a label: {{ description }}",
+                    "unlabelled": "Image with no label."
+                }
+            },
             "list": {
                 "block": {
                     "end": "End of the list.",
@@ -23,6 +28,12 @@
                 }
             },
             "listItem": { "inline": "List item." },
+            "math": {
+                "inline": {
+                    "labelled": "{{ description }}",
+                    "unlabelled": "Math formula with no label."
+                }
+            },
             "row": {
                 "block": {
                     "end": "End of the row.",
@@ -37,7 +48,12 @@
                 }
             },
             "term": { "inline": "Term." },
-            "video": { "inline": "Video." }
+            "video": {
+                "inline": {
+                    "labelled": "Video with a label: {{ description }}",
+                    "unlabelled": "Video with no label."
+                }
+            }
         }
     }
 }
