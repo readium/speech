@@ -1,0 +1,452 @@
+{
+  "cases": [
+    {
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Figure: ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": []
+    },
+    {
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Figure: ASCII Art of a cat face"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": []
+    }
+  ]
+}

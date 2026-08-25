@@ -8,10 +8,10 @@
       ],
       "utterances": [
         {
-          "plain": "Team roster"
+          "plain": "Name"
         },
         {
-          "plain": "Name"
+          "plain": "Team roster"
         }
       ]
     },
@@ -78,13 +78,13 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 2 lines. 1 column."
-        },
-        {
-          "plain": "Team roster"
+          "plain": "Table: Team roster. 1 line. 1 column."
         },
         {
           "plain": "Name"
+        },
+        {
+          "plain": "Team roster"
         },
         {
           "plain": "End of the table."
@@ -154,13 +154,13 @@
       ],
       "utterances": [
         {
-          "plain": "Team roster"
-        },
-        {
-          "plain": "Row: 2"
+          "plain": "Row: 1"
         },
         {
           "plain": "Name"
+        },
+        {
+          "plain": "Team roster"
         }
       ]
     },
@@ -235,16 +235,16 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 2 lines. 1 column."
+          "plain": "Table: Team roster. 1 line. 1 column."
         },
         {
-          "plain": "Team roster"
-        },
-        {
-          "plain": "Row: 2"
+          "plain": "Row: 1"
         },
         {
           "plain": "Name"
+        },
+        {
+          "plain": "Team roster"
         },
         {
           "plain": "End of the table."
@@ -1061,7 +1061,7 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 2 lines. 1 column."
+          "plain": "Table: Team roster. 1 line. 1 column."
         },
         {
           "plain": "Team roster"
@@ -1158,10 +1158,10 @@
       ],
       "utterances": [
         {
-          "plain": "Team roster"
+          "plain": "Row: 1"
         },
         {
-          "plain": "Row: 2"
+          "plain": "Team roster"
         }
       ]
     },
@@ -1260,13 +1260,13 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 2 lines. 1 column."
+          "plain": "Table: Team roster. 1 line. 1 column."
+        },
+        {
+          "plain": "Row: 1"
         },
         {
           "plain": "Team roster"
-        },
-        {
-          "plain": "Row: 2"
         },
         {
           "plain": "End of the table."
@@ -2662,10 +2662,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Team roster"
+          "ssml": "Name"
         },
         {
-          "ssml": "Name"
+          "ssml": "Team roster"
         }
       ]
     },
@@ -2732,13 +2732,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 2 lines. 1 column."
-        },
-        {
-          "ssml": "Team roster"
+          "ssml": "Table: Team roster. 1 line. 1 column."
         },
         {
           "ssml": "Name"
+        },
+        {
+          "ssml": "Team roster"
         },
         {
           "ssml": "End of the table."
@@ -2808,13 +2808,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Team roster"
-        },
-        {
-          "ssml": "Row: 2"
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Name"
+        },
+        {
+          "ssml": "Team roster"
         }
       ]
     },
@@ -2889,16 +2889,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 2 lines. 1 column."
+          "ssml": "Table: Team roster. 1 line. 1 column."
         },
         {
-          "ssml": "Team roster"
-        },
-        {
-          "ssml": "Row: 2"
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Name"
+        },
+        {
+          "ssml": "Team roster"
         },
         {
           "ssml": "End of the table."
@@ -3715,7 +3715,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 2 lines. 1 column."
+          "ssml": "Table: Team roster. 1 line. 1 column."
         },
         {
           "ssml": "Team roster"
@@ -3812,10 +3812,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Team roster"
+          "ssml": "Row: 1"
         },
         {
-          "ssml": "Row: 2"
+          "ssml": "Team roster"
         }
       ]
     },
@@ -3914,13 +3914,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 2 lines. 1 column."
+          "ssml": "Table: Team roster. 1 line. 1 column."
+        },
+        {
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Team roster"
-        },
-        {
-          "ssml": "Row: 2"
         },
         {
           "ssml": "End of the table."

@@ -272,11 +272,31 @@ export class Converter {
       if (roles.includes("figure")) {
         this.current.noText = true;
       }
+    } else if (roles.includes("table") || roles.includes("figure")) {
+      const caption = this.implicitCaptionOf(el);
+      if (caption) {
+        const text = normalizedNodeText(caption);
+        if (text) {
+          cur.description = text;
+          this.suppressed.add(caption);
+          if (roles.includes("figure")) this.current.noText = true;
+        }
+      }
     }
     const id = el.getAttribute("id");
     if (id) cur.id = id;
 
     return false;
+  }
+
+  // HTML-AAM implicit name: a table/figure with no explicit ARIA name folds
+  // its native/ARIA caption child's text in as its own description instead
+  // of speaking that child separately.
+  private implicitCaptionOf(el: Element): Element | null {
+    for (let c = el.firstElementChild; c; c = c.nextElementSibling) {
+      if (extractNodeRoles(c).includes("caption") && !c.getAttribute("aria-labelledby")) return c;
+    }
+    return null;
   }
 
   private tail(el: Element, wasSkip: boolean, parent: NavObject) {

@@ -605,6 +605,28 @@
     }
   },
   {
+    "id": "figure-caption-element-html-native",
+    "dir": "figure-caption-element-html-native",
+    "role": "figure",
+    "description": "A native <figure><figcaption> with no explicit aria-labelledby — the figcaption's text folds into the figure's own description (HTML-AAM implicit name), and the figcaption is not spoken as a separate child. Contrast with figure-caption-html-native, which has an explicit aria-labelledby pointing at the same figcaption.",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "figure-caption-element-role-aria",
+    "dir": "figure-caption-element-role-aria",
+    "role": "figure",
+    "description": "A role=\"figure\" with a role=\"caption\" child and no explicit aria-labelledby — the caption's text folds into the figure's own description, same as the native <figcaption> case, and isn't spoken as a separate child.",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
     "id": "figure-caption-html-native",
     "dir": "figure-caption-html-native",
     "role": "figure",
