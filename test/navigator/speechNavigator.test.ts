@@ -3,7 +3,7 @@ import type { GndObject } from "../../src/gnd/types.js";
 import { ReadiumSpeechNavigator, SpeechPreferences } from "../../build/index.js";
 import { MockEngine } from "./mockEngine.js";
 
-const chapterTree: GndObject[] = [{ role: ["chapter"], text: { language: "en", plain: "Hello world." } }];
+const listTree: GndObject[] = [{ role: ["list"], text: { language: "en", plain: "Hello world." } }];
 
 const twoParagraphTree: GndObject[] = [
   { role: ["paragraph"], text: { language: "en", plain: "First." } },
@@ -20,19 +20,19 @@ const footnoteThenParagraphsTree: GndObject[] = [
 test("loadGndContent extracts with the default (few) verbosity", (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  navigator.loadGndContent(chapterTree);
+  navigator.loadGndContent(listTree);
   t.deepEqual(navigator.getContentQueue(), [{ language: "en", plain: "Hello world." }]);
 });
 
 test("submitPreferences re-extracts content loaded via loadGndContent", (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  navigator.loadGndContent(chapterTree);
+  navigator.loadGndContent(listTree);
   navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
   t.deepEqual(navigator.getContentQueue(), [
-    { plain: "Start of the chapter." },
+    { plain: "Start of the list." },
     { language: "en", plain: "Hello world." },
-    { plain: "End of the chapter." },
+    { plain: "End of the list." },
   ]);
 });
 

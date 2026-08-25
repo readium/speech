@@ -1,11 +1,12 @@
 export { extractUtterances } from "./extractUtterances.js";
 export { blockLevelRoles, skippableRoles } from "./roles.js";
-export { defaultAnnouncements } from "./announcements.js";
+export { defaultContextualizations } from "./contextualizations.js";
+export { isBlockContextualization } from "./types.js";
 export type {
-  Announcement,
-  AnnouncementKey,
-  AnnouncementPair,
-  Announcements,
-  RoleAnnouncement,
+  Contextualization,
+  ContextualizationKey,
+  ContextualizationPair,
+  Contextualizations,
+  RoleContextualization,
   ExtractUtterancesOptions,
 } from "./types.js";

@@ -18,7 +18,7 @@ try {
   console.error("Run `npm run build` first — could not import build/index.js.");
   throw err;
 }
-const { extractUtterances, skippableRoles, skippableAtVerbosity, defaultAnnouncements } = mod;
+const { extractUtterances, skippableRoles, skippableAtVerbosity, defaultContextualizations } = mod;
 
 // skippableAtVerbosity.none reaches beyond roles.md's skippable-roles list (e.g. `audio`, `table`).
 const allSkippableRoles = new Set([...skippableRoles, ...(skippableAtVerbosity?.none ?? [])]);
@@ -85,7 +85,7 @@ for (const id of ids) {
 
   const skipSubsets = subsets([...allSkippableRoles].filter((role) => rolesInTree.has(role)));
   const contextualizeSubsets = subsets(
-    [...rolesInTree].filter((role) => defaultAnnouncements?.[role] !== undefined),
+    [...rolesInTree].filter((role) => defaultContextualizations?.[role] !== undefined),
   );
 
   const cases = [];

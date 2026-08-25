@@ -1,7 +1,7 @@
 import type { GndObject, GndRole } from "../gnd/types.js";
 import { ssmlTextEscape } from "../gnd/text.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
-import { defaultAnnouncements } from "./announcements.js";
+import { defaultContextualizations } from "./contextualizations.js";
 import { stripLangTags } from "./language.js";
 import {
   hasLangTag,
@@ -12,12 +12,17 @@ import {
   stripSsmlTags,
   type ResolvedNodeText,
 } from "./text.js";
-import { isAnnouncementPair, type Announcement, type Announcements, type ExtractUtterancesOptions } from "./types.js";
+import {
+  isBlockContextualization,
+  type Contextualization,
+  type Contextualizations,
+  type ExtractUtterancesOptions,
+} from "./types.js";
 import { blockLevelRoles } from "./roles.js";
 import { startsWithBindingPunct } from "../utils/text.js";
 
 interface WalkContext {
-  announcements: Announcements;
+  contextualizations: Contextualizations;
   skip: ReadonlySet<GndRole>;
   contextualize: ReadonlySet<GndRole>;
   format: "plain" | "ssml";
@@ -34,14 +39,26 @@ type SourceTrace = (GndObject | undefined)[];
 
 const blockLevelRoleSet: ReadonlySet<GndRole> = new Set(blockLevelRoles);
 
-function resolveAnnouncement(announcement: Announcement, params?: Record<string, string>): string {
-  return typeof announcement === "function" ? announcement(params) : announcement;
+// `{{ name }}` tokens (i18next-style) are substituted from `params`; a token
+// with no matching param is left as-is rather than silently dropped.
+function substituteTokens(template: string, params?: Record<string, string>): string {
+  if (!params) return template;
+  return template.replace(/\{\{\s*(\w+)\s*\}\}/g, (match, name: string) => (name in params ? params[name] : match));
 }
 
-// Every announcement/label utterance is sourced as plain text (the
-// announcement catalog, and a pagebreak/noteref's own visible label, never
-// carry markup of their own) — this formats that plain text per the
-// requested `format`, the same as any other utterance.
+// `variantKey` picks a named-variants template (ignored for a plain string
+// entry); no match resolves to "".
+function resolveContextualization(
+  contextualization: Contextualization,
+  variantKey?: string,
+  params?: Record<string, string>,
+): string {
+  const template = typeof contextualization === "string" ? contextualization : contextualization[variantKey ?? ""];
+  return template !== undefined ? substituteTokens(template, params) : "";
+}
+
+// Contextualization/label text is always plain (no markup) — formats it
+// per the requested `format`, same as any other utterance.
 function formatPlain(text: string, format: "plain" | "ssml"): ReadiumSpeechUtterance {
   return format === "ssml" ? { ssml: ssmlTextEscape(text) } : { plain: text };
 }
@@ -73,31 +90,28 @@ function pushPiecesOrMerged(
   }
 }
 
-// Looks up `role`'s entry in the catalog and speaks the appropriate half
-// of it for this `phase`: a plain entry only has anything to say at
-// "before" (a single, self-contained announcement); a `{start, end}` pair
-// says its `start` at "before" and its `end` at "after". No-ops when the
-// role has no entry, or the shape doesn't have anything for this phase
-// (a plain entry at "after"), or `contextualize` doesn't include this role.
-function pushRoleAnnouncement(
+// Speaks `role`'s catalog entry for this `phase`: `inline` only has
+// something to say "before"; `block` says `start`/`end` at "before"/"after".
+function pushRoleContextualization(
   out: ReadiumSpeechUtterance[],
   sources: SourceTrace,
   node: GndObject,
   ctx: WalkContext,
   role: string,
   phase: "before" | "after",
+  variantKey?: string,
   params?: Record<string, string>,
 ): void {
   if (!ctx.contextualize.has(role)) return;
-  const entry = ctx.announcements[role];
+  const entry = ctx.contextualizations[role];
   if (entry === undefined) return;
-  if (isAnnouncementPair(entry)) {
-    const announcement = phase === "before" ? entry.start : entry.end;
-    push(out, sources, node, [formatPlain(resolveAnnouncement(announcement, params), ctx.format)]);
+  if (isBlockContextualization(entry)) {
+    const contextualization = phase === "before" ? entry.block.start : entry.block.end;
+    push(out, sources, node, [formatPlain(resolveContextualization(contextualization, variantKey, params), ctx.format)]);
     return;
   }
   if (phase === "before") {
-    push(out, sources, node, [formatPlain(resolveAnnouncement(entry, params), ctx.format)]);
+    push(out, sources, node, [formatPlain(resolveContextualization(entry.inline, variantKey, params), ctx.format)]);
   }
 }
 
@@ -136,18 +150,21 @@ function mergeUtterances(
   return merged;
 }
 
-// A pagebreak's label merges into its "Pagebreak." announcement as one
+// A pagebreak's label merges into its "Pagebreak." contextualization as one
 // utterance, with a synthesized trailing period.
 function buildPagebreakUtterance(node: GndObject, ctx: WalkContext): ReadiumSpeechUtterance[] {
   const resolved = resolveNodeText(node.text);
   const own = resolved ? applyFormat(resolved, ctx.format, ctx.language) : [];
   if (!ctx.contextualize.has("pagebreak")) return own;
-  const entry = ctx.announcements.pagebreak;
+  const entry = ctx.contextualizations.pagebreak;
   if (entry === undefined) return own;
-  const announcement = formatPlain(resolveAnnouncement(isAnnouncementPair(entry) ? entry.start : entry), ctx.format);
-  if (own.length === 0) return [announcement];
-  const merged = mergeUtterances([announcement, ...own], ctx.format);
-  if (!merged) return [announcement, ...own];
+  const contextualization = formatPlain(
+    resolveContextualization(isBlockContextualization(entry) ? entry.block.start : entry.inline, undefined),
+    ctx.format,
+  );
+  if (own.length === 0) return [contextualization];
+  const merged = mergeUtterances([contextualization, ...own], ctx.format);
+  if (!merged) return [contextualization, ...own];
   if (merged.plain !== undefined) merged.plain += ".";
   if (merged.ssml !== undefined) merged.ssml += ".";
   return [merged];
@@ -256,7 +273,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
   // nothing in between: nested containers with no content of their own
   // (e.g. a bare <blockquote> around a <p>) collapse onto whichever
   // descendant utterance turns out to be first; a container that *did*
-  // speak something of its own (e.g. a contextualized announcement)
+  // speak something of its own (e.g. a contextualization)
   // claims the boundary itself and suppresses every nested block reached
   // through it, so entering deeply nested markup never stacks pauses.
   const isBlockRole = roles.some((role) => blockLevelRoleSet.has(role));
@@ -266,21 +283,21 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
   // Footnote and pagebreak are handled specially below (merged with their
   // own content/label), so they're excluded from the generic loop here.
   const isFootnoteNode = roles.includes("footnote");
-  const announcedRoles = roles.filter(
+  const contextualizedRoles = roles.filter(
     (role) => !(isFootnoteNode && (role === "footnote" || role === "aside")) && role !== "pagebreak",
   );
 
-  // Every role this node carries gets looked up in the announcement
+  // Every role this node carries gets looked up in the contextualization
   // catalog and its "before" half spoken now, whatever shape that entry
-  // is (see `pushRoleAnnouncement` and `announcements.ts`) — a no-op for
-  // the vast majority of roles, which have no entry at all.
-  for (const role of announcedRoles) {
-    pushRoleAnnouncement(out, sources, node, ctx, role, "before");
+  // is (see `pushRoleContextualization` and `contextualizations.ts`) — a
+  // no-op for the vast majority of roles, which have no entry at all.
+  for (const role of contextualizedRoles) {
+    pushRoleContextualization(out, sources, node, ctx, role, "before");
   }
 
   // A noteref's own visible text (e.g. "[1]") is a visual marker only,
-  // never spoken. Its footnote target's announcements and content merge
-  // into one utterance; any other kind of child is walked as-is.
+  // never spoken. Its footnote target's contextualizations and content
+  // merge into one utterance; any other kind of child is walked as-is.
   if (roles.includes("noteref")) {
     for (const child of node.children ?? []) {
       const childRoles = child.role ?? [];
@@ -289,18 +306,18 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
         const inner: ReadiumSpeechUtterance[] = [];
         const innerSources: SourceTrace = [];
         walk([child], inner, innerSources, ctx, suppress);
-        const entry = ctx.contextualize.has("footnote") ? ctx.announcements.footnote : undefined;
+        const entry = ctx.contextualize.has("footnote") ? ctx.contextualizations.footnote : undefined;
         const pieces: ReadiumSpeechUtterance[] = [];
         const pieceSources: SourceTrace = [];
         if (entry !== undefined) {
-          const startText = isAnnouncementPair(entry) ? entry.start : entry;
-          pieces.push(formatPlain(resolveAnnouncement(startText), ctx.format));
+          const startText = isBlockContextualization(entry) ? entry.block.start : entry.inline;
+          pieces.push(formatPlain(resolveContextualization(startText, undefined), ctx.format));
           pieceSources.push(child);
         }
         pieces.push(...inner);
         pieceSources.push(...innerSources);
-        if (entry !== undefined && isAnnouncementPair(entry)) {
-          pieces.push(formatPlain(resolveAnnouncement(entry.end), ctx.format));
+        if (entry !== undefined && isBlockContextualization(entry)) {
+          pieces.push(formatPlain(resolveContextualization(entry.block.end, undefined), ctx.format));
           pieceSources.push(child);
         }
         const merged = entry !== undefined && pieces.length > 1 ? mergeUtterances(pieces, ctx.format) : undefined;
@@ -337,13 +354,13 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
 
   // A description is supplementary/elaborating content (e.g. an extended
   // audio description), spoken after the primary content but still within
-  // the node's own start/end announcement boundary.
+  // the node's own start/end contextualization boundary.
   if (node.description !== undefined) {
     push(out, sources, node, [formatPlain(node.description, ctx.format)]);
   }
 
-  for (const role of announcedRoles) {
-    pushRoleAnnouncement(out, sources, node, ctx, role, "after");
+  for (const role of contextualizedRoles) {
+    pushRoleContextualization(out, sources, node, ctx, role, "after");
   }
 }
 
@@ -357,7 +374,7 @@ function walk(nodes: GndObject[], out: ReadiumSpeechUtterance[], sources: Source
 
 function makeWalkContext(options: ExtractUtterancesOptions): WalkContext {
   return {
-    announcements: { ...defaultAnnouncements, ...options.announcements },
+    contextualizations: { ...defaultContextualizations, ...options.contextualizations },
     skip: new Set(options.skip ?? []),
     contextualize: new Set(options.contextualize ?? []),
     format: options.format ?? "plain",

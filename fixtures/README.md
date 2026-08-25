@@ -126,7 +126,7 @@ Outside that scope, a fixture makes no claim either way.
 
 Scope, per format: `language` × `inlineContextualization` × every subset of
 (this fixture's roles ∩ [roles.md's skippable-roles list]) × every subset
-of (this fixture's roles ∩ roles with an announcement-catalog entry).
+of (this fixture's roles ∩ roles with a contextualization-catalog entry).
 Every point in that space is either an explicit case or implicitly the
 default — nothing in between.
 
@@ -137,7 +137,7 @@ The options:
   on the `"ssml"` case would leave it indistinguishable from `"plain"`.
 - `skip: GndRole[]` — omit roles (and their whole subtree) from the output.
   See [roles.md#list-of-skippable-roles](https://github.com/readium/guided-navigation/blob/main/roles.md#list-of-skippable-roles).
-- `contextualize: GndRole[]` — which roles' synthesized announcements
+- `contextualize: GndRole[]` — which roles' synthesized contextualizations
   (pagebreak, footnote start/end, ...) are spoken, independent of the
   underlying content (which `skip` would instead omit entirely). Nothing
   contextualizes by default.

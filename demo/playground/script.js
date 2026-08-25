@@ -62,7 +62,7 @@ let SpeechDefaultsClass = null;
 let SpeechSettingsClass = null;
 let SpeechPreferencesEditorClass = null;
 let skippableRolesList = null;
-let announcementCatalog = null;
+let contextualizationCatalog = null;
 try {
   const mod = await import("../../build/index.js");
   if (typeof mod.parseMarkup === "function") {
@@ -111,9 +111,9 @@ try {
   // entry — deriving the option list from the catalog itself (rather than
   // e.g. reusing skippableRoles) keeps it exactly in sync with what
   // `contextualize` actually does anything for.
-  if (mod.defaultAnnouncements && typeof mod.defaultAnnouncements === "object") {
-    announcementCatalog = mod.defaultAnnouncements;
-    for (const role of Object.keys(mod.defaultAnnouncements).sort()) {
+  if (mod.defaultContextualizations && typeof mod.defaultContextualizations === "object") {
+    contextualizationCatalog = mod.defaultContextualizations;
+    for (const role of Object.keys(mod.defaultContextualizations).sort()) {
       const option = document.createElement("option");
       option.value = role;
       option.textContent = role;
@@ -316,7 +316,7 @@ function bridgeToFixtureOptions(resolvedOptions, rolesInTree) {
   const skippable = new Set(skippableRolesList ?? []);
   const effectiveSkip = (resolvedOptions.skip ?? []).filter((role) => rolesInTree.has(role) && skippable.has(role));
   const effectiveContextualize = (resolvedOptions.contextualize ?? []).filter(
-    (role) => rolesInTree.has(role) && announcementCatalog?.[role] !== undefined,
+    (role) => rolesInTree.has(role) && contextualizationCatalog?.[role] !== undefined,
   );
 
   const bridged = { ...resolvedOptions };

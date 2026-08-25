@@ -1,0 +1,43 @@
+{
+    "speech": {
+        "contextualizations": {
+            "audio": { "inline": "Audio." },
+            "cell": { "inline": "Cell." },
+            "figure": {
+                "block": {
+                    "end": "End of the figure.",
+                    "start": "Start of the figure."
+                }
+            },
+            "heading1": { "inline": "Heading level 1." },
+            "heading2": { "inline": "Heading level 2." },
+            "heading3": { "inline": "Heading level 3." },
+            "heading4": { "inline": "Heading level 4." },
+            "heading5": { "inline": "Heading level 5." },
+            "heading6": { "inline": "Heading level 6." },
+            "image": { "inline": "Image." },
+            "list": {
+                "block": {
+                    "end": "End of the list.",
+                    "start": "Start of the list."
+                }
+            },
+            "listItem": { "inline": "List item." },
+            "row": {
+                "block": {
+                    "end": "End of the row.",
+                    "start": "Start of the row."
+                }
+            },
+            "rowheader": { "inline": "Row header." },
+            "table": {
+                "block": {
+                    "end": "End of the table.",
+                    "start": "Start of the table."
+                }
+            },
+            "term": { "inline": "Term." },
+            "video": { "inline": "Video." }
+        }
+    }
+}

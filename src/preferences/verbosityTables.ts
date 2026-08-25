@@ -92,7 +92,7 @@ export const skippableAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "cus
   most: new Set(["columnheader", "landmarks", "loa", "loi", "lot", "lov", "toc"]),
 };
 
-// Roles contextualized (their announcement fires) at each verbosity level.
+// Roles contextualized (their contextualization fires) at each verbosity level.
 export const contextualizedAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "custom">, ReadonlySet<GndRole>>> = {
   none: new Set(),
   few: new Set(few),
