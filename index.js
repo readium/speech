@@ -428,7 +428,7 @@ const ii = ["veryLow", "low", "normal", "high", "veryHigh"], si = ["android", "a
   ...t,
   quality: t.quality?.filter((e) => ii.includes(e)),
   localizedName: t.localizedName && si.includes(t.localizedName) ? t.localizedName : void 0
-}), Ae = {
+}), Oe = {
   cmn: "cmn",
   "cmn-CN": "cmn-CN",
   "cmn-TW": "cmn-TW",
@@ -447,7 +447,7 @@ const ii = ["veryLow", "low", "normal", "high", "veryHigh"], si = ["android", "a
     const [n, r] = e.split("-");
     e = `${n.toLowerCase()}-${r.toUpperCase()}`;
   }
-  return Ae[e] || e;
+  return Oe[e] || e;
 }, Rt = async (t) => {
   if (!t) return [];
   try {
@@ -478,8 +478,8 @@ const ii = ["veryLow", "low", "normal", "high", "veryHigh"], si = ["android", "a
     const e = D(t), n = j[e];
     if (n?.testUtterance)
       return n.testUtterance;
-    if (e in Ae) {
-      const i = Ae[e];
+    if (e in Oe) {
+      const i = Oe[e];
       if (i && j[i]?.testUtterance)
         return j[i].testUtterance;
     }
@@ -488,14 +488,14 @@ const ii = ["veryLow", "low", "normal", "high", "veryHigh"], si = ["android", "a
   } catch (e) {
     return console.error(`Error in getTestUtterance for ${t}:`, e), "";
   }
-}, Me = (t) => {
+}, Ge = (t) => {
   if (!t) return "";
   try {
     const e = D(t), n = j[e];
     if (n?.defaultRegion)
       return `${e}-${n.defaultRegion}`;
-    if (e in Ae) {
-      const i = Ae[e];
+    if (e in Oe) {
+      const i = Oe[e];
       if (i) {
         const s = j[i];
         if (s?.defaultRegion)
@@ -530,7 +530,7 @@ const ii = ["veryLow", "low", "normal", "high", "veryHigh"], si = ["android", "a
       return g - f;
     });
     if (l.length === 0) {
-      const d = Me(i), [, u] = U(d);
+      const d = Ge(i), [, u] = U(d);
       u && l.push(u);
     }
     return {
@@ -539,7 +539,7 @@ const ii = ["veryLow", "low", "normal", "high", "veryHigh"], si = ["android", "a
     };
   });
 };
-async function qe(t) {
+async function $e(t) {
   const e = /* @__PURE__ */ new Map();
   for (const r of t) {
     if (r.source !== "json") continue;
@@ -1095,7 +1095,7 @@ class k {
   async sortVoicesByQuality(e) {
     const n = e || this.voices;
     if (!n?.length) return [];
-    const r = await qe(n);
+    const r = await $e(n);
     return [...n].sort((i, s) => k.sortByQuality(i, s, r));
   }
   /**
@@ -1113,7 +1113,7 @@ class k {
    * Sort regions by default then alphabetically, sort voices by quality
    */
   static async sortByDefaultRegion(e, n) {
-    const r = await qe(e), i = Me(n);
+    const r = await $e(e), i = Ge(n);
     e.sort((s, o) => {
       const [, a] = k.extractLangRegionFromBCP47(s.language), [, c] = k.extractLangRegionFromBCP47(o.language), l = i && a === i.split("-")[1], d = i && c === i.split("-")[1];
       return l && !d ? -1 : !l && d ? 1 : k.sortByQuality(s, o, r, n);
@@ -1123,13 +1123,13 @@ class k {
    * Sort voices alphabetically by language, then region, then quality
    */
   static async sortAlphabetically(e) {
-    const n = await qe(e);
+    const n = await $e(e);
     e.sort((r, i) => {
       const [s] = k.extractLangRegionFromBCP47(r.language), [o] = k.extractLangRegionFromBCP47(i.language), a = k.getLanguageDisplayName(s).toLowerCase(), c = k.getLanguageDisplayName(o).toLowerCase(), l = a.localeCompare(c);
       if (l !== 0)
         return l;
       if (s === o) {
-        const d = Me(s), [, u] = k.extractLangRegionFromBCP47(r.language), [, g] = k.extractLangRegionFromBCP47(i.language), f = d && u === d.split("-")[1], y = d && g === d.split("-")[1];
+        const d = Ge(s), [, u] = k.extractLangRegionFromBCP47(r.language), [, g] = k.extractLangRegionFromBCP47(i.language), f = d && u === d.split("-")[1], y = d && g === d.split("-")[1];
         if (f && !y) return -1;
         if (!f && y) return 1;
         if (u && g) {
@@ -1166,7 +1166,7 @@ class k {
    * Sort languages by region preference, then voices by quality
    */
   static async sortByPreferredRegion(e, n) {
-    const r = await qe(e);
+    const r = await $e(e);
     e.sort((i, s) => {
       const [, o] = k.extractLangRegionFromBCP47(i.language), [, a] = k.extractLangRegionFromBCP47(s.language), c = o && n.regions.includes(o), l = a && n.regions.includes(a);
       if (c && l) {
@@ -1175,7 +1175,7 @@ class k {
       }
       if (c) return -1;
       if (l) return 1;
-      const d = Me(n.baseLang), [, u] = k.extractLangRegionFromBCP47(d), g = o === u, f = a === u;
+      const d = Ge(n.baseLang), [, u] = k.extractLangRegionFromBCP47(d), g = o === u, f = a === u;
       if (g && !f) return -1;
       if (!g && f) return 1;
       if (o && a) {
@@ -1608,9 +1608,9 @@ function Rs(t) {
 function Ns(t) {
   return t != null && Rs(t.length) && !fr(t);
 }
-var Oe = Kt(Object, "create");
+var Te = Kt(Object, "create");
 function Is() {
-  this.__data__ = Oe ? Oe(null) : {}, this.size = 0;
+  this.__data__ = Te ? Te(null) : {}, this.size = 0;
 }
 function Ls(t) {
   var e = this.has(t) && delete this.__data__[t];
@@ -1619,7 +1619,7 @@ function Ls(t) {
 var Ps = "__lodash_hash_undefined__", qs = Object.prototype, $s = qs.hasOwnProperty;
 function Ds(t) {
   var e = this.__data__;
-  if (Oe) {
+  if (Te) {
     var n = e[t];
     return n === Ps ? void 0 : n;
   }
@@ -1628,12 +1628,12 @@ function Ds(t) {
 var _s = Object.prototype, Bs = _s.hasOwnProperty;
 function Us(t) {
   var e = this.__data__;
-  return Oe ? e[t] !== void 0 : Bs.call(e, t);
+  return Te ? e[t] !== void 0 : Bs.call(e, t);
 }
 var zs = "__lodash_hash_undefined__";
 function js(t, e) {
   var n = this.__data__;
-  return this.size += this.has(t) ? 0 : 1, n[t] = Oe && e === void 0 ? zs : e, this;
+  return this.size += this.has(t) ? 0 : 1, n[t] = Te && e === void 0 ? zs : e, this;
 }
 function Q(t) {
   var e = -1, n = t == null ? 0 : t.length;
@@ -2142,7 +2142,7 @@ function Ln(t, e) {
   if (typeof t == "string") return t.trim() ? [t] : [];
   throw new TypeError(`string-strip-html/stripHtml(): [THROW_ID_05] ${e} must be array containing zero or more strings or something falsey. Currently it's equal to: ${t}, that a type of ${typeof t}.`);
 }
-function $e(t, e, n, r) {
+function De(t, e, n, r) {
   for (let i = e, s = t.length; i < s; i++) {
     if (t.startsWith(n, i)) return !0;
     if (t.startsWith(r, i)) return !1;
@@ -2150,7 +2150,7 @@ function $e(t, e, n, r) {
   return !1;
 }
 function Pn(t, e, n) {
-  return t?.quotes, t?.quotes?.value && $e(e, n + 1, t.quotes.value, ">"), t?.quotes?.next, $e(e, t?.quotes?.next - 1, t?.quotes?.value, ">"), !t?.quotes || !$e(e, n + 1, t.quotes.value, ">") && t?.quotes?.next !== -1 && $e(e, t?.quotes?.next - 1, t?.quotes?.value, ">");
+  return t?.quotes, t?.quotes?.value && De(e, n + 1, t.quotes.value, ">"), t?.quotes?.next, De(e, t?.quotes?.next - 1, t?.quotes?.value, ">"), !t?.quotes || !De(e, n + 1, t.quotes.value, ">") && t?.quotes?.next !== -1 && De(e, t?.quotes?.next - 1, t?.quotes?.value, ">");
 }
 function io(t, e) {
   return (e.match(new RegExp(t, "g")) || []).length;
@@ -2241,9 +2241,9 @@ ${JSON.stringify(e, null, 4)}`);
   });
   let O = new to({ limitToBeAddedWhitespace: !0, limitLinebreaksCount: 2 });
   if (!b.skipHtmlDecoding) for (; t !== Tn(t, { scope: "strict" }); ) t = Tn(t, { scope: "strict" });
-  let J = !1, H = !1, Pe = 0, cn = 0, $ = t.length, ei = Math.floor($ / 2);
+  let J = !1, H = !1, qe = 0, cn = 0, $ = t.length, ei = Math.floor($ / 2);
   for (let h = 0; h < $; h++) {
-    if (b.reportProgressFunc && ($ > 1e3 && $ < 2e3 ? h === ei && b.reportProgressFunc(Math.floor((b.reportProgressFuncTo - b.reportProgressFuncFrom) / 2)) : $ >= 2e3 && (Pe = b.reportProgressFuncFrom + Math.floor(h / $ * (b.reportProgressFuncTo - b.reportProgressFuncFrom)), Pe !== cn && (cn = Pe, b.reportProgressFunc(Pe)))), Object.keys(a).length > 1 && a.lastClosingBracketAt && a.lastClosingBracketAt < h && t[h] !== " " && w === null && (w = h), !J && t[h] === "%" && t[h - 1] === "{" && t.includes("%}", h + 1)) {
+    if (b.reportProgressFunc && ($ > 1e3 && $ < 2e3 ? h === ei && b.reportProgressFunc(Math.floor((b.reportProgressFuncTo - b.reportProgressFuncFrom) / 2)) : $ >= 2e3 && (qe = b.reportProgressFuncFrom + Math.floor(h / $ * (b.reportProgressFuncTo - b.reportProgressFuncFrom)), qe !== cn && (cn = qe, b.reportProgressFunc(qe)))), Object.keys(a).length > 1 && a.lastClosingBracketAt && a.lastClosingBracketAt < h && t[h] !== " " && w === null && (w = h), !J && t[h] === "%" && t[h - 1] === "{" && t.includes("%}", h + 1)) {
       u = null;
       let v = t.indexOf("%}", h) - 1;
       if (v > h) {
@@ -2834,7 +2834,7 @@ const wo = /* @__PURE__ */ new Set(["wav", "flac"]), So = {
 function xo(t, e, n) {
   return wo.has(t) || !e || !n ? void 0 : n.saveData === !0 || /2g/.test(n.effectiveType ?? "") ? So[t] : void 0;
 }
-function Er(t) {
+function Er(t, e) {
   return {
     source: "server",
     label: t.name,
@@ -2846,7 +2846,7 @@ function Er(t) {
     quality: t.quality,
     provider: t.provider,
     identifier: t.identifier,
-    controls: t.controls
+    controls: e
   };
 }
 class Qe extends Error {
@@ -2858,7 +2858,7 @@ class Qe extends Error {
     super(e), this.name = "SpeechServerError", this.status = n.status, this.type = n.type, this.title = n.title, this.instance = n.instance;
   }
 }
-async function Ge(t) {
+async function Ae(t) {
   if ((t.headers.get("content-type") ?? "").includes("application/problem+json"))
     try {
       const n = await t.json();
@@ -2882,7 +2882,7 @@ function Eo(t) {
 function Ao(t) {
   return Math.max(0.25, Math.min(4, t));
 }
-function De(t) {
+function _e(t) {
   return t?.plain ?? t?.ssml ?? void 0;
 }
 function _n(t) {
@@ -2947,7 +2947,7 @@ class Oo {
       return -1;
     let n = 0;
     for (let r = 0; r < this.currentUtterances.length; r++)
-      if (n += (De(this.currentUtterances[r]) ?? "").length, n >= e)
+      if (n += (_e(this.currentUtterances[r]) ?? "").length, n >= e)
         return r;
     return this.currentUtterances.length - 1;
   }
@@ -2978,11 +2978,11 @@ class Oo {
   async getAvailableVoices() {
     if (this.voices.length > 0)
       return this.voices;
-    const e = await this.fetchImpl(this.endpoints.voices);
+    const [e, n] = await Promise.all([this.fetchImpl(this.endpoints.voices), this.getServiceInfo()]);
     if (!e.ok)
-      throw await Ge(e);
-    const n = await e.json();
-    return this.voices = n.map(Er), this.voices;
+      throw await Ae(e);
+    const r = await e.json(), i = new Map(n.providers.map((s) => [s.id, s.controls]));
+    return this.voices = r.map((s) => Er(s, i.get(s.provider))), this.voices;
   }
   // Cached after the first successful fetch; a failed fetch isn't cached, so the next
   // synthesize() call retries rather than being stuck on a transient network error.
@@ -2994,7 +2994,7 @@ class Oo {
   async fetchServiceInfo() {
     const e = await this.fetchImpl(this.endpoints.service);
     if (!e.ok)
-      throw await Ge(e);
+      throw await Ae(e);
     return e.json();
   }
   setSpeakInContentLanguage(e) {
@@ -3070,7 +3070,7 @@ class Oo {
     this.prefetchCache.clear();
   }
   async synthesizeStream(e) {
-    const n = this.currentUtterances[e], r = !n.plain && !!n.ssml, i = this.speakInContentLanguage ? n.language : void 0, s = De(n) ?? "", o = De(this.currentUtterances[e - 1]), a = De(this.currentUtterances[e + 1]), c = await this.getServiceInfo(), l = vo(c.output, this.formatOptions, this.canPlayType), d = navigator.connection, u = xo(l, this.formatOptions.adaptBitrateToNetwork ?? !1, d);
+    const n = this.currentUtterances[e], r = !n.plain && !!n.ssml, i = this.speakInContentLanguage ? n.language : void 0, s = _e(n) ?? "", o = _e(this.currentUtterances[e - 1]), a = _e(this.currentUtterances[e + 1]), c = await this.getServiceInfo(), l = vo(c.output, this.formatOptions, this.canPlayType), d = navigator.connection, u = xo(l, this.formatOptions.adaptBitrateToNetwork ?? !1, d);
     if (s.length <= c.limits.maxTextLength)
       return [this.synthesizeChunk(n, s, 0, r, i, o, a, l, u)];
     if (this.overLengthText === "error")
@@ -3109,7 +3109,7 @@ class Oo {
       })
     });
     if (!d.ok)
-      throw await Ge(d);
+      throw await Ae(d);
     const u = await d.json(), g = Eo(u.audio);
     let f;
     try {
@@ -3288,11 +3288,16 @@ class fc {
   async getVoices() {
     if (this.voices.length > 0)
       return this.voices;
-    const e = await this.fetchImpl(this.options.endpoints.voices);
+    const [e, n] = await Promise.all([
+      this.fetchImpl(this.options.endpoints.voices),
+      this.fetchImpl(this.options.endpoints.service)
+    ]);
     if (!e.ok)
-      throw await Ge(e);
-    const n = await e.json();
-    return this.voices = n.map(Er), this.voices;
+      throw await Ae(e);
+    if (!n.ok)
+      throw await Ae(n);
+    const r = await e.json(), i = await n.json(), s = new Map(i.providers.map((o) => [o.id, o.controls]));
+    return this.voices = r.map((o) => Er(o, s.get(o.provider))), this.voices;
   }
   async createEngine(e) {
     const n = new Oo(this.options);
@@ -3331,7 +3336,7 @@ function Lo(t) {
 function wt(t) {
   return isNaN(t) ? void 0 : t;
 }
-function _e(t) {
+function Be(t) {
   return t.otherLocations?.get("cssSelector");
 }
 let xe = class Ar {
@@ -3531,7 +3536,7 @@ function Ir(t, ...e) {
   if (n !== void 0) throw new RangeError("Offset exceeds text length");
   return i;
 }
-let Be = class re {
+let Ue = class re {
   constructor(e, n) {
     if (n < 0) throw new Error("Offset is invalid");
     this.element = e, this.offset = n;
@@ -3597,11 +3602,11 @@ let Be = class re {
     return r.setStart(e.node, e.offset), r.setEnd(n.node, n.offset), r;
   }
   static fromRange(e) {
-    const n = Be.fromPoint(e.startContainer, e.startOffset), r = Be.fromPoint(e.endContainer, e.endOffset);
+    const n = Ue.fromPoint(e.startContainer, e.startOffset), r = Ue.fromPoint(e.endContainer, e.endOffset);
     return new Ce(n, r);
   }
   static fromOffsets(e, n, r) {
-    return new Ce(new Be(e, n), new Be(e, r));
+    return new Ce(new Ue(e, n), new Ue(e, r));
   }
   static trimmedRange(e) {
     return Bo(Ce.fromRange(e).toRange());
@@ -3656,7 +3661,7 @@ function Vo(t, e) {
     const n = e.locations, r = e.text;
     if (r && r.highlight) {
       let i;
-      n && _e(n) && (i = t.querySelector(_e(n))), i || (i = t.body);
+      n && Be(n) && (i = t.querySelector(Be(n))), i || (i = t.body);
       const s = new zo(i, r.highlight, { prefix: r.before, suffix: r.after });
       try {
         return s.toRange();
@@ -3666,7 +3671,7 @@ function Vo(t, e) {
     }
     if (n) {
       let i = null;
-      if (!i && _e(n) && (i = t.querySelector(_e(n))), !i && n.fragments) {
+      if (!i && Be(n) && (i = t.querySelector(Be(n))), !i && n.fragments) {
         for (const s of n.fragments) if (i = t.getElementById(s), i) break;
       }
       if (i) {
@@ -3702,7 +3707,7 @@ function Fo(t, e) {
   }
   return r;
 }
-function Ue(t, e, n = !1, r = 0) {
+function ze(t, e, n = !1, r = 0) {
   let i;
   if (Array.isArray(t)) i = t;
   else {
@@ -3804,26 +3809,26 @@ function qr(t, e, n) {
 function q(t, e, n) {
   return Math.abs(t - e) <= n;
 }
-let ze = null, xt = null, ke = 0;
+let je = null, xt = null, ke = 0;
 const ie = { r: 255, g: 255, b: 255, a: 1 }, ee = /* @__PURE__ */ new Map(), Ko = () => {
-  if (!ze) if (typeof OffscreenCanvas < "u") ze = new OffscreenCanvas(5, 5), xt = ze.getContext("2d", { willReadFrequently: !0, desynchronized: !0 });
+  if (!je) if (typeof OffscreenCanvas < "u") je = new OffscreenCanvas(5, 5), xt = je.getContext("2d", { willReadFrequently: !0, desynchronized: !0 });
   else {
     const t = document.createElement("canvas");
-    t.width = 5, t.height = 5, ze = t, xt = t.getContext("2d", { willReadFrequently: !0, desynchronized: !0 });
+    t.width = 5, t.height = 5, je = t, xt = t.getContext("2d", { willReadFrequently: !0, desynchronized: !0 });
   }
   return xt;
 }, Jo = (t) => {
   if (!t) return !0;
   const e = t.trim().toLowerCase();
   return e.startsWith("var(") || ["transparent", "currentcolor", "inherit", "initial", "revert", "unset", "revert-layer"].includes(e) ? !0 : ["linear-gradient", "radial-gradient", "conic-gradient", "repeating-linear-gradient", "repeating-radial-gradient", "repeating-conic-gradient"].some((n) => e.includes(n));
-}, je = (t, e) => {
+}, Ve = (t, e) => {
   console.warn(`[Decorator] Could not parse color: "${t}". ${e} Falling back to ${JSON.stringify(ie)} to compute contrast. Please use a CSS color value that can be computed to RGB(A).`);
 }, X = (t, e = null) => {
   const n = e ? `${t}|${e}` : t, r = ee.get(n);
   if (r !== void 0) return r ?? ie;
-  if (Jo(t)) return je(t, "Unsupported color format or special value."), ee.set(n, null), ie;
+  if (Jo(t)) return Ve(t, "Unsupported color format or special value."), ee.set(n, null), ie;
   const i = Ko();
-  if (!i) return je(t, "Could not get canvas context."), ee.set(n, null), ie;
+  if (!i) return Ve(t, "Could not get canvas context."), ee.set(n, null), ie;
   try {
     ke === 0 && i.clearRect(0, 0, 5, 5);
     const s = ke % 5, o = Math.floor(ke / 5);
@@ -3831,11 +3836,11 @@ const ie = { r: 255, g: 255, b: 255, a: 1 }, ee = /* @__PURE__ */ new Map(), Ko 
     const a = i.getImageData(s, o, 1, 1);
     ke = (ke + 1) % 25;
     const [c, l, d, u] = a.data;
-    if (u === 0) return je(t, "Fully transparent color."), ee.set(n, null), ie;
+    if (u === 0) return Ve(t, "Fully transparent color."), ee.set(n, null), ie;
     const g = { r: c, g: l, b: d, a: u / 255 };
     return ee.set(n, g), g;
   } catch (s) {
-    return je(t, `Error: ${s instanceof Error ? s.message : String(s)}`), ee.set(n, null), ie;
+    return Ve(t, `Error: ${s instanceof Error ? s.message : String(s)}`), ee.set(n, null), ie;
   }
 }, kt = (t) => {
   const e = t / 255;
@@ -3981,7 +3986,7 @@ class cl {
       o !== A.TextColor && (o === A.Outline || o === A.Template || o === A.Mask || a !== void 0 && a !== "boxes" || c !== void 0 && c !== "wrap" || l) && this.notTextFlag?.set(n, !0);
     }
     const s = { decoration: e, id: n, range: r, hitRects: [], clickableElements: void 0, container: void 0 };
-    this.items.push(s), this.layout(s), s.hitRects = this.clientRectsToDocCoords(Ue(s.range, !1, !1, (s.decoration.style.expand ?? 0) + this.hitGap())), this.renderLayout([s]);
+    this.items.push(s), this.layout(s), s.hitRects = this.clientRectsToDocCoords(ze(s.range, !1, !1, (s.decoration.style.expand ?? 0) + this.hitGap())), this.renderLayout([s]);
   }
   remove(e) {
     const n = this.items.findIndex((s) => s.decoration.id === e);
@@ -4072,7 +4077,7 @@ class cl {
     this.wnd.cancelAnimationFrame(this.currentRender), this.clearContainer(), this.wnd.document.fonts.ready.then(() => {
       this.currentRender = this.wnd.requestAnimationFrame(() => {
         this.items.forEach((e) => {
-          this.layout(e), e.hitRects = this.clientRectsToDocCoords(Ue(e.range, !1, !1, (e.decoration.style.expand ?? 0) + this.hitGap()));
+          this.layout(e), e.hitRects = this.clientRectsToDocCoords(ze(e.range, !1, !1, (e.decoration.style.expand ?? 0) + this.hitGap()));
         }), this.renderLayout(this.items), this.updateSharedMask();
       });
     });
@@ -4234,7 +4239,7 @@ class cl {
       o(u, g, a, l), n.append(u);
     } else {
       const u = c.type, g = u === A.Underline || u === A.Strikethrough, f = u === A.Strikethrough, y = g ? Fo(e.range, ["rt", "rp"]) : e.range;
-      let p = Ue(y, !0, r.isVertical, g ? 0 : s);
+      let p = ze(y, !0, r.isVertical, g ? 0 : s);
       p = p.sort((m, w) => r.isVertical ? (r.isVertLR ? 1 : -1) * (m.left - w.left) : m.top - w.top);
       for (let m of p) {
         const w = d.cloneNode(!0);
@@ -4275,7 +4280,7 @@ class cl {
     }
     const n = Se(this.wnd), r = 1 / this.effectiveZoom(), i = this.wnd.document.documentElement, s = i.scrollWidth, o = i.scrollHeight, a = [];
     for (const g of e) {
-      const f = g.decoration.style, y = f.layout ?? "boxes", p = f.width ?? "wrap", m = f.expand ?? 0, w = g.range.getBoundingClientRect(), E = y === "bounds" ? [m ? { left: w.left - m, top: w.top - m, right: w.right + m, bottom: w.bottom + m, width: w.width + m * 2, height: w.height + m * 2 } : w] : Ue(g.range, !1, !1, m);
+      const f = g.decoration.style, y = f.layout ?? "boxes", p = f.width ?? "wrap", m = f.expand ?? 0, w = g.range.getBoundingClientRect(), E = y === "bounds" ? [m ? { left: w.left - m, top: w.top - m, right: w.right + m, bottom: w.bottom + m, width: w.width + m * 2, height: w.height + m * 2 } : w] : ze(g.range, !1, !1, m);
       for (const C of E) {
         let N;
         switch (p) {
@@ -4701,7 +4706,7 @@ function F(t, e) {
   const n = Math.min(...e), r = Math.max(...e);
   return t >= n && t <= r ? t : void 0;
 }
-function Te(t) {
+function Re(t) {
   return t == null || Array.isArray(t) && t.every((e) => typeof e == "string") ? t : void 0;
 }
 class kl {
@@ -4717,10 +4722,10 @@ class kl {
   pitch;
   volume;
   constructor(e = {}) {
-    this.format = V(e.format, tn) ?? "plain", this.inlineContextualization = rn(e.inlineContextualization) ?? !1, this.verbosity = V(e.verbosity, Yt) ?? "few", this.skip = Te(e.skip) ?? [], this.contextualize = Te(e.contextualize) ?? [], this.language = V(e.language, en) ?? "block-level", this.pauseDuration = F(e.pauseDuration, Ye.range) ?? 300, this.autoPause = V(e.autoPause, nn) ?? "none", this.rate = F(e.rate, et.range) ?? 1, this.pitch = F(e.pitch, tt.range) ?? 1, this.volume = F(e.volume, nt.range) ?? 1;
+    this.format = V(e.format, tn) ?? "plain", this.inlineContextualization = rn(e.inlineContextualization) ?? !1, this.verbosity = V(e.verbosity, Yt) ?? "few", this.skip = Re(e.skip) ?? [], this.contextualize = Re(e.contextualize) ?? [], this.language = V(e.language, en) ?? "block-level", this.pauseDuration = F(e.pauseDuration, Ye.range) ?? 300, this.autoPause = V(e.autoPause, nn) ?? "none", this.rate = F(e.rate, et.range) ?? 1, this.pitch = F(e.pitch, tt.range) ?? 1, this.volume = F(e.volume, nt.range) ?? 1;
   }
 }
-class Re {
+class Ne {
   format;
   inlineContextualization;
   verbosity;
@@ -4733,13 +4738,13 @@ class Re {
   pitch;
   volume;
   constructor(e = {}) {
-    this.format = V(e.format, tn), this.inlineContextualization = rn(e.inlineContextualization), this.verbosity = V(e.verbosity, Yt), this.skip = Te(e.skip), this.contextualize = Te(e.contextualize), this.language = V(e.language, en), this.pauseDuration = F(e.pauseDuration, Ye.range), this.autoPause = V(e.autoPause, nn), this.rate = F(e.rate, et.range), this.pitch = F(e.pitch, tt.range), this.volume = F(e.volume, nt.range);
+    this.format = V(e.format, tn), this.inlineContextualization = rn(e.inlineContextualization), this.verbosity = V(e.verbosity, Yt), this.skip = Re(e.skip), this.contextualize = Re(e.contextualize), this.language = V(e.language, en), this.pauseDuration = F(e.pauseDuration, Ye.range), this.autoPause = V(e.autoPause, nn), this.rate = F(e.rate, et.range), this.pitch = F(e.pitch, tt.range), this.volume = F(e.volume, nt.range);
   }
   merging(e) {
     const n = { ...this };
     for (const r of Object.keys(e))
       e[r] !== void 0 && (n[r] = e[r]);
-    return new Re(n);
+    return new Ne(n);
   }
 }
 class ct {
@@ -4771,7 +4776,7 @@ class ct {
     this._value = null, this._onChange(this._value);
   }
 }
-class Ve extends ct {
+class Fe extends ct {
   _supportedValues;
   constructor({
     initialValue: e = null,
@@ -4806,7 +4811,7 @@ class Cl extends ct {
 }
 class Xn extends ct {
   set value(e) {
-    if (e != null && Te(e) === void 0)
+    if (e != null && Re(e) === void 0)
       throw new Error(`Value '${String(e)}' is not an array of strings.`);
     this._value = e, this._onChange(this._value);
   }
@@ -4814,7 +4819,7 @@ class Xn extends ct {
     return this._value;
   }
 }
-class Fe extends ct {
+class He extends ct {
   _supportedRange;
   _step;
   _decimals;
@@ -4866,12 +4871,12 @@ class Zn {
   // once explicitly passed to submitPreferences() — discarding the editor
   // without submitting must leave the navigator untouched.
   constructor(e, n) {
-    this.preferences = new Re({ ...e }), this.settings = n;
+    this.preferences = new Ne({ ...e }), this.settings = n;
   }
   // Explicit `null`s, not `undefined` — merging() skips `undefined` fields,
   // so only `null` actually clears them once submitted.
   clear() {
-    this.preferences = new Re({
+    this.preferences = new Ne({
       format: null,
       inlineContextualization: null,
       verbosity: null,
@@ -4889,7 +4894,7 @@ class Zn {
     this.preferences[e] = n;
   }
   get format() {
-    return new Ve({
+    return new Fe({
       initialValue: this.preferences.format,
       effectiveValue: this.settings.format,
       isEffective: this.preferences.format != null,
@@ -4906,7 +4911,7 @@ class Zn {
     });
   }
   get verbosity() {
-    return new Ve({
+    return new Fe({
       initialValue: this.preferences.verbosity,
       effectiveValue: this.settings.verbosity,
       isEffective: this.preferences.verbosity != null,
@@ -4931,7 +4936,7 @@ class Zn {
     });
   }
   get language() {
-    return new Ve({
+    return new Fe({
       initialValue: this.preferences.language,
       effectiveValue: this.settings.language,
       isEffective: this.preferences.language != null,
@@ -4940,7 +4945,7 @@ class Zn {
     });
   }
   get pauseDuration() {
-    return new Fe({
+    return new He({
       initialValue: this.preferences.pauseDuration,
       effectiveValue: this.settings.pauseDuration,
       isEffective: this.preferences.pauseDuration != null,
@@ -4950,7 +4955,7 @@ class Zn {
     });
   }
   get autoPause() {
-    return new Ve({
+    return new Fe({
       initialValue: this.preferences.autoPause,
       effectiveValue: this.settings.autoPause,
       isEffective: this.preferences.autoPause != null,
@@ -4959,7 +4964,7 @@ class Zn {
     });
   }
   get rate() {
-    return new Fe({
+    return new He({
       initialValue: this.preferences.rate,
       effectiveValue: this.settings.rate,
       isEffective: this.preferences.rate != null,
@@ -4969,7 +4974,7 @@ class Zn {
     });
   }
   get pitch() {
-    return new Fe({
+    return new He({
       initialValue: this.preferences.pitch,
       effectiveValue: this.settings.pitch,
       isEffective: this.preferences.pitch != null,
@@ -4979,7 +4984,7 @@ class Zn {
     });
   }
   get volume() {
-    return new Fe({
+    return new He({
       initialValue: this.preferences.volume,
       effectiveValue: this.settings.volume,
       isEffective: this.preferences.volume != null,
@@ -5131,11 +5136,11 @@ class Yn {
     this.format = e.format ?? n.format, this.inlineContextualization = e.inlineContextualization ?? n.inlineContextualization, this.verbosity = e.verbosity ?? n.verbosity, this.verbosity === "custom" ? (this.skip = e.skip ?? n.skip, this.contextualize = e.contextualize ?? n.contextualize) : (this.skip = [...Al[this.verbosity]], this.contextualize = [...Ol[this.verbosity]]), this.language = e.language ?? n.language, this.pauseDuration = e.pauseDuration ?? n.pauseDuration, this.autoPause = e.autoPause ?? n.autoPause, this.rate = e.rate ?? n.rate, this.pitch = e.pitch ?? n.pitch, this.volume = e.volume ?? n.volume;
   }
 }
-function Le(t) {
+function Pe(t) {
   return t.plain === "" && t.ssml === "" && t.language === "";
 }
 function Tl(t) {
-  if (!t || Le(t)) return;
+  if (!t || Pe(t)) return;
   if (t.ssml === "" && t.language === "") return t.plain;
   const e = { language: t.language };
   return t.plain !== "" && (e.plain = t.plain), t.ssml !== "" && (e.ssml = t.ssml), e;
@@ -5149,7 +5154,7 @@ const rt = (t) => t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "
 function Il(t) {
   return Nl.test(t);
 }
-function Ne(t, e) {
+function Ie(t, e) {
   let n = "", r = !1, i = !1;
   for (const s of t)
     if (Il(s))
@@ -5407,7 +5412,7 @@ const Sc = [
   "summary",
   "tip"
 ], Hl = new Set(Fl);
-function Ie(t, e) {
+function Le(t, e) {
   return typeof t == "function" ? t(e) : t;
 }
 function le(t, e) {
@@ -5426,10 +5431,10 @@ function tr(t, e, n, r, i, s, o) {
   if (a !== void 0) {
     if (it(a)) {
       const c = s === "before" ? a.start : a.end;
-      ce(t, e, n, [le(Ie(c, o), r.format)]);
+      ce(t, e, n, [le(Le(c, o), r.format)]);
       return;
     }
-    s === "before" && ce(t, e, n, [le(Ie(a, o), r.format)]);
+    s === "before" && ce(t, e, n, [le(Le(a, o), r.format)]);
   }
 }
 function nr(t, e) {
@@ -5457,7 +5462,7 @@ function Ml(t, e) {
   if (!e.contextualize.has("pagebreak")) return r;
   const i = e.announcements.pagebreak;
   if (i === void 0) return r;
-  const s = le(Ie(it(i) ? i.start : i), e.format);
+  const s = le(Le(it(i) ? i.start : i), e.format);
   if (r.length === 0) return [s];
   const o = an([s, ...r], e.format);
   return o ? (o.plain !== void 0 && (o.plain += "."), o.ssml !== void 0 && (o.ssml += "."), [o]) : [s, ...r];
@@ -5511,9 +5516,9 @@ function Xr(t, e, n, r, i) {
           const p = r.contextualize.has("footnote") ? r.announcements.footnote : void 0, m = [], w = [];
           if (p !== void 0) {
             const C = it(p) ? p.start : p;
-            m.push(le(Ie(C), r.format)), w.push(u);
+            m.push(le(Le(C), r.format)), w.push(u);
           }
-          m.push(...f), w.push(...y), p !== void 0 && it(p) && (m.push(le(Ie(p.end), r.format)), w.push(u));
+          m.push(...f), w.push(...y), p !== void 0 && it(p) && (m.push(le(Le(p.end), r.format)), w.push(u));
           const E = p !== void 0 && m.length > 1 ? an(m, r.format) : void 0;
           Jr(e, n, r, u, m, w, E);
         } else
@@ -5598,7 +5603,7 @@ class kc {
   // Index to speak() on the next play() when autoPause has stopped playback between utterances.
   pendingAutoPauseIndex = null;
   constructor(e, n = {}) {
-    this.engine = e, this._defaults = new kl(n.defaults), this._preferences = new Re(n.preferences), this._settings = new Yn(this._preferences, this._defaults), this.setupEngineListeners(), this.applyEngineParameters(), this.initializeEngine();
+    this.engine = e, this._defaults = new kl(n.defaults), this._preferences = new Ne(n.preferences), this._settings = new Yn(this._preferences, this._defaults), this.setupEngineListeners(), this.applyEngineParameters(), this.initializeEngine();
   }
   // Unlike pauseDuration/autoPause (read live off settings), the engine owns rate/pitch/volume and must be pushed.
   applyEngineParameters() {
@@ -6039,7 +6044,7 @@ function Ft(t) {
   return n(t), e;
 }
 function We(t) {
-  return Ne(Ft(t), !0).trim();
+  return Ie(Ft(t), !0).trim();
 }
 function Xl(t) {
   if (ir(t))
@@ -6054,7 +6059,7 @@ function Xl(t) {
         const g = d.getAttribute("aria-label");
         c += g || Ft(d), u < a.length - 1 && (c += " ");
       });
-      const l = Ne(c, !0).trim();
+      const l = Ie(c, !0).trim();
       if (l !== "")
         return [{ language: "", plain: l }, !0];
     }
@@ -6066,7 +6071,7 @@ function Xl(t) {
   if (r) {
     const o = [...new Set(r.split(/\s+/).filter(Boolean))].map((a) => t.ownerDocument.getElementById(a)).filter((a) => a !== null);
     if (o.length > 0) {
-      const a = o.map((l) => Ft(l)).join(" "), c = Ne(a, !0).trim();
+      const a = o.map((l) => Ft(l)).join(" "), c = Ie(a, !0).trim();
       if (c !== "")
         return [{ language: "", plain: c }, !0];
     }
@@ -6114,15 +6119,15 @@ const ec = /* @__PURE__ */ new Set([
   "rtc"
 ]);
 function Ht(t) {
-  return !t.audioref && !t.imgref && !t.textref && !t.videoref && (!t.text || Le(t.text)) && !(t.children && t.children.length > 0) && !t.description;
+  return !t.audioref && !t.imgref && !t.textref && !t.videoref && (!t.text || Pe(t.text)) && !(t.children && t.children.length > 0) && !t.description;
 }
 function tc(t) {
-  return !t.audioref && !t.imgref && !t.textref && !t.videoref && (!t.text || Le(t.text)) && !!(t.children && t.children.length > 0) && !(t.role && t.role.length > 0) && !t.id;
+  return !t.audioref && !t.imgref && !t.textref && !t.videoref && (!t.text || Pe(t.text)) && !!(t.children && t.children.length > 0) && !(t.role && t.role.length > 0) && !t.id;
 }
 function nc(t) {
   return !(t.role && t.role.length > 0) && !t.id;
 }
-class He {
+class Me {
   el;
   object = {};
   children = [];
@@ -6139,7 +6144,7 @@ class He {
         n.push(i);
       }
     }
-    if (n.length > 0 && (e.children = n), (!e.text || Le(e.text)) && e.children?.length === 1) {
+    if (n.length > 0 && (e.children = n), (!e.text || Pe(e.text)) && e.children?.length === 1) {
       const r = e.children[0];
       nc(r) && (r.text && (e.text = r.text), r.textref && (e.textref = r.textref), r.imgref && (e.imgref = r.imgref), r.audioref && (e.audioref = r.audioref), r.videoref && (e.videoref = r.videoref), e.children = r.children);
     }
@@ -6257,7 +6262,7 @@ class on {
   idAlloc = { claimed: /* @__PURE__ */ new Set(), counters: /* @__PURE__ */ new Map() };
   noterefDepth = 0;
   allowNode = null;
-  root = new He();
+  root = new Me();
   current = this.root;
   segments = [];
   textAcc = "";
@@ -6313,7 +6318,7 @@ class on {
     return !e.children || e.children.length === 0 ? Ht(e) ? [] : [Mt(e)] : e.children.map(Mt);
   }
   descend(e) {
-    const n = new He();
+    const n = new Me();
     n.el = e, n.noText = this.current.noText, this.current.children.push(n), this.current = n;
   }
   appendChild(e) {
@@ -6382,11 +6387,11 @@ class on {
     if (this.current.noText) return;
     const n = e.nodeValue ?? "";
     if (/^\s*$/.test(n)) {
-      (this.textAcc.length > 0 || this.segments.length > 0) && (this.textAcc += Ne(n, this.flowEndsWithSpace), this.updateFlowSpace());
+      (this.textAcc.length > 0 || this.segments.length > 0) && (this.textAcc += Ie(n, this.flowEndsWithSpace), this.updateFlowSpace());
       return;
     }
     const r = this.textContext(e);
-    Rl(r, this.currentCtx) || (this.closeSegment(), this.currentCtx = r), this.textAcc += Ne(n, this.flowEndsWithSpace), this.updateFlowSpace();
+    Rl(r, this.currentCtx) || (this.closeSegment(), this.currentCtx = r), this.textAcc += Ie(n, this.flowEndsWithSpace), this.updateFlowSpace();
   }
   textContext(e) {
     const n = { lang: sr(e.parentElement), tag: "" };
@@ -6410,7 +6415,7 @@ class on {
   }
   placeholder(e, n, r, i) {
     if (Ht(r)) return;
-    const s = new He();
+    const s = new Me();
     if (s.el = e, s.object = r, this.current.noText) {
       this.appendChild(s);
       return;
@@ -6425,7 +6430,7 @@ class on {
   pagebreak(e, n, r) {
     const i = { role: r }, s = (e.getAttribute("title") ?? "").trim();
     s ? i.text = { plain: s, ssml: "", language: "" } : n && (i.text = { plain: n.plain ?? "", ssml: n.ssml ?? "", language: n.language });
-    const o = !!(i.text && !Le(i.text)), a = !this.xmlParsed && (ic(e) || o && e.firstChild !== null);
+    const o = !!(i.text && !Pe(i.text)), a = !this.xmlParsed && (ic(e) || o && e.firstChild !== null);
     if (!o && !a) {
       const l = We(e);
       l && (i.text = { plain: l, ssml: "", language: "" });
@@ -6556,7 +6561,7 @@ class on {
         } else m.kind === "break" ? p += "<break/>" : m.kind === "placeholder" && (p += `<readium:${m.tag} id="${At(m.child.object.id)}" />`);
       f.ssml = p;
     }
-    const y = new He();
+    const y = new Me();
     y.object = { text: f };
     for (const p of n)
       y.children.push(p);
@@ -6582,17 +6587,17 @@ export {
   pl as DirectCommsChannel,
   ml as DirectCommsFrame,
   yl as DirectCommsHost,
-  Ve as EnumPreference,
+  Fe as EnumPreference,
   Ze as Locator,
   W as LocatorLocations,
   lt as LocatorText,
   ct as Preference,
-  Fe as RangePreference,
+  He as RangePreference,
   xl as ReadiumSpeechDecorationController,
   kc as ReadiumSpeechNavigator,
   wc as ReadiumSpeechProviderRegistry,
   kl as SpeechDefaults,
-  Re as SpeechPreferences,
+  Ne as SpeechPreferences,
   Zn as SpeechPreferencesEditor,
   Oo as SpeechServerEngine,
   fc as SpeechServerEngineProvider,
@@ -6603,7 +6608,7 @@ export {
   gc as WebSpeechEngineProvider,
   k as WebSpeechVoiceManager,
   Fl as blockLevelRoles,
-  Ae as chineseVariantMap,
+  Oe as chineseVariantMap,
   ho as chunkPlainText,
   fo as chunkSsmlText,
   Ol as contextualizedAtVerbosity,
@@ -6622,5 +6627,5 @@ export {
   Al as skippableAtVerbosity,
   Sc as skippableRoles,
   dl as supportsDecorationStyle,
-  Ge as toSpeechServerError
+  Ae as toSpeechServerError
 };

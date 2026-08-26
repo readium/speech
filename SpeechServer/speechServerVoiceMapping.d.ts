@@ -1,3 +1,3 @@
-import { ReadiumSpeechVoice } from '../voices/types';
+import { ReadiumSpeechVoice, TServerVoiceControls } from '../voices/types';
 import { SpeechServerVoice } from './types';
-export declare function mapServerVoice(voice: SpeechServerVoice): ReadiumSpeechVoice;
+export declare function mapServerVoice(voice: SpeechServerVoice, providerControls?: TServerVoiceControls): ReadiumSpeechVoice;

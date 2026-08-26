@@ -8,7 +8,6 @@ export interface SpeechServerVoice {
     otherLanguages?: string[];
     gender?: TGender | null;
     quality?: TQuality;
-    controls?: TServerVoiceControls;
 }
 export interface SpeechServerTimingMark {
     name: "word" | "sentence";
@@ -52,5 +51,7 @@ export interface SpeechServerServiceInfo {
     providers: {
         id: string;
         installedLanguages: string[];
+        quality?: TQuality;
+        controls?: TServerVoiceControls;
     }[];
 }
