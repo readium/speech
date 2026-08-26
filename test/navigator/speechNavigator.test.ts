@@ -17,11 +17,46 @@ const footnoteThenParagraphsTree: GndObject[] = [
   { role: ["paragraph"], text: { language: "en", plain: "Second." } },
 ];
 
-test("loadGndContent extracts with the default (few) verbosity", (t) => {
+test("navigator defaults to 'few' verbosity when none is set", (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  navigator.loadGndContent(listTree);
-  t.deepEqual(navigator.getContentQueue(), [{ language: "en", plain: "Hello world." }]);
+  t.is(navigator.settings.verbosity, "few");
+});
+
+const tableTree: GndObject[] = [
+  {
+    role: ["table"],
+    children: [
+      {
+        role: ["row"],
+        children: [{ role: ["cell"], text: { language: "en", plain: "Cell." } }],
+      },
+    ],
+  },
+];
+
+test("table contextualization is inline at 'few', block from 'some' on", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.submitPreferences(new SpeechPreferences({ verbosity: "few" }));
+  navigator.loadGndContent(tableTree);
+  t.deepEqual(navigator.getContentQueue(), [{ plain: "Table. 1 line. 1 column." }]);
+
+  navigator.submitPreferences(new SpeechPreferences({ verbosity: "some" }));
+  t.deepEqual(navigator.getContentQueue(), [
+    { plain: "Table. 1 line. 1 column." },
+    { plain: "Row: 1" },
+    { language: "en", plain: "Cell." },
+    { plain: "End of the table." },
+  ]);
+
+  navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  t.deepEqual(navigator.getContentQueue(), [
+    { plain: "Table. 1 line. 1 column." },
+    { plain: "Row: 1" },
+    { language: "en", plain: "Cell." },
+    { plain: "End of the table." },
+  ]);
 });
 
 test("submitPreferences re-extracts content loaded via loadGndContent", (t) => {

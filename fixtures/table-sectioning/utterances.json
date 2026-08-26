@@ -102,6 +102,106 @@
         {
           "format": "plain",
           "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table. 3 lines. 1 column."
+        },
+        {
+          "plain": "Name"
+        },
+        {
+          "plain": "Ada"
+        },
+        {
+          "plain": "Total: 1"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
             "row"
           ]
         },
@@ -280,6 +380,123 @@
         {
           "format": "plain",
           "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table. 3 lines. 1 column."
+        },
+        {
+          "plain": "Row: 1"
+        },
+        {
+          "plain": "Name"
+        },
+        {
+          "plain": "Row: 2"
+        },
+        {
+          "plain": "Ada"
+        },
+        {
+          "plain": "Row: 3"
+        },
+        {
+          "plain": "Total: 1"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
             "cell"
           ]
         },
@@ -452,6 +669,120 @@
         {
           "format": "plain",
           "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table. 3 lines. 1 column."
+        },
+        {
+          "plain": "Name"
+        },
+        {
+          "plain": "Name: Ada"
+        },
+        {
+          "plain": "Ada"
+        },
+        {
+          "plain": "Name: Total: 1"
+        },
+        {
+          "plain": "Total: 1"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
             "row",
             "cell"
           ]
@@ -657,6 +988,137 @@
       "options": [
         {
           "format": "plain",
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table. 3 lines. 1 column."
+        },
+        {
+          "plain": "Row: 1"
+        },
+        {
+          "plain": "Name"
+        },
+        {
+          "plain": "Row: 2"
+        },
+        {
+          "plain": "Name: Ada"
+        },
+        {
+          "plain": "Ada"
+        },
+        {
+          "plain": "Row: 3"
+        },
+        {
+          "plain": "Name: Total: 1"
+        },
+        {
+          "plain": "Total: 1"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
           "skip": [
             "columnheader"
           ]
@@ -820,6 +1282,127 @@
         },
         {
           "plain": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table. 3 lines. 1 column."
+        },
+        {
+          "plain": "Ada"
+        },
+        {
+          "plain": "Total: 1"
         }
       ]
     },
@@ -1051,6 +1634,144 @@
             "columnheader"
           ],
           "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table. 3 lines. 1 column."
+        },
+        {
+          "plain": "Row: 1"
+        },
+        {
+          "plain": "Row: 2"
+        },
+        {
+          "plain": "Ada"
+        },
+        {
+          "plain": "Row: 3"
+        },
+        {
+          "plain": "Total: 1"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
             "cell"
           ]
         },
@@ -1254,6 +1975,141 @@
         },
         {
           "plain": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table. 3 lines. 1 column."
+        },
+        {
+          "plain": "Name: Ada"
+        },
+        {
+          "plain": "Ada"
+        },
+        {
+          "plain": "Name: Total: 1"
+        },
+        {
+          "plain": "Total: 1"
         }
       ]
     },
@@ -1502,6 +2358,158 @@
         },
         {
           "plain": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table. 3 lines. 1 column."
+        },
+        {
+          "plain": "Row: 1"
+        },
+        {
+          "plain": "Row: 2"
+        },
+        {
+          "plain": "Name: Ada"
+        },
+        {
+          "plain": "Ada"
+        },
+        {
+          "plain": "Row: 3"
+        },
+        {
+          "plain": "Name: Total: 1"
+        },
+        {
+          "plain": "Total: 1"
         }
       ]
     },
@@ -10959,6 +11967,2203 @@
         {
           "format": "plain",
           "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table. 3 lines. 1 column."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
             "cell"
           ]
         },
@@ -11298,6 +14503,238 @@
             "cell"
           ],
           "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table. 3 lines. 1 column."
+        },
+        {
+          "plain": "Name"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
             "row"
           ]
         },
@@ -11697,6 +15134,263 @@
         {
           "format": "plain",
           "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table. 3 lines. 1 column."
+        },
+        {
+          "plain": "Row: 1"
+        },
+        {
+          "plain": "Name"
+        },
+        {
+          "plain": "Row: 2"
+        },
+        {
+          "plain": "Row: 3"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
             "columnheader",
             "cell"
           ],
@@ -12117,6 +15811,276 @@
         },
         {
           "plain": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table. 3 lines. 1 column."
+        },
+        {
+          "plain": "Row: 1"
+        },
+        {
+          "plain": "Row: 2"
+        },
+        {
+          "plain": "Row: 3"
         }
       ]
     },
@@ -12222,6 +16186,106 @@
         {
           "format": "ssml",
           "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table. 3 lines. 1 column."
+        },
+        {
+          "ssml": "Name"
+        },
+        {
+          "ssml": "Ada"
+        },
+        {
+          "ssml": "Total: 1"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
             "row"
           ]
         },
@@ -12400,6 +16464,123 @@
         {
           "format": "ssml",
           "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table. 3 lines. 1 column."
+        },
+        {
+          "ssml": "Row: 1"
+        },
+        {
+          "ssml": "Name"
+        },
+        {
+          "ssml": "Row: 2"
+        },
+        {
+          "ssml": "Ada"
+        },
+        {
+          "ssml": "Row: 3"
+        },
+        {
+          "ssml": "Total: 1"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
             "cell"
           ]
         },
@@ -12572,6 +16753,120 @@
         {
           "format": "ssml",
           "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table. 3 lines. 1 column."
+        },
+        {
+          "ssml": "Name"
+        },
+        {
+          "ssml": "Name: Ada"
+        },
+        {
+          "ssml": "Ada"
+        },
+        {
+          "ssml": "Name: Total: 1"
+        },
+        {
+          "ssml": "Total: 1"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
             "row",
             "cell"
           ]
@@ -12777,6 +17072,137 @@
       "options": [
         {
           "format": "ssml",
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table. 3 lines. 1 column."
+        },
+        {
+          "ssml": "Row: 1"
+        },
+        {
+          "ssml": "Name"
+        },
+        {
+          "ssml": "Row: 2"
+        },
+        {
+          "ssml": "Name: Ada"
+        },
+        {
+          "ssml": "Ada"
+        },
+        {
+          "ssml": "Row: 3"
+        },
+        {
+          "ssml": "Name: Total: 1"
+        },
+        {
+          "ssml": "Total: 1"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
           "skip": [
             "columnheader"
           ]
@@ -12940,6 +17366,127 @@
         },
         {
           "ssml": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table. 3 lines. 1 column."
+        },
+        {
+          "ssml": "Ada"
+        },
+        {
+          "ssml": "Total: 1"
         }
       ]
     },
@@ -13171,6 +17718,144 @@
             "columnheader"
           ],
           "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table. 3 lines. 1 column."
+        },
+        {
+          "ssml": "Row: 1"
+        },
+        {
+          "ssml": "Row: 2"
+        },
+        {
+          "ssml": "Ada"
+        },
+        {
+          "ssml": "Row: 3"
+        },
+        {
+          "ssml": "Total: 1"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
             "cell"
           ]
         },
@@ -13374,6 +18059,141 @@
         },
         {
           "ssml": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table. 3 lines. 1 column."
+        },
+        {
+          "ssml": "Name: Ada"
+        },
+        {
+          "ssml": "Ada"
+        },
+        {
+          "ssml": "Name: Total: 1"
+        },
+        {
+          "ssml": "Total: 1"
         }
       ]
     },
@@ -13622,6 +18442,158 @@
         },
         {
           "ssml": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table. 3 lines. 1 column."
+        },
+        {
+          "ssml": "Row: 1"
+        },
+        {
+          "ssml": "Row: 2"
+        },
+        {
+          "ssml": "Name: Ada"
+        },
+        {
+          "ssml": "Ada"
+        },
+        {
+          "ssml": "Row: 3"
+        },
+        {
+          "ssml": "Name: Total: 1"
+        },
+        {
+          "ssml": "Total: 1"
         }
       ]
     },
@@ -23079,6 +28051,2203 @@
         {
           "format": "ssml",
           "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table. 3 lines. 1 column."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
             "cell"
           ]
         },
@@ -23418,6 +30587,238 @@
             "cell"
           ],
           "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table. 3 lines. 1 column."
+        },
+        {
+          "ssml": "Name"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
             "row"
           ]
         },
@@ -23817,6 +31218,263 @@
         {
           "format": "ssml",
           "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table. 3 lines. 1 column."
+        },
+        {
+          "ssml": "Row: 1"
+        },
+        {
+          "ssml": "Name"
+        },
+        {
+          "ssml": "Row: 2"
+        },
+        {
+          "ssml": "Row: 3"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
             "columnheader",
             "cell"
           ],
@@ -24237,6 +31895,276 @@
         },
         {
           "ssml": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "cell"
+          ],
+          "contextualize": [
+            "table",
+            "row",
+            "cell"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table. 3 lines. 1 column."
+        },
+        {
+          "ssml": "Row: 1"
+        },
+        {
+          "ssml": "Row: 2"
+        },
+        {
+          "ssml": "Row: 3"
         }
       ]
     }

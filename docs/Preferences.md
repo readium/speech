@@ -39,7 +39,7 @@ Every field on `SpeechPreferences` (and `SpeechDefaults`) is checked against its
 type VerbosityPreset = "none" | "few" | "some" | "most" | "custom";
 ```
 
-Each preset resolves to a fixed set of roles that are skipped and a fixed set whose contextualizations fire, from `skippableAtVerbosity`/`contextualizedAtVerbosity` — `"few"` (the default) covers non-textual/math content only; `"most"` covers everything with a catalog entry. `skip`/`contextualize` on `SpeechPreferences` only apply under `"custom"`; every other preset uses its own fixed sets and ignores them:
+Each preset resolves to a fixed set of roles that are skipped and a fixed set whose contextualizations fire, from `skippableAtVerbosity`/`contextualizedAtVerbosity` — `"few"` (the default) covers non-textual/math content only; `"most"` covers everything with a catalog entry. It also resolves each role's contextualization shape (`contextualizationShapesAtVerbosity`) — e.g. `table` is `"inline"` at `"few"`, `"block"` at `"some"`/`"most"` (see [Utterance Extraction](UtteranceExtraction.md#options)). `skip`/`contextualize` on `SpeechPreferences` only apply under `"custom"`; every other preset uses its own fixed sets and ignores them:
 
 ```typescript
 new SpeechPreferences({ verbosity: "custom", contextualize: ["chapter", "footnote"] });

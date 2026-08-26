@@ -24,6 +24,9 @@ interface WalkContext {
   i18n: i18n;
   skip: ReadonlySet<GndRole>;
   contextualize: ReadonlySet<GndRole>;
+  // Per-role contextualization shape overrides for this call — see
+  // `ExtractUtterancesOptions.contextualizationShapes`.
+  contextualizationShapes: Partial<Record<GndRole, "inline" | "block">>;
   format: "plain" | "ssml";
   inlineContextualization: boolean;
   language?: "none" | "block-level" | "always";
@@ -88,7 +91,10 @@ function pushPiecesOrMerged(
 }
 
 // Speaks `role`'s catalog entry for this `phase`: `inline` only has
-// something to say "before"; `block` says `start`/`end` at "before"/"after".
+// something to say "before"; `block` says `start`/`end` at "before"/"after"
+// — unless `ctx.contextualizationShapes` overrides this role to "inline"
+// here, in which case it reads the same `inline` entry any inline-only
+// role uses, not `block.start`.
 function pushRoleContextualization(
   out: ReadiumSpeechUtterance[],
   sources: SourceTrace,
@@ -101,7 +107,7 @@ function pushRoleContextualization(
 ): void {
   if (!ctx.contextualize.has(role)) return;
   const isBlock = ctx.i18n.exists(`${role}.block.start`) || ctx.i18n.exists(`${role}.block.end`);
-  if (isBlock) {
+  if (isBlock && ctx.contextualizationShapes[role] !== "inline") {
     const base = phase === "before" ? `${role}.block.start` : `${role}.block.end`;
     const text = resolveEntryText(ctx, base, variantKey, params);
     if (text) push(out, sources, node, [formatPlain(text, ctx.format)]);
@@ -260,11 +266,11 @@ function emitInterrupted(
 }
 
 // audio/video/image/math fold `node.description` into a labelled/unlabelled
-// variant of their own announcement; figure folds it into its one template
-// (and skips announcing entirely when absent — see the `figure` check in
-// `walkNode()`'s contextualization loop).
+// variant of their own announcement; figure and table fold it into their
+// own template too (see the `figure` check in `walkNode()`'s
+// contextualization loop for the no-description case).
 const labelVariantRoles: ReadonlySet<string> = new Set(["audio", "video", "image", "math"]);
-const descriptionFoldingRoles: ReadonlySet<string> = new Set(["audio", "video", "image", "figure", "math"]);
+const descriptionFoldingRoles: ReadonlySet<string> = new Set(["audio", "video", "image", "figure", "math", "table"]);
 
 // Falls back to the bare number when the catalog has no `parts` entry.
 function resolvePluralPart(ctx: WalkContext, role: string, name: string, count: number): string {
@@ -449,6 +455,7 @@ function makeWalkContext(options: ExtractUtterancesOptions): WalkContext {
     i18n: makeContextualizer(locale, contextualizations),
     skip: new Set(options.skip ?? []),
     contextualize: new Set(options.contextualize ?? []),
+    contextualizationShapes: options.contextualizationShapes ?? {},
     format: options.format ?? "plain",
     inlineContextualization: options.inlineContextualization ?? false,
     language: options.language,

@@ -99,3 +99,35 @@ export const contextualizedAtVerbosity: Readonly<Record<Exclude<VerbosityPreset,
   some: new Set(some),
   most: new Set(most),
 };
+
+type ContextualizationShape = "inline" | "block";
+
+// Roles whose shape varies by verbosity level (table today) — a fixed-block
+// role like `list` must NOT appear here. Omitted levels default to "inline".
+const contextualizationShapeByRole: Partial<Record<GndRole, Partial<Record<Exclude<VerbosityPreset, "custom">, ContextualizationShape>>>> = {
+  table: { few: "inline", some: "block", most: "block" },
+};
+
+function shapesAtLevel(level: Exclude<VerbosityPreset, "custom">): Partial<Record<GndRole, ContextualizationShape>> {
+  const shapes: Partial<Record<GndRole, ContextualizationShape>> = {};
+  for (const role of Object.keys(contextualizationShapeByRole) as GndRole[]) {
+    shapes[role] = contextualizationShapeByRole[role]?.[level] ?? "inline";
+  }
+  return shapes;
+}
+
+// Each role's contextualization shape at each verbosity level, derived from
+// `contextualizationShapeByRole` above.
+export const contextualizationShapesAtVerbosity: Readonly<
+  Record<Exclude<VerbosityPreset, "custom">, Readonly<Partial<Record<GndRole, ContextualizationShape>>>>
+> = {
+  none: shapesAtLevel("none"),
+  few: shapesAtLevel("few"),
+  some: shapesAtLevel("some"),
+  most: shapesAtLevel("most"),
+};
+
+// Roles that ever switch shape (i.e. have an entry in
+// `contextualizationShapeByRole`) — `table` today. Every other role with a
+// `block`-shaped catalog entry (e.g. `list`) is a fixed block always.
+export const shapeableRoles: readonly GndRole[] = Object.keys(contextualizationShapeByRole) as GndRole[];

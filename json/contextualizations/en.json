@@ -54,6 +54,10 @@
                         "unlabelled": "Table. {{ lines }}. {{ columns }}."
                     }
                 },
+                "inline": {
+                    "labelled": "Table: {{ description }}. {{ lines }}. {{ columns }}.",
+                    "unlabelled": "Table. {{ lines }}. {{ columns }}."
+                },
                 "parts": {
                     "columns_one": "1 column",
                     "columns_other": "{{ count }} columns",

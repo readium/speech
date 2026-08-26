@@ -37,6 +37,10 @@ export interface ExtractUtterancesOptions {
   // underlying content still plays.
   contextualize?: GndRole[];
 
+  // Per-role contextualization shape overrides; a role absent here defaults
+  // to "block". No effect outside `contextualize` or on inline-only roles.
+  contextualizationShapes?: Partial<Record<GndRole, "inline" | "block">>;
+
   // Which language declarations in the *input* the extraction respects.
   // This never merges separate sibling nodes into one utterance — each
   // already has its own utterance and keeps it regardless — it only
