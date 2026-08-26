@@ -82,7 +82,6 @@ export function makeServerVoice(overrides: Record<string, any> = {}) {
     otherLanguages: [],
     gender: "female",
     quality: "veryHigh",
-    controls: {},
     ...overrides
   };
 }
