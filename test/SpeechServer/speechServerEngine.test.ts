@@ -446,6 +446,66 @@ test.serial("no prefetch happens past the end of the queue", async (t) => {
   t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, 1);
 });
 
+test.serial("loadUtterances() with no startIndex buffers from utterance 0 (unchanged behavior)", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl, prefetchWindow: 1 });
+
+  const ready = new Promise<void>(resolve => engine.on("ready", () => resolve()));
+  engine.loadUtterances([{ plain: "One" }, { plain: "Two" }, { plain: "Three" }]);
+  await ready;
+
+  const texts = calls.filter(c => c.url.endsWith("/synthesize")).map(c => JSON.parse(c.init.body).text);
+  t.deepEqual(texts, ["One", "Two"], "buffers utterance 0 and one ahead, matching prefetchWindow");
+});
+
+test.serial("loadUtterances(contents, startIndex) buffers starting at startIndex, not 0", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl, prefetchWindow: 1 });
+
+  const ready = new Promise<void>(resolve => engine.on("ready", () => resolve()));
+  engine.loadUtterances([{ plain: "One" }, { plain: "Two" }, { plain: "Three" }, { plain: "Four" }, { plain: "Five" }], 3);
+  await ready;
+
+  const texts = calls.filter(c => c.url.endsWith("/synthesize")).map(c => JSON.parse(c.init.body).text);
+  t.deepEqual(texts, ["Four", "Five"], "buffers starting at utterance 3, never utterances 0-2");
+});
+
+test.serial("startIndex at the last utterance buffers only that one utterance", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl, prefetchWindow: 3 });
+
+  const ready = new Promise<void>(resolve => engine.on("ready", () => resolve()));
+  const contents = [{ plain: "One" }, { plain: "Two" }, { plain: "Three" }];
+  engine.loadUtterances(contents, contents.length - 1);
+  await ready;
+
+  const texts = calls.filter(c => c.url.endsWith("/synthesize")).map(c => JSON.parse(c.init.body).text);
+  t.deepEqual(texts, ["Three"]);
+});
+
+test.serial("speak(startIndex) after loadUtterances(contents, startIndex) reuses the pre-buffered chunk, not a cold fetch", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl, prefetchWindow: 1 });
+
+  const ready = new Promise<void>(resolve => engine.on("ready", () => resolve()));
+  engine.loadUtterances([{ plain: "One" }, { plain: "Two" }, { plain: "Three" }, { plain: "Four" }], 2);
+  await ready;
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, 2, "buffered utterances 2 and 3 before ready");
+
+  engine.speak(2);
+  await flush();
+
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, 2, "speak(2) reused the pre-buffered chunk instead of fetching cold");
+});
+
 test.serial("stop() resets to idle and index 0", async (t) => {
   const { fetchImpl } = createMockFetch({
     synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
@@ -999,6 +1059,28 @@ test.serial("a /synthesize request that never resolves stalls after timeoutMs wi
   t.is(errors[0].status, 408);
   t.is(errors[0].recoverable, true);
   t.is(engine.getState(), "idle");
+});
+
+test.serial("loadUtterances() waits for the full readyBufferChars window to actually finish buffering before declaring \"ready\"", async (t) => {
+  const { fetchImpl } = createMockFetch({
+    synthesize: () => new Promise(resolve => setTimeout(() => resolve({ json: { audio: wavBase64(), format: "wav", boundaries: null } }), 60))
+  });
+  const engine = new SpeechServerEngine({
+    endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" },
+    fetch: fetchImpl,
+    prefetchWindow: 1
+  });
+
+  const readyEvents: any[] = [];
+  engine.on("ready", () => readyEvents.push(true));
+
+  engine.loadUtterances([{ plain: "One" }, { plain: "Two" }]);
+
+  await wait(30); // well before the 2 chained 60ms fetches finish
+  t.is(readyEvents.length, 0, "not ready until the buffer actually covers what was asked for");
+
+  await wait(150); // past the real, full buffering time
+  t.is(readyEvents.length, 1, "ready fires once buffering genuinely finishes");
 });
 
 test.serial("without timeoutMs, a /synthesize request that never resolves never stalls", async (t) => {

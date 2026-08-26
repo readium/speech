@@ -1,11 +1,22 @@
 // A controllable ReadiumSpeechPlaybackEngine and ReadiumSpeechEngineProvider, so swap behavior
 // can be driven and inspected without a real engine's network/browser plumbing.
 
+export interface FakeEngineOptions {
+  // When true, loadUtterances()/speak() emit "ready"/"start" synchronously, like real
+  // WebSpeechEngine does. Default false: speak() defers "start" via setTimeout, like a real
+  // network/audio engine would — this is what most tests want, since it exercises the
+  // "engine told to speak but not yet playing" window. Tests specifically probing event
+  // ordering against a synchronous engine (matching real WebSpeechEngine) should opt in.
+  synchronous?: boolean;
+}
+
 export class FakeEngine {
   loadUtterancesCalls: any[][] = [];
+  loadUtterancesStartIndexCalls: (number | undefined)[] = [];
   speakCalls: (number | undefined)[] = [];
   destroyCalls = 0;
 
+  private readonly synchronous: boolean;
   private listeners = new Map<string, ((event: any) => void)[]>();
   private currentVoice: any = null;
   private currentUtteranceIndex = 0;
@@ -14,6 +25,10 @@ export class FakeEngine {
   private volume = 1;
   private speakInContentLanguage = false;
   private state = "idle";
+
+  constructor(options: FakeEngineOptions = {}) {
+    this.synchronous = options.synchronous ?? false;
+  }
 
   setCurrentVoiceForTest(voice: any): void {
     this.currentVoice = voice;
@@ -31,8 +46,14 @@ export class FakeEngine {
     return undefined;
   }
 
-  loadUtterances(contents: any[]): void {
+  loadUtterances(contents: any[], startIndex?: number): void {
     this.loadUtterancesCalls.push(contents);
+    this.loadUtterancesStartIndexCalls.push(startIndex);
+    this.currentUtteranceIndex = startIndex ?? 0;
+    if (this.synchronous) {
+      this.state = "ready";
+      this.emit("ready"); // mirrors WebSpeechEngine.loadUtterances()'s synchronous "ready" emit
+    }
   }
 
   setVoice(_voice: any): void {}
@@ -55,11 +76,37 @@ export class FakeEngine {
 
   speak(index?: number): void {
     this.speakCalls.push(index);
+    this.currentUtteranceIndex = index ?? 0;
+    if (this.synchronous) {
+      this.state = "playing";
+      this.emit("start"); // mirrors WebSpeechEngine.speak()'s synchronous "start" emit
+      return;
+    }
+    this.state = "loading";
+    // Playback starts asynchronously, like a real engine — pause() right after speak() is a no-op.
+    setTimeout(() => {
+      this.state = "playing";
+      this.emit("start");
+    }, 0);
   }
 
-  pause(): void {}
-  resume(): void {}
-  stop(): void {}
+  pause(): void {
+    if (this.state !== "playing") return;
+    this.state = "paused";
+    this.emit("pause");
+  }
+
+  resume(): void {
+    if (this.state !== "paused") return;
+    this.state = "playing";
+    this.emit("resume");
+  }
+
+  stop(): void {
+    this.state = "idle";
+    this.currentUtteranceIndex = 0;
+    this.emit("stop");
+  }
 
   setRate(rate: number): void {
     this.rate = rate;
@@ -132,17 +179,21 @@ export class FakeFallbackProvider {
   receivedVoice: any;
   engine: FakeEngine | null = null;
   shouldFail = false;
+  engineOptions: FakeEngineOptions = {};
+  // Lets a test pause createEngine() mid-flight to interleave other wrapper calls with it.
+  createEngineGate: Promise<void> | null = null;
 
   async getVoices(): Promise<any[]> {
     return [];
   }
 
   async createEngine(voice?: any): Promise<FakeEngine> {
+    if (this.createEngineGate) await this.createEngineGate;
     this.receivedVoice = voice;
     if (this.shouldFail) {
       throw new Error("fallback provider unavailable");
     }
-    this.engine = new FakeEngine();
+    this.engine = new FakeEngine(this.engineOptions);
     return this.engine;
   }
 
@@ -160,6 +211,9 @@ export class FakePrimaryProvider {
   receivedVoice: any;
   engine: FakeEngine | null = null;
   shouldFailCreateEngine = false;
+  engineOptions: FakeEngineOptions = {};
+  // Lets a test pause createEngine() mid-flight to interleave stop()/destroy() with it.
+  createEngineGate: Promise<void> | null = null;
 
   async getVoices(): Promise<any[]> {
     this.getVoicesCalls++;
@@ -170,11 +224,12 @@ export class FakePrimaryProvider {
   }
 
   async createEngine(voice?: any): Promise<FakeEngine> {
+    if (this.createEngineGate) await this.createEngineGate;
     this.receivedVoice = voice;
     if (this.shouldFailCreateEngine) {
       throw new Error("primary still unreachable");
     }
-    this.engine = new FakeEngine();
+    this.engine = new FakeEngine(this.engineOptions);
     return this.engine;
   }
 
@@ -199,4 +254,10 @@ export async function tick(): Promise<void> {
 
 export async function wait(ms: number): Promise<void> {
   await new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export function deferred(): { promise: Promise<void>; resolve: () => void } {
+  let resolve!: () => void;
+  const promise = new Promise<void>(r => { resolve = r; });
+  return { promise, resolve };
 }

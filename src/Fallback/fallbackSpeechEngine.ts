@@ -46,12 +46,27 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // Set once a health-check probe confirms the primary is reachable again; the actual swap still
   // waits for the active engine to stop playing, see maybeRecoverNow().
   private primaryReachable = false;
-  private recoveryInFlight = false;
 
   // State the ReadiumSpeechPlaybackEngine interface doesn't expose getters for, kept here so it
   // can be replayed into a freshly created fallback (or recovered primary) engine.
   private currentUtterances: ReadiumSpeechUtterance[] = [];
   private lastVoiceRequest: ReadiumSpeechVoice | string | undefined;
+
+  // Live, not a snapshot — a swap in progress reads these at "ready" time, not when it started.
+  private desiredIndex = 0;
+  private desiredPlaying = false;
+  // False the instant a new engine becomes active, true once it's actually been told to speak().
+  // While false, playback state/index live here instead of on the (unspoken) active engine.
+  private engineStarted = true;
+
+  // True during swapToFallback()/recoverToPrimary(), until activeEngine is reassigned — while
+  // true, activeEngine is untrustworthy and control methods must only update desired state.
+  private swapInFlight = false;
+  // Bumped only by destroy(), to abort an in-flight swap and destroy the arriving engine instead
+  // of adopting it. stop()/loadUtterances()/speak() let an in-flight swap land instead.
+  private teardownEpoch = 0;
+  // Bumped by every loadUtterances() call, so startEngineWhenReady() can tell its queue is stale.
+  private loadToken = 0;
 
   private eventListeners: Map<ReadiumSpeechPlaybackEvent["type"], ((event: ReadiumSpeechPlaybackEvent) => void)[]> = new Map();
   private unbindActiveEngine: (() => void) | null = null;
@@ -62,6 +77,8 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.fallbackProvider = options.fallbackProvider;
     this.onFailure = options.onFailure ?? "fallback";
     this.healthCheckIntervalMs = options.healthCheckIntervalMs ?? DEFAULT_HEALTH_CHECK_INTERVAL_MS;
+    // createEngine(voice) never goes through setVoice(), so pick it up here instead.
+    this.lastVoiceRequest = options.primaryEngine.getCurrentVoice() ?? undefined;
     this.bindActiveEngine();
   }
 
@@ -69,9 +86,15 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return this.activeEngine.initialize?.();
   }
 
-  loadUtterances(contents: ReadiumSpeechUtterance[]): void {
+  // Mid-swap, only records the new queue live — activeEngine is dying/about to be replaced.
+  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void {
+    this.loadToken++;
     this.currentUtterances = contents;
-    this.activeEngine.loadUtterances(contents);
+    this.desiredIndex = startIndex ?? 0;
+    this.desiredPlaying = false;
+    if (this.swapInFlight) return;
+    this.engineStarted = true;
+    this.activeEngine.loadUtterances(contents, startIndex);
   }
 
   setVoice(voice: ReadiumSpeechVoice | string): void {
@@ -95,19 +118,44 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return this.activeEngine.getSpeakInContentLanguage();
   }
 
+  // The navigator advances to the next utterance via speak(nextIndex) — the one gap where we can
+  // recover without an audible glitch, so intercept it if the primary is already reachable.
   speak(utteranceIndex?: number): void {
-    this.activeEngine.speak(utteranceIndex);
+    this.desiredIndex = utteranceIndex ?? 0;
+    this.desiredPlaying = true;
+    if (this.swapInFlight) return; // read live once the arriving engine's "ready" fires
+    if (this.hasFallenBack && this.primaryReachable) {
+      void this.recoverToPrimary();
+      return;
+    }
+    this.engineStarted = true;
+    this.activeEngine.speak(this.desiredIndex);
   }
 
   pause(): void {
+    this.desiredPlaying = false;
+    if (!this.isEngineTrusted()) return;
     this.activeEngine.pause();
   }
 
   resume(): void {
+    this.desiredPlaying = true;
+    if (this.swapInFlight) return; // read live once the arriving engine's "ready" fires
+    if (!this.engineStarted) {
+      this.engineStarted = true;
+      this.activeEngine.speak(this.desiredIndex);
+      return;
+    }
     this.activeEngine.resume();
   }
 
+  // Lets an in-flight swap land rather than aborting it — aborting would strand the wrapper on
+  // the already-failed primary in the swapToFallback direction.
   stop(): void {
+    this.desiredPlaying = false;
+    this.desiredIndex = 0;
+    if (this.swapInFlight) return;
+    this.engineStarted = true;
     this.activeEngine.stop();
   }
 
@@ -135,15 +183,30 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return this.activeEngine.getVolume();
   }
 
+  // True only when this.activeEngine is safe to read from directly: no swap in flight, and it's
+  // actually been told to speak() (otherwise its own state/index don't reflect desired* yet).
+  private isEngineTrusted(): boolean {
+    return !this.swapInFlight && this.engineStarted;
+  }
+
   getState(): ReadiumSpeechPlaybackState {
+    if (!this.isEngineTrusted()) return this.desiredPlaying ? "loading" : "paused";
     return this.activeEngine.getState();
   }
 
   getCurrentUtteranceIndex(): number {
+    if (!this.isEngineTrusted()) return this.desiredIndex;
     return this.activeEngine.getCurrentUtteranceIndex();
   }
 
+  // Keeps desiredIndex authoritative even while trusted, like speak() does — otherwise a seek
+  // followed by a failure with no intervening speak() would resume at the stale pre-seek index.
   setCurrentUtteranceIndex(index: number, onComplete?: (success: boolean) => void): void {
+    this.desiredIndex = index;
+    if (!this.isEngineTrusted()) {
+      onComplete?.(true);
+      return;
+    }
     this.activeEngine.setCurrentUtteranceIndex(index, onComplete);
   }
 
@@ -171,7 +234,13 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private emitEvent(event: ReadiumSpeechPlaybackEvent): void {
     const listeners = this.eventListeners.get(event.type);
     if (listeners) {
-      listeners.forEach(callback => callback(event));
+      listeners.forEach(callback => {
+        try {
+          callback(event);
+        } catch (error) {
+          console.error(`Error in "${event.type}" listener:`, error);
+        }
+      });
     }
   }
 
@@ -186,41 +255,69 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   private handleError(event: ReadiumSpeechPlaybackEvent): void {
-    if (this.hasFallenBack || this.onFailure === "error" || !isRecoverableFailure(event)) {
+    if (this.hasFallenBack || this.swapInFlight || this.onFailure === "error" || !isRecoverableFailure(event)) {
       this.emitEvent(event);
       return;
     }
     void this.swapToFallback(event);
   }
 
+  // Copies playback parameters onto a freshly created engine — shared by both swap directions so
+  // this can't drift between them the way two separately maintained copies did.
+  private copyPlaybackParameters(from: ReadiumSpeechPlaybackEngine, to: ReadiumSpeechPlaybackEngine): void {
+    to.setRate(from.getRate());
+    to.setPitch(from.getPitch());
+    to.setVolume(from.getVolume());
+    to.setSpeakInContentLanguage(from.getSpeakInContentLanguage());
+  }
+
+  // Starts or defers a freshly loaded engine based on live intent, not a snapshot from before the
+  // swap — shared by both swap directions so a racing pause()/speak() is respected either way.
+  private startEngineWhenReady(engine: ReadiumSpeechPlaybackEngine): void {
+    const loadToken = this.loadToken;
+    const unsubscribeReady = engine.on("ready", () => {
+      unsubscribeReady();
+      if (loadToken !== this.loadToken) return; // a newer loadUtterances() superseded this queue
+      if (this.desiredPlaying) {
+        this.engineStarted = true;
+        engine.speak(this.desiredIndex);
+      } else {
+        this.engineStarted = false; // stays paused at desiredIndex until resume()
+      }
+    });
+  }
+
   private async swapToFallback(originalEvent: ReadiumSpeechPlaybackEvent): Promise<void> {
+    this.swapInFlight = true;
+    const teardownEpoch = this.teardownEpoch;
     const primaryEngine = this.activeEngine;
-    const resumeIndex = primaryEngine.getCurrentUtteranceIndex();
 
     try {
       const failedVoice = primaryEngine.getCurrentVoice() ?? (typeof this.lastVoiceRequest === "object" ? this.lastVoiceRequest : null);
-      const language = failedVoice?.language || this.currentUtterances[resumeIndex]?.language || navigator.language;
+      const language = failedVoice?.language || this.currentUtterances[this.desiredIndex]?.language || navigator.language;
 
       const bestVoice = await this.pickBestFallbackVoice(language, failedVoice?.gender);
 
       const fallbackEngine = await this.fallbackProvider.createEngine(bestVoice ?? undefined);
-      fallbackEngine.setRate(primaryEngine.getRate());
-      fallbackEngine.setPitch(primaryEngine.getPitch());
-      fallbackEngine.setVolume(primaryEngine.getVolume());
-      fallbackEngine.setSpeakInContentLanguage(primaryEngine.getSpeakInContentLanguage());
+      if (teardownEpoch !== this.teardownEpoch) {
+        this.swapInFlight = false;
+        await fallbackEngine.destroy();
+        return;
+      }
+      this.copyPlaybackParameters(primaryEngine, fallbackEngine);
 
       this.unbindActiveEngine?.();
       this.activeEngine = fallbackEngine;
       this.hasFallenBack = true;
+      this.engineStarted = false;
+      this.swapInFlight = false;
       this.bindActiveEngine();
 
-      const unsubscribeReady = fallbackEngine.on("ready", () => {
-        unsubscribeReady();
-        fallbackEngine.speak(resumeIndex);
-      });
-      fallbackEngine.loadUtterances(this.currentUtterances);
-
+      // Emitted before the calls below, which can synchronously cascade into "ready"/"start".
       this.emitEvent({ type: "enginefallback", detail: { reason: originalEvent.detail, voice: bestVoice } });
+
+      this.startEngineWhenReady(fallbackEngine);
+      fallbackEngine.loadUtterances(this.currentUtterances, this.desiredIndex); // live read — picks up any reload that raced the swap
 
       if (this.onFailure === "fallbackAndRecover") {
         this.startHealthCheck();
@@ -230,6 +327,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     } catch {
       // Falling back itself failed (e.g. Web Speech API unavailable too) — nothing more we can
       // do, surface the original failure and stop attempting to fall back on future errors.
+      this.swapInFlight = false;
       this.hasFallenBack = true;
       this.emitEvent(originalEvent);
     }
@@ -256,43 +354,43 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // Swaps back to the primary the moment nothing is audibly playing, so a caller never hears a
   // voice change mid-utterance.
   private maybeRecoverNow(): void {
-    if (!this.primaryReachable || this.recoveryInFlight) return;
+    if (!this.primaryReachable || this.swapInFlight) return;
     if (this.activeEngine.getState() === "playing") return;
     void this.recoverToPrimary();
   }
 
   private async recoverToPrimary(): Promise<void> {
-    this.recoveryInFlight = true;
+    this.swapInFlight = true;
+    const teardownEpoch = this.teardownEpoch;
     const fallbackEngine = this.activeEngine;
-    const resumeIndex = fallbackEngine.getCurrentUtteranceIndex();
-    const wasPaused = fallbackEngine.getState() === "paused";
 
     try {
       const primaryEngine = await this.primaryProvider.createEngine(this.lastVoiceRequest);
-      primaryEngine.setRate(fallbackEngine.getRate());
-      primaryEngine.setPitch(fallbackEngine.getPitch());
-      primaryEngine.setVolume(fallbackEngine.getVolume());
-      primaryEngine.setSpeakInContentLanguage(fallbackEngine.getSpeakInContentLanguage());
+      if (teardownEpoch !== this.teardownEpoch) {
+        this.swapInFlight = false;
+        await primaryEngine.destroy();
+        return;
+      }
+      this.copyPlaybackParameters(fallbackEngine, primaryEngine);
 
       this.unbindActiveEngine?.();
       this.activeEngine = primaryEngine;
       this.hasFallenBack = false;
       this.primaryReachable = false;
-      this.recoveryInFlight = false;
+      this.engineStarted = false;
+      this.swapInFlight = false;
       this.bindActiveEngine();
 
-      const unsubscribeReady = primaryEngine.on("ready", () => {
-        unsubscribeReady();
-        if (wasPaused) primaryEngine.setCurrentUtteranceIndex(resumeIndex, () => {});
-      });
-      primaryEngine.loadUtterances(this.currentUtterances);
-
       this.emitEvent({ type: "enginerecovered", detail: { voice: primaryEngine.getCurrentVoice() } });
+
+      this.startEngineWhenReady(primaryEngine);
+      primaryEngine.loadUtterances(this.currentUtterances, this.desiredIndex); // live read — picks up any reload that raced the swap
+
       await fallbackEngine.destroy();
     } catch {
       // Still down despite the probe succeeding (e.g. it dropped again in between) — stay on
       // the fallback and keep polling.
-      this.recoveryInFlight = false;
+      this.swapInFlight = false;
       this.startHealthCheck();
     }
   }
@@ -314,6 +412,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   async destroy(): Promise<void> {
+    this.teardownEpoch++;
     if (this.healthCheckTimer !== null) {
       clearTimeout(this.healthCheckTimer);
       this.healthCheckTimer = null;

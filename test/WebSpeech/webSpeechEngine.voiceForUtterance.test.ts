@@ -186,3 +186,19 @@ test("languagefallback fires only when no voice matches at all, not merely becau
   t.is(fallbacks.length, 1);
   t.is(fallbacks[0].detail.language, "de-DE");
 });
+
+test("loadUtterances() emits exactly one \"ready\" per call, including back-to-back calls while already ready", async (t) => {
+  setGlobals(mockVoices);
+  const engine = new WebSpeechEngine();
+  await engine.initialize();
+
+  const readyEvents: any[] = [];
+  engine.on("ready", () => readyEvents.push(true));
+
+  engine.loadUtterances([{ id: "1", plain: "one" }]);
+  t.is(readyEvents.length, 1, "first load");
+
+  // Never played — state is still "ready" from the first load — yet a second load must still emit.
+  engine.loadUtterances([{ id: "2", plain: "two" }]);
+  t.is(readyEvents.length, 2, "second load while still ready");
+});

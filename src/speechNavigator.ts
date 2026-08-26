@@ -245,7 +245,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     // they're confident playback won't immediately stall.
     this.setNavigatorState("loading");
     this.emitEvent({ type: "loading" });
-    this.engine.loadUtterances(contents);
+    this.engine.loadUtterances(contents, resumeIndex ?? undefined);
     this.emitContentChangeEvent({ content: contents });
   }
 

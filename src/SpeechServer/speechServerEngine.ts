@@ -165,22 +165,24 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     this.voices = voices;
   }
 
-  loadUtterances(contents: ReadiumSpeechUtterance[]): void {
+  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void {
     this.clearPrefetchCache();
     this.currentUtterances = contents;
-    this.currentUtteranceIndex = 0;
+    this.currentUtteranceIndex = startIndex ?? 0;
     this.setState("loading");
     void this.bufferUntilReady(++this.loadGeneration);
   }
 
-  // Buffers enough leading utterances to cover readyBufferChars before declaring "ready", so
-  // playback doesn't catch up to an empty prefetch cache right after the first utterance.
+  // Buffers enough utterances ahead of currentUtteranceIndex to cover readyBufferChars before
+  // declaring "ready", so playback doesn't catch up to an empty prefetch cache right away —
+  // starting from wherever playback will actually resume, not always utterance 0.
   private async bufferUntilReady(generation: number): Promise<void> {
+    const startIndex = Math.min(Math.max(this.currentUtteranceIndex, 0), Math.max(this.currentUtterances.length - 1, 0));
     // Bounded by prefetchWindow too — the initial buffer is just the front of that same
     // lookahead, not a second, larger one.
-    const targetIndex = Math.min(this.indexCoveringChars(this.readyBufferChars), this.prefetchWindow);
+    const targetIndex = Math.min(this.indexCoveringChars(this.readyBufferChars, startIndex), startIndex + this.prefetchWindow);
     const pending: Promise<SynthesizedChunk>[] = [];
-    for (let index = 0; index <= targetIndex; index++) {
+    for (let index = startIndex; index <= targetIndex; index++) {
       this.queuePrefetch(index);
       const cached = this.prefetchCache.get(index);
       if (cached) {
@@ -200,16 +202,16 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     if (generation !== this.loadGeneration || this.playbackState !== "loading") {
       return;
     }
-    this.setState("ready");
-    this.emitEvent({ type: "ready" });
+    this.setState("ready"); // emits "ready" itself, see the switch in setState()
   }
 
-  private indexCoveringChars(targetChars: number): number {
+  private indexCoveringChars(targetChars: number, fromIndex: number): number {
     if (this.currentUtterances.length === 0) {
       return -1;
     }
+    const start = Math.min(Math.max(fromIndex, 0), this.currentUtterances.length - 1);
     let total = 0;
-    for (let index = 0; index < this.currentUtterances.length; index++) {
+    for (let index = start; index < this.currentUtterances.length; index++) {
       total += (utteranceText(this.currentUtterances[index]) ?? "").length;
       if (total >= targetChars) {
         return index;
@@ -766,7 +768,13 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private emitEvent(event: ReadiumSpeechPlaybackEvent): void {
     const listeners = this.eventListeners.get(event.type);
     if (listeners) {
-      listeners.forEach(callback => callback(event));
+      listeners.forEach(callback => {
+        try {
+          callback(event);
+        } catch (error) {
+          console.error(`Error in "${event.type}" listener:`, error);
+        }
+      });
     }
   }
 

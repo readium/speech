@@ -248,11 +248,13 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   // Queue Management
-  loadUtterances(contents: ReadiumSpeechUtterance[]): void {
+  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void {
     this.currentUtterances = this.toPlainText(contents);
-    this.currentUtteranceIndex = 0;
+    this.currentUtteranceIndex = startIndex ?? 0;
     void this.warmLanguageVoiceCache(this.currentUtterances);
-    this.setState("ready");
+    // Not setState(): never passes through "loading" first, so back-to-back loads while already
+    // "ready" must still each emit — setState's diff-based emit would swallow the second one.
+    this.playbackState = "ready";
     this.emitEvent({ type: "ready" });
   }
 
@@ -691,7 +693,13 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private emitEvent(event: ReadiumSpeechPlaybackEvent): void {
     const listeners = this.eventListeners.get(event.type);
     if (listeners) {
-      listeners.forEach(callback => callback(event));
+      listeners.forEach(callback => {
+        try {
+          callback(event);
+        } catch (error) {
+          console.error(`Error in "${event.type}" listener:`, error);
+        }
+      });
     }
   }
 
