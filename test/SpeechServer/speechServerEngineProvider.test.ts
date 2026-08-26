@@ -9,10 +9,10 @@ test("getVoices maps server voices into ReadiumSpeechVoice shape and caches", as
       makeServerVoice({
         name: "Estelle",
         originalName: "estelle",
-        identifier: "urn:readium:tts:pocket:estelle",
-        controls: { speed: true }
+        identifier: "urn:readium:tts:pocket:estelle"
       })
-    ]
+    ],
+    service: () => ({ json: { ...defaultServiceInfo(), providers: [{ id: "pocket", installedLanguages: ["en"], controls: { speed: true } }] } })
   });
   const provider = new SpeechServerEngineProvider({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl });
 
@@ -21,7 +21,8 @@ test("getVoices maps server voices into ReadiumSpeechVoice shape and caches", as
   t.is(voices[0].source, "server");
   t.is(voices[0].identifier, "urn:readium:tts:pocket:alba");
   t.is(voices[0].provider, "pocket");
-  t.deepEqual(voices[1].controls, { speed: true });
+  t.deepEqual(voices[0].controls, { speed: true }, "controls merged from the pocket provider's service-level default");
+  t.deepEqual(voices[1].controls, { speed: true }, "both voices share the same provider, so the same controls");
 
   await provider.getVoices();
   t.is(calls.filter(c => c.url.endsWith("/voices")).length, 1, "second call is served from cache, not refetched");

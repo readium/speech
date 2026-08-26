@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.7.1] - 2026-08-26
+
+### Fixed
+
+- `SpeechServerEngine`/`SpeechServerEngineProvider` no longer double-apply speed on voices whose provider already applies it server-side (e.g. ElevenLabs). [speech-server](https://github.com/readium/speech-server) stopped sending `controls` per voice on `GET /voices`, moving it to `GET /service`'s `providers[]` only — voice mapping now merges each voice's `controls` from there instead of a field the server no longer sends.
+
 ## [0.7.0] - 2026-08-04
 
 ### Added
