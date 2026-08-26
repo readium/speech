@@ -532,7 +532,7 @@ test.serial("setVoice(string) called again before the background voice lookup re
   const { fetchImpl } = createMockFetch({
     voices: () => [
       makeServerVoice(),
-      makeServerVoice({ name: "Estelle", identifier: "urn:readium:tts:eleven:estelle", provider: "elevenlabs" })
+      makeServerVoice({ name: "Estelle", identifier: "urn:readium:tts:elevenlabs:estelle", provider: "elevenlabs" })
     ],
     service: () => ({
       json: {
@@ -547,10 +547,10 @@ test.serial("setVoice(string) called again before the background voice lookup re
   const engine = new SpeechServerEngine({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl });
 
   engine.setVoice("urn:readium:tts:pocket:alba");
-  engine.setVoice("urn:readium:tts:eleven:estelle"); // supersedes the still-pending lookup for "alba"
+  engine.setVoice("urn:readium:tts:elevenlabs:estelle"); // supersedes the still-pending lookup for "alba"
   await flush();
 
-  t.is(engine.getCurrentVoice()?.identifier, "urn:readium:tts:eleven:estelle", "the later setVoice() call wins, not the earlier one's background resolution");
+  t.is(engine.getCurrentVoice()?.identifier, "urn:readium:tts:elevenlabs:estelle", "the later setVoice() call wins, not the earlier one's background resolution");
   t.deepEqual(engine.getCurrentVoice()?.controls, {}, "estelle's own provider's controls, not alba's");
 });
 
