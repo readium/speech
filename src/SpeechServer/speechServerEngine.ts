@@ -240,12 +240,13 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       return this.voices;
     }
 
-    const response = await this.fetchImpl(this.endpoints.voices);
+    const [response, serviceInfo] = await Promise.all([this.fetchImpl(this.endpoints.voices), this.getServiceInfo()]);
     if (!response.ok) {
       throw await toSpeechServerError(response);
     }
     const serverVoices: SpeechServerVoice[] = await response.json();
-    this.voices = serverVoices.map(mapServerVoice);
+    const providerControls = new Map(serviceInfo.providers.map(p => [p.id, p.controls]));
+    this.voices = serverVoices.map(voice => mapServerVoice(voice, providerControls.get(voice.provider)));
     return this.voices;
   }
 

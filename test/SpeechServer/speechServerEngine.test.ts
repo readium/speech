@@ -507,7 +507,8 @@ test.serial("rate is only faked locally when the voice's controls don't report s
 
 test.serial("setVoice(string) with an uncached identifier resolves controls.speed in the background, avoiding a doubled rate once resolved", async (t) => {
   const { fetchImpl } = createMockFetch({
-    voices: () => [makeServerVoice({ controls: { speed: true } })],
+    voices: () => [makeServerVoice()],
+    service: () => ({ json: { ...defaultServiceInfo(), providers: [{ id: "pocket", installedLanguages: ["en"], controls: { speed: true } }] } }),
     synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
   });
   const engine = new SpeechServerEngine({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl });
@@ -529,16 +530,28 @@ test.serial("setVoice(string) with an uncached identifier resolves controls.spee
 
 test.serial("setVoice(string) called again before the background voice lookup resolves doesn't get overwritten by the stale lookup", async (t) => {
   const { fetchImpl } = createMockFetch({
-    voices: () => [makeServerVoice({ controls: { speed: true } }), makeServerVoice({ name: "Estelle", identifier: "urn:readium:tts:pocket:estelle", controls: {} })]
+    voices: () => [
+      makeServerVoice(),
+      makeServerVoice({ name: "Estelle", identifier: "urn:readium:tts:eleven:estelle", provider: "elevenlabs" })
+    ],
+    service: () => ({
+      json: {
+        ...defaultServiceInfo(),
+        providers: [
+          { id: "pocket", installedLanguages: ["en"], controls: { speed: true } },
+          { id: "elevenlabs", installedLanguages: ["en"], controls: {} }
+        ]
+      }
+    })
   });
   const engine = new SpeechServerEngine({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl });
 
   engine.setVoice("urn:readium:tts:pocket:alba");
-  engine.setVoice("urn:readium:tts:pocket:estelle"); // supersedes the still-pending lookup for "alba"
+  engine.setVoice("urn:readium:tts:eleven:estelle"); // supersedes the still-pending lookup for "alba"
   await flush();
 
-  t.is(engine.getCurrentVoice()?.identifier, "urn:readium:tts:pocket:estelle", "the later setVoice() call wins, not the earlier one's background resolution");
-  t.deepEqual(engine.getCurrentVoice()?.controls, {}, "estelle's own resolved controls, not alba's");
+  t.is(engine.getCurrentVoice()?.identifier, "urn:readium:tts:eleven:estelle", "the later setVoice() call wins, not the earlier one's background resolution");
+  t.deepEqual(engine.getCurrentVoice()?.controls, {}, "estelle's own provider's controls, not alba's");
 });
 
 test.serial("setVolume applies to the shared gain node", async (t) => {
