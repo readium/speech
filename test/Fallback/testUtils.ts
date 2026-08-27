@@ -1,3 +1,5 @@
+import type { ReadiumSpeechVoice } from "../../src/voices/types.js";
+
 // A controllable ReadiumSpeechPlaybackEngine and ReadiumSpeechEngineProvider, so swap behavior
 // can be driven and inspected without a real engine's network/browser plumbing.
 
@@ -182,9 +184,16 @@ export class FakeFallbackProvider {
   engineOptions: FakeEngineOptions = {};
   // Lets a test pause createEngine() mid-flight to interleave other wrapper calls with it.
   createEngineGate: Promise<void> | null = null;
+  // Seeded by default so pickBestFallbackVoice()'s language/gender matching has something
+  // deterministic to pick from; override per-test to exercise other matches.
+  voices: ReadiumSpeechVoice[] = [
+    makeReadiumVoice({ name: "French Female", language: "fr-FR", gender: "female" }),
+    makeReadiumVoice({ name: "French Male", language: "fr-FR", gender: "male" }),
+    makeReadiumVoice({ name: "English Female", language: "en-US", gender: "female" })
+  ];
 
-  async getVoices(): Promise<any[]> {
-    return [];
+  async getVoices(): Promise<ReadiumSpeechVoice[]> {
+    return this.voices;
   }
 
   async createEngine(voice?: any): Promise<FakeEngine> {
@@ -236,7 +245,7 @@ export class FakePrimaryProvider {
   async destroy(): Promise<void> {}
 }
 
-export function makeReadiumVoice(overrides: Record<string, any> = {}) {
+export function makeReadiumVoice(overrides: Partial<ReadiumSpeechVoice> = {}): ReadiumSpeechVoice {
   return {
     source: "browser",
     label: overrides.name ?? "Voice",

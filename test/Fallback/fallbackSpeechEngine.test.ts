@@ -1,57 +1,6 @@
 import test from "ava";
-import { FallbackSpeechEngine, WebSpeechVoiceManager } from "../../build/index.js";
-import { FakeEngine, FakeFallbackProvider, FakePrimaryProvider, makeReadiumVoice, tick, wait, deferred } from "./testUtils.js";
-
-// =============================================
-// Mock Web Speech API
-// =============================================
-// Voice matching is driven by seeding the singleton's internal voice list directly (see
-// beforeEach), not the real SpeechSynthesisVoice -> ReadiumSpeechVoice JSON pipeline.
-
-class MockUtterance {
-  constructor(public text: string) {}
-}
-
-function setWebSpeechGlobals(): void {
-  if (typeof (globalThis as any).window === "undefined") {
-    (globalThis as any).window = globalThis;
-  }
-  (globalThis as any).window.SpeechSynthesisUtterance = MockUtterance;
-  (globalThis as any).window.speechSynthesis = {
-    speaking: false,
-    paused: false,
-    onvoiceschanged: null,
-    // Non-empty so WebSpeechVoiceManager.initialize() resolves immediately instead of polling
-    // for onvoiceschanged/a timeout — the actual test voices are injected afterward below.
-    getVoices: () => [{ voiceURI: "dummy", name: "Dummy", lang: "en-US", localService: true, default: false }],
-    speak: () => {},
-    cancel: () => {},
-    pause: () => {},
-    resume: () => {},
-    addEventListener: () => {},
-    removeEventListener: () => {}
-  };
-}
-
-test.beforeEach(async () => {
-  (WebSpeechVoiceManager as any).instance = undefined;
-  (WebSpeechVoiceManager as any).initializationPromise = null;
-  setWebSpeechGlobals();
-
-  // Seed the singleton with controlled voices so pickBestFallbackVoice's language/gender
-  // matching can be asserted deterministically.
-  const manager = await WebSpeechVoiceManager.initialize();
-  (manager as any).voices = [
-    makeReadiumVoice({ name: "French Female", language: "fr-FR", gender: "female" }),
-    makeReadiumVoice({ name: "French Male", language: "fr-FR", gender: "male" }),
-    makeReadiumVoice({ name: "English Female", language: "en-US", gender: "female" })
-  ];
-});
-
-test.afterEach.always(() => {
-  (WebSpeechVoiceManager as any).instance = undefined;
-  (WebSpeechVoiceManager as any).initializationPromise = null;
-});
+import { FallbackSpeechEngine } from "../../build/index.js";
+import { FakeEngine, FakeFallbackProvider, FakePrimaryProvider, tick, wait, deferred } from "./testUtils.js";
 
 // =============================================
 // Basic delegation
@@ -443,7 +392,7 @@ test.serial("enginerecovered fires before start, even when the recovered primary
     primaryProvider: primaryProvider as any,
     fallbackProvider: fallbackProvider as any,
     onFailure: "fallbackAndRecover",
-    healthCheckIntervalMs: 5
+    healthCheckIntervalMs: 20
   });
   wrapper.loadUtterances([{ plain: "one" }]);
   wrapper.speak(0);
@@ -459,7 +408,7 @@ test.serial("enginerecovered fires before start, even when the recovered primary
   wrapper.on("start", () => order.push("start"));
 
   primaryProvider.reachable = true;
-  await wait(15); // health check fires, recreates the primary synchronously readying/starting
+  await wait(60); // health check fires, recreates the primary synchronously readying/starting
   await tick();
 
   t.deepEqual(order, ["enginerecovered", "start"]);
@@ -484,7 +433,7 @@ test.serial("onFailure: \"fallback\" (default) never polls or recovers, even lon
   await tick();
   fallbackProvider.engine!.setStateForTest("idle");
 
-  await wait(30);
+  await wait(120);
 
   t.is(primaryProvider.getVoicesCalls, 0, "never polled the primary");
   t.is(recovered.length, 0);
@@ -500,7 +449,7 @@ test.serial("fallbackAndRecover: waits until nothing is playing before swapping 
     primaryProvider: primaryProvider as any,
     fallbackProvider: fallbackProvider as any,
     onFailure: "fallbackAndRecover",
-    healthCheckIntervalMs: 5
+    healthCheckIntervalMs: 20
   });
   wrapper.loadUtterances([{ plain: "one" }, { plain: "two" }, { plain: "three" }]);
 
@@ -514,7 +463,7 @@ test.serial("fallbackAndRecover: waits until nothing is playing before swapping 
   fallbackEngine.setStateForTest("playing");
 
   primaryProvider.reachable = true;
-  await wait(20);
+  await wait(80);
   await tick();
 
   t.is(recovered.length, 0, "primary reachable, but still speaking — no swap yet");
@@ -540,7 +489,7 @@ test.serial("fallbackAndRecover: an explicit speak() (mimicking the navigator's 
     primaryProvider: primaryProvider as any,
     fallbackProvider: fallbackProvider as any,
     onFailure: "fallbackAndRecover",
-    healthCheckIntervalMs: 5
+    healthCheckIntervalMs: 20
   });
   wrapper.loadUtterances([{ plain: "one" }, { plain: "two" }]);
   wrapper.speak(0);
@@ -550,7 +499,7 @@ test.serial("fallbackAndRecover: an explicit speak() (mimicking the navigator's 
   fallbackProvider.engine!.emit("ready"); // starts playing utterance 0 on the fallback
 
   primaryProvider.reachable = true;
-  await wait(15); // health check succeeds; fallback is mid-utterance — no swap yet
+  await wait(60); // health check succeeds; fallback is mid-utterance — no swap yet
   await tick();
 
   t.is(primaryProvider.engine, null, "primary reachable, but mid-utterance — no swap yet");
@@ -577,7 +526,7 @@ test.serial("fallbackAndRecover: resumes at the utterance jumped to before pausi
     primaryProvider: primaryProvider as any,
     fallbackProvider: fallbackProvider as any,
     onFailure: "fallbackAndRecover",
-    healthCheckIntervalMs: 5
+    healthCheckIntervalMs: 20
   });
   wrapper.loadUtterances([{ plain: "one" }, { plain: "two" }]);
   wrapper.speak(0);
@@ -590,7 +539,7 @@ test.serial("fallbackAndRecover: resumes at the utterance jumped to before pausi
   wrapper.setCurrentUtteranceIndex(1); // jump to utterance 1 while still on the fallback
   wrapper.pause();
   fallbackProvider.engine!.emit("pause"); // the fallback engine confirming the pause — triggers maybeRecoverNow()
-  await wait(20);
+  await wait(80);
   await tick();
 
   t.truthy(primaryProvider.engine, "swapped back while paused");
@@ -611,7 +560,7 @@ test.serial("stop() racing recoverToPrimary()'s gap lets the swap land in idle i
     primaryProvider: primaryProvider as any,
     fallbackProvider: fallbackProvider as any,
     onFailure: "fallbackAndRecover",
-    healthCheckIntervalMs: 5
+    healthCheckIntervalMs: 20
   });
   wrapper.loadUtterances([{ plain: "one" }]);
   wrapper.speak(0);
@@ -625,7 +574,7 @@ test.serial("stop() racing recoverToPrimary()'s gap lets the swap land in idle i
   const gate = deferred();
   primaryProvider.createEngineGate = gate.promise;
   primaryProvider.reachable = true;
-  await wait(15); // health check fires, createEngine() called, now blocked on the gate
+  await wait(60); // health check fires, createEngine() called, now blocked on the gate
 
   wrapper.stop(); // races the in-flight recovery
   gate.resolve();
@@ -648,7 +597,7 @@ test.serial("loadUtterances() racing recoverToPrimary()'s gap lands the new cont
     primaryProvider: primaryProvider as any,
     fallbackProvider: fallbackProvider as any,
     onFailure: "fallbackAndRecover",
-    healthCheckIntervalMs: 5
+    healthCheckIntervalMs: 20
   });
   wrapper.loadUtterances([{ plain: "one" }, { plain: "two" }, { plain: "three" }]);
   wrapper.speak(2);
@@ -663,7 +612,7 @@ test.serial("loadUtterances() racing recoverToPrimary()'s gap lands the new cont
   const gate = deferred();
   primaryProvider.createEngineGate = gate.promise;
   primaryProvider.reachable = true;
-  await wait(15); // health check fires, createEngine() called, now blocked on the gate
+  await wait(60); // health check fires, createEngine() called, now blocked on the gate
 
   // A completely different, shorter queue loads while the old recovery is still in flight — index
   // 2 wouldn't even exist in it, and the deferral must not forward it to the dead-end recovery
@@ -691,7 +640,7 @@ test.serial("fallbackAndRecover: if recreating the primary fails despite a succe
     primaryProvider: primaryProvider as any,
     fallbackProvider: fallbackProvider as any,
     onFailure: "fallbackAndRecover",
-    healthCheckIntervalMs: 5
+    healthCheckIntervalMs: 20
   });
   wrapper.loadUtterances([{ plain: "hello" }]);
 
@@ -702,7 +651,7 @@ test.serial("fallbackAndRecover: if recreating the primary fails despite a succe
   await tick();
   fallbackProvider.engine!.setStateForTest("idle");
 
-  await wait(20);
+  await wait(80);
   await tick();
   const callsAfterFirstFailedRecovery = primaryProvider.getVoicesCalls;
 
@@ -710,7 +659,7 @@ test.serial("fallbackAndRecover: if recreating the primary fails despite a succe
   t.is(primaryProvider.engine, null);
   t.true(callsAfterFirstFailedRecovery >= 1, "kept probing");
 
-  await wait(20);
+  await wait(80);
   t.true(primaryProvider.getVoicesCalls > callsAfterFirstFailedRecovery, "polling resumed after the failed recovery attempt");
 
   await wrapper.destroy();
@@ -726,7 +675,7 @@ test.serial("fallbackAndRecover: after recovering, a further primary failure fal
     primaryProvider: primaryProvider as any,
     fallbackProvider: fallbackProvider as any,
     onFailure: "fallbackAndRecover",
-    healthCheckIntervalMs: 5
+    healthCheckIntervalMs: 20
   });
   wrapper.loadUtterances([{ plain: "hello" }]);
 
@@ -737,7 +686,7 @@ test.serial("fallbackAndRecover: after recovering, a further primary failure fal
   await tick();
   fallbackProvider.engine!.setStateForTest("idle");
   fallbackProvider.engine!.emit("end");
-  await wait(20);
+  await wait(80);
   await tick();
 
   t.is(fallbackEvents.length, 1);
@@ -761,18 +710,18 @@ test.serial("destroy() clears the health-check timer", async (t) => {
     primaryProvider: primaryProvider as any,
     fallbackProvider: fallbackProvider as any,
     onFailure: "fallbackAndRecover",
-    healthCheckIntervalMs: 5
+    healthCheckIntervalMs: 20
   });
   wrapper.loadUtterances([{ plain: "hello" }]);
 
   primary.emit("error", { message: "network failure", recoverable: true });
   await tick();
-  await wait(15);
+  await wait(60);
 
   await wrapper.destroy();
   const callsAtDestroy = primaryProvider.getVoicesCalls;
 
-  await wait(30);
+  await wait(120);
 
   t.is(primaryProvider.getVoicesCalls, callsAtDestroy, "no further polling after destroy");
 });

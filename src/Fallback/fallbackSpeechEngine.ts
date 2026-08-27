@@ -3,7 +3,8 @@ import { ReadiumSpeechEngineProvider } from "../provider";
 import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navigator";
 import { ReadiumSpeechUtterance } from "../utterance";
 import { ReadiumSpeechVoice } from "../voices/types";
-import { WebSpeechVoiceManager } from "../WebSpeech/WebSpeechVoiceManager";
+import { processLanguages } from "../voices/languages";
+import { groupVoicesByLanguage, sortVoicesByRegions } from "../voices/sorting";
 import { isRecoverableFailure } from "./recoverableFailure";
 
 export interface FallbackSpeechEngineOptions {
@@ -400,20 +401,22 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     await fallbackEngine.destroy();
   }
 
-  // Falls back to a language-only match if nothing satisfies both language and gender — a
-  // language-correct voice of the wrong gender beats no voice at all.
+  // Language narrows first, gender second: a same-language wrong-gender voice beats a
+  // different-language right-gender one. Falls back to any language if none matches, then to
+  // any gender within that if none matches. Region/quality ranking within the final candidate
+  // set is delegated to sortVoicesByRegions, the same logic WebSpeechVoiceManager uses.
   private async pickBestFallbackVoice(language: string, gender: ReadiumSpeechVoice["gender"]): Promise<ReadiumSpeechVoice | null> {
-    const manager = await WebSpeechVoiceManager.initialize({ languages: [language] });
+    const voices = await this.fallbackProvider.getVoices();
+    const [processedLang] = processLanguages([language]);
+    const { voicesByLang } = groupVoicesByLanguage(voices, [processedLang]);
+    const byLanguage = voicesByLang.get(processedLang.baseLang) ?? [];
+    const languageMatches = byLanguage.length > 0 ? byLanguage : voices;
 
-    if (gender) {
-      const matchingGender = manager.getVoices({ languages: [language], gender });
-      if (matchingGender.length > 0) {
-        return manager.getDefaultVoice(language, matchingGender);
-      }
-    }
+    const byGender = gender ? languageMatches.filter(voice => voice.gender === gender) : [];
+    const candidates = byGender.length > 0 ? byGender : languageMatches;
 
-    const anyGender = manager.getVoices({ languages: [language] });
-    return manager.getDefaultVoice(language, anyGender);
+    const sorted = await sortVoicesByRegions([language], candidates);
+    return sorted[0] ?? null;
   }
 
   async destroy(): Promise<void> {
