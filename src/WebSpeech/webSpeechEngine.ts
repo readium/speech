@@ -9,6 +9,7 @@ import { extractLangRegionFromBCP47 } from "../utils/language";
 import { detectFeatures, WebSpeechFeatures } from "../utils/features";
 import { detectPlatformFeatures, WebSpeechPlatformPatches } from "../utils/patches";
 import { EventEmitter } from "../utils/eventEmitter";
+import { clampIndex } from "../utils/array";
 
 import { stripHtml } from "string-strip-html";
 
@@ -251,7 +252,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // Queue Management
   loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void {
     this.currentUtterances = this.toPlainText(contents);
-    this.currentUtteranceIndex = Math.min(Math.max(startIndex ?? 0, 0), Math.max(contents.length - 1, 0));
+    this.currentUtteranceIndex = clampIndex(startIndex ?? 0, contents.length);
     void this.warmLanguageVoiceCache(this.currentUtterances);
     // Not setState(): never passes through "loading" first, so back-to-back loads while already
     // "ready" must still each emit — setState's diff-based emit would swallow the second one.

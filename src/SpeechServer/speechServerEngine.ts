@@ -6,6 +6,7 @@ import { mapServerVoice } from "./speechServerVoiceMapping";
 import { SpeechServerAudioDecodeError, SpeechServerError, SpeechServerNetworkError, SpeechServerStallError, toSpeechServerError } from "./errors";
 import { ErrorEventDetail } from "../Fallback/recoverableFailure";
 import { EventEmitter } from "../utils/eventEmitter";
+import { clampIndex } from "../utils/array";
 import { chunkPlainText, chunkSsmlText, TextChunk } from "./chunkText";
 import { CanPlayType, selectBitrate, selectFormat, SpeechServerFormatOptions } from "./selectFormat";
 import {
@@ -186,7 +187,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void {
     this.clearPrefetchCache();
     this.currentUtterances = contents;
-    this.currentUtteranceIndex = Math.min(Math.max(startIndex ?? 0, 0), Math.max(contents.length - 1, 0));
+    this.currentUtteranceIndex = clampIndex(startIndex ?? 0, contents.length);
     this.setState("loading");
     void this.bufferUntilReady(++this.loadGeneration);
   }
@@ -195,7 +196,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   // declaring "ready", so playback doesn't catch up to an empty prefetch cache right away —
   // starting from wherever playback will actually resume, not always utterance 0.
   private async bufferUntilReady(generation: number): Promise<void> {
-    const startIndex = Math.min(Math.max(this.currentUtteranceIndex, 0), Math.max(this.currentUtterances.length - 1, 0));
+    const startIndex = clampIndex(this.currentUtteranceIndex, this.currentUtterances.length);
     // Bounded by prefetchWindow too — the initial buffer is just the front of that same
     // lookahead, not a second, larger one.
     const targetIndex = Math.min(this.indexCoveringChars(this.readyBufferChars, startIndex), startIndex + this.prefetchWindow);
@@ -227,7 +228,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     if (this.currentUtterances.length === 0) {
       return -1;
     }
-    const start = Math.min(Math.max(fromIndex, 0), this.currentUtterances.length - 1);
+    const start = clampIndex(fromIndex, this.currentUtterances.length);
     let total = 0;
     for (let index = start; index < this.currentUtterances.length; index++) {
       total += (utteranceText(this.currentUtterances[index]) ?? "").length;
