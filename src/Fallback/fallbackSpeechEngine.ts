@@ -322,15 +322,17 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
       if (this.onFailure === "fallbackAndRecover") {
         this.startHealthCheck();
       }
-
-      await primaryEngine.destroy();
     } catch {
       // Falling back itself failed (e.g. Web Speech API unavailable too) — nothing more we can
       // do, surface the original failure and stop attempting to fall back on future errors.
       this.swapInFlight = false;
       this.hasFallenBack = true;
       this.emitEvent(originalEvent);
+      return;
     }
+
+    // Outside the try: a teardown failure here must not be mistaken for the swap itself failing.
+    await primaryEngine.destroy();
   }
 
   // Polls the primary provider until it's reachable again, then hands off to maybeRecoverNow()
@@ -354,7 +356,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // Swaps back to the primary the moment nothing is audibly playing, so a caller never hears a
   // voice change mid-utterance.
   private maybeRecoverNow(): void {
-    if (!this.primaryReachable || this.swapInFlight) return;
+    if (!this.hasFallenBack || !this.primaryReachable || this.swapInFlight) return;
     if (this.activeEngine.getState() === "playing") return;
     void this.recoverToPrimary();
   }
@@ -385,14 +387,16 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
       this.startEngineWhenReady(primaryEngine);
       primaryEngine.loadUtterances(this.currentUtterances, this.desiredIndex); // live read — picks up any reload that raced the swap
-
-      await fallbackEngine.destroy();
     } catch {
       // Still down despite the probe succeeding (e.g. it dropped again in between) — stay on
       // the fallback and keep polling.
       this.swapInFlight = false;
       this.startHealthCheck();
+      return;
     }
+
+    // Outside the try: a teardown failure here must not be mistaken for recovery itself failing.
+    await fallbackEngine.destroy();
   }
 
   // Falls back to a language-only match if nothing satisfies both language and gender — a
