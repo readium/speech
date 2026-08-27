@@ -168,7 +168,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void {
     this.clearPrefetchCache();
     this.currentUtterances = contents;
-    this.currentUtteranceIndex = startIndex ?? 0;
+    this.currentUtteranceIndex = Math.min(Math.max(startIndex ?? 0, 0), Math.max(contents.length - 1, 0));
     this.setState("loading");
     void this.bufferUntilReady(++this.loadGeneration);
   }

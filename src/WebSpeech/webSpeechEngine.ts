@@ -250,7 +250,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // Queue Management
   loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void {
     this.currentUtterances = this.toPlainText(contents);
-    this.currentUtteranceIndex = startIndex ?? 0;
+    this.currentUtteranceIndex = Math.min(Math.max(startIndex ?? 0, 0), Math.max(contents.length - 1, 0));
     void this.warmLanguageVoiceCache(this.currentUtterances);
     // Not setState(): never passes through "loading" first, so back-to-back loads while already
     // "ready" must still each emit — setState's diff-based emit would swallow the second one.
@@ -334,7 +334,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.stopResumeInfinity();
 
     // Reset utterance index to ensure we're starting fresh
-    this.currentUtteranceIndex = utteranceIndex ?? 0;
+    this.currentUtteranceIndex = utteranceIndex ?? this.currentUtteranceIndex;
 
     // Ensure the utterance index is valid
     if (this.currentUtteranceIndex >= this.currentUtterances.length) {
