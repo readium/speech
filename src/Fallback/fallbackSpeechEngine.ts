@@ -121,7 +121,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // The navigator advances to the next utterance via speak(nextIndex) — the one gap where we can
   // recover without an audible glitch, so intercept it if the primary is already reachable.
   speak(utteranceIndex?: number): void {
-    this.desiredIndex = utteranceIndex ?? 0;
+    this.desiredIndex = utteranceIndex ?? this.desiredIndex;
     this.desiredPlaying = true;
     if (this.swapInFlight) return; // read live once the arriving engine's "ready" fires
     if (this.hasFallenBack && this.primaryReachable) {
