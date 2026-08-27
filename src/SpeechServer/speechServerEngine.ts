@@ -107,8 +107,13 @@ function toErrorDetail(error: unknown): Record<string, unknown> {
   if (error instanceof SpeechServerAudioDecodeError) {
     return { message: error.message, recoverable: false };
   }
-  if (error instanceof Error) {
+  if (error instanceof TypeError) {
+    // fetch() rejects with TypeError when it never reaches the network — anything else
+    // (a JSON parse failure, a programming error) means a response did arrive.
     return { message: error.message, recoverable: true };
+  }
+  if (error instanceof Error) {
+    return { message: error.message, recoverable: false };
   }
   return { message: String(error), recoverable: false };
 }
