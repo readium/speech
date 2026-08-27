@@ -156,8 +156,8 @@ export const compareByPreferredRegion = (
   const defaultRegion = getDefaultRegion(processedLang.baseLang);
   const [, defaultRegionCode] = extractLangRegionFromBCP47(defaultRegion);
 
-  const aIsDefault = aRegion === defaultRegionCode;
-  const bIsDefault = bRegion === defaultRegionCode;
+  const aIsDefault = !!defaultRegionCode && aRegion === defaultRegionCode;
+  const bIsDefault = !!defaultRegionCode && bRegion === defaultRegionCode;
 
   if (aIsDefault && !bIsDefault) return -1;
   if (!aIsDefault && bIsDefault) return 1;
