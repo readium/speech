@@ -4,7 +4,7 @@ import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navig
 import { ReadiumSpeechUtterance } from "../utterance";
 import { ReadiumSpeechVoice } from "../voices/types";
 import { processLanguages } from "../voices/languages";
-import { groupVoicesByLanguage, sortVoicesByRegions } from "../voices/sorting";
+import { groupVoicesByLanguage, pickBestVoiceByRegion } from "../voices/sorting";
 import { EventEmitter } from "../utils/eventEmitter";
 import { isRecoverableFailure } from "./recoverableFailure";
 
@@ -385,7 +385,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // Language narrows first, gender second: a same-language wrong-gender voice beats a
   // different-language right-gender one. Falls back to any language if none matches, then to
   // any gender within that if none matches. Region/quality ranking within the final candidate
-  // set is delegated to sortVoicesByRegions, the same logic WebSpeechVoiceManager uses.
+  // set is delegated to pickBestVoiceByRegion, the same ranking logic sortVoicesByRegions uses.
   private async pickBestFallbackVoice(language: string, gender: ReadiumSpeechVoice["gender"]): Promise<ReadiumSpeechVoice | null> {
     const voices = await this.fallbackProvider.getVoices();
     const [processedLang] = processLanguages([language]);
@@ -396,8 +396,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     const byGender = gender ? languageMatches.filter(voice => voice.gender === gender) : [];
     const candidates = byGender.length > 0 ? byGender : languageMatches;
 
-    const sorted = await sortVoicesByRegions([language], candidates);
-    return sorted[0] ?? null;
+    return pickBestVoiceByRegion(language, candidates);
   }
 
   async destroy(): Promise<void> {
