@@ -8,14 +8,16 @@ import type { ReadiumSpeechVoice } from "../../src/voices/types.js";
 // end-of-utterance sequencing) without a real speech backend.
 export class MockEngine implements ReadiumSpeechPlaybackEngine {
   loadedUtterances: ReadiumSpeechUtterance[] = [];
+  loadUtterancesStartIndexCalls: (number | undefined)[] = [];
   speakCalls: number[] = [];
   stopCalls = 0;
   private index = 0;
   private listeners = new Map<ReadiumSpeechPlaybackEvent["type"], ((event: ReadiumSpeechPlaybackEvent) => void)[]>();
 
-  loadUtterances(contents: ReadiumSpeechUtterance[]): void {
+  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void {
     this.loadedUtterances = contents;
-    this.index = 0;
+    this.loadUtterancesStartIndexCalls.push(startIndex);
+    this.index = startIndex ?? 0;
   }
 
   setVoice(): void {}

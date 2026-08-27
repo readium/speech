@@ -1,5 +1,5 @@
 import { ReadiumSpeechVoice } from "./types";
-import { getVoices } from "./languages";
+import { getVoices, processLanguages, getDefaultRegion, getLanguageDisplayName, LanguageWithRegions } from "./languages";
 import { extractLangRegionFromBCP47 } from "../utils/language";
 
 /**
@@ -7,7 +7,7 @@ import { extractLangRegionFromBCP47 } from "../utils/language";
  * @param voices Array of voices to analyze
  * @returns Map where key is language code and value is a map of voice names to their original JSON indices
  */
-export async function createJsonOrderMap(voices: ReadiumSpeechVoice[]): Promise<Map<string, Map<string, number>>> {
+export const createJsonOrderMap = async (voices: ReadiumSpeechVoice[]): Promise<Map<string, Map<string, number>>> => {
   // First, group voices by language
   const voicesByLanguage = new Map<string, ReadiumSpeechVoice[]>();
   
@@ -51,6 +51,247 @@ export async function createJsonOrderMap(voices: ReadiumSpeechVoice[]): Promise<
       orderMaps.set(baseLang, langOrderMap);
     }
   }
-  
+
   return orderMaps;
-}
+};
+
+const QUALITY_ORDER: Record<string, number> = {
+  veryLow: 1,
+  low: 2,
+  normal: 3,
+  high: 4,
+  veryHigh: 5
+};
+
+export const getQualityValue = (quality: string | null | undefined): number => {
+  return quality ? (QUALITY_ORDER[quality] ?? 0) : 0;
+};
+
+/**
+ * Compares two voices by quality, using JSON name order as a tiebreaker for same-quality
+ * JSON-sourced voices, then falling back to alphabetical.
+ */
+export const sortByQuality = (
+  a: ReadiumSpeechVoice,
+  b: ReadiumSpeechVoice,
+  jsonOrderMaps?: Map<string, Map<string, number>>,
+  baseLang?: string
+): number => {
+  const aQuality = getQualityValue(a.quality);
+  const bQuality = getQualityValue(b.quality);
+
+  if (jsonOrderMaps && baseLang && a.source === "json" && b.source === "json") {
+    const langOrderMap = jsonOrderMaps.get(baseLang);
+    if (langOrderMap) {
+      const aOrder = langOrderMap.get(a.name);
+      const bOrder = langOrderMap.get(b.name);
+      if (aOrder !== undefined && bOrder !== undefined) {
+        return aOrder - bOrder;
+      }
+    }
+  }
+
+  if (bQuality !== aQuality) return bQuality - aQuality;
+  return a.name.localeCompare(b.name);
+};
+
+/**
+ * Splits voices into those whose base language matches one of the processed preferred
+ * languages (grouped by base language) and everything else.
+ */
+export const groupVoicesByLanguage = (
+  voices: ReadiumSpeechVoice[],
+  processedLangs: LanguageWithRegions[]
+): { voicesByLang: Map<string, ReadiumSpeechVoice[]>; otherLangVoices: ReadiumSpeechVoice[] } => {
+  const langInfo = new Map(processedLangs.map(info => [info.baseLang, info]));
+  const voicesByLang = new Map<string, ReadiumSpeechVoice[]>();
+  const otherLangVoices: ReadiumSpeechVoice[] = [];
+
+  for (const voice of voices) {
+    const [lang] = extractLangRegionFromBCP47(voice.language);
+    const langInfoForVoice = langInfo.get(lang);
+
+    if (langInfoForVoice) {
+      if (!voicesByLang.has(lang)) {
+        voicesByLang.set(lang, []);
+      }
+      voicesByLang.get(lang)!.push(voice);
+    } else {
+      otherLangVoices.push(voice);
+    }
+  }
+
+  return { voicesByLang, otherLangVoices };
+};
+
+/**
+ * Compares two voices by region match against a preferred language: regions matching the
+ * preferred language's region list first (in preference order), then the default region, then
+ * everything else alphabetically by region — quality breaks ties at every level.
+ */
+export const compareByPreferredRegion = (
+  a: ReadiumSpeechVoice,
+  b: ReadiumSpeechVoice,
+  processedLang: LanguageWithRegions,
+  jsonOrderMaps: Map<string, Map<string, number>>
+): number => {
+  const [, aRegion] = extractLangRegionFromBCP47(a.language);
+  const [, bRegion] = extractLangRegionFromBCP47(b.language);
+
+  const aHasMatch = aRegion && processedLang.regions.includes(aRegion);
+  const bHasMatch = bRegion && processedLang.regions.includes(bRegion);
+
+  if (aHasMatch && bHasMatch) {
+    const aIndex = processedLang.regions.indexOf(aRegion!);
+    const bIndex = processedLang.regions.indexOf(bRegion!);
+    if (aIndex === bIndex) {
+      return sortByQuality(a, b, jsonOrderMaps, processedLang.baseLang);
+    }
+    return aIndex - bIndex;
+  }
+
+  if (aHasMatch) return -1;
+  if (bHasMatch) return 1;
+
+  const defaultRegion = getDefaultRegion(processedLang.baseLang);
+  const [, defaultRegionCode] = extractLangRegionFromBCP47(defaultRegion);
+
+  const aIsDefault = !!defaultRegionCode && aRegion === defaultRegionCode;
+  const bIsDefault = !!defaultRegionCode && bRegion === defaultRegionCode;
+
+  if (aIsDefault && !bIsDefault) return -1;
+  if (!aIsDefault && bIsDefault) return 1;
+
+  if (aRegion && bRegion) {
+    const regionCompare = aRegion.localeCompare(bRegion);
+    if (regionCompare !== 0) {
+      return regionCompare;
+    }
+    return sortByQuality(a, b, jsonOrderMaps, processedLang.baseLang);
+  }
+  if (aRegion) return -1;
+  if (bRegion) return 1;
+
+  return sortByQuality(a, b, jsonOrderMaps, processedLang.baseLang);
+};
+
+/**
+ * Sorts voices in place: regions matching the preferred language's region list first (in
+ * preference order), then the default region, then everything else alphabetically by region —
+ * quality breaks ties at every level.
+ */
+export const sortByPreferredRegion = async (
+  voices: ReadiumSpeechVoice[],
+  processedLang: LanguageWithRegions,
+  jsonOrderMaps?: Map<string, Map<string, number>>
+): Promise<void> => {
+  const orderMaps = jsonOrderMaps ?? (await createJsonOrderMap(voices));
+  voices.sort((a, b) => compareByPreferredRegion(a, b, processedLang, orderMaps));
+};
+
+/**
+ * Compares two voices by language display name, then default region, then region
+ * alphabetically, then quality — used for voices outside the preferred-language groups.
+ */
+export const compareAlphabetically = (
+  a: ReadiumSpeechVoice,
+  b: ReadiumSpeechVoice,
+  jsonOrderMaps: Map<string, Map<string, number>>
+): number => {
+  const [aLang] = extractLangRegionFromBCP47(a.language);
+  const [bLang] = extractLangRegionFromBCP47(b.language);
+  const aDisplayName = getLanguageDisplayName(aLang).toLowerCase();
+  const bDisplayName = getLanguageDisplayName(bLang).toLowerCase();
+
+  const langCompare = aDisplayName.localeCompare(bDisplayName);
+  if (langCompare !== 0) {
+    return langCompare;
+  }
+
+  if (aLang === bLang) {
+    const defaultRegion = getDefaultRegion(aLang);
+    const [, aRegion] = extractLangRegionFromBCP47(a.language);
+    const [, bRegion] = extractLangRegionFromBCP47(b.language);
+
+    const aIsDefault = defaultRegion && aRegion === defaultRegion.split("-")[1];
+    const bIsDefault = defaultRegion && bRegion === defaultRegion.split("-")[1];
+
+    if (aIsDefault && !bIsDefault) return -1;
+    if (!aIsDefault && bIsDefault) return 1;
+
+    if (aRegion && bRegion) {
+      const regionCompare = aRegion.localeCompare(bRegion);
+      if (regionCompare !== 0) {
+        return regionCompare;
+      }
+    }
+    if (aRegion && !bRegion) return -1;
+    if (!aRegion && bRegion) return 1;
+
+    return sortByQuality(a, b, jsonOrderMaps, aLang);
+  }
+
+  return sortByQuality(a, b, jsonOrderMaps, aLang);
+};
+
+/**
+ * Sorts voices in place by language display name, then default region, then region
+ * alphabetically, then quality — used for voices outside the preferred-language groups.
+ */
+export const sortAlphabetically = async (
+  voices: ReadiumSpeechVoice[],
+  jsonOrderMaps?: Map<string, Map<string, number>>
+): Promise<void> => {
+  const orderMaps = jsonOrderMaps ?? (await createJsonOrderMap(voices));
+  voices.sort((a, b) => compareAlphabetically(a, b, orderMaps));
+};
+
+/**
+ * Sorts voices by region preference within each preferred language (default region, then
+ * quality), with unmatched-language voices appended afterward, sorted alphabetically.
+ */
+export const sortVoicesByRegions = async (preferredLanguages: string[], voices: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice[]> => {
+  if (!voices?.length) return [];
+
+  const processedLangs = processLanguages(preferredLanguages || []);
+  const { voicesByLang, otherLangVoices } = groupVoicesByLanguage(voices, processedLangs);
+  const jsonOrderMaps = await createJsonOrderMap(voices);
+
+  const result: ReadiumSpeechVoice[] = [];
+  for (const processedLang of processedLangs) {
+    const langVoices = voicesByLang.get(processedLang.baseLang);
+    if (langVoices) {
+      await sortByPreferredRegion(langVoices, processedLang, jsonOrderMaps);
+      result.push(...langVoices);
+    }
+  }
+
+  await sortAlphabetically(otherLangVoices, jsonOrderMaps);
+  result.push(...otherLangVoices);
+  return result;
+};
+
+/**
+ * Picks the single best-ranked voice for one language, without sorting the full candidate list.
+ * Mirrors sortVoicesByRegions' fallback tier for a single preferred language: prefers a voice
+ * whose base language matches, ranked by region/quality; if none match, falls back to the same
+ * ranking sortAlphabetically would produce over the rest.
+ */
+export const pickBestVoiceByRegion = async (
+  language: string,
+  voices: ReadiumSpeechVoice[]
+): Promise<ReadiumSpeechVoice | null> => {
+  if (!voices.length) return null;
+
+  const [processedLang] = processLanguages([language]);
+  const { voicesByLang, otherLangVoices } = groupVoicesByLanguage(voices, [processedLang]);
+  const matching = voicesByLang.get(processedLang.baseLang);
+  const pool = matching?.length ? matching : otherLangVoices;
+
+  const jsonOrderMaps = await createJsonOrderMap(voices);
+  const compare = matching?.length
+    ? (a: ReadiumSpeechVoice, b: ReadiumSpeechVoice) => compareByPreferredRegion(a, b, processedLang, jsonOrderMaps)
+    : (a: ReadiumSpeechVoice, b: ReadiumSpeechVoice) => compareAlphabetically(a, b, jsonOrderMaps);
+
+  return pool.reduce((best, candidate) => (compare(candidate, best) < 0 ? candidate : best));
+};

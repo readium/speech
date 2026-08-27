@@ -9,6 +9,7 @@ export class WebSpeechEngineProvider implements ReadiumSpeechEngineProvider {
 
   private voiceEngine: WebSpeechEngine | null = null;
 
+  // No cache to bypass here — local API, no network cost to re-checking.
   async getVoices(): Promise<ReadiumSpeechVoice[]> {
     if (!this.voiceEngine) {
       this.voiceEngine = new WebSpeechEngine();

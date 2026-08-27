@@ -23,8 +23,8 @@ export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
     this.fetchImpl = options.fetch ?? fetch.bind(globalThis);
   }
 
-  async getVoices(): Promise<ReadiumSpeechVoice[]> {
-    if (this.voices.length > 0) {
+  async getVoices(forceRefresh?: boolean): Promise<ReadiumSpeechVoice[]> {
+    if (this.voices.length > 0 && !forceRefresh) {
       return this.voices;
     }
 
