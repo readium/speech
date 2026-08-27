@@ -23,7 +23,7 @@ export class EventEmitter<K, E> {
   emit(type: K, event: E): void {
     const list = this.listeners.get(type);
     if (list) {
-      list.forEach(callback => {
+      [...list].forEach(callback => {
         try {
           callback(event);
         } catch (error) {
