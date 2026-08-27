@@ -17,4 +17,13 @@ export declare class SpeechServerError extends Error {
         instance?: string;
     });
 }
+export declare class SpeechServerStallError extends SpeechServerError {
+    constructor(message: string);
+}
+export declare class SpeechServerAudioDecodeError extends Error {
+    constructor(message: string);
+}
+export declare class SpeechServerNetworkError extends Error {
+    constructor(message: string);
+}
 export declare function toSpeechServerError(response: Response): Promise<SpeechServerError>;

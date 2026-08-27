@@ -85,11 +85,6 @@ export declare class WebSpeechVoiceManager {
      */
     static extractLangRegionFromBCP47(lang: string): [string, string | undefined];
     /**
-     * Get display name for a language code
-     * @private
-     */
-    private static getLanguageDisplayName;
-    /**
      * Clean voice name by removing specific formatting
      * @private
      */
@@ -189,38 +184,15 @@ export declare class WebSpeechVoiceManager {
      */
     filterOutVeryLowQualityVoices(voices?: ReadiumSpeechVoice[]): ReadiumSpeechVoice[];
     /**
-   * Get the numeric value for a quality level
-   * @param quality Quality level
-   * @returns Numeric value (higher = better quality, 0 for undefined/null)
-   */
-    private static getQualityValue;
-    /**
-     * Sort two voices by quality, using JSON order as fallback for undefined/null quality
-     * @param a First voice
-     * @param b Second voice
-     * @param jsonOrderMaps Optional map of language codes to voice order maps
-     * @param baseLang Base language code to use for looking up the order map
-     * @returns Comparison result (-1, 0, or 1)
-     */
-    private static sortByQuality;
-    /**
      * Sort voices by quality, respecting JSON name order, then alphabetically for undefined/null quality
      * @param voices Array of voices to sort
      * @returns Sorted array of voices
      */
     sortVoicesByQuality(voices?: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice[]>;
     /**
-    * Group voices by language based on processed preferred languages
-    */
-    private static groupVoicesByLanguage;
-    /**
      * Sort regions by default then alphabetically, sort voices by quality
      */
     private static sortByDefaultRegion;
-    /**
-     * Sort voices alphabetically by language, then region, then quality
-     */
-    private static sortAlphabetically;
     /**
      * Sort voices by language preference, then alphabetically
      * @param voices Array of voices to sort
@@ -228,10 +200,6 @@ export declare class WebSpeechVoiceManager {
      * @returns Sorted array of voices
      */
     sortVoicesByLanguages(preferredLanguages?: string[], voices?: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice[]>;
-    /**
-     * Sort languages by region preference, then voices by quality
-     */
-    private static sortByPreferredRegion;
     /**
      * Sort voices by region preference, then alphabetically
      * @param voices Array of voices to sort

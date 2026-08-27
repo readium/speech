@@ -6,7 +6,7 @@ import { ReadiumSpeechVoice } from './voices/types';
 import { ReadiumSpeechUtterance } from './utterance';
 export type ReadiumSpeechPlaybackState = "playing" | "paused" | "idle" | "loading" | "ready";
 export interface ReadiumSpeechPlaybackEvent {
-    type: "start" | "pause" | "resume" | "end" | "stop" | "skip" | "error" | "boundary" | "mark" | "idle" | "loading" | "ready" | "voiceschanged" | "languagefallback";
+    type: "start" | "pause" | "resume" | "end" | "stop" | "skip" | "error" | "boundary" | "mark" | "idle" | "loading" | "ready" | "voiceschanged" | "languagefallback" | "enginefallback" | "enginerecovered";
     detail?: any;
 }
 export interface ReadiumSpeechNavigatorContract extends Configurable<SpeechSettings, SpeechPreferences> {

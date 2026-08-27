@@ -24,6 +24,12 @@ export declare const getVoices: (lang: string) => Promise<ReadiumSpeechJSONVoice
  */
 export declare const getAvailableLanguages: () => string[];
 /**
+ * Get a display name for a language code (e.g. "fr" -> "French")
+ * @param code - Language code
+ * @param localization - Optional BCP 47 locale to display the name in
+ */
+export declare const getLanguageDisplayName: (code: string, localization?: string) => string;
+/**
  * Get the test utterance for a language
  * @param {string} lang - Language code (e.g., "en", "fr", "zh-CN")
  * @returns {string} The test utterance or empty string if not found

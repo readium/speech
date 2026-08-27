@@ -15,6 +15,7 @@ export interface SpeechServerEngineOptions {
     readyBufferChars?: number;
     overLengthText?: "split" | "error";
     format?: SpeechServerFormatOptions;
+    timeoutMs?: number;
 }
 export declare class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     private endpoints;
@@ -26,17 +27,19 @@ export declare class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     private currentUtterances;
     private currentUtteranceIndex;
     private playbackState;
-    private eventListeners;
+    private readonly events;
     private speakInContentLanguage;
     private speakGeneration;
     private loadGeneration;
     private readonly prefetchWindow;
     private readonly readyBufferChars;
     private readonly overLengthText;
+    private readonly timeoutMs;
     private readonly formatOptions;
     private readonly canPlayType;
     private prefetchCache;
     private prefetchChainTail;
+    private activeControllers;
     private audioContext;
     private masterGain;
     private scheduledChunks;
@@ -46,7 +49,8 @@ export declare class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     private volume;
     constructor(options: SpeechServerEngineOptions);
     setAvailableVoices(voices: ReadiumSpeechVoice[]): void;
-    loadUtterances(contents: ReadiumSpeechUtterance[]): void;
+    private fetchNetwork;
+    loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void;
     private bufferUntilReady;
     private indexCoveringChars;
     setVoice(voice: ReadiumSpeechVoice | string): void;
@@ -65,6 +69,7 @@ export declare class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     private synthesizeStream;
     private synthesizeChunk;
     private ensureAudioContext;
+    private awaitWithStallDeadline;
     private scheduleChunksStreaming;
     private handleUtteranceEnded;
     private startBoundaryPolling;
