@@ -8,10 +8,10 @@
       ],
       "utterances": [
         {
-          "plain": "Audio 1. Foghorn recording"
+          "plain": "1. Audio 1. Foghorn recording"
         },
         {
-          "plain": "Audio 2. Keeper's log reading"
+          "plain": "2. Audio 2. Keeper's log reading"
         }
       ]
     },
@@ -81,10 +81,10 @@
           "plain": "Start of the list."
         },
         {
-          "plain": "Audio 1. Foghorn recording"
+          "plain": "1. Audio 1. Foghorn recording"
         },
         {
-          "plain": "Audio 2. Keeper's log reading"
+          "plain": "2. Audio 2. Keeper's log reading"
         },
         {
           "plain": "End of the list."
@@ -157,13 +157,13 @@
           "plain": "List item."
         },
         {
-          "plain": "Audio 1. Foghorn recording"
+          "plain": "1. Audio 1. Foghorn recording"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Audio 2. Keeper's log reading"
+          "plain": "2. Audio 2. Keeper's log reading"
         }
       ]
     },
@@ -244,13 +244,13 @@
           "plain": "List item."
         },
         {
-          "plain": "Audio 1. Foghorn recording"
+          "plain": "1. Audio 1. Foghorn recording"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Audio 2. Keeper's log reading"
+          "plain": "2. Audio 2. Keeper's log reading"
         },
         {
           "plain": "End of the list."
@@ -582,10 +582,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Audio 1. Foghorn recording"
+          "ssml": "1. Audio 1. Foghorn recording"
         },
         {
-          "ssml": "Audio 2. Keeper's log reading"
+          "ssml": "2. Audio 2. Keeper's log reading"
         }
       ]
     },
@@ -655,10 +655,10 @@
           "ssml": "Start of the list."
         },
         {
-          "ssml": "Audio 1. Foghorn recording"
+          "ssml": "1. Audio 1. Foghorn recording"
         },
         {
-          "ssml": "Audio 2. Keeper's log reading"
+          "ssml": "2. Audio 2. Keeper's log reading"
         },
         {
           "ssml": "End of the list."
@@ -731,13 +731,13 @@
           "ssml": "List item."
         },
         {
-          "ssml": "Audio 1. Foghorn recording"
+          "ssml": "1. Audio 1. Foghorn recording"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Audio 2. Keeper's log reading"
+          "ssml": "2. Audio 2. Keeper's log reading"
         }
       ]
     },
@@ -818,13 +818,13 @@
           "ssml": "List item."
         },
         {
-          "ssml": "Audio 1. Foghorn recording"
+          "ssml": "1. Audio 1. Foghorn recording"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Audio 2. Keeper's log reading"
+          "ssml": "2. Audio 2. Keeper's log reading"
         },
         {
           "ssml": "End of the list."

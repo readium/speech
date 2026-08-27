@@ -15,18 +15,18 @@
           ],
           "children": [
             {
-              "textref": "chapter1.xhtml#audio1",
-              "text": "Audio 1. Foghorn recording",
               "role": [
                 "listItem"
-              ]
+              ],
+              "text": "1. Audio 1. Foghorn recording",
+              "textref": "chapter1.xhtml#audio1"
             },
             {
-              "textref": "chapter2.xhtml#audio2",
-              "text": "Audio 2. Keeper's log reading",
               "role": [
                 "listItem"
-              ]
+              ],
+              "text": "2. Audio 2. Keeper's log reading",
+              "textref": "chapter2.xhtml#audio2"
             }
           ]
         }

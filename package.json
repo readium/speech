@@ -62,6 +62,7 @@
   "dependencies": {
     "@readium/decorator": "^1.0.1",
     "@readium/shared": "^2.3.1",
+    "css-selector-generator": "^3.9.4",
     "i18next": "^26.4.0",
     "string-strip-html": "^13.4.23"
   }

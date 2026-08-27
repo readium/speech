@@ -15,18 +15,18 @@
           ],
           "children": [
             {
-              "textref": "chapter1.xhtml#fresnel",
-              "text": "Fresnel lens",
               "role": [
                 "listItem"
-              ]
+              ],
+              "text": "Fresnel lens",
+              "textref": "chapter1.xhtml#fresnel"
             },
             {
-              "textref": "chapter3.xhtml#keepers",
-              "text": "Keepers",
               "role": [
                 "listItem"
-              ]
+              ],
+              "text": "Keepers",
+              "textref": "chapter3.xhtml#keepers"
             }
           ]
         }

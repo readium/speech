@@ -1,6 +1,6 @@
 {
   "id": "list-ordered-start",
-  "description": "An <ol start=\"5\"> — the start attribute is not read anywhere in the converter; items produce no numbering information at all, ordered or otherwise. A future listItem announcement that speaks a position number must read this attribute rather than assuming the first child is always \"1\"",
+  "description": "An <ol start=\"5\"> — the start attribute shifts the baked ordinal for every item, not just the first",
   "role": "list",
   "rolesCovered": [
     "list",

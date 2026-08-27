@@ -11,10 +11,10 @@
           "plain": "1. One"
         },
         {
-          "plain": "10. Ten"
+          "plain": "99. Ninety-nine"
         },
         {
-          "plain": "11. Eleven"
+          "plain": "3. Three"
         }
       ]
     },
@@ -87,10 +87,10 @@
           "plain": "1. One"
         },
         {
-          "plain": "10. Ten"
+          "plain": "99. Ninety-nine"
         },
         {
-          "plain": "11. Eleven"
+          "plain": "3. Three"
         },
         {
           "plain": "End of the list."
@@ -169,13 +169,13 @@
           "plain": "List item."
         },
         {
-          "plain": "10. Ten"
+          "plain": "99. Ninety-nine"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "11. Eleven"
+          "plain": "3. Three"
         }
       ]
     },
@@ -262,13 +262,13 @@
           "plain": "List item."
         },
         {
-          "plain": "10. Ten"
+          "plain": "99. Ninety-nine"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "11. Eleven"
+          "plain": "3. Three"
         },
         {
           "plain": "End of the list."
@@ -286,10 +286,10 @@
           "ssml": "1. One"
         },
         {
-          "ssml": "10. Ten"
+          "ssml": "99. Ninety-nine"
         },
         {
-          "ssml": "11. Eleven"
+          "ssml": "3. Three"
         }
       ]
     },
@@ -362,10 +362,10 @@
           "ssml": "1. One"
         },
         {
-          "ssml": "10. Ten"
+          "ssml": "99. Ninety-nine"
         },
         {
-          "ssml": "11. Eleven"
+          "ssml": "3. Three"
         },
         {
           "ssml": "End of the list."
@@ -444,13 +444,13 @@
           "ssml": "List item."
         },
         {
-          "ssml": "10. Ten"
+          "ssml": "99. Ninety-nine"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "11. Eleven"
+          "ssml": "3. Three"
         }
       ]
     },
@@ -537,13 +537,13 @@
           "ssml": "List item."
         },
         {
-          "ssml": "10. Ten"
+          "ssml": "99. Ninety-nine"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "11. Eleven"
+          "ssml": "3. Three"
         },
         {
           "ssml": "End of the list."

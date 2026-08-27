@@ -8,13 +8,13 @@
       ],
       "utterances": [
         {
-          "plain": "Fifth"
+          "plain": "5. Fifth"
         },
         {
-          "plain": "Sixth"
+          "plain": "6. Sixth"
         },
         {
-          "plain": "Seventh"
+          "plain": "7. Seventh"
         }
       ]
     },
@@ -84,13 +84,13 @@
           "plain": "Start of the list."
         },
         {
-          "plain": "Fifth"
+          "plain": "5. Fifth"
         },
         {
-          "plain": "Sixth"
+          "plain": "6. Sixth"
         },
         {
-          "plain": "Seventh"
+          "plain": "7. Seventh"
         },
         {
           "plain": "End of the list."
@@ -163,19 +163,19 @@
           "plain": "List item."
         },
         {
-          "plain": "Fifth"
+          "plain": "5. Fifth"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Sixth"
+          "plain": "6. Sixth"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Seventh"
+          "plain": "7. Seventh"
         }
       ]
     },
@@ -256,19 +256,19 @@
           "plain": "List item."
         },
         {
-          "plain": "Fifth"
+          "plain": "5. Fifth"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Sixth"
+          "plain": "6. Sixth"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Seventh"
+          "plain": "7. Seventh"
         },
         {
           "plain": "End of the list."
@@ -283,13 +283,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Fifth"
+          "ssml": "5. Fifth"
         },
         {
-          "ssml": "Sixth"
+          "ssml": "6. Sixth"
         },
         {
-          "ssml": "Seventh"
+          "ssml": "7. Seventh"
         }
       ]
     },
@@ -359,13 +359,13 @@
           "ssml": "Start of the list."
         },
         {
-          "ssml": "Fifth"
+          "ssml": "5. Fifth"
         },
         {
-          "ssml": "Sixth"
+          "ssml": "6. Sixth"
         },
         {
-          "ssml": "Seventh"
+          "ssml": "7. Seventh"
         },
         {
           "ssml": "End of the list."
@@ -438,19 +438,19 @@
           "ssml": "List item."
         },
         {
-          "ssml": "Fifth"
+          "ssml": "5. Fifth"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Sixth"
+          "ssml": "6. Sixth"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Seventh"
+          "ssml": "7. Seventh"
         }
       ]
     },
@@ -531,19 +531,19 @@
           "ssml": "List item."
         },
         {
-          "ssml": "Fifth"
+          "ssml": "5. Fifth"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Sixth"
+          "ssml": "6. Sixth"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Seventh"
+          "ssml": "7. Seventh"
         },
         {
           "ssml": "End of the list."

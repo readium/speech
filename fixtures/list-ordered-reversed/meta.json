@@ -1,6 +1,6 @@
 {
   "id": "list-ordered-reversed",
-  "description": "An <ol reversed> — the reversed attribute is not read anywhere in the converter. A future listItem position number needs to count down from the list's effective length (or start, if combined with start) rather than always counting up from 1",
+  "description": "An <ol reversed> — the baked ordinal counts down from the list's length instead of counting up from 1",
   "role": "list",
   "rolesCovered": [
     "list",

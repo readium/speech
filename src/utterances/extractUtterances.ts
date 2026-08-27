@@ -1,6 +1,7 @@
 import i18next, { type i18n } from "i18next";
 import type { GndObject, GndRole } from "../gnd/types.js";
 import { ssmlTextEscape } from "../gnd/text.js";
+import { decodeCssSelectorFragment } from "../gnd/cssSelectorFragment.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { contextualizationsForLocale } from "./contextualizations.js";
 import { stripLangTags } from "./language.js";
@@ -478,8 +479,9 @@ export function extractUtterances(
   options: ExtractUtterancesOptions,
 ): ReadiumSpeechUtterance[] {
   const out: ReadiumSpeechUtterance[] = [];
-  walk(nodes, out, [], makeWalkContext(options), false);
-  return out;
+  const sources: SourceTrace = [];
+  walk(nodes, out, sources, makeWalkContext(options), false);
+  return attachSelectors(out, sources);
 }
 
 /**
@@ -495,5 +497,14 @@ export function extractUtterancesWithSources(
   const ctx = makeWalkContext(options);
   walk(nodes, utterances, sources, ctx, false);
   const blockStarts = utterances.map((utterance) => ctx.blockStarts.has(utterance));
-  return { utterances, sources, blockStarts };
+  return { utterances: attachSelectors(utterances, sources), sources, blockStarts };
+}
+
+// Decodes each utterance's source node textref (if any) into a `selector`,
+// for a consumer to drive DOM highlighting — see cssSelectorFragment.ts.
+function attachSelectors(utterances: ReadiumSpeechUtterance[], sources: SourceTrace): ReadiumSpeechUtterance[] {
+  return utterances.map((u, i) => {
+    const selector = decodeCssSelectorFragment(sources[i]?.textref);
+    return selector ? { ...u, selector } : u;
+  });
 }

@@ -18,6 +18,10 @@ import {
 import { startsWithBindingPunct } from "../utils/text.js";
 import { type ObjBuilder, NavObject, isEmptyObj, finalizeToGndObject, gndObjectToObjBuilder } from "./object.js";
 import { type GndMediaType, nodeLanguage, hasElementChild, isAncestorOf, sniffMediaType } from "./dom.js";
+import { insertListItemNumbers } from "./listNumbering.js";
+import { encodeCssSelectorFragment } from "./cssSelectorFragment.js";
+import { type GndGenerationOptions, normalizeCssSelectorsOption } from "./options.js";
+import { getCssSelector } from "css-selector-generator";
 
 const TEXT_NODE = 3;
 const ELEMENT_NODE = 1;
@@ -64,6 +68,8 @@ export class Converter {
   idAlloc = { claimed: new Set<string>(), counters: new Map<string, number>() };
   noterefDepth = 0;
   allowNode: Element | null = null;
+  selectorPredicate: ((roles: GndRole[]) => boolean) | null = null;
+  docRoot: Document | null = null;
 
   private root = new NavObject();
   private current = this.root;
@@ -267,6 +273,7 @@ export class Converter {
 
     const cur = this.current.object;
     if (roles.length > 0) cur.role = roles;
+    if (tagName === "ol") insertListItemNumbers(el);
     if (aria) {
       cur.description = aria.plain;
       if (roles.includes("figure")) {
@@ -285,6 +292,11 @@ export class Converter {
     }
     const id = el.getAttribute("id");
     if (id) cur.id = id;
+
+    if (this.selectorPredicate?.(roles)) {
+      const selector = getCssSelector(el, { root: this.docRoot ?? undefined });
+      if (selector) cur.textref = encodeCssSelectorFragment(selector);
+    }
 
     return false;
   }
@@ -422,6 +434,8 @@ export class Converter {
         sub.idAlloc = this.idAlloc;
         sub.noterefDepth = this.noterefDepth + 1;
         sub.allowNode = target;
+        sub.docRoot = this.docRoot;
+        sub.selectorPredicate = this.selectorPredicate;
         sub.convert(target);
         const children = sub.result();
         if (children.length > 0) {
@@ -640,10 +654,12 @@ const BODY_TAG_RE = /<body[\s>]/i;
  * is not content and is skipped through; a bodyless XHTML fragment's root
  * element is itself the content.
  */
-export function parseMarkup(input: string, mediaType?: GndMediaType): GndObject[] {
+export function parseMarkup(input: string, mediaType?: GndMediaType, options?: GndGenerationOptions): GndObject[] {
   const mt = mediaType ?? sniffMediaType(input);
   const doc = new DOMParser().parseFromString(input, mt);
   const converter = new Converter(mt === "application/xhtml+xml");
+  converter.selectorPredicate = normalizeCssSelectorsOption(options?.cssSelectors);
+  converter.docRoot = doc;
   const body = doc.querySelector("body");
   if (body && !BODY_TAG_RE.test(input)) {
     converter.convertChildren(body);

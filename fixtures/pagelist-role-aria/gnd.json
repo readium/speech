@@ -13,21 +13,21 @@
           "role": [
             "listItem"
           ],
-          "text": "Page 1",
+          "text": "1. Page 1",
           "textref": "#pg1"
         },
         {
           "role": [
             "listItem"
           ],
-          "text": "Page 2",
+          "text": "2. Page 2",
           "textref": "#pg2"
         },
         {
           "role": [
             "listItem"
           ],
-          "text": "Page 3",
+          "text": "3. Page 3",
           "textref": "#pg3"
         }
       ]

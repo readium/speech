@@ -15,25 +15,25 @@
           ],
           "children": [
             {
-              "textref": "chapter1.xhtml",
-              "text": "Chapter One",
               "role": [
                 "listItem"
-              ]
+              ],
+              "text": "1. Chapter One",
+              "textref": "chapter1.xhtml"
             },
             {
-              "textref": "chapter2.xhtml",
-              "text": "Chapter Two",
               "role": [
                 "listItem"
-              ]
+              ],
+              "text": "2. Chapter Two",
+              "textref": "chapter2.xhtml"
             },
             {
-              "textref": "chapter3.xhtml",
-              "text": "Chapter Three",
               "role": [
                 "listItem"
-              ]
+              ],
+              "text": "3. Chapter Three",
+              "textref": "chapter3.xhtml"
             }
           ]
         }

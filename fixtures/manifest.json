@@ -1056,10 +1056,21 @@
     }
   },
   {
+    "id": "list-item-posinset-override",
+    "dir": "list-item-posinset-override",
+    "role": "list",
+    "description": "A native <ol>/<li> where the second <li> carries aria-posinset — it overrides only that item's own baked ordinal; the native counting chain for its siblings continues unaffected (per WAI-ARIA's aria-posinset semantics, meant for lists that don't expose their full membership in the DOM), so the third item stays 3, not 100",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
     "id": "list-item-value-override",
     "dir": "list-item-value-override",
     "role": "list",
-    "description": "An <ol> whose second <li value=\"10\"> resets the running count, so the third item is implicitly 11 — the value attribute is not read anywhere in the converter. A correct position-numbering implementation has to track this running override per HTML's own <li value> semantics (a value change persists to every following sibling until overridden again), not just enumerate DOM child index",
+    "description": "An <ol> whose second <li value=\"10\"> resets the running count, so the baked ordinal for the third item is 11, not 3 — HTML's <li value> semantics persist to every following sibling until overridden again",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
@@ -1081,7 +1092,7 @@
     "id": "list-ordered-reversed",
     "dir": "list-ordered-reversed",
     "role": "list",
-    "description": "An <ol reversed> — the reversed attribute is not read anywhere in the converter. A future listItem position number needs to count down from the list's effective length (or start, if combined with start) rather than always counting up from 1",
+    "description": "An <ol reversed> — the baked ordinal counts down from the list's length instead of counting up from 1",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",
@@ -1092,7 +1103,7 @@
     "id": "list-ordered-start",
     "dir": "list-ordered-start",
     "role": "list",
-    "description": "An <ol start=\"5\"> — the start attribute is not read anywhere in the converter; items produce no numbering information at all, ordered or otherwise. A future listItem announcement that speaks a position number must read this attribute rather than assuming the first child is always \"1\"",
+    "description": "An <ol start=\"5\"> — the start attribute shifts the baked ordinal for every item, not just the first",
     "files": {
       "input": "input.html",
       "gnd": "gnd.json",

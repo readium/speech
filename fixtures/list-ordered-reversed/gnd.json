@@ -4,19 +4,19 @@
   ],
   "children": [
     {
-      "text": "Third",
+      "text": "3. Third",
       "role": [
         "listItem"
       ]
     },
     {
-      "text": "Second",
+      "text": "2. Second",
       "role": [
         "listItem"
       ]
     },
     {
-      "text": "First",
+      "text": "1. First",
       "role": [
         "listItem"
       ]

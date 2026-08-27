@@ -8,13 +8,13 @@
       ],
       "utterances": [
         {
-          "plain": "Chapter One"
+          "plain": "1. Chapter One"
         },
         {
-          "plain": "Chapter Two"
+          "plain": "2. Chapter Two"
         },
         {
-          "plain": "Chapter Three"
+          "plain": "3. Chapter Three"
         }
       ]
     },
@@ -84,13 +84,13 @@
           "plain": "Start of the list."
         },
         {
-          "plain": "Chapter One"
+          "plain": "1. Chapter One"
         },
         {
-          "plain": "Chapter Two"
+          "plain": "2. Chapter Two"
         },
         {
-          "plain": "Chapter Three"
+          "plain": "3. Chapter Three"
         },
         {
           "plain": "End of the list."
@@ -163,19 +163,19 @@
           "plain": "List item."
         },
         {
-          "plain": "Chapter One"
+          "plain": "1. Chapter One"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Chapter Two"
+          "plain": "2. Chapter Two"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Chapter Three"
+          "plain": "3. Chapter Three"
         }
       ]
     },
@@ -256,19 +256,19 @@
           "plain": "List item."
         },
         {
-          "plain": "Chapter One"
+          "plain": "1. Chapter One"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Chapter Two"
+          "plain": "2. Chapter Two"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Chapter Three"
+          "plain": "3. Chapter Three"
         },
         {
           "plain": "End of the list."
@@ -600,13 +600,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Chapter One"
+          "ssml": "1. Chapter One"
         },
         {
-          "ssml": "Chapter Two"
+          "ssml": "2. Chapter Two"
         },
         {
-          "ssml": "Chapter Three"
+          "ssml": "3. Chapter Three"
         }
       ]
     },
@@ -676,13 +676,13 @@
           "ssml": "Start of the list."
         },
         {
-          "ssml": "Chapter One"
+          "ssml": "1. Chapter One"
         },
         {
-          "ssml": "Chapter Two"
+          "ssml": "2. Chapter Two"
         },
         {
-          "ssml": "Chapter Three"
+          "ssml": "3. Chapter Three"
         },
         {
           "ssml": "End of the list."
@@ -755,19 +755,19 @@
           "ssml": "List item."
         },
         {
-          "ssml": "Chapter One"
+          "ssml": "1. Chapter One"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Chapter Two"
+          "ssml": "2. Chapter Two"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Chapter Three"
+          "ssml": "3. Chapter Three"
         }
       ]
     },
@@ -848,19 +848,19 @@
           "ssml": "List item."
         },
         {
-          "ssml": "Chapter One"
+          "ssml": "1. Chapter One"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Chapter Two"
+          "ssml": "2. Chapter Two"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Chapter Three"
+          "ssml": "3. Chapter Three"
         },
         {
           "ssml": "End of the list."

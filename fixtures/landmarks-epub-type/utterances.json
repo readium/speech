@@ -8,13 +8,13 @@
       ],
       "utterances": [
         {
-          "plain": "Cover"
+          "plain": "1. Cover"
         },
         {
-          "plain": "Table of Contents"
+          "plain": "2. Table of Contents"
         },
         {
-          "plain": "Start of Content"
+          "plain": "3. Start of Content"
         }
       ]
     },
@@ -84,13 +84,13 @@
           "plain": "Start of the list."
         },
         {
-          "plain": "Cover"
+          "plain": "1. Cover"
         },
         {
-          "plain": "Table of Contents"
+          "plain": "2. Table of Contents"
         },
         {
-          "plain": "Start of Content"
+          "plain": "3. Start of Content"
         },
         {
           "plain": "End of the list."
@@ -163,19 +163,19 @@
           "plain": "List item."
         },
         {
-          "plain": "Cover"
+          "plain": "1. Cover"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Table of Contents"
+          "plain": "2. Table of Contents"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Start of Content"
+          "plain": "3. Start of Content"
         }
       ]
     },
@@ -256,19 +256,19 @@
           "plain": "List item."
         },
         {
-          "plain": "Cover"
+          "plain": "1. Cover"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Table of Contents"
+          "plain": "2. Table of Contents"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Start of Content"
+          "plain": "3. Start of Content"
         },
         {
           "plain": "End of the list."
@@ -600,13 +600,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Cover"
+          "ssml": "1. Cover"
         },
         {
-          "ssml": "Table of Contents"
+          "ssml": "2. Table of Contents"
         },
         {
-          "ssml": "Start of Content"
+          "ssml": "3. Start of Content"
         }
       ]
     },
@@ -676,13 +676,13 @@
           "ssml": "Start of the list."
         },
         {
-          "ssml": "Cover"
+          "ssml": "1. Cover"
         },
         {
-          "ssml": "Table of Contents"
+          "ssml": "2. Table of Contents"
         },
         {
-          "ssml": "Start of Content"
+          "ssml": "3. Start of Content"
         },
         {
           "ssml": "End of the list."
@@ -755,19 +755,19 @@
           "ssml": "List item."
         },
         {
-          "ssml": "Cover"
+          "ssml": "1. Cover"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Table of Contents"
+          "ssml": "2. Table of Contents"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Start of Content"
+          "ssml": "3. Start of Content"
         }
       ]
     },
@@ -848,19 +848,19 @@
           "ssml": "List item."
         },
         {
-          "ssml": "Cover"
+          "ssml": "1. Cover"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Table of Contents"
+          "ssml": "2. Table of Contents"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Start of Content"
+          "ssml": "3. Start of Content"
         },
         {
           "ssml": "End of the list."

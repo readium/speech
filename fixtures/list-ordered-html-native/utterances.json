@@ -8,13 +8,13 @@
       ],
       "utterances": [
         {
-          "plain": "First item"
+          "plain": "1. First item"
         },
         {
-          "plain": "Second item"
+          "plain": "2. Second item"
         },
         {
-          "plain": "Third item"
+          "plain": "3. Third item"
         }
       ]
     },
@@ -84,13 +84,13 @@
           "plain": "Start of the list."
         },
         {
-          "plain": "First item"
+          "plain": "1. First item"
         },
         {
-          "plain": "Second item"
+          "plain": "2. Second item"
         },
         {
-          "plain": "Third item"
+          "plain": "3. Third item"
         },
         {
           "plain": "End of the list."
@@ -163,19 +163,19 @@
           "plain": "List item."
         },
         {
-          "plain": "First item"
+          "plain": "1. First item"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Second item"
+          "plain": "2. Second item"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Third item"
+          "plain": "3. Third item"
         }
       ]
     },
@@ -256,19 +256,19 @@
           "plain": "List item."
         },
         {
-          "plain": "First item"
+          "plain": "1. First item"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Second item"
+          "plain": "2. Second item"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "Third item"
+          "plain": "3. Third item"
         },
         {
           "plain": "End of the list."
@@ -283,13 +283,13 @@
       ],
       "utterances": [
         {
-          "ssml": "First item"
+          "ssml": "1. First item"
         },
         {
-          "ssml": "Second item"
+          "ssml": "2. Second item"
         },
         {
-          "ssml": "Third item"
+          "ssml": "3. Third item"
         }
       ]
     },
@@ -359,13 +359,13 @@
           "ssml": "Start of the list."
         },
         {
-          "ssml": "First item"
+          "ssml": "1. First item"
         },
         {
-          "ssml": "Second item"
+          "ssml": "2. Second item"
         },
         {
-          "ssml": "Third item"
+          "ssml": "3. Third item"
         },
         {
           "ssml": "End of the list."
@@ -438,19 +438,19 @@
           "ssml": "List item."
         },
         {
-          "ssml": "First item"
+          "ssml": "1. First item"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Second item"
+          "ssml": "2. Second item"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Third item"
+          "ssml": "3. Third item"
         }
       ]
     },
@@ -531,19 +531,19 @@
           "ssml": "List item."
         },
         {
-          "ssml": "First item"
+          "ssml": "1. First item"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Second item"
+          "ssml": "2. Second item"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "Third item"
+          "ssml": "3. Third item"
         },
         {
           "ssml": "End of the list."

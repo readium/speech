@@ -15,25 +15,25 @@
           ],
           "children": [
             {
-              "textref": "cover.xhtml",
-              "text": "Cover",
               "role": [
                 "listItem"
-              ]
+              ],
+              "text": "1. Cover",
+              "textref": "cover.xhtml"
             },
             {
-              "textref": "toc.xhtml",
-              "text": "Table of Contents",
               "role": [
                 "listItem"
-              ]
+              ],
+              "text": "2. Table of Contents",
+              "textref": "toc.xhtml"
             },
             {
-              "textref": "chapter1.xhtml",
-              "text": "Start of Content",
               "role": [
                 "listItem"
-              ]
+              ],
+              "text": "3. Start of Content",
+              "textref": "chapter1.xhtml"
             }
           ]
         }

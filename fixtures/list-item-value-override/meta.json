@@ -1,6 +1,6 @@
 {
   "id": "list-item-value-override",
-  "description": "An <ol> whose second <li value=\"10\"> resets the running count, so the third item is implicitly 11 — the value attribute is not read anywhere in the converter. A correct position-numbering implementation has to track this running override per HTML's own <li value> semantics (a value change persists to every following sibling until overridden again), not just enumerate DOM child index",
+  "description": "An <ol> whose second <li value=\"10\"> resets the running count, so the baked ordinal for the third item is 11, not 3 — HTML's <li value> semantics persist to every following sibling until overridden again",
   "role": "list",
   "rolesCovered": [
     "list",
