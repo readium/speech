@@ -1,5 +1,6 @@
 export * from './WebSpeech';
 export * from './SpeechServer';
+export * from './Fallback';
 export * from '@readium/decorator';
 export * from './decorator';
 export { Locator, LocatorLocations, LocatorText } from '@readium/shared';

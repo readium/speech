@@ -10,7 +10,7 @@ export declare class SpeechServerEngineProvider implements ReadiumSpeechEnginePr
     private fetchImpl;
     private voices;
     constructor(options: SpeechServerEngineProviderOptions);
-    getVoices(): Promise<ReadiumSpeechVoice[]>;
+    getVoices(forceRefresh?: boolean): Promise<ReadiumSpeechVoice[]>;
     createEngine(voice?: ReadiumSpeechVoice | string): Promise<ReadiumSpeechPlaybackEngine>;
     destroy(): Promise<void>;
 }

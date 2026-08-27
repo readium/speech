@@ -14,7 +14,7 @@ export interface ReadiumSpeechNavigatorConfiguration {
 export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     private engine;
     private contentQueue;
-    private eventListeners;
+    private readonly events;
     private navigatorState;
     private pendingAdvanceTimeout;
     private _defaults;

@@ -9,7 +9,7 @@ export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     private currentUtterances;
     private currentUtteranceIndex;
     private playbackState;
-    private eventListeners;
+    private readonly events;
     private voiceManager;
     private voices;
     private defaultVoice;
@@ -49,7 +49,7 @@ export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     setSpeakInContentLanguage(enabled: boolean): void;
     getSpeakInContentLanguage(): boolean;
     private toPlainText;
-    loadUtterances(contents: ReadiumSpeechUtterance[]): void;
+    loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void;
     setVoice(voice: ReadiumSpeechVoice | string): Promise<void>;
     getAvailableVoices(): Promise<ReadiumSpeechVoice[]>;
     speak(utteranceIndex?: number): void;

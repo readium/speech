@@ -3,7 +3,7 @@ import { ReadiumSpeechUtterance } from './utterance';
 import { ReadiumSpeechVoice } from './voices/types';
 export interface ReadiumSpeechPlaybackEngine {
     initialize?(): Promise<unknown>;
-    loadUtterances(contents: ReadiumSpeechUtterance[]): void;
+    loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void;
     setVoice(voice: ReadiumSpeechVoice | string): void;
     getCurrentVoice(): ReadiumSpeechVoice | null;
     getAvailableVoices(): Promise<ReadiumSpeechVoice[]>;
