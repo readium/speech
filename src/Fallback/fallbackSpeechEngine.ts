@@ -391,6 +391,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
       // Still down despite the probe succeeding (e.g. it dropped again in between) — stay on
       // the fallback and keep polling.
       this.swapInFlight = false;
+      this.primaryReachable = false;
       this.startHealthCheck();
       return;
     }
