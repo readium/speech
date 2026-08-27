@@ -145,6 +145,9 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private readonly canPlayType: CanPlayType;
   private prefetchCache: Map<number, Promise<ChunkStream>> = new Map();
   private prefetchChainTail: Promise<void> = Promise.resolve();
+  // Every AbortController for a chunk request still in flight, so clearPrefetchCache can abort
+  // them immediately instead of waiting on their wrapping promises to settle first.
+  private activeControllers: Set<AbortController> = new Set();
 
   private audioContext: AudioContext | null = null;
   private masterGain: GainNode | null = null;
@@ -406,11 +409,9 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   private clearPrefetchCache(): void {
-    const pending = [...this.prefetchCache.values()];
     this.prefetchCache.clear();
-    pending.forEach(streamPromise => {
-      streamPromise.then(chunkStream => chunkStream.forEach(c => c.controller.abort())).catch(() => {});
-    });
+    this.activeControllers.forEach(controller => controller.abort());
+    this.activeControllers.clear();
   }
 
   private async synthesizeStream(index: number): Promise<ChunkStream> {
@@ -430,6 +431,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
 
     if (text.length <= serviceInfo.limits.maxTextLength) {
       const controller = new AbortController();
+      this.activeControllers.add(controller);
       return [{ promise: this.synthesizeChunk(content, text, 0, useSSML, language, prevUtterance, nextUtterance, format, bitrate, controller), controller }];
     }
 
@@ -456,6 +458,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       const nextText = i === textChunks.length - 1 ? nextUtterance : textChunks[i + 1].text;
       const textChunk = textChunks[i];
       const controller = new AbortController();
+      this.activeControllers.add(controller);
       // A rejected chain skips later .then() bodies entirely, so one failed chunk stops the rest.
       const chunkPromise: Promise<SynthesizedChunk> = chain.then(() =>
         this.synthesizeChunk(content, textChunk.text, textChunk.offset, useSSML, language, prevText, nextText, format, bitrate, controller)
@@ -478,37 +481,41 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     bitrate: number | undefined,
     controller: AbortController
   ): Promise<SynthesizedChunk> {
-    const response = await this.fetchNetwork(this.endpoints.synthesize, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        id: content.id,
-        text,
-        ssml: useSSML,
-        language,
-        voice: this.currentVoice?.identifier ?? this.currentVoice?.name,
-        prev_utterance: prevText,
-        next_utterance: nextText,
-        boundary: true,
-        output: { format, bitrate, speed: this.rate, pitch: this.pitch }
-      }),
-      signal: controller.signal
-    });
-
-    if (!response.ok) {
-      throw await toSpeechServerError(response);
-    }
-
-    const json: SpeechServerSynthesizeBoundaryResponse = await response.json();
-    const buffer = base64ToArrayBuffer(json.audio);
-    let audioBuffer: AudioBuffer;
     try {
-      audioBuffer = await this.ensureAudioContext().decodeAudioData(buffer);
-    } catch {
-      throw new SpeechServerAudioDecodeError("Audio playback failed");
-    }
+      const response = await this.fetchNetwork(this.endpoints.synthesize, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: content.id,
+          text,
+          ssml: useSSML,
+          language,
+          voice: this.currentVoice?.identifier ?? this.currentVoice?.name,
+          prev_utterance: prevText,
+          next_utterance: nextText,
+          boundary: true,
+          output: { format, bitrate, speed: this.rate, pitch: this.pitch }
+        }),
+        signal: controller.signal
+      });
 
-    return { audioBuffer, format: json.format, boundaries: json.boundaries, textOffset };
+      if (!response.ok) {
+        throw await toSpeechServerError(response);
+      }
+
+      const json: SpeechServerSynthesizeBoundaryResponse = await response.json();
+      const buffer = base64ToArrayBuffer(json.audio);
+      let audioBuffer: AudioBuffer;
+      try {
+        audioBuffer = await this.ensureAudioContext().decodeAudioData(buffer);
+      } catch {
+        throw new SpeechServerAudioDecodeError("Audio playback failed");
+      }
+
+      return { audioBuffer, format: json.format, boundaries: json.boundaries, textOffset };
+    } finally {
+      this.activeControllers.delete(controller);
+    }
   }
 
   // May run ahead of a user gesture (called from synthesizeChunk during prefetch), but only
