@@ -180,6 +180,23 @@ test("a zero pauseDuration still yields to the event loop, but resolves on the n
   t.is(engine.speakCalls.length, 1);
 });
 
+test("content ending naturally resets to utterance 0, so a later play() restarts instead of replaying the last utterance", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([
+    { plain: "First.", language: "en" },
+    { plain: "Second.", language: "en" },
+  ]);
+
+  engine.setCurrentUtteranceIndex(1); // playback reached the last utterance
+  engine.emit({ type: "end" });
+
+  t.is(engine.getCurrentUtteranceIndex(), 0);
+
+  navigator.play();
+  t.is(engine.speakCalls.length, 1, "play() from idle calls speak() to restart");
+});
+
 test("autoPause 'utterance' fully pauses instead of continuing automatically", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);

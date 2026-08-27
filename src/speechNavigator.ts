@@ -107,7 +107,9 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
           }, this._settings.pauseDuration);
         }
       } else {
-        // Reached end - set navigator to idle
+        // Reached end - reset to the start so a later play() restarts rather than replaying
+        // the last utterance, then set navigator to idle
+        this.engine.setCurrentUtteranceIndex(0);
         this.setNavigatorState("idle");
       }
 
