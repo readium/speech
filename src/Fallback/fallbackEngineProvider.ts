@@ -30,14 +30,14 @@ export class FallbackEngineProvider implements ReadiumSpeechEngineProvider {
     this.healthCheckIntervalMs = options.healthCheckIntervalMs;
   }
 
-  async getVoices(): Promise<ReadiumSpeechVoice[]> {
+  async getVoices(forceRefresh?: boolean): Promise<ReadiumSpeechVoice[]> {
     try {
-      return await this.primary.getVoices();
+      return await this.primary.getVoices(forceRefresh);
     } catch (error) {
       if (this.onFailure === "error") {
         throw error;
       }
-      return this.fallback.getVoices();
+      return this.fallback.getVoices(forceRefresh);
     }
   }
 

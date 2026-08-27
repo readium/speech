@@ -344,7 +344,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.healthCheckTimer = setTimeout(async () => {
       this.healthCheckTimer = null;
       try {
-        await this.primaryProvider.getVoices();
+        await this.primaryProvider.getVoices(true);
         this.primaryReachable = true;
         this.maybeRecoverNow();
       } catch {
