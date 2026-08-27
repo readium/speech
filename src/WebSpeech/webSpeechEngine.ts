@@ -335,9 +335,6 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.emitEvent({ type: "start" });
     this.stopResumeInfinity();
 
-    // Reset utterance index to ensure we're starting fresh
-    this.currentUtteranceIndex = utteranceIndex ?? this.currentUtteranceIndex;
-
     // Ensure the utterance index is valid
     if (this.currentUtteranceIndex >= this.currentUtterances.length) {
       this.currentUtteranceIndex = 0;
