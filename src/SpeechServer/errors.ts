@@ -40,6 +40,15 @@ export class SpeechServerAudioDecodeError extends Error {
   }
 }
 
+// Thrown when fetch() itself rejects with a TypeError (request never reached the network) —
+// tagged at the call site so it can't be confused with a TypeError from reading a response.
+export class SpeechServerNetworkError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "SpeechServerNetworkError";
+  }
+}
+
 // Server errors are RFC 9457 Problem Details, but nginx (production rate/connection
 // limits) and network failures return plain text or nothing, so parsing is best-effort.
 export async function toSpeechServerError(response: Response): Promise<SpeechServerError> {

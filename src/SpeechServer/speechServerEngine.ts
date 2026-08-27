@@ -3,7 +3,7 @@ import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navig
 import { ReadiumSpeechUtterance } from "../utterance";
 import { ReadiumSpeechVoice } from "../voices/types";
 import { mapServerVoice } from "./speechServerVoiceMapping";
-import { SpeechServerAudioDecodeError, SpeechServerError, SpeechServerStallError, toSpeechServerError } from "./errors";
+import { SpeechServerAudioDecodeError, SpeechServerError, SpeechServerNetworkError, SpeechServerStallError, toSpeechServerError } from "./errors";
 import { chunkPlainText, chunkSsmlText, TextChunk } from "./chunkText";
 import { CanPlayType, selectBitrate, selectFormat, SpeechServerFormatOptions } from "./selectFormat";
 import {
@@ -107,9 +107,7 @@ function toErrorDetail(error: unknown): Record<string, unknown> {
   if (error instanceof SpeechServerAudioDecodeError) {
     return { message: error.message, recoverable: false };
   }
-  if (error instanceof TypeError) {
-    // fetch() rejects with TypeError when it never reaches the network — anything else
-    // (a JSON parse failure, a programming error) means a response did arrive.
+  if (error instanceof SpeechServerNetworkError) {
     return { message: error.message, recoverable: true };
   }
   if (error instanceof Error) {
@@ -168,6 +166,19 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   // Lets a provider that already fetched /voices seed this engine without a second request.
   setAvailableVoices(voices: ReadiumSpeechVoice[]): void {
     this.voices = voices;
+  }
+
+  // Tags a fetch() TypeError (request never reached the network) as SpeechServerNetworkError,
+  // so it can't be confused with a TypeError thrown later while reading the response.
+  private async fetchNetwork(input: Parameters<typeof fetch>[0], init?: Parameters<typeof fetch>[1]): Promise<Response> {
+    try {
+      return await this.fetchImpl(input, init);
+    } catch (error) {
+      if (error instanceof TypeError) {
+        throw new SpeechServerNetworkError(error.message);
+      }
+      throw error;
+    }
   }
 
   loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void {
@@ -265,7 +276,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       return this.voices;
     }
 
-    const [response, serviceInfo] = await Promise.all([this.fetchImpl(this.endpoints.voices), this.getServiceInfo()]);
+    const [response, serviceInfo] = await Promise.all([this.fetchNetwork(this.endpoints.voices), this.getServiceInfo()]);
     if (!response.ok) {
       throw await toSpeechServerError(response);
     }
@@ -292,7 +303,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   private async fetchServiceInfo(): Promise<SpeechServerServiceInfo> {
-    const response = await this.fetchImpl(this.endpoints.service);
+    const response = await this.fetchNetwork(this.endpoints.service);
     if (!response.ok) {
       throw await toSpeechServerError(response);
     }
@@ -460,7 +471,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     bitrate: number | undefined,
     controller: AbortController
   ): Promise<SynthesizedChunk> {
-    const response = await this.fetchImpl(this.endpoints.synthesize, {
+    const response = await this.fetchNetwork(this.endpoints.synthesize, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
