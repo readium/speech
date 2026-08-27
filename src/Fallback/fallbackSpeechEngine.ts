@@ -288,54 +288,6 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     });
   }
 
-  private async swapToFallback(originalEvent: ReadiumSpeechPlaybackEvent): Promise<void> {
-    this.swapInFlight = true;
-    const teardownEpoch = this.teardownEpoch;
-    const primaryEngine = this.activeEngine;
-
-    try {
-      const failedVoice = primaryEngine.getCurrentVoice() ?? (typeof this.lastVoiceRequest === "object" ? this.lastVoiceRequest : null);
-      const language = failedVoice?.language || this.currentUtterances[this.desiredIndex]?.language || navigator.language;
-
-      const bestVoice = await this.pickBestFallbackVoice(language, failedVoice?.gender);
-
-      const fallbackEngine = await this.fallbackProvider.createEngine(bestVoice ?? undefined);
-      if (teardownEpoch !== this.teardownEpoch) {
-        this.swapInFlight = false;
-        await fallbackEngine.destroy();
-        return;
-      }
-      this.copyPlaybackParameters(primaryEngine, fallbackEngine);
-
-      this.unbindActiveEngine?.();
-      this.activeEngine = fallbackEngine;
-      this.hasFallenBack = true;
-      this.engineStarted = false;
-      this.swapInFlight = false;
-      this.bindActiveEngine();
-
-      // Emitted before the calls below, which can synchronously cascade into "ready"/"start".
-      this.emitEvent({ type: "enginefallback", detail: { reason: originalEvent.detail, voice: bestVoice } });
-
-      this.startEngineWhenReady(fallbackEngine);
-      fallbackEngine.loadUtterances(this.currentUtterances, this.desiredIndex); // live read — picks up any reload that raced the swap
-
-      if (this.onFailure === "fallbackAndRecover") {
-        this.startHealthCheck();
-      }
-    } catch {
-      // Falling back itself failed (e.g. Web Speech API unavailable too) — nothing more we can
-      // do, surface the original failure and stop attempting to fall back on future errors.
-      this.swapInFlight = false;
-      this.hasFallenBack = true;
-      this.emitEvent(originalEvent);
-      return;
-    }
-
-    // Outside the try: a teardown failure here must not be mistaken for the swap itself failing.
-    await primaryEngine.destroy();
-  }
-
   // Polls the primary provider until it's reachable again, then hands off to maybeRecoverNow()
   // to swap back at the next safe moment. Chained setTimeout rather than setInterval so a slow
   // probe can't overlap with the next one.
@@ -362,43 +314,93 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     void this.recoverToPrimary();
   }
 
+  private async swapToFallback(originalEvent: ReadiumSpeechPlaybackEvent): Promise<void> {
+    let bestVoice: ReadiumSpeechVoice | null = null;
+
+    await this.performSwap(
+      async () => {
+        const primaryEngine = this.activeEngine;
+        const failedVoice = primaryEngine.getCurrentVoice() ?? (typeof this.lastVoiceRequest === "object" ? this.lastVoiceRequest : null);
+        const language = failedVoice?.language || this.currentUtterances[this.desiredIndex]?.language || navigator.language;
+        bestVoice = await this.pickBestFallbackVoice(language, failedVoice?.gender);
+        return this.fallbackProvider.createEngine(bestVoice ?? undefined);
+      },
+      () => {
+        this.hasFallenBack = true;
+        if (this.onFailure === "fallbackAndRecover") {
+          this.startHealthCheck();
+        }
+        return { type: "enginefallback", detail: { reason: originalEvent.detail, voice: bestVoice } };
+      },
+      () => {
+        // Falling back itself failed (e.g. Web Speech API unavailable too) — nothing more we can
+        // do, surface the original failure and stop attempting to fall back on future errors.
+        this.hasFallenBack = true;
+        this.emitEvent(originalEvent);
+      }
+    );
+  }
+
   private async recoverToPrimary(): Promise<void> {
+    await this.performSwap(
+      () => this.primaryProvider.createEngine(this.lastVoiceRequest),
+      (primaryEngine) => {
+        this.hasFallenBack = false;
+        this.primaryReachable = false;
+        return { type: "enginerecovered", detail: { voice: primaryEngine.getCurrentVoice() } };
+      },
+      () => {
+        // Still down despite the probe succeeding (e.g. it dropped again in between) — stay on
+        // the fallback and keep polling.
+        this.primaryReachable = false;
+        this.startHealthCheck();
+      }
+    );
+  }
+
+  // Shared by both swap directions so the epoch/teardown races and event-forwarding rebind
+  // can't drift between them. createEngine builds the replacement (and may fail, invoking
+  // onCreateFailed instead of swapping); onSwapped runs once the new engine is live and
+  // returns the event to emit for that direction.
+  private async performSwap(
+    createEngine: () => Promise<ReadiumSpeechPlaybackEngine>,
+    onSwapped: (newEngine: ReadiumSpeechPlaybackEngine) => ReadiumSpeechPlaybackEvent,
+    onCreateFailed: () => void
+  ): Promise<void> {
     this.swapInFlight = true;
     const teardownEpoch = this.teardownEpoch;
-    const fallbackEngine = this.activeEngine;
+    const oldEngine = this.activeEngine;
 
+    let newEngine: ReadiumSpeechPlaybackEngine;
     try {
-      const primaryEngine = await this.primaryProvider.createEngine(this.lastVoiceRequest);
-      if (teardownEpoch !== this.teardownEpoch) {
-        this.swapInFlight = false;
-        await primaryEngine.destroy();
-        return;
-      }
-      this.copyPlaybackParameters(fallbackEngine, primaryEngine);
-
-      this.unbindActiveEngine?.();
-      this.activeEngine = primaryEngine;
-      this.hasFallenBack = false;
-      this.primaryReachable = false;
-      this.engineStarted = false;
-      this.swapInFlight = false;
-      this.bindActiveEngine();
-
-      this.emitEvent({ type: "enginerecovered", detail: { voice: primaryEngine.getCurrentVoice() } });
-
-      this.startEngineWhenReady(primaryEngine);
-      primaryEngine.loadUtterances(this.currentUtterances, this.desiredIndex); // live read — picks up any reload that raced the swap
+      newEngine = await createEngine();
     } catch {
-      // Still down despite the probe succeeding (e.g. it dropped again in between) — stay on
-      // the fallback and keep polling.
       this.swapInFlight = false;
-      this.primaryReachable = false;
-      this.startHealthCheck();
+      onCreateFailed();
       return;
     }
 
-    // Outside the try: a teardown failure here must not be mistaken for recovery itself failing.
-    await fallbackEngine.destroy();
+    if (teardownEpoch !== this.teardownEpoch) {
+      this.swapInFlight = false;
+      await newEngine.destroy();
+      return;
+    }
+    this.copyPlaybackParameters(oldEngine, newEngine);
+
+    this.unbindActiveEngine?.();
+    this.activeEngine = newEngine;
+    this.engineStarted = false;
+    this.swapInFlight = false;
+    this.bindActiveEngine();
+
+    // Emitted before the calls below, which can synchronously cascade into "ready"/"start".
+    this.emitEvent(onSwapped(newEngine));
+
+    this.startEngineWhenReady(newEngine);
+    newEngine.loadUtterances(this.currentUtterances, this.desiredIndex); // live read — picks up any reload that raced the swap
+
+    // Outside the try: a teardown failure here must not be mistaken for the swap itself failing.
+    await oldEngine.destroy();
   }
 
   // Language narrows first, gender second: a same-language wrong-gender voice beats a
