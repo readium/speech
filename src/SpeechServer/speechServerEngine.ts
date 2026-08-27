@@ -404,7 +404,11 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   private clearPrefetchCache(): void {
+    const pending = [...this.prefetchCache.values()];
     this.prefetchCache.clear();
+    pending.forEach(streamPromise => {
+      streamPromise.then(chunkStream => chunkStream.forEach(c => c.controller.abort())).catch(() => {});
+    });
   }
 
   private async synthesizeStream(index: number): Promise<ChunkStream> {

@@ -397,6 +397,39 @@ test.serial("prefetch requests are chained: never more than one /synthesize in f
   t.deepEqual(calls, ["One", "Two", "Three", "Four"]);
 });
 
+test.serial("a discarded in-flight prefetch is aborted, not left running", async (t) => {
+  const pending: Array<() => void> = [];
+  const signals: AbortSignal[] = [];
+
+  const fetchImpl = (async (url: string, init?: any) => {
+    if (url.endsWith("/service")) {
+      return { ok: true, status: 200, headers: { get: () => "application/json" }, json: async () => defaultServiceInfo() };
+    }
+    if (!url.endsWith("/synthesize")) {
+      throw new Error(`Unhandled mock fetch URL: ${url}`);
+    }
+    signals.push(init.signal);
+    await new Promise<void>((resolve) => pending.push(resolve));
+    return { ok: true, status: 200, headers: { get: () => "application/json" }, json: async () => ({ audio: wavBase64(), format: "wav", boundaries: null }) };
+  }) as unknown as typeof fetch;
+
+  const engine = new SpeechServerEngine({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl, prefetchWindow: 1 });
+  engine.loadUtterances([{ plain: "One" }, { plain: "Two" }]);
+
+  engine.speak(0);
+  await flush();
+  pending.shift()!(); // "One" resolves, unblocking the chained prefetch for "Two"
+  await flush();
+
+  t.is(signals.length, 2, "One's own request plus Two's prefetch have both started");
+  t.false(signals[1].aborted, "Two's prefetch is still in flight, nothing has discarded it yet");
+
+  engine.loadUtterances([{ plain: "Different." }]); // a reload clears the prefetch cache
+  await flush(); // the abort happens once the cached ChunkStream promise settles, not synchronously
+
+  t.true(signals[1].aborted, "the discarded prefetch for Two was aborted, not left running");
+});
+
 test.serial("a completed prefetch is reused instead of triggering a second fetch", async (t) => {
   const { fetchImpl, calls } = createMockFetch({
     synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
