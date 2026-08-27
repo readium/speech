@@ -4,6 +4,7 @@ import { ReadiumSpeechUtterance } from "../utterance";
 import { ReadiumSpeechVoice } from "../voices/types";
 import { mapServerVoice } from "./speechServerVoiceMapping";
 import { SpeechServerAudioDecodeError, SpeechServerError, SpeechServerNetworkError, SpeechServerStallError, toSpeechServerError } from "./errors";
+import { ErrorEventDetail } from "../Fallback/recoverableFailure";
 import { chunkPlainText, chunkSsmlText, TextChunk } from "./chunkText";
 import { CanPlayType, selectBitrate, selectFormat, SpeechServerFormatOptions } from "./selectFormat";
 import {
@@ -97,7 +98,7 @@ function utteranceText(utterance: ReadiumSpeechUtterance | undefined): string | 
 
 // `recoverable` is true only when the server never actually responded (network failure or a
 // stall) — false for a response that arrived and said no, or a payload that failed to decode.
-function toErrorDetail(error: unknown): Record<string, unknown> {
+function toErrorDetail(error: unknown): ErrorEventDetail {
   if (error instanceof SpeechServerStallError) {
     return { message: error.message, status: error.status, type: error.type, title: error.title, instance: error.instance, recoverable: true };
   }
