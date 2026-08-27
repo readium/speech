@@ -300,7 +300,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
       async () => {
         const primaryEngine = this.activeEngine;
         const failedVoice = primaryEngine.getCurrentVoice() ?? (typeof this.lastVoiceRequest === "object" ? this.lastVoiceRequest : null);
-        const language = failedVoice?.language || this.currentUtterances[this.desiredIndex]?.language || navigator.language;
+        const language = failedVoice?.language || this.currentUtterances[this.desiredIndex]?.language || (typeof navigator !== "undefined" ? navigator.language : "en");
         bestVoice = await this.pickBestFallbackVoice(language, failedVoice?.gender);
         return this.fallbackProvider.createEngine(bestVoice ?? undefined);
       },
