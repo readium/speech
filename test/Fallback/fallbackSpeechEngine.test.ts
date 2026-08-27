@@ -555,6 +555,11 @@ test.serial("fallbackAndRecover: an explicit speak() (mimicking the navigator's 
 
   t.is(primaryProvider.engine, null, "primary reachable, but mid-utterance — no swap yet");
 
+  // Utterance 0 ends: real engines go idle before firing "end", which is what actually makes
+  // the navigator's next speak() call land in a safe (non-audible) gap.
+  fallbackProvider.engine!.setStateForTest("idle");
+  fallbackProvider.engine!.emit("end");
+
   wrapper.speak(1); // the navigator advancing to utterance 1
   await tick();
 

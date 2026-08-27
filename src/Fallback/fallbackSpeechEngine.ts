@@ -124,7 +124,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.desiredIndex = utteranceIndex ?? this.desiredIndex;
     this.desiredPlaying = true;
     if (this.swapInFlight) return; // read live once the arriving engine's "ready" fires
-    if (this.hasFallenBack && this.primaryReachable) {
+    if (this.hasFallenBack && this.primaryReachable && this.activeEngine.getState() !== "playing") {
       void this.recoverToPrimary();
       return;
     }
