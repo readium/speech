@@ -71,7 +71,7 @@ By default the engine picks a format from the intersection of what the server ad
 
 ## Errors
 
-Failures surface as `"error"` events (see [Playback.md](Playback.md#readiumspeechplaybackevent)), with `detail` shaped like a `SpeechServerError`: `{ message, status, type, title, instance, recoverable }`, following [RFC 9457 Problem Details](https://www.rfc-editor.org/rfc/rfc9457) when the server returns one. `recoverable` is `true` when the server never responded at all (network failure, or a stall — see below), and `false` when it responded but rejected the request, or the audio payload couldn't be decoded — see [FallbackEngine.md](FallbackEngine.md), which uses this to decide whether swapping to another engine could help.
+Failures surface as `"error"` events (see [Playback.md](Playback.md#readiumspeechplaybackevent)). Every `detail` has at least `{ message, recoverable }`; when the server rejected a request with an [RFC 9457 Problem Details](https://www.rfc-editor.org/rfc/rfc9457) response, `detail` also carries `{ status, type, title, instance }`. Errors with no server response at all — a network failure, a stall, or a decode failure on an already-downloaded payload (`SpeechServerAudioDecodeError`) — only ever have `{ message, recoverable }`. `recoverable` is `true` when the server never responded at all (network failure, or a stall — see below), and `false` when it responded but rejected the request, or the audio payload couldn't be decoded — see [FallbackEngine.md](FallbackEngine.md), which uses this to decide whether swapping to another engine could help.
 
 ## Stall detection
 
