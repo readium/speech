@@ -4,7 +4,7 @@ import { ReadiumSpeechVoice } from "../voices/types";
 import { SpeechServerEngine, SpeechServerEngineOptions } from "./speechServerEngine";
 import { mapServerVoice } from "./speechServerVoiceMapping";
 import { toSpeechServerError } from "./errors";
-import { SpeechServerVoice } from "./types";
+import { SpeechServerServiceInfo, SpeechServerVoice } from "./types";
 
 // Reuses SpeechServerEngineOptions wholesale (not a hand-picked subset) so every option the
 // engine accepts is also available through the provider, with nothing to keep in sync.
@@ -23,17 +23,25 @@ export class SpeechServerEngineProvider implements ReadiumSpeechEngineProvider {
     this.fetchImpl = options.fetch ?? fetch.bind(globalThis);
   }
 
-  async getVoices(): Promise<ReadiumSpeechVoice[]> {
-    if (this.voices.length > 0) {
+  async getVoices(forceRefresh?: boolean): Promise<ReadiumSpeechVoice[]> {
+    if (this.voices.length > 0 && !forceRefresh) {
       return this.voices;
     }
 
-    const response = await this.fetchImpl(this.options.endpoints.voices);
+    const [response, serviceResponse] = await Promise.all([
+      this.fetchImpl(this.options.endpoints.voices),
+      this.fetchImpl(this.options.endpoints.service)
+    ]);
     if (!response.ok) {
       throw await toSpeechServerError(response);
     }
+    if (!serviceResponse.ok) {
+      throw await toSpeechServerError(serviceResponse);
+    }
     const serverVoices: SpeechServerVoice[] = await response.json();
-    this.voices = serverVoices.map(mapServerVoice);
+    const serviceInfo: SpeechServerServiceInfo = await serviceResponse.json();
+    const providerControls = new Map(serviceInfo.providers.map(p => [p.id, p.controls]));
+    this.voices = serverVoices.map(voice => mapServerVoice(voice, providerControls.get(voice.provider)));
     return this.voices;
   }
 

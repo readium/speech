@@ -9,7 +9,9 @@ export interface ReadiumSpeechPlaybackEngine {
   initialize?(): Promise<unknown>;
 
   // Queue Management
-  loadUtterances(contents: ReadiumSpeechUtterance[]): void;
+  // startIndex is a hint for where playback will resume, so an engine that pre-buffers ahead of
+  // playback (e.g. SpeechServerEngine) warms the right utterances instead of always index 0.
+  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void;
   
   // Voice Configuration
   setVoice(voice: ReadiumSpeechVoice | string): void;

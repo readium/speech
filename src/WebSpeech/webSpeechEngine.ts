@@ -8,6 +8,8 @@ import { extractLangRegionFromBCP47 } from "../utils/language";
 
 import { detectFeatures, WebSpeechFeatures } from "../utils/features";
 import { detectPlatformFeatures, WebSpeechPlatformPatches } from "../utils/patches";
+import { EventEmitter } from "../utils/eventEmitter";
+import { clampIndex } from "../utils/array";
 
 import { stripHtml } from "string-strip-html";
 
@@ -18,7 +20,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private currentUtterances: ReadiumSpeechUtterance[] = [];
   private currentUtteranceIndex: number = 0;
   private playbackState: ReadiumSpeechPlaybackState = "idle";
-  private eventListeners: Map<ReadiumSpeechPlaybackEvent["type"], ((event: ReadiumSpeechPlaybackEvent) => void)[]> = new Map();
+  private readonly events = new EventEmitter<ReadiumSpeechPlaybackEvent["type"], ReadiumSpeechPlaybackEvent>();
 
   private voiceManager: WebSpeechVoiceManager | null = null;
   private voices: ReadiumSpeechVoice[] = [];
@@ -248,11 +250,13 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   // Queue Management
-  loadUtterances(contents: ReadiumSpeechUtterance[]): void {
+  loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void {
     this.currentUtterances = this.toPlainText(contents);
-    this.currentUtteranceIndex = 0;
+    this.currentUtteranceIndex = clampIndex(startIndex ?? 0, contents.length);
     void this.warmLanguageVoiceCache(this.currentUtterances);
-    this.setState("ready");
+    // Not setState(): never passes through "loading" first, so back-to-back loads while already
+    // "ready" must still each emit — setState's diff-based emit would swallow the second one.
+    this.playbackState = "ready";
     this.emitEvent({ type: "ready" });
   }
 
@@ -330,9 +334,6 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.setState("playing");
     this.emitEvent({ type: "start" });
     this.stopResumeInfinity();
-
-    // Reset utterance index to ensure we're starting fresh
-    this.currentUtteranceIndex = utteranceIndex ?? 0;
 
     // Ensure the utterance index is valid
     if (this.currentUtteranceIndex >= this.currentUtterances.length) {
@@ -671,28 +672,11 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   // Events
   on(event: ReadiumSpeechPlaybackEvent["type"], callback: (event: ReadiumSpeechPlaybackEvent) => void): () => void {
-    if (!this.eventListeners.has(event)) {
-      this.eventListeners.set(event, []);
-    }
-    this.eventListeners.get(event)!.push(callback);
-
-    // Return unsubscribe function
-    return () => {
-      const listeners = this.eventListeners.get(event);
-      if (listeners) {
-        const index = listeners.indexOf(callback);
-        if (index > -1) {
-          listeners.splice(index, 1);
-        }
-      }
-    };
+    return this.events.on(event, callback);
   }
 
   private emitEvent(event: ReadiumSpeechPlaybackEvent): void {
-    const listeners = this.eventListeners.get(event.type);
-    if (listeners) {
-      listeners.forEach(callback => callback(event));
-    }
+    this.events.emit(event.type, event);
   }
 
   private setState(state: ReadiumSpeechPlaybackState): void {
@@ -719,7 +703,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   async destroy(): Promise<void> {
     this.stop();
     this.stopResumeInfinity();
-    this.eventListeners.clear();
+    this.events.clear();
     this.currentUtterances = [];
     this.currentVoice = null;
     this.voices = [];

@@ -9,7 +9,6 @@ export interface SpeechServerVoice {
   otherLanguages?: string[];
   gender?: TGender | null;
   quality?: TQuality;
-  controls?: TServerVoiceControls;
 }
 
 export interface SpeechServerTimingMark {
@@ -49,5 +48,5 @@ export interface SpeechServerSynthesizeBoundaryResponse {
 export interface SpeechServerServiceInfo {
   output: { formats: SpeechServerAudioFormat[]; default: SpeechServerAudioFormat };
   limits: { maxTextLength: number; maxConcurrentSyntheses: number };
-  providers: { id: string; installedLanguages: string[] }[];
+  providers: { id: string; installedLanguages: string[]; quality?: TQuality; controls?: TServerVoiceControls }[];
 }

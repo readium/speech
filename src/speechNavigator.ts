@@ -10,6 +10,7 @@ import { contextualizationShapesAtVerbosity } from "./preferences/verbosityTable
 import { ReadiumSpeechUtterance } from "./utterance";
 import { extractUtterancesWithSources } from "./utterances/extractUtterances";
 import { ReadiumSpeechVoice } from "./voices/types";
+import { EventEmitter } from "./utils/eventEmitter";
 
 export interface ReadiumSpeechNavigatorConfiguration {
   preferences?: ISpeechPreferences;
@@ -19,7 +20,7 @@ export interface ReadiumSpeechNavigatorConfiguration {
 export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private engine: ReadiumSpeechPlaybackEngine;
   private contentQueue: ReadiumSpeechUtterance[] = [];
-  private eventListeners: Map<ReadiumSpeechPlaybackEvent["type"] | "contentchange", ((event: ReadiumSpeechPlaybackEvent) => void)[]> = new Map();
+  private readonly events = new EventEmitter<ReadiumSpeechPlaybackEvent["type"] | "contentchange", ReadiumSpeechPlaybackEvent>();
 
   // Navigator owns the state, not the engine
   private navigatorState: ReadiumSpeechPlaybackState = "idle";
@@ -108,7 +109,9 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
           }, this._settings.pauseDuration);
         }
       } else {
-        // Reached end - set navigator to idle
+        // Reached end - reset to the start so a later play() restarts rather than replaying
+        // the last utterance, then set navigator to idle
+        this.engine.setCurrentUtteranceIndex(0);
         this.setNavigatorState("idle");
       }
 
@@ -175,6 +178,14 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.engine.on("languagefallback", (event) => {
       this.emitEvent(event);
     });
+
+    this.engine.on("enginefallback", (event) => {
+      this.emitEvent(event);
+    });
+
+    this.engine.on("enginerecovered", (event) => {
+      this.emitEvent(event);
+    });
   }
 
   private setNavigatorState(state: ReadiumSpeechPlaybackState): void {
@@ -238,7 +249,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     // they're confident playback won't immediately stall.
     this.setNavigatorState("loading");
     this.emitEvent({ type: "loading" });
-    this.engine.loadUtterances(contents);
+    this.engine.loadUtterances(contents, resumeIndex ?? undefined);
     this.emitContentChangeEvent({ content: contents });
   }
 
@@ -393,34 +404,15 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   // Events
   on(event: ReadiumSpeechPlaybackEvent["type"] | "contentchange", listener: (event: ReadiumSpeechPlaybackEvent) => void): () => void {
-    if (!this.eventListeners.has(event)) {
-      this.eventListeners.set(event, []);
-    }
-    this.eventListeners.get(event)!.push(listener);
-
-    return () => {
-      const listeners = this.eventListeners.get(event);
-      if (listeners) {
-        const index = listeners.indexOf(listener);
-        if (index > -1) {
-          listeners.splice(index, 1);
-        }
-      }
-    };
+    return this.events.on(event, listener);
   }
 
   private emitEvent(event: ReadiumSpeechPlaybackEvent): void {
-    const listeners = this.eventListeners.get(event.type);
-    if (listeners) {
-      listeners.forEach(callback => callback(event));
-    }
+    this.events.emit(event.type, event);
   }
 
   private emitContentChangeEvent(event: { content: ReadiumSpeechUtterance[] }): void {
-    const listeners = this.eventListeners.get("contentchange");
-    if (listeners) {
-      listeners.forEach(callback => callback({ type: "contentchange", detail: event } as unknown as ReadiumSpeechPlaybackEvent));
-    }
+    this.events.emit("contentchange", { type: "contentchange", detail: event } as unknown as ReadiumSpeechPlaybackEvent);
   }
 
   // Preferences API (Configurable<SpeechSettings, SpeechPreferences>)
@@ -471,7 +463,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   async destroy(): Promise<void> {
     this.clearPendingAdvance();
-    this.eventListeners.clear();
+    this.events.clear();
     await this.engine.destroy();
   }
 }

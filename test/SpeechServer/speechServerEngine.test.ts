@@ -2,6 +2,10 @@ import test from "ava";
 import { SpeechServerEngine, chunkPlainText } from "../../build/index.js";
 import { createMockFetch, makeServerVoice, wavBase64, flush, defaultServiceInfo } from "./testUtils.js";
 
+function wait(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 // =============================================
 // Mock <audio> (canPlayType probing only)
 // =============================================
@@ -393,6 +397,39 @@ test.serial("prefetch requests are chained: never more than one /synthesize in f
   t.deepEqual(calls, ["One", "Two", "Three", "Four"]);
 });
 
+test.serial("a discarded in-flight prefetch is aborted, not left running", async (t) => {
+  const pending: Array<() => void> = [];
+  const signals: AbortSignal[] = [];
+
+  const fetchImpl = (async (url: string, init?: any) => {
+    if (url.endsWith("/service")) {
+      return { ok: true, status: 200, headers: { get: () => "application/json" }, json: async () => defaultServiceInfo() };
+    }
+    if (!url.endsWith("/synthesize")) {
+      throw new Error(`Unhandled mock fetch URL: ${url}`);
+    }
+    signals.push(init.signal);
+    await new Promise<void>((resolve) => pending.push(resolve));
+    return { ok: true, status: 200, headers: { get: () => "application/json" }, json: async () => ({ audio: wavBase64(), format: "wav", boundaries: null }) };
+  }) as unknown as typeof fetch;
+
+  const engine = new SpeechServerEngine({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl, prefetchWindow: 1 });
+  engine.loadUtterances([{ plain: "One" }, { plain: "Two" }]);
+
+  engine.speak(0);
+  await flush();
+  pending.shift()!(); // "One" resolves, unblocking the chained prefetch for "Two"
+  await flush();
+
+  t.is(signals.length, 2, "One's own request plus Two's prefetch have both started");
+  t.false(signals[1].aborted, "Two's prefetch is still in flight, nothing has discarded it yet");
+
+  engine.loadUtterances([{ plain: "Different." }]); // a reload clears the prefetch cache
+  await flush(); // the abort happens once the cached ChunkStream promise settles, not synchronously
+
+  t.true(signals[1].aborted, "the discarded prefetch for Two was aborted, not left running");
+});
+
 test.serial("a completed prefetch is reused instead of triggering a second fetch", async (t) => {
   const { fetchImpl, calls } = createMockFetch({
     synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
@@ -440,6 +477,66 @@ test.serial("no prefetch happens past the end of the queue", async (t) => {
   await flush();
 
   t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, 1);
+});
+
+test.serial("loadUtterances() with no startIndex buffers from utterance 0 (unchanged behavior)", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl, prefetchWindow: 1 });
+
+  const ready = new Promise<void>(resolve => engine.on("ready", () => resolve()));
+  engine.loadUtterances([{ plain: "One" }, { plain: "Two" }, { plain: "Three" }]);
+  await ready;
+
+  const texts = calls.filter(c => c.url.endsWith("/synthesize")).map(c => JSON.parse(c.init.body).text);
+  t.deepEqual(texts, ["One", "Two"], "buffers utterance 0 and one ahead, matching prefetchWindow");
+});
+
+test.serial("loadUtterances(contents, startIndex) buffers starting at startIndex, not 0", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl, prefetchWindow: 1 });
+
+  const ready = new Promise<void>(resolve => engine.on("ready", () => resolve()));
+  engine.loadUtterances([{ plain: "One" }, { plain: "Two" }, { plain: "Three" }, { plain: "Four" }, { plain: "Five" }], 3);
+  await ready;
+
+  const texts = calls.filter(c => c.url.endsWith("/synthesize")).map(c => JSON.parse(c.init.body).text);
+  t.deepEqual(texts, ["Four", "Five"], "buffers starting at utterance 3, never utterances 0-2");
+});
+
+test.serial("startIndex at the last utterance buffers only that one utterance", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl, prefetchWindow: 3 });
+
+  const ready = new Promise<void>(resolve => engine.on("ready", () => resolve()));
+  const contents = [{ plain: "One" }, { plain: "Two" }, { plain: "Three" }];
+  engine.loadUtterances(contents, contents.length - 1);
+  await ready;
+
+  const texts = calls.filter(c => c.url.endsWith("/synthesize")).map(c => JSON.parse(c.init.body).text);
+  t.deepEqual(texts, ["Three"]);
+});
+
+test.serial("speak(startIndex) after loadUtterances(contents, startIndex) reuses the pre-buffered chunk, not a cold fetch", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl, prefetchWindow: 1 });
+
+  const ready = new Promise<void>(resolve => engine.on("ready", () => resolve()));
+  engine.loadUtterances([{ plain: "One" }, { plain: "Two" }, { plain: "Three" }, { plain: "Four" }], 2);
+  await ready;
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, 2, "buffered utterances 2 and 3 before ready");
+
+  engine.speak(2);
+  await flush();
+
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, 2, "speak(2) reused the pre-buffered chunk instead of fetching cold");
 });
 
 test.serial("stop() resets to idle and index 0", async (t) => {
@@ -507,7 +604,8 @@ test.serial("rate is only faked locally when the voice's controls don't report s
 
 test.serial("setVoice(string) with an uncached identifier resolves controls.speed in the background, avoiding a doubled rate once resolved", async (t) => {
   const { fetchImpl } = createMockFetch({
-    voices: () => [makeServerVoice({ controls: { speed: true } })],
+    voices: () => [makeServerVoice()],
+    service: () => ({ json: { ...defaultServiceInfo(), providers: [{ id: "pocket", installedLanguages: ["en"], controls: { speed: true } }] } }),
     synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
   });
   const engine = new SpeechServerEngine({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl });
@@ -529,16 +627,28 @@ test.serial("setVoice(string) with an uncached identifier resolves controls.spee
 
 test.serial("setVoice(string) called again before the background voice lookup resolves doesn't get overwritten by the stale lookup", async (t) => {
   const { fetchImpl } = createMockFetch({
-    voices: () => [makeServerVoice({ controls: { speed: true } }), makeServerVoice({ name: "Estelle", identifier: "urn:readium:tts:pocket:estelle", controls: {} })]
+    voices: () => [
+      makeServerVoice(),
+      makeServerVoice({ name: "Estelle", identifier: "urn:readium:tts:elevenlabs:estelle", provider: "elevenlabs" })
+    ],
+    service: () => ({
+      json: {
+        ...defaultServiceInfo(),
+        providers: [
+          { id: "pocket", installedLanguages: ["en"], controls: { speed: true } },
+          { id: "elevenlabs", installedLanguages: ["en"], controls: {} }
+        ]
+      }
+    })
   });
   const engine = new SpeechServerEngine({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl });
 
   engine.setVoice("urn:readium:tts:pocket:alba");
-  engine.setVoice("urn:readium:tts:pocket:estelle"); // supersedes the still-pending lookup for "alba"
+  engine.setVoice("urn:readium:tts:elevenlabs:estelle"); // supersedes the still-pending lookup for "alba"
   await flush();
 
-  t.is(engine.getCurrentVoice()?.identifier, "urn:readium:tts:pocket:estelle", "the later setVoice() call wins, not the earlier one's background resolution");
-  t.deepEqual(engine.getCurrentVoice()?.controls, {}, "estelle's own resolved controls, not alba's");
+  t.is(engine.getCurrentVoice()?.identifier, "urn:readium:tts:elevenlabs:estelle", "the later setVoice() call wins, not the earlier one's background resolution");
+  t.deepEqual(engine.getCurrentVoice()?.controls, {}, "estelle's own provider's controls, not alba's");
 });
 
 test.serial("setVolume applies to the shared gain node", async (t) => {
@@ -954,4 +1064,122 @@ test.serial("format.adaptBitrateToNetwork sends a reduced bitrate when navigator
 
   const body = JSON.parse(calls.find(c => c.url.endsWith("/synthesize"))!.init.body);
   t.is(body.output.bitrate, 48000);
+});
+
+// =============================================
+// Stall detection (timeoutMs)
+// =============================================
+
+test.serial("a /synthesize request that never resolves stalls after timeoutMs with an empty buffer", async (t) => {
+  const { fetchImpl } = createMockFetch({
+    synthesize: () => new Promise(() => {}) // never resolves
+  });
+  const engine = new SpeechServerEngine({
+    endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" },
+    fetch: fetchImpl,
+    timeoutMs: 20
+  });
+  engine.loadUtterances([{ plain: "Hello" }]);
+
+  const errors: any[] = [];
+  engine.on("error", (e: any) => errors.push(e.detail));
+
+  engine.speak();
+  await wait(80);
+
+  t.is(errors.length, 1);
+  t.is(errors[0].type, "https://readium.org/speech-server/error#stall");
+  t.is(errors[0].status, 408);
+  t.is(errors[0].recoverable, true);
+  t.is(engine.getState(), "idle");
+});
+
+test.serial("loadUtterances() waits for the full readyBufferChars window to actually finish buffering before declaring \"ready\"", async (t) => {
+  const { fetchImpl } = createMockFetch({
+    synthesize: () => new Promise(resolve => setTimeout(() => resolve({ json: { audio: wavBase64(), format: "wav", boundaries: null } }), 60))
+  });
+  const engine = new SpeechServerEngine({
+    endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" },
+    fetch: fetchImpl,
+    prefetchWindow: 1
+  });
+
+  const readyEvents: any[] = [];
+  engine.on("ready", () => readyEvents.push(true));
+
+  engine.loadUtterances([{ plain: "One" }, { plain: "Two" }]);
+
+  await wait(30); // well before the 2 chained 60ms fetches finish
+  t.is(readyEvents.length, 0, "not ready until the buffer actually covers what was asked for");
+
+  await wait(150); // past the real, full buffering time
+  t.is(readyEvents.length, 1, "ready fires once buffering genuinely finishes");
+});
+
+test.serial("without timeoutMs, a /synthesize request that never resolves never stalls", async (t) => {
+  const { fetchImpl } = createMockFetch({
+    synthesize: () => new Promise(() => {})
+  });
+  const engine = new SpeechServerEngine({
+    endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" },
+    fetch: fetchImpl
+  });
+  engine.loadUtterances([{ plain: "Hello" }]);
+
+  const errors: any[] = [];
+  engine.on("error", (e: any) => errors.push(e.detail));
+
+  engine.speak();
+  await wait(80);
+
+  t.is(errors.length, 0, "no timeoutMs configured means no stall is ever declared");
+  t.is(engine.getState(), "loading");
+});
+
+test.serial("a later split chunk resolving slower than timeoutMs alone does not stall, as long as buffered audio covers it", async (t) => {
+  let synthesizeCalls = 0;
+  const { fetchImpl } = createMockFetch({
+    service: () => ({ json: { ...defaultServiceInfo(), limits: { maxTextLength: 20, maxConcurrentSyntheses: 2 } } }),
+    synthesize: () => {
+      synthesizeCalls++;
+      const chunk = { json: { audio: wavBase64(), format: "wav", boundaries: null } };
+      // First chunk carries several seconds of buffered audio; later chunks resolve slower than
+      // timeoutMs alone would tolerate, but well within that buffered cushion.
+      return synthesizeCalls === 1 ? chunk : new Promise(resolve => setTimeout(() => resolve(chunk), 60));
+    }
+  });
+  MockAudioContext.decodeDurations = [5, 0.1, 0.1];
+
+  const engine = new SpeechServerEngine({
+    endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" },
+    fetch: fetchImpl,
+    timeoutMs: 20 // far less than the 60ms delay on later chunks, on its own
+  });
+  // Longer than maxTextLength (20), so it's split into multiple /synthesize requests.
+  engine.loadUtterances([{ plain: "One sentence here. Another sentence follows next." }]);
+
+  const errors: any[] = [];
+  engine.on("error", (e: any) => errors.push(e.detail));
+
+  engine.speak();
+  await wait(200);
+
+  t.true(synthesizeCalls >= 2, "text should have been split into multiple chunks");
+  t.is(errors.length, 0, "buffered cushion from the first chunk should absorb the later chunks' delay");
+});
+
+test.serial("timeoutMs doesn't affect /voices or /service, which have no buffer to run dry", async (t) => {
+  const { fetchImpl } = createMockFetch({
+    voices: () => new Promise(resolve => setTimeout(() => resolve([makeServerVoice()]), 60)),
+    service: () => new Promise(resolve => setTimeout(() => resolve({ json: defaultServiceInfo() }), 60)),
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({
+    endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" },
+    fetch: fetchImpl,
+    timeoutMs: 20
+  });
+
+  const voices = await engine.getAvailableVoices();
+  t.is(voices.length, 1);
 });

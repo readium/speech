@@ -151,6 +151,24 @@ export const getVoices = async (lang: string): Promise<ReadiumSpeechJSONVoice[]>
 export const getAvailableLanguages = (): string[] => Object.keys(LANGUAGE_METADATA);
 
 /**
+ * Get a display name for a language code (e.g. "fr" -> "French")
+ * @param code - Language code
+ * @param localization - Optional BCP 47 locale to display the name in
+ */
+export const getLanguageDisplayName = (code: string, localization?: string): string => {
+  try {
+    const displayName = new Intl.DisplayNames(
+      localization ? [localization] : [],
+      { type: "language", languageDisplay: "standard" }
+    ).of(code);
+
+    return displayName || code.toUpperCase();
+  } catch {
+    return code.toUpperCase();
+  }
+};
+
+/**
  * Get the test utterance for a language
  * @param {string} lang - Language code (e.g., "en", "fr", "zh-CN")
  * @returns {string} The test utterance or empty string if not found

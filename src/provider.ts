@@ -6,7 +6,9 @@ export interface ReadiumSpeechEngineProvider {
   readonly name: string;
   
   // Voice Management
-  getVoices(): Promise<ReadiumSpeechVoice[]>;
+  // forceRefresh bypasses any cache a provider keeps, so callers that need a live reachability
+  // check (e.g. FallbackSpeechEngine's health check) don't get a stale result.
+  getVoices(forceRefresh?: boolean): Promise<ReadiumSpeechVoice[]>;
   
   // Engine Creation
   createEngine(voice?: ReadiumSpeechVoice | string): Promise<ReadiumSpeechPlaybackEngine>;
