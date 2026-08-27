@@ -9,6 +9,7 @@ import { SpeechSettings } from "./preferences/SpeechSettings";
 import { ReadiumSpeechUtterance } from "./utterance";
 import { extractUtterancesWithSources } from "./utterances/extractUtterances";
 import { ReadiumSpeechVoice } from "./voices/types";
+import { EventEmitter } from "./utils/eventEmitter";
 
 export interface ReadiumSpeechNavigatorConfiguration {
   preferences?: ISpeechPreferences;
@@ -18,7 +19,7 @@ export interface ReadiumSpeechNavigatorConfiguration {
 export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private engine: ReadiumSpeechPlaybackEngine;
   private contentQueue: ReadiumSpeechUtterance[] = [];
-  private eventListeners: Map<ReadiumSpeechPlaybackEvent["type"] | "contentchange", ((event: ReadiumSpeechPlaybackEvent) => void)[]> = new Map();
+  private readonly events = new EventEmitter<ReadiumSpeechPlaybackEvent["type"] | "contentchange", ReadiumSpeechPlaybackEvent>();
 
   // Navigator owns the state, not the engine
   private navigatorState: ReadiumSpeechPlaybackState = "idle";
@@ -400,34 +401,15 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   // Events
   on(event: ReadiumSpeechPlaybackEvent["type"] | "contentchange", listener: (event: ReadiumSpeechPlaybackEvent) => void): () => void {
-    if (!this.eventListeners.has(event)) {
-      this.eventListeners.set(event, []);
-    }
-    this.eventListeners.get(event)!.push(listener);
-
-    return () => {
-      const listeners = this.eventListeners.get(event);
-      if (listeners) {
-        const index = listeners.indexOf(listener);
-        if (index > -1) {
-          listeners.splice(index, 1);
-        }
-      }
-    };
+    return this.events.on(event, listener);
   }
 
   private emitEvent(event: ReadiumSpeechPlaybackEvent): void {
-    const listeners = this.eventListeners.get(event.type);
-    if (listeners) {
-      listeners.forEach(callback => callback(event));
-    }
+    this.events.emit(event.type, event);
   }
 
   private emitContentChangeEvent(event: { content: ReadiumSpeechUtterance[] }): void {
-    const listeners = this.eventListeners.get("contentchange");
-    if (listeners) {
-      listeners.forEach(callback => callback({ type: "contentchange", detail: event } as unknown as ReadiumSpeechPlaybackEvent));
-    }
+    this.events.emit("contentchange", { type: "contentchange", detail: event } as unknown as ReadiumSpeechPlaybackEvent);
   }
 
   // Preferences API (Configurable<SpeechSettings, SpeechPreferences>)
@@ -478,7 +460,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   async destroy(): Promise<void> {
     this.clearPendingAdvance();
-    this.eventListeners.clear();
+    this.events.clear();
     await this.engine.destroy();
   }
 }

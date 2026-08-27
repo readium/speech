@@ -5,6 +5,7 @@ import { ReadiumSpeechUtterance } from "../utterance";
 import { ReadiumSpeechVoice } from "../voices/types";
 import { processLanguages } from "../voices/languages";
 import { groupVoicesByLanguage, sortVoicesByRegions } from "../voices/sorting";
+import { EventEmitter } from "../utils/eventEmitter";
 import { isRecoverableFailure } from "./recoverableFailure";
 
 export interface FallbackSpeechEngineOptions {
@@ -69,7 +70,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // Bumped by every loadUtterances() call, so startEngineWhenReady() can tell its queue is stale.
   private loadToken = 0;
 
-  private eventListeners: Map<ReadiumSpeechPlaybackEvent["type"], ((event: ReadiumSpeechPlaybackEvent) => void)[]> = new Map();
+  private readonly events = new EventEmitter<ReadiumSpeechPlaybackEvent["type"], ReadiumSpeechPlaybackEvent>();
   private unbindActiveEngine: (() => void) | null = null;
 
   constructor(options: FallbackSpeechEngineOptions) {
@@ -216,33 +217,11 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   on(event: ReadiumSpeechPlaybackEvent["type"], callback: (event: ReadiumSpeechPlaybackEvent) => void): () => void {
-    if (!this.eventListeners.has(event)) {
-      this.eventListeners.set(event, []);
-    }
-    this.eventListeners.get(event)!.push(callback);
-
-    return () => {
-      const listeners = this.eventListeners.get(event);
-      if (listeners) {
-        const index = listeners.indexOf(callback);
-        if (index > -1) {
-          listeners.splice(index, 1);
-        }
-      }
-    };
+    return this.events.on(event, callback);
   }
 
   private emitEvent(event: ReadiumSpeechPlaybackEvent): void {
-    const listeners = this.eventListeners.get(event.type);
-    if (listeners) {
-      listeners.forEach(callback => {
-        try {
-          callback(event);
-        } catch (error) {
-          console.error(`Error in "${event.type}" listener:`, error);
-        }
-      });
-    }
+    this.events.emit(event.type, event);
   }
 
   private bindActiveEngine(): void {
@@ -428,7 +407,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.healthCheckTimer = null;
     }
     this.unbindActiveEngine?.();
-    this.eventListeners.clear();
+    this.events.clear();
     await this.activeEngine.destroy();
   }
 }

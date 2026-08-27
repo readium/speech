@@ -8,6 +8,7 @@ import { extractLangRegionFromBCP47 } from "../utils/language";
 
 import { detectFeatures, WebSpeechFeatures } from "../utils/features";
 import { detectPlatformFeatures, WebSpeechPlatformPatches } from "../utils/patches";
+import { EventEmitter } from "../utils/eventEmitter";
 
 import { stripHtml } from "string-strip-html";
 
@@ -18,7 +19,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private currentUtterances: ReadiumSpeechUtterance[] = [];
   private currentUtteranceIndex: number = 0;
   private playbackState: ReadiumSpeechPlaybackState = "idle";
-  private eventListeners: Map<ReadiumSpeechPlaybackEvent["type"], ((event: ReadiumSpeechPlaybackEvent) => void)[]> = new Map();
+  private readonly events = new EventEmitter<ReadiumSpeechPlaybackEvent["type"], ReadiumSpeechPlaybackEvent>();
 
   private voiceManager: WebSpeechVoiceManager | null = null;
   private voices: ReadiumSpeechVoice[] = [];
@@ -673,34 +674,11 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   // Events
   on(event: ReadiumSpeechPlaybackEvent["type"], callback: (event: ReadiumSpeechPlaybackEvent) => void): () => void {
-    if (!this.eventListeners.has(event)) {
-      this.eventListeners.set(event, []);
-    }
-    this.eventListeners.get(event)!.push(callback);
-
-    // Return unsubscribe function
-    return () => {
-      const listeners = this.eventListeners.get(event);
-      if (listeners) {
-        const index = listeners.indexOf(callback);
-        if (index > -1) {
-          listeners.splice(index, 1);
-        }
-      }
-    };
+    return this.events.on(event, callback);
   }
 
   private emitEvent(event: ReadiumSpeechPlaybackEvent): void {
-    const listeners = this.eventListeners.get(event.type);
-    if (listeners) {
-      listeners.forEach(callback => {
-        try {
-          callback(event);
-        } catch (error) {
-          console.error(`Error in "${event.type}" listener:`, error);
-        }
-      });
-    }
+    this.events.emit(event.type, event);
   }
 
   private setState(state: ReadiumSpeechPlaybackState): void {
@@ -727,7 +705,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   async destroy(): Promise<void> {
     this.stop();
     this.stopResumeInfinity();
-    this.eventListeners.clear();
+    this.events.clear();
     this.currentUtterances = [];
     this.currentVoice = null;
     this.voices = [];
