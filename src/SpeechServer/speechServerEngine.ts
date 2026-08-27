@@ -534,12 +534,9 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   // Races a chunk against bufferedAheadMs + timeoutMs rather than a flat per-request timeout,
-  // since a slow chunk is harmless as long as buffered audio still covers it. Skips arming the
-  // timer entirely when there's already at least one full timeoutMs of buffer ahead — a stall
-  // isn't plausible yet, and bufferedAheadMs is re-checked fresh for every subsequent chunk, so
-  // the margin only shrinks (never silently stays unmonitored) as playback catches up.
+  // since a slow chunk is harmless as long as buffered audio still covers it.
   private awaitWithStallDeadline<T>(promise: Promise<T>, controller: AbortController, bufferedAheadMs: number): Promise<T> {
-    if (this.timeoutMs === undefined || bufferedAheadMs >= this.timeoutMs) {
+    if (this.timeoutMs === undefined) {
       return promise;
     }
     const deadline = bufferedAheadMs + this.timeoutMs;
