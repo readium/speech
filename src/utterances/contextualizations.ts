@@ -1,5 +1,5 @@
 import type { Contextualizations } from "./types.js";
-import en from "../../json/contextualizations/en.json" with { type: "json" };
+import en from "../../locales/en.json" with { type: "json" };
 
 // One entry per shipped locale — add a JSON file + a record entry to add a
 // language. Callers can override or extend any subset via

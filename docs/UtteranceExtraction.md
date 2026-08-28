@@ -22,7 +22,7 @@ interface ReadiumSpeechUtterance {
 }
 ```
 
-Some roles get a synthesized navigational contextualization spoken around their content (entering/leaving a table, a pagebreak label...) — see [`defaultContextualizations`](../src/utterances/contextualizations.ts), sourced from [`json/contextualizations/en.json`](../json/contextualizations/en.json).
+Some roles get a synthesized navigational contextualization spoken around their content (entering/leaving a table, a pagebreak label...) — see [`defaultContextualizations`](../src/utterances/contextualizations.ts), sourced from [`locales/en.json`](../locales/en.json).
 
 ## Options
 
