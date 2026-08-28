@@ -8,10 +8,10 @@
       ],
       "utterances": [
         {
-          "plain": "Name"
+          "plain": "Team roster"
         },
         {
-          "plain": "Team roster"
+          "plain": "Name"
         }
       ]
     },
@@ -245,13 +245,13 @@
       ],
       "utterances": [
         {
+          "plain": "Team roster"
+        },
+        {
           "plain": "Row: 1"
         },
         {
           "plain": "Name"
-        },
-        {
-          "plain": "Team roster"
         }
       ]
     },
@@ -1919,10 +1919,10 @@
       ],
       "utterances": [
         {
-          "plain": "Row: 1"
+          "plain": "Team roster"
         },
         {
-          "plain": "Team roster"
+          "plain": "Row: 1"
         }
       ]
     },
@@ -3546,10 +3546,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Name"
+          "ssml": "Team roster"
         },
         {
-          "ssml": "Team roster"
+          "ssml": "Name"
         }
       ]
     },
@@ -3783,13 +3783,13 @@
       ],
       "utterances": [
         {
+          "ssml": "Team roster"
+        },
+        {
           "ssml": "Row: 1"
         },
         {
           "ssml": "Name"
-        },
-        {
-          "ssml": "Team roster"
         }
       ]
     },
@@ -5457,10 +5457,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Row: 1"
+          "ssml": "Team roster"
         },
         {
-          "ssml": "Team roster"
+          "ssml": "Row: 1"
         }
       ]
     },

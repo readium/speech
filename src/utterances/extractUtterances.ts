@@ -91,6 +91,18 @@ function pushPiecesOrMerged(
   }
 }
 
+// roles.md defines rowheader/columnheader in terms of "cell" itself
+// ("the header cell for a row/column") — they're specializations of
+// cell, not siblings of it. Requesting `cell` contextualization must
+// therefore also reach header cells; the reverse doesn't hold; requesting
+// header contextualization specifically doesn't broaden to plain cells.
+const cellGeneralizingRoles: ReadonlySet<string> = new Set(["rowheader", "columnheader"]);
+
+function isRoleContextualized(role: string, ctx: WalkContext): boolean {
+  if (ctx.contextualize.has(role)) return true;
+  return cellGeneralizingRoles.has(role) && ctx.contextualize.has("cell");
+}
+
 // Speaks `role`'s catalog entry for this `phase`: `inline` only has
 // something to say "before"; `block` says `start`/`end` at "before"/"after"
 // — unless `ctx.contextualizationShapes` overrides this role to "inline"
@@ -106,7 +118,7 @@ function pushRoleContextualization(
   variantKey?: string,
   params?: Record<string, string>,
 ): void {
-  if (!ctx.contextualize.has(role)) return;
+  if (!isRoleContextualized(role, ctx)) return;
   const isBlock = ctx.i18n.exists(`${role}.block.start`) || ctx.i18n.exists(`${role}.block.end`);
   if (isBlock && ctx.contextualizationShapes[role] !== "inline") {
     const base = phase === "before" ? `${role}.block.start` : `${role}.block.end`;
@@ -273,6 +285,12 @@ function emitInterrupted(
 const labelVariantRoles: ReadonlySet<string> = new Set(["audio", "video", "image", "math"]);
 const descriptionFoldingRoles: ReadonlySet<string> = new Set(["audio", "video", "image", "figure", "math", "table"]);
 
+// cell/rowheader's own contextualization template already embeds the
+// cell's text (`{{ value }}`, with or without a `{{ header }}` prefix) —
+// so once it fires, the node's own text must not also be spoken, or the
+// value is heard twice.
+const valueFoldingRoles: ReadonlySet<string> = new Set(["cell", "rowheader"]);
+
 // Falls back to the bare number when the catalog has no `parts` entry.
 function resolvePluralPart(ctx: WalkContext, role: string, name: string, count: number): string {
   const key = `${role}.parts.${name}`;
@@ -339,6 +357,18 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
     (role) => !(isFootnoteNode && (role === "footnote" || role === "aside")) && role !== "pagebreak",
   );
 
+  // A description is supplementary/elaborating content (e.g. an extended
+  // audio description) for most roles, spoken after the primary content —
+  // but a table's description is its caption, which precedes the table in
+  // the source and is announced before its rows to match. Either way this
+  // is suppressed when a role that's actually firing already folded it
+  // into its own announcement (e.g. "Table: Team roster. 3 lines...").
+  const foldsDescription = roles.some((role) => descriptionFoldingRoles.has(role) && ctx.contextualize.has(role));
+  const isTableCaption = roles.includes("table") && node.description !== undefined && !foldsDescription;
+  if (isTableCaption) {
+    push(out, sources, node, [formatPlain(node.description!, ctx.format)]);
+  }
+
   // Every role this node carries gets looked up in the contextualization
   // catalog and its "before" half spoken now, whatever shape that entry
   // is (see `pushRoleContextualization` and `contextualizations.ts`) — a
@@ -398,7 +428,8 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
         walk(node.children, out, sources, ctx, childSuppress);
       }
     } else {
-      const resolved = resolveNodeText(node.text);
+      const foldsValue = roles.some((role) => valueFoldingRoles.has(role) && isRoleContextualized(role, ctx));
+      const resolved = foldsValue ? undefined : resolveNodeText(node.text);
       if (resolved) {
         push(out, sources, node, applyFormat(resolved, ctx.format, ctx.language));
       }
@@ -413,12 +444,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
     ctx.blockStarts.add(out[beforeLength]);
   }
 
-  // A description is supplementary/elaborating content (e.g. an extended
-  // audio description), spoken after the primary content but still within
-  // the node's own start/end contextualization boundary — unless a role
-  // that's actually firing already folded it into its own announcement.
-  const foldsDescription = roles.some((role) => descriptionFoldingRoles.has(role) && ctx.contextualize.has(role));
-  if (node.description !== undefined && !foldsDescription) {
+  if (node.description !== undefined && !foldsDescription && !isTableCaption) {
     push(out, sources, node, [formatPlain(node.description, ctx.format)]);
   }
 

@@ -8,13 +8,13 @@
       ],
       "utterances": [
         {
+          "plain": "Team roster"
+        },
+        {
           "plain": "Name"
         },
         {
           "plain": "Ada"
-        },
-        {
-          "plain": "Team roster"
         }
       ]
     },
@@ -254,6 +254,9 @@
       ],
       "utterances": [
         {
+          "plain": "Team roster"
+        },
+        {
           "plain": "Row: 1"
         },
         {
@@ -264,9 +267,6 @@
         },
         {
           "plain": "Ada"
-        },
-        {
-          "plain": "Team roster"
         }
       ]
     },
@@ -534,16 +534,13 @@
       ],
       "utterances": [
         {
+          "plain": "Team roster"
+        },
+        {
           "plain": "Name"
         },
         {
           "plain": "Name: Ada"
-        },
-        {
-          "plain": "Ada"
-        },
-        {
-          "plain": "Team roster"
         }
       ]
     },
@@ -625,9 +622,6 @@
         },
         {
           "plain": "Name: Ada"
-        },
-        {
-          "plain": "Ada"
         },
         {
           "plain": "End of the table."
@@ -736,9 +730,6 @@
         },
         {
           "plain": "Name: Ada"
-        },
-        {
-          "plain": "Ada"
         }
       ]
     },
@@ -813,6 +804,9 @@
       ],
       "utterances": [
         {
+          "plain": "Team roster"
+        },
+        {
           "plain": "Row: 1"
         },
         {
@@ -823,12 +817,6 @@
         },
         {
           "plain": "Name: Ada"
-        },
-        {
-          "plain": "Ada"
-        },
-        {
-          "plain": "Team roster"
         }
       ]
     },
@@ -924,9 +912,6 @@
         },
         {
           "plain": "Name: Ada"
-        },
-        {
-          "plain": "Ada"
         },
         {
           "plain": "End of the table."
@@ -1049,9 +1034,6 @@
         },
         {
           "plain": "Name: Ada"
-        },
-        {
-          "plain": "Ada"
         }
       ]
     },
@@ -1118,10 +1100,10 @@
       ],
       "utterances": [
         {
-          "plain": "Ada"
+          "plain": "Team roster"
         },
         {
-          "plain": "Team roster"
+          "plain": "Ada"
         }
       ]
     },
@@ -1427,6 +1409,9 @@
       ],
       "utterances": [
         {
+          "plain": "Team roster"
+        },
+        {
           "plain": "Row: 1"
         },
         {
@@ -1434,9 +1419,6 @@
         },
         {
           "plain": "Ada"
-        },
-        {
-          "plain": "Team roster"
         }
       ]
     },
@@ -1770,13 +1752,10 @@
       ],
       "utterances": [
         {
-          "plain": "Name: Ada"
-        },
-        {
-          "plain": "Ada"
-        },
-        {
           "plain": "Team roster"
+        },
+        {
+          "plain": "Name: Ada"
         }
       ]
     },
@@ -1879,9 +1858,6 @@
         },
         {
           "plain": "Name: Ada"
-        },
-        {
-          "plain": "Ada"
         },
         {
           "plain": "End of the table."
@@ -2011,9 +1987,6 @@
         },
         {
           "plain": "Name: Ada"
-        },
-        {
-          "plain": "Ada"
         }
       ]
     },
@@ -2112,6 +2085,9 @@
       ],
       "utterances": [
         {
+          "plain": "Team roster"
+        },
+        {
           "plain": "Row: 1"
         },
         {
@@ -2119,12 +2095,6 @@
         },
         {
           "plain": "Name: Ada"
-        },
-        {
-          "plain": "Ada"
-        },
-        {
-          "plain": "Team roster"
         }
       ]
     },
@@ -2241,9 +2211,6 @@
         },
         {
           "plain": "Name: Ada"
-        },
-        {
-          "plain": "Ada"
         },
         {
           "plain": "End of the table."
@@ -2387,9 +2354,6 @@
         },
         {
           "plain": "Name: Ada"
-        },
-        {
-          "plain": "Ada"
         }
       ]
     },
@@ -8044,10 +8008,10 @@
       ],
       "utterances": [
         {
-          "plain": "Name"
+          "plain": "Team roster"
         },
         {
-          "plain": "Team roster"
+          "plain": "Name"
         }
       ]
     },
@@ -8647,6 +8611,9 @@
       ],
       "utterances": [
         {
+          "plain": "Team roster"
+        },
+        {
           "plain": "Row: 1"
         },
         {
@@ -8654,9 +8621,6 @@
         },
         {
           "plain": "Row: 2"
-        },
-        {
-          "plain": "Team roster"
         }
       ]
     },
@@ -9316,13 +9280,13 @@
       ],
       "utterances": [
         {
+          "plain": "Team roster"
+        },
+        {
           "plain": "Row: 1"
         },
         {
           "plain": "Row: 2"
-        },
-        {
-          "plain": "Team roster"
         }
       ]
     },
@@ -15972,13 +15936,13 @@
       ],
       "utterances": [
         {
+          "ssml": "Team roster"
+        },
+        {
           "ssml": "Name"
         },
         {
           "ssml": "Ada"
-        },
-        {
-          "ssml": "Team roster"
         }
       ]
     },
@@ -16218,6 +16182,9 @@
       ],
       "utterances": [
         {
+          "ssml": "Team roster"
+        },
+        {
           "ssml": "Row: 1"
         },
         {
@@ -16228,9 +16195,6 @@
         },
         {
           "ssml": "Ada"
-        },
-        {
-          "ssml": "Team roster"
         }
       ]
     },
@@ -16498,16 +16462,13 @@
       ],
       "utterances": [
         {
+          "ssml": "Team roster"
+        },
+        {
           "ssml": "Name"
         },
         {
           "ssml": "Name: Ada"
-        },
-        {
-          "ssml": "Ada"
-        },
-        {
-          "ssml": "Team roster"
         }
       ]
     },
@@ -16589,9 +16550,6 @@
         },
         {
           "ssml": "Name: Ada"
-        },
-        {
-          "ssml": "Ada"
         },
         {
           "ssml": "End of the table."
@@ -16700,9 +16658,6 @@
         },
         {
           "ssml": "Name: Ada"
-        },
-        {
-          "ssml": "Ada"
         }
       ]
     },
@@ -16777,6 +16732,9 @@
       ],
       "utterances": [
         {
+          "ssml": "Team roster"
+        },
+        {
           "ssml": "Row: 1"
         },
         {
@@ -16787,12 +16745,6 @@
         },
         {
           "ssml": "Name: Ada"
-        },
-        {
-          "ssml": "Ada"
-        },
-        {
-          "ssml": "Team roster"
         }
       ]
     },
@@ -16888,9 +16840,6 @@
         },
         {
           "ssml": "Name: Ada"
-        },
-        {
-          "ssml": "Ada"
         },
         {
           "ssml": "End of the table."
@@ -17013,9 +16962,6 @@
         },
         {
           "ssml": "Name: Ada"
-        },
-        {
-          "ssml": "Ada"
         }
       ]
     },
@@ -17082,10 +17028,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Ada"
+          "ssml": "Team roster"
         },
         {
-          "ssml": "Team roster"
+          "ssml": "Ada"
         }
       ]
     },
@@ -17391,6 +17337,9 @@
       ],
       "utterances": [
         {
+          "ssml": "Team roster"
+        },
+        {
           "ssml": "Row: 1"
         },
         {
@@ -17398,9 +17347,6 @@
         },
         {
           "ssml": "Ada"
-        },
-        {
-          "ssml": "Team roster"
         }
       ]
     },
@@ -17734,13 +17680,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Name: Ada"
-        },
-        {
-          "ssml": "Ada"
-        },
-        {
           "ssml": "Team roster"
+        },
+        {
+          "ssml": "Name: Ada"
         }
       ]
     },
@@ -17843,9 +17786,6 @@
         },
         {
           "ssml": "Name: Ada"
-        },
-        {
-          "ssml": "Ada"
         },
         {
           "ssml": "End of the table."
@@ -17975,9 +17915,6 @@
         },
         {
           "ssml": "Name: Ada"
-        },
-        {
-          "ssml": "Ada"
         }
       ]
     },
@@ -18076,6 +18013,9 @@
       ],
       "utterances": [
         {
+          "ssml": "Team roster"
+        },
+        {
           "ssml": "Row: 1"
         },
         {
@@ -18083,12 +18023,6 @@
         },
         {
           "ssml": "Name: Ada"
-        },
-        {
-          "ssml": "Ada"
-        },
-        {
-          "ssml": "Team roster"
         }
       ]
     },
@@ -18205,9 +18139,6 @@
         },
         {
           "ssml": "Name: Ada"
-        },
-        {
-          "ssml": "Ada"
         },
         {
           "ssml": "End of the table."
@@ -18351,9 +18282,6 @@
         },
         {
           "ssml": "Name: Ada"
-        },
-        {
-          "ssml": "Ada"
         }
       ]
     },
@@ -24008,10 +23936,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Name"
+          "ssml": "Team roster"
         },
         {
-          "ssml": "Team roster"
+          "ssml": "Name"
         }
       ]
     },
@@ -24611,6 +24539,9 @@
       ],
       "utterances": [
         {
+          "ssml": "Team roster"
+        },
+        {
           "ssml": "Row: 1"
         },
         {
@@ -24618,9 +24549,6 @@
         },
         {
           "ssml": "Row: 2"
-        },
-        {
-          "ssml": "Team roster"
         }
       ]
     },
@@ -25280,13 +25208,13 @@
       ],
       "utterances": [
         {
+          "ssml": "Team roster"
+        },
+        {
           "ssml": "Row: 1"
         },
         {
           "ssml": "Row: 2"
-        },
-        {
-          "ssml": "Team roster"
         }
       ]
     },
