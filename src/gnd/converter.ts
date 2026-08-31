@@ -18,7 +18,6 @@ import {
 import { startsWithBindingPunct } from "../utils/text.js";
 import { type ObjBuilder, NavObject, isEmptyObj, finalizeToGndObject, gndObjectToObjBuilder } from "./object.js";
 import { type GndMediaType, nodeLanguage, hasElementChild, isAncestorOf, sniffMediaType } from "./dom.js";
-import { insertListItemNumbers } from "./listNumbering.js";
 import { encodeCssSelectorFragment } from "./cssSelectorFragment.js";
 import { type GndGenerationOptions, normalizeCssSelectorsOption } from "./options.js";
 import { getCssSelector } from "css-selector-generator";
@@ -273,7 +272,6 @@ export class Converter {
 
     const cur = this.current.object;
     if (roles.length > 0) cur.role = roles;
-    if (tagName === "ol") insertListItemNumbers(el);
     if (aria) {
       cur.description = aria.plain;
       if (roles.includes("figure")) {

@@ -8,13 +8,13 @@
       ],
       "utterances": [
         {
-          "plain": "3. Third"
+          "plain": "Third"
         },
         {
-          "plain": "2. Second"
+          "plain": "Second"
         },
         {
-          "plain": "1. First"
+          "plain": "First"
         }
       ]
     },
@@ -84,13 +84,13 @@
           "plain": "Start of the list."
         },
         {
-          "plain": "3. Third"
+          "plain": "Third"
         },
         {
-          "plain": "2. Second"
+          "plain": "Second"
         },
         {
-          "plain": "1. First"
+          "plain": "First"
         },
         {
           "plain": "End of the list."
@@ -163,19 +163,19 @@
           "plain": "List item."
         },
         {
-          "plain": "3. Third"
+          "plain": "Third"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "2. Second"
+          "plain": "Second"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "1. First"
+          "plain": "First"
         }
       ]
     },
@@ -256,19 +256,19 @@
           "plain": "List item."
         },
         {
-          "plain": "3. Third"
+          "plain": "Third"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "2. Second"
+          "plain": "Second"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "1. First"
+          "plain": "First"
         },
         {
           "plain": "End of the list."
@@ -283,13 +283,13 @@
       ],
       "utterances": [
         {
-          "ssml": "3. Third"
+          "ssml": "Third"
         },
         {
-          "ssml": "2. Second"
+          "ssml": "Second"
         },
         {
-          "ssml": "1. First"
+          "ssml": "First"
         }
       ]
     },
@@ -359,13 +359,13 @@
           "ssml": "Start of the list."
         },
         {
-          "ssml": "3. Third"
+          "ssml": "Third"
         },
         {
-          "ssml": "2. Second"
+          "ssml": "Second"
         },
         {
-          "ssml": "1. First"
+          "ssml": "First"
         },
         {
           "ssml": "End of the list."
@@ -438,19 +438,19 @@
           "ssml": "List item."
         },
         {
-          "ssml": "3. Third"
+          "ssml": "Third"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "2. Second"
+          "ssml": "Second"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "1. First"
+          "ssml": "First"
         }
       ]
     },
@@ -531,19 +531,19 @@
           "ssml": "List item."
         },
         {
-          "ssml": "3. Third"
+          "ssml": "Third"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "2. Second"
+          "ssml": "Second"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "1. First"
+          "ssml": "First"
         },
         {
           "ssml": "End of the list."

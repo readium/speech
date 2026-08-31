@@ -8,13 +8,13 @@
       ],
       "utterances": [
         {
-          "plain": "1. One"
+          "plain": "One"
         },
         {
-          "plain": "99. Ninety-nine"
+          "plain": "Ninety-nine"
         },
         {
-          "plain": "3. Three"
+          "plain": "Three"
         }
       ]
     },
@@ -84,13 +84,13 @@
           "plain": "Start of the list."
         },
         {
-          "plain": "1. One"
+          "plain": "One"
         },
         {
-          "plain": "99. Ninety-nine"
+          "plain": "Ninety-nine"
         },
         {
-          "plain": "3. Three"
+          "plain": "Three"
         },
         {
           "plain": "End of the list."
@@ -163,19 +163,19 @@
           "plain": "List item."
         },
         {
-          "plain": "1. One"
+          "plain": "One"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "99. Ninety-nine"
+          "plain": "Ninety-nine"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "3. Three"
+          "plain": "Three"
         }
       ]
     },
@@ -256,19 +256,19 @@
           "plain": "List item."
         },
         {
-          "plain": "1. One"
+          "plain": "One"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "99. Ninety-nine"
+          "plain": "Ninety-nine"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "3. Three"
+          "plain": "Three"
         },
         {
           "plain": "End of the list."
@@ -283,13 +283,13 @@
       ],
       "utterances": [
         {
-          "ssml": "1. One"
+          "ssml": "One"
         },
         {
-          "ssml": "99. Ninety-nine"
+          "ssml": "Ninety-nine"
         },
         {
-          "ssml": "3. Three"
+          "ssml": "Three"
         }
       ]
     },
@@ -359,13 +359,13 @@
           "ssml": "Start of the list."
         },
         {
-          "ssml": "1. One"
+          "ssml": "One"
         },
         {
-          "ssml": "99. Ninety-nine"
+          "ssml": "Ninety-nine"
         },
         {
-          "ssml": "3. Three"
+          "ssml": "Three"
         },
         {
           "ssml": "End of the list."
@@ -438,19 +438,19 @@
           "ssml": "List item."
         },
         {
-          "ssml": "1. One"
+          "ssml": "One"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "99. Ninety-nine"
+          "ssml": "Ninety-nine"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "3. Three"
+          "ssml": "Three"
         }
       ]
     },
@@ -531,19 +531,19 @@
           "ssml": "List item."
         },
         {
-          "ssml": "1. One"
+          "ssml": "One"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "99. Ninety-nine"
+          "ssml": "Ninety-nine"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "3. Three"
+          "ssml": "Three"
         },
         {
           "ssml": "End of the list."

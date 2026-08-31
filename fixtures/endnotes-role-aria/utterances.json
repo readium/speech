@@ -8,10 +8,10 @@
       ],
       "utterances": [
         {
-          "plain": "1. See introduction for background."
+          "plain": "See introduction for background."
         },
         {
-          "plain": "2. See chapter three for details."
+          "plain": "See chapter three for details."
         }
       ]
     },
@@ -81,10 +81,10 @@
           "plain": "Start of the list."
         },
         {
-          "plain": "1. See introduction for background."
+          "plain": "See introduction for background."
         },
         {
-          "plain": "2. See chapter three for details."
+          "plain": "See chapter three for details."
         },
         {
           "plain": "End of the list."
@@ -157,13 +157,13 @@
           "plain": "List item."
         },
         {
-          "plain": "1. See introduction for background."
+          "plain": "See introduction for background."
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "2. See chapter three for details."
+          "plain": "See chapter three for details."
         }
       ]
     },
@@ -244,13 +244,13 @@
           "plain": "List item."
         },
         {
-          "plain": "1. See introduction for background."
+          "plain": "See introduction for background."
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "2. See chapter three for details."
+          "plain": "See chapter three for details."
         },
         {
           "plain": "End of the list."
@@ -1250,10 +1250,10 @@
       ],
       "utterances": [
         {
-          "ssml": "1. See introduction for background."
+          "ssml": "See introduction for background."
         },
         {
-          "ssml": "2. See chapter three for details."
+          "ssml": "See chapter three for details."
         }
       ]
     },
@@ -1323,10 +1323,10 @@
           "ssml": "Start of the list."
         },
         {
-          "ssml": "1. See introduction for background."
+          "ssml": "See introduction for background."
         },
         {
-          "ssml": "2. See chapter three for details."
+          "ssml": "See chapter three for details."
         },
         {
           "ssml": "End of the list."
@@ -1399,13 +1399,13 @@
           "ssml": "List item."
         },
         {
-          "ssml": "1. See introduction for background."
+          "ssml": "See introduction for background."
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "2. See chapter three for details."
+          "ssml": "See chapter three for details."
         }
       ]
     },
@@ -1486,13 +1486,13 @@
           "ssml": "List item."
         },
         {
-          "ssml": "1. See introduction for background."
+          "ssml": "See introduction for background."
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "2. See chapter three for details."
+          "ssml": "See chapter three for details."
         },
         {
           "ssml": "End of the list."

@@ -8,13 +8,13 @@
       ],
       "utterances": [
         {
-          "plain": "1. Page 1"
+          "plain": "Page 1"
         },
         {
-          "plain": "2. Page 2"
+          "plain": "Page 2"
         },
         {
-          "plain": "3. Page 3"
+          "plain": "Page 3"
         }
       ]
     },
@@ -84,13 +84,13 @@
           "plain": "Start of the list."
         },
         {
-          "plain": "1. Page 1"
+          "plain": "Page 1"
         },
         {
-          "plain": "2. Page 2"
+          "plain": "Page 2"
         },
         {
-          "plain": "3. Page 3"
+          "plain": "Page 3"
         },
         {
           "plain": "End of the list."
@@ -163,19 +163,19 @@
           "plain": "List item."
         },
         {
-          "plain": "1. Page 1"
+          "plain": "Page 1"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "2. Page 2"
+          "plain": "Page 2"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "3. Page 3"
+          "plain": "Page 3"
         }
       ]
     },
@@ -256,19 +256,19 @@
           "plain": "List item."
         },
         {
-          "plain": "1. Page 1"
+          "plain": "Page 1"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "2. Page 2"
+          "plain": "Page 2"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "3. Page 3"
+          "plain": "Page 3"
         },
         {
           "plain": "End of the list."
@@ -283,13 +283,13 @@
       ],
       "utterances": [
         {
-          "ssml": "1. Page 1"
+          "ssml": "Page 1"
         },
         {
-          "ssml": "2. Page 2"
+          "ssml": "Page 2"
         },
         {
-          "ssml": "3. Page 3"
+          "ssml": "Page 3"
         }
       ]
     },
@@ -359,13 +359,13 @@
           "ssml": "Start of the list."
         },
         {
-          "ssml": "1. Page 1"
+          "ssml": "Page 1"
         },
         {
-          "ssml": "2. Page 2"
+          "ssml": "Page 2"
         },
         {
-          "ssml": "3. Page 3"
+          "ssml": "Page 3"
         },
         {
           "ssml": "End of the list."
@@ -438,19 +438,19 @@
           "ssml": "List item."
         },
         {
-          "ssml": "1. Page 1"
+          "ssml": "Page 1"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "2. Page 2"
+          "ssml": "Page 2"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "3. Page 3"
+          "ssml": "Page 3"
         }
       ]
     },
@@ -531,19 +531,19 @@
           "ssml": "List item."
         },
         {
-          "ssml": "1. Page 1"
+          "ssml": "Page 1"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "2. Page 2"
+          "ssml": "Page 2"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "3. Page 3"
+          "ssml": "Page 3"
         },
         {
           "ssml": "End of the list."

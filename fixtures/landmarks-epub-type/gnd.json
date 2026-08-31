@@ -18,21 +18,21 @@
               "role": [
                 "listItem"
               ],
-              "text": "1. Cover",
+              "text": "Cover",
               "textref": "cover.xhtml"
             },
             {
               "role": [
                 "listItem"
               ],
-              "text": "2. Table of Contents",
+              "text": "Table of Contents",
               "textref": "toc.xhtml"
             },
             {
               "role": [
                 "listItem"
               ],
-              "text": "3. Start of Content",
+              "text": "Start of Content",
               "textref": "chapter1.xhtml"
             }
           ]

@@ -18,21 +18,21 @@
               "role": [
                 "listItem"
               ],
-              "text": "1. Chapter One",
+              "text": "Chapter One",
               "textref": "chapter1.xhtml"
             },
             {
               "role": [
                 "listItem"
               ],
-              "text": "2. Chapter Two",
+              "text": "Chapter Two",
               "textref": "chapter2.xhtml"
             },
             {
               "role": [
                 "listItem"
               ],
-              "text": "3. Chapter Three",
+              "text": "Chapter Three",
               "textref": "chapter3.xhtml"
             }
           ]

@@ -18,14 +18,14 @@
               "role": [
                 "listItem"
               ],
-              "text": "1. Table 1. Lighthouse construction dates",
+              "text": "Table 1. Lighthouse construction dates",
               "textref": "appendix.xhtml#table1"
             },
             {
               "role": [
                 "listItem"
               ],
-              "text": "2. Table 2. Keeper staffing by decade",
+              "text": "Table 2. Keeper staffing by decade",
               "textref": "appendix.xhtml#table2"
             }
           ]

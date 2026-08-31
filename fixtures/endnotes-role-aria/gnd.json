@@ -14,7 +14,7 @@
             "footnote"
           ],
           "id": "note1",
-          "text": "1. See introduction for background."
+          "text": "See introduction for background."
         },
         {
           "role": [
@@ -22,7 +22,7 @@
             "footnote"
           ],
           "id": "note2",
-          "text": "2. See chapter three for details."
+          "text": "See chapter three for details."
         }
       ]
     }

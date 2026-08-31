@@ -8,10 +8,10 @@
       ],
       "utterances": [
         {
-          "plain": "1. Video 1. Lamp mechanism in motion"
+          "plain": "Video 1. Lamp mechanism in motion"
         },
         {
-          "plain": "2. Video 2. Automation retrofit"
+          "plain": "Video 2. Automation retrofit"
         }
       ]
     },
@@ -81,10 +81,10 @@
           "plain": "Start of the list."
         },
         {
-          "plain": "1. Video 1. Lamp mechanism in motion"
+          "plain": "Video 1. Lamp mechanism in motion"
         },
         {
-          "plain": "2. Video 2. Automation retrofit"
+          "plain": "Video 2. Automation retrofit"
         },
         {
           "plain": "End of the list."
@@ -157,13 +157,13 @@
           "plain": "List item."
         },
         {
-          "plain": "1. Video 1. Lamp mechanism in motion"
+          "plain": "Video 1. Lamp mechanism in motion"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "2. Video 2. Automation retrofit"
+          "plain": "Video 2. Automation retrofit"
         }
       ]
     },
@@ -244,13 +244,13 @@
           "plain": "List item."
         },
         {
-          "plain": "1. Video 1. Lamp mechanism in motion"
+          "plain": "Video 1. Lamp mechanism in motion"
         },
         {
           "plain": "List item."
         },
         {
-          "plain": "2. Video 2. Automation retrofit"
+          "plain": "Video 2. Automation retrofit"
         },
         {
           "plain": "End of the list."
@@ -582,10 +582,10 @@
       ],
       "utterances": [
         {
-          "ssml": "1. Video 1. Lamp mechanism in motion"
+          "ssml": "Video 1. Lamp mechanism in motion"
         },
         {
-          "ssml": "2. Video 2. Automation retrofit"
+          "ssml": "Video 2. Automation retrofit"
         }
       ]
     },
@@ -655,10 +655,10 @@
           "ssml": "Start of the list."
         },
         {
-          "ssml": "1. Video 1. Lamp mechanism in motion"
+          "ssml": "Video 1. Lamp mechanism in motion"
         },
         {
-          "ssml": "2. Video 2. Automation retrofit"
+          "ssml": "Video 2. Automation retrofit"
         },
         {
           "ssml": "End of the list."
@@ -731,13 +731,13 @@
           "ssml": "List item."
         },
         {
-          "ssml": "1. Video 1. Lamp mechanism in motion"
+          "ssml": "Video 1. Lamp mechanism in motion"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "2. Video 2. Automation retrofit"
+          "ssml": "Video 2. Automation retrofit"
         }
       ]
     },
@@ -818,13 +818,13 @@
           "ssml": "List item."
         },
         {
-          "ssml": "1. Video 1. Lamp mechanism in motion"
+          "ssml": "Video 1. Lamp mechanism in motion"
         },
         {
           "ssml": "List item."
         },
         {
-          "ssml": "2. Video 2. Automation retrofit"
+          "ssml": "Video 2. Automation retrofit"
         },
         {
           "ssml": "End of the list."
