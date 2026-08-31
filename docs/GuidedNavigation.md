@@ -17,7 +17,7 @@ const gnd = makeGnd(`
 ```
 
 ```typescript
-function makeGnd(input: string, mediaType?: GndMediaType): GndDocument;
+function makeGnd(input: string | Element, mediaType?: GndMediaType, options?: GndGenerationOptions): GndDocument;
 
 interface GndDocument {
   links?: unknown[];
@@ -25,11 +25,41 @@ interface GndDocument {
 }
 ```
 
-`mediaType` is `"text/html" | "application/xhtml+xml"`. Omit it to sniff from `input` (XML declaration, `xmlns:epub`, XHTML doctype → XHTML; else HTML).
+`input` is either raw markup, or a live, already-rendered element to convert in place — see `domRange` below for why that distinction matters. `mediaType` is `"text/html" | "application/xhtml+xml"`. Omit it to sniff from `input` (a string: XML declaration, `xmlns:epub`, XHTML doctype → XHTML, else HTML; an element: its own document's content type).
 
-Skip the `GndDocument` wrapper by calling `parseMarkup(html): GndObject[]` directly.
+Skip the `GndDocument` wrapper by calling `parseMarkup(input, mediaType?, options?): GndObject[]` directly.
 
 Parsing uses the native `DOMParser` — no HTML/XML library bundled or loaded at runtime.
+
+## Text references (`textrefs`)
+
+Off by default — generating a reference has a real compute cost. When enabled, every node with a role gets a `textref` a DOM-highlighting consumer can resolve back to its source element: the element's own `#id` when it has one, `#css(<selector>)` otherwise. This is a plain `textref` URI reference, per the guided-navigation spec — not a Readium [`Locator`](https://readium.org/architecture/models/locators/) object; see [Highlighting](Highlighting.md) for how a `Locator` actually gets built for DOM highlighting.
+
+```typescript
+interface GndGenerationOptions {
+  textrefs?: boolean | GndRole[] | TextrefOptions;
+}
+
+interface TextrefOptions {
+  roles?: boolean | GndRole[]; // which roles get a reference; true = every role
+  domRange?: boolean;          // also compute exact textNodeIndex/charOffset
+}
+```
+
+```typescript
+makeGnd(html, undefined, { textrefs: true });                       // every role
+makeGnd(html, undefined, { textrefs: ["heading1", "paragraph"] });  // just these roles
+```
+
+`domRange` upgrades the reference to `#domrange(...)` — a serialized [Locator `DomRange`](https://readium.org/architecture/models/locators/extensions/html.html#the-domrange-object) pinpointing the exact start/end text node and character offset, not just the containing element. It's only safe against a **live, already-rendered** element, passed as `input` directly rather than as a markup string — passing a string always parses a detached copy that's never resolved again, so `domRange` is silently ignored there:
+
+```typescript
+makeGnd(document.querySelector("article")!, undefined, {
+  textrefs: { roles: true, domRange: true },
+});
+```
+
+Decode either shape with `decodeTextref({ id, textref })` (from `@readium/speech`), which returns `{ selector, domRange? }` or `undefined` for a `textref` that isn't a generated reference (e.g. a link's own `href`, or a noteref/pagebreak reference).
 
 ## `GndObject`
 
@@ -60,7 +90,7 @@ interface GndObject {
 - **`imgref`/`audioref`/`videoref`** are a media element's `src`. **`textref`** is an `href` — reused for navigational-list items (`toc`, `index`...), `noteref`/`backlink`/`biblioref`/`glossref`, and plain links.
 - **`description`** is a node's accessible name (`aria-label`, `alt`, `<figcaption>`...) when it differs from its visible text.
 - Empty/presentational/`aria-hidden`/`hidden` content and role-less wrapper `<div>`s are dropped from the tree, not kept as empty nodes.
-- A block whose only child has no role/id of its own gets that child's text/refs hoisted into it: `<p><a href="...">Cover</a></p>` → `{ role: ["paragraph"], text: "Cover", textref: "..." }`, not a nested anonymous child.
+- A block whose only child has no role/id/ref of its own gets that child's text hoisted into it: `<p><em>Cover</em></p>` → `{ role: ["paragraph"], text: "Cover" }`, not a nested anonymous child. A child carrying its own ref (`textref`/`imgref`/`audioref`/`videoref`) is never hoisted, since merging it would either discard that ref or silently overwrite the parent's own: `<p><a href="...">Cover</a></p>` → `{ role: ["paragraph"], children: [{ text: "Cover", textref: "..." }] }`.
 
 ## Footnotes and pagebreaks
 

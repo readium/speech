@@ -18,15 +18,23 @@
               "role": [
                 "listItem"
               ],
-              "text": "Figure 1. Lighthouse cross-section",
-              "textref": "chapter1.xhtml#fig1"
+              "children": [
+                {
+                  "textref": "chapter1.xhtml#fig1",
+                  "text": "Figure 1. Lighthouse cross-section"
+                }
+              ]
             },
             {
               "role": [
                 "listItem"
               ],
-              "text": "Figure 2. Fresnel lens diagram",
-              "textref": "chapter2.xhtml#fig2"
+              "children": [
+                {
+                  "textref": "chapter2.xhtml#fig2",
+                  "text": "Figure 2. Fresnel lens diagram"
+                }
+              ]
             }
           ]
         }

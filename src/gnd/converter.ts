@@ -18,12 +18,27 @@ import {
 import { startsWithBindingPunct } from "../utils/text.js";
 import { type ObjBuilder, NavObject, isEmptyObj, finalizeToGndObject, gndObjectToObjBuilder } from "./object.js";
 import { type GndMediaType, nodeLanguage, hasElementChild, isAncestorOf, sniffMediaType } from "./dom.js";
-import { encodeCssSelectorFragment } from "./cssSelectorFragment.js";
-import { type GndGenerationOptions, normalizeCssSelectorsOption } from "./options.js";
+import {
+  encodeCssSelectorFragment,
+  encodeDomRangeFragment,
+  type DomRangeJSON,
+} from "./textrefFragment.js";
+import { type GndGenerationOptions, normalizeTextrefOptions } from "./options.js";
 import { getCssSelector } from "css-selector-generator";
 
 const TEXT_NODE = 3;
 const ELEMENT_NODE = 1;
+
+// A DomRangePoint's textNodeIndex counts only among container's Text-node
+// children, per the Locator HTML extension spec.
+function textNodeIndexAmongChildren(container: Element, target: Text): number {
+  let idx = 0;
+  for (const child of Array.from(container.childNodes)) {
+    if (child === target) return idx;
+    if (child.nodeType === TEXT_NODE) idx++;
+  }
+  return idx;
+}
 
 // From jsoup, everything except "device":
 // https://github.com/jhy/jsoup/blob/0b10d516ed8f907f8fb4acb9a0806137a8988d45/src/main/java/org/jsoup/parser/Tag.java#L243
@@ -68,6 +83,9 @@ export class Converter {
   noterefDepth = 0;
   allowNode: Element | null = null;
   selectorPredicate: ((roles: GndRole[]) => boolean) | null = null;
+  // Only meaningful (and safe) when converting a live, already-rendered
+  // element — see TextrefOptions.domRange in options.ts.
+  domRangeEnabled = false;
   docRoot: Document | null = null;
 
   private root = new NavObject();
@@ -78,6 +96,16 @@ export class Converter {
   private currentCtx: SSMLContext = { lang: "", tag: "" };
   private flowEndsWithSpace = true;
   private pendingChildren: NavObject[] = [];
+
+  // Boundary text nodes of the flow currently being accumulated, for
+  // domRange generation — see text()/resetFlow()/flushText().
+  private flowFirstNode: Text | null = null;
+  private flowFirstOffset = 0;
+  private flowLastNode: Text | null = null;
+  private flowLastOffset = 0;
+  // The boundary nodes of the flow flushText() just flushed, read by tail()
+  // right after calling it to build a domRange for the block it closes.
+  private lastFlowRange: { first: [Text, number]; last: [Text, number] } | null = null;
 
   constructor(xmlParsed: boolean) {
     this.xmlParsed = xmlParsed;
@@ -291,11 +319,6 @@ export class Converter {
     const id = el.getAttribute("id");
     if (id) cur.id = id;
 
-    if (this.selectorPredicate?.(roles)) {
-      const selector = getCssSelector(el, { root: this.docRoot ?? undefined });
-      if (selector) cur.textref = encodeCssSelectorFragment(selector);
-    }
-
     return false;
   }
 
@@ -315,8 +338,56 @@ export class Converter {
     const roles = extractNodeRoles(el);
     if (isBlockNode(tagName, roles)) {
       this.flushText();
+      if (this.selectorPredicate?.(roles)) {
+        this.applyTextref(el);
+      }
       this.current = parent;
     }
+  }
+
+  // Sets cur.textref to a reference for el: a bare "#id" fragment when el
+  // has one, a "#css(...)" fragment otherwise. When domRangeEnabled and
+  // el's own flow just flushed some text, that reference is upgraded to a
+  // "#domrange(...)" fragment pinpointing the exact boundary text nodes
+  // instead.
+  private applyTextref(el: Element) {
+    const cur = this.current.object;
+    const id = el.getAttribute("id");
+    if (id) {
+      cur.textref = `#${id}`;
+    } else {
+      const selector = getCssSelector(el, { root: this.docRoot ?? undefined });
+      if (selector) cur.textref = encodeCssSelectorFragment(selector);
+    }
+
+    if (this.domRangeEnabled && this.lastFlowRange) {
+      const domRange = this.buildDomRange(this.lastFlowRange);
+      if (domRange) cur.textref = encodeDomRangeFragment(domRange);
+    }
+  }
+
+  private buildDomRange(range: {
+    first: [Text, number];
+    last: [Text, number];
+  }): DomRangeJSON | undefined {
+    const start = this.domRangePoint(...range.first);
+    if (!start) return undefined;
+    const end = this.domRangePoint(...range.last);
+    return end ? { start, end } : { start };
+  }
+
+  private domRangePoint(node: Text, offset: number): DomRangeJSON["start"] | undefined {
+    const container = node.parentElement;
+    if (!container) return undefined;
+    const cssSelector = this.selectorForElement(container);
+    if (!cssSelector) return undefined;
+    return { cssSelector, textNodeIndex: textNodeIndexAmongChildren(container, node), charOffset: offset };
+  }
+
+  private selectorForElement(el: Element): string | undefined {
+    const id = el.getAttribute("id");
+    if (id) return `#${id}`;
+    return getCssSelector(el, { root: this.docRoot ?? undefined }) ?? undefined;
   }
 
   private text(node: Node) {
@@ -336,6 +407,16 @@ export class Converter {
     }
     this.textAcc += normalizeWhitespace(data, this.flowEndsWithSpace);
     this.updateFlowSpace();
+
+    if (this.domRangeEnabled) {
+      const text = node as Text;
+      if (this.flowFirstNode === null) {
+        this.flowFirstNode = text;
+        this.flowFirstOffset = data.search(/\S/);
+      }
+      this.flowLastNode = text;
+      this.flowLastOffset = data.length - (data.match(/\s+$/)?.[0].length ?? 0);
+    }
   }
 
   private textContext(node: Node): SSMLContext {
@@ -369,6 +450,10 @@ export class Converter {
     this.currentCtx = { lang: "", tag: "" };
     this.flowEndsWithSpace = true;
     this.pendingChildren = [];
+    this.flowFirstNode = null;
+    this.flowFirstOffset = 0;
+    this.flowLastNode = null;
+    this.flowLastOffset = 0;
   }
 
   private placeholder(el: Element, tag: string, object: ObjBuilder, candidateID?: string) {
@@ -434,6 +519,7 @@ export class Converter {
         sub.allowNode = target;
         sub.docRoot = this.docRoot;
         sub.selectorPredicate = this.selectorPredicate;
+        sub.domRangeEnabled = this.domRangeEnabled;
         sub.convert(target);
         const children = sub.result();
         if (children.length > 0) {
@@ -469,7 +555,12 @@ export class Converter {
     this.closeSegment();
     let segments = this.segments;
     const pending = this.pendingChildren;
+    const flowFirstNode = this.flowFirstNode;
+    const flowFirstOffset = this.flowFirstOffset;
+    const flowLastNode = this.flowLastNode;
+    const flowLastOffset = this.flowLastOffset;
     this.resetFlow();
+    this.lastFlowRange = null;
 
     if (segments.length === 0) return;
 
@@ -635,6 +726,10 @@ export class Converter {
       textObj.children.push(child);
     }
     this.appendChild(textObj);
+
+    if (flowFirstNode && flowLastNode) {
+      this.lastFlowRange = { first: [flowFirstNode, flowFirstOffset], last: [flowLastNode, flowLastOffset] };
+    }
   }
 }
 
@@ -646,17 +741,42 @@ const BODY_TAG_RE = /<body[\s>]/i;
 
 /**
  * Converts an HTML or XHTML fragment or document into Guided Navigation
- * objects, reflecting exactly the input it's given: a real, author-written
- * <body> becomes its own role: ["body"] node like any other element; a
- * <body> synthesized only by text/html parsing around a bodyless fragment
- * is not content and is skipped through; a bodyless XHTML fragment's root
- * element is itself the content.
+ * objects.
+ *
+ * Given a string, `input` is parsed into a detached document that's never
+ * seen again — `options.textrefs.domRange` has nothing to resolve back
+ * against there, so it's ignored. Reflects exactly the input it's given: a
+ * real, author-written <body> becomes its own role: ["body"] node like any
+ * other element; a <body> synthesized only by text/html parsing around a
+ * bodyless fragment is not content and is skipped through; a bodyless XHTML
+ * fragment's root element is itself the content.
+ *
+ * Given a live, already-rendered element instead, it's converted in place —
+ * no parsing, no detached copy — so `domRange` can pinpoint exact text
+ * nodes a DOM-highlighting consumer can resolve straight back against that
+ * same document.
  */
-export function parseMarkup(input: string, mediaType?: GndMediaType, options?: GndGenerationOptions): GndObject[] {
+export function parseMarkup(
+  input: string | Element,
+  mediaType?: GndMediaType,
+  options?: GndGenerationOptions,
+): GndObject[] {
+  const { predicate, domRange } = normalizeTextrefOptions(options?.textrefs);
+
+  if (typeof input !== "string") {
+    const mt = mediaType ?? (input.ownerDocument.contentType === "text/html" ? "text/html" : "application/xhtml+xml");
+    const converter = new Converter(mt === "application/xhtml+xml");
+    converter.selectorPredicate = predicate;
+    converter.domRangeEnabled = domRange;
+    converter.docRoot = input.ownerDocument;
+    converter.convert(input);
+    return converter.result();
+  }
+
   const mt = mediaType ?? sniffMediaType(input);
   const doc = new DOMParser().parseFromString(input, mt);
   const converter = new Converter(mt === "application/xhtml+xml");
-  converter.selectorPredicate = normalizeCssSelectorsOption(options?.cssSelectors);
+  converter.selectorPredicate = predicate;
   converter.docRoot = doc;
   const body = doc.querySelector("body");
   if (body && !BODY_TAG_RE.test(input)) {

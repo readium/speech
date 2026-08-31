@@ -44,11 +44,21 @@ function isChildrenOnly(o: ObjBuilder): boolean {
   );
 }
 
-// A lone child with no role/id of its own: its text and refs are hoisted into
-// the parent object directly, e.g. a paragraph wrapping a single plain link
-// becomes {role, text, textref} rather than nesting an anonymous child.
+// A lone child with no role/id/ref of its own: its text is hoisted into the
+// parent object directly, e.g. a paragraph wrapping plain emphasis becomes
+// {role, text} rather than nesting an anonymous child. A child carrying its
+// own ref (e.g. an <a href>'s textref) is never hoisted — refs identify a
+// distinct target and merging them into the parent would silently discard
+// whichever of the two textrefs isn't kept.
 function isHoistable(o: ObjBuilder): boolean {
-  return !(o.role && o.role.length > 0) && !o.id;
+  return (
+    !(o.role && o.role.length > 0) &&
+    !o.id &&
+    !o.textref &&
+    !o.imgref &&
+    !o.audioref &&
+    !o.videoref
+  );
 }
 
 /** A node being built up during the tree walk, before its final shape is known. */
@@ -72,18 +82,13 @@ export class NavObject {
     }
     if (finalChildren.length > 0) result.children = finalChildren;
 
-    // Hoist a lone child with no role/id into the object itself: its text and
-    // refs merge directly into the parent, e.g. a paragraph with a single
-    // plain link becomes {role, text, textref} instead of nesting an
-    // anonymous child.
+    // Hoist a lone child with no role/id/ref into the object itself: its text
+    // merges directly into the parent, e.g. a paragraph wrapping plain
+    // emphasis becomes {role, text} instead of nesting an anonymous child.
     if ((!result.text || textIsEmpty(result.text)) && result.children?.length === 1) {
       const child = result.children[0];
       if (isHoistable(child)) {
         if (child.text) result.text = child.text;
-        if (child.textref) result.textref = child.textref;
-        if (child.imgref) result.imgref = child.imgref;
-        if (child.audioref) result.audioref = child.audioref;
-        if (child.videoref) result.videoref = child.videoref;
         result.children = child.children;
       }
     }

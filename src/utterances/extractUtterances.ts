@@ -1,7 +1,7 @@
 import i18next, { type i18n } from "i18next";
 import type { GndObject, GndRole } from "../gnd/types.js";
 import { ssmlTextEscape } from "../gnd/text.js";
-import { decodeCssSelectorFragment } from "../gnd/cssSelectorFragment.js";
+import { decodeTextref } from "../gnd/textrefFragment.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { contextualizationsForLocale } from "./contextualizations.js";
 import { stripLangTags } from "./language.js";
@@ -507,7 +507,7 @@ export function extractUtterances(
   const out: ReadiumSpeechUtterance[] = [];
   const sources: SourceTrace = [];
   walk(nodes, out, sources, makeWalkContext(options), false);
-  return attachSelectors(out, sources);
+  return attachSelectors(out, sources, buildAncestorChains(nodes));
 }
 
 /**
@@ -523,14 +523,40 @@ export function extractUtterancesWithSources(
   const ctx = makeWalkContext(options);
   walk(nodes, utterances, sources, ctx, false);
   const blockStarts = utterances.map((utterance) => ctx.blockStarts.has(utterance));
-  return { utterances: attachSelectors(utterances, sources), sources, blockStarts };
+  return { utterances: attachSelectors(utterances, sources, buildAncestorChains(nodes)), sources, blockStarts };
 }
 
-// Decodes each utterance's source node textref (if any) into a `selector`,
-// for a consumer to drive DOM highlighting — see cssSelectorFragment.ts.
-function attachSelectors(utterances: ReadiumSpeechUtterance[], sources: SourceTrace): ReadiumSpeechUtterance[] {
+// Every node's own ancestors (nearest first), keyed by object identity —
+// used by attachSelectors() to fall back to an enclosing node's textref
+// when the utterance's own source has none of its own (e.g. its text lives
+// on an unroled child wrapping a link, whose own textref is that link's
+// href, not a DOM locator — see textrefFragment.ts's decodeTextref()).
+function buildAncestorChains(nodes: GndObject[], chain: GndObject[] = [], out = new Map<GndObject, GndObject[]>()): Map<GndObject, GndObject[]> {
+  for (const node of nodes) {
+    out.set(node, chain);
+    if (node.children) buildAncestorChains(node.children, [node, ...chain], out);
+  }
+  return out;
+}
+
+// Decodes each utterance's source node textref (if any) into `selector`/
+// `domRange`, for a consumer to drive DOM highlighting — see
+// textrefFragment.ts. Falls back through enclosing ancestors (nearest
+// first) when the source node itself has no locator of its own.
+function attachSelectors(
+  utterances: ReadiumSpeechUtterance[],
+  sources: SourceTrace,
+  ancestorChains: Map<GndObject, GndObject[]>,
+): ReadiumSpeechUtterance[] {
   return utterances.map((u, i) => {
-    const selector = decodeCssSelectorFragment(sources[i]?.textref);
-    return selector ? { ...u, selector } : u;
+    const node = sources[i];
+    let ref = decodeTextref(node);
+    if (!ref && node) {
+      for (const ancestor of ancestorChains.get(node) ?? []) {
+        ref = decodeTextref(ancestor);
+        if (ref) break;
+      }
+    }
+    return ref ? { ...u, selector: ref.selector, domRange: ref.domRange } : u;
   });
 }

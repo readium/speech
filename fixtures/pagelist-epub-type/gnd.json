@@ -18,22 +18,34 @@
               "role": [
                 "listItem"
               ],
-              "text": "Page 1",
-              "textref": "#pg1"
+              "children": [
+                {
+                  "textref": "#pg1",
+                  "text": "Page 1"
+                }
+              ]
             },
             {
               "role": [
                 "listItem"
               ],
-              "text": "Page 2",
-              "textref": "#pg2"
+              "children": [
+                {
+                  "textref": "#pg2",
+                  "text": "Page 2"
+                }
+              ]
             },
             {
               "role": [
                 "listItem"
               ],
-              "text": "Page 3",
-              "textref": "#pg3"
+              "children": [
+                {
+                  "textref": "#pg3",
+                  "text": "Page 3"
+                }
+              ]
             }
           ]
         }

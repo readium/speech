@@ -18,22 +18,34 @@
               "role": [
                 "listItem"
               ],
-              "text": "Chapter One",
-              "textref": "chapter1.xhtml"
+              "children": [
+                {
+                  "textref": "chapter1.xhtml",
+                  "text": "Chapter One"
+                }
+              ]
             },
             {
               "role": [
                 "listItem"
               ],
-              "text": "Chapter Two",
-              "textref": "chapter2.xhtml"
+              "children": [
+                {
+                  "textref": "chapter2.xhtml",
+                  "text": "Chapter Two"
+                }
+              ]
             },
             {
               "role": [
                 "listItem"
               ],
-              "text": "Chapter Three",
-              "textref": "chapter3.xhtml"
+              "children": [
+                {
+                  "textref": "chapter3.xhtml",
+                  "text": "Chapter Three"
+                }
+              ]
             }
           ]
         }

@@ -1,6 +1,6 @@
 import test from "ava";
 import { createLocator } from "../../build/index.js";
-import { getCssSelector, getHtmlId } from "@readium/shared/html";
+import { getCssSelector, getHtmlId, getDomRange } from "@readium/shared/html";
 
 const mockWindow = { location: { href: "https://example.com/chapter1.html" } } as Window;
 
@@ -61,6 +61,19 @@ test("createLocator: combines selector with text fields", (t) => {
   const locator = createLocator({ selector: "#foo", highlight: "world" }, mockWindow);
   t.is(locator.text?.highlight, "world");
   t.is(getCssSelector(locator.locations), "#foo");
+});
+
+test("createLocator: builds a locations domRange readable via getDomRange", (t) => {
+  const domRange = {
+    start: { cssSelector: "p", textNodeIndex: 0, charOffset: 3 },
+    end: { cssSelector: "p", textNodeIndex: 0, charOffset: 8 },
+  };
+  const locator = createLocator({ domRange }, mockWindow);
+  const decoded = getDomRange(locator.locations!);
+  t.is(decoded?.start.cssSelector, "p");
+  t.is(decoded?.start.textNodeIndex, 0);
+  t.is(decoded?.start.charOffset, 3);
+  t.is(decoded?.end?.charOffset, 8);
 });
 
 test("createLocator: leaves selector/fragment unreadable when neither is given", (t) => {

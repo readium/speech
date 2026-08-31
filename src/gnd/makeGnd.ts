@@ -9,6 +9,10 @@ export type { GndMediaType };
  * Builds a Guided Navigation document from an HTML or XHTML fragment or
  * document, following https://github.com/readium/guided-navigation.
  */
-export function makeGnd(input: string, mediaType?: GndMediaType, options?: GndGenerationOptions): GndDocument {
+export function makeGnd(
+  input: string | Element,
+  mediaType?: GndMediaType,
+  options?: GndGenerationOptions,
+): GndDocument {
   return { guided: parseMarkup(input, mediaType, options) };
 }
