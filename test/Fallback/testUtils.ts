@@ -273,7 +273,10 @@ export function deferred(): { promise: Promise<void>; resolve: () => void } {
 
 // Stubs navigator.onLine for the duration of one test; returns a restore function.
 export function stubOnLine(value: boolean): () => void {
-  const original = navigator.onLine;
+  const original = Object.getOwnPropertyDescriptor(navigator, "onLine");
   Object.defineProperty(navigator, "onLine", { value, configurable: true });
-  return () => Object.defineProperty(navigator, "onLine", { value: original, configurable: true });
+  return () => {
+    if (original) Object.defineProperty(navigator, "onLine", original);
+    else delete (navigator as { onLine?: boolean }).onLine;
+  };
 }
