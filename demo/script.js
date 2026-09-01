@@ -863,9 +863,11 @@ function highlightCurrentWord(charIndex, charLength) {
   decoCtrl.decorate([{
     id: "tts-word",
     style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
-    highlight: word,
-    before: text.substring(0, charIndex),
-    after: text.substring(charIndex + charLength),
+    text: {
+      highlight: word,
+      before: text.substring(0, charIndex),
+      after: text.substring(charIndex + charLength),
+    },
   }], "tts");
 }
 

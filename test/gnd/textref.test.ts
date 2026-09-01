@@ -6,6 +6,8 @@ import {
   decodeCssSelectorFragment,
   encodeDomRangeFragment,
   decodeDomRangeFragment,
+  encodeTextFragmentDirective,
+  decodeTextFragmentDirective,
   decodeTextref,
 } from "../../src/gnd/textrefFragment.js";
 
@@ -68,11 +70,11 @@ test("decodeDomRangeFragment returns undefined for an unrelated or malformed tex
 test("decodeTextref prefers domRange, then css(), then a self-matching bare #id", (t) => {
   const domRange = { start: { cssSelector: "p", textNodeIndex: 0, charOffset: 0 } };
   t.deepEqual(decodeTextref({ textref: encodeDomRangeFragment(domRange) }), {
-    selector: "p",
+    cssSelector: "p",
     domRange,
   });
-  t.deepEqual(decodeTextref({ textref: encodeCssSelectorFragment("p") }), { selector: "p" });
-  t.deepEqual(decodeTextref({ id: "par1", textref: "#par1" }), { selector: "#par1" });
+  t.deepEqual(decodeTextref({ textref: encodeCssSelectorFragment("p") }), { cssSelector: "p" });
+  t.deepEqual(decodeTextref({ id: "par1", textref: "#par1" }), { cssSelector: "#par1" });
 });
 
 test("decodeTextref ignores a navigational textref that isn't this node's own id", (t) => {
@@ -106,4 +108,75 @@ test("parseMarkup() given a markup string never enables domRange, even when requ
   const [result] = parseMarkup("<p>Hello.</p>", undefined, { textrefs: { roles: true, domRange: true } });
   t.true(decodeCssSelectorFragment(result.textref)?.length ? true : false);
   t.is(decodeDomRangeFragment(result.textref), undefined);
+});
+
+test("encodeTextFragmentDirective/decodeTextFragmentDirective round-trip", (t) => {
+  t.deepEqual(decodeTextFragmentDirective(encodeTextFragmentDirective({ textStart: "Hello, world!" })), {
+    textStart: "Hello, world!",
+  });
+  t.deepEqual(
+    decodeTextFragmentDirective(encodeTextFragmentDirective({ textStart: "middle", prefix: "before-text", suffix: "after-text" })),
+    { textStart: "middle", prefix: "before-text", suffix: "after-text" },
+  );
+  t.deepEqual(decodeTextFragmentDirective(encodeTextFragmentDirective({ textStart: "start", textEnd: "end" })), {
+    textStart: "start",
+    textEnd: "end",
+  });
+});
+
+test("decodeTextFragmentDirective returns undefined for a textref with no directive", (t) => {
+  t.is(decodeTextFragmentDirective("#css(p)"), undefined);
+  t.is(decodeTextFragmentDirective(undefined), undefined);
+});
+
+test("textFragment: true appends a :~:text=... directive onto the existing #css(...) reference, unique text as-is", (t) => {
+  const [result] = parseMarkup("<p>A unique sentence.</p>", undefined, { textrefs: { roles: true, textFragment: true } });
+  t.true(result.textref!.startsWith("#css(p)"));
+  t.true(result.textref!.includes(":~:text="));
+  t.deepEqual(decodeTextFragmentDirective(result.textref), { textStart: "A unique sentence." });
+});
+
+test("textFragment: true composes with domRange: true — both encodings appear in one textref", (t) => {
+  const doc = new DOMParser().parseFromString("<body><p>A unique sentence.</p></body>", "text/html");
+  const p = doc.querySelector("p")!;
+  const [result] = parseMarkup(p, undefined, { textrefs: { roles: true, domRange: true, textFragment: true } });
+  t.truthy(decodeTextref(result)?.domRange);
+  t.deepEqual(decodeTextFragmentDirective(result.textref), { textStart: "A unique sentence." });
+});
+
+test("textFragment: true works from a detached markup string too, unlike domRange", (t) => {
+  const [result] = parseMarkup("<p>A unique sentence.</p>", undefined, { textrefs: { roles: true, textFragment: true } });
+  t.deepEqual(decodeTextFragmentDirective(result.textref), { textStart: "A unique sentence." });
+});
+
+test("textFragment: true widens with prefix/suffix context when the text recurs, and gives up when it still can't disambiguate", (t) => {
+  const input =
+    "<p>Before one context</p><p>Repeated text</p><p>Middle marker</p><p>Repeated text</p><p>After two context</p>";
+  const [, first, , second] = parseMarkup(input, undefined, { textrefs: { roles: true, textFragment: true } });
+
+  const firstDirective = decodeTextFragmentDirective(first.textref);
+  const secondDirective = decodeTextFragmentDirective(second.textref);
+  t.truthy(firstDirective);
+  t.truthy(secondDirective);
+  t.notDeepEqual(firstDirective, secondDirective);
+
+  // Recurring text with identical surrounding context on every occurrence
+  // gives up — the existing #css(...) reference is left untouched.
+  const identicalContext =
+    "<p>A B C</p><p>Same</p><p>D E F</p><p>A B C</p><p>Same</p><p>D E F</p>";
+  const nodes = parseMarkup(identicalContext, undefined, { textrefs: { roles: true, textFragment: true } });
+  const [dupA, dupB] = nodes.filter((n) => n.text === "Same");
+  t.is(decodeTextFragmentDirective(dupA.textref), undefined);
+  t.is(decodeTextFragmentDirective(dupB.textref), undefined);
+});
+
+test("decodeTextref decodes text (highlight/before/after) from a text-fragment directive, independent of cssSelector/domRange", (t) => {
+  const textref = `${encodeCssSelectorFragment("p")}${encodeTextFragmentDirective({ textStart: "middle", prefix: "before", suffix: "after" })}`;
+  t.deepEqual(decodeTextref({ textref }), {
+    cssSelector: "p",
+    text: { highlight: "middle", before: "before", after: "after" },
+  });
+
+  const bare = encodeTextFragmentDirective({ textStart: "Hello." });
+  t.deepEqual(decodeTextref({ textref: `#${bare}` }), { text: { highlight: "Hello." } });
 });

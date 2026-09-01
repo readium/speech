@@ -1,4 +1,4 @@
-import type { GndObject, GndRole, GndText } from "./types.js";
+import type { GndObject, GndRole } from "./types.js";
 import { extractNodeRoles } from "./roles.js";
 import {
   extractNodeAria,
@@ -9,49 +9,25 @@ import {
 import {
   type TextBuilder,
   type SSMLContext,
-  textIsEmpty,
   ctxEqual,
   ssmlTextEscape,
   ssmlAttrEscape,
   normalizeWhitespace,
 } from "./text.js";
 import { startsWithBindingPunct } from "../utils/text.js";
-import { type ObjBuilder, NavObject, isEmptyObj, finalizeToGndObject, gndObjectToObjBuilder } from "./object.js";
-import { type GndMediaType, nodeLanguage, hasElementChild, isAncestorOf, sniffMediaType } from "./dom.js";
-import {
-  encodeCssSelectorFragment,
-  encodeDomRangeFragment,
-  type DomRangeJSON,
-} from "./textrefFragment.js";
+import { type ObjBuilder, NavObject, isEmptyObj, finalizeToGndObject } from "./object.js";
+import { type GndMediaType, nodeLanguage, isInlineTag, sniffMediaType } from "./dom.js";
+import { encodeDomRangeFragment, encodeTextFragmentDirective } from "./textrefFragment.js";
+import { generateSelectorTextref } from "./selectorGenerator.js";
+import { generateDomRange } from "./domRangeGenerator.js";
+import { TextFragmentGenerator } from "./textFragmentGenerator.js";
 import { type GndGenerationOptions, normalizeTextrefOptions } from "./options.js";
-import { getCssSelector } from "css-selector-generator";
+import { IdAllocator } from "./idAllocator.js";
+import { prescan as prescanImpl } from "./prescan.js";
+import { pagebreak, noteref, link } from "./elementHandlers.js";
 
 const TEXT_NODE = 3;
 const ELEMENT_NODE = 1;
-
-// A DomRangePoint's textNodeIndex counts only among container's Text-node
-// children, per the Locator HTML extension spec.
-function textNodeIndexAmongChildren(container: Element, target: Text): number {
-  let idx = 0;
-  for (const child of Array.from(container.childNodes)) {
-    if (child === target) return idx;
-    if (child.nodeType === TEXT_NODE) idx++;
-  }
-  return idx;
-}
-
-// From jsoup, everything except "device":
-// https://github.com/jhy/jsoup/blob/0b10d516ed8f907f8fb4acb9a0806137a8988d45/src/main/java/org/jsoup/parser/Tag.java#L243
-const inlineTags = new Set([
-  "object", "base", "font", "tt", "i", "b", "u", "big", "small", "em", "strong",
-  "dfn", "code", "samp", "kbd", "var", "cite", "abbr", "time", "acronym",
-  "mark", "ruby", "rt", "rp", "rtc", "a", "img", "br", "wbr", "map", "q",
-  "sub", "sup", "bdo", "iframe", "embed", "span", "input", "select",
-  "textarea", "label", "button", "optgroup", "option", "legend", "datalist",
-  "keygen", "output", "progress", "meter", "area", "param", "source",
-  "track", "summary", "command", "basefont", "bgsound", "menuitem", "data",
-  "bdi", "s", "strike", "nobr", "rb",
-]);
 
 // These elements are normally treated as inline (text flows through them
 // without opening their own object), but when they carry a role of their own
@@ -60,7 +36,7 @@ const roleOverridesInline = new Set(["summary", "dfn", "span"]);
 
 function isBlockNode(tagName: string, roles: GndRole[]): boolean {
   if (roleOverridesInline.has(tagName) && roles.length > 0) return true;
-  return !inlineTags.has(tagName);
+  return !isInlineTag(tagName);
 }
 
 type SegmentKind = "text" | "break" | "placeholder";
@@ -79,14 +55,21 @@ export class Converter {
   xmlParsed: boolean;
   ids = new Map<string, Element>();
   suppressed = new Set<Element>();
-  idAlloc = { claimed: new Set<string>(), counters: new Map<string, number>() };
+  idAlloc = new IdAllocator();
   noterefDepth = 0;
   allowNode: Element | null = null;
   selectorPredicate: ((roles: GndRole[]) => boolean) | null = null;
   // Only meaningful (and safe) when converting a live, already-rendered
   // element — see TextrefOptions.domRange in options.ts.
   domRangeEnabled = false;
+  // Unlike domRangeEnabled, safe against a detached parsed document too —
+  // see TextrefOptions.textFragment in options.ts.
+  textFragmentEnabled = false;
   docRoot: Document | null = null;
+  // Lazily created — see TextFragmentGenerator; only needed for
+  // textFragmentEnabled. Shared with the sub-Converter noteref() constructs
+  // for a footnote's own subtree.
+  textFragmentGenerator: TextFragmentGenerator | null = null;
 
   private root = new NavObject();
   private current = this.root;
@@ -106,53 +89,16 @@ export class Converter {
   // The boundary nodes of the flow flushText() just flushed, read by tail()
   // right after calling it to build a domRange for the block it closes.
   private lastFlowRange: { first: [Text, number]; last: [Text, number] } | null = null;
+  // The plain-text string of the flow flushText() just flushed, read by
+  // tail() right after calling it as the text-fragment candidate text.
+  private lastFlowText: string | null = null;
 
   constructor(xmlParsed: boolean) {
     this.xmlParsed = xmlParsed;
   }
 
-  private allocateId(prefix: string): string {
-    for (;;) {
-      const n = (this.idAlloc.counters.get(prefix) ?? 0) + 1;
-      this.idAlloc.counters.set(prefix, n);
-      const id = `${prefix}${n}`;
-      if (this.ids.has(id) || this.idAlloc.claimed.has(id)) continue;
-      this.idAlloc.claimed.add(id);
-      return id;
-    }
-  }
-
-  private claimId(id: string): boolean {
-    if (this.idAlloc.claimed.has(id)) return false;
-    this.idAlloc.claimed.add(id);
-    return true;
-  }
-
   prescan(root: Element) {
-    const noterefTargets: { id: string; ref: Element }[] = [];
-    const walk = (n: Element, hidden: boolean) => {
-      const id = n.getAttribute("id");
-      if (id && !this.ids.has(id)) this.ids.set(id, n);
-      hidden = hidden || n.getAttribute("aria-hidden") === "true" || n.hasAttribute("hidden");
-      if (!hidden && n.tagName.toLowerCase() === "a") {
-        const roles = extractNodeRoles(n);
-        if (roles.includes("noteref")) {
-          const href = n.getAttribute("href") ?? "";
-          if (href.startsWith("#")) {
-            noterefTargets.push({ id: href.slice(1), ref: n });
-          }
-        }
-      }
-      for (let c = n.firstElementChild; c; c = c.nextElementSibling) walk(c, hidden);
-    };
-    walk(root, false);
-
-    for (const target of noterefTargets) {
-      const n = this.ids.get(target.id);
-      if (!n) continue;
-      if (isAncestorOf(n, target.ref)) continue;
-      this.suppressed.add(n);
-    }
+    prescanImpl(root, this.ids, this.suppressed);
   }
 
   // Converts root itself — used when root is meaningful content in its own
@@ -241,10 +187,10 @@ export class Converter {
     }
 
     if (roles.includes("pagebreak")) {
-      return !this.pagebreak(el, aria, roles);
+      return !pagebreak(this, el, aria, roles);
     }
     if (tagName === "a" && roles.includes("noteref") && el.getAttribute("href")) {
-      this.noteref(el, roles);
+      noteref(this, el, roles);
       return true;
     }
     if (tagName === "a" && el.getAttribute("href")) {
@@ -254,7 +200,7 @@ export class Converter {
       // case for list items), the hoist rule promotes it onto that block;
       // otherwise it becomes an inline SSML placeholder like any other
       // embedded object.
-      this.link(el, roles);
+      link(this, el, roles);
       return true;
     }
     if (tagName === "img") {
@@ -345,49 +291,42 @@ export class Converter {
     }
   }
 
-  // Sets cur.textref to a reference for el: a bare "#id" fragment when el
-  // has one, a "#css(...)" fragment otherwise. When domRangeEnabled and
-  // el's own flow just flushed some text, that reference is upgraded to a
-  // "#domrange(...)" fragment pinpointing the exact boundary text nodes
-  // instead.
+  // Sets cur.textref to a reference for el: the base id-or-selector
+  // reference (selectorGenerator.ts), upgraded to a domRange
+  // (domRangeGenerator.ts) when domRangeEnabled and el's own flow just
+  // flushed some text, with a text-fragment directive
+  // (textFragmentGenerator.ts) appended on top when textFragmentEnabled —
+  // each an independent option, applied in this fixed order regardless of
+  // which others are also enabled.
   private applyTextref(el: Element) {
     const cur = this.current.object;
-    const id = el.getAttribute("id");
-    if (id) {
-      cur.textref = `#${id}`;
-    } else {
-      const selector = getCssSelector(el, { root: this.docRoot ?? undefined });
-      if (selector) cur.textref = encodeCssSelectorFragment(selector);
-    }
+    cur.textref = generateSelectorTextref(el, this.docRoot);
 
     if (this.domRangeEnabled && this.lastFlowRange) {
-      const domRange = this.buildDomRange(this.lastFlowRange);
+      const domRange = generateDomRange(this.lastFlowRange, this.docRoot);
       if (domRange) cur.textref = encodeDomRangeFragment(domRange);
+    }
+
+    if (this.textFragmentEnabled && this.lastFlowText) {
+      const boundary = this.lastFlowRange
+        ? { node: this.lastFlowRange.first[0], offset: this.lastFlowRange.first[1] }
+        : undefined;
+      const directive = this.getTextFragmentGenerator()?.directiveFor(this.lastFlowText, boundary);
+      if (directive) cur.textref = `${cur.textref ?? "#"}${encodeTextFragmentDirective(directive)}`;
     }
   }
 
-  private buildDomRange(range: {
-    first: [Text, number];
-    last: [Text, number];
-  }): DomRangeJSON | undefined {
-    const start = this.domRangePoint(...range.first);
-    if (!start) return undefined;
-    const end = this.domRangePoint(...range.last);
-    return end ? { start, end } : { start };
-  }
-
-  private domRangePoint(node: Text, offset: number): DomRangeJSON["start"] | undefined {
-    const container = node.parentElement;
-    if (!container) return undefined;
-    const cssSelector = this.selectorForElement(container);
-    if (!cssSelector) return undefined;
-    return { cssSelector, textNodeIndex: textNodeIndexAmongChildren(container, node), charOffset: offset };
-  }
-
-  private selectorForElement(el: Element): string | undefined {
-    const id = el.getAttribute("id");
-    if (id) return `#${id}`;
-    return getCssSelector(el, { root: this.docRoot ?? undefined }) ?? undefined;
+  // docRoot.body can return a synthesized, still-empty node under some
+  // parsers' still-in-progress HTML5 tree construction for a body-less
+  // fragment (the same quirk noted where this input gets wrapped before
+  // parsing) — querying for the real, content-bearing <body> in document
+  // order sidesteps that, the same way parseMarkup()'s own body lookup does.
+  getTextFragmentGenerator(): TextFragmentGenerator | null {
+    if (this.textFragmentGenerator) return this.textFragmentGenerator;
+    const root = this.docRoot?.querySelector("body") ?? this.docRoot?.documentElement ?? null;
+    if (!root) return null;
+    this.textFragmentGenerator = new TextFragmentGenerator(root);
+    return this.textFragmentGenerator;
   }
 
   private text(node: Node) {
@@ -408,7 +347,7 @@ export class Converter {
     this.textAcc += normalizeWhitespace(data, this.flowEndsWithSpace);
     this.updateFlowSpace();
 
-    if (this.domRangeEnabled) {
+    if (this.domRangeEnabled || this.textFragmentEnabled) {
       const text = node as Text;
       if (this.flowFirstNode === null) {
         this.flowFirstNode = text;
@@ -456,7 +395,7 @@ export class Converter {
     this.flowLastOffset = 0;
   }
 
-  private placeholder(el: Element, tag: string, object: ObjBuilder, candidateID?: string) {
+  placeholder(el: Element, tag: string, object: ObjBuilder, candidateID?: string) {
     if (isEmptyObj(object)) return;
     const child = new NavObject();
     child.el = el;
@@ -476,81 +415,6 @@ export class Converter {
     this.flowEndsWithSpace = false;
   }
 
-  private pagebreak(el: Element, aria: GndText | null, roles: GndRole[]): boolean {
-    const obj: ObjBuilder = { role: roles };
-    const title = (el.getAttribute("title") ?? "").trim();
-    if (title) {
-      obj.text = { plain: title, ssml: "", language: "" };
-    } else if (aria) {
-      obj.text = { plain: aria.plain ?? "", ssml: aria.ssml ?? "", language: aria.language };
-    }
-    const labelled = !!(obj.text && !textIsEmpty(obj.text));
-    const descend = !this.xmlParsed && (hasElementChild(el) || (labelled && el.firstChild !== null));
-    if (!labelled && !descend) {
-      const text = normalizedNodeText(el);
-      if (text) obj.text = { plain: text, ssml: "", language: "" };
-    }
-    const id = el.getAttribute("id");
-    if (id) obj.textref = `#${id}`;
-    this.placeholder(el, "pagebreak", obj);
-    return descend;
-  }
-
-  private noteref(el: Element, roles: GndRole[]) {
-    const obj: ObjBuilder = { role: roles };
-    const text = normalizedNodeText(el);
-    if (text) obj.text = { plain: text, ssml: "", language: "" };
-
-    const href = el.getAttribute("href") ?? "";
-    let candidateID = el.getAttribute("id") ?? "";
-    if (!candidateID && href.startsWith("#")) {
-      candidateID = href.slice(1);
-    }
-
-    if (href.startsWith("#")) {
-      const fragment = href.slice(1);
-      const target = this.ids.get(fragment);
-      if (target && !isAncestorOf(target, el) && this.noterefDepth < 3) {
-        const sub = new Converter(this.xmlParsed);
-        sub.ids = this.ids;
-        sub.suppressed = this.suppressed;
-        sub.idAlloc = this.idAlloc;
-        sub.noterefDepth = this.noterefDepth + 1;
-        sub.allowNode = target;
-        sub.docRoot = this.docRoot;
-        sub.selectorPredicate = this.selectorPredicate;
-        sub.domRangeEnabled = this.domRangeEnabled;
-        sub.convert(target);
-        const children = sub.result();
-        if (children.length > 0) {
-          // The target's own id already carries its meaning via this
-          // noteref's own id — repeating it on the embedded content would
-          // be redundant.
-          obj.children = children.map((c) => {
-            const o = gndObjectToObjBuilder(c);
-            delete o.id;
-            return o;
-          });
-        }
-      }
-    }
-    if (!obj.children && href) {
-      obj.children = [{ textref: href }];
-    }
-
-    this.placeholder(el, "noteref", obj, candidateID || undefined);
-  }
-
-  private link(el: Element, roles: GndRole[]) {
-    const obj: ObjBuilder = {};
-    if (roles.length > 0) obj.role = roles;
-    const text = normalizedNodeText(el);
-    if (text) obj.text = { plain: text, ssml: "", language: "" };
-    const href = el.getAttribute("href");
-    if (href) obj.textref = href;
-    this.placeholder(el, roles[0] ?? "link", obj);
-  }
-
   private flushText() {
     this.closeSegment();
     let segments = this.segments;
@@ -561,6 +425,7 @@ export class Converter {
     const flowLastOffset = this.flowLastOffset;
     this.resetFlow();
     this.lastFlowRange = null;
+    this.lastFlowText = null;
 
     if (segments.length === 0) return;
 
@@ -635,8 +500,8 @@ export class Converter {
       for (const seg of segments) {
         if (seg.kind !== "placeholder") continue;
         let id = seg.candidateID;
-        if (!id || !this.claimId(id)) {
-          id = this.allocateId(seg.tag!);
+        if (!id || !this.idAlloc.claim(id)) {
+          id = this.idAlloc.allocate(seg.tag!, (candidate) => this.ids.has(candidate));
         }
         seg.child!.object.id = id;
       }
@@ -681,6 +546,7 @@ export class Converter {
     // formatting/language shift with no embedded objects makes plain text a
     // redundant, mechanical derivative of the SSML, so it's left out.
     const hasPlaceholder = segments.some((s) => s.kind === "placeholder");
+    this.lastFlowText = plainB.trim();
     const text: TextBuilder = {
       plain: needSSML && !hasPlaceholder ? "" : plainB.trim(),
       ssml: "",
@@ -761,13 +627,14 @@ export function parseMarkup(
   mediaType?: GndMediaType,
   options?: GndGenerationOptions,
 ): GndObject[] {
-  const { predicate, domRange } = normalizeTextrefOptions(options?.textrefs);
+  const { predicate, domRange, textFragment } = normalizeTextrefOptions(options?.textrefs);
 
   if (typeof input !== "string") {
     const mt = mediaType ?? (input.ownerDocument.contentType === "text/html" ? "text/html" : "application/xhtml+xml");
     const converter = new Converter(mt === "application/xhtml+xml");
     converter.selectorPredicate = predicate;
     converter.domRangeEnabled = domRange;
+    converter.textFragmentEnabled = textFragment;
     converter.docRoot = input.ownerDocument;
     converter.convert(input);
     return converter.result();
@@ -777,6 +644,7 @@ export function parseMarkup(
   const doc = new DOMParser().parseFromString(input, mt);
   const converter = new Converter(mt === "application/xhtml+xml");
   converter.selectorPredicate = predicate;
+  converter.textFragmentEnabled = textFragment;
   converter.docRoot = doc;
   const body = doc.querySelector("body");
   if (body && !BODY_TAG_RE.test(input)) {

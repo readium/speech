@@ -11,6 +11,12 @@ export interface TextrefOptions {
   // resolved back against whatever later renders the resource, so it's a
   // no-op there.
   domRange?: boolean;
+  // Also append a WICG Text Fragment (":~:text=...") directive when the
+  // node's own text can be found uniquely (or made unique with bounded
+  // surrounding context) across the whole document. Unlike domRange, this
+  // only needs the document's text content, so it works against
+  // parseMarkup()'s detached document too, not just a live element.
+  textFragment?: boolean;
 }
 
 export interface GndGenerationOptions {
@@ -32,6 +38,7 @@ function normalizeRoles(opt: boolean | GndRole[] | undefined): ((roles: GndRole[
 export interface NormalizedTextrefOptions {
   predicate: ((roles: GndRole[]) => boolean) | null;
   domRange: boolean;
+  textFragment: boolean;
 }
 
 function isTextrefOptions(
@@ -44,7 +51,7 @@ export function normalizeTextrefOptions(
   opt: GndGenerationOptions["textrefs"],
 ): NormalizedTextrefOptions {
   if (isTextrefOptions(opt)) {
-    return { predicate: normalizeRoles(opt.roles), domRange: !!opt.domRange };
+    return { predicate: normalizeRoles(opt.roles), domRange: !!opt.domRange, textFragment: !!opt.textFragment };
   }
-  return { predicate: normalizeRoles(opt), domRange: false };
+  return { predicate: normalizeRoles(opt), domRange: false, textFragment: false };
 }

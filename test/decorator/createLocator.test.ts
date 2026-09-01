@@ -9,7 +9,7 @@ const mockWindow = { location: { href: "https://example.com/chapter1.html" } } a
 // =============================================
 
 test("createLocator: sets href from wnd.location.href and type to text/html", (t) => {
-  const locator = createLocator({ highlight: "world" }, mockWindow);
+  const locator = createLocator({ text: { highlight: "world" } }, mockWindow);
   t.is(locator.href, "https://example.com/chapter1.html");
   t.is(locator.type, "text/html");
 });
@@ -19,30 +19,30 @@ test("createLocator: sets href from wnd.location.href and type to text/html", (t
 // =============================================
 
 test("createLocator: builds text from highlight/before/after", (t) => {
-  const locator = createLocator({ highlight: "world", before: "Hello ", after: "." }, mockWindow);
+  const locator = createLocator({ text: { highlight: "world", before: "Hello ", after: "." } }, mockWindow);
   t.is(locator.text?.highlight, "world");
   t.is(locator.text?.before, "Hello ");
   t.is(locator.text?.after, ".");
 });
 
 test("createLocator: builds text when only one of highlight/before/after is given", (t) => {
-  const locator = createLocator({ before: "Hello " }, mockWindow);
+  const locator = createLocator({ text: { before: "Hello " } }, mockWindow);
   t.truthy(locator.text);
   t.is(locator.text?.before, "Hello ");
   t.is(locator.text?.highlight, undefined);
 });
 
 test("createLocator: omits text entirely when none of highlight/before/after are given", (t) => {
-  const locator = createLocator({ selector: "#foo" }, mockWindow);
+  const locator = createLocator({ cssSelector: "#foo" }, mockWindow);
   t.is(locator.text, undefined);
 });
 
 // =============================================
-// locations (selector/fragment)
+// locations (cssSelector/fragment)
 // =============================================
 
-test("createLocator: builds a locations selector readable via getCssSelector", (t) => {
-  const locator = createLocator({ selector: "#foo" }, mockWindow);
+test("createLocator: builds a locations cssSelector readable via getCssSelector", (t) => {
+  const locator = createLocator({ cssSelector: "#foo" }, mockWindow);
   t.is(getCssSelector(locator.locations), "#foo");
 });
 
@@ -51,14 +51,14 @@ test("createLocator: builds a locations fragment readable via getHtmlId", (t) =>
   t.is(getHtmlId(locator.locations), "foo");
 });
 
-test("createLocator: combines selector and fragment in the same locations", (t) => {
-  const locator = createLocator({ selector: "#foo", fragment: "bar" }, mockWindow);
+test("createLocator: combines cssSelector and fragment in the same locations", (t) => {
+  const locator = createLocator({ cssSelector: "#foo", fragment: "bar" }, mockWindow);
   t.is(getCssSelector(locator.locations), "#foo");
   t.is(getHtmlId(locator.locations), "bar");
 });
 
-test("createLocator: combines selector with text fields", (t) => {
-  const locator = createLocator({ selector: "#foo", highlight: "world" }, mockWindow);
+test("createLocator: combines cssSelector with text fields", (t) => {
+  const locator = createLocator({ cssSelector: "#foo", text: { highlight: "world" } }, mockWindow);
   t.is(locator.text?.highlight, "world");
   t.is(getCssSelector(locator.locations), "#foo");
 });
@@ -76,8 +76,8 @@ test("createLocator: builds a locations domRange readable via getDomRange", (t) 
   t.is(decoded?.end?.charOffset, 8);
 });
 
-test("createLocator: leaves selector/fragment unreadable when neither is given", (t) => {
-  const locator = createLocator({ highlight: "world" }, mockWindow);
+test("createLocator: leaves cssSelector/fragment unreadable when neither is given", (t) => {
+  const locator = createLocator({ text: { highlight: "world" } }, mockWindow);
   t.is(getCssSelector(locator.locations), undefined);
   t.is(getHtmlId(locator.locations), undefined);
 });

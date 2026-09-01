@@ -544,10 +544,12 @@ function highlightWordBoundary(event) {
   ctrl.decorate([{
     id: "playground-word",
     style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
-    selector: "#speech-utterances",
-    highlight: word,
-    before: text.substring(0, charIndex),
-    after: text.substring(charIndex + charLength),
+    cssSelector: "#speech-utterances",
+    text: {
+      highlight: word,
+      before: text.substring(0, charIndex),
+      after: text.substring(charIndex + charLength),
+    },
   }], "playground-word");
 }
 

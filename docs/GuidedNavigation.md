@@ -43,6 +43,7 @@ interface GndGenerationOptions {
 interface TextrefOptions {
   roles?: boolean | GndRole[]; // which roles get a reference; true = every role
   domRange?: boolean;          // also compute exact textNodeIndex/charOffset
+  textFragment?: boolean;      // also append a WICG Text Fragment directive
 }
 ```
 
@@ -59,7 +60,15 @@ makeGnd(document.querySelector("article")!, undefined, {
 });
 ```
 
-Decode either shape with `decodeTextref({ id, textref })` (from `@readium/speech`), which returns `{ selector, domRange? }` or `undefined` for a `textref` that isn't a generated reference (e.g. a link's own `href`, or a noteref/pagebreak reference).
+`textFragment` appends a [WICG Text Fragment](https://wicg.github.io/scroll-to-text-fragment/) directive — `:~:text=...` — onto whichever reference the options above already produced (`#id`, `#css(...)`, or `#domrange(...)`; a bare `#` when none), e.g. `#css(p.foo):~:text=It%20was...`. Unlike `domRange`, this only needs the document's text content, so it works against a markup string too, not just a live element:
+
+```typescript
+makeGnd(html, undefined, { textrefs: { roles: true, textFragment: true } });
+```
+
+The directive is the exact node text when that text is unique in the whole document; when it recurs (a repeated heading, a repeated caption), a bounded amount of surrounding-word context is added as a WICG prefix/suffix until it disambiguates, or dropped entirely if it still can't. This is not the WICG spec's full generation algorithm (no incremental word-by-word expansion, no exhaustive search) — just an exact-match-first, bounded-context fallback.
+
+Decode any of these with `decodeTextref({ id, textref })` (from `@readium/speech`), which returns `{ cssSelector?, domRange?, text? }`, with `text: { highlight?, before?, after? }` — or `undefined` for a `textref` that isn't a generated reference (e.g. a link's own `href`, or a noteref/pagebreak reference). This shape matches `LocatorOptions` exactly, so the result can be spread directly into `createLocator()`/`decorate()` — see [Highlighting](Highlighting.md).
 
 ## `GndObject`
 

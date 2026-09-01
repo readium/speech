@@ -19,6 +19,7 @@ interface ReadiumSpeechUtterance {
   plain?: string;
   ssml?: string;
   language?: string; // BCP 47
+  locate?: LocatorOptions; // Decoded from the source node's textref — spread into createLocator()/decorate(), see GuidedNavigation.md
 }
 ```
 
