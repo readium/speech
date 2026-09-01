@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.8.1] - 2026-09-01
+
+### Fixed
+
+- `FallbackSpeechEngine` no longer picks a fallback voice that requires network access unless `navigator.onLine` is confirmed `true`, defaulting to offline-only when connectivity is unknown — previously it could pick an online voice while swapping away from a recoverable failure, risking the same failure again.
+
 ## [0.8.0] - 2026-08-27
 
 ### Added
