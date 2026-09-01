@@ -1,6 +1,6 @@
 import test from "ava";
 import { FallbackSpeechEngine } from "../../build/index.js";
-import { FakeEngine, FakeFallbackProvider, FakePrimaryProvider, tick, wait, deferred } from "./testUtils.js";
+import { FakeEngine, FakeFallbackProvider, FakePrimaryProvider, tick, wait, deferred, stubOnLine } from "./testUtils.js";
 
 // =============================================
 // Basic delegation
@@ -80,6 +80,117 @@ test.serial("falls back to a language-only match when no voice satisfies both la
 
   t.truthy(fallbackProvider.receivedVoice, "a voice was still picked");
   t.is(fallbackProvider.receivedVoice.language, "fr-FR", "language-only match, gender requirement dropped");
+});
+
+test.serial("while offline, only considers offline-available voices, since an online one would risk the same network failure", async (t) => {
+  const restoreOnLine = stubOnLine(false);
+  t.teardown(restoreOnLine);
+
+  const primary = new FakeEngine();
+  primary.setCurrentVoiceForTest({ language: "fr-FR", gender: "female" });
+
+  const fallbackProvider = new FakeFallbackProvider();
+  fallbackProvider.voices = fallbackProvider.voices.map(voice =>
+    voice.name === "French Female" ? { ...voice, offlineAvailability: false } : voice
+  );
+  const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  wrapper.loadUtterances([{ plain: "hello" }]);
+
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await tick();
+
+  t.is(fallbackProvider.receivedVoice?.name, "French Male", "skipped the best language+gender match because it needs network, picked the offline-available one instead");
+});
+
+test.serial("when navigator.onLine is unimplemented, defaults to restricting to offline-available voices", async (t) => {
+  const restoreOnLine = stubOnLine(undefined as unknown as boolean);
+  t.teardown(restoreOnLine);
+
+  const primary = new FakeEngine();
+  primary.setCurrentVoiceForTest({ language: "fr-FR", gender: "female" });
+
+  const fallbackProvider = new FakeFallbackProvider();
+  fallbackProvider.voices = fallbackProvider.voices.map(voice =>
+    voice.name === "French Female" ? { ...voice, offlineAvailability: false } : voice
+  );
+  const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  wrapper.loadUtterances([{ plain: "hello" }]);
+
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await tick();
+
+  t.is(fallbackProvider.receivedVoice?.name, "French Male", "unknown connectivity is not treated as confirmed online");
+});
+
+test.serial("while offline, forwards the original error instead of swapping when nothing offline-available is left", async (t) => {
+  const restoreOnLine = stubOnLine(false);
+  t.teardown(restoreOnLine);
+
+  const primary = new FakeEngine();
+  primary.setCurrentVoiceForTest({ language: "fr-FR", gender: "female" });
+
+  const fallbackProvider = new FakeFallbackProvider();
+  fallbackProvider.voices = fallbackProvider.voices.map(voice => ({ ...voice, offlineAvailability: false }));
+  const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  wrapper.loadUtterances([{ plain: "hello" }]);
+
+  const errors: any[] = [];
+  wrapper.on("error", (e: any) => errors.push(e));
+  const fallbackEvents: any[] = [];
+  wrapper.on("enginefallback", (e: any) => fallbackEvents.push(e));
+
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await tick();
+
+  t.is(fallbackProvider.receivedVoice, undefined, "no engine created, since it would only fail again the same way");
+  t.is(fallbackEvents.length, 0);
+  t.is(errors.length, 1);
+  t.is(errors[0].detail.message, "network failure", "the original failure, not a generic wrapper error");
+});
+
+test.serial("while offline, forwards the original error when the fallback provider never reports offline availability at all (e.g. an always-online provider)", async (t) => {
+  const restoreOnLine = stubOnLine(false);
+  t.teardown(restoreOnLine);
+
+  const primary = new FakeEngine();
+  primary.setCurrentVoiceForTest({ language: "fr-FR", gender: "female" });
+
+  const fallbackProvider = new FakeFallbackProvider();
+  // Simulates a provider like SpeechServerEngineProvider, which never sets offlineAvailability
+  // on any voice (always undefined), rather than WebSpeech's true/false.
+  fallbackProvider.voices = fallbackProvider.voices.map(({ offlineAvailability, ...voice }) => voice);
+  const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  wrapper.loadUtterances([{ plain: "hello" }]);
+
+  const errors: any[] = [];
+  wrapper.on("error", (e: any) => errors.push(e));
+
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await tick();
+
+  t.is(fallbackProvider.receivedVoice, undefined, "no engine created for an always-online-style provider");
+  t.is(errors.length, 1);
+  t.is(errors[0].detail.message, "network failure");
+});
+
+test.serial("while online, does not restrict to offline-available voices", async (t) => {
+  const restoreOnLine = stubOnLine(true);
+  t.teardown(restoreOnLine);
+
+  const primary = new FakeEngine();
+  primary.setCurrentVoiceForTest({ language: "fr-FR", gender: "female" });
+
+  const fallbackProvider = new FakeFallbackProvider();
+  fallbackProvider.voices = fallbackProvider.voices.map(voice =>
+    voice.name === "French Female" ? { ...voice, offlineAvailability: false } : voice
+  );
+  const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  wrapper.loadUtterances([{ plain: "hello" }]);
+
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await tick();
+
+  t.is(fallbackProvider.receivedVoice?.name, "French Female", "picked the best language+gender match even though it needs network, since the device is online");
 });
 
 test.serial("does not swap on a non-recoverable error, forwards it as-is", async (t) => {
