@@ -81,7 +81,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "List."
         },
         {
           "plain": "Chapter One"
@@ -91,9 +91,6 @@
         },
         {
           "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the list."
         }
       ]
     },
@@ -250,7 +247,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "List."
         },
         {
           "plain": "List item."
@@ -269,9 +266,6 @@
         },
         {
           "plain": "Chapter Three"
-        },
-        {
-          "plain": "End of the list."
         }
       ]
     },
@@ -673,7 +667,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "List."
         },
         {
           "ssml": "Chapter One"
@@ -683,9 +677,6 @@
         },
         {
           "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the list."
         }
       ]
     },
@@ -842,7 +833,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "List."
         },
         {
           "ssml": "List item."
@@ -861,9 +852,6 @@
         },
         {
           "ssml": "Chapter Three"
-        },
-        {
-          "ssml": "End of the list."
         }
       ]
     },

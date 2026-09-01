@@ -33,7 +33,6 @@ const most: readonly GndRole[] = [
   "backlink",
   "bibliography",
   "biblioref",
-  "caption",
   "colophon",
   "complementary",
   "conclusion",

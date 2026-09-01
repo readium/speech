@@ -78,16 +78,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "List."
         },
         {
           "plain": "Cover photograph by A. Keeper."
         },
         {
           "plain": "Maps by B. Cartographer."
-        },
-        {
-          "plain": "End of the list."
         }
       ]
     },
@@ -238,7 +235,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "List."
         },
         {
           "plain": "List item."
@@ -251,9 +248,6 @@
         },
         {
           "plain": "Maps by B. Cartographer."
-        },
-        {
-          "plain": "End of the list."
         }
       ]
     },
@@ -335,16 +329,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "List."
         },
         {
           "ssml": "Cover photograph by A. Keeper."
         },
         {
           "ssml": "Maps by B. Cartographer."
-        },
-        {
-          "ssml": "End of the list."
         }
       ]
     },
@@ -495,7 +486,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "List."
         },
         {
           "ssml": "List item."
@@ -508,9 +499,6 @@
         },
         {
           "ssml": "Maps by B. Cartographer."
-        },
-        {
-          "ssml": "End of the list."
         }
       ]
     }

@@ -78,16 +78,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "List."
         },
         {
           "plain": "See introduction for background."
         },
         {
           "plain": "See chapter three for details."
-        },
-        {
-          "plain": "End of the list."
         }
       ]
     },
@@ -238,7 +235,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "List."
         },
         {
           "plain": "List item."
@@ -251,9 +248,6 @@
         },
         {
           "plain": "See chapter three for details."
-        },
-        {
-          "plain": "End of the list."
         }
       ]
     },
@@ -2079,10 +2073,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
-        },
-        {
-          "plain": "End of the list."
+          "plain": "List."
         }
       ]
     },
@@ -2635,16 +2626,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "List."
         },
         {
           "plain": "List item."
         },
         {
           "plain": "List item."
-        },
-        {
-          "plain": "End of the list."
         }
       ]
     },
@@ -2726,16 +2714,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "List."
         },
         {
           "ssml": "See introduction for background."
         },
         {
           "ssml": "See chapter three for details."
-        },
-        {
-          "ssml": "End of the list."
         }
       ]
     },
@@ -2886,7 +2871,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "List."
         },
         {
           "ssml": "List item."
@@ -2899,9 +2884,6 @@
         },
         {
           "ssml": "See chapter three for details."
-        },
-        {
-          "ssml": "End of the list."
         }
       ]
     },
@@ -4727,10 +4709,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
-        },
-        {
-          "ssml": "End of the list."
+          "ssml": "List."
         }
       ]
     },
@@ -5283,16 +5262,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "List."
         },
         {
           "ssml": "List item."
         },
         {
           "ssml": "List item."
-        },
-        {
-          "ssml": "End of the list."
         }
       ]
     }

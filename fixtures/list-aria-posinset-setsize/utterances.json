@@ -75,13 +75,10 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "List."
         },
         {
           "plain": "Fifth of seven"
-        },
-        {
-          "plain": "End of the list."
         }
       ]
     },
@@ -226,16 +223,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "List."
         },
         {
           "plain": "List item."
         },
         {
           "plain": "Fifth of seven"
-        },
-        {
-          "plain": "End of the list."
         }
       ]
     },
@@ -314,13 +308,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "List."
         },
         {
           "ssml": "Fifth of seven"
-        },
-        {
-          "ssml": "End of the list."
         }
       ]
     },
@@ -465,16 +456,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "List."
         },
         {
           "ssml": "List item."
         },
         {
           "ssml": "Fifth of seven"
-        },
-        {
-          "ssml": "End of the list."
         }
       ]
     }

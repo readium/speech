@@ -65,9 +65,8 @@ test("submitPreferences re-extracts content loaded via loadGndContent", (t) => {
   navigator.loadGndContent(listTree);
   navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
   t.deepEqual(navigator.getContentQueue(), [
-    { plain: "Start of the list." },
+    { plain: "List." },
     { language: "en", plain: "Hello world." },
-    { plain: "End of the list." },
   ]);
 });
 

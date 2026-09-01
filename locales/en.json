@@ -26,12 +26,7 @@
                     "unlabelled": "Image with no label."
                 }
             },
-            "list": {
-                "block": {
-                    "end": "End of the list.",
-                    "start": "Start of the list."
-                }
-            },
+            "list": { "inline": "List." },
             "listItem": { "inline": "List item." },
             "math": {
                 "inline": {
