@@ -187,9 +187,9 @@ export class FakeFallbackProvider {
   // Seeded by default so pickBestFallbackVoice()'s language/gender matching has something
   // deterministic to pick from; override per-test to exercise other matches.
   voices: ReadiumSpeechVoice[] = [
-    makeReadiumVoice({ name: "French Female", language: "fr-FR", gender: "female" }),
-    makeReadiumVoice({ name: "French Male", language: "fr-FR", gender: "male" }),
-    makeReadiumVoice({ name: "English Female", language: "en-US", gender: "female" })
+    makeReadiumVoice({ name: "French Female", language: "fr-FR", gender: "female", offlineAvailability: true }),
+    makeReadiumVoice({ name: "French Male", language: "fr-FR", gender: "male", offlineAvailability: true }),
+    makeReadiumVoice({ name: "English Female", language: "en-US", gender: "female", offlineAvailability: true })
   ];
 
   async getVoices(): Promise<ReadiumSpeechVoice[]> {
@@ -269,4 +269,11 @@ export function deferred(): { promise: Promise<void>; resolve: () => void } {
   let resolve!: () => void;
   const promise = new Promise<void>(r => { resolve = r; });
   return { promise, resolve };
+}
+
+// Stubs navigator.onLine for the duration of one test; returns a restore function.
+export function stubOnLine(value: boolean): () => void {
+  const original = navigator.onLine;
+  Object.defineProperty(navigator, "onLine", { value, configurable: true });
+  return () => Object.defineProperty(navigator, "onLine", { value: original, configurable: true });
 }
