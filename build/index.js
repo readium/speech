@@ -3549,7 +3549,8 @@ class Go {
     await this.performSwap(
       async () => {
         const i = this.activeEngine.getCurrentVoice() ?? (typeof this.lastVoiceRequest == "object" ? this.lastVoiceRequest : null), s = i?.language || this.currentUtterances[this.desiredIndex]?.language || (typeof navigator < "u" ? navigator.language : "en");
-        return n = await this.pickBestFallbackVoice(s, i?.gender), this.fallbackProvider.createEngine(n ?? void 0);
+        if (n = await this.pickBestFallbackVoice(s, i?.gender), !n) throw new Error("no offline-available fallback voice found");
+        return this.fallbackProvider.createEngine(n);
       },
       () => (this.hasFallenBack = !0, this.onFailure === "fallbackAndRecover" && this.startHealthCheck(), { type: "enginefallback", detail: { reason: e.detail, voice: n } }),
       () => {
@@ -3586,13 +3587,18 @@ class Go {
     }
     this.copyPlaybackParameters(s, o), this.unbindActiveEngine?.(), this.activeEngine = o, this.engineStarted = !1, this.swapInFlight = !1, this.bindActiveEngine(), this.emitEvent(n(o)), this.startEngineWhenReady(o), o.loadUtterances(this.currentUtterances, this.desiredIndex), await s.destroy();
   }
+  // Only skip the offlineAvailability filter when navigator.onLine is confirmed true — unknown
+  // (unimplemented navigator.onLine) defaults to restricting, not to allowing online voices.
+  //
   // Language narrows first, gender second: a same-language wrong-gender voice beats a
   // different-language right-gender one. Falls back to any language if none matches, then to
   // any gender within that if none matches. Region/quality ranking within the final candidate
   // set is delegated to pickBestVoiceByRegion, the same ranking logic sortVoicesByRegions uses.
   async pickBestFallbackVoice(e, n) {
-    const r = await this.fallbackProvider.getVoices(), [i] = lt([e]), { voicesByLang: s } = ct(r, [i]), o = s.get(i.baseLang) ?? [], a = o.length > 0 ? o : r, c = n ? a.filter((d) => d.gender === n) : [], l = c.length > 0 ? c : a;
-    return ki(e, l);
+    const r = await this.fallbackProvider.getVoices(), s = typeof navigator < "u" && navigator.onLine === !0 ? r : r.filter((g) => g.offlineAvailability === !0);
+    if (s.length === 0) return null;
+    const [o] = lt([e]), { voicesByLang: a } = ct(s, [o]), c = a.get(o.baseLang) ?? [], l = c.length > 0 ? c : s, d = n ? l.filter((g) => g.gender === n) : [], u = d.length > 0 ? d : l;
+    return ki(e, u);
   }
   async destroy() {
     this.teardownEpoch++, this.healthCheckTimer !== null && (clearTimeout(this.healthCheckTimer), this.healthCheckTimer = null), this.unbindActiveEngine?.(), this.events.clear(), await this.activeEngine.destroy();
