@@ -302,7 +302,8 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
         const failedVoice = primaryEngine.getCurrentVoice() ?? (typeof this.lastVoiceRequest === "object" ? this.lastVoiceRequest : null);
         const language = failedVoice?.language || this.currentUtterances[this.desiredIndex]?.language || (typeof navigator !== "undefined" ? navigator.language : "en");
         bestVoice = await this.pickBestFallbackVoice(language, failedVoice?.gender);
-        return this.fallbackProvider.createEngine(bestVoice ?? undefined);
+        if (!bestVoice) throw new Error("no offline-available fallback voice found");
+        return this.fallbackProvider.createEngine(bestVoice);
       },
       () => {
         this.hasFallenBack = true;
@@ -382,12 +383,19 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     await oldEngine.destroy();
   }
 
+  // Only skip the offlineAvailability filter when navigator.onLine is confirmed true — unknown
+  // (unimplemented navigator.onLine) defaults to restricting, not to allowing online voices.
+  //
   // Language narrows first, gender second: a same-language wrong-gender voice beats a
   // different-language right-gender one. Falls back to any language if none matches, then to
   // any gender within that if none matches. Region/quality ranking within the final candidate
   // set is delegated to pickBestVoiceByRegion, the same ranking logic sortVoicesByRegions uses.
   private async pickBestFallbackVoice(language: string, gender: ReadiumSpeechVoice["gender"]): Promise<ReadiumSpeechVoice | null> {
-    const voices = await this.fallbackProvider.getVoices();
+    const allVoices = await this.fallbackProvider.getVoices();
+    const isOnlineConfirmed = typeof navigator !== "undefined" && navigator.onLine === true;
+    const voices = isOnlineConfirmed ? allVoices : allVoices.filter(voice => voice.offlineAvailability === true);
+    if (voices.length === 0) return null;
+
     const [processedLang] = processLanguages([language]);
     const { voicesByLang } = groupVoicesByLanguage(voices, [processedLang]);
     const byLanguage = voicesByLang.get(processedLang.baseLang) ?? [];
