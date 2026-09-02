@@ -1518,6 +1518,17 @@
     }
   },
   {
+    "id": "separator-with-glyphs",
+    "dir": "separator-with-glyphs",
+    "role": "separator",
+    "description": "separator role whose visible content is a decorative glyph run (\"* * *\"), not meaningful text",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
     "id": "subtitle-epub-type",
     "dir": "subtitle-epub-type",
     "role": "subtitle",

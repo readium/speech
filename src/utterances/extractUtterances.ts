@@ -281,15 +281,21 @@ function emitInterrupted(
 // audio/video/image/math fold `node.description` into a labelled/unlabelled
 // variant of their own announcement; figure and table fold it into their
 // own template too (see the `figure` check in `walkNode()`'s
-// contextualization loop for the no-description case).
-const labelVariantRoles: ReadonlySet<string> = new Set(["audio", "video", "image", "math"]);
-const descriptionFoldingRoles: ReadonlySet<string> = new Set(["audio", "video", "image", "figure", "math", "table"]);
+// contextualization loop for the no-description case). `cover` reuses the
+// same labelled/unlabelled treatment as `image`.
+const labelVariantRoles: ReadonlySet<string> = new Set(["audio", "video", "image", "math", "cover"]);
+const descriptionFoldingRoles: ReadonlySet<string> = new Set(["audio", "video", "image", "figure", "math", "table", "cover"]);
 
 // cell/rowheader's own contextualization template already embeds the
 // cell's text (`{{ value }}`, with or without a `{{ header }}` prefix) —
 // so once it fires, the node's own text must not also be spoken, or the
 // value is heard twice.
 const valueFoldingRoles: ReadonlySet<string> = new Set(["cell", "rowheader"]);
+
+// Roles whose subtree carries no content worth speaking, whatever markup an
+// author put inside it — only the role's own contextualization, if
+// requested, is ever heard.
+const contentlessRoles: ReadonlySet<string> = new Set(["separator"]);
 
 // Falls back to the bare number when the catalog has no `parts` entry.
 function resolvePluralPart(ctx: WalkContext, role: string, name: string, count: number): string {
@@ -352,9 +358,14 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
 
   // Footnote and pagebreak are handled specially below (merged with their
   // own content/label), so they're excluded from the generic loop here.
+  // `cover` takes priority over `image` when a node carries both.
   const isFootnoteNode = roles.includes("footnote");
+  const hasCover = roles.includes("cover");
   const contextualizedRoles = roles.filter(
-    (role) => !(isFootnoteNode && (role === "footnote" || role === "aside")) && role !== "pagebreak",
+    (role) =>
+      !(isFootnoteNode && (role === "footnote" || role === "aside")) &&
+      role !== "pagebreak" &&
+      !(hasCover && role === "image"),
   );
 
   // A description is supplementary/elaborating content (e.g. an extended
@@ -417,6 +428,8 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
         walk([child], out, sources, ctx, suppress);
       }
     }
+  } else if (roles.some((role) => contentlessRoles.has(role))) {
+    // Ignored entirely — see `contentlessRoles`.
   } else {
     const rawSsml = typeof node.text === "object" ? node.text.ssml : undefined;
     if (ctx.inlineContextualization && rawSsml && hasPlaceholder(rawSsml)) {

@@ -4,18 +4,19 @@
       "role": [
         "paragraph"
       ],
-      "text": "Section one."
+      "text": "Before."
     },
     {
       "role": [
         "separator"
-      ]
+      ],
+      "text": "* * *"
     },
     {
       "role": [
         "paragraph"
       ],
-      "text": "Section two."
+      "text": "After."
     }
   ]
 }

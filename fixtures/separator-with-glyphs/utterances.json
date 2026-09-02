@@ -8,7 +8,10 @@
       ],
       "utterances": [
         {
-          "plain": "To be, or not to be, that is the question."
+          "plain": "Before."
+        },
+        {
+          "plain": "After."
         }
       ]
     },
@@ -17,27 +20,27 @@
         {
           "format": "plain",
           "contextualize": [
-            "blockquote"
+            "separator"
           ]
         },
         {
           "format": "plain",
           "contextualize": [
-            "blockquote"
+            "separator"
           ],
           "inlineContextualization": true
         },
         {
           "format": "plain",
           "contextualize": [
-            "blockquote"
+            "separator"
           ],
           "language": "always"
         },
         {
           "format": "plain",
           "contextualize": [
-            "blockquote"
+            "separator"
           ],
           "language": "always",
           "inlineContextualization": true
@@ -45,14 +48,14 @@
         {
           "format": "plain",
           "contextualize": [
-            "blockquote"
+            "separator"
           ],
           "language": "block-level"
         },
         {
           "format": "plain",
           "contextualize": [
-            "blockquote"
+            "separator"
           ],
           "language": "block-level",
           "inlineContextualization": true
@@ -60,14 +63,14 @@
         {
           "format": "plain",
           "contextualize": [
-            "blockquote"
+            "separator"
           ],
           "language": "none"
         },
         {
           "format": "plain",
           "contextualize": [
-            "blockquote"
+            "separator"
           ],
           "language": "none",
           "inlineContextualization": true
@@ -75,10 +78,13 @@
       ],
       "utterances": [
         {
-          "plain": "Blockquote."
+          "plain": "Before."
         },
         {
-          "plain": "To be, or not to be, that is the question."
+          "plain": "Separator."
+        },
+        {
+          "plain": "After."
         }
       ]
     },
@@ -90,7 +96,10 @@
       ],
       "utterances": [
         {
-          "ssml": "To be, or not to be, that is the question."
+          "ssml": "Before."
+        },
+        {
+          "ssml": "After."
         }
       ]
     },
@@ -99,27 +108,27 @@
         {
           "format": "ssml",
           "contextualize": [
-            "blockquote"
+            "separator"
           ]
         },
         {
           "format": "ssml",
           "contextualize": [
-            "blockquote"
+            "separator"
           ],
           "inlineContextualization": true
         },
         {
           "format": "ssml",
           "contextualize": [
-            "blockquote"
+            "separator"
           ],
           "language": "always"
         },
         {
           "format": "ssml",
           "contextualize": [
-            "blockquote"
+            "separator"
           ],
           "language": "always",
           "inlineContextualization": true
@@ -127,14 +136,14 @@
         {
           "format": "ssml",
           "contextualize": [
-            "blockquote"
+            "separator"
           ],
           "language": "block-level"
         },
         {
           "format": "ssml",
           "contextualize": [
-            "blockquote"
+            "separator"
           ],
           "language": "block-level",
           "inlineContextualization": true
@@ -142,14 +151,14 @@
         {
           "format": "ssml",
           "contextualize": [
-            "blockquote"
+            "separator"
           ],
           "language": "none"
         },
         {
           "format": "ssml",
           "contextualize": [
-            "blockquote"
+            "separator"
           ],
           "language": "none",
           "inlineContextualization": true
@@ -157,10 +166,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Blockquote."
+          "ssml": "Before."
         },
         {
-          "ssml": "To be, or not to be, that is the question."
+          "ssml": "Separator."
+        },
+        {
+          "ssml": "After."
         }
       ]
     }

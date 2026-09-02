@@ -13,11 +13,14 @@ export interface ObjBuilder {
   description?: string;
 }
 
+// Roles whose entire information is the role itself, with no ref/text/
+// children to otherwise survive on: `math` has no ref field of its own
+// (unlike audio/image/video, it names no external resource), and
+// `separator` (e.g. `<hr>`) is content-free by design.
+const contentFreeRoles: readonly GndRole[] = ["math", "separator"];
+
 export function isEmptyObj(o: ObjBuilder): boolean {
-  // `math` has no ref field of its own (unlike audio/image/video, it names
-  // no external resource) — without this, an unlabelled `<math>` has
-  // nothing else to survive on and would be dropped like a truly empty node.
-  if (o.role?.includes("math")) return false;
+  if (o.role?.some((role) => contentFreeRoles.includes(role))) return false;
   return (
     !o.audioref &&
     !o.imgref &&
