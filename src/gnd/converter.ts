@@ -1,8 +1,9 @@
 import type { GndObject, GndRole } from "./types.js";
-import { extractNodeRoles } from "./roles.js";
+import { extractNodeRoles, hasExplicitRole } from "./roles.js";
 import {
   extractNodeAria,
   normalizedNodeText,
+  normalizedNodeTextExcludingExplicitRoles,
   convertElementToSSMLTag,
   skippedElements,
 } from "./a11y.js";
@@ -127,10 +128,12 @@ export class Converter {
     return res.children.map(finalizeToGndObject);
   }
 
-  private descend(el: Element) {
+  // An explicit-role descendant is content in its own right and skips
+  // inherited `noText` — except `caption`, always the already-folded source.
+  private descend(el: Element, roles: GndRole[]) {
     const node = new NavObject();
     node.el = el;
-    node.noText = this.current.noText;
+    node.noText = (!hasExplicitRole(el) || roles.includes("caption")) && this.current.noText;
     this.current.children.push(node);
     this.current = node;
   }
@@ -242,7 +245,7 @@ export class Converter {
     }
 
     this.flushText();
-    this.descend(el);
+    this.descend(el, roles);
 
     const cur = this.current.object;
     if (roles.length > 0) cur.role = roles;
@@ -251,14 +254,24 @@ export class Converter {
       if (roles.includes("figure")) {
         this.current.noText = true;
       }
-    } else if (roles.includes("table") || roles.includes("figure")) {
+    } else if (roles.includes("figure")) {
+      const caption = this.implicitCaptionOf(el);
+      if (caption) {
+        // Unlike table below, not added to `suppressed` — walked normally so
+        // a nested explicit-role descendant (e.g. a credit) still speaks.
+        const text = normalizedNodeTextExcludingExplicitRoles(caption);
+        if (text) {
+          cur.description = text;
+          this.current.noText = true;
+        }
+      }
+    } else if (roles.includes("table")) {
       const caption = this.implicitCaptionOf(el);
       if (caption) {
         const text = normalizedNodeText(caption);
         if (text) {
           cur.description = text;
           this.suppressed.add(caption);
-          if (roles.includes("figure")) this.current.noText = true;
         }
       }
     }

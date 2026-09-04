@@ -217,12 +217,9 @@ function isFirstRowOfTable(tr: Element): boolean {
  * `epub:type` attributes, e.g. `<section epub:type="chapter">` -> `[section, chapter]`.
  * An ARIA role of "presentation"/"none" strips the element of its native semantics.
  */
-export function extractNodeRoles(el: Element): GndRole[] {
-  const roles: GndRole[] = [];
-  const add = (role: GndRole) => {
-    if (!roles.includes(role)) roles.push(role);
-  };
-
+// Roles from an explicit `role=`/`epub:type` attribute, as opposed to the
+// tag-name mapping below that every element gets for free.
+function computeAttrRoles(el: Element): { attrRoles: GndRole[]; presentational: boolean } {
   const attrRoles: GndRole[] = [];
   let presentational = false;
 
@@ -258,6 +255,24 @@ export function extractNodeRoles(el: Element): GndRole[] {
       if (mapped) attrRoles.push(mapped);
     }
   }
+
+  return { attrRoles, presentational };
+}
+
+// Whether el's role was explicitly authored (`role=`/`epub:type`), not just
+// inferred from its tag — e.g. a credit line vs. a plain `<p>`/`<pre>`.
+export function hasExplicitRole(el: Element): boolean {
+  const { attrRoles, presentational } = computeAttrRoles(el);
+  return attrRoles.length > 0 || presentational;
+}
+
+export function extractNodeRoles(el: Element): GndRole[] {
+  const roles: GndRole[] = [];
+  const add = (role: GndRole) => {
+    if (!roles.includes(role)) roles.push(role);
+  };
+
+  const { attrRoles, presentational } = computeAttrRoles(el);
 
   const tagName = el.tagName.toLowerCase();
 

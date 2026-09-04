@@ -34,7 +34,7 @@ renaming, or removing a fixture.
 | `epilogue` | `epilogue-epub-type`, `epilogue-role-aria` |
 | `errata` | `errata-epub-type`, `errata-role-aria` |
 | `example` | `example-epub-type`, `example-role-aria` |
-| `figure` | `figure-basic-html-native`, `figure-basic-role-aria`, `figure-caption-element-html-native`, `figure-caption-element-role-aria`, `figure-caption-html-native`, `figure-caption-role-aria`, `figure-describedby`, `figure-epub-type`, `figure-no-description` |
+| `figure` | `figure-basic-html-native`, `figure-basic-role-aria`, `figure-caption-element-html-native`, `figure-caption-element-role-aria`, `figure-caption-html-native`, `figure-caption-role-aria`, `figure-credit-nested-in-aria-labelledby-caption`, `figure-credit-nested-in-caption`, `figure-credit-role-aria`, `figure-describedby`, `figure-epub-type`, `figure-no-description` |
 | `footnote` | `footnote-epub-type`, `footnote-role-aria` |
 | `foreword` | `foreword-epub-type`, `foreword-role-aria` |
 | `glossary` | `glossary-epub-type`, `glossary-role-aria` |
@@ -77,4 +77,4 @@ renaming, or removing a fixture.
 | `toc` | `toc-epub-type`, `toc-role-aria` |
 | `video` | `video-html-native`, `video-no-description` |
 
-170 fixtures across 69 roles.
+173 fixtures across 69 roles.
