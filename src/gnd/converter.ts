@@ -19,7 +19,7 @@ import { startsWithBindingPunct } from "../utils/text.js";
 import { type ObjBuilder, NavObject, isEmptyObj, finalizeToGndObject } from "./object.js";
 import { type GndMediaType, nodeLanguage, isInlineTag, sniffMediaType } from "./dom.js";
 import { encodeDomRangeFragment, encodeTextFragmentDirective } from "./textrefFragment.js";
-import { generateSelectorTextref } from "./selectorGenerator.js";
+import { selectorForElement, textrefForSelector } from "./selectorGenerator.js";
 import { generateDomRange } from "./domRangeGenerator.js";
 import { TextFragmentGenerator } from "./textFragmentGenerator.js";
 import { type GndGenerationOptions, normalizeTextrefOptions } from "./options.js";
@@ -313,10 +313,12 @@ export class Converter {
   // which others are also enabled.
   private applyTextref(el: Element) {
     const cur = this.current.object;
-    cur.textref = generateSelectorTextref(el, this.docRoot);
+    const selector = selectorForElement(el, this.docRoot);
+    cur.textref = textrefForSelector(selector);
 
     if (this.domRangeEnabled && this.lastFlowRange) {
-      const domRange = generateDomRange(this.lastFlowRange, this.docRoot);
+      const known = selector ? { el, selector } : undefined;
+      const domRange = generateDomRange(this.lastFlowRange, this.docRoot, known);
       if (domRange) cur.textref = encodeDomRangeFragment(domRange);
     }
 

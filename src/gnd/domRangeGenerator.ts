@@ -16,10 +16,23 @@ function textNodeIndexAmongChildren(container: Element, target: Text): number {
   return idx;
 }
 
-function domRangePoint(node: Text, offset: number, docRoot: Document | null): DomRangeJSON["start"] | undefined {
+// A selector already computed for `el` elsewhere (applyTextref's own base
+// textref) — reused instead of recomputed when a range point's container
+// turns out to be that same element.
+export interface KnownSelector {
+  el: Element;
+  selector: string;
+}
+
+function domRangePoint(
+  node: Text,
+  offset: number,
+  docRoot: Document | null,
+  known: KnownSelector | undefined,
+): DomRangeJSON["start"] | undefined {
   const container = node.parentElement;
   if (!container) return undefined;
-  const cssSelector = selectorForElement(container, docRoot);
+  const cssSelector = known && container === known.el ? known.selector : selectorForElement(container, docRoot);
   if (!cssSelector) return undefined;
   return { cssSelector, textNodeIndex: textNodeIndexAmongChildren(container, node), charOffset: offset };
 }
@@ -30,9 +43,10 @@ function domRangePoint(node: Text, offset: number, docRoot: Document | null): Do
 export function generateDomRange(
   range: { first: [Text, number]; last: [Text, number] },
   docRoot: Document | null,
+  known?: KnownSelector,
 ): DomRangeJSON | undefined {
-  const start = domRangePoint(...range.first, docRoot);
+  const start = domRangePoint(...range.first, docRoot, known);
   if (!start) return undefined;
-  const end = domRangePoint(...range.last, docRoot);
+  const end = domRangePoint(...range.last, docRoot, known);
   return end ? { start, end } : { start };
 }

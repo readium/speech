@@ -14,10 +14,11 @@ export function selectorForElement(el: Element, docRoot: Document | null): strin
 }
 
 // The base textref every generated node gets: a bare "#id" fragment when
-// the element has one, a "#css(<selector>)" fragment otherwise.
-export function generateSelectorTextref(el: Element, docRoot: Document | null): string | undefined {
-  const id = el.getAttribute("id");
-  if (id) return `#${id}`;
-  const selector = getCssSelector(el, { root: docRoot ?? undefined });
-  return selector ? encodeCssSelectorFragment(selector) : undefined;
+// the element has one, a "#css(<selector>)" fragment otherwise. Wraps
+// selectorForElement's raw value so callers that already hold that value
+// (e.g. domRangeGenerator.ts, reusing it for the same element) can skip
+// recomputing it.
+export function textrefForSelector(selector: string | undefined): string | undefined {
+  if (!selector) return undefined;
+  return selector.startsWith("#") ? selector : encodeCssSelectorFragment(selector);
 }
