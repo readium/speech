@@ -103,6 +103,22 @@ function isRoleContextualized(role: string, ctx: WalkContext): boolean {
   return cellGeneralizingRoles.has(role) && ctx.contextualize.has("cell");
 }
 
+// role -> role(s) it drops from the loop when both are on one node —
+// `unconditional` drops them regardless of reachability, else only once reachable.
+const roleOverrides: Partial<Record<GndRole, { drops: GndRole[]; unconditional?: boolean }>> = {
+  footnote: { drops: ["aside"], unconditional: true },
+  cover: { drops: ["image"] },
+  pullquote: { drops: ["blockquote", "aside"] },
+};
+
+function isDroppedByAnotherRole(role: GndRole, roles: GndRole[], ctx: WalkContext): boolean {
+  return roles.some((other) => {
+    const entry = roleOverrides[other];
+    if (!entry?.drops.includes(role)) return false;
+    return entry.unconditional || isRoleContextualized(other, ctx);
+  });
+}
+
 // Speaks `role`'s catalog entry for this `phase`: `inline` only has
 // something to say "before"; `block` says `start`/`end` at "before"/"after"
 // — unless `ctx.contextualizationShapes` overrides this role to "inline"
@@ -372,14 +388,8 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
 
   // Footnote and pagebreak are handled specially below (merged with their
   // own content/label), so they're excluded from the generic loop here.
-  // `cover` takes priority over `image` when a node carries both.
-  const isFootnoteNode = roles.includes("footnote");
-  const hasCover = roles.includes("cover");
   const contextualizedRoles = roles.filter(
-    (role) =>
-      !(isFootnoteNode && (role === "footnote" || role === "aside")) &&
-      role !== "pagebreak" &&
-      !(hasCover && role === "image"),
+    (role) => role !== "footnote" && role !== "pagebreak" && !isDroppedByAnotherRole(role, roles, ctx),
   );
 
   // A description is supplementary/elaborating content (e.g. an extended
