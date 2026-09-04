@@ -1,0 +1,103 @@
+{
+    "speech": {
+        "contextualizations": {
+            "aside": {
+                "block": { "start": "Start of the aside.", "end": "End of the aside." }
+            },
+            "audio": {
+                "inline": {
+                    "labelled": "Audio with a label: {{ description }}",
+                    "unlabelled": "Audio with no label."
+                }
+            },
+            "blockquote": { "inline": "Blockquote." },
+            "cell": {
+                "inline": {
+                    "withHeader": "{{ header }}: {{ value }}",
+                    "withoutHeader": "{{ value }}"
+                }
+            },
+            "colophon": { "inline": "Colophon." },
+            "complementary": {
+                "block": { "start": "Start of the complementary content.", "end": "End of the complementary content." }
+            },
+            "cover": {
+                "inline": {
+                    "labelled": "Cover with a label: {{ description }}",
+                    "unlabelled": "Cover with no label."
+                }
+            },
+            "credit": { "inline": "Credit." },
+            "details": {
+                "block": { "start": "Start of the disclosure.", "end": "End of the disclosure." }
+            },
+            "example": {
+                "block": { "start": "Start of the example.", "end": "End of the example." }
+            },
+            "figure": { "inline": "Figure: {{ description }}" },
+            "footnote": {
+                "block": { "start": "Start of the footnote.", "end": "End of the footnote." }
+            },
+            "heading1": { "inline": "Heading level 1." },
+            "heading2": { "inline": "Heading level 2." },
+            "heading3": { "inline": "Heading level 3." },
+            "heading4": { "inline": "Heading level 4." },
+            "heading5": { "inline": "Heading level 5." },
+            "heading6": { "inline": "Heading level 6." },
+            "image": {
+                "inline": {
+                    "labelled": "Image with a label: {{ description }}",
+                    "unlabelled": "Image with no label."
+                }
+            },
+            "list": { "inline": "List." },
+            "listItem": { "inline": "List item." },
+            "math": {
+                "inline": {
+                    "labelled": "{{ description }}",
+                    "unlabelled": "Math formula with no label."
+                }
+            },
+            "notice": { "inline": "Notice." },
+            "pagebreak": { "inline": "Pagebreak." },
+            "pagelist": { "inline": "Pagelist." },
+            "pullquote": { "inline": "Pullquote." },
+            "row": { "inline": "Row: {{ count }}" },
+            "rowheader": {
+                "inline": {
+                    "withHeader": "{{ header }}: {{ value }}",
+                    "withoutHeader": "{{ value }}"
+                }
+            },
+            "table": {
+                "block": {
+                    "end": "End of the table.",
+                    "start": {
+                        "labelled": "Table: {{ description }}. {{ lines }}. {{ columns }}.",
+                        "unlabelled": "Table. {{ lines }}. {{ columns }}."
+                    }
+                },
+                "inline": {
+                    "labelled": "Table: {{ description }}. {{ lines }}. {{ columns }}.",
+                    "unlabelled": "Table. {{ lines }}. {{ columns }}."
+                },
+                "parts": {
+                    "columns_one": "1 column",
+                    "columns_other": "{{ count }} columns",
+                    "lines_one": "1 line",
+                    "lines_other": "{{ count }} lines"
+                }
+            },
+            "separator": { "inline": "Separator." },
+            "subtitle": { "inline": "Subtitle." },
+            "summary": { "inline": "Summary." },
+            "term": { "inline": "Term." },
+            "video": {
+                "inline": {
+                    "labelled": "Video with a label: {{ description }}",
+                    "unlabelled": "Video with no label."
+                }
+            }
+        }
+    }
+}

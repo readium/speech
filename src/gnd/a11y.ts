@@ -1,5 +1,6 @@
 import type { GndText } from "./types.js";
 import { normalizeWhitespace } from "./text.js";
+import { hasExplicitRole } from "./roles.js";
 
 function nodeIsHidden(el: Element): boolean {
   if (el.getAttribute("aria-hidden") === "true") return true;
@@ -22,6 +23,27 @@ function nodeText(el: Node): string {
 /** Normalized (whitespace-coalesced and trimmed) text content of a node's subtree. */
 export function normalizedNodeText(el: Node): string {
   return normalizeWhitespace(nodeText(el), true).trim();
+}
+
+// Same as `nodeText`, skipping descendants with an explicit role — those are
+// walked/spoken separately, so folding their text in here would double it up.
+function nodeTextExcludingExplicitRoles(root: Node): string {
+  let text = "";
+  const walk = (n: Node, isRoot: boolean) => {
+    if (n.nodeType === 3 /* TEXT_NODE */) {
+      text += n.nodeValue ?? "";
+      return;
+    }
+    if (n.nodeType === 1 /* ELEMENT_NODE */ && !isRoot && hasExplicitRole(n as Element)) return;
+    for (let c = n.firstChild; c; c = c.nextSibling) walk(c, false);
+  };
+  walk(root, true);
+  return text;
+}
+
+/** Same as `normalizedNodeText`, excluding explicitly-role-bearing descendants. */
+export function normalizedNodeTextExcludingExplicitRoles(el: Node): string {
+  return normalizeWhitespace(nodeTextExcludingExplicitRoles(el), true).trim();
 }
 
 /**
@@ -51,7 +73,7 @@ export function extractNodeAria(el: Element): [GndText | null, boolean] {
       labelNodes.forEach((n, i) => {
         if (nodeIsHidden(n)) return;
         const label = n.getAttribute("aria-label");
-        text += label ? label : nodeText(n);
+        text += label ? label : nodeTextExcludingExplicitRoles(n);
         if (i < labelNodes.length - 1) text += " ";
       });
       const normalized = normalizeWhitespace(text, true).trim();
@@ -78,7 +100,7 @@ export function extractNodeAria(el: Element): [GndText | null, boolean] {
       .map((id) => el.ownerDocument.getElementById(id))
       .filter((n): n is HTMLElement => n !== null);
     if (nodes.length > 0) {
-      const text = nodes.map((n) => nodeText(n)).join(" ");
+      const text = nodes.map((n) => nodeTextExcludingExplicitRoles(n)).join(" ");
       const normalized = normalizeWhitespace(text, true).trim();
       if (normalized !== "") {
         return [{ language: "", plain: normalized }, true];

@@ -1,0 +1,34 @@
+{
+  "cases": [
+    {
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Name"
+        },
+        {
+          "plain": "Ada"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Name"
+        },
+        {
+          "ssml": "Ada"
+        }
+      ]
+    }
+  ]
+}

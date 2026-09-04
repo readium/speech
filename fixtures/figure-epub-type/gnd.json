@@ -1,0 +1,21 @@
+{
+  "role": [
+    "body"
+  ],
+  "children": [
+    {
+      "role": [
+        "figure"
+      ],
+      "children": [
+        {
+          "imgref": "chart.png",
+          "role": [
+            "image"
+          ],
+          "description": "A bar chart showing sales growth"
+        }
+      ]
+    }
+  ]
+}

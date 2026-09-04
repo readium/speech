@@ -384,7 +384,7 @@ function highlightCurrentWord(charIndex, charLength) {
     decoCtrl.decorate([{
       id: "tts-sentence",
       style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
-      highlight: currentUtterance.plain,
+      text: { highlight: currentUtterance.plain },
     }], "tts-sentence");
 
     // Scroll current sentence into view
@@ -406,9 +406,7 @@ function highlightCurrentWord(charIndex, charLength) {
   decoCtrl.decorate([{
     id: "tts-word",
     style: { type: DecorationStyleType.Underline, tint: "#e53935", enforceContrast: false },
-    highlight: word,
-    before,
-    after,
+    text: { highlight: word, before, after },
   }], "tts-word");
 }
 

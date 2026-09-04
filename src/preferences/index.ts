@@ -8,4 +8,9 @@ export { SpeechDefaults } from "./SpeechDefaults.js";
 export type { ISpeechDefaults } from "./SpeechDefaults.js";
 export { SpeechSettings } from "./SpeechSettings.js";
 export { SpeechPreferencesEditor } from "./SpeechPreferencesEditor.js";
-export { contextualizedAtVerbosity, skippableAtVerbosity } from "./verbosityTables.js";
+export {
+  contextualizationShapesAtVerbosity,
+  contextualizedAtVerbosity,
+  shapeableRoles,
+  skippedAtVerbosity,
+} from "./verbosityTables.js";

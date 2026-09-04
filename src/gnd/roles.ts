@@ -65,6 +65,8 @@ const ariaRoles: Record<string, GndRole> = {
   "doc-preface": "preface",
   "doc-prologue": "prologue",
   "doc-pullquote": "pullquote",
+  grid: "table",
+  gridcell: "cell",
   presentation: "presentation",
   none: "presentation",
   "doc-qna": "qna",
@@ -178,18 +180,46 @@ const simpleElementTypeRoles: Record<string, GndRole> = {
   svg: "image",
 };
 
+// HTML-AAM's presentational table rule: role="presentation"/"none" cascades
+// to the whole subtree, unconditionally, no per-descendant escape hatch.
+const tableStructuralTags = new Set(["table", "tr", "td", "th"]);
+const tableStructuralRoles: ReadonlySet<GndRole> = new Set(["table", "row", "cell", "columnheader", "rowheader"]);
+
+function isElementPresentational(el: Element): boolean {
+  const role = el.getAttribute("role");
+  if (!role) return false;
+  const vals = role.split(/\s+/).filter(Boolean);
+  return vals.includes("presentation") || vals.includes("none");
+}
+
+// Any presentational ancestor, not just a literal <table> — an ARIA-encoded
+// table has no tag/role saying "table", only its structural descendants.
+function hasPresentationalAncestor(el: Element): boolean {
+  for (let p = el.parentElement; p; p = p.parentElement) {
+    if (isElementPresentational(p)) return true;
+  }
+  return false;
+}
+
+function isTableStructuralCandidate(el: Element, tagName: string, attrRoles: GndRole[]): boolean {
+  return tableStructuralTags.has(tagName) || attrRoles.some((role) => tableStructuralRoles.has(role));
+}
+
+// Unscoped <th> fallback: first row -> columnheader, else -> rowheader.
+function isFirstRowOfTable(tr: Element): boolean {
+  const table = tr.closest("table");
+  return table?.querySelector("tr") === tr;
+}
+
 /**
  * Determines the Guided Navigation roles of an element, combining the roles
  * derived from the element type itself with the ones from its ARIA `role` and
  * `epub:type` attributes, e.g. `<section epub:type="chapter">` -> `[section, chapter]`.
  * An ARIA role of "presentation"/"none" strips the element of its native semantics.
  */
-export function extractNodeRoles(el: Element): GndRole[] {
-  const roles: GndRole[] = [];
-  const add = (role: GndRole) => {
-    if (!roles.includes(role)) roles.push(role);
-  };
-
+// Roles from an explicit `role=`/`epub:type` attribute, as opposed to the
+// tag-name mapping below that every element gets for free.
+function computeAttrRoles(el: Element): { attrRoles: GndRole[]; presentational: boolean } {
   const attrRoles: GndRole[] = [];
   let presentational = false;
 
@@ -226,15 +256,38 @@ export function extractNodeRoles(el: Element): GndRole[] {
     }
   }
 
+  return { attrRoles, presentational };
+}
+
+// Whether el's role was explicitly authored (`role=`/`epub:type`), not just
+// inferred from its tag — e.g. a credit line vs. a plain `<p>`/`<pre>`.
+export function hasExplicitRole(el: Element): boolean {
+  const { attrRoles, presentational } = computeAttrRoles(el);
+  return attrRoles.length > 0 || presentational;
+}
+
+export function extractNodeRoles(el: Element): GndRole[] {
+  const roles: GndRole[] = [];
+  const add = (role: GndRole) => {
+    if (!roles.includes(role)) roles.push(role);
+  };
+
+  const { attrRoles, presentational } = computeAttrRoles(el);
+
+  const tagName = el.tagName.toLowerCase();
+
   if (presentational) {
     // The element only retains the presentation role
+    return ["presentation"];
+  }
+
+  if (isTableStructuralCandidate(el, tagName, attrRoles) && hasPresentationalAncestor(el)) {
     return ["presentation"];
   }
 
   // Based on element type. The element's own role comes first, followed by the
   // more specific attribute-based roles, matching the ordering of the examples
   // in the Guided Navigation specification.
-  const tagName = el.tagName.toLowerCase();
   if (tagName === "body") {
     add("body");
   } else if (tagName === "th") {
@@ -245,9 +298,16 @@ export function extractNodeRoles(el: Element): GndRole[] {
       case "row":
         add("rowheader");
         break;
-      default:
-        // Without an explicit scope the direction is unknown, but it's still a cell
-        add("cell");
+      default: {
+        const tr = el.parentElement;
+        if (tr && isFirstRowOfTable(tr)) {
+          add("columnheader");
+        } else if (el.previousElementSibling === null) {
+          add("rowheader");
+        } else {
+          add("cell");
+        }
+      }
     }
   } else {
     const mapped = simpleElementTypeRoles[tagName];

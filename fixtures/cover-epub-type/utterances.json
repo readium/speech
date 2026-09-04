@@ -75,7 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Cover."
+          "plain": "Cover with no label."
         },
         {
           "plain": "Lighthouses of the Atlantic, by J. Smith"
@@ -145,10 +145,7 @@
       ],
       "utterances": [
         {
-          "plain": "Image."
-        },
-        {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
+          "plain": "Image with a label: Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },
@@ -223,13 +220,10 @@
       ],
       "utterances": [
         {
-          "plain": "Cover."
+          "plain": "Cover with no label."
         },
         {
-          "plain": "Image."
-        },
-        {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
+          "plain": "Image with a label: Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },
@@ -555,7 +549,7 @@
       ],
       "utterances": [
         {
-          "plain": "Cover."
+          "plain": "Cover with no label."
         }
       ]
     },
@@ -634,7 +628,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Cover."
+          "ssml": "Cover with no label."
         },
         {
           "ssml": "Lighthouses of the Atlantic, by J. Smith"
@@ -704,10 +698,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Image."
-        },
-        {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
+          "ssml": "Image with a label: Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },
@@ -782,13 +773,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Cover."
+          "ssml": "Cover with no label."
         },
         {
-          "ssml": "Image."
-        },
-        {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
+          "ssml": "Image with a label: Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },
@@ -1114,7 +1102,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Cover."
+          "ssml": "Cover with no label."
         }
       ]
     }

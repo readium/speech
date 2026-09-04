@@ -6,6 +6,7 @@ import { ISpeechDefaults, SpeechDefaults } from "./preferences/SpeechDefaults";
 import { ISpeechPreferences, SpeechPreferences } from "./preferences/SpeechPreferences";
 import { SpeechPreferencesEditor } from "./preferences/SpeechPreferencesEditor";
 import { SpeechSettings } from "./preferences/SpeechSettings";
+import { contextualizationShapesAtVerbosity } from "./preferences/verbosityTables";
 import { ReadiumSpeechUtterance } from "./utterance";
 import { extractUtterancesWithSources } from "./utterances/extractUtterances";
 import { ReadiumSpeechVoice } from "./voices/types";
@@ -264,6 +265,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       inlineContextualization: this._settings.inlineContextualization,
       skip: this._settings.skip,
       contextualize: this._settings.contextualize,
+      contextualizationShapes:
+        this._settings.verbosity === "custom" ? {} : contextualizationShapesAtVerbosity[this._settings.verbosity],
       language: this._settings.language,
     });
     this.contentSources = sources;

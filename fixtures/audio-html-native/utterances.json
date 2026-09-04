@@ -75,10 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Audio."
-        },
-        {
-          "plain": "Foghorn recording from the 1962 restoration"
+          "plain": "Audio with a label: Foghorn recording from the 1962 restoration"
         }
       ]
     },
@@ -302,10 +299,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Audio."
-        },
-        {
-          "ssml": "Foghorn recording from the 1962 restoration"
+          "ssml": "Audio with a label: Foghorn recording from the 1962 restoration"
         }
       ]
     },

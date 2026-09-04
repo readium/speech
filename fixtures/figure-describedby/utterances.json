@@ -78,16 +78,10 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the figure."
+          "plain": "Figure: Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
         },
         {
           "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
         }
       ]
     },
@@ -154,10 +148,7 @@
       ],
       "utterances": [
         {
-          "plain": "Image."
-        },
-        {
-          "plain": "Sales chart"
+          "plain": "Image with a label: Sales chart"
         },
         {
           "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
@@ -235,19 +226,10 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the figure."
+          "plain": "Figure: Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
         },
         {
-          "plain": "Image."
-        },
-        {
-          "plain": "Sales chart"
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
+          "plain": "Image with a label: Sales chart"
         }
       ]
     },
@@ -577,13 +559,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the figure."
-        },
-        {
-          "plain": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "plain": "End of the figure."
+          "plain": "Figure: Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
         }
       ]
     },
@@ -1326,16 +1302,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the figure."
+          "ssml": "Figure: Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
         },
         {
           "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
         }
       ]
     },
@@ -1402,10 +1372,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Image."
-        },
-        {
-          "ssml": "Sales chart"
+          "ssml": "Image with a label: Sales chart"
         },
         {
           "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
@@ -1483,19 +1450,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the figure."
+          "ssml": "Figure: Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
         },
         {
-          "ssml": "Image."
-        },
-        {
-          "ssml": "Sales chart"
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
+          "ssml": "Image with a label: Sales chart"
         }
       ]
     },
@@ -1825,13 +1783,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the figure."
-        },
-        {
-          "ssml": "Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
-        },
-        {
-          "ssml": "End of the figure."
+          "ssml": "Figure: Full audio description: sales grew 12% year over year, driven primarily by the Q4 holiday season."
         }
       ]
     },

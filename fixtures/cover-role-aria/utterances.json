@@ -75,10 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Image."
-        },
-        {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
+          "plain": "Image with a label: Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },
@@ -141,19 +138,7 @@
           ],
           "language": "none",
           "inlineContextualization": true
-        }
-      ],
-      "utterances": [
-        {
-          "plain": "Cover."
         },
-        {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -223,13 +208,7 @@
       ],
       "utterances": [
         {
-          "plain": "Image."
-        },
-        {
-          "plain": "Cover."
-        },
-        {
-          "plain": "Lighthouses of the Atlantic, by J. Smith"
+          "plain": "Cover with a label: Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },
@@ -625,10 +604,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Image."
-        },
-        {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
+          "ssml": "Image with a label: Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },
@@ -691,19 +667,7 @@
           ],
           "language": "none",
           "inlineContextualization": true
-        }
-      ],
-      "utterances": [
-        {
-          "ssml": "Cover."
         },
-        {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
-        }
-      ]
-    },
-    {
-      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -773,13 +737,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Image."
-        },
-        {
-          "ssml": "Cover."
-        },
-        {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith"
+          "ssml": "Cover with a label: Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },

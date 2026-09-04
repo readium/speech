@@ -118,6 +118,7 @@ interface ReadiumSpeechUtterance {
   plain?: string;       // Plain-text rendering, when available
   ssml?: string;        // SSML rendering, when available
   language?: string;    // Language of this content (BCP 47)
+  locate?: LocatorOptions; // Decoded from the source node's textref — spread into createLocator()/decorate()
 }
 ```
 

@@ -1,0 +1,46 @@
+{
+  "role": [
+    "table"
+  ],
+  "children": [
+    {
+      "role": [
+        "row"
+      ],
+      "children": [
+        {
+          "text": "Name",
+          "role": [
+            "columnheader"
+          ]
+        }
+      ]
+    },
+    {
+      "role": [
+        "row"
+      ],
+      "children": [
+        {
+          "text": "Ada",
+          "role": [
+            "cell"
+          ]
+        }
+      ]
+    },
+    {
+      "role": [
+        "row"
+      ],
+      "children": [
+        {
+          "text": "Total: 1",
+          "role": [
+            "cell"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,7080 @@
+{
+  "cases": [
+    {
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Team roster"
+        },
+        {
+          "plain": "Name"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table: Team roster. 1 line. 1 column."
+        },
+        {
+          "plain": "Name"
+        },
+        {
+          "plain": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table: Team roster. 1 line. 1 column."
+        },
+        {
+          "plain": "Name"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Team roster"
+        },
+        {
+          "plain": "Row: 1"
+        },
+        {
+          "plain": "Name"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table: Team roster. 1 line. 1 column."
+        },
+        {
+          "plain": "Row: 1"
+        },
+        {
+          "plain": "Name"
+        },
+        {
+          "plain": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table: Team roster. 1 line. 1 column."
+        },
+        {
+          "plain": "Row: 1"
+        },
+        {
+          "plain": "Name"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Team roster"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table: Team roster. 1 line. 1 column."
+        },
+        {
+          "plain": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table: Team roster. 1 line. 1 column."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Team roster"
+        },
+        {
+          "plain": "Row: 1"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table: Team roster. 1 line. 1 column."
+        },
+        {
+          "plain": "Row: 1"
+        },
+        {
+          "plain": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Table: Team roster. 1 line. 1 column."
+        },
+        {
+          "plain": "Row: 1"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": []
+    },
+    {
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Team roster"
+        },
+        {
+          "ssml": "Name"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table: Team roster. 1 line. 1 column."
+        },
+        {
+          "ssml": "Name"
+        },
+        {
+          "ssml": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table: Team roster. 1 line. 1 column."
+        },
+        {
+          "ssml": "Name"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Team roster"
+        },
+        {
+          "ssml": "Row: 1"
+        },
+        {
+          "ssml": "Name"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table: Team roster. 1 line. 1 column."
+        },
+        {
+          "ssml": "Row: 1"
+        },
+        {
+          "ssml": "Name"
+        },
+        {
+          "ssml": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table: Team roster. 1 line. 1 column."
+        },
+        {
+          "ssml": "Row: 1"
+        },
+        {
+          "ssml": "Name"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Team roster"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table: Team roster. 1 line. 1 column."
+        },
+        {
+          "ssml": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table: Team roster. 1 line. 1 column."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Team roster"
+        },
+        {
+          "ssml": "Row: 1"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table: Team roster. 1 line. 1 column."
+        },
+        {
+          "ssml": "Row: 1"
+        },
+        {
+          "ssml": "End of the table."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualizationShapes": {
+            "table": "inline"
+          },
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Table: Team roster. 1 line. 1 column."
+        },
+        {
+          "ssml": "Row: 1"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": []
+    }
+  ]
+}

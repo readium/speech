@@ -78,7 +78,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the details."
+          "plain": "Start of the disclosure."
         },
         {
           "plain": "Click to expand"
@@ -87,7 +87,7 @@
           "plain": "Additional details the reader can expand."
         },
         {
-          "plain": "End of the details."
+          "plain": "End of the disclosure."
         }
       ]
     },
@@ -235,7 +235,7 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the details."
+          "plain": "Start of the disclosure."
         },
         {
           "plain": "Summary."
@@ -247,7 +247,7 @@
           "plain": "Additional details the reader can expand."
         },
         {
-          "plain": "End of the details."
+          "plain": "End of the disclosure."
         }
       ]
     },
@@ -646,7 +646,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the details."
+          "ssml": "Start of the disclosure."
         },
         {
           "ssml": "Click to expand"
@@ -655,7 +655,7 @@
           "ssml": "Additional details the reader can expand."
         },
         {
-          "ssml": "End of the details."
+          "ssml": "End of the disclosure."
         }
       ]
     },
@@ -803,7 +803,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the details."
+          "ssml": "Start of the disclosure."
         },
         {
           "ssml": "Summary."
@@ -815,7 +815,7 @@
           "ssml": "Additional details the reader can expand."
         },
         {
-          "ssml": "End of the details."
+          "ssml": "End of the disclosure."
         }
       ]
     },

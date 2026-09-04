@@ -1,0 +1,13 @@
+{
+  "role": [
+    "body"
+  ],
+  "children": [
+    {
+      "text": "A tangential note, set apart from the main text.",
+      "role": [
+        "aside"
+      ]
+    }
+  ]
+}

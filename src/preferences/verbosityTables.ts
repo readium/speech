@@ -10,9 +10,7 @@ const few: readonly GndRole[] = ["audio", "figure", "image", "math", "table", "v
 const some: readonly GndRole[] = [
   ...few,
   "blockquote",
-  "cell",
   "chapter",
-  "columnheader",
   "cover",
   "details",
   "notice",
@@ -32,8 +30,9 @@ const most: readonly GndRole[] = [
   "afterword",
   "appendix",
   "aside",
+  "backlink",
   "bibliography",
-  "caption",
+  "biblioref",
   "colophon",
   "complementary",
   "conclusion",
@@ -49,6 +48,7 @@ const most: readonly GndRole[] = [
   "footnote",
   "foreword",
   "glossary",
+  "glossref",
   "heading1",
   "heading2",
   "heading3",
@@ -59,6 +59,7 @@ const most: readonly GndRole[] = [
   "introduction",
   "list",
   "listItem",
+  "noteref",
   "pagebreak",
   "pagelist",
   "preface",
@@ -69,9 +70,9 @@ const most: readonly GndRole[] = [
   "term",
 ];
 
-// Roles a reader may choose to skip, at each verbosity level — a few
-// (`toc`, `landmarks`, ...) stay skipped even at "most".
-export const skippableAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "custom">, ReadonlySet<GndRole>>> = {
+// Roles each preset omits by default — unrelated to `skippableRoles`
+// (roles.ts), the GND-spec skip list; most roles here aren't on it at all.
+export const skippedAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "custom">, ReadonlySet<GndRole>>> = {
   none: new Set([
     "aside", "bibliography", "endnotes", "footnote", "noteref", "pullquote", "pagebreak",
     "details", "columnheader", "rowheader", "row", "cell",
@@ -90,12 +91,42 @@ export const skippableAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "cus
   most: new Set(["landmarks", "loa", "loi", "lot", "lov", "toc"]),
 };
 
-// Roles contextualized (their announcement fires) at each verbosity level.
-// Reference-only roles (`backlink`, `biblioref`, `glossref`, `noteref`)
-// stay out entirely — see `defaultAnnouncements`'s header comment.
+// Roles contextualized (their contextualization fires) at each verbosity level.
 export const contextualizedAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "custom">, ReadonlySet<GndRole>>> = {
   none: new Set(),
   few: new Set(few),
   some: new Set(some),
   most: new Set(most),
 };
+
+type ContextualizationShape = "inline" | "block";
+
+// Roles whose shape varies by verbosity level (table today) — a fixed-block
+// role like `list` must NOT appear here. Omitted levels default to "inline".
+const contextualizationShapeByRole: Partial<Record<GndRole, Partial<Record<Exclude<VerbosityPreset, "custom">, ContextualizationShape>>>> = {
+  table: { few: "inline", some: "block", most: "block" },
+};
+
+function shapesAtLevel(level: Exclude<VerbosityPreset, "custom">): Partial<Record<GndRole, ContextualizationShape>> {
+  const shapes: Partial<Record<GndRole, ContextualizationShape>> = {};
+  for (const role of Object.keys(contextualizationShapeByRole) as GndRole[]) {
+    shapes[role] = contextualizationShapeByRole[role]?.[level] ?? "inline";
+  }
+  return shapes;
+}
+
+// Each role's contextualization shape at each verbosity level, derived from
+// `contextualizationShapeByRole` above.
+export const contextualizationShapesAtVerbosity: Readonly<
+  Record<Exclude<VerbosityPreset, "custom">, Readonly<Partial<Record<GndRole, ContextualizationShape>>>>
+> = {
+  none: shapesAtLevel("none"),
+  few: shapesAtLevel("few"),
+  some: shapesAtLevel("some"),
+  most: shapesAtLevel("most"),
+};
+
+// Roles that ever switch shape (i.e. have an entry in
+// `contextualizationShapeByRole`) — `table` today. Every other role with a
+// `block`-shaped catalog entry (e.g. `list`) is a fixed block always.
+export const shapeableRoles: readonly GndRole[] = Object.keys(contextualizationShapeByRole) as GndRole[];

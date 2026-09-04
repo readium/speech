@@ -75,10 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Image."
-        },
-        {
-          "plain": "Alternative text using the alt attribute"
+          "plain": "Image with a label: Alternative text using the alt attribute"
         }
       ]
     },
@@ -302,10 +299,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Image."
-        },
-        {
-          "ssml": "Alternative text using the alt attribute"
+          "ssml": "Image with a label: Alternative text using the alt attribute"
         }
       ]
     },
