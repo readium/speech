@@ -70,9 +70,9 @@ const most: readonly GndRole[] = [
   "term",
 ];
 
-// Roles a reader may choose to skip, at each verbosity level — a few
-// (`toc`, `landmarks`, ...) stay skipped even at "most".
-export const skippableAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "custom">, ReadonlySet<GndRole>>> = {
+// Roles each preset omits by default — unrelated to `skippableRoles`
+// (roles.ts), the GND-spec skip list; most roles here aren't on it at all.
+export const skippedAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "custom">, ReadonlySet<GndRole>>> = {
   none: new Set([
     "aside", "bibliography", "endnotes", "footnote", "noteref", "pullquote", "pagebreak",
     "details", "columnheader", "rowheader", "row", "cell",
@@ -85,10 +85,10 @@ export const skippableAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "cus
     "landmarks", "loa", "loi", "lot", "lov", "toc",
   ]),
   some: new Set([
-    "aside", "bibliography", "columnheader", "endnotes", "footnote", "noteref", "pullquote", "pagebreak",
+    "aside", "bibliography", "endnotes", "footnote", "noteref", "pullquote", "pagebreak",
     "landmarks", "loa", "loi", "lot", "lov", "toc",
   ]),
-  most: new Set(["columnheader", "landmarks", "loa", "loi", "lot", "lov", "toc"]),
+  most: new Set(["landmarks", "loa", "loi", "lot", "lov", "toc"]),
 };
 
 // Roles contextualized (their contextualization fires) at each verbosity level.

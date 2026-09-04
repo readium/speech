@@ -12,5 +12,5 @@ export {
   contextualizationShapesAtVerbosity,
   contextualizedAtVerbosity,
   shapeableRoles,
-  skippableAtVerbosity,
+  skippedAtVerbosity,
 } from "./verbosityTables.js";

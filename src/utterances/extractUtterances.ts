@@ -91,16 +91,11 @@ function pushPiecesOrMerged(
   }
 }
 
-// roles.md defines rowheader/columnheader in terms of "cell" itself
-// ("the header cell for a row/column") — they're specializations of
-// cell, not siblings of it. Requesting `cell` contextualization must
-// therefore also reach header cells; the reverse doesn't hold; requesting
-// header contextualization specifically doesn't broaden to plain cells.
-const cellGeneralizingRoles: ReadonlySet<string> = new Set(["rowheader", "columnheader"]);
-
 function isRoleContextualized(role: string, ctx: WalkContext): boolean {
-  if (ctx.contextualize.has(role)) return true;
-  return cellGeneralizingRoles.has(role) && ctx.contextualize.has("cell");
+  // A data cell's header is structural table content, not a discretionary
+  // narration a reader opts into — it always reuses the applicable header.
+  if (valueFoldingRoles.has(role)) return true;
+  return ctx.contextualize.has(role);
 }
 
 // role -> role(s) it drops from the loop when both are on one node —
@@ -144,7 +139,16 @@ function pushRoleContextualization(
   }
   if (phase === "before") {
     const text = resolveEntryText(ctx, `${role}.inline`, variantKey, params);
-    if (text) push(out, sources, node, [formatPlain(text, ctx.format)]);
+    if (text) {
+      const utterance = formatPlain(text, ctx.format);
+      // cell/rowheader's template embeds the node's own text (`{{ value }}`) —
+      // it must keep that node's language, same as speaking the text directly would.
+      if (valueFoldingRoles.has(role) && ctx.language !== "none") {
+        const language = typeof node.text === "object" ? node.text.language : undefined;
+        if (language) utterance.language = language;
+      }
+      push(out, sources, node, [utterance]);
+    }
   }
 }
 

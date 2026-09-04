@@ -97,8 +97,8 @@ try {
     SpeechPreferencesEditorClass = mod.SpeechPreferencesEditor;
   }
   if (Array.isArray(mod.skippableRoles)) {
-    // skippableAtVerbosity.none reaches beyond roles.md's skippableRoles (e.g. `audio`, `table`).
-    const verbosityRoles = mod.skippableAtVerbosity?.none ?? [];
+    // skippedAtVerbosity.none reaches beyond roles.md's skippableRoles (e.g. `audio`, `table`).
+    const verbosityRoles = mod.skippedAtVerbosity?.none ?? [];
     skippableRolesList = [...new Set([...mod.skippableRoles, ...verbosityRoles])].sort();
     for (const role of skippableRolesList) {
       const option = document.createElement("option");

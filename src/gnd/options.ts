@@ -27,7 +27,7 @@ export interface GndGenerationOptions {
 }
 
 function normalizeRoles(opt: boolean | GndRole[] | undefined): ((roles: GndRole[]) => boolean) | null {
-  if (opt === true) return () => true;
+  if (opt === true) return (roles) => roles.length > 0;
   if (Array.isArray(opt) && opt.length > 0) {
     const set = new Set(opt);
     return (roles) => roles.some((r) => set.has(r));

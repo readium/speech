@@ -18,10 +18,10 @@ try {
   console.error("Run `npm run build` first — could not import build/index.js.");
   throw err;
 }
-const { extractUtterances, skippableRoles, skippableAtVerbosity, defaultContextualizations, shapeableRoles } = mod;
+const { extractUtterances, skippableRoles, skippedAtVerbosity, defaultContextualizations, shapeableRoles } = mod;
 
-// skippableAtVerbosity.none reaches beyond roles.md's skippable-roles list (e.g. `audio`, `table`).
-const allSkippableRoles = new Set([...skippableRoles, ...(skippableAtVerbosity?.none ?? [])]);
+// skippedAtVerbosity.none reaches beyond roles.md's skippable-roles list (e.g. `audio`, `table`).
+const allSkippableRoles = new Set([...skippableRoles, ...(skippedAtVerbosity?.none ?? [])]);
 
 function expectedTopLevel(gnd) {
   if (gnd && typeof gnd === "object" && !Array.isArray(gnd)) {

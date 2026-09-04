@@ -34,6 +34,14 @@ test("textrefs: [roles] restricts generation to the listed roles", (t) => {
   t.true(decodeCssSelectorFragment(h1.textref)?.length ? true : false);
 });
 
+test("textrefs: true doesn't stop a role-less <thead>/<tbody> from being flattened away", (t) => {
+  const html = `<table><thead><tr><th scope="col">Name</th></tr></thead><tbody><tr><td>Ada</td></tr><tr><td>Bob</td></tr></tbody></table>`;
+  const [withRefs] = parseMarkup(html, undefined, { textrefs: { roles: true } });
+  const [without] = parseMarkup(html);
+  t.is(withRefs.children?.length, without.children?.length);
+  t.true(withRefs.children?.every((c) => c.role?.includes("row")));
+});
+
 test("a link's own href textref is never clobbered by, nor clobbers, the parent's generated reference", (t) => {
   const input = '<ul><li><a href="chapter1.xhtml">Chapter 1</a></li></ul>';
   const [list] = parseMarkup(input, undefined, { textrefs: ["listItem"] });
