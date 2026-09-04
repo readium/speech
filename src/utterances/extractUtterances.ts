@@ -227,25 +227,38 @@ function applyFormat(
   return [utterance];
 }
 
-// `inlineContextualization`: splits the sentence on its embedded placeholder,
-// then merges the fragments and the referenced node's own utterance back
-// into one continuous utterance.
-function emitInterrupted(
+// noteref/pagebreak text is a label, deferrable by `inlineContextualization`;
+// every other placeholder role carries real sentence content and stays inline.
+const deferrablePlaceholderRoles: ReadonlySet<string> = new Set(["noteref", "pagebreak"]);
+
+function isDeferrable(child: GndObject): boolean {
+  return (child.role ?? []).some((role) => deferrablePlaceholderRoles.has(role));
+}
+
+// Splits the sentence on its placeholders, merging inline ones back into one
+// utterance; deferred ones are returned for the caller to walk separately.
+function emitWithPlaceholders(
   node: GndObject,
   rawSsml: string,
   out: ReadiumSpeechUtterance[],
   sources: SourceTrace,
   ctx: WalkContext,
   suppress: boolean,
-): void {
+): GndObject[] {
   const language = typeof node.text === "object" ? node.text.language : undefined;
   const childrenById = new Map((node.children ?? []).map((child) => [child.id, child] as const));
   const pieces: ReadiumSpeechUtterance[] = [];
   const pieceSources: SourceTrace = [];
+  const deferred: GndObject[] = [];
   for (const segment of splitOnPlaceholders(rawSsml)) {
     if (segment.placeholderId !== undefined) {
       const child = childrenById.get(segment.placeholderId);
-      if (child) walkNode(child, pieces, pieceSources, ctx, suppress);
+      if (!child) continue;
+      if (ctx.inlineContextualization || !isDeferrable(child)) {
+        walkNode(child, pieces, pieceSources, ctx, suppress);
+      } else {
+        deferred.push(child);
+      }
       continue;
     }
     if (!segment.ssml) continue;
@@ -276,6 +289,7 @@ function emitInterrupted(
   }
   const merged = pieces.length > 1 ? mergeUtterances(pieces, ctx.format) : undefined;
   pushPiecesOrMerged(out, sources, ctx, node, pieces, pieceSources, merged);
+  return deferred;
 }
 
 // audio/video/image/math fold `node.description` into a labelled/unlabelled
@@ -432,8 +446,12 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
     // Ignored entirely — see `contentlessRoles`.
   } else {
     const rawSsml = typeof node.text === "object" ? node.text.ssml : undefined;
-    if (ctx.inlineContextualization && rawSsml && hasPlaceholder(rawSsml)) {
-      emitInterrupted(node, rawSsml, out, sources, ctx, suppress);
+    if (rawSsml && hasPlaceholder(rawSsml)) {
+      const deferred = emitWithPlaceholders(node, rawSsml, out, sources, ctx, suppress);
+      if (deferred.length > 0) {
+        const childSuppress = suppress || (isBlockRole && out.length > beforeLength);
+        walk(deferred, out, sources, ctx, childSuppress);
+      }
     } else if (roles.includes("pagebreak")) {
       push(out, sources, node, buildPagebreakUtterance(node, ctx));
       if (node.children) {

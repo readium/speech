@@ -770,6 +770,17 @@
     }
   },
   {
+    "id": "glossref-role-aria-mid-sentence",
+    "dir": "glossref-role-aria-mid-sentence",
+    "role": "glossref",
+    "description": "Two glossref links mid-sentence (not the sole content of their block), via explicit ARIA role=\"doc-glossref\" on <a href>",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
     "id": "header-html-native",
     "dir": "header-html-native",
     "role": "header",

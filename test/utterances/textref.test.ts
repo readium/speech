@@ -21,13 +21,13 @@ test("extractUtterancesWithSources also attaches cssSelector, alongside sources"
   t.is(utterances[0].locate?.cssSelector, "p");
 });
 
-test("a link embedded in a larger flow falls back to the enclosing block's cssSelector, not its own href", (t) => {
+test("a link embedded in a larger flow merges into one utterance, falling back to the enclosing block's cssSelector, not its own href", (t) => {
   const gnd = parseMarkup('<p>See <a href="chapter1.xhtml">chapter 1</a>.</p>', undefined, {
     textrefs: true,
   });
-  const utterances = extractUtterances(gnd, { format: "plain" });
-  t.is(utterances.length, 2);
-  for (const utterance of utterances) t.is(utterance.locate?.cssSelector, "p");
+  const [utterance] = extractUtterances(gnd, { format: "plain" });
+  t.is(utterance.plain, "See chapter 1.");
+  t.is(utterance.locate?.cssSelector, "p");
 });
 
 // The hoist-collision case (object.ts never merges the link's href into

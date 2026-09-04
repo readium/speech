@@ -38,7 +38,7 @@ renaming, or removing a fixture.
 | `footnote` | `footnote-epub-type`, `footnote-role-aria` |
 | `foreword` | `foreword-epub-type`, `foreword-role-aria` |
 | `glossary` | `glossary-epub-type`, `glossary-role-aria` |
-| `glossref` | `glossref-epub-type`, `glossref-role-aria` |
+| `glossref` | `glossref-epub-type`, `glossref-role-aria`, `glossref-role-aria-mid-sentence` |
 | `header` | `header-html-native` |
 | `heading` | `heading-html-native`, `heading-role-aria` |
 | `image` | `image-alt-html-native`, `image-no-description`, `image-role-aria` |
@@ -77,4 +77,4 @@ renaming, or removing a fixture.
 | `toc` | `toc-epub-type`, `toc-role-aria` |
 | `video` | `video-html-native`, `video-no-description` |
 
-169 fixtures across 69 roles.
+170 fixtures across 69 roles.
