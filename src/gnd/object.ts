@@ -85,6 +85,19 @@ export class NavObject {
     }
     if (finalChildren.length > 0) result.children = finalChildren;
 
+    // A wrapper whose own role is entirely redundant with its sole child's
+    // role (e.g. <dt><dfn>term</dfn></dt> naming one term twice) sheds that
+    // role — the child already carries it. Excludes "presentation": unlike
+    // every other role, it cascades from an ancestor onto real structural
+    // descendants (HTML-AAM's presentational-table rule) rather than
+    // marking the same entity twice, so identical nesting there is genuine.
+    if (result.role?.length && result.children?.length === 1 && !result.role.includes("presentation")) {
+      const child = result.children[0];
+      if (child.role?.length && result.role.every((role) => child.role!.includes(role))) {
+        delete result.role;
+      }
+    }
+
     // Hoist a lone child with no role/id/ref into the object itself: its text
     // merges directly into the parent, e.g. a paragraph wrapping plain
     // emphasis becomes {role, text} instead of nesting an anonymous child.
