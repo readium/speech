@@ -10,7 +10,9 @@ import { encodeCssSelectorFragment } from "./textrefFragment.js";
 export function selectorForElement(el: Element, docRoot: Document | null): string | undefined {
   const id = el.getAttribute("id");
   if (id) return `#${id}`;
-  return getCssSelector(el, { root: docRoot ?? undefined }) ?? undefined;
+  // documentElement, not docRoot: Document.querySelector() resolves ":scope"
+  // to the root element, not the Document node, so a Document root here would never resolve.
+  return getCssSelector(el, { root: docRoot?.documentElement ?? undefined }) ?? undefined;
 }
 
 // The base textref every generated node gets: a bare "#id" fragment when

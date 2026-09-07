@@ -210,7 +210,7 @@ function handleReadAlongChange(e) {
 // detached HTML string) and loads it into the navigator, which re-extracts
 // utterances internally whenever verbosity/preferences change.
 function initializeContent() {
-  const gnd = parseMarkup(content, undefined, { textrefs: { roles: true } });
+  const gnd = parseMarkup(content, undefined, { textrefs: { roles: true, domRange: true } });
   gndOutput.textContent = JSON.stringify(gnd, (key, value) => (key === "textref" ? undefined : value), 2);
   navigator.loadGndContent(gnd);
 }

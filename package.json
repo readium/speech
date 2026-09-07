@@ -50,9 +50,10 @@
   },
   "devDependencies": {
     "@ava/typescript": "^6.0.0",
+    "@types/jsdom": "^30.0.0",
     "ava": "^6.4.0",
     "http-server": "^14.1.1",
-    "linkedom": "^0.18.13",
+    "jsdom": "^30.0.1",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",

@@ -137,11 +137,13 @@ test("decodeTextFragmentDirective returns undefined for a textref with no direct
   t.is(decodeTextFragmentDirective(undefined), undefined);
 });
 
-test("textFragment: true appends a :~:text=... directive onto the existing #css(...) reference, unique text as-is", (t) => {
+test("textFragment: true appends a :~:text=... directive onto the existing #css(...) reference for unique text", (t) => {
   const [result] = parseMarkup("<p>A unique sentence.</p>", undefined, { textrefs: { roles: true, textFragment: true } });
   t.true(result.textref!.startsWith("#css(p)"));
   t.true(result.textref!.includes(":~:text="));
-  t.deepEqual(decodeTextFragmentDirective(result.textref), { textStart: "A unique sentence." });
+  // The polyfill's own exact-match path normalizes case (matching is
+  // case-insensitive per the WICG spec either way).
+  t.deepEqual(decodeTextFragmentDirective(result.textref), { textStart: "a unique sentence." });
 });
 
 test("textFragment: true composes with domRange: true — both encodings appear in one textref", (t) => {
@@ -149,12 +151,12 @@ test("textFragment: true composes with domRange: true — both encodings appear 
   const p = doc.querySelector("p")!;
   const [result] = parseMarkup(p, undefined, { textrefs: { roles: true, domRange: true, textFragment: true } });
   t.truthy(decodeTextref(result)?.domRange);
-  t.deepEqual(decodeTextFragmentDirective(result.textref), { textStart: "A unique sentence." });
+  t.deepEqual(decodeTextFragmentDirective(result.textref), { textStart: "a unique sentence." });
 });
 
 test("textFragment: true works from a detached markup string too, unlike domRange", (t) => {
   const [result] = parseMarkup("<p>A unique sentence.</p>", undefined, { textrefs: { roles: true, textFragment: true } });
-  t.deepEqual(decodeTextFragmentDirective(result.textref), { textStart: "A unique sentence." });
+  t.deepEqual(decodeTextFragmentDirective(result.textref), { textStart: "a unique sentence." });
 });
 
 test("textFragment: true widens with prefix/suffix context when the text recurs, and gives up when it still can't disambiguate", (t) => {
@@ -176,6 +178,53 @@ test("textFragment: true widens with prefix/suffix context when the text recurs,
   const [dupA, dupB] = nodes.filter((n) => n.text === "Same");
   t.is(decodeTextFragmentDirective(dupA.textref), undefined);
   t.is(decodeTextFragmentDirective(dupB.textref), undefined);
+});
+
+// Surrogate pairs, locale-aware word segmentation, and richer inline markup
+// each affect where a text-fragment match can legally start/end.
+
+test("textFragment: true keeps an astral-plane character (surrogate pair) intact rather than splitting it", (t) => {
+  const [result] = parseMarkup("<p>Testing emoji 😀 support works.</p>", undefined, {
+    textrefs: { roles: true, textFragment: true },
+  });
+  const directive = decodeTextFragmentDirective(result.textref);
+  t.is(directive?.textStart, "testing emoji 😀 support works.");
+});
+
+test("textFragment: true splits into textStart/textEnd for text past the exact-match length limit", (t) => {
+  const longText = Array.from({ length: 60 }, (_, i) => `word${i}`).join(" ") + ".";
+  const [result] = parseMarkup(`<p>${longText}</p>`, undefined, { textrefs: { roles: true, textFragment: true } });
+  const directive = decodeTextFragmentDirective(result.textref);
+  t.is(directive?.textStart, "word0 word1 word2");
+  t.is(directive?.textEnd, "word57 word58 word59.");
+});
+
+test("textFragment: true flattens inline markup and <br> within a block into one match", (t) => {
+  const [result] = parseMarkup("<p>Hello <b>bold</b> and<br/><em>italic</em> text.</p>", undefined, {
+    textrefs: { roles: true, textFragment: true },
+  });
+  const directive = decodeTextFragmentDirective(result.textref);
+  t.is(directive?.textStart, "Hello bold and");
+  t.is(directive?.textEnd, "italic text.");
+});
+
+test("textFragment: true uses locale-aware word segmentation for recurring CJK text with no whitespace", (t) => {
+  // いただきます/ご馳走様 have no whitespace between characters, so context
+  // growth must use Intl.Segmenter word boundaries (driven by the parsed
+  // document's own lang, per makeNewSegmenter's document-scoping) rather
+  // than splitting mid-word.
+  const input = "<html lang=ja><p>いただきますいただきます</p><p>ご馳走様</p><p>いただきますいただきます</p></html>";
+  const [first, , third] = parseMarkup(input, undefined, { textrefs: { roles: true, textFragment: true } });
+
+  const firstDirective = decodeTextFragmentDirective(first.textref);
+  const thirdDirective = decodeTextFragmentDirective(third.textref);
+  // The exact-match path normalizes via NFKD (e.g. だ -> た + a combining mark).
+  t.is(firstDirective?.textStart, "いただきますいただきます".normalize("NFKD"));
+  t.is(firstDirective?.prefix, undefined);
+  t.is(firstDirective?.suffix, "ご馳走様");
+  t.is(thirdDirective?.textStart, "いただきますいただきます".normalize("NFKD"));
+  t.is(thirdDirective?.prefix, "ご馳走様");
+  t.is(thirdDirective?.suffix, undefined);
 });
 
 test("decodeTextref decodes text (highlight/before/after) from a text-fragment directive, independent of cssSelector/domRange", (t) => {

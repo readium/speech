@@ -56,7 +56,6 @@ export function noteref(converter: Converter, el: Element, roles: GndRole[]): vo
       sub.selectorPredicate = converter.selectorPredicate;
       sub.domRangeEnabled = converter.domRangeEnabled;
       sub.textFragmentEnabled = converter.textFragmentEnabled;
-      sub.textFragmentGenerator = converter.getTextFragmentGenerator();
       sub.convert(target);
       const children = sub.result();
       if (children.length > 0) {

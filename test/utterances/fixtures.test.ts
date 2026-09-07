@@ -22,11 +22,13 @@ function sortKeysDeep(value: unknown): unknown {
 
 for (const entry of manifest) {
   const fixture = loadFixture(entry.id);
+  // Every case below shares this same inputHtml (only options vary) — parsing
+  // once per fixture instead of once per case avoids ~400x redundant reparses.
+  const gnd = parseMarkup(fixture.inputHtml);
 
   for (const { options: optionSets, utterances } of fixture.utterances.cases) {
     for (const options of optionSets) {
       test(`fixture "${entry.id}": extractUtterances matches utterances.json's case ${JSON.stringify(options)}`, (t) => {
-        const gnd = parseMarkup(fixture.inputHtml);
         const actual = extractUtterances(gnd, options as ExtractUtterancesOptions);
         t.deepEqual(sortKeysDeep(actual), sortKeysDeep(utterances));
       });

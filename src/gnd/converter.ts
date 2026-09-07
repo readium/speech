@@ -21,7 +21,7 @@ import { type GndMediaType, nodeLanguage, isInlineTag, sniffMediaType } from "./
 import { encodeDomRangeFragment, encodeTextFragmentDirective } from "./textrefFragment.js";
 import { selectorForElement, textrefForSelector } from "./selectorGenerator.js";
 import { generateDomRange } from "./domRangeGenerator.js";
-import { TextFragmentGenerator } from "./textFragmentGenerator.js";
+import { textFragmentDirectiveFor } from "./textFragmentGenerator.js";
 import { type GndGenerationOptions, normalizeTextrefOptions } from "./options.js";
 import { IdAllocator } from "./idAllocator.js";
 import { prescan as prescanImpl } from "./prescan.js";
@@ -67,10 +67,6 @@ export class Converter {
   // see TextrefOptions.textFragment in options.ts.
   textFragmentEnabled = false;
   docRoot: Document | null = null;
-  // Lazily created — see TextFragmentGenerator; only needed for
-  // textFragmentEnabled. Shared with the sub-Converter noteref() constructs
-  // for a footnote's own subtree.
-  textFragmentGenerator: TextFragmentGenerator | null = null;
 
   private root = new NavObject();
   private current = this.root;
@@ -308,9 +304,11 @@ export class Converter {
   // reference (selectorGenerator.ts), upgraded to a domRange
   // (domRangeGenerator.ts) when domRangeEnabled and el's own flow just
   // flushed some text, with a text-fragment directive
-  // (textFragmentGenerator.ts) appended on top when textFragmentEnabled —
-  // each an independent option, applied in this fixed order regardless of
-  // which others are also enabled.
+  // (textFragmentGenerator.ts) appended on top when textFragmentEnabled and
+  // el's own flow flushed text with real source-node boundaries (a flow with
+  // no such boundary — e.g. purely synthesized text — has no Range to
+  // generate a fragment from) — each an independent option, applied in this
+  // fixed order regardless of which others are also enabled.
   private applyTextref(el: Element) {
     const cur = this.current.object;
     const selector = selectorForElement(el, this.docRoot);
@@ -322,26 +320,13 @@ export class Converter {
       if (domRange) cur.textref = encodeDomRangeFragment(domRange);
     }
 
-    if (this.textFragmentEnabled && this.lastFlowText) {
-      const boundary = this.lastFlowRange
-        ? { node: this.lastFlowRange.first[0], offset: this.lastFlowRange.first[1] }
-        : undefined;
-      const directive = this.getTextFragmentGenerator()?.directiveFor(this.lastFlowText, boundary);
+    if (this.textFragmentEnabled && this.lastFlowRange && this.docRoot) {
+      const range = this.docRoot.createRange();
+      range.setStart(...this.lastFlowRange.first);
+      range.setEnd(...this.lastFlowRange.last);
+      const directive = textFragmentDirectiveFor(range);
       if (directive) cur.textref = `${cur.textref ?? "#"}${encodeTextFragmentDirective(directive)}`;
     }
-  }
-
-  // docRoot.body can return a synthesized, still-empty node under some
-  // parsers' still-in-progress HTML5 tree construction for a body-less
-  // fragment (the same quirk noted where this input gets wrapped before
-  // parsing) — querying for the real, content-bearing <body> in document
-  // order sidesteps that, the same way parseMarkup()'s own body lookup does.
-  getTextFragmentGenerator(): TextFragmentGenerator | null {
-    if (this.textFragmentGenerator) return this.textFragmentGenerator;
-    const root = this.docRoot?.querySelector("body") ?? this.docRoot?.documentElement ?? null;
-    if (!root) return null;
-    this.textFragmentGenerator = new TextFragmentGenerator(root);
-    return this.textFragmentGenerator;
   }
 
   private text(node: Node) {

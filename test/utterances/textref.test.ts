@@ -43,7 +43,9 @@ test("a link as a block's sole content falls back to the block's own cssSelector
 test("extractUtterances attaches an exact-match highlight when the text is unique in the document", (t) => {
   const gnd = parseMarkup("<p>A unique sentence.</p>", undefined, { textrefs: { roles: true, textFragment: true } });
   const [utterance] = extractUtterances(gnd, { format: "plain" });
-  t.is(utterance.locate?.text?.highlight, "A unique sentence.");
+  // Case-normalized by the polyfill's exact-match path — see the equivalent
+  // gnd/textref.test.ts case for why.
+  t.is(utterance.locate?.text?.highlight, "a unique sentence.");
 });
 
 test("extractUtterances disambiguates recurring text with prefix/suffix context", (t) => {
