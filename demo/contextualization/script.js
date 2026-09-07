@@ -28,6 +28,9 @@ const tabGnd = document.getElementById("tab-gnd");
 const tabUtterances = document.getElementById("tab-utterances");
 const panelGnd = document.getElementById("panel-gnd");
 const panelUtterances = document.getElementById("panel-utterances");
+const panelAside = document.querySelector("aside.panel");
+const panelToggle = document.getElementById("panel-toggle");
+const panelShow = document.getElementById("panel-show");
 
 // State
 let voiceManager;
@@ -46,6 +49,18 @@ async function initialize() {
     enVoices = await voiceManager.getVoices({ removeDuplicates: true });
 
     navigator = new ReadiumSpeechNavigator(new WebSpeechEngine());
+    navigator.setSpeakInContentLanguage(true);
+
+    // Broadens the shared WebSpeechVoiceManager singleton so the engine's
+    // own voice lookup (used for content-language switching) covers French
+    // too, without adding French voices to the "Voice" dropdown above.
+    void WebSpeechVoiceManager.initialize({ languages: ["en", "fr"] });
+
+    // "block-level" (the default) ignores inline lang spans — only "always"
+    // splits an utterance on them, which the French <span lang="fr"> relies on.
+    const languageEditor = navigator.preferencesEditor;
+    languageEditor.language.value = "always";
+    navigator.submitPreferences(languageEditor.preferences);
 
     setupEventListeners();
     updateUI();
@@ -123,14 +138,57 @@ function setupEventListeners() {
 
   tabGnd.addEventListener("click", () => selectTab("gnd"));
   tabUtterances.addEventListener("click", () => selectTab("utterances"));
+  tabGnd.addEventListener("keydown", handleTabKeydown);
+  tabUtterances.addEventListener("keydown", handleTabKeydown);
+
+  if (panelToggle) panelToggle.addEventListener("click", () => setPanelCollapsed(true));
+  if (panelShow) panelShow.addEventListener("click", () => setPanelCollapsed(false));
+  panelAside.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !panelAside.classList.contains("collapsed")) {
+      setPanelCollapsed(true);
+    }
+  });
+}
+
+function setPanelCollapsed(collapsed) {
+  panelAside.classList.toggle("collapsed", collapsed);
+  panelToggle.setAttribute("aria-expanded", String(!collapsed));
+  panelShow.setAttribute("aria-expanded", String(!collapsed));
+  panelShow.hidden = !collapsed;
+  if (collapsed) panelShow.focus();
 }
 
 function selectTab(name) {
   const isGnd = name === "gnd";
   tabGnd.setAttribute("aria-selected", String(isGnd));
   tabUtterances.setAttribute("aria-selected", String(!isGnd));
+  tabGnd.tabIndex = isGnd ? 0 : -1;
+  tabUtterances.tabIndex = isGnd ? -1 : 0;
   panelGnd.hidden = !isGnd;
   panelUtterances.hidden = isGnd;
+}
+
+function handleTabKeydown(e) {
+  const tabs = [tabGnd, tabUtterances];
+  const currentIndex = tabs.indexOf(e.currentTarget);
+  let nextIndex = null;
+
+  if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+    nextIndex = (currentIndex + 1) % tabs.length;
+  } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+    nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+  } else if (e.key === "Home") {
+    nextIndex = 0;
+  } else if (e.key === "End") {
+    nextIndex = tabs.length - 1;
+  } else {
+    return;
+  }
+
+  e.preventDefault();
+  const nextTab = tabs[nextIndex];
+  selectTab(nextTab === tabGnd ? "gnd" : "utterances");
+  nextTab.focus();
 }
 
 function handleVerbosityChange(e) {
@@ -152,8 +210,8 @@ function handleReadAlongChange(e) {
 // detached HTML string) and loads it into the navigator, which re-extracts
 // utterances internally whenever verbosity/preferences change.
 function initializeContent() {
-  const gnd = parseMarkup(content, undefined, { textrefs: { roles: true, domRange: true } });
-  gndOutput.textContent = JSON.stringify(gnd, null, 2);
+  const gnd = parseMarkup(content, undefined, { textrefs: { roles: true } });
+  gndOutput.textContent = JSON.stringify(gnd, (key, value) => (key === "textref" ? undefined : value), 2);
   navigator.loadGndContent(gnd);
 }
 
