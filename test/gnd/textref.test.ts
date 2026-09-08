@@ -237,3 +237,12 @@ test("decodeTextref decodes text (highlight/before/after) from a text-fragment d
   const bare = encodeTextFragmentDirective({ textStart: "Hello." });
   t.deepEqual(decodeTextref({ textref: `#${bare}` }), { text: { highlight: "Hello." } });
 });
+
+test("decodeTextref carries a textStart/textEnd range as fragment, not text.highlight", (t) => {
+  const directive = { textStart: "start", textEnd: "end", prefix: "before", suffix: "after" };
+  const textref = `${encodeCssSelectorFragment("p")}${encodeTextFragmentDirective(directive)}`;
+  t.deepEqual(decodeTextref({ textref }), {
+    cssSelector: "p",
+    fragment: encodeTextFragmentDirective(directive),
+  });
+});

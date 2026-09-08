@@ -61,8 +61,9 @@
     "vite-plugin-dts": "^4.5.4"
   },
   "dependencies": {
-    "@readium/decorator": "^1.0.1",
-    "@readium/shared": "^2.3.1",
+    "@readium/decorator": "^1.1.0",
+    "@readium/helpers": "1.1.0",
+    "@readium/shared": "^2.5.0",
     "css-selector-generator": "^3.9.4",
     "i18next": "^26.4.0",
     "string-strip-html": "^13.4.23"

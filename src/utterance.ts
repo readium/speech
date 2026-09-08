@@ -6,8 +6,9 @@ export interface ReadiumSpeechUtterance {
   ssml?: string;     // SSML rendering, when available
   language?: string; // Language of this content (BCP 47)
   // Decoded from the source node's textref — cssSelector/domRange from
-  // #css(...)/#domrange(...), highlight/before/after from a ":~:text=..."
-  // WICG Text Fragment directive. Spread directly into createLocator()/
-  // decorate() for DOM highlighting.
-  locate?: Omit<LocatorOptions, "fragment">;
+  // #css(...)/#domrange(...), a ":~:text=..." WICG Text Fragment directive
+  // as text.highlight/before/after (exact-quote form) or fragment (a
+  // textStart...textEnd range, which highlight can't express). Spread
+  // directly into createLocator()/decorate() for DOM highlighting.
+  locate?: LocatorOptions;
 }

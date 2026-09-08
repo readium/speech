@@ -107,6 +107,7 @@ export interface DecodedTextref {
   cssSelector?: string;
   domRange?: DomRangeJSON;
   text?: { highlight?: string; before?: string; after?: string };
+  fragment?: string;
 }
 
 // Decodes a node's own generated textref, distinguishing it from an
@@ -141,26 +142,25 @@ export function decodeTextref(node: { id?: string; textref?: string } | undefine
   }
 
   // A textStart/textEnd range can't be collapsed back into one exact
-  // "highlight" string without the full text in between — only the
-  // exact-match case (no textEnd) round-trips as a highlight; before/after
-  // (WICG prefix/suffix) round-trip either way.
+  // "highlight" string without the full text in between, so it's carried
+  // as-is via locations.fragments (which the WICG grammar natively
+  // supports) instead. Only the exact-match case (no textEnd) becomes a
+  // text.highlight/before/after quote.
   const directive = decodeTextFragmentDirective(textref);
-  const highlight = directive && directive.textEnd === undefined ? directive.textStart : undefined;
 
-  if (cssSelector === undefined && domRange === undefined && highlight === undefined && directive === undefined) {
+  if (cssSelector === undefined && domRange === undefined && directive === undefined) {
     return undefined;
   }
 
   const result: DecodedTextref = {};
   if (cssSelector !== undefined) result.cssSelector = cssSelector;
   if (domRange !== undefined) result.domRange = domRange;
-  const before = directive?.prefix;
-  const after = directive?.suffix;
-  if (highlight !== undefined || before !== undefined || after !== undefined) {
-    result.text = {};
-    if (highlight !== undefined) result.text.highlight = highlight;
-    if (before !== undefined) result.text.before = before;
-    if (after !== undefined) result.text.after = after;
+  if (directive?.textEnd !== undefined) {
+    result.fragment = encodeTextFragmentDirective(directive);
+  } else if (directive) {
+    result.text = { highlight: directive.textStart };
+    if (directive.prefix !== undefined) result.text.before = directive.prefix;
+    if (directive.suffix !== undefined) result.text.after = directive.suffix;
   }
   return result;
 }
