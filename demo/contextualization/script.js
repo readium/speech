@@ -11,10 +11,17 @@ import {
 // Set up the Decorator for TTS word/sentence highlights
 const decoCtrl = setupDecorations();
 
+const PLAY_ICON = `<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>`;
+const PAUSE_ICON = `<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>`;
+
 // DOM Elements
 const content = document.getElementById("content");
 const voiceSelect = document.getElementById("voiceSelect");
 const verbositySelect = document.getElementById("verbositySelect");
+const utteranceStyleSelect = document.getElementById("utteranceStyleSelect");
+const utteranceColorInput = document.getElementById("utteranceColorInput");
+const wordStyleSelect = document.getElementById("wordStyleSelect");
+const wordColorInput = document.getElementById("wordColorInput");
 const playPauseBtn = document.getElementById("playPauseBtn");
 const stopBtn = document.getElementById("stopBtn");
 const prevBtn = document.getElementById("prevBtn");
@@ -22,6 +29,8 @@ const nextBtn = document.getElementById("nextBtn");
 const currentUtteranceSpan = document.getElementById("currentUtterance");
 const totalUtterancesSpan = document.getElementById("totalUtterances");
 const readAlongCheckbox = document.getElementById("readAlong");
+const readAlongGroup = document.getElementById("readAlongGroup");
+const readAlongUnavailable = document.getElementById("readAlongUnavailable");
 const gndOutput = document.getElementById("gnd-output");
 const utterancesOutput = document.getElementById("utterances-output");
 const tabGnd = document.getElementById("tab-gnd");
@@ -31,6 +40,14 @@ const panelUtterances = document.getElementById("panel-utterances");
 const panelAside = document.querySelector("aside.panel");
 const panelToggle = document.getElementById("panel-toggle");
 const panelShow = document.getElementById("panel-show");
+const controlsEl = document.getElementById("controls");
+const controlsToggle = document.getElementById("controls-toggle");
+const controlsShow = document.getElementById("controls-show");
+const mtabGnd = document.getElementById("mtab-gnd");
+const mtabUtterances = document.getElementById("mtab-utterances");
+const mtabSettings = document.getElementById("mtab-settings");
+const mtabClose = document.getElementById("mtab-close");
+const mobileMediaQuery = window.matchMedia("(max-width: 900px)");
 
 // State
 let voiceManager;
@@ -40,7 +57,14 @@ let currentVoice = null;
 let isPlaying = false;
 let utterances = [];
 let readAlongEnabled = true;
+let readAlongPreference = true; // user's last explicit choice — restored when a capable voice is selected again
 let currentSentenceIndex = -1;
+let utteranceStyle = DecorationStyleType.Highlight;
+let utteranceTint = "#ffeb3b";
+let wordStyle = DecorationStyleType.Underline;
+let wordTint = "#e53935";
+let lastWordHighlight = null; // { cssSelector, word, before, after } — reapplied when word style/color changes mid-utterance
+let mobilePanel = null; // "gnd" | "utterances" | "settings" | null — which split is open in the mobile bottom bar
 
 // Initialize voice manager and navigator
 async function initialize() {
@@ -65,6 +89,19 @@ async function initialize() {
     setupEventListeners();
     updateUI();
 
+    // On mobile there's no room for the panel + controls + article side by
+    // side, so the article starts as the full-height default view instead
+    // of the desktop default of the GND/Utterances panel being open.
+    if (mobileMediaQuery.matches) setMobilePanel(null);
+
+    // Resizing across the breakpoint (not just loading narrow) needs the
+    // same reset — otherwise a panel left open from the desktop default
+    // stays visually open on mobile while the bottom-bar tab state (which
+    // only setMobilePanel updates) still thinks nothing is open.
+    mobileMediaQuery.addEventListener("change", (e) => {
+      if (e.matches) setMobilePanel(null);
+    });
+
     await populateVoiceSelect();
 
     currentVoice = await voiceManager.getDefaultVoice("en", enVoices);
@@ -73,6 +110,7 @@ async function initialize() {
       const option = voiceSelect.querySelector(`option[data-voice-uri="${currentVoice.voiceURI}"]`);
       if (option) option.selected = true;
     }
+    updateReadAlongAvailability();
 
     initializeContent();
   } catch (error) {
@@ -88,6 +126,11 @@ function setupEventListeners() {
 
   navigator.on("pause", () => {
     isPlaying = false;
+    updateUI();
+  });
+
+  navigator.on("resume", () => {
+    isPlaying = true;
     updateUI();
   });
 
@@ -130,11 +173,17 @@ function setupEventListeners() {
 
   if (readAlongCheckbox) {
     readAlongCheckbox.checked = readAlongEnabled;
+    if (readAlongGroup) readAlongGroup.disabled = !readAlongEnabled;
     readAlongCheckbox.addEventListener("change", handleReadAlongChange);
   }
 
   if (voiceSelect) voiceSelect.addEventListener("change", handleVoiceChange);
   if (verbositySelect) verbositySelect.addEventListener("change", handleVerbosityChange);
+
+  if (utteranceStyleSelect) utteranceStyleSelect.addEventListener("change", (e) => { utteranceStyle = e.target.value; applyUtteranceDecoration(); });
+  if (utteranceColorInput) utteranceColorInput.addEventListener("input", (e) => { utteranceTint = e.target.value; applyUtteranceDecoration(); });
+  if (wordStyleSelect) wordStyleSelect.addEventListener("change", (e) => { wordStyle = e.target.value; applyWordDecoration(); });
+  if (wordColorInput) wordColorInput.addEventListener("input", (e) => { wordTint = e.target.value; applyWordDecoration(); });
 
   tabGnd.addEventListener("click", () => selectTab("gnd"));
   tabUtterances.addEventListener("click", () => selectTab("utterances"));
@@ -145,9 +194,17 @@ function setupEventListeners() {
   if (panelShow) panelShow.addEventListener("click", () => setPanelCollapsed(false));
   panelAside.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && !panelAside.classList.contains("collapsed")) {
-      setPanelCollapsed(true);
+      setMobilePanel(null);
     }
   });
+
+  if (mtabGnd) mtabGnd.addEventListener("click", () => handleMobileTabClick("gnd"));
+  if (mtabUtterances) mtabUtterances.addEventListener("click", () => handleMobileTabClick("utterances"));
+  if (mtabSettings) mtabSettings.addEventListener("click", () => handleMobileTabClick("settings"));
+  if (mtabClose) mtabClose.addEventListener("click", () => setMobilePanel(null));
+
+  if (controlsToggle) controlsToggle.addEventListener("click", () => setControlsCollapsed(true));
+  if (controlsShow) controlsShow.addEventListener("click", () => setControlsCollapsed(false));
 }
 
 function setPanelCollapsed(collapsed) {
@@ -156,6 +213,48 @@ function setPanelCollapsed(collapsed) {
   panelShow.setAttribute("aria-expanded", String(!collapsed));
   panelShow.hidden = !collapsed;
   if (collapsed) panelShow.focus();
+}
+
+// Desktop-only collapse for the Settings column — mirrors setPanelCollapsed,
+// giving the article back the width Settings was using. On mobile this is
+// superseded by the bottom-bar Settings tab (see setMobilePanel).
+function setControlsCollapsed(collapsed) {
+  controlsEl.classList.toggle("collapsed", collapsed);
+  controlsToggle.setAttribute("aria-expanded", String(!collapsed));
+  controlsShow.setAttribute("aria-expanded", String(!collapsed));
+  controlsShow.hidden = !collapsed;
+  if (collapsed) controlsShow.focus();
+}
+
+// Drives the mobile bottom bar's GND/Utterances/Settings tabs. Only one
+// split is ever open: opening GND/Utterances expands .panel (and picks the
+// right internal tab) while closing .controls' split, and vice versa for
+// Settings — the article (.reader) always keeps the rest of the screen,
+// it's never fully replaced.
+function handleMobileTabClick(panel) {
+  setMobilePanel(mobilePanel === panel ? null : panel);
+}
+
+function setMobilePanel(panel) {
+  mobilePanel = panel;
+
+  const showGndPanel = panel === "gnd" || panel === "utterances";
+  setPanelCollapsed(!showGndPanel);
+  if (showGndPanel) selectTab(panel);
+
+  if (controlsEl) controlsEl.classList.toggle("mobile-open", panel === "settings");
+
+  updateMobileTabsUI();
+}
+
+function updateMobileTabsUI() {
+  [[mtabGnd, "gnd"], [mtabUtterances, "utterances"], [mtabSettings, "settings"]].forEach(([btn, name]) => {
+    if (!btn) return;
+    const active = mobilePanel === name;
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-pressed", String(active));
+  });
+  if (mtabClose) mtabClose.hidden = mobilePanel === null;
 }
 
 function selectTab(name) {
@@ -199,10 +298,29 @@ function handleVerbosityChange(e) {
 }
 
 function handleReadAlongChange(e) {
+  readAlongPreference = e.target.checked;
   readAlongEnabled = e.target.checked;
+  if (readAlongGroup) readAlongGroup.disabled = !readAlongEnabled;
   if (!readAlongEnabled) {
     clearWordHighlighting();
   }
+}
+
+// Read along forces the checkbox off and disabled when the selected voice
+// has offlineAvailability === false — readAlongPreference remembers the
+// user's own choice (session-scoped, in memory) so it's restored as-is
+// once a capable voice is selected again, rather than resetting to on.
+function updateReadAlongAvailability() {
+  if (!readAlongCheckbox) return;
+
+  const unavailable = !!currentVoice && currentVoice.offlineAvailability === false;
+  readAlongCheckbox.disabled = unavailable;
+  if (readAlongUnavailable) readAlongUnavailable.hidden = !unavailable;
+
+  readAlongEnabled = unavailable ? false : readAlongPreference;
+  readAlongCheckbox.checked = readAlongEnabled;
+  if (readAlongGroup) readAlongGroup.disabled = !readAlongEnabled;
+  if (!readAlongEnabled) clearWordHighlighting();
 }
 
 // Parses the live, rendered article DOM into a Guided Navigation document
@@ -364,6 +482,7 @@ async function handleVoiceChange(e) {
     console.error("Voice not found:", voiceName);
     return;
   }
+  updateReadAlongAvailability();
 
   if (navigator) {
     try {
@@ -380,6 +499,35 @@ function clearWordHighlighting() {
   decoCtrl.applyDecorations([], "tts-sentence");
   decoCtrl.applyDecorations([], "tts-word");
   currentSentenceIndex = -1;
+  lastWordHighlight = null;
+}
+
+// Reapplies the current utterance/word decorations using the live
+// utteranceStyle/utteranceTint (resp. wordStyle/wordTint), so a style/color
+// change is reflected immediately instead of waiting for the next boundary.
+function applyUtteranceDecoration() {
+  if (currentSentenceIndex === -1) return;
+  const currentUtterance = utterances[currentSentenceIndex];
+  if (!currentUtterance || !currentUtterance.locate) return;
+
+  decoCtrl.applyDecorations([{
+    id: "tts-sentence",
+    locator: createLocator(currentUtterance.locate),
+    style: { type: utteranceStyle, tint: utteranceTint, enforceContrast: false },
+  }], "tts-sentence");
+}
+
+function applyWordDecoration() {
+  if (!lastWordHighlight) return;
+
+  decoCtrl.applyDecorations([{
+    id: "tts-word",
+    locator: createLocator({
+      cssSelector: lastWordHighlight.cssSelector,
+      text: { highlight: lastWordHighlight.word, before: lastWordHighlight.before, after: lastWordHighlight.after },
+    }),
+    style: { type: wordStyle, tint: wordTint, enforceContrast: false },
+  }], "tts-word");
 }
 
 // Highlights the word/sentence currently being spoken using each utterance's
@@ -403,11 +551,7 @@ function highlightCurrentWord(charIndex, charLength) {
 
   if (currentIndex !== currentSentenceIndex) {
     currentSentenceIndex = currentIndex;
-    decoCtrl.applyDecorations([{
-      id: "tts-sentence",
-      locator: createLocator(currentUtterance.locate),
-      style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
-    }], "tts-sentence");
+    applyUtteranceDecoration();
 
     const target = currentUtterance.locate.cssSelector
       ? document.querySelector(currentUtterance.locate.cssSelector)
@@ -419,11 +563,8 @@ function highlightCurrentWord(charIndex, charLength) {
     }
   }
 
-  decoCtrl.applyDecorations([{
-    id: "tts-word",
-    locator: createLocator({ cssSelector: currentUtterance.locate.cssSelector, text: { highlight: word, before, after } }),
-    style: { type: DecorationStyleType.Underline, tint: "#e53935", enforceContrast: false },
-  }], "tts-word");
+  lastWordHighlight = { cssSelector: currentUtterance.locate.cssSelector, word, before, after };
+  applyWordDecoration();
 }
 
 function updateUI() {
@@ -437,13 +578,13 @@ function updateUI() {
   if (playPauseBtn) {
     playPauseBtn.disabled = !currentVoice || !hasContent;
     if (state === "playing") {
-      playPauseBtn.innerHTML = `<span class="btn-icon">⏸️</span> <span class="btn-text">Pause</span>`;
-      playPauseBtn.classList.remove("play-state");
-      playPauseBtn.classList.add("pause-state");
+      playPauseBtn.innerHTML = PAUSE_ICON;
+      playPauseBtn.setAttribute("aria-label", "Pause");
+      playPauseBtn.classList.remove("paused");
     } else {
-      playPauseBtn.innerHTML = `<span class="btn-icon">▶️</span> <span class="btn-text">Play</span>`;
-      playPauseBtn.classList.remove("pause-state");
-      playPauseBtn.classList.add("play-state");
+      playPauseBtn.innerHTML = PLAY_ICON;
+      playPauseBtn.setAttribute("aria-label", "Play");
+      playPauseBtn.classList.add("paused");
     }
   }
 
