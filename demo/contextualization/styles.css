@@ -25,7 +25,6 @@ body {
 .controls {
   width: 320px;
   flex-shrink: 0;
-  height: 100vh;
   overflow-y: auto;
   overscroll-behavior: contain;
   border-left: 1px solid #ddd;
@@ -236,10 +235,9 @@ button:hover:not(:disabled) {
    fixed player-bar. */
 .main {
   flex: 1;
-  height: 100vh;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding-bottom: 76px;
+  padding-bottom: 100px;
 }
 
 .reader {
@@ -425,7 +423,6 @@ button:hover:not(:disabled) {
 .panel {
   width: 320px;
   flex-shrink: 0;
-  height: 100vh;
   border-right: 1px solid #ddd;
   background: #f7f7f8;
   display: flex;
