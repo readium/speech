@@ -43,6 +43,9 @@ body {
   padding: 20px;
   box-sizing: border-box;
   transition: width 0.2s ease;
+  /* Stays above the decorator's document-wide mask overlay (z-index: 9999). */
+  position: relative;
+  z-index: 10000;
 }
 
 .controls.collapsed {
@@ -74,7 +77,8 @@ body {
   position: fixed;
   top: 12px;
   right: 12px;
-  z-index: 10;
+  /* Stays above the decorator's document-wide mask overlay (z-index: 9999). */
+  z-index: 10000;
   background: #fff;
   color: #333;
   border: 1px solid #ddd;
@@ -280,7 +284,8 @@ button:hover:not(:disabled) {
   left: 50%;
   bottom: 20px;
   transform: translateX(-50%);
-  z-index: 20;
+  /* Stays above the decorator's document-wide mask overlay (z-index: 9999). */
+  z-index: 10000;
   background: #fff;
   border-radius: 999px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
@@ -454,6 +459,9 @@ button:hover:not(:disabled) {
   display: flex;
   flex-direction: column;
   transition: width 0.2s ease;
+  /* Stays above the decorator's document-wide mask overlay (z-index: 9999). */
+  position: relative;
+  z-index: 10000;
 }
 
 .panel.collapsed {
@@ -542,7 +550,8 @@ button:hover:not(:disabled) {
   position: fixed;
   top: 12px;
   left: 12px;
-  z-index: 10;
+  /* Stays above the decorator's document-wide mask overlay (z-index: 9999). */
+  z-index: 10000;
   background: #fff;
   color: #333;
   border: 1px solid #ddd;

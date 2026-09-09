@@ -4,6 +4,7 @@ import {
   ReadiumSpeechNavigator,
   setupDecorations,
   DecorationStyleType,
+  DecorationLayout,
   createLocator,
   parseMarkup,
 } from "../../build/index.js";
@@ -563,7 +564,7 @@ function applyUtteranceDecoration() {
   decoCtrl.applyDecorations([{
     id: "tts-sentence",
     locator: createLocator(currentUtterance.locate),
-    style: { type: utteranceStyle, tint: utteranceTint, enforceContrast: false },
+    style: { type: utteranceStyle, tint: utteranceTint, enforceContrast: false, layout: DecorationLayout.Bounds },
   }], "tts-sentence");
 }
 
