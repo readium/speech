@@ -86,10 +86,13 @@ async function initialize() {
     setupEventListeners();
     updateUI();
 
-    // On mobile there's no room for the panel + controls + article side by
-    // side, so the article starts as the full-height default view instead
-    // of the desktop default of the GND/Utterances panel being open.
-    if (mobileMediaQuery.matches) setMobilePanel(null);
+    // The GND/Utterances panel starts collapsed on both mobile and desktop;
+    // the Settings panel is unaffected and stays open on desktop.
+    if (mobileMediaQuery.matches) {
+      setMobilePanel(null);
+    } else {
+      setPanelCollapsed(true, false);
+    }
 
     // Reset needed in both directions when crossing the breakpoint.
     mobileMediaQuery.addEventListener("change", (e) => {
@@ -238,7 +241,7 @@ function setPanelCollapsed(collapsed, moveFocus = true) {
   panelShow.setAttribute("aria-expanded", String(!collapsed));
   panelShow.hidden = !collapsed;
   if (collapsed) {
-    panelShow.focus();
+    if (moveFocus) panelShow.focus();
   } else if (moveFocus) {
     (tabGnd.getAttribute("aria-selected") === "true" ? tabGnd : tabUtterances).focus();
   }
@@ -292,7 +295,7 @@ function setMobilePanel(panel, moveFocus = true) {
 // Counterpart to setMobilePanel(null) for resizing back past the breakpoint.
 function resetDesktopLayout() {
   mobilePanel = null;
-  setPanelCollapsed(false, false);
+  setPanelCollapsed(true, false);
   if (controlsEl) {
     controlsEl.classList.remove("mobile-open");
     setControlsCollapsed(false, false);

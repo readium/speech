@@ -17,6 +17,19 @@ body {
   color: #333;
 }
 
+/* Only rendered when scripting is disabled — the rest of the page is
+   otherwise inert without it, since playback, voice selection, and
+   highlighting are all driven by script.js. */
+noscript {
+  order: -1;
+  width: 100%;
+  padding: 12px 16px;
+  background: #fff3cd;
+  color: #664d03;
+  border-bottom: 3px solid #ffe69c;
+  font-weight: 500;
+}
+
 /* Focus ring only on keyboard/AT focus, never on a mouse click. */
 :focus:not(:focus-visible) {
   outline: none;

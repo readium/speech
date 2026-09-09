@@ -7,13 +7,15 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <aside class="panel">
+  <noscript>This demo requires JavaScript to run: it drives voice selection, playback, and highlighting entirely through the Readium Speech library.</noscript>
+
+  <aside class="panel collapsed" inert>
     <div class="tabs-bar">
       <div class="tabs" role="tablist" aria-label="GND and utterances output">
         <button id="tab-gnd" class="tab" role="tab" aria-selected="true" aria-controls="panel-gnd" tabindex="0">Guided Navigation</button>
         <button id="tab-utterances" class="tab" role="tab" aria-selected="false" aria-controls="panel-utterances" tabindex="-1">Utterances</button>
       </div>
-      <button id="panel-toggle" class="tab-toggle" type="button" aria-expanded="true" aria-controls="panel-body" aria-label="Hide GND/Utterances panel">
+      <button id="panel-toggle" class="tab-toggle" type="button" aria-expanded="false" aria-controls="panel-body" aria-label="Hide GND/Utterances panel">
         <span class="tab-toggle-icon" aria-hidden="true">&laquo;</span>
         <span class="tab-toggle-label">Hide details</span>
       </button>
@@ -28,7 +30,7 @@
     </div>
   </aside>
 
-  <button id="panel-show" class="panel-show" type="button" aria-expanded="false" aria-controls="panel-body" aria-label="Show GND/Utterances panel" hidden>
+  <button id="panel-show" class="panel-show" type="button" aria-expanded="false" aria-controls="panel-body" aria-label="Show GND/Utterances panel">
     <span aria-hidden="true">&raquo;</span> Show details
   </button>
 
