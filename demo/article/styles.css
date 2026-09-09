@@ -337,6 +337,13 @@ button:hover:not(:disabled) {
   white-space: nowrap;
 }
 
+.utterance-index-input {
+  box-sizing: border-box;
+  width: 2.5em;
+  padding: 1px 2px;
+  font-size: 13px;
+}
+
 #content {
   padding: 20px 28px;
   line-height: 1.8;

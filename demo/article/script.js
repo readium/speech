@@ -29,7 +29,7 @@ const playPauseBtn = document.getElementById("playPauseBtn");
 const stopBtn = document.getElementById("stopBtn");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
-const currentUtteranceSpan = document.getElementById("currentUtterance");
+const currentUtteranceInput = document.getElementById("currentUtteranceInput");
 const totalUtterancesSpan = document.getElementById("totalUtterances");
 const readAlongCheckbox = document.getElementById("readAlong");
 const readAlongGroup = document.getElementById("readAlongOptions");
@@ -180,6 +180,11 @@ function setupEventListeners() {
   if (stopBtn) stopBtn.addEventListener("click", stopPlayback);
   if (prevBtn) prevBtn.addEventListener("click", previousUtterance);
   if (nextBtn) nextBtn.addEventListener("click", nextUtterance);
+  if (currentUtteranceInput) {
+    currentUtteranceInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") handleUtteranceIndexChange(e);
+    });
+  }
 
   if (readAlongCheckbox) {
     readAlongCheckbox.checked = readAlongEnabled;
@@ -530,6 +535,15 @@ function nextUtterance() {
   updateUI();
 }
 
+function handleUtteranceIndexChange(e) {
+  if (!navigator) return;
+  const total = utterances.length;
+  const requested = parseInt(e.target.value, 10);
+  const clamped = Math.min(Math.max(Number.isNaN(requested) ? 1 : requested, 1), Math.max(total, 1));
+  navigator.jumpTo(clamped - 1);
+  updateUI();
+}
+
 async function handleVoiceChange(e) {
   const voiceName = e.target.value;
   if (!voiceName) return;
@@ -668,10 +682,15 @@ function updateUI() {
   if (prevBtn) prevBtn.disabled = !currentVoice || !hasContent || currentIndex <= 0;
   if (nextBtn) nextBtn.disabled = !currentVoice || !hasContent || currentIndex >= total - 1;
 
-  // Write only on change — .player-status is a live region, don't re-announce every word.
-  if (currentUtteranceSpan) {
+  // Write only on change, and never while the user is mid-edit — .player-status
+  // is a live region, don't re-announce every word or fight the user's typing.
+  if (currentUtteranceInput) {
+    currentUtteranceInput.disabled = !currentVoice || !hasContent;
+    currentUtteranceInput.max = String(Math.max(total, 1));
     const label = String(currentIndex + 1);
-    if (currentUtteranceSpan.textContent !== label) currentUtteranceSpan.textContent = label;
+    if (document.activeElement !== currentUtteranceInput && currentUtteranceInput.value !== label) {
+      currentUtteranceInput.value = label;
+    }
   }
   if (totalUtterancesSpan) totalUtterancesSpan.textContent = total;
 }
