@@ -29,7 +29,7 @@ const nextBtn = document.getElementById("nextBtn");
 const currentUtteranceSpan = document.getElementById("currentUtterance");
 const totalUtterancesSpan = document.getElementById("totalUtterances");
 const readAlongCheckbox = document.getElementById("readAlong");
-const readAlongGroup = document.getElementById("readAlongGroup");
+const readAlongGroup = document.getElementById("readAlongOptions");
 const readAlongUnavailable = document.getElementById("readAlongUnavailable");
 const gndOutput = document.getElementById("gnd-output");
 const utterancesOutput = document.getElementById("utterances-output");
@@ -88,12 +88,13 @@ async function initialize() {
     // of the desktop default of the GND/Utterances panel being open.
     if (mobileMediaQuery.matches) setMobilePanel(null);
 
-    // Resizing across the breakpoint (not just loading narrow) needs the
-    // same reset — otherwise a panel left open from the desktop default
-    // stays visually open on mobile while the bottom-bar tab state (which
-    // only setMobilePanel updates) still thinks nothing is open.
+    // Reset needed in both directions when crossing the breakpoint.
     mobileMediaQuery.addEventListener("change", (e) => {
-      if (e.matches) setMobilePanel(null);
+      if (e.matches) {
+        setMobilePanel(null);
+      } else {
+        resetDesktopLayout();
+      }
     });
 
     await populateVoiceSelect();
@@ -193,39 +194,67 @@ function setupEventListeners() {
   tabUtterances.addEventListener("keydown", handleTabKeydown);
 
   if (panelToggle) panelToggle.addEventListener("click", () => setPanelCollapsed(true));
-  if (panelShow) panelShow.addEventListener("click", () => setPanelCollapsed(false));
+  if (panelShow) panelShow.addEventListener("click", (e) => setPanelCollapsed(false, isKeyboardActivation(e)));
   panelAside.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !panelAside.classList.contains("collapsed")) {
+    if (e.key !== "Escape" || panelAside.classList.contains("collapsed")) return;
+    // setMobilePanel also marks .controls inert — only reversible via its own mobile tab.
+    if (mobileMediaQuery.matches) {
       setMobilePanel(null);
+    } else {
+      setPanelCollapsed(true);
     }
   });
 
-  if (mtabGnd) mtabGnd.addEventListener("click", () => handleMobileTabClick("gnd"));
-  if (mtabUtterances) mtabUtterances.addEventListener("click", () => handleMobileTabClick("utterances"));
-  if (mtabSettings) mtabSettings.addEventListener("click", () => handleMobileTabClick("settings"));
+  if (mtabGnd) mtabGnd.addEventListener("click", (e) => handleMobileTabClick("gnd", isKeyboardActivation(e)));
+  if (mtabUtterances) mtabUtterances.addEventListener("click", (e) => handleMobileTabClick("utterances", isKeyboardActivation(e)));
+  if (mtabSettings) mtabSettings.addEventListener("click", (e) => handleMobileTabClick("settings", isKeyboardActivation(e)));
   if (mtabClose) mtabClose.addEventListener("click", () => setMobilePanel(null));
 
   if (controlsToggle) controlsToggle.addEventListener("click", () => setControlsCollapsed(true));
-  if (controlsShow) controlsShow.addEventListener("click", () => setControlsCollapsed(false));
+  if (controlsShow) controlsShow.addEventListener("click", (e) => setControlsCollapsed(false, isKeyboardActivation(e)));
+  controlsEl.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || controlsEl.classList.contains("collapsed")) return;
+    if (mobileMediaQuery.matches) {
+      setMobilePanel(null);
+    } else {
+      setControlsCollapsed(true);
+    }
+  });
 }
 
-function setPanelCollapsed(collapsed) {
+// A click fired by Enter/Space on a button has detail === 0; a mouse click doesn't.
+function isKeyboardActivation(e) {
+  return e.detail === 0;
+}
+
+// inert keeps a visually collapsed panel out of the tab order/AT tree.
+function setPanelCollapsed(collapsed, moveFocus = true) {
   panelAside.classList.toggle("collapsed", collapsed);
+  panelAside.inert = collapsed;
   panelToggle.setAttribute("aria-expanded", String(!collapsed));
   panelShow.setAttribute("aria-expanded", String(!collapsed));
   panelShow.hidden = !collapsed;
-  if (collapsed) panelShow.focus();
+  if (collapsed) {
+    panelShow.focus();
+  } else if (moveFocus) {
+    (tabGnd.getAttribute("aria-selected") === "true" ? tabGnd : tabUtterances).focus();
+  }
 }
 
 // Desktop-only collapse for the Settings column — mirrors setPanelCollapsed,
 // giving the article back the width Settings was using. On mobile this is
 // superseded by the bottom-bar Settings tab (see setMobilePanel).
-function setControlsCollapsed(collapsed) {
+function setControlsCollapsed(collapsed, moveFocus = true) {
   controlsEl.classList.toggle("collapsed", collapsed);
+  controlsEl.inert = collapsed;
   controlsToggle.setAttribute("aria-expanded", String(!collapsed));
   controlsShow.setAttribute("aria-expanded", String(!collapsed));
   controlsShow.hidden = !collapsed;
-  if (collapsed) controlsShow.focus();
+  if (collapsed) {
+    controlsShow.focus();
+  } else if (moveFocus && voiceSelect) {
+    voiceSelect.focus();
+  }
 }
 
 // Drives the mobile bottom bar's GND/Utterances/Settings tabs. Only one
@@ -233,22 +262,38 @@ function setControlsCollapsed(collapsed) {
 // right internal tab) while closing .controls' split, and vice versa for
 // Settings — the article (.reader) always keeps the rest of the screen,
 // it's never fully replaced.
-function handleMobileTabClick(panel) {
-  setMobilePanel(mobilePanel === panel ? null : panel);
+function handleMobileTabClick(panel, moveFocus = true) {
+  setMobilePanel(mobilePanel === panel ? null : panel, moveFocus);
 }
 
-function setMobilePanel(panel) {
+function setMobilePanel(panel, moveFocus = true) {
   mobilePanel = panel;
 
+  // selectTab runs first so setPanelCollapsed(false) below focuses the
+  // tab the user actually asked for, not whichever was selected before.
   const showGndPanel = panel === "gnd" || panel === "utterances";
-  setPanelCollapsed(!showGndPanel);
   if (showGndPanel) selectTab(panel);
+  setPanelCollapsed(!showGndPanel, moveFocus);
 
   if (controlsEl) {
-    controlsEl.classList.toggle("mobile-open", panel === "settings");
+    const showSettings = panel === "settings";
+    controlsEl.classList.toggle("mobile-open", showSettings);
     controlsEl.classList.remove("collapsed");
+    controlsEl.inert = !showSettings;
+    if (showSettings && moveFocus && voiceSelect) voiceSelect.focus();
   }
 
+  updateMobileTabsUI();
+}
+
+// Counterpart to setMobilePanel(null) for resizing back past the breakpoint.
+function resetDesktopLayout() {
+  mobilePanel = null;
+  setPanelCollapsed(false, false);
+  if (controlsEl) {
+    controlsEl.classList.remove("mobile-open");
+    setControlsCollapsed(false, false);
+  }
   updateMobileTabsUI();
 }
 
@@ -597,7 +642,11 @@ function updateUI() {
   if (prevBtn) prevBtn.disabled = !currentVoice || !hasContent || currentIndex <= 0;
   if (nextBtn) nextBtn.disabled = !currentVoice || !hasContent || currentIndex >= total - 1;
 
-  if (currentUtteranceSpan) currentUtteranceSpan.textContent = currentIndex + 1;
+  // Write only on change — .player-status is a live region, don't re-announce every word.
+  if (currentUtteranceSpan) {
+    const label = String(currentIndex + 1);
+    if (currentUtteranceSpan.textContent !== label) currentUtteranceSpan.textContent = label;
+  }
   if (totalUtterancesSpan) totalUtterancesSpan.textContent = total;
 }
 

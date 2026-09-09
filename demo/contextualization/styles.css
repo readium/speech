@@ -17,12 +17,23 @@ body {
   color: #333;
 }
 
+/* Focus ring only on keyboard/AT focus, never on a mouse click. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid #2196F3;
+  outline-offset: 2px;
+}
+
 /* Settings column — a third pane on desktop (mirrors .panel's fixed-width
    sidebar treatment, on the other side), collapsible exactly like
    .panel/.panel-show so it can be closed to give the article more room.
    On mobile (see @media below) there's no room for three columns, so it
    becomes a bottom-bar-driven split instead. */
 .controls {
+  order: 3;
   width: 320px;
   flex-shrink: 0;
   overflow-y: auto;
@@ -50,9 +61,8 @@ body {
   margin: -20px -20px 15px;
 }
 
-/* Reveal button for the collapsed Settings column — mirrors .panel-show
-   (sticky, in-flow, so it takes no space while [hidden]) but docks to the
-   opposite (right) edge of .main since Settings sits on the right. */
+/* Reveal button for the collapsed Settings column — mirrors .panel-show but
+   docks to the opposite (right) corner so the two never overlap. */
 .controls-show[hidden] {
   display: none;
 }
@@ -110,10 +120,7 @@ input[type="checkbox"] {
   width: auto;
 }
 
-/* Read along + the utterance/word style pickers presented as one unit —
-   the pickers only mean anything once read along is on, so disabling the
-   fieldset when it's off disables them too (the checkbox itself, in the
-   fieldset's <legend>, is exempt from that disabling per the HTML spec). */
+/* Toggle checkbox lives outside the fieldset, not in its <legend>. */
 .read-along-group {
   width: 100%;
   margin: 0 0 15px;
@@ -123,11 +130,16 @@ input[type="checkbox"] {
   box-sizing: border-box;
 }
 
-.read-along-group legend {
-  display: flex;
-  align-items: center;
+.read-along-toggle {
   gap: 8px;
   padding: 0 6px;
+  margin-bottom: 4px;
+}
+
+.read-along-options {
+  border: none;
+  padding: 0;
+  margin: 0;
 }
 
 /* flex-direction: column forces label-then-inputs stacking — left to
@@ -141,8 +153,20 @@ input[type="checkbox"] {
   transition: opacity 0.2s;
 }
 
-.read-along-group:disabled .control-group {
+.read-along-options:disabled .control-group {
   opacity: 0.5;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .read-along-unavailable {
@@ -234,6 +258,7 @@ button:hover:not(:disabled) {
    padding keeps the last of the article from being hidden behind the
    fixed player-bar. */
 .main {
+  order: 2;
   flex: 1;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -421,6 +446,7 @@ button:hover:not(:disabled) {
 /* Left sidebar — fixed width, full viewport height, collapsible to a
    narrow rail: same role as demo/playground's .sidebar. */
 .panel {
+  order: 1;
   width: 320px;
   flex-shrink: 0;
   border-right: 1px solid #ddd;
@@ -582,6 +608,7 @@ footer a {
      defaults to its *content's* intrinsic size (the full GND JSON dump),
      overriding flex-basis and letting .panel balloon past 40vh to fit it. */
   .panel {
+    order: 0;
     width: 100%;
     height: auto;
     flex: 0 0 40vh;
@@ -603,11 +630,7 @@ footer a {
     display: none;
   }
 
-  /* .controls sits after .main in the DOM (needed for the desktop
-     left-to-right panel/article/settings column order), which would
-     otherwise put its mobile split below the article instead of above it
-     like .panel's — order pins .main last regardless of DOM position, so
-     whichever of .panel/.controls is open always splits at the top. */
+  /* order pins .main last so whichever of .panel/.controls is open always splits at the top. */
   .main {
     height: auto;
     flex: 1;
@@ -617,11 +640,10 @@ footer a {
     order: 1;
   }
 
-  /* Settings: now a 3rd top-level flex child of body alongside .panel and
-     .main (see the desktop .controls rule above for why) — on mobile it
-     drops the persistent-column treatment and becomes hidden by default,
-     shown as its own split only when opened from the mobile Settings tab. */
+  /* Settings drops the persistent-column treatment on mobile, hidden by
+     default and shown as its own split only from the mobile Settings tab. */
   .controls {
+    order: 0;
     display: none;
     width: 100%;
     height: auto;
@@ -629,9 +651,6 @@ footer a {
     min-height: 0;
     overflow-y: auto;
     padding: 20px;
-    /* Same reasoning as .panel above: stacked on mobile, the edge
-       touching the article is the bottom one, not the desktop
-       side-by-side border-left. */
     border-left: none;
     border-bottom: 3px solid #999;
   }

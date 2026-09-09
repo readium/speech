@@ -28,15 +28,105 @@
     </div>
   </aside>
 
+  <button id="panel-show" class="panel-show" type="button" aria-expanded="false" aria-controls="panel-body" aria-label="Show GND/Utterances panel" hidden>
+    <span aria-hidden="true">&raquo;</span> Show details
+  </button>
+
+  <div id="controls" class="controls">
+    <div class="tabs-bar">
+      <div class="tabs">
+        <span class="tab" aria-hidden="true">Settings</span>
+      </div>
+      <button id="controls-toggle" class="tab-toggle" type="button" aria-expanded="true" aria-controls="controls" aria-label="Hide settings panel">
+        <span class="tab-toggle-icon" aria-hidden="true">&raquo;</span>
+        <span class="tab-toggle-label">Hide settings</span>
+      </button>
+    </div>
+
+    <div class="control-group">
+      <div class="field">
+        <label for="voiceSelect">Voice:</label>
+        <select id="voiceSelect">
+          <option value="">Loading voices...</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="verbositySelect">Verbosity:</label>
+        <select id="verbositySelect">
+          <option value="none">none</option>
+          <option value="few" selected>few</option>
+          <option value="some">some</option>
+          <option value="most">most</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="readAlongGroup" class="read-along-group">
+      <div class="field read-along-toggle">
+        <input type="checkbox" id="readAlong" checked>
+        <label for="readAlong">Read along</label>
+      </div>
+      <p id="readAlongUnavailable" class="read-along-unavailable" role="status" hidden>Read along is not available for this voice, sorry.</p>
+      <fieldset id="readAlongOptions" class="read-along-options">
+        <legend class="visually-hidden">Read along display options</legend>
+        <div class="control-group">
+          <label for="utteranceStyleSelect">Utterance style:</label>
+          <select id="utteranceStyleSelect">
+            <option value="highlight" selected>Highlight</option>
+            <option value="highlightUnderline">Highlight + underline</option>
+            <option value="underline">Underline</option>
+            <option value="strikethrough">Strikethrough</option>
+            <option value="outline">Outline</option>
+            <option value="textColor">Text color</option>
+          </select>
+          <input type="color" id="utteranceColorInput" value="#ffeb3b" aria-label="Utterance highlight color">
+        </div>
+        <div class="control-group">
+          <label for="wordStyleSelect">Word style:</label>
+          <select id="wordStyleSelect">
+            <option value="highlight">Highlight</option>
+            <option value="highlightUnderline">Highlight + underline</option>
+            <option value="underline" selected>Underline</option>
+            <option value="strikethrough">Strikethrough</option>
+            <option value="outline">Outline</option>
+            <option value="textColor">Text color</option>
+          </select>
+          <input type="color" id="wordColorInput" value="#e53935" aria-label="Word highlight color">
+        </div>
+      </fieldset>
+    </div>
+  </div>
+
+  <button id="controls-show" class="controls-show" type="button" aria-expanded="true" aria-controls="controls" aria-label="Show settings panel" hidden>
+    Show settings <span aria-hidden="true">&laquo;</span>
+  </button>
+
+  <div class="player-bar">
+    <div class="player-transport">
+      <button id="prevBtn" class="player-btn" aria-label="Previous">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+      </button>
+      <button id="playPauseBtn" class="player-btn player-btn-main" aria-label="Play">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+      </button>
+      <button id="stopBtn" class="player-btn" aria-label="Stop">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M6 6h12v12H6z"/></svg>
+      </button>
+      <button id="nextBtn" class="player-btn" aria-label="Next">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6v12z"/></svg>
+      </button>
+      <span class="player-status" role="status">Utterance: <span id="currentUtterance">1</span>/<span id="totalUtterances">-</span></span>
+    </div>
+
+    <div class="mobile-tabs">
+      <button id="mtab-gnd" class="mobile-tab" type="button" aria-pressed="false" aria-controls="panel-body"><span class="mobile-tab-label">Guided Navigation</span></button>
+      <button id="mtab-utterances" class="mobile-tab" type="button" aria-pressed="false" aria-controls="panel-body"><span class="mobile-tab-label">Utterances</span></button>
+      <button id="mtab-settings" class="mobile-tab" type="button" aria-pressed="false" aria-controls="controls"><span class="mobile-tab-label">Settings</span></button>
+      <button id="mtab-close" class="mobile-tab-close" type="button" aria-label="Close panel" hidden>&times;</button>
+    </div>
+  </div>
+
   <main class="main">
-    <button id="panel-show" class="panel-show" type="button" aria-expanded="false" aria-controls="panel-body" aria-label="Show GND/Utterances panel" hidden>
-      <span aria-hidden="true">&raquo;</span> Show details
-    </button>
-
-    <button id="controls-show" class="controls-show" type="button" aria-expanded="true" aria-controls="controls" aria-label="Show settings panel" hidden>
-      Show settings <span aria-hidden="true">&laquo;</span>
-    </button>
-
     <div class="reader">
 
       <article id="content">
@@ -147,93 +237,6 @@
       </footer>
     </div>
   </main>
-
-  <div id="controls" class="controls">
-    <div class="tabs-bar">
-      <div class="tabs">
-        <span class="tab" aria-hidden="true">Settings</span>
-      </div>
-      <button id="controls-toggle" class="tab-toggle" type="button" aria-expanded="true" aria-controls="controls" aria-label="Hide settings panel">
-        <span class="tab-toggle-icon" aria-hidden="true">&raquo;</span>
-        <span class="tab-toggle-label">Hide settings</span>
-      </button>
-    </div>
-
-    <div class="control-group">
-      <div class="field">
-        <label for="voiceSelect">Voice:</label>
-        <select id="voiceSelect">
-          <option value="">Loading voices...</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="verbositySelect">Verbosity:</label>
-        <select id="verbositySelect">
-          <option value="none">none</option>
-          <option value="few" selected>few</option>
-          <option value="some">some</option>
-          <option value="most">most</option>
-        </select>
-      </div>
-    </div>
-
-    <fieldset id="readAlongGroup" class="read-along-group">
-      <legend>
-        <input type="checkbox" id="readAlong" checked>
-        <label for="readAlong">Read along</label>
-      </legend>
-      <p id="readAlongUnavailable" class="read-along-unavailable" hidden>Read along is not available for this voice, sorry.</p>
-      <div class="control-group">
-        <label for="utteranceStyleSelect">Utterance style:</label>
-        <select id="utteranceStyleSelect">
-          <option value="highlight" selected>Highlight</option>
-          <option value="highlightUnderline">Highlight + underline</option>
-          <option value="underline">Underline</option>
-          <option value="strikethrough">Strikethrough</option>
-          <option value="outline">Outline</option>
-          <option value="textColor">Text color</option>
-        </select>
-        <input type="color" id="utteranceColorInput" value="#ffeb3b" aria-label="Utterance highlight color">
-      </div>
-      <div class="control-group">
-        <label for="wordStyleSelect">Word style:</label>
-        <select id="wordStyleSelect">
-          <option value="highlight">Highlight</option>
-          <option value="highlightUnderline">Highlight + underline</option>
-          <option value="underline" selected>Underline</option>
-          <option value="strikethrough">Strikethrough</option>
-          <option value="outline">Outline</option>
-          <option value="textColor">Text color</option>
-        </select>
-        <input type="color" id="wordColorInput" value="#e53935" aria-label="Word highlight color">
-      </div>
-    </fieldset>
-  </div>
-
-  <div class="player-bar">
-    <div class="player-transport">
-      <button id="prevBtn" class="player-btn" aria-label="Previous">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
-      </button>
-      <button id="playPauseBtn" class="player-btn player-btn-main" aria-label="Play">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
-      </button>
-      <button id="stopBtn" class="player-btn" aria-label="Stop">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M6 6h12v12H6z"/></svg>
-      </button>
-      <button id="nextBtn" class="player-btn" aria-label="Next">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M16 6h2v12h-2zM6 18l8.5-6L6 6v12z"/></svg>
-      </button>
-      <span class="player-status">Utterance: <span id="currentUtterance">1</span>/<span id="totalUtterances">-</span></span>
-    </div>
-
-    <div class="mobile-tabs">
-      <button id="mtab-gnd" class="mobile-tab" type="button" aria-pressed="false"><span class="mobile-tab-label">Guided Navigation</span></button>
-      <button id="mtab-utterances" class="mobile-tab" type="button" aria-pressed="false"><span class="mobile-tab-label">Utterances</span></button>
-      <button id="mtab-settings" class="mobile-tab" type="button" aria-pressed="false"><span class="mobile-tab-label">Settings</span></button>
-      <button id="mtab-close" class="mobile-tab-close" type="button" aria-label="Close panel" hidden>&times;</button>
-    </div>
-  </div>
 
   <script type="module" src="script.js"></script>
 </body>
