@@ -80,12 +80,6 @@ async function initialize() {
     // too, without adding French voices to the "Voice" dropdown above.
     void WebSpeechVoiceManager.initialize({ languages: ["en", "fr"] });
 
-    // "block-level" (the default) ignores inline lang spans — only "always"
-    // splits an utterance on them, which the French <span lang="fr"> relies on.
-    const languageEditor = navigator.preferencesEditor;
-    languageEditor.language.value = "always";
-    navigator.submitPreferences(languageEditor.preferences);
-
     setupEventListeners();
     updateUI();
 
@@ -113,6 +107,14 @@ async function initialize() {
     updateReadAlongAvailability();
 
     initializeContent();
+
+    // "block-level" (the default) ignores inline lang spans — only "always"
+    // splits an utterance on them, which the French <span lang="fr"> relies on.
+    // Submitted after initializeContent() so the navigator already has a
+    // source to re-extract from.
+    const languageEditor = navigator.preferencesEditor;
+    languageEditor.language.value = "always";
+    navigator.submitPreferences(languageEditor.preferences);
   } catch (error) {
     console.error("Initialization error:", error);
   }
