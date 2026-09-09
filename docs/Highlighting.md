@@ -62,9 +62,12 @@ decorations.decorate([{
 within the current document — `createLocator` synthesizes them for you, so
 you only provide what actually locates the content: `text: { highlight,
 before, after }` (text-quote matching) and/or `cssSelector`/`domRange`/`fragment`
-(CSS-selector, exact DOM-range, or element-id anchoring — combine
-`cssSelector` with `text` to scope the text search to that selector). You
-still build the `Decoration` array and manage the group yourself.
+(CSS-selector, exact DOM-range, or element-id/raw-fragment anchoring — combine
+`cssSelector` with `text` to scope the text search to that selector). `fragment`
+also takes a raw WICG `:~:text=...` directive — the only way to express a
+`textStart,textEnd` range, since `text.highlight` holds one exact quote (see
+[Guided Navigation](GuidedNavigation.md)). You still build the `Decoration`
+array and manage the group yourself.
 
 ```typescript
 import { setupDecorations, createLocator, DecorationStyleType } from "@readium/speech";
