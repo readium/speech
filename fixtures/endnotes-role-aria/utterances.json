@@ -144,7 +144,8 @@
       ],
       "utterances": [
         {
-          "plain": "List."
+          "plain": "List.",
+          "synthetic": true
         },
         {
           "plain": "See introduction for background."
@@ -283,13 +284,15 @@
       ],
       "utterances": [
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "See introduction for background."
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "See chapter three for details."
@@ -441,16 +444,19 @@
       ],
       "utterances": [
         {
-          "plain": "List."
+          "plain": "List.",
+          "synthetic": true
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "See introduction for background."
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "See chapter three for details."
@@ -2547,7 +2553,8 @@
       ],
       "utterances": [
         {
-          "plain": "List."
+          "plain": "List.",
+          "synthetic": true
         }
       ]
     },
@@ -2695,7 +2702,8 @@
       ],
       "utterances": [
         {
-          "ssml": "List."
+          "ssml": "List.",
+          "synthetic": true
         },
         {
           "ssml": "See introduction for background."
@@ -2834,13 +2842,15 @@
       ],
       "utterances": [
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "See introduction for background."
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "See chapter three for details."
@@ -2992,16 +3002,19 @@
       ],
       "utterances": [
         {
-          "ssml": "List."
+          "ssml": "List.",
+          "synthetic": true
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "See introduction for background."
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "See chapter three for details."
@@ -5098,7 +5111,8 @@
       ],
       "utterances": [
         {
-          "ssml": "List."
+          "ssml": "List.",
+          "synthetic": true
         }
       ]
     }

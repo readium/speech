@@ -81,7 +81,8 @@
       ],
       "utterances": [
         {
-          "plain": "List."
+          "plain": "List.",
+          "synthetic": true
         },
         {
           "plain": "Cover"
@@ -157,19 +158,22 @@
       ],
       "utterances": [
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Cover"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Table of Contents"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Start of Content"
@@ -247,22 +251,26 @@
       ],
       "utterances": [
         {
-          "plain": "List."
+          "plain": "List.",
+          "synthetic": true
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Cover"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Table of Contents"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Start of Content"
@@ -667,7 +675,8 @@
       ],
       "utterances": [
         {
-          "ssml": "List."
+          "ssml": "List.",
+          "synthetic": true
         },
         {
           "ssml": "Cover"
@@ -743,19 +752,22 @@
       ],
       "utterances": [
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Cover"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Table of Contents"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Start of Content"
@@ -833,22 +845,26 @@
       ],
       "utterances": [
         {
-          "ssml": "List."
+          "ssml": "List.",
+          "synthetic": true
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Cover"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Table of Contents"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Start of Content"

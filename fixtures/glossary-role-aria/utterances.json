@@ -84,7 +84,8 @@
       ],
       "utterances": [
         {
-          "plain": "Term."
+          "plain": "Term.",
+          "synthetic": true
         },
         {
           "plain": "Fresnel lens"
@@ -93,7 +94,8 @@
           "plain": "A compact lens for focusing light."
         },
         {
-          "plain": "Term."
+          "plain": "Term.",
+          "synthetic": true
         },
         {
           "plain": "Keeper"
@@ -187,7 +189,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Term."
+          "ssml": "Term.",
+          "synthetic": true
         },
         {
           "ssml": "Fresnel lens"
@@ -196,7 +199,8 @@
           "ssml": "A compact lens for focusing light."
         },
         {
-          "ssml": "Term."
+          "ssml": "Term.",
+          "synthetic": true
         },
         {
           "ssml": "Keeper"

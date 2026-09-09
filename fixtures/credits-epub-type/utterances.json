@@ -78,7 +78,8 @@
       ],
       "utterances": [
         {
-          "plain": "List."
+          "plain": "List.",
+          "synthetic": true
         },
         {
           "plain": "Cover photograph by A. Keeper."
@@ -151,13 +152,15 @@
       ],
       "utterances": [
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Cover photograph by A. Keeper."
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Maps by B. Cartographer."
@@ -235,16 +238,19 @@
       ],
       "utterances": [
         {
-          "plain": "List."
+          "plain": "List.",
+          "synthetic": true
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Cover photograph by A. Keeper."
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Maps by B. Cartographer."
@@ -314,13 +320,15 @@
       ],
       "utterances": [
         {
-          "plain": "Credit."
+          "plain": "Credit.",
+          "synthetic": true
         },
         {
           "plain": "Cover photograph by A. Keeper."
         },
         {
-          "plain": "Credit."
+          "plain": "Credit.",
+          "synthetic": true
         },
         {
           "plain": "Maps by B. Cartographer."
@@ -398,16 +406,19 @@
       ],
       "utterances": [
         {
-          "plain": "List."
+          "plain": "List.",
+          "synthetic": true
         },
         {
-          "plain": "Credit."
+          "plain": "Credit.",
+          "synthetic": true
         },
         {
           "plain": "Cover photograph by A. Keeper."
         },
         {
-          "plain": "Credit."
+          "plain": "Credit.",
+          "synthetic": true
         },
         {
           "plain": "Maps by B. Cartographer."
@@ -485,19 +496,23 @@
       ],
       "utterances": [
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
-          "plain": "Credit."
+          "plain": "Credit.",
+          "synthetic": true
         },
         {
           "plain": "Cover photograph by A. Keeper."
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
-          "plain": "Credit."
+          "plain": "Credit.",
+          "synthetic": true
         },
         {
           "plain": "Maps by B. Cartographer."
@@ -583,22 +598,27 @@
       ],
       "utterances": [
         {
-          "plain": "List."
+          "plain": "List.",
+          "synthetic": true
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
-          "plain": "Credit."
+          "plain": "Credit.",
+          "synthetic": true
         },
         {
           "plain": "Cover photograph by A. Keeper."
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
-          "plain": "Credit."
+          "plain": "Credit.",
+          "synthetic": true
         },
         {
           "plain": "Maps by B. Cartographer."
@@ -683,7 +703,8 @@
       ],
       "utterances": [
         {
-          "ssml": "List."
+          "ssml": "List.",
+          "synthetic": true
         },
         {
           "ssml": "Cover photograph by A. Keeper."
@@ -756,13 +777,15 @@
       ],
       "utterances": [
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Cover photograph by A. Keeper."
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Maps by B. Cartographer."
@@ -840,16 +863,19 @@
       ],
       "utterances": [
         {
-          "ssml": "List."
+          "ssml": "List.",
+          "synthetic": true
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Cover photograph by A. Keeper."
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Maps by B. Cartographer."
@@ -919,13 +945,15 @@
       ],
       "utterances": [
         {
-          "ssml": "Credit."
+          "ssml": "Credit.",
+          "synthetic": true
         },
         {
           "ssml": "Cover photograph by A. Keeper."
         },
         {
-          "ssml": "Credit."
+          "ssml": "Credit.",
+          "synthetic": true
         },
         {
           "ssml": "Maps by B. Cartographer."
@@ -1003,16 +1031,19 @@
       ],
       "utterances": [
         {
-          "ssml": "List."
+          "ssml": "List.",
+          "synthetic": true
         },
         {
-          "ssml": "Credit."
+          "ssml": "Credit.",
+          "synthetic": true
         },
         {
           "ssml": "Cover photograph by A. Keeper."
         },
         {
-          "ssml": "Credit."
+          "ssml": "Credit.",
+          "synthetic": true
         },
         {
           "ssml": "Maps by B. Cartographer."
@@ -1090,19 +1121,23 @@
       ],
       "utterances": [
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
-          "ssml": "Credit."
+          "ssml": "Credit.",
+          "synthetic": true
         },
         {
           "ssml": "Cover photograph by A. Keeper."
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
-          "ssml": "Credit."
+          "ssml": "Credit.",
+          "synthetic": true
         },
         {
           "ssml": "Maps by B. Cartographer."
@@ -1188,22 +1223,27 @@
       ],
       "utterances": [
         {
-          "ssml": "List."
+          "ssml": "List.",
+          "synthetic": true
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
-          "ssml": "Credit."
+          "ssml": "Credit.",
+          "synthetic": true
         },
         {
           "ssml": "Cover photograph by A. Keeper."
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
-          "ssml": "Credit."
+          "ssml": "Credit.",
+          "synthetic": true
         },
         {
           "ssml": "Maps by B. Cartographer."

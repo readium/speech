@@ -81,7 +81,8 @@
       ],
       "utterances": [
         {
-          "plain": "List."
+          "plain": "List.",
+          "synthetic": true
         },
         {
           "plain": "One"
@@ -157,19 +158,22 @@
       ],
       "utterances": [
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "One"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Ninety-nine"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Three"
@@ -247,22 +251,26 @@
       ],
       "utterances": [
         {
-          "plain": "List."
+          "plain": "List.",
+          "synthetic": true
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "One"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Ninety-nine"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Three"
@@ -350,7 +358,8 @@
       ],
       "utterances": [
         {
-          "ssml": "List."
+          "ssml": "List.",
+          "synthetic": true
         },
         {
           "ssml": "One"
@@ -426,19 +435,22 @@
       ],
       "utterances": [
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "One"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Ninety-nine"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Three"
@@ -516,22 +528,26 @@
       ],
       "utterances": [
         {
-          "ssml": "List."
+          "ssml": "List.",
+          "synthetic": true
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "One"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Ninety-nine"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Three"

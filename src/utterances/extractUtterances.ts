@@ -61,7 +61,7 @@ function resolveEntryText(ctx: WalkContext, base: string, variantKey?: string, p
 // Contextualization/label text is always plain (no markup) — formats it
 // per the requested `format`, same as any other utterance.
 function formatPlain(text: string, format: "plain" | "ssml"): ReadiumSpeechUtterance {
-  return format === "ssml" ? { ssml: ssmlTextEscape(text) } : { plain: text };
+  return format === "ssml" ? { ssml: ssmlTextEscape(text), synthetic: true } : { plain: text, synthetic: true };
 }
 
 function push(out: ReadiumSpeechUtterance[], sources: SourceTrace, node: GndObject | undefined, items: ReadiumSpeechUtterance[]): void {
@@ -142,10 +142,15 @@ function pushRoleContextualization(
     if (text) {
       const utterance = formatPlain(text, ctx.format);
       // cell/rowheader's template embeds the node's own text (`{{ value }}`) —
-      // it must keep that node's language, same as speaking the text directly would.
-      if (valueFoldingRoles.has(role) && ctx.language !== "none") {
-        const language = typeof node.text === "object" ? node.text.language : undefined;
-        if (language) utterance.language = language;
+      // it must keep that node's language, same as speaking the text directly
+      // would, and isn't a synthesized label the way other roles' catalog
+      // entries are: it's the node's real text, just optionally header-prefixed.
+      if (valueFoldingRoles.has(role)) {
+        delete utterance.synthetic;
+        if (ctx.language !== "none") {
+          const language = typeof node.text === "object" ? node.text.language : undefined;
+          if (language) utterance.language = language;
+        }
       }
       push(out, sources, node, [utterance]);
     }
@@ -184,6 +189,7 @@ function mergeUtterances(
   }
   const merged: ReadiumSpeechUtterance = format === "ssml" ? { ssml: joined } : { plain: joined };
   if (language) merged.language = language;
+  if (pieces.some((piece) => piece.synthetic)) merged.synthetic = true;
   return merged;
 }
 

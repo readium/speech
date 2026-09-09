@@ -78,7 +78,8 @@
       ],
       "utterances": [
         {
-          "plain": "List."
+          "plain": "List.",
+          "synthetic": true
         },
         {
           "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
@@ -151,13 +152,15 @@
       ],
       "utterances": [
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Doe, A. Coastal Illumination. 1975."
@@ -235,16 +238,19 @@
       ],
       "utterances": [
         {
-          "plain": "List."
+          "plain": "List.",
+          "synthetic": true
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Smith, J. Lighthouses of the Atlantic. 1988."
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Doe, A. Coastal Illumination. 1975."
@@ -646,7 +652,8 @@
       ],
       "utterances": [
         {
-          "ssml": "List."
+          "ssml": "List.",
+          "synthetic": true
         },
         {
           "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
@@ -719,13 +726,15 @@
       ],
       "utterances": [
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Doe, A. Coastal Illumination. 1975."
@@ -803,16 +812,19 @@
       ],
       "utterances": [
         {
-          "ssml": "List."
+          "ssml": "List.",
+          "synthetic": true
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Smith, J. Lighthouses of the Atlantic. 1988."
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Doe, A. Coastal Illumination. 1975."

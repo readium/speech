@@ -75,7 +75,8 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1."
+          "plain": "Heading level 1.",
+          "synthetic": true
         },
         {
           "plain": "Title of the chapter"
@@ -157,7 +158,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1."
+          "ssml": "Heading level 1.",
+          "synthetic": true
         },
         {
           "ssml": "Title of the chapter"

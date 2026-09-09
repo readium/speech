@@ -130,6 +130,7 @@ async function initialize() {
 function setupEventListeners() {
   navigator.on("start", () => {
     isPlaying = true;
+    if (readAlongEnabled) enterUtterance(navigator.getCurrentUtteranceIndex());
     updateUI();
   });
 
@@ -586,12 +587,42 @@ function applyWordDecoration() {
   }], "tts-word");
 }
 
-// Highlights the word/sentence currently being spoken using each utterance's
-// own locator (derived from the live DOM at parse time, see
-// initializeContent) rather than searching article text for a match — the
-// same word/phrase can legitimately appear more than once across the
-// article, so anchoring by locator (scoped to the utterance's own DOM
-// location) is what keeps the highlight on the right occurrence.
+// Moves the sentence-level highlight (and viewport scroll) onto `index`'s
+// utterance, if it isn't already there — called both from "start" (so the
+// highlight tracks playback even when a voice never fires word "boundary"
+// events, e.g. across a language switch) and from highlightCurrentWord().
+function enterUtterance(index) {
+  if (index === currentSentenceIndex) return;
+  const currentUtterance = utterances[index];
+  if (!currentUtterance || !currentUtterance.locate) return;
+
+  currentSentenceIndex = index;
+  applyUtteranceDecoration();
+
+  if (currentUtterance.synthetic) {
+    // A synthesized label/announcement (contextualization text, alt/caption
+    // description...): no word-boundary search should run against it, and
+    // no earlier word highlight is going to be refined further.
+    lastWordHighlight = null;
+    decoCtrl.applyDecorations([], "tts-word");
+  }
+
+  const target = currentUtterance.locate.cssSelector
+    ? document.querySelector(currentUtterance.locate.cssSelector)
+    : null;
+  if (target) {
+    const rect = target.getBoundingClientRect();
+    const inView = rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
+    if (!inView) target.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+}
+
+// Highlights the word currently being spoken using each utterance's own
+// locator (derived from the live DOM at parse time, see initializeContent)
+// rather than searching article text for a match — the same word/phrase can
+// legitimately appear more than once across the article, so anchoring by
+// locator (scoped to the utterance's own DOM location) is what keeps the
+// highlight on the right occurrence.
 function highlightCurrentWord(charIndex, charLength) {
   if (!readAlongEnabled) return;
 
@@ -599,25 +630,14 @@ function highlightCurrentWord(charIndex, charLength) {
   const currentUtterance = utterances[currentIndex];
   if (!currentUtterance || !currentUtterance.locate) return;
 
+  enterUtterance(currentIndex);
+  if (currentUtterance.synthetic) return;
+
   const word = currentUtterance.plain?.substring(charIndex, charIndex + charLength);
   if (!word || !word.trim()) return;
 
   const before = currentUtterance.plain.substring(0, charIndex);
   const after = currentUtterance.plain.substring(charIndex + charLength);
-
-  if (currentIndex !== currentSentenceIndex) {
-    currentSentenceIndex = currentIndex;
-    applyUtteranceDecoration();
-
-    const target = currentUtterance.locate.cssSelector
-      ? document.querySelector(currentUtterance.locate.cssSelector)
-      : null;
-    if (target) {
-      const rect = target.getBoundingClientRect();
-      const inView = rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
-      if (!inView) target.scrollIntoView({ behavior: "smooth", block: "center" });
-    }
-  }
 
   lastWordHighlight = { cssSelector: currentUtterance.locate.cssSelector, word, before, after };
   applyWordDecoration();

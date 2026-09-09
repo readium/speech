@@ -75,13 +75,15 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the aside."
+          "plain": "Start of the aside.",
+          "synthetic": true
         },
         {
           "plain": "Tip: wind the mechanism fully before dusk."
         },
         {
-          "plain": "End of the aside."
+          "plain": "End of the aside.",
+          "synthetic": true
         }
       ]
     },
@@ -305,13 +307,15 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the aside."
+          "ssml": "Start of the aside.",
+          "synthetic": true
         },
         {
           "ssml": "Tip: wind the mechanism fully before dusk."
         },
         {
-          "ssml": "End of the aside."
+          "ssml": "End of the aside.",
+          "synthetic": true
         }
       ]
     },

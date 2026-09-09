@@ -162,7 +162,8 @@
         },
         {
           "plain": "Start of the footnote. 1. Text of the footnote. End of the footnote.",
-          "language": "en"
+          "language": "en",
+          "synthetic": true
         }
       ]
     },
@@ -221,7 +222,8 @@
       "utterances": [
         {
           "plain": "This text has a footnote Start of the footnote. 1. Text of the footnote. End of the footnote.",
-          "language": "en"
+          "language": "en",
+          "synthetic": true
         }
       ]
     },
@@ -248,7 +250,8 @@
           "plain": "This text has a footnote."
         },
         {
-          "plain": "Start of the footnote. 1. Text of the footnote. End of the footnote."
+          "plain": "Start of the footnote. 1. Text of the footnote. End of the footnote.",
+          "synthetic": true
         }
       ]
     },
@@ -274,7 +277,8 @@
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote Start of the footnote. 1. Text of the footnote. End of the footnote."
+          "plain": "This text has a footnote Start of the footnote. 1. Text of the footnote. End of the footnote.",
+          "synthetic": true
         }
       ]
     },
@@ -2803,7 +2807,8 @@
         },
         {
           "ssml": "Start of the footnote. 1. Text of the footnote. End of the footnote.",
-          "language": "en"
+          "language": "en",
+          "synthetic": true
         }
       ]
     },
@@ -2862,7 +2867,8 @@
       "utterances": [
         {
           "ssml": "This text has a footnote Start of the footnote. 1. Text of the footnote. End of the footnote.",
-          "language": "en"
+          "language": "en",
+          "synthetic": true
         }
       ]
     },
@@ -2889,7 +2895,8 @@
           "ssml": "This text has a footnote."
         },
         {
-          "ssml": "Start of the footnote. 1. Text of the footnote. End of the footnote."
+          "ssml": "Start of the footnote. 1. Text of the footnote. End of the footnote.",
+          "synthetic": true
         }
       ]
     },
@@ -2915,7 +2922,8 @@
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote Start of the footnote. 1. Text of the footnote. End of the footnote."
+          "ssml": "This text has a footnote Start of the footnote. 1. Text of the footnote. End of the footnote.",
+          "synthetic": true
         }
       ]
     },

@@ -71,7 +71,8 @@
       ],
       "utterances": [
         {
-          "plain": "Audio with no label."
+          "plain": "Audio with no label.",
+          "synthetic": true
         }
       ]
     },
@@ -146,7 +147,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Audio with no label."
+          "ssml": "Audio with no label.",
+          "synthetic": true
         }
       ]
     }

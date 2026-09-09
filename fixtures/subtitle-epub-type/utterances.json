@@ -75,7 +75,8 @@
       ],
       "utterances": [
         {
-          "plain": "Subtitle."
+          "plain": "Subtitle.",
+          "synthetic": true
         },
         {
           "plain": "A History of Coastal Lights"
@@ -157,7 +158,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Subtitle."
+          "ssml": "Subtitle.",
+          "synthetic": true
         },
         {
           "ssml": "A History of Coastal Lights"
