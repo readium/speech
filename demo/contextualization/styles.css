@@ -683,11 +683,26 @@ footer a {
 
   .mobile-tab {
     flex: 1;
+    min-width: 0;
     justify-content: center;
     background: #f0f0f0;
     color: #333;
     font-size: 13px;
     padding: 8px 10px;
+  }
+
+  /* Truncation happens on this inner span, not .mobile-tab itself —
+     centering the button's flex content directly clips overflow
+     symmetrically on both sides with no ellipsis ever shown, since
+     text-overflow only marks the trailing edge of normal (start-aligned)
+     text flow. The span truncates itself first, then the resulting
+     (already-fitting) block gets centered by the button's flexbox. */
+  .mobile-tab-label {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
 
   .mobile-tab.active {
