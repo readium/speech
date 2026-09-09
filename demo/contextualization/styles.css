@@ -192,19 +192,19 @@ button:hover:not(:disabled) {
 }
 
 #playPauseBtn {
-  background-color: #4CAF50;
-}
-
-#playPauseBtn.paused {
   background-color: #ff9800;
 }
 
+#playPauseBtn.paused {
+  background-color: #4CAF50;
+}
+
 #playPauseBtn:hover:not(:disabled) {
-  background-color: #45a049;
+  background-color: #e68900;
 }
 
 #playPauseBtn.paused:hover:not(:disabled) {
-  background-color: #e68900;
+  background-color: #45a049;
 }
 
 #stopBtn {
@@ -242,6 +242,8 @@ button:hover:not(:disabled) {
 
 .reader {
   min-width: 0;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
 /* Floating media-player-style playback bar, fixed to the viewport so it
