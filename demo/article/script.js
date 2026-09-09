@@ -35,6 +35,7 @@ const readAlongCheckbox = document.getElementById("readAlong");
 const readAlongGroup = document.getElementById("readAlongOptions");
 const readAlongUnavailable = document.getElementById("readAlongUnavailable");
 const gndOutput = document.getElementById("gnd-output");
+const showTextrefsCheckbox = document.getElementById("showTextrefs");
 const utterancesOutput = document.getElementById("utterances-output");
 const tabGnd = document.getElementById("tab-gnd");
 const tabUtterances = document.getElementById("tab-utterances");
@@ -68,6 +69,8 @@ let wordStyle = DecorationStyleType.Underline;
 let wordTint = "#e53935";
 let lastWordHighlight = null; // { cssSelector, word, before, after } — reapplied when word style/color changes mid-utterance
 let mobilePanel = null; // "gnd" | "utterances" | "settings" | null — which split is open in the mobile bottom bar
+let gnd = null;
+let showTextrefs = false;
 
 // Initialize voice manager and navigator
 async function initialize() {
@@ -194,6 +197,7 @@ function setupEventListeners() {
 
   if (voiceSelect) voiceSelect.addEventListener("change", handleVoiceChange);
   if (verbositySelect) verbositySelect.addEventListener("change", handleVerbosityChange);
+  if (showTextrefsCheckbox) showTextrefsCheckbox.addEventListener("change", handleShowTextrefsChange);
 
   if (utteranceStyleSelect) utteranceStyleSelect.addEventListener("change", (e) => { utteranceStyle = e.target.value; applyUtteranceDecoration(); });
   if (utteranceColorInput) utteranceColorInput.addEventListener("input", (e) => { utteranceTint = e.target.value; applyUtteranceDecoration(); });
@@ -359,6 +363,11 @@ function handleVerbosityChange(e) {
   navigator.submitPreferences(editor.preferences);
 }
 
+function handleShowTextrefsChange(e) {
+  showTextrefs = e.target.checked;
+  renderGndOutput();
+}
+
 function handleReadAlongChange(e) {
   readAlongPreference = e.target.checked;
   readAlongEnabled = e.target.checked;
@@ -390,9 +399,13 @@ function updateReadAlongAvailability() {
 // detached HTML string) and loads it into the navigator, which re-extracts
 // utterances internally whenever verbosity/preferences change.
 function initializeContent() {
-  const gnd = parseMarkup(content, undefined, { textrefs: { roles: true, domRange: true } });
-  gndOutput.textContent = JSON.stringify(gnd, (key, value) => (key === "textref" ? undefined : value), 2);
+  gnd = parseMarkup(content, undefined, { textrefs: { roles: true, domRange: true } });
+  renderGndOutput();
   navigator.loadGndContent(gnd);
+}
+
+function renderGndOutput() {
+  gndOutput.textContent = JSON.stringify(gnd, (key, value) => (!showTextrefs && key === "textref" ? undefined : value), 2);
 }
 
 function renderUtterancesPanel() {

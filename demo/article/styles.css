@@ -594,6 +594,16 @@ button:hover:not(:disabled) {
   padding: 12px;
 }
 
+.panel-option {
+  position: sticky;
+  top: -12px;
+  margin: -12px -12px 12px;
+  padding: 10px 12px;
+  background: #f7f7f8;
+  border-bottom: 1px solid #ddd;
+  z-index: 1;
+}
+
 .code-block {
   margin: 0;
   font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
