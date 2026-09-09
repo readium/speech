@@ -242,7 +242,10 @@ function setMobilePanel(panel) {
   setPanelCollapsed(!showGndPanel);
   if (showGndPanel) selectTab(panel);
 
-  if (controlsEl) controlsEl.classList.toggle("mobile-open", panel === "settings");
+  if (controlsEl) {
+    controlsEl.classList.toggle("mobile-open", panel === "settings");
+    controlsEl.classList.remove("collapsed");
+  }
 
   updateMobileTabsUI();
 }
