@@ -1183,3 +1183,327 @@ test.serial("timeoutMs doesn't affect /voices or /service, which have no buffer 
   const voices = await engine.getAvailableVoices();
   t.is(voices.length, 1);
 });
+
+// =============================================
+// Mid-utterance rate/pitch restart
+// =============================================
+
+function makeEndpoints() {
+  return { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" };
+}
+
+test.serial("setRate while actively speaking restarts the current utterance immediately", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }]);
+
+  engine.speak(0);
+  await flush();
+  const before = calls.filter(c => c.url.endsWith("/synthesize")).length;
+
+  engine.setRate(2);
+  await flush();
+
+  const synthCalls = calls.filter(c => c.url.endsWith("/synthesize"));
+  t.is(synthCalls.length, before + 1, "changing rate mid-speech triggers exactly one restart");
+  t.is(JSON.parse(synthCalls[synthCalls.length - 1].init.body).output.speed, 2);
+});
+
+test.serial("setRate and setPitch in the same tick coalesce into a single restart", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }]);
+
+  engine.speak(0);
+  await flush();
+  const before = calls.filter(c => c.url.endsWith("/synthesize")).length;
+
+  engine.setRate(2);
+  engine.setPitch(1.5);
+  await flush();
+
+  const synthCalls = calls.filter(c => c.url.endsWith("/synthesize"));
+  t.is(synthCalls.length, before + 1, "both changes in the same tick produce exactly one restart, not two");
+  const body = JSON.parse(synthCalls[synthCalls.length - 1].init.body);
+  t.is(body.output.speed, 2);
+  t.is(body.output.pitch, 1.5);
+});
+
+test.serial("a second change while a restart's own fetch is still in flight produces one further restart, not a dropped one", async (t) => {
+  // A real fetch() rejects when its AbortSignal fires — this mock must too, so aborting a
+  // request actually settles its promise instead of leaving it orphaned forever in `pending`.
+  // `settled` covers both outcomes (resolved or aborted) so a request that already completed
+  // successfully isn't mistaken for one that's still in flight.
+  const pending: Array<{ settled: boolean; resolve: () => void }> = [];
+  const fetchImpl = (async (url: string, init?: any) => {
+    if (url.endsWith("/service")) {
+      return { ok: true, status: 200, headers: { get: () => "application/json" }, json: async () => defaultServiceInfo() };
+    }
+    if (!url.endsWith("/synthesize")) {
+      throw new Error(`Unhandled mock fetch URL: ${url}`);
+    }
+    return new Promise((resolve, reject) => {
+      const entry = { settled: false, resolve: () => {} };
+      entry.resolve = () => {
+        entry.settled = true;
+        resolve({ ok: true, status: 200, headers: { get: () => "application/json" }, json: async () => ({ audio: wavBase64(), format: "wav", boundaries: null }) });
+      };
+      pending.push(entry);
+      init.signal.addEventListener("abort", () => {
+        entry.settled = true;
+        reject(new Error("Aborted"));
+      });
+    });
+  }) as unknown as typeof fetch;
+
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }]);
+  const inFlight = () => pending.filter(p => !p.settled);
+
+  engine.speak(0);
+  await flush();
+  t.is(inFlight().length, 1, "initial speak's own fetch is in flight");
+  inFlight()[0].resolve();
+  await flush();
+
+  const errors: any[] = [];
+  engine.on("error", (e: any) => errors.push(e.detail));
+
+  engine.setRate(2); // schedules a coalesced restart
+  await flush();
+  t.is(inFlight().length, 1, "the restart's own fetch is now in flight");
+
+  engine.setPitch(1.5); // must not silently kill this in-flight restart
+  await flush();
+
+  t.is(errors.length, 0, "no spurious error from touching the in-flight restart's own controller");
+  t.is(inFlight().length, 1, "exactly one further restart's fetch is in flight, not zero (dropped) or two (double-fired)");
+
+  inFlight()[0].resolve();
+  await flush();
+  t.is(errors.length, 0);
+});
+
+test.serial("a live utterance sourced from a completed prefetch still restarts on a later rate change", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 1 });
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }]);
+
+  engine.speak(0);
+  await flush(); // "First." plays; "Second." gets prefetched into the cache
+
+  engine.speak(1); // resolveSynthesisStream should hit the prefetch cache for index 1
+  await flush();
+
+  const before = calls.filter(c => c.url.endsWith("/synthesize")).length;
+  const errors: any[] = [];
+  engine.on("error", (e: any) => errors.push(e.detail));
+
+  engine.setRate(2);
+  await flush();
+
+  const synthCalls = calls.filter(c => c.url.endsWith("/synthesize"));
+  t.is(synthCalls.length, before + 1, "rate change restarts even a cache-hit-sourced live utterance");
+  t.is(errors.length, 0, "the cache-hit utterance's own controller must have been promoted out of activeControllers");
+});
+
+test.serial("setCurrentUtteranceIndex mid-speech does not emit a spurious error", async (t) => {
+  const { fetchImpl } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }]);
+
+  engine.speak(0);
+  await flush();
+
+  const errors: any[] = [];
+  engine.on("error", (e: any) => errors.push(e.detail));
+
+  engine.setCurrentUtteranceIndex(1);
+  await flush();
+
+  t.is(errors.length, 0);
+  t.is(engine.getCurrentUtteranceIndex(), 1);
+});
+
+test.serial("setVoice mid-speech aborts the live in-flight fetch, matching pre-existing behavior", async (t) => {
+  const pending: Array<() => void> = [];
+  const signals: AbortSignal[] = [];
+  const fetchImpl = (async (url: string, init?: any) => {
+    if (url.endsWith("/service")) {
+      return { ok: true, status: 200, headers: { get: () => "application/json" }, json: async () => defaultServiceInfo() };
+    }
+    if (!url.endsWith("/synthesize")) {
+      throw new Error(`Unhandled mock fetch URL: ${url}`);
+    }
+    signals.push(init.signal);
+    await new Promise<void>((resolve) => pending.push(resolve));
+    return { ok: true, status: 200, headers: { get: () => "application/json" }, json: async () => ({ audio: wavBase64(), format: "wav", boundaries: null }) };
+  }) as unknown as typeof fetch;
+
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }]);
+
+  engine.speak(0);
+  await flush();
+  t.is(signals.length, 1);
+  t.false(signals[0].aborted, "live fetch is still in flight");
+
+  engine.setVoice(makeServerVoice() as any);
+  await flush();
+
+  t.true(signals[0].aborted, "setVoice mid-speech still cancels the live in-flight fetch");
+});
+
+test.serial("setSpeakInContentLanguage mid-speech aborts the live in-flight fetch, matching pre-existing behavior", async (t) => {
+  const pending: Array<() => void> = [];
+  const signals: AbortSignal[] = [];
+  const fetchImpl = (async (url: string, init?: any) => {
+    if (url.endsWith("/service")) {
+      return { ok: true, status: 200, headers: { get: () => "application/json" }, json: async () => defaultServiceInfo() };
+    }
+    if (!url.endsWith("/synthesize")) {
+      throw new Error(`Unhandled mock fetch URL: ${url}`);
+    }
+    signals.push(init.signal);
+    await new Promise<void>((resolve) => pending.push(resolve));
+    return { ok: true, status: 200, headers: { get: () => "application/json" }, json: async () => ({ audio: wavBase64(), format: "wav", boundaries: null }) };
+  }) as unknown as typeof fetch;
+
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }]);
+
+  engine.speak(0);
+  await flush();
+  t.false(signals[0].aborted, "live fetch is still in flight");
+
+  engine.setSpeakInContentLanguage(true);
+  await flush();
+
+  t.true(signals[0].aborted, "setSpeakInContentLanguage mid-speech still cancels the live in-flight fetch");
+});
+
+test.serial("loadUtterances mid-speech aborts the live in-flight fetch, matching pre-existing behavior", async (t) => {
+  const pending: Array<() => void> = [];
+  const signals: AbortSignal[] = [];
+  const fetchImpl = (async (url: string, init?: any) => {
+    if (url.endsWith("/service")) {
+      return { ok: true, status: 200, headers: { get: () => "application/json" }, json: async () => defaultServiceInfo() };
+    }
+    if (!url.endsWith("/synthesize")) {
+      throw new Error(`Unhandled mock fetch URL: ${url}`);
+    }
+    signals.push(init.signal);
+    await new Promise<void>((resolve) => pending.push(resolve));
+    return { ok: true, status: 200, headers: { get: () => "application/json" }, json: async () => ({ audio: wavBase64(), format: "wav", boundaries: null }) };
+  }) as unknown as typeof fetch;
+
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }]);
+
+  engine.speak(0);
+  await flush();
+  t.false(signals[0].aborted, "live fetch is still in flight");
+
+  engine.loadUtterances([{ plain: "Replaced." }]);
+  await flush();
+
+  t.true(signals[0].aborted, "loadUtterances mid-speech still cancels the old live in-flight fetch");
+});
+
+test.serial("setRate/setPitch/setVolume with the same value never restarts", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }]);
+
+  engine.speak(0);
+  await flush();
+  const before = calls.filter(c => c.url.endsWith("/synthesize")).length;
+
+  engine.setRate(1); // already the default
+  engine.setPitch(1);
+  engine.setVolume(1);
+  await flush();
+
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, before, "no restart when nothing actually changed");
+});
+
+test.serial("setVolume never restarts SpeechServerEngine, even mid-speech", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }]);
+
+  engine.speak(0);
+  await flush();
+  const before = calls.filter(c => c.url.endsWith("/synthesize")).length;
+
+  engine.setVolume(0.3);
+  await flush();
+
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, before, "volume applies live via the gain node — no restart needed");
+});
+
+test.serial("setRate while idle (never spoken) does not restart", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }]); // this alone issues one synthesize call, to buffer for "ready"
+  await flush();
+  const before = calls.filter(c => c.url.endsWith("/synthesize")).length;
+
+  engine.setRate(2);
+  await flush();
+
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, before, "nothing is speaking yet (speak() was never called), so no restart should fire");
+});
+
+test.serial("setRate while paused does not restart", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }]);
+
+  engine.speak(0);
+  await flush();
+  engine.pause();
+  const before = calls.filter(c => c.url.endsWith("/synthesize")).length;
+
+  engine.setRate(2);
+  await flush();
+
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, before, "paused — no restart");
+});
+
+test.serial("setRate during the inter-utterance gap does not replay the utterance that just ended", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }]);
+
+  engine.speak(0);
+  await flush();
+  const before = calls.filter(c => c.url.endsWith("/synthesize")).length;
+
+  // "First." ends naturally — the engine itself doesn't auto-advance (that's the navigator's
+  // job), so isSpeakingInternal should read false even though this isn't the last utterance.
+  MockAudioBufferSourceNode.instances[MockAudioBufferSourceNode.instances.length - 1].onended?.();
+
+  engine.setRate(2);
+  await flush();
+
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, before, "no restart during the inter-utterance gap");
+});

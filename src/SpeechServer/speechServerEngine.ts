@@ -145,9 +145,14 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private readonly canPlayType: CanPlayType;
   private prefetchCache: Map<number, Promise<ChunkStream>> = new Map();
   private prefetchChainTail: Promise<void> = Promise.resolve();
-  // Every AbortController for a chunk request still in flight, so clearPrefetchCache can abort
-  // them immediately instead of waiting on their wrapping promises to settle first.
+  // Every AbortController for a *prefetch* chunk request still in flight, so clearPrefetchCache
+  // can abort them immediately instead of waiting on their wrapping promises to settle first.
   private activeControllers: Set<AbortController> = new Set();
+  // Every AbortController for the current *live* utterance's own chunk request(s) — kept separate
+  // from activeControllers so invalidating stale prefetches never cancels live playback in flight.
+  private liveControllers: Set<AbortController> = new Set();
+  private isSpeakingInternal: boolean = false;
+  private restartPending: boolean = false;
 
   private audioContext: AudioContext | null = null;
   private masterGain: GainNode | null = null;
@@ -188,6 +193,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void {
+    this.abortLiveControllers();
     this.clearPrefetchCache();
     this.currentUtterances = contents;
     this.currentUtteranceIndex = clampIndex(startIndex ?? 0, contents.length);
@@ -270,6 +276,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     } else {
       this.currentVoice = voice;
     }
+    this.abortLiveControllers();
     this.clearPrefetchCache();
   }
 
@@ -318,6 +325,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
 
   setSpeakInContentLanguage(enabled: boolean): void {
     this.speakInContentLanguage = enabled;
+    this.abortLiveControllers();
     this.clearPrefetchCache();
   }
 
@@ -326,6 +334,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   speak(utteranceIndex?: number): void {
+    this.restartPending = false; // any real speak() call supersedes a stale deferred restart
     if (utteranceIndex !== undefined) {
       if (utteranceIndex < 0 || utteranceIndex >= this.currentUtterances.length) {
         throw new Error("Invalid utterance index");
@@ -339,7 +348,11 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     }
 
     this.stopAudio();
+    this.abortLiveControllers();
     const generation = ++this.speakGeneration;
+    // Set synchronously (not deferred until the first chunk is actually scheduled) so a
+    // rate/pitch change landing during the network round-trip still sees "speaking" and restarts.
+    this.isSpeakingInternal = true;
     this.setState("loading"); // emits "loading" itself, via the state-change switch below
 
     void this.synthesizeAndPlay(generation);
@@ -361,6 +374,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       if (generation !== this.speakGeneration) {
         return;
       }
+      this.isSpeakingInternal = false;
       this.setState("idle");
       this.emitEvent({
         type: "error",
@@ -376,12 +390,19 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     if (cached) {
       this.prefetchCache.delete(index);
       try {
-        return await cached;
+        const stream = await cached;
+        // This stream is becoming the live utterance, not a background prefetch anymore —
+        // move its controllers so a later clearPrefetchCache() can't cancel it out from under us.
+        for (const { controller } of stream) {
+          this.activeControllers.delete(controller);
+          this.liveControllers.add(controller);
+        }
+        return stream;
       } catch {
         // fall through to a fresh attempt
       }
     }
-    return this.synthesizeStream(index);
+    return this.synthesizeStream(index, false);
   }
 
   // Chains up to `prefetchWindow` upcoming indices onto prefetchChainTail, one at a time.
@@ -396,7 +417,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     if (this.prefetchCache.has(index)) {
       return;
     }
-    const streamPromise = this.prefetchChainTail.then(() => this.synthesizeStream(index));
+    const streamPromise = this.prefetchChainTail.then(() => this.synthesizeStream(index, true));
     this.prefetchCache.set(index, streamPromise);
     // The next queued utterance's own first request shouldn't jump ahead of this one's last
     // chunk — so the chain only advances once every chunk of this stream has settled.
@@ -414,7 +435,12 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     this.activeControllers.clear();
   }
 
-  private async synthesizeStream(index: number): Promise<ChunkStream> {
+  private abortLiveControllers(): void {
+    this.liveControllers.forEach(controller => controller.abort());
+    this.liveControllers.clear();
+  }
+
+  private async synthesizeStream(index: number, isPrefetch: boolean): Promise<ChunkStream> {
     const content = this.currentUtterances[index];
     const useSSML = !content.plain && !!content.ssml;
     const language = this.speakInContentLanguage ? content.language : undefined;
@@ -431,7 +457,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
 
     if (text.length <= serviceInfo.limits.maxTextLength) {
       const controller = new AbortController();
-      this.activeControllers.add(controller);
+      (isPrefetch ? this.activeControllers : this.liveControllers).add(controller);
       return [{ promise: this.synthesizeChunk(content, text, 0, useSSML, language, prevUtterance, nextUtterance, format, bitrate, controller), controller }];
     }
 
@@ -458,7 +484,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       const nextText = i === textChunks.length - 1 ? nextUtterance : textChunks[i + 1].text;
       const textChunk = textChunks[i];
       const controller = new AbortController();
-      this.activeControllers.add(controller);
+      (isPrefetch ? this.activeControllers : this.liveControllers).add(controller);
       // A rejected chain skips later .then() bodies entirely, so one failed chunk stops the rest.
       const chunkPromise: Promise<SynthesizedChunk> = chain.then(() =>
         this.synthesizeChunk(content, textChunk.text, textChunk.offset, useSSML, language, prevText, nextText, format, bitrate, controller)
@@ -515,6 +541,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       return { audioBuffer, format: json.format, boundaries: json.boundaries, textOffset };
     } finally {
       this.activeControllers.delete(controller);
+      this.liveControllers.delete(controller);
     }
   }
 
@@ -629,6 +656,9 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     this.checkBoundaries();
     this.stopBoundaryPolling();
 
+    // Cleared here regardless of whether more utterances remain — the actual advance to the
+    // next one is a navigator-scheduled speak() call, not anything tracked by this engine.
+    this.isSpeakingInternal = false;
     if (this.currentUtteranceIndex >= this.currentUtterances.length - 1) {
       this.setState("idle");
     }
@@ -698,6 +728,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     if (this.playbackState === "playing" && this.audioContext) {
       this.audioContext.suspend().catch(() => {});
       this.stopBoundaryPolling();
+      this.isSpeakingInternal = false;
       this.setState("paused");
       this.emitEvent({ type: "pause" });
     }
@@ -707,6 +738,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     if (this.playbackState === "paused" && this.audioContext) {
       this.audioContext.resume().catch(() => {});
       this.startBoundaryPolling(this.speakGeneration);
+      this.isSpeakingInternal = true;
       this.setState("playing");
       this.emitEvent({ type: "resume" });
     }
@@ -716,15 +748,20 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     this.speakGeneration++;
     this.loadGeneration++;
     this.stopAudio();
+    this.abortLiveControllers();
     this.clearPrefetchCache();
+    this.isSpeakingInternal = false;
     this.currentUtteranceIndex = 0;
     this.setState("idle");
     this.emitEvent({ type: "stop" });
   }
 
   setRate(rate: number): void {
-    this.rate = Math.max(0.1, Math.min(10, rate));
+    const clamped = Math.max(0.1, Math.min(10, rate));
+    if (clamped === this.rate) return; // applyEngineParameters() calls all three setters on every preference change
+    this.rate = clamped;
     this.clearPrefetchCache();
+    this.scheduleRestartIfSpeaking();
   }
 
   getRate(): number {
@@ -732,8 +769,11 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   setPitch(pitch: number): void {
-    this.pitch = Math.max(0, Math.min(2, pitch));
+    const clamped = Math.max(0, Math.min(2, pitch));
+    if (clamped === this.pitch) return;
+    this.pitch = clamped;
     this.clearPrefetchCache();
+    this.scheduleRestartIfSpeaking();
   }
 
   getPitch(): number {
@@ -749,6 +789,18 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
 
   getVolume(): number {
     return this.volume;
+  }
+
+  // rate/pitch are baked into each chunk's synthesis request at fetch-time — restart the
+  // in-flight utterance so a change applies now. Coalesces same-tick changes into one restart.
+  private scheduleRestartIfSpeaking(): void {
+    if (!this.isSpeakingInternal || this.restartPending) return;
+    this.restartPending = true;
+    queueMicrotask(() => {
+      if (!this.restartPending) return; // a real speak() call already superseded this
+      this.restartPending = false;
+      if (this.isSpeakingInternal) this.speak(this.currentUtteranceIndex);
+    });
   }
 
   getState(): ReadiumSpeechPlaybackState {

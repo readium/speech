@@ -34,6 +34,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // Enhanced properties for cross-browser compatibility
   private resumeInfinityTimer?: number;
   private isSpeakingInternal: boolean = false;
+  private restartPending: boolean = false;
   private isPausedInternal: boolean = false;
   private isAndroidPaused: boolean = false; // Explicitly tracks Android's paused state
   private pausedAtUtteranceIndex: number | null = null; // Tracks which utterance was playing when paused
@@ -310,6 +311,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   // Playback Control
   speak(utteranceIndex?: number): void {
+    this.restartPending = false; // any real speak() call supersedes a stale deferred restart
     if (utteranceIndex !== undefined) {
       if (utteranceIndex < 0 || utteranceIndex >= this.currentUtterances.length) {
         throw new Error("Invalid utterance index");
@@ -612,7 +614,10 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   // Playback Parameters
   setRate(rate: number): void {
-    this.rate = Math.max(0.1, Math.min(10, rate));
+    const clamped = Math.max(0.1, Math.min(10, rate));
+    if (clamped === this.rate) return;
+    this.rate = clamped;
+    this.scheduleRestartIfSpeaking();
   }
 
   getRate(): number {
@@ -620,7 +625,10 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   setPitch(pitch: number): void {
-    this.pitch = Math.max(0, Math.min(2, pitch));
+    const clamped = Math.max(0, Math.min(2, pitch));
+    if (clamped === this.pitch) return;
+    this.pitch = clamped;
+    this.scheduleRestartIfSpeaking();
   }
 
   getPitch(): number {
@@ -628,11 +636,27 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   setVolume(volume: number): void {
-    this.volume = Math.max(0, Math.min(1, volume));
+    const clamped = Math.max(0, Math.min(1, volume));
+    if (clamped === this.volume) return;
+    this.volume = clamped;
+    this.scheduleRestartIfSpeaking();
   }
 
   getVolume(): number {
     return this.volume;
+  }
+
+  // rate/pitch/volume are baked into the SpeechSynthesisUtterance object once, at speak()-time —
+  // restart the in-flight one so a change applies now instead of waiting for the next utterance.
+  // Coalesces multiple same-tick changes (e.g. rate+pitch together) into a single restart.
+  private scheduleRestartIfSpeaking(): void {
+    if (!this.isSpeakingInternal || this.restartPending) return;
+    this.restartPending = true;
+    queueMicrotask(() => {
+      if (!this.restartPending) return; // a real speak() call already superseded this
+      this.restartPending = false;
+      if (this.isSpeakingInternal) this.speak(this.currentUtteranceIndex);
+    });
   }
 
   // State

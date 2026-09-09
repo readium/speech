@@ -21,6 +21,8 @@ const PAUSE_ICON = `<svg viewBox="0 0 24 24" width="20" height="20" fill="curren
 const content = document.getElementById("content");
 const voiceSelect = document.getElementById("voiceSelect");
 const verbositySelect = document.getElementById("verbositySelect");
+const speedInput = document.getElementById("speedInput");
+const speedValue = document.getElementById("speedValue");
 const utteranceStyleSelect = document.getElementById("utteranceStyleSelect");
 const utteranceColorInput = document.getElementById("utteranceColorInput");
 const wordStyleSelect = document.getElementById("wordStyleSelect");
@@ -197,6 +199,7 @@ function setupEventListeners() {
 
   if (voiceSelect) voiceSelect.addEventListener("change", handleVoiceChange);
   if (verbositySelect) verbositySelect.addEventListener("change", handleVerbosityChange);
+  if (speedInput) speedInput.addEventListener("input", handleSpeedChange);
   if (showTextrefsCheckbox) showTextrefsCheckbox.addEventListener("change", handleShowTextrefsChange);
 
   if (utteranceStyleSelect) utteranceStyleSelect.addEventListener("change", (e) => { utteranceStyle = e.target.value; applyUtteranceDecoration(); });
@@ -361,6 +364,15 @@ function handleVerbosityChange(e) {
   const editor = navigator.preferencesEditor;
   editor.verbosity.value = e.target.value;
   navigator.submitPreferences(editor.preferences);
+}
+
+function handleSpeedChange(e) {
+  if (!navigator) return;
+  const rate = parseFloat(e.target.value);
+  const editor = navigator.preferencesEditor;
+  editor.rate.value = rate;
+  navigator.submitPreferences(editor.preferences);
+  if (speedValue) speedValue.textContent = `${rate.toFixed(1)}x`;
 }
 
 function handleShowTextrefsChange(e) {
