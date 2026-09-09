@@ -51,7 +51,11 @@ We are now on the sixth phase: verbosity and prosody, in particular contextualiz
 
 ### [In-context demo](https://readium.org/speech/demo/article)
 
-In-context reading with seamless voice selection (grouped by region and sorted based on quality), and playback control, providing an optional read-along experience that integrates naturally with the content. Also showcases highlighting, as above.
+In-context reading with seamless voice selection (grouped by region and sorted based on quality), and playback control, providing an optional read-along experience that integrates naturally with the content.
+
+Settings include a verbosity selector (none/few/some/most) demonstrating [contextualization](docs/Preferences.md) — synthesized announcements spoken around content based on its role (entering/leaving a section, a footnote, a pullquote…) — and, for the read-along experience, independent highlight styles (highlight, underline, strikethrough, outline, text color, mask) and colors for the current utterance and the current word.
+
+The panel alongside the article shows the [Guided Navigation](docs/GuidedNavigation.md) object and the [utterances](docs/UtteranceExtraction.md) extracted from it, live.
 
 ### [Extraction playground](https://readium.org/speech/demo/playground)
 
