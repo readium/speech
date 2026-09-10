@@ -148,6 +148,11 @@ Documentation provides guides for:
 - [Guided Navigation](docs/GuidedNavigation.md) — extracting [Guided Navigation objects](https://readium.org/guided-navigation) from HTML/XHTML content
 - [Utterance Extraction](docs/UtteranceExtraction.md) — extracting utterances from Guided Navigation objects
 - [Provider Registry](docs/ProviderRegistry.md) — using more than one `ReadiumSpeechEngineProvider` (e.g. WebSpeech and speech-server) side by side
+- [WebSpeechEngine](docs/WebSpeechEngine.md) — the `ReadiumSpeechPlaybackEngine` backed by the browser's Web Speech API
+- [SpeechServerEngine](docs/SpeechServerEngine.md) — the `ReadiumSpeechPlaybackEngine` backed by a remote [Readium Speech Server](https://github.com/readium/speech-server) instance
+- [FallbackEngine](docs/FallbackEngine.md) — pairing a primary and fallback engine so playback swaps transparently when one is unreachable or stalls
+
+See [CHANGELOG.md](CHANGELOG.md) for what's new in each release.
 
 ## Development
 

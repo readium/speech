@@ -45,6 +45,7 @@ jobs:
           ls -laR ./fixtures
           mkdir build-demo
           cp README.md ./build-demo/
+          cp CHANGELOG.md ./build-demo/
           cp -r ./build ./build-demo/
           cp -r ./demo ./build-demo/
           cp -r ./json ./build-demo/
