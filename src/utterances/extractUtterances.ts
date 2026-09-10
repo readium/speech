@@ -14,7 +14,7 @@ import {
   stripSsmlTags,
   type ResolvedNodeText,
 } from "./text.js";
-import type { Contextualizations, ExtractUtterancesOptions } from "./types.js";
+import type { ContextualizationEntry, Contextualizations, ExtractUtterancesOptions } from "./types.js";
 import { blockLevelRoles } from "./roles.js";
 import { startsWithBindingPunct } from "../utils/text.js";
 import { computeTableStructure, plainTextOf } from "./tableStructure.js";
@@ -525,9 +525,30 @@ function makeContextualizer(locale: string, contextualizations: Contextualizatio
   return instance;
 }
 
+// A caller's override can target any depth (e.g. just `table.block.start`),
+// so entries merge key-by-key rather than replacing a role's whole catalog
+// entry wholesale.
+function mergeContextualizationEntry(base: ContextualizationEntry | undefined, override: ContextualizationEntry): ContextualizationEntry {
+  if (typeof override === "string" || typeof base !== "object") return override;
+  const merged: { [key: string]: ContextualizationEntry } = { ...base };
+  for (const key of Object.keys(override)) {
+    merged[key] = mergeContextualizationEntry(base[key], override[key]);
+  }
+  return merged;
+}
+
+function mergeContextualizations(base: Contextualizations, override: Contextualizations | undefined): Contextualizations {
+  if (!override) return base;
+  const merged = { ...base };
+  for (const role of Object.keys(override) as GndRole[]) {
+    merged[role] = mergeContextualizationEntry(base[role], override[role]);
+  }
+  return merged;
+}
+
 function makeWalkContext(options: ExtractUtterancesOptions): WalkContext {
   const locale = options.contextualizationLocale ?? "en";
-  const contextualizations = { ...contextualizationsForLocale(locale), ...options.contextualizations };
+  const contextualizations = mergeContextualizations(contextualizationsForLocale(locale), options.contextualizations);
   return {
     contextualizations,
     i18n: makeContextualizer(locale, contextualizations),
