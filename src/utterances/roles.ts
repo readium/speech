@@ -7,22 +7,29 @@ import type { GndRole } from "../gnd/types.js";
 // Nothing is skipped by default: pass a subset of this list (or all of
 // it) via `ExtractUtterancesOptions.skip` to opt in.
 export const skippableRoles: GndRole[] = [
-  // Ancillary content
   "aside",
+  "audio",
   "bibliography",
+  "cell",
+  "columnheader",
   "details",
   "endnotes",
+  "figure",
   "footnote",
-  "noteref",
-  "pullquote",
-  // Navigation
+  "image",
   "landmarks",
   "loa",
   "loi",
   "lot",
   "lov",
+  "noteref",
   "pagebreak",
+  "pullquote",
+  "row",
+  "rowheader",
+  "table",
   "toc",
+  "video"
 ];
 
 // Roles that constitute their own block for pause purposes — a node

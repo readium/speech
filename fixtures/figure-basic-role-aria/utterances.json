@@ -152,318 +152,6 @@
         {
           "format": "plain",
           "skip": [
-            "image"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
             "figure"
           ]
         },
@@ -776,31 +464,27 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ]
         },
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "inlineContextualization": true
         },
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "language": "always"
         },
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "language": "always",
           "inlineContextualization": true
@@ -808,16 +492,14 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "language": "block-level"
         },
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "language": "block-level",
           "inlineContextualization": true
@@ -825,16 +507,14 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "language": "none"
         },
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "language": "none",
           "inlineContextualization": true
@@ -842,8 +522,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure"
@@ -852,8 +531,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure"
@@ -863,8 +541,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure"
@@ -874,8 +551,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure"
@@ -886,8 +562,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure"
@@ -897,8 +572,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure"
@@ -909,8 +583,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure"
@@ -920,8 +593,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure"
@@ -932,8 +604,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "image"
@@ -942,8 +613,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "image"
@@ -953,8 +623,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "image"
@@ -964,8 +633,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "image"
@@ -976,8 +644,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "image"
@@ -987,8 +654,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "image"
@@ -999,8 +665,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "image"
@@ -1010,8 +675,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "image"
@@ -1022,8 +686,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure",
@@ -1033,8 +696,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure",
@@ -1045,8 +707,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure",
@@ -1057,8 +718,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure",
@@ -1070,8 +730,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure",
@@ -1082,8 +741,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure",
@@ -1095,8 +753,7 @@
         {
           "format": "plain",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure",
@@ -1107,8 +764,351 @@
         {
           "format": "plain",
           "skip": [
-            "image",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
             "figure"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
           ],
           "contextualize": [
             "figure",
@@ -1272,318 +1272,6 @@
         {
           "format": "ssml",
           "skip": [
-            "image"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
             "figure"
           ]
         },
@@ -1896,31 +1584,27 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ]
         },
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "inlineContextualization": true
         },
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "language": "always"
         },
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "language": "always",
           "inlineContextualization": true
@@ -1928,16 +1612,14 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "language": "block-level"
         },
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "language": "block-level",
           "inlineContextualization": true
@@ -1945,16 +1627,14 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "language": "none"
         },
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "language": "none",
           "inlineContextualization": true
@@ -1962,8 +1642,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure"
@@ -1972,8 +1651,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure"
@@ -1983,8 +1661,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure"
@@ -1994,8 +1671,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure"
@@ -2006,8 +1682,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure"
@@ -2017,8 +1692,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure"
@@ -2029,8 +1703,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure"
@@ -2040,8 +1713,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure"
@@ -2052,8 +1724,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "image"
@@ -2062,8 +1733,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "image"
@@ -2073,8 +1743,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "image"
@@ -2084,8 +1753,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "image"
@@ -2096,8 +1764,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "image"
@@ -2107,8 +1774,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "image"
@@ -2119,8 +1785,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "image"
@@ -2130,8 +1795,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "image"
@@ -2142,8 +1806,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure",
@@ -2153,8 +1816,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure",
@@ -2165,8 +1827,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure",
@@ -2177,8 +1838,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure",
@@ -2190,8 +1850,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure",
@@ -2202,8 +1861,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure",
@@ -2215,8 +1873,7 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
-            "figure"
+            "image"
           ],
           "contextualize": [
             "figure",
@@ -2227,8 +1884,351 @@
         {
           "format": "ssml",
           "skip": [
-            "image",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
             "figure"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
           ],
           "contextualize": [
             "figure",

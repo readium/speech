@@ -246,6 +246,667 @@
         {
           "format": "plain",
           "skip": [
+            "figure"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": []
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
             "image"
           ]
         },
@@ -576,667 +1237,6 @@
     {
       "options": [
         {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        }
-      ],
-      "utterances": []
-    },
-    {
-      "options": [
-        {
           "format": "ssml"
         }
       ],
@@ -1480,6 +1480,667 @@
         {
           "format": "ssml",
           "skip": [
+            "figure"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "figure",
+            "image"
+          ],
+          "contextualize": [
+            "figure",
+            "image"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": []
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
             "image"
           ]
         },
@@ -1806,667 +2467,6 @@
           "synthetic": true
         }
       ]
-    },
-    {
-      "options": [
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "image"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image",
-            "figure"
-          ],
-          "contextualize": [
-            "figure",
-            "image"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        }
-      ],
-      "utterances": []
     }
   ]
 }
