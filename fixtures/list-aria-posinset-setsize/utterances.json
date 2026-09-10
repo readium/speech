@@ -75,11 +75,15 @@
       ],
       "utterances": [
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
           "plain": "Fifth of seven"
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -225,7 +229,7 @@
       ],
       "utterances": [
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -234,6 +238,10 @@
         },
         {
           "plain": "Fifth of seven"
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -312,11 +320,15 @@
       ],
       "utterances": [
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
           "ssml": "Fifth of seven"
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -462,7 +474,7 @@
       ],
       "utterances": [
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -471,6 +483,10 @@
         },
         {
           "ssml": "Fifth of seven"
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     }

@@ -288,7 +288,7 @@
       ],
       "utterances": [
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -296,6 +296,10 @@
         },
         {
           "plain": "See chapter three for details."
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -448,7 +452,7 @@
           "synthetic": true
         },
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -456,6 +460,10 @@
         },
         {
           "plain": "See chapter three for details."
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         },
         {
           "plain": "End of the endnotes.",
@@ -920,7 +928,7 @@
       ],
       "utterances": [
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -936,6 +944,10 @@
         },
         {
           "plain": "See chapter three for details."
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -1104,7 +1116,7 @@
           "synthetic": true
         },
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -1120,6 +1132,10 @@
         },
         {
           "plain": "See chapter three for details."
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         },
         {
           "plain": "End of the endnotes.",
@@ -5159,7 +5175,11 @@
       ],
       "utterances": [
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
+          "synthetic": true
+        },
+        {
+          "plain": "End of the list.",
           "synthetic": true
         }
       ]
@@ -5565,7 +5585,11 @@
           "synthetic": true
         },
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
+          "synthetic": true
+        },
+        {
+          "plain": "End of the list.",
           "synthetic": true
         },
         {
@@ -5862,7 +5886,7 @@
       ],
       "utterances": [
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -5870,6 +5894,10 @@
         },
         {
           "ssml": "See chapter three for details."
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -6022,7 +6050,7 @@
           "synthetic": true
         },
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -6030,6 +6058,10 @@
         },
         {
           "ssml": "See chapter three for details."
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         },
         {
           "ssml": "End of the endnotes.",
@@ -6494,7 +6526,7 @@
       ],
       "utterances": [
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -6510,6 +6542,10 @@
         },
         {
           "ssml": "See chapter three for details."
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -6678,7 +6714,7 @@
           "synthetic": true
         },
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -6694,6 +6730,10 @@
         },
         {
           "ssml": "See chapter three for details."
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         },
         {
           "ssml": "End of the endnotes.",
@@ -10733,7 +10773,11 @@
       ],
       "utterances": [
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
+          "synthetic": true
+        },
+        {
+          "ssml": "End of the list.",
           "synthetic": true
         }
       ]
@@ -11139,7 +11183,11 @@
           "synthetic": true
         },
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
+          "synthetic": true
+        },
+        {
+          "ssml": "End of the list.",
           "synthetic": true
         },
         {

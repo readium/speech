@@ -162,7 +162,7 @@
       ],
       "utterances": [
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -173,6 +173,10 @@
         },
         {
           "plain": "Page 3"
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -251,7 +255,7 @@
           "synthetic": true
         },
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -262,6 +266,10 @@
         },
         {
           "plain": "Page 3"
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         },
         {
           "plain": "End of the page list.",
@@ -526,7 +534,7 @@
       ],
       "utterances": [
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -549,6 +557,10 @@
         },
         {
           "plain": "Page 3"
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -635,7 +647,7 @@
           "synthetic": true
         },
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -658,6 +670,10 @@
         },
         {
           "plain": "Page 3"
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         },
         {
           "plain": "End of the page list.",
@@ -827,7 +843,7 @@
       ],
       "utterances": [
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -838,6 +854,10 @@
         },
         {
           "ssml": "Page 3"
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -916,7 +936,7 @@
           "synthetic": true
         },
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -927,6 +947,10 @@
         },
         {
           "ssml": "Page 3"
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         },
         {
           "ssml": "End of the page list.",
@@ -1191,7 +1215,7 @@
       ],
       "utterances": [
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -1214,6 +1238,10 @@
         },
         {
           "ssml": "Page 3"
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -1300,7 +1328,7 @@
           "synthetic": true
         },
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -1323,6 +1351,10 @@
         },
         {
           "ssml": "Page 3"
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         },
         {
           "ssml": "End of the page list.",

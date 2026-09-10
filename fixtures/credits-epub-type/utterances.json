@@ -156,7 +156,7 @@
       ],
       "utterances": [
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -164,6 +164,10 @@
         },
         {
           "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -242,7 +246,7 @@
           "synthetic": true
         },
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -250,6 +254,10 @@
         },
         {
           "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         },
         {
           "plain": "End of the credits.",
@@ -500,7 +508,7 @@
       ],
       "utterances": [
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -516,6 +524,10 @@
         },
         {
           "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -602,7 +614,7 @@
           "synthetic": true
         },
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -618,6 +630,10 @@
         },
         {
           "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         },
         {
           "plain": "End of the credits.",
@@ -868,7 +884,7 @@
       ],
       "utterances": [
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -884,6 +900,10 @@
         },
         {
           "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -970,7 +990,7 @@
           "synthetic": true
         },
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -986,6 +1006,10 @@
         },
         {
           "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         },
         {
           "plain": "End of the credits.",
@@ -1276,7 +1300,7 @@
       ],
       "utterances": [
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -1300,6 +1324,10 @@
         },
         {
           "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -1394,7 +1422,7 @@
           "synthetic": true
         },
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -1418,6 +1446,10 @@
         },
         {
           "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         },
         {
           "plain": "End of the credits.",
@@ -1581,7 +1613,7 @@
       ],
       "utterances": [
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -1589,6 +1621,10 @@
         },
         {
           "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -1667,7 +1703,7 @@
           "synthetic": true
         },
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -1675,6 +1711,10 @@
         },
         {
           "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         },
         {
           "ssml": "End of the credits.",
@@ -1925,7 +1965,7 @@
       ],
       "utterances": [
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -1941,6 +1981,10 @@
         },
         {
           "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -2027,7 +2071,7 @@
           "synthetic": true
         },
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -2043,6 +2087,10 @@
         },
         {
           "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         },
         {
           "ssml": "End of the credits.",
@@ -2293,7 +2341,7 @@
       ],
       "utterances": [
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -2309,6 +2357,10 @@
         },
         {
           "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -2395,7 +2447,7 @@
           "synthetic": true
         },
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -2411,6 +2463,10 @@
         },
         {
           "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         },
         {
           "ssml": "End of the credits.",
@@ -2701,7 +2757,7 @@
       ],
       "utterances": [
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -2725,6 +2781,10 @@
         },
         {
           "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -2819,7 +2879,7 @@
           "synthetic": true
         },
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -2843,6 +2903,10 @@
         },
         {
           "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         },
         {
           "ssml": "End of the credits.",

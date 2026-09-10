@@ -156,7 +156,7 @@
       ],
       "utterances": [
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -164,6 +164,10 @@
         },
         {
           "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -242,7 +246,7 @@
           "synthetic": true
         },
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -250,6 +254,10 @@
         },
         {
           "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         },
         {
           "plain": "End of the bibliography.",
@@ -500,7 +508,7 @@
       ],
       "utterances": [
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -516,6 +524,10 @@
         },
         {
           "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -602,7 +614,7 @@
           "synthetic": true
         },
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -618,6 +630,10 @@
         },
         {
           "plain": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         },
         {
           "plain": "End of the bibliography.",
@@ -1458,7 +1474,7 @@
       ],
       "utterances": [
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -1466,6 +1482,10 @@
         },
         {
           "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -1544,7 +1564,7 @@
           "synthetic": true
         },
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -1552,6 +1572,10 @@
         },
         {
           "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         },
         {
           "ssml": "End of the bibliography.",
@@ -1802,7 +1826,7 @@
       ],
       "utterances": [
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -1818,6 +1842,10 @@
         },
         {
           "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -1904,7 +1932,7 @@
           "synthetic": true
         },
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -1920,6 +1948,10 @@
         },
         {
           "ssml": "Doe, A. Coastal Illumination. 1975."
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         },
         {
           "ssml": "End of the bibliography.",

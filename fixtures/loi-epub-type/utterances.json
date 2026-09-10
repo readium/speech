@@ -78,7 +78,7 @@
       ],
       "utterances": [
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -86,6 +86,10 @@
         },
         {
           "plain": "Figure 2. Fresnel lens diagram"
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -238,7 +242,7 @@
       ],
       "utterances": [
         {
-          "plain": "List.",
+          "plain": "Start of the list.",
           "synthetic": true
         },
         {
@@ -254,6 +258,10 @@
         },
         {
           "plain": "Figure 2. Fresnel lens diagram"
+        },
+        {
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -652,7 +660,7 @@
       ],
       "utterances": [
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -660,6 +668,10 @@
         },
         {
           "ssml": "Figure 2. Fresnel lens diagram"
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -812,7 +824,7 @@
       ],
       "utterances": [
         {
-          "ssml": "List.",
+          "ssml": "Start of the list.",
           "synthetic": true
         },
         {
@@ -828,6 +840,10 @@
         },
         {
           "ssml": "Figure 2. Fresnel lens diagram"
+        },
+        {
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
