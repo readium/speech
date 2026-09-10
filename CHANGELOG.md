@@ -2,6 +2,32 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.9.0] - 2026-09-10
+
+### Added
+
+- Contextualization catalog (`locales/en.json`, `defaultContextualizations`) resolved via [i18next](https://www.i18next.com/) — a translatable JSON resource replacing the code-defined announcement catalog, with plural forms (`*_one`/`*_other`), named variants (`labelled`/`unlabelled`, `withHeader`/`withoutHeader`), and both `inline` and `block: { start, end }` shapes per role. See [UtteranceExtraction.md](docs/UtteranceExtraction.md#contextualization-catalog).
+- `ExtractUtterancesOptions.contextualizations` — override or extend the catalog for any subset of roles, at any depth, merged over the locale's default.
+- `ExtractUtterancesOptions.contextualizationLocale` — which shipped catalog (wording + plural rules) to use. Default `"en"`.
+- `ExtractUtterancesOptions.contextualizationShapes` and `contextualizationShapesAtVerbosity` (from `preferences`) — per-role/per-verbosity override of whether a role's contextualization reads as `"inline"` (once, before content) or `"block"` (`start`/`end`, around content). `table` is `"inline"` at verbosity `"few"`, `"block"` at `"some"`/`"most"`.
+- `ReadiumSpeechUtterance.locate?: LocatorOptions`, decoded from the source node's `textref`, ready to spread into `createLocator()`/`decorate()`.
+- `ReadiumSpeechUtterance.synthetic?: boolean`, true when `plain`/`ssml` is a synthesized label/announcement (a contextualization catalog entry, an alt/caption-derived description) rather than text copied from the source — `locate` stays safe for element-scoped highlighting, but a word-level text-quote search against the DOM should be skipped for these.
+- `makeGnd()`/`parseMarkup()` accept a live, already-rendered `Element` as `input` (in addition to a markup string), plus a `GndGenerationOptions` argument enabling `textref` generation (`textrefs`): every role-bearing node can get a `textref` back to its source element (`#id` or `#css(<selector>)`), optionally upgraded to a `#domrange(...)` reference (exact text node + character offset — only when `input` is a live element) and/or a [WICG Text Fragment](https://wicg.github.io/scroll-to-text-fragment/) directive (`textFragment`, via `@readium/helpers`'s text-fragments-polyfill). `decodeTextref()` reads a `textref` back into `{ cssSelector?, domRange?, text?, fragment? }`. See [GuidedNavigation.md](docs/GuidedNavigation.md#text-references-textrefs).
+- `setRate()`/`setPitch()` (`WebSpeechEngine`, `SpeechServerEngine`) and `setVolume()` (`WebSpeechEngine`) now restart the currently-speaking utterance so a mid-playback change takes effect immediately, instead of waiting for the next utterance.
+- `cell`/`rowheader` contextualizations carry the column-header text at that position (positional association — GND carries no colspan/rowspan); `row`'s contextualization carries its 1-based position in the table.
+- A `<table>`/`<figure>` with no explicit ARIA name folds its `<caption>`/`<figcaption>`/`role="caption"` child's text into its own `description` (implicit accessible name, matching HTML-AAM) instead of speaking it as a separate node.
+
+### Changed
+
+- `LocatorOptions` (`createLocator()`) restructured: flat `highlight`/`before`/`after`/`selector` become `text: { highlight, before, after }`/`cssSelector`, plus a new `domRange` option anchoring an exact DOM range. `fragment` is unchanged.
+- `skippableAtVerbosity` renamed to `skippedAtVerbosity`.
+- An unscoped `<th>` now resolves to `columnheader` (first row) or `rowheader` (first cell of a later row) instead of always `cell`.
+
+### Removed
+
+- `defaultAnnouncements`, `Announcement`, `AnnouncementKey`, `AnnouncementPair`, `Announcements`, `RoleAnnouncement`, `isAnnouncementPair` — superseded by the JSON contextualization catalog (`defaultContextualizations`, `Contextualizations`, `ContextualizationEntry`).
+- `ExtractUtterancesOptions.announcements` — superseded by `contextualizations`.
+
 ## [0.8.1] - 2026-09-01
 
 ### Fixed

@@ -119,7 +119,10 @@ interface ReadiumSpeechUtterance {
   ssml?: string;        // SSML rendering, when available
   language?: string;    // Language of this content (BCP 47)
   locate?: LocatorOptions; // Decoded from the source node's textref — spread into createLocator()/decorate()
+  synthetic?: boolean;  // True when plain/ssml is a synthesized label/announcement, not text copied from the source
 }
 ```
 
 Represents a single piece of content to be spoken, as plain text and/or SSML.
+
+`synthetic` is set on a contextualization catalog entry, or an alt/caption-derived description, rather than text found verbatim in the document (e.g. a table's "Table. 3 lines. 2 columns." or a pagebreak's label) — `locate` is still safe to use for element-scoped highlighting, but a word-level substring/text-quote search against the DOM should be skipped, since the text isn't actually there.

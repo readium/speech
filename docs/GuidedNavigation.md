@@ -81,6 +81,8 @@ Use `decodeTextref({ id, textref })` to read a `textref` back. It returns:
 
 It returns `undefined` if the `textref` isn't one of ours (e.g. it's a plain link's `href`). The object it returns can be passed straight to `createLocator()`/`decorate()` — see [Highlighting](Highlighting.md).
 
+`decodeTextref` covers the whole `textref` (`#css(...)`/`#domrange(...)` plus an optional `:~:text=...` suffix) in one call. The lower-level pieces it's built from are exported too, for a caller building/reading just one part directly: `encodeCssSelectorFragment(selector)`/`decodeCssSelectorFragment(textref)` for the plain `#css(...)` form, and `encodeDomRangeFragment(domRange)`/`decodeDomRangeFragment(textref)` for `#domrange(...)` (a `DomRangeJSON`: `{ start: { cssSelector, textNodeIndex, charOffset? }, end?: {...} }`, the RWPM shape behind `@readium/shared`'s `DomRange`).
+
 ## `GndObject`
 
 ```typescript
