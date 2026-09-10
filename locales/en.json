@@ -98,7 +98,9 @@
             "introduction": {
                 "block": { "start": "Start of the introduction.", "end": "End of the introduction." }
             },
-            "list": { "inline": "List." },
+            "list": {
+                "block": { "start": "Start of the list.", "end": "End of the list." }
+            },
             "listItem": { "inline": "List item." },
             "math": {
                 "inline": {
