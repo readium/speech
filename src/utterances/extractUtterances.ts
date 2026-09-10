@@ -104,6 +104,7 @@ const roleOverrides: Partial<Record<GndRole, { drops: GndRole[]; unconditional?:
   footnote: { drops: ["aside"], unconditional: true },
   cover: { drops: ["image"] },
   pullquote: { drops: ["blockquote", "aside"] },
+  epigraph: { drops: ["blockquote"] },
 };
 
 function isDroppedByAnotherRole(role: GndRole, roles: GndRole[], ctx: WalkContext): boolean {
