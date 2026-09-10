@@ -118,7 +118,7 @@ async function initialize() {
     }
     updateReadAlongAvailability();
 
-    initializeContent();
+    await initializeContent();
 
     // "block-level" (the default) ignores inline lang spans — only "always"
     // splits an utterance on them, which the French <span lang="fr"> relies on.
@@ -126,7 +126,7 @@ async function initialize() {
     // source to re-extract from.
     const languageEditor = navigator.preferencesEditor;
     languageEditor.language.value = "always";
-    navigator.submitPreferences(languageEditor.preferences);
+    await navigator.submitPreferences(languageEditor.preferences);
   } catch (error) {
     console.error("Initialization error:", error);
   }
@@ -359,19 +359,19 @@ function handleTabKeydown(e) {
   nextTab.focus();
 }
 
-function handleVerbosityChange(e) {
+async function handleVerbosityChange(e) {
   if (!navigator) return;
   const editor = navigator.preferencesEditor;
   editor.verbosity.value = e.target.value;
-  navigator.submitPreferences(editor.preferences);
+  await navigator.submitPreferences(editor.preferences);
 }
 
-function handleSpeedChange(e) {
+async function handleSpeedChange(e) {
   if (!navigator) return;
   const rate = parseFloat(e.target.value);
   const editor = navigator.preferencesEditor;
   editor.rate.value = rate;
-  navigator.submitPreferences(editor.preferences);
+  await navigator.submitPreferences(editor.preferences);
   if (speedValue) speedValue.textContent = `${rate.toFixed(1)}x`;
 }
 
@@ -410,10 +410,10 @@ function updateReadAlongAvailability() {
 // (with domRange textrefs — only possible against a rendered element, not a
 // detached HTML string) and loads it into the navigator, which re-extracts
 // utterances internally whenever verbosity/preferences change.
-function initializeContent() {
+async function initializeContent() {
   gnd = parseMarkup(content, undefined, { textrefs: { roles: true, domRange: true } });
   renderGndOutput();
-  navigator.loadGndContent(gnd);
+  await navigator.loadGndContent(gnd);
 }
 
 function renderGndOutput() {

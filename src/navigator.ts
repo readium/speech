@@ -42,7 +42,7 @@ export interface ReadiumSpeechNavigatorContract extends Configurable<SpeechSetti
   // preferences change via `submitPreferences()`. `loadContent()` above
   // keeps no source, so preference changes are no-ops on content loaded
   // that way.
-  loadGndContent(nodes: GndObject[]): void;
+  loadGndContent(nodes: GndObject[]): Promise<void>;
   getCurrentContent(): ReadiumSpeechUtterance | null;
   getContentQueue(): ReadiumSpeechUtterance[];
   

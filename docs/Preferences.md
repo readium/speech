@@ -3,13 +3,13 @@
 `ReadiumSpeechNavigator` implements Readium's [Preferences API](https://readium.org/architecture/proposals/009-preferences-api.html) pattern: submit a `SpeechPreferences` object, read back the resolved `SpeechSettings`, or use a `SpeechPreferencesEditor` for per-field `value`/`effectiveValue`/`isEffective` handles.
 
 ```typescript
-navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
 navigator.settings.verbosity; // "most"
 
 const editor = navigator.preferencesEditor;
 editor.verbosity.effectiveValue; // "most"
 editor.pauseDuration.value = 500;
-navigator.submitPreferences(editor.preferences);
+await navigator.submitPreferences(editor.preferences);
 ```
 
 `submitPreferences()` always resolves `navigator.settings`. Prosody (`pauseDuration`, `autoPause`, `rate`, `pitch`, `volume`) applies regardless of how content was loaded, except that `autoPause: "block"` only has block boundaries to work with on content loaded via `loadGndContent()` — content loaded via `loadContent()` has none, so it never triggers there. The extraction group (`format`, `inlineContextualization`, `verbosity`, `skip`, `contextualize`, `language`) only takes effect on content loaded via `loadGndContent()` — see [Playback](Playback.md) — and only reloads the queue when one of those fields actually changes value. A reload during playback resumes at the same content rather than restarting, falling back to the nearest earlier point still present if that exact content got skipped by the new settings.

@@ -89,7 +89,7 @@ for (const id of ids) {
   );
   const cases = [];
   for (const format of ["plain", "ssml"]) {
-    const defaultUtterances = extractUtterances(nodes, { format });
+    const defaultUtterances = await extractUtterances(nodes, { format });
     cases.push({ options: [{ format }], utterances: defaultUtterances });
 
     // Groups diverging combinations by their resulting utterances, so option-sets that
@@ -123,7 +123,7 @@ for (const id of ids) {
               if (language !== undefined) options.language = language;
               if (inlineContextualization) options.inlineContextualization = true;
 
-              const utterances = extractUtterances(nodes, options);
+              const utterances = await extractUtterances(nodes, options);
               if (!sameUtterances(utterances, defaultUtterances)) {
                 const key = JSON.stringify(sortKeysDeep(utterances));
                 const group = groups.get(key);

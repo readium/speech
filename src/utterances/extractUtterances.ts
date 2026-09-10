@@ -547,9 +547,9 @@ function mergeContextualizations(base: Contextualizations, override: Contextuali
   return merged;
 }
 
-function makeWalkContext(options: ExtractUtterancesOptions): WalkContext {
+async function makeWalkContext(options: ExtractUtterancesOptions): Promise<WalkContext> {
   const locale = options.contextualizationLocale ?? "en";
-  const contextualizations = mergeContextualizations(contextualizationsForLocale(locale), options.contextualizations);
+  const contextualizations = mergeContextualizations(await contextualizationsForLocale(locale), options.contextualizations);
   return {
     contextualizations,
     i18n: makeContextualizer(locale, contextualizations),
@@ -573,13 +573,13 @@ function makeWalkContext(options: ExtractUtterancesOptions): WalkContext {
  * Accepts `GndObject[]` (as returned by `parseMarkup()`, or `GndDocument.guided`)
  * rather than a wrapped document.
  */
-export function extractUtterances(
+export async function extractUtterances(
   nodes: GndObject[],
   options: ExtractUtterancesOptions,
-): ReadiumSpeechUtterance[] {
+): Promise<ReadiumSpeechUtterance[]> {
   const out: ReadiumSpeechUtterance[] = [];
   const sources: SourceTrace = [];
-  walk(nodes, out, sources, makeWalkContext(options), false);
+  walk(nodes, out, sources, await makeWalkContext(options), false);
   return attachLocate(out, sources, buildAncestorChains(nodes));
 }
 
@@ -587,13 +587,13 @@ export function extractUtterances(
  * Same as `extractUtterances()`, plus `sources[i]`: the node that produced `utterances[i]`,
  * and `blockStarts[i]`: whether `utterances[i]` begins a new block-level element.
  */
-export function extractUtterancesWithSources(
+export async function extractUtterancesWithSources(
   nodes: GndObject[],
   options: ExtractUtterancesOptions,
-): { utterances: ReadiumSpeechUtterance[]; sources: (GndObject | undefined)[]; blockStarts: boolean[] } {
+): Promise<{ utterances: ReadiumSpeechUtterance[]; sources: (GndObject | undefined)[]; blockStarts: boolean[] }> {
   const utterances: ReadiumSpeechUtterance[] = [];
   const sources: SourceTrace = [];
-  const ctx = makeWalkContext(options);
+  const ctx = await makeWalkContext(options);
   walk(nodes, utterances, sources, ctx, false);
   const blockStarts = utterances.map((utterance) => ctx.blockStarts.has(utterance));
   return { utterances: attachLocate(utterances, sources, buildAncestorChains(nodes)), sources, blockStarts };

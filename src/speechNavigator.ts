@@ -222,9 +222,9 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.setContentQueue(content);
   }
 
-  loadGndContent(nodes: GndObject[]): void {
+  async loadGndContent(nodes: GndObject[]): Promise<void> {
     this.source = nodes;
-    this.reextract();
+    await this.reextract();
   }
 
   private setContentQueue(
@@ -254,13 +254,13 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   // Re-runs extraction from `this.source`, resuming near the old position if playback was underway.
-  private reextract(): void {
+  private async reextract(): Promise<void> {
     if (!this.source) return;
     const resumeState = this.navigatorState === "playing" || this.navigatorState === "paused" ? this.navigatorState : null;
     const oldSources = this.contentSources;
     const oldIndex = this.getCurrentUtteranceIndex();
 
-    const { utterances, sources, blockStarts } = extractUtterancesWithSources(this.source, {
+    const { utterances, sources, blockStarts } = await extractUtterancesWithSources(this.source, {
       format: this._settings.format,
       inlineContextualization: this._settings.inlineContextualization,
       skip: this._settings.skip,
@@ -427,7 +427,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     return this._preferencesEditor;
   }
 
-  submitPreferences(preferences: SpeechPreferences): void {
+  async submitPreferences(preferences: SpeechPreferences): Promise<void> {
     if (!this.source && extractionPreferenceKeys.some((key) => preferences[key] !== undefined)) {
       console.warn(
         "submitPreferences(): extraction-affecting preferences (format, inlineContextualization, verbosity, skip, contextualize, language) have no effect on content loaded via loadContent() — use loadGndContent() to re-extract on submission.",
@@ -435,10 +435,10 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     }
 
     this._preferences = this._preferences.merging(preferences);
-    this.applyPreferences();
+    await this.applyPreferences();
   }
 
-  private applyPreferences(): void {
+  private async applyPreferences(): Promise<void> {
     const previousSettings = this._settings;
     this._settings = new SpeechSettings(this._preferences, this._defaults);
     this.applyEngineParameters();
@@ -449,7 +449,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
     // Skip reextract() unless it would actually produce a different queue.
     if (extractionPreferenceKeys.some((key) => !this.sameSettingValue(previousSettings[key], this._settings[key]))) {
-      this.reextract();
+      await this.reextract();
     }
   }
 

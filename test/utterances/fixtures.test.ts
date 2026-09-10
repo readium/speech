@@ -28,8 +28,8 @@ for (const entry of manifest) {
 
   for (const { options: optionSets, utterances } of fixture.utterances.cases) {
     for (const options of optionSets) {
-      test(`fixture "${entry.id}": extractUtterances matches utterances.json's case ${JSON.stringify(options)}`, (t) => {
-        const actual = extractUtterances(gnd, options as ExtractUtterancesOptions);
+      test(`fixture "${entry.id}": extractUtterances matches utterances.json's case ${JSON.stringify(options)}`, async (t) => {
+        const actual = await extractUtterances(gnd, options as ExtractUtterancesOptions);
         t.deepEqual(sortKeysDeep(actual), sortKeysDeep(utterances));
       });
     }

@@ -242,7 +242,7 @@ function setDefaultLabel(hintEl, defaultValue) {
 
 // `skip`/`contextualize` are only meaningful under "custom" — every other
 // preset ignores them in favor of its own fixed table (see SpeechSettings).
-function applyPreferencesFromToolbar() {
+async function applyPreferencesFromToolbar() {
   if (!configurable) return;
   playbackNavigator?.stop();
   const editor = configurable.preferencesEditor;
@@ -258,13 +258,13 @@ function applyPreferencesFromToolbar() {
     editor.skip.value = optionSkipEl ? [...optionSkipEl.selectedOptions].map((o) => o.value) : [];
     editor.contextualize.value = optionContextualizeEl ? [...optionContextualizeEl.selectedOptions].map((o) => o.value) : [];
   }
-  configurable.submitPreferences(editor.preferences);
+  await configurable.submitPreferences(editor.preferences);
   renderToolbarState();
-  renderUtterancesPanel();
+  await renderUtterancesPanel();
 }
 
 // Prosody has its own separate reset — the two toolbars are separate sections.
-function resetExtractionPreferences() {
+async function resetExtractionPreferences() {
   if (!configurable) return;
   playbackNavigator?.stop();
   const editor = configurable.preferencesEditor;
@@ -274,19 +274,19 @@ function resetExtractionPreferences() {
   editor.inlineContextualization.clear();
   editor.skip.clear();
   editor.contextualize.clear();
-  configurable.submitPreferences(editor.preferences);
+  await configurable.submitPreferences(editor.preferences);
   renderToolbarState();
-  renderUtterancesPanel();
+  await renderUtterancesPanel();
 }
 
-function resetProsodyPreferences() {
+async function resetProsodyPreferences() {
   if (!configurable) return;
   const editor = configurable.preferencesEditor;
   for (const { key } of rangeControls) editor[key].clear();
   editor.autoPause.clear();
-  configurable.submitPreferences(editor.preferences);
+  await configurable.submitPreferences(editor.preferences);
   renderToolbarState();
-  renderUtterancesPanel();
+  await renderUtterancesPanel();
 }
 
 // Reuses SpeechSettings' own verbosity resolution instead of reimplementing it.
@@ -648,7 +648,7 @@ function syncSpeechUi() {
 // — or, when no Navigator is available (e.g. the Web Speech API isn't
 // supported), a standalone extractUtterances() call using the same
 // settings-resolution rules, so the compare panel still works degraded.
-function renderUtterancesPanel() {
+async function renderUtterancesPanel() {
   if (!currentFixture) return;
   const { gndActual, utterances, rolesInTree } = currentFixture;
   const resolvedOptions = currentExtractionOptions();
@@ -667,7 +667,7 @@ function renderUtterancesPanel() {
   try {
     const actualUtterances = playbackNavigator
       ? playbackNavigator.getContentQueue()
-      : utteranceExtractor.extractUtterances(gndActual, resolvedOptions);
+      : await utteranceExtractor.extractUtterances(gndActual, resolvedOptions);
     utterancesActualEl.textContent = JSON.stringify(actualUtterances, null, 2);
     setBadge(
       utterancesBadgeEl,
@@ -729,9 +729,9 @@ async function selectFixture(id) {
   currentFixture = { gndActual, utterances, rolesInTree: collectRoles(expectedTopLevel(gnd)) };
   playbackNavigator?.stop();
   if (playbackNavigator && gndActual !== undefined) {
-    playbackNavigator.loadGndContent(gndActual); // re-extracts internally, using current settings
+    await playbackNavigator.loadGndContent(gndActual); // re-extracts internally, using current settings
   }
-  renderUtterancesPanel();
+  await renderUtterancesPanel();
 }
 
 playbackNavigator = initPlaybackNavigator();

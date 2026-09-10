@@ -7,7 +7,7 @@ import { makeGnd, extractUtterances } from "@readium/speech";
 
 const gnd = makeGnd(`<p lang="en">It was a dark and stormy night.</p>`);
 
-extractUtterances(gnd.guided, { format: "plain" });
+await extractUtterances(gnd.guided, { format: "plain" });
 // [{ language: "en", plain: "It was a dark and stormy night." }]
 ```
 
@@ -55,13 +55,13 @@ interface ExtractUtterancesOptions {
 
 ```typescript
 // <p>...in the middle <span epub:type="pagebreak" title="5"/> of a sentence.</p>
-extractUtterances(gnd, { format: "plain" });
+await extractUtterances(gnd, { format: "plain" });
 // [{ plain: "4" }, { language: "en", plain: "...in the middle of a sentence." }, { plain: "5" }]
 
-extractUtterances(gnd, { format: "plain", contextualize: ["pagebreak"] });
+await extractUtterances(gnd, { format: "plain", contextualize: ["pagebreak"] });
 // [{ plain: "Pagebreak. 4." }, { language: "en", plain: "...in the middle of a sentence." }, { plain: "Pagebreak. 5." }]
 
-extractUtterances(gnd, { format: "plain", skip: ["pagebreak"] });
+await extractUtterances(gnd, { format: "plain", skip: ["pagebreak"] });
 // [{ language: "en", plain: "...in the middle of a sentence." }]
 ```
 

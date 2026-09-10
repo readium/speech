@@ -1,15 +1,26 @@
 import type { Contextualizations } from "./types.js";
 import en from "../../locales/en.json" with { type: "json" };
 
-// One entry per shipped locale — add a JSON file + a record entry to add a
-// language. Callers can override or extend any subset via
-// `ExtractUtterancesOptions.contextualizations`.
-const catalogsByLocale: Record<string, Contextualizations> = {
-  en: (en as { speech: { contextualizations: Contextualizations } }).speech.contextualizations,
-};
+type LocaleModule = { speech: { contextualizations: Contextualizations } };
 
-export const defaultContextualizations = catalogsByLocale.en;
+export const defaultContextualizations: Contextualizations = (en as LocaleModule).speech.contextualizations;
 
-export function contextualizationsForLocale(locale: string): Contextualizations {
-  return catalogsByLocale[locale] ?? catalogsByLocale.en;
+const catalogCache: Record<string, Contextualizations> = { en: defaultContextualizations };
+
+// Every non-English locale is its own dynamic import, so a bundler code-splits
+// it into its own chunk and it's only ever fetched when a caller actually
+// requests it via `contextualizationLocale` — the main bundle doesn't grow as
+// Weblate delivers more locales. Add one entry per shipped `locales/*.json`
+// file, e.g. once `locales/fr.json` exists:
+//   fr: () => import("../../locales/fr.json", { with: { type: "json" } }) as Promise<LocaleModule>,
+const localeLoaders: Record<string, () => Promise<LocaleModule>> = {};
+
+export async function contextualizationsForLocale(locale: string): Promise<Contextualizations> {
+  const cached = catalogCache[locale];
+  if (cached) return cached;
+  const loader = localeLoaders[locale];
+  if (!loader) return defaultContextualizations;
+  const catalog = (await loader()).speech.contextualizations;
+  catalogCache[locale] = catalog;
+  return catalog;
 }
