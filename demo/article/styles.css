@@ -297,8 +297,8 @@ button:hover:not(:disabled) {
   left: 50%;
   bottom: 20px;
   transform: translateX(-50%);
-  /* Stays above the decorator's document-wide mask overlay (z-index: 9999). */
-  z-index: 10000;
+  /* Above .panel/.controls (both z-index: 10000) so their backgrounds never paint over its edges. */
+  z-index: 10001;
   background: #fff;
   border-radius: 999px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
@@ -339,7 +339,7 @@ button:hover:not(:disabled) {
 
 .utterance-index-input {
   box-sizing: border-box;
-  width: 2.5em;
+  width: 3em;
   padding: 1px 2px;
   font-size: 13px;
 }
@@ -731,6 +731,20 @@ footer a {
 
   .player-transport {
     justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Buttons are flex items sized by width/height, not flex-basis, so
+     without flex-shrink: 0 the row still squeezes them into ovals before
+     wrapping the status text onto its own line. */
+  .player-btn {
+    flex-shrink: 0;
+  }
+
+  /* Forces the wrap onto its own row instead of trailing the last button. */
+  .player-status {
+    flex-basis: 100%;
+    text-align: center;
   }
 
   .mobile-tabs {
