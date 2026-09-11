@@ -33,9 +33,9 @@ interface WalkContext {
   skip: ReadonlySet<GndRole>;
   contextualize: ReadonlySet<GndRole>;
   // Per-role contextualization shape overrides for this call — see
-  // `ExtractUtterancesOptions.contextualizationShapes`.
+  // `ExtractUtterancesOptions.contextualization.shapes`.
   contextualizationShapes: Partial<Record<GndRole, "inline" | "block">>;
-  // See `ExtractUtterancesOptions.contextualizationParams`.
+  // See `ExtractUtterancesOptions.contextualization.params`.
   contextualizationParams?: (role: GndRole, node: GndObject) => Record<string, string> | undefined;
   format: "plain" | "ssml";
   inlineContextualization: boolean;
@@ -346,7 +346,8 @@ function cellOrRowheaderParams(node: GndObject, ctx: WalkContext): Contextualiza
 // Structural data only computable by walking the table, for the roles that need it.
 const builtInContextualizationParamProviders: Partial<Record<GndRole, ContextualizationParamsProvider>> = {
   table: (node, ctx) => {
-    const structure = computeTableStructure(node.children ?? []);
+    const rows = (node.children ?? []).filter((child) => child.role?.includes("row"));
+    const structure = computeTableStructure(rows);
     for (const [row, count] of structure.rowNumbers) ctx.tableRowNumbers.set(row, count);
     for (const [cell, header] of structure.cellHeaders) ctx.tableCellHeaders.set(cell, header);
     return {
