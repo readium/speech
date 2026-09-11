@@ -15,7 +15,15 @@ import {
   type ResolvedNodeText,
 } from "./text.js";
 import type { ContextualizationEntry, Contextualizations, ExtractUtterancesOptions } from "./types.js";
-import { blockLevelRoles } from "./roles.js";
+import {
+  blockLevelRoles,
+  roleDropOverrides,
+  deferrablePlaceholderRoles,
+  labelVariantRoles,
+  descriptionFoldingRoles,
+  valueFoldingRoles,
+  contentlessRoles,
+} from "./roles.js";
 import { startsWithBindingPunct } from "../utils/text.js";
 import { computeTableStructure, plainTextOf } from "./tableStructure.js";
 
@@ -46,6 +54,11 @@ interface WalkContext {
 type SourceTrace = (GndObject | undefined)[];
 
 const blockLevelRoleSet: ReadonlySet<GndRole> = new Set(blockLevelRoles);
+const deferrablePlaceholderRoleSet: ReadonlySet<GndRole> = new Set(deferrablePlaceholderRoles);
+const labelVariantRoleSet: ReadonlySet<GndRole> = new Set(labelVariantRoles);
+const descriptionFoldingRoleSet: ReadonlySet<GndRole> = new Set(descriptionFoldingRoles);
+const valueFoldingRoleSet: ReadonlySet<GndRole> = new Set(valueFoldingRoles);
+const contentlessRoleSet: ReadonlySet<GndRole> = new Set(contentlessRoles);
 
 // `variantKey`, when given, picks a nested named-variant leaf (e.g.
 // `audio.inline.labelled`); falls back to `base` itself when that specific
@@ -94,22 +107,13 @@ function pushPiecesOrMerged(
 function isRoleContextualized(role: string, ctx: WalkContext): boolean {
   // A data cell's header is structural table content, not a discretionary
   // narration a reader opts into — it always reuses the applicable header.
-  if (valueFoldingRoles.has(role)) return true;
+  if (valueFoldingRoleSet.has(role)) return true;
   return ctx.contextualize.has(role);
 }
 
-// role -> role(s) it drops from the loop when both are on one node —
-// `unconditional` drops them regardless of reachability, else only once reachable.
-const roleOverrides: Partial<Record<GndRole, { drops: GndRole[]; unconditional?: boolean }>> = {
-  footnote: { drops: ["aside"], unconditional: true },
-  cover: { drops: ["image"] },
-  pullquote: { drops: ["blockquote", "aside"] },
-  epigraph: { drops: ["blockquote"] },
-};
-
 function isDroppedByAnotherRole(role: GndRole, roles: GndRole[], ctx: WalkContext): boolean {
   return roles.some((other) => {
-    const entry = roleOverrides[other];
+    const entry = roleDropOverrides[other];
     if (!entry?.drops.includes(role)) return false;
     return entry.unconditional || isRoleContextualized(other, ctx);
   });
@@ -146,7 +150,7 @@ function pushRoleContextualization(
       // it must keep that node's language, same as speaking the text directly
       // would, and isn't a synthesized label the way other roles' catalog
       // entries are: it's the node's real text, just optionally header-prefixed.
-      if (valueFoldingRoles.has(role)) {
+      if (valueFoldingRoleSet.has(role)) {
         delete utterance.synthetic;
         if (ctx.language !== "none") {
           const language = typeof node.text === "object" ? node.text.language : undefined;
@@ -254,12 +258,8 @@ function applyFormat(
   return [utterance];
 }
 
-// noteref/pagebreak text is a label, deferrable by `inlineContextualization`;
-// every other placeholder role carries real sentence content and stays inline.
-const deferrablePlaceholderRoles: ReadonlySet<string> = new Set(["noteref", "pagebreak"]);
-
 function isDeferrable(child: GndObject): boolean {
-  return (child.role ?? []).some((role) => deferrablePlaceholderRoles.has(role));
+  return (child.role ?? []).some((role) => deferrablePlaceholderRoleSet.has(role));
 }
 
 // Splits the sentence on its placeholders, merging inline ones back into one
@@ -319,25 +319,6 @@ function emitWithPlaceholders(
   return deferred;
 }
 
-// audio/video/image/math fold `node.description` into a labelled/unlabelled
-// variant of their own announcement; figure and table fold it into their
-// own template too (see the `figure` check in `walkNode()`'s
-// contextualization loop for the no-description case). `cover` reuses the
-// same labelled/unlabelled treatment as `image`.
-const labelVariantRoles: ReadonlySet<string> = new Set(["audio", "video", "image", "math", "cover"]);
-const descriptionFoldingRoles: ReadonlySet<string> = new Set(["audio", "video", "image", "figure", "math", "table", "cover"]);
-
-// cell/rowheader's own contextualization template already embeds the
-// cell's text (`{{ value }}`, with or without a `{{ header }}` prefix) —
-// so once it fires, the node's own text must not also be spoken, or the
-// value is heard twice.
-const valueFoldingRoles: ReadonlySet<string> = new Set(["cell", "rowheader"]);
-
-// Roles whose subtree carries no content worth speaking, whatever markup an
-// author put inside it — only the role's own contextualization, if
-// requested, is ever heard.
-const contentlessRoles: ReadonlySet<string> = new Set(["separator"]);
-
 // Falls back to the bare number when the catalog has no `parts` entry.
 function resolvePluralPart(ctx: WalkContext, role: string, name: string, count: number): string {
   const key = `${role}.parts.${name}`;
@@ -345,7 +326,7 @@ function resolvePluralPart(ctx: WalkContext, role: string, name: string, count: 
 }
 
 function contextualizationParamsFor(role: string, node: GndObject, ctx: WalkContext): { variantKey?: string; params?: Record<string, string> } {
-  if (labelVariantRoles.has(role)) {
+  if (labelVariantRoleSet.has(role)) {
     return {
       variantKey: node.description !== undefined ? "labelled" : "unlabelled",
       params: { description: node.description ?? "" },
@@ -409,7 +390,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
   // the source and is announced before its rows to match. Either way this
   // is suppressed when a role that's actually firing already folded it
   // into its own announcement (e.g. "Table: Team roster. 3 lines...").
-  const foldsDescription = roles.some((role) => descriptionFoldingRoles.has(role) && ctx.contextualize.has(role));
+  const foldsDescription = roles.some((role) => descriptionFoldingRoleSet.has(role) && ctx.contextualize.has(role));
   const isTableCaption = roles.includes("table") && node.description !== undefined && !foldsDescription;
   if (isTableCaption) {
     push(out, sources, node, [formatPlain(node.description!, ctx.format)]);
@@ -463,7 +444,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
         walk([child], out, sources, ctx, suppress);
       }
     }
-  } else if (roles.some((role) => contentlessRoles.has(role))) {
+  } else if (roles.some((role) => contentlessRoleSet.has(role))) {
     // Ignored entirely — see `contentlessRoles`.
   } else {
     const rawSsml = typeof node.text === "object" ? node.text.ssml : undefined;
@@ -480,7 +461,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
         walk(node.children, out, sources, ctx, childSuppress);
       }
     } else {
-      const foldsValue = roles.some((role) => valueFoldingRoles.has(role) && isRoleContextualized(role, ctx));
+      const foldsValue = roles.some((role) => valueFoldingRoleSet.has(role) && isRoleContextualized(role, ctx));
       const resolved = foldsValue ? undefined : resolveNodeText(node.text);
       if (resolved) {
         push(out, sources, node, applyFormat(resolved, ctx.format, ctx.language));
