@@ -2,7 +2,6 @@ import type { GndObject, GndRole } from "./types.js";
 import { extractNodeRoles, hasExplicitRole } from "./roles.js";
 import {
   extractNodeAria,
-  normalizedNodeText,
   normalizedNodeTextExcludingExplicitRoles,
   convertElementToSSMLTag,
   skippedElements,
@@ -71,6 +70,11 @@ export class Converter {
   private root = new NavObject();
   private current = this.root;
 
+  // Captions whose text was already folded into a table's `description` —
+  // only these specific elements go silent, not the whole table (rows/cells
+  // still need their own text).
+  private foldedCaptions = new Set<Element>();
+
   private segments: Segment[] = [];
   private textAcc = "";
   private currentCtx: SSMLContext = { lang: "", tag: "" };
@@ -129,7 +133,8 @@ export class Converter {
   private descend(el: Element, roles: GndRole[]) {
     const node = new NavObject();
     node.el = el;
-    node.noText = (!hasExplicitRole(el) || roles.includes("caption")) && this.current.noText;
+    node.noText =
+      this.foldedCaptions.has(el) || ((!hasExplicitRole(el) || roles.includes("caption")) && this.current.noText);
     this.current.children.push(node);
     this.current = node;
   }
@@ -253,8 +258,8 @@ export class Converter {
     } else if (roles.includes("figure")) {
       const caption = this.implicitCaptionOf(el);
       if (caption) {
-        // Unlike table below, not added to `suppressed` — walked normally so
-        // a nested explicit-role descendant (e.g. a credit) still speaks.
+        // Not suppressed — walked normally so a nested explicit-role
+        // descendant (e.g. a credit) still speaks.
         const text = normalizedNodeTextExcludingExplicitRoles(caption);
         if (text) {
           cur.description = text;
@@ -264,10 +269,10 @@ export class Converter {
     } else if (roles.includes("table")) {
       const caption = this.implicitCaptionOf(el);
       if (caption) {
-        const text = normalizedNodeText(caption);
+        const text = normalizedNodeTextExcludingExplicitRoles(caption);
         if (text) {
           cur.description = text;
-          this.suppressed.add(caption);
+          this.foldedCaptions.add(caption);
         }
       }
     }
