@@ -78,7 +78,8 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the index."
+          "plain": "Start of the index.",
+          "synthetic": true
         },
         {
           "plain": "Fresnel lens"
@@ -87,7 +88,8 @@
           "plain": "Keepers"
         },
         {
-          "plain": "End of the index."
+          "plain": "End of the index.",
+          "synthetic": true
         }
       ]
     },
@@ -154,7 +156,8 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "synthetic": true
         },
         {
           "plain": "Fresnel lens"
@@ -163,7 +166,8 @@
           "plain": "Keepers"
         },
         {
-          "plain": "End of the list."
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -238,10 +242,12 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the index."
+          "plain": "Start of the index.",
+          "synthetic": true
         },
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "synthetic": true
         },
         {
           "plain": "Fresnel lens"
@@ -250,10 +256,12 @@
           "plain": "Keepers"
         },
         {
-          "plain": "End of the list."
+          "plain": "End of the list.",
+          "synthetic": true
         },
         {
-          "plain": "End of the index."
+          "plain": "End of the index.",
+          "synthetic": true
         }
       ]
     },
@@ -320,13 +328,15 @@
       ],
       "utterances": [
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Fresnel lens"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Keepers"
@@ -404,22 +414,26 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the index."
+          "plain": "Start of the index.",
+          "synthetic": true
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Fresnel lens"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Keepers"
         },
         {
-          "plain": "End of the index."
+          "plain": "End of the index.",
+          "synthetic": true
         }
       ]
     },
@@ -494,22 +508,26 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "synthetic": true
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Fresnel lens"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Keepers"
         },
         {
-          "plain": "End of the list."
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -592,28 +610,34 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the index."
+          "plain": "Start of the index.",
+          "synthetic": true
         },
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "synthetic": true
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Fresnel lens"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Keepers"
         },
         {
-          "plain": "End of the list."
+          "plain": "End of the list.",
+          "synthetic": true
         },
         {
-          "plain": "End of the index."
+          "plain": "End of the index.",
+          "synthetic": true
         }
       ]
     },
@@ -695,7 +719,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the index."
+          "ssml": "Start of the index.",
+          "synthetic": true
         },
         {
           "ssml": "Fresnel lens"
@@ -704,7 +729,8 @@
           "ssml": "Keepers"
         },
         {
-          "ssml": "End of the index."
+          "ssml": "End of the index.",
+          "synthetic": true
         }
       ]
     },
@@ -771,7 +797,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "synthetic": true
         },
         {
           "ssml": "Fresnel lens"
@@ -780,7 +807,8 @@
           "ssml": "Keepers"
         },
         {
-          "ssml": "End of the list."
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -855,10 +883,12 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the index."
+          "ssml": "Start of the index.",
+          "synthetic": true
         },
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "synthetic": true
         },
         {
           "ssml": "Fresnel lens"
@@ -867,10 +897,12 @@
           "ssml": "Keepers"
         },
         {
-          "ssml": "End of the list."
+          "ssml": "End of the list.",
+          "synthetic": true
         },
         {
-          "ssml": "End of the index."
+          "ssml": "End of the index.",
+          "synthetic": true
         }
       ]
     },
@@ -937,13 +969,15 @@
       ],
       "utterances": [
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Fresnel lens"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Keepers"
@@ -1021,22 +1055,26 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the index."
+          "ssml": "Start of the index.",
+          "synthetic": true
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Fresnel lens"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Keepers"
         },
         {
-          "ssml": "End of the index."
+          "ssml": "End of the index.",
+          "synthetic": true
         }
       ]
     },
@@ -1111,22 +1149,26 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "synthetic": true
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Fresnel lens"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Keepers"
         },
         {
-          "ssml": "End of the list."
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -1209,28 +1251,34 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the index."
+          "ssml": "Start of the index.",
+          "synthetic": true
         },
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "synthetic": true
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Fresnel lens"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Keepers"
         },
         {
-          "ssml": "End of the list."
+          "ssml": "End of the list.",
+          "synthetic": true
         },
         {
-          "ssml": "End of the index."
+          "ssml": "End of the index.",
+          "synthetic": true
         }
       ]
     }

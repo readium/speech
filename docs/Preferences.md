@@ -3,13 +3,13 @@
 `ReadiumSpeechNavigator` implements Readium's [Preferences API](https://readium.org/architecture/proposals/009-preferences-api.html) pattern: submit a `SpeechPreferences` object, read back the resolved `SpeechSettings`, or use a `SpeechPreferencesEditor` for per-field `value`/`effectiveValue`/`isEffective` handles.
 
 ```typescript
-navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
 navigator.settings.verbosity; // "most"
 
 const editor = navigator.preferencesEditor;
 editor.verbosity.effectiveValue; // "most"
 editor.pauseDuration.value = 500;
-navigator.submitPreferences(editor.preferences);
+await navigator.submitPreferences(editor.preferences);
 ```
 
 `submitPreferences()` always resolves `navigator.settings`. Prosody (`pauseDuration`, `autoPause`, `rate`, `pitch`, `volume`) applies regardless of how content was loaded, except that `autoPause: "block"` only has block boundaries to work with on content loaded via `loadGndContent()` — content loaded via `loadContent()` has none, so it never triggers there. The extraction group (`format`, `inlineContextualization`, `verbosity`, `skip`, `contextualize`, `language`) only takes effect on content loaded via `loadGndContent()` — see [Playback](Playback.md) — and only reloads the queue when one of those fields actually changes value. A reload during playback resumes at the same content rather than restarting, falling back to the nearest earlier point still present if that exact content got skipped by the new settings.
@@ -39,7 +39,7 @@ Every field on `SpeechPreferences` (and `SpeechDefaults`) is checked against its
 type VerbosityPreset = "none" | "few" | "some" | "most" | "custom";
 ```
 
-Each preset resolves to a fixed set of roles that are skipped and a fixed set whose announcements fire, from `skippableAtVerbosity`/`contextualizedAtVerbosity` — `"few"` (the default) covers non-textual/math content only; `"most"` covers everything with a catalog entry. `skip`/`contextualize` on `SpeechPreferences` only apply under `"custom"`; every other preset uses its own fixed sets and ignores them:
+Each preset resolves to a fixed set of roles that are skipped and a fixed set whose contextualizations fire, from `skippedAtVerbosity`/`contextualizedAtVerbosity` — `"few"` (the default) covers non-textual/math content only; `"most"` covers everything with a catalog entry. It also resolves each role's contextualization shape (`contextualizationShapesAtVerbosity`) — e.g. `table` is `"inline"` at `"few"`, `"block"` at `"some"`/`"most"` (see [Utterance Extraction](UtteranceExtraction.md#options)). `shapeableRoles` lists which roles ever switch shape this way (`table` today) — every other role with a `block` catalog entry is a fixed block always. `skip`/`contextualize` on `SpeechPreferences` only apply under `"custom"`; every other preset uses its own fixed sets and ignores them:
 
 ```typescript
 new SpeechPreferences({ verbosity: "custom", contextualize: ["chapter", "footnote"] });
@@ -59,7 +59,7 @@ volume?: number;                                 // default 1.0, range [0, 1]
 
 `rate`/`pitch`/`volume` are pushed straight to the engine's own `setRate`/`setPitch`/`setVolume` on every `submitPreferences()` call — unlike the extraction-time preferences, no reload. An engine that needs to re-synthesize already-buffered content on parameter changes handles that itself inside those setters.
 
-`language` (`"none" | "block-level" | "always"`) is the same option documented in [Utterance Extraction](UtteranceExtraction.md#options).
+`language` (`"none" | "block-level" | "always"`, default `"block-level"`) is the same option documented in [Utterance Extraction](UtteranceExtraction.md#options).
 
 ## `format` / `inlineContextualization`
 

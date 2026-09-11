@@ -8,6 +8,11 @@
     },
     {
       "role": [
+        "separator"
+      ]
+    },
+    {
+      "role": [
         "paragraph"
       ],
       "text": "Section two."

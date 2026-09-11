@@ -15,17 +15,25 @@
           ],
           "children": [
             {
-              "textref": "chapter1.xhtml#video1",
-              "text": "Video 1. Lamp mechanism in motion",
               "role": [
                 "listItem"
+              ],
+              "children": [
+                {
+                  "textref": "chapter1.xhtml#video1",
+                  "text": "Video 1. Lamp mechanism in motion"
+                }
               ]
             },
             {
-              "textref": "chapter3.xhtml#video2",
-              "text": "Video 2. Automation retrofit",
               "role": [
                 "listItem"
+              ],
+              "children": [
+                {
+                  "textref": "chapter3.xhtml#video2",
+                  "text": "Video 2. Automation retrofit"
+                }
               ]
             }
           ]

@@ -22,7 +22,7 @@ export class ReadiumSpeechDecorationController extends DecorationController {
     super(channel.host, config);
   }
 
-  // Convenience wrapper: builds Locators from shorthand text/selector options
+  // Convenience wrapper: builds Locators from shorthand text/cssSelector options
   // and delegates to applyDecorations, which replaces the entire decoration
   // set for a group on every call — batch everything for a group into one
   // call rather than clobbering the previous one.

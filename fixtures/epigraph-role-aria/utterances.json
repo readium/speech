@@ -75,7 +75,8 @@
       ],
       "utterances": [
         {
-          "plain": "Epigraph."
+          "plain": "Epigraph.",
+          "synthetic": true
         },
         {
           "plain": "A lighthouse is a compromise with the sea. — Anonymous"
@@ -157,7 +158,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Epigraph."
+          "ssml": "Epigraph.",
+          "synthetic": true
         },
         {
           "ssml": "A lighthouse is a compromise with the sea. — Anonymous"

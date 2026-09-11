@@ -75,13 +75,11 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the part."
+          "plain": "Part.",
+          "synthetic": true
         },
         {
           "plain": "Title of the part"
-        },
-        {
-          "plain": "End of the part."
         }
       ]
     },
@@ -148,7 +146,8 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1."
+          "plain": "Heading level 1.",
+          "synthetic": true
         },
         {
           "plain": "Title of the part"
@@ -226,16 +225,15 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the part."
+          "plain": "Part.",
+          "synthetic": true
         },
         {
-          "plain": "Heading level 1."
+          "plain": "Heading level 1.",
+          "synthetic": true
         },
         {
           "plain": "Title of the part"
-        },
-        {
-          "plain": "End of the part."
         }
       ]
     },
@@ -314,13 +312,11 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the part."
+          "ssml": "Part.",
+          "synthetic": true
         },
         {
           "ssml": "Title of the part"
-        },
-        {
-          "ssml": "End of the part."
         }
       ]
     },
@@ -387,7 +383,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1."
+          "ssml": "Heading level 1.",
+          "synthetic": true
         },
         {
           "ssml": "Title of the part"
@@ -465,16 +462,15 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the part."
+          "ssml": "Part.",
+          "synthetic": true
         },
         {
-          "ssml": "Heading level 1."
+          "ssml": "Heading level 1.",
+          "synthetic": true
         },
         {
           "ssml": "Title of the part"
-        },
-        {
-          "ssml": "End of the part."
         }
       ]
     }

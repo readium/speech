@@ -75,13 +75,15 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the preface."
+          "plain": "Start of the preface.",
+          "synthetic": true
         },
         {
           "plain": "This edition adds a chapter on automation."
         },
         {
-          "plain": "End of the preface."
+          "plain": "End of the preface.",
+          "synthetic": true
         }
       ]
     },
@@ -160,13 +162,15 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the preface."
+          "ssml": "Start of the preface.",
+          "synthetic": true
         },
         {
           "ssml": "This edition adds a chapter on automation."
         },
         {
-          "ssml": "End of the preface."
+          "ssml": "End of the preface.",
+          "synthetic": true
         }
       ]
     }

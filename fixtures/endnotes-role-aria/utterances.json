@@ -144,7 +144,8 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the endnotes."
+          "plain": "Start of the endnotes.",
+          "synthetic": true
         },
         {
           "plain": "See introduction for background."
@@ -153,7 +154,8 @@
           "plain": "See chapter three for details."
         },
         {
-          "plain": "End of the endnotes."
+          "plain": "End of the endnotes.",
+          "synthetic": true
         }
       ]
     },
@@ -286,7 +288,8 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "synthetic": true
         },
         {
           "plain": "See introduction for background."
@@ -295,7 +298,8 @@
           "plain": "See chapter three for details."
         },
         {
-          "plain": "End of the list."
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -444,10 +448,12 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the endnotes."
+          "plain": "Start of the endnotes.",
+          "synthetic": true
         },
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "synthetic": true
         },
         {
           "plain": "See introduction for background."
@@ -456,10 +462,12 @@
           "plain": "See chapter three for details."
         },
         {
-          "plain": "End of the list."
+          "plain": "End of the list.",
+          "synthetic": true
         },
         {
-          "plain": "End of the endnotes."
+          "plain": "End of the endnotes.",
+          "synthetic": true
         }
       ]
     },
@@ -592,13 +600,15 @@
       ],
       "utterances": [
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "See introduction for background."
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "See chapter three for details."
@@ -750,22 +760,26 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the endnotes."
+          "plain": "Start of the endnotes.",
+          "synthetic": true
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "See introduction for background."
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "See chapter three for details."
         },
         {
-          "plain": "End of the endnotes."
+          "plain": "End of the endnotes.",
+          "synthetic": true
         }
       ]
     },
@@ -914,22 +928,26 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "synthetic": true
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "See introduction for background."
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "See chapter three for details."
         },
         {
-          "plain": "End of the list."
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -1094,28 +1112,34 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the endnotes."
+          "plain": "Start of the endnotes.",
+          "synthetic": true
         },
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "synthetic": true
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "See introduction for background."
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "See chapter three for details."
         },
         {
-          "plain": "End of the list."
+          "plain": "End of the list.",
+          "synthetic": true
         },
         {
-          "plain": "End of the endnotes."
+          "plain": "End of the endnotes.",
+          "synthetic": true
         }
       ]
     },
@@ -4777,10 +4801,12 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the endnotes."
+          "plain": "Start of the endnotes.",
+          "synthetic": true
         },
         {
-          "plain": "End of the endnotes."
+          "plain": "End of the endnotes.",
+          "synthetic": true
         }
       ]
     },
@@ -5149,10 +5175,12 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "synthetic": true
         },
         {
-          "plain": "End of the list."
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -5553,16 +5581,20 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the endnotes."
+          "plain": "Start of the endnotes.",
+          "synthetic": true
         },
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "synthetic": true
         },
         {
-          "plain": "End of the list."
+          "plain": "End of the list.",
+          "synthetic": true
         },
         {
-          "plain": "End of the endnotes."
+          "plain": "End of the endnotes.",
+          "synthetic": true
         }
       ]
     },
@@ -5710,7 +5742,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the endnotes."
+          "ssml": "Start of the endnotes.",
+          "synthetic": true
         },
         {
           "ssml": "See introduction for background."
@@ -5719,7 +5752,8 @@
           "ssml": "See chapter three for details."
         },
         {
-          "ssml": "End of the endnotes."
+          "ssml": "End of the endnotes.",
+          "synthetic": true
         }
       ]
     },
@@ -5852,7 +5886,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "synthetic": true
         },
         {
           "ssml": "See introduction for background."
@@ -5861,7 +5896,8 @@
           "ssml": "See chapter three for details."
         },
         {
-          "ssml": "End of the list."
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -6010,10 +6046,12 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the endnotes."
+          "ssml": "Start of the endnotes.",
+          "synthetic": true
         },
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "synthetic": true
         },
         {
           "ssml": "See introduction for background."
@@ -6022,10 +6060,12 @@
           "ssml": "See chapter three for details."
         },
         {
-          "ssml": "End of the list."
+          "ssml": "End of the list.",
+          "synthetic": true
         },
         {
-          "ssml": "End of the endnotes."
+          "ssml": "End of the endnotes.",
+          "synthetic": true
         }
       ]
     },
@@ -6158,13 +6198,15 @@
       ],
       "utterances": [
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "See introduction for background."
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "See chapter three for details."
@@ -6316,22 +6358,26 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the endnotes."
+          "ssml": "Start of the endnotes.",
+          "synthetic": true
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "See introduction for background."
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "See chapter three for details."
         },
         {
-          "ssml": "End of the endnotes."
+          "ssml": "End of the endnotes.",
+          "synthetic": true
         }
       ]
     },
@@ -6480,22 +6526,26 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "synthetic": true
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "See introduction for background."
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "See chapter three for details."
         },
         {
-          "ssml": "End of the list."
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -6660,28 +6710,34 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the endnotes."
+          "ssml": "Start of the endnotes.",
+          "synthetic": true
         },
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "synthetic": true
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "See introduction for background."
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "See chapter three for details."
         },
         {
-          "ssml": "End of the list."
+          "ssml": "End of the list.",
+          "synthetic": true
         },
         {
-          "ssml": "End of the endnotes."
+          "ssml": "End of the endnotes.",
+          "synthetic": true
         }
       ]
     },
@@ -10343,10 +10399,12 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the endnotes."
+          "ssml": "Start of the endnotes.",
+          "synthetic": true
         },
         {
-          "ssml": "End of the endnotes."
+          "ssml": "End of the endnotes.",
+          "synthetic": true
         }
       ]
     },
@@ -10715,10 +10773,12 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "synthetic": true
         },
         {
-          "ssml": "End of the list."
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -11119,16 +11179,20 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the endnotes."
+          "ssml": "Start of the endnotes.",
+          "synthetic": true
         },
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "synthetic": true
         },
         {
-          "ssml": "End of the list."
+          "ssml": "End of the list.",
+          "synthetic": true
         },
         {
-          "ssml": "End of the endnotes."
+          "ssml": "End of the endnotes.",
+          "synthetic": true
         }
       ]
     }

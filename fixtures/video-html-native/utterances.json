@@ -8,7 +8,8 @@
       ],
       "utterances": [
         {
-          "plain": "The lamp mechanism rotating at dusk"
+          "plain": "The lamp mechanism rotating at dusk",
+          "synthetic": true
         }
       ]
     },
@@ -75,10 +76,8 @@
       ],
       "utterances": [
         {
-          "plain": "Video."
-        },
-        {
-          "plain": "The lamp mechanism rotating at dusk"
+          "plain": "Video with a label: The lamp mechanism rotating at dusk",
+          "synthetic": true
         }
       ]
     },
@@ -235,7 +234,8 @@
       ],
       "utterances": [
         {
-          "ssml": "The lamp mechanism rotating at dusk"
+          "ssml": "The lamp mechanism rotating at dusk",
+          "synthetic": true
         }
       ]
     },
@@ -302,10 +302,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Video."
-        },
-        {
-          "ssml": "The lamp mechanism rotating at dusk"
+          "ssml": "Video with a label: The lamp mechanism rotating at dusk",
+          "synthetic": true
         }
       ]
     },

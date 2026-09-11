@@ -75,7 +75,8 @@
       ],
       "utterances": [
         {
-          "plain": "Pull quote."
+          "plain": "Pullquote.",
+          "synthetic": true
         },
         {
           "plain": "The lamp still turns, though no one climbs the stairs anymore."
@@ -302,7 +303,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Pull quote."
+          "ssml": "Pullquote.",
+          "synthetic": true
         },
         {
           "ssml": "The lamp still turns, though no one climbs the stairs anymore."

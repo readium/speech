@@ -78,7 +78,8 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the details."
+          "plain": "Start of the disclosure.",
+          "synthetic": true
         },
         {
           "plain": "Click to expand"
@@ -87,7 +88,8 @@
           "plain": "Additional details the reader can expand."
         },
         {
-          "plain": "End of the details."
+          "plain": "End of the disclosure.",
+          "synthetic": true
         }
       ]
     },
@@ -154,7 +156,8 @@
       ],
       "utterances": [
         {
-          "plain": "Summary."
+          "plain": "Summary.",
+          "synthetic": true
         },
         {
           "plain": "Click to expand"
@@ -235,10 +238,12 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the details."
+          "plain": "Start of the disclosure.",
+          "synthetic": true
         },
         {
-          "plain": "Summary."
+          "plain": "Summary.",
+          "synthetic": true
         },
         {
           "plain": "Click to expand"
@@ -247,7 +252,8 @@
           "plain": "Additional details the reader can expand."
         },
         {
-          "plain": "End of the details."
+          "plain": "End of the disclosure.",
+          "synthetic": true
         }
       ]
     },
@@ -646,7 +652,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the details."
+          "ssml": "Start of the disclosure.",
+          "synthetic": true
         },
         {
           "ssml": "Click to expand"
@@ -655,7 +662,8 @@
           "ssml": "Additional details the reader can expand."
         },
         {
-          "ssml": "End of the details."
+          "ssml": "End of the disclosure.",
+          "synthetic": true
         }
       ]
     },
@@ -722,7 +730,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Summary."
+          "ssml": "Summary.",
+          "synthetic": true
         },
         {
           "ssml": "Click to expand"
@@ -803,10 +812,12 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the details."
+          "ssml": "Start of the disclosure.",
+          "synthetic": true
         },
         {
-          "ssml": "Summary."
+          "ssml": "Summary.",
+          "synthetic": true
         },
         {
           "ssml": "Click to expand"
@@ -815,7 +826,8 @@
           "ssml": "Additional details the reader can expand."
         },
         {
-          "ssml": "End of the details."
+          "ssml": "End of the disclosure.",
+          "synthetic": true
         }
       ]
     },

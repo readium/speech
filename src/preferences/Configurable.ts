@@ -12,6 +12,6 @@ export interface ConfigurablePreferences<T> {
 
 export interface Configurable<S extends ConfigurableSettings, P extends ConfigurablePreferences<P>> {
   settings: S;
-  submitPreferences(preferences: P): void;
+  submitPreferences(preferences: P): Promise<void>;
   preferencesEditor: IPreferencesEditor;
 }

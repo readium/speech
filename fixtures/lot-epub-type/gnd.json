@@ -15,17 +15,25 @@
           ],
           "children": [
             {
-              "textref": "appendix.xhtml#table1",
-              "text": "Table 1. Lighthouse construction dates",
               "role": [
                 "listItem"
+              ],
+              "children": [
+                {
+                  "textref": "appendix.xhtml#table1",
+                  "text": "Table 1. Lighthouse construction dates"
+                }
               ]
             },
             {
-              "textref": "appendix.xhtml#table2",
-              "text": "Table 2. Keeper staffing by decade",
               "role": [
                 "listItem"
+              ],
+              "children": [
+                {
+                  "textref": "appendix.xhtml#table2",
+                  "text": "Table 2. Keeper staffing by decade"
+                }
               ]
             }
           ]

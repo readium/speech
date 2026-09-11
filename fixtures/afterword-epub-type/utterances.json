@@ -75,13 +75,15 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the afterword."
+          "plain": "Start of the afterword.",
+          "synthetic": true
         },
         {
           "plain": "Years later, the last lighthouse keeper reflects on automation."
         },
         {
-          "plain": "End of the afterword."
+          "plain": "End of the afterword.",
+          "synthetic": true
         }
       ]
     },
@@ -160,13 +162,15 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the afterword."
+          "ssml": "Start of the afterword.",
+          "synthetic": true
         },
         {
           "ssml": "Years later, the last lighthouse keeper reflects on automation."
         },
         {
-          "ssml": "End of the afterword."
+          "ssml": "End of the afterword.",
+          "synthetic": true
         }
       ]
     }

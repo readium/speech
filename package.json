@@ -1,6 +1,6 @@
 {
   "name": "@readium/speech",
-  "version": "0.8.1",
+  "version": "0.9.0",
   "description": "A TypeScript library for implementing read aloud features with Web technologies, following best practices for digital publishing.",
   "author": "Readium Foundation",
   "keywords": [
@@ -50,9 +50,10 @@
   },
   "devDependencies": {
     "@ava/typescript": "^6.0.0",
+    "@types/jsdom": "^30.0.0",
     "ava": "^6.4.0",
     "http-server": "^14.1.1",
-    "linkedom": "^0.18.13",
+    "jsdom": "^30.0.1",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3",
@@ -60,8 +61,11 @@
     "vite-plugin-dts": "^4.5.4"
   },
   "dependencies": {
-    "@readium/decorator": "^1.0.1",
-    "@readium/shared": "^2.3.1",
+    "@readium/decorator": "1.2.0",
+    "@readium/helpers": "1.1.0",
+    "@readium/shared": "2.5.0",
+    "css-selector-generator": "^3.9.4",
+    "i18next": "^26.4.0",
     "string-strip-html": "^13.4.23"
   }
 }

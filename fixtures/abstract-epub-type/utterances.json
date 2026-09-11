@@ -75,10 +75,15 @@
       ],
       "utterances": [
         {
-          "plain": "Abstract."
+          "plain": "Start of the abstract.",
+          "synthetic": true
         },
         {
           "plain": "This work examines the maintenance of coastal lighthouses in the 19th century."
+        },
+        {
+          "plain": "End of the abstract.",
+          "synthetic": true
         }
       ]
     },
@@ -157,10 +162,15 @@
       ],
       "utterances": [
         {
-          "ssml": "Abstract."
+          "ssml": "Start of the abstract.",
+          "synthetic": true
         },
         {
           "ssml": "This work examines the maintenance of coastal lighthouses in the 19th century."
+        },
+        {
+          "ssml": "End of the abstract.",
+          "synthetic": true
         }
       ]
     }

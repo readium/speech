@@ -6,14 +6,25 @@ import { ISpeechDefaults, SpeechDefaults } from "./preferences/SpeechDefaults";
 import { ISpeechPreferences, SpeechPreferences } from "./preferences/SpeechPreferences";
 import { SpeechPreferencesEditor } from "./preferences/SpeechPreferencesEditor";
 import { SpeechSettings } from "./preferences/SpeechSettings";
+import { ContextualizationShapeOverrides, resolveContextualizationShapes } from "./preferences/verbosityTables";
 import { ReadiumSpeechUtterance } from "./utterance";
 import { extractUtterancesWithSources } from "./utterances/extractUtterances";
+import { Contextualizations } from "./utterances/types";
 import { ReadiumSpeechVoice } from "./voices/types";
 import { EventEmitter } from "./utils/eventEmitter";
+
+// Set once at construction, never through `submitPreferences()` — none of
+// this changes at runtime the way a preference does.
+export interface ContextualizationOverrides {
+  contextualizations?: Contextualizations;
+  shapes?: ContextualizationShapeOverrides;
+  params?: (role: string, node: GndObject) => Record<string, string> | undefined;
+}
 
 export interface ReadiumSpeechNavigatorConfiguration {
   preferences?: ISpeechPreferences;
   defaults?: ISpeechDefaults;
+  contextualizationOverrides?: ContextualizationOverrides;
 }
 
 export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
@@ -34,6 +45,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private _preferences: SpeechPreferences;
   private _settings: SpeechSettings;
   private _preferencesEditor: SpeechPreferencesEditor | null = null;
+  private readonly contextualizationOverrides?: ContextualizationOverrides;
 
   // The raw GND source, retained only when content was loaded via
   // `loadGndContent()`. Its absence is what makes submitPreferences()'s
@@ -63,6 +75,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this._defaults = new SpeechDefaults(configuration.defaults);
     this._preferences = new SpeechPreferences(configuration.preferences);
     this._settings = new SpeechSettings(this._preferences, this._defaults);
+    this.contextualizationOverrides = configuration.contextualizationOverrides;
     this.setupEngineListeners();
     this.applyEngineParameters();
     void this.initializeEngine();
@@ -221,9 +234,9 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.setContentQueue(content);
   }
 
-  loadGndContent(nodes: GndObject[]): void {
+  async loadGndContent(nodes: GndObject[]): Promise<void> {
     this.source = nodes;
-    this.reextract();
+    await this.reextract();
   }
 
   private setContentQueue(
@@ -253,17 +266,22 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   // Re-runs extraction from `this.source`, resuming near the old position if playback was underway.
-  private reextract(): void {
+  private async reextract(): Promise<void> {
     if (!this.source) return;
     const resumeState = this.navigatorState === "playing" || this.navigatorState === "paused" ? this.navigatorState : null;
     const oldSources = this.contentSources;
     const oldIndex = this.getCurrentUtteranceIndex();
 
-    const { utterances, sources, blockStarts } = extractUtterancesWithSources(this.source, {
+    const { utterances, sources, blockStarts } = await extractUtterancesWithSources(this.source, {
       format: this._settings.format,
       inlineContextualization: this._settings.inlineContextualization,
       skip: this._settings.skip,
       contextualize: this._settings.contextualize,
+      contextualization: {
+        contextualizations: this.contextualizationOverrides?.contextualizations,
+        shapes: resolveContextualizationShapes(this._settings.verbosity, this.contextualizationOverrides?.shapes),
+        params: this.contextualizationOverrides?.params,
+      },
       language: this._settings.language,
     });
     this.contentSources = sources;
@@ -424,7 +442,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     return this._preferencesEditor;
   }
 
-  submitPreferences(preferences: SpeechPreferences): void {
+  async submitPreferences(preferences: SpeechPreferences): Promise<void> {
     if (!this.source && extractionPreferenceKeys.some((key) => preferences[key] !== undefined)) {
       console.warn(
         "submitPreferences(): extraction-affecting preferences (format, inlineContextualization, verbosity, skip, contextualize, language) have no effect on content loaded via loadContent() — use loadGndContent() to re-extract on submission.",
@@ -432,10 +450,10 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     }
 
     this._preferences = this._preferences.merging(preferences);
-    this.applyPreferences();
+    await this.applyPreferences();
   }
 
-  private applyPreferences(): void {
+  private async applyPreferences(): Promise<void> {
     const previousSettings = this._settings;
     this._settings = new SpeechSettings(this._preferences, this._defaults);
     this.applyEngineParameters();
@@ -446,7 +464,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
     // Skip reextract() unless it would actually produce a different queue.
     if (extractionPreferenceKeys.some((key) => !this.sameSettingValue(previousSettings[key], this._settings[key]))) {
-      this.reextract();
+      await this.reextract();
     }
   }
 

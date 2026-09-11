@@ -1,9 +1,17 @@
 import { readFileSync, writeFileSync, readdirSync } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { JSDOM } from "jsdom";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const FIXTURES_DIR = path.join(__dirname, "../fixtures");
+
+// decodeTextref() (used by extractUtterances to compute `locate`) needs
+// CSS.escape, which this plain-Node script has no browser global for.
+if (typeof globalThis.CSS === "undefined") {
+  const { window } = new JSDOM("", { url: "http://localhost/" });
+  globalThis.CSS = window.CSS;
+}
 
 // Regenerates every fixture's utterances.json from its gnd.json, using the
 // real @readium/speech build. `npm run build` first.
@@ -18,10 +26,10 @@ try {
   console.error("Run `npm run build` first — could not import build/index.js.");
   throw err;
 }
-const { extractUtterances, skippableRoles, skippableAtVerbosity, defaultAnnouncements } = mod;
+const { extractUtterances, skippableRoles, skippedAtVerbosity, defaultContextualizations, shapeableRoles } = mod;
 
-// skippableAtVerbosity.none reaches beyond roles.md's skippable-roles list (e.g. `audio`, `table`).
-const allSkippableRoles = new Set([...skippableRoles, ...(skippableAtVerbosity?.none ?? [])]);
+// skippedAtVerbosity.none reaches beyond roles.md's skippable-roles list (e.g. `audio`, `table`).
+const allSkippableRoles = new Set([...skippableRoles, ...(skippedAtVerbosity?.none ?? [])]);
 
 function expectedTopLevel(gnd) {
   if (gnd && typeof gnd === "object" && !Array.isArray(gnd)) {
@@ -85,12 +93,11 @@ for (const id of ids) {
 
   const skipSubsets = subsets([...allSkippableRoles].filter((role) => rolesInTree.has(role)));
   const contextualizeSubsets = subsets(
-    [...rolesInTree].filter((role) => defaultAnnouncements?.[role] !== undefined),
+    [...rolesInTree].filter((role) => defaultContextualizations?.[role] !== undefined),
   );
-
   const cases = [];
   for (const format of ["plain", "ssml"]) {
-    const defaultUtterances = extractUtterances(nodes, { format });
+    const defaultUtterances = await extractUtterances(nodes, { format });
     cases.push({ options: [{ format }], utterances: defaultUtterances });
 
     // Groups diverging combinations by their resulting utterances, so option-sets that
@@ -99,25 +106,42 @@ for (const id of ids) {
 
     for (const skip of skipSubsets) {
       for (const contextualize of contextualizeSubsets) {
-        for (const language of languageValues) {
-          for (const inlineContextualization of inlineContextualizationValues) {
-            if (skip.length === 0 && contextualize.length === 0 && language === undefined && !inlineContextualization) {
-              continue; // the default case itself, already pushed above
-            }
-            const options = { format };
-            if (skip.length > 0) options.skip = skip;
-            if (contextualize.length > 0) options.contextualize = contextualize;
-            if (language !== undefined) options.language = language;
-            if (inlineContextualization) options.inlineContextualization = true;
+        // Shape only matters for a role that's contextualized and not skipped here.
+        const shapeableInCombo = contextualize.filter(
+          (role) => (shapeableRoles ?? []).includes(role) && !skip.includes(role),
+        );
+        for (const inlineRoles of subsets(shapeableInCombo)) {
+          for (const language of languageValues) {
+            for (const inlineContextualization of inlineContextualizationValues) {
+              if (
+                skip.length === 0 &&
+                contextualize.length === 0 &&
+                inlineRoles.length === 0 &&
+                language === undefined &&
+                !inlineContextualization
+              ) {
+                continue; // the default case itself, already pushed above
+              }
+              const options = { format };
+              if (skip.length > 0) options.skip = skip;
+              if (contextualize.length > 0) options.contextualize = contextualize;
+              if (inlineRoles.length > 0) {
+                options.contextualization = {
+                  shapes: Object.fromEntries(inlineRoles.map((role) => [role, "inline"])),
+                };
+              }
+              if (language !== undefined) options.language = language;
+              if (inlineContextualization) options.inlineContextualization = true;
 
-            const utterances = extractUtterances(nodes, options);
-            if (!sameUtterances(utterances, defaultUtterances)) {
-              const key = JSON.stringify(sortKeysDeep(utterances));
-              const group = groups.get(key);
-              if (group) {
-                group.options.push(options);
-              } else {
-                groups.set(key, { options: [options], utterances });
+              const utterances = await extractUtterances(nodes, options);
+              if (!sameUtterances(utterances, defaultUtterances)) {
+                const key = JSON.stringify(sortKeysDeep(utterances));
+                const group = groups.get(key);
+                if (group) {
+                  group.options.push(options);
+                } else {
+                  groups.set(key, { options: [options], utterances });
+                }
               }
             }
           }

@@ -10,6 +10,7 @@ import { detectFeatures, WebSpeechFeatures } from "../utils/features";
 import { detectPlatformFeatures, WebSpeechPlatformPatches } from "../utils/patches";
 import { EventEmitter } from "../utils/eventEmitter";
 import { clampIndex } from "../utils/array";
+import { clamp } from "../utils/clamp";
 
 import { stripHtml } from "string-strip-html";
 
@@ -34,6 +35,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // Enhanced properties for cross-browser compatibility
   private resumeInfinityTimer?: number;
   private isSpeakingInternal: boolean = false;
+  private restartPending: boolean = false;
   private isPausedInternal: boolean = false;
   private isAndroidPaused: boolean = false; // Explicitly tracks Android's paused state
   private pausedAtUtteranceIndex: number | null = null; // Tracks which utterance was playing when paused
@@ -316,6 +318,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       }
       this.currentUtteranceIndex = utteranceIndex;
     }
+    this.restartPending = false; // any real speak() call supersedes a stale deferred restart
 
     if (this.currentUtterances.length === 0) {
       console.warn("No utterances loaded");
@@ -597,7 +600,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   stop(): void {
-    this.speechSynthesis.cancel();
+    this.cancelCurrentSpeech();
     this.speakGeneration++;
     this.currentUtteranceIndex = 0;  // Reset to beginning when stopped
     
@@ -612,7 +615,10 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   // Playback Parameters
   setRate(rate: number): void {
-    this.rate = Math.max(0.1, Math.min(10, rate));
+    const clamped = clamp(rate, 0.1, 10, this.rate);
+    if (clamped === this.rate) return;
+    this.rate = clamped;
+    this.scheduleRestartIfSpeaking();
   }
 
   getRate(): number {
@@ -620,7 +626,10 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   setPitch(pitch: number): void {
-    this.pitch = Math.max(0, Math.min(2, pitch));
+    const clamped = clamp(pitch, 0, 2, this.pitch);
+    if (clamped === this.pitch) return;
+    this.pitch = clamped;
+    this.scheduleRestartIfSpeaking();
   }
 
   getPitch(): number {
@@ -628,11 +637,27 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   setVolume(volume: number): void {
-    this.volume = Math.max(0, Math.min(1, volume));
+    const clamped = clamp(volume, 0, 1, this.volume);
+    if (clamped === this.volume) return;
+    this.volume = clamped;
+    this.scheduleRestartIfSpeaking();
   }
 
   getVolume(): number {
     return this.volume;
+  }
+
+  // rate/pitch/volume are baked into the SpeechSynthesisUtterance object once, at speak()-time —
+  // restart the in-flight one so a change applies now instead of waiting for the next utterance.
+  // Coalesces multiple same-tick changes (e.g. rate+pitch together) into a single restart.
+  private scheduleRestartIfSpeaking(): void {
+    if (!this.isSpeakingInternal || this.restartPending) return;
+    this.restartPending = true;
+    queueMicrotask(() => {
+      if (!this.restartPending) return; // a real speak() call already superseded this
+      this.restartPending = false;
+      if (this.isSpeakingInternal) this.speak(this.currentUtteranceIndex);
+    });
   }
 
   // State

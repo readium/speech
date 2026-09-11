@@ -75,13 +75,15 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the prologue."
+          "plain": "Start of the prologue.",
+          "synthetic": true
         },
         {
           "plain": "Before the lamp was ever lit, the rock was already feared."
         },
         {
-          "plain": "End of the prologue."
+          "plain": "End of the prologue.",
+          "synthetic": true
         }
       ]
     },
@@ -160,13 +162,15 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the prologue."
+          "ssml": "Start of the prologue.",
+          "synthetic": true
         },
         {
           "ssml": "Before the lamp was ever lit, the rock was already feared."
         },
         {
-          "ssml": "End of the prologue."
+          "ssml": "End of the prologue.",
+          "synthetic": true
         }
       ]
     }

@@ -52,9 +52,7 @@ const decorations = setupDecorations();
 decorations.decorate([{
   id: "tts-word",
   style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
-  highlight: "world",
-  before: "Hello ",
-  after: ".",
+  text: { highlight: "world", before: "Hello ", after: "." },
 }], "tts");
 ```
 
@@ -62,11 +60,14 @@ decorations.decorate([{
 
 `Locator` requires `href`/`type`, but they're never read when anchoring
 within the current document — `createLocator` synthesizes them for you, so
-you only provide what actually locates the content: `highlight`/`before`/
-`after` (text-quote matching) and/or `selector`/`fragment` (CSS-selector or
-element-id anchoring — combine `selector` with text fields to scope the text
-search to that selector). You still build the `Decoration` array and manage
-the group yourself.
+you only provide what actually locates the content: `text: { highlight,
+before, after }` (text-quote matching) and/or `cssSelector`/`domRange`/`fragment`
+(CSS-selector, exact DOM-range, or element-id/raw-fragment anchoring — combine
+`cssSelector` with `text` to scope the text search to that selector). `fragment`
+also takes a raw WICG `:~:text=...` directive — the only way to express a
+`textStart,textEnd` range, since `text.highlight` holds one exact quote (see
+[Guided Navigation](GuidedNavigation.md)). You still build the `Decoration`
+array and manage the group yourself.
 
 ```typescript
 import { setupDecorations, createLocator, DecorationStyleType } from "@readium/speech";
@@ -75,7 +76,7 @@ const decorations = setupDecorations();
 
 decorations.applyDecorations([{
   id: "tts-word",
-  locator: createLocator({ highlight: "world", before: "Hello ", after: "." }),
+  locator: createLocator({ text: { highlight: "world", before: "Hello ", after: "." } }),
   style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
 }], "tts");
 ```

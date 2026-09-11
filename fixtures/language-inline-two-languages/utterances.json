@@ -8,6 +8,25 @@
       ],
       "utterances": [
         {
+          "language": "en",
+          "plain": "Hello bonjour and hola there."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
           "plain": "Hello",
           "language": "en"
         },
@@ -26,25 +45,6 @@
         {
           "plain": "there.",
           "language": "en"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "plain",
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "language": "block-level",
-          "inlineContextualization": true
-        }
-      ],
-      "utterances": [
-        {
-          "language": "en",
-          "plain": "Hello bonjour and hola there."
         }
       ]
     },
@@ -75,7 +75,7 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "Hello <lang xml:lang=\"fr\">bonjour</lang> and <lang xml:lang=\"es\">hola</lang> there."
+          "ssml": "Hello bonjour and hola there."
         }
       ]
     },
@@ -83,18 +83,18 @@
       "options": [
         {
           "format": "ssml",
-          "language": "block-level"
+          "language": "always"
         },
         {
           "format": "ssml",
-          "language": "block-level",
+          "language": "always",
           "inlineContextualization": true
         }
       ],
       "utterances": [
         {
           "language": "en",
-          "ssml": "Hello bonjour and hola there."
+          "ssml": "Hello <lang xml:lang=\"fr\">bonjour</lang> and <lang xml:lang=\"es\">hola</lang> there."
         }
       ]
     },

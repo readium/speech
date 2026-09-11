@@ -75,13 +75,15 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the epilogue."
+          "plain": "Start of the epilogue.",
+          "synthetic": true
         },
         {
           "plain": "The lamp still turns, though no one climbs the stairs anymore."
         },
         {
-          "plain": "End of the epilogue."
+          "plain": "End of the epilogue.",
+          "synthetic": true
         }
       ]
     },
@@ -160,13 +162,15 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the epilogue."
+          "ssml": "Start of the epilogue.",
+          "synthetic": true
         },
         {
           "ssml": "The lamp still turns, though no one climbs the stairs anymore."
         },
         {
-          "ssml": "End of the epilogue."
+          "ssml": "End of the epilogue.",
+          "synthetic": true
         }
       ]
     }

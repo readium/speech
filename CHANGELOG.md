@@ -2,6 +2,38 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.9.0] - 2026-09-11
+
+### Added
+
+- Contextualization catalog: translatable, i18next-based JSON replacing the code-defined announcement catalog. See [UtteranceExtraction.md](docs/UtteranceExtraction.md#contextualization-catalog).
+- `ExtractUtterancesOptions.contextualizationLocale` — pick which shipped catalog locale to use.
+- `ExtractUtterancesOptions.contextualization` — for a custom or overridden catalog: override wording, shape, and params per call.
+- `ReadiumSpeechNavigatorConfiguration.contextualizationOverrides` — the same overrides, set once for a navigator.
+- `ReadiumSpeechUtterance.locate` — options for `createLocator()` to build a locator for the utterance's source.
+- `ReadiumSpeechUtterance.synthetic` — true when the utterance's text isn't copied from the source, so word-level highlighting can be skipped (element-level highlighting via `locate` still works).
+- `makeGnd()`/`parseMarkup()` can generate `textref`s from a live document. See [GuidedNavigation.md](docs/GuidedNavigation.md#text-references-textrefs).
+- Table `cell`/`rowheader`/`row` contextualizations carry positional context (column header, row number).
+
+### Changed
+
+- `extractUtterances()`, `extractUtterancesWithSources()`, `loadGndContent()`, and `submitPreferences()` are now `async`.
+- `LocatorOptions` restructured around `text`/`cssSelector`/`domRange`/`fragment`.
+- `skippableAtVerbosity` renamed to `skippedAtVerbosity`.
+- `setRate()`/`setPitch()`/`setVolume()` now restart the current utterance so changes apply immediately, not on the next one.
+- An unscoped `<th>` resolves to `columnheader`/`rowheader` instead of always `cell`.
+- A table/figure with no explicit ARIA name now speaks its caption as its own description instead of as a separate utterance.
+- A link with an accessible name speaks that name instead of its visible text.
+
+### Fixed
+
+- `setRate()`/`setPitch()`/`setVolume()` and playback-rate clamping no longer propagate `NaN`/`±Infinity`.
+
+### Removed
+
+- `defaultAnnouncements`, `Announcement`, `AnnouncementKey`, `AnnouncementPair`, `Announcements`, `RoleAnnouncement`, `isAnnouncementPair` — superseded by the JSON contextualization catalog (`defaultContextualizations`, `Contextualizations`, `ContextualizationEntry`).
+- `ExtractUtterancesOptions.announcements` — superseded by `contextualization.contextualizations`.
+
 ## [0.8.1] - 2026-09-01
 
 ### Fixed

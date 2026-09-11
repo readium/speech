@@ -3,7 +3,7 @@ import type { GndObject } from "../../src/gnd/types.js";
 import { ReadiumSpeechNavigator, SpeechPreferences } from "../../build/index.js";
 import { MockEngine } from "./mockEngine.js";
 
-const chapterTree: GndObject[] = [{ role: ["chapter"], text: { language: "en", plain: "Hello world." } }];
+const listTree: GndObject[] = [{ role: ["list"], text: { language: "en", plain: "Hello world." } }];
 
 const twoParagraphTree: GndObject[] = [
   { role: ["paragraph"], text: { language: "en", plain: "First." } },
@@ -17,34 +17,73 @@ const footnoteThenParagraphsTree: GndObject[] = [
   { role: ["paragraph"], text: { language: "en", plain: "Second." } },
 ];
 
-test("loadGndContent extracts with the default (few) verbosity", (t) => {
+test("navigator defaults to 'few' verbosity when none is set", (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  navigator.loadGndContent(chapterTree);
-  t.deepEqual(navigator.getContentQueue(), [{ language: "en", plain: "Hello world." }]);
+  t.is(navigator.settings.verbosity, "few");
 });
 
-test("submitPreferences re-extracts content loaded via loadGndContent", (t) => {
+const tableTree: GndObject[] = [
+  {
+    role: ["table"],
+    children: [
+      {
+        role: ["row"],
+        children: [{ role: ["cell"], text: { language: "en", plain: "Cell." } }],
+      },
+    ],
+  },
+];
+
+test("table contextualization is inline at 'few', block from 'some' on", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  navigator.loadGndContent(chapterTree);
-  navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "few" }));
+  await navigator.loadGndContent(tableTree);
+  t.deepEqual(navigator.getContentQueue(), [{ plain: "Table. 1 line. 1 column.", synthetic: true }]);
+
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "some" }));
   t.deepEqual(navigator.getContentQueue(), [
-    { plain: "Start of the chapter." },
-    { language: "en", plain: "Hello world." },
-    { plain: "End of the chapter." },
+    { plain: "Table. 1 line. 1 column.", synthetic: true },
+    { plain: "Row: 1", synthetic: true },
+    { language: "en", plain: "Cell." },
+    { plain: "End of the table.", synthetic: true },
+  ]);
+
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  t.deepEqual(navigator.getContentQueue(), [
+    { plain: "Table. 1 line. 1 column.", synthetic: true },
+    { plain: "Row: 1", synthetic: true },
+    { language: "en", plain: "Cell." },
+    { plain: "End of the table.", synthetic: true },
   ]);
 });
 
-test("submitPreferences is a no-op on content loaded via plain loadContent", (t) => {
+test("submitPreferences re-extracts content loaded via loadGndContent", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  await navigator.loadGndContent(listTree);
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  t.deepEqual(navigator.getContentQueue(), [
+    { plain: "Start of the list.", synthetic: true },
+    { language: "en", plain: "Hello world." },
+    { plain: "End of the list.", synthetic: true },
+  ]);
+});
+
+// .serial: this and the next three tests all exercise submitPreferences()'s
+// console.warn side effect (an extraction-affecting change with no GND
+// source) — now that submitPreferences() is async, letting them run
+// concurrently lets one test's warning land in another's mocked console.warn.
+test.serial("submitPreferences is a no-op on content loaded via plain loadContent", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
   navigator.loadContent([{ plain: "Hello world.", language: "en" }]);
-  navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
   t.deepEqual(navigator.getContentQueue(), [{ plain: "Hello world.", language: "en" }]);
 });
 
-test("submitPreferences warns when an extraction-affecting preference has no source to re-extract from", (t) => {
+test.serial("submitPreferences warns when an extraction-affecting preference has no source to re-extract from", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
   navigator.loadContent([{ plain: "Hello world.", language: "en" }]);
@@ -53,7 +92,7 @@ test("submitPreferences warns when an extraction-affecting preference has no sou
   const original = console.warn;
   console.warn = (...args: unknown[]) => calls.push(args);
   try {
-    navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+    await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
   } finally {
     console.warn = original;
   }
@@ -61,7 +100,7 @@ test("submitPreferences warns when an extraction-affecting preference has no sou
   t.true(String(calls[0][0]).includes("no effect on content loaded via loadContent()"));
 });
 
-test("submitPreferences does not warn for prosody-only preferences on plain loadContent", (t) => {
+test.serial("submitPreferences does not warn for prosody-only preferences on plain loadContent", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
   navigator.loadContent([{ plain: "Hello world.", language: "en" }]);
@@ -70,18 +109,18 @@ test("submitPreferences does not warn for prosody-only preferences on plain load
   const original = console.warn;
   console.warn = (...args: unknown[]) => calls.push(args);
   try {
-    navigator.submitPreferences(new SpeechPreferences({ rate: 1.5 }));
+    await navigator.submitPreferences(new SpeechPreferences({ rate: 1.5 }));
   } finally {
     console.warn = original;
   }
   t.is(calls.length, 0);
 });
 
-test("settings/preferencesEditor reflect submitted preferences", (t) => {
+test.serial("settings/preferencesEditor reflect submitted preferences", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
   t.is(navigator.settings.verbosity, "few");
-  navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
   t.is(navigator.settings.verbosity, "most");
   t.is(navigator.preferencesEditor.verbosity.effectiveValue, "most");
 });
@@ -96,11 +135,11 @@ test("editing the preferencesEditor without submitting does not affect the navig
   t.is(navigator.settings.verbosity, "few");
 });
 
-test("editing the preferencesEditor without submitting does not leak into a later, unrelated submitPreferences call", (t) => {
+test("editing the preferencesEditor without submitting does not leak into a later, unrelated submitPreferences call", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
   navigator.preferencesEditor.pauseDuration.value = 500;
-  navigator.submitPreferences(new SpeechPreferences({ rate: 1.5 }));
+  await navigator.submitPreferences(new SpeechPreferences({ rate: 1.5 }));
   t.is(navigator.settings.rate, 1.5);
   t.is(navigator.settings.pauseDuration, 300);
 });
@@ -113,10 +152,10 @@ test("constructing a navigator pushes the default rate/pitch/volume to the engin
   t.is(engine.volume, 1);
 });
 
-test("submitPreferences pushes rate/pitch/volume to the engine", (t) => {
+test("submitPreferences pushes rate/pitch/volume to the engine", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  navigator.submitPreferences(new SpeechPreferences({ rate: 1.5, pitch: 0.5, volume: 0.2 }));
+  await navigator.submitPreferences(new SpeechPreferences({ rate: 1.5, pitch: 0.5, volume: 0.2 }));
   t.is(engine.rate, 1.5);
   t.is(engine.pitch, 0.5);
   t.is(engine.volume, 0.2);
@@ -153,7 +192,7 @@ test("pauseDuration delays the next speak() call", async (t) => {
     { plain: "First.", language: "en" },
     { plain: "Second.", language: "en" },
   ]);
-  navigator.submitPreferences(new SpeechPreferences({ pauseDuration: 60 }));
+  await navigator.submitPreferences(new SpeechPreferences({ pauseDuration: 60 }));
 
   const before = Date.now();
   engine.emit({ type: "end" });
@@ -171,7 +210,7 @@ test("a zero pauseDuration still yields to the event loop, but resolves on the n
     { plain: "First.", language: "en" },
     { plain: "Second.", language: "en" },
   ]);
-  navigator.submitPreferences(new SpeechPreferences({ pauseDuration: 0 }));
+  await navigator.submitPreferences(new SpeechPreferences({ pauseDuration: 0 }));
 
   engine.emit({ type: "end" });
   t.is(engine.speakCalls.length, 0, "still async even at 0ms — setTimeout, not a synchronous call");
@@ -204,7 +243,7 @@ test("autoPause 'utterance' fully pauses instead of continuing automatically", a
     { plain: "First.", language: "en" },
     { plain: "Second.", language: "en" },
   ]);
-  navigator.submitPreferences(new SpeechPreferences({ autoPause: "utterance" }));
+  await navigator.submitPreferences(new SpeechPreferences({ autoPause: "utterance" }));
 
   engine.emit({ type: "end" });
   t.is(navigator.getState(), "paused");
@@ -226,7 +265,7 @@ test("autoPause 'block' does not pause when the next utterance doesn't start a n
     { plain: "First.", language: "en" },
     { plain: "Still the same block.", language: "en" },
   ]);
-  navigator.submitPreferences(new SpeechPreferences({ autoPause: "block", pauseDuration: 0 }));
+  await navigator.submitPreferences(new SpeechPreferences({ autoPause: "block", pauseDuration: 0 }));
 
   engine.emit({ type: "end" });
   t.is(engine.speakCalls.length, 0, "still async — setTimeout, not a synchronous call");
@@ -239,8 +278,8 @@ test("autoPause 'block' does not pause when the next utterance doesn't start a n
 test("autoPause 'block' pauses when the next utterance starts a new block", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  navigator.loadGndContent(twoParagraphTree);
-  navigator.submitPreferences(new SpeechPreferences({ autoPause: "block" }));
+  await navigator.loadGndContent(twoParagraphTree);
+  await navigator.submitPreferences(new SpeechPreferences({ autoPause: "block" }));
 
   engine.emit({ type: "end" });
   t.is(navigator.getState(), "paused");
@@ -259,7 +298,7 @@ test("jumping while auto-paused resumes at the jumped-to index, not the original
     { plain: "Second.", language: "en" },
     { plain: "Third.", language: "en" },
   ]);
-  navigator.submitPreferences(new SpeechPreferences({ autoPause: "utterance" }));
+  await navigator.submitPreferences(new SpeechPreferences({ autoPause: "utterance" }));
 
   engine.emit({ type: "end" }); // finishes index 0, auto-pauses before index 1
   t.is(navigator.getState(), "paused");
@@ -273,12 +312,12 @@ test("jumping while auto-paused resumes at the jumped-to index, not the original
 test("prosody-only submitPreferences mid-playback does not reload the queue", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  navigator.loadGndContent(twoParagraphTree);
+  await navigator.loadGndContent(twoParagraphTree);
   engine.emit({ type: "ready" });
   navigator.play();
 
   engine.emit({ type: "end" }); // schedules a delayed speak()
-  navigator.submitPreferences(new SpeechPreferences({ rate: 1.5 }));
+  await navigator.submitPreferences(new SpeechPreferences({ rate: 1.5 }));
   t.is(engine.stopCalls, 0);
   t.is(navigator.getState(), "playing");
 
@@ -289,27 +328,27 @@ test("prosody-only submitPreferences mid-playback does not reload the queue", as
 test("extraction-affecting submitPreferences mid-playback cancels speech and the pending timer", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  navigator.loadGndContent(twoParagraphTree);
+  await navigator.loadGndContent(twoParagraphTree);
   engine.emit({ type: "ready" });
   navigator.play();
 
   engine.emit({ type: "end" }); // schedules a delayed speak()
-  navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
   t.is(engine.stopCalls, 1);
 
   await new Promise((resolve) => setTimeout(resolve, 350));
   t.is(engine.speakCalls.length, 1, "no stale speak() from the pre-reload timer");
 });
 
-test("an extraction-affecting change mid-playback resumes at the same content, not index 0", (t) => {
+test("an extraction-affecting change mid-playback resumes at the same content, not index 0", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  navigator.loadGndContent(footnoteThenParagraphsTree);
+  await navigator.loadGndContent(footnoteThenParagraphsTree);
   engine.emit({ type: "ready" });
   navigator.play();
   navigator.jumpTo(1, true); // "Second." under "few" (footnote skipped, indices 0/1)
 
-  navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" })); // footnote no longer skipped, shifts indices
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" })); // footnote no longer skipped, shifts indices
   engine.emit({ type: "ready" });
 
   t.is(navigator.getState(), "playing");
@@ -318,16 +357,16 @@ test("an extraction-affecting change mid-playback resumes at the same content, n
   t.is(engine.getCurrentUtteranceIndex(), expectedIndex);
 });
 
-test("an extraction-affecting change mid-pause resumes paused at the same content", (t) => {
+test("an extraction-affecting change mid-pause resumes paused at the same content", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  navigator.loadGndContent(footnoteThenParagraphsTree);
+  await navigator.loadGndContent(footnoteThenParagraphsTree);
   engine.emit({ type: "ready" });
   navigator.play();
   navigator.jumpTo(1, true);
   navigator.pause();
 
-  navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
   engine.emit({ type: "ready" });
 
   t.is(navigator.getState(), "paused");
@@ -335,16 +374,16 @@ test("an extraction-affecting change mid-pause resumes paused at the same conten
   t.is(engine.getCurrentUtteranceIndex(), expectedIndex);
 });
 
-test("resuming falls back to the nearest earlier node still present when the current one got skipped", (t) => {
+test("resuming falls back to the nearest earlier node still present when the current one got skipped", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  navigator.loadGndContent(footnoteThenParagraphsTree);
-  navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" })); // footnote included
+  await navigator.loadGndContent(footnoteThenParagraphsTree);
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" })); // footnote included
   engine.emit({ type: "ready" });
   navigator.play();
   navigator.jumpTo(0, true); // the footnote's own utterance
 
-  navigator.submitPreferences(new SpeechPreferences({ verbosity: "few" })); // footnote skipped again
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "few" })); // footnote skipped again
   engine.emit({ type: "ready" });
 
   t.is(navigator.getState(), "playing");

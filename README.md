@@ -51,7 +51,11 @@ We are now on the sixth phase: verbosity and prosody, in particular contextualiz
 
 ### [In-context demo](https://readium.org/speech/demo/article)
 
-In-context reading with seamless voice selection (grouped by region and sorted based on quality), and playback control, providing an optional read-along experience that integrates naturally with the content. Also showcases highlighting, as above.
+In-context reading with seamless voice selection (grouped by region and sorted based on quality), and playback control, providing an optional read-along experience that integrates naturally with the content.
+
+Settings include a verbosity selector (none/few/some/most) demonstrating [contextualization](docs/Preferences.md) — synthesized announcements spoken around content based on its role (entering/leaving a section, a footnote, a pullquote…) — and, for the read-along experience, independent highlight styles (highlight, underline, strikethrough, outline, text color, mask) and colors for the current utterance and the current word.
+
+The panel alongside the article shows the [Guided Navigation](docs/GuidedNavigation.md) object and the [utterances](docs/UtteranceExtraction.md) extracted from it, live.
 
 ### [Extraction playground](https://readium.org/speech/demo/playground)
 
@@ -144,6 +148,11 @@ Documentation provides guides for:
 - [Guided Navigation](docs/GuidedNavigation.md) — extracting [Guided Navigation objects](https://readium.org/guided-navigation) from HTML/XHTML content
 - [Utterance Extraction](docs/UtteranceExtraction.md) — extracting utterances from Guided Navigation objects
 - [Provider Registry](docs/ProviderRegistry.md) — using more than one `ReadiumSpeechEngineProvider` (e.g. WebSpeech and speech-server) side by side
+- [WebSpeechEngine](docs/WebSpeechEngine.md) — the `ReadiumSpeechPlaybackEngine` backed by the browser's Web Speech API
+- [SpeechServerEngine](docs/SpeechServerEngine.md) — the `ReadiumSpeechPlaybackEngine` backed by a remote [Readium Speech Server](https://github.com/readium/speech-server) instance
+- [FallbackEngine](docs/FallbackEngine.md) — pairing a primary and fallback engine so playback swaps transparently when one is unreachable or stalls
+
+See [CHANGELOG.md](CHANGELOG.md) for what's new in each release.
 
 ## Development
 

@@ -24,6 +24,23 @@ export function isAncestorOf(anc: Element, n: Element): boolean {
   return false;
 }
 
+// From jsoup, everything except "device":
+// https://github.com/jhy/jsoup/blob/0b10d516ed8f907f8fb4acb9a0806137a8988d45/src/main/java/org/jsoup/parser/Tag.java#L243
+const inlineTags = new Set([
+  "object", "base", "font", "tt", "i", "b", "u", "big", "small", "em", "strong",
+  "dfn", "code", "samp", "kbd", "var", "cite", "abbr", "time", "acronym",
+  "mark", "ruby", "rt", "rp", "rtc", "a", "img", "br", "wbr", "map", "q",
+  "sub", "sup", "bdo", "iframe", "embed", "span", "input", "select",
+  "textarea", "label", "button", "optgroup", "option", "legend", "datalist",
+  "keygen", "output", "progress", "meter", "area", "param", "source",
+  "track", "summary", "command", "basefont", "bgsound", "menuitem", "data",
+  "bdi", "s", "strike", "nobr", "rb",
+]);
+
+export function isInlineTag(tagName: string): boolean {
+  return inlineTags.has(tagName);
+}
+
 export type GndMediaType = "text/html" | "application/xhtml+xml";
 
 export function sniffMediaType(input: string): GndMediaType {

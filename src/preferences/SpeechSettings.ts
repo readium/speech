@@ -2,7 +2,7 @@ import type { GndRole } from "../gnd/types.js";
 import type { ConfigurableSettings } from "./Configurable.js";
 import { SpeechDefaults } from "./SpeechDefaults.js";
 import type { AutoPauseScope, ExtractionFormat, LanguageMode, SpeechPreferences, VerbosityPreset } from "./SpeechPreferences.js";
-import { contextualizedAtVerbosity, skippableAtVerbosity } from "./verbosityTables.js";
+import { contextualizedAtVerbosity, skippedAtVerbosity } from "./verbosityTables.js";
 
 export class SpeechSettings implements ConfigurableSettings {
   [key: string]: unknown;
@@ -31,7 +31,7 @@ export class SpeechSettings implements ConfigurableSettings {
       this.skip = preferences.skip ?? defaults.skip;
       this.contextualize = preferences.contextualize ?? defaults.contextualize;
     } else {
-      this.skip = [...skippableAtVerbosity[this.verbosity]];
+      this.skip = [...skippedAtVerbosity[this.verbosity]];
       this.contextualize = [...contextualizedAtVerbosity[this.verbosity]];
     }
     this.language = preferences.language ?? defaults.language;

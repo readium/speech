@@ -7,22 +7,29 @@ import type { GndRole } from "../gnd/types.js";
 // Nothing is skipped by default: pass a subset of this list (or all of
 // it) via `ExtractUtterancesOptions.skip` to opt in.
 export const skippableRoles: GndRole[] = [
-  // Ancillary content
   "aside",
+  "audio",
   "bibliography",
+  "cell",
+  "columnheader",
   "details",
   "endnotes",
+  "figure",
   "footnote",
-  "noteref",
-  "pullquote",
-  // Navigation
+  "image",
   "landmarks",
   "loa",
   "loi",
   "lot",
   "lov",
+  "noteref",
   "pagebreak",
+  "pullquote",
+  "row",
+  "rowheader",
+  "table",
   "toc",
+  "video"
 ];
 
 // Roles that constitute their own block for pause purposes — a node
@@ -89,3 +96,33 @@ export const blockLevelRoles: GndRole[] = [
   "summary",
   "tip",
 ];
+
+// role -> role(s) it drops from the loop when both are on one node —
+// `unconditional` drops them regardless of reachability, else only once reachable.
+export const roleDropOverrides: Partial<Record<GndRole, { drops: GndRole[]; unconditional?: boolean }>> = {
+  footnote: { drops: ["aside"], unconditional: true },
+  cover: { drops: ["image"] },
+  pullquote: { drops: ["blockquote", "aside"] },
+  epigraph: { drops: ["blockquote"] },
+};
+
+// noteref/pagebreak text is a label, deferrable by `inlineContextualization`;
+// every other placeholder role carries real sentence content and stays inline.
+export const deferrablePlaceholderRoles: GndRole[] = ["noteref", "pagebreak"];
+
+// Roles whose contextualization template folds `node.description` into its
+// own text (a labelled/unlabelled variant, `{{ description }}`, or both)
+// instead of the node's description being spoken as a separate trailing
+// utterance — see the `foldsDescription` check in `walkNode()`.
+export const descriptionFoldingRoles: GndRole[] = ["audio", "video", "image", "figure", "math", "table", "cover"];
+
+// cell/rowheader's own contextualization template already embeds the
+// cell's text (`{{ value }}`, with or without a `{{ header }}` prefix) —
+// so once it fires, the node's own text must not also be spoken, or the
+// value is heard twice.
+export const valueFoldingRoles: GndRole[] = ["cell", "rowheader"];
+
+// Roles whose subtree carries no content worth speaking, whatever markup an
+// author put inside it — only the role's own contextualization, if
+// requested, is ever heard.
+export const contentlessRoles: GndRole[] = ["separator"];
