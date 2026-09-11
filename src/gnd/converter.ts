@@ -222,7 +222,7 @@ export class Converter {
       // case for list items), the hoist rule promotes it onto that block;
       // otherwise it becomes an inline SSML placeholder like any other
       // embedded object.
-      link(this, el, roles);
+      link(this, el, roles, aria);
       return true;
     }
     if (tagName === "img") {

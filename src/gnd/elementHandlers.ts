@@ -70,11 +70,15 @@ export function noteref(converter: Converter, el: Element, roles: GndRole[]): vo
   converter.placeholder(el, "noteref", obj, candidateID || undefined);
 }
 
-export function link(converter: Converter, el: Element, roles: GndRole[]): void {
+export function link(converter: Converter, el: Element, roles: GndRole[], aria: GndText | null): void {
   const obj: ObjBuilder = {};
   if (roles.length > 0) obj.role = roles;
-  const text = normalizedNodeText(el);
-  if (text) obj.text = { plain: text, ssml: "", language: "" };
+  if (aria) {
+    obj.text = { plain: aria.plain ?? "", ssml: aria.ssml ?? "", language: aria.language };
+  } else {
+    const text = normalizedNodeText(el);
+    if (text) obj.text = { plain: text, ssml: "", language: "" };
+  }
   const href = el.getAttribute("href");
   if (href) obj.textref = href;
   converter.placeholder(el, roles[0] ?? "link", obj);
