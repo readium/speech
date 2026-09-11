@@ -9,13 +9,13 @@ import { ExtractUtterancesOptions } from './types.js';
  * Accepts `GndObject[]` (as returned by `parseMarkup()`, or `GndDocument.guided`)
  * rather than a wrapped document.
  */
-export declare function extractUtterances(nodes: GndObject[], options: ExtractUtterancesOptions): ReadiumSpeechUtterance[];
+export declare function extractUtterances(nodes: GndObject[], options: ExtractUtterancesOptions): Promise<ReadiumSpeechUtterance[]>;
 /**
  * Same as `extractUtterances()`, plus `sources[i]`: the node that produced `utterances[i]`,
  * and `blockStarts[i]`: whether `utterances[i]` begins a new block-level element.
  */
-export declare function extractUtterancesWithSources(nodes: GndObject[], options: ExtractUtterancesOptions): {
+export declare function extractUtterancesWithSources(nodes: GndObject[], options: ExtractUtterancesOptions): Promise<{
     utterances: ReadiumSpeechUtterance[];
     sources: (GndObject | undefined)[];
     blockStarts: boolean[];
-};
+}>;

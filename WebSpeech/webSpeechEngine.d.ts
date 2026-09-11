@@ -19,6 +19,7 @@ export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     private speakGeneration;
     private resumeInfinityTimer?;
     private isSpeakingInternal;
+    private restartPending;
     private isPausedInternal;
     private isAndroidPaused;
     private pausedAtUtteranceIndex;
@@ -66,6 +67,7 @@ export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     getPitch(): number;
     setVolume(volume: number): void;
     getVolume(): number;
+    private scheduleRestartIfSpeaking;
     getState(): ReadiumSpeechPlaybackState;
     getCurrentUtteranceIndex(): number;
     setCurrentUtteranceIndex(index: number, onComplete?: (success: boolean) => void): void;
