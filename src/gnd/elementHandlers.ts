@@ -8,6 +8,7 @@ import { textIsEmpty } from "./text.js";
 import { type ObjBuilder, gndObjectToObjBuilder } from "./object.js";
 import { hasElementChild, isAncestorOf } from "./dom.js";
 import { Converter } from "./converter.js";
+import { selectorForElement, textrefForSelector } from "./selectorGenerator.js";
 
 // Returns true if el's children should still be descended into (a
 // pagebreak with element children of its own, in HTML parsing).
@@ -25,8 +26,9 @@ export function pagebreak(converter: Converter, el: Element, aria: GndText | nul
     const text = normalizedNodeText(el);
     if (text) obj.text = { plain: text, ssml: "", language: "" };
   }
-  const id = el.getAttribute("id");
-  if (id) obj.textref = `#${id}`;
+  const selector = selectorForElement(el, converter.docRoot);
+  const textref = textrefForSelector(selector);
+  if (textref) obj.textref = textref;
   converter.placeholder(el, "pagebreak", obj);
   return descend;
 }
