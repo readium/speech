@@ -205,10 +205,38 @@ function isTableStructuralCandidate(el: Element, tagName: string, attrRoles: Gnd
   return tableStructuralTags.has(tagName) || attrRoles.some((role) => tableStructuralRoles.has(role));
 }
 
+function hasRole(el: Element, role: string): boolean {
+  const attr = el.getAttribute("role");
+  if (!attr) return false;
+  return attr.split(/\s+/).filter(Boolean).includes(role);
+}
+
+function isTableContainer(el: Element): boolean {
+  return el.tagName.toLowerCase() === "table" || hasRole(el, "table") || hasRole(el, "grid") || hasRole(el, "treegrid");
+}
+
+function isRowElement(el: Element): boolean {
+  return el.tagName.toLowerCase() === "tr" || hasRole(el, "row");
+}
+
 // Unscoped <th> fallback: first row -> columnheader, else -> rowheader.
+// Walks ancestors by tag/role instead of `closest("table")` — an ARIA-only
+// table (role="grid"/"table", no literal <table> tag) has no HTML tag to
+// find, only its structural descendants.
 function isFirstRowOfTable(tr: Element): boolean {
-  const table = tr.closest("table");
-  return table?.querySelector("tr") === tr;
+  let container: Element | null = null;
+  for (let p = tr.parentElement; p; p = p.parentElement) {
+    if (isTableContainer(p)) {
+      container = p;
+      break;
+    }
+  }
+  if (!container) return false;
+
+  const walker = container.ownerDocument.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, {
+    acceptNode: (n) => (isRowElement(n as Element) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP),
+  });
+  return walker.nextNode() === tr;
 }
 
 /**
