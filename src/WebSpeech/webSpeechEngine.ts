@@ -10,6 +10,7 @@ import { detectFeatures, WebSpeechFeatures } from "../utils/features";
 import { detectPlatformFeatures, WebSpeechPlatformPatches } from "../utils/patches";
 import { EventEmitter } from "../utils/eventEmitter";
 import { clampIndex } from "../utils/array";
+import { clamp } from "../utils/clamp";
 
 import { stripHtml } from "string-strip-html";
 
@@ -614,7 +615,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   // Playback Parameters
   setRate(rate: number): void {
-    const clamped = Math.max(0.1, Math.min(10, rate));
+    const clamped = clamp(rate, 0.1, 10, this.rate);
     if (clamped === this.rate) return;
     this.rate = clamped;
     this.scheduleRestartIfSpeaking();
@@ -625,7 +626,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   setPitch(pitch: number): void {
-    const clamped = Math.max(0, Math.min(2, pitch));
+    const clamped = clamp(pitch, 0, 2, this.pitch);
     if (clamped === this.pitch) return;
     this.pitch = clamped;
     this.scheduleRestartIfSpeaking();
@@ -636,7 +637,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   setVolume(volume: number): void {
-    const clamped = Math.max(0, Math.min(1, volume));
+    const clamped = clamp(volume, 0, 1, this.volume);
     if (clamped === this.volume) return;
     this.volume = clamped;
     this.scheduleRestartIfSpeaking();

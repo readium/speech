@@ -7,6 +7,7 @@ import { SpeechServerAudioDecodeError, SpeechServerError, SpeechServerNetworkErr
 import { ErrorEventDetail } from "../Fallback/recoverableFailure";
 import { EventEmitter } from "../utils/eventEmitter";
 import { clampIndex } from "../utils/array";
+import { clamp } from "../utils/clamp";
 import { chunkPlainText, chunkSsmlText, TextChunk } from "./chunkText";
 import { CanPlayType, selectBitrate, selectFormat, SpeechServerFormatOptions } from "./selectFormat";
 import {
@@ -91,7 +92,7 @@ function base64ToArrayBuffer(base64: string): ArrayBuffer {
 
 // <audio>.playbackRate distorts or silently clamps outside ~0.25-4 in most engines.
 function clampPlaybackRate(rate: number): number {
-  return Math.max(0.25, Math.min(4, rate));
+  return clamp(rate, 0.25, 4, 1);
 }
 
 function utteranceText(utterance: ReadiumSpeechUtterance | undefined): string | undefined {
@@ -757,7 +758,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   setRate(rate: number): void {
-    const clamped = Math.max(0.1, Math.min(10, rate));
+    const clamped = clamp(rate, 0.1, 10, this.rate);
     if (clamped === this.rate) return; // applyEngineParameters() calls all three setters on every preference change
     this.rate = clamped;
     this.clearPrefetchCache();
@@ -769,7 +770,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   setPitch(pitch: number): void {
-    const clamped = Math.max(0, Math.min(2, pitch));
+    const clamped = clamp(pitch, 0, 2, this.pitch);
     if (clamped === this.pitch) return;
     this.pitch = clamped;
     this.clearPrefetchCache();
@@ -781,7 +782,9 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   setVolume(volume: number): void {
-    this.volume = Math.max(0, Math.min(1, volume));
+    const clamped = clamp(volume, 0, 1, this.volume);
+    if (clamped === this.volume) return;
+    this.volume = clamped;
     if (this.masterGain) {
       this.masterGain.gain.value = this.volume;
     }
