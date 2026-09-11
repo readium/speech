@@ -600,7 +600,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   stop(): void {
-    this.speechSynthesis.cancel();
+    this.cancelCurrentSpeech();
     this.speakGeneration++;
     this.currentUtteranceIndex = 0;  // Reset to beginning when stopped
     
