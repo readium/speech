@@ -48,16 +48,7 @@ export function noteref(converter: Converter, el: Element, roles: GndRole[]): vo
     const fragment = href.slice(1);
     const target = converter.ids.get(fragment);
     if (target && !isAncestorOf(target, el) && converter.noterefDepth < 3) {
-      const sub = new Converter(converter.xmlParsed);
-      sub.ids = converter.ids;
-      sub.suppressed = converter.suppressed;
-      sub.idAlloc = converter.idAlloc;
-      sub.noterefDepth = converter.noterefDepth + 1;
-      sub.allowNode = target;
-      sub.docRoot = converter.docRoot;
-      sub.selectorPredicate = converter.selectorPredicate;
-      sub.domRangeEnabled = converter.domRangeEnabled;
-      sub.textFragmentEnabled = converter.textFragmentEnabled;
+      const sub = converter.spawnChild(target);
       sub.convert(target);
       const children = sub.result();
       if (children.length > 0) {

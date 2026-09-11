@@ -98,6 +98,24 @@ export class Converter {
     this.xmlParsed = xmlParsed;
   }
 
+  // A sub-conversion sharing this converter's document-wide state (ids,
+  // suppressed, idAlloc) — for content reached from within the same
+  // document, e.g. a noteref's footnote target. New fields shared this way
+  // belong here, not re-copied at each call site.
+  spawnChild(allowNode: Element, depthDelta = 1): Converter {
+    const child = new Converter(this.xmlParsed);
+    child.ids = this.ids;
+    child.suppressed = this.suppressed;
+    child.idAlloc = this.idAlloc;
+    child.noterefDepth = this.noterefDepth + depthDelta;
+    child.allowNode = allowNode;
+    child.docRoot = this.docRoot;
+    child.selectorPredicate = this.selectorPredicate;
+    child.domRangeEnabled = this.domRangeEnabled;
+    child.textFragmentEnabled = this.textFragmentEnabled;
+    return child;
+  }
+
   prescan(root: Element) {
     prescanImpl(root, this.ids, this.suppressed);
   }
