@@ -110,12 +110,10 @@ export const roleDropOverrides: Partial<Record<GndRole, { drops: GndRole[]; unco
 // every other placeholder role carries real sentence content and stays inline.
 export const deferrablePlaceholderRoles: GndRole[] = ["noteref", "pagebreak"];
 
-// audio/video/image/math fold `node.description` into a labelled/unlabelled
-// variant of their own announcement; figure and table fold it into their
-// own template too (see the `figure` check in `walkNode()`'s
-// contextualization loop for the no-description case). `cover` reuses the
-// same labelled/unlabelled treatment as `image`.
-export const labelVariantRoles: GndRole[] = ["audio", "video", "image", "math", "cover"];
+// Roles whose contextualization template folds `node.description` into its
+// own text (a labelled/unlabelled variant, `{{ description }}`, or both)
+// instead of the node's description being spoken as a separate trailing
+// utterance — see the `foldsDescription` check in `walkNode()`.
 export const descriptionFoldingRoles: GndRole[] = ["audio", "video", "image", "figure", "math", "table", "cover"];
 
 // cell/rowheader's own contextualization template already embeds the

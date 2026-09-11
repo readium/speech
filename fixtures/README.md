@@ -142,12 +142,14 @@ The options:
   (pagebreak, footnote start/end, ...) are spoken, independent of the
   underlying content (which `skip` would instead omit entirely). Nothing
   contextualizes by default.
-- `contextualizationShapes: Partial<Record<GndRole, "inline" | "block">>` —
-  per-role override of contextualization shape: `"inline"` reads the
-  catalog's `inline` entry; `"block"` (default when a role is absent here)
-  reads its `start`/`end` pair. Only has an effect on roles whose
-  contextualization varies by verbosity (`table`), and only within
-  `contextualize`.
+- `contextualization: { shapes: Partial<Record<GndRole, "inline" | "block">> }` —
+  `shapes` is a per-role override of contextualization shape: `"inline"`
+  reads the catalog's `inline` entry; `"block"` (default when a role is
+  absent here) reads its `start`/`end` pair. Only has an effect on roles
+  whose contextualization varies by verbosity (`table`), and only within
+  `contextualize`. Grouped under `contextualization` alongside
+  `contextualizations`/`params` (unused by these fixtures) — see
+  [Utterance Extraction](../docs/UtteranceExtraction.md#contextualization).
 - `inlineContextualization: boolean` — whether a pagebreak/footnote
   reference that falls mid-sentence splits the sentence at that exact
   point, instead of after the whole sentence finishes (the default).

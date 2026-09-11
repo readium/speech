@@ -6,15 +6,25 @@ import { ISpeechDefaults, SpeechDefaults } from "./preferences/SpeechDefaults";
 import { ISpeechPreferences, SpeechPreferences } from "./preferences/SpeechPreferences";
 import { SpeechPreferencesEditor } from "./preferences/SpeechPreferencesEditor";
 import { SpeechSettings } from "./preferences/SpeechSettings";
-import { contextualizationShapesAtVerbosity } from "./preferences/verbosityTables";
+import { ContextualizationShapeOverrides, resolveContextualizationShapes } from "./preferences/verbosityTables";
 import { ReadiumSpeechUtterance } from "./utterance";
 import { extractUtterancesWithSources } from "./utterances/extractUtterances";
+import { Contextualizations } from "./utterances/types";
 import { ReadiumSpeechVoice } from "./voices/types";
 import { EventEmitter } from "./utils/eventEmitter";
+
+// Set once at construction, never through `submitPreferences()` — none of
+// this changes at runtime the way a preference does.
+export interface ContextualizationOverrides {
+  contextualizations?: Contextualizations;
+  shapes?: ContextualizationShapeOverrides;
+  params?: (role: string, node: GndObject) => Record<string, string> | undefined;
+}
 
 export interface ReadiumSpeechNavigatorConfiguration {
   preferences?: ISpeechPreferences;
   defaults?: ISpeechDefaults;
+  contextualizationOverrides?: ContextualizationOverrides;
 }
 
 export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
@@ -35,6 +45,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private _preferences: SpeechPreferences;
   private _settings: SpeechSettings;
   private _preferencesEditor: SpeechPreferencesEditor | null = null;
+  private readonly contextualizationOverrides?: ContextualizationOverrides;
 
   // The raw GND source, retained only when content was loaded via
   // `loadGndContent()`. Its absence is what makes submitPreferences()'s
@@ -64,6 +75,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this._defaults = new SpeechDefaults(configuration.defaults);
     this._preferences = new SpeechPreferences(configuration.preferences);
     this._settings = new SpeechSettings(this._preferences, this._defaults);
+    this.contextualizationOverrides = configuration.contextualizationOverrides;
     this.setupEngineListeners();
     this.applyEngineParameters();
     void this.initializeEngine();
@@ -265,8 +277,11 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       inlineContextualization: this._settings.inlineContextualization,
       skip: this._settings.skip,
       contextualize: this._settings.contextualize,
-      contextualizationShapes:
-        this._settings.verbosity === "custom" ? {} : contextualizationShapesAtVerbosity[this._settings.verbosity],
+      contextualization: {
+        contextualizations: this.contextualizationOverrides?.contextualizations,
+        shapes: resolveContextualizationShapes(this._settings.verbosity, this.contextualizationOverrides?.shapes),
+        params: this.contextualizationOverrides?.params,
+      },
       language: this._settings.language,
     });
     this.contentSources = sources;

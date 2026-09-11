@@ -75,6 +75,22 @@ Two ways to load content — simple and advanced:
 - `loadContent()` takes already-extracted `ReadiumSpeechUtterance`s directly. No GND, no extraction options — you own the utterance list.
 - `loadGndContent(nodes)` takes a raw [Guided Navigation](GuidedNavigation.md) tree instead. The navigator retains it and re-runs [`extractUtterances`](UtteranceExtraction.md) itself when an extraction-affecting preference changes via `submitPreferences()`, so verbosity/skip/contextualize/language stay live over the whole tree — `loadContent()` keeps no such source, so those preferences are no-ops on it; prosody preferences still apply either way — see [Preferences](Preferences.md).
 
+### `contextualizationOverrides`
+
+Set once at construction — not part of `submitPreferences()`, since it doesn't change at runtime:
+
+```typescript
+const navigator = new ReadiumSpeechNavigator(engine, {
+  contextualizationOverrides: { contextualizations, shapes, params },
+});
+```
+
+Each field forwards to the matching [`extractUtterances` option](UtteranceExtraction.md#contextualization) — see that doc for what each does and worked examples for every use case (rewording a role, adding a role the catalog has none for, feeding a placeholder the extractor doesn't compute on its own):
+
+- `contextualizations` → [`contextualization.contextualizations`](UtteranceExtraction.md#contextualizationcontextualizations)
+- `params` → [`contextualization.params`](UtteranceExtraction.md#contextualizationparams)
+- `shapes` → [`contextualization.shapes`](UtteranceExtraction.md#contextualizationshapes), but keyed one level deeper, by [verbosity level](Preferences.md#verbosity) (`{ table: { few: "inline", most: "block" } }`) — each preset already has its own built-in shape table, so an override here only needs the levels you want to change, `"custom"` included (custom is the one level with no built-in table of its own).
+
 ## Events
 
 ### `ReadiumSpeechPlaybackEvent`

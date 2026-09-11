@@ -8,12 +8,8 @@
       ],
       "utterances": [
         {
-          "plain": "Hello",
-          "language": "en"
-        },
-        {
-          "plain": "bonjour.",
-          "language": "fr"
+          "language": "en",
+          "plain": "Hello bonjour."
         }
       ]
     },
@@ -21,18 +17,22 @@
       "options": [
         {
           "format": "plain",
-          "language": "block-level"
+          "language": "always"
         },
         {
           "format": "plain",
-          "language": "block-level",
+          "language": "always",
           "inlineContextualization": true
         }
       ],
       "utterances": [
         {
-          "language": "en",
-          "plain": "Hello bonjour."
+          "plain": "Hello",
+          "language": "en"
+        },
+        {
+          "plain": "bonjour.",
+          "language": "fr"
         }
       ]
     },
@@ -63,7 +63,7 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "Hello <lang xml:lang=\"fr\">bonjour</lang>."
+          "ssml": "Hello bonjour."
         }
       ]
     },
@@ -71,18 +71,18 @@
       "options": [
         {
           "format": "ssml",
-          "language": "block-level"
+          "language": "always"
         },
         {
           "format": "ssml",
-          "language": "block-level",
+          "language": "always",
           "inlineContextualization": true
         }
       ],
       "utterances": [
         {
           "language": "en",
-          "ssml": "Hello bonjour."
+          "ssml": "Hello <lang xml:lang=\"fr\">bonjour</lang>."
         }
       ]
     },

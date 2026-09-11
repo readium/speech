@@ -1,4 +1,4 @@
-import type { GndRole } from "../gnd/types.js";
+import type { GndObject, GndRole } from "../gnd/types.js";
 
 // Synthesized navigational text the extractor adds around a node, keyed by
 // `GndRole` and resolved via i18next (`<role>.inline`, `<role>.block.start`/
@@ -6,6 +6,31 @@ import type { GndRole } from "../gnd/types.js";
 export type ContextualizationEntry = string | { [key: string]: ContextualizationEntry };
 
 export type Contextualizations = Record<GndRole, ContextualizationEntry>;
+
+// The three levers that all shape the same announcement, on top of whatever
+// `contextualizationLocale` catalog they're layered over — grouped together
+// because each can depend on what another produces (a `shapes` override
+// only does anything for a role `contextualizations` gives two forms to; a
+// `params` return is merged into wording `contextualizations` supplies).
+export interface ContextualizationOptions {
+  // A plain string index signature (not `Partial<Contextualizations>`):
+  // callers can supply any subset of keys, known or new, without needing
+  // an `| undefined` on every value.
+  contextualizations?: Contextualizations;
+
+  // Per-role contextualization shape overrides; a role absent here defaults
+  // to "block". No effect outside `contextualize` or on inline-only roles.
+  shapes?: Partial<Record<GndRole, "inline" | "block">>;
+
+  // Computes `{{ placeholder }}` params for a role's catalog entry from its
+  // node. Built-in roles (table, row, cell, rowheader, and roles with a
+  // `description`) already get params without this; its return is merged on
+  // top of those (this function's keys win), and for any other role — e.g.
+  // one only this caller's `contextualizations` catalog defines — it's the
+  // only source of params, since nothing else knows what that role's node
+  // carries.
+  params?: (role: GndRole, node: GndObject) => Record<string, string> | undefined;
+}
 
 export interface ExtractUtterancesOptions {
   // Every extraction is fully plain or fully SSML, never a per-node
@@ -15,13 +40,12 @@ export interface ExtractUtterancesOptions {
   // strip tags/placeholders from ssml into plain). Default "plain".
   format?: "plain" | "ssml";
 
-  // A plain string index signature (not `Partial<Contextualizations>`):
-  // callers can supply any subset of keys, known or new, without needing
-  // an `| undefined` on every value.
-  contextualizations?: Contextualizations;
+  // See `ContextualizationOptions` above.
+  contextualization?: ContextualizationOptions;
 
-  // Locale of the contextualization catalog (wording + plural rules).
-  // Falls back to "en". Distinct from `language` below, which governs the
+  // Locale of the contextualization catalog (wording + plural rules) that
+  // `contextualization.contextualizations` above layers on top of. Falls
+  // back to "en". Distinct from `language` below, which governs the
   // content's own inline spans, not the catalog's.
   contextualizationLocale?: string;
 
@@ -31,15 +55,11 @@ export interface ExtractUtterancesOptions {
   // Nothing is skipped by default (`[]`).
   skip?: GndRole[];
 
-  // Which roles get contextualized (still needs a `contextualizations`
+  // Which roles get contextualized (still needs a `contextualization.contextualizations`
   // catalog entry to say anything). Nothing is contextualized by default,
   // same as `skip` defaulting to nothing skipped — unlike `skip`, the
   // underlying content still plays.
   contextualize?: GndRole[];
-
-  // Per-role contextualization shape overrides; a role absent here defaults
-  // to "block". No effect outside `contextualize` or on inline-only roles.
-  contextualizationShapes?: Partial<Record<GndRole, "inline" | "block">>;
 
   // Which language declarations in the *input* the extraction respects.
   // This never merges separate sibling nodes into one utterance — each

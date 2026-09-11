@@ -8,6 +8,25 @@
       ],
       "utterances": [
         {
+          "language": "en",
+          "plain": "One deux three quatre five."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
           "plain": "One",
           "language": "en"
         },
@@ -26,25 +45,6 @@
         {
           "plain": "five.",
           "language": "en"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "plain",
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "language": "block-level",
-          "inlineContextualization": true
-        }
-      ],
-      "utterances": [
-        {
-          "language": "en",
-          "plain": "One deux three quatre five."
         }
       ]
     },
@@ -75,7 +75,7 @@
       "utterances": [
         {
           "language": "en",
-          "ssml": "One <lang xml:lang=\"fr\">deux</lang> three <lang xml:lang=\"fr\">quatre</lang> five."
+          "ssml": "One deux three quatre five."
         }
       ]
     },
@@ -83,18 +83,18 @@
       "options": [
         {
           "format": "ssml",
-          "language": "block-level"
+          "language": "always"
         },
         {
           "format": "ssml",
-          "language": "block-level",
+          "language": "always",
           "inlineContextualization": true
         }
       ],
       "utterances": [
         {
           "language": "en",
-          "ssml": "One deux three quatre five."
+          "ssml": "One <lang xml:lang=\"fr\">deux</lang> three <lang xml:lang=\"fr\">quatre</lang> five."
         }
       ]
     },

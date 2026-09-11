@@ -19,7 +19,6 @@ import {
   blockLevelRoles,
   roleDropOverrides,
   deferrablePlaceholderRoles,
-  labelVariantRoles,
   descriptionFoldingRoles,
   valueFoldingRoles,
   contentlessRoles,
@@ -36,6 +35,8 @@ interface WalkContext {
   // Per-role contextualization shape overrides for this call — see
   // `ExtractUtterancesOptions.contextualizationShapes`.
   contextualizationShapes: Partial<Record<GndRole, "inline" | "block">>;
+  // See `ExtractUtterancesOptions.contextualizationParams`.
+  contextualizationParams?: (role: GndRole, node: GndObject) => Record<string, string> | undefined;
   format: "plain" | "ssml";
   inlineContextualization: boolean;
   language?: "none" | "block-level" | "always";
@@ -55,7 +56,6 @@ type SourceTrace = (GndObject | undefined)[];
 
 const blockLevelRoleSet: ReadonlySet<GndRole> = new Set(blockLevelRoles);
 const deferrablePlaceholderRoleSet: ReadonlySet<GndRole> = new Set(deferrablePlaceholderRoles);
-const labelVariantRoleSet: ReadonlySet<GndRole> = new Set(labelVariantRoles);
 const descriptionFoldingRoleSet: ReadonlySet<GndRole> = new Set(descriptionFoldingRoles);
 const valueFoldingRoleSet: ReadonlySet<GndRole> = new Set(valueFoldingRoles);
 const contentlessRoleSet: ReadonlySet<GndRole> = new Set(contentlessRoles);
@@ -325,40 +325,55 @@ function resolvePluralPart(ctx: WalkContext, role: string, name: string, count: 
   return ctx.i18n.exists(key, { count }) ? ctx.i18n.t(key, { count }) : String(count);
 }
 
-function contextualizationParamsFor(role: string, node: GndObject, ctx: WalkContext): { variantKey?: string; params?: Record<string, string> } {
-  if (labelVariantRoleSet.has(role)) {
-    return {
-      variantKey: node.description !== undefined ? "labelled" : "unlabelled",
-      params: { description: node.description ?? "" },
-    };
-  }
-  if (role === "figure") {
-    return { params: { description: node.description ?? "" } };
-  }
-  if (role === "table") {
+type ContextualizationParams = { variantKey?: string; params?: Record<string, string> };
+type ContextualizationParamsProvider = (node: GndObject, ctx: WalkContext) => ContextualizationParams;
+
+// Any node with a `description` gets `{{ description }}` interpolated,
+// whatever its role, plus a labelled/unlabelled variant a catalog entry can opt into.
+function genericDescriptionParams(node: GndObject): ContextualizationParams {
+  if (node.description === undefined) return { variantKey: "unlabelled" };
+  return { variantKey: "labelled", params: { description: node.description } };
+}
+
+function cellOrRowheaderParams(node: GndObject, ctx: WalkContext): ContextualizationParams {
+  const header = ctx.tableCellHeaders.get(node);
+  return {
+    variantKey: header !== undefined ? "withHeader" : "withoutHeader",
+    params: { header: header ?? "", value: plainTextOf(node) },
+  };
+}
+
+// Structural data only computable by walking the table, for the roles that need it.
+const builtInContextualizationParamProviders: Partial<Record<GndRole, ContextualizationParamsProvider>> = {
+  table: (node, ctx) => {
     const structure = computeTableStructure(node.children ?? []);
     for (const [row, count] of structure.rowNumbers) ctx.tableRowNumbers.set(row, count);
     for (const [cell, header] of structure.cellHeaders) ctx.tableCellHeaders.set(cell, header);
     return {
-      variantKey: node.description !== undefined ? "labelled" : "unlabelled",
       params: {
-        description: node.description ?? "",
         lines: resolvePluralPart(ctx, "table", "lines", structure.lines),
         columns: resolvePluralPart(ctx, "table", "columns", structure.columns),
       },
     };
+  },
+  row: (node, ctx) => ({ params: { count: String(ctx.tableRowNumbers.get(node) ?? "") } }),
+  cell: cellOrRowheaderParams,
+  rowheader: cellOrRowheaderParams,
+};
+
+// Layers generic description params, then structural params, then the caller's own — later wins per key.
+function contextualizationParamsFor(role: string, node: GndObject, ctx: WalkContext): ContextualizationParams {
+  const generic = genericDescriptionParams(node);
+  let variantKey = generic.variantKey;
+  let params = generic.params;
+  const structural = builtInContextualizationParamProviders[role]?.(node, ctx);
+  if (structural) {
+    if (structural.variantKey) variantKey = structural.variantKey;
+    params = { ...params, ...structural.params };
   }
-  if (role === "row") {
-    return { params: { count: String(ctx.tableRowNumbers.get(node) ?? "") } };
-  }
-  if (role === "cell" || role === "rowheader") {
-    const header = ctx.tableCellHeaders.get(node);
-    return {
-      variantKey: header !== undefined ? "withHeader" : "withoutHeader",
-      params: { header: header ?? "", value: plainTextOf(node) },
-    };
-  }
-  return {};
+  const custom = ctx.contextualizationParams?.(role, node);
+  if (custom) params = { ...params, ...custom };
+  return { variantKey, params };
 }
 
 function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, suppress: boolean): void {
@@ -530,16 +545,20 @@ function mergeContextualizations(base: Contextualizations, override: Contextuali
 
 async function makeWalkContext(options: ExtractUtterancesOptions): Promise<WalkContext> {
   const locale = options.contextualizationLocale ?? "en";
-  const contextualizations = mergeContextualizations(await contextualizationsForLocale(locale), options.contextualizations);
+  const contextualizations = mergeContextualizations(
+    await contextualizationsForLocale(locale),
+    options.contextualization?.contextualizations,
+  );
   return {
     contextualizations,
     i18n: makeContextualizer(locale, contextualizations),
     skip: new Set(options.skip ?? []),
     contextualize: new Set(options.contextualize ?? []),
-    contextualizationShapes: options.contextualizationShapes ?? {},
+    contextualizationShapes: options.contextualization?.shapes ?? {},
+    contextualizationParams: options.contextualization?.params,
     format: options.format ?? "plain",
     inlineContextualization: options.inlineContextualization ?? false,
-    language: options.language,
+    language: options.language ?? "block-level",
     blockStarts: new Set(),
     tableRowNumbers: new Map(),
     tableCellHeaders: new Map(),

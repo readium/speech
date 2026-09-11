@@ -126,7 +126,9 @@ for (const id of ids) {
               if (skip.length > 0) options.skip = skip;
               if (contextualize.length > 0) options.contextualize = contextualize;
               if (inlineRoles.length > 0) {
-                options.contextualizationShapes = Object.fromEntries(inlineRoles.map((role) => [role, "inline"]));
+                options.contextualization = {
+                  shapes: Object.fromEntries(inlineRoles.map((role) => [role, "inline"])),
+                };
               }
               if (language !== undefined) options.language = language;
               if (inlineContextualization) options.inlineContextualization = true;

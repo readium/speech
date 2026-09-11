@@ -130,3 +130,26 @@ export const contextualizationShapesAtVerbosity: Readonly<
 // `contextualizationShapeByRole`) — `table` today. Every other role with a
 // `block`-shaped catalog entry (e.g. `list`) is a fixed block always.
 export const shapeableRoles: readonly GndRole[] = Object.keys(contextualizationShapeByRole) as GndRole[];
+
+// A caller-supplied per-role shape, keyed by verbosity level. Unlike
+// `contextualizationShapeByRole`, `"custom"` is a valid key here — it's the
+// only way to control shape under custom verbosity, which has no built-in
+// shape table of its own.
+export type ContextualizationShapeOverrides = Partial<Record<GndRole, Partial<Record<VerbosityPreset, ContextualizationShape>>>>;
+
+// The shapes `reextract()` actually passes to the extractor: the built-in
+// table for the current level (empty under "custom"), with `overrides`
+// layered on top for that same level.
+export function resolveContextualizationShapes(
+  verbosity: VerbosityPreset,
+  overrides: ContextualizationShapeOverrides | undefined,
+): Partial<Record<GndRole, ContextualizationShape>> {
+  const base = verbosity === "custom" ? {} : contextualizationShapesAtVerbosity[verbosity];
+  if (!overrides) return base;
+  const shapes = { ...base };
+  for (const role of Object.keys(overrides) as GndRole[]) {
+    const shape = overrides[role]?.[verbosity];
+    if (shape) shapes[role] = shape;
+  }
+  return shapes;
+}

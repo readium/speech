@@ -59,7 +59,7 @@ volume?: number;                                 // default 1.0, range [0, 1]
 
 `rate`/`pitch`/`volume` are pushed straight to the engine's own `setRate`/`setPitch`/`setVolume` on every `submitPreferences()` call — unlike the extraction-time preferences, no reload. An engine that needs to re-synthesize already-buffered content on parameter changes handles that itself inside those setters.
 
-`language` (`"none" | "block-level" | "always"`) is the same option documented in [Utterance Extraction](UtteranceExtraction.md#options).
+`language` (`"none" | "block-level" | "always"`, default `"block-level"`) is the same option documented in [Utterance Extraction](UtteranceExtraction.md#options).
 
 ## `format` / `inlineContextualization`
 
