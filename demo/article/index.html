@@ -77,7 +77,6 @@
         <input type="checkbox" id="readAlong" checked>
         <label for="readAlong">Read along</label>
       </div>
-      <p id="readAlongUnavailable" class="read-along-unavailable" role="status" hidden>Read along is not available for this voice, sorry.</p>
       <fieldset id="readAlongOptions" class="read-along-options">
         <legend class="visually-hidden">Read along display options</legend>
         <div class="control-group">
@@ -93,7 +92,7 @@
           </select>
           <input type="color" id="utteranceColorInput" value="#ffeb3b" alpha aria-label="Utterance highlight color">
         </div>
-        <div class="control-group">
+        <div id="wordOptions" class="control-group">
           <label for="wordStyleSelect">Word style:</label>
           <select id="wordStyleSelect">
             <option value="highlight">Highlight</option>
@@ -105,6 +104,7 @@
           </select>
           <input type="color" id="wordColorInput" value="#e53935" alpha aria-label="Word highlight color">
         </div>
+        <p id="wordHighlightUnavailable" class="read-along-unavailable" role="status" hidden>Word highlighting is not available for this voice, sorry.</p>
       </fieldset>
     </div>
   </div>

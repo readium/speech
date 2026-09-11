@@ -35,7 +35,7 @@ const currentUtteranceInput = document.getElementById("currentUtteranceInput");
 const totalUtterancesSpan = document.getElementById("totalUtterances");
 const readAlongCheckbox = document.getElementById("readAlong");
 const readAlongGroup = document.getElementById("readAlongOptions");
-const readAlongUnavailable = document.getElementById("readAlongUnavailable");
+const wordHighlightUnavailable = document.getElementById("wordHighlightUnavailable");
 const gndOutput = document.getElementById("gnd-output");
 const showTextrefsCheckbox = document.getElementById("showTextrefs");
 const utterancesOutput = document.getElementById("utterances-output");
@@ -63,7 +63,7 @@ let currentVoice = null;
 let isPlaying = false;
 let utterances = [];
 let readAlongEnabled = true;
-let readAlongPreference = true; // user's last explicit choice — restored when a capable voice is selected again
+let wordHighlightAvailable = true;
 let currentSentenceIndex = -1;
 let utteranceStyle = DecorationStyleType.Highlight;
 let utteranceTint = "#ffeb3b";
@@ -116,7 +116,7 @@ async function initialize() {
       const option = voiceSelect.querySelector(`option[data-voice-uri="${currentVoice.voiceURI}"]`);
       if (option) option.selected = true;
     }
-    updateReadAlongAvailability();
+    updateWordHighlightAvailability();
 
     await initializeContent();
 
@@ -381,29 +381,30 @@ function handleShowTextrefsChange(e) {
 }
 
 function handleReadAlongChange(e) {
-  readAlongPreference = e.target.checked;
   readAlongEnabled = e.target.checked;
   if (readAlongGroup) readAlongGroup.disabled = !readAlongEnabled;
   if (!readAlongEnabled) {
     clearWordHighlighting();
+  } else if (navigator && navigator.getState() !== "idle") {
+    // Re-entering here (rather than waiting for the next "start"/"resume")
+    // covers voices without boundary events, where nothing else would
+    // re-trigger the highlight before the next utterance.
+    enterUtterance(navigator.getCurrentUtteranceIndex());
   }
 }
 
-// Read along forces the checkbox off and disabled when the selected voice
-// has offlineAvailability === false — readAlongPreference remembers the
-// user's own choice (session-scoped, in memory) so it's restored as-is
-// once a capable voice is selected again, rather than resetting to on.
-function updateReadAlongAvailability() {
-  if (!readAlongCheckbox) return;
-
+// Word-level boundary events aren't reliable for voices with
+// offlineAvailability === false, so only word highlighting (not read along
+// as a whole, i.e. sentence highlighting keeps working) is disabled for them.
+function updateWordHighlightAvailability() {
   const unavailable = !!currentVoice && currentVoice.offlineAvailability === false;
-  readAlongCheckbox.disabled = unavailable;
-  if (readAlongUnavailable) readAlongUnavailable.hidden = !unavailable;
+  wordHighlightAvailable = !unavailable;
 
-  readAlongEnabled = unavailable ? false : readAlongPreference;
-  readAlongCheckbox.checked = readAlongEnabled;
-  if (readAlongGroup) readAlongGroup.disabled = !readAlongEnabled;
-  if (!readAlongEnabled) clearWordHighlighting();
+  if (wordStyleSelect) wordStyleSelect.disabled = unavailable;
+  if (wordColorInput) wordColorInput.disabled = unavailable;
+  if (wordHighlightUnavailable) wordHighlightUnavailable.hidden = !unavailable;
+
+  if (!wordHighlightAvailable) clearWordDecoration();
 }
 
 // Parses the live, rendered article DOM into a Guided Navigation document
@@ -578,7 +579,7 @@ async function handleVoiceChange(e) {
     console.error("Voice not found:", voiceName);
     return;
   }
-  updateReadAlongAvailability();
+  updateWordHighlightAvailability();
 
   if (navigator) {
     try {
@@ -593,8 +594,12 @@ async function handleVoiceChange(e) {
 
 function clearWordHighlighting() {
   decoCtrl.applyDecorations([], "tts-sentence");
-  decoCtrl.applyDecorations([], "tts-word");
+  clearWordDecoration();
   currentSentenceIndex = -1;
+}
+
+function clearWordDecoration() {
+  decoCtrl.applyDecorations([], "tts-word");
   lastWordHighlight = null;
 }
 
@@ -670,7 +675,7 @@ function highlightCurrentWord(charIndex, charLength) {
   if (!currentUtterance || !currentUtterance.locate) return;
 
   enterUtterance(currentIndex);
-  if (currentUtterance.synthetic) return;
+  if (currentUtterance.synthetic || !wordHighlightAvailable) return;
 
   const word = currentUtterance.plain?.substring(charIndex, charIndex + charLength);
   if (!word || !word.trim()) return;
