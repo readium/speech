@@ -1,16 +1,17 @@
-import { GndRole } from '../gnd/types.js';
-export type AnnouncementKey = string;
-export type Announcement = string | ((params?: Record<string, string>) => string);
-export interface AnnouncementPair {
-    start: Announcement;
-    end: Announcement;
+import { GndObject, GndRole } from '../gnd/types.js';
+export type ContextualizationEntry = string | {
+    [key: string]: ContextualizationEntry;
+};
+export type Contextualizations = Record<GndRole, ContextualizationEntry>;
+export interface ContextualizationOptions {
+    contextualizations?: Contextualizations;
+    shapes?: Partial<Record<GndRole, "inline" | "block">>;
+    params?: (role: GndRole, node: GndObject) => Record<string, string> | undefined;
 }
-export type RoleAnnouncement = Announcement | AnnouncementPair;
-export declare function isAnnouncementPair(a: RoleAnnouncement): a is AnnouncementPair;
-export type Announcements = Record<AnnouncementKey, RoleAnnouncement>;
 export interface ExtractUtterancesOptions {
     format?: "plain" | "ssml";
-    announcements?: Announcements;
+    contextualization?: ContextualizationOptions;
+    contextualizationLocale?: string;
     skip?: GndRole[];
     contextualize?: GndRole[];
     language?: "none" | "block-level" | "always";

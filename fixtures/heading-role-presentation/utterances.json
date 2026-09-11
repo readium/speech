@@ -1,0 +1,40 @@
+{
+  "cases": [
+    {
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Before."
+        },
+        {
+          "plain": "Not really a heading"
+        },
+        {
+          "plain": "After."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Before."
+        },
+        {
+          "ssml": "Not really a heading"
+        },
+        {
+          "ssml": "After."
+        }
+      ]
+    }
+  ]
+}

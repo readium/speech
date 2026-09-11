@@ -8,7 +8,8 @@
       ],
       "utterances": [
         {
-          "plain": "ASCII Art of a cat face"
+          "plain": "ASCII Art of a cat face",
+          "synthetic": true
         }
       ]
     },
@@ -75,13 +76,8 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the figure."
-        },
-        {
-          "plain": "ASCII Art of a cat face"
-        },
-        {
-          "plain": "End of the figure."
+          "plain": "Figure: ASCII Art of a cat face",
+          "synthetic": true
         }
       ]
     },
@@ -238,7 +234,8 @@
       ],
       "utterances": [
         {
-          "ssml": "ASCII Art of a cat face"
+          "ssml": "ASCII Art of a cat face",
+          "synthetic": true
         }
       ]
     },
@@ -305,13 +302,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the figure."
-        },
-        {
-          "ssml": "ASCII Art of a cat face"
-        },
-        {
-          "ssml": "End of the figure."
+          "ssml": "Figure: ASCII Art of a cat face",
+          "synthetic": true
         }
       ]
     },

@@ -75,7 +75,8 @@
       ],
       "utterances": [
         {
-          "plain": "Tip."
+          "plain": "Tip.",
+          "synthetic": true
         },
         {
           "plain": "Tip: wind the mechanism fully before dusk."
@@ -157,7 +158,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Tip."
+          "ssml": "Tip.",
+          "synthetic": true
         },
         {
           "ssml": "Tip: wind the mechanism fully before dusk."

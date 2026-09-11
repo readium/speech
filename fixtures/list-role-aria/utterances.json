@@ -81,7 +81,8 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "synthetic": true
         },
         {
           "plain": "First item"
@@ -93,7 +94,8 @@
           "plain": "Third item"
         },
         {
-          "plain": "End of the list."
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -160,19 +162,22 @@
       ],
       "utterances": [
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "First item"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Second item"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Third item"
@@ -250,28 +255,33 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "synthetic": true
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "First item"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Second item"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "synthetic": true
         },
         {
           "plain": "Third item"
         },
         {
-          "plain": "End of the list."
+          "plain": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -356,7 +366,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "synthetic": true
         },
         {
           "ssml": "First item"
@@ -368,7 +379,8 @@
           "ssml": "Third item"
         },
         {
-          "ssml": "End of the list."
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     },
@@ -435,19 +447,22 @@
       ],
       "utterances": [
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "First item"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Second item"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Third item"
@@ -525,28 +540,33 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "synthetic": true
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "First item"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Second item"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "synthetic": true
         },
         {
           "ssml": "Third item"
         },
         {
-          "ssml": "End of the list."
+          "ssml": "End of the list.",
+          "synthetic": true
         }
       ]
     }

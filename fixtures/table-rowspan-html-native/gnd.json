@@ -1,0 +1,39 @@
+{
+  "role": [
+    "table"
+  ],
+  "children": [
+    {
+      "role": [
+        "row"
+      ],
+      "children": [
+        {
+          "text": "Ada",
+          "role": [
+            "rowheader"
+          ]
+        },
+        {
+          "text": "Engineer",
+          "role": [
+            "cell"
+          ]
+        }
+      ]
+    },
+    {
+      "role": [
+        "row"
+      ],
+      "children": [
+        {
+          "text": "2020",
+          "role": [
+            "cell"
+          ]
+        }
+      ]
+    }
+  ]
+}

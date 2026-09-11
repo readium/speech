@@ -1,39 +1,129 @@
-/* Base styles */
-body,
-html {
+/* Base styles — same shell as demo/playground/styles.css: body is a flex
+   row, the left pane is a fixed-width full-height sidebar, and everything
+   else (controls, article, footer) is one independently-scrolling column
+   on the right (playground's .sidebar/.content, renamed .panel/.main here). */
+html,
+body {
   margin: 0;
   padding: 0;
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: stretch;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   line-height: 1.6;
   color: #333;
-  max-width: 800px;
-  margin: 0 auto;
-  padding: 20px;
-  box-sizing: border-box;
 }
 
-/* Control panel */
+/* Only rendered when scripting is disabled — the rest of the page is
+   otherwise inert without it, since playback, voice selection, and
+   highlighting are all driven by script.js. */
+noscript {
+  order: -1;
+  width: 100%;
+  padding: 12px 16px;
+  background: #fff3cd;
+  color: #664d03;
+  border-bottom: 3px solid #ffe69c;
+  font-weight: 500;
+}
+
+/* Focus ring only on keyboard/AT focus, never on a mouse click. */
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid #2196F3;
+  outline-offset: 2px;
+}
+
+/* Settings column — a third pane on desktop (mirrors .panel's fixed-width
+   sidebar treatment, on the other side), collapsible exactly like
+   .panel/.panel-show so it can be closed to give the article more room.
+   On mobile (see @media below) there's no room for three columns, so it
+   becomes a bottom-bar-driven split instead. */
 .controls {
-  position: sticky;
-  top: 0;
+  order: 3;
+  width: 320px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  border-left: 1px solid #ddd;
   background: #f5f5f5;
   padding: 20px;
-  border-radius: 8px;
-  margin: 0 0 20px 0;
-  width: 100%;
-  z-index: 100;
   box-sizing: border-box;
+  transition: width 0.2s ease;
+  /* Stays above the decorator's document-wide mask overlay (z-index: 9999). */
+  position: relative;
+  z-index: 10000;
 }
 
-/* Form elements */
+.controls.collapsed {
+  width: 0;
+  padding: 0;
+  border-left: none;
+  overflow: hidden;
+}
+
+/* .controls reuses .panel's .tabs-bar/.tab/.tab-toggle classes verbatim
+   for the collapse toggle, so it's pixel-identical to "« Hide details"
+   instead of a bespoke button. .panel has no padding of its own, so its
+   .tabs-bar sits flush against the column edges; .controls does have
+   padding, so its .tabs-bar needs to bleed back out to match. */
+.controls .tabs-bar {
+  margin: -20px -20px 15px;
+}
+
+/* Reveal button for the collapsed Settings column — mirrors .panel-show but
+   docks to the opposite (right) corner so the two never overlap. */
+.controls-show[hidden] {
+  display: none;
+}
+
+.controls-show {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: fixed;
+  top: 12px;
+  right: 12px;
+  /* Stays above the decorator's document-wide mask overlay (z-index: 9999). */
+  z-index: 10000;
+  background: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.controls-show:hover {
+  background: #f0f0f0;
+}
+
 .control-group {
   margin-bottom: 15px;
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 10px;
   flex-wrap: wrap;
+}
+
+/* Keeps a label and its input together as one unit when .control-group
+   wraps — without this, flex-wrap can break between the label and its
+   own input, landing them on separate lines. */
+.field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 label {
@@ -47,16 +137,76 @@ input[type="checkbox"] {
   width: auto;
 }
 
+/* Toggle checkbox lives outside the fieldset, not in its <legend>. */
+.read-along-group {
+  width: 100%;
+  margin: 0 0 15px;
+  padding: 12px 16px 4px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.read-along-toggle {
+  gap: 8px;
+  padding: 0 6px;
+  margin-bottom: 4px;
+}
+
+.read-along-options {
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* flex-direction: column forces label-then-inputs stacking — left to
+   flex-wrap, each row broke at a different point depending on its label's
+   text length ("Utterance style:" vs. "Word style:"), so one row wrapped
+   after just the label and the other after label+select, making the two
+   rows look inconsistent despite having identical structure. */
+.read-along-group .control-group {
+  flex-direction: column;
+  align-items: flex-start;
+  transition: opacity 0.2s;
+}
+
+.read-along-options:disabled .control-group {
+  opacity: 0.5;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.read-along-unavailable {
+  margin: 0 0 10px;
+  padding: 0 6px;
+  font-size: 13px;
+  color: #b45309;
+}
+
+.read-along-unavailable[hidden] {
+  display: none;
+}
+
 select {
   padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
   font-size: 14px;
   box-sizing: border-box;
-  min-width: 200px;
+  min-width: 140px;
 }
 
-/* Base button styles */
+/* Buttons */
 button {
   padding: 8px 16px;
   border: none;
@@ -72,17 +222,6 @@ button {
   gap: 6px;
 }
 
-/* Button icons and text */
-.btn-icon {
-  display: inline-block;
-  width: 20px;
-  text-align: center;
-}
-
-.btn-text {
-  display: inline-block;
-}
-
 button:disabled {
   background-color: #cccccc !important;
   cursor: not-allowed;
@@ -93,72 +232,394 @@ button:hover:not(:disabled) {
   opacity: 0.9;
 }
 
-/* Play/Pause button */
 #playPauseBtn {
-  background-color: #4CAF50; /* Green for play */
+  background-color: #ff9800;
 }
 
 #playPauseBtn.paused {
-  background-color: #ff9800; /* Orange for pause */
+  background-color: #4CAF50;
 }
 
 #playPauseBtn:hover:not(:disabled) {
-  background-color: #45a049; /* Darker green on hover */
+  background-color: #e68900;
 }
 
 #playPauseBtn.paused:hover:not(:disabled) {
-  background-color: #e68900; /* Darker orange on hover */
+  background-color: #45a049;
 }
 
-/* Stop button */
 #stopBtn {
-  background-color: #f44336; /* Red for stop */
+  background-color: #f44336;
 }
 
 #stopBtn:hover:not(:disabled) {
-  background-color: #d32f2f; /* Darker red on hover */
+  background-color: #d32f2f;
 }
 
-/* Navigation buttons */
 #prevBtn,
 #nextBtn {
-  background-color: #2196F3; /* Blue for navigation */
+  background-color: #2196F3;
 }
 
 #prevBtn:hover:not(:disabled),
 #nextBtn:hover:not(:disabled) {
-  background-color: #1976D2; /* Darker blue on hover */
+  background-color: #1976D2;
 }
 
-/* Utterance counter */
 #currentUtterance {
   font-weight: bold;
   color: #2196F3;
 }
 
-/* Content area */
+/* Center column: article + footer, scrolling as one region. Bottom
+   padding keeps the last of the article from being hidden behind the
+   fixed player-bar. */
+.main {
+  order: 2;
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: 100px;
+}
+
+.reader {
+  min-width: 0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Floating media-player-style playback bar, fixed to the viewport so it
+   stays reachable regardless of which pane (.panel/.main) is scrolled.
+   On mobile (see @media below) it also carries the GND/Utterances/Settings
+   tab row, becoming a full-width docked bar instead of a centered pill. */
+.player-bar {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  /* Above .panel/.controls (both z-index: 10000) so their backgrounds never paint over its edges. */
+  z-index: 10001;
+  background: #fff;
+  border-radius: 999px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+.player-transport {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 16px;
+}
+
+/* Tab row inside .player-bar — only shown on mobile (see @media below);
+   on desktop the GND/Utterances panel and Settings are both already
+   directly visible/reachable, so no tab bar is needed there. */
+.mobile-tabs {
+  display: none;
+}
+
+.player-btn {
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border-radius: 50%;
+  justify-content: center;
+}
+
+.player-btn-main {
+  width: 48px;
+  height: 48px;
+}
+
+.player-status {
+  padding-left: 6px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.utterance-index-input {
+  box-sizing: border-box;
+  width: 3em;
+  padding: 1px 2px;
+  font-size: 13px;
+}
+
 #content {
+  padding: 20px 28px;
   line-height: 1.8;
 }
 
-#content p {
+#content [lang]:not([lang=""]) {
+  font-style: italic;
+}
+
+#content p,
+#content ul,
+#content table,
+#content figure {
   margin-bottom: 1.2em;
 }
 
+#content li {
+  margin-bottom: 0.4em;
+}
+
+#content figure {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 12px;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  text-align: center;
+}
+
+#content figure img {
+  max-width: 100%;
+  max-height: 320px;
+  height: auto;
+}
+
+#content figcaption {
+  margin-top: 8px;
+  font-size: 0.9em;
+  color: #555;
+}
+
+#content figure p[role="doc-credit"] {
+  margin: 4px 0 0;
+  font-size: 0.8em;
+  color: #888;
+}
+
+#content table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 0.9em;
+}
+
+#content caption {
+  text-align: left;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+#content th,
+#content td {
+  border: 1px solid #ddd;
+  padding: 6px 10px;
+  text-align: left;
+}
+
+#content th {
+  background: #f5f5f5;
+}
+
+#content aside[role="doc-footnote"] {
+  font-size: 0.85em;
+  color: #555;
+}
+
+#content aside:not([role]) {
+  margin: 0 0 1.2em;
+  padding: 8px 12px;
+  border-left: 3px solid #ccc;
+  font-size: 0.9em;
+  font-style: italic;
+  color: #666;
+}
+
+#content [role="doc-pullquote"] {
+  margin: 0 0 1.2em;
+  padding: 12px 20px;
+  border-left: 4px solid #2196F3;
+  font-size: 1.3em;
+  font-weight: 500;
+  font-style: italic;
+  color: #1976D2;
+}
+
+#content dl[role="doc-glossary"] {
+  margin: 0 0 1.2em;
+}
+
+#content dl[role="doc-glossary"] dt {
+  font-weight: bold;
+  margin-top: 8px;
+}
+
+#content dl[role="doc-glossary"] dd {
+  margin: 2px 0 0;
+  color: #555;
+}
+
+#content ul[role="doc-bibliography"] {
+  font-size: 0.9em;
+  color: #555;
+}
+
+#content [role="doc-glossref"],
+#content [role="doc-biblioref"] {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+#content [role="doc-biblioref"] {
+  font-size: 0.8em;
+  vertical-align: super;
+}
+
+/* Left sidebar — fixed width, full viewport height, collapsible to a
+   narrow rail: same role as demo/playground's .sidebar. */
+.panel {
+  order: 1;
+  width: 320px;
+  flex-shrink: 0;
+  border-right: 1px solid #ddd;
+  background: #f7f7f8;
+  display: flex;
+  flex-direction: column;
+  transition: width 0.2s ease;
+  /* Stays above the decorator's document-wide mask overlay (z-index: 9999). */
+  position: relative;
+  z-index: 10000;
+}
+
+.panel.collapsed {
+  width: 0;
+  border-right: none;
+  overflow: hidden;
+}
+
+.tabs-bar {
+  flex-shrink: 0;
+  display: flex;
+  border-bottom: 1px solid #ddd;
+  background: #f7f7f8;
+}
+
+.tabs {
+  flex: 1;
+  display: flex;
+  min-width: 0;
+}
+
+.tab {
+  flex: 1;
+  justify-content: center;
+  background: transparent;
+  color: #333;
+  font-weight: 500;
+  border-radius: 0;
+  padding: 10px;
+}
+
+.tab[aria-selected="true"] {
+  background: #fff;
+  border-bottom: 2px solid #2196F3;
+  color: #2196F3;
+}
+
+.tab-toggle {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: transparent;
+  color: #666;
+  border: none;
+  border-left: 1px solid #ddd;
+  border-radius: 0;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 12px;
+}
+
+.tab-toggle-icon {
+  font-size: 15px;
+}
+
+.tab-toggle:hover {
+  background: #eee;
+  color: #333;
+}
+
+#panel-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+/* Reveal button for the collapsed GND/Utterances panel — an in-flow,
+   sticky-positioned element inside .main (not a viewport-fixed overlay),
+   so it only ever takes up space when it's actually rendered: [hidden]
+   collapses it to nothing instead of needing a padding hack elsewhere to
+   avoid overlapping .controls. Fixed (not sticky) so it isn't pushed down
+   by its sibling #controls-show sharing .main's normal flow — both need
+   to land at the same top:12px regardless of each other's presence. */
+.panel-show[hidden] {
+  display: none;
+}
+
+.panel-show {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  /* Stays above the decorator's document-wide mask overlay (z-index: 9999). */
+  z-index: 10000;
+  background: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 8px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+}
+
+.panel-show:hover {
+  background: #f0f0f0;
+}
+
+.tab-panel {
+  flex: 1;
+  overflow: auto;
+  overscroll-behavior: contain;
+  padding: 12px;
+}
+
+.panel-option {
+  position: sticky;
+  top: -12px;
+  margin: -12px -12px 12px;
+  padding: 10px 12px;
+  background: #f7f7f8;
+  border-bottom: 1px solid #ddd;
+  z-index: 1;
+}
+
+.code-block {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.8em;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
 
 /* Footer */
 footer {
-  margin: 2em 0 1em;
-  padding: 1em 0 0;
+  margin: 2em 0 0;
+  padding: 1em 28px 2em;
   border-top: 1px solid #e0e0e0;
   font-size: 0.8em;
   color: #666;
   line-height: 1.5;
-  max-width: 800px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1em;
-  padding-right: 1em;
 }
 
 footer p {
@@ -169,17 +630,184 @@ footer a {
   color: #1a73e8;
 }
 
-/* Responsive adjustments */
+/* Responsive layout — narrow viewports can't fit the desktop's side-by-side
+   panel/controls/article arrangement, so the article becomes the default
+   full-height view and GND/Utterances/Settings become bottom-bar-driven
+   splits instead (see .mobile-tabs) — never a full-screen replacement of
+   the article, since comparing GND/utterances against it is the point. */
+@media (max-width: 900px) {
+  body {
+    flex-direction: column;
+  }
+
+  /* .panel and .main use flex-basis (not fixed vh) so whichever one is
+     collapsed actually frees its space for the other — a fixed-vh split
+     left dead space behind whenever .panel collapsed to 0. min-height: 0
+     is essential here: without it, a flex item's automatic minimum size
+     defaults to its *content's* intrinsic size (the full GND JSON dump),
+     overriding flex-basis and letting .panel balloon past 40vh to fit it. */
+  .panel {
+    order: 0;
+    width: 100%;
+    height: auto;
+    flex: 0 0 40vh;
+    min-height: 0;
+    /* Stacked on mobile: the edge touching the article is the bottom one,
+       not the desktop side-by-side border-right — without a border here
+       the split is just a color change, easy to miss. */
+    border-right: none;
+    border-bottom: 3px solid #999;
+  }
+
+  .panel.collapsed {
+    flex: 0 0 0;
+  }
+
+  /* Replaced by .mobile-tabs in the player-bar — avoids two separate
+     controls for the same panel. */
+  .panel .tabs-bar {
+    display: none;
+  }
+
+  /* order pins .main last so whichever of .panel/.controls is open always splits at the top. */
+  .main {
+    height: auto;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-bottom: 130px;
+    order: 1;
+  }
+
+  /* Settings drops the persistent-column treatment on mobile, hidden by
+     default and shown as its own split only from the mobile Settings tab. */
+  .controls {
+    order: 0;
+    display: none;
+    width: 100%;
+    height: auto;
+    flex: 0 0 40vh;
+    min-height: 0;
+    overflow-y: auto;
+    padding: 20px;
+    border-left: none;
+    border-bottom: 3px solid #999;
+  }
+
+  .controls.mobile-open {
+    display: block;
+  }
+
+  /* The desktop collapse toggle/reveal button is superseded by the mobile
+     Settings tab and its own close (×) button (same reasoning as hiding
+     .panel-show below and .panel .tabs-bar above) — and .collapsed must
+     not shrink the split if it was left set from a desktop-width session
+     before the viewport narrowed. */
+  .controls .tabs-bar,
+  .controls-show {
+    display: none;
+  }
+
+  .controls.collapsed {
+    width: 100%;
+    padding: 20px;
+  }
+
+  /* The sticky "Show details" reveal button is superseded by the
+     GND/Utterances tabs below — same reasoning as hiding .tabs-bar. */
+  .panel-show {
+    display: none;
+  }
+
+  .player-bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: none;
+    border-radius: 16px 16px 0 0;
+    box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .player-transport {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* Buttons are flex items sized by width/height, not flex-basis, so
+     without flex-shrink: 0 the row still squeezes them into ovals before
+     wrapping the status text onto its own line. */
+  .player-btn {
+    flex-shrink: 0;
+  }
+
+  /* Forces the wrap onto its own row instead of trailing the last button. */
+  .player-status {
+    flex-basis: 100%;
+    text-align: center;
+  }
+
+  .mobile-tabs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 12px 10px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+  }
+
+  .mobile-tab {
+    flex: 1;
+    min-width: 0;
+    justify-content: center;
+    background: #f0f0f0;
+    color: #333;
+    font-size: 13px;
+    padding: 8px 10px;
+  }
+
+  /* Truncation happens on this inner span, not .mobile-tab itself —
+     centering the button's flex content directly clips overflow
+     symmetrically on both sides with no ellipsis ever shown, since
+     text-overflow only marks the trailing edge of normal (start-aligned)
+     text flow. The span truncates itself first, then the resulting
+     (already-fitting) block gets centered by the button's flexbox. */
+  .mobile-tab-label {
+    display: inline-block;
+    max-width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  .mobile-tab.active {
+    background: #2196F3;
+    color: #fff;
+  }
+
+  .mobile-tab-close {
+    flex: 0 0 auto;
+    background: #f44336;
+    padding: 8px 12px;
+    font-size: 16px;
+    line-height: 1;
+  }
+
+  .mobile-tab-close[hidden] {
+    display: none;
+  }
+}
+
 @media (max-width: 600px) {
   .control-group {
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   select {
     width: 100%;
   }
-  
+
   button {
     padding: 8px 12px;
     font-size: 13px;

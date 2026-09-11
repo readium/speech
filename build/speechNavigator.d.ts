@@ -5,11 +5,19 @@ import { ISpeechDefaults } from './preferences/SpeechDefaults';
 import { ISpeechPreferences, SpeechPreferences } from './preferences/SpeechPreferences';
 import { SpeechPreferencesEditor } from './preferences/SpeechPreferencesEditor';
 import { SpeechSettings } from './preferences/SpeechSettings';
+import { ContextualizationShapeOverrides } from './preferences/verbosityTables';
 import { ReadiumSpeechUtterance } from './utterance';
+import { Contextualizations } from './utterances/types';
 import { ReadiumSpeechVoice } from './voices/types';
+export interface ContextualizationOverrides {
+    contextualizations?: Contextualizations;
+    shapes?: ContextualizationShapeOverrides;
+    params?: (role: string, node: GndObject) => Record<string, string> | undefined;
+}
 export interface ReadiumSpeechNavigatorConfiguration {
     preferences?: ISpeechPreferences;
     defaults?: ISpeechDefaults;
+    contextualizationOverrides?: ContextualizationOverrides;
 }
 export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     private engine;
@@ -21,6 +29,7 @@ export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorCon
     private _preferences;
     private _settings;
     private _preferencesEditor;
+    private readonly contextualizationOverrides?;
     private source;
     private contentSources;
     private contentBlockStarts;
@@ -38,7 +47,7 @@ export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorCon
     setSpeakInContentLanguage(enabled: boolean): void;
     getSpeakInContentLanguage(): boolean;
     loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
-    loadGndContent(nodes: GndObject[]): void;
+    loadGndContent(nodes: GndObject[]): Promise<void>;
     private setContentQueue;
     private reextract;
     private resolveResumeIndex;
@@ -59,7 +68,7 @@ export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorCon
     private emitContentChangeEvent;
     get settings(): SpeechSettings;
     get preferencesEditor(): SpeechPreferencesEditor;
-    submitPreferences(preferences: SpeechPreferences): void;
+    submitPreferences(preferences: SpeechPreferences): Promise<void>;
     private applyPreferences;
     private sameSettingValue;
     destroy(): Promise<void>;

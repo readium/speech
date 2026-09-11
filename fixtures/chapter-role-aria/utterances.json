@@ -75,13 +75,15 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the chapter."
+          "plain": "Start of the chapter.",
+          "synthetic": true
         },
         {
           "plain": "Title of the chapter"
         },
         {
-          "plain": "End of the chapter."
+          "plain": "End of the chapter.",
+          "synthetic": true
         }
       ]
     },
@@ -148,7 +150,8 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1."
+          "plain": "Heading level 1.",
+          "synthetic": true
         },
         {
           "plain": "Title of the chapter"
@@ -226,16 +229,19 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the chapter."
+          "plain": "Start of the chapter.",
+          "synthetic": true
         },
         {
-          "plain": "Heading level 1."
+          "plain": "Heading level 1.",
+          "synthetic": true
         },
         {
           "plain": "Title of the chapter"
         },
         {
-          "plain": "End of the chapter."
+          "plain": "End of the chapter.",
+          "synthetic": true
         }
       ]
     },
@@ -314,13 +320,15 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the chapter."
+          "ssml": "Start of the chapter.",
+          "synthetic": true
         },
         {
           "ssml": "Title of the chapter"
         },
         {
-          "ssml": "End of the chapter."
+          "ssml": "End of the chapter.",
+          "synthetic": true
         }
       ]
     },
@@ -387,7 +395,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1."
+          "ssml": "Heading level 1.",
+          "synthetic": true
         },
         {
           "ssml": "Title of the chapter"
@@ -465,16 +474,19 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the chapter."
+          "ssml": "Start of the chapter.",
+          "synthetic": true
         },
         {
-          "ssml": "Heading level 1."
+          "ssml": "Heading level 1.",
+          "synthetic": true
         },
         {
           "ssml": "Title of the chapter"
         },
         {
-          "ssml": "End of the chapter."
+          "ssml": "End of the chapter.",
+          "synthetic": true
         }
       ]
     }

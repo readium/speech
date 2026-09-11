@@ -16,7 +16,7 @@ export interface ReadiumSpeechNavigatorContract extends Configurable<SpeechSetti
     setSpeakInContentLanguage(enabled: boolean): void;
     getSpeakInContentLanguage(): boolean;
     loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
-    loadGndContent(nodes: GndObject[]): void;
+    loadGndContent(nodes: GndObject[]): Promise<void>;
     getCurrentContent(): ReadiumSpeechUtterance | null;
     getContentQueue(): ReadiumSpeechUtterance[];
     play(): void;

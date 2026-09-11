@@ -1,0 +1,16 @@
+{
+  "children": [
+    {
+      "text": "Before the divider.",
+      "role": [
+        "paragraph"
+      ]
+    },
+    {
+      "text": "After the divider.",
+      "role": [
+        "paragraph"
+      ]
+    }
+  ]
+}

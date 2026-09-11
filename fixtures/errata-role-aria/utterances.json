@@ -75,10 +75,15 @@
       ],
       "utterances": [
         {
-          "plain": "Errata."
+          "plain": "Start of the errata.",
+          "synthetic": true
         },
         {
           "plain": "Page 42: 'lightouse' should read 'lighthouse'."
+        },
+        {
+          "plain": "End of the errata.",
+          "synthetic": true
         }
       ]
     },
@@ -157,10 +162,15 @@
       ],
       "utterances": [
         {
-          "ssml": "Errata."
+          "ssml": "Start of the errata.",
+          "synthetic": true
         },
         {
           "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
+        },
+        {
+          "ssml": "End of the errata.",
+          "synthetic": true
         }
       ]
     }

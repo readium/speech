@@ -75,13 +75,15 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the questions and answers."
+          "plain": "Start of the questions and answers.",
+          "synthetic": true
         },
         {
           "plain": "Q: How often was the lamp refueled? A: Nightly, by hand."
         },
         {
-          "plain": "End of the questions and answers."
+          "plain": "End of the questions and answers.",
+          "synthetic": true
         }
       ]
     },
@@ -160,13 +162,15 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the questions and answers."
+          "ssml": "Start of the questions and answers.",
+          "synthetic": true
         },
         {
           "ssml": "Q: How often was the lamp refueled? A: Nightly, by hand."
         },
         {
-          "ssml": "End of the questions and answers."
+          "ssml": "End of the questions and answers.",
+          "synthetic": true
         }
       ]
     }

@@ -40,6 +40,9 @@ export declare class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     private prefetchCache;
     private prefetchChainTail;
     private activeControllers;
+    private liveControllers;
+    private isSpeakingInternal;
+    private restartPending;
     private audioContext;
     private masterGain;
     private scheduledChunks;
@@ -66,6 +69,7 @@ export declare class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     private fillPrefetchWindow;
     private queuePrefetch;
     private clearPrefetchCache;
+    private abortLiveControllers;
     private synthesizeStream;
     private synthesizeChunk;
     private ensureAudioContext;
@@ -85,6 +89,7 @@ export declare class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     getPitch(): number;
     setVolume(volume: number): void;
     getVolume(): number;
+    private scheduleRestartIfSpeaking;
     getState(): ReadiumSpeechPlaybackState;
     getCurrentUtteranceIndex(): number;
     setCurrentUtteranceIndex(index: number, onComplete?: (success: boolean) => void): void;

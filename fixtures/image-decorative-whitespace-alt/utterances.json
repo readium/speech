@@ -1,0 +1,34 @@
+{
+  "cases": [
+    {
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Before the divider."
+        },
+        {
+          "plain": "After the divider."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Before the divider."
+        },
+        {
+          "ssml": "After the divider."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "role": [
+    "list"
+  ],
+  "children": [
+    {
+      "text": "First item",
+      "role": [
+        "listItem"
+      ]
+    },
+    {
+      "text": "Second item",
+      "role": [
+        "listItem"
+      ]
+    },
+    {
+      "text": "Third item",
+      "role": [
+        "listItem"
+      ]
+    }
+  ]
+}

@@ -1,4 +1,10 @@
 import { GndRole } from '../gnd/types.js';
 import { VerbosityPreset } from './SpeechPreferences.js';
-export declare const skippableAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "custom">, ReadonlySet<GndRole>>>;
+export declare const skippedAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "custom">, ReadonlySet<GndRole>>>;
 export declare const contextualizedAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "custom">, ReadonlySet<GndRole>>>;
+type ContextualizationShape = "inline" | "block";
+export declare const contextualizationShapesAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "custom">, Readonly<Partial<Record<GndRole, ContextualizationShape>>>>>;
+export declare const shapeableRoles: readonly GndRole[];
+export type ContextualizationShapeOverrides = Partial<Record<GndRole, Partial<Record<VerbosityPreset, ContextualizationShape>>>>;
+export declare function resolveContextualizationShapes(verbosity: VerbosityPreset, overrides: ContextualizationShapeOverrides | undefined): Partial<Record<GndRole, ContextualizationShape>>;
+export {};

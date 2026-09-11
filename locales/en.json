@@ -1,0 +1,166 @@
+{
+    "speech": {
+        "contextualizations": {
+            "abstract": {
+                "block": { "start": "Start of the abstract.", "end": "End of the abstract." }
+            },
+            "acknowledgments": {
+                "block": { "start": "Start of the acknowledgments.", "end": "End of the acknowledgments." }
+            },
+            "afterword": {
+                "block": { "start": "Start of the afterword.", "end": "End of the afterword." }
+            },
+            "appendix": {
+                "block": { "start": "Start of the appendix.", "end": "End of the appendix." }
+            },
+            "aside": {
+                "block": { "start": "Start of the aside.", "end": "End of the aside." }
+            },
+            "audio": {
+                "inline": {
+                    "labelled": "Audio with a label: {{ description }}",
+                    "unlabelled": "Audio with no label."
+                }
+            },
+            "bibliography": {
+                "block": { "start": "Start of the bibliography.", "end": "End of the bibliography." }
+            },
+            "blockquote": { "inline": "Blockquote." },
+            "cell": {
+                "inline": {
+                    "withHeader": "{{ header }}: {{ value }}",
+                    "withoutHeader": "{{ value }}"
+                }
+            },
+            "chapter": {
+                "block": { "start": "Start of the chapter.", "end": "End of the chapter." }
+            },
+            "colophon": { "inline": "Colophon." },
+            "complementary": {
+                "block": { "start": "Start of the complementary content.", "end": "End of the complementary content." }
+            },
+            "conclusion": {
+                "block": { "start": "Start of the conclusion.", "end": "End of the conclusion." }
+            },
+            "cover": {
+                "inline": {
+                    "labelled": "Cover with a label: {{ description }}",
+                    "unlabelled": "Cover with no label."
+                }
+            },
+            "credit": { "inline": "Credit." },
+            "credits": {
+                "block": { "start": "Start of the credits.", "end": "End of the credits." }
+            },
+            "dedication": { "inline": "Dedication." },
+            "definition": { "inline": "Definition." },
+            "details": {
+                "block": { "start": "Start of the disclosure.", "end": "End of the disclosure." }
+            },
+            "endnotes": {
+                "block": { "start": "Start of the endnotes.", "end": "End of the endnotes." }
+            },
+            "epigraph": { "inline": "Epigraph." },
+            "epilogue": {
+                "block": { "start": "Start of the epilogue.", "end": "End of the epilogue." }
+            },
+            "errata": {
+                "block": { "start": "Start of the errata.", "end": "End of the errata." }
+            },
+            "example": {
+                "block": { "start": "Start of the example.", "end": "End of the example." }
+            },
+            "figure": { "inline": "Figure: {{ description }}" },
+            "footnote": {
+                "block": { "start": "Start of the footnote.", "end": "End of the footnote." }
+            },
+            "foreword": {
+                "block": { "start": "Start of the foreword.", "end": "End of the foreword." }
+            },
+            "glossary": {
+                "block": { "start": "Start of the glossary.", "end": "End of the glossary." }
+            },
+            "heading1": { "inline": "Heading level 1." },
+            "heading2": { "inline": "Heading level 2." },
+            "heading3": { "inline": "Heading level 3." },
+            "heading4": { "inline": "Heading level 4." },
+            "heading5": { "inline": "Heading level 5." },
+            "heading6": { "inline": "Heading level 6." },
+            "image": {
+                "inline": {
+                    "labelled": "Image with a label: {{ description }}",
+                    "unlabelled": "Image with no label."
+                }
+            },
+            "index": {
+                "block": { "start": "Start of the index.", "end": "End of the index." }
+            },
+            "introduction": {
+                "block": { "start": "Start of the introduction.", "end": "End of the introduction." }
+            },
+            "list": {
+                "block": { "start": "Start of the list.", "end": "End of the list." }
+            },
+            "listItem": { "inline": "List item." },
+            "math": {
+                "inline": {
+                    "labelled": "{{ description }}",
+                    "unlabelled": "Math formula with no label."
+                }
+            },
+            "notice": { "inline": "Notice." },
+            "pagebreak": { "inline": "Pagebreak." },
+            "pagelist": {
+                "block": { "start": "Start of the page list.", "end": "End of the page list." }
+            },
+            "part": { "inline": "Part." },
+            "preface": {
+                "block": { "start": "Start of the preface.", "end": "End of the preface." }
+            },
+            "prologue": {
+                "block": { "start": "Start of the prologue.", "end": "End of the prologue." }
+            },
+            "pullquote": { "inline": "Pullquote." },
+            "qna": {
+                "block": { "start": "Start of the questions and answers.", "end": "End of the questions and answers." }
+            },
+            "row": { "inline": "Row: {{ count }}" },
+            "rowheader": {
+                "inline": {
+                    "withHeader": "{{ header }}: {{ value }}",
+                    "withoutHeader": "{{ value }}"
+                }
+            },
+            "separator": { "inline": "Separator." },
+            "subtitle": { "inline": "Subtitle." },
+            "summary": { "inline": "Summary." },
+            "table": {
+                "block": {
+                    "end": "End of the table.",
+                    "start": {
+                        "labelled": "Table: {{ description }}. {{ lines }}. {{ columns }}.",
+                        "unlabelled": "Table. {{ lines }}. {{ columns }}."
+                    }
+                },
+                "inline": {
+                    "labelled": "Table: {{ description }}. {{ lines }}. {{ columns }}.",
+                    "unlabelled": "Table. {{ lines }}. {{ columns }}."
+                },
+                "parts": {
+                    "columns_one": "1 column",
+                    "columns_other": "{{ count }} columns",
+                    "lines_one": "1 line",
+                    "lines_other": "{{ count }} lines"
+                }
+            },
+            "term": { "inline": "Term." },
+            "tip": { "inline": "Tip." },
+            "video": {
+                "inline": {
+                    "labelled": "Video with a label: {{ description }}",
+                    "unlabelled": "Video with no label."
+                }
+            }
+        }
+    }
+}

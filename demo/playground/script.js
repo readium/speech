@@ -62,7 +62,7 @@ let SpeechDefaultsClass = null;
 let SpeechSettingsClass = null;
 let SpeechPreferencesEditorClass = null;
 let skippableRolesList = null;
-let announcementCatalog = null;
+let contextualizationCatalog = null;
 try {
   const mod = await import("../../build/index.js");
   if (typeof mod.parseMarkup === "function") {
@@ -97,8 +97,8 @@ try {
     SpeechPreferencesEditorClass = mod.SpeechPreferencesEditor;
   }
   if (Array.isArray(mod.skippableRoles)) {
-    // skippableAtVerbosity.none reaches beyond roles.md's skippableRoles (e.g. `audio`, `table`).
-    const verbosityRoles = mod.skippableAtVerbosity?.none ?? [];
+    // skippedAtVerbosity.none reaches beyond roles.md's skippableRoles (e.g. `audio`, `table`).
+    const verbosityRoles = mod.skippedAtVerbosity?.none ?? [];
     skippableRolesList = [...new Set([...mod.skippableRoles, ...verbosityRoles])].sort();
     for (const role of skippableRolesList) {
       const option = document.createElement("option");
@@ -111,9 +111,9 @@ try {
   // entry — deriving the option list from the catalog itself (rather than
   // e.g. reusing skippableRoles) keeps it exactly in sync with what
   // `contextualize` actually does anything for.
-  if (mod.defaultAnnouncements && typeof mod.defaultAnnouncements === "object") {
-    announcementCatalog = mod.defaultAnnouncements;
-    for (const role of Object.keys(mod.defaultAnnouncements).sort()) {
+  if (mod.defaultContextualizations && typeof mod.defaultContextualizations === "object") {
+    contextualizationCatalog = mod.defaultContextualizations;
+    for (const role of Object.keys(mod.defaultContextualizations).sort()) {
       const option = document.createElement("option");
       option.value = role;
       option.textContent = role;
@@ -242,7 +242,7 @@ function setDefaultLabel(hintEl, defaultValue) {
 
 // `skip`/`contextualize` are only meaningful under "custom" — every other
 // preset ignores them in favor of its own fixed table (see SpeechSettings).
-function applyPreferencesFromToolbar() {
+async function applyPreferencesFromToolbar() {
   if (!configurable) return;
   playbackNavigator?.stop();
   const editor = configurable.preferencesEditor;
@@ -258,13 +258,13 @@ function applyPreferencesFromToolbar() {
     editor.skip.value = optionSkipEl ? [...optionSkipEl.selectedOptions].map((o) => o.value) : [];
     editor.contextualize.value = optionContextualizeEl ? [...optionContextualizeEl.selectedOptions].map((o) => o.value) : [];
   }
-  configurable.submitPreferences(editor.preferences);
+  await configurable.submitPreferences(editor.preferences);
   renderToolbarState();
-  renderUtterancesPanel();
+  await renderUtterancesPanel();
 }
 
 // Prosody has its own separate reset — the two toolbars are separate sections.
-function resetExtractionPreferences() {
+async function resetExtractionPreferences() {
   if (!configurable) return;
   playbackNavigator?.stop();
   const editor = configurable.preferencesEditor;
@@ -274,19 +274,19 @@ function resetExtractionPreferences() {
   editor.inlineContextualization.clear();
   editor.skip.clear();
   editor.contextualize.clear();
-  configurable.submitPreferences(editor.preferences);
+  await configurable.submitPreferences(editor.preferences);
   renderToolbarState();
-  renderUtterancesPanel();
+  await renderUtterancesPanel();
 }
 
-function resetProsodyPreferences() {
+async function resetProsodyPreferences() {
   if (!configurable) return;
   const editor = configurable.preferencesEditor;
   for (const { key } of rangeControls) editor[key].clear();
   editor.autoPause.clear();
-  configurable.submitPreferences(editor.preferences);
+  await configurable.submitPreferences(editor.preferences);
   renderToolbarState();
-  renderUtterancesPanel();
+  await renderUtterancesPanel();
 }
 
 // Reuses SpeechSettings' own verbosity resolution instead of reimplementing it.
@@ -316,7 +316,7 @@ function bridgeToFixtureOptions(resolvedOptions, rolesInTree) {
   const skippable = new Set(skippableRolesList ?? []);
   const effectiveSkip = (resolvedOptions.skip ?? []).filter((role) => rolesInTree.has(role) && skippable.has(role));
   const effectiveContextualize = (resolvedOptions.contextualize ?? []).filter(
-    (role) => rolesInTree.has(role) && announcementCatalog?.[role] !== undefined,
+    (role) => rolesInTree.has(role) && contextualizationCatalog?.[role] !== undefined,
   );
 
   const bridged = { ...resolvedOptions };
@@ -544,10 +544,12 @@ function highlightWordBoundary(event) {
   ctrl.decorate([{
     id: "playground-word",
     style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
-    selector: "#speech-utterances",
-    highlight: word,
-    before: text.substring(0, charIndex),
-    after: text.substring(charIndex + charLength),
+    cssSelector: "#speech-utterances",
+    text: {
+      highlight: word,
+      before: text.substring(0, charIndex),
+      after: text.substring(charIndex + charLength),
+    },
   }], "playground-word");
 }
 
@@ -646,7 +648,7 @@ function syncSpeechUi() {
 // — or, when no Navigator is available (e.g. the Web Speech API isn't
 // supported), a standalone extractUtterances() call using the same
 // settings-resolution rules, so the compare panel still works degraded.
-function renderUtterancesPanel() {
+async function renderUtterancesPanel() {
   if (!currentFixture) return;
   const { gndActual, utterances, rolesInTree } = currentFixture;
   const resolvedOptions = currentExtractionOptions();
@@ -665,7 +667,7 @@ function renderUtterancesPanel() {
   try {
     const actualUtterances = playbackNavigator
       ? playbackNavigator.getContentQueue()
-      : utteranceExtractor.extractUtterances(gndActual, resolvedOptions);
+      : await utteranceExtractor.extractUtterances(gndActual, resolvedOptions);
     utterancesActualEl.textContent = JSON.stringify(actualUtterances, null, 2);
     setBadge(
       utterancesBadgeEl,
@@ -727,9 +729,9 @@ async function selectFixture(id) {
   currentFixture = { gndActual, utterances, rolesInTree: collectRoles(expectedTopLevel(gnd)) };
   playbackNavigator?.stop();
   if (playbackNavigator && gndActual !== undefined) {
-    playbackNavigator.loadGndContent(gndActual); // re-extracts internally, using current settings
+    await playbackNavigator.loadGndContent(gndActual); // re-extracts internally, using current settings
   }
-  renderUtterancesPanel();
+  await renderUtterancesPanel();
 }
 
 playbackNavigator = initPlaybackNavigator();

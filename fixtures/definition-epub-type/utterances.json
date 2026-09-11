@@ -75,13 +75,173 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the glossary."
+          "plain": "Start of the glossary.",
+          "synthetic": true
         },
         {
           "plain": "A structure that contains an enumeration of related content items."
         },
         {
-          "plain": "End of the glossary."
+          "plain": "End of the glossary.",
+          "synthetic": true
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "definition"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "definition"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Definition.",
+          "synthetic": true
+        },
+        {
+          "plain": "A structure that contains an enumeration of related content items."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary",
+            "definition"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "synthetic": true
+        },
+        {
+          "plain": "Definition.",
+          "synthetic": true
+        },
+        {
+          "plain": "A structure that contains an enumeration of related content items."
+        },
+        {
+          "plain": "End of the glossary.",
+          "synthetic": true
         }
       ]
     },
@@ -160,13 +320,173 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the glossary."
+          "ssml": "Start of the glossary.",
+          "synthetic": true
         },
         {
           "ssml": "A structure that contains an enumeration of related content items."
         },
         {
-          "ssml": "End of the glossary."
+          "ssml": "End of the glossary.",
+          "synthetic": true
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "definition"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "definition"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Definition.",
+          "synthetic": true
+        },
+        {
+          "ssml": "A structure that contains an enumeration of related content items."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary",
+            "definition"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Definition.",
+          "synthetic": true
+        },
+        {
+          "ssml": "A structure that contains an enumeration of related content items."
+        },
+        {
+          "ssml": "End of the glossary.",
+          "synthetic": true
         }
       ]
     }

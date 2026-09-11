@@ -1,6 +1,8 @@
 import { GndText } from './types.js';
 /** Normalized (whitespace-coalesced and trimmed) text content of a node's subtree. */
 export declare function normalizedNodeText(el: Node): string;
+/** Same as `normalizedNodeText`, excluding explicitly-role-bearing descendants. */
+export declare function normalizedNodeTextExcludingExplicitRoles(el: Node): string;
 /**
  * Computes the text that becomes a node's `GndObject.description`, and
  * whether the node is visible in the first place. Follows the AccName

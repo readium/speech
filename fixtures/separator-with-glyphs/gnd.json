@@ -1,0 +1,22 @@
+{
+  "children": [
+    {
+      "role": [
+        "paragraph"
+      ],
+      "text": "Before."
+    },
+    {
+      "role": [
+        "separator"
+      ],
+      "text": "* * *"
+    },
+    {
+      "role": [
+        "paragraph"
+      ],
+      "text": "After."
+    }
+  ]
+}

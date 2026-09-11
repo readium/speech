@@ -15,12 +15,162 @@
     {
       "options": [
         {
+          "format": "plain",
+          "contextualize": [
+            "foreword"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "foreword"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "foreword"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "foreword"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "foreword"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "foreword"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "foreword"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "foreword"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the foreword.",
+          "synthetic": true
+        },
+        {
+          "plain": "A respected maritime historian introduces this account of the coastline's lighthouses."
+        },
+        {
+          "plain": "End of the foreword.",
+          "synthetic": true
+        }
+      ]
+    },
+    {
+      "options": [
+        {
           "format": "ssml"
         }
       ],
       "utterances": [
         {
           "ssml": "A respected maritime historian introduces this account of the coastline's lighthouses."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "foreword"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "foreword"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "foreword"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "foreword"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "foreword"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "foreword"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "foreword"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "foreword"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the foreword.",
+          "synthetic": true
+        },
+        {
+          "ssml": "A respected maritime historian introduces this account of the coastline's lighthouses."
+        },
+        {
+          "ssml": "End of the foreword.",
+          "synthetic": true
         }
       ]
     }
