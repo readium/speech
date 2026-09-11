@@ -1,5 +1,7 @@
 # Utterance Extraction
 
+{% raw %}
+
 `extractUtterances` walks a [Guided Navigation](GuidedNavigation.md) tree into a flat, ordered list of `ReadiumSpeechUtterance`s ready for playback.
 
 ```typescript
@@ -253,3 +255,5 @@ A `<table>`/`<figure>` with no explicit ARIA name (`aria-label`/`aria-labelledby
 ## Fixtures
 
 Each fixture's `utterances.json` is the hand-reviewed expected output for one option combo — see [fixtures/README.md](../fixtures/README.md#utterance-extraction-options) and [Testing](../README.md#testing).
+
+{% endraw %}
