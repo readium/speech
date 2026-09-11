@@ -1,9 +1,17 @@
 import { readFileSync, writeFileSync, readdirSync } from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { JSDOM } from "jsdom";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const FIXTURES_DIR = path.join(__dirname, "../fixtures");
+
+// decodeTextref() (used by extractUtterances to compute `locate`) needs
+// CSS.escape, which this plain-Node script has no browser global for.
+if (typeof globalThis.CSS === "undefined") {
+  const { window } = new JSDOM("", { url: "http://localhost/" });
+  globalThis.CSS = window.CSS;
+}
 
 // Regenerates every fixture's utterances.json from its gnd.json, using the
 // real @readium/speech build. `npm run build` first.

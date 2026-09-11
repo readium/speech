@@ -136,7 +136,7 @@ export function decodeTextref(node: { id?: string; textref?: string } | undefine
     const decoded = decodeCssSelectorFragment(base);
     if (decoded !== undefined) {
       cssSelector = decoded;
-    } else if (node?.id && base === `#${node.id}`) {
+    } else if (node?.id && base === `#${CSS.escape(node.id)}`) {
       cssSelector = base;
     }
   }
