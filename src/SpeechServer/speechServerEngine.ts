@@ -335,13 +335,13 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   speak(utteranceIndex?: number): void {
-    this.restartPending = false; // any real speak() call supersedes a stale deferred restart
     if (utteranceIndex !== undefined) {
       if (utteranceIndex < 0 || utteranceIndex >= this.currentUtterances.length) {
         throw new Error("Invalid utterance index");
       }
       this.currentUtteranceIndex = utteranceIndex;
     }
+    this.restartPending = false; // any real speak() call supersedes a stale deferred restart
 
     if (this.currentUtterances.length === 0) {
       console.warn("No utterances loaded");
