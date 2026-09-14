@@ -74,19 +74,18 @@ const most: readonly GndRole[] = [
 // (roles.ts), the GND-spec skip list; most roles here aren't on it at all.
 export const skippedAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "custom">, ReadonlySet<GndRole>>> = {
   none: new Set([
-    "aside", "bibliography", "endnotes", "footnote", "noteref", "pullquote", "pagebreak",
-    "details", "columnheader", "rowheader", "row", "cell",
-    "audio", "image", "figure", "video", "table",
-    "landmarks", "loa", "loi", "lot", "lov", "toc",
+    "aside", "audio", "bibliography", "biblioref", "cell", "columnheader", "details",
+    "endnotes", "figure", "footnote", "glossary", "image", "landmarks", "loa", "loi",
+    "lot", "lov", "noteref", "pagebreak", "pullquote", "row", "rowheader", "table", "toc", "video",
   ]),
   few: new Set([
-    "aside", "bibliography", "endnotes", "footnote", "noteref", "pullquote", "pagebreak",
-    "details", "columnheader", "rowheader", "row", "cell",
-    "landmarks", "loa", "loi", "lot", "lov", "toc",
+    "aside", "bibliography", "biblioref", "cell", "columnheader", "details", "endnotes",
+    "footnote", "glossary", "landmarks", "loa", "loi", "lot", "lov", "noteref",
+    "pagebreak", "pullquote", "row", "rowheader", "toc",
   ]),
   some: new Set([
-    "aside", "bibliography", "endnotes", "footnote", "noteref", "pullquote", "pagebreak",
-    "landmarks", "loa", "loi", "lot", "lov", "toc",
+    "aside", "bibliography", "biblioref", "endnotes", "footnote", "glossary", "landmarks",
+    "loa", "loi", "lot", "lov", "noteref", "pagebreak", "pullquote", "toc",
   ]),
   most: new Set(["landmarks", "loa", "loi", "lot", "lov", "toc"]),
 };
