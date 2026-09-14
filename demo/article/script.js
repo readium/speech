@@ -7,6 +7,7 @@ import {
   DecorationLayout,
   createLocator,
   parseMarkup,
+  decodeTextref,
 } from "../../build/index.js";
 
 // Set up the Decorator for TTS word/sentence highlights — also watches
@@ -35,6 +36,9 @@ const currentUtteranceInput = document.getElementById("currentUtteranceInput");
 const totalUtterancesSpan = document.getElementById("totalUtterances");
 const readAlongCheckbox = document.getElementById("readAlong");
 const readAlongGroup = document.getElementById("readAlongOptions");
+const autoScrollCheckbox = document.getElementById("autoScroll");
+const decorateSyntheticCheckbox = document.getElementById("decorateSynthetic");
+const syncPanelsCheckbox = document.getElementById("syncPanels");
 const wordHighlightUnavailable = document.getElementById("wordHighlightUnavailable");
 const gndOutput = document.getElementById("gnd-output");
 const showTextrefsCheckbox = document.getElementById("showTextrefs");
@@ -54,6 +58,7 @@ const mtabUtterances = document.getElementById("mtab-utterances");
 const mtabSettings = document.getElementById("mtab-settings");
 const mtabClose = document.getElementById("mtab-close");
 const mobileMediaQuery = window.matchMedia("(max-width: 900px)");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 // State
 let voiceManager;
@@ -63,6 +68,15 @@ let currentVoice = null;
 let isPlaying = false;
 let utterances = [];
 let readAlongEnabled = true;
+let autoScrollEnabled = true;
+let decorateSyntheticEnabled = false;
+let syncPanelsEnabled = false;
+// Rebuilt on each renderGndOutput(); maps a GND node to its rendered span id.
+let gndNodeIds = new WeakMap();
+let gndNodeCounter = 0;
+// Rebuilt alongside gndNodeIds: an O(1) index from decoded locator to node,
+// so findGndNodeForLocate() avoids re-walking the whole tree every utterance.
+let gndNodeByLocateKey = new Map();
 let wordHighlightAvailable = true;
 let currentSentenceIndex = -1;
 let utteranceStyle = DecorationStyleType.Highlight;
@@ -132,6 +146,13 @@ async function initialize() {
   }
 }
 
+function setReadAlongDependentsDisabled(disabled) {
+  if (readAlongGroup) readAlongGroup.disabled = disabled;
+  if (autoScrollCheckbox) autoScrollCheckbox.disabled = disabled;
+  if (decorateSyntheticCheckbox) decorateSyntheticCheckbox.disabled = disabled;
+  if (syncPanelsCheckbox) syncPanelsCheckbox.disabled = disabled;
+}
+
 function setupEventListeners() {
   navigator.on("start", () => {
     isPlaying = true;
@@ -178,6 +199,10 @@ function setupEventListeners() {
   navigator.on("contentchange", (event) => {
     utterances = event.detail.content;
     renderUtterancesPanel();
+    // currentSentenceIndex still holds the pre-reextract value; force re-entry
+    // since no "start" event follows to correct it while paused.
+    currentSentenceIndex = -1;
+    if (readAlongEnabled) enterUtterance(navigator.getCurrentUtteranceIndex());
     updateUI();
   });
 
@@ -193,8 +218,31 @@ function setupEventListeners() {
 
   if (readAlongCheckbox) {
     readAlongCheckbox.checked = readAlongEnabled;
-    if (readAlongGroup) readAlongGroup.disabled = !readAlongEnabled;
+    setReadAlongDependentsDisabled(!readAlongEnabled);
     readAlongCheckbox.addEventListener("change", handleReadAlongChange);
+  }
+
+  if (autoScrollCheckbox) {
+    autoScrollCheckbox.checked = autoScrollEnabled;
+    autoScrollCheckbox.addEventListener("change", (e) => { autoScrollEnabled = e.target.checked; });
+  }
+
+  if (decorateSyntheticCheckbox) {
+    decorateSyntheticCheckbox.checked = decorateSyntheticEnabled;
+    decorateSyntheticCheckbox.addEventListener("change", (e) => {
+      decorateSyntheticEnabled = e.target.checked;
+      applyUtteranceDecoration();
+    });
+  }
+
+  if (syncPanelsCheckbox) {
+    syncPanelsCheckbox.checked = syncPanelsEnabled;
+    updateSyncPanelsClass();
+    syncPanelsCheckbox.addEventListener("change", (e) => {
+      syncPanelsEnabled = e.target.checked;
+      updateSyncPanelsClass();
+      if (syncPanelsEnabled && currentSentenceIndex !== -1) syncPanelsToCurrentUtterance(currentSentenceIndex, "auto");
+    });
   }
 
   if (voiceSelect) voiceSelect.addEventListener("change", handleVoiceChange);
@@ -258,6 +306,28 @@ function setPanelCollapsed(collapsed, moveFocus = true) {
   } else if (moveFocus) {
     (tabGnd.getAttribute("aria-selected") === "true" ? tabGnd : tabUtterances).focus();
   }
+
+  // .panel's width is still mid-transition here — scrolling now would use
+  // its near-zero in-progress geometry, so wait for the reveal to finish.
+  if (!collapsed) resyncPanelsAfterReveal();
+}
+
+function resyncPanelsAfterReveal() {
+  if (!syncPanelsEnabled || currentSentenceIndex === -1) return;
+  const run = () => syncPanelsToCurrentUtterance(currentSentenceIndex, "auto");
+
+  // Mobile resizes .panel via flex-basis, not the width it declares a
+  // transition for, so no transitionend would ever fire there.
+  if (mobileMediaQuery.matches) {
+    requestAnimationFrame(run);
+    return;
+  }
+
+  panelAside.addEventListener("transitionend", function onEnd(e) {
+    if (e.target !== panelAside) return;
+    panelAside.removeEventListener("transitionend", onEnd);
+    run();
+  });
 }
 
 // Desktop-only collapse for the Settings column — mirrors setPanelCollapsed,
@@ -334,6 +404,11 @@ function selectTab(name) {
   tabUtterances.tabIndex = isGnd ? -1 : 0;
   panelGnd.hidden = !isGnd;
   panelUtterances.hidden = isGnd;
+
+  // Skip while collapsed — the reveal in setPanelCollapsed() resyncs once dimensions are real.
+  if (syncPanelsEnabled && currentSentenceIndex !== -1 && !panelAside.classList.contains("collapsed")) {
+    syncPanelsToCurrentUtterance(currentSentenceIndex, "auto");
+  }
 }
 
 function handleTabKeydown(e) {
@@ -378,19 +453,27 @@ async function handleSpeedChange(e) {
 function handleShowTextrefsChange(e) {
   showTextrefs = e.target.checked;
   renderGndOutput();
+  // renderGndOutput() just rebuilt every .gnd-node span, losing the
+  // .current marker set by an earlier syncPanelsToCurrentUtterance() call.
+  if (syncPanelsEnabled && currentSentenceIndex !== -1) syncPanelsToCurrentUtterance(currentSentenceIndex, "auto");
 }
 
 function handleReadAlongChange(e) {
   readAlongEnabled = e.target.checked;
-  if (readAlongGroup) readAlongGroup.disabled = !readAlongEnabled;
+  setReadAlongDependentsDisabled(!readAlongEnabled);
   if (!readAlongEnabled) {
     clearWordHighlighting();
+    // clearWordHighlighting() resets currentSentenceIndex but leaves the
+    // panels' .current marker and dimming in place, showing a stale item.
+    setCurrentPanelItem(gndOutput, null);
+    setCurrentPanelItem(utterancesOutput, null);
   } else if (navigator && navigator.getState() !== "idle") {
     // Re-entering here (rather than waiting for the next "start"/"resume")
     // covers voices without boundary events, where nothing else would
     // re-trigger the highlight before the next utterance.
     enterUtterance(navigator.getCurrentUtteranceIndex());
   }
+  updateSyncPanelsClass();
 }
 
 // Word-level boundary events aren't reliable for voices with
@@ -417,14 +500,146 @@ async function initializeContent() {
   await navigator.loadGndContent(gnd);
 }
 
+function escapeHtml(s) {
+  return s.replace(/[&<>]/g, (c) => (c === "&" ? "&amp;" : c === "<" ? "&lt;" : "&gt;"));
+}
+
+function jsonPrimitive(value) {
+  return escapeHtml(JSON.stringify(value));
+}
+
+// Hand-written JSON.stringify(value, undefined, 2) equivalent, so values can
+// be wrapped in scroll-anchor spans as they render — see renderGndNode().
+function renderJsonValue(value, depth, keyFilter) {
+  if (value === null || typeof value !== "object") return jsonPrimitive(value);
+  const pad = "  ".repeat(depth);
+  const padIn = "  ".repeat(depth + 1);
+  if (Array.isArray(value)) {
+    if (!value.length) return "[]";
+    const items = value.map((item) => padIn + renderJsonValue(item, depth + 1, keyFilter));
+    return "[\n" + items.join(",\n") + "\n" + pad + "]";
+  }
+  const keys = Object.keys(value).filter(keyFilter);
+  if (!keys.length) return "{}";
+  const lines = keys.map((k) => padIn + jsonPrimitive(k) + ": " + renderJsonValue(value[k], depth + 1, keyFilter));
+  return "{\n" + lines.join(",\n") + "\n" + pad + "}";
+}
+
+// Wraps every GND node (root entries and each `children` entry) in a span
+// with a stable id in gndNodeIds, so playback can later scroll to it.
+function renderGndNode(node, depth, keyFilter) {
+  const pad = "  ".repeat(depth);
+  const padIn = "  ".repeat(depth + 1);
+  const keys = Object.keys(node).filter(keyFilter);
+  const body = !keys.length
+    ? "{}"
+    : "{\n" +
+      keys
+        .map((k) => {
+          const value = node[k];
+          const rendered =
+            k === "children" && Array.isArray(value)
+              ? renderGndNodeArray(value, depth + 1, keyFilter)
+              : renderJsonValue(value, depth + 1, keyFilter);
+          return padIn + jsonPrimitive(k) + ": " + rendered;
+        })
+        .join(",\n") +
+      "\n" +
+      pad +
+      "}";
+  const id = gndNodeCounter++;
+  gndNodeIds.set(node, id);
+  const ref = decodeTextref(node);
+  if (ref) gndNodeByLocateKey.set(JSON.stringify(ref), node);
+  return `<span class="gnd-node" data-gnd-node="${id}">${body}</span>`;
+}
+
+function renderGndNodeArray(nodes, depth, keyFilter) {
+  if (!nodes.length) return "[]";
+  const pad = "  ".repeat(depth);
+  const padIn = "  ".repeat(depth + 1);
+  const items = nodes.map((n) => padIn + renderGndNode(n, depth + 1, keyFilter));
+  return "[\n" + items.join(",\n") + "\n" + pad + "]";
+}
+
 function renderGndOutput() {
-  gndOutput.textContent = JSON.stringify(gnd, (key, value) => (!showTextrefs && key === "textref" ? undefined : value), 2);
+  if (!gnd) {
+    gndOutput.textContent = "null";
+    return;
+  }
+  gndNodeIds = new WeakMap();
+  gndNodeCounter = 0;
+  gndNodeByLocateKey = new Map();
+  const keyFilter = (k) => showTextrefs || k !== "textref";
+  gndOutput.innerHTML = renderGndNodeArray(gnd, 0, keyFilter);
 }
 
 function renderUtterancesPanel() {
+  if (!utterances.length) {
+    utterancesOutput.textContent = "[]";
+    return;
+  }
   // `locate` (cssSelector/domRange) is still used for highlighting — just
   // omitted here since it dwarfs the rest of the JSON.
-  utterancesOutput.textContent = JSON.stringify(utterances, (key, value) => (key === "locate" ? undefined : value), 2);
+  const keyFilter = (k) => k !== "locate";
+  const items = utterances.map(
+    (u, i) => `  <span class="utterance-item" data-utterance-index="${i}">${renderJsonValue(u, 1, keyFilter)}</span>`,
+  );
+  utterancesOutput.innerHTML = "[\n" + items.join(",\n") + "\n]";
+}
+
+// O(1) lookup into the index renderGndNode() built — same resolution
+// attachLocate() uses internally (own textref, else nearest ancestor's).
+function findGndNodeForLocate(locate) {
+  return locate ? gndNodeByLocateKey.get(JSON.stringify(locate)) : undefined;
+}
+
+// Downgrades to an instant jump when the user has asked for reduced motion.
+function resolveScrollBehavior(behavior) {
+  return prefersReducedMotion.matches ? "auto" : behavior;
+}
+
+function scrollWithinContainerIfNeeded(el, container, behavior = "smooth") {
+  if (!el || !container) return;
+
+  // Read the sticky .panel-option's actual height rather than assuming one.
+  const stickyOption = container.querySelector(".panel-option");
+  const stickyHeight = stickyOption ? stickyOption.getBoundingClientRect().height : 0;
+  container.style.scrollPaddingTop = `${stickyHeight}px`;
+
+  const elRect = el.getBoundingClientRect();
+  const containerRect = container.getBoundingClientRect();
+  const inView = elRect.top >= containerRect.top + stickyHeight && elRect.bottom <= containerRect.bottom;
+  if (!inView) el.scrollIntoView({ behavior: resolveScrollBehavior(behavior), block: "start" });
+}
+
+// Moves the "current" marker (read by the sync-dim CSS) regardless of panel
+// visibility, so a hidden panel is already correct once the user switches to it.
+function setCurrentPanelItem(container, selector) {
+  const previous = container.querySelector(".current");
+  if (previous) previous.classList.remove("current");
+  const el = selector ? container.querySelector(selector) : null;
+  if (el) el.classList.add("current");
+  return el;
+}
+
+function updateSyncPanelsClass() {
+  const active = syncPanelsEnabled && readAlongEnabled;
+  panelGnd.classList.toggle("sync-dim", active);
+  panelUtterances.classList.toggle("sync-dim", active);
+}
+
+function syncPanelsToCurrentUtterance(index, behavior = "smooth") {
+  const utterance = utterances[index];
+  if (!utterance) return;
+
+  const utteranceItem = setCurrentPanelItem(utterancesOutput, `[data-utterance-index="${index}"]`);
+  if (!panelUtterances.hidden) scrollWithinContainerIfNeeded(utteranceItem, panelUtterances, behavior);
+
+  const node = findGndNodeForLocate(utterance.locate);
+  const id = node ? gndNodeIds.get(node) : undefined;
+  const gndNodeItem = setCurrentPanelItem(gndOutput, id !== undefined ? `[data-gnd-node="${id}"]` : null);
+  if (!panelGnd.hidden) scrollWithinContainerIfNeeded(gndNodeItem, panelGnd, behavior);
 }
 
 // Populate voice select dropdown
@@ -611,6 +826,11 @@ function applyUtteranceDecoration() {
   const currentUtterance = utterances[currentSentenceIndex];
   if (!currentUtterance || !currentUtterance.locate) return;
 
+  if (currentUtterance.synthetic && !decorateSyntheticEnabled) {
+    decoCtrl.applyDecorations([], "tts-sentence");
+    return;
+  }
+
   decoCtrl.applyDecorations([{
     id: "tts-sentence",
     locator: createLocator(currentUtterance.locate),
@@ -654,11 +874,13 @@ function enterUtterance(index) {
   const target = currentUtterance.locate.cssSelector
     ? document.querySelector(currentUtterance.locate.cssSelector)
     : null;
-  if (target) {
+  if (target && autoScrollEnabled) {
     const rect = target.getBoundingClientRect();
     const inView = rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
-    if (!inView) target.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (!inView) target.scrollIntoView({ behavior: resolveScrollBehavior("smooth"), block: "center" });
   }
+
+  if (syncPanelsEnabled) syncPanelsToCurrentUtterance(index);
 }
 
 // Highlights the word currently being spoken using each utterance's own
