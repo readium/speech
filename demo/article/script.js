@@ -604,9 +604,17 @@ function resolveScrollBehavior(behavior) {
 
 function scrollWithinContainerIfNeeded(el, container, behavior = "smooth") {
   if (!el || !container) return;
+
+  // A sticky .panel-option (e.g. "Show textrefs") can overlap the top of
+  // the scroll area — read its actual rendered height rather than assuming
+  // one, so this keeps working however that bar's own CSS changes.
+  const stickyOption = container.querySelector(".panel-option");
+  const stickyHeight = stickyOption ? stickyOption.getBoundingClientRect().height : 0;
+  container.style.scrollPaddingTop = `${stickyHeight}px`;
+
   const elRect = el.getBoundingClientRect();
   const containerRect = container.getBoundingClientRect();
-  const inView = elRect.top >= containerRect.top && elRect.bottom <= containerRect.bottom;
+  const inView = elRect.top >= containerRect.top + stickyHeight && elRect.bottom <= containerRect.bottom;
   if (!inView) el.scrollIntoView({ behavior: resolveScrollBehavior(behavior), block: "start" });
 }
 
