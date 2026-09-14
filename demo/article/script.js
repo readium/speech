@@ -58,6 +58,7 @@ const mtabUtterances = document.getElementById("mtab-utterances");
 const mtabSettings = document.getElementById("mtab-settings");
 const mtabClose = document.getElementById("mtab-close");
 const mobileMediaQuery = window.matchMedia("(max-width: 900px)");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 // State
 let voiceManager;
@@ -190,7 +191,7 @@ function setupEventListeners() {
     renderUtterancesPanel();
     // renderUtterancesPanel() just rebuilt every .utterance-item span, losing
     // the .current marker set by an earlier syncPanelsToCurrentUtterance() call.
-    if (syncPanelsEnabled && currentSentenceIndex !== -1) syncPanelsToCurrentUtterance(currentSentenceIndex);
+    if (syncPanelsEnabled && currentSentenceIndex !== -1) syncPanelsToCurrentUtterance(currentSentenceIndex, "auto");
     updateUI();
   });
 
@@ -232,7 +233,7 @@ function setupEventListeners() {
     syncPanelsCheckbox.addEventListener("change", (e) => {
       syncPanelsEnabled = e.target.checked;
       updateSyncPanelsClass();
-      if (syncPanelsEnabled && currentSentenceIndex !== -1) syncPanelsToCurrentUtterance(currentSentenceIndex);
+      if (syncPanelsEnabled && currentSentenceIndex !== -1) syncPanelsToCurrentUtterance(currentSentenceIndex, "auto");
     });
   }
 
@@ -296,6 +297,31 @@ function setPanelCollapsed(collapsed, moveFocus = true) {
     if (moveFocus) panelShow.focus();
   } else if (moveFocus) {
     (tabGnd.getAttribute("aria-selected") === "true" ? tabGnd : tabUtterances).focus();
+  }
+
+  // .panel's width is still mid-transition here — scrolling now would use
+  // its near-zero in-progress geometry, so wait for the reveal to finish.
+  if (!collapsed) resyncPanelsAfterReveal();
+}
+
+function resyncPanelsAfterReveal() {
+  if (!syncPanelsEnabled || currentSentenceIndex === -1) return;
+  const run = () => syncPanelsToCurrentUtterance(currentSentenceIndex, "auto");
+
+  // Only wait for transitionend if .panel has a transition at all — on
+  // mobile it collapses via flex-basis untransitioned, so none would fire.
+  const hasTransition = getComputedStyle(panelAside)
+    .transitionDuration.split(",")
+    .some((d) => parseFloat(d) > 0);
+
+  if (hasTransition) {
+    panelAside.addEventListener("transitionend", function onEnd(e) {
+      if (e.target !== panelAside) return;
+      panelAside.removeEventListener("transitionend", onEnd);
+      run();
+    });
+  } else {
+    requestAnimationFrame(run);
   }
 }
 
@@ -374,9 +400,12 @@ function selectTab(name) {
   panelGnd.hidden = !isGnd;
   panelUtterances.hidden = isGnd;
 
-  // The panel that just became visible may not have followed playback
-  // while hidden (scrollIntoView is a no-op on a display:none ancestor).
-  if (syncPanelsEnabled && currentSentenceIndex !== -1) syncPanelsToCurrentUtterance(currentSentenceIndex);
+  // Only when .panel is already expanded — if it's still collapsed (e.g.
+  // setMobilePanel() calling this before setPanelCollapsed()), that reveal's
+  // own resync runs once the panel actually has real dimensions.
+  if (syncPanelsEnabled && currentSentenceIndex !== -1 && !panelAside.classList.contains("collapsed")) {
+    syncPanelsToCurrentUtterance(currentSentenceIndex, "auto");
+  }
 }
 
 function handleTabKeydown(e) {
@@ -423,7 +452,7 @@ function handleShowTextrefsChange(e) {
   renderGndOutput();
   // renderGndOutput() just rebuilt every .gnd-node span, losing the
   // .current marker set by an earlier syncPanelsToCurrentUtterance() call.
-  if (syncPanelsEnabled && currentSentenceIndex !== -1) syncPanelsToCurrentUtterance(currentSentenceIndex);
+  if (syncPanelsEnabled && currentSentenceIndex !== -1) syncPanelsToCurrentUtterance(currentSentenceIndex, "auto");
 }
 
 function handleReadAlongChange(e) {
@@ -571,12 +600,17 @@ function findGndNodeForLocate(nodes, locate) {
   return null;
 }
 
-function scrollWithinContainerIfNeeded(el, container) {
+// Downgrades to an instant jump when the user has asked for reduced motion.
+function resolveScrollBehavior(behavior) {
+  return prefersReducedMotion.matches ? "auto" : behavior;
+}
+
+function scrollWithinContainerIfNeeded(el, container, behavior = "smooth") {
   if (!el || !container) return;
   const elRect = el.getBoundingClientRect();
   const containerRect = container.getBoundingClientRect();
   const inView = elRect.top >= containerRect.top && elRect.bottom <= containerRect.bottom;
-  if (!inView) el.scrollIntoView({ behavior: "smooth", block: "center" });
+  if (!inView) el.scrollIntoView({ behavior: resolveScrollBehavior(behavior), block: "center" });
 }
 
 // Moves the "current" marker (read by the sync-dim CSS) regardless of panel
@@ -595,17 +629,17 @@ function updateSyncPanelsClass() {
   panelUtterances.classList.toggle("sync-dim", active);
 }
 
-function syncPanelsToCurrentUtterance(index) {
+function syncPanelsToCurrentUtterance(index, behavior = "smooth") {
   const utterance = utterances[index];
   if (!utterance) return;
 
   const utteranceItem = setCurrentPanelItem(utterancesOutput, `[data-utterance-index="${index}"]`);
-  if (!panelUtterances.hidden) scrollWithinContainerIfNeeded(utteranceItem, panelUtterances);
+  if (!panelUtterances.hidden) scrollWithinContainerIfNeeded(utteranceItem, panelUtterances, behavior);
 
   const node = gnd ? findGndNodeForLocate(gnd, utterance.locate) : null;
   const id = node ? gndNodeIds.get(node) : undefined;
   const gndNodeItem = setCurrentPanelItem(gndOutput, id !== undefined ? `[data-gnd-node="${id}"]` : null);
-  if (!panelGnd.hidden) scrollWithinContainerIfNeeded(gndNodeItem, panelGnd);
+  if (!panelGnd.hidden) scrollWithinContainerIfNeeded(gndNodeItem, panelGnd, behavior);
 }
 
 // Populate voice select dropdown
@@ -843,7 +877,7 @@ function enterUtterance(index) {
   if (target && autoScrollEnabled) {
     const rect = target.getBoundingClientRect();
     const inView = rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
-    if (!inView) target.scrollIntoView({ behavior: "smooth", block: "center" });
+    if (!inView) target.scrollIntoView({ behavior: resolveScrollBehavior("smooth"), block: "center" });
   }
 
   if (syncPanelsEnabled) syncPanelsToCurrentUtterance(index);
