@@ -188,6 +188,9 @@ function setupEventListeners() {
   navigator.on("contentchange", (event) => {
     utterances = event.detail.content;
     renderUtterancesPanel();
+    // renderUtterancesPanel() just rebuilt every .utterance-item span, losing
+    // the .current marker set by an earlier syncPanelsToCurrentUtterance() call.
+    if (syncPanelsEnabled && currentSentenceIndex !== -1) syncPanelsToCurrentUtterance(currentSentenceIndex);
     updateUI();
   });
 
@@ -418,6 +421,9 @@ async function handleSpeedChange(e) {
 function handleShowTextrefsChange(e) {
   showTextrefs = e.target.checked;
   renderGndOutput();
+  // renderGndOutput() just rebuilt every .gnd-node span, losing the
+  // .current marker set by an earlier syncPanelsToCurrentUtterance() call.
+  if (syncPanelsEnabled && currentSentenceIndex !== -1) syncPanelsToCurrentUtterance(currentSentenceIndex);
 }
 
 function handleReadAlongChange(e) {
