@@ -434,12 +434,17 @@ function handleReadAlongChange(e) {
   if (syncPanelsCheckbox) syncPanelsCheckbox.disabled = !readAlongEnabled;
   if (!readAlongEnabled) {
     clearWordHighlighting();
+    // clearWordHighlighting() resets currentSentenceIndex but leaves the
+    // panels' .current marker and dimming in place, showing a stale item.
+    setCurrentPanelItem(gndOutput, null);
+    setCurrentPanelItem(utterancesOutput, null);
   } else if (navigator && navigator.getState() !== "idle") {
     // Re-entering here (rather than waiting for the next "start"/"resume")
     // covers voices without boundary events, where nothing else would
     // re-trigger the highlight before the next utterance.
     enterUtterance(navigator.getCurrentUtteranceIndex());
   }
+  updateSyncPanelsClass();
 }
 
 // Word-level boundary events aren't reliable for voices with
@@ -585,8 +590,9 @@ function setCurrentPanelItem(container, selector) {
 }
 
 function updateSyncPanelsClass() {
-  panelGnd.classList.toggle("sync-dim", syncPanelsEnabled);
-  panelUtterances.classList.toggle("sync-dim", syncPanelsEnabled);
+  const active = syncPanelsEnabled && readAlongEnabled;
+  panelGnd.classList.toggle("sync-dim", active);
+  panelUtterances.classList.toggle("sync-dim", active);
 }
 
 function syncPanelsToCurrentUtterance(index) {
