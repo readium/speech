@@ -568,6 +568,15 @@ button:hover:not(:disabled) {
   min-height: 0;
 }
 
+/* Outside both tab-panels so it stays visible regardless of the active tab. */
+.panel-shared-option {
+  flex-shrink: 0;
+  gap: 8px;
+  padding: 8px 12px;
+  background: #f7f7f8;
+  border-bottom: 1px solid #ddd;
+}
+
 /* Reveal button for the collapsed GND/Utterances panel — an in-flow,
    sticky-positioned element inside .main (not a viewport-fixed overlay),
    so it only ever takes up space when it's actually rendered: [hidden]
@@ -626,6 +635,18 @@ button:hover:not(:disabled) {
   font-size: 0.8em;
   white-space: pre-wrap;
   word-break: break-word;
+}
+
+/* Grays every node/utterance except the current one when "Sync panels" is on.
+   .current still needs its own explicit color below — an excluded child with none would just inherit gray from its ancestor. */
+.tab-panel.sync-dim .gnd-node:not(.current):not(.current *),
+.tab-panel.sync-dim .utterance-item:not(.current):not(.current *) {
+  color: #999;
+}
+
+.tab-panel.sync-dim .gnd-node.current,
+.tab-panel.sync-dim .utterance-item.current {
+  color: #333;
 }
 
 /* Footer */
