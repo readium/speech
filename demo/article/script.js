@@ -192,9 +192,12 @@ function setupEventListeners() {
   navigator.on("contentchange", (event) => {
     utterances = event.detail.content;
     renderUtterancesPanel();
-    // renderUtterancesPanel() just rebuilt every .utterance-item span, losing
-    // the .current marker set by an earlier syncPanelsToCurrentUtterance() call.
-    if (syncPanelsEnabled && currentSentenceIndex !== -1) syncPanelsToCurrentUtterance(currentSentenceIndex, "auto");
+    // reextract() already resolved the navigator's own resume index into the
+    // new queue — currentSentenceIndex still holds the old one, so force a
+    // full re-entry rather than trusting it (matters most while paused,
+    // since no "start" event follows to correct it on its own).
+    currentSentenceIndex = -1;
+    enterUtterance(navigator.getCurrentUtteranceIndex());
     updateUI();
   });
 
