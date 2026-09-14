@@ -311,21 +311,18 @@ function resyncPanelsAfterReveal() {
   if (!syncPanelsEnabled || currentSentenceIndex === -1) return;
   const run = () => syncPanelsToCurrentUtterance(currentSentenceIndex, "auto");
 
-  // Only wait for transitionend if .panel has a transition at all — on
-  // mobile it collapses via flex-basis untransitioned, so none would fire.
-  const hasTransition = getComputedStyle(panelAside)
-    .transitionDuration.split(",")
-    .some((d) => parseFloat(d) > 0);
-
-  if (hasTransition) {
-    panelAside.addEventListener("transitionend", function onEnd(e) {
-      if (e.target !== panelAside) return;
-      panelAside.removeEventListener("transitionend", onEnd);
-      run();
-    });
-  } else {
+  // Mobile resizes .panel via flex-basis, not the width it declares a
+  // transition for, so no transitionend would ever fire there.
+  if (mobileMediaQuery.matches) {
     requestAnimationFrame(run);
+    return;
   }
+
+  panelAside.addEventListener("transitionend", function onEnd(e) {
+    if (e.target !== panelAside) return;
+    panelAside.removeEventListener("transitionend", onEnd);
+    run();
+  });
 }
 
 // Desktop-only collapse for the Settings column — mirrors setPanelCollapsed,
