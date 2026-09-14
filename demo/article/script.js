@@ -36,6 +36,7 @@ const totalUtterancesSpan = document.getElementById("totalUtterances");
 const readAlongCheckbox = document.getElementById("readAlong");
 const readAlongGroup = document.getElementById("readAlongOptions");
 const autoScrollCheckbox = document.getElementById("autoScroll");
+const decorateSyntheticCheckbox = document.getElementById("decorateSynthetic");
 const wordHighlightUnavailable = document.getElementById("wordHighlightUnavailable");
 const gndOutput = document.getElementById("gnd-output");
 const showTextrefsCheckbox = document.getElementById("showTextrefs");
@@ -65,6 +66,7 @@ let isPlaying = false;
 let utterances = [];
 let readAlongEnabled = true;
 let autoScrollEnabled = true;
+let decorateSyntheticEnabled = false;
 let wordHighlightAvailable = true;
 let currentSentenceIndex = -1;
 let utteranceStyle = DecorationStyleType.Highlight;
@@ -197,12 +199,21 @@ function setupEventListeners() {
     readAlongCheckbox.checked = readAlongEnabled;
     if (readAlongGroup) readAlongGroup.disabled = !readAlongEnabled;
     if (autoScrollCheckbox) autoScrollCheckbox.disabled = !readAlongEnabled;
+    if (decorateSyntheticCheckbox) decorateSyntheticCheckbox.disabled = !readAlongEnabled;
     readAlongCheckbox.addEventListener("change", handleReadAlongChange);
   }
 
   if (autoScrollCheckbox) {
     autoScrollCheckbox.checked = autoScrollEnabled;
     autoScrollCheckbox.addEventListener("change", (e) => { autoScrollEnabled = e.target.checked; });
+  }
+
+  if (decorateSyntheticCheckbox) {
+    decorateSyntheticCheckbox.checked = decorateSyntheticEnabled;
+    decorateSyntheticCheckbox.addEventListener("change", (e) => {
+      decorateSyntheticEnabled = e.target.checked;
+      applyUtteranceDecoration();
+    });
   }
 
   if (voiceSelect) voiceSelect.addEventListener("change", handleVoiceChange);
@@ -392,6 +403,7 @@ function handleReadAlongChange(e) {
   readAlongEnabled = e.target.checked;
   if (readAlongGroup) readAlongGroup.disabled = !readAlongEnabled;
   if (autoScrollCheckbox) autoScrollCheckbox.disabled = !readAlongEnabled;
+  if (decorateSyntheticCheckbox) decorateSyntheticCheckbox.disabled = !readAlongEnabled;
   if (!readAlongEnabled) {
     clearWordHighlighting();
   } else if (navigator && navigator.getState() !== "idle") {
@@ -619,6 +631,11 @@ function applyUtteranceDecoration() {
   if (currentSentenceIndex === -1) return;
   const currentUtterance = utterances[currentSentenceIndex];
   if (!currentUtterance || !currentUtterance.locate) return;
+
+  if (currentUtterance.synthetic && !decorateSyntheticEnabled) {
+    decoCtrl.applyDecorations([], "tts-sentence");
+    return;
+  }
 
   decoCtrl.applyDecorations([{
     id: "tts-sentence",
