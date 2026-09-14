@@ -74,6 +74,9 @@ let syncPanelsEnabled = false;
 // Rebuilt on each renderGndOutput(); maps a GND node to its rendered span id.
 let gndNodeIds = new WeakMap();
 let gndNodeCounter = 0;
+// Rebuilt alongside gndNodeIds: an O(1) index from decoded locator to node,
+// so findGndNodeForLocate() avoids re-walking the whole tree every utterance.
+let gndNodeByLocateKey = new Map();
 let wordHighlightAvailable = true;
 let currentSentenceIndex = -1;
 let utteranceStyle = DecorationStyleType.Highlight;
@@ -549,6 +552,8 @@ function renderGndNode(node, depth, keyFilter) {
       "}";
   const id = gndNodeCounter++;
   gndNodeIds.set(node, id);
+  const ref = decodeTextref(node);
+  if (ref) gndNodeByLocateKey.set(JSON.stringify(ref), node);
   return `<span class="gnd-node" data-gnd-node="${id}">${body}</span>`;
 }
 
@@ -567,6 +572,7 @@ function renderGndOutput() {
   }
   gndNodeIds = new WeakMap();
   gndNodeCounter = 0;
+  gndNodeByLocateKey = new Map();
   const keyFilter = (k) => showTextrefs || k !== "textref";
   gndOutput.innerHTML = renderGndNodeArray(gnd, 0, keyFilter);
 }
@@ -585,19 +591,10 @@ function renderUtterancesPanel() {
   utterancesOutput.innerHTML = "[\n" + items.join(",\n") + "\n]";
 }
 
-// Finds the node whose own textref decodes to the same locator as `locate`
-// — same resolution attachLocate() uses internally, redone via the public API.
-function findGndNodeForLocate(nodes, locate) {
-  if (!locate) return null;
-  const target = JSON.stringify(locate);
-  const stack = nodes.slice();
-  while (stack.length) {
-    const node = stack.pop();
-    const ref = decodeTextref(node);
-    if (ref && JSON.stringify(ref) === target) return node;
-    if (node.children) stack.push(...node.children);
-  }
-  return null;
+// O(1) lookup into the index renderGndNode() built — same resolution
+// attachLocate() uses internally (own textref, else nearest ancestor's).
+function findGndNodeForLocate(locate) {
+  return locate ? gndNodeByLocateKey.get(JSON.stringify(locate)) : undefined;
 }
 
 // Downgrades to an instant jump when the user has asked for reduced motion.
@@ -610,7 +607,7 @@ function scrollWithinContainerIfNeeded(el, container, behavior = "smooth") {
   const elRect = el.getBoundingClientRect();
   const containerRect = container.getBoundingClientRect();
   const inView = elRect.top >= containerRect.top && elRect.bottom <= containerRect.bottom;
-  if (!inView) el.scrollIntoView({ behavior: resolveScrollBehavior(behavior), block: "center" });
+  if (!inView) el.scrollIntoView({ behavior: resolveScrollBehavior(behavior), block: "start" });
 }
 
 // Moves the "current" marker (read by the sync-dim CSS) regardless of panel
@@ -636,7 +633,7 @@ function syncPanelsToCurrentUtterance(index, behavior = "smooth") {
   const utteranceItem = setCurrentPanelItem(utterancesOutput, `[data-utterance-index="${index}"]`);
   if (!panelUtterances.hidden) scrollWithinContainerIfNeeded(utteranceItem, panelUtterances, behavior);
 
-  const node = gnd ? findGndNodeForLocate(gnd, utterance.locate) : null;
+  const node = findGndNodeForLocate(utterance.locate);
   const id = node ? gndNodeIds.get(node) : undefined;
   const gndNodeItem = setCurrentPanelItem(gndOutput, id !== undefined ? `[data-gnd-node="${id}"]` : null);
   if (!panelGnd.hidden) scrollWithinContainerIfNeeded(gndNodeItem, panelGnd, behavior);
