@@ -72,14 +72,19 @@
       </div>
     </div>
 
-    <div id="readAlongGroup" class="read-along-group">
+    <fieldset id="readAlongGroup" class="read-along-group">
+      <legend class="read-along-legend">Read along</legend>
       <div class="field read-along-toggle">
         <input type="checkbox" id="readAlong" checked>
-        <label for="readAlong">Read along</label>
+        <label for="readAlong">Enable</label>
+      </div>
+      <div class="field read-along-suboption">
+        <input type="checkbox" id="autoScroll" checked>
+        <label for="autoScroll">Auto scroll</label>
       </div>
       <fieldset id="readAlongOptions" class="read-along-options">
         <legend class="visually-hidden">Read along display options</legend>
-        <div class="control-group">
+        <div class="control-group read-along-first-group">
           <label for="utteranceStyleSelect">Utterance style:</label>
           <select id="utteranceStyleSelect">
             <option value="highlight" selected>Highlight</option>
@@ -106,7 +111,7 @@
         </div>
         <p id="wordHighlightUnavailable" class="read-along-unavailable" role="status" hidden>Word highlighting is not available for this voice, sorry.</p>
       </fieldset>
-    </div>
+    </fieldset>
   </div>
 
   <button id="controls-show" class="controls-show" type="button" aria-expanded="true" aria-controls="controls" aria-label="Show settings panel" hidden>

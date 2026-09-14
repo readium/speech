@@ -137,7 +137,6 @@ input[type="checkbox"] {
   width: auto;
 }
 
-/* Toggle checkbox lives outside the fieldset, not in its <legend>. */
 .read-along-group {
   width: 100%;
   margin: 0 0 15px;
@@ -147,7 +146,18 @@ input[type="checkbox"] {
   box-sizing: border-box;
 }
 
+.read-along-legend {
+  padding: 0 6px;
+  font-weight: 500;
+}
+
 .read-along-toggle {
+  gap: 8px;
+  padding: 0 6px;
+  margin-bottom: 8px;
+}
+
+.read-along-suboption {
   gap: 8px;
   padding: 0 6px;
   margin-bottom: 4px;
@@ -157,6 +167,11 @@ input[type="checkbox"] {
   border: none;
   padding: 0;
   margin: 0;
+}
+
+.read-along-first-group {
+  padding-top: 12px;
+  border-top: 1px solid #eee;
 }
 
 /* flex-direction: column forces label-then-inputs stacking — left to
@@ -170,7 +185,8 @@ input[type="checkbox"] {
   transition: opacity 0.2s;
 }
 
-.read-along-options:disabled .control-group {
+.read-along-options:disabled .control-group,
+.read-along-suboption:has(input:disabled) {
   opacity: 0.5;
 }
 

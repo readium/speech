@@ -35,6 +35,7 @@ const currentUtteranceInput = document.getElementById("currentUtteranceInput");
 const totalUtterancesSpan = document.getElementById("totalUtterances");
 const readAlongCheckbox = document.getElementById("readAlong");
 const readAlongGroup = document.getElementById("readAlongOptions");
+const autoScrollCheckbox = document.getElementById("autoScroll");
 const wordHighlightUnavailable = document.getElementById("wordHighlightUnavailable");
 const gndOutput = document.getElementById("gnd-output");
 const showTextrefsCheckbox = document.getElementById("showTextrefs");
@@ -63,6 +64,7 @@ let currentVoice = null;
 let isPlaying = false;
 let utterances = [];
 let readAlongEnabled = true;
+let autoScrollEnabled = true;
 let wordHighlightAvailable = true;
 let currentSentenceIndex = -1;
 let utteranceStyle = DecorationStyleType.Highlight;
@@ -194,7 +196,13 @@ function setupEventListeners() {
   if (readAlongCheckbox) {
     readAlongCheckbox.checked = readAlongEnabled;
     if (readAlongGroup) readAlongGroup.disabled = !readAlongEnabled;
+    if (autoScrollCheckbox) autoScrollCheckbox.disabled = !readAlongEnabled;
     readAlongCheckbox.addEventListener("change", handleReadAlongChange);
+  }
+
+  if (autoScrollCheckbox) {
+    autoScrollCheckbox.checked = autoScrollEnabled;
+    autoScrollCheckbox.addEventListener("change", (e) => { autoScrollEnabled = e.target.checked; });
   }
 
   if (voiceSelect) voiceSelect.addEventListener("change", handleVoiceChange);
@@ -383,6 +391,7 @@ function handleShowTextrefsChange(e) {
 function handleReadAlongChange(e) {
   readAlongEnabled = e.target.checked;
   if (readAlongGroup) readAlongGroup.disabled = !readAlongEnabled;
+  if (autoScrollCheckbox) autoScrollCheckbox.disabled = !readAlongEnabled;
   if (!readAlongEnabled) {
     clearWordHighlighting();
   } else if (navigator && navigator.getState() !== "idle") {
@@ -654,7 +663,7 @@ function enterUtterance(index) {
   const target = currentUtterance.locate.cssSelector
     ? document.querySelector(currentUtterance.locate.cssSelector)
     : null;
-  if (target) {
+  if (target && autoScrollEnabled) {
     const rect = target.getBoundingClientRect();
     const inView = rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
     if (!inView) target.scrollIntoView({ behavior: "smooth", block: "center" });
