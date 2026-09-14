@@ -438,21 +438,21 @@ button:hover:not(:disabled) {
   color: #1976D2;
 }
 
-#content dl[role="doc-glossary"] {
+#content section[role="doc-glossary"] dl {
   margin: 0 0 1.2em;
 }
 
-#content dl[role="doc-glossary"] dt {
+#content section[role="doc-glossary"] dl dt {
   font-weight: bold;
   margin-top: 8px;
 }
 
-#content dl[role="doc-glossary"] dd {
+#content section[role="doc-glossary"] dl dd {
   margin: 2px 0 0;
   color: #555;
 }
 
-#content ul[role="doc-bibliography"] {
+#content section[role="doc-bibliography"] ul {
   font-size: 0.9em;
   color: #555;
 }
