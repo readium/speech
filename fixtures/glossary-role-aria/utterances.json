@@ -692,6 +692,683 @@
     {
       "options": [
         {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "definition"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "definition"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "definition"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "definition"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "definition"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "definition"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "definition"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "definition"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "definition"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term",
+            "definition"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term",
+            "definition"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term",
+            "definition"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term",
+            "definition"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term",
+            "definition"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term",
+            "definition"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term",
+            "definition"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term",
+            "definition"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term",
+            "definition"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term",
+            "definition"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term",
+            "definition"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term",
+            "definition"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term",
+            "definition"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term",
+            "definition"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term",
+            "definition"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term",
+            "definition"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": []
+    },
+    {
+      "options": [
+        {
           "format": "ssml"
         }
       ],
@@ -1377,6 +2054,683 @@
           "synthetic": true
         }
       ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "definition"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "definition"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "definition"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "definition"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "definition"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "definition"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "definition"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "definition"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "definition"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "definition"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term",
+            "definition"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term",
+            "definition"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term",
+            "definition"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term",
+            "definition"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term",
+            "definition"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term",
+            "definition"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term",
+            "definition"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "term",
+            "definition"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term",
+            "definition"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term",
+            "definition"
+          ],
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term",
+            "definition"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term",
+            "definition"
+          ],
+          "language": "always",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term",
+            "definition"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term",
+            "definition"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term",
+            "definition"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossary"
+          ],
+          "contextualize": [
+            "glossary",
+            "term",
+            "definition"
+          ],
+          "language": "none",
+          "inlineContextualization": true
+        }
+      ],
+      "utterances": []
     }
   ]
 }
