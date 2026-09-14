@@ -146,6 +146,13 @@ async function initialize() {
   }
 }
 
+function setReadAlongDependentsDisabled(disabled) {
+  if (readAlongGroup) readAlongGroup.disabled = disabled;
+  if (autoScrollCheckbox) autoScrollCheckbox.disabled = disabled;
+  if (decorateSyntheticCheckbox) decorateSyntheticCheckbox.disabled = disabled;
+  if (syncPanelsCheckbox) syncPanelsCheckbox.disabled = disabled;
+}
+
 function setupEventListeners() {
   navigator.on("start", () => {
     isPlaying = true;
@@ -192,12 +199,10 @@ function setupEventListeners() {
   navigator.on("contentchange", (event) => {
     utterances = event.detail.content;
     renderUtterancesPanel();
-    // reextract() already resolved the navigator's own resume index into the
-    // new queue — currentSentenceIndex still holds the old one, so force a
-    // full re-entry rather than trusting it (matters most while paused,
-    // since no "start" event follows to correct it on its own).
+    // currentSentenceIndex still holds the pre-reextract value; force re-entry
+    // since no "start" event follows to correct it while paused.
     currentSentenceIndex = -1;
-    enterUtterance(navigator.getCurrentUtteranceIndex());
+    if (readAlongEnabled) enterUtterance(navigator.getCurrentUtteranceIndex());
     updateUI();
   });
 
@@ -213,10 +218,7 @@ function setupEventListeners() {
 
   if (readAlongCheckbox) {
     readAlongCheckbox.checked = readAlongEnabled;
-    if (readAlongGroup) readAlongGroup.disabled = !readAlongEnabled;
-    if (autoScrollCheckbox) autoScrollCheckbox.disabled = !readAlongEnabled;
-    if (decorateSyntheticCheckbox) decorateSyntheticCheckbox.disabled = !readAlongEnabled;
-    if (syncPanelsCheckbox) syncPanelsCheckbox.disabled = !readAlongEnabled;
+    setReadAlongDependentsDisabled(!readAlongEnabled);
     readAlongCheckbox.addEventListener("change", handleReadAlongChange);
   }
 
@@ -403,9 +405,7 @@ function selectTab(name) {
   panelGnd.hidden = !isGnd;
   panelUtterances.hidden = isGnd;
 
-  // Only when .panel is already expanded — if it's still collapsed (e.g.
-  // setMobilePanel() calling this before setPanelCollapsed()), that reveal's
-  // own resync runs once the panel actually has real dimensions.
+  // Skip while collapsed — the reveal in setPanelCollapsed() resyncs once dimensions are real.
   if (syncPanelsEnabled && currentSentenceIndex !== -1 && !panelAside.classList.contains("collapsed")) {
     syncPanelsToCurrentUtterance(currentSentenceIndex, "auto");
   }
@@ -460,10 +460,7 @@ function handleShowTextrefsChange(e) {
 
 function handleReadAlongChange(e) {
   readAlongEnabled = e.target.checked;
-  if (readAlongGroup) readAlongGroup.disabled = !readAlongEnabled;
-  if (autoScrollCheckbox) autoScrollCheckbox.disabled = !readAlongEnabled;
-  if (decorateSyntheticCheckbox) decorateSyntheticCheckbox.disabled = !readAlongEnabled;
-  if (syncPanelsCheckbox) syncPanelsCheckbox.disabled = !readAlongEnabled;
+  setReadAlongDependentsDisabled(!readAlongEnabled);
   if (!readAlongEnabled) {
     clearWordHighlighting();
     // clearWordHighlighting() resets currentSentenceIndex but leaves the
@@ -605,9 +602,7 @@ function resolveScrollBehavior(behavior) {
 function scrollWithinContainerIfNeeded(el, container, behavior = "smooth") {
   if (!el || !container) return;
 
-  // A sticky .panel-option (e.g. "Show textrefs") can overlap the top of
-  // the scroll area — read its actual rendered height rather than assuming
-  // one, so this keeps working however that bar's own CSS changes.
+  // Read the sticky .panel-option's actual height rather than assuming one.
   const stickyOption = container.querySelector(".panel-option");
   const stickyHeight = stickyOption ? stickyOption.getBoundingClientRect().height : 0;
   container.style.scrollPaddingTop = `${stickyHeight}px`;
