@@ -275,7 +275,14 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -341,7 +348,14 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -408,7 +422,18 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -486,7 +511,18 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -912,7 +948,14 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -998,7 +1041,14 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -1085,7 +1135,18 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -1183,7 +1244,18 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -1594,7 +1666,14 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -1672,7 +1751,14 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -1751,7 +1837,18 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -1841,7 +1938,18 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -2327,7 +2435,14 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -2425,7 +2540,14 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -2524,7 +2646,18 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -2634,7 +2767,18 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -3086,7 +3230,14 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -3172,7 +3323,14 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -3259,7 +3417,18 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -3357,7 +3526,18 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -3883,7 +4063,14 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -3989,7 +4176,14 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -4096,7 +4290,18 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -4214,7 +4419,18 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -4725,7 +4941,14 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -4823,7 +5046,14 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -4922,7 +5152,18 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -5032,7 +5273,18 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -5618,7 +5870,14 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -5736,7 +5995,14 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -5855,7 +6121,18 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -5985,7 +6262,18 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -7871,7 +8159,14 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         }
       ]
@@ -8279,7 +8574,14 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         }
       ]
@@ -8695,7 +8997,18 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         }
       ]
@@ -9135,7 +9448,18 @@
           "plain": "This text has a note."
         },
         {
-          "plain": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "List item.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the note."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         }
       ]
@@ -30024,7 +30348,14 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -30090,7 +30421,14 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -30157,7 +30495,18 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -30235,7 +30584,18 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -30661,7 +31021,14 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -30747,7 +31114,14 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -30834,7 +31208,18 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -30932,7 +31317,18 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -31343,7 +31739,14 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -31421,7 +31824,14 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -31500,7 +31910,18 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -31590,7 +32011,18 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -32076,7 +32508,14 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -32174,7 +32613,14 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -32273,7 +32719,18 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -32383,7 +32840,18 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -32835,7 +33303,14 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -32921,7 +33396,14 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -33008,7 +33490,18 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -33106,7 +33599,18 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -33632,7 +34136,14 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -33738,7 +34249,14 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -33845,7 +34363,18 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -33963,7 +34492,18 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -34474,7 +35014,14 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -34572,7 +35119,14 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -34671,7 +35225,18 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -34781,7 +35346,18 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -35367,7 +35943,14 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -35485,7 +36068,14 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -35604,7 +36194,18 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -35734,7 +36335,18 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         },
         {
@@ -37620,7 +38232,14 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         }
       ]
@@ -38028,7 +38647,14 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         }
       ]
@@ -38444,7 +39070,18 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         }
       ]
@@ -38884,7 +39521,18 @@
           "ssml": "This text has a note."
         },
         {
-          "ssml": "Start of the footnote. List item. Text of the note. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "List item.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the note."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         }
       ]
