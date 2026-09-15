@@ -37,7 +37,11 @@ function tokenize(ssml: string): Atom[] {
 // paired tag whose inner text spans a boundary so each fragment stays
 // well-formed on its own. Returns `undefined` for a single sentence (or no
 // text at all), so the caller keeps the utterance unsplit.
-export async function splitSsmlAtSentences(ssml: string, language: string): Promise<string[] | undefined> {
+export async function splitSsmlAtSentences(
+  ssml: string,
+  language: string,
+  customSuppressions?: string[]
+): Promise<string[] | undefined> {
   const atoms = tokenize(ssml);
   let plain = "";
   const plainStarts: number[] = [];
@@ -47,7 +51,7 @@ export async function splitSsmlAtSentences(ssml: string, language: string): Prom
     else if (atom.kind === "paired") plain += atom.innerText;
   }
   if (!plain) return undefined;
-  const boundaries = await segmentSentences(language, plain);
+  const boundaries = await segmentSentences(language, plain, customSuppressions);
   if (boundaries.length <= 1) return undefined;
 
   const results: string[] = [];

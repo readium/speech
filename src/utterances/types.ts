@@ -38,6 +38,17 @@ export interface ContextualizationOptions {
   params?: (role: GndRole, node: GndObject) => Record<string, string> | undefined;
 }
 
+// See `ExtractUtterancesOptions.segmentation` below.
+export interface SegmentationOptions {
+  // "structure" (default): one utterance per structural/block-level unit.
+  // "sentence": split at real sentence boundaries instead.
+  mode?: Segmentation;
+
+  // Extra per-language abbreviations (with trailing period, e.g. "d.") that
+  // "sentence" mode won't treat as sentence endings — keyed like `language`.
+  suppressions?: Record<string, string[]>;
+}
+
 export interface ExtractUtterancesOptions {
   // Every extraction is fully plain or fully SSML, never a per-node
   // passthrough of "whatever the node happens to have". Forces exactly
@@ -91,9 +102,6 @@ export interface ExtractUtterancesOptions {
   // either `format`).
   inlineContextualization?: boolean;
 
-  // How utterance boundaries are chosen. "structure" (default): one
-  // utterance per structural/block-level unit, as today. "sentence": split
-  // (and, where needed, reconstruct across structural units) at real
-  // sentence boundaries instead.
-  segmentation?: Segmentation;
+  // See `SegmentationOptions` above.
+  segmentation?: SegmentationOptions;
 }

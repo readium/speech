@@ -50,6 +50,7 @@ interface WalkContext {
   inlineContextualization: boolean;
   language?: LanguageMode;
   segmentation: Segmentation;
+  segmentationSuppressions: Record<string, string[]>;
   // Tracked by object identity rather than threaded as a parallel array,
   // since utterances get merged/reordered across several local `out` arrays
   // (pieces, inner, ...) before reaching the caller's own `out`.
@@ -570,30 +571,30 @@ async function makeWalkContext(options: ExtractUtterancesOptions): Promise<WalkC
     format: options.format ?? "plain",
     inlineContextualization: options.inlineContextualization ?? false,
     language: options.language ?? "block-level",
-    segmentation: options.segmentation ?? "structure",
+    segmentation: options.segmentation?.mode ?? "structure",
+    segmentationSuppressions: options.segmentation?.suppressions ?? {},
     blockStarts: new Set(),
     tableRowNumbers: new Map(),
     tableCellHeaders: new Map(),
   };
 }
 
-// Resolves a non-synthetic utterance's text into per-sentence fragments, or
-// `undefined` if it's a single sentence (or has no text at all) and should
-// stay as-is. Falls back to English when the utterance has no language.
-async function sentenceFragmentsOf(utterance: ReadiumSpeechUtterance, format: ExtractionFormat): Promise<string[] | undefined> {
+// Resolves a non-synthetic utterance into per-sentence fragments (`undefined`
+// if there's only one), falling back to English when it has no language.
+async function sentenceFragmentsOf(utterance: ReadiumSpeechUtterance, ctx: WalkContext): Promise<string[] | undefined> {
   const language = utterance.language ?? "en";
-  if (format === "plain") {
+  const customSuppressions = ctx.segmentationSuppressions[language];
+  if (ctx.format === "plain") {
     if (!utterance.plain) return undefined;
-    const boundaries = await segmentSentences(language, utterance.plain);
+    const boundaries = await segmentSentences(language, utterance.plain, customSuppressions);
     return boundaries.length > 1 ? boundaries.map((b) => b.text) : undefined;
   }
   if (!utterance.ssml) return undefined;
-  return splitSsmlAtSentences(utterance.ssml, language);
+  return splitSsmlAtSentences(utterance.ssml, language, customSuppressions);
 }
 
-// Expands a multi-sentence utterance into one utterance per sentence, after
-// the walk so already-merged text is segmented as one string. Synthetic
-// text isn't split (it's a short, deliberately-authored announcement).
+// Expands a multi-sentence utterance into one per sentence, after the walk
+// so already-merged text is segmented as one string. Synthetic text isn't split.
 async function splitIntoSentenceUtterances(
   out: ReadiumSpeechUtterance[],
   sources: SourceTrace,
@@ -604,7 +605,7 @@ async function splitIntoSentenceUtterances(
   const newSources: SourceTrace = [];
   for (let i = 0; i < out.length; i++) {
     const utterance = out[i];
-    const fragments = utterance.synthetic ? undefined : await sentenceFragmentsOf(utterance, ctx.format);
+    const fragments = utterance.synthetic ? undefined : await sentenceFragmentsOf(utterance, ctx);
     if (!fragments) {
       newOut.push(utterance);
       newSources.push(sources[i]);

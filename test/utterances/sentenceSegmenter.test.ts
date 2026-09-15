@@ -10,6 +10,20 @@ test("splits plain declarative sentences", async (t) => {
   );
 });
 
+// "Zqxk." is fabricated so this tests our passthrough, not a real gap in a
+// third-party list that could get fixed upstream out from under us.
+test("customSuppressions extends the built-in abbreviation list", async (t) => {
+  const text = "We visited Zqxk. University last year.";
+  const withoutCustom = await segmentSentences("en", text);
+  t.true(withoutCustom.length > 1, "baseline: an unrecognized token isn't specially suppressed");
+
+  const withCustom = await segmentSentences("en", text, ["Zqxk."]);
+  t.deepEqual(
+    withCustom.map((b) => b.text),
+    [text]
+  );
+});
+
 test("does not split on a common abbreviation", async (t) => {
   const boundaries = await segmentSentences("en", "Mr. Smith stayed. He was tired.");
   t.deepEqual(

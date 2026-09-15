@@ -21,10 +21,16 @@ export interface ContextualizationOverrides {
   params?: (role: string, node: GndObject) => Record<string, string> | undefined;
 }
 
+// Same rationale as ContextualizationOverrides — static, not a preference.
+export interface SegmentationOverrides {
+  suppressions?: Record<string, string[]>;
+}
+
 export interface ReadiumSpeechNavigatorConfiguration {
   preferences?: ISpeechPreferences;
   defaults?: ISpeechDefaults;
   contextualizationOverrides?: ContextualizationOverrides;
+  segmentationOverrides?: SegmentationOverrides;
 }
 
 export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
@@ -46,6 +52,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private _settings: SpeechSettings;
   private _preferencesEditor: SpeechPreferencesEditor | null = null;
   private readonly contextualizationOverrides?: ContextualizationOverrides;
+  private readonly segmentationOverrides?: SegmentationOverrides;
 
   // The raw GND source, retained only when content was loaded via
   // `loadGndContent()`. Its absence is what makes submitPreferences()'s
@@ -76,6 +83,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this._preferences = new SpeechPreferences(configuration.preferences);
     this._settings = new SpeechSettings(this._preferences, this._defaults);
     this.contextualizationOverrides = configuration.contextualizationOverrides;
+    this.segmentationOverrides = configuration.segmentationOverrides;
     this.setupEngineListeners();
     this.applyEngineParameters();
     void this.initializeEngine();
@@ -283,7 +291,10 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
         params: this.contextualizationOverrides?.params,
       },
       language: this._settings.language,
-      segmentation: this._settings.segmentation,
+      segmentation: {
+        mode: this._settings.segmentation,
+        suppressions: this.segmentationOverrides?.suppressions,
+      },
     });
     this.contentSources = sources;
     this.contentBlockStarts = blockStarts;
