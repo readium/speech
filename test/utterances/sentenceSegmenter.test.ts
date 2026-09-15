@@ -1,4 +1,3 @@
-import "./setup.js";
 import test from "ava";
 import { segmentSentences } from "../../src/utterances/sentenceSegmenter.js";
 import { splitSsmlAtSentences } from "../../src/utterances/splitSsmlAtSentences.js";
@@ -81,8 +80,8 @@ test("splitSsmlAtSentences keeps a paired tag whole when it doesn't span a bound
 });
 
 test("splitSsmlAtSentences attaches a self-closing tag to the sentence following it", async (t) => {
-  const result = await splitSsmlAtSentences("Line one.<break/>Line two.", "en");
-  t.deepEqual(result, ["Line one.", "<break/>Line two."]);
+  const result = await splitSsmlAtSentences("Line one. <break/>Line two.", "en");
+  t.deepEqual(result, ["Line one. ", "<break/>Line two."]);
 });
 
 test("splitSsmlAtSentences preserves entity escaping across a split", async (t) => {

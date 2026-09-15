@@ -61,12 +61,12 @@
     "vite-plugin-dts": "^4.5.4"
   },
   "dependencies": {
+    "@echogarden/text-segmentation": "^0.8.1",
     "@readium/decorator": "1.2.0",
     "@readium/helpers": "1.1.0",
     "@readium/shared": "2.5.0",
     "css-selector-generator": "^3.9.4",
     "i18next": "^26.4.0",
-    "sentencex-wasm": "^0.1.31",
     "string-strip-html": "^13.4.23"
   }
 }

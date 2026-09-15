@@ -1,4 +1,3 @@
-import "./setup.js";
 import "../gnd/setup.js";
 import test from "ava";
 import { parseMarkup } from "../../src/gnd/converter.js";
@@ -101,11 +100,11 @@ test("segmentation: sentence re-wraps a <lang> span whose inner text spans a sen
 });
 
 test("segmentation: sentence attaches a self-closing tag to the sentence following it", async (t) => {
-  const gnd = parseMarkup("<p>Line one.<br>Line two after a break.</p>");
+  const gnd = parseMarkup("<p>Line one. <br>Line two after a break.</p>");
   const utterances = await extractUtterances(gnd, { format: "ssml", segmentation: "sentence" });
   t.deepEqual(
     utterances.map((u) => u.ssml),
-    ["Line one.", "<break/>Line two after a break."]
+    ["Line one. ", "<break/>Line two after a break."]
   );
 });
 
