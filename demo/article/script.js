@@ -95,7 +95,11 @@ async function initialize() {
     voiceManager = await WebSpeechVoiceManager.initialize({ languages: ["en"] });
     enVoices = await voiceManager.getVoices({ removeDuplicates: true });
 
-    navigator = new ReadiumSpeechNavigator(new WebSpeechEngine());
+    // "d." (died) isn't in the segmenter's built-in English abbreviation
+    // list, so "(d. 1003 AD)" would otherwise get split mid-parenthetical.
+    navigator = new ReadiumSpeechNavigator(new WebSpeechEngine(), {
+      segmentationOverrides: { suppressions: { en: ["d."] } },
+    });
     navigator.setSpeakInContentLanguage(true);
 
     // Broadens the shared WebSpeechVoiceManager singleton so the engine's
