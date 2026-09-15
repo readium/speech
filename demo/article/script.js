@@ -22,6 +22,7 @@ const PAUSE_ICON = `<svg viewBox="0 0 24 24" width="20" height="20" fill="curren
 const content = document.getElementById("content");
 const voiceSelect = document.getElementById("voiceSelect");
 const verbositySelect = document.getElementById("verbositySelect");
+const segmentationSelect = document.getElementById("segmentationSelect");
 const speedInput = document.getElementById("speedInput");
 const speedValue = document.getElementById("speedValue");
 const utteranceStyleSelect = document.getElementById("utteranceStyleSelect");
@@ -247,6 +248,7 @@ function setupEventListeners() {
 
   if (voiceSelect) voiceSelect.addEventListener("change", handleVoiceChange);
   if (verbositySelect) verbositySelect.addEventListener("change", handleVerbosityChange);
+  if (segmentationSelect) segmentationSelect.addEventListener("change", handleSegmentationChange);
   if (speedInput) speedInput.addEventListener("input", handleSpeedChange);
   if (showTextrefsCheckbox) showTextrefsCheckbox.addEventListener("change", handleShowTextrefsChange);
 
@@ -438,6 +440,13 @@ async function handleVerbosityChange(e) {
   if (!navigator) return;
   const editor = navigator.preferencesEditor;
   editor.verbosity.value = e.target.value;
+  await navigator.submitPreferences(editor.preferences);
+}
+
+async function handleSegmentationChange(e) {
+  if (!navigator) return;
+  const editor = navigator.preferencesEditor;
+  editor.segmentation.value = e.target.value;
   await navigator.submitPreferences(editor.preferences);
 }
 
