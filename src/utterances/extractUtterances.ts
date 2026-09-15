@@ -5,6 +5,8 @@ import { decodeTextref } from "../gnd/textrefFragment.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { contextualizationsForLocale } from "./contextualizations.js";
 import { stripLangTags } from "./language.js";
+import { segmentSentences } from "./sentenceSegmenter.js";
+import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
 import {
   hasLangTag,
   hasPlaceholder,
@@ -40,6 +42,7 @@ interface WalkContext {
   format: "plain" | "ssml";
   inlineContextualization: boolean;
   language?: "none" | "block-level" | "always";
+  segmenter: "structure" | "sentence";
   // Tracked by object identity rather than threaded as a parallel array,
   // since utterances get merged/reordered across several local `out` arrays
   // (pieces, inner, ...) before reaching the caller's own `out`.
@@ -560,10 +563,56 @@ async function makeWalkContext(options: ExtractUtterancesOptions): Promise<WalkC
     format: options.format ?? "plain",
     inlineContextualization: options.inlineContextualization ?? false,
     language: options.language ?? "block-level",
+    segmenter: options.segmenter ?? "structure",
     blockStarts: new Set(),
     tableRowNumbers: new Map(),
     tableCellHeaders: new Map(),
   };
+}
+
+// Resolves a non-synthetic utterance's text into per-sentence fragments, or
+// `undefined` if it's a single sentence (or has no text at all) and should
+// stay as-is. Falls back to English when the utterance has no language.
+async function sentenceFragmentsOf(utterance: ReadiumSpeechUtterance, format: "plain" | "ssml"): Promise<string[] | undefined> {
+  const language = utterance.language ?? "en";
+  if (format === "plain") {
+    if (!utterance.plain) return undefined;
+    const boundaries = await segmentSentences(language, utterance.plain);
+    return boundaries.length > 1 ? boundaries.map((b) => b.text) : undefined;
+  }
+  if (!utterance.ssml) return undefined;
+  return splitSsmlAtSentences(utterance.ssml, language);
+}
+
+// Expands a multi-sentence utterance into one utterance per sentence, after
+// the walk so already-merged text is segmented as one string. Synthetic
+// text isn't split (it's a short, deliberately-authored announcement).
+async function splitIntoSentenceUtterances(
+  out: ReadiumSpeechUtterance[],
+  sources: SourceTrace,
+  ctx: WalkContext,
+): Promise<{ out: ReadiumSpeechUtterance[]; sources: SourceTrace }> {
+  if (ctx.segmenter !== "sentence") return { out, sources };
+  const newOut: ReadiumSpeechUtterance[] = [];
+  const newSources: SourceTrace = [];
+  for (let i = 0; i < out.length; i++) {
+    const utterance = out[i];
+    const fragments = utterance.synthetic ? undefined : await sentenceFragmentsOf(utterance, ctx.format);
+    if (!fragments) {
+      newOut.push(utterance);
+      newSources.push(sources[i]);
+      continue;
+    }
+    const wasBlockStart = ctx.blockStarts.has(utterance);
+    if (wasBlockStart) ctx.blockStarts.delete(utterance);
+    fragments.forEach((fragment, j) => {
+      const split: ReadiumSpeechUtterance = { ...utterance, [ctx.format]: fragment };
+      if (wasBlockStart && j === 0) ctx.blockStarts.add(split);
+      newOut.push(split);
+      newSources.push(sources[i]);
+    });
+  }
+  return { out: newOut, sources: newSources };
 }
 
 /**
@@ -580,8 +629,10 @@ export async function extractUtterances(
 ): Promise<ReadiumSpeechUtterance[]> {
   const out: ReadiumSpeechUtterance[] = [];
   const sources: SourceTrace = [];
-  walk(nodes, out, sources, await makeWalkContext(options), false);
-  return attachLocate(out, sources, buildAncestorChains(nodes));
+  const ctx = await makeWalkContext(options);
+  walk(nodes, out, sources, ctx, false);
+  const split = await splitIntoSentenceUtterances(out, sources, ctx);
+  return attachLocate(split.out, split.sources, buildAncestorChains(nodes));
 }
 
 /**
@@ -596,8 +647,9 @@ export async function extractUtterancesWithSources(
   const sources: SourceTrace = [];
   const ctx = await makeWalkContext(options);
   walk(nodes, utterances, sources, ctx, false);
-  const blockStarts = utterances.map((utterance) => ctx.blockStarts.has(utterance));
-  return { utterances: attachLocate(utterances, sources, buildAncestorChains(nodes)), sources, blockStarts };
+  const split = await splitIntoSentenceUtterances(utterances, sources, ctx);
+  const blockStarts = split.out.map((utterance) => ctx.blockStarts.has(utterance));
+  return { utterances: attachLocate(split.out, split.sources, buildAncestorChains(nodes)), sources: split.sources, blockStarts };
 }
 
 // Every node's own ancestors (nearest first), keyed by object identity —

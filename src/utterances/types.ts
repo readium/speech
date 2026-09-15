@@ -84,4 +84,10 @@ export interface ExtractUtterancesOptions {
   // sentence finishes (default, `false` — today's only behavior, for
   // either `format`).
   inlineContextualization?: boolean;
+
+  // How utterance boundaries are chosen. "structure" (default): one
+  // utterance per structural/block-level unit, as today. "sentence": split
+  // (and, where needed, reconstruct across structural units) at real
+  // sentence boundaries instead.
+  segmenter?: "structure" | "sentence";
 }
