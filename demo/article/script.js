@@ -202,7 +202,10 @@ function setupEventListeners() {
     // currentSentenceIndex still holds the pre-reextract value; force re-entry
     // since no "start" event follows to correct it while paused.
     currentSentenceIndex = -1;
-    if (readAlongEnabled) enterUtterance(navigator.getCurrentUtteranceIndex());
+    const state = navigator.getState();
+    if (readAlongEnabled && (state === "playing" || state === "paused")) {
+      enterUtterance(navigator.getCurrentUtteranceIndex());
+    }
     updateUI();
   });
 
