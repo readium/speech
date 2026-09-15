@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.9.2] - 2026-09-16
+
+### Fixed
+
+- A noteref's target nested inside an `endnotes` section no longer skips its own location — previously it was suppressed there unconditionally (since a noteref already speaks it inline), leaving the section's list silent.
+- A footnote reached via a `noteref` no longer merges its `Start of the footnote.`/`End of the footnote.` contextualization into the same utterance as its content — the note's real content is now its own separate utterance, consistent with every other block role, instead of being incorrectly flagged `synthetic`.
+
 ## [0.9.1] - 2026-09-14
 
 ### Changed
