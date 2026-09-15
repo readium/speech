@@ -50,7 +50,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // The raw GND source, retained only when content was loaded via
   // `loadGndContent()`. Its absence is what makes submitPreferences()'s
   // extraction-affecting fields (format, verbosity, skip, contextualize,
-  // language) a no-op on content loaded via loadContent() — prosody
+  // language, segmentation) a no-op on content loaded via loadContent() — prosody
   // fields (rate/pitch/volume/pauseDuration/autoPause) still apply.
   private source: GndObject[] | undefined;
 
@@ -283,6 +283,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
         params: this.contextualizationOverrides?.params,
       },
       language: this._settings.language,
+      segmentation: this._settings.segmentation,
     });
     this.contentSources = sources;
     this.contentBlockStarts = blockStarts;
@@ -445,7 +446,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   async submitPreferences(preferences: SpeechPreferences): Promise<void> {
     if (!this.source && extractionPreferenceKeys.some((key) => preferences[key] !== undefined)) {
       console.warn(
-        "submitPreferences(): extraction-affecting preferences (format, inlineContextualization, verbosity, skip, contextualize, language) have no effect on content loaded via loadContent() — use loadGndContent() to re-extract on submission.",
+        "submitPreferences(): extraction-affecting preferences (format, inlineContextualization, verbosity, skip, contextualize, language, segmentation) have no effect on content loaded via loadContent() — use loadGndContent() to re-extract on submission.",
       );
     }
 

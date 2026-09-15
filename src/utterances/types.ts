@@ -1,5 +1,11 @@
 import type { GndObject, GndRole } from "../gnd/types.js";
 
+// Canonical extraction-option enums — imported by src/preferences/SpeechPreferences.ts
+// rather than redeclared there, so the two never drift apart.
+export type ExtractionFormat = "plain" | "ssml";
+export type LanguageMode = "none" | "block-level" | "always";
+export type Segmentation = "structure" | "sentence";
+
 // Synthesized navigational text the extractor adds around a node, keyed by
 // `GndRole` and resolved via i18next (`<role>.inline`, `<role>.block.start`/
 // `.end`, nested variants, `<role>.parts.*_one`/`*_other` plurals).
@@ -38,7 +44,7 @@ export interface ExtractUtterancesOptions {
   // one field on every utterance, synthesizing it when a node only
   // naturally has the other (escape plain into ssml with no markup;
   // strip tags/placeholders from ssml into plain). Default "plain".
-  format?: "plain" | "ssml";
+  format?: ExtractionFormat;
 
   // See `ContextualizationOptions` above.
   contextualization?: ContextualizationOptions;
@@ -76,7 +82,7 @@ export interface ExtractUtterancesOptions {
   //  - "none": same merging as "block-level", and every utterance's
   //    `language` is dropped entirely — the whole document is being
   //    treated as one language, so nothing gets tagged at all.
-  language?: "none" | "block-level" | "always";
+  language?: LanguageMode;
 
   // Whether a pagebreak/footnote placeholder that falls mid-sentence
   // splits the enclosing utterance at that exact point (contextualization/
@@ -89,5 +95,5 @@ export interface ExtractUtterancesOptions {
   // utterance per structural/block-level unit, as today. "sentence": split
   // (and, where needed, reconstruct across structural units) at real
   // sentence boundaries instead.
-  segmenter?: "structure" | "sentence";
+  segmentation?: Segmentation;
 }

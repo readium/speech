@@ -16,7 +16,14 @@ import {
   stripSsmlTags,
   type ResolvedNodeText,
 } from "./text.js";
-import type { ContextualizationEntry, Contextualizations, ExtractUtterancesOptions } from "./types.js";
+import type {
+  ContextualizationEntry,
+  Contextualizations,
+  ExtractionFormat,
+  ExtractUtterancesOptions,
+  LanguageMode,
+  Segmentation,
+} from "./types.js";
 import {
   blockLevelRoles,
   roleDropOverrides,
@@ -39,10 +46,10 @@ interface WalkContext {
   contextualizationShapes: Partial<Record<GndRole, "inline" | "block">>;
   // See `ExtractUtterancesOptions.contextualization.params`.
   contextualizationParams?: (role: GndRole, node: GndObject) => Record<string, string> | undefined;
-  format: "plain" | "ssml";
+  format: ExtractionFormat;
   inlineContextualization: boolean;
-  language?: "none" | "block-level" | "always";
-  segmenter: "structure" | "sentence";
+  language?: LanguageMode;
+  segmentation: Segmentation;
   // Tracked by object identity rather than threaded as a parallel array,
   // since utterances get merged/reordered across several local `out` arrays
   // (pieces, inner, ...) before reaching the caller's own `out`.
@@ -76,7 +83,7 @@ function resolveEntryText(ctx: WalkContext, base: string, variantKey?: string, p
 
 // Contextualization/label text is always plain (no markup) — formats it
 // per the requested `format`, same as any other utterance.
-function formatPlain(text: string, format: "plain" | "ssml"): ReadiumSpeechUtterance {
+function formatPlain(text: string, format: ExtractionFormat): ReadiumSpeechUtterance {
   return format === "ssml" ? { ssml: ssmlTextEscape(text), synthetic: true } : { plain: text, synthetic: true };
 }
 
@@ -173,7 +180,7 @@ function isSkipped(roles: GndRole[], skip: ReadonlySet<GndRole>): boolean {
 // Bails out (returns `undefined`) if they don't all agree on one `language`.
 function mergeUtterances(
   pieces: ReadiumSpeechUtterance[],
-  format: "plain" | "ssml",
+  format: ExtractionFormat,
 ): ReadiumSpeechUtterance | undefined {
   let language: string | undefined;
   let sawLanguage = false;
@@ -236,8 +243,8 @@ function buildPagebreakUtterance(node: GndObject, ctx: WalkContext): ReadiumSpee
 //    language throughout, so nothing gets tagged at all.
 function applyFormat(
   resolved: ResolvedNodeText,
-  format: "plain" | "ssml",
-  language: "none" | "block-level" | "always" | undefined,
+  format: ExtractionFormat,
+  language: LanguageMode | undefined,
 ): ReadiumSpeechUtterance[] {
   if (format === "plain" && language !== "block-level" && language !== "none" && resolved.ssml && hasLangTag(resolved.ssml)) {
     return splitOnLangTags(resolved.ssml, resolved.language).map((segment) => {
@@ -563,7 +570,7 @@ async function makeWalkContext(options: ExtractUtterancesOptions): Promise<WalkC
     format: options.format ?? "plain",
     inlineContextualization: options.inlineContextualization ?? false,
     language: options.language ?? "block-level",
-    segmenter: options.segmenter ?? "structure",
+    segmentation: options.segmentation ?? "structure",
     blockStarts: new Set(),
     tableRowNumbers: new Map(),
     tableCellHeaders: new Map(),
@@ -573,7 +580,7 @@ async function makeWalkContext(options: ExtractUtterancesOptions): Promise<WalkC
 // Resolves a non-synthetic utterance's text into per-sentence fragments, or
 // `undefined` if it's a single sentence (or has no text at all) and should
 // stay as-is. Falls back to English when the utterance has no language.
-async function sentenceFragmentsOf(utterance: ReadiumSpeechUtterance, format: "plain" | "ssml"): Promise<string[] | undefined> {
+async function sentenceFragmentsOf(utterance: ReadiumSpeechUtterance, format: ExtractionFormat): Promise<string[] | undefined> {
   const language = utterance.language ?? "en";
   if (format === "plain") {
     if (!utterance.plain) return undefined;
@@ -592,7 +599,7 @@ async function splitIntoSentenceUtterances(
   sources: SourceTrace,
   ctx: WalkContext,
 ): Promise<{ out: ReadiumSpeechUtterance[]; sources: SourceTrace }> {
-  if (ctx.segmenter !== "sentence") return { out, sources };
+  if (ctx.segmentation !== "sentence") return { out, sources };
   const newOut: ReadiumSpeechUtterance[] = [];
   const newSources: SourceTrace = [];
   for (let i = 0; i < out.length; i++) {

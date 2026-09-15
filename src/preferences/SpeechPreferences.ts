@@ -1,4 +1,5 @@
 import type { GndRole } from "../gnd/types.js";
+import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
 import type { ConfigurablePreferences } from "./Configurable.js";
 import {
   autoPauseScopes,
@@ -7,15 +8,13 @@ import {
   pauseDurationRangeConfig,
   pitchRangeConfig,
   rateRangeConfig,
+  segmentationModes,
   verbosityPresets,
   volumeRangeConfig,
 } from "./constraints.js";
 import { ensureBoolean, ensureEnumValue, ensureStringArray, ensureValueInRange } from "./guards.js";
 
 export type VerbosityPreset = "none" | "few" | "some" | "most" | "custom";
-export type LanguageMode = "none" | "block-level" | "always";
-
-export type ExtractionFormat = "plain" | "ssml";
 
 export type AutoPauseScope = "none" | "utterance" | "block";
 
@@ -31,6 +30,7 @@ export interface ISpeechPreferences {
   skip?: GndRole[] | null; // only consulted when verbosity === "custom"
   contextualize?: GndRole[] | null; // only consulted when verbosity === "custom"
   language?: LanguageMode | null;
+  segmentation?: Segmentation | null; // default "structure"
 
   // Prosody group — consumed by ReadiumSpeechNavigator's playback sequencing.
   pauseDuration?: number | null; // ms, default 300, delays every automatic continuation to the next utterance
@@ -47,6 +47,7 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
   public skip: GndRole[] | null | undefined;
   public contextualize: GndRole[] | null | undefined;
   public language: LanguageMode | null | undefined;
+  public segmentation: Segmentation | null | undefined;
   public pauseDuration: number | null | undefined;
   public autoPause: AutoPauseScope | null | undefined;
   public rate: number | null | undefined;
@@ -60,6 +61,7 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
     this.skip = ensureStringArray(preferences.skip);
     this.contextualize = ensureStringArray(preferences.contextualize);
     this.language = ensureEnumValue(preferences.language, languageModes);
+    this.segmentation = ensureEnumValue(preferences.segmentation, segmentationModes);
     this.pauseDuration = ensureValueInRange(preferences.pauseDuration, pauseDurationRangeConfig.range);
     this.autoPause = ensureEnumValue(preferences.autoPause, autoPauseScopes);
     this.rate = ensureValueInRange(preferences.rate, rateRangeConfig.range);

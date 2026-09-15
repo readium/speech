@@ -6,13 +6,15 @@ import {
   pauseDurationRangeConfig,
   pitchRangeConfig,
   rateRangeConfig,
+  segmentationModes,
   verbosityPresets,
   volumeRangeConfig,
 } from "./constraints.js";
 import type { IPreferencesEditor } from "./PreferencesEditor.js";
 import { BooleanPreference, EnumPreference, RangePreference, StringArrayPreference } from "./Preference.js";
-import { SpeechPreferences, VerbosityPreset, LanguageMode, ExtractionFormat, AutoPauseScope } from "./SpeechPreferences.js";
+import { SpeechPreferences, VerbosityPreset, AutoPauseScope } from "./SpeechPreferences.js";
 import { SpeechSettings } from "./SpeechSettings.js";
+import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
 
 export class SpeechPreferencesEditor implements IPreferencesEditor {
   preferences: SpeechPreferences;
@@ -37,6 +39,7 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
       skip: null,
       contextualize: null,
       language: null,
+      segmentation: null,
       pauseDuration: null,
       autoPause: null,
       rate: null,
@@ -103,6 +106,16 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
       isEffective: this.preferences.language != null,
       onChange: (value) => this.updatePreference("language", value ?? null),
       supportedValues: languageModes,
+    });
+  }
+
+  get segmentation(): EnumPreference<Segmentation> {
+    return new EnumPreference<Segmentation>({
+      initialValue: this.preferences.segmentation,
+      effectiveValue: this.settings.segmentation,
+      isEffective: this.preferences.segmentation != null,
+      onChange: (value) => this.updatePreference("segmentation", value ?? null),
+      supportedValues: segmentationModes,
     });
   }
 
