@@ -7,7 +7,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ### Fixed
 
 - A noteref's target nested inside an `endnotes` section no longer skips its own location — previously it was suppressed there unconditionally (since a noteref already speaks it inline), leaving the section's list silent.
-- A footnote reached via a `noteref` no longer merges its `Start of the footnote.`/`End of the footnote.` contextualization into the same utterance as its content — the note's real content is now its own separate utterance, consistent with every other block role, instead of being incorrectly flagged `synthetic`.
+- A footnote reached via a `noteref` no longer merges its `Start of the footnote.`/`End of the footnote.` contextualization into the same utterance as its content — the note's real content is now its own separate utterance, consistent with every other block role, instead of being incorrectly flagged `synthetic`. With `inlineContextualization: true`, the note is still spoken inline as one merged utterance.
 
 ## [0.9.1] - 2026-09-14
 

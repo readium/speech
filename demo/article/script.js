@@ -200,8 +200,8 @@ function setupEventListeners() {
     utterances = event.detail.content;
     renderUtterancesPanel();
     // navigator.getState() can still read "loading" here for engines that buffer
-    // asynchronously, so a highlight was active is judged from the pre-reextract
-    // index rather than the (possibly stale) state.
+    // asynchronously, so whether a highlight was active is judged from the
+    // pre-reextract index rather than the (possibly stale) state.
     const hadActiveHighlight = readAlongEnabled && currentSentenceIndex !== -1;
     currentSentenceIndex = -1;
     if (hadActiveHighlight) {
