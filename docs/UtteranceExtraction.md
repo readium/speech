@@ -22,11 +22,17 @@ interface ReadiumSpeechUtterance {
   ssml?: string;
   language?: string; // BCP 47
   locate?: LocatorOptions; // Decoded from the source node's textref — spread into createLocator()/decorate(), see GuidedNavigation.md
-  synthetic?: boolean; // True for a synthesized label/announcement (contextualization, alt/caption description...), not text copied from the source
+  offsets?: UtteranceOffset[]; // Ranges of plain/ssml backed by real source text, each with its own locate
+}
+
+interface UtteranceOffset {
+  start: number;
+  end: number;
+  locate: LocatorOptions;
 }
 ```
 
-Some roles get a synthesized navigational contextualization spoken around their content (entering/leaving a table, a pagebreak label...) — see [`defaultContextualizations`](../src/utterances/contextualizations.ts), sourced from [`locales/en.json`](../locales/en.json).
+Some roles get a synthesized navigational contextualization spoken around their content (entering/leaving a table, a pagebreak label...) — see [`defaultContextualizations`](../src/utterances/contextualizations.ts), sourced from [`locales/en.json`](../locales/en.json). A synthesized label/announcement carries no `offsets` at all — `locate` is still safe for element-scoped highlighting, but there's no real source text to search for.
 
 ## Options
 
@@ -39,12 +45,18 @@ interface ExtractUtterancesOptions {
   contextualization?: ContextualizationOptions;
   language?: "none" | "block-level" | "always";
   inlineContextualization?: boolean;
+  segmentation?: SegmentationOptions;
 }
 
 interface ContextualizationOptions {
   contextualizations?: Contextualizations;
   shapes?: Partial<Record<GndRole, "inline" | "block">>;
   params?: (role: GndRole, node: GndObject) => Record<string, string> | undefined;
+}
+
+interface SegmentationOptions {
+  mode?: "structure" | "sentence"; // default "structure"
+  suppressions?: Record<string, string[]>; // per-language sentence-ending exceptions, keyed like `language`
 }
 ```
 
@@ -61,6 +73,8 @@ Quick reference:
 | `contextualization.params` | none | supply a placeholder value the extractor has no built-in source for |
 | `language` | `"block-level"` | how a node's own inline-language spans render |
 | `inlineContextualization` | `false` | split a sentence at a mid-sentence pagebreak/footnote, instead of after it |
+| `segmentation.mode` | `"structure"` | one utterance per structural unit, or split/reconstruct at real sentence boundaries |
+| `segmentation.suppressions` | none | per-language abbreviations (e.g. `"d."`) that sentence mode won't treat as endings |
 
 ### `format`
 
@@ -194,6 +208,28 @@ How a node's own inline spans (`<em lang="fr">`) render. Never merges across sib
 ### `inlineContextualization`
 
 A mid-sentence pagebreak/footnote splits the sentence at that exact point instead of after it finishes. Default `false`.
+
+### `segmentation`
+
+- `"structure"` (default) — one utterance per structural/block-level unit, whatever its sentence count.
+- `"sentence"` — split at real sentence boundaries instead: a multi-sentence node becomes several utterances, and a sentence that genuinely spans sibling nodes (e.g. split across two `<span>`s) is reconstructed into one utterance covering both.
+
+```typescript
+// <p>Hello there. This has two sentences.</p>
+await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+// [{ plain: "Hello there. " }, { plain: "This has two sentences." }]
+```
+
+Each utterance's `offsets` (see above) says which source element(s) it was built from — one entry per contributing node, so a sentence reconstructed across two elements gets two entries, each with its own `locate`.
+
+`suppressions` lists, per language, abbreviations (with trailing period, e.g. `"d."`) that shouldn't be mistaken for sentence endings:
+
+```typescript
+await extractUtterances(gnd, {
+  format: "plain",
+  segmentation: { mode: "sentence", suppressions: { en: ["approx."] } },
+});
+```
 
 ## Contextualization catalog
 
