@@ -75,15 +75,13 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 1 line. 1 column.",
-          "synthetic": true
+          "plain": "Table. 1 line. 1 column."
         },
         {
           "plain": "Name"
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -190,8 +188,7 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 1 line. 1 column.",
-          "synthetic": true
+          "plain": "Table. 1 line. 1 column."
         },
         {
           "plain": "Name"
@@ -261,8 +258,7 @@
       ],
       "utterances": [
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
           "plain": "Name"
@@ -340,19 +336,16 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 1 line. 1 column.",
-          "synthetic": true
+          "plain": "Table. 1 line. 1 column."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
           "plain": "Name"
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -467,12 +460,10 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 1 line. 1 column.",
-          "synthetic": true
+          "plain": "Table. 1 line. 1 column."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
           "plain": "Name"
@@ -2661,12 +2652,10 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 1 line. 1 column.",
-          "synthetic": true
+          "plain": "Table. 1 line. 1 column."
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -3317,8 +3306,7 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 1 line. 1 column.",
-          "synthetic": true
+          "plain": "Table. 1 line. 1 column."
         }
       ]
     },
@@ -3409,8 +3397,7 @@
       ],
       "utterances": [
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         }
       ]
     },
@@ -3509,16 +3496,13 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 1 line. 1 column.",
-          "synthetic": true
+          "plain": "Table. 1 line. 1 column."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -3657,12 +3641,10 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 1 line. 1 column.",
-          "synthetic": true
+          "plain": "Table. 1 line. 1 column."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         }
       ]
     },
@@ -3741,15 +3723,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 1 line. 1 column.",
-          "synthetic": true
+          "ssml": "Table. 1 line. 1 column."
         },
         {
           "ssml": "Name"
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -3856,8 +3836,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 1 line. 1 column.",
-          "synthetic": true
+          "ssml": "Table. 1 line. 1 column."
         },
         {
           "ssml": "Name"
@@ -3927,8 +3906,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Name"
@@ -4006,19 +3984,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 1 line. 1 column.",
-          "synthetic": true
+          "ssml": "Table. 1 line. 1 column."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Name"
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -4133,12 +4108,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 1 line. 1 column.",
-          "synthetic": true
+          "ssml": "Table. 1 line. 1 column."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Name"
@@ -6327,12 +6300,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 1 line. 1 column.",
-          "synthetic": true
+          "ssml": "Table. 1 line. 1 column."
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -6983,8 +6954,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 1 line. 1 column.",
-          "synthetic": true
+          "ssml": "Table. 1 line. 1 column."
         }
       ]
     },
@@ -7075,8 +7045,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         }
       ]
     },
@@ -7175,16 +7144,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 1 line. 1 column.",
-          "synthetic": true
+          "ssml": "Table. 1 line. 1 column."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -7323,12 +7289,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 1 line. 1 column.",
-          "synthetic": true
+          "ssml": "Table. 1 line. 1 column."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         }
       ]
     }

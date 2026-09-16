@@ -75,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Credit.",
-          "synthetic": true
+          "plain": "Credit."
         },
         {
           "plain": "Cover photograph by A. Keeper."
@@ -158,8 +157,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Credit.",
-          "synthetic": true
+          "ssml": "Credit."
         },
         {
           "ssml": "Cover photograph by A. Keeper."

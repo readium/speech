@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith",
-          "synthetic": true
+          "plain": "Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },
@@ -76,12 +75,10 @@
       ],
       "utterances": [
         {
-          "plain": "Cover with no label.",
-          "synthetic": true
+          "plain": "Cover with no label."
         },
         {
-          "plain": "Lighthouses of the Atlantic, by J. Smith",
-          "synthetic": true
+          "plain": "Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },
@@ -148,8 +145,7 @@
       ],
       "utterances": [
         {
-          "plain": "Image with a label: Lighthouses of the Atlantic, by J. Smith",
-          "synthetic": true
+          "plain": "Image with a label: Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },
@@ -224,12 +220,10 @@
       ],
       "utterances": [
         {
-          "plain": "Cover with no label.",
-          "synthetic": true
+          "plain": "Cover with no label."
         },
         {
-          "plain": "Image with a label: Lighthouses of the Atlantic, by J. Smith",
-          "synthetic": true
+          "plain": "Image with a label: Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },
@@ -555,8 +549,7 @@
       ],
       "utterances": [
         {
-          "plain": "Cover with no label.",
-          "synthetic": true
+          "plain": "Cover with no label."
         }
       ]
     },
@@ -568,8 +561,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith",
-          "synthetic": true
+          "ssml": "Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },
@@ -636,12 +628,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Cover with no label.",
-          "synthetic": true
+          "ssml": "Cover with no label."
         },
         {
-          "ssml": "Lighthouses of the Atlantic, by J. Smith",
-          "synthetic": true
+          "ssml": "Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },
@@ -708,8 +698,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Image with a label: Lighthouses of the Atlantic, by J. Smith",
-          "synthetic": true
+          "ssml": "Image with a label: Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },
@@ -784,12 +773,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Cover with no label.",
-          "synthetic": true
+          "ssml": "Cover with no label."
         },
         {
-          "ssml": "Image with a label: Lighthouses of the Atlantic, by J. Smith",
-          "synthetic": true
+          "ssml": "Image with a label: Lighthouses of the Atlantic, by J. Smith"
         }
       ]
     },
@@ -1115,8 +1102,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Cover with no label.",
-          "synthetic": true
+          "ssml": "Cover with no label."
         }
       ]
     }

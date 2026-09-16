@@ -75,15 +75,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the aside.",
-          "synthetic": true
+          "plain": "Start of the aside."
         },
         {
           "plain": "A tangential note, set apart from the main text."
         },
         {
-          "plain": "End of the aside.",
-          "synthetic": true
+          "plain": "End of the aside."
         }
       ]
     },
@@ -307,15 +305,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the aside.",
-          "synthetic": true
+          "ssml": "Start of the aside."
         },
         {
           "ssml": "A tangential note, set apart from the main text."
         },
         {
-          "ssml": "End of the aside.",
-          "synthetic": true
+          "ssml": "End of the aside."
         }
       ]
     },

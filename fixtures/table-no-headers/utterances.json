@@ -150,8 +150,7 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 2 lines. 2 columns.",
-          "synthetic": true
+          "plain": "Table. 2 lines. 2 columns."
         },
         {
           "plain": "Ada"
@@ -166,8 +165,7 @@
           "plain": "Admiral"
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -380,8 +378,7 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 2 lines. 2 columns.",
-          "synthetic": true
+          "plain": "Table. 2 lines. 2 columns."
         },
         {
           "plain": "Ada"
@@ -526,8 +523,7 @@
       ],
       "utterances": [
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
           "plain": "Ada"
@@ -536,8 +532,7 @@
           "plain": "Engineer"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         },
         {
           "plain": "Grace"
@@ -692,12 +687,10 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 2 lines. 2 columns.",
-          "synthetic": true
+          "plain": "Table. 2 lines. 2 columns."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
           "plain": "Ada"
@@ -706,8 +699,7 @@
           "plain": "Engineer"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         },
         {
           "plain": "Grace"
@@ -716,8 +708,7 @@
           "plain": "Admiral"
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -946,12 +937,10 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 2 lines. 2 columns.",
-          "synthetic": true
+          "plain": "Table. 2 lines. 2 columns."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
           "plain": "Ada"
@@ -960,8 +949,7 @@
           "plain": "Engineer"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         },
         {
           "plain": "Grace"
@@ -5645,12 +5633,10 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 2 lines. 2 columns.",
-          "synthetic": true
+          "plain": "Table. 2 lines. 2 columns."
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -6983,8 +6969,7 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 2 lines. 2 columns.",
-          "synthetic": true
+          "plain": "Table. 2 lines. 2 columns."
         }
       ]
     },
@@ -7165,12 +7150,10 @@
       ],
       "utterances": [
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         }
       ]
     },
@@ -7367,20 +7350,16 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 2 lines. 2 columns.",
-          "synthetic": true
+          "plain": "Table. 2 lines. 2 columns."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -7657,16 +7636,13 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 2 lines. 2 columns.",
-          "synthetic": true
+          "plain": "Table. 2 lines. 2 columns."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         }
       ]
     },
@@ -7820,8 +7796,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 2 lines. 2 columns.",
-          "synthetic": true
+          "ssml": "Table. 2 lines. 2 columns."
         },
         {
           "ssml": "Ada"
@@ -7836,8 +7811,7 @@
           "ssml": "Admiral"
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -8050,8 +8024,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 2 lines. 2 columns.",
-          "synthetic": true
+          "ssml": "Table. 2 lines. 2 columns."
         },
         {
           "ssml": "Ada"
@@ -8196,8 +8169,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Ada"
@@ -8206,8 +8178,7 @@
           "ssml": "Engineer"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         },
         {
           "ssml": "Grace"
@@ -8362,12 +8333,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 2 lines. 2 columns.",
-          "synthetic": true
+          "ssml": "Table. 2 lines. 2 columns."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Ada"
@@ -8376,8 +8345,7 @@
           "ssml": "Engineer"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         },
         {
           "ssml": "Grace"
@@ -8386,8 +8354,7 @@
           "ssml": "Admiral"
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -8616,12 +8583,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 2 lines. 2 columns.",
-          "synthetic": true
+          "ssml": "Table. 2 lines. 2 columns."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Ada"
@@ -8630,8 +8595,7 @@
           "ssml": "Engineer"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         },
         {
           "ssml": "Grace"
@@ -13315,12 +13279,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 2 lines. 2 columns.",
-          "synthetic": true
+          "ssml": "Table. 2 lines. 2 columns."
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -14653,8 +14615,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 2 lines. 2 columns.",
-          "synthetic": true
+          "ssml": "Table. 2 lines. 2 columns."
         }
       ]
     },
@@ -14835,12 +14796,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         }
       ]
     },
@@ -15037,20 +14996,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 2 lines. 2 columns.",
-          "synthetic": true
+          "ssml": "Table. 2 lines. 2 columns."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -15327,16 +15282,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 2 lines. 2 columns.",
-          "synthetic": true
+          "ssml": "Table. 2 lines. 2 columns."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         }
       ]
     }

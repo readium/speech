@@ -75,15 +75,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list.",
-          "synthetic": true
+          "plain": "Start of the list."
         },
         {
           "plain": "Fifth of seven"
         },
         {
-          "plain": "End of the list.",
-          "synthetic": true
+          "plain": "End of the list."
         }
       ]
     },
@@ -150,8 +148,7 @@
       ],
       "utterances": [
         {
-          "plain": "List item.",
-          "synthetic": true
+          "plain": "List item."
         },
         {
           "plain": "Fifth of seven"
@@ -229,19 +226,16 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the list.",
-          "synthetic": true
+          "plain": "Start of the list."
         },
         {
-          "plain": "List item.",
-          "synthetic": true
+          "plain": "List item."
         },
         {
           "plain": "Fifth of seven"
         },
         {
-          "plain": "End of the list.",
-          "synthetic": true
+          "plain": "End of the list."
         }
       ]
     },
@@ -320,15 +314,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list.",
-          "synthetic": true
+          "ssml": "Start of the list."
         },
         {
           "ssml": "Fifth of seven"
         },
         {
-          "ssml": "End of the list.",
-          "synthetic": true
+          "ssml": "End of the list."
         }
       ]
     },
@@ -395,8 +387,7 @@
       ],
       "utterances": [
         {
-          "ssml": "List item.",
-          "synthetic": true
+          "ssml": "List item."
         },
         {
           "ssml": "Fifth of seven"
@@ -474,19 +465,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the list.",
-          "synthetic": true
+          "ssml": "Start of the list."
         },
         {
-          "ssml": "List item.",
-          "synthetic": true
+          "ssml": "List item."
         },
         {
           "ssml": "Fifth of seven"
         },
         {
-          "ssml": "End of the list.",
-          "synthetic": true
+          "ssml": "End of the list."
         }
       ]
     }

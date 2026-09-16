@@ -81,8 +81,7 @@
           "plain": "Section one."
         },
         {
-          "plain": "Separator.",
-          "synthetic": true
+          "plain": "Separator."
         },
         {
           "plain": "Section two."
@@ -170,8 +169,7 @@
           "ssml": "Section one."
         },
         {
-          "ssml": "Separator.",
-          "synthetic": true
+          "ssml": "Separator."
         },
         {
           "ssml": "Section two."

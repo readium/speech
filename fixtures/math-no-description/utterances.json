@@ -71,8 +71,7 @@
       ],
       "utterances": [
         {
-          "plain": "Math formula with no label.",
-          "synthetic": true
+          "plain": "Math formula with no label."
         }
       ]
     },
@@ -147,8 +146,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Math formula with no label.",
-          "synthetic": true
+          "ssml": "Math formula with no label."
         }
       ]
     }

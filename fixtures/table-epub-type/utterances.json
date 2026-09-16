@@ -144,8 +144,7 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 1 line. 2 columns.",
-          "synthetic": true
+          "plain": "Table. 1 line. 2 columns."
         },
         {
           "plain": "Ada"
@@ -154,8 +153,7 @@
           "plain": "Engineer"
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -368,8 +366,7 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 1 line. 2 columns.",
-          "synthetic": true
+          "plain": "Table. 1 line. 2 columns."
         },
         {
           "plain": "Ada"
@@ -508,8 +505,7 @@
       ],
       "utterances": [
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
           "plain": "Ada"
@@ -664,12 +660,10 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 1 line. 2 columns.",
-          "synthetic": true
+          "plain": "Table. 1 line. 2 columns."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
           "plain": "Ada"
@@ -678,8 +672,7 @@
           "plain": "Engineer"
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -908,12 +901,10 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 1 line. 2 columns.",
-          "synthetic": true
+          "plain": "Table. 1 line. 2 columns."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
           "plain": "Ada"
@@ -5597,12 +5588,10 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 1 line. 2 columns.",
-          "synthetic": true
+          "plain": "Table. 1 line. 2 columns."
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -6935,8 +6924,7 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 1 line. 2 columns.",
-          "synthetic": true
+          "plain": "Table. 1 line. 2 columns."
         }
       ]
     },
@@ -7117,8 +7105,7 @@
       ],
       "utterances": [
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         }
       ]
     },
@@ -7315,16 +7302,13 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 1 line. 2 columns.",
-          "synthetic": true
+          "plain": "Table. 1 line. 2 columns."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -7601,12 +7585,10 @@
       ],
       "utterances": [
         {
-          "plain": "Table. 1 line. 2 columns.",
-          "synthetic": true
+          "plain": "Table. 1 line. 2 columns."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         }
       ]
     },
@@ -7754,8 +7736,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 1 line. 2 columns.",
-          "synthetic": true
+          "ssml": "Table. 1 line. 2 columns."
         },
         {
           "ssml": "Ada"
@@ -7764,8 +7745,7 @@
           "ssml": "Engineer"
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -7978,8 +7958,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 1 line. 2 columns.",
-          "synthetic": true
+          "ssml": "Table. 1 line. 2 columns."
         },
         {
           "ssml": "Ada"
@@ -8118,8 +8097,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Ada"
@@ -8274,12 +8252,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 1 line. 2 columns.",
-          "synthetic": true
+          "ssml": "Table. 1 line. 2 columns."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Ada"
@@ -8288,8 +8264,7 @@
           "ssml": "Engineer"
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -8518,12 +8493,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 1 line. 2 columns.",
-          "synthetic": true
+          "ssml": "Table. 1 line. 2 columns."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Ada"
@@ -13207,12 +13180,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 1 line. 2 columns.",
-          "synthetic": true
+          "ssml": "Table. 1 line. 2 columns."
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -14545,8 +14516,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 1 line. 2 columns.",
-          "synthetic": true
+          "ssml": "Table. 1 line. 2 columns."
         }
       ]
     },
@@ -14727,8 +14697,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         }
       ]
     },
@@ -14925,16 +14894,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 1 line. 2 columns.",
-          "synthetic": true
+          "ssml": "Table. 1 line. 2 columns."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -15211,12 +15177,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Table. 1 line. 2 columns.",
-          "synthetic": true
+          "ssml": "Table. 1 line. 2 columns."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         }
       ]
     }

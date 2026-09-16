@@ -75,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Part.",
-          "synthetic": true
+          "plain": "Part."
         },
         {
           "plain": "Title of the part"
@@ -146,8 +145,7 @@
       ],
       "utterances": [
         {
-          "plain": "Heading level 1.",
-          "synthetic": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Title of the part"
@@ -225,12 +223,10 @@
       ],
       "utterances": [
         {
-          "plain": "Part.",
-          "synthetic": true
+          "plain": "Part."
         },
         {
-          "plain": "Heading level 1.",
-          "synthetic": true
+          "plain": "Heading level 1."
         },
         {
           "plain": "Title of the part"
@@ -312,8 +308,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Part.",
-          "synthetic": true
+          "ssml": "Part."
         },
         {
           "ssml": "Title of the part"
@@ -383,8 +378,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Heading level 1.",
-          "synthetic": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Title of the part"
@@ -462,12 +456,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Part.",
-          "synthetic": true
+          "ssml": "Part."
         },
         {
-          "ssml": "Heading level 1.",
-          "synthetic": true
+          "ssml": "Heading level 1."
         },
         {
           "ssml": "Title of the part"

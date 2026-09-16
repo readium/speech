@@ -75,15 +75,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the foreword.",
-          "synthetic": true
+          "plain": "Start of the foreword."
         },
         {
           "plain": "A respected maritime historian introduces this account of the coastline's lighthouses."
         },
         {
-          "plain": "End of the foreword.",
-          "synthetic": true
+          "plain": "End of the foreword."
         }
       ]
     },
@@ -162,15 +160,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the foreword.",
-          "synthetic": true
+          "ssml": "Start of the foreword."
         },
         {
           "ssml": "A respected maritime historian introduces this account of the coastline's lighthouses."
         },
         {
-          "ssml": "End of the foreword.",
-          "synthetic": true
+          "ssml": "End of the foreword."
         }
       ]
     }

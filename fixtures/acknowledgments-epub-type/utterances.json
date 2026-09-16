@@ -75,15 +75,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the acknowledgments.",
-          "synthetic": true
+          "plain": "Start of the acknowledgments."
         },
         {
           "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
         },
         {
-          "plain": "End of the acknowledgments.",
-          "synthetic": true
+          "plain": "End of the acknowledgments."
         }
       ]
     },
@@ -162,15 +160,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the acknowledgments.",
-          "synthetic": true
+          "ssml": "Start of the acknowledgments."
         },
         {
           "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
         },
         {
-          "ssml": "End of the acknowledgments.",
-          "synthetic": true
+          "ssml": "End of the acknowledgments."
         }
       ]
     }

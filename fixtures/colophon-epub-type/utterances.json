@@ -75,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Colophon.",
-          "synthetic": true
+          "plain": "Colophon."
         },
         {
           "plain": "Set in Georgia, 11pt, on recycled paper."
@@ -158,8 +157,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Colophon.",
-          "synthetic": true
+          "ssml": "Colophon."
         },
         {
           "ssml": "Set in Georgia, 11pt, on recycled paper."

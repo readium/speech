@@ -75,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Notice.",
-          "synthetic": true
+          "plain": "Notice."
         },
         {
           "plain": "Caution: the tower stairs are uneven."
@@ -158,8 +157,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Notice.",
-          "synthetic": true
+          "ssml": "Notice."
         },
         {
           "ssml": "Caution: the tower stairs are uneven."

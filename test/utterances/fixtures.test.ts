@@ -1,6 +1,6 @@
 import "../gnd/setup.js";
 import test from "ava";
-import { loadManifest, loadFixture } from "../testUtils.js";
+import { loadManifest, loadFixture, stripLocatorDetails } from "../testUtils.js";
 import { parseMarkup } from "../../src/gnd/converter.js";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 import type { ExtractUtterancesOptions } from "../../src/utterances/types.js";
@@ -30,7 +30,7 @@ for (const entry of manifest) {
     for (const options of optionSets) {
       test(`fixture "${entry.id}": extractUtterances matches utterances.json's case ${JSON.stringify(options)}`, async (t) => {
         const actual = await extractUtterances(gnd, options as ExtractUtterancesOptions);
-        t.deepEqual(sortKeysDeep(actual), sortKeysDeep(utterances));
+        t.deepEqual(sortKeysDeep(stripLocatorDetails(actual)), sortKeysDeep(utterances));
       });
     }
   }

@@ -75,15 +75,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the complementary content.",
-          "synthetic": true
+          "plain": "Start of the complementary content."
         },
         {
           "plain": "A supporting note related to the main content."
         },
         {
-          "plain": "End of the complementary content.",
-          "synthetic": true
+          "plain": "End of the complementary content."
         }
       ]
     },
@@ -162,15 +160,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the complementary content.",
-          "synthetic": true
+          "ssml": "Start of the complementary content."
         },
         {
           "ssml": "A supporting note related to the main content."
         },
         {
-          "ssml": "End of the complementary content.",
-          "synthetic": true
+          "ssml": "End of the complementary content."
         }
       ]
     }

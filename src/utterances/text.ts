@@ -102,6 +102,10 @@ export function stripSsmlTags(ssml: string): string {
 export interface LangSegment {
   plain: string;
   language?: string;
+  // Position in the reconstructed whole-node plain text (this function's
+  // own segments, concatenated in order) — the source of truth for `locate`.
+  start: number;
+  end: number;
 }
 
 // Matches a raw (pre-`stripLangTags`) `<lang xml:lang="...">...</lang>` span
@@ -222,9 +226,13 @@ export function splitOnLangTags(ssml: string, baseLanguage: string | undefined):
   }
 
   const segments: LangSegment[] = [];
+  let cursor = 0;
   for (const run of runs) {
     const plain = renderTokens(run.tokens);
-    if (plain) segments.push({ plain, language: run.language });
+    if (plain) {
+      segments.push({ plain, language: run.language, start: cursor, end: cursor + plain.length });
+      cursor += plain.length;
+    }
   }
   return segments;
 }

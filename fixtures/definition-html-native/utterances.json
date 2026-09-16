@@ -75,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Definition.",
-          "synthetic": true
+          "plain": "Definition."
         },
         {
           "plain": "A structure that contains an enumeration of related content items."
@@ -158,8 +157,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Definition.",
-          "synthetic": true
+          "ssml": "Definition."
         },
         {
           "ssml": "A structure that contains an enumeration of related content items."

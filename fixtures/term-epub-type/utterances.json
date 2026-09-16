@@ -75,15 +75,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the glossary.",
-          "synthetic": true
+          "plain": "Start of the glossary."
         },
         {
           "plain": "lighthouse"
         },
         {
-          "plain": "End of the glossary.",
-          "synthetic": true
+          "plain": "End of the glossary."
         }
       ]
     },
@@ -150,8 +148,7 @@
       ],
       "utterances": [
         {
-          "plain": "Term.",
-          "synthetic": true
+          "plain": "Term."
         },
         {
           "plain": "lighthouse"
@@ -229,19 +226,16 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the glossary.",
-          "synthetic": true
+          "plain": "Start of the glossary."
         },
         {
-          "plain": "Term.",
-          "synthetic": true
+          "plain": "Term."
         },
         {
           "plain": "lighthouse"
         },
         {
-          "plain": "End of the glossary.",
-          "synthetic": true
+          "plain": "End of the glossary."
         }
       ]
     },
@@ -637,15 +631,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the glossary.",
-          "synthetic": true
+          "ssml": "Start of the glossary."
         },
         {
           "ssml": "lighthouse"
         },
         {
-          "ssml": "End of the glossary.",
-          "synthetic": true
+          "ssml": "End of the glossary."
         }
       ]
     },
@@ -712,8 +704,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Term.",
-          "synthetic": true
+          "ssml": "Term."
         },
         {
           "ssml": "lighthouse"
@@ -791,19 +782,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the glossary.",
-          "synthetic": true
+          "ssml": "Start of the glossary."
         },
         {
-          "ssml": "Term.",
-          "synthetic": true
+          "ssml": "Term."
         },
         {
           "ssml": "lighthouse"
         },
         {
-          "ssml": "End of the glossary.",
-          "synthetic": true
+          "ssml": "End of the glossary."
         }
       ]
     },

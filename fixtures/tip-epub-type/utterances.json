@@ -75,15 +75,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the aside.",
-          "synthetic": true
+          "plain": "Start of the aside."
         },
         {
           "plain": "Tip: wind the mechanism fully before dusk."
         },
         {
-          "plain": "End of the aside.",
-          "synthetic": true
+          "plain": "End of the aside."
         }
       ]
     },
@@ -150,8 +148,7 @@
       ],
       "utterances": [
         {
-          "plain": "Tip.",
-          "synthetic": true
+          "plain": "Tip."
         },
         {
           "plain": "Tip: wind the mechanism fully before dusk."
@@ -229,19 +226,16 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the aside.",
-          "synthetic": true
+          "plain": "Start of the aside."
         },
         {
-          "plain": "Tip.",
-          "synthetic": true
+          "plain": "Tip."
         },
         {
           "plain": "Tip: wind the mechanism fully before dusk."
         },
         {
-          "plain": "End of the aside.",
-          "synthetic": true
+          "plain": "End of the aside."
         }
       ]
     },
@@ -637,15 +631,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the aside.",
-          "synthetic": true
+          "ssml": "Start of the aside."
         },
         {
           "ssml": "Tip: wind the mechanism fully before dusk."
         },
         {
-          "ssml": "End of the aside.",
-          "synthetic": true
+          "ssml": "End of the aside."
         }
       ]
     },
@@ -712,8 +704,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Tip.",
-          "synthetic": true
+          "ssml": "Tip."
         },
         {
           "ssml": "Tip: wind the mechanism fully before dusk."
@@ -791,19 +782,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the aside.",
-          "synthetic": true
+          "ssml": "Start of the aside."
         },
         {
-          "ssml": "Tip.",
-          "synthetic": true
+          "ssml": "Tip."
         },
         {
           "ssml": "Tip: wind the mechanism fully before dusk."
         },
         {
-          "ssml": "End of the aside.",
-          "synthetic": true
+          "ssml": "End of the aside."
         }
       ]
     },

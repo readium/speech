@@ -137,8 +137,7 @@
       ],
       "utterances": [
         {
-          "plain": "Image with no label.",
-          "synthetic": true
+          "plain": "Image with no label."
         }
       ]
     },
@@ -279,8 +278,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Image with no label.",
-          "synthetic": true
+          "ssml": "Image with no label."
         }
       ]
     }

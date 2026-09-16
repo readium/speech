@@ -75,15 +75,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the appendix.",
-          "synthetic": true
+          "plain": "Start of the appendix."
         },
         {
           "plain": "A table of lighthouse construction dates referenced in the text."
         },
         {
-          "plain": "End of the appendix.",
-          "synthetic": true
+          "plain": "End of the appendix."
         }
       ]
     },
@@ -162,15 +160,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the appendix.",
-          "synthetic": true
+          "ssml": "Start of the appendix."
         },
         {
           "ssml": "A table of lighthouse construction dates referenced in the text."
         },
         {
-          "ssml": "End of the appendix.",
-          "synthetic": true
+          "ssml": "End of the appendix."
         }
       ]
     }

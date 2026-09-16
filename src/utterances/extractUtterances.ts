@@ -2,7 +2,8 @@ import i18next, { type i18n } from "i18next";
 import type { GndObject, GndRole } from "../gnd/types.js";
 import { ssmlTextEscape } from "../gnd/text.js";
 import { combineDomRangeTextrefs, decodeTextref, type DecodedTextref } from "../gnd/textrefFragment.js";
-import type { ReadiumSpeechUtterance } from "../utterance.js";
+import type { LocatorOptions } from "../decorator/createLocator.js";
+import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { contextualizationsForLocale } from "./contextualizations.js";
 import { stripLangTags } from "./language.js";
 import { segmentSentences } from "./sentenceSegmenter.js";
@@ -60,6 +61,13 @@ interface WalkContext {
   // pattern as `blockStarts`.
   tableRowNumbers: Map<GndObject, number>;
   tableCellHeaders: Map<GndObject, string>;
+  // Identity-keyed synthesized-label tracking, same reason as `blockStarts`.
+  synthetic: Set<ReadiumSpeechUtterance>;
+  // Every node's own ancestors (nearest first) — see `resolveNodeLocate()`.
+  ancestorChains: Map<GndObject, GndObject[]>;
+  // A language-split utterance's position in its source node's own text
+  // (see `applyFormat`) — read back by `attachLocate()`, same identity-keyed pattern.
+  pendingRange: Map<ReadiumSpeechUtterance, { start: number; end: number }>;
 }
 
 // Parallel to `out`: which node produced each utterance. A sentence
@@ -85,8 +93,10 @@ function resolveEntryText(ctx: WalkContext, base: string, variantKey?: string, p
 
 // Contextualization/label text is always plain (no markup) — formats it
 // per the requested `format`, same as any other utterance.
-function formatPlain(text: string, format: ExtractionFormat): ReadiumSpeechUtterance {
-  return format === "ssml" ? { ssml: ssmlTextEscape(text), synthetic: true } : { plain: text, synthetic: true };
+function formatPlain(text: string, ctx: WalkContext): ReadiumSpeechUtterance {
+  const utterance: ReadiumSpeechUtterance = ctx.format === "ssml" ? { ssml: ssmlTextEscape(text) } : { plain: text };
+  ctx.synthetic.add(utterance);
+  return utterance;
 }
 
 function push(out: ReadiumSpeechUtterance[], sources: SourceTrace, node: SourceTrace[number], items: ReadiumSpeechUtterance[]): void {
@@ -151,19 +161,19 @@ function pushRoleContextualization(
   if (isBlock && ctx.contextualizationShapes[role] !== "inline") {
     const base = phase === "before" ? `${role}.block.start` : `${role}.block.end`;
     const text = resolveEntryText(ctx, base, variantKey, params);
-    if (text) push(out, sources, node, [formatPlain(text, ctx.format)]);
+    if (text) push(out, sources, node, [formatPlain(text, ctx)]);
     return;
   }
   if (phase === "before") {
     const text = resolveEntryText(ctx, `${role}.inline`, variantKey, params);
     if (text) {
-      const utterance = formatPlain(text, ctx.format);
+      const utterance = formatPlain(text, ctx);
       // cell/rowheader's template embeds the node's own text (`{{ value }}`) —
       // it must keep that node's language, same as speaking the text directly
       // would, and isn't a synthesized label the way other roles' catalog
       // entries are: it's the node's real text, just optionally header-prefixed.
       if (valueFoldingRoleSet.has(role)) {
-        delete utterance.synthetic;
+        ctx.synthetic.delete(utterance);
         if (ctx.language !== "none") {
           const language = typeof node.text === "object" ? node.text.language : undefined;
           if (language) utterance.language = language;
@@ -199,16 +209,16 @@ function joinPieceTexts(parts: string[]): { joined: string; ranges: { start: num
 }
 
 // Joins pieces read as one continuous occurrence into a single utterance.
-// Bails out (returns `undefined`) if they don't all agree on one `language`.
+// Bails (`undefined`) on disagreeing `language`; synthesized if any piece was.
 function mergeUtterances(
   pieces: ReadiumSpeechUtterance[],
-  format: ExtractionFormat,
+  ctx: WalkContext,
 ): ReadiumSpeechUtterance | undefined {
   let language: string | undefined;
   let sawLanguage = false;
   const parts: string[] = [];
   for (const piece of pieces) {
-    const text = format === "ssml" ? piece.ssml : piece.plain;
+    const text = ctx.format === "ssml" ? piece.ssml : piece.plain;
     if (!text) continue;
     parts.push(text);
     if (piece.language !== undefined) {
@@ -219,9 +229,9 @@ function mergeUtterances(
   }
   if (parts.length === 0) return undefined;
   const { joined } = joinPieceTexts(parts);
-  const merged: ReadiumSpeechUtterance = format === "ssml" ? { ssml: joined } : { plain: joined };
+  const merged: ReadiumSpeechUtterance = ctx.format === "ssml" ? { ssml: joined } : { plain: joined };
   if (language) merged.language = language;
-  if (pieces.some((piece) => piece.synthetic)) merged.synthetic = true;
+  if (pieces.some((piece) => ctx.synthetic.has(piece))) ctx.synthetic.add(merged);
   return merged;
 }
 
@@ -229,14 +239,14 @@ function mergeUtterances(
 // utterance, with a synthesized trailing period.
 function buildPagebreakUtterance(node: GndObject, ctx: WalkContext): ReadiumSpeechUtterance[] {
   const resolved = resolveNodeText(node.text);
-  const own = resolved ? applyFormat(resolved, ctx.format, ctx.language) : [];
+  const own = resolved ? applyFormat(resolved, ctx.format, ctx.language, ctx) : [];
   if (!ctx.contextualize.has("pagebreak")) return own;
   const base = ctx.i18n.exists("pagebreak.block.start") ? "pagebreak.block.start" : "pagebreak.inline";
   const text = resolveEntryText(ctx, base);
   if (text === undefined) return own;
-  const contextualization = formatPlain(text, ctx.format);
+  const contextualization = formatPlain(text, ctx);
   if (own.length === 0) return [contextualization];
-  const merged = mergeUtterances([contextualization, ...own], ctx.format);
+  const merged = mergeUtterances([contextualization, ...own], ctx);
   if (!merged) return [contextualization, ...own];
   if (merged.plain !== undefined) merged.plain += ".";
   if (merged.ssml !== undefined) merged.ssml += ".";
@@ -260,11 +270,13 @@ function applyFormat(
   resolved: ResolvedNodeText,
   format: ExtractionFormat,
   language: LanguageMode | undefined,
+  ctx: WalkContext,
 ): ReadiumSpeechUtterance[] {
   if (format === "plain" && language !== "block-level" && language !== "none" && resolved.ssml && hasLangTag(resolved.ssml)) {
     return splitOnLangTags(resolved.ssml, resolved.language).map((segment) => {
       const utterance: ReadiumSpeechUtterance = { plain: segment.plain };
       if (segment.language) utterance.language = segment.language;
+      ctx.pendingRange.set(utterance, { start: segment.start, end: segment.end });
       return utterance;
     });
   }
@@ -339,7 +351,7 @@ function emitWithPlaceholders(
     pieces.push(utterance);
     pieceSources.push(node);
   }
-  const merged = pieces.length > 1 ? mergeUtterances(pieces, ctx.format) : undefined;
+  const merged = pieces.length > 1 ? mergeUtterances(pieces, ctx) : undefined;
   pushPiecesOrMerged(out, sources, ctx, node, pieces, pieceSources, merged);
   return deferred;
 }
@@ -434,7 +446,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
   const foldsDescription = roles.some((role) => descriptionFoldingRoleSet.has(role) && ctx.contextualize.has(role));
   const isTableCaption = roles.includes("table") && node.description !== undefined && !foldsDescription;
   if (isTableCaption) {
-    push(out, sources, node, [formatPlain(node.description!, ctx.format)]);
+    push(out, sources, node, [formatPlain(node.description!, ctx)]);
   }
 
   // Every role this node carries gets looked up in the contextualization
@@ -467,7 +479,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
         const pieces: ReadiumSpeechUtterance[] = [];
         const pieceSources: SourceTrace = [];
         if (startText !== undefined) {
-          pieces.push(formatPlain(startText, ctx.format));
+          pieces.push(formatPlain(startText, ctx));
           pieceSources.push(child);
         }
         pieces.push(...inner);
@@ -475,11 +487,11 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
         if (hasEntry && footnoteBlock) {
           const endText = resolveEntryText(ctx, "footnote.block.end");
           if (endText !== undefined) {
-            pieces.push(formatPlain(endText, ctx.format));
+            pieces.push(formatPlain(endText, ctx));
             pieceSources.push(child);
           }
         }
-        const merged = hasEntry && pieces.length > 1 ? mergeUtterances(pieces, ctx.format) : undefined;
+        const merged = hasEntry && pieces.length > 1 ? mergeUtterances(pieces, ctx) : undefined;
         pushPiecesOrMerged(out, sources, ctx, child, pieces, pieceSources, merged);
       } else {
         walk([child], out, sources, ctx, suppress);
@@ -505,7 +517,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
       const foldsValue = roles.some((role) => valueFoldingRoleSet.has(role) && isRoleContextualized(role, ctx));
       const resolved = foldsValue ? undefined : resolveNodeText(node.text);
       if (resolved) {
-        push(out, sources, node, applyFormat(resolved, ctx.format, ctx.language));
+        push(out, sources, node, applyFormat(resolved, ctx.format, ctx.language, ctx));
       }
       if (node.children) {
         const childSuppress = suppress || (isBlockRole && out.length > beforeLength);
@@ -519,7 +531,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
   }
 
   if (node.description !== undefined && !foldsDescription && !isTableCaption) {
-    push(out, sources, node, [formatPlain(node.description, ctx.format)]);
+    push(out, sources, node, [formatPlain(node.description, ctx)]);
   }
 
   for (const role of contextualizedRoles) {
@@ -569,7 +581,7 @@ function mergeContextualizations(base: Contextualizations, override: Contextuali
   return merged;
 }
 
-async function makeWalkContext(options: ExtractUtterancesOptions): Promise<WalkContext> {
+async function makeWalkContext(nodes: GndObject[], options: ExtractUtterancesOptions): Promise<WalkContext> {
   const locale = options.contextualizationLocale ?? "en";
   const contextualizations = mergeContextualizations(
     await contextualizationsForLocale(locale),
@@ -590,21 +602,30 @@ async function makeWalkContext(options: ExtractUtterancesOptions): Promise<WalkC
     blockStarts: new Set(),
     tableRowNumbers: new Map(),
     tableCellHeaders: new Map(),
+    synthetic: new Set(),
+    ancestorChains: buildAncestorChains(nodes),
+    pendingRange: new Map(),
   };
 }
 
 // Resolves a non-synthetic utterance into per-sentence fragments (`undefined`
 // if there's only one), falling back to English when it has no language.
-async function sentenceFragmentsOf(utterance: ReadiumSpeechUtterance, ctx: WalkContext): Promise<string[] | undefined> {
+// `start`/`end` are positions in the node's own source text (the plain
+// projection, even for SSML), not in the fragment's own text.
+async function sentenceFragmentsOf(
+  utterance: ReadiumSpeechUtterance,
+  ctx: WalkContext,
+): Promise<{ text: string; start: number; end: number }[] | undefined> {
   const language = utterance.language ?? "en";
   const customSuppressions = ctx.segmentationSuppressions[language];
-  if (ctx.format === "plain") {
-    if (!utterance.plain) return undefined;
-    const boundaries = await segmentSentences(language, utterance.plain, customSuppressions);
-    return boundaries.length > 1 ? boundaries.map((b) => b.text) : undefined;
-  }
-  if (!utterance.ssml) return undefined;
-  return splitSsmlAtSentences(utterance.ssml, language, customSuppressions);
+  const sourceText = ctx.format === "ssml" ? utterance.ssml : utterance.plain;
+  if (!sourceText) return undefined;
+  const boundaries = await segmentSentences(language, plainOf(sourceText, ctx.format), customSuppressions);
+  if (boundaries.length <= 1) return undefined;
+  if (ctx.format !== "ssml") return boundaries;
+  const ssmlFragments = await splitSsmlAtSentences(sourceText, language, customSuppressions);
+  if (!ssmlFragments) return undefined;
+  return boundaries.map((b, i) => ({ text: ssmlFragments[i], start: b.start, end: b.end }));
 }
 
 // A node with one of these roles never joins a reconstruction run — tabular/
@@ -640,7 +661,7 @@ function canExtendRun(
   nextSource: SourceTrace[number],
   ctx: WalkContext,
 ): boolean {
-  if (prev.synthetic || next.synthetic) return false;
+  if (ctx.synthetic.has(prev) || ctx.synthetic.has(next)) return false;
   if (!prevSource || !nextSource) return false;
   const prevText = ctx.format === "ssml" ? prev.ssml : prev.plain;
   const nextText = ctx.format === "ssml" ? next.ssml : next.plain;
@@ -658,6 +679,13 @@ function plainOf(text: string, format: ExtractionFormat): string {
   return text.replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 }
 
+// Anchors just `quoteText` within the node via a text-quote, since a
+// character-offset domRange would need its internal text-node layout.
+function subLocateFor(nodeRef: DecodedTextref, quoteText: string): LocatorOptions {
+  const cssSelector = nodeRef.cssSelector ?? nodeRef.domRange?.start.cssSelector;
+  return cssSelector ? { cssSelector, text: { highlight: quoteText } } : { ...nodeRef, text: { highlight: quoteText } };
+}
+
 // Splits one utterance on its own sentence boundaries — the original
 // per-node behavior, reused for any piece that doesn't genuinely join its neighbor.
 async function pushSplitSingle(
@@ -667,7 +695,7 @@ async function pushSplitSingle(
   newOut: ReadiumSpeechUtterance[],
   newSources: SourceTrace,
 ): Promise<void> {
-  const fragments = utterance.synthetic ? undefined : await sentenceFragmentsOf(utterance, ctx);
+  const fragments = ctx.synthetic.has(utterance) ? undefined : await sentenceFragmentsOf(utterance, ctx);
   if (!fragments) {
     newOut.push(utterance);
     newSources.push(source);
@@ -675,8 +703,16 @@ async function pushSplitSingle(
   }
   const wasBlockStart = ctx.blockStarts.has(utterance);
   if (wasBlockStart) ctx.blockStarts.delete(utterance);
-  fragments.forEach((fragment, k) => {
+  const node = Array.isArray(source) ? undefined : source;
+  const nodeRef = node ? resolveNodeLocate(node, ctx.ancestorChains) : undefined;
+  fragments.forEach(({ text: fragment, start, end }, k) => {
     const split: ReadiumSpeechUtterance = { ...utterance, [ctx.format]: fragment };
+    if (nodeRef) {
+      const quoteText = ctx.format === "ssml" ? plainOf(fragment, ctx.format) : fragment;
+      const locate = subLocateFor(nodeRef.ref, quoteText);
+      split.locate = locate;
+      split.offsets = [{ start, end, locate }];
+    }
     if (wasBlockStart && k === 0) ctx.blockStarts.add(split);
     newOut.push(split);
     newSources.push(source);
@@ -713,6 +749,34 @@ async function detectGenuineJoins(
   return joinedWithNext;
 }
 
+// `start`/`end` are positions in each contributing node's own source text.
+// Always quote-scoped, so a consumer can relocate a piece within spoken text by content.
+function buildJoinedOffsets(
+  pieces: ReadiumSpeechUtterance[],
+  pieceSources: GndObject[],
+  ranges: { start: number; end: number }[],
+  boundary: { start: number; end: number },
+  startIdx: number,
+  endIdx: number,
+  ctx: WalkContext,
+): UtteranceOffset[] {
+  const offsets: UtteranceOffset[] = [];
+  for (let k = startIdx; k <= endIdx; k++) {
+    const nodeRef = resolveNodeLocate(pieceSources[k], ctx.ancestorChains);
+    if (!nodeRef) continue;
+    const pieceRange = ranges[k];
+    const contribStart = Math.max(pieceRange.start, boundary.start);
+    const contribEnd = Math.min(pieceRange.end, boundary.end);
+    if (contribEnd <= contribStart) continue;
+    const localStart = contribStart - pieceRange.start;
+    const localEnd = contribEnd - pieceRange.start;
+    const text = plainOf((ctx.format === "ssml" ? pieces[k].ssml : pieces[k].plain)!, ctx.format);
+    const locate = subLocateFor(nodeRef.ref, text.slice(localStart, localEnd));
+    offsets.push({ start: localStart, end: localEnd, locate });
+  }
+  return offsets;
+}
+
 // Resegments one merge group as its own self-contained text (so its final
 // sentence has no trailing-separator artifact), mapping sentences back onto the piece(s) they span.
 async function pushJoinedGroup(
@@ -745,6 +809,21 @@ async function pushJoinedGroup(
     if (language) merged.language = language;
     const wasBlockStart = pieces.slice(startIdx, endIdx + 1).some((piece) => ctx.blockStarts.has(piece));
     if (wasBlockStart) ctx.blockStarts.add(merged);
+    const offsets = buildJoinedOffsets(pieces, pieceSources, ranges, boundary, startIdx, endIdx, ctx);
+    if (offsets.length > 0) merged.offsets = offsets;
+
+    // Top-level `locate` is the whole first/last span, a convenience anchor
+    // for consumers that don't need the per-element breakdown in `offsets`.
+    const firstRef = resolveNodeLocate(pieceSources[startIdx], ctx.ancestorChains);
+    let locate: LocatorOptions | undefined;
+    if (startIdx !== endIdx) {
+      const lastRef = resolveNodeLocate(pieceSources[endIdx], ctx.ancestorChains);
+      locate = (firstRef && lastRef ? combineDomRangeTextrefs(firstRef.ref, lastRef.ref) : undefined) ?? preciseLocateFor(firstRef, text);
+    } else {
+      locate = preciseLocateFor(firstRef, text);
+    }
+    if (locate) merged.locate = locate;
+
     newOut.push(merged);
     newSources.push(startIdx === endIdx ? pieceSources[startIdx] : [pieceSources[startIdx], pieceSources[endIdx]]);
   });
@@ -803,10 +882,10 @@ export async function extractUtterances(
 ): Promise<ReadiumSpeechUtterance[]> {
   const out: ReadiumSpeechUtterance[] = [];
   const sources: SourceTrace = [];
-  const ctx = await makeWalkContext(options);
+  const ctx = await makeWalkContext(nodes, options);
   walk(nodes, out, sources, ctx, false);
   const split = await splitIntoSentenceUtterances(out, sources, ctx);
-  return attachLocate(split.out, split.sources, buildAncestorChains(nodes));
+  return attachLocate(split.out, split.sources, ctx);
 }
 
 /**
@@ -819,11 +898,11 @@ export async function extractUtterancesWithSources(
 ): Promise<{ utterances: ReadiumSpeechUtterance[]; sources: SourceTrace; blockStarts: boolean[] }> {
   const utterances: ReadiumSpeechUtterance[] = [];
   const sources: SourceTrace = [];
-  const ctx = await makeWalkContext(options);
+  const ctx = await makeWalkContext(nodes, options);
   walk(nodes, utterances, sources, ctx, false);
   const split = await splitIntoSentenceUtterances(utterances, sources, ctx);
   const blockStarts = split.out.map((utterance) => ctx.blockStarts.has(utterance));
-  return { utterances: attachLocate(split.out, split.sources, buildAncestorChains(nodes)), sources: split.sources, blockStarts };
+  return { utterances: attachLocate(split.out, split.sources, ctx), sources: split.sources, blockStarts };
 }
 
 // Every node's own ancestors (nearest first), keyed by object identity —
@@ -845,41 +924,62 @@ function buildAncestorChains(nodes: GndObject[], chain: GndObject[] = [], out = 
 // ancestors (nearest first) when the source node itself has no locator of
 // its own.
 // Resolves one node's own locator, falling back through its ancestors
-// (nearest first) when it has no textref of its own.
-function resolveNodeLocate(node: GndObject, ancestorChains: Map<GndObject, GndObject[]>): DecodedTextref | undefined {
-  let ref = decodeTextref(node);
-  if (!ref) {
-    for (const ancestor of ancestorChains.get(node) ?? []) {
-      ref = decodeTextref(ancestor);
-      if (ref) break;
-    }
+// (nearest first) when it has no textref of its own — `own: false` then,
+// since the result describes that ancestor's whole extent, not just this node.
+function resolveNodeLocate(node: GndObject, ancestorChains: Map<GndObject, GndObject[]>): { own: boolean; ref: DecodedTextref } | undefined {
+  const ref = decodeTextref(node);
+  if (ref) return { own: true, ref };
+  for (const ancestor of ancestorChains.get(node) ?? []) {
+    const ancestorRef = decodeTextref(ancestor);
+    if (ancestorRef) return { own: false, ref: ancestorRef };
   }
-  return ref;
+  return undefined;
 }
 
+// A resolved locate is only safe to use bare when it's the node's own
+// textref; an ancestor fallback describes a much larger extent, so it must
+// be narrowed to `text` via a text-quote first (see subLocateFor).
+function preciseLocateFor(resolved: { own: boolean; ref: DecodedTextref } | undefined, text: string): LocatorOptions | undefined {
+  if (!resolved) return undefined;
+  return resolved.own ? resolved.ref : subLocateFor(resolved.ref, text);
+}
+
+// Skips utterances already given `locate`/`offsets` by sentence splitting;
+// resolves the rest, adding a trivial whole-text `offsets` for real content.
 function attachLocate(
   utterances: ReadiumSpeechUtterance[],
   sources: SourceTrace,
-  ancestorChains: Map<GndObject, GndObject[]>,
+  ctx: WalkContext,
 ): ReadiumSpeechUtterance[] {
+  const { ancestorChains } = ctx;
+  // Several utterances can share one node (e.g. a language-split fragment)
+  // — bare-reusing its locate for any of them would anchor the whole node.
+  const nodeUseCount = new Map<GndObject, number>();
+  for (const source of sources) {
+    if (source && !Array.isArray(source)) nodeUseCount.set(source, (nodeUseCount.get(source) ?? 0) + 1);
+  }
   return utterances.map((u, i) => {
+    if (u.offsets) return u;
     const source = sources[i];
+    const text = u.plain ?? u.ssml ?? "";
     if (Array.isArray(source)) {
       const [first, last] = source;
       const firstRef = resolveNodeLocate(first, ancestorChains);
       const lastRef = resolveNodeLocate(last, ancestorChains);
-      const spanned = firstRef && lastRef ? combineDomRangeTextrefs(firstRef, lastRef) : undefined;
-      const ref = spanned ?? firstRef;
+      const spanned = firstRef && lastRef ? combineDomRangeTextrefs(firstRef.ref, lastRef.ref) : undefined;
+      const ref = spanned ?? preciseLocateFor(firstRef, text);
       return ref ? { ...u, locate: ref } : u;
     }
     const node = source;
-    let ref = decodeTextref(node);
-    if (!ref && node) {
-      for (const ancestor of ancestorChains.get(node) ?? []) {
-        ref = decodeTextref(ancestor);
-        if (ref) break;
-      }
+    const resolved = node ? resolveNodeLocate(node, ancestorChains) : undefined;
+    if (!resolved) return u;
+    const result: ReadiumSpeechUtterance = { ...u, locate: resolved.ref };
+    if (!ctx.synthetic.has(u)) {
+      const range = ctx.pendingRange.get(u);
+      const shared = range !== undefined || (node && (nodeUseCount.get(node) ?? 0) > 1);
+      result.locate = resolved.own && !shared ? resolved.ref : subLocateFor(resolved.ref, text);
+      result.offsets = [{ start: range?.start ?? 0, end: range?.end ?? text.length, locate: result.locate }];
     }
-    return ref ? { ...u, locate: ref } : u;
+    return result;
   });
 }

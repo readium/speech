@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Rating: 4 out of 5 stars",
-          "synthetic": true
+          "plain": "Rating: 4 out of 5 stars"
         }
       ]
     },
@@ -76,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Image with a label: Rating: 4 out of 5 stars",
-          "synthetic": true
+          "plain": "Image with a label: Rating: 4 out of 5 stars"
         }
       ]
     },
@@ -234,8 +232,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Rating: 4 out of 5 stars",
-          "synthetic": true
+          "ssml": "Rating: 4 out of 5 stars"
         }
       ]
     },
@@ -302,8 +299,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Image with a label: Rating: 4 out of 5 stars",
-          "synthetic": true
+          "ssml": "Image with a label: Rating: 4 out of 5 stars"
         }
       ]
     },

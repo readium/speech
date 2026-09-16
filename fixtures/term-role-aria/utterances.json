@@ -75,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Term.",
-          "synthetic": true
+          "plain": "Term."
         },
         {
           "plain": "lighthouse"
@@ -158,8 +157,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Term.",
-          "synthetic": true
+          "ssml": "Term."
         },
         {
           "ssml": "lighthouse"

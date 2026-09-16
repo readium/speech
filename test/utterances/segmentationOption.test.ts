@@ -31,6 +31,36 @@ test("segmentation: sentence splits a multi-sentence paragraph into one utteranc
   );
 });
 
+test("segmentation: sentence gives each split sentence its own locate/offsets, not the whole paragraph's", async (t) => {
+  const doc = new DOMParser().parseFromString(
+    "<body><p>Hello there. This has two sentences.</p></body>",
+    "text/html"
+  );
+  const root = doc.querySelector("p")!;
+  const gnd = parseMarkup(root, undefined, { textrefs: { roles: true, domRange: true } });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["Hello there. ", "This has two sentences."]
+  );
+
+  const [first, second] = utterances;
+  t.is(first.locate?.text?.highlight, "Hello there. ");
+  t.is(second.locate?.text?.highlight, "This has two sentences.");
+  t.not(first.locate?.text?.highlight, second.locate?.text?.highlight);
+
+  // offsets are positions in the *source* paragraph's own text, not each
+  // split sentence's own (so the second sentence's start is non-zero).
+  t.is(first.offsets?.length, 1);
+  t.deepEqual(first.offsets?.[0], { start: 0, end: first.plain!.length, locate: first.locate });
+  t.is(second.offsets?.length, 1);
+  t.deepEqual(second.offsets?.[0], {
+    start: first.plain!.length,
+    end: first.plain!.length + second.plain!.length,
+    locate: second.locate,
+  });
+});
+
 test("segmentation: sentence does not split on an abbreviation", async (t) => {
   const gnd = parseMarkup("<p>Mr. Smith stayed. He was tired.</p>");
   const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
@@ -69,7 +99,7 @@ test("segmentation: sentence does not split synthesized contextualization/label 
     segmentation: { mode: "sentence" },
     contextualize: ["table"],
   });
-  const label = utterances.find((u) => u.synthetic);
+  const label = utterances.find((u) => !u.offsets);
   t.truthy(label);
   t.true((label?.plain ?? "").includes("."));
 });
@@ -191,6 +221,36 @@ test("segmentation: sentence reconstruction spans both source elements in the lo
   const paragraphs = root.querySelectorAll("p");
   t.is(doc.querySelector(locate!.domRange!.start.cssSelector), paragraphs[0]);
   t.is(doc.querySelector(locate!.domRange!.end!.cssSelector), paragraphs[1]);
+});
+
+test("segmentation: sentence reconstruction's offsets attribute each half of the sentence to its own element", async (t) => {
+  const doc = new DOMParser().parseFromString(
+    "<body><div><p>This sentence continues</p><p>across two paragraphs.</p></div></body>",
+    "text/html"
+  );
+  const root = doc.querySelector("div")!;
+  const gnd = parseMarkup(root, undefined, { textrefs: { roles: true, domRange: true } });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.is(utterances.length, 1);
+
+  const offsets = utterances[0].offsets;
+  t.is(offsets?.length, 2);
+  // Each half is its contributing paragraph's *whole own* text, so its own
+  // source-relative range is simply 0..its own length.
+  t.is(offsets![0].locate.text?.highlight, "This sentence continues");
+  t.deepEqual(offsets![0], { start: 0, end: "This sentence continues".length, locate: offsets![0].locate });
+  t.is(offsets![1].locate.text?.highlight, "across two paragraphs.");
+  t.deepEqual(offsets![1], { start: 0, end: "across two paragraphs.".length, locate: offsets![1].locate });
+
+  const cssA = offsets![0].locate.cssSelector;
+  const cssB = offsets![1].locate.cssSelector;
+  t.truthy(cssA);
+  t.truthy(cssB);
+  t.not(cssA, cssB);
+
+  const paragraphs = root.querySelectorAll("p");
+  t.is(doc.querySelector(cssA!), paragraphs[0]);
+  t.is(doc.querySelector(cssB!), paragraphs[1]);
 });
 
 test("segmentation: sentence does not falsely merge a genuine abbreviation-adjacent sentence end across paragraphs", async (t) => {

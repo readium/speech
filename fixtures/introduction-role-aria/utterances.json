@@ -75,15 +75,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the introduction.",
-          "synthetic": true
+          "plain": "Start of the introduction."
         },
         {
           "plain": "This work explores the history of coastal lighthouses."
         },
         {
-          "plain": "End of the introduction.",
-          "synthetic": true
+          "plain": "End of the introduction."
         }
       ]
     },
@@ -162,15 +160,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the introduction.",
-          "synthetic": true
+          "ssml": "Start of the introduction."
         },
         {
           "ssml": "This work explores the history of coastal lighthouses."
         },
         {
-          "ssml": "End of the introduction.",
-          "synthetic": true
+          "ssml": "End of the introduction."
         }
       ]
     }

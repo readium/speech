@@ -71,8 +71,7 @@
       ],
       "utterances": [
         {
-          "plain": "Video with no label.",
-          "synthetic": true
+          "plain": "Video with no label."
         }
       ]
     },
@@ -147,8 +146,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Video with no label.",
-          "synthetic": true
+          "ssml": "Video with no label."
         }
       ]
     }

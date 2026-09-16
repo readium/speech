@@ -1,5 +1,13 @@
 import type { LocatorOptions } from "./decorator/createLocator.js";
 
+// A stretch of an utterance's spoken text sourced from one GND node — start/end
+// are positions in *that node's own* text (the source of truth), not the utterance's.
+export interface UtteranceOffset {
+  start: number;
+  end: number;
+  locate: LocatorOptions;
+}
+
 export interface ReadiumSpeechUtterance {
   id?: string;       // Unique identifier for this content
   plain?: string;    // Plain-text rendering, when available
@@ -11,11 +19,7 @@ export interface ReadiumSpeechUtterance {
   // textStart...textEnd range, which highlight can't express). Spread
   // directly into createLocator()/decorate() for DOM highlighting.
   locate?: LocatorOptions;
-  // True when `plain`/`ssml` is a synthesized label/announcement (a
-  // contextualization catalog entry, an alt/caption description, a
-  // pagebreak label) rather than text copied verbatim from the source.
-  // `locate` is still safe for element-scoped highlighting, but a
-  // word-level substring/text-quote search against the DOM should be
-  // skipped — the text isn't actually there.
-  synthetic?: boolean;
+  // Ranges backed by real source text. Absent (or gaps within) for a
+  // synthesized label — `locate` is still safe there, just not text-searchable.
+  offsets?: UtteranceOffset[];
 }

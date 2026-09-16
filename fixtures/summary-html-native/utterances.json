@@ -75,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Summary.",
-          "synthetic": true
+          "plain": "Summary."
         },
         {
           "plain": "Click to expand"
@@ -158,8 +157,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Summary.",
-          "synthetic": true
+          "ssml": "Summary."
         },
         {
           "ssml": "Click to expand"

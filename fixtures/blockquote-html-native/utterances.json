@@ -75,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Blockquote.",
-          "synthetic": true
+          "plain": "Blockquote."
         },
         {
           "plain": "To be, or not to be, that is the question."
@@ -158,8 +157,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Blockquote.",
-          "synthetic": true
+          "ssml": "Blockquote."
         },
         {
           "ssml": "To be, or not to be, that is the question."

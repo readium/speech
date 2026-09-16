@@ -75,3 +75,18 @@ export function loadFixture(id: string): LoadedFixture {
   const utterances: UtterancesFile = JSON.parse(readFileSync(join(dir, "utterances.json"), "utf-8"));
   return { meta, inputHtml, gnd, utterances };
 }
+
+// Strips implementation-specific selector output before comparing against
+// cross-platform fixture JSON, which never carries it.
+export function stripLocatorDetails(value: unknown): unknown {
+  if (Array.isArray(value)) return value.map(stripLocatorDetails);
+  if (value && typeof value === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [key, val] of Object.entries(value)) {
+      if (key === "textref" || key === "locate" || key === "offsets") continue;
+      out[key] = stripLocatorDetails(val);
+    }
+    return out;
+  }
+  return value;
+}

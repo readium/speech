@@ -81,8 +81,7 @@
           "plain": "Before."
         },
         {
-          "plain": "Separator.",
-          "synthetic": true
+          "plain": "Separator."
         },
         {
           "plain": "After."
@@ -170,8 +169,7 @@
           "ssml": "Before."
         },
         {
-          "ssml": "Separator.",
-          "synthetic": true
+          "ssml": "Separator."
         },
         {
           "ssml": "After."

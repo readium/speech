@@ -75,15 +75,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the disclosure.",
-          "synthetic": true
+          "plain": "Start of the disclosure."
         },
         {
           "plain": "Additional details the reader can expand."
         },
         {
-          "plain": "End of the disclosure.",
-          "synthetic": true
+          "plain": "End of the disclosure."
         }
       ]
     },
@@ -307,15 +305,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the disclosure.",
-          "synthetic": true
+          "ssml": "Start of the disclosure."
         },
         {
           "ssml": "Additional details the reader can expand."
         },
         {
-          "ssml": "End of the disclosure.",
-          "synthetic": true
+          "ssml": "End of the disclosure."
         }
       ]
     },

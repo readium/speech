@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "Team roster",
-          "synthetic": true
+          "plain": "Team roster"
         },
         {
           "plain": "Name"
@@ -148,8 +147,7 @@
       ],
       "utterances": [
         {
-          "plain": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "plain": "Table: Team roster. 2 lines. 1 column."
         },
         {
           "plain": "Name"
@@ -158,8 +156,7 @@
           "plain": "Name: Ada"
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -372,8 +369,7 @@
       ],
       "utterances": [
         {
-          "plain": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "plain": "Table: Team roster. 2 lines. 1 column."
         },
         {
           "plain": "Name"
@@ -512,19 +508,16 @@
       ],
       "utterances": [
         {
-          "plain": "Team roster",
-          "synthetic": true
+          "plain": "Team roster"
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
           "plain": "Name"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         },
         {
           "plain": "Name: Ada"
@@ -676,26 +669,22 @@
       ],
       "utterances": [
         {
-          "plain": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "plain": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
           "plain": "Name"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         },
         {
           "plain": "Name: Ada"
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -924,19 +913,16 @@
       ],
       "utterances": [
         {
-          "plain": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "plain": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
           "plain": "Name"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         },
         {
           "plain": "Name: Ada"
@@ -1088,8 +1074,7 @@
       ],
       "utterances": [
         {
-          "plain": "Team roster",
-          "synthetic": true
+          "plain": "Team roster"
         },
         {
           "plain": "Name"
@@ -1273,15 +1258,13 @@
       ],
       "utterances": [
         {
-          "plain": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "plain": "Table: Team roster. 2 lines. 1 column."
         },
         {
           "plain": "Name"
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -1542,8 +1525,7 @@
       ],
       "utterances": [
         {
-          "plain": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "plain": "Table: Team roster. 2 lines. 1 column."
         },
         {
           "plain": "Name"
@@ -1727,19 +1709,16 @@
       ],
       "utterances": [
         {
-          "plain": "Team roster",
-          "synthetic": true
+          "plain": "Team roster"
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
           "plain": "Name"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         }
       ]
     },
@@ -1936,23 +1915,19 @@
       ],
       "utterances": [
         {
-          "plain": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "plain": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
           "plain": "Name"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -2229,19 +2204,16 @@
       ],
       "utterances": [
         {
-          "plain": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "plain": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
           "plain": "Name"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         }
       ]
     },
@@ -2390,8 +2362,7 @@
       ],
       "utterances": [
         {
-          "plain": "Team roster",
-          "synthetic": true
+          "plain": "Team roster"
         },
         {
           "plain": "Name: Ada"
@@ -2575,15 +2546,13 @@
       ],
       "utterances": [
         {
-          "plain": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "plain": "Table: Team roster. 2 lines. 1 column."
         },
         {
           "plain": "Name: Ada"
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -2844,8 +2813,7 @@
       ],
       "utterances": [
         {
-          "plain": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "plain": "Table: Team roster. 2 lines. 1 column."
         },
         {
           "plain": "Name: Ada"
@@ -3029,16 +2997,13 @@
       ],
       "utterances": [
         {
-          "plain": "Team roster",
-          "synthetic": true
+          "plain": "Team roster"
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         },
         {
           "plain": "Name: Ada"
@@ -3238,23 +3203,19 @@
       ],
       "utterances": [
         {
-          "plain": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "plain": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         },
         {
           "plain": "Name: Ada"
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -3531,16 +3492,13 @@
       ],
       "utterances": [
         {
-          "plain": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "plain": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         },
         {
           "plain": "Name: Ada"
@@ -5084,8 +5042,7 @@
       ],
       "utterances": [
         {
-          "plain": "Team roster",
-          "synthetic": true
+          "plain": "Team roster"
         }
       ]
     },
@@ -6850,12 +6807,10 @@
       ],
       "utterances": [
         {
-          "plain": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "plain": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -9340,8 +9295,7 @@
       ],
       "utterances": [
         {
-          "plain": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "plain": "Table: Team roster. 2 lines. 1 column."
         }
       ]
     },
@@ -9538,16 +9492,13 @@
       ],
       "utterances": [
         {
-          "plain": "Team roster",
-          "synthetic": true
+          "plain": "Team roster"
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         }
       ]
     },
@@ -9760,20 +9711,16 @@
       ],
       "utterances": [
         {
-          "plain": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "plain": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         },
         {
-          "plain": "End of the table.",
-          "synthetic": true
+          "plain": "End of the table."
         }
       ]
     },
@@ -10066,16 +10013,13 @@
       ],
       "utterances": [
         {
-          "plain": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "plain": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "plain": "Row: 1",
-          "synthetic": true
+          "plain": "Row: 1"
         },
         {
-          "plain": "Row: 2",
-          "synthetic": true
+          "plain": "Row: 2"
         }
       ]
     },
@@ -16236,8 +16180,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Team roster",
-          "synthetic": true
+          "ssml": "Team roster"
         },
         {
           "ssml": "Name"
@@ -16376,8 +16319,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "ssml": "Table: Team roster. 2 lines. 1 column."
         },
         {
           "ssml": "Name"
@@ -16386,8 +16328,7 @@
           "ssml": "Name: Ada"
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -16600,8 +16541,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "ssml": "Table: Team roster. 2 lines. 1 column."
         },
         {
           "ssml": "Name"
@@ -16740,19 +16680,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Team roster",
-          "synthetic": true
+          "ssml": "Team roster"
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Name"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         },
         {
           "ssml": "Name: Ada"
@@ -16904,26 +16841,22 @@
       ],
       "utterances": [
         {
-          "ssml": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "ssml": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Name"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         },
         {
           "ssml": "Name: Ada"
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -17152,19 +17085,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "ssml": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Name"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         },
         {
           "ssml": "Name: Ada"
@@ -17316,8 +17246,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Team roster",
-          "synthetic": true
+          "ssml": "Team roster"
         },
         {
           "ssml": "Name"
@@ -17501,15 +17430,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "ssml": "Table: Team roster. 2 lines. 1 column."
         },
         {
           "ssml": "Name"
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -17770,8 +17697,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "ssml": "Table: Team roster. 2 lines. 1 column."
         },
         {
           "ssml": "Name"
@@ -17955,19 +17881,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Team roster",
-          "synthetic": true
+          "ssml": "Team roster"
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Name"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         }
       ]
     },
@@ -18164,23 +18087,19 @@
       ],
       "utterances": [
         {
-          "ssml": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "ssml": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Name"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -18457,19 +18376,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "ssml": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
           "ssml": "Name"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         }
       ]
     },
@@ -18618,8 +18534,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Team roster",
-          "synthetic": true
+          "ssml": "Team roster"
         },
         {
           "ssml": "Name: Ada"
@@ -18803,15 +18718,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "ssml": "Table: Team roster. 2 lines. 1 column."
         },
         {
           "ssml": "Name: Ada"
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -19072,8 +18985,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "ssml": "Table: Team roster. 2 lines. 1 column."
         },
         {
           "ssml": "Name: Ada"
@@ -19257,16 +19169,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Team roster",
-          "synthetic": true
+          "ssml": "Team roster"
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         },
         {
           "ssml": "Name: Ada"
@@ -19466,23 +19375,19 @@
       ],
       "utterances": [
         {
-          "ssml": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "ssml": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         },
         {
           "ssml": "Name: Ada"
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -19759,16 +19664,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "ssml": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         },
         {
           "ssml": "Name: Ada"
@@ -21312,8 +21214,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Team roster",
-          "synthetic": true
+          "ssml": "Team roster"
         }
       ]
     },
@@ -23078,12 +22979,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "ssml": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -25568,8 +25467,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "ssml": "Table: Team roster. 2 lines. 1 column."
         }
       ]
     },
@@ -25766,16 +25664,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Team roster",
-          "synthetic": true
+          "ssml": "Team roster"
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         }
       ]
     },
@@ -25988,20 +25883,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "ssml": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         },
         {
-          "ssml": "End of the table.",
-          "synthetic": true
+          "ssml": "End of the table."
         }
       ]
     },
@@ -26294,16 +26185,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Table: Team roster. 2 lines. 1 column.",
-          "synthetic": true
+          "ssml": "Table: Team roster. 2 lines. 1 column."
         },
         {
-          "ssml": "Row: 1",
-          "synthetic": true
+          "ssml": "Row: 1"
         },
         {
-          "ssml": "Row: 2",
-          "synthetic": true
+          "ssml": "Row: 2"
         }
       ]
     },

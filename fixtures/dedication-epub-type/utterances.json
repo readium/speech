@@ -75,8 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Dedication.",
-          "synthetic": true
+          "plain": "Dedication."
         },
         {
           "plain": "For every keeper who lit the lamp at dusk."
@@ -158,8 +157,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Dedication.",
-          "synthetic": true
+          "ssml": "Dedication."
         },
         {
           "ssml": "For every keeper who lit the lamp at dusk."

@@ -981,16 +981,25 @@ function applyUtteranceDecoration() {
   const currentUtterance = utterances[currentSentenceIndex];
   if (!currentUtterance || !currentUtterance.locate) return;
 
-  if (currentUtterance.synthetic && !decorateSyntheticEnabled) {
-    decoCtrl.applyDecorations([], "tts-sentence");
+  // Bounds draws one box over the whole range — wrong for a sentence slice
+  // that may only be part of a line or span several; Boxes decorates per line.
+  const layout = navigator.settings.segmentation === "sentence" ? DecorationLayout.Boxes : DecorationLayout.Bounds;
+  const style = { type: utteranceStyle, tint: utteranceTint, enforceContrast: false, layout };
+  const offsets = currentUtterance.offsets;
+  if (!offsets?.length) {
+    if (!decorateSyntheticEnabled) {
+      decoCtrl.applyDecorations([], "tts-sentence");
+      return;
+    }
+    decoCtrl.applyDecorations([{ id: "tts-sentence", locator: createLocator(currentUtterance.locate), style }], "tts-sentence");
     return;
   }
 
-  decoCtrl.applyDecorations([{
-    id: "tts-sentence",
-    locator: createLocator(currentUtterance.locate),
-    style: { type: utteranceStyle, tint: utteranceTint, enforceContrast: false, layout: DecorationLayout.Bounds },
-  }], "tts-sentence");
+  // One decoration per contributing element, for a cross-element sentence.
+  decoCtrl.applyDecorations(
+    offsets.map((offset, i) => ({ id: `tts-sentence-${i}`, locator: createLocator(offset.locate), style })),
+    "tts-sentence",
+  );
 }
 
 function applyWordDecoration() {
@@ -999,7 +1008,7 @@ function applyWordDecoration() {
   decoCtrl.applyDecorations([{
     id: "tts-word",
     locator: createLocator({
-      cssSelector: lastWordHighlight.cssSelector,
+      ...lastWordHighlight.locate,
       text: { highlight: lastWordHighlight.word, before: lastWordHighlight.before, after: lastWordHighlight.after },
     }),
     style: { type: wordStyle, tint: wordTint, enforceContrast: false },
@@ -1018,7 +1027,7 @@ function enterUtterance(index) {
   currentSentenceIndex = index;
   applyUtteranceDecoration();
 
-  if (currentUtterance.synthetic) {
+  if (!currentUtterance.offsets?.length) {
     // A synthesized label/announcement (contextualization text, alt/caption
     // description...): no word-boundary search should run against it, and
     // no earlier word highlight is going to be refined further.
@@ -1052,16 +1061,44 @@ function highlightCurrentWord(charIndex, charLength) {
   if (!currentUtterance || !currentUtterance.locate) return;
 
   enterUtterance(currentIndex);
-  if (currentUtterance.synthetic || !wordHighlightAvailable) return;
+  if (!wordHighlightAvailable) return;
 
-  const word = currentUtterance.plain?.substring(charIndex, charIndex + charLength);
+  const found = locatePieceAt(currentUtterance, charIndex);
+  if (!found) return;
+  const { offset, pieceText, localIndex } = found;
+
+  const word = pieceText.substring(localIndex, localIndex + charLength);
   if (!word || !word.trim()) return;
 
-  const before = currentUtterance.plain.substring(0, charIndex);
-  const after = currentUtterance.plain.substring(charIndex + charLength);
+  const before = pieceText.substring(0, localIndex);
+  const after = pieceText.substring(localIndex + charLength);
 
-  lastWordHighlight = { cssSelector: currentUtterance.locate.cssSelector, word, before, after };
+  lastWordHighlight = { locate: offset.locate, word, before, after };
   applyWordDecoration();
+}
+
+// `charIndex` indexes the spoken text; `offsets` index each piece's own
+// source text instead, so pieces are relocated within it by content first.
+function locatePieceAt(utterance, charIndex) {
+  const offsets = utterance.offsets;
+  if (!offsets?.length) return null;
+  if (offsets.length === 1) {
+    const offset = offsets[0];
+    const pieceText = offset.locate.text?.highlight ?? utterance.plain ?? utterance.ssml;
+    return pieceText ? { offset, pieceText, localIndex: charIndex } : null;
+  }
+  const outputText = utterance.plain ?? utterance.ssml ?? "";
+  let cursor = 0;
+  for (const offset of offsets) {
+    const pieceText = offset.locate.text?.highlight;
+    if (!pieceText) continue;
+    const start = Math.max(outputText.indexOf(pieceText, cursor), cursor);
+    if (charIndex >= start && charIndex < start + pieceText.length) {
+      return { offset, pieceText, localIndex: charIndex - start };
+    }
+    cursor = start + pieceText.length;
+  }
+  return null;
 }
 
 function updateUI() {

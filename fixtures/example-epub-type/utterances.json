@@ -75,15 +75,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the example.",
-          "synthetic": true
+          "plain": "Start of the example."
         },
         {
           "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
         },
         {
-          "plain": "End of the example.",
-          "synthetic": true
+          "plain": "End of the example."
         }
       ]
     },
@@ -162,15 +160,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the example.",
-          "synthetic": true
+          "ssml": "Start of the example."
         },
         {
           "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
         },
         {
-          "ssml": "End of the example.",
-          "synthetic": true
+          "ssml": "End of the example."
         }
       ]
     }

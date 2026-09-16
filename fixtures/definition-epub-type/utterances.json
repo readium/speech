@@ -75,15 +75,13 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the glossary.",
-          "synthetic": true
+          "plain": "Start of the glossary."
         },
         {
           "plain": "A structure that contains an enumeration of related content items."
         },
         {
-          "plain": "End of the glossary.",
-          "synthetic": true
+          "plain": "End of the glossary."
         }
       ]
     },
@@ -150,8 +148,7 @@
       ],
       "utterances": [
         {
-          "plain": "Definition.",
-          "synthetic": true
+          "plain": "Definition."
         },
         {
           "plain": "A structure that contains an enumeration of related content items."
@@ -229,19 +226,16 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the glossary.",
-          "synthetic": true
+          "plain": "Start of the glossary."
         },
         {
-          "plain": "Definition.",
-          "synthetic": true
+          "plain": "Definition."
         },
         {
           "plain": "A structure that contains an enumeration of related content items."
         },
         {
-          "plain": "End of the glossary.",
-          "synthetic": true
+          "plain": "End of the glossary."
         }
       ]
     },
@@ -637,15 +631,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the glossary.",
-          "synthetic": true
+          "ssml": "Start of the glossary."
         },
         {
           "ssml": "A structure that contains an enumeration of related content items."
         },
         {
-          "ssml": "End of the glossary.",
-          "synthetic": true
+          "ssml": "End of the glossary."
         }
       ]
     },
@@ -712,8 +704,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Definition.",
-          "synthetic": true
+          "ssml": "Definition."
         },
         {
           "ssml": "A structure that contains an enumeration of related content items."
@@ -791,19 +782,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the glossary.",
-          "synthetic": true
+          "ssml": "Start of the glossary."
         },
         {
-          "ssml": "Definition.",
-          "synthetic": true
+          "ssml": "Definition."
         },
         {
           "ssml": "A structure that contains an enumeration of related content items."
         },
         {
-          "ssml": "End of the glossary.",
-          "synthetic": true
+          "ssml": "End of the glossary."
         }
       ]
     },

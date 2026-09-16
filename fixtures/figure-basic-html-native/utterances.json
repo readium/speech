@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "A bar chart showing sales growth",
-          "synthetic": true
+          "plain": "A bar chart showing sales growth"
         }
       ]
     },
@@ -142,8 +141,7 @@
       ],
       "utterances": [
         {
-          "plain": "Image with a label: A bar chart showing sales growth",
-          "synthetic": true
+          "plain": "Image with a label: A bar chart showing sales growth"
         }
       ]
     },
@@ -1128,8 +1126,7 @@
       ],
       "utterances": [
         {
-          "ssml": "A bar chart showing sales growth",
-          "synthetic": true
+          "ssml": "A bar chart showing sales growth"
         }
       ]
     },
@@ -1262,8 +1259,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Image with a label: A bar chart showing sales growth",
-          "synthetic": true
+          "ssml": "Image with a label: A bar chart showing sales growth"
         }
       ]
     },
