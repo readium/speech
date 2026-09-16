@@ -20,6 +20,8 @@ const PAUSE_ICON = `<svg viewBox="0 0 24 24" width="20" height="20" fill="curren
 
 // DOM Elements
 const content = document.getElementById("content");
+const scenarioSelect = document.getElementById("scenarioSelect");
+const articleAttribution = document.getElementById("articleAttribution");
 const voiceSelect = document.getElementById("voiceSelect");
 const verbositySelect = document.getElementById("verbositySelect");
 const segmentationSelect = document.getElementById("segmentationSelect");
@@ -88,6 +90,10 @@ let lastWordHighlight = null; // { cssSelector, word, before, after } — reappl
 let mobilePanel = null; // "gnd" | "utterances" | "settings" | null — which split is open in the mobile bottom bar
 let gnd = null;
 let showTextrefs = false;
+let scenarioManifest = [];
+// Which scenario ids have already had their `defaultSegmentation` applied —
+// only pre-set on first visit, so it never fights a value the user picked afterward.
+let scenariosWithDefaultSegmentationApplied = new Set();
 
 // Initialize voice manager and navigator
 async function initialize() {
@@ -137,11 +143,12 @@ async function initialize() {
     }
     updateWordHighlightAvailability();
 
-    await initializeContent();
+    await loadScenarioManifest();
+    await loadScenario(scenarioManifest[0]?.id);
 
     // "block-level" (the default) ignores inline lang spans — only "always"
     // splits an utterance on them, which the French <span lang="fr"> relies on.
-    // Submitted after initializeContent() so the navigator already has a
+    // Submitted after the scenario loads so the navigator already has a
     // source to re-extract from.
     const languageEditor = navigator.preferencesEditor;
     languageEditor.language.value = "always";
@@ -253,6 +260,8 @@ function setupEventListeners() {
   if (voiceSelect) voiceSelect.addEventListener("change", handleVoiceChange);
   if (verbositySelect) verbositySelect.addEventListener("change", handleVerbosityChange);
   if (segmentationSelect) segmentationSelect.addEventListener("change", handleSegmentationChange);
+  if (scenarioSelect) scenarioSelect.addEventListener("change", (e) => loadScenario(e.target.value));
+  new ResizeObserver(() => applyScenarioLayouts(content)).observe(content);
   if (speedInput) speedInput.addEventListener("input", handleSpeedChange);
   if (showTextrefsCheckbox) showTextrefsCheckbox.addEventListener("change", handleShowTextrefsChange);
 
@@ -511,6 +520,139 @@ async function initializeContent() {
   gnd = parseMarkup(content, undefined, { textrefs: { roles: true, domRange: true } });
   renderGndOutput();
   await navigator.loadGndContent(gnd);
+}
+
+// Lays out a flat run of `.token` spans (one per word or per letter — see
+// word-level.html/letter-level.html) as absolutely-positioned elements,
+// wrapping lines by real measured width — the same result a PDF-derived or
+// OCR-exported fixed-layout generator would produce, computed here instead
+// of at authoring time. Extraction itself never looks at any of this CSS;
+// it's purely to make the scattered-DOM-node scenario visible in the page.
+//
+// Wrap decisions are made per WORD (a run of tokens with no whitespace-only
+// token between them), not per individual token — otherwise, in the
+// letter-level scenario, a word's trailing punctuation (its own separate
+// token) can end up wrapped alone onto the next line.
+function layoutPositionedTokens(container) {
+  if (!container) return;
+  const tokens = Array.from(container.querySelectorAll(".token"));
+  const containerWidth = container.clientWidth;
+  const lineHeight = parseFloat(getComputedStyle(container).lineHeight) || 28;
+
+  const isSpace = (token) => /^\s+$/.test(token.textContent);
+  const words = [];
+  let word = [];
+  for (const token of tokens) {
+    token.style.left = "0px";
+    token.style.top = "0px";
+    if (isSpace(token)) {
+      if (word.length) words.push(word);
+      words.push([token]);
+      word = [];
+    } else {
+      word.push(token);
+    }
+  }
+  if (word.length) words.push(word);
+
+  let x = 0;
+  let y = 0;
+  for (const tokensInWord of words) {
+    const widths = tokensInWord.map((t) => t.getBoundingClientRect().width);
+    const wordWidth = widths.reduce((sum, w) => sum + w, 0);
+    if (x > 0 && x + wordWidth > containerWidth) {
+      x = 0;
+      y += lineHeight;
+    }
+    tokensInWord.forEach((token, i) => {
+      token.style.left = `${x}px`;
+      token.style.top = `${y}px`;
+      x += widths[i];
+    });
+  }
+  container.style.height = `${y + lineHeight}px`;
+}
+
+// Sizes each `.case` box (see fixed-layout.html) to exactly fit its own
+// `.frag` children's measured bottom edge, plus a fixed margin — `.frag` is
+// absolutely positioned, so it never contributes to its parent's height on
+// its own, and a hand-picked CSS min-height drifts out of sync with
+// however the actual text happens to wrap at the current width.
+function layoutCaseBoxes(container) {
+  if (!container) return;
+  const CASE_BOTTOM_MARGIN = 20;
+  container.querySelectorAll(".case").forEach((caseEl) => {
+    let maxBottom = 0;
+    caseEl.querySelectorAll(".frag").forEach((frag) => {
+      const bottom = frag.offsetTop + frag.offsetHeight;
+      if (bottom > maxBottom) maxBottom = bottom;
+    });
+    caseEl.style.minHeight = `${maxBottom + CASE_BOTTOM_MARGIN}px`;
+  });
+}
+
+// Applies whichever width-dependent layouts the scenario's own markup
+// actually needs, detected from what's present rather than a manifest flag
+// — so a scenario combining multiple patterns (e.g. fixed-layout cases
+// whose own fragments are themselves word-level or letter-level token
+// flows) just works, with no extra wiring. `.text-flow` and `.frag` are
+// both valid token-flow containers — a `.frag` only gets one when it holds
+// `.token` children directly, rather than its usual plain text. Token
+// layout must run before case-box sizing, since the latter measures each
+// frag's now-final height. Each call re-measures from scratch, so it's
+// safe to re-run on every resize.
+function applyScenarioLayouts(container) {
+  container.querySelectorAll(".text-flow, .frag").forEach((el) => {
+    if (el.querySelector(":scope > .token")) layoutPositionedTokens(el);
+  });
+  if (container.querySelector(".case")) layoutCaseBoxes(container);
+}
+
+// Fetches scenarios/manifest.json and populates the Scenario dropdown from
+// it — adding a scenario later only needs a new entry there plus its .html
+// fragment, no changes here.
+async function loadScenarioManifest() {
+  const response = await fetch("scenarios/manifest.json");
+  scenarioManifest = await response.json();
+  if (!scenarioSelect) return;
+  scenarioSelect.innerHTML = "";
+  for (const scenario of scenarioManifest) {
+    const option = document.createElement("option");
+    option.value = scenario.id;
+    option.textContent = scenario.label;
+    scenarioSelect.appendChild(option);
+  }
+}
+
+// Swaps #content for the given scenario's markup and re-extracts. A
+// scenario's `defaultSegmentation` (if any) is only pre-set the first time
+// that scenario is selected, so it never overrides a value the user later
+// picked for it themselves.
+async function loadScenario(id) {
+  const scenario = scenarioManifest.find((s) => s.id === id);
+  if (!scenario || !navigator) return;
+
+  stopPlayback();
+
+  if (scenario.defaultSegmentation && !scenariosWithDefaultSegmentationApplied.has(id)) {
+    scenariosWithDefaultSegmentationApplied.add(id);
+    if (segmentationSelect) segmentationSelect.value = scenario.defaultSegmentation;
+    const editor = navigator.preferencesEditor;
+    editor.segmentation.value = scenario.defaultSegmentation;
+    await navigator.submitPreferences(editor.preferences);
+  }
+
+  content.className = scenario.className ? `reader-content ${scenario.className}` : "reader-content";
+  const response = await fetch(`scenarios/${scenario.file}`);
+  content.innerHTML = await response.text();
+  if (articleAttribution) articleAttribution.hidden = id !== "article";
+
+  applyScenarioLayouts(content);
+
+  currentSentenceIndex = -1;
+  if (currentUtteranceInput) currentUtteranceInput.value = 1;
+  await initializeContent();
+  if (scenarioSelect) scenarioSelect.value = id;
 }
 
 function escapeHtml(s) {
