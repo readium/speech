@@ -1,6 +1,13 @@
 import { extractNodeRoles } from "./roles.js";
 import { isAncestorOf } from "./dom.js";
 
+function hasEndnotesAncestor(el: Element): boolean {
+  for (let p: Element | null = el.parentElement; p; p = p.parentElement) {
+    if (extractNodeRoles(p).includes("endnotes")) return true;
+  }
+  return false;
+}
+
 // One pass over root before the real walk: records every element's own id
 // (for noteref/pagebreak href resolution), and suppresses a noteref's
 // target from also appearing at its original location.
@@ -27,6 +34,7 @@ export function prescan(root: Element, ids: Map<string, Element>, suppressed: Se
     const n = ids.get(target.id);
     if (!n) continue;
     if (isAncestorOf(n, target.ref)) continue;
+    if (hasEndnotesAncestor(n)) continue;
     suppressed.add(n);
   }
 }

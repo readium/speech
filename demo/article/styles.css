@@ -434,9 +434,18 @@ button:hover:not(:disabled) {
   background: #f5f5f5;
 }
 
-#content aside[role="doc-footnote"] {
+#content section[role="doc-endnotes"] ol {
+  list-style: none;
+  padding-left: 0;
+}
+
+#content li[role="doc-footnote"] {
   font-size: 0.85em;
   color: #555;
+}
+
+#content li[role="doc-footnote"] a[role="doc-backlink"] {
+  margin-right: 0.4em;
 }
 
 #content aside:not([role]) {
