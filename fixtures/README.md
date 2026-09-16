@@ -124,12 +124,16 @@ combination *within scope* (below) that appears in no case's `options` is
 understood to equal the default: absence is a positive claim, not a gap.
 Outside that scope, a fixture makes no claim either way.
 
-Scope, per format: `language` × `inlineContextualization` × every subset of
-(this fixture's roles ∩ [roles.md's skippable-roles list]) × every subset
-of (this fixture's roles ∩ roles with a contextualization-catalog entry) ×
-every subset of (this fixture's roles ∩ roles that switch between inline
-and block contextualization by verbosity). Every point in that space is
-either an explicit case or implicitly the default — nothing in between.
+Scope, per format: `language` × `inlineContextualization` × `segmentation.mode`
+× every subset of (this fixture's roles ∩ [roles.md's skippable-roles list])
+× every subset of (this fixture's roles ∩ roles with a
+contextualization-catalog entry) × every subset of (this fixture's roles ∩
+roles that switch between inline and block contextualization by verbosity).
+Every point in that space is either an explicit case or implicitly the
+default — nothing in between. `segmentation.suppressions` is out of scope,
+same as `contextualization.contextualizations`/`params` below — it needs a
+fixture-specific abbreviation list to matter, not a fixed combination that
+generalizes across fixtures.
 
 The options:
 
@@ -157,6 +161,11 @@ The options:
   between adjacent text is rendered: dropped entirely; kept as separate
   single-language utterances for `plain`, or merged into one utterance
   with embedded `<lang>` tags for `ssml`. Omitted means unset.
+- `segmentation: { mode: "structure" | "sentence" }` — `"structure"`
+  (default, omitted) is one utterance per structural unit; `"sentence"`
+  splits/reconstructs at real sentence boundaries instead, including across
+  sibling nodes when a sentence genuinely spans them. `suppressions` is out
+  of scope — see above.
 
 ## `epub:type` fixtures are full XHTML documents
 
