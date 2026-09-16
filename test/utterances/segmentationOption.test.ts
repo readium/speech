@@ -27,7 +27,7 @@ test("segmentation: sentence splits a multi-sentence paragraph into one utteranc
   const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
   t.deepEqual(
     utterances.map((u) => u.plain),
-    ["Hello there. ", "This has two sentences."]
+    ["Hello there.", "This has two sentences."]
   );
 });
 
@@ -41,22 +41,24 @@ test("segmentation: sentence gives each split sentence its own locate/offsets, n
   const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
   t.deepEqual(
     utterances.map((u) => u.plain),
-    ["Hello there. ", "This has two sentences."]
+    ["Hello there.", "This has two sentences."]
   );
 
   const [first, second] = utterances;
-  t.is(first.locate?.text?.highlight, "Hello there. ");
+  t.is(first.locate?.text?.highlight, "Hello there.");
   t.is(second.locate?.text?.highlight, "This has two sentences.");
   t.not(first.locate?.text?.highlight, second.locate?.text?.highlight);
 
   // offsets are positions in the *source* paragraph's own text, not each
-  // split sentence's own (so the second sentence's start is non-zero).
+  // split sentence's own (so the second sentence's start is non-zero). The
+  // one-character gap between them is the separating space: it's part of
+  // neither sentence's own text, so it isn't claimed by either offset.
   t.is(first.offsets?.length, 1);
   t.deepEqual(first.offsets?.[0], { start: 0, end: first.plain!.length, locate: first.locate });
   t.is(second.offsets?.length, 1);
   t.deepEqual(second.offsets?.[0], {
-    start: first.plain!.length,
-    end: first.plain!.length + second.plain!.length,
+    start: first.plain!.length + 1,
+    end: first.plain!.length + 1 + second.plain!.length,
     locate: second.locate,
   });
 });
@@ -66,7 +68,7 @@ test("segmentation: sentence does not split on an abbreviation", async (t) => {
   const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
   t.deepEqual(
     utterances.map((u) => u.plain),
-    ["Mr. Smith stayed. ", "He was tired."]
+    ["Mr. Smith stayed.", "He was tired."]
   );
 });
 
@@ -84,7 +86,7 @@ test("segmentation: sentence never merges sentences across separate paragraphs",
   const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
   t.deepEqual(
     utterances.map((u) => u.plain),
-    ["First one. ", "First two.", "Second one. ", "Second two."]
+    ["First one.", "First two.", "Second one.", "Second two."]
   );
 });
 
@@ -109,7 +111,7 @@ test("segmentation: sentence splits ssml the same way as plain when there's no m
   const utterances = await extractUtterances(gnd, { format: "ssml", segmentation: { mode: "sentence" } });
   t.deepEqual(
     utterances.map((u) => u.ssml),
-    ["Hello there. ", "This has two sentences."]
+    ["Hello there.", "This has two sentences."]
   );
 });
 
@@ -123,8 +125,8 @@ test("segmentation: sentence re-wraps a <lang> span whose inner text spans a sen
   t.deepEqual(
     utterances.map((u) => u.ssml),
     [
-      'See <lang xml:lang="fr">Bonjour. </lang>',
-      '<lang xml:lang="fr">Ça va?</lang> ',
+      'See <lang xml:lang="fr">Bonjour.</lang>',
+      '<lang xml:lang="fr">Ça va?</lang>',
       "after that.",
     ]
   );
@@ -135,7 +137,7 @@ test("segmentation: sentence attaches a self-closing tag to the sentence followi
   const utterances = await extractUtterances(gnd, { format: "ssml", segmentation: { mode: "sentence" } });
   t.deepEqual(
     utterances.map((u) => u.ssml),
-    ["Line one. ", "<break/>Line two after a break."]
+    ["Line one.", "<break/>Line two after a break."]
   );
 });
 
@@ -156,7 +158,7 @@ test("segmentation: sentence keeps blockStarts on only the first sentence of a s
   });
   t.deepEqual(
     utterances.map((u) => u.plain),
-    ["First. ", "Second.", "Third."]
+    ["First.", "Second.", "Third."]
   );
   t.deepEqual(blockStarts, [true, false, true]);
 });
@@ -289,7 +291,7 @@ test("segmentation: sentence merges only a paragraph's trailing incomplete sente
   const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
   t.deepEqual(
     utterances.map((u) => u.plain),
-    ["First one. ", "First two. ", "Third begins here and finishes here."]
+    ["First one.", "First two.", "Third begins here and finishes here."]
   );
 });
 

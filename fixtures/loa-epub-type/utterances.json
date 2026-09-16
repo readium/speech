@@ -78,11 +78,11 @@
       ],
       "utterances": [
         {
-          "plain": "Audio 1. ",
+          "plain": "Audio 1.",
           "language": "en"
         },
         {
-          "plain": "Foghorn recording Audio 2. ",
+          "plain": "Foghorn recording Audio 2.",
           "language": "en"
         },
         {
@@ -257,11 +257,11 @@
           "plain": "Start of the list."
         },
         {
-          "plain": "Audio 1. ",
+          "plain": "Audio 1.",
           "language": "en"
         },
         {
-          "plain": "Foghorn recording Audio 2. ",
+          "plain": "Foghorn recording Audio 2.",
           "language": "en"
         },
         {
@@ -439,7 +439,7 @@
           "plain": "List item."
         },
         {
-          "plain": "Audio 1. "
+          "plain": "Audio 1."
         },
         {
           "plain": "Foghorn recording"
@@ -448,7 +448,7 @@
           "plain": "List item."
         },
         {
-          "plain": "Audio 2. "
+          "plain": "Audio 2."
         },
         {
           "plain": "Keeper's log reading"
@@ -646,7 +646,7 @@
           "plain": "List item."
         },
         {
-          "plain": "Audio 1. "
+          "plain": "Audio 1."
         },
         {
           "plain": "Foghorn recording"
@@ -655,7 +655,7 @@
           "plain": "List item."
         },
         {
-          "plain": "Audio 2. "
+          "plain": "Audio 2."
         },
         {
           "plain": "Keeper's log reading"
@@ -1468,11 +1468,11 @@
       ],
       "utterances": [
         {
-          "ssml": "Audio 1. ",
+          "ssml": "Audio 1.",
           "language": "en"
         },
         {
-          "ssml": "Foghorn recording Audio 2. ",
+          "ssml": "Foghorn recording Audio 2.",
           "language": "en"
         },
         {
@@ -1647,11 +1647,11 @@
           "ssml": "Start of the list."
         },
         {
-          "ssml": "Audio 1. ",
+          "ssml": "Audio 1.",
           "language": "en"
         },
         {
-          "ssml": "Foghorn recording Audio 2. ",
+          "ssml": "Foghorn recording Audio 2.",
           "language": "en"
         },
         {
@@ -1829,7 +1829,7 @@
           "ssml": "List item."
         },
         {
-          "ssml": "Audio 1. "
+          "ssml": "Audio 1."
         },
         {
           "ssml": "Foghorn recording"
@@ -1838,7 +1838,7 @@
           "ssml": "List item."
         },
         {
-          "ssml": "Audio 2. "
+          "ssml": "Audio 2."
         },
         {
           "ssml": "Keeper's log reading"
@@ -2036,7 +2036,7 @@
           "ssml": "List item."
         },
         {
-          "ssml": "Audio 1. "
+          "ssml": "Audio 1."
         },
         {
           "ssml": "Foghorn recording"
@@ -2045,7 +2045,7 @@
           "ssml": "List item."
         },
         {
-          "ssml": "Audio 2. "
+          "ssml": "Audio 2."
         },
         {
           "ssml": "Keeper's log reading"

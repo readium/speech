@@ -78,11 +78,11 @@
       ],
       "utterances": [
         {
-          "plain": "Figure 1. ",
+          "plain": "Figure 1.",
           "language": "en"
         },
         {
-          "plain": "Lighthouse cross-section Figure 2. ",
+          "plain": "Lighthouse cross-section Figure 2.",
           "language": "en"
         },
         {
@@ -257,11 +257,11 @@
           "plain": "Start of the list."
         },
         {
-          "plain": "Figure 1. ",
+          "plain": "Figure 1.",
           "language": "en"
         },
         {
-          "plain": "Lighthouse cross-section Figure 2. ",
+          "plain": "Lighthouse cross-section Figure 2.",
           "language": "en"
         },
         {
@@ -439,7 +439,7 @@
           "plain": "List item."
         },
         {
-          "plain": "Figure 1. "
+          "plain": "Figure 1."
         },
         {
           "plain": "Lighthouse cross-section"
@@ -448,7 +448,7 @@
           "plain": "List item."
         },
         {
-          "plain": "Figure 2. "
+          "plain": "Figure 2."
         },
         {
           "plain": "Fresnel lens diagram"
@@ -646,7 +646,7 @@
           "plain": "List item."
         },
         {
-          "plain": "Figure 1. "
+          "plain": "Figure 1."
         },
         {
           "plain": "Lighthouse cross-section"
@@ -655,7 +655,7 @@
           "plain": "List item."
         },
         {
-          "plain": "Figure 2. "
+          "plain": "Figure 2."
         },
         {
           "plain": "Fresnel lens diagram"
@@ -1468,11 +1468,11 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure 1. ",
+          "ssml": "Figure 1.",
           "language": "en"
         },
         {
-          "ssml": "Lighthouse cross-section Figure 2. ",
+          "ssml": "Lighthouse cross-section Figure 2.",
           "language": "en"
         },
         {
@@ -1647,11 +1647,11 @@
           "ssml": "Start of the list."
         },
         {
-          "ssml": "Figure 1. ",
+          "ssml": "Figure 1.",
           "language": "en"
         },
         {
-          "ssml": "Lighthouse cross-section Figure 2. ",
+          "ssml": "Lighthouse cross-section Figure 2.",
           "language": "en"
         },
         {
@@ -1829,7 +1829,7 @@
           "ssml": "List item."
         },
         {
-          "ssml": "Figure 1. "
+          "ssml": "Figure 1."
         },
         {
           "ssml": "Lighthouse cross-section"
@@ -1838,7 +1838,7 @@
           "ssml": "List item."
         },
         {
-          "ssml": "Figure 2. "
+          "ssml": "Figure 2."
         },
         {
           "ssml": "Fresnel lens diagram"
@@ -2036,7 +2036,7 @@
           "ssml": "List item."
         },
         {
-          "ssml": "Figure 1. "
+          "ssml": "Figure 1."
         },
         {
           "ssml": "Lighthouse cross-section"
@@ -2045,7 +2045,7 @@
           "ssml": "List item."
         },
         {
-          "ssml": "Figure 2. "
+          "ssml": "Figure 2."
         },
         {
           "ssml": "Fresnel lens diagram"

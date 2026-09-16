@@ -64,10 +64,16 @@ export async function splitSsmlAtSentences(
     while (pos < end) {
       const boundary = boundaries[boundaryIndex];
       const sliceEnd = Math.min(end, boundary.end);
-      const escaped = ssmlTextEscape(unescapedText.slice(pos - atomStart, sliceEnd - atomStart));
+      const isBoundaryEnd = sliceEnd >= boundary.end && boundaryIndex < boundaries.length - 1;
+      // The boundary range includes trailing separator whitespace (kept in
+      // offsets); strip it here, at the source slice, so it's gone even when
+      // it sits right before a tag closes rather than at the buffer's end.
+      let slice = unescapedText.slice(pos - atomStart, sliceEnd - atomStart);
+      if (isBoundaryEnd) slice = slice.replace(/[ \t\r\n]+$/, "");
+      const escaped = ssmlTextEscape(slice);
       buffer += wrap ? wrap(escaped) : escaped;
       pos = sliceEnd;
-      if (pos >= boundary.end && boundaryIndex < boundaries.length - 1) {
+      if (isBoundaryEnd) {
         results.push(buffer);
         buffer = "";
         boundaryIndex++;
@@ -87,6 +93,6 @@ export async function splitSsmlAtSentences(
       else appendSlice(atom.innerText, plainStarts[i], (escaped) => `${openTag}${escaped}${closeTag}`);
     }
   });
-  if (buffer) results.push(buffer);
+  if (buffer) results.push(buffer.replace(/[ \t\r\n]+$/, ""));
   return results;
 }

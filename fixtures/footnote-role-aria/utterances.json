@@ -124,7 +124,7 @@
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote 1. ",
+          "plain": "This text has a footnote 1.",
           "language": "en"
         },
         {
@@ -219,7 +219,7 @@
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote 1. "
+          "plain": "This text has a footnote 1."
         },
         {
           "plain": "Text of the footnote."
@@ -6070,7 +6070,7 @@
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote 1. ",
+          "ssml": "This text has a footnote 1.",
           "language": "en"
         },
         {
@@ -6165,7 +6165,7 @@
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote 1. "
+          "ssml": "This text has a footnote 1."
         },
         {
           "ssml": "Text of the footnote."

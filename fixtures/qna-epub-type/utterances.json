@@ -75,7 +75,7 @@
       ],
       "utterances": [
         {
-          "plain": "Q: How often was the lamp refueled? "
+          "plain": "Q: How often was the lamp refueled?"
         },
         {
           "plain": "A: Nightly, by hand."
@@ -245,7 +245,7 @@
           "plain": "Start of the questions and answers."
         },
         {
-          "plain": "Q: How often was the lamp refueled? "
+          "plain": "Q: How often was the lamp refueled?"
         },
         {
           "plain": "A: Nightly, by hand."
@@ -330,7 +330,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Q: How often was the lamp refueled? "
+          "ssml": "Q: How often was the lamp refueled?"
         },
         {
           "ssml": "A: Nightly, by hand."
@@ -500,7 +500,7 @@
           "ssml": "Start of the questions and answers."
         },
         {
-          "ssml": "Q: How often was the lamp refueled? "
+          "ssml": "Q: How often was the lamp refueled?"
         },
         {
           "ssml": "A: Nightly, by hand."

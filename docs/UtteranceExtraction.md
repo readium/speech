@@ -212,7 +212,7 @@ A mid-sentence pagebreak/footnote splits the sentence at that exact point instea
 ### `segmentation`
 
 - `"structure"` (default) — one utterance per structural/block-level unit, whatever its sentence count.
-- `"sentence"` — split at real sentence boundaries instead: a multi-sentence node becomes several utterances, and a sentence that genuinely spans sibling nodes (e.g. split across two `<span>`s) is reconstructed into one utterance covering both.
+- `"sentence"` — split at real sentence boundaries instead: a multi-sentence node becomes several utterances, and a sentence genuinely split across sibling GND nodes (e.g. a fixed-layout document with no enclosing paragraph, just positioned text fragments) is reconstructed into one utterance covering both.
 
 ```typescript
 // <p>Hello there. This has two sentences.</p>
@@ -220,7 +220,7 @@ await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence"
 // [{ plain: "Hello there. " }, { plain: "This has two sentences." }]
 ```
 
-Each utterance's `offsets` (see above) says which source element(s) it was built from — one entry per contributing node, so a sentence reconstructed across two elements gets two entries, each with its own `locate`.
+Each utterance's `offsets` (see above) says which source element(s) it was built from — up to one entry per contributing node, so a sentence reconstructed across two elements gets two entries, each with its own `locate`.
 
 `suppressions` lists, per language, abbreviations (with trailing period, e.g. `"d."`) that shouldn't be mistaken for sentence endings:
 
@@ -230,6 +230,26 @@ await extractUtterances(gnd, {
   segmentation: { mode: "sentence", suppressions: { en: ["approx."] } },
 });
 ```
+
+#### Reconstruction heuristics
+
+Input: the flat, ordered utterance list the walk (above) produced. Reconstruction never goes back to the GND tree — it operates on this list only.
+
+**Step 1 — eligibility.** For each pair of adjacent utterances A, B, A may extend a run into B only if all of the following hold:
+
+- Both A and B have real source text (not missing/empty).
+- Neither A nor B was authored by extraction itself rather than lifted from the source — e.g. an image's `description` (its alt text) is extraction-authored, since it stands in for text the document doesn't have.
+- A and B have the same `language`, treating a missing `language` on either one as `"en"`.
+- Neither A's nor B's source node carries a role where missing punctuation is not meaningful: `cell`, `rowheader`, `row`, `table`, `list`, `listItem`, `heading1`–`heading6`.
+
+A maximal run of pairwise-eligible utterances is built by scanning forward while eligibility holds.
+
+**Step 2 — confirmation.** Take the whole run's text, joined into one string, and run the real sentence segmenter on it once — segmentation is never decided any other way. For each gap between two pieces in the run:
+
+- The gap is a genuine join only if some detected sentence boundary extends past the gap into the next piece's own text. A boundary that lands exactly at the gap, consuming none of the next piece's text, does not count.
+- Consecutive genuine-join gaps chain into one merge group. That group is then resegmented on its own, self-contained text — a confirmed group is not guaranteed to collapse into exactly one utterance; it can still yield more than one.
+
+Anything left outside a merge group is split on its own sentence boundaries independently.
 
 ## Contextualization catalog
 
