@@ -425,37 +425,32 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
   }
 
   // A noteref's own visible text (e.g. "[1]") is a visual marker only,
-  // never spoken. Its footnote target's contextualizations and content
-  // merge into one utterance; any other kind of child is walked as-is.
+  // never spoken. Its footnote target's contextualization and content are
+  // pushed as separate utterances, same as any other block role, so the
+  // note's real content stays its own (non-synthetic) utterance; any other
+  // kind of child is walked as-is.
   if (roles.includes("noteref")) {
     for (const child of node.children ?? []) {
       const childRoles = child.role ?? [];
       if (isSkipped(childRoles, ctx.skip)) continue;
       if (childRoles.includes("footnote")) {
-        const inner: ReadiumSpeechUtterance[] = [];
-        const innerSources: SourceTrace = [];
-        walk([child], inner, innerSources, ctx, suppress);
         const footnoteContextualized = ctx.contextualize.has("footnote");
         const footnoteBlock = ctx.i18n.exists("footnote.block.start") || ctx.i18n.exists("footnote.block.end");
-        const startText = footnoteContextualized ? resolveEntryText(ctx, footnoteBlock ? "footnote.block.start" : "footnote.inline") : undefined;
-        const hasEntry = footnoteContextualized && (startText !== undefined || footnoteBlock);
-        const pieces: ReadiumSpeechUtterance[] = [];
-        const pieceSources: SourceTrace = [];
-        if (startText !== undefined) {
-          pieces.push(formatPlain(startText, ctx.format));
-          pieceSources.push(child);
+        const childEligible =
+          childRoles.some((role) => blockLevelRoleSet.has(role)) && !suppress && !ctx.inlineContextualization;
+        const childBeforeLength = out.length;
+        if (footnoteContextualized) {
+          const startText = resolveEntryText(ctx, footnoteBlock ? "footnote.block.start" : "footnote.inline");
+          if (startText !== undefined) push(out, sources, child, [formatPlain(startText, ctx.format)]);
         }
-        pieces.push(...inner);
-        pieceSources.push(...innerSources);
-        if (hasEntry && footnoteBlock) {
+        // The child's own walk() would otherwise claim this same boundary on its first
+        // content utterance instead of the start text pushed above.
+        walk([child], out, sources, ctx, suppress || childEligible);
+        if (childEligible && out.length > childBeforeLength) ctx.blockStarts.add(out[childBeforeLength]);
+        if (footnoteContextualized && footnoteBlock) {
           const endText = resolveEntryText(ctx, "footnote.block.end");
-          if (endText !== undefined) {
-            pieces.push(formatPlain(endText, ctx.format));
-            pieceSources.push(child);
-          }
+          if (endText !== undefined) push(out, sources, child, [formatPlain(endText, ctx.format)]);
         }
-        const merged = hasEntry && pieces.length > 1 ? mergeUtterances(pieces, ctx.format) : undefined;
-        pushPiecesOrMerged(out, sources, ctx, child, pieces, pieceSources, merged);
       } else {
         walk([child], out, sources, ctx, suppress);
       }
