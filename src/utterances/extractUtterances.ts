@@ -436,7 +436,8 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
       if (childRoles.includes("footnote")) {
         const footnoteContextualized = ctx.contextualize.has("footnote");
         const footnoteBlock = ctx.i18n.exists("footnote.block.start") || ctx.i18n.exists("footnote.block.end");
-        const childEligible = childRoles.some((role) => blockLevelRoleSet.has(role)) && !suppress;
+        const childEligible =
+          childRoles.some((role) => blockLevelRoleSet.has(role)) && !suppress && !ctx.inlineContextualization;
         const childBeforeLength = out.length;
         if (footnoteContextualized) {
           const startText = resolveEntryText(ctx, footnoteBlock ? "footnote.block.start" : "footnote.inline");
