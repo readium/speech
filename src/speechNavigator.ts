@@ -8,7 +8,7 @@ import { SpeechPreferencesEditor } from "./preferences/SpeechPreferencesEditor";
 import { SpeechSettings } from "./preferences/SpeechSettings";
 import { ContextualizationShapeOverrides, resolveContextualizationShapes } from "./preferences/verbosityTables";
 import { ReadiumSpeechUtterance } from "./utterance";
-import { extractUtterancesWithSources } from "./utterances/extractUtterances";
+import { extractUtterancesWithSources, type SourceTrace } from "./utterances/extractUtterances";
 import { Contextualizations } from "./utterances/types";
 import { ReadiumSpeechVoice } from "./voices/types";
 import { EventEmitter } from "./utils/eventEmitter";
@@ -63,7 +63,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   // Parallel to `contentQueue`, from the extraction that produced it — lets
   // reextract() find where to resume after a reload (see resolveResumeIndex).
-  private contentSources: (GndObject | undefined)[] = [];
+  private contentSources: SourceTrace = [];
 
   // Parallel to `contentQueue`: whether each utterance begins a new
   // block-level element. loadContent() content has no boundaries of its own.
@@ -304,10 +304,13 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   // Nearest node at or before oldIndex that's still present in newSources.
-  private resolveResumeIndex(oldSources: (GndObject | undefined)[], oldIndex: number, newSources: (GndObject | undefined)[]): number | null {
+  // A reconstructed-sentence span (a `[first, last]` tuple) is a fresh array
+  // each extraction, so it never matches by identity — skipped in favor of
+  // the next plain single-node entry further back.
+  private resolveResumeIndex(oldSources: SourceTrace, oldIndex: number, newSources: SourceTrace): number | null {
     for (let i = Math.min(oldIndex, oldSources.length - 1); i >= 0; i--) {
       const node = oldSources[i];
-      if (node === undefined) continue;
+      if (node === undefined || Array.isArray(node)) continue;
       const found = newSources.indexOf(node);
       if (found !== -1) return found;
     }

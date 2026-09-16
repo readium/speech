@@ -41,7 +41,8 @@ export interface ContextualizationOptions {
 // See `ExtractUtterancesOptions.segmentation` below.
 export interface SegmentationOptions {
   // "structure" (default): one utterance per structural/block-level unit.
-  // "sentence": split at real sentence boundaries instead.
+  // "sentence": split at real sentence boundaries instead, reconstructing a
+  // sentence across sibling nodes when it genuinely spans them.
   mode?: Segmentation;
 
   // Extra per-language abbreviations (with trailing period, e.g. "d.") that
@@ -79,11 +80,11 @@ export interface ExtractUtterancesOptions {
   contextualize?: GndRole[];
 
   // Which language declarations in the *input* the extraction respects.
-  // This never merges separate sibling nodes into one utterance — each
-  // already has its own utterance and keeps it regardless — it only
-  // changes how *a single node's own* inline language spans (e.g.
-  // `<em lang="fr">`, embedded as SSML `<lang>` tags by the GND converter)
-  // are treated:
+  // This option itself never merges sibling nodes — it only changes how *a
+  // single node's own* inline language spans (e.g. `<em lang="fr">`,
+  // embedded as SSML `<lang>` tags by the GND converter) are treated. (A
+  // different mechanism, `segmentation: "sentence"`, can merge sibling
+  // nodes when a sentence spans them — see `SegmentationOptions` below.)
   //  - "always" or omitted: honor them as declared — `ssml` keeps spans
   //    tagged in one string; `plain` splits into one utterance per
   //    language run instead.

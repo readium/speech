@@ -1,6 +1,7 @@
 import "../gnd/setup.js";
 import test from "ava";
 import { parseMarkup } from "../../src/gnd/converter.js";
+import { decodeTextref } from "../../src/gnd/textrefFragment.js";
 import { extractUtterances, extractUtterancesWithSources } from "../../src/utterances/extractUtterances.js";
 
 const html = "<p>Hello there. This has two sentences.</p><p>And a second paragraph.</p>";
@@ -144,6 +145,109 @@ test("segmentation: sentence honors suppressions for the utterance's own languag
   t.deepEqual(
     withSuppressions.map((u) => u.plain),
     ["We visited Zqxk. University last year."]
+  );
+});
+
+test("segmentation: sentence reconstructs a sentence split across two sibling paragraphs", async (t) => {
+  const gnd = parseMarkup("<p>This sentence continues</p><p>across two paragraphs.</p>");
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["This sentence continues across two paragraphs."]
+  );
+});
+
+test("segmentation: sentence reconstruction spans both source elements in the locator", async (t) => {
+  const doc = new DOMParser().parseFromString(
+    "<body><div><p>This sentence continues</p><p>across two paragraphs.</p></div></body>",
+    "text/html"
+  );
+  const root = doc.querySelector("div")!;
+  const gnd = parseMarkup(root, undefined, { textrefs: { roles: true, domRange: true } });
+  const { utterances, sources } = await extractUtterancesWithSources(gnd, {
+    format: "plain",
+    segmentation: { mode: "sentence" },
+  });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["This sentence continues across two paragraphs."]
+  );
+  const [source] = sources;
+  t.true(Array.isArray(source), "sourced from a [first, last] node span");
+  const [first, last] = source as [{ textref?: string }, { textref?: string }];
+  const firstRef = decodeTextref(first);
+  const lastRef = decodeTextref(last);
+  t.truthy(firstRef?.domRange);
+  t.truthy(lastRef?.domRange);
+  t.not(firstRef!.domRange!.start.cssSelector, lastRef!.domRange!.start.cssSelector);
+
+  const locate = utterances[0].locate;
+  t.truthy(locate?.domRange);
+  t.is(locate!.domRange!.start.cssSelector, firstRef!.domRange!.start.cssSelector);
+  t.is(locate!.domRange!.end!.cssSelector, lastRef!.domRange!.end?.cssSelector ?? lastRef!.domRange!.start.cssSelector);
+
+  // Both selectors must actually resolve to the two distinct paragraphs —
+  // selectors are anchored at the document, not at `root`.
+  const paragraphs = root.querySelectorAll("p");
+  t.is(doc.querySelector(locate!.domRange!.start.cssSelector), paragraphs[0]);
+  t.is(doc.querySelector(locate!.domRange!.end!.cssSelector), paragraphs[1]);
+});
+
+test("segmentation: sentence does not falsely merge a genuine abbreviation-adjacent sentence end across paragraphs", async (t) => {
+  const gnd = parseMarkup("<p>He works at Acme Inc.</p><p>Tomorrow starts early.</p>");
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["He works at Acme Inc.", "Tomorrow starts early."]
+  );
+});
+
+test("segmentation: sentence reuses suppression logic across a paragraph boundary", async (t) => {
+  const gnd = parseMarkup("<p>Contact Mr.</p><p>Smith for details.</p>");
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["Contact Mr. Smith for details."]
+  );
+});
+
+test("segmentation: sentence reconstruction chains across three sibling paragraphs", async (t) => {
+  const gnd = parseMarkup("<p>One sentence</p><p>split across</p><p>three paragraphs.</p>");
+  const { utterances, sources } = await extractUtterancesWithSources(gnd, {
+    format: "plain",
+    segmentation: { mode: "sentence" },
+  });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["One sentence split across three paragraphs."]
+  );
+  t.true(Array.isArray(sources[0]));
+});
+
+test("segmentation: sentence merges only a paragraph's trailing incomplete sentence into its neighbor, leaving its earlier complete sentences untouched", async (t) => {
+  const gnd = parseMarkup("<p>First one. First two. Third begins here</p><p>and finishes here.</p>");
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["First one. ", "First two. ", "Third begins here and finishes here."]
+  );
+});
+
+test("segmentation: sentence reconstruction never double-spaces a boundary that already carries a real space", async (t) => {
+  const gnd = parseMarkup("<div>This fragment already ends with a space </div><div>so no second one should be added.</div>");
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["This fragment already ends with a space so no second one should be added."]
+  );
+});
+
+test("segmentation: sentence never reconstructs across a table cell boundary", async (t) => {
+  const gnd = parseMarkup("<table><tr><td>eSpeak</td><td>Jonathan Duddington</td></tr></table>");
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["eSpeak", "Jonathan Duddington"]
   );
 });
 
