@@ -160,7 +160,14 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. Text of the footnote. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the footnote."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         }
       ]
@@ -248,7 +255,14 @@
           "plain": "This text has a footnote."
         },
         {
-          "plain": "Start of the footnote. Text of the footnote. End of the footnote.",
+          "plain": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "plain": "Text of the footnote."
+        },
+        {
+          "plain": "End of the footnote.",
           "synthetic": true
         }
       ]
@@ -2803,7 +2817,14 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. Text of the footnote. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the footnote."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         }
       ]
@@ -2891,7 +2912,14 @@
           "ssml": "This text has a footnote."
         },
         {
-          "ssml": "Start of the footnote. Text of the footnote. End of the footnote.",
+          "ssml": "Start of the footnote.",
+          "synthetic": true
+        },
+        {
+          "ssml": "Text of the footnote."
+        },
+        {
+          "ssml": "End of the footnote.",
           "synthetic": true
         }
       ]

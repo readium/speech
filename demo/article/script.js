@@ -199,10 +199,14 @@ function setupEventListeners() {
   navigator.on("contentchange", (event) => {
     utterances = event.detail.content;
     renderUtterancesPanel();
-    // currentSentenceIndex still holds the pre-reextract value; force re-entry
-    // since no "start" event follows to correct it while paused.
+    // navigator.getState() can still read "loading" here for engines that buffer
+    // asynchronously, so whether a highlight was active is judged from the
+    // pre-reextract index rather than the (possibly stale) state.
+    const hadActiveHighlight = readAlongEnabled && currentSentenceIndex !== -1;
     currentSentenceIndex = -1;
-    if (readAlongEnabled) enterUtterance(navigator.getCurrentUtteranceIndex());
+    if (hadActiveHighlight) {
+      enterUtterance(navigator.getCurrentUtteranceIndex());
+    }
     updateUI();
   });
 

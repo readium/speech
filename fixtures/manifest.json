@@ -1309,6 +1309,28 @@
     }
   },
   {
+    "id": "noteref-target-in-endnotes-epub-type",
+    "dir": "noteref-target-in-endnotes-epub-type",
+    "role": "footnote",
+    "description": "A noteref's target footnote, nested inside an endnotes section via epub:type, still appears at its own location (unlike a footnote outside any endnotes section, which is suppressed there since a noteref already embeds it inline)",
+    "files": {
+      "input": "input.xhtml",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
+    "id": "noteref-target-in-endnotes-role-aria",
+    "dir": "noteref-target-in-endnotes-role-aria",
+    "role": "footnote",
+    "description": "A noteref's target footnote, nested inside an endnotes section via explicit ARIA roles, still appears at its own location (unlike a footnote outside any endnotes section, which is suppressed there since a noteref already embeds it inline)",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json",
+      "utterances": "utterances.json"
+    }
+  },
+  {
     "id": "notice-epub-type",
     "dir": "notice-epub-type",
     "role": "notice",
