@@ -36,7 +36,7 @@ export function isDroppedByAnotherRole(role: GndRole, roles: GndRole[], ctx: Wal
 // wording can embed it; recomputing `plainTextOf(node)` guards a same-named param.
 function scopeToOwnValue(utterance: ReadiumSpeechUtterance, text: string, node: GndObject, ctx: WalkContext, params?: Record<string, string>): void {
   const value = params?.value;
-  if (!value || value !== plainTextOf(node)) return;
+  if (value === undefined || value !== plainTextOf(node)) return;
   // Language/synthetic status reflect the node's own real text regardless of
   // whether a locate can be computed — a node with no textref still lost its language otherwise.
   if (ctx.language !== "none") {
