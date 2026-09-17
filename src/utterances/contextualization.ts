@@ -1,5 +1,6 @@
 import type { GndObject, GndRole } from "../gnd/types.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
+import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { roleDropOverrides } from "./roles.js";
 import { computeTableStructure, plainTextOf } from "./tableStructure.js";
 import { formatPlain, push } from "./utteranceOutput.js";
@@ -31,6 +32,27 @@ export function isDroppedByAnotherRole(role: GndRole, roles: GndRole[], ctx: Wal
   });
 }
 
+// `value` means "this node's own text" (see cell/rowheader) — any role's
+// wording can embed it; recomputing `plainTextOf(node)` guards a same-named param.
+function scopeToOwnValue(utterance: ReadiumSpeechUtterance, text: string, node: GndObject, ctx: WalkContext, params?: Record<string, string>): void {
+  const value = params?.value;
+  if (!value || value !== plainTextOf(node)) return;
+  // Language/synthetic status reflect the node's own real text regardless of
+  // whether a locate can be computed — a node with no textref still lost its language otherwise.
+  if (ctx.language !== "none") {
+    const language = typeof node.text === "object" ? node.text.language : undefined;
+    if (language) utterance.language = language;
+  }
+  ctx.synthetic.delete(utterance);
+  const start = text.lastIndexOf(value);
+  if (start === -1) return;
+  const resolved = resolveNodeLocate(node, ctx.ancestorChains);
+  if (!resolved) return;
+  const quoteLocate = subLocateFor(resolved.ref, value);
+  utterance.offsets = [{ start, end: start + value.length, locate: quoteLocate }];
+  utterance.locate = resolved.own ? resolved.ref : quoteLocate;
+}
+
 // Speaks `role`'s catalog entry for this `phase`: `inline` only has
 // something to say "before"; `block` says `start`/`end` at "before"/"after"
 // — unless `ctx.contextualizationShapes` overrides this role to "inline"
@@ -51,24 +73,18 @@ export function pushRoleContextualization(
   if (isBlock && ctx.contextualizationShapes[role] !== "inline") {
     const base = phase === "before" ? `${role}.block.start` : `${role}.block.end`;
     const text = resolveEntryText(ctx, base, variantKey, params);
-    if (text) push(out, sources, node, [formatPlain(text, ctx)]);
+    if (text) {
+      const utterance = formatPlain(text, ctx);
+      scopeToOwnValue(utterance, text, node, ctx, params);
+      push(out, sources, node, [utterance]);
+    }
     return;
   }
   if (phase === "before") {
     const text = resolveEntryText(ctx, `${role}.inline`, variantKey, params);
     if (text) {
       const utterance = formatPlain(text, ctx);
-      // cell/rowheader's template embeds the node's own text (`{{ value }}`) —
-      // it must keep that node's language, same as speaking the text directly
-      // would, and isn't a synthesized label the way other roles' catalog
-      // entries are: it's the node's real text, just optionally header-prefixed.
-      if (valueFoldingRoleSet.has(role)) {
-        ctx.synthetic.delete(utterance);
-        if (ctx.language !== "none") {
-          const language = typeof node.text === "object" ? node.text.language : undefined;
-          if (language) utterance.language = language;
-        }
-      }
+      scopeToOwnValue(utterance, text, node, ctx, params);
       push(out, sources, node, [utterance]);
     }
   }
