@@ -1,21 +1,26 @@
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
+import { stripSsmlTags } from "./text.js";
 
 // charIndex is the engine's own runtime position, unknowable when `offsets`
 // was built — resolved by scanning pieces in order from where the last ended.
+// charIndex is always plain-text space (see ssmlIndexToPlainIndex), so SSML
+// utterances are matched against their tag-stripped text, not the raw markup.
 export function resolveBoundaryLocate(
   utterance: ReadiumSpeechUtterance,
   charIndex: number,
   charLength: number,
 ): { locate: LocatorOptions; word: string } | undefined {
   const offsets = utterance.offsets;
-  const outputText = utterance.plain ?? utterance.ssml ?? "";
+  const isSsml = !utterance.plain && !!utterance.ssml;
+  const outputText = utterance.plain ?? (utterance.ssml ? stripSsmlTags(utterance.ssml) : "");
   if (!offsets?.length || !outputText) return undefined;
 
   let cursor = 0;
   for (const offset of offsets) {
     // No quote means this piece owns its whole node — its text is whatever remains unconsumed.
-    const pieceText = offset.locate.text?.highlight ?? outputText.slice(cursor);
+    const rawPieceText = offset.locate.text?.highlight;
+    const pieceText = rawPieceText ? (isSsml ? stripSsmlTags(rawPieceText) : rawPieceText) : outputText.slice(cursor);
     if (!pieceText) continue;
     const start = outputText.indexOf(pieceText, cursor);
     if (start === -1) continue;

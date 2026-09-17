@@ -90,13 +90,7 @@ export function resolveNodeText(text: GndObject["text"]): ResolvedNodeText | und
 // placeholder, so the GND converter never generated a `plain` variant for
 // it — see `converter.ts`'s `flushText()`).
 export function stripSsmlTags(ssml: string): string {
-  return ssml
-    .replace(/<[^>]+>/g, "")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&amp;/g, "&")
-    .replace(/ {2,}/g, " ")
-    .trim();
+  return stripSsmlTagsWithMap(ssml).plain;
 }
 
 // Same as `stripSsmlTags`, but `map[i]` also gives the `ssml` position that produced `plain[i]`.

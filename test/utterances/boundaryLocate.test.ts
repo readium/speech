@@ -54,3 +54,16 @@ test("resolveBoundaryLocate returns undefined when charIndex falls outside every
   const [utterance] = await extractUtterances(gnd, { format: "plain" });
   t.is(resolveBoundaryLocate(utterance, 9999, 1), undefined);
 });
+
+test("resolveBoundaryLocate matches a plain-text-space charIndex against SSML markup, skipping past an inline tag", async (t) => {
+  const gnd = parseMarkup('<p>See <span lang="fr">Bonjour</span> friend.</p>', undefined, { textrefs: { roles: true } });
+  const [utterance] = await extractUtterances(gnd, { format: "ssml", language: "always" });
+  t.true((utterance.ssml ?? "").includes("<lang"));
+
+  // charIndex here mirrors what SpeechServerEngine reports: a position in the
+  // tag-stripped plain text ("See Bonjour friend."), not the raw SSML string.
+  const plainText = "See Bonjour friend.";
+  const charIndex = plainText.indexOf("friend");
+  const resolved = resolveBoundaryLocate(utterance, charIndex, "friend".length);
+  t.is(resolved?.word, "friend");
+});
