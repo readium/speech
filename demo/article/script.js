@@ -101,11 +101,7 @@ async function initialize() {
     voiceManager = await WebSpeechVoiceManager.initialize({ languages: ["en"] });
     enVoices = await voiceManager.getVoices({ removeDuplicates: true });
 
-    // Not in the segmenter's built-in English abbreviation list, so e.g.
-    // "(d. 1003 AD)" or "St. Petersburg" would otherwise split mid-sentence.
-    navigator = new ReadiumSpeechNavigator(new WebSpeechEngine(), {
-      segmentationOverrides: { suppressions: { en: ["d.", "St."] } },
-    });
+    navigator = new ReadiumSpeechNavigator(new WebSpeechEngine());
     navigator.setSpeakInContentLanguage(true);
 
     // Broadens the shared WebSpeechVoiceManager singleton so the engine's

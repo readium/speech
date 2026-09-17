@@ -47,6 +47,8 @@ export interface SegmentationOptions {
 
   // Extra per-language abbreviations (with trailing period, e.g. "d.") that
   // "sentence" mode won't treat as sentence endings — keyed like `language`.
+  // Merged on top of `builtInSuppressions` (src/utterances/builtInSuppressions.ts),
+  // which already covers frequent cases per language.
   suppressions?: Record<string, string[]>;
 }
 

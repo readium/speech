@@ -1,6 +1,7 @@
 import i18next, { type i18n } from "i18next";
 import type { GndObject, GndRole } from "../gnd/types.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
+import { builtInSuppressions } from "./builtInSuppressions.js";
 import { contextualizationsForLocale } from "./contextualizations.js";
 import type {
   ContextualizationEntry,
@@ -94,6 +95,17 @@ function mergeContextualizations(base: Contextualizations, override: Contextuali
   return merged;
 }
 
+// A caller's suppressions add to a language's built-ins rather than
+// replacing them, so overriding one language doesn't drop the rest.
+function mergeSuppressions(base: Record<string, string[]>, override: Record<string, string[]> | undefined): Record<string, string[]> {
+  if (!override) return base;
+  const merged: Record<string, string[]> = { ...base };
+  for (const language of Object.keys(override)) {
+    merged[language] = [...new Set([...(base[language] ?? []), ...override[language]])];
+  }
+  return merged;
+}
+
 // Every node's own ancestors (nearest first), keyed by object identity —
 // used by attachLocate() to fall back to an enclosing node's textref
 // when the utterance's own source has none of its own (e.g. its text lives
@@ -124,7 +136,7 @@ export async function makeWalkContext(nodes: GndObject[], options: ExtractUttera
     inlineContextualization: options.inlineContextualization ?? false,
     language: options.language ?? "block-level",
     segmentation: options.segmentation?.mode ?? "structure",
-    segmentationSuppressions: options.segmentation?.suppressions ?? {},
+    segmentationSuppressions: mergeSuppressions(builtInSuppressions, options.segmentation?.suppressions),
     blockStarts: new Set(),
     tableRowNumbers: new Map(),
     tableCellHeaders: new Map(),

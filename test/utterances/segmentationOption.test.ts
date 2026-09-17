@@ -180,6 +180,27 @@ test("segmentation: sentence honors suppressions for the utterance's own languag
   );
 });
 
+test("segmentation: sentence honors built-in suppressions with no caller config", async (t) => {
+  const gnd = parseMarkup("<p>He was born in St. Petersburg (d. 1921).</p>");
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["He was born in St. Petersburg (d. 1921)."]
+  );
+});
+
+test("segmentation: sentence merges caller suppressions with built-ins rather than replacing them", async (t) => {
+  const gnd = parseMarkup("<p>We visited Zqxk. University in St. Petersburg.</p>");
+  const utterances = await extractUtterances(gnd, {
+    format: "plain",
+    segmentation: { mode: "sentence", suppressions: { en: ["Zqxk."] } },
+  });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["We visited Zqxk. University in St. Petersburg."]
+  );
+});
+
 test("segmentation: sentence reconstructs a sentence split across two sibling paragraphs", async (t) => {
   const gnd = parseMarkup("<p>This sentence continues</p><p>across two paragraphs.</p>");
   const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
