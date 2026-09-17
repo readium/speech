@@ -116,6 +116,10 @@ type ReadiumSpeechPlaybackEvent = {
 };
 ```
 
+### `"boundary"` events
+
+`detail.charIndex`/`detail.charLength` are always positions in `utterance.plain` — the coordinate space the engine actually speaks against, regardless of which engine or whether the utterance was originally authored with `ssml`. When the boundary can be resolved against the current utterance's `offsets`, `speechNavigator` also attaches `detail.locate` (a `LocatorOptions`, ready for `createLocator()`) and `detail.word` (the matched word's text) — see [Highlighting.md](Highlighting.md#word-level) for how to use it, and for the standalone `resolveBoundaryLocate()` function when driving playback without `speechNavigator`.
+
 ### Speaking in an utterance's own content language
 
 By default, playback always uses the selected/default voice. Call `setSpeakInContentLanguage(true)` to instead match each utterance's own `language` field to the best available voice for that language, falling back to the selected/default voice when no match exists (which also fires a `"languagefallback"` event with `detail: { language, reason: "no-matching-voice" }`).

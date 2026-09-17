@@ -99,6 +99,61 @@ export function stripSsmlTags(ssml: string): string {
     .trim();
 }
 
+// Same as `stripSsmlTags`, but `map[i]` also gives the `ssml` position that produced `plain[i]`.
+export function stripSsmlTagsWithMap(ssml: string): { plain: string; map: number[] } {
+  let plain = "";
+  const map: number[] = [];
+  let lastWasSpace = false;
+  let i = 0;
+  while (i < ssml.length) {
+    const ch = ssml[i];
+    if (ch === "<") {
+      const close = ssml.indexOf(">", i);
+      i = close === -1 ? ssml.length : close + 1;
+      continue;
+    }
+    const entity = ssml.startsWith("&lt;", i) ? "<" : ssml.startsWith("&gt;", i) ? ">" : ssml.startsWith("&amp;", i) ? "&" : undefined;
+    if (entity) {
+      plain += entity;
+      map.push(i);
+      i += entity === "&" ? 5 : 4;
+      lastWasSpace = false;
+      continue;
+    }
+    if (ch === " ") {
+      if (!lastWasSpace) {
+        plain += ch;
+        map.push(i);
+        lastWasSpace = true;
+      }
+      i++;
+      continue;
+    }
+    plain += ch;
+    map.push(i);
+    lastWasSpace = false;
+    i++;
+  }
+  let start = 0;
+  while (start < plain.length && /\s/.test(plain[start])) start++;
+  let end = plain.length;
+  while (end > start && /\s/.test(plain[end - 1])) end--;
+  return { plain: plain.slice(start, end), map: map.slice(start, end) };
+}
+
+// Smallest plain index whose SSML source position is >= `ssmlIndex` — lands
+// on the next real character when `ssmlIndex` fell inside a stripped tag.
+export function ssmlIndexToPlainIndex(map: number[], ssmlIndex: number): number {
+  let lo = 0;
+  let hi = map.length;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (map[mid] < ssmlIndex) lo = mid + 1;
+    else hi = mid;
+  }
+  return lo;
+}
+
 export interface LangSegment {
   plain: string;
   language?: string;

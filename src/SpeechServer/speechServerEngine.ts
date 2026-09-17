@@ -9,6 +9,7 @@ import { EventEmitter } from "../utils/eventEmitter";
 import { clampIndex } from "../utils/array";
 import { clamp } from "../utils/clamp";
 import { chunkPlainText, chunkSsmlText, TextChunk } from "./chunkText";
+import { ssmlIndexToPlainIndex, stripSsmlTagsWithMap } from "../utterances/text";
 import { CanPlayType, selectBitrate, selectFormat, SpeechServerFormatOptions } from "./selectFormat";
 import {
   SpeechServerServiceInfo,
@@ -60,6 +61,8 @@ interface SynthesizedChunk {
   // Character offset of this chunk's text within the original (unchunked) utterance text —
   // added to each boundary mark's charIndex so events stay relative to the whole utterance.
   textOffset: number;
+  // Present only for raw-SSML utterances: maps SSML positions to plain-text ones.
+  ssmlMap?: number[];
 }
 
 // One request per chunk of an utterance. The AbortController travels alongside its promise so
@@ -446,6 +449,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     const useSSML = !content.plain && !!content.ssml;
     const language = this.speakInContentLanguage ? content.language : undefined;
     const text = utteranceText(content) ?? "";
+    const ssmlMap = useSSML ? stripSsmlTagsWithMap(text).map : undefined;
 
     // ReadiumSpeechUtterance has no prev/next fields of its own — read neighbors from the queue.
     const prevUtterance = utteranceText(this.currentUtterances[index - 1]);
@@ -459,7 +463,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     if (text.length <= serviceInfo.limits.maxTextLength) {
       const controller = new AbortController();
       (isPrefetch ? this.activeControllers : this.liveControllers).add(controller);
-      return [{ promise: this.synthesizeChunk(content, text, 0, useSSML, language, prevUtterance, nextUtterance, format, bitrate, controller), controller }];
+      return [{ promise: this.synthesizeChunk(content, text, 0, useSSML, ssmlMap, language, prevUtterance, nextUtterance, format, bitrate, controller), controller }];
     }
 
     if (this.overLengthText === "error") {
@@ -488,7 +492,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       (isPrefetch ? this.activeControllers : this.liveControllers).add(controller);
       // A rejected chain skips later .then() bodies entirely, so one failed chunk stops the rest.
       const chunkPromise: Promise<SynthesizedChunk> = chain.then(() =>
-        this.synthesizeChunk(content, textChunk.text, textChunk.offset, useSSML, language, prevText, nextText, format, bitrate, controller)
+        this.synthesizeChunk(content, textChunk.text, textChunk.offset, useSSML, ssmlMap, language, prevText, nextText, format, bitrate, controller)
       );
       chunkStream.push({ promise: chunkPromise, controller });
       chain = chunkPromise;
@@ -501,6 +505,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     text: string,
     textOffset: number,
     useSSML: boolean,
+    ssmlMap: number[] | undefined,
     language: string | undefined,
     prevText: string | undefined,
     nextText: string | undefined,
@@ -539,7 +544,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
         throw new SpeechServerAudioDecodeError("Audio playback failed");
       }
 
-      return { audioBuffer, format: json.format, boundaries: json.boundaries, textOffset };
+      return { audioBuffer, format: json.format, boundaries: json.boundaries, textOffset, ssmlMap };
     } finally {
       this.activeControllers.delete(controller);
       this.liveControllers.delete(controller);
@@ -697,12 +702,20 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
         now >= entry.startTime + marks[entry.nextBoundaryIndex].elapsedTime / entry.rate
       ) {
         const mark = marks[entry.nextBoundaryIndex];
+        const rawIndex = mark.charIndex + entry.chunk.textOffset;
+        let charIndex = rawIndex;
+        let charLength = mark.charLength;
+        if (entry.chunk.ssmlMap) {
+          const map = entry.chunk.ssmlMap;
+          charIndex = ssmlIndexToPlainIndex(map, rawIndex);
+          charLength = Math.max(0, ssmlIndexToPlainIndex(map, rawIndex + mark.charLength) - charIndex);
+        }
         this.emitEvent({
           type: "boundary",
           detail: {
             name: mark.name,
-            charIndex: mark.charIndex + entry.chunk.textOffset,
-            charLength: mark.charLength,
+            charIndex,
+            charLength,
             elapsedTime: mark.elapsedTime
           }
         });

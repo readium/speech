@@ -86,7 +86,7 @@ let utteranceStyle = DecorationStyleType.Highlight;
 let utteranceTint = "#ffeb3b";
 let wordStyle = DecorationStyleType.Underline;
 let wordTint = "#e53935";
-let lastWordHighlight = null; // { cssSelector, word, before, after } — reapplied when word style/color changes mid-utterance
+let lastWordHighlight = null; // resolved LocatorOptions — reapplied when word style/color changes mid-utterance
 let mobilePanel = null; // "gnd" | "utterances" | "settings" | null — which split is open in the mobile bottom bar
 let gnd = null;
 let showTextrefs = false;
@@ -201,7 +201,7 @@ function setupEventListeners() {
 
   navigator.on("boundary", (event) => {
     if (event.detail && event.detail.name === "word") {
-      highlightCurrentWord(event.detail.charIndex, event.detail.charLength);
+      highlightCurrentWord(event.detail.locate, event.detail.word);
     }
     updateUI();
   });
@@ -1021,10 +1021,7 @@ function applyWordDecoration() {
 
   decoCtrl.applyDecorations([{
     id: "tts-word",
-    locator: createLocator({
-      ...lastWordHighlight.locate,
-      text: { highlight: lastWordHighlight.word, before: lastWordHighlight.before, after: lastWordHighlight.after },
-    }),
+    locator: createLocator(lastWordHighlight),
     style: { type: wordStyle, tint: wordTint, enforceContrast: false },
   }], "tts-word");
 }
@@ -1061,13 +1058,9 @@ function enterUtterance(index) {
   if (syncPanelsEnabled) syncPanelsToCurrentUtterance(index);
 }
 
-// Highlights the word currently being spoken using each utterance's own
-// locator (derived from the live DOM at parse time, see initializeContent)
-// rather than searching article text for a match — the same word/phrase can
-// legitimately appear more than once across the article, so anchoring by
-// locator (scoped to the utterance's own DOM location) is what keeps the
-// highlight on the right occurrence.
-function highlightCurrentWord(charIndex, charLength) {
+// `navigator` already resolves boundary events into detail.locate/detail.word;
+// see resolveBoundaryLocate() in docs/Highlighting.md for playback without it.
+function highlightCurrentWord(locate, word) {
   if (!readAlongEnabled) return;
 
   const currentIndex = navigator.getCurrentUtteranceIndex();
@@ -1076,43 +1069,10 @@ function highlightCurrentWord(charIndex, charLength) {
 
   enterUtterance(currentIndex);
   if (!wordHighlightAvailable) return;
+  if (!locate || !word || !word.trim()) return;
 
-  const found = locatePieceAt(currentUtterance, charIndex);
-  if (!found) return;
-  const { offset, pieceText, localIndex } = found;
-
-  const word = pieceText.substring(localIndex, localIndex + charLength);
-  if (!word || !word.trim()) return;
-
-  const before = pieceText.substring(0, localIndex);
-  const after = pieceText.substring(localIndex + charLength);
-
-  lastWordHighlight = { locate: offset.locate, word, before, after };
+  lastWordHighlight = locate;
   applyWordDecoration();
-}
-
-// `charIndex` indexes the spoken text; `offsets` index each piece's own
-// source text instead, so pieces are relocated within it by content first.
-function locatePieceAt(utterance, charIndex) {
-  const offsets = utterance.offsets;
-  if (!offsets?.length) return null;
-  if (offsets.length === 1) {
-    const offset = offsets[0];
-    const pieceText = offset.locate.text?.highlight ?? utterance.plain ?? utterance.ssml;
-    return pieceText ? { offset, pieceText, localIndex: charIndex } : null;
-  }
-  const outputText = utterance.plain ?? utterance.ssml ?? "";
-  let cursor = 0;
-  for (const offset of offsets) {
-    const pieceText = offset.locate.text?.highlight;
-    if (!pieceText) continue;
-    const start = Math.max(outputText.indexOf(pieceText, cursor), cursor);
-    if (charIndex >= start && charIndex < start + pieceText.length) {
-      return { offset, pieceText, localIndex: charIndex - start };
-    }
-    cursor = start + pieceText.length;
-  }
-  return null;
 }
 
 function updateUI() {

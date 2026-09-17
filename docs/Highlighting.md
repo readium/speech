@@ -162,43 +162,19 @@ function highlightUtterance(utterance) {
 
 ### Word-level
 
-On a `"boundary"` event, `charIndex`/`charLength` index the utterance's spoken text (`plain`/`ssml`) as a whole — not each `offsets` entry's own source text — so first find which offset the boundary falls in, then re-locate the word within that offset's own text before decorating it:
+`charIndex`/`charLength` on a `"boundary"` event are always positions in `utterance.plain` — decided at runtime by whichever engine/voice/language is speaking, not by this library — so they can't be looked up directly against `offsets` (each entry's own source text). `resolveBoundaryLocate()` does that resolution: `speechNavigator` calls it internally and attaches the result to the event's `detail` when it's using the full pipeline, so this is only needed when driving playback yourself on top of `extractUtterances`:
 
 ```typescript
-function locatePieceAt(utterance, charIndex) {
-  const offsets = utterance.offsets;
-  if (!offsets?.length) return null;
-  if (offsets.length === 1) {
-    return { offset: offsets[0], localIndex: charIndex };
-  }
-
-  const outputText = utterance.plain ?? utterance.ssml ?? "";
-  let cursor = 0;
-  for (const offset of offsets) {
-    const pieceText = offset.locate.text?.highlight;
-    if (!pieceText) continue;
-    const start = outputText.indexOf(pieceText, cursor);
-    if (charIndex < start + pieceText.length) return { offset, localIndex: charIndex - start };
-    cursor = start + pieceText.length;
-  }
-  return null;
-}
+import { resolveBoundaryLocate } from "@readium/speech";
 
 navigator.on("boundary", (event) => {
   const utterance = navigator.getCurrentContent();
-  const found = utterance && locatePieceAt(utterance, event.detail.charIndex);
-  if (!found) return;
-
-  const { offset, localIndex } = found;
-  const pieceText = offset.locate.text.highlight;
-  const word = pieceText.substring(localIndex, localIndex + event.detail.charLength);
+  const resolved = utterance && resolveBoundaryLocate(utterance, event.detail.charIndex, event.detail.charLength);
+  if (!resolved) return;
 
   decorations.applyDecorations([{
     id: "tts-word",
-    locator: createLocator({
-      ...offset.locate,
-      text: { highlight: word, before: pieceText.substring(0, localIndex), after: pieceText.substring(localIndex + word.length) },
-    }),
+    locator: createLocator(resolved.locate),
     style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
   }], "tts-word");
 });

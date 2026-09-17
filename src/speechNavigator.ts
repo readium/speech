@@ -8,6 +8,7 @@ import { SpeechPreferencesEditor } from "./preferences/SpeechPreferencesEditor";
 import { SpeechSettings } from "./preferences/SpeechSettings";
 import { ContextualizationShapeOverrides, resolveContextualizationShapes } from "./preferences/verbosityTables";
 import { ReadiumSpeechUtterance } from "./utterance";
+import { resolveBoundaryLocate } from "./utterances/boundaryLocate";
 import { extractUtterancesWithSources, type SourceTrace } from "./utterances/extractUtterances";
 import { Contextualizations } from "./utterances/types";
 import { ReadiumSpeechVoice } from "./voices/types";
@@ -184,7 +185,12 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     });
 
     this.engine.on("boundary", (event) => {
-      this.emitEvent(event);
+      const { charIndex, charLength } = event.detail ?? {};
+      const utterance = this.getCurrentContent();
+      const resolved = utterance && typeof charIndex === "number" && typeof charLength === "number"
+        ? resolveBoundaryLocate(utterance, charIndex, charLength)
+        : undefined;
+      this.emitEvent(resolved ? { ...event, detail: { ...event.detail, ...resolved } } : event);
     });
 
     this.engine.on("mark", (event) => {
