@@ -37,6 +37,18 @@ export function preciseLocateFor(resolved: { own: boolean; ref: DecodedTextref }
   return resolved.own ? resolved.ref : subLocateFor(resolved.ref, text);
 }
 
+// Spans `firstRef` to `lastRef` into one continuous DOM range when both
+// resolve; drops back to `fallback` (the caller's own single-node locate)
+// when they can't be combined this way.
+export function spanLocate(
+  firstRef: { own: boolean; ref: DecodedTextref } | undefined,
+  lastRef: { own: boolean; ref: DecodedTextref } | undefined,
+  fallback: LocatorOptions | undefined,
+): LocatorOptions | undefined {
+  const spanned = firstRef && lastRef ? combineDomRangeTextrefs(firstRef.ref, lastRef.ref) : undefined;
+  return spanned ?? fallback;
+}
+
 // Skips utterances already given `locate`/`offsets` by sentence splitting;
 // resolves the rest, adding a trivial whole-text `offsets` for real content.
 export function attachLocate(
@@ -59,8 +71,7 @@ export function attachLocate(
       const [first, last] = source;
       const firstRef = resolveNodeLocate(first, ancestorChains);
       const lastRef = resolveNodeLocate(last, ancestorChains);
-      const spanned = firstRef && lastRef ? combineDomRangeTextrefs(firstRef.ref, lastRef.ref) : undefined;
-      const ref = spanned ?? preciseLocateFor(firstRef, text);
+      const ref = spanLocate(firstRef, lastRef, preciseLocateFor(firstRef, text));
       return ref ? { ...u, locate: ref } : u;
     }
     const node = source;

@@ -103,7 +103,17 @@ export function stripSsmlTagsWithMap(ssml: string): { plain: string; map: number
     const ch = ssml[i];
     if (ch === "<") {
       const close = ssml.indexOf(">", i);
+      const after = close === -1 ? "" : ssml.slice(close + 1);
       i = close === -1 ? ssml.length : close + 1;
+      // A removed tag must not silently glue two words together (e.g. an
+      // unspaced `<br>` between them) — same rule stripPlaceholders() uses:
+      // no space before punctuation that binds to what came before, none at
+      // either end of the string, one otherwise.
+      if (!lastWasSpace && plain.length > 0 && after.length > 0 && !startsWithBindingPunct(after)) {
+        plain += " ";
+        map.push(i);
+        lastWasSpace = true;
+      }
       continue;
     }
     const entity = ssml.startsWith("&lt;", i) ? "<" : ssml.startsWith("&gt;", i) ? ">" : ssml.startsWith("&amp;", i) ? "&" : undefined;

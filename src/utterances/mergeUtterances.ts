@@ -1,12 +1,11 @@
 import { ssmlTextEscape } from "../gnd/text.js";
-import { combineDomRangeTextrefs } from "../gnd/textrefFragment.js";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { stripLangTags } from "./language.js";
 import { hasLangTag, splitOnLangTags, stripSsmlTags, type ResolvedNodeText } from "./text.js";
 import type { ExtractionFormat, LanguageMode } from "./types.js";
 import { isSinglePunctuationChar, startsWithBindingPunct } from "../utils/text.js";
-import { preciseLocateFor, resolveNodeLocate, subLocateFor } from "./locate.js";
+import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
 
 // Concatenates `parts`, skipping redundant lone punctuation and spacing
@@ -64,15 +63,15 @@ function buildMergeLocate(pieces: ReadiumSpeechUtterance[], pieceSources: Source
   });
   const firstIndex = locates.findIndex((locate) => locate !== undefined);
   if (firstIndex === -1) return undefined;
-  const lastIndex = locates.length - 1 - [...locates].reverse().findIndex((locate) => locate !== undefined);
+  let lastIndex = locates.length - 1;
+  while (locates[lastIndex] === undefined) lastIndex--;
   if (firstIndex === lastIndex) return locates[firstIndex];
   const firstSource = pieceSources[firstIndex];
   const lastSource = pieceSources[lastIndex];
   if (firstSource && lastSource && !Array.isArray(firstSource) && !Array.isArray(lastSource)) {
     const firstRef = resolveNodeLocate(firstSource, ctx.ancestorChains);
     const lastRef = resolveNodeLocate(lastSource, ctx.ancestorChains);
-    const spanned = firstRef && lastRef ? combineDomRangeTextrefs(firstRef.ref, lastRef.ref) : undefined;
-    if (spanned) return spanned;
+    return spanLocate(firstRef, lastRef, locates[firstIndex]);
   }
   return locates[firstIndex];
 }

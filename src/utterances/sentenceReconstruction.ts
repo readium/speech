@@ -1,11 +1,9 @@
 import type { GndObject, GndRole } from "../gnd/types.js";
-import { combineDomRangeTextrefs } from "../gnd/textrefFragment.js";
-import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { segmentSentences } from "./sentenceSegmenter.js";
 import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
 import { joinPieceTexts, plainOf } from "./mergeUtterances.js";
-import { preciseLocateFor, resolveNodeLocate, subLocateFor } from "./locate.js";
+import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
 
 // Resolves a non-synthetic utterance into per-sentence fragments (`undefined`
@@ -205,13 +203,9 @@ async function pushJoinedGroup(
     // Top-level `locate` is the whole first/last span, a convenience anchor
     // for consumers that don't need the per-element breakdown in `offsets`.
     const firstRef = resolveNodeLocate(pieceSources[startIdx], ctx.ancestorChains);
-    let locate: LocatorOptions | undefined;
-    if (startIdx !== endIdx) {
-      const lastRef = resolveNodeLocate(pieceSources[endIdx], ctx.ancestorChains);
-      locate = (firstRef && lastRef ? combineDomRangeTextrefs(firstRef.ref, lastRef.ref) : undefined) ?? preciseLocateFor(firstRef, text);
-    } else {
-      locate = preciseLocateFor(firstRef, text);
-    }
+    const fallback = preciseLocateFor(firstRef, text);
+    const locate =
+      startIdx !== endIdx ? spanLocate(firstRef, resolveNodeLocate(pieceSources[endIdx], ctx.ancestorChains), fallback) : fallback;
     if (locate) merged.locate = locate;
 
     newOut.push(merged);

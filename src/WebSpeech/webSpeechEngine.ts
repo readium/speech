@@ -12,8 +12,8 @@ import { EventEmitter } from "../utils/eventEmitter";
 import { clampIndex } from "../utils/array";
 import { clamp } from "../utils/clamp";
 
-import { stripHtml } from "string-strip-html";
 import { neutralizeAngleBrackets } from "../utils/text";
+import { stripSsmlTags } from "../utterances/text";
 
 export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private speechSynthesis: SpeechSynthesis;
@@ -248,7 +248,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private toPlainText(utterances: ReadiumSpeechUtterance[]): ReadiumSpeechUtterance[] {
     return utterances.map(content => ({
       ...content,
-      plain: content.plain ?? (content.ssml ? stripHtml(content.ssml).result : "")
+      plain: content.plain ?? (content.ssml ? stripSsmlTags(content.ssml) : "")
     }));
   }
 

@@ -20,7 +20,6 @@ import {
 } from "./roles.js";
 
 export interface WalkContext {
-  contextualizations: Contextualizations;
   // Backs only `resolvePluralPart()`'s `<role>.parts.<name>` lookups.
   i18n: i18n;
   skip: ReadonlySet<GndRole>;
@@ -74,6 +73,18 @@ function makeContextualizer(locale: string, contextualizations: Contextualizatio
   return instance;
 }
 
+// A caller's override layers onto a built-in record key-by-key (rather than
+// replacing it wholesale), with `mergeValue` deciding how each key's own
+// base/override pair combines.
+function mergeByKey<T>(base: Record<string, T>, override: Record<string, T> | undefined, mergeValue: (base: T | undefined, override: T) => T): Record<string, T> {
+  if (!override) return base;
+  const merged = { ...base };
+  for (const key of Object.keys(override)) {
+    merged[key] = mergeValue(base[key], override[key]);
+  }
+  return merged;
+}
+
 // A caller's override can target any depth (e.g. just `table.block.start`),
 // so entries merge key-by-key rather than replacing a role's whole catalog
 // entry wholesale.
@@ -87,23 +98,13 @@ function mergeContextualizationEntry(base: ContextualizationEntry | undefined, o
 }
 
 function mergeContextualizations(base: Contextualizations, override: Contextualizations | undefined): Contextualizations {
-  if (!override) return base;
-  const merged = { ...base };
-  for (const role of Object.keys(override) as GndRole[]) {
-    merged[role] = mergeContextualizationEntry(base[role], override[role]);
-  }
-  return merged;
+  return mergeByKey(base, override, mergeContextualizationEntry) as Contextualizations;
 }
 
 // A caller's suppressions add to a language's built-ins rather than
 // replacing them, so overriding one language doesn't drop the rest.
 function mergeSuppressions(base: Record<string, string[]>, override: Record<string, string[]> | undefined): Record<string, string[]> {
-  if (!override) return base;
-  const merged: Record<string, string[]> = { ...base };
-  for (const language of Object.keys(override)) {
-    merged[language] = [...new Set([...(base[language] ?? []), ...override[language]])];
-  }
-  return merged;
+  return mergeByKey(base, override, (base, override) => [...new Set([...(base ?? []), ...override])]);
 }
 
 // Every node's own ancestors (nearest first), keyed by object identity —
@@ -126,7 +127,6 @@ export async function makeWalkContext(nodes: GndObject[], options: ExtractUttera
     options.contextualization?.contextualizations,
   );
   return {
-    contextualizations,
     i18n: makeContextualizer(locale, contextualizations),
     skip: new Set(options.skip ?? []),
     contextualize: new Set(options.contextualize ?? []),

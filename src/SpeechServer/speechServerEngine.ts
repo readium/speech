@@ -464,7 +464,10 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     if (text.length <= serviceInfo.limits.maxTextLength) {
       const controller = new AbortController();
       (isPrefetch ? this.activeControllers : this.liveControllers).add(controller);
-      return [{ promise: this.synthesizeChunk(content, text, 0, useSSML, ssmlMap, language, prevUtterance, nextUtterance, format, bitrate, controller), controller }];
+      return [{
+        promise: this.synthesizeChunk({ content, text, textOffset: 0, useSSML, ssmlMap, language, prevText: prevUtterance, nextText: nextUtterance, format, bitrate, controller }),
+        controller
+      }];
     }
 
     if (this.overLengthText === "error") {
@@ -493,7 +496,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       (isPrefetch ? this.activeControllers : this.liveControllers).add(controller);
       // A rejected chain skips later .then() bodies entirely, so one failed chunk stops the rest.
       const chunkPromise: Promise<SynthesizedChunk> = chain.then(() =>
-        this.synthesizeChunk(content, textChunk.text, textChunk.offset, useSSML, ssmlMap, language, prevText, nextText, format, bitrate, controller)
+        this.synthesizeChunk({ content, text: textChunk.text, textOffset: textChunk.offset, useSSML, ssmlMap, language, prevText, nextText, format, bitrate, controller })
       );
       chunkStream.push({ promise: chunkPromise, controller });
       chain = chunkPromise;
@@ -501,19 +504,20 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     return chunkStream;
   }
 
-  private async synthesizeChunk(
-    content: ReadiumSpeechUtterance,
-    text: string,
-    textOffset: number,
-    useSSML: boolean,
-    ssmlMap: number[] | undefined,
-    language: string | undefined,
-    prevText: string | undefined,
-    nextText: string | undefined,
-    format: string,
-    bitrate: number | undefined,
-    controller: AbortController
-  ): Promise<SynthesizedChunk> {
+  private async synthesizeChunk(params: {
+    content: ReadiumSpeechUtterance;
+    text: string;
+    textOffset: number;
+    useSSML: boolean;
+    ssmlMap: number[] | undefined;
+    language: string | undefined;
+    prevText: string | undefined;
+    nextText: string | undefined;
+    format: string;
+    bitrate: number | undefined;
+    controller: AbortController;
+  }): Promise<SynthesizedChunk> {
+    const { content, text, textOffset, useSSML, ssmlMap, language, prevText, nextText, format, bitrate, controller } = params;
     try {
       const response = await this.fetchNetwork(this.endpoints.synthesize, {
         method: "POST",
