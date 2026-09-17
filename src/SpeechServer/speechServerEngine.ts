@@ -10,6 +10,7 @@ import { clampIndex } from "../utils/array";
 import { clamp } from "../utils/clamp";
 import { chunkPlainText, chunkSsmlText, TextChunk } from "./chunkText";
 import { ssmlIndexToPlainIndex, stripSsmlTagsWithMap } from "../utterances/text";
+import { neutralizeAngleBrackets } from "../utils/text";
 import { CanPlayType, selectBitrate, selectFormat, SpeechServerFormatOptions } from "./selectFormat";
 import {
   SpeechServerServiceInfo,
@@ -519,7 +520,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: content.id,
-          text,
+          text: useSSML ? text : neutralizeAngleBrackets(text),
           ssml: useSSML,
           language,
           voice: this.currentVoice?.identifier ?? this.currentVoice?.name,

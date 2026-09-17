@@ -22,3 +22,9 @@ export function startsWithOpeningPunct(s: string): boolean {
 export function isSinglePunctuationChar(s: string): boolean {
   return SINGLE_PUNCT_RE.test(s);
 }
+
+// Some TTS engines sniff plain text for markup and choke on it — a same-length,
+// never-vocalized swap avoids that without shifting any reported charIndex.
+export function neutralizeAngleBrackets(text: string): string {
+  return text.replace(/[<>]/g, "\u200B");
+}

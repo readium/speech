@@ -13,6 +13,7 @@ import { clampIndex } from "../utils/array";
 import { clamp } from "../utils/clamp";
 
 import { stripHtml } from "string-strip-html";
+import { neutralizeAngleBrackets } from "../utils/text";
 
 export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private speechSynthesis: SpeechSynthesis;
@@ -375,7 +376,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     // Validate text length
     this.validateText(text);
 
-    const utterance = this.createUtterance(text);
+    const utterance = this.createUtterance(neutralizeAngleBrackets(text));
 
     // Enhanced voice selection with MSNatural detection, optionally
     // matched to this utterance's own content language
