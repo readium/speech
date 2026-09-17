@@ -1,10 +1,13 @@
 import { ssmlTextEscape } from "../gnd/text.js";
-import type { ReadiumSpeechUtterance } from "../utterance.js";
+import { combineDomRangeTextrefs } from "../gnd/textrefFragment.js";
+import type { LocatorOptions } from "../decorator/createLocator.js";
+import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { stripLangTags } from "./language.js";
 import { hasLangTag, splitOnLangTags, stripSsmlTags, type ResolvedNodeText } from "./text.js";
 import type { ExtractionFormat, LanguageMode } from "./types.js";
 import { isSinglePunctuationChar, startsWithBindingPunct } from "../utils/text.js";
-import type { WalkContext } from "./walkContext.js";
+import { preciseLocateFor, resolveNodeLocate, subLocateFor } from "./locate.js";
+import type { SourceTrace, WalkContext } from "./walkContext.js";
 
 // Concatenates `parts`, skipping redundant lone punctuation and spacing
 // pieces apart. `ranges[i]` is where `parts[i]` landed in `joined`.
@@ -26,19 +29,74 @@ export function joinPieceTexts(parts: string[]): { joined: string; ranges: { sta
   return { joined, ranges };
 }
 
+// One `offsets` entry per piece backed by real source text; an inner
+// merge's own `offsets` are reused as-is since each entry is already
+// anchored to its own source node's text. Synthesized pieces contribute nothing.
+function buildMergeOffsets(pieces: ReadiumSpeechUtterance[], pieceSources: SourceTrace, ctx: WalkContext): UtteranceOffset[] {
+  const offsets: UtteranceOffset[] = [];
+  pieces.forEach((piece, i) => {
+    if (piece.offsets) {
+      offsets.push(...piece.offsets);
+      return;
+    }
+    if (ctx.synthetic.has(piece)) return;
+    const source = pieceSources[i];
+    if (!source || Array.isArray(source)) return;
+    const nodeRef = resolveNodeLocate(source, ctx.ancestorChains);
+    if (!nodeRef) return;
+    const text = ctx.format === "ssml" ? piece.ssml : piece.plain;
+    if (!text) return;
+    const range = ctx.pendingRange.get(piece);
+    offsets.push({ start: range?.start ?? 0, end: range?.end ?? text.length, locate: subLocateFor(nodeRef.ref, text) });
+  });
+  return offsets;
+}
+
+// Top-level `locate` anchor for a merge: the span from its first to last contributing piece.
+function buildMergeLocate(pieces: ReadiumSpeechUtterance[], pieceSources: SourceTrace, ctx: WalkContext): LocatorOptions | undefined {
+  const locates: (LocatorOptions | undefined)[] = pieces.map((piece, i) => {
+    if (piece.locate) return piece.locate;
+    if (ctx.synthetic.has(piece)) return undefined;
+    const source = pieceSources[i];
+    if (!source || Array.isArray(source)) return undefined;
+    const text = ctx.format === "ssml" ? piece.ssml : piece.plain;
+    return text ? preciseLocateFor(resolveNodeLocate(source, ctx.ancestorChains), text) : undefined;
+  });
+  const firstIndex = locates.findIndex((locate) => locate !== undefined);
+  if (firstIndex === -1) return undefined;
+  const lastIndex = locates.length - 1 - [...locates].reverse().findIndex((locate) => locate !== undefined);
+  if (firstIndex === lastIndex) return locates[firstIndex];
+  const firstSource = pieceSources[firstIndex];
+  const lastSource = pieceSources[lastIndex];
+  if (firstSource && lastSource && !Array.isArray(firstSource) && !Array.isArray(lastSource)) {
+    const firstRef = resolveNodeLocate(firstSource, ctx.ancestorChains);
+    const lastRef = resolveNodeLocate(lastSource, ctx.ancestorChains);
+    const spanned = firstRef && lastRef ? combineDomRangeTextrefs(firstRef.ref, lastRef.ref) : undefined;
+    if (spanned) return spanned;
+  }
+  return locates[firstIndex];
+}
+
 // Joins pieces read as one continuous occurrence into a single utterance.
-// Bails (`undefined`) on disagreeing `language`; synthesized if any piece was.
+// Bails (`undefined`) on disagreeing `language`; still marked synthesized if
+// any piece was, but real sourced pieces still get their own offsets/locate.
 export function mergeUtterances(
   pieces: ReadiumSpeechUtterance[],
+  pieceSources: SourceTrace,
   ctx: WalkContext,
 ): ReadiumSpeechUtterance | undefined {
   let language: string | undefined;
   let sawLanguage = false;
   const parts: string[] = [];
-  for (const piece of pieces) {
+  const usedPieces: ReadiumSpeechUtterance[] = [];
+  const usedSources: SourceTrace = [];
+  for (let i = 0; i < pieces.length; i++) {
+    const piece = pieces[i];
     const text = ctx.format === "ssml" ? piece.ssml : piece.plain;
     if (!text) continue;
     parts.push(text);
+    usedPieces.push(piece);
+    usedSources.push(pieceSources[i]);
     if (piece.language !== undefined) {
       if (sawLanguage && piece.language !== language) return undefined;
       language = piece.language;
@@ -50,6 +108,10 @@ export function mergeUtterances(
   const merged: ReadiumSpeechUtterance = ctx.format === "ssml" ? { ssml: joined } : { plain: joined };
   if (language) merged.language = language;
   if (pieces.some((piece) => ctx.synthetic.has(piece))) ctx.synthetic.add(merged);
+  const offsets = buildMergeOffsets(usedPieces, usedSources, ctx);
+  if (offsets.length > 0) merged.offsets = offsets;
+  const locate = buildMergeLocate(usedPieces, usedSources, ctx);
+  if (locate) merged.locate = locate;
   return merged;
 }
 

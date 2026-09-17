@@ -43,7 +43,7 @@ function buildPagebreakUtterance(node: GndObject, ctx: WalkContext): ReadiumSpee
   if (text === undefined) return own;
   const contextualization = formatPlain(text, ctx);
   if (own.length === 0) return [contextualization];
-  const merged = mergeUtterances([contextualization, ...own], ctx);
+  const merged = mergeUtterances([contextualization, ...own], [undefined, ...own.map(() => node)], ctx);
   if (!merged) return [contextualization, ...own];
   if (merged.plain !== undefined) merged.plain += ".";
   if (merged.ssml !== undefined) merged.ssml += ".";
@@ -106,7 +106,7 @@ function emitWithPlaceholders(
     pieces.push(utterance);
     pieceSources.push(node);
   }
-  const merged = pieces.length > 1 ? mergeUtterances(pieces, ctx) : undefined;
+  const merged = pieces.length > 1 ? mergeUtterances(pieces, pieceSources, ctx) : undefined;
   pushPiecesOrMerged(out, sources, ctx, node, pieces, pieceSources, merged);
   return deferred;
 }
@@ -195,7 +195,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
             pieceSources.push(child);
           }
         }
-        const merged = hasEntry && pieces.length > 1 ? mergeUtterances(pieces, ctx) : undefined;
+        const merged = hasEntry && pieces.length > 1 ? mergeUtterances(pieces, pieceSources, ctx) : undefined;
         pushPiecesOrMerged(out, sources, ctx, child, pieces, pieceSources, merged);
       } else {
         walk([child], out, sources, ctx, suppress);
