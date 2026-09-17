@@ -101,10 +101,10 @@ async function initialize() {
     voiceManager = await WebSpeechVoiceManager.initialize({ languages: ["en"] });
     enVoices = await voiceManager.getVoices({ removeDuplicates: true });
 
-    // "d." (died) isn't in the segmenter's built-in English abbreviation
-    // list, so "(d. 1003 AD)" would otherwise get split mid-parenthetical.
+    // Not in the segmenter's built-in English abbreviation list, so e.g.
+    // "(d. 1003 AD)" or "St. Petersburg" would otherwise split mid-sentence.
     navigator = new ReadiumSpeechNavigator(new WebSpeechEngine(), {
-      segmentationOverrides: { suppressions: { en: ["d."] } },
+      segmentationOverrides: { suppressions: { en: ["d.", "St."] } },
     });
     navigator.setSpeakInContentLanguage(true);
 
