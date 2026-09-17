@@ -496,6 +496,9 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     // Handle word and sentence boundaries
     utterance.onboundary = (event) => {
+      // A stray/delayed boundary from an already-cancelled utterance must not
+      // be resolved against whatever utterance is current by now.
+      if (generation !== this.speakGeneration) return;
       this.emitEvent({
         type: "boundary",
         detail: {
