@@ -985,12 +985,17 @@ function applyUtteranceDecoration() {
   const currentUtterance = utterances[currentSentenceIndex];
   if (!currentUtterance || !currentUtterance.locate) return;
 
+  const segmentation = navigator.settings.segmentation;
   // Bounds draws one box over the whole range — wrong for a sentence slice
   // that may only be part of a line or span several; Boxes decorates per line.
-  const layout = navigator.settings.segmentation === "sentence" ? DecorationLayout.Boxes : DecorationLayout.Bounds;
+  const layout = segmentation === "sentence" ? DecorationLayout.Boxes : DecorationLayout.Bounds;
   const style = { type: utteranceStyle, tint: utteranceTint, enforceContrast: false, layout };
   const offsets = currentUtterance.offsets;
+
   if (!offsets?.length) {
+    // Synthesized label/announcement (contextualization text, alt/caption
+    // description...): no offsets in any segmentation mode, `locate` is the
+    // whole source element.
     if (!decorateSyntheticEnabled) {
       decoCtrl.applyDecorations([], "tts-sentence");
       return;
@@ -999,11 +1004,16 @@ function applyUtteranceDecoration() {
     return;
   }
 
-  // One decoration per contributing element, for a cross-element sentence.
-  decoCtrl.applyDecorations(
-    offsets.map((offset, i) => ({ id: `tts-sentence-${i}`, locator: createLocator(offset.locate), style })),
-    "tts-sentence",
-  );
+  if (segmentation === "sentence") {
+    // One decoration per contributing element, for a cross-element sentence.
+    decoCtrl.applyDecorations(
+      offsets.map((offset, i) => ({ id: `tts-sentence-${i}`, locator: createLocator(offset.locate), style })),
+      "tts-sentence",
+    );
+    return;
+  }
+
+  decoCtrl.applyDecorations([{ id: "tts-sentence", locator: createLocator(currentUtterance.locate), style }], "tts-sentence");
 }
 
 function applyWordDecoration() {

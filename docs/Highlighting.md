@@ -123,3 +123,83 @@ decorations.destroy();
 ```
 
 Pairing any of these with `ReadiumSpeechNavigator` events (see the [Playback API](Playback.md)) lets you re-apply the decoration on word/sentence boundaries as playback progresses — see `demo/script.js` and `demo/article/script.js` for complete examples driven by TTS boundary events.
+
+## Highlighting from `locate`/`offsets`
+
+An utterance's own `locate`/`offsets` (see [`ReadiumSpeechUtterance`](Playback.md#readiumspeechutterance)) are what let you anchor decorations to the exact source element(s) it came from, instead of searching page text for a match that could occur more than once.
+
+Which locator(s) to decorate depends on the `segmentation` option ([Utterance Extraction](UtteranceExtraction.md#segmentation)) the utterances were extracted with, not on a per-utterance fallback. A synthesized announcement (contextualization text, alt/caption description...) carries no `offsets` in either mode — handle that separately if you want it highlighted too, since it has no real source text to scope a piece-level decoration to.
+
+### Structure-level
+
+With `segmentation: "structure"` (default), one utterance is already one whole structural element, so decorate `locate` directly:
+
+```typescript
+import { setupDecorations, createLocator, DecorationStyleType } from "@readium/speech";
+
+const decorations = setupDecorations();
+const style = { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false };
+
+function highlightUtterance(utterance) {
+  if (!utterance.locate) return;
+  decorations.applyDecorations([{ id: "tts-structure", locator: createLocator(utterance.locate), style }], "tts-structure");
+}
+```
+
+### Sentence-level
+
+With `segmentation: "sentence"`, a sentence can be reconstructed across multiple source elements, so decorate each `offsets` entry separately:
+
+```typescript
+function highlightUtterance(utterance) {
+  if (!utterance.offsets?.length) return;
+  decorations.applyDecorations(
+    utterance.offsets.map((offset, i) => ({ id: `tts-sentence-${i}`, locator: createLocator(offset.locate), style })),
+    "tts-sentence",
+  );
+}
+```
+
+### Word-level
+
+On a `"boundary"` event, `charIndex`/`charLength` index the utterance's spoken text (`plain`/`ssml`) as a whole — not each `offsets` entry's own source text — so first find which offset the boundary falls in, then re-locate the word within that offset's own text before decorating it:
+
+```typescript
+function locatePieceAt(utterance, charIndex) {
+  const offsets = utterance.offsets;
+  if (!offsets?.length) return null;
+  if (offsets.length === 1) {
+    return { offset: offsets[0], localIndex: charIndex };
+  }
+
+  const outputText = utterance.plain ?? utterance.ssml ?? "";
+  let cursor = 0;
+  for (const offset of offsets) {
+    const pieceText = offset.locate.text?.highlight;
+    if (!pieceText) continue;
+    const start = outputText.indexOf(pieceText, cursor);
+    if (charIndex < start + pieceText.length) return { offset, localIndex: charIndex - start };
+    cursor = start + pieceText.length;
+  }
+  return null;
+}
+
+navigator.on("boundary", (event) => {
+  const utterance = navigator.getCurrentContent();
+  const found = utterance && locatePieceAt(utterance, event.detail.charIndex);
+  if (!found) return;
+
+  const { offset, localIndex } = found;
+  const pieceText = offset.locate.text.highlight;
+  const word = pieceText.substring(localIndex, localIndex + event.detail.charLength);
+
+  decorations.applyDecorations([{
+    id: "tts-word",
+    locator: createLocator({
+      ...offset.locate,
+      text: { highlight: word, before: pieceText.substring(0, localIndex), after: pieceText.substring(localIndex + word.length) },
+    }),
+    style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
+  }], "tts-word");
+});
+```
