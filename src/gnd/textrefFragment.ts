@@ -28,6 +28,10 @@ const DOMRANGE_SUFFIX = ")";
 export interface DomRangeJSON {
   start: { cssSelector: string; textNodeIndex: number; charOffset?: number };
   end?: { cssSelector: string; textNodeIndex: number; charOffset?: number };
+  // The block element's own selector — distinct from start's selector, which
+  // is whatever child actually contains the first flow text node (e.g. a
+  // word-token <span>), not the block itself.
+  container?: string;
 }
 
 export function encodeDomRangeFragment(domRange: DomRangeJSON): string {
@@ -141,7 +145,7 @@ export function decodeTextref(node: { id?: string; textref?: string } | undefine
   const baseDomRange = decodeDomRangeFragment(base);
   if (baseDomRange) {
     domRange = baseDomRange;
-    cssSelector = baseDomRange.start.cssSelector;
+    cssSelector = baseDomRange.container ?? baseDomRange.start.cssSelector;
   } else {
     const decoded = decodeCssSelectorFragment(base);
     if (decoded !== undefined) {

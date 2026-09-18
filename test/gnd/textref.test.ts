@@ -34,6 +34,37 @@ test("textrefs: [roles] restricts generation to the listed roles", (t) => {
   t.true(decodeCssSelectorFragment(h1.textref)?.length ? true : false);
 });
 
+test("textrefs: ['leaf-text'] gives each roleless leaf-text <div> its own textref — e.g. paragraph-like fragments with no <p>/role at all", (t) => {
+  const html = `<div class="case"><div class="frag">Hello.</div><div class="frag">World.</div></div>`;
+  const [first, second] = parseMarkup(html, undefined, { textrefs: ["leaf-text"] });
+  t.true(decodeCssSelectorFragment(first.textref)?.length ? true : false);
+  t.true(decodeCssSelectorFragment(second.textref)?.length ? true : false);
+});
+
+test("textrefs: ['leaf-text'] does not give a purely structural wrapper (no text of its own) a textref", (t) => {
+  // A wrapper that owns no text of its own is dropped from the GND tree
+  // entirely (nothing to flush at its own tail()) — only the two leaf-text
+  // divs come out.
+  const html = `<div><div>Hello.</div><div>World.</div></div>`;
+  const result = parseMarkup(html, undefined, { textrefs: ["leaf-text"] });
+  t.is(result.length, 2);
+});
+
+test("textrefs: true also covers roleless leaf-text blocks", (t) => {
+  const [result] = parseMarkup("<div>Hello.</div>", undefined, { textrefs: true });
+  t.true(decodeCssSelectorFragment(result.textref)?.length ? true : false);
+});
+
+test("textrefs: [someOtherRole] alone (no 'leaf-text' in the array) still excludes a roleless leaf-text block", (t) => {
+  const [result] = parseMarkup("<div>Hello.</div>", undefined, { textrefs: ["heading1"] });
+  t.is(result.textref, undefined);
+});
+
+test("textrefs: ['leaf-text'] never assigns a role to the roleless block — only its textref eligibility changes", (t) => {
+  const [result] = parseMarkup("<div>Hello.</div>", undefined, { textrefs: ["leaf-text"] });
+  t.is(result.role, undefined);
+});
+
 test("textrefs: true doesn't stop a role-less <thead>/<tbody> from being flattened away", (t) => {
   const html = `<table><thead><tr><th scope="col">Name</th></tr></thead><tbody><tr><td>Ada</td></tr><tr><td>Bob</td></tr></tbody></table>`;
   const [withRefs] = parseMarkup(html, undefined, { textrefs: { roles: true } });
@@ -85,6 +116,14 @@ test("decodeTextref prefers domRange, then css(), then a self-matching bare #id"
   t.deepEqual(decodeTextref({ id: "par1", textref: "#par1" }), { cssSelector: "#par1" });
 });
 
+test("decodeTextref prefers domRange's container over start's own selector — start's container is whichever child holds the first flow text node, not the block", (t) => {
+  const domRange = { start: { cssSelector: "span.token", textNodeIndex: 0, charOffset: 0 }, container: "div.frag" };
+  t.deepEqual(decodeTextref({ textref: encodeDomRangeFragment(domRange) }), {
+    cssSelector: "div.frag",
+    domRange,
+  });
+});
+
 test("decodeTextref ignores a navigational textref that isn't this node's own id", (t) => {
   t.is(decodeTextref({ textref: "chapter1.xhtml" }), undefined);
   t.is(decodeTextref({ id: "par1", textref: "#note1" }), undefined);
@@ -110,6 +149,20 @@ test("parseMarkup() given a live element computes a domRange resolving back to t
   const endContainer = doc.querySelector(end!.cssSelector)!;
   const endNode = Array.from(endContainer.childNodes).filter(isText)[end!.textNodeIndex] as Text;
   t.is(endNode.nodeValue!.slice(0, end!.charOffset), ".");
+});
+
+test("parseMarkup() given a live leaf-text block whose flow starts inside a child <span> still resolves its domRange's cssSelector to the block itself, not that span", (t) => {
+  const doc = new DOMParser().parseFromString(
+    '<body><div class="frag"><span class="token">Hello</span><span class="token"> </span><span class="token">world.</span></div></body>',
+    "text/html",
+  );
+  const div = doc.querySelector("div.frag")!;
+
+  const [result] = parseMarkup(div, undefined, { textrefs: { roles: true, domRange: true } });
+
+  const ref = decodeTextref(result);
+  t.truthy(ref?.domRange);
+  t.is(doc.querySelector(ref!.cssSelector!), div);
 });
 
 test("parseMarkup() given a markup string never enables domRange, even when requested — it always parses a detached document", (t) => {

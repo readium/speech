@@ -65,6 +65,8 @@ export class Converter {
   // Unlike domRangeEnabled, safe against a detached parsed document too —
   // see TextrefOptions.textFragment in options.ts.
   textFragmentEnabled = false;
+  // See TextrefOptions.roles' leafTextRoleKeyword in options.ts.
+  leafTextEnabled = false;
   docRoot: Document | null = null;
 
   private root = new NavObject();
@@ -113,6 +115,7 @@ export class Converter {
     child.selectorPredicate = this.selectorPredicate;
     child.domRangeEnabled = this.domRangeEnabled;
     child.textFragmentEnabled = this.textFragmentEnabled;
+    child.leafTextEnabled = this.leafTextEnabled;
     return child;
   }
 
@@ -316,7 +319,8 @@ export class Converter {
     const roles = extractNodeRoles(el);
     if (isBlockNode(tagName, roles)) {
       this.flushText();
-      if (this.selectorPredicate?.(roles)) {
+      const isLeafText = this.leafTextEnabled && roles.length === 0 && !!this.lastFlowText;
+      if (this.selectorPredicate?.(roles) || isLeafText) {
         this.applyTextref(el);
       }
       this.current = parent;
@@ -340,7 +344,7 @@ export class Converter {
     if (this.domRangeEnabled && this.lastFlowRange) {
       const known = selector ? { el, selector } : undefined;
       const domRange = generateDomRange(this.lastFlowRange, this.docRoot, known);
-      if (domRange) cur.textref = encodeDomRangeFragment(domRange);
+      if (domRange) cur.textref = encodeDomRangeFragment({ ...domRange, container: selector });
     }
 
     if (this.textFragmentEnabled && this.lastFlowRange && this.docRoot) {
@@ -650,12 +654,13 @@ export function parseMarkup(
   mediaType?: GndMediaType,
   options?: GndGenerationOptions,
 ): GndObject[] {
-  const { predicate, domRange, textFragment } = normalizeTextrefOptions(options?.textrefs);
+  const { predicate, leafText, domRange, textFragment } = normalizeTextrefOptions(options?.textrefs);
 
   if (typeof input !== "string") {
     const mt = mediaType ?? (input.ownerDocument.contentType === "text/html" ? "text/html" : "application/xhtml+xml");
     const converter = new Converter(mt === "application/xhtml+xml");
     converter.selectorPredicate = predicate;
+    converter.leafTextEnabled = leafText;
     converter.domRangeEnabled = domRange;
     converter.textFragmentEnabled = textFragment;
     converter.docRoot = input.ownerDocument;
@@ -667,6 +672,7 @@ export function parseMarkup(
   const doc = new DOMParser().parseFromString(input, mt);
   const converter = new Converter(mt === "application/xhtml+xml");
   converter.selectorPredicate = predicate;
+  converter.leafTextEnabled = leafText;
   converter.textFragmentEnabled = textFragment;
   converter.docRoot = doc;
   const body = doc.querySelector("body");
