@@ -35,6 +35,7 @@
   {
     "id": "lookalikes",
     "label": "Unicode look-alikes and ASCII imitations",
-    "file": "lookalikes.html"
+    "file": "lookalikes.html",
+    "defaultSegmentation": "sentence"
   }
 ]

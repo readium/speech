@@ -1,6 +1,7 @@
 import i18next, { type i18n } from "i18next";
 import type { GndObject, GndRole } from "../gnd/types.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
+import { builtInSubstitutions } from "./builtInSubstitutions.js";
 import { builtInSuppressions } from "./builtInSuppressions.js";
 import { contextualizationsForLocale } from "./contextualizations.js";
 import type {
@@ -10,6 +11,7 @@ import type {
   ExtractUtterancesOptions,
   LanguageMode,
   Segmentation,
+  SubstitutionTable,
 } from "./types.js";
 import {
   blockLevelRoles,
@@ -34,6 +36,8 @@ export interface WalkContext {
   language?: LanguageMode;
   segmentation: Segmentation;
   segmentationSuppressions: Record<string, string[]>;
+  // See `ExtractUtterancesOptions.substitutions`.
+  substitutions: SubstitutionTable;
   // Tracked by object identity rather than threaded as a parallel array,
   // since utterances get merged/reordered across several local `out` arrays
   // (pieces, inner, ...) before reaching the caller's own `out`.
@@ -137,6 +141,8 @@ export async function makeWalkContext(nodes: GndObject[], options: ExtractUttera
     language: options.language ?? "block-level",
     segmentation: options.segmentation?.mode ?? "structure",
     segmentationSuppressions: mergeSuppressions(builtInSuppressions, options.segmentation?.suppressions),
+    // Per-key override, not an additive union — each key holds one whole rule.
+    substitutions: { ...builtInSubstitutions, ...options.substitutions },
     blockStarts: new Set(),
     tableRowNumbers: new Map(),
     tableCellHeaders: new Map(),

@@ -38,6 +38,13 @@ export interface ContextualizationOptions {
   params?: (role: GndRole, node: GndObject) => Record<string, string> | undefined;
 }
 
+// See `ExtractUtterancesOptions.substitutions` below.
+export type SubstitutionRule =
+  | string
+  | { pattern: RegExp; replace: string | ((...match: string[]) => string) };
+
+export type SubstitutionTable = Record<string, SubstitutionRule>;
+
 // See `ExtractUtterancesOptions.segmentation` below.
 export interface SegmentationOptions {
   // "structure" (default): one utterance per structural/block-level unit.
@@ -107,4 +114,9 @@ export interface ExtractUtterancesOptions {
 
   // See `SegmentationOptions` above.
   segmentation?: SegmentationOptions;
+
+  // ASCII imitations of Unicode symbols (e.g. "1/2", "(c)") to rewrite so
+  // the engine speaks the symbol, not the literal imitation. Merged by key
+  // on top of `builtInSubstitutions`; flat, unlike `segmentation.suppressions`.
+  substitutions?: SubstitutionTable;
 }

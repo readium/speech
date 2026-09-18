@@ -1,11 +1,19 @@
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
-import { stripSsmlTags } from "./text.js";
+import { stripSsmlTags, substitutedIndexToSourceIndex } from "./text.js";
 
 // Boundary events for one utterance arrive in increasing charIndex order
 // (word by word) — remembering the last matched piece lets a call resume
 // the scan instead of rescanning every earlier piece each time.
 const lastMatch = new WeakMap<ReadiumSpeechUtterance, { pieceIndex: number; cursor: number }>();
+
+// Set by applySubstitutions() for a substituted utterance; not a public
+// field, since only this module needs it.
+const substitutionSources = new WeakMap<ReadiumSpeechUtterance, { plain: string; map: number[] }>();
+
+export function recordSubstitutionSource(utterance: ReadiumSpeechUtterance, source: { plain: string; map: number[] }): void {
+  substitutionSources.set(utterance, source);
+}
 
 // charIndex is the engine's own runtime position, unknowable when `offsets`
 // was built — resolved by scanning pieces in order from where the last ended.
@@ -16,9 +24,18 @@ export function resolveBoundaryLocate(
   charIndex: number,
   charLength: number,
 ): { locate: LocatorOptions; word: string } | undefined {
+  // A substituted utterance's charIndex arrives in substituted-text space; translate back before matching.
+  const sub = substitutionSources.get(utterance);
+  if (sub) {
+    const start = substitutedIndexToSourceIndex(sub.map, charIndex);
+    const end = substitutedIndexToSourceIndex(sub.map, charIndex + charLength);
+    charIndex = start;
+    charLength = Math.max(0, end - start);
+  }
+
   const offsets = utterance.offsets;
   const isSsml = !utterance.plain && !!utterance.ssml;
-  const outputText = utterance.plain ?? (utterance.ssml ? stripSsmlTags(utterance.ssml) : "");
+  const outputText = sub?.plain ?? utterance.plain ?? (utterance.ssml ? stripSsmlTags(utterance.ssml) : "");
   if (!offsets?.length || !outputText) return undefined;
 
   // Only resumable when charIndex hasn't moved backward past the cached

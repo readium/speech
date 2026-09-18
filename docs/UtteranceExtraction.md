@@ -46,6 +46,7 @@ interface ExtractUtterancesOptions {
   language?: "none" | "block-level" | "always";
   inlineContextualization?: boolean;
   segmentation?: SegmentationOptions;
+  substitutions?: SubstitutionTable;
 }
 
 interface ContextualizationOptions {
@@ -58,6 +59,9 @@ interface SegmentationOptions {
   mode?: "structure" | "sentence"; // default "structure"
   suppressions?: Record<string, string[]>; // per-language sentence-ending exceptions, keyed like `language`
 }
+
+type SubstitutionRule = string | { pattern: RegExp; replace: string | ((...match: string[]) => string) };
+type SubstitutionTable = Record<string, SubstitutionRule>;
 ```
 
 Quick reference:
@@ -75,6 +79,7 @@ Quick reference:
 | `inlineContextualization` | `false` | split a sentence at a mid-sentence pagebreak/footnote, instead of after it |
 | `segmentation.mode` | `"structure"` | one utterance per structural unit, or split/reconstruct at real sentence boundaries |
 | `segmentation.suppressions` | none | per-language abbreviations (e.g. `"d."`) that sentence mode won't treat as endings |
+| `substitutions` | `builtInSubstitutions` | ASCII imitations of Unicode symbols (`"1/2"`, `"(c)"`, `"100deg"`) to rewrite before speaking |
 
 ### `format`
 
@@ -250,6 +255,29 @@ A maximal run of pairwise-eligible utterances is built by scanning forward while
 - Consecutive genuine-join gaps chain into one merge group. That group is then resegmented on its own, self-contained text — a confirmed group is not guaranteed to collapse into exactly one utterance; it can still yield more than one.
 
 Anything left outside a merge group is split on its own sentence boundaries independently.
+
+### `substitutions`
+
+Rewrites ASCII-typed imitations of Unicode symbols in `plain`/`ssml` before an utterance is returned, so the imitation is spoken as the symbol it stands in for rather than read literally. Merged by key on top of [`builtInSubstitutions`](../src/utterances/builtInSubstitutions.ts) — a caller-supplied key replaces the built-in rule of the same name rather than adding to it.
+
+```typescript
+// <p>See page 5, fig. 2.</p>
+await extractUtterances(gnd, { format: "plain", substitutions: { "fig.": "figure" } });
+// plain: "See page 5, figure 2."
+```
+
+A rule value is either a plain string, matched as a whole token (like `"fig."` above), or `{ pattern, replace }` for a match that needs its own regex:
+
+```typescript
+// <p>See p.5 for details.</p>
+await extractUtterances(gnd, {
+  format: "plain",
+  substitutions: { "p.": { pattern: /p\.(?=\d)/g, replace: "page " } },
+});
+// plain: "See page 5 for details."
+```
+
+Unlike `segmentation.suppressions`, this table is flat, not per-language — the voice speaks the resulting symbol correctly regardless of the utterance's own language.
 
 ## Contextualization catalog
 

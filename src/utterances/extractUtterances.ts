@@ -5,6 +5,7 @@ import { makeWalkContext, type SourceTrace } from "./walkContext.js";
 import { walk } from "./walk.js";
 import { splitIntoSentenceUtterances } from "./sentenceReconstruction.js";
 import { attachLocate } from "./locate.js";
+import { applySubstitutions } from "./applySubstitutions.js";
 
 export type { SourceTrace } from "./walkContext.js";
 
@@ -25,7 +26,7 @@ export async function extractUtterances(
   const ctx = await makeWalkContext(nodes, options);
   walk(nodes, out, sources, ctx, false);
   const split = await splitIntoSentenceUtterances(out, sources, ctx);
-  return attachLocate(split.out, split.sources, ctx);
+  return applySubstitutions(attachLocate(split.out, split.sources, ctx), ctx);
 }
 
 /**
@@ -42,5 +43,6 @@ export async function extractUtterancesWithSources(
   walk(nodes, utterances, sources, ctx, false);
   const split = await splitIntoSentenceUtterances(utterances, sources, ctx);
   const blockStarts = split.out.map((utterance) => ctx.blockStarts.has(utterance));
-  return { utterances: attachLocate(split.out, split.sources, ctx), sources: split.sources, blockStarts };
+  const located = attachLocate(split.out, split.sources, ctx);
+  return { utterances: applySubstitutions(located, ctx), sources: split.sources, blockStarts };
 }

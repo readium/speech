@@ -88,3 +88,39 @@ test("resolveBoundaryLocate matches a plain-text-space charIndex against SSML ma
   const resolved = resolveBoundaryLocate(utterance, charIndex, "friend".length);
   t.is(resolved?.word, "friend");
 });
+
+test("resolveBoundaryLocate on a substituted utterance resolves back to the original source span, not the substituted symbol", async (t) => {
+  const gnd = parseMarkup("<p>Water boils at 100deg Celsius.</p>", undefined, { textrefs: true });
+  const [utterance] = await extractUtterances(gnd, { format: "plain" });
+  t.is(utterance.plain, "Water boils at 100° Celsius.");
+
+  // charIndex lands inside the substituted "°" glyph, as the engine would report.
+  const charIndex = utterance.plain!.indexOf("°");
+  const resolved = resolveBoundaryLocate(utterance, charIndex, 1);
+  t.is(resolved?.locate.text?.highlight, "100deg");
+  t.is(resolved?.locate.text?.before, "Water boils at ");
+  t.is(resolved?.locate.text?.after, " Celsius.");
+});
+
+test("resolveBoundaryLocate on a substituted ssml utterance resolves back to the original source span", async (t) => {
+  const gnd = parseMarkup("<p>Copyright (c) 2026 Acme Corp.</p>", undefined, { textrefs: true });
+  const [utterance] = await extractUtterances(gnd, { format: "ssml" });
+  t.is(utterance.ssml, "Copyright © 2026 Acme Corp.");
+
+  const charIndex = utterance.ssml!.indexOf("©");
+  const resolved = resolveBoundaryLocate(utterance, charIndex, 1);
+  t.is(resolved?.locate.text?.highlight, "(c)");
+});
+
+test("resolveBoundaryLocate on a substituted utterance resolves a charIndex+charLength reaching the very end of the utterance", async (t) => {
+  const gnd = parseMarkup("<p>Water boils at 100deg Celsius.</p>", undefined, { textrefs: true });
+  const [utterance] = await extractUtterances(gnd, { format: "plain" });
+  t.is(utterance.plain, "Water boils at 100° Celsius.");
+
+  const charIndex = utterance.plain!.indexOf("Celsius.");
+  // charIndex + charLength lands exactly on the substituted text's length —
+  // the end-exclusive edge case substitutedIndexToSourceIndex must handle.
+  t.is(charIndex + "Celsius.".length, utterance.plain!.length);
+  const resolved = resolveBoundaryLocate(utterance, charIndex, "Celsius.".length);
+  t.is(resolved?.locate.text?.highlight, "Celsius.");
+});
