@@ -55,6 +55,27 @@ test("resolveBoundaryLocate returns undefined when charIndex falls outside every
   t.is(resolveBoundaryLocate(utterance, 9999, 1), undefined);
 });
 
+test("resolveBoundaryLocate drops a piece's domRange, so a consumer trying domRange before text.highlight doesn't anchor the whole piece instead of the word", (t) => {
+  const utterance = {
+    plain: "Speech Synthesis",
+    offsets: [{
+      start: 0,
+      end: 17,
+      locate: {
+        cssSelector: "h1",
+        domRange: { start: { cssSelector: "h1", textNodeIndex: 0, charOffset: 0 } },
+        text: { highlight: "Speech Synthesis" },
+      },
+    }],
+  };
+
+  const charIndex = utterance.plain.indexOf("Synthesis");
+  const resolved = resolveBoundaryLocate(utterance, charIndex, "Synthesis".length);
+  t.is(resolved?.word, "Synthesis");
+  t.is(resolved?.locate.domRange, undefined);
+  t.is(resolved?.locate.cssSelector, "h1");
+});
+
 test("resolveBoundaryLocate matches a plain-text-space charIndex against SSML markup, skipping past an inline tag", async (t) => {
   const gnd = parseMarkup('<p>See <span lang="fr">Bonjour</span> friend.</p>', undefined, { textrefs: { roles: true } });
   const [utterance] = await extractUtterances(gnd, { format: "ssml", language: "always" });

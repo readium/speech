@@ -40,8 +40,12 @@ export function resolveBoundaryLocate(
       lastMatch.set(utterance, { pieceIndex: i, cursor });
       const localIndex = charIndex - start;
       const word = pieceText.substring(localIndex, Math.min(localIndex + charLength, pieceText.length));
+      // domRange (when the piece has one) anchors the piece's whole extent, not
+      // just this word — a consumer trying it before text.highlight would
+      // highlight the entire piece instead of the word.
       const locate: LocatorOptions = {
         ...offset.locate,
+        domRange: undefined,
         text: {
           highlight: word,
           before: pieceText.substring(0, localIndex),
