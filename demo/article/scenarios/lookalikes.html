@@ -1,0 +1,45 @@
+<h1>Unicode Look-Alikes and ASCII Imitations</h1>
+
+<p role="doc-introduction">This scenario is for reference: it collects known cases of replaced/imitated characters (fractions, ellipses, dashes, quotes, primes, and more) so we can track and address the segmentation, highlighting, and speech issues they surface, rather than a demonstration that everything here already works correctly. Imitations (e.g. typed "1/2" or "100deg") may also not be recognized and spoken as the symbol they stand in for.</p>
+
+<section>
+  <h2>Fractions</h2>
+
+  <p>Recipes often mix real fraction characters with typed imitations. This cake needs ⅓ cup of sugar, ⅔ cup of milk, and ¼ teaspoon of salt. Add ½ cup of butter and mix well. Bake for ¾ of an hour at 350°F.</p>
+
+  <p>Now compare that to the same amounts typed with a slash instead. This cake needs 1/3 cup of sugar, 2/3 cup of milk, and 1/4 teaspoon of salt. Add 1/2 cup of butter and mix well. Bake for 3/4 of an hour at 350°F.</p>
+
+  <p>Some fractions have no single Unicode character and must be typed. For example, 5/8 of the members voted yes, while 7/16 of an inch is a common drill bit size. A gap of 1/1000 of a second was measured. Is 22/7 a good approximation of pi?</p>
+
+  <p>Mixed numbers combine both styles. The recipe calls for 1½ cups of flour and 2⅓ cups of water. Written the other way, that is 1 1/2 cups of flour and 2 1/3 cups of water. He ran 3 1/2 miles this morning. She owns 2/3 of the company.</p>
+
+  <p>Fractions can also appear mid-sentence next to punctuation. Only ⅓ of respondents said yes; nearly ⅔ said no. Only 1/3 of respondents said yes; nearly 2/3 said no. The score was tied at ½ apiece. The score was tied at 1/2 apiece. Is it ⅛ or ⅜ of the total? Is it 1/8 or 3/8 of the total?</p>
+
+  <h2>Ellipses</h2>
+
+  <p>Ellipses are a classic trap for sentence segmentation. Wait… what happened next? Wait... what happened next? She paused, then said "I don't know…" and walked away. She paused, then said "I don't know..." and walked away. To be continued… To be continued...</p>
+
+  <h2>Dashes</h2>
+
+  <p>Dashes come in several widths. It was a long journey—one she would never forget. It was a long journey--one she would never forget. The meeting is scheduled for 9–5, Monday–Friday. The meeting is scheduled for 9-5, Monday-Friday. Wait---did you hear that?</p>
+
+  <h2>Quotation marks</h2>
+
+  <p>Quotation marks are often typed straight instead of curly. “This is a curly-quoted sentence,” she said. "This is a straight-quoted sentence," she said. He replied, ‘Sure, why not?’ He replied, 'Sure, why not?'</p>
+
+  <h2>Primes</h2>
+
+  <p>Primes stand in for feet, inches, and minutes/seconds of arc. The room is 12′6″ wide. The room is 12'6" wide. The star's coordinates were listed as 5° 12′ 30″. The star's coordinates were listed as 5deg 12' 30".</p>
+
+  <h2>Multiplication, division, and minus</h2>
+
+  <p>Multiplication and division signs are frequently replaced with letters or slashes. The board measures 4×8 feet. The board measures 4x8 feet. Twelve divided by three is 12÷3. Twelve divided by three is 12/3. The temperature dropped to −5°C. The temperature dropped to -5°C.</p>
+
+  <h2>Degree, trademark, and copyright</h2>
+
+  <p>Symbols like degree, trademark, and copyright marks also have typed equivalents. Water boils at 100° Celsius. Water boils at 100deg Celsius. This is Acme™ Widgets. This is Acme(tm) Widgets. Copyright © 2026 Acme Corp. Copyright (c) 2026 Acme Corp. Registered® trademark. Registered(r) trademark.</p>
+
+  <h2>Currency, micro units, and arrows</h2>
+
+  <p>Currency and micro units round out the set. The price is €50 or roughly $54. The price is 50EUR or roughly 54USD. The dose is 5µg per tablet. The dose is 5ug per tablet. Arrows also get typed out: go north→south. Go north->south.</p>
+</section>

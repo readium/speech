@@ -31,5 +31,10 @@
     "file": "combined.html",
     "className": "fixed-layout",
     "defaultSegmentation": "sentence"
+  },
+  {
+    "id": "lookalikes",
+    "label": "Unicode look-alikes and ASCII imitations",
+    "file": "lookalikes.html"
   }
 ]
