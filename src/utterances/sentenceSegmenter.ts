@@ -1,9 +1,10 @@
-import { segmentText } from "@echogarden/text-segmentation";
+import { builtInSuppressions } from "./builtInSuppressions.js";
+import { refineSentenceBoundaries } from "./sentenceBoundaryMerge.js";
 
 export interface SentenceBoundary {
   text: string;
   start: number;
-  // Raw end from the library, which reaches through the separating
+  // Raw end from the segmenter, which reaches through the separating
   // whitespace up to the next sentence — kept only so callers that need to
   // walk the source contiguously (e.g. splitting SSML at the same points)
   // can still do so.
@@ -19,16 +20,12 @@ export async function segmentSentences(
   customSuppressions?: string[]
 ): Promise<SentenceBoundary[]> {
   if (text === "") return [];
-  // East Asian postprocessing needs the optional (27 MB) ICU wasm peer
-  // package we don't install — sentence splitting doesn't need it anyway.
-  const result = await segmentText(text, { language, enableEastAsianPostprocessing: false, customSuppressions });
-  return result.sentences.map((sentence) => {
-    const trimmed = sentence.text.trimEnd();
-    return {
-      text: trimmed,
-      start: sentence.charRange.start,
-      end: sentence.charRange.end,
-      contentEnd: sentence.charRange.start + trimmed.length,
-    };
-  });
+  const segments = [...new Intl.Segmenter(language, { granularity: "sentence" }).segment(text)];
+  const raw = segments.map((segment) => ({ start: segment.index, end: segment.index + segment.segment.length }));
+  // Intl.Segmenter has no abbreviation-suppression concept of its own, so
+  // the built-in list (not just a caller's extras) has to be applied here.
+  const suppressions = customSuppressions
+    ? [...(builtInSuppressions[language] ?? []), ...customSuppressions]
+    : (builtInSuppressions[language] ?? []);
+  return refineSentenceBoundaries(text, raw, suppressions);
 }

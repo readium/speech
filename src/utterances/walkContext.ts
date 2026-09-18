@@ -2,7 +2,6 @@ import i18next, { type i18n } from "i18next";
 import type { GndObject, GndRole } from "../gnd/types.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { builtInSubstitutions } from "./builtInSubstitutions.js";
-import { builtInSuppressions } from "./builtInSuppressions.js";
 import { contextualizationsForLocale } from "./contextualizations.js";
 import type {
   ContextualizationEntry,
@@ -105,12 +104,6 @@ function mergeContextualizations(base: Contextualizations, override: Contextuali
   return mergeByKey(base, override, mergeContextualizationEntry) as Contextualizations;
 }
 
-// A caller's suppressions add to a language's built-ins rather than
-// replacing them, so overriding one language doesn't drop the rest.
-function mergeSuppressions(base: Record<string, string[]>, override: Record<string, string[]> | undefined): Record<string, string[]> {
-  return mergeByKey(base, override, (base, override) => [...new Set([...(base ?? []), ...override])]);
-}
-
 // Every node's own ancestors (nearest first), keyed by object identity —
 // used by attachLocate() to fall back to an enclosing node's textref
 // when the utterance's own source has none of its own (e.g. its text lives
@@ -140,7 +133,10 @@ export async function makeWalkContext(nodes: GndObject[], options: ExtractUttera
     inlineContextualization: options.inlineContextualization ?? false,
     language: options.language ?? "block-level",
     segmentation: options.segmentation?.mode ?? "structure",
-    segmentationSuppressions: mergeSuppressions(builtInSuppressions, options.segmentation?.suppressions),
+    // segmentSentences() already applies builtInSuppressions internally
+    // (Intl.Segmenter has no built-in equivalent of its own) — this is only
+    // the caller's own additive extras, per `SegmentationOptions.suppressions`.
+    segmentationSuppressions: options.segmentation?.suppressions ?? {},
     // Per-key override, not an additive union — each key holds one whole rule.
     substitutions: { ...builtInSubstitutions, ...options.substitutions },
     blockStarts: new Set(),
