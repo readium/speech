@@ -9,6 +9,12 @@ test("substitutions: a built-in substitution applies by default", async (t) => {
   t.is(utterance.plain, "Copyright © 2026 Acme Corp.");
 });
 
+test("substitutions: converts uppercase (C)/(R)/(TM) as well as lowercase", async (t) => {
+  const gnd = parseMarkup("<p>Copyright (C) 2026 Acme Corp. Registered(R) trademark. Acme(TM) Widgets.</p>");
+  const [utterance] = await extractUtterances(gnd, { format: "plain" });
+  t.is(utterance.plain, "Copyright © 2026 Acme Corp. Registered® trademark. Acme™ Widgets.");
+});
+
 test("substitutions: no match leaves text untouched", async (t) => {
   const gnd = parseMarkup("<p>Nothing to substitute here.</p>");
   const [utterance] = await extractUtterances(gnd, { format: "plain" });

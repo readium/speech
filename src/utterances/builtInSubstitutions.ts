@@ -22,8 +22,11 @@ export const builtInSubstitutions: SubstitutionTable = {
   ...vulgarFractions,
   // Rejects "(c)" directly preceded by "(a)"/"(b)" (a lettered list, not a copyright notice).
   "(c)": { pattern: /(?<!\([ab]\)\s{0,3})\(c\)/g, replace: "©" },
+  "(C)": { pattern: /(?<!\([AB]\)\s{0,3})\(C\)/g, replace: "©" },
   "(r)": "®",
+  "(R)": "®",
   "(tm)": "™",
+  "(TM)": "™",
   deg: { pattern: /(\d+)\s?deg\b/g, replace: (_m: string, digits: string) => `${digits}°` },
   x: { pattern: /(\d+)\s?[xX]\s?(?=\d)/g, replace: (_m: string, digits: string) => `${digits}×` },
   ug: microUnit("g"),
