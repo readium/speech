@@ -25,7 +25,26 @@
           "contextualize": [
             "introduction"
           ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "introduction"
+          ],
           "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "introduction"
+          ],
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -40,7 +59,28 @@
             "introduction"
           ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "introduction"
+          ],
+          "language": "always",
           "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "introduction"
+          ],
+          "language": "always",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -55,7 +95,28 @@
             "introduction"
           ],
           "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "introduction"
+          ],
+          "language": "block-level",
           "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "introduction"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -70,20 +131,39 @@
             "introduction"
           ],
           "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "introduction"
+          ],
+          "language": "none",
           "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "introduction"
+          ],
+          "language": "none",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "plain": "Start of the introduction.",
-          "synthetic": true
+          "plain": "Start of the introduction."
         },
         {
           "plain": "This work explores the history of coastal lighthouses."
         },
         {
-          "plain": "End of the introduction.",
-          "synthetic": true
+          "plain": "End of the introduction."
         }
       ]
     },
@@ -112,7 +192,26 @@
           "contextualize": [
             "introduction"
           ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "introduction"
+          ],
           "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "introduction"
+          ],
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -127,7 +226,28 @@
             "introduction"
           ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "introduction"
+          ],
+          "language": "always",
           "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "introduction"
+          ],
+          "language": "always",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -142,7 +262,28 @@
             "introduction"
           ],
           "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "introduction"
+          ],
+          "language": "block-level",
           "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "introduction"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -157,20 +298,39 @@
             "introduction"
           ],
           "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "introduction"
+          ],
+          "language": "none",
           "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "introduction"
+          ],
+          "language": "none",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "ssml": "Start of the introduction.",
-          "synthetic": true
+          "ssml": "Start of the introduction."
         },
         {
           "ssml": "This work explores the history of coastal lighthouses."
         },
         {
-          "ssml": "End of the introduction.",
-          "synthetic": true
+          "ssml": "End of the introduction."
         }
       ]
     }

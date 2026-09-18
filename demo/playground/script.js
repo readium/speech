@@ -11,6 +11,7 @@ const utterancesBadgeEl = document.getElementById("utterances-badge");
 const optionVerbosityEl = document.getElementById("option-verbosity");
 const optionSkipEl = document.getElementById("option-skip");
 const optionLanguageEl = document.getElementById("option-language");
+const optionSegmentationEl = document.getElementById("option-segmentation");
 const optionInterruptEl = document.getElementById("option-interrupt");
 const optionContextualizeEl = document.getElementById("option-contextualize");
 const optionPauseDurationEl = document.getElementById("option-pause-duration");
@@ -25,6 +26,7 @@ const optionVolumeValueEl = document.getElementById("option-volume-value");
 const formatGroupEl = document.getElementById("format-group");
 const formatHintEl = document.getElementById("format-hint");
 const languageHintEl = document.getElementById("language-hint");
+const segmentationHintEl = document.getElementById("segmentation-hint");
 const verbosityHintEl = document.getElementById("verbosity-hint");
 const inlineContextualizationHintEl = document.getElementById("inline-contextualization-hint");
 const pauseDurationHintEl = document.getElementById("pause-duration-hint");
@@ -178,6 +180,7 @@ function renderToolbarOptions() {
   formatRadios = [...formatGroupEl.querySelectorAll('input[name="format"]')];
 
   populateEnumSelect(optionLanguageEl, editor.language.supportedValues, { includeDefaultOption: true });
+  populateEnumSelect(optionSegmentationEl, editor.segmentation.supportedValues, { includeDefaultOption: true });
   populateEnumSelect(optionVerbosityEl, editor.verbosity.supportedValues);
   populateEnumSelect(optionAutoPauseEl, editor.autoPause.supportedValues);
 
@@ -217,6 +220,9 @@ function renderToolbarState() {
   setDefaultLabel(languageHintEl, libraryDefaults?.language);
   optionLanguageEl.value = editor.language.value ?? "";
 
+  setDefaultLabel(segmentationHintEl, libraryDefaults?.segmentation);
+  optionSegmentationEl.value = editor.segmentation.value ?? "";
+
   setDefaultLabel(verbosityHintEl, libraryDefaults?.verbosity);
   optionVerbosityEl.value = editor.verbosity.value ?? editor.verbosity.effectiveValue;
   const customRolesDisabled = optionVerbosityEl.value !== "custom";
@@ -250,6 +256,7 @@ async function applyPreferencesFromToolbar() {
   editor.inlineContextualization.value = optionInterruptEl?.checked ?? false;
   editor.verbosity.value = optionVerbosityEl?.value || "few";
   editor.language.value = optionLanguageEl?.value || null;
+  editor.segmentation.value = optionSegmentationEl?.value || null;
   editor.autoPause.value = optionAutoPauseEl?.value || "none";
   for (const { key, inputEl } of rangeControls) {
     editor[key].value = Number(inputEl.value);
@@ -270,6 +277,7 @@ async function resetExtractionPreferences() {
   const editor = configurable.preferencesEditor;
   editor.format.clear();
   editor.language.clear();
+  editor.segmentation.clear();
   editor.verbosity.clear();
   editor.inlineContextualization.clear();
   editor.skip.clear();
@@ -296,6 +304,7 @@ function currentExtractionOptions() {
   const options = { format: settings.format, skip: settings.skip, contextualize: settings.contextualize };
   if (settings.inlineContextualization) options.inlineContextualization = true;
   if (settings.language) options.language = settings.language;
+  if (settings.segmentation) options.segmentation = settings.segmentation;
   return options;
 }
 
@@ -747,6 +756,7 @@ filterInput.addEventListener("input", renderList);
 for (const radio of formatRadios) radio.addEventListener("change", applyPreferencesFromToolbar);
 optionVerbosityEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionLanguageEl?.addEventListener("change", applyPreferencesFromToolbar);
+optionSegmentationEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionInterruptEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionSkipEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionContextualizeEl?.addEventListener("change", applyPreferencesFromToolbar);

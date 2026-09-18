@@ -25,7 +25,26 @@
           "contextualize": [
             "definition"
           ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "definition"
+          ],
           "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "definition"
+          ],
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -40,7 +59,28 @@
             "definition"
           ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "always",
           "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "always",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -55,7 +95,28 @@
             "definition"
           ],
           "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "block-level",
           "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -70,13 +131,33 @@
             "definition"
           ],
           "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "none",
           "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "none",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "plain": "Definition.",
-          "synthetic": true
+          "plain": "Definition."
         },
         {
           "plain": "A structure that contains an enumeration of related content items."
@@ -108,7 +189,26 @@
           "contextualize": [
             "definition"
           ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "definition"
+          ],
           "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "definition"
+          ],
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -123,7 +223,28 @@
             "definition"
           ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "always",
           "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "always",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -138,7 +259,28 @@
             "definition"
           ],
           "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "block-level",
           "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -153,13 +295,33 @@
             "definition"
           ],
           "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "none",
           "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "definition"
+          ],
+          "language": "none",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "ssml": "Definition.",
-          "synthetic": true
+          "ssml": "Definition."
         },
         {
           "ssml": "A structure that contains an enumeration of related content items."

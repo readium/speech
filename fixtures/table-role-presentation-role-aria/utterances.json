@@ -18,6 +18,74 @@
     {
       "options": [
         {
+          "format": "plain",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Name Ada",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
           "format": "ssml"
         }
       ],
@@ -27,6 +95,74 @@
         },
         {
           "ssml": "Ada"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Name Ada",
+          "language": "en"
         }
       ]
     }

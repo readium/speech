@@ -12,7 +12,14 @@ export function selectorForElement(el: Element, docRoot: Document | null): strin
   if (id) return `#${CSS.escape(id)}`;
   // documentElement, not docRoot: Document.querySelector() resolves ":scope"
   // to the root element, not the Document node, so a Document root here would never resolve.
-  return getCssSelector(el, { root: docRoot?.documentElement ?? undefined }) ?? undefined;
+  // No "attribute": an attribute selector can latch onto something
+  // JS-mutated (e.g. an inline `style` set by a layout script), which
+  // silently stops matching the moment that attribute changes. "nthchild"
+  // is the fallback instead — structural position, not presentation state.
+  return (
+    getCssSelector(el, { root: docRoot?.documentElement ?? undefined, selectors: ["id", "class", "tag", "nthchild"] }) ??
+    undefined
+  );
 }
 
 // The base textref every generated node gets: a bare "#id" fragment when

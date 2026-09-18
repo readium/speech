@@ -220,6 +220,10 @@ select {
   font-size: 14px;
   box-sizing: border-box;
   min-width: 140px;
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 /* Buttons */
@@ -491,6 +495,124 @@ button:hover:not(:disabled) {
 #content [role="doc-biblioref"] {
   font-size: 0.8em;
   vertical-align: super;
+}
+
+/* Fixed-layout scenario — imitates an EPUB FXL spread: each "case" is its
+   own labeled box with absolutely-positioned two-column text fragments,
+   some deliberately split mid-sentence across siblings (see
+   demo/article/scenarios/fixed-layout.html). Column positions are
+   percentages of `.case`'s own width, so the whole thing scales with
+   whatever width the reader column actually has, rather than a fixed page
+   size — `min-height` (not `height`) leaves room for text to wrap onto
+   more lines at a narrower width instead of overflowing the box. */
+#content.fixed-layout {
+  padding: 20px 28px 60px;
+}
+
+.fixed-layout-intro {
+  margin: 0 0 24px;
+  color: #555;
+}
+
+.fixed-layout-intro code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.9em;
+}
+
+/* `min-height` here is only a pre-layout fallback (e.g. scripting
+   disabled) — `layoutCaseBoxes()` in script.js sets the real value inline,
+   sized to each case's own fragments' actual measured bottom edge, since a
+   fixed guess drifts out of sync with however the text happens to wrap. */
+.case {
+  position: relative;
+  width: 100%;
+  min-height: 130px;
+  margin: 0 0 32px;
+  padding: 8px;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  background: #fafafa;
+}
+
+/* Rendered from `data-label` so it's never picked up as speakable content. */
+.case::before {
+  content: attr(data-label);
+  position: absolute;
+  top: 10px;
+  left: 12px;
+  font-size: 0.8em;
+  font-weight: 600;
+  color: #666;
+}
+
+.frag {
+  position: absolute;
+  top: 46px;
+  width: 46%;
+  padding: 10px 12px;
+  border-left: 4px solid #999;
+  background: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-size: 0.95em;
+  box-sizing: border-box;
+}
+
+.frag-col1 {
+  left: 0;
+}
+
+.frag-col2 {
+  left: 52%;
+}
+
+.frag-row2 {
+  top: 174px;
+}
+
+/* Color-coded by which reconstruction case each fragment demonstrates. */
+.frag-baseline {
+  border-left-color: #9e9e9e;
+}
+
+.frag-split {
+  border-left-color: #2196F3;
+}
+
+.frag-abbrev {
+  border-left-color: #ff9800;
+}
+
+.frag-chain {
+  border-left-color: #4CAF50;
+}
+
+.frag-mixed {
+  border-left-color: #9c27b0;
+}
+
+/* Word-level/letter-level scenarios — a flat run of `.token` spans (one per
+   word or per letter, see demo/article/scenarios/word-level.html and
+   letter-level.html), laid out as absolutely-positioned elements at runtime
+   by layoutPositionedTokens() in script.js (measured, not hand-placed). */
+#content.positioned-tokens {
+  padding: 20px 28px 60px;
+}
+
+.text-flow {
+  position: relative;
+  width: 100%;
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 12px;
+  box-sizing: border-box;
+  line-height: 28px;
+  background: #fafafa;
+}
+
+.token {
+  position: absolute;
+  white-space: pre;
+  font-size: 0.95em;
 }
 
 /* Left sidebar — fixed width, full viewport height, collapsible to a

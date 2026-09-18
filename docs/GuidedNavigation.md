@@ -52,6 +52,13 @@ makeGnd(html, undefined, { textrefs: true });                       // every rol
 makeGnd(html, undefined, { textrefs: ["heading1", "paragraph"] });  // just these roles
 ```
 
+`roles` also accepts `"leaf-text"`, not a real GND role — it matches a roleless block that owns its own text directly (e.g. a `<div>` standing in for `<p>`, no role, no semantic tag). `true` already includes it; in an array, add it explicitly:
+
+```typescript
+makeGnd(html, undefined, { textrefs: ["leaf-text"] });               // only roleless leaf-text blocks
+makeGnd(html, undefined, { textrefs: ["leaf-text", "heading1"] });   // that, plus real headings
+```
+
 `domRange` makes the reference more precise: `#domrange(...)`, pointing at the exact text node and character offset, not just the element. This only works if you pass a live DOM element as `input` (not an HTML string) — pass a string and `domRange` is silently skipped, because a string gets parsed into a detached copy you can't point back to:
 
 ```typescript

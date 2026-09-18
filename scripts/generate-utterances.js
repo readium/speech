@@ -71,6 +71,7 @@ function sameUtterances(a, b) {
 
 const languageValues = [undefined, "always", "block-level", "none"];
 const inlineContextualizationValues = [false, true];
+const segmentationModeValues = [undefined, "sentence"];
 
 const ids = readdirSync(FIXTURES_DIR, { withFileTypes: true })
   .filter((e) => e.isDirectory())
@@ -113,34 +114,38 @@ for (const id of ids) {
         for (const inlineRoles of subsets(shapeableInCombo)) {
           for (const language of languageValues) {
             for (const inlineContextualization of inlineContextualizationValues) {
-              if (
-                skip.length === 0 &&
-                contextualize.length === 0 &&
-                inlineRoles.length === 0 &&
-                language === undefined &&
-                !inlineContextualization
-              ) {
-                continue; // the default case itself, already pushed above
-              }
-              const options = { format };
-              if (skip.length > 0) options.skip = skip;
-              if (contextualize.length > 0) options.contextualize = contextualize;
-              if (inlineRoles.length > 0) {
-                options.contextualization = {
-                  shapes: Object.fromEntries(inlineRoles.map((role) => [role, "inline"])),
-                };
-              }
-              if (language !== undefined) options.language = language;
-              if (inlineContextualization) options.inlineContextualization = true;
+              for (const segmentationMode of segmentationModeValues) {
+                if (
+                  skip.length === 0 &&
+                  contextualize.length === 0 &&
+                  inlineRoles.length === 0 &&
+                  language === undefined &&
+                  !inlineContextualization &&
+                  segmentationMode === undefined
+                ) {
+                  continue; // the default case itself, already pushed above
+                }
+                const options = { format };
+                if (skip.length > 0) options.skip = skip;
+                if (contextualize.length > 0) options.contextualize = contextualize;
+                if (inlineRoles.length > 0) {
+                  options.contextualization = {
+                    shapes: Object.fromEntries(inlineRoles.map((role) => [role, "inline"])),
+                  };
+                }
+                if (language !== undefined) options.language = language;
+                if (inlineContextualization) options.inlineContextualization = true;
+                if (segmentationMode !== undefined) options.segmentation = { mode: segmentationMode };
 
-              const utterances = await extractUtterances(nodes, options);
-              if (!sameUtterances(utterances, defaultUtterances)) {
-                const key = JSON.stringify(sortKeysDeep(utterances));
-                const group = groups.get(key);
-                if (group) {
-                  group.options.push(options);
-                } else {
-                  groups.set(key, { options: [options], utterances });
+                const utterances = await extractUtterances(nodes, options);
+                if (!sameUtterances(utterances, defaultUtterances)) {
+                  const key = JSON.stringify(sortKeysDeep(utterances));
+                  const group = groups.get(key);
+                  if (group) {
+                    group.options.push(options);
+                  } else {
+                    groups.set(key, { options: [options], utterances });
+                  }
                 }
               }
             }

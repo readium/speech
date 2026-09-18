@@ -25,7 +25,26 @@
           "contextualize": [
             "term"
           ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
           "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -40,7 +59,28 @@
             "term"
           ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "always",
           "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "always",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -55,7 +95,28 @@
             "term"
           ],
           "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level",
           "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -70,13 +131,33 @@
             "term"
           ],
           "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none",
           "inlineContextualization": true
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "plain": "Term.",
-          "synthetic": true
+          "plain": "Term."
         },
         {
           "plain": "lighthouse"
@@ -108,7 +189,26 @@
           "contextualize": [
             "term"
           ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
           "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -123,7 +223,28 @@
             "term"
           ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "always",
           "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "always",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -138,7 +259,28 @@
             "term"
           ],
           "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level",
           "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -153,13 +295,33 @@
             "term"
           ],
           "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none",
           "inlineContextualization": true
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none",
+          "inlineContextualization": true,
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "ssml": "Term.",
-          "synthetic": true
+          "ssml": "Term."
         },
         {
           "ssml": "lighthouse"

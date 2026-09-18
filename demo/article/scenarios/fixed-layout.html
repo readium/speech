@@ -1,0 +1,32 @@
+<h1>Fixed-layout page (simulated EPUB FXL)</h1>
+
+<p class="fixed-layout-intro">This page imitates a fixed-layout EPUB spread rendered on the web: every paragraph fragment below is an absolutely-positioned, unroled <code>&lt;div&gt;</code> — no <code>&lt;p&gt;</code>, no semantic tag — laid out in two columns. Reading (DOM) order still runs top to bottom, one case at a time. Set Segmentation to "sentence" to see reconstruction happen.</p>
+
+<div class="case" data-label="Baseline — one complete sentence, one fragment, no split">
+  <div class="frag frag-baseline frag-col1">The Kempelen Speaking Machine, built in the 1700s, used a bellows and a series of levers to imitate the human vocal tract.</div>
+</div>
+
+<div class="case case-split" data-label="Split across two columns — one sentence, two fragments">
+  <div class="frag frag-split frag-col1">Fixed-layout pages often lay a single paragraph's own text across separate positioned elements, so this sentence begins in the left column and</div>
+  <div class="frag frag-split frag-col2">continues here, in the right column, as one uninterrupted sentence.</div>
+</div>
+
+<div class="case case-abbrev" data-label="Abbreviation right at the boundary — must still merge, not read as a sentence end">
+  <div class="frag frag-abbrev frag-col1">Early public demonstrations were led by Dr.</div>
+  <div class="frag frag-abbrev frag-col2">Kratzenstein at the Russian Imperial Academy in 1779.</div>
+</div>
+
+<div class="case" data-label="Multiple complete sentences, then a trailing split — only the last one continues into the next fragment">
+  <div class="frag frag-mixed frag-col1">The device was first tested in a small workshop. It produced a rough approximation of vowel sounds. A more refined model was later built to demonstrate</div>
+  <div class="frag frag-mixed frag-col2">the full range of speech sounds to the public.</div>
+</div>
+
+<div class="case case-chain" data-label="Three-way chain — one sentence split across three fragments">
+  <div class="frag frag-chain frag-col1">The design was refined in three stages: first the bellows were reshaped,</div>
+  <div class="frag frag-chain frag-col2">then a resonance chamber was added,</div>
+  <div class="frag frag-chain frag-col1 frag-row2">and finally the vowel formants were tuned by ear.</div>
+</div>
+
+<div class="case" data-label="Baseline — a separate sentence right after, must NOT merge into the case above">
+  <div class="frag frag-baseline frag-col1">None of these later changes were ever written down.</div>
+</div>

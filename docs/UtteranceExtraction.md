@@ -22,11 +22,17 @@ interface ReadiumSpeechUtterance {
   ssml?: string;
   language?: string; // BCP 47
   locate?: LocatorOptions; // Decoded from the source node's textref — spread into createLocator()/decorate(), see GuidedNavigation.md
-  synthetic?: boolean; // True for a synthesized label/announcement (contextualization, alt/caption description...), not text copied from the source
+  offsets?: UtteranceOffset[]; // Ranges of plain/ssml backed by real source text, each with its own locate
+}
+
+interface UtteranceOffset {
+  start: number;
+  end: number;
+  locate: LocatorOptions;
 }
 ```
 
-Some roles get a synthesized navigational contextualization spoken around their content (entering/leaving a table, a pagebreak label...) — see [`defaultContextualizations`](../src/utterances/contextualizations.ts), sourced from [`locales/en.json`](../locales/en.json).
+Some roles get a synthesized navigational contextualization spoken around their content (entering/leaving a table, a pagebreak label...) — see [`defaultContextualizations`](../src/utterances/contextualizations.ts), sourced from [`locales/en.json`](../locales/en.json). A synthesized label/announcement carries no `offsets` at all — `locate` is still safe for element-scoped highlighting, but there's no real source text to search for.
 
 ## Options
 
@@ -39,6 +45,8 @@ interface ExtractUtterancesOptions {
   contextualization?: ContextualizationOptions;
   language?: "none" | "block-level" | "always";
   inlineContextualization?: boolean;
+  segmentation?: SegmentationOptions;
+  substitutions?: SubstitutionTable;
 }
 
 interface ContextualizationOptions {
@@ -46,6 +54,14 @@ interface ContextualizationOptions {
   shapes?: Partial<Record<GndRole, "inline" | "block">>;
   params?: (role: GndRole, node: GndObject) => Record<string, string> | undefined;
 }
+
+interface SegmentationOptions {
+  mode?: "structure" | "sentence"; // default "structure"
+  suppressions?: Record<string, string[]>; // per-language sentence-ending exceptions, keyed like `language`
+}
+
+type SubstitutionRule = string | { pattern: RegExp; replace: string | ((...match: string[]) => string) };
+type SubstitutionTable = Record<string, SubstitutionRule>;
 ```
 
 Quick reference:
@@ -61,6 +77,9 @@ Quick reference:
 | `contextualization.params` | none | supply a placeholder value the extractor has no built-in source for |
 | `language` | `"block-level"` | how a node's own inline-language spans render |
 | `inlineContextualization` | `false` | split a sentence at a mid-sentence pagebreak/footnote, instead of after it |
+| `segmentation.mode` | `"structure"` | one utterance per structural unit, or split/reconstruct at real sentence boundaries |
+| `segmentation.suppressions` | none | per-language abbreviations (e.g. `"d."`) that sentence mode won't treat as endings |
+| `substitutions` | `builtInSubstitutions` | ASCII imitations of Unicode symbols (`"1/2"`, `"(c)"`, `"100deg"`) to rewrite before speaking |
 
 ### `format`
 
@@ -194,6 +213,71 @@ How a node's own inline spans (`<em lang="fr">`) render. Never merges across sib
 ### `inlineContextualization`
 
 A mid-sentence pagebreak/footnote splits the sentence at that exact point instead of after it finishes. Default `false`.
+
+### `segmentation`
+
+- `"structure"` (default) — one utterance per structural/block-level unit, whatever its sentence count.
+- `"sentence"` — split at real sentence boundaries instead: a multi-sentence node becomes several utterances, and a sentence genuinely split across sibling GND nodes (e.g. a fixed-layout document with no enclosing paragraph, just positioned text fragments) is reconstructed into one utterance covering both.
+
+```typescript
+// <p>Hello there. This has two sentences.</p>
+await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+// [{ plain: "Hello there. " }, { plain: "This has two sentences." }]
+```
+
+Each utterance's `offsets` (see above) says which source element(s) it was built from — up to one entry per contributing node, so a sentence reconstructed across two elements gets two entries, each with its own `locate`.
+
+`suppressions` lists, per language, abbreviations (with trailing period, e.g. `"d."`) that shouldn't be mistaken for sentence endings:
+
+```typescript
+await extractUtterances(gnd, {
+  format: "plain",
+  segmentation: { mode: "sentence", suppressions: { en: ["approx."] } },
+});
+```
+
+#### Reconstruction heuristics
+
+Input: the flat, ordered utterance list the walk (above) produced. Reconstruction never goes back to the GND tree — it operates on this list only.
+
+**Step 1 — eligibility.** For each pair of adjacent utterances A, B, A may extend a run into B only if all of the following hold:
+
+- Both A and B have real source text (not missing/empty).
+- Neither A nor B was authored by extraction itself rather than lifted from the source — e.g. an image's `description` (its alt text) is extraction-authored, since it stands in for text the document doesn't have.
+- A and B have the same `language`, treating a missing `language` on either one as `"en"`.
+- Neither A's nor B's source node carries a role where missing punctuation is not meaningful: `cell`, `rowheader`, `row`, `table`, `list`, `listItem`, `heading1`–`heading6`.
+
+A maximal run of pairwise-eligible utterances is built by scanning forward while eligibility holds.
+
+**Step 2 — confirmation.** Take the whole run's text, joined into one string, and run the real sentence segmenter on it once — segmentation is never decided any other way. For each gap between two pieces in the run:
+
+- The gap is a genuine join only if some detected sentence boundary extends past the gap into the next piece's own text. A boundary that lands exactly at the gap, consuming none of the next piece's text, does not count.
+- Consecutive genuine-join gaps chain into one merge group. That group is then resegmented on its own, self-contained text — a confirmed group is not guaranteed to collapse into exactly one utterance; it can still yield more than one.
+
+Anything left outside a merge group is split on its own sentence boundaries independently.
+
+### `substitutions`
+
+Rewrites ASCII-typed imitations of Unicode symbols in `plain`/`ssml` before an utterance is returned, so the imitation is spoken as the symbol it stands in for rather than read literally. Merged by key on top of [`builtInSubstitutions`](../src/utterances/builtInSubstitutions.ts) — a caller-supplied key replaces the built-in rule of the same name rather than adding to it.
+
+```typescript
+// <p>See page 5, fig. 2.</p>
+await extractUtterances(gnd, { format: "plain", substitutions: { "fig.": "figure" } });
+// plain: "See page 5, figure 2."
+```
+
+A rule value is either a plain string, matched as a whole token (like `"fig."` above), or `{ pattern, replace }` for a match that needs its own regex:
+
+```typescript
+// <p>See p.5 for details.</p>
+await extractUtterances(gnd, {
+  format: "plain",
+  substitutions: { "p.": { pattern: /p\.(?=\d)/g, replace: "page " } },
+});
+// plain: "See page 5 for details."
+```
+
+Unlike `segmentation.suppressions`, this table is flat, not per-language — the voice speaks the resulting symbol correctly regardless of the utterance's own language.
 
 ## Contextualization catalog
 

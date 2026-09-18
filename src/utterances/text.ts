@@ -1,4 +1,6 @@
+import { ssmlTextEscape } from "../gnd/text.js";
 import type { GndObject } from "../gnd/types.js";
+import type { SubstitutionRule, SubstitutionTable } from "./types.js";
 import {
   BINDING_PUNCT_CLASS,
   OPENING_PUNCT_CLASS,
@@ -90,18 +92,217 @@ export function resolveNodeText(text: GndObject["text"]): ResolvedNodeText | und
 // placeholder, so the GND converter never generated a `plain` variant for
 // it — see `converter.ts`'s `flushText()`).
 export function stripSsmlTags(ssml: string): string {
-  return ssml
-    .replace(/<[^>]+>/g, "")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&amp;/g, "&")
-    .replace(/ {2,}/g, " ")
-    .trim();
+  return stripSsmlTagsWithMap(ssml).plain;
+}
+
+// Same as `stripSsmlTags`, but `map[i]` also gives the `ssml` position that produced `plain[i]`.
+export function stripSsmlTagsWithMap(ssml: string): { plain: string; map: number[] } {
+  let plain = "";
+  const map: number[] = [];
+  let lastWasSpace = false;
+  let i = 0;
+  while (i < ssml.length) {
+    const ch = ssml[i];
+    if (ch === "<") {
+      const close = ssml.indexOf(">", i);
+      const after = close === -1 ? "" : ssml.slice(close + 1);
+      i = close === -1 ? ssml.length : close + 1;
+      // A removed tag must not silently glue two words together (e.g. an
+      // unspaced `<br>` between them) — same rule stripPlaceholders() uses:
+      // no space before punctuation that binds to what came before, none at
+      // either end of the string, one otherwise.
+      if (!lastWasSpace && plain.length > 0 && after.length > 0 && !startsWithBindingPunct(after)) {
+        plain += " ";
+        map.push(i);
+        lastWasSpace = true;
+      }
+      continue;
+    }
+    const entity = ssml.startsWith("&lt;", i) ? "<" : ssml.startsWith("&gt;", i) ? ">" : ssml.startsWith("&amp;", i) ? "&" : undefined;
+    if (entity) {
+      plain += entity;
+      map.push(i);
+      i += entity === "&" ? 5 : 4;
+      lastWasSpace = false;
+      continue;
+    }
+    if (ch === " ") {
+      if (!lastWasSpace) {
+        plain += ch;
+        map.push(i);
+        lastWasSpace = true;
+      }
+      i++;
+      continue;
+    }
+    plain += ch;
+    map.push(i);
+    lastWasSpace = false;
+    i++;
+  }
+  let start = 0;
+  while (start < plain.length && /\s/.test(plain[start])) start++;
+  let end = plain.length;
+  while (end > start && /\s/.test(plain[end - 1])) end--;
+  return { plain: plain.slice(start, end), map: map.slice(start, end) };
+}
+
+// Smallest plain index whose SSML source position is >= `ssmlIndex` — lands
+// on the next real character when `ssmlIndex` fell inside a stripped tag.
+export function ssmlIndexToPlainIndex(map: number[], ssmlIndex: number): number {
+  let lo = 0;
+  let hi = map.length;
+  while (lo < hi) {
+    const mid = (lo + hi) >> 1;
+    if (map[mid] < ssmlIndex) lo = mid + 1;
+    else hi = mid;
+  }
+  return lo;
+}
+
+interface CompiledSubstitutionRule {
+  regex: RegExp;
+  replace: string | ((...match: string[]) => string);
+}
+
+// Cached per table object, since builtInSubstitutions is reused across calls.
+const compiledSubstitutionTables = new WeakMap<SubstitutionTable, CompiledSubstitutionRule[]>();
+
+function escapeRegExpLiteral(literal: string): string {
+  return literal.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+// `\b` never fires between two non-word chars, so a blanket `\b` on both
+// ends would silently never match "(c)" — apply it only where the edge char is a word char.
+function tokenBoundaryPattern(literal: string): string {
+  const escaped = escapeRegExpLiteral(literal);
+  const lead = /\w/.test(literal[0]) ? "(?<!\\w)" : "";
+  const trail = /\w/.test(literal[literal.length - 1]) ? "(?!\\w)" : "";
+  return `${lead}${escaped}${trail}`;
+}
+
+function compileSubstitutionRule(key: string, rule: SubstitutionRule): CompiledSubstitutionRule {
+  if (typeof rule === "string") {
+    return { regex: new RegExp(tokenBoundaryPattern(key), "g"), replace: rule };
+  }
+  const flags = rule.pattern.flags.includes("g") ? rule.pattern.flags : `${rule.pattern.flags}g`;
+  return { regex: new RegExp(rule.pattern.source, flags), replace: rule.replace };
+}
+
+function compileSubstitutionTable(table: SubstitutionTable): CompiledSubstitutionRule[] {
+  let compiled = compiledSubstitutionTables.get(table);
+  if (!compiled) {
+    compiled = Object.entries(table).map(([key, rule]) => compileSubstitutionRule(key, rule));
+    compiledSubstitutionTables.set(table, compiled);
+  }
+  return compiled;
+}
+
+interface SubstitutionSpan {
+  start: number;
+  end: number;
+  replacement: string;
+}
+
+// Runs every rule over `text` (leftmost-match wins on overlap), returning
+// the rewritten text plus `map[i]` = the source index for output char i.
+export function substituteWithMap(text: string, table: SubstitutionTable): { text: string; map: number[] } {
+  const spans: SubstitutionSpan[] = [];
+  for (const rule of compileSubstitutionTable(table)) {
+    for (const match of text.matchAll(rule.regex)) {
+      const start = match.index!;
+      const replacement = typeof rule.replace === "string" ? rule.replace : rule.replace(...(match as unknown as string[]));
+      spans.push({ start, end: start + match[0].length, replacement });
+    }
+  }
+  spans.sort((a, b) => a.start - b.start);
+
+  let out = "";
+  const map: number[] = [];
+  let cursor = 0;
+  for (const span of spans) {
+    if (span.start < cursor) continue; // overlaps a previously accepted span — leftmost wins
+    while (cursor < span.start) {
+      out += text[cursor];
+      map.push(cursor);
+      cursor++;
+    }
+    // By UTF-16 code unit, not code point (no `for...of`) — a surrogate-pair
+    // replacement char must still add one map entry per code unit.
+    for (let i = 0; i < span.replacement.length; i++) {
+      out += span.replacement[i];
+      map.push(span.start);
+    }
+    cursor = span.end;
+  }
+  while (cursor < text.length) {
+    out += text[cursor];
+    map.push(cursor);
+    cursor++;
+  }
+  return { text: out, map };
+}
+
+// A direct lookup, not a search, since `map` is already indexed by
+// substituted position. `substitutedIndex === map.length` lands one past the last mapped char.
+export function substitutedIndexToSourceIndex(map: number[], substitutedIndex: number): number {
+  if (!map.length) return substitutedIndex;
+  if (substitutedIndex <= 0) return map[0];
+  if (substitutedIndex >= map.length) return map[map.length - 1] + 1;
+  return map[substitutedIndex];
+}
+
+interface SsmlTextAtom {
+  kind: "paired" | "selfClosing" | "text";
+  raw: string;
+  tag?: string;
+  attrs?: string;
+  innerText?: string; // unescaped, "paired" only
+  text?: string; // unescaped, "text" only
+}
+
+// Its own small tokenizer rather than reusing splitSsmlAtSentences.ts's, to avoid touching that file.
+const SSML_TEXT_TOKEN_RE = /<([a-zA-Z][\w-]*)([^>]*)>([\s\S]*?)<\/\1>|<[a-zA-Z][\w-]*\b[^>]*\/>|[^<]+/g;
+
+function unescapeSsmlEntities(text: string): string {
+  return text.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
+}
+
+function tokenizeSsmlTextAtoms(ssml: string): SsmlTextAtom[] {
+  const atoms: SsmlTextAtom[] = [];
+  for (const match of ssml.matchAll(SSML_TEXT_TOKEN_RE)) {
+    if (match[1] !== undefined) {
+      atoms.push({ kind: "paired", raw: match[0], tag: match[1], attrs: match[2], innerText: unescapeSsmlEntities(match[3]) });
+    } else if (match[0][0] === "<") {
+      atoms.push({ kind: "selfClosing", raw: match[0] });
+    } else {
+      atoms.push({ kind: "text", raw: match[0], text: unescapeSsmlEntities(match[0]) });
+    }
+  }
+  return atoms;
+}
+
+// Rewrites SSML text content only (tags/attributes untouched), re-escaping
+// each replacement so a caller-supplied `replace` can't corrupt the markup.
+export function substituteSsmlText(ssml: string, table: SubstitutionTable): string {
+  return tokenizeSsmlTextAtoms(ssml)
+    .map((atom) => {
+      if (atom.kind === "selfClosing") return atom.raw;
+      if (atom.kind === "text") return ssmlTextEscape(substituteWithMap(atom.text!, table).text);
+      const openTag = `<${atom.tag}${atom.attrs}>`;
+      const closeTag = `</${atom.tag}>`;
+      return `${openTag}${ssmlTextEscape(substituteWithMap(atom.innerText!, table).text)}${closeTag}`;
+    })
+    .join("");
 }
 
 export interface LangSegment {
   plain: string;
   language?: string;
+  // Position in the reconstructed whole-node plain text (this function's
+  // own segments, concatenated in order) — the source of truth for `locate`.
+  start: number;
+  end: number;
 }
 
 // Matches a raw (pre-`stripLangTags`) `<lang xml:lang="...">...</lang>` span
@@ -222,9 +423,13 @@ export function splitOnLangTags(ssml: string, baseLanguage: string | undefined):
   }
 
   const segments: LangSegment[] = [];
+  let cursor = 0;
   for (const run of runs) {
     const plain = renderTokens(run.tokens);
-    if (plain) segments.push({ plain, language: run.language });
+    if (plain) {
+      segments.push({ plain, language: run.language, start: cursor, end: cursor + plain.length });
+      cursor += plain.length;
+    }
   }
   return segments;
 }

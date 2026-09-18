@@ -12,7 +12,8 @@ import { EventEmitter } from "../utils/eventEmitter";
 import { clampIndex } from "../utils/array";
 import { clamp } from "../utils/clamp";
 
-import { stripHtml } from "string-strip-html";
+import { neutralizeAngleBrackets } from "../utils/text";
+import { stripSsmlTags } from "../utterances/text";
 
 export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private speechSynthesis: SpeechSynthesis;
@@ -247,7 +248,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private toPlainText(utterances: ReadiumSpeechUtterance[]): ReadiumSpeechUtterance[] {
     return utterances.map(content => ({
       ...content,
-      plain: content.plain ?? (content.ssml ? stripHtml(content.ssml).result : "")
+      plain: content.plain ?? (content.ssml ? stripSsmlTags(content.ssml) : "")
     }));
   }
 
@@ -375,7 +376,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     // Validate text length
     this.validateText(text);
 
-    const utterance = this.createUtterance(text);
+    const utterance = this.createUtterance(neutralizeAngleBrackets(text));
 
     // Enhanced voice selection with MSNatural detection, optionally
     // matched to this utterance's own content language
@@ -495,6 +496,9 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     // Handle word and sentence boundaries
     utterance.onboundary = (event) => {
+      // A stray/delayed boundary from an already-cancelled utterance must not
+      // be resolved against whatever utterance is current by now.
+      if (generation !== this.speakGeneration) return;
       this.emitEvent({
         type: "boundary",
         detail: {

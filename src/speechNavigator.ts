@@ -8,7 +8,8 @@ import { SpeechPreferencesEditor } from "./preferences/SpeechPreferencesEditor";
 import { SpeechSettings } from "./preferences/SpeechSettings";
 import { ContextualizationShapeOverrides, resolveContextualizationShapes } from "./preferences/verbosityTables";
 import { ReadiumSpeechUtterance } from "./utterance";
-import { extractUtterancesWithSources } from "./utterances/extractUtterances";
+import { resolveBoundaryLocate } from "./utterances/boundaryLocate";
+import { extractUtterancesWithSources, type SourceTrace } from "./utterances/extractUtterances";
 import { Contextualizations } from "./utterances/types";
 import { ReadiumSpeechVoice } from "./voices/types";
 import { EventEmitter } from "./utils/eventEmitter";
@@ -21,10 +22,16 @@ export interface ContextualizationOverrides {
   params?: (role: string, node: GndObject) => Record<string, string> | undefined;
 }
 
+// Same rationale as ContextualizationOverrides — static, not a preference.
+export interface SegmentationOverrides {
+  suppressions?: Record<string, string[]>;
+}
+
 export interface ReadiumSpeechNavigatorConfiguration {
   preferences?: ISpeechPreferences;
   defaults?: ISpeechDefaults;
   contextualizationOverrides?: ContextualizationOverrides;
+  segmentationOverrides?: SegmentationOverrides;
 }
 
 export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
@@ -46,17 +53,18 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private _settings: SpeechSettings;
   private _preferencesEditor: SpeechPreferencesEditor | null = null;
   private readonly contextualizationOverrides?: ContextualizationOverrides;
+  private readonly segmentationOverrides?: SegmentationOverrides;
 
   // The raw GND source, retained only when content was loaded via
   // `loadGndContent()`. Its absence is what makes submitPreferences()'s
   // extraction-affecting fields (format, verbosity, skip, contextualize,
-  // language) a no-op on content loaded via loadContent() — prosody
+  // language, segmentation) a no-op on content loaded via loadContent() — prosody
   // fields (rate/pitch/volume/pauseDuration/autoPause) still apply.
   private source: GndObject[] | undefined;
 
   // Parallel to `contentQueue`, from the extraction that produced it — lets
   // reextract() find where to resume after a reload (see resolveResumeIndex).
-  private contentSources: (GndObject | undefined)[] = [];
+  private contentSources: SourceTrace = [];
 
   // Parallel to `contentQueue`: whether each utterance begins a new
   // block-level element. loadContent() content has no boundaries of its own.
@@ -76,6 +84,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this._preferences = new SpeechPreferences(configuration.preferences);
     this._settings = new SpeechSettings(this._preferences, this._defaults);
     this.contextualizationOverrides = configuration.contextualizationOverrides;
+    this.segmentationOverrides = configuration.segmentationOverrides;
     this.setupEngineListeners();
     this.applyEngineParameters();
     void this.initializeEngine();
@@ -176,7 +185,12 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     });
 
     this.engine.on("boundary", (event) => {
-      this.emitEvent(event);
+      const { charIndex, charLength } = event.detail ?? {};
+      const utterance = this.getCurrentContent();
+      const resolved = utterance && typeof charIndex === "number" && typeof charLength === "number"
+        ? resolveBoundaryLocate(utterance, charIndex, charLength)
+        : undefined;
+      this.emitEvent(resolved ? { ...event, detail: { ...event.detail, ...resolved } } : event);
     });
 
     this.engine.on("mark", (event) => {
@@ -283,6 +297,10 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
         params: this.contextualizationOverrides?.params,
       },
       language: this._settings.language,
+      segmentation: {
+        mode: this._settings.segmentation,
+        suppressions: this.segmentationOverrides?.suppressions,
+      },
     });
     this.contentSources = sources;
     this.contentBlockStarts = blockStarts;
@@ -292,10 +310,13 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   // Nearest node at or before oldIndex that's still present in newSources.
-  private resolveResumeIndex(oldSources: (GndObject | undefined)[], oldIndex: number, newSources: (GndObject | undefined)[]): number | null {
+  // A reconstructed-sentence span (a `[first, last]` tuple) is a fresh array
+  // each extraction, so it never matches by identity — skipped in favor of
+  // the next plain single-node entry further back.
+  private resolveResumeIndex(oldSources: SourceTrace, oldIndex: number, newSources: SourceTrace): number | null {
     for (let i = Math.min(oldIndex, oldSources.length - 1); i >= 0; i--) {
       const node = oldSources[i];
-      if (node === undefined) continue;
+      if (node === undefined || Array.isArray(node)) continue;
       const found = newSources.indexOf(node);
       if (found !== -1) return found;
     }
@@ -445,7 +466,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   async submitPreferences(preferences: SpeechPreferences): Promise<void> {
     if (!this.source && extractionPreferenceKeys.some((key) => preferences[key] !== undefined)) {
       console.warn(
-        "submitPreferences(): extraction-affecting preferences (format, inlineContextualization, verbosity, skip, contextualize, language) have no effect on content loaded via loadContent() — use loadGndContent() to re-extract on submission.",
+        "submitPreferences(): extraction-affecting preferences (format, inlineContextualization, verbosity, skip, contextualize, language, segmentation) have no effect on content loaded via loadContent() — use loadGndContent() to re-extract on submission.",
       );
     }
 

@@ -1,4 +1,5 @@
-import type { AutoPauseScope, ExtractionFormat, ISpeechPreferences, LanguageMode, VerbosityPreset } from "./SpeechPreferences.js";
+import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
+import type { AutoPauseScope, ISpeechPreferences, VerbosityPreset } from "./SpeechPreferences.js";
 
 export interface RangeConfig {
   range: [number, number];
@@ -14,6 +15,7 @@ export const verbosityPresets: VerbosityPreset[] = ["none", "few", "some", "most
 export const languageModes: LanguageMode[] = ["none", "block-level", "always"];
 export const extractionFormats: ExtractionFormat[] = ["plain", "ssml"];
 export const autoPauseScopes: AutoPauseScope[] = ["none", "utterance", "block"];
+export const segmentationModes: Segmentation[] = ["structure", "sentence"];
 
 // Fields that only affect the extracted content queue, resolved via
 // ReadiumSpeechNavigator's reextract() — as opposed to the prosody group,
@@ -25,4 +27,5 @@ export const extractionPreferenceKeys: (keyof ISpeechPreferences)[] = [
   "skip",
   "contextualize",
   "language",
+  "segmentation",
 ];

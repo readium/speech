@@ -48,6 +48,32 @@ test("extractUtterances attaches an exact-match highlight when the text is uniqu
   t.is(utterance.locate?.text?.highlight, "a unique sentence.");
 });
 
+test("a language-split fragment gets its own locate/offsets, not the whole node's", async (t) => {
+  const gnd = parseMarkup('<p>Hello <span lang="fr">Bonjour</span> world.</p>', undefined, { textrefs: true });
+  const utterances = await extractUtterances(gnd, { format: "plain", language: "always" });
+  t.deepEqual(utterances.map((u) => u.plain), ["Hello", "Bonjour", "world."]);
+
+  const [before, fr, after] = utterances;
+  t.is(before.locate?.text?.highlight, "Hello");
+  t.is(fr.locate?.text?.highlight, "Bonjour");
+  t.is(after.locate?.text?.highlight, "world.");
+  t.not(before.locate?.text?.highlight, fr.locate?.text?.highlight);
+
+  // offsets are positions in the shared <p>'s own text, so they advance
+  // instead of each fragment restarting at 0.
+  t.deepEqual(before.offsets?.[0], { start: 0, end: before.plain!.length, locate: before.locate });
+  t.deepEqual(fr.offsets?.[0], {
+    start: before.plain!.length,
+    end: before.plain!.length + fr.plain!.length,
+    locate: fr.locate,
+  });
+  t.deepEqual(after.offsets?.[0], {
+    start: before.plain!.length + fr.plain!.length,
+    end: before.plain!.length + fr.plain!.length + after.plain!.length,
+    locate: after.locate,
+  });
+});
+
 test("extractUtterances disambiguates recurring text with prefix/suffix context", async (t) => {
   const gnd = parseMarkup(
     "<p>Before one context</p><p>Repeated text</p><p>Middle marker</p><p>Repeated text</p><p>After two context</p>",

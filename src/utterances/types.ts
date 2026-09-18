@@ -1,5 +1,11 @@
 import type { GndObject, GndRole } from "../gnd/types.js";
 
+// Canonical extraction-option enums — imported by src/preferences/SpeechPreferences.ts
+// rather than redeclared there, so the two never drift apart.
+export type ExtractionFormat = "plain" | "ssml";
+export type LanguageMode = "none" | "block-level" | "always";
+export type Segmentation = "structure" | "sentence";
+
 // Synthesized navigational text the extractor adds around a node, keyed by
 // `GndRole` and resolved via i18next (`<role>.inline`, `<role>.block.start`/
 // `.end`, nested variants, `<role>.parts.*_one`/`*_other` plurals).
@@ -32,13 +38,34 @@ export interface ContextualizationOptions {
   params?: (role: GndRole, node: GndObject) => Record<string, string> | undefined;
 }
 
+// See `ExtractUtterancesOptions.substitutions` below.
+export type SubstitutionRule =
+  | string
+  | { pattern: RegExp; replace: string | ((...match: string[]) => string) };
+
+export type SubstitutionTable = Record<string, SubstitutionRule>;
+
+// See `ExtractUtterancesOptions.segmentation` below.
+export interface SegmentationOptions {
+  // "structure" (default): one utterance per structural/block-level unit.
+  // "sentence": split at real sentence boundaries instead, reconstructing a
+  // sentence across sibling nodes when it genuinely spans them.
+  mode?: Segmentation;
+
+  // Extra per-language abbreviations (with trailing period, e.g. "d.") that
+  // "sentence" mode won't treat as sentence endings — keyed like `language`.
+  // Merged on top of `builtInSuppressions` (src/utterances/builtInSuppressions.ts),
+  // which already covers frequent cases per language.
+  suppressions?: Record<string, string[]>;
+}
+
 export interface ExtractUtterancesOptions {
   // Every extraction is fully plain or fully SSML, never a per-node
   // passthrough of "whatever the node happens to have". Forces exactly
   // one field on every utterance, synthesizing it when a node only
   // naturally has the other (escape plain into ssml with no markup;
   // strip tags/placeholders from ssml into plain). Default "plain".
-  format?: "plain" | "ssml";
+  format?: ExtractionFormat;
 
   // See `ContextualizationOptions` above.
   contextualization?: ContextualizationOptions;
@@ -62,11 +89,11 @@ export interface ExtractUtterancesOptions {
   contextualize?: GndRole[];
 
   // Which language declarations in the *input* the extraction respects.
-  // This never merges separate sibling nodes into one utterance — each
-  // already has its own utterance and keeps it regardless — it only
-  // changes how *a single node's own* inline language spans (e.g.
-  // `<em lang="fr">`, embedded as SSML `<lang>` tags by the GND converter)
-  // are treated:
+  // This option itself never merges sibling nodes — it only changes how *a
+  // single node's own* inline language spans (e.g. `<em lang="fr">`,
+  // embedded as SSML `<lang>` tags by the GND converter) are treated. (A
+  // different mechanism, `segmentation: "sentence"`, can merge sibling
+  // nodes when a sentence spans them — see `SegmentationOptions` below.)
   //  - "always" or omitted: honor them as declared — `ssml` keeps spans
   //    tagged in one string; `plain` splits into one utterance per
   //    language run instead.
@@ -76,7 +103,7 @@ export interface ExtractUtterancesOptions {
   //  - "none": same merging as "block-level", and every utterance's
   //    `language` is dropped entirely — the whole document is being
   //    treated as one language, so nothing gets tagged at all.
-  language?: "none" | "block-level" | "always";
+  language?: LanguageMode;
 
   // Whether a pagebreak/footnote placeholder that falls mid-sentence
   // splits the enclosing utterance at that exact point (contextualization/
@@ -84,4 +111,12 @@ export interface ExtractUtterancesOptions {
   // sentence finishes (default, `false` — today's only behavior, for
   // either `format`).
   inlineContextualization?: boolean;
+
+  // See `SegmentationOptions` above.
+  segmentation?: SegmentationOptions;
+
+  // ASCII imitations of Unicode symbols (e.g. "1/2", "(c)") to rewrite so
+  // the engine speaks the symbol, not the literal imitation. Merged by key
+  // on top of `builtInSubstitutions`; flat, unlike `segmentation.suppressions`.
+  substitutions?: SubstitutionTable;
 }
