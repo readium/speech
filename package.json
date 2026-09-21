@@ -1,6 +1,6 @@
 {
   "name": "@readium/speech",
-  "version": "0.9.2",
+  "version": "0.10.0",
   "description": "A TypeScript library for implementing read aloud features with Web technologies, following best practices for digital publishing.",
   "author": "Readium Foundation",
   "keywords": [
