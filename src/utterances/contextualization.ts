@@ -32,25 +32,36 @@ export function isDroppedByAnotherRole(role: GndRole, roles: GndRole[], ctx: Wal
   });
 }
 
-// `value` means "this node's own text" (see cell/rowheader) — any role's
-// wording can embed it; recomputing `plainTextOf(node)` guards a same-named param.
-function scopeToOwnValue(utterance: ReadiumSpeechUtterance, text: string, node: GndObject, ctx: WalkContext, params?: Record<string, string>): void {
-  const value = params?.value;
-  if (value === undefined || value !== plainTextOf(node)) return;
-  // Language/synthetic status reflect the node's own real text regardless of
-  // whether a locate can be computed — a node with no textref still lost its language otherwise.
-  if (ctx.language !== "none") {
-    const language = typeof node.text === "object" ? node.text.language : undefined;
-    if (language) utterance.language = language;
-  }
-  ctx.synthetic.delete(utterance);
-  const start = text.lastIndexOf(value);
+// Narrows utterance's offsets/locate to quoteText's own span within text.
+// Leaves ctx.synthetic alone — that also gates sentence-splitting/merging.
+export function scopeToQuote(utterance: ReadiumSpeechUtterance, text: string, quoteText: string, node: GndObject, ctx: WalkContext): void {
+  const start = text.lastIndexOf(quoteText);
   if (start === -1) return;
   const resolved = resolveNodeLocate(node, ctx.ancestorChains);
   if (!resolved) return;
-  const quoteLocate = subLocateFor(resolved.ref, value);
-  utterance.offsets = [{ start, end: start + value.length, locate: quoteLocate }];
+  const quoteLocate = subLocateFor(resolved.ref, quoteText);
+  utterance.offsets = [{ start, end: start + quoteText.length, locate: quoteLocate }];
   utterance.locate = resolved.own ? resolved.ref : quoteLocate;
+}
+
+// `value` is always real DOM text. `description` is real DOM text only for figure/table (an implicit <figcaption>/<caption> fold); for every other describable role it's ARIA attribute text with no DOM location — GndObject carries no tag to tell the two apart otherwise.
+function scopeToOwnValue(utterance: ReadiumSpeechUtterance, text: string, node: GndObject, ctx: WalkContext, role: string, params?: Record<string, string>): void {
+  const value = params?.value;
+  if (value !== undefined && value === plainTextOf(node)) {
+    // Language reflects the node's own real text regardless of whether a
+    // locate can be computed — a node with no textref still lost its language otherwise.
+    if (ctx.language !== "none") {
+      const language = typeof node.text === "object" ? node.text.language : undefined;
+      if (language) utterance.language = language;
+    }
+    ctx.synthetic.delete(utterance);
+    scopeToQuote(utterance, text, value, node, ctx);
+    return;
+  }
+  const description = params?.description;
+  if (description !== undefined && description === node.description && (role === "figure" || role === "table")) {
+    scopeToQuote(utterance, text, description, node, ctx);
+  }
 }
 
 // Speaks `role`'s catalog entry for this `phase`: `inline` only has
@@ -75,7 +86,7 @@ export function pushRoleContextualization(
     const text = resolveEntryText(ctx, base, variantKey, params);
     if (text) {
       const utterance = formatPlain(text, ctx);
-      scopeToOwnValue(utterance, text, node, ctx, params);
+      scopeToOwnValue(utterance, text, node, ctx, role, params);
       push(out, sources, node, [utterance]);
     }
     return;
@@ -84,7 +95,7 @@ export function pushRoleContextualization(
     const text = resolveEntryText(ctx, `${role}.inline`, variantKey, params);
     if (text) {
       const utterance = formatPlain(text, ctx);
-      scopeToOwnValue(utterance, text, node, ctx, params);
+      scopeToOwnValue(utterance, text, node, ctx, role, params);
       push(out, sources, node, [utterance]);
     }
   }

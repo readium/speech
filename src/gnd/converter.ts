@@ -68,11 +68,11 @@ export class Converter {
   // See TextrefOptions.roles' leafTextRoleKeyword in options.ts.
   leafTextEnabled = false;
   docRoot: Document | null = null;
-  // The element generated selectors must be unique within: the whole
-  // document for a parsed string, the live input element otherwise.
+  // The live element selectors are climbed relative to — see
+  // selectorGenerator.ts's selectorForElement(). Only set when converting a
+  // live, already-rendered element (same caveat as domRangeEnabled).
   selectorRoot: Element | null = null;
-  // A selector uniquely resolving selectorRoot itself — see
-  // selectorGenerator.ts's rootAnchorSelector().
+  // Prefixed onto every generated selector — see selectorGenerator.ts's rootAnchorSelector().
   selectorRootAnchor: string | null = null;
 
   private root = new NavObject();
@@ -685,7 +685,6 @@ export function parseMarkup(
   converter.leafTextEnabled = leafText;
   converter.textFragmentEnabled = textFragment;
   converter.docRoot = doc;
-  converter.selectorRoot = doc.documentElement;
   const body = doc.querySelector("body");
   if (body && !BODY_TAG_RE.test(input)) {
     converter.convertChildren(body);

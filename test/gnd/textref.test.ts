@@ -165,6 +165,23 @@ test("parseMarkup() given a live leaf-text block whose flow starts inside a chil
   t.is(doc.querySelector(ref!.cssSelector!), div);
 });
 
+test("parseMarkup() given a live element under a selectorRoot never generates a selector that resolves outside that root, even when an id inside it collides with one elsewhere in the host document", (t) => {
+  const doc = new DOMParser().parseFromString(
+    '<body><section id="chapter1"><section id="dup">Chapter one.</section></section><section id="chapter2"><section id="dup"><p>Chapter two.</p></section></section></body>',
+    "text/html",
+  );
+  const chapter2 = doc.getElementById("chapter2")!;
+
+  const [root] = parseMarkup(chapter2, undefined, { textrefs: { roles: true, domRange: true } });
+  const nodes = [root, ...root.children!, ...root.children!.flatMap((c) => c.children ?? [])];
+  const paragraph = nodes.find((n) => decodeTextref(n)?.domRange)!;
+
+  const ref = decodeTextref(paragraph);
+  t.truthy(ref?.domRange);
+  const container = doc.querySelector(ref!.domRange!.start.cssSelector)!;
+  t.true(chapter2.contains(container));
+});
+
 test("parseMarkup() given a markup string never enables domRange, even when requested — it always parses a detached document", (t) => {
   const [result] = parseMarkup("<p>Hello.</p>", undefined, { textrefs: { roles: true, domRange: true } });
   t.true(decodeCssSelectorFragment(result.textref)?.length ? true : false);
