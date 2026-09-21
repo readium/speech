@@ -120,7 +120,7 @@ type ReadiumSpeechPlaybackEvent = {
     | "stop"            // Playback stopped manually
     | "skip"            // Skipped to another utterance
     | "error"           // An error occurred
-    | "boundary"        // Reached a word/sentence boundary
+    | "boundary"        // Reached a word/sentence/structure boundary
     | "mark"            // Reached a named mark in SSML
     | "idle"            // No content loaded
     | "loading"         // Loading content
