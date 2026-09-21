@@ -128,41 +128,38 @@ Pairing any of these with `ReadiumSpeechNavigator` events (see the [Playback API
 
 An utterance's own `locate`/`offsets` (see [`ReadiumSpeechUtterance`](Playback.md#readiumspeechutterance)) are what let you anchor decorations to the exact source element(s) it came from, instead of searching page text for a match that could occur more than once.
 
-Which locator(s) to decorate depends on the `segmentation` option ([Utterance Extraction](UtteranceExtraction.md#segmentation)) the utterances were extracted with, not on a per-utterance fallback. A synthesized announcement (contextualization text, alt/caption description...) carries no `offsets` in either mode — handle that separately if you want it highlighted too, since it has no real source text to scope a piece-level decoration to.
-
-### Structure-level
-
-With `segmentation: "structure"` (default), one utterance is already one whole structural element, so decorate `locate` directly:
+Which `LocatorOptions` to decorate for the whole utterance depends on the `segmentation` option ([Utterance Extraction](UtteranceExtraction.md#segmentation)) it was extracted with, not on a per-utterance fallback. `resolveUtteranceLocate(utterance, segmentation)` makes that call:
 
 ```typescript
-import { setupDecorations, createLocator, DecorationStyleType } from "@readium/speech";
+import { resolveUtteranceLocate, setupDecorations, createLocator, DecorationStyleType } from "@readium/speech";
 
 const decorations = setupDecorations();
 const style = { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false };
 
-function highlightUtterance(utterance) {
-  if (!utterance.locate) return;
-  decorations.applyDecorations([{ id: "tts-structure", locator: createLocator(utterance.locate), style }], "tts-structure");
-}
-```
-
-### Sentence-level
-
-With `segmentation: "sentence"`, a sentence can be reconstructed across multiple source elements, so decorate each `offsets` entry separately:
-
-```typescript
-function highlightUtterance(utterance) {
-  if (!utterance.offsets?.length) return;
+function highlightUtterance(utterance, segmentation) {
+  const locates = resolveUtteranceLocate(utterance, segmentation);
   decorations.applyDecorations(
-    utterance.offsets.map((offset, i) => ({ id: `tts-sentence-${i}`, locator: createLocator(offset.locate), style })),
+    locates.map((locate, i) => ({ id: `tts-sentence-${i}`, locator: createLocator(locate), style })),
     "tts-sentence",
   );
 }
 ```
 
+`speechNavigator` calls this internally and emits the result as a `"boundary"` event with `detail.name` set to `"sentence"` or `"structure"` (matching the segmentation mode) and `detail.locate` already resolved — the same key a `"word"` boundary uses ([below](#word-level)), just a `LocatorOptions[]` here instead of a single `LocatorOptions` — real TTS engines rarely emit a native sentence boundary mark, so the navigator synthesizes one itself whenever the current utterance changes. The snippet above is only needed when driving playback yourself on top of `extractUtterances`.
+
+A synthesized announcement (contextualization text, alt/caption description...) carries no `offsets` in either mode but still returns its own `locate` — handle that separately if you don't want it highlighted, since it has no real source text to scope a piece-level decoration to.
+
+### Structure-level
+
+With `segmentation: "structure"` (default), `resolveUtteranceLocate` always returns the utterance's own `locate` — one whole structural element, regardless of how many `offsets` it happens to carry (e.g. a footnote's start/content/end merged into one utterance still decorates as one piece, not as separate sentences).
+
+### Sentence-level
+
+With `segmentation: "sentence"`, `resolveUtteranceLocate` returns one `LocatorOptions` per contributing source element — a sentence reconstructed across multiple elements decorates as multiple pieces, not one box spanning the gap between them.
+
 ### Word-level
 
-`charIndex`/`charLength` on a `"boundary"` event are always positions in `utterance.plain` — decided at runtime by whichever engine/voice/language is speaking, not by this library — so they can't be looked up directly against `offsets` (each entry's own source text). `resolveBoundaryLocate()` does that resolution: `speechNavigator` calls it internally and attaches the result to the event's `detail` when it's using the full pipeline, so this is only needed when driving playback yourself on top of `extractUtterances`:
+`charIndex`/`charLength` on a `"boundary"` event (`detail.name === "word"`) are always positions in `utterance.plain` — decided at runtime by whichever engine/voice/language is speaking, not by this library — so they can't be looked up directly against `offsets` (each entry's own source text). `resolveBoundaryLocate()` does that resolution: `speechNavigator` calls it internally and attaches the result to the event's `detail` when it's using the full pipeline, so this is only needed when driving playback yourself on top of `extractUtterances`:
 
 ```typescript
 import { resolveBoundaryLocate } from "@readium/speech";

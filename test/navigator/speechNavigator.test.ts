@@ -396,3 +396,88 @@ test("setContentQueue does not call engine.stop() when the navigator is idle", (
   navigator.loadContent([{ plain: "Hello world.", language: "en" }]);
   t.is(engine.stopCalls, 0);
 });
+
+test("engine 'start' also emits a synthesized 'boundary' with name 'structure' (structure segmentation, the default), before 'start' itself", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([{ plain: "Hello world.", language: "en", locate: { cssSelector: "p" } }]);
+
+  const seen: string[] = [];
+  navigator.on("boundary", (event) => seen.push(`boundary:${event.detail.name}`));
+  navigator.on("start", () => seen.push("start"));
+
+  engine.emit({ type: "start" });
+
+  t.deepEqual(seen, ["boundary:structure", "start"]);
+});
+
+function captureLastBoundary(navigator: ReadiumSpeechNavigator): { detail?: any } {
+  const captured: { detail?: any } = {};
+  navigator.on("boundary", (event) => {
+    if (event.detail?.name !== "word") captured.detail = event.detail;
+  });
+  return captured;
+}
+
+test("synthesized 'boundary' carries the utterance's own locate in structure mode", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([{ plain: "Hello world.", language: "en", locate: { cssSelector: "p" } }]);
+  const captured = captureLastBoundary(navigator);
+
+  engine.emit({ type: "start" });
+
+  t.is(captured.detail.name, "structure");
+  t.deepEqual(captured.detail.locate, [{ cssSelector: "p" }]);
+});
+
+test("synthesized 'boundary' carries one locate per offsets piece in sentence mode", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { segmentation: "sentence" } });
+  navigator.loadContent([{
+    plain: "Hello world.",
+    language: "en",
+    locate: { cssSelector: "p" },
+    offsets: [
+      { start: 0, end: 6, locate: { cssSelector: "p", text: { highlight: "Hello " } } },
+      { start: 6, end: 12, locate: { cssSelector: "p", text: { highlight: "world." } } },
+    ],
+  }]);
+  const captured = captureLastBoundary(navigator);
+
+  engine.emit({ type: "start" });
+
+  t.is(captured.detail.name, "sentence");
+  t.is(captured.detail.locate.length, 2);
+});
+
+test("synthesized 'boundary' is not emitted for an utterance with nothing to locate", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([{ plain: "Some synthesized announcement." }]);
+
+  let fired = false;
+  navigator.on("boundary", () => { fired = true; });
+
+  engine.emit({ type: "start" });
+
+  t.false(fired);
+});
+
+test("skipping to another utterance while paused also emits the synthesized 'boundary'", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([
+    { plain: "First.", language: "en", locate: { cssSelector: "p:nth-child(1)" } },
+    { plain: "Second.", language: "en", locate: { cssSelector: "p:nth-child(2)" } },
+  ]);
+  engine.emit({ type: "ready" });
+  navigator.play();
+  navigator.pause();
+  const captured = captureLastBoundary(navigator);
+
+  navigator.next();
+
+  t.is(captured.detail.name, "structure");
+  t.deepEqual(captured.detail.locate, [{ cssSelector: "p:nth-child(2)" }]);
+});

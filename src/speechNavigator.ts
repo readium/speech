@@ -9,6 +9,7 @@ import { SpeechSettings } from "./preferences/SpeechSettings";
 import { ContextualizationShapeOverrides, resolveContextualizationShapes } from "./preferences/verbosityTables";
 import { ReadiumSpeechUtterance } from "./utterance";
 import { resolveBoundaryLocate } from "./utterances/boundaryLocate";
+import { resolveUtteranceLocate } from "./utterances/utteranceLocate";
 import { extractUtterancesWithSources, type SourceTrace } from "./utterances/extractUtterances";
 import { Contextualizations } from "./utterances/types";
 import type { SentenceSegmenter } from "./utterances/sentenceSegmenter";
@@ -111,6 +112,10 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     // Bridge engine events to navigator state management
     this.engine.on("start", () => {
       this.setNavigatorState("playing");
+      // Emitted before "start" so a "start" listener already sees fresh
+      // sentence/utterance locate info instead of the previous utterance's.
+      const utterance = this.getCurrentContent();
+      if (utterance) this.emitUtteranceBoundary(utterance);
       this.emitEvent({ type: "start" });
     });
 
@@ -406,6 +411,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       // For paused state, just update the index without speaking
       this.engine.setCurrentUtteranceIndex(targetIndex, (success) => {
         if (success) {
+          const utterance = this.getCurrentContent();
+          if (utterance) this.emitUtteranceBoundary(utterance);
           this.emitEvent({
             type: "skip",
             detail: { position: targetIndex }
@@ -448,6 +455,24 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   private emitEvent(event: ReadiumSpeechPlaybackEvent): void {
     this.events.emit(event.type, event);
+  }
+
+  // Real engines rarely emit a native "sentence" boundary mark (the Web Speech
+  // API allows it but implementations don't), so the navigator synthesizes the
+  // whole-utterance boundary itself whenever the current utterance changes.
+  // Same `detail.locate` key as a "word" boundary uses (see engine.on("boundary")
+  // above) — only its type differs, a LocatorOptions[] here vs a single
+  // LocatorOptions there — and the same "resolve, then skip if there's nothing
+  // to show" shape, since there's no raw engine event to fall back to unenriched.
+  private emitUtteranceBoundary(utterance: ReadiumSpeechUtterance): void {
+    const segmentation = this._settings.segmentation;
+    const locate = resolveUtteranceLocate(utterance, segmentation);
+    if (!locate.length) return;
+    const name = segmentation === "sentence" ? "sentence" : "structure";
+    this.emitEvent({
+      type: "boundary",
+      detail: { name, charIndex: 0, charLength: (utterance.plain ?? "").length, locate },
+    });
   }
 
   private emitContentChangeEvent(event: { content: ReadiumSpeechUtterance[] }): void {

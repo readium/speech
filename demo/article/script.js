@@ -8,6 +8,7 @@ import {
   createLocator,
   parseMarkup,
   decodeTextref,
+  resolveUtteranceLocate,
 } from "../../build/index.js";
 
 // Set up the Decorator for TTS word/sentence highlights — also watches
@@ -198,6 +199,11 @@ function setupEventListeners() {
   navigator.on("boundary", (event) => {
     if (event.detail && event.detail.name === "word") {
       highlightCurrentWord(event.detail.locate, event.detail.word);
+    } else if (event.detail) {
+      // "sentence" (sentence-segmentation mode) or "structure" (structure mode).
+      // While paused, this is the only signal that the current utterance
+      // changed — engine.speak() (and so "start") never fires in that case.
+      enterUtterance(navigator.getCurrentUtteranceIndex());
     }
     updateUI();
   });
@@ -1020,35 +1026,23 @@ function applyUtteranceDecoration() {
   const currentUtterance = utterances[currentSentenceIndex];
   if (!currentUtterance || !currentUtterance.locate) return;
 
+  // Synthesized label/announcement (contextualization text, alt/caption
+  // description...): no offsets in any segmentation mode.
+  if (!currentUtterance.offsets?.length && !decorateSyntheticEnabled) {
+    decoCtrl.applyDecorations([], "tts-sentence");
+    return;
+  }
+
   const segmentation = navigator.settings.segmentation;
   // Bounds draws one box over the whole range — wrong for a sentence slice
   // that may only be part of a line or span several; Boxes decorates per line.
   const layout = segmentation === "sentence" ? DecorationLayout.Boxes : DecorationLayout.Bounds;
   const style = { type: utteranceStyle, tint: utteranceTint, enforceContrast: false, layout };
-  const offsets = currentUtterance.offsets;
-
-  if (!offsets?.length) {
-    // Synthesized label/announcement (contextualization text, alt/caption
-    // description...): no offsets in any segmentation mode, `locate` is the
-    // whole source element.
-    if (!decorateSyntheticEnabled) {
-      decoCtrl.applyDecorations([], "tts-sentence");
-      return;
-    }
-    decoCtrl.applyDecorations([{ id: "tts-sentence", locator: createLocator(currentUtterance.locate), style }], "tts-sentence");
-    return;
-  }
-
-  if (segmentation === "sentence") {
-    // One decoration per contributing element, for a cross-element sentence.
-    decoCtrl.applyDecorations(
-      offsets.map((offset, i) => ({ id: `tts-sentence-${i}`, locator: createLocator(offset.locate), style })),
-      "tts-sentence",
-    );
-    return;
-  }
-
-  decoCtrl.applyDecorations([{ id: "tts-sentence", locator: createLocator(currentUtterance.locate), style }], "tts-sentence");
+  const locates = resolveUtteranceLocate(currentUtterance, segmentation);
+  decoCtrl.applyDecorations(
+    locates.map((locate, i) => ({ id: `tts-sentence-${i}`, locator: createLocator(locate), style })),
+    "tts-sentence",
+  );
 }
 
 function applyWordDecoration() {
@@ -1062,9 +1056,11 @@ function applyWordDecoration() {
 }
 
 // Moves the sentence-level highlight (and viewport scroll) onto `index`'s
-// utterance, if it isn't already there — called both from "start" (so the
-// highlight tracks playback even when a voice never fires word "boundary"
-// events, e.g. across a language switch) and from highlightCurrentWord().
+// utterance, if it isn't already there — called from "start", from the
+// "sentence"/"structure" boundary (the only signal while paused, since
+// engine.speak()/"start" never fires there), and from highlightCurrentWord()
+// (so the highlight tracks playback even when a voice never fires word
+// "boundary" events, e.g. across a language switch).
 function enterUtterance(index) {
   if (index === currentSentenceIndex) return;
   const currentUtterance = utterances[index];
