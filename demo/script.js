@@ -1,359 +1,933 @@
-import { WebSpeechVoiceManager, WebSpeechEngine, ReadiumSpeechNavigator, chineseVariantMap, setupDecorations, DecorationStyleType } from "../build/index.js";
+import {
+  WebSpeechVoiceManager,
+  WebSpeechEngine,
+  ReadiumSpeechNavigator,
+  setupDecorations,
+  DecorationStyleType,
+  DecorationLayout,
+  createLocator,
+  parseMarkup,
+  decodeTextref,
+  resolveUtteranceLocate,
+} from "../build/index.js";
 
-// Set up the Decorator for TTS word highlights
-const decoCtrl = setupDecorations();
+// Set up the Decorator for TTS word/sentence highlights — also watches
+// .main (the flex item that resizes when the panel/controls columns
+// collapse) since that reflow doesn't change <html>'s own size.
+const decoCtrl = setupDecorations(window, { resizeWatchSelectors: [".main"] });
 
-let samples = null;
+const PLAY_ICON = `<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>`;
+const PAUSE_ICON = `<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>`;
 
 // DOM Elements
-const languageSelect = document.getElementById("language-select");
-const genderSelect = document.getElementById("gender-select");
-const sourceSelect = document.getElementById("source-select");
-const offlineOnlyCheckbox = document.getElementById("offline-only");
-const voiceSelect = document.getElementById("voice-select");
-const testUtteranceInput = document.getElementById("test-utterance");
-const playPauseBtn = document.getElementById("play-pause-btn");
-const stopBtn = document.getElementById("stop-btn");
-const testUtteranceBtn = document.getElementById("test-utterance-btn");
-const prevUtteranceBtn = document.getElementById("prev-utterance-btn");
-const nextUtteranceBtn = document.getElementById("next-utterance-btn");
-const jumpToBtn = document.getElementById("jump-to-btn");
-const utteranceIndexInput = document.getElementById("utterance-index");
-const totalUtterancesSpan = document.getElementById("total-utterances");
-const sampleTextDisplay = document.getElementById("sample-text");
-const downloadVoicesBtn = document.getElementById("download-voices-btn");
-
-// Track if user has manually changed the jump input
-let jumpInputUserChanged = false;
+const content = document.getElementById("content");
+const scenarioSelect = document.getElementById("scenarioSelect");
+const articleAttribution = document.getElementById("articleAttribution");
+const voiceSelect = document.getElementById("voiceSelect");
+const verbositySelect = document.getElementById("verbositySelect");
+const segmentationSelect = document.getElementById("segmentationSelect");
+const speedInput = document.getElementById("speedInput");
+const speedValue = document.getElementById("speedValue");
+const utteranceStyleSelect = document.getElementById("utteranceStyleSelect");
+const utteranceColorInput = document.getElementById("utteranceColorInput");
+const wordStyleSelect = document.getElementById("wordStyleSelect");
+const wordColorInput = document.getElementById("wordColorInput");
+const playPauseBtn = document.getElementById("playPauseBtn");
+const stopBtn = document.getElementById("stopBtn");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
+const currentUtteranceInput = document.getElementById("currentUtteranceInput");
+const totalUtterancesSpan = document.getElementById("totalUtterances");
+const readAlongCheckbox = document.getElementById("readAlong");
+const readAlongGroup = document.getElementById("readAlongOptions");
+const autoScrollCheckbox = document.getElementById("autoScroll");
+const decorateSyntheticCheckbox = document.getElementById("decorateSynthetic");
+const syncPanelsCheckbox = document.getElementById("syncPanels");
+const wordHighlightUnavailable = document.getElementById("wordHighlightUnavailable");
+const gndOutput = document.getElementById("gnd-output");
+const showTextrefsCheckbox = document.getElementById("showTextrefs");
+const utterancesOutput = document.getElementById("utterances-output");
+const tabGnd = document.getElementById("tab-gnd");
+const tabUtterances = document.getElementById("tab-utterances");
+const panelGnd = document.getElementById("panel-gnd");
+const panelUtterances = document.getElementById("panel-utterances");
+const panelAside = document.querySelector("aside.panel");
+const panelToggle = document.getElementById("panel-toggle");
+const panelShow = document.getElementById("panel-show");
+const controlsEl = document.getElementById("controls");
+const controlsToggle = document.getElementById("controls-toggle");
+const controlsShow = document.getElementById("controls-show");
+const mtabGnd = document.getElementById("mtab-gnd");
+const mtabUtterances = document.getElementById("mtab-utterances");
+const mtabSettings = document.getElementById("mtab-settings");
+const mtabClose = document.getElementById("mtab-close");
+const mobileMediaQuery = window.matchMedia("(max-width: 900px)");
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
 // State
 let voiceManager;
-let filteredVoices = [];
-let languages = [];
+let navigator;
+let enVoices = [];
 let currentVoice = null;
-let testUtterance = "";
-let userCustomUtterance = "";
-let lastNavigatorPosition = 1;
+let isPlaying = false;
+let utterances = [];
+let readAlongEnabled = true;
+let autoScrollEnabled = true;
+let decorateSyntheticEnabled = false;
+let syncPanelsEnabled = false;
+// Rebuilt on each renderGndOutput(); maps a GND node to its rendered span id.
+let gndNodeIds = new WeakMap();
+let gndNodeCounter = 0;
+// Rebuilt alongside gndNodeIds: an O(1) index from decoded locator to node,
+// so findGndNodeForLocate() avoids re-walking the whole tree every utterance.
+let gndNodeByLocateKey = new Map();
+let wordHighlightAvailable = true;
+let currentSentenceIndex = -1;
+let utteranceStyle = DecorationStyleType.Highlight;
+let utteranceTint = "#ffeb3b";
+let wordStyle = DecorationStyleType.Underline;
+let wordTint = "#e53935";
+let lastWordHighlight = null; // resolved LocatorOptions — reapplied when word style/color changes mid-utterance
+let mobilePanel = null; // "gnd" | "utterances" | "settings" | null — which split is open in the mobile bottom bar
+let gnd = null;
+let showTextrefs = false;
+let scenarioManifest = [];
+// Which scenario ids have already had their `defaultSegmentation` applied —
+// only pre-set on first visit, so it never fights a value the user picked afterward.
+let scenariosWithDefaultSegmentationApplied = new Set();
 
-const speechNavigator = new ReadiumSpeechNavigator(new WebSpeechEngine());
-
-// Set up event listeners for the navigator
-speechNavigator.on("boundary", (event) => {
-  if (event.detail && event.detail.name === "word") {
-    highlightCurrentWord(event.detail.charIndex, event.detail.charLength);
-  }
-});
-
-speechNavigator.on("start", () => {
-  clearWordHighlighting();
-  updateUI();
-});
-
-speechNavigator.on("pause", updateUI);
-speechNavigator.on("resume", updateUI);
-speechNavigator.on("stop", () => {
-  clearWordHighlighting();
-  updateUI();
-});
-
-speechNavigator.on("end", () => {
-  clearWordHighlighting();
-  updateUI();
-});
-speechNavigator.on("error", (event) => {
-  console.error("Navigator error:", event.detail);
-  updateUI();
-});
-
-// Initialize the application
-async function init() {
+// Initialize voice manager and navigator
+async function initialize() {
   try {
-    // Initialize the voice manager with preferred languages
-    voiceManager = await WebSpeechVoiceManager.initialize();
-    
-    // Sort those voices by browser preference using sortVoicesByRegions
-    const voices = await voiceManager.sortVoicesByRegions(window.navigator.languages);
-    
-    // Get languages
-    languages = voiceManager.getLanguages(window.navigator.languages[0], { removeDuplicates: true }, voices);
-    
-    // Populate language dropdown
-    populateLanguageDropdown();
-    
-    // Set up event listeners
+    voiceManager = await WebSpeechVoiceManager.initialize({ languages: ["en"] });
+    enVoices = await voiceManager.getVoices({ removeDuplicates: true });
+
+    navigator = new ReadiumSpeechNavigator(new WebSpeechEngine());
+    navigator.setSpeakInContentLanguage(true);
+
+    // Broadens the shared WebSpeechVoiceManager singleton so the engine's
+    // own voice lookup (used for content-language switching) covers French
+    // too, without adding French voices to the "Voice" dropdown above.
+    void WebSpeechVoiceManager.initialize({ languages: ["en", "fr"] });
+
     setupEventListeners();
-    
-    // Update UI
     updateUI();
-    
+
+    // The GND/Utterances panel starts collapsed on both mobile and desktop;
+    // the Settings panel is unaffected and stays open on desktop.
+    if (mobileMediaQuery.matches) {
+      setMobilePanel(null);
+    } else {
+      setPanelCollapsed(true, false);
+    }
+
+    // Reset needed in both directions when crossing the breakpoint.
+    mobileMediaQuery.addEventListener("change", (e) => {
+      if (e.matches) {
+        setMobilePanel(null);
+      } else {
+        resetDesktopLayout();
+      }
+    });
+
+    await populateVoiceSelect();
+
+    currentVoice = await voiceManager.getDefaultVoice("en", enVoices);
+    if (currentVoice) {
+      navigator.setVoice(currentVoice);
+      const option = voiceSelect.querySelector(`option[data-voice-uri="${currentVoice.voiceURI}"]`);
+      if (option) option.selected = true;
+    }
+    updateWordHighlightAvailability();
+
+    await loadScenarioManifest();
+    await loadScenario(scenarioManifest[0]?.id);
+
+    // "block-level" (the default) ignores inline lang spans — only "always"
+    // splits an utterance on them, which the French <span lang="fr"> relies on.
+    // Submitted after the scenario loads so the navigator already has a
+    // source to re-extract from.
+    const languageEditor = navigator.preferencesEditor;
+    languageEditor.language.value = "always";
+    await navigator.submitPreferences(languageEditor.preferences);
   } catch (error) {
-    console.error("Error initializing application:", error);
-    const errorDiv = document.createElement("div");
-    errorDiv.style.color = "red";
-    errorDiv.textContent = "Error loading voices. Please check console for details.";
-    document.body.prepend(errorDiv);
+    console.error("Initialization error:", error);
   }
 }
 
-// Populate the language dropdown
-function populateLanguageDropdown() {
-  languageSelect.innerHTML = "<option value='' disabled selected>Select a language</option>";
-  
-  languages.forEach(lang => {
-    const option = document.createElement("option");
-    option.value = lang.code;
-    option.textContent = `${lang.label} (${lang.count})`;
-    languageSelect.appendChild(option);
-  });
+function setReadAlongDependentsDisabled(disabled) {
+  if (readAlongGroup) readAlongGroup.disabled = disabled;
+  if (autoScrollCheckbox) autoScrollCheckbox.disabled = disabled;
+  if (decorateSyntheticCheckbox) decorateSyntheticCheckbox.disabled = disabled;
+  if (syncPanelsCheckbox) syncPanelsCheckbox.disabled = disabled;
 }
 
-// Update language counts based on filtered voices
-function updateLanguageCounts(voices) {
-  // Create a map to count voices per language from the provided voices
-  const languageCounts = new Map();
-  
-  voices.forEach(voice => {
-    const langCode = voice.language;
-    const baseLang = langCode.split("-")[0];
-    languageCounts.set(baseLang, (languageCounts.get(baseLang) || 0) + 1)
+function setupEventListeners() {
+  navigator.on("start", () => {
+    isPlaying = true;
+    if (readAlongEnabled) enterUtterance(navigator.getCurrentUtteranceIndex());
+    updateUI();
   });
-  
-  // Update the languages array with new counts
-  languages = languages.map(lang => ({
-    ...lang,
-    count: languageCounts.get(lang.code) || 0
-  }));
-  
-  // Update the dropdown text without losing selection
-  const options = languageSelect.querySelectorAll("option");
-  
-  options.forEach(option => {
-    if (option.value) {
-      const lang = languages.find(l => l.code === option.value);
-      if (lang) {
-        option.textContent = `${lang.label} (${lang.count})`;
-      }
+
+  navigator.on("pause", () => {
+    isPlaying = false;
+    updateUI();
+  });
+
+  navigator.on("resume", () => {
+    isPlaying = true;
+    updateUI();
+  });
+
+  navigator.on("stop", () => {
+    isPlaying = false;
+    clearWordHighlighting();
+    updateUI();
+  });
+
+  navigator.on("end", () => {
+    isPlaying = false;
+    clearWordHighlighting();
+    updateUI();
+  });
+
+  navigator.on("error", (event) => {
+    console.error("Navigator error:", event.detail);
+    updateUI();
+  });
+
+  navigator.on("boundary", (event) => {
+    if (event.detail && event.detail.name === "word") {
+      highlightCurrentWord(event.detail.locate, event.detail.word);
+    } else if (event.detail) {
+      // "sentence" (sentence-segmentation mode) or "structure" (structure mode).
+      // While paused, this is the only signal that the current utterance
+      // changed — engine.speak() (and so "start") never fires in that case.
+      enterUtterance(navigator.getCurrentUtteranceIndex());
+    }
+    updateUI();
+  });
+
+  // Kept in sync with whatever loadGndContent()/submitPreferences() produced,
+  // so verbosity changes are reflected without re-deriving utterances by hand.
+  navigator.on("contentchange", (event) => {
+    utterances = event.detail.content;
+    renderUtterancesPanel();
+    // navigator.getState() can still read "loading" here for engines that buffer
+    // asynchronously, so whether a highlight was active is judged from the
+    // pre-reextract index rather than the (possibly stale) state.
+    const hadActiveHighlight = readAlongEnabled && currentSentenceIndex !== -1;
+    currentSentenceIndex = -1;
+    if (hadActiveHighlight) {
+      enterUtterance(navigator.getCurrentUtteranceIndex());
+    }
+    updateUI();
+  });
+
+  if (playPauseBtn) playPauseBtn.addEventListener("click", togglePlayback);
+  if (stopBtn) stopBtn.addEventListener("click", stopPlayback);
+  if (prevBtn) prevBtn.addEventListener("click", previousUtterance);
+  if (nextBtn) nextBtn.addEventListener("click", nextUtterance);
+  if (currentUtteranceInput) {
+    currentUtteranceInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") handleUtteranceIndexChange(e);
+    });
+  }
+
+  if (readAlongCheckbox) {
+    readAlongCheckbox.checked = readAlongEnabled;
+    setReadAlongDependentsDisabled(!readAlongEnabled);
+    readAlongCheckbox.addEventListener("change", handleReadAlongChange);
+  }
+
+  if (autoScrollCheckbox) {
+    autoScrollCheckbox.checked = autoScrollEnabled;
+    autoScrollCheckbox.addEventListener("change", (e) => { autoScrollEnabled = e.target.checked; });
+  }
+
+  if (decorateSyntheticCheckbox) {
+    decorateSyntheticCheckbox.checked = decorateSyntheticEnabled;
+    decorateSyntheticCheckbox.addEventListener("change", (e) => {
+      decorateSyntheticEnabled = e.target.checked;
+      applyUtteranceDecoration();
+    });
+  }
+
+  if (syncPanelsCheckbox) {
+    syncPanelsCheckbox.checked = syncPanelsEnabled;
+    updateSyncPanelsClass();
+    syncPanelsCheckbox.addEventListener("change", (e) => {
+      syncPanelsEnabled = e.target.checked;
+      updateSyncPanelsClass();
+      if (syncPanelsEnabled && currentSentenceIndex !== -1) syncPanelsToCurrentUtterance(currentSentenceIndex, "auto");
+    });
+  }
+
+  if (voiceSelect) voiceSelect.addEventListener("change", handleVoiceChange);
+  if (verbositySelect) verbositySelect.addEventListener("change", handleVerbosityChange);
+  if (segmentationSelect) segmentationSelect.addEventListener("change", handleSegmentationChange);
+  if (scenarioSelect) scenarioSelect.addEventListener("change", (e) => loadScenario(e.target.value));
+  new ResizeObserver(() => applyScenarioLayouts(content)).observe(content);
+  if (speedInput) speedInput.addEventListener("input", handleSpeedChange);
+  if (showTextrefsCheckbox) showTextrefsCheckbox.addEventListener("change", handleShowTextrefsChange);
+
+  if (utteranceStyleSelect) utteranceStyleSelect.addEventListener("change", (e) => { utteranceStyle = e.target.value; applyUtteranceDecoration(); });
+  if (utteranceColorInput) utteranceColorInput.addEventListener("input", (e) => { utteranceTint = e.target.value; applyUtteranceDecoration(); });
+  if (wordStyleSelect) wordStyleSelect.addEventListener("change", (e) => { wordStyle = e.target.value; applyWordDecoration(); });
+  if (wordColorInput) wordColorInput.addEventListener("input", (e) => { wordTint = e.target.value; applyWordDecoration(); });
+
+  tabGnd.addEventListener("click", () => selectTab("gnd"));
+  tabUtterances.addEventListener("click", () => selectTab("utterances"));
+  tabGnd.addEventListener("keydown", handleTabKeydown);
+  tabUtterances.addEventListener("keydown", handleTabKeydown);
+
+  if (panelToggle) panelToggle.addEventListener("click", () => setPanelCollapsed(true));
+  if (panelShow) panelShow.addEventListener("click", (e) => setPanelCollapsed(false, isKeyboardActivation(e)));
+  panelAside.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || panelAside.classList.contains("collapsed")) return;
+    // setMobilePanel also marks .controls inert — only reversible via its own mobile tab.
+    if (mobileMediaQuery.matches) {
+      setMobilePanel(null);
+    } else {
+      setPanelCollapsed(true);
+    }
+  });
+
+  if (mtabGnd) mtabGnd.addEventListener("click", (e) => handleMobileTabClick("gnd", isKeyboardActivation(e)));
+  if (mtabUtterances) mtabUtterances.addEventListener("click", (e) => handleMobileTabClick("utterances", isKeyboardActivation(e)));
+  if (mtabSettings) mtabSettings.addEventListener("click", (e) => handleMobileTabClick("settings", isKeyboardActivation(e)));
+  if (mtabClose) mtabClose.addEventListener("click", () => setMobilePanel(null));
+
+  if (controlsToggle) controlsToggle.addEventListener("click", () => setControlsCollapsed(true));
+  if (controlsShow) controlsShow.addEventListener("click", (e) => setControlsCollapsed(false, isKeyboardActivation(e)));
+  controlsEl.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape" || controlsEl.classList.contains("collapsed")) return;
+    if (mobileMediaQuery.matches) {
+      setMobilePanel(null);
+    } else {
+      setControlsCollapsed(true);
     }
   });
 }
 
-/**
- * Format a value for display in the voice properties
- */
-function formatValue(value) {
-  if (value === undefined || value === null) {
-    return { display: "undefined", className: "undefined" };
-  }
-  
-  if (typeof value === "boolean") {
-    return { 
-      display: value ? "true" : "false", 
-      className: `boolean-${value}` 
-    };
-  }
-  
-  if (Array.isArray(value)) {
-    return { 
-      display: value.length > 0 ? value.join(", ") : "[]",
-      className: ""
-    };
-  }
-  
-  if (typeof value === "object") {
-    return { 
-      display: JSON.stringify(value, null, 2).replace(/"/g, ""),
-      className: "object-value"
-    };
-  }
-  
-  return { display: String(value), className: "" };
+// A click fired by Enter/Space on a button has detail === 0; a mouse click doesn't.
+function isKeyboardActivation(e) {
+  return e.detail === 0;
 }
 
-/**
- * Display voice properties in the UI
- */
-function displayVoiceProperties(voice) {
-  const propertiesContainer = document.getElementById("voice-properties");
-  
-  if (!voice) {
-    propertiesContainer.innerHTML = "<p>No voice selected</p>";
+// inert keeps a visually collapsed panel out of the tab order/AT tree.
+function setPanelCollapsed(collapsed, moveFocus = true) {
+  panelAside.classList.toggle("collapsed", collapsed);
+  panelAside.inert = collapsed;
+  panelToggle.setAttribute("aria-expanded", String(!collapsed));
+  panelShow.setAttribute("aria-expanded", String(!collapsed));
+  panelShow.hidden = !collapsed;
+  if (collapsed) {
+    if (moveFocus) panelShow.focus();
+  } else if (moveFocus) {
+    (tabGnd.getAttribute("aria-selected") === "true" ? tabGnd : tabUtterances).focus();
+  }
+
+  // .panel's width is still mid-transition here — scrolling now would use
+  // its near-zero in-progress geometry, so wait for the reveal to finish.
+  if (!collapsed) resyncPanelsAfterReveal();
+}
+
+function resyncPanelsAfterReveal() {
+  if (!syncPanelsEnabled || currentSentenceIndex === -1) return;
+  const run = () => syncPanelsToCurrentUtterance(currentSentenceIndex, "auto");
+
+  // Mobile resizes .panel via flex-basis, not the width it declares a
+  // transition for, so no transitionend would ever fire there.
+  if (mobileMediaQuery.matches) {
+    requestAnimationFrame(run);
     return;
   }
-  
-  // Sort properties alphabetically
-  const sortedProps = Object.keys(voice).sort();
-  
-  // Create HTML for each property
-  const propertiesHtml = sortedProps.map(prop => {
-    // Skip internal/private properties that start with underscore
-    if (prop.startsWith("_")) return "";
-    
-    const value = voice[prop];
-    const { display, className } = formatValue(value);
-    
-    return `
-      <div class="voice-property">
-        <div class="voice-property-name">${prop}</div>
-        <div class="voice-property-value ${className}">${display}</div>
-      </div>
-    `;
-  }).join("");
-  
-  propertiesContainer.innerHTML = propertiesHtml || "<p>No properties available</p>";
+
+  panelAside.addEventListener("transitionend", function onEnd(e) {
+    if (e.target !== panelAside) return;
+    panelAside.removeEventListener("transitionend", onEnd);
+    run();
+  });
 }
 
-// Replace current voice with a new default voice if it gets filtered out
-async function replaceCurrentVoiceIfFilteredOut(language) {
-  const currentVoiceFilteredOut = currentVoice && !filteredVoices.some(voice => voice.voiceURI === currentVoice.voiceURI);
-  const needNewVoice = !currentVoice && filteredVoices.length > 0;
-  
-  if (currentVoiceFilteredOut || needNewVoice) {
-    // Current voice was filtered out or no voice selected, pick a new default voice based on language
-    if (filteredVoices.length > 0) {
-      currentVoice = await voiceManager.getDefaultVoice(language, filteredVoices);
-      
-      if (currentVoice) {
-        try {
-          await speechNavigator.setVoice(currentVoice);
-          displayVoiceProperties(currentVoice);
-          updateTestUtterance(currentVoice, language);
-          
-          // Update dropdown to select the new voice
-          const voiceOption = voiceSelect.querySelector(`option[value="${currentVoice.name}"]`);
-          if (voiceOption) {
-            voiceOption.selected = true;
-          }
-        } catch (error) {
-          console.error("Error setting new default voice:", error);
-        }
-      }
-    } else {
-      // No voices available after filtering
-      currentVoice = null;
-      displayVoiceProperties(null);
-      updateTestUtterance(null, language);
-    }
+// Desktop-only collapse for the Settings column — mirrors setPanelCollapsed,
+// giving the article back the width Settings was using. On mobile this is
+// superseded by the bottom-bar Settings tab (see setMobilePanel).
+function setControlsCollapsed(collapsed, moveFocus = true) {
+  controlsEl.classList.toggle("collapsed", collapsed);
+  controlsEl.inert = collapsed;
+  controlsToggle.setAttribute("aria-expanded", String(!collapsed));
+  controlsShow.setAttribute("aria-expanded", String(!collapsed));
+  controlsShow.hidden = !collapsed;
+  if (collapsed) {
+    controlsShow.focus();
+  } else if (moveFocus && voiceSelect) {
+    voiceSelect.focus();
   }
 }
 
-// Filter voices based on current filters
-async function filterVoices() {
-  const language = languageSelect.value;
-  const gender = genderSelect.value;
-  const source = sourceSelect.value;
-  const offlineOnly = offlineOnlyCheckbox.checked;
+// Drives the mobile bottom bar's GND/Utterances/Settings tabs. Only one
+// split is ever open: opening GND/Utterances expands .panel (and picks the
+// right internal tab) while closing .controls' split, and vice versa for
+// Settings — the article (.reader) always keeps the rest of the screen,
+// it's never fully replaced.
+function handleMobileTabClick(panel, moveFocus = true) {
+  setMobilePanel(mobilePanel === panel ? null : panel, moveFocus);
+}
 
-  const filterOptions = { };
-  
-  if (gender !== "all") {
-    filterOptions.gender = gender;
+function setMobilePanel(panel, moveFocus = true) {
+  mobilePanel = panel;
+
+  // selectTab runs first so setPanelCollapsed(false) below focuses the
+  // tab the user actually asked for, not whichever was selected before.
+  const showGndPanel = panel === "gnd" || panel === "utterances";
+  if (showGndPanel) selectTab(panel);
+  setPanelCollapsed(!showGndPanel, moveFocus);
+
+  if (controlsEl) {
+    const showSettings = panel === "settings";
+    controlsEl.classList.toggle("mobile-open", showSettings);
+    controlsEl.classList.remove("collapsed");
+    controlsEl.inert = !showSettings;
+    if (showSettings && moveFocus && voiceSelect) voiceSelect.focus();
   }
-  
-  if (source !== "all") {
-    filterOptions.source = source;
+
+  updateMobileTabsUI();
+}
+
+// Counterpart to setMobilePanel(null) for resizing back past the breakpoint.
+function resetDesktopLayout() {
+  mobilePanel = null;
+  setPanelCollapsed(true, false);
+  if (controlsEl) {
+    controlsEl.classList.remove("mobile-open");
+    setControlsCollapsed(false, false);
   }
-  
-  if (offlineOnly) {
-    filterOptions.offlineOnly = true;
+  updateMobileTabsUI();
+}
+
+function updateMobileTabsUI() {
+  [[mtabGnd, "gnd"], [mtabUtterances, "utterances"], [mtabSettings, "settings"]].forEach(([btn, name]) => {
+    if (!btn) return;
+    const active = mobilePanel === name;
+    btn.classList.toggle("active", active);
+    btn.setAttribute("aria-pressed", String(active));
+  });
+  if (mtabClose) mtabClose.hidden = mobilePanel === null;
+}
+
+function selectTab(name) {
+  const isGnd = name === "gnd";
+  tabGnd.setAttribute("aria-selected", String(isGnd));
+  tabUtterances.setAttribute("aria-selected", String(!isGnd));
+  tabGnd.tabIndex = isGnd ? 0 : -1;
+  tabUtterances.tabIndex = isGnd ? -1 : 0;
+  panelGnd.hidden = !isGnd;
+  panelUtterances.hidden = isGnd;
+
+  // Skip while collapsed — the reveal in setPanelCollapsed() resyncs once dimensions are real.
+  if (syncPanelsEnabled && currentSentenceIndex !== -1 && !panelAside.classList.contains("collapsed")) {
+    syncPanelsToCurrentUtterance(currentSentenceIndex, "auto");
   }
-  
-  // Filter voices once with all filters except language
-  let voicesFilteredExceptLanguage = voiceManager.filterVoices(filterOptions);
-  
-  // Update language counts using the filtered voices
-  updateLanguageCounts(voicesFilteredExceptLanguage);
-  
-  // Now apply language filter if needed
-  if (language) {
-    filterOptions.languages = language;
-    filteredVoices = voiceManager.filterVoices({ languages: language }, voicesFilteredExceptLanguage);
+}
+
+function handleTabKeydown(e) {
+  const tabs = [tabGnd, tabUtterances];
+  const currentIndex = tabs.indexOf(e.currentTarget);
+  let nextIndex = null;
+
+  if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+    nextIndex = (currentIndex + 1) % tabs.length;
+  } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+    nextIndex = (currentIndex - 1 + tabs.length) % tabs.length;
+  } else if (e.key === "Home") {
+    nextIndex = 0;
+  } else if (e.key === "End") {
+    nextIndex = tabs.length - 1;
   } else {
-    filteredVoices = voicesFilteredExceptLanguage;
+    return;
   }
-  
-  await populateVoiceDropdown(language);
 
-  // Replace current voice if it was filtered out
-  await replaceCurrentVoiceIfFilteredOut(language);
-
-  updateUI();
+  e.preventDefault();
+  const nextTab = tabs[nextIndex];
+  selectTab(nextTab === tabGnd ? "gnd" : "utterances");
+  nextTab.focus();
 }
 
-// Populate the voice dropdown with filtered voices
-async function populateVoiceDropdown() {
-  voiceSelect.innerHTML = "<option value='' disabled selected>Select a voice</option>";
-  
+async function handleVerbosityChange(e) {
+  if (!navigator) return;
+  const editor = navigator.preferencesEditor;
+  editor.verbosity.value = e.target.value;
+  await navigator.submitPreferences(editor.preferences);
+}
+
+async function handleSegmentationChange(e) {
+  if (!navigator) return;
+  const editor = navigator.preferencesEditor;
+  editor.segmentation.value = e.target.value;
+  await navigator.submitPreferences(editor.preferences);
+}
+
+async function handleSpeedChange(e) {
+  if (!navigator) return;
+  const rate = parseFloat(e.target.value);
+  const editor = navigator.preferencesEditor;
+  editor.rate.value = rate;
+  await navigator.submitPreferences(editor.preferences);
+  if (speedValue) speedValue.textContent = `${rate.toFixed(1)}x`;
+}
+
+function handleShowTextrefsChange(e) {
+  showTextrefs = e.target.checked;
+  renderGndOutput();
+  // renderGndOutput() just rebuilt every .gnd-node span, losing the
+  // .current marker set by an earlier syncPanelsToCurrentUtterance() call.
+  if (syncPanelsEnabled && currentSentenceIndex !== -1) syncPanelsToCurrentUtterance(currentSentenceIndex, "auto");
+}
+
+function handleReadAlongChange(e) {
+  readAlongEnabled = e.target.checked;
+  setReadAlongDependentsDisabled(!readAlongEnabled);
+  if (!readAlongEnabled) {
+    clearWordHighlighting();
+    // clearWordHighlighting() resets currentSentenceIndex but leaves the
+    // panels' .current marker and dimming in place, showing a stale item.
+    setCurrentPanelItem(gndOutput, null);
+    setCurrentPanelItem(utterancesOutput, null);
+  } else if (navigator && navigator.getState() !== "idle") {
+    // Re-entering here (rather than waiting for the next "start"/"resume")
+    // covers voices without boundary events, where nothing else would
+    // re-trigger the highlight before the next utterance.
+    enterUtterance(navigator.getCurrentUtteranceIndex());
+  }
+  updateSyncPanelsClass();
+}
+
+// Word-level boundary events aren't reliable for voices with
+// offlineAvailability === false, so only word highlighting (not read along
+// as a whole, i.e. sentence highlighting keeps working) is disabled for them.
+function updateWordHighlightAvailability() {
+  const unavailable = !!currentVoice && currentVoice.offlineAvailability === false;
+  wordHighlightAvailable = !unavailable;
+
+  if (wordStyleSelect) wordStyleSelect.disabled = unavailable;
+  if (wordColorInput) wordColorInput.disabled = unavailable;
+  if (wordHighlightUnavailable) wordHighlightUnavailable.hidden = !unavailable;
+
+  if (!wordHighlightAvailable) clearWordDecoration();
+}
+
+// Parses the live, rendered article DOM into a Guided Navigation document
+// (with domRange textrefs — only possible against a rendered element, not a
+// detached HTML string) and loads it into the navigator, which re-extracts
+// utterances internally whenever verbosity/preferences change.
+async function initializeContent() {
+  gnd = parseMarkup(content, undefined, { textrefs: { roles: true, domRange: true } });
+  renderGndOutput();
+  await navigator.loadGndContent(gnd);
+}
+
+// Lays out a flat run of `.token` spans (one per word or per letter — see
+// word-level.html/letter-level.html) as absolutely-positioned elements,
+// wrapping lines by real measured width — the same result a PDF-derived or
+// OCR-exported fixed-layout generator would produce, computed here instead
+// of at authoring time. Extraction itself never looks at any of this CSS;
+// it's purely to make the scattered-DOM-node scenario visible in the page.
+//
+// Wrap decisions are made per WORD (a run of tokens with no whitespace-only
+// token between them), not per individual token — otherwise, in the
+// letter-level scenario, a word's trailing punctuation (its own separate
+// token) can end up wrapped alone onto the next line.
+function layoutPositionedTokens(container) {
+  if (!container) return;
+  const tokens = Array.from(container.querySelectorAll(".token"));
+  // An absolutely-positioned token's `left`/`top` are relative to the
+  // container's padding edge, not its content edge, so the container's own
+  // padding has to be added back in by hand here or tokens sit flush
+  // against the border, ignoring it entirely.
+  const style = getComputedStyle(container);
+  const paddingLeft = parseFloat(style.paddingLeft) || 0;
+  const paddingRight = parseFloat(style.paddingRight) || 0;
+  const paddingTop = parseFloat(style.paddingTop) || 0;
+  const paddingBottom = parseFloat(style.paddingBottom) || 0;
+  const containerWidth = container.clientWidth - paddingLeft - paddingRight;
+  const lineHeight = parseFloat(style.lineHeight) || 28;
+
+  const isSpace = (token) => /^\s+$/.test(token.textContent);
+  const words = [];
+  let word = [];
+  for (const token of tokens) {
+    token.style.left = `${paddingLeft}px`;
+    token.style.top = `${paddingTop}px`;
+    if (isSpace(token)) {
+      if (word.length) words.push(word);
+      words.push([token]);
+      word = [];
+    } else {
+      word.push(token);
+    }
+  }
+  if (word.length) words.push(word);
+
+  let x = 0;
+  let y = 0;
+  for (const tokensInWord of words) {
+    const widths = tokensInWord.map((t) => t.getBoundingClientRect().width);
+    const wordWidth = widths.reduce((sum, w) => sum + w, 0);
+    if (x > 0 && x + wordWidth > containerWidth) {
+      x = 0;
+      y += lineHeight;
+    }
+    tokensInWord.forEach((token, i) => {
+      token.style.left = `${paddingLeft + x}px`;
+      token.style.top = `${paddingTop + y}px`;
+      x += widths[i];
+    });
+  }
+  const contentHeight = y + lineHeight;
+  container.style.height =
+    style.boxSizing === "border-box"
+      ? `${paddingTop + contentHeight + paddingBottom}px`
+      : `${contentHeight}px`;
+}
+
+// Renders each `.case` box's label from `data-label` as a real (but
+// aria-hidden) element rather than a `::before` pseudo-element, so its
+// actual — possibly wrapped — rendered height can be measured, and shifts
+// that case's `.frag` children down to clear it. A pseudo-element's box
+// can't be measured this way, so on narrow widths where the label wraps to
+// a second line, fixed `.frag` offsets would otherwise paint over it.
+function layoutCaseLabels(container) {
+  const LABEL_GAP = 16;
+  const ROW2_GAP = 174 - 46;
+  container.querySelectorAll(".case").forEach((caseEl) => {
+    let label = caseEl.querySelector(":scope > .case-label");
+    if (!label) {
+      label = document.createElement("span");
+      label.className = "case-label";
+      label.setAttribute("aria-hidden", "true");
+      label.textContent = caseEl.dataset.label || "";
+      caseEl.insertBefore(label, caseEl.firstChild);
+    }
+    const row1Top = label.offsetTop + label.offsetHeight + LABEL_GAP;
+    caseEl.querySelectorAll(":scope > .frag").forEach((frag) => {
+      frag.style.top = `${frag.classList.contains("frag-row2") ? row1Top + ROW2_GAP : row1Top}px`;
+    });
+  });
+}
+
+// Sizes each `.case` box (see fixed-layout.html) to exactly fit its own
+// `.frag` children's measured bottom edge, plus a fixed margin — `.frag` is
+// absolutely positioned, so it never contributes to its parent's height on
+// its own, and a hand-picked CSS min-height drifts out of sync with
+// however the actual text happens to wrap at the current width.
+function layoutCaseBoxes(container) {
+  if (!container) return;
+  const CASE_BOTTOM_MARGIN = 20;
+  container.querySelectorAll(".case").forEach((caseEl) => {
+    let maxBottom = 0;
+    caseEl.querySelectorAll(".frag").forEach((frag) => {
+      const bottom = frag.offsetTop + frag.offsetHeight;
+      if (bottom > maxBottom) maxBottom = bottom;
+    });
+    caseEl.style.minHeight = `${maxBottom + CASE_BOTTOM_MARGIN}px`;
+  });
+}
+
+// Applies whichever width-dependent layouts the scenario's own markup
+// actually needs, detected from what's present rather than a manifest flag
+// — so a scenario combining multiple patterns (e.g. fixed-layout cases
+// whose own fragments are themselves word-level or letter-level token
+// flows) just works, with no extra wiring. `.text-flow` and `.frag` are
+// both valid token-flow containers — a `.frag` only gets one when it holds
+// `.token` children directly, rather than its usual plain text. Token
+// layout must run before case-box sizing, since the latter measures each
+// frag's now-final height. Each call re-measures from scratch, so it's
+// safe to re-run on every resize.
+function applyScenarioLayouts(container) {
+  if (container.querySelector(".case")) layoutCaseLabels(container);
+  container.querySelectorAll(".text-flow, .frag").forEach((el) => {
+    if (el.querySelector(":scope > .token")) layoutPositionedTokens(el);
+  });
+  if (container.querySelector(".case")) layoutCaseBoxes(container);
+}
+
+// Fetches scenarios/manifest.json and populates the Scenario dropdown from
+// it — adding a scenario later only needs a new entry there plus its .html
+// fragment, no changes here.
+async function loadScenarioManifest() {
+  const response = await fetch("scenarios/manifest.json");
+  scenarioManifest = await response.json();
+  if (!scenarioSelect) return;
+  scenarioSelect.innerHTML = "";
+  for (const scenario of scenarioManifest) {
+    const option = document.createElement("option");
+    option.value = scenario.id;
+    option.textContent = scenario.label;
+    scenarioSelect.appendChild(option);
+  }
+}
+
+// Swaps #content for the given scenario's markup and re-extracts. A
+// scenario's `defaultSegmentation` (if any) is only pre-set the first time
+// that scenario is selected, so it never overrides a value the user later
+// picked for it themselves.
+async function loadScenario(id) {
+  const scenario = scenarioManifest.find((s) => s.id === id);
+  if (!scenario || !navigator) return;
+
+  stopPlayback();
+
+  if (scenario.defaultSegmentation && !scenariosWithDefaultSegmentationApplied.has(id)) {
+    scenariosWithDefaultSegmentationApplied.add(id);
+    if (segmentationSelect) segmentationSelect.value = scenario.defaultSegmentation;
+    const editor = navigator.preferencesEditor;
+    editor.segmentation.value = scenario.defaultSegmentation;
+    await navigator.submitPreferences(editor.preferences);
+  }
+
+  content.className = scenario.className ? `reader-content ${scenario.className}` : "reader-content";
+  const response = await fetch(`scenarios/${scenario.file}`);
+  content.innerHTML = await response.text();
+  if (articleAttribution) articleAttribution.hidden = id !== "article";
+
+  applyScenarioLayouts(content);
+
+  currentSentenceIndex = -1;
+  if (currentUtteranceInput) currentUtteranceInput.value = 1;
+  await initializeContent();
+  if (scenarioSelect) scenarioSelect.value = id;
+}
+
+function escapeHtml(s) {
+  return s.replace(/[&<>]/g, (c) => (c === "&" ? "&amp;" : c === "<" ? "&lt;" : "&gt;"));
+}
+
+function jsonPrimitive(value) {
+  return escapeHtml(JSON.stringify(value));
+}
+
+// Hand-written JSON.stringify(value, undefined, 2) equivalent, so values can
+// be wrapped in scroll-anchor spans as they render — see renderGndNode().
+function renderJsonValue(value, depth, keyFilter) {
+  if (value === null || typeof value !== "object") return jsonPrimitive(value);
+  const pad = "  ".repeat(depth);
+  const padIn = "  ".repeat(depth + 1);
+  if (Array.isArray(value)) {
+    if (!value.length) return "[]";
+    const items = value.map((item) => padIn + renderJsonValue(item, depth + 1, keyFilter));
+    return "[\n" + items.join(",\n") + "\n" + pad + "]";
+  }
+  const keys = Object.keys(value).filter(keyFilter);
+  if (!keys.length) return "{}";
+  const lines = keys.map((k) => padIn + jsonPrimitive(k) + ": " + renderJsonValue(value[k], depth + 1, keyFilter));
+  return "{\n" + lines.join(",\n") + "\n" + pad + "}";
+}
+
+// Wraps every GND node (root entries and each `children` entry) in a span
+// with a stable id in gndNodeIds, so playback can later scroll to it.
+function renderGndNode(node, depth, keyFilter) {
+  const pad = "  ".repeat(depth);
+  const padIn = "  ".repeat(depth + 1);
+  const keys = Object.keys(node).filter(keyFilter);
+  const body = !keys.length
+    ? "{}"
+    : "{\n" +
+      keys
+        .map((k) => {
+          const value = node[k];
+          const rendered =
+            k === "children" && Array.isArray(value)
+              ? renderGndNodeArray(value, depth + 1, keyFilter)
+              : renderJsonValue(value, depth + 1, keyFilter);
+          return padIn + jsonPrimitive(k) + ": " + rendered;
+        })
+        .join(",\n") +
+      "\n" +
+      pad +
+      "}";
+  const id = gndNodeCounter++;
+  gndNodeIds.set(node, id);
+  const ref = decodeTextref(node);
+  if (ref) gndNodeByLocateKey.set(JSON.stringify(ref), node);
+  return `<span class="gnd-node" data-gnd-node="${id}">${body}</span>`;
+}
+
+function renderGndNodeArray(nodes, depth, keyFilter) {
+  if (!nodes.length) return "[]";
+  const pad = "  ".repeat(depth);
+  const padIn = "  ".repeat(depth + 1);
+  const items = nodes.map((n) => padIn + renderGndNode(n, depth + 1, keyFilter));
+  return "[\n" + items.join(",\n") + "\n" + pad + "]";
+}
+
+function renderGndOutput() {
+  if (!gnd) {
+    gndOutput.textContent = "null";
+    return;
+  }
+  gndNodeIds = new WeakMap();
+  gndNodeCounter = 0;
+  gndNodeByLocateKey = new Map();
+  const keyFilter = (k) => showTextrefs || k !== "textref";
+  gndOutput.innerHTML = renderGndNodeArray(gnd, 0, keyFilter);
+}
+
+function renderUtterancesPanel() {
+  if (!utterances.length) {
+    utterancesOutput.textContent = "[]";
+    return;
+  }
+  // `locate` (cssSelector/domRange) is still used for highlighting — just
+  // omitted here since it dwarfs the rest of the JSON.
+  const keyFilter = (k) => k !== "locate";
+  const items = utterances.map(
+    (u, i) => `  <span class="utterance-item" data-utterance-index="${i}">${renderJsonValue(u, 1, keyFilter)}</span>`,
+  );
+  utterancesOutput.innerHTML = "[\n" + items.join(",\n") + "\n]";
+}
+
+// O(1) lookup into the index renderGndNode() built — same resolution
+// attachLocate() uses internally (own textref, else nearest ancestor's).
+function findGndNodeForLocate(locate) {
+  return locate ? gndNodeByLocateKey.get(JSON.stringify(locate)) : undefined;
+}
+
+// Downgrades to an instant jump when the user has asked for reduced motion.
+function resolveScrollBehavior(behavior) {
+  return prefersReducedMotion.matches ? "auto" : behavior;
+}
+
+function scrollWithinContainerIfNeeded(el, container, behavior = "smooth") {
+  if (!el || !container) return;
+
+  // Read the sticky .panel-option's actual height rather than assuming one.
+  const stickyOption = container.querySelector(".panel-option");
+  const stickyHeight = stickyOption ? stickyOption.getBoundingClientRect().height : 0;
+  container.style.scrollPaddingTop = `${stickyHeight}px`;
+
+  const elRect = el.getBoundingClientRect();
+  const containerRect = container.getBoundingClientRect();
+  const inView = elRect.top >= containerRect.top + stickyHeight && elRect.bottom <= containerRect.bottom;
+  if (!inView) el.scrollIntoView({ behavior: resolveScrollBehavior(behavior), block: "start" });
+}
+
+// Moves the "current" marker (read by the sync-dim CSS) regardless of panel
+// visibility, so a hidden panel is already correct once the user switches to it.
+function setCurrentPanelItem(container, selector) {
+  const previous = container.querySelector(".current");
+  if (previous) previous.classList.remove("current");
+  const el = selector ? container.querySelector(selector) : null;
+  if (el) el.classList.add("current");
+  return el;
+}
+
+function updateSyncPanelsClass() {
+  const active = syncPanelsEnabled && readAlongEnabled;
+  panelGnd.classList.toggle("sync-dim", active);
+  panelUtterances.classList.toggle("sync-dim", active);
+}
+
+function syncPanelsToCurrentUtterance(index, behavior = "smooth") {
+  const utterance = utterances[index];
+  if (!utterance) return;
+
+  const utteranceItem = setCurrentPanelItem(utterancesOutput, `[data-utterance-index="${index}"]`);
+  if (!panelUtterances.hidden) scrollWithinContainerIfNeeded(utteranceItem, panelUtterances, behavior);
+
+  const node = findGndNodeForLocate(utterance.locate);
+  const id = node ? gndNodeIds.get(node) : undefined;
+  const gndNodeItem = setCurrentPanelItem(gndOutput, id !== undefined ? `[data-gnd-node="${id}"]` : null);
+  if (!panelGnd.hidden) scrollWithinContainerIfNeeded(gndNodeItem, panelGnd, behavior);
+}
+
+// Populate voice select dropdown
+async function populateVoiceSelect() {
+  if (!voiceSelect) return;
+
+  voiceSelect.innerHTML = "<option value=\"\" disabled selected>Loading voices...</option>";
+
   try {
-    if (!filteredVoices.length) {
-      const option = document.createElement("option");
-      option.disabled = true;
-      option.textContent = "No voices match the current filters";
-      voiceSelect.appendChild(option);
-      return;
+    if (!enVoices || !enVoices.length) {
+      enVoices = await voiceManager.getVoices({ languages: "en", removeDuplicates: true });
     }
 
-    // Sort voices with browser's preferred languages first
-    const sortedVoices = await voiceManager.sortVoicesByRegions(window.navigator.languages, [...filteredVoices]);
+    voiceSelect.innerHTML = "<option value=\"\" disabled selected>Select a voice</option>";
 
-    // Group the sorted voices by region
-    const voiceGroups = voiceManager.groupVoices("region", sortedVoices);
-
-    // Add optgroups for each region
-    for (const [region, voices] of Object.entries(voiceGroups)) {
-      if (!voices.length) continue;
-      
-      const countryCode = region.split("-").pop() || region;
-      const regionName = new Intl.DisplayNames(window.navigator.languages, { type: "region" }).of(countryCode) || region;
-      const optgroup = document.createElement("optgroup");
-      optgroup.label = `${getCountryFlag(countryCode)} ${regionName}`;
-      
-      for (const voice of voices) {
-        const option = document.createElement("option");
-        option.value = voice.name;
-        option.textContent = [
-          voice.label || voice.name,
-          voice.gender ? `• ${voice.gender}` : "",
-          voice.offlineAvailability ? "• offline" : "• online"
-        ].filter(Boolean).join(" ");
-        option.dataset.voiceUri = voice.voiceURI;
-        optgroup.appendChild(option);
-      }
-      
-      voiceSelect.appendChild(optgroup);
-    }
-    
-    // If we have a current voice, try to select it
-    if (currentVoice) {
-      const option = voiceSelect.querySelector(`option[data-voice-uri="${currentVoice.voiceURI}"]`);
-      if (option) {
-        option.selected = true;
-      }
-    }
-    
-    // Only show error message if we don't have any valid voice options
-    const hasValidOptions = Array.from(voiceSelect.options).some(opt => !opt.disabled);
-    if (!hasValidOptions) {
+    if (!enVoices || !enVoices.length) {
       const option = document.createElement("option");
       option.disabled = true;
       option.textContent = "No voices available. Please check your browser settings and internet connection.";
       voiceSelect.appendChild(option);
+      return;
+    }
+
+    try {
+      const sortedVoices = await voiceManager.sortVoicesByRegions(["en"], enVoices);
+
+      let currentRegion = null;
+      let optgroup = null;
+
+      for (const voice of sortedVoices) {
+        const region = voice.language.split("-")[1] || "Other";
+
+        if (region !== currentRegion) {
+          currentRegion = region;
+          optgroup = document.createElement("optgroup");
+          const flag = getCountryFlag(region === "Other" ? null : region);
+          const regionName = region === "Other" ? region :
+            new Intl.DisplayNames(window.navigator.languages, { type: "region" }).of(region) || region;
+          optgroup.label = `${flag} ${regionName}`;
+          voiceSelect.appendChild(optgroup);
+        }
+
+        const option = document.createElement("option");
+        option.value = voice.name;
+        option.textContent = `${voice.label || voice.name}`;
+        option.dataset.voiceUri = voice.voiceURI;
+
+        if (currentVoice && voice.name === currentVoice.name) {
+          option.selected = true;
+        }
+
+        optgroup?.appendChild(option);
+      }
+
+      if (currentVoice) {
+        const option = voiceSelect.querySelector(`option[data-voice-uri="${currentVoice.voiceURI}"]`);
+        if (option) option.selected = true;
+      }
+
+      updateUI();
+    } catch (error) {
+      console.error("Error populating voice select:", error);
+      voiceSelect.innerHTML = "<option value=\"\" disabled selected>Error loading voices</option>";
     }
   } catch (error) {
     console.error("Error populating voice dropdown:", error);
-    // Log the error but don't add any error message to the dropdown
+    enVoices.forEach((voice) => {
+      const option = document.createElement("option");
+      option.value = voice.name;
+      option.textContent = [
+        voice.label || voice.name,
+        voice.gender ? `• ${voice.gender}` : "",
+        voice.offlineAvailability ? "• offline" : "• online",
+      ].filter(Boolean).join(" ");
+      option.dataset.voiceUri = voice.voiceURI;
+      voiceSelect.appendChild(option);
+    });
   }
-  
-  // Helper function to get country flag emoji from country code
+
+  voiceSelect.addEventListener("change", handleVoiceChange);
+
   function getCountryFlag(countryCode) {
     if (!countryCode) return "🌐";
-    
-    // Convert country code to flag emoji
     try {
       const codePoints = countryCode
         .toUpperCase()
         .split("")
-        .map(char => 127397 + char.charCodeAt(0));
-      
+        .map((char) => 127397 + char.charCodeAt(0));
       return String.fromCodePoint(...codePoints);
     } catch (e) {
       console.warn("Could not generate flag for country code:", countryCode);
@@ -362,396 +936,6 @@ async function populateVoiceDropdown() {
   }
 }
 
-// Load sample text for the selected language
-async function loadSampleText(languageCode) {
-  try {
-    // Show loading state
-    sampleTextDisplay.innerHTML = "<div class='loading'>Loading text...</div>";
-    
-    // Load sample texts if not already loaded
-    if (!samples) {
-      const response = await fetch("sampleText.json");
-      if (!response.ok) {
-        throw new Error("Failed to load sample texts");
-      }
-      samples = await response.json();
-    }
-    
-    // Normalize the language code to lowercase for case-insensitive comparison
-    const langLower = languageCode.toLowerCase();
-    
-    // Function to find a case-insensitive match in the samples
-    const findCaseInsensitiveMatch = (lang) => {
-      const normalizedLang = lang.toLowerCase();
-      const matchingKey = Object.keys(samples).find(key => key.toLowerCase() === normalizedLang);
-      return matchingKey ? samples[matchingKey]?.text : null;
-    };
-    
-    // Try direct case-insensitive match first
-    let sampleText = findCaseInsensitiveMatch(languageCode);
-    
-    // Try with Chinese variant mapping if no direct match
-    if (!sampleText) {
-      const mappedLang = chineseVariantMap[langLower];
-      if (mappedLang) {
-        sampleText = samples[mappedLang]?.text;
-      }
-    }
-    
-    // If still no match, try with base language
-    if (!sampleText) {
-      const [baseLang] = WebSpeechVoiceManager.extractLangRegionFromBCP47(languageCode);
-      const baseLangLower = baseLang.toLowerCase();
-      
-      // Try case-insensitive match with base language
-      sampleText = findCaseInsensitiveMatch(baseLang);
-      
-      // Try Chinese variant mapping for base language if still no match
-      if (!sampleText && chineseVariantMap[baseLangLower]) {
-        sampleText = samples[chineseVariantMap[baseLangLower]]?.text;
-      }
-    }
-    
-    // If no match found, return a message
-    if (!sampleText) {
-      return `No sample text available for language: ${languageCode}`;
-    }
-    
-    // Create utterances from the sample text
-    const utterances = createUtterancesFromText(sampleText);
-    
-    // Clear any existing content
-    sampleTextDisplay.innerHTML = "";
-    
-    // Create a demo section container
-    const demoSection = document.createElement("div");
-    demoSection.className = "demo-section";
-    
-    // Add a heading
-    const heading = document.createElement("h2");
-    heading.textContent = "Content Preview";
-    demoSection.appendChild(heading);
-    
-    // Create a container for the utterances list
-    const utterancesList = document.createElement("div");
-    utterancesList.className = "utterances-list";
-    
-    // Add each utterance with number indicator
-    utterances.forEach((utterance, index) => {
-      const utteranceElement = document.createElement("div");
-      utteranceElement.className = `utterance ${index === 0 ? "current" : ""}`;
-      utteranceElement.dataset.utteranceIndex = index;
-      
-      // Add utterance number
-      const numberSpan = document.createElement("span");
-      numberSpan.className = "utterance-number";
-      numberSpan.textContent = `${index + 1}.`;
-      
-      // Add text content
-      const textSpan = document.createElement("span");
-      textSpan.className = "utterance-text";
-      textSpan.dataset.utteranceId = utterance.id;
-      textSpan.textContent = utterance.plain;
-      
-      // Assemble the elements
-      utteranceElement.appendChild(numberSpan);
-      utteranceElement.appendChild(textSpan);
-      
-      utterancesList.appendChild(utteranceElement);
-    });
-    
-    // Assemble the section
-    demoSection.appendChild(utterancesList);
-    sampleTextDisplay.appendChild(demoSection);
-    
-    // Load utterances into the navigator
-    speechNavigator.loadContent(utterances);
-    
-    // Update total utterances display
-    const totalUtterancesSpan = document.getElementById("total-utterances");
-    if (totalUtterancesSpan) {
-      totalUtterancesSpan.textContent = utterances.length;
-    }
-    
-    // Update UI to enable playback controls
-    updateUI();
-    
-    // Update utterance input
-    if (utteranceIndexInput) {
-      utteranceIndexInput.max = utterances.length;
-      utteranceIndexInput.value = "1";
-    }
-  } catch (error) {
-    console.error("Error loading sample text:", error);
-    sampleTextDisplay.textContent = "Error loading sample text";
-  }
-}
-
-// Update the test utterance based on the current voice and language
-function updateTestUtterance(voice, languageCode) {
-  if (!voice) {
-    testUtterance = "";
-    testUtteranceInput.value = "";
-    testUtteranceBtn.disabled = true;
-    return;
-  }
-
-  // Only update if we don't have custom text
-  if (!userCustomUtterance) {
-    const language = voice.language || languageCode || "en";
-    const baseUtterance = voiceManager.getTestUtterance(language) || 
-                        `This is a test of the {name} voice.`;
-    testUtterance = baseUtterance.replace(/\{\s*name\s*\}/g, voice.label || voice.name || "this voice");
-    testUtteranceInput.value = testUtterance;
-  } else {
-    // Use the custom text
-    testUtterance = userCustomUtterance;
-  }
-  
-  testUtteranceBtn.disabled = false;
-}
-
-// Create utterances from text with better sentence splitting
-function createUtterancesFromText(text) {
-  // Use Intl.Segmenter for proper sentence segmentation
-  const segmenter = new Intl.Segmenter(languageSelect.value || "en", { 
-    granularity: "sentence" 
-  });
-  
-  // Convert segments to array and extract text
-  const sentences = Array.from(segmenter.segment(text), 
-    ({ segment }) => segment.trim()
-  ).filter(Boolean); // Remove any empty strings
-  
-  // Create utterances from sentences
-  return sentences.map((sentence, index) => ({
-    id: `utterance-${index}`,
-    plain: sentence,
-    language: languageSelect.value || "en"
-  }));
-}
-
-// Set up event listeners
-function setupEventListeners() {
-  // Language selection
-  languageSelect.addEventListener("change", async () => {
-    const baseLanguage = languageSelect.value;
-    
-    // Reset voice selection
-    voiceSelect.disabled = false;
-    currentVoice = null;
-    
-    // Only reset test utterance if there's no custom text
-    if (!userCustomUtterance) {
-      testUtterance = "";
-      testUtteranceInput.value = "";
-      testUtteranceBtn.disabled = true;
-    }
-    
-    // Clear voice properties
-    displayVoiceProperties(null);
-    
-    // Filter voices for the selected language
-    await filterVoices();
-    
-    // Get the default voice for the selected language using pre-filtered voices
-    if (baseLanguage) {
-      // Use the full navigator.languages array for proper language preference handling
-      const preferredLanguages = [...(window.navigator.languages || [window.navigator.language] || [baseLanguage])];
-      
-      currentVoice = await voiceManager.getDefaultVoice(
-        preferredLanguages, 
-        filteredVoices.length ? filteredVoices : undefined
-      );
-      
-      if (currentVoice) {
-        try {
-          // Set the voice for the navigator
-          await speechNavigator.setVoice(currentVoice);
-          
-          // Update the voice dropdown to reflect the selected voice
-          const voiceOption = voiceSelect.querySelector(`option[value="${currentVoice.name}"]`);
-          if (voiceOption) {
-            voiceOption.selected = true;
-          }
-          
-          // Display voice properties
-          displayVoiceProperties(currentVoice);
-          
-          // Update the test utterance with the new voice
-          updateTestUtterance(currentVoice, baseLanguage);
-          
-        } catch (error) {
-          console.error("Error setting default voice:", error);
-        }
-      }
-    }
-    
-    // Load sample text using the voice's language code if available, otherwise use the selector's value
-    const languageToUse = currentVoice?.language || baseLanguage;
-    loadSampleText(languageToUse);
-    
-    updateUI();
-  });
-  
-  // Voice selection
-  voiceSelect.addEventListener("change", async () => {
-    const selectedVoiceName = voiceSelect.value;
-    currentVoice = filteredVoices.find(v => v.name === selectedVoiceName) || null;
-    
-    if (currentVoice) {
-      try {
-        // Set the voice for the navigator
-        await speechNavigator.setVoice(currentVoice);
-        
-        // Display voice properties
-        displayVoiceProperties(currentVoice);
-        
-        // Update the test utterance with the new voice
-        updateTestUtterance(currentVoice, currentVoice.language || languageSelect.value);
-        
-        // Load sample text using the voice's language code (fire and forget)
-        loadSampleText(currentVoice.language || languageSelect.value);
-      } catch (error) {
-        console.error("Error setting voice:", error);
-      }
-    } else {
-      if (testUtteranceBtn) {
-        testUtteranceBtn.disabled = true;
-      }
-    }
-    
-    updateUI();
-  });
-
-  // Test utterance button
-  testUtteranceBtn.addEventListener("click", playTestUtterance);
-
-  // Play/Pause button (for sample text)
-  playPauseBtn.addEventListener("click", togglePlayback);
-  playPauseBtn.disabled = !currentVoice;
-
-  // Stop button (for sample text)
-  stopBtn.addEventListener("click", stopPlayback);
-  stopBtn.disabled = !currentVoice;
-
-  // Previous utterance button
-  prevUtteranceBtn.addEventListener("click", previousUtterance);
-
-  // Next utterance button
-  nextUtteranceBtn.addEventListener("click", nextUtterance);
-
-  // Jump to utterance button
-  jumpToBtn.addEventListener("click", jumpToUtterance);
-  
-  // Handle Enter key in jump input
-  utteranceIndexInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      jumpToUtterance();
-    }
-  });
-  
-  // Track manual changes to jump input
-  utteranceIndexInput.addEventListener("input", () => {
-    jumpInputUserChanged = true;
-  });
-
-  // Update voices when gender filter changes
-  genderSelect.addEventListener("change", async () => {
-    await filterVoices();
-  });
-
-  // Update voices when source filter changes
-  sourceSelect.addEventListener("change", async () => {
-    await filterVoices();
-  });
-
-  // Update voices when offline filter changes
-  offlineOnlyCheckbox.addEventListener("change", async () => {
-    await filterVoices();
-  });
-
-  // Update test utterance when language changes
-  languageSelect.addEventListener("change", () => {
-    if (languageSelect.value) {
-      updateTestUtterance(currentVoice, languageSelect.value);
-    }
-  });
-
-  // Download voices button
-  downloadVoicesBtn.addEventListener("click", downloadVoicesAsJson);
-  
-  // Update custom utterance when user types in the input
-  testUtteranceInput.addEventListener("input", (e) => {
-    userCustomUtterance = e.target.value.trim();
-    testUtterance = userCustomUtterance;
-    
-    // If user clears the input and we have a current voice, update with default utterance
-    if (!userCustomUtterance && currentVoice) {
-      updateTestUtterance(currentVoice, languageSelect.value);
-    }
-  });
-}
-
-// Play test utterance - independent of the navigator
-async function playTestUtterance() {
-  if (!currentVoice) {
-    console.error("No voice selected");
-    return;
-  }
-  
-  try {
-    // Reset playback controls first
-    if (speechNavigator) {
-      speechNavigator.stop();
-    }
-    
-    // Get test utterance for the selected language
-    let testText = testUtteranceInput.value;
-    if (!testText) {
-      // If input is empty, generate default and use it
-      updateTestUtterance(currentVoice, languageSelect.value);
-      testText = testUtteranceInput.value.trim();
-    }
-    
-    // Create a new SpeechSynthesisUtterance
-    const utterance = new SpeechSynthesisUtterance(testText);
-    
-    // Convert the ReadiumSpeechVoice to a native SpeechSynthesisVoice
-    const nativeVoice = voiceManager.convertToSpeechSynthesisVoice(currentVoice);
-    if (nativeVoice) {
-      utterance.voice = nativeVoice;
-      utterance.lang = nativeVoice.lang;
-    }
-    
-    // Update UI state
-    testUtteranceBtn.disabled = true;
-    testUtteranceBtn.textContent = "Playing...";
-    
-    // Handle when speech ends
-    utterance.onend = () => {
-      testUtteranceBtn.disabled = false;
-      testUtteranceBtn.textContent = "Play Test Utterance";
-    };
-    
-    // Handle errors
-    utterance.onerror = (event) => {
-      console.error("SpeechSynthesis error:", event);
-      testUtteranceBtn.disabled = false;
-      testUtteranceBtn.textContent = "Play Test Utterance";
-    };
-    
-    // Speak the utterance directly
-    speechSynthesis.speak(utterance);
-    
-  } catch (error) {
-    console.error("Error playing test utterance:", error);
-    testUtteranceBtn.textContent = "Play Test Utterance";
-    testUtteranceBtn.disabled = false;
-  }
-}
-
-// Toggle sample text playback
 function togglePlayback() {
   if (!currentVoice) {
     console.error("No voice selected");
@@ -759,240 +943,215 @@ function togglePlayback() {
   }
 
   try {
-    const state = speechNavigator.getState();
+    const state = navigator.getState();
     if (state === "playing") {
-      speechNavigator.pause();
+      navigator.pause();
     } else if (state === "paused") {
-      // Use play() to resume from paused state
-      speechNavigator.play();
+      navigator.play();
     } else {
-      // Start from beginning if stopped or in an unknown state
-      speechNavigator.jumpTo(0);
-      speechNavigator.play();
+      navigator.jumpTo(0);
+      navigator.play();
     }
   } catch (error) {
     console.error("Error toggling playback:", error);
   }
-  
-  // Update the UI to reflect the new state
-  updateUI();
 }
 
-// Stop sample playback
 function stopPlayback() {
-  try {
-    speechNavigator.stop();
-    clearWordHighlighting();
-    playPauseBtn.textContent = "Play Sample";
-    updateUI();
-  } catch (error) {
-    console.error("Error stopping playback:", error);
-  }
+  if (!navigator) return;
+  navigator.stop();
+  clearWordHighlighting();
+  updateUI();
 }
 
-// Go to previous utterance
 function previousUtterance() {
-  speechNavigator.previous();
+  if (!navigator) return;
+  navigator.previous();
   updateUI();
 }
 
-// Go to next utterance
 function nextUtterance() {
-  speechNavigator.next();
+  if (!navigator) return;
+  navigator.next();
   updateUI();
 }
 
-// Jump to a specific utterance
-function jumpToUtterance() {
-  const totalUtterances = speechNavigator.getContentQueue()?.length || 0;
-  
-  // Ensure we have a valid input value
-  const index = Math.max(0, Math.min(parseInt(utteranceIndexInput.value) - 1, totalUtterances - 1));
-  
-  if (!isNaN(index) && index >= 0 && index < totalUtterances) {
-    clearWordHighlighting();
-    speechNavigator.jumpTo(index);
-    
-    // Update UI to reflect the new position
-    if (utteranceIndexInput) {
-      utteranceIndexInput.value = index + 1;
-    }
-    
-    // Update total utterances display if needed
-    if (totalUtterancesSpan) {
-      totalUtterancesSpan.textContent = totalUtterances;
-    }
-    
-    // Clear user changed flag and update position tracking
-    jumpInputUserChanged = false;
-    lastNavigatorPosition = index + 1;
-    
-    // Update input to reflect the new position
-    utteranceIndexInput.value = lastNavigatorPosition;
-  } else {
-    // Invalid input, reset to current position
-    const currentPos = (speechNavigator.getCurrentUtteranceIndex() || 0) + 1;
-    utteranceIndexInput.value = currentPos;
-    jumpInputUserChanged = false;
-    lastNavigatorPosition = currentPos;
-    
-    // Ensure total is displayed
-    if (totalUtterancesSpan && totalUtterances > 0) {
-      totalUtterancesSpan.textContent = totalUtterances;
+function handleUtteranceIndexChange(e) {
+  if (!navigator) return;
+  const total = utterances.length;
+  const requested = parseInt(e.target.value, 10);
+  const clamped = Math.min(Math.max(Number.isNaN(requested) ? 1 : requested, 1), Math.max(total, 1));
+  navigator.jumpTo(clamped - 1);
+  updateUI();
+}
+
+async function handleVoiceChange(e) {
+  const voiceName = e.target.value;
+  if (!voiceName) return;
+
+  currentVoice = enVoices.find((v) => v.name === voiceName);
+  if (!currentVoice) {
+    console.error("Voice not found:", voiceName);
+    return;
+  }
+  updateWordHighlightAvailability();
+
+  if (navigator) {
+    try {
+      navigator.stop();
+      navigator.setVoice(currentVoice);
+      updateUI();
+    } catch (error) {
+      console.error("Error changing voice:", error);
     }
   }
 }
 
-// Clear TTS highlight
 function clearWordHighlighting() {
-  decoCtrl.applyDecorations([], "tts");
+  decoCtrl.applyDecorations([], "tts-sentence");
+  clearWordDecoration();
+  currentSentenceIndex = -1;
 }
 
-// Highlight the current word using the Decorator
-function highlightCurrentWord(charIndex, charLength) {
-  const currentIndex = speechNavigator.getCurrentUtteranceIndex();
-  const utteranceElement = document.querySelector(`.utterance[data-utterance-index="${currentIndex}"] .utterance-text`);
-  if (!utteranceElement) return;
+function clearWordDecoration() {
+  decoCtrl.applyDecorations([], "tts-word");
+  lastWordHighlight = null;
+}
 
-  const text = utteranceElement.textContent || "";
-  if (charIndex < 0 || charIndex >= text.length) return;
+// Reapplies the current utterance/word decorations using the live
+// utteranceStyle/utteranceTint (resp. wordStyle/wordTint), so a style/color
+// change is reflected immediately instead of waiting for the next boundary.
+function applyUtteranceDecoration() {
+  if (currentSentenceIndex === -1) return;
+  const currentUtterance = utterances[currentSentenceIndex];
+  if (!currentUtterance || !currentUtterance.locate) return;
 
-  const word = text.substring(charIndex, charIndex + charLength);
-  if (!word.trim()) return;
+  if (utteranceStyle === "none") {
+    decoCtrl.applyDecorations([], "tts-sentence");
+    return;
+  }
 
-  decoCtrl.decorate([{
+  // Synthesized label/announcement (contextualization text, alt/caption
+  // description...): no offsets in any segmentation mode.
+  if (!currentUtterance.offsets?.length && !decorateSyntheticEnabled) {
+    decoCtrl.applyDecorations([], "tts-sentence");
+    return;
+  }
+
+  const segmentation = navigator.settings.segmentation;
+  // Bounds draws one box over the whole range — wrong for a sentence slice
+  // that may only be part of a line or span several; Boxes decorates per line.
+  const layout = segmentation === "sentence" ? DecorationLayout.Boxes : DecorationLayout.Bounds;
+  const style = { type: utteranceStyle, tint: utteranceTint, enforceContrast: false, layout };
+  const locates = resolveUtteranceLocate(currentUtterance, segmentation);
+  decoCtrl.applyDecorations(
+    locates.map((locate, i) => ({ id: `tts-sentence-${i}`, locator: createLocator(locate), style })),
+    "tts-sentence",
+  );
+}
+
+function applyWordDecoration() {
+  if (!lastWordHighlight) return;
+
+  if (wordStyle === "none") {
+    decoCtrl.applyDecorations([], "tts-word");
+    return;
+  }
+
+  decoCtrl.applyDecorations([{
     id: "tts-word",
-    style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
-    text: {
-      highlight: word,
-      before: text.substring(0, charIndex),
-      after: text.substring(charIndex + charLength),
-    },
-  }], "tts");
+    locator: createLocator(lastWordHighlight),
+    style: { type: wordStyle, tint: wordTint, enforceContrast: false },
+  }], "tts-word");
 }
 
-// Update UI based on current state
+// Moves the sentence-level highlight (and viewport scroll) onto `index`'s
+// utterance, if it isn't already there — called from "start", from the
+// "sentence"/"structure" boundary (the only signal while paused, since
+// engine.speak()/"start" never fires there), and from highlightCurrentWord()
+// (so the highlight tracks playback even when a voice never fires word
+// "boundary" events, e.g. across a language switch).
+function enterUtterance(index) {
+  if (index === currentSentenceIndex) return;
+  const currentUtterance = utterances[index];
+  if (!currentUtterance || !currentUtterance.locate) return;
+
+  currentSentenceIndex = index;
+  applyUtteranceDecoration();
+
+  if (!currentUtterance.offsets?.length) {
+    // A synthesized label/announcement (contextualization text, alt/caption
+    // description...): no word-boundary search should run against it, and
+    // no earlier word highlight is going to be refined further.
+    lastWordHighlight = null;
+    decoCtrl.applyDecorations([], "tts-word");
+  }
+
+  const target = currentUtterance.locate.cssSelector
+    ? document.querySelector(currentUtterance.locate.cssSelector)
+    : null;
+  if (target && autoScrollEnabled) {
+    const rect = target.getBoundingClientRect();
+    const inView = rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
+    if (!inView) target.scrollIntoView({ behavior: resolveScrollBehavior("smooth"), block: "center" });
+  }
+
+  if (syncPanelsEnabled) syncPanelsToCurrentUtterance(index);
+}
+
+// `navigator` already resolves boundary events into detail.locate/detail.word;
+// see resolveBoundaryLocate() in docs/Highlighting.md for playback without it.
+function highlightCurrentWord(locate, word) {
+  if (!readAlongEnabled) return;
+
+  const currentIndex = navigator.getCurrentUtteranceIndex();
+  const currentUtterance = utterances[currentIndex];
+  if (!currentUtterance || !currentUtterance.locate) return;
+
+  enterUtterance(currentIndex);
+  if (!wordHighlightAvailable) return;
+  if (!locate || !word || !word.trim()) return;
+
+  lastWordHighlight = locate;
+  applyWordDecoration();
+}
+
 function updateUI() {
-  try {
-    const state = speechNavigator.getState();
-    const currentIndex = speechNavigator.getCurrentUtteranceIndex() || 0;
-    const totalUtterances = speechNavigator.getContentQueue()?.length || 0;
-    const hasContent = totalUtterances > 0;
-    
-    // Update playback controls
-    if (playPauseBtn) {
-      playPauseBtn.disabled = !currentVoice || !hasContent;
-      if (state === "playing") {
-        playPauseBtn.innerHTML = "⏸️ Pause";
-        playPauseBtn.classList.remove("play-state");
-        playPauseBtn.classList.add("pause-state");
-      } else {
-        playPauseBtn.innerHTML = "▶️ Play";
-        playPauseBtn.classList.remove("pause-state");
-        playPauseBtn.classList.add("play-state");
-      }
+  if (!navigator) return;
+
+  const currentIndex = navigator.getCurrentUtteranceIndex();
+  const total = utterances.length;
+  const state = navigator.getState();
+  const hasContent = total > 0;
+
+  if (playPauseBtn) {
+    playPauseBtn.disabled = !currentVoice || !hasContent;
+    if (state === "playing") {
+      playPauseBtn.innerHTML = PAUSE_ICON;
+      playPauseBtn.setAttribute("aria-label", "Pause");
+      playPauseBtn.classList.remove("paused");
+    } else {
+      playPauseBtn.innerHTML = PLAY_ICON;
+      playPauseBtn.setAttribute("aria-label", "Play");
+      playPauseBtn.classList.add("paused");
     }
-    
-    // Update stop button
-    if (stopBtn) {
-      stopBtn.disabled = !currentVoice || !hasContent || (state !== "playing" && state !== "paused");
-    }
-    
-    // Update navigation controls
-    if (prevUtteranceBtn) {
-      prevUtteranceBtn.disabled = !currentVoice || !hasContent || currentIndex <= 0;
-    }
-    
-    if (nextUtteranceBtn) {
-      nextUtteranceBtn.disabled = !currentVoice || !hasContent || currentIndex >= totalUtterances - 1;
-    }
-    
-    // Update jump controls
-    if (utteranceIndexInput) {
-      utteranceIndexInput.disabled = !currentVoice || !hasContent;
-      if (!jumpInputUserChanged && hasContent) {
-        utteranceIndexInput.value = currentIndex + 1;
-      }
-    }
-    
-    if (jumpToBtn) {
-      jumpToBtn.disabled = !currentVoice || !hasContent;
-    }
-    
-    // Update test utterance button
-    if (testUtteranceBtn) {
-      testUtteranceBtn.disabled = !currentVoice;
-    }
-    
-    // Update utterance highlighting and scroll to current position
-    if (hasContent) {
-      const utteranceElements = document.querySelectorAll(".utterance");
-      utteranceElements.forEach((el, i) => {
-        if (i === currentIndex) {
-          el.classList.add("current");
-          el.classList.remove("played");
-        } else if (i < currentIndex) {
-          el.classList.add("played");
-          el.classList.remove("current");
-        } else {
-          el.classList.remove("current", "played");
-        }
-      });
-    }
-  } catch (error) {
-    console.error("Error updating UI:", error);
   }
+
+  if (stopBtn) stopBtn.disabled = !currentVoice || !hasContent || (state !== "playing" && state !== "paused");
+  if (prevBtn) prevBtn.disabled = !currentVoice || !hasContent || currentIndex <= 0;
+  if (nextBtn) nextBtn.disabled = !currentVoice || !hasContent || currentIndex >= total - 1;
+
+  // Write only on change, and never while the user is mid-edit — .player-status
+  // is a live region, don't re-announce every word or fight the user's typing.
+  if (currentUtteranceInput) {
+    currentUtteranceInput.disabled = !currentVoice || !hasContent;
+    currentUtteranceInput.max = String(Math.max(total, 1));
+    const label = String(currentIndex + 1);
+    if (document.activeElement !== currentUtteranceInput && currentUtteranceInput.value !== label) {
+      currentUtteranceInput.value = label;
+    }
+  }
+  if (totalUtterancesSpan) totalUtterancesSpan.textContent = total;
 }
 
-// Simple function to get current date for filenames
-function getCurrentDate() {
-  return new Date().toISOString().split("T")[0];
-}
-
-// Function to download voices as JSON
-function downloadVoicesAsJson() {
-  try {
-    const voices = window.speechSynthesis.getVoices();
-    
-    const metadata = {
-      timestamp: new Date().toISOString(),
-      voicesCount: voices.length
-    };
-    
-    const voicesData = voices.map(voice => ({
-      ...voice,
-      // Known properties
-      voiceURI: voice.voiceURI,
-      name: voice.name,
-      lang: voice.lang,
-      localService: voice.localService,
-      default: voice.default
-    }));
-    
-    const exportData = {
-      metadata,
-      voices: voicesData
-    };
-    
-    const dataStr = JSON.stringify(exportData, null, 2);
-    const dataUri = "data:application/json;charset=utf-8," + encodeURIComponent(dataStr);
-    
-    const exportFileDefaultName = `speech-voices-${getCurrentDate()}.json`.replace(/[^a-z0-9.-]+/gi, "-").toLowerCase();
-    
-    const linkElement = document.createElement("a");
-    linkElement.setAttribute("href", dataUri);
-    linkElement.setAttribute("download", exportFileDefaultName);
-    linkElement.click();
-  } catch (error) {
-    console.error("Error downloading voices data:", error);
-    alert("Error downloading voices data. Please check console for details.");
-  }
-}
-
-// Initialize the application
-init().then(() => {
-  // If there's a default voice selected after initialization, display its properties
-  if (currentVoice) {
-    displayVoiceProperties(currentVoice);
-  }
-});
+initialize().catch(console.error);

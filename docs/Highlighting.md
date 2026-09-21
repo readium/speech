@@ -122,7 +122,7 @@ decorations.applyDecorations([], "tts");
 decorations.destroy();
 ```
 
-Pairing any of these with `ReadiumSpeechNavigator` events (see the [Playback API](Playback.md)) lets you re-apply the decoration on word/sentence boundaries as playback progresses — see `demo/script.js` and `demo/article/script.js` for complete examples driven by TTS boundary events.
+Pairing any of these with `ReadiumSpeechNavigator` events (see the [Playback API](Playback.md)) lets you re-apply the decoration on word/sentence boundaries as playback progresses — see `demo/script.js` and `demo/voice-selection/script.js` for complete examples driven by TTS boundary events.
 
 ## Highlighting from `locate`/`offsets`
 
