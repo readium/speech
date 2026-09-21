@@ -18,7 +18,7 @@ import { startsWithBindingPunct } from "../utils/text.js";
 import { type ObjBuilder, NavObject, isEmptyObj, finalizeToGndObject } from "./object.js";
 import { type GndMediaType, nodeLanguage, isInlineTag, sniffMediaType } from "./dom.js";
 import { encodeDomRangeFragment, encodeTextFragmentDirective } from "./textrefFragment.js";
-import { selectorForElement, textrefForSelector } from "./selectorGenerator.js";
+import { rootAnchorSelector, selectorForElement, textrefForSelector } from "./selectorGenerator.js";
 import { generateDomRange } from "./domRangeGenerator.js";
 import { textFragmentDirectiveFor } from "./textFragmentGenerator.js";
 import { type GndGenerationOptions, normalizeTextrefOptions } from "./options.js";
@@ -68,6 +68,12 @@ export class Converter {
   // See TextrefOptions.roles' leafTextRoleKeyword in options.ts.
   leafTextEnabled = false;
   docRoot: Document | null = null;
+  // The element generated selectors must be unique within: the whole
+  // document for a parsed string, the live input element otherwise.
+  selectorRoot: Element | null = null;
+  // A selector uniquely resolving selectorRoot itself — see
+  // selectorGenerator.ts's rootAnchorSelector().
+  selectorRootAnchor: string | null = null;
 
   private root = new NavObject();
   private current = this.root;
@@ -112,6 +118,8 @@ export class Converter {
     child.noterefDepth = this.noterefDepth + depthDelta;
     child.allowNode = allowNode;
     child.docRoot = this.docRoot;
+    child.selectorRoot = this.selectorRoot;
+    child.selectorRootAnchor = this.selectorRootAnchor;
     child.selectorPredicate = this.selectorPredicate;
     child.domRangeEnabled = this.domRangeEnabled;
     child.textFragmentEnabled = this.textFragmentEnabled;
@@ -338,12 +346,12 @@ export class Converter {
   // fixed order regardless of which others are also enabled.
   private applyTextref(el: Element) {
     const cur = this.current.object;
-    const selector = selectorForElement(el, this.docRoot);
+    const selector = selectorForElement(el, this.selectorRoot, this.selectorRootAnchor);
     cur.textref = textrefForSelector(selector);
 
     if (this.domRangeEnabled && this.lastFlowRange) {
       const known = selector ? { el, selector } : undefined;
-      const domRange = generateDomRange(this.lastFlowRange, this.docRoot, known);
+      const domRange = generateDomRange(this.lastFlowRange, this.selectorRoot, this.selectorRootAnchor, known);
       if (domRange) cur.textref = encodeDomRangeFragment({ ...domRange, container: selector });
     }
 
@@ -664,6 +672,8 @@ export function parseMarkup(
     converter.domRangeEnabled = domRange;
     converter.textFragmentEnabled = textFragment;
     converter.docRoot = input.ownerDocument;
+    converter.selectorRoot = input;
+    converter.selectorRootAnchor = rootAnchorSelector(input);
     converter.convert(input);
     return converter.result();
   }
@@ -675,6 +685,7 @@ export function parseMarkup(
   converter.leafTextEnabled = leafText;
   converter.textFragmentEnabled = textFragment;
   converter.docRoot = doc;
+  converter.selectorRoot = doc.documentElement;
   const body = doc.querySelector("body");
   if (body && !BODY_TAG_RE.test(input)) {
     converter.convertChildren(body);
