@@ -534,12 +534,15 @@ button:hover:not(:disabled) {
   background: #fafafa;
 }
 
-/* Rendered from `data-label` so it's never picked up as speakable content. */
-.case::before {
-  content: attr(data-label);
+/* Populated from `data-label` by layoutCaseLabels() in script.js —
+   aria-hidden keeps it out of speakable content, and being a real element
+   (rather than a `::before` pseudo-element) lets its wrapped height be
+   measured so `.frag` boxes can be shifted down to clear it. */
+.case-label {
   position: absolute;
   top: 10px;
   left: 12px;
+  right: 12px;
   font-size: 0.8em;
   font-weight: 600;
   color: #666;

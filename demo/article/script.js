@@ -536,15 +536,24 @@ async function initializeContent() {
 function layoutPositionedTokens(container) {
   if (!container) return;
   const tokens = Array.from(container.querySelectorAll(".token"));
-  const containerWidth = container.clientWidth;
-  const lineHeight = parseFloat(getComputedStyle(container).lineHeight) || 28;
+  // An absolutely-positioned token's `left`/`top` are relative to the
+  // container's padding edge, not its content edge, so the container's own
+  // padding has to be added back in by hand here or tokens sit flush
+  // against the border, ignoring it entirely.
+  const style = getComputedStyle(container);
+  const paddingLeft = parseFloat(style.paddingLeft) || 0;
+  const paddingRight = parseFloat(style.paddingRight) || 0;
+  const paddingTop = parseFloat(style.paddingTop) || 0;
+  const paddingBottom = parseFloat(style.paddingBottom) || 0;
+  const containerWidth = container.clientWidth - paddingLeft - paddingRight;
+  const lineHeight = parseFloat(style.lineHeight) || 28;
 
   const isSpace = (token) => /^\s+$/.test(token.textContent);
   const words = [];
   let word = [];
   for (const token of tokens) {
-    token.style.left = "0px";
-    token.style.top = "0px";
+    token.style.left = `${paddingLeft}px`;
+    token.style.top = `${paddingTop}px`;
     if (isSpace(token)) {
       if (word.length) words.push(word);
       words.push([token]);
@@ -565,12 +574,41 @@ function layoutPositionedTokens(container) {
       y += lineHeight;
     }
     tokensInWord.forEach((token, i) => {
-      token.style.left = `${x}px`;
-      token.style.top = `${y}px`;
+      token.style.left = `${paddingLeft + x}px`;
+      token.style.top = `${paddingTop + y}px`;
       x += widths[i];
     });
   }
-  container.style.height = `${y + lineHeight}px`;
+  const contentHeight = y + lineHeight;
+  container.style.height =
+    style.boxSizing === "border-box"
+      ? `${paddingTop + contentHeight + paddingBottom}px`
+      : `${contentHeight}px`;
+}
+
+// Renders each `.case` box's label from `data-label` as a real (but
+// aria-hidden) element rather than a `::before` pseudo-element, so its
+// actual — possibly wrapped — rendered height can be measured, and shifts
+// that case's `.frag` children down to clear it. A pseudo-element's box
+// can't be measured this way, so on narrow widths where the label wraps to
+// a second line, fixed `.frag` offsets would otherwise paint over it.
+function layoutCaseLabels(container) {
+  const LABEL_GAP = 16;
+  const ROW2_GAP = 174 - 46;
+  container.querySelectorAll(".case").forEach((caseEl) => {
+    let label = caseEl.querySelector(":scope > .case-label");
+    if (!label) {
+      label = document.createElement("span");
+      label.className = "case-label";
+      label.setAttribute("aria-hidden", "true");
+      label.textContent = caseEl.dataset.label || "";
+      caseEl.insertBefore(label, caseEl.firstChild);
+    }
+    const row1Top = label.offsetTop + label.offsetHeight + LABEL_GAP;
+    caseEl.querySelectorAll(":scope > .frag").forEach((frag) => {
+      frag.style.top = `${frag.classList.contains("frag-row2") ? row1Top + ROW2_GAP : row1Top}px`;
+    });
+  });
 }
 
 // Sizes each `.case` box (see fixed-layout.html) to exactly fit its own
@@ -602,6 +640,7 @@ function layoutCaseBoxes(container) {
 // frag's now-final height. Each call re-measures from scratch, so it's
 // safe to re-run on every resize.
 function applyScenarioLayouts(container) {
+  if (container.querySelector(".case")) layoutCaseLabels(container);
   container.querySelectorAll(".text-flow, .frag").forEach((el) => {
     if (el.querySelector(":scope > .token")) layoutPositionedTokens(el);
   });
