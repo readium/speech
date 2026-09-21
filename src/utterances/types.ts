@@ -1,4 +1,5 @@
 import type { GndObject, GndRole } from "../gnd/types.js";
+import type { SentenceSegmenter } from "./sentenceSegmenter.js";
 
 // Canonical extraction-option enums — imported by src/preferences/SpeechPreferences.ts
 // rather than redeclared there, so the two never drift apart.
@@ -57,6 +58,12 @@ export interface SegmentationOptions {
   // Merged on top of `builtInSuppressions` (src/utterances/builtInSuppressions.ts),
   // which already covers frequent cases per language.
   suppressions?: Record<string, string[]>;
+
+  // Overrides the built-in Intl.Segmenter-based implementation for
+  // "sentence" mode. Receives `suppressions` above as its own
+  // `customSuppressions` — merging in any built-in abbreviation list is
+  // the implementation's own responsibility.
+  segmenter?: SentenceSegmenter;
 }
 
 export interface ExtractUtterancesOptions {

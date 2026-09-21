@@ -74,22 +74,22 @@ test("empty text yields no boundaries", async (t) => {
 });
 
 test("splitSsmlAtSentences splits plain ssml text at sentence boundaries", async (t) => {
-  const result = await splitSsmlAtSentences("Hello world. This is a test.", "en");
+  const result = await splitSsmlAtSentences("Hello world. This is a test.", "en", segmentSentences);
   t.deepEqual(result, ["Hello world.", "This is a test."]);
 });
 
 test("splitSsmlAtSentences returns undefined for a single sentence", async (t) => {
-  const result = await splitSsmlAtSentences("Just one sentence.", "en");
+  const result = await splitSsmlAtSentences("Just one sentence.", "en", segmentSentences);
   t.is(result, undefined);
 });
 
 test("splitSsmlAtSentences returns undefined for empty text", async (t) => {
-  const result = await splitSsmlAtSentences("", "en");
+  const result = await splitSsmlAtSentences("", "en", segmentSentences);
   t.is(result, undefined);
 });
 
 test("splitSsmlAtSentences re-wraps a paired tag whose inner text spans a boundary", async (t) => {
-  const result = await splitSsmlAtSentences('See <lang xml:lang="fr">Bonjour. Ça va?</lang> after that.', "en");
+  const result = await splitSsmlAtSentences('See <lang xml:lang="fr">Bonjour. Ça va?</lang> after that.', "en", segmentSentences);
   t.deepEqual(result, [
     'See <lang xml:lang="fr">Bonjour.</lang>',
     '<lang xml:lang="fr">Ça va?</lang>',
@@ -98,16 +98,16 @@ test("splitSsmlAtSentences re-wraps a paired tag whose inner text spans a bounda
 });
 
 test("splitSsmlAtSentences keeps a paired tag whole when it doesn't span a boundary", async (t) => {
-  const result = await splitSsmlAtSentences('<emphasis level="strong">Careful!</emphasis> Now continue.', "en");
+  const result = await splitSsmlAtSentences('<emphasis level="strong">Careful!</emphasis> Now continue.', "en", segmentSentences);
   t.deepEqual(result, ['<emphasis level="strong">Careful!</emphasis>', "Now continue."]);
 });
 
 test("splitSsmlAtSentences attaches a self-closing tag to the sentence following it", async (t) => {
-  const result = await splitSsmlAtSentences("Line one. <break/>Line two.", "en");
+  const result = await splitSsmlAtSentences("Line one. <break/>Line two.", "en", segmentSentences);
   t.deepEqual(result, ["Line one.", "<break/>Line two."]);
 });
 
 test("splitSsmlAtSentences preserves entity escaping across a split", async (t) => {
-  const result = await splitSsmlAtSentences("A &amp; B are fine. C &lt; D holds too.", "en");
+  const result = await splitSsmlAtSentences("A &amp; B are fine. C &lt; D holds too.", "en", segmentSentences);
   t.deepEqual(result, ["A &amp; B are fine.", "C &lt; D holds too."]);
 });

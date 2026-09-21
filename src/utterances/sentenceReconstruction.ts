@@ -1,6 +1,5 @@
 import type { GndObject, GndRole } from "../gnd/types.js";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
-import { segmentSentences } from "./sentenceSegmenter.js";
 import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
 import { joinPieceTexts, plainOf } from "./mergeUtterances.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
@@ -18,10 +17,10 @@ async function sentenceFragmentsOf(
   const customSuppressions = ctx.segmentationSuppressions[language];
   const sourceText = ctx.format === "ssml" ? utterance.ssml : utterance.plain;
   if (!sourceText) return undefined;
-  const boundaries = await segmentSentences(language, plainOf(sourceText, ctx.format), customSuppressions);
+  const boundaries = await ctx.segmenter(language, plainOf(sourceText, ctx.format), customSuppressions);
   if (boundaries.length <= 1) return undefined;
   if (ctx.format !== "ssml") return boundaries.map((b) => ({ text: b.text, start: b.start, end: b.contentEnd }));
-  const ssmlFragments = await splitSsmlAtSentences(sourceText, language, customSuppressions);
+  const ssmlFragments = await splitSsmlAtSentences(sourceText, language, ctx.segmenter, customSuppressions);
   if (!ssmlFragments) return undefined;
   return boundaries.map((b, i) => ({ text: ssmlFragments[i], start: b.start, end: b.contentEnd }));
 }
@@ -122,7 +121,7 @@ async function detectGenuineJoins(
 ): Promise<boolean[]> {
   const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
   const { joined, ranges } = joinPieceTexts(plainParts);
-  const boundaries = await segmentSentences(language, joined, suppressions);
+  const boundaries = await ctx.segmenter(language, joined, suppressions);
   const joinedWithNext = new Array<boolean>(pieces.length - 1).fill(false);
   for (const boundary of boundaries) {
     const startIdx = pieceIndexAt(ranges, boundary.start);
@@ -175,13 +174,14 @@ async function pushJoinedGroup(
   const suppressions = ctx.segmentationSuppressions[language];
   const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
   const { joined: joinedPlain, ranges } = joinPieceTexts(plainParts);
-  const boundaries = await segmentSentences(language, joinedPlain, suppressions);
+  const boundaries = await ctx.segmenter(language, joinedPlain, suppressions);
 
   let ssmlFragments: string[] | undefined;
   let joinedSsml: string | undefined;
   if (ctx.format === "ssml") {
     joinedSsml = joinPieceTexts(pieces.map((piece) => piece.ssml!)).joined;
-    ssmlFragments = boundaries.length > 1 ? await splitSsmlAtSentences(joinedSsml, language, suppressions) : undefined;
+    ssmlFragments =
+      boundaries.length > 1 ? await splitSsmlAtSentences(joinedSsml, language, ctx.segmenter, suppressions) : undefined;
   }
 
   const effectiveBoundaries =

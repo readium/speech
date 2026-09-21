@@ -3,6 +3,7 @@ import type { GndObject, GndRole } from "../gnd/types.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { builtInSubstitutions } from "./builtInSubstitutions.js";
 import { contextualizationsForLocale } from "./contextualizations.js";
+import { segmentSentences, type SentenceSegmenter } from "./sentenceSegmenter.js";
 import type {
   ContextualizationEntry,
   Contextualizations,
@@ -35,6 +36,7 @@ export interface WalkContext {
   language?: LanguageMode;
   segmentation: Segmentation;
   segmentationSuppressions: Record<string, string[]>;
+  segmenter: SentenceSegmenter;
   // See `ExtractUtterancesOptions.substitutions`.
   substitutions: SubstitutionTable;
   // Tracked by object identity rather than threaded as a parallel array,
@@ -137,6 +139,7 @@ export async function makeWalkContext(nodes: GndObject[], options: ExtractUttera
     // (Intl.Segmenter has no built-in equivalent of its own) — this is only
     // the caller's own additive extras, per `SegmentationOptions.suppressions`.
     segmentationSuppressions: options.segmentation?.suppressions ?? {},
+    segmenter: options.segmentation?.segmenter ?? segmentSentences,
     // Per-key override, not an additive union — each key holds one whole rule.
     substitutions: { ...builtInSubstitutions, ...options.substitutions },
     blockStarts: new Set(),

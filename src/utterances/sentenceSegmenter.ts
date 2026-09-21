@@ -14,6 +14,12 @@ export interface SentenceBoundary {
   contentEnd: number;
 }
 
+export type SentenceSegmenter = (
+  language: string,
+  text: string,
+  customSuppressions?: string[]
+) => Promise<SentenceBoundary[]>;
+
 export async function segmentSentences(
   language: string,
   text: string,

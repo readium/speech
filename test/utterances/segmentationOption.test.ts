@@ -3,6 +3,21 @@ import test from "ava";
 import { parseMarkup } from "../../src/gnd/converter.js";
 import { decodeTextref } from "../../src/gnd/textrefFragment.js";
 import { extractUtterances, extractUtterancesWithSources } from "../../src/utterances/extractUtterances.js";
+import type { SentenceBoundary, SentenceSegmenter } from "../../src/utterances/sentenceSegmenter.js";
+
+// Splits on ", " instead of real sentence punctuation — deliberately
+// different from Intl.Segmenter's behavior, to prove a caller-supplied
+// `segmenter` is what actually ran, not the built-in one.
+const commaSegmenter: SentenceSegmenter = async (_language, text) => {
+  const boundaries: SentenceBoundary[] = [];
+  let start = 0;
+  for (const match of text.matchAll(/, /g)) {
+    boundaries.push({ text: text.slice(start, match.index), start, contentEnd: match.index, end: match.index + match[0].length });
+    start = match.index + match[0].length;
+  }
+  boundaries.push({ text: text.slice(start), start, contentEnd: text.length, end: text.length });
+  return boundaries;
+};
 
 const html = "<p>Hello there. This has two sentences.</p><p>And a second paragraph.</p>";
 
@@ -342,4 +357,46 @@ test("segmentation: sentence does not apply another language's suppressions to t
     segmentation: { mode: "sentence", suppressions: { fr: ["Zqxk."] } },
   });
   t.deepEqual(withOtherLanguageSuppressions, withoutSuppressions);
+});
+
+test("segmentation: sentence uses a caller-supplied segmenter instead of the built-in one", async (t) => {
+  const gnd = parseMarkup("<p>Apples, oranges, bananas.</p>");
+  const utterances = await extractUtterances(gnd, {
+    format: "plain",
+    segmentation: { mode: "sentence", segmenter: commaSegmenter },
+  });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["Apples", "oranges", "bananas."]
+  );
+});
+
+test("segmentation: sentence threads a caller-supplied segmenter through ssml tag re-wrapping too", async (t) => {
+  const gnd = parseMarkup('<p>See <span lang="fr">Bonjour, Ça va</span> after that.</p>');
+  const utterances = await extractUtterances(gnd, {
+    format: "ssml",
+    segmentation: { mode: "sentence", segmenter: commaSegmenter },
+    language: "always",
+  });
+  t.deepEqual(
+    utterances.map((u) => u.ssml),
+    [
+      'See <lang xml:lang="fr">Bonjour,</lang>',
+      '<lang xml:lang="fr">Ça va</lang> after that.',
+    ]
+  );
+});
+
+test("segmentation: sentence passes the configured suppressions through to a caller-supplied segmenter", async (t) => {
+  const received: (string[] | undefined)[] = [];
+  const recordingSegmenter: SentenceSegmenter = async (language, text, customSuppressions) => {
+    received.push(customSuppressions);
+    return commaSegmenter(language, text, customSuppressions);
+  };
+  const gnd = parseMarkup("<p>Apples, oranges, bananas.</p>");
+  await extractUtterances(gnd, {
+    format: "plain",
+    segmentation: { mode: "sentence", segmenter: recordingSegmenter, suppressions: { en: ["Zqxk."] } },
+  });
+  t.deepEqual(received, [["Zqxk."]]);
 });

@@ -11,6 +11,7 @@ import { ReadiumSpeechUtterance } from "./utterance";
 import { resolveBoundaryLocate } from "./utterances/boundaryLocate";
 import { extractUtterancesWithSources, type SourceTrace } from "./utterances/extractUtterances";
 import { Contextualizations } from "./utterances/types";
+import type { SentenceSegmenter } from "./utterances/sentenceSegmenter";
 import { ReadiumSpeechVoice } from "./voices/types";
 import { EventEmitter } from "./utils/eventEmitter";
 
@@ -25,6 +26,7 @@ export interface ContextualizationOverrides {
 // Same rationale as ContextualizationOverrides — static, not a preference.
 export interface SegmentationOverrides {
   suppressions?: Record<string, string[]>;
+  segmenter?: SentenceSegmenter;
 }
 
 export interface ReadiumSpeechNavigatorConfiguration {
@@ -300,6 +302,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       segmentation: {
         mode: this._settings.segmentation,
         suppressions: this.segmentationOverrides?.suppressions,
+        segmenter: this.segmentationOverrides?.segmenter,
       },
     });
     this.contentSources = sources;

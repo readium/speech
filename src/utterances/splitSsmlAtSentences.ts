@@ -1,5 +1,5 @@
 import { ssmlTextEscape } from "../gnd/text.js";
-import { segmentSentences } from "./sentenceSegmenter.js";
+import type { SentenceSegmenter } from "./sentenceSegmenter.js";
 
 function unescapeSsmlText(text: string): string {
   return text.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
@@ -40,6 +40,7 @@ function tokenize(ssml: string): Atom[] {
 export async function splitSsmlAtSentences(
   ssml: string,
   language: string,
+  segmenter: SentenceSegmenter,
   customSuppressions?: string[]
 ): Promise<string[] | undefined> {
   const atoms = tokenize(ssml);
@@ -51,7 +52,7 @@ export async function splitSsmlAtSentences(
     else if (atom.kind === "paired") plain += atom.innerText;
   }
   if (!plain) return undefined;
-  const boundaries = await segmentSentences(language, plain, customSuppressions);
+  const boundaries = await segmenter(language, plain, customSuppressions);
   if (boundaries.length <= 1) return undefined;
 
   const results: string[] = [];
