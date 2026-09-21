@@ -91,6 +91,21 @@ Each field forwards to the matching [`extractUtterances` option](UtteranceExtrac
 - `params` → [`contextualization.params`](UtteranceExtraction.md#contextualizationparams)
 - `shapes` → [`contextualization.shapes`](UtteranceExtraction.md#contextualizationshapes), but keyed one level deeper, by [verbosity level](Preferences.md#verbosity) (`{ table: { few: "inline", most: "block" } }`) — each preset already has its own built-in shape table, so an override here only needs the levels you want to change, `"custom"` included (custom is the one level with no built-in table of its own).
 
+### `segmentationOverrides`
+
+Also set once at construction, same rationale as `contextualizationOverrides`:
+
+```typescript
+const navigator = new ReadiumSpeechNavigator(engine, {
+  segmentationOverrides: { suppressions, segmenter },
+});
+```
+
+- `suppressions` → [`segmentation.suppressions`](UtteranceExtraction.md#segmentation)
+- `segmenter` → [`segmentation.segmenter`](UtteranceExtraction.md#segmenter)
+
+`segmentation.mode` itself stays a live `submitPreferences()` setting (see [Preferences](Preferences.md#verbosity)) — only these two are construction-time, since neither is meant to change mid-session.
+
 ## Events
 
 ### `ReadiumSpeechPlaybackEvent`

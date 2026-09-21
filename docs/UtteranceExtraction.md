@@ -58,6 +58,20 @@ interface ContextualizationOptions {
 interface SegmentationOptions {
   mode?: "structure" | "sentence"; // default "structure"
   suppressions?: Record<string, string[]>; // per-language sentence-ending exceptions, keyed like `language`
+  segmenter?: SentenceSegmenter; // replaces the built-in Intl.Segmenter-based sentence splitter
+}
+
+type SentenceSegmenter = (
+  language: string,
+  text: string,
+  customSuppressions?: string[]
+) => Promise<SentenceBoundary[]>;
+
+interface SentenceBoundary {
+  text: string;
+  start: number;
+  end: number; // reaches through trailing whitespace to the next sentence
+  contentEnd: number; // start + text.length, no trailing separator — offsets use this, not `end`
 }
 
 type SubstitutionRule = string | { pattern: RegExp; replace: string | ((...match: string[]) => string) };
@@ -79,6 +93,7 @@ Quick reference:
 | `inlineContextualization` | `false` | split a sentence at a mid-sentence pagebreak/footnote, instead of after it |
 | `segmentation.mode` | `"structure"` | one utterance per structural unit, or split/reconstruct at real sentence boundaries |
 | `segmentation.suppressions` | none | per-language abbreviations (e.g. `"d."`) that sentence mode won't treat as endings |
+| `segmentation.segmenter` | built-in `Intl.Segmenter`-based splitter | swap in a different sentence segmenter |
 | `substitutions` | `builtInSubstitutions` | ASCII imitations of Unicode symbols (`"1/2"`, `"(c)"`, `"100deg"`) to rewrite before speaking |
 
 ### `format`
@@ -235,6 +250,42 @@ await extractUtterances(gnd, {
   segmentation: { mode: "sentence", suppressions: { en: ["approx."] } },
 });
 ```
+
+#### `segmenter`
+
+The built-in sentence splitter is [`Intl.Segmenter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter) with `granularity: "sentence"`, plus this library's own abbreviation-suppression pass on top (`suppressions` above, merged with [`builtInSuppressions`](../src/utterances/builtInSuppressions.ts)). Risks worth knowing before relying on it:
+
+- **ICU data availability.** `Intl.Segmenter`'s sentence-break behavior depends on the JS engine's bundled ICU/CLDR data. Runtimes that ship reduced ICU (some mobile WebViews, some server builds configured with `small-icu`) can produce different — sometimes worse — boundaries than a desktop browser, with no error raised.
+- **Locale coverage is uneven.** The Unicode sentence-break algorithm behind it is tuned mainly for widely-used languages; boundary quality for less common locales can be noticeably weaker, and there's no per-locale opt-out — the same algorithm runs regardless of `language`.
+- **No built-in abbreviation handling.** `Intl.Segmenter` has no concept of "d." or "Mr." not ending a sentence; every such case is caught only by `suppressions`/`builtInSuppressions`, a fixed list rather than real disambiguation — an abbreviation missing from both lists still gets split on.
+
+Supply `segmenter` to replace the built-in splitter entirely for `"sentence"` mode:
+
+```typescript
+interface SentenceBoundary {
+  text: string;
+  start: number;
+  end: number;       // reaches through trailing whitespace to the next sentence
+  contentEnd: number; // start + text.length, no trailing separator — offsets use this, not `end`
+}
+
+type SentenceSegmenter = (
+  language: string,
+  text: string,
+  customSuppressions?: string[]
+) => Promise<SentenceBoundary[]>;
+```
+
+```typescript
+const mySegmenter: SentenceSegmenter = async (language, text, customSuppressions) => {
+  // e.g. call out to a different sentence-boundary library
+  return mySentenceLibrary.segment(text, { locale: language });
+};
+
+await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", segmenter: mySegmenter } });
+```
+
+A supplied `segmenter` fully replaces the built-in one — it's handed the same per-language `suppressions` (as its own `customSuppressions` argument) but owns deciding what to do with them; `builtInSuppressions` is not merged in automatically, since that list exists specifically to patch `Intl.Segmenter`'s gaps.
 
 #### Reconstruction heuristics
 

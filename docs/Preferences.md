@@ -61,7 +61,7 @@ volume?: number;                                 // default 1.0, range [0, 1]
 
 `language` (`"none" | "block-level" | "always"`, default `"block-level"`) is the same option documented in [Utterance Extraction](UtteranceExtraction.md#options).
 
-`segmentation` (`"structure" | "sentence"`, default `"structure"`) is the same option documented in [Utterance Extraction](UtteranceExtraction.md#segmentation) — only its `mode`; per-language `suppressions` are construction-only, not a live preference.
+`segmentation` (`"structure" | "sentence"`, default `"structure"`) is the same option documented in [Utterance Extraction](UtteranceExtraction.md#segmentation) — only its `mode`; per-language `suppressions` and a custom `segmenter` are construction-only (see [`segmentationOverrides`](Playback.md#segmentationoverrides)), not a live preference.
 
 ## `format` / `inlineContextualization`
 
