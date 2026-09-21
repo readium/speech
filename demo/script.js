@@ -1039,10 +1039,12 @@ function applyUtteranceDecoration() {
   }
 
   const segmentation = navigator.settings.segmentation;
-  // Bounds draws one box over the whole range — wrong for a sentence slice
-  // that may only be part of a line or span several; Boxes decorates per line.
-  const layout = segmentation === "sentence" ? DecorationLayout.Boxes : DecorationLayout.Bounds;
-  const style = { type: utteranceStyle, tint: utteranceTint, enforceContrast: false, layout };
+  const style = {
+    type: utteranceStyle,
+    tint: utteranceTint,
+    enforceContrast: false,
+    layout: DecorationLayout.Boxes,
+  };
   const locates = resolveUtteranceLocate(currentUtterance, segmentation);
   decoCtrl.applyDecorations(
     locates.map((locate, i) => ({ id: `tts-sentence-${i}`, locator: createLocator(locate), style })),
