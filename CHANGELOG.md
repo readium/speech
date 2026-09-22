@@ -16,6 +16,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ### Fixed
 
 - `WebSpeechEngine` no longer resolves a stray/delayed `boundary` event from an already-cancelled utterance against whatever utterance is current by the time it arrives.
+- `WebSpeechEngine` no longer emits a duplicate `start`/`pause`/`resume` event for the same playback action — previously fired once eagerly and again from the native `SpeechSynthesisUtterance` event, which also doubled `ReadiumSpeechNavigator`'s synthesized `boundary` event on `start`.
 - Text sent to `WebSpeechEngine`/`SpeechServerEngine` now has angle brackets neutralized so plain text containing `<`/`>` can't be misread as markup.
 - Generated CSS selectors (`makeGnd()`/`parseMarkup()`) no longer use attribute selectors, which could latch onto a JS-mutated attribute (e.g. an inline `style` set by a layout script) and silently stop matching once it changed.
 
