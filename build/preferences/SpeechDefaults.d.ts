@@ -1,5 +1,6 @@
 import { GndRole } from '../gnd/types.js';
-import { AutoPauseScope, ExtractionFormat, LanguageMode, VerbosityPreset } from './SpeechPreferences.js';
+import { AutoPauseScope, VerbosityPreset } from './SpeechPreferences.js';
+import { ExtractionFormat, LanguageMode, Segmentation } from '../utterances/types.js';
 export interface ISpeechDefaults {
     format?: ExtractionFormat | null;
     inlineContextualization?: boolean | null;
@@ -7,6 +8,7 @@ export interface ISpeechDefaults {
     skip?: GndRole[] | null;
     contextualize?: GndRole[] | null;
     language?: LanguageMode | null;
+    segmentation?: Segmentation | null;
     pauseDuration?: number | null;
     autoPause?: AutoPauseScope | null;
     rate?: number | null;
@@ -20,6 +22,7 @@ export declare class SpeechDefaults {
     readonly skip: GndRole[];
     readonly contextualize: GndRole[];
     readonly language: LanguageMode;
+    readonly segmentation: Segmentation;
     readonly pauseDuration: number;
     readonly autoPause: AutoPauseScope;
     readonly rate: number;

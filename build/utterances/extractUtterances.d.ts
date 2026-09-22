@@ -1,6 +1,8 @@
 import { GndObject } from '../gnd/types.js';
 import { ReadiumSpeechUtterance } from '../utterance.js';
 import { ExtractUtterancesOptions } from './types.js';
+import { SourceTrace } from './walkContext.js';
+export type { SourceTrace } from './walkContext.js';
 /**
  * Extracts an ordered list of read-aloud utterances from a Guided
  * Navigation node tree, following the patterns documented at
@@ -16,6 +18,6 @@ export declare function extractUtterances(nodes: GndObject[], options: ExtractUt
  */
 export declare function extractUtterancesWithSources(nodes: GndObject[], options: ExtractUtterancesOptions): Promise<{
     utterances: ReadiumSpeechUtterance[];
-    sources: (GndObject | undefined)[];
+    sources: SourceTrace;
     blockStarts: boolean[];
 }>;

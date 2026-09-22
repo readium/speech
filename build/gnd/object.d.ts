@@ -11,6 +11,10 @@ export interface ObjBuilder {
     children?: ObjBuilder[];
     description?: string;
 }
+export declare const ariaSubstitutedBuilders: WeakSet<ObjBuilder>;
+export declare const ariaSubstitutedNodes: WeakSet<GndObject>;
+export declare const substitutedOwnSelectorBuilders: WeakMap<ObjBuilder, string>;
+export declare const substitutedOwnSelectorNodes: WeakMap<GndObject, string>;
 export declare function isEmptyObj(o: ObjBuilder): boolean;
 /** A node being built up during the tree walk, before its final shape is known. */
 export declare class NavObject {

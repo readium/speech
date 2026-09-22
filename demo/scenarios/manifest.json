@@ -1,0 +1,41 @@
+[
+  { 
+    "id": "article", 
+    "label": "Article (Wikipedia excerpt)", 
+    "file": "article.html" 
+  },
+  {
+    "id": "fixed-layout",
+    "label": "Fixed-layout (cross-column sentences)",
+    "file": "fixed-layout.html",
+    "className": "fixed-layout",
+    "defaultSegmentation": "sentence"
+  },
+  {
+    "id": "word-level",
+    "label": "Word-level positioned spans",
+    "file": "word-level.html",
+    "className": "positioned-tokens",
+    "defaultSegmentation": "sentence"
+  },
+  {
+    "id": "letter-level",
+    "label": "Letter-level positioned spans",
+    "file": "letter-level.html",
+    "className": "positioned-tokens",
+    "defaultSegmentation": "sentence"
+  },
+  {
+    "id": "combined",
+    "label": "All FXL patterns combined",
+    "file": "combined.html",
+    "className": "fixed-layout",
+    "defaultSegmentation": "sentence"
+  },
+  {
+    "id": "lookalikes",
+    "label": "Unicode look-alikes and ASCII imitations",
+    "file": "lookalikes.html",
+    "defaultSegmentation": "sentence"
+  }
+]

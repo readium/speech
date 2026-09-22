@@ -122,4 +122,65 @@ decorations.applyDecorations([], "tts");
 decorations.destroy();
 ```
 
-Pairing any of these with `ReadiumSpeechNavigator` events (see the [Playback API](Playback.md)) lets you re-apply the decoration on word/sentence boundaries as playback progresses — see `demo/script.js` and `demo/article/script.js` for complete examples driven by TTS boundary events.
+Pairing any of these with `ReadiumSpeechNavigator` events (see the [Playback API](Playback.md)) lets you re-apply the decoration on word/sentence boundaries as playback progresses — see `demo/script.js` and `demo/voice-selection/script.js` for complete examples driven by TTS boundary events.
+
+## Highlighting from `locate`/`offsets`
+
+An utterance's own `locate`/`offsets` (see [`ReadiumSpeechUtterance`](Playback.md#readiumspeechutterance)) are what let you anchor decorations to the exact source element(s) it came from, instead of searching page text for a match that could occur more than once.
+
+> [!WARNING]
+> `locate`'s `cssSelector`/`domRange` are resolved against the DOM at resolution (decoration) time, not the DOM as it looked when the GND was generated. If the document's structure changed in between, resolution can silently land on the wrong element.
+
+### Using `ReadiumSpeechNavigator`
+
+`"boundary"` events already carry `detail.locate` — a single `LocatorOptions` for `"word"`, a `LocatorOptions[]` for `"sentence"`/`"structure"` (see [Playback.md](Playback.md#boundary-events)) — resolved via the same two functions documented below. You still build and apply the `Decoration`s yourself; only the locate resolution is done for you.
+
+### Without `ReadiumSpeechNavigator`
+
+There's no `"boundary"` event to read `detail.locate` off, so resolve it yourself, with one of two functions depending on what you're highlighting.
+
+#### Sentence/structure-level
+
+Which `LocatorOptions` to decorate for the whole utterance depends on the `segmentation` option ([Utterance Extraction](UtteranceExtraction.md#segmentation)) it was extracted with, not on a per-utterance fallback. Call `resolveUtteranceLocate(utterance, segmentation)` whenever you start speaking a new utterance:
+
+```typescript
+import { resolveUtteranceLocate, setupDecorations, createLocator, DecorationStyleType } from "@readium/speech";
+
+const decorations = setupDecorations();
+const style = { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false };
+
+function highlightUtterance(utterance, segmentation) {
+  const locates = resolveUtteranceLocate(utterance, segmentation);
+  decorations.applyDecorations(
+    locates.map((locate, i) => ({ id: `tts-sentence-${i}`, locator: createLocator(locate), style })),
+    "tts-sentence",
+  );
+}
+```
+
+- With `segmentation: "structure"` (default): always the utterance's own `locate` — one whole structural element, regardless of how many `offsets` it happens to carry (e.g. a footnote's start/content/end merged into one utterance still decorates as one piece, not as separate sentences).
+- With `segmentation: "sentence"`: one `LocatorOptions` per contributing source element — a sentence reconstructed across multiple elements decorates as multiple pieces, not one box spanning the gap between them.
+
+A synthesized announcement (contextualization text, alt/caption description...) carries no `offsets` in either mode but still returns its own `locate` — handle that separately if you don't want it highlighted, since it has no real source text to scope a piece-level decoration to.
+
+#### Word-level
+
+`charIndex`/`charLength` on a boundary are always positions in `utterance.plain` — decided at runtime by whichever engine/voice/language is speaking, not by this library — so they can't be looked up directly against `offsets` (each entry's own source text). Call `resolveBoundaryLocate()` whenever your engine reports one:
+
+> [!WARNING]
+> Some engines/voices (observed with the native Web Speech API) occasionally report one oversized `"word"` boundary spanning several actual words, then resume reporting individual words normally afterward. The trigger isn't confirmed (parentheses-heavy text is one suspect), but it's an engine-side quirk — `charIndex`/`charLength` are trusted as reported, with no validation or recomputation — so the resulting highlight can momentarily span more than one word.
+
+```typescript
+import { resolveBoundaryLocate } from "@readium/speech";
+
+engine.on("boundary", (event) => {
+  const resolved = resolveBoundaryLocate(currentUtterance, event.detail.charIndex, event.detail.charLength);
+  if (!resolved) return;
+
+  decorations.applyDecorations([{
+    id: "tts-word",
+    locator: createLocator(resolved.locate),
+    style: { type: DecorationStyleType.Highlight, tint: "#ffeb3b", enforceContrast: false },
+  }], "tts-word");
+});
+```

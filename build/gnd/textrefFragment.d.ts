@@ -11,6 +11,7 @@ export interface DomRangeJSON {
         textNodeIndex: number;
         charOffset?: number;
     };
+    container?: string;
 }
 export declare function encodeDomRangeFragment(domRange: DomRangeJSON): string;
 export declare function decodeDomRangeFragment(textref: string | undefined): DomRangeJSON | undefined;
@@ -32,6 +33,7 @@ export interface DecodedTextref {
     };
     fragment?: string;
 }
+export declare function combineDomRangeTextrefs(first: DecodedTextref, last: DecodedTextref): DecodedTextref | undefined;
 export declare function decodeTextref(node: {
     id?: string;
     textref?: string;

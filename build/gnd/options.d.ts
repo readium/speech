@@ -1,4 +1,5 @@
 import { GndRole } from './types.js';
+export declare const leafTextRoleKeyword = "leaf-text";
 export interface TextrefOptions {
     roles?: boolean | GndRole[];
     domRange?: boolean;
@@ -9,6 +10,7 @@ export interface GndGenerationOptions {
 }
 export interface NormalizedTextrefOptions {
     predicate: ((roles: GndRole[]) => boolean) | null;
+    leafText: boolean;
     domRange: boolean;
     textFragment: boolean;
 }

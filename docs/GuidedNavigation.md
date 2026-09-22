@@ -52,6 +52,13 @@ makeGnd(html, undefined, { textrefs: true });                       // every rol
 makeGnd(html, undefined, { textrefs: ["heading1", "paragraph"] });  // just these roles
 ```
 
+`roles` also accepts `"leaf-text"`, not a real GND role — it matches a roleless block that owns its own text directly (e.g. a `<div>` standing in for `<p>`, no role, no semantic tag). `true` already includes it; in an array, add it explicitly:
+
+```typescript
+makeGnd(html, undefined, { textrefs: ["leaf-text"] });               // only roleless leaf-text blocks
+makeGnd(html, undefined, { textrefs: ["leaf-text", "heading1"] });   // that, plus real headings
+```
+
 `domRange` makes the reference more precise: `#domrange(...)`, pointing at the exact text node and character offset, not just the element. This only works if you pass a live DOM element as `input` (not an HTML string) — pass a string and `domRange` is silently skipped, because a string gets parsed into a detached copy you can't point back to:
 
 ```typescript
@@ -59,6 +66,8 @@ makeGnd(document.querySelector("article")!, undefined, {
   textrefs: { roles: true, domRange: true },
 });
 ```
+
+`cssSelector` and `domRange` prefer an id, then a unique class or tag, falling back to `tag:nth-child(n)` only when none of those disambiguate a node from its siblings. That fallback (and `domRange`'s text-node index/offset, which is positional regardless) is only accurate against the DOM as it existed at generation time — see [Highlighting](Highlighting.md) for what happens if it changes before you resolve the reference.
 
 `textFragment` adds a [WICG Text Fragment](https://wicg.github.io/scroll-to-text-fragment/) directive on top of whatever reference you already have, e.g. `#css(p.foo):~:text=It%20was...`. It only needs the text, so — unlike `domRange` — it works fine with a plain HTML string:
 
