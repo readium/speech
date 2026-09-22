@@ -127,3 +127,11 @@ test("substituteSsmlText keeps a match fully inside one atom wrapped in its tag,
   t.is(result.ssml, 'X and <lang xml:lang="fr">©</lang> too');
   t.is(result.plain, "1) and (c) too");
 });
+
+test("substituteSsmlText echoes a tag-boundary glue space into the returned ssml, not just plain", (t) => {
+  const table: SubstitutionTable = { nomatch: "X" };
+  const ssml = "foo<emphasis>bar</emphasis>baz";
+  const result = substituteSsmlText(ssml, table);
+  t.is(result.plain, "foo bar baz");
+  t.is(result.ssml, "foo <emphasis>bar</emphasis> baz");
+});

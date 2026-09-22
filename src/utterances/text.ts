@@ -403,6 +403,7 @@ export function substituteSsmlText(ssml: string, table: SubstitutionTable): Ssml
         for (let i = 0; i < text.length; i++) map.push(cursor + i);
         if (segment.atomIndex === -1) {
           flushBuffer();
+          outSsml += ssmlTextEscape(text);
         } else {
           if (bufferAtom !== segment.atomIndex) {
             flushBuffer();
