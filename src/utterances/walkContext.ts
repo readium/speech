@@ -1,5 +1,6 @@
 import i18next, { type i18n } from "i18next";
 import type { GndObject, GndRole } from "../gnd/types.js";
+import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { builtInSubstitutions } from "./builtInSubstitutions.js";
 import { contextualizationsForLocale } from "./contextualizations.js";
@@ -55,6 +56,9 @@ export interface WalkContext {
   // A language-split utterance's position in its source node's own text
   // (see `applyFormat`) — read back by `attachLocate()`, same identity-keyed pattern.
   pendingRange: Map<ReadiumSpeechUtterance, { start: number; end: number }>;
+  // Set for a merge whose leading/trailing piece is aria-substituted (see
+  // gnd/object.ts) to that piece's own bare locate — text never quote-searchable.
+  edgeSubstitutedLocate: WeakMap<ReadiumSpeechUtterance, { leading?: LocatorOptions; trailing?: LocatorOptions }>;
 }
 
 // Parallel to `out`: which node produced each utterance. A sentence
@@ -148,5 +152,6 @@ export async function makeWalkContext(nodes: GndObject[], options: ExtractUttera
     synthetic: new Set(),
     ancestorChains: buildAncestorChains(nodes),
     pendingRange: new Map(),
+    edgeSubstitutedLocate: new WeakMap(),
   };
 }

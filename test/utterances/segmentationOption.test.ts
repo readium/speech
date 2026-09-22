@@ -349,6 +349,99 @@ test("segmentation: sentence never reconstructs across a table cell boundary", a
   );
 });
 
+test("segmentation: sentence never merges an aria-label substitution into the next paragraph regardless of role", async (t) => {
+  const doc = new DOMParser().parseFromString(
+    `<body><p>Into speech. <a href="#gloss" aria-label="see glossary entry">*</a></p>` +
+      `<p>Synthesized speech can be created.</p></body>`,
+    "text/html"
+  );
+  const root = doc.querySelector("body")!;
+  const gnd = parseMarkup(root, undefined, { textrefs: { roles: true, domRange: true } });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["Into speech. see glossary entry", "Synthesized speech can be created."]
+  );
+});
+
+test("segmentation: sentence still merges an ordinary link's own visible text across paragraphs", async (t) => {
+  const doc = new DOMParser().parseFromString(
+    `<body><p>See the <a href="#appendix">appendix</a></p><p>for more details.</p></body>`,
+    "text/html"
+  );
+  const root = doc.querySelector("body")!;
+  const gnd = parseMarkup(root, undefined, { textrefs: { roles: true, domRange: true } });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["See the appendix for more details."]
+  );
+});
+
+test("segmentation: sentence still merges plain unterminated prose across two paragraphs with no link involved", async (t) => {
+  const doc = new DOMParser().parseFromString(
+    "<body><p>This sentence continues</p><p>across two paragraphs.</p></body>",
+    "text/html"
+  );
+  const root = doc.querySelector("body")!;
+  const gnd = parseMarkup(root, undefined, { textrefs: { roles: true, domRange: true } });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["This sentence continues across two paragraphs."]
+  );
+});
+
+test("segmentation: sentence still blends a mid-sentence aria-label link into its own sentence", async (t) => {
+  const doc = new DOMParser().parseFromString(
+    `<body><p>See <a href="#c1" aria-label="citation">[1]</a> the reference.</p></body>`,
+    "text/html"
+  );
+  const root = doc.querySelector("body")!;
+  const gnd = parseMarkup(root, undefined, { textrefs: { roles: true, domRange: true } });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["See citation the reference."]
+  );
+});
+
+test("segmentation: sentence keeps each real sentence's own precise locate in a paragraph ending in a biblioref link", async (t) => {
+  const doc = new DOMParser().parseFromString(
+    `<body><p>Speech synthesis is the artificial production of human speech. ` +
+      `A computer system used for this purpose is called a speech synthesizer, and can be implemented in software or hardware products. ` +
+      `A text-to-speech system converts normal language text into speech. ` +
+      `<a href="#ref" role="doc-biblioref" aria-label="Source: Wikipedia, Speech synthesis">[source]</a></p>` +
+      `<p>Synthesized speech can be created by concatenating pieces.</p></body>`,
+    "text/html"
+  );
+  const root = doc.querySelector("body")!;
+  const gnd = parseMarkup(root, undefined, { textrefs: { roles: true, domRange: true } });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    [
+      "Speech synthesis is the artificial production of human speech.",
+      "A computer system used for this purpose is called a speech synthesizer, and can be implemented in software or hardware products.",
+      "A text-to-speech system converts normal language text into speech.",
+      "Source: Wikipedia, Speech synthesis",
+      "Synthesized speech can be created by concatenating pieces.",
+    ]
+  );
+  const [s1, s2, s3, biblioref] = utterances;
+  const highlights = [s1, s2, s3].map((u) => u.locate?.text?.highlight);
+  t.deepEqual(highlights, [s1, s2, s3].map((u) => u.plain));
+  t.is(new Set(highlights).size, 3, "each real sentence gets its own distinct quote, not the whole paragraph's");
+
+  // The biblioref's aria-label text never appears in the DOM, so it must
+  // never be quote-searched for — only its own link box, no `text`.
+  t.truthy(biblioref.locate?.cssSelector);
+  t.falsy(biblioref.locate?.text);
+  const el = doc.querySelector(biblioref.locate!.cssSelector!);
+  t.is(el?.tagName, "A");
+  t.is(el?.getAttribute("href"), "#ref");
+});
+
 test("segmentation: sentence does not apply another language's suppressions to this utterance's language", async (t) => {
   const gnd = parseMarkup("<p>We visited Zqxk. University last year.</p>");
   const withoutSuppressions = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });

@@ -1,4 +1,6 @@
 import { ssmlTextEscape } from "../gnd/text.js";
+import { ariaSubstitutedNodes, substitutedOwnSelectorNodes } from "../gnd/object.js";
+import type { GndObject } from "../gnd/types.js";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { stripLangTags } from "./language.js";
@@ -6,6 +8,7 @@ import { hasLangTag, splitOnLangTags, stripSsmlTags, type ResolvedNodeText } fro
 import type { ExtractionFormat, LanguageMode } from "./types.js";
 import { isSinglePunctuationChar, startsWithBindingPunct } from "../utils/text.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
+import { markNonQuotable } from "./boundaryLocate.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
 
 // Concatenates `parts`, skipping redundant lone punctuation and spacing
@@ -28,6 +31,15 @@ export function joinPieceTexts(parts: string[]): { joined: string; ranges: { sta
   return { joined, ranges };
 }
 
+// A substituted node's own box when computed (precise), else its nearest
+// ancestor's — never a quote search, since the substituted text isn't on the page.
+export function substitutedBareLocate(node: GndObject, ctx: WalkContext): LocatorOptions | undefined {
+  const ownSelector = substitutedOwnSelectorNodes.get(node);
+  if (ownSelector) return markNonQuotable({ cssSelector: ownSelector });
+  const ref = resolveNodeLocate(node, ctx.ancestorChains)?.ref;
+  return ref && markNonQuotable(ref);
+}
+
 // One `offsets` entry per piece backed by real source text; an inner
 // merge's own `offsets` are reused as-is since each entry is already
 // anchored to its own source node's text. Synthesized pieces contribute nothing.
@@ -46,9 +58,24 @@ function buildMergeOffsets(pieces: ReadiumSpeechUtterance[], pieceSources: Sourc
     const text = ctx.format === "ssml" ? piece.ssml : piece.plain;
     if (!text) return;
     const range = ctx.pendingRange.get(piece);
-    offsets.push({ start: range?.start ?? 0, end: range?.end ?? text.length, locate: subLocateFor(nodeRef.ref, text) });
+    const locate = ariaSubstitutedNodes.has(source) ? (substitutedBareLocate(source, ctx) ?? nodeRef.ref) : subLocateFor(nodeRef.ref, text);
+    offsets.push({ start: range?.start ?? 0, end: range?.end ?? text.length, locate });
   });
   return offsets;
+}
+
+// Recurses through a piece that's itself a prior merge, since its edge locate
+// was already recorded when it was built — undefined means real, quotable text.
+function substitutedLocateAt(
+  piece: ReadiumSpeechUtterance,
+  source: SourceTrace[number],
+  edge: "leading" | "trailing",
+  ctx: WalkContext,
+): LocatorOptions | undefined {
+  const recorded = ctx.edgeSubstitutedLocate.get(piece);
+  if (recorded) return recorded[edge];
+  if (!source || Array.isArray(source) || !ariaSubstitutedNodes.has(source)) return undefined;
+  return substitutedBareLocate(source, ctx);
 }
 
 // Top-level `locate` anchor for a merge: the span from its first to last contributing piece.
@@ -59,7 +86,9 @@ function buildMergeLocate(pieces: ReadiumSpeechUtterance[], pieceSources: Source
     const source = pieceSources[i];
     if (!source || Array.isArray(source)) return undefined;
     const text = ctx.format === "ssml" ? piece.ssml : piece.plain;
-    return text ? preciseLocateFor(resolveNodeLocate(source, ctx.ancestorChains), text) : undefined;
+    if (!text) return undefined;
+    if (ariaSubstitutedNodes.has(source)) return substitutedBareLocate(source, ctx);
+    return preciseLocateFor(resolveNodeLocate(source, ctx.ancestorChains), text);
   });
   const firstIndex = locates.findIndex((locate) => locate !== undefined);
   if (firstIndex === -1) return undefined;
@@ -111,6 +140,9 @@ export function mergeUtterances(
   if (offsets.length > 0) merged.offsets = offsets;
   const locate = buildMergeLocate(usedPieces, usedSources, ctx);
   if (locate) merged.locate = locate;
+  const leading = substitutedLocateAt(usedPieces[0], usedSources[0], "leading", ctx);
+  const trailing = substitutedLocateAt(usedPieces[usedPieces.length - 1], usedSources[usedPieces.length - 1], "trailing", ctx);
+  if (leading || trailing) ctx.edgeSubstitutedLocate.set(merged, { leading, trailing });
   return merged;
 }
 

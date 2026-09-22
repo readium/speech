@@ -1,7 +1,8 @@
 import type { GndObject, GndRole } from "../gnd/types.js";
+import { ariaSubstitutedNodes } from "../gnd/object.js";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
-import { joinPieceTexts, plainOf } from "./mergeUtterances.js";
+import { joinPieceTexts, plainOf, substitutedBareLocate } from "./mergeUtterances.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
 
@@ -49,6 +50,18 @@ function rolesOf(source: GndObject | [GndObject, GndObject] | undefined): GndRol
   return (Array.isArray(source) ? source[1] : source).role ?? [];
 }
 
+// Whether `utterance`'s leading/trailing text is an aria substitution rather
+// than real prose — such text must never join into a neighbor.
+function isSubstitutedEdge(
+  source: SourceTrace[number],
+  utterance: ReadiumSpeechUtterance,
+  edge: "leading" | "trailing",
+  ctx: WalkContext,
+): boolean {
+  if (ctx.edgeSubstitutedLocate.get(utterance)?.[edge]) return true;
+  return !!source && !Array.isArray(source) && ariaSubstitutedNodes.has(source);
+}
+
 // Whether `next` may join `prev`'s run for sentence-boundary detection —
 // structural eligibility only; the segmenter itself (run against the whole
 // run's joined text) decides where sentences actually fall.
@@ -67,6 +80,8 @@ function canExtendRun(
   if ((prev.language ?? "en") !== (next.language ?? "en")) return false;
   if (rolesOf(prevSource).some((role) => neverJoinRoles.has(role))) return false;
   if (rolesOf(nextSource).some((role) => neverJoinRoles.has(role))) return false;
+  if (isSubstitutedEdge(prevSource, prev, "trailing", ctx)) return false;
+  if (isSubstitutedEdge(nextSource, next, "leading", ctx)) return false;
   return true;
 }
 
@@ -89,9 +104,18 @@ async function pushSplitSingle(
   if (wasBlockStart) ctx.blockStarts.delete(utterance);
   const node = Array.isArray(source) ? undefined : source;
   const nodeRef = node ? resolveNodeLocate(node, ctx.ancestorChains) : undefined;
+  const nodeOwnSubstitutedLocate = node && ariaSubstitutedNodes.has(node) ? substitutedBareLocate(node, ctx) : undefined;
+  const edges = ctx.edgeSubstitutedLocate.get(utterance);
   fragments.forEach(({ text: fragment, start, end }, k) => {
     const split: ReadiumSpeechUtterance = { ...utterance, [ctx.format]: fragment };
-    if (nodeRef) {
+    const substitutedLocate =
+      (k === 0 ? edges?.leading : undefined) ??
+      (k === fragments.length - 1 ? edges?.trailing : undefined) ??
+      nodeOwnSubstitutedLocate;
+    if (substitutedLocate) {
+      split.locate = substitutedLocate;
+      split.offsets = [{ start, end, locate: substitutedLocate }];
+    } else if (nodeRef) {
       const quoteText = ctx.format === "ssml" ? plainOf(fragment, ctx.format) : fragment;
       const locate = subLocateFor(nodeRef.ref, quoteText);
       split.locate = locate;

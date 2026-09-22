@@ -55,6 +55,22 @@ test("resolveBoundaryLocate returns undefined when charIndex falls outside every
   t.is(resolveBoundaryLocate(utterance, 9999, 1), undefined);
 });
 
+test("resolveBoundaryLocate never quote-searches an aria-substituted utterance for a word", async (t) => {
+  const doc = new DOMParser().parseFromString(
+    `<body><p>Into speech. <a href="#ref" aria-label="Source: Wikipedia, Speech synthesis">[source]</a></p></body>`,
+    "text/html"
+  );
+  const root = doc.querySelector("body")!;
+  const gnd = parseMarkup(root, undefined, { textrefs: { roles: true, domRange: true } });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  const biblioref = utterances.find((u) => u.plain === "Source: Wikipedia, Speech synthesis")!;
+  t.truthy(biblioref);
+  for (const word of ["Source:", "Wikipedia,", "Speech", "synthesis"]) {
+    const charIndex = biblioref.plain!.indexOf(word);
+    t.is(resolveBoundaryLocate(biblioref, charIndex, word.length), undefined, `"${word}" must not resolve a doomed per-word quote`);
+  }
+});
+
 test("resolveBoundaryLocate drops a piece's domRange, so a consumer trying domRange before text.highlight doesn't anchor the whole piece instead of the word", (t) => {
   const utterance = {
     plain: "Speech Synthesis",

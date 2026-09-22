@@ -5,7 +5,7 @@
 import type { GndRole, GndText } from "./types.js";
 import { normalizedNodeText } from "./a11y.js";
 import { textIsEmpty } from "./text.js";
-import { type ObjBuilder, gndObjectToObjBuilder } from "./object.js";
+import { type ObjBuilder, ariaSubstitutedBuilders, gndObjectToObjBuilder, substitutedOwnSelectorBuilders } from "./object.js";
 import { hasElementChild, isAncestorOf } from "./dom.js";
 import { Converter } from "./converter.js";
 import { selectorForElement, textrefForSelector } from "./selectorGenerator.js";
@@ -19,6 +19,7 @@ export function pagebreak(converter: Converter, el: Element, aria: GndText | nul
     obj.text = { plain: title, ssml: "", language: "" };
   } else if (aria) {
     obj.text = { plain: aria.plain ?? "", ssml: aria.ssml ?? "", language: aria.language };
+    ariaSubstitutedBuilders.add(obj);
   }
   const labelled = !!(obj.text && !textIsEmpty(obj.text));
   const descend = !converter.xmlParsed && (hasElementChild(el) || (labelled && el.firstChild !== null));
@@ -75,6 +76,9 @@ export function link(converter: Converter, el: Element, roles: GndRole[], aria: 
   if (roles.length > 0) obj.role = roles;
   if (aria) {
     obj.text = { plain: aria.plain ?? "", ssml: aria.ssml ?? "", language: aria.language };
+    ariaSubstitutedBuilders.add(obj);
+    const selector = selectorForElement(el, converter.selectorRoot, converter.selectorRootAnchor);
+    if (selector) substitutedOwnSelectorBuilders.set(obj, selector);
   } else {
     const text = normalizedNodeText(el);
     if (text) obj.text = { plain: text, ssml: "", language: "" };
