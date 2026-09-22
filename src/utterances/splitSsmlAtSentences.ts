@@ -1,37 +1,8 @@
 import { ssmlTextEscape } from "../gnd/text.js";
 import type { SentenceSegmenter } from "./sentenceSegmenter.js";
+import { tokenizeSsmlTextAtoms, type SsmlTextAtom as Atom } from "./text.js";
 
-function unescapeSsmlText(text: string): string {
-  return text.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
-}
-
-// One paired tag+inner-text span (`<tag attrs>...</tag>`, always flat and
-// self-contained per the GND converter's `flushText()`), one self-closing
-// tag, or a run of plain text.
-const TOKEN_RE = /<([a-zA-Z][\w-]*)([^>]*)>([\s\S]*?)<\/\1>|<[a-zA-Z][\w-]*\b[^>]*\/>|[^<]+/g;
-
-interface Atom {
-  kind: "paired" | "selfClosing" | "text";
-  raw: string;
-  tag?: string;
-  attrs?: string;
-  innerText?: string; // unescaped, "paired" only
-  text?: string; // unescaped, "text" only
-}
-
-function tokenize(ssml: string): Atom[] {
-  const atoms: Atom[] = [];
-  for (const match of ssml.matchAll(TOKEN_RE)) {
-    if (match[1] !== undefined) {
-      atoms.push({ kind: "paired", raw: match[0], tag: match[1], attrs: match[2], innerText: unescapeSsmlText(match[3]) });
-    } else if (match[0][0] === "<") {
-      atoms.push({ kind: "selfClosing", raw: match[0] });
-    } else {
-      atoms.push({ kind: "text", raw: match[0], text: unescapeSsmlText(match[0]) });
-    }
-  }
-  return atoms;
-}
+const tokenize = tokenizeSsmlTextAtoms;
 
 // Splits `ssml` into one fragment per real sentence boundary, re-wrapping a
 // paired tag whose inner text spans a boundary so each fragment stays
