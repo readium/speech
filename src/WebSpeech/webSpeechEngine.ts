@@ -334,9 +334,10 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.isSpeakingInternal = true;
     this.isPausedInternal = false;
 
-    // Set state to playing before starting new speech
+    // Set state to playing before starting new speech, for immediate UI
+    // feedback — the "start" event itself waits for onstart below, the
+    // actual signal that audio began, not just that speak() was called.
     this.setState("playing");
-    this.emitEvent({ type: "start" });
     this.stopResumeInfinity();
 
     // Ensure the utterance index is valid
@@ -562,19 +563,21 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     if (this.playbackState === "playing") {
       // Store the current index when pausing
       this.pausedAtUtteranceIndex = this.currentUtteranceIndex;
-      
-      if (this.patches.isAndroid) {
-        this.isAndroidPaused = true;
-        this.speechSynthesis.cancel();
-      } else {
-        this.speechSynthesis.pause();
-      }
-      
+
       // Common state updates
       this.isPausedInternal = true;
       this.isSpeakingInternal = false;
       this.setState("paused");
-      this.emitEvent({ type: "pause" });
+
+      if (this.patches.isAndroid) {
+        this.isAndroidPaused = true;
+        this.speechSynthesis.cancel();
+        // Android's cancel() never fires the native onpause handler below — this is the only "pause" signal there.
+        this.emitEvent({ type: "pause" });
+      } else {
+        this.speechSynthesis.pause();
+        // Non-Android fires the native onpause handler asynchronously; emitting here too would duplicate it.
+      }
     }
   }
 
@@ -584,17 +587,18 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.isPausedInternal = false;
       this.isSpeakingInternal = true;
       this.setState("playing");
-      this.emitEvent({ type: "resume" });
 
       // Check if we need to restart or can resume
       const shouldRestart = this.patches.isAndroid || 
                           this.pausedAtUtteranceIndex !== this.currentUtteranceIndex;
       
       if (shouldRestart) {
-        // If index changed or on Android, start fresh from the new index
+        // speak() emits its own "start", not "resume" — this is the only "resume" signal for a restart.
+        this.emitEvent({ type: "resume" });
         this.speak(this.currentUtteranceIndex);
       } else {
-        // Otherwise, resume from where we left off
+        // Otherwise, resume from where we left off — the native onresume handler
+        // fires asynchronously; emitting here too would duplicate it.
         this.speechSynthesis.resume();
       }
       
