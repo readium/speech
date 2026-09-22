@@ -31,6 +31,7 @@ async function sentenceFragmentsOf(
 const neverJoinRoles: ReadonlySet<GndRole> = new Set([
   "cell",
   "rowheader",
+  "columnheader",
   "row",
   "table",
   "list",
