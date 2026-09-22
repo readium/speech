@@ -128,6 +128,9 @@ Pairing any of these with `ReadiumSpeechNavigator` events (see the [Playback API
 
 An utterance's own `locate`/`offsets` (see [`ReadiumSpeechUtterance`](Playback.md#readiumspeechutterance)) are what let you anchor decorations to the exact source element(s) it came from, instead of searching page text for a match that could occur more than once.
 
+> [!WARNING]
+> `locate`'s `cssSelector`/`domRange` are resolved against the DOM at resolution (decoration) time, not the DOM as it looked when the GND was generated. If the document's structure changed in between, resolution can silently land on the wrong element.
+
 ### Using `ReadiumSpeechNavigator`
 
 `"boundary"` events already carry `detail.locate` — a single `LocatorOptions` for `"word"`, a `LocatorOptions[]` for `"sentence"`/`"structure"` (see [Playback.md](Playback.md#boundary-events)) — resolved via the same two functions documented below. You still build and apply the `Decoration`s yourself; only the locate resolution is done for you.

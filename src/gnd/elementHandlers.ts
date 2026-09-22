@@ -28,7 +28,7 @@ export function pagebreak(converter: Converter, el: Element, aria: GndText | nul
     if (text) obj.text = { plain: text, ssml: "", language: "" };
   }
   const selector = selectorForElement(el, converter.selectorRoot, converter.selectorRootAnchor);
-  const textref = textrefForSelector(selector);
+  const textref = textrefForSelector(selector, el);
   if (textref) obj.textref = textref;
   converter.placeholder(el, "pagebreak", obj);
   return descend;

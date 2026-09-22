@@ -347,7 +347,7 @@ export class Converter {
   private applyTextref(el: Element) {
     const cur = this.current.object;
     const selector = selectorForElement(el, this.selectorRoot, this.selectorRootAnchor);
-    cur.textref = textrefForSelector(selector);
+    cur.textref = textrefForSelector(selector, el);
 
     if (this.domRangeEnabled && this.lastFlowRange) {
       const known = selector ? { el, selector } : undefined;

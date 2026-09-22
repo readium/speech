@@ -77,10 +77,11 @@ export function selectorForElement(
 // selectorForElement's raw value so callers that already hold that value
 // (e.g. domRangeGenerator.ts, reusing it for the same element) can skip
 // recomputing it.
-// A bare id never combines with anything else, so " " or ">" only ever
-// appears when rootAnchor got prefixed onto a compound climbed selector —
-// that still needs #css() encoding despite starting with "#" itself.
-export function textrefForSelector(selector: string | undefined): string | undefined {
+// Bare-id iff selector equals this element's own escaped id — mirrors
+// decodeTextref's check, unfooled by CSS.escape's literal spaces (id="foo bar").
+export function textrefForSelector(selector: string | undefined, el: Element): string | undefined {
   if (!selector) return undefined;
-  return selector.startsWith("#") && !/[ >]/.test(selector) ? selector : encodeCssSelectorFragment(selector);
+  const id = el.getAttribute("id");
+  const isBareId = !!id && selector === `#${CSS.escape(id)}`;
+  return isBareId ? selector : encodeCssSelectorFragment(selector);
 }

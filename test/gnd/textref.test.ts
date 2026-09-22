@@ -27,6 +27,11 @@ test("textrefs prefers a bare #id over a generated selector", (t) => {
   t.is(result.textref, "#par1");
 });
 
+test("textrefs keeps an id containing a space as bare, even though CSS.escape gives it a literal space", (t) => {
+  const [result] = parseMarkup('<p id="foo bar">Hello.</p>', undefined, { textrefs: true });
+  t.is(result.textref, "#foo\\ bar");
+});
+
 test("textrefs: [roles] restricts generation to the listed roles", (t) => {
   const input = "<p>Hello.</p><h1>Title</h1>";
   const [p, h1] = parseMarkup(input, undefined, { textrefs: ["heading1"] });
@@ -180,6 +185,19 @@ test("parseMarkup() given a live element under a selectorRoot never generates a 
   t.truthy(ref?.domRange);
   const container = doc.querySelector(ref!.domRange!.start.cssSelector)!;
   t.true(chapter2.contains(container));
+});
+
+test("a rootAnchor-prefixed compound selector (starts with '#' like a bare id, but isn't one) is still wrapped in #css(...)", (t) => {
+  const doc = new DOMParser().parseFromString('<body><section id="chapter"><p>a</p><p>b</p></section></body>', "text/html");
+  const chapter = doc.getElementById("chapter")!;
+
+  const [root] = parseMarkup(chapter, undefined, { textrefs: { roles: true } });
+  const second = root.children![1];
+
+  t.true(second.textref?.startsWith("#css("));
+  const selector = decodeCssSelectorFragment(second.textref)!;
+  t.true(selector.startsWith("#chapter > "));
+  t.is(doc.querySelector(selector), doc.querySelectorAll("p")[1]);
 });
 
 test("parseMarkup() given a markup string never enables domRange, even when requested — it always parses a detached document", (t) => {

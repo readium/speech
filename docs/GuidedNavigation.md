@@ -67,6 +67,8 @@ makeGnd(document.querySelector("article")!, undefined, {
 });
 ```
 
+`cssSelector` and `domRange` prefer an id, then a unique class or tag, falling back to `tag:nth-child(n)` only when none of those disambiguate a node from its siblings. That fallback (and `domRange`'s text-node index/offset, which is positional regardless) is only accurate against the DOM as it existed at generation time — see [Highlighting](Highlighting.md) for what happens if it changes before you resolve the reference.
+
 `textFragment` adds a [WICG Text Fragment](https://wicg.github.io/scroll-to-text-fragment/) directive on top of whatever reference you already have, e.g. `#css(p.foo):~:text=It%20was...`. It only needs the text, so — unlike `domRange` — it works fine with a plain HTML string:
 
 ```typescript
