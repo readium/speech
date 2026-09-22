@@ -304,7 +304,7 @@ function currentExtractionOptions() {
   const options = { format: settings.format, skip: settings.skip, contextualize: settings.contextualize };
   if (settings.inlineContextualization) options.inlineContextualization = true;
   if (settings.language) options.language = settings.language;
-  if (settings.segmentation) options.segmentation = settings.segmentation;
+  if (settings.segmentation) options.segmentation = { mode: settings.segmentation };
   return options;
 }
 
