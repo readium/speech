@@ -8,8 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "x squared plus y squared equals z squared",
-          "synthetic": true
+          "plain": "x squared plus y squared equals z squared"
         }
       ]
     },
@@ -21,8 +20,7 @@
       ],
       "utterances": [
         {
-          "ssml": "x squared plus y squared equals z squared",
-          "synthetic": true
+          "ssml": "x squared plus y squared equals z squared"
         }
       ]
     }

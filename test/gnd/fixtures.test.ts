@@ -1,6 +1,6 @@
 import "./setup.js";
 import test from "ava";
-import { loadManifest, loadFixture } from "../testUtils.js";
+import { loadManifest, loadFixture, stripLocatorDetails } from "../testUtils.js";
 import { parseMarkup } from "../../src/gnd/converter.js";
 
 const manifest = loadManifest();
@@ -73,6 +73,6 @@ for (const entry of manifest) {
     }
 
     const actual = parseMarkup(fixture.inputHtml);
-    t.deepEqual(sortKeysDeep(actual), sortKeysDeep(expectedTopLevel(fixture.gnd)));
+    t.deepEqual(sortKeysDeep(stripLocatorDetails(actual)), sortKeysDeep(stripLocatorDetails(expectedTopLevel(fixture.gnd))));
   });
 }

@@ -28,6 +28,10 @@ const DOMRANGE_SUFFIX = ")";
 export interface DomRangeJSON {
   start: { cssSelector: string; textNodeIndex: number; charOffset?: number };
   end?: { cssSelector: string; textNodeIndex: number; charOffset?: number };
+  // The block element's own selector — distinct from start's selector, which
+  // is whatever child actually contains the first flow text node (e.g. a
+  // word-token <span>), not the block itself.
+  container?: string;
 }
 
 export function encodeDomRangeFragment(domRange: DomRangeJSON): string {
@@ -110,6 +114,17 @@ export interface DecodedTextref {
   fragment?: string;
 }
 
+// Combines two nodes' own decoded textrefs into one spanning locator (each
+// `DomRangeJSON` point carries its own `cssSelector`, so start/end in two
+// different elements is already legal). `undefined` when either side has no
+// `domRange` to combine — a bare selector has no `textNodeIndex` to build one from.
+export function combineDomRangeTextrefs(first: DecodedTextref, last: DecodedTextref): DecodedTextref | undefined {
+  if (!first.domRange || !last.domRange) return undefined;
+  const domRange: DomRangeJSON = { start: first.domRange.start, end: last.domRange.end ?? last.domRange.start };
+  if (first.domRange.container !== undefined) domRange.container = first.domRange.container;
+  return { domRange, cssSelector: domRange.container ?? domRange.start.cssSelector };
+}
+
 // Decodes a node's own generated textref, distinguishing it from an
 // unrelated navigational textref (link href, pagebreak/noteref reference)
 // that happens to also start with "#" — those are never wrapped in
@@ -131,7 +146,7 @@ export function decodeTextref(node: { id?: string; textref?: string } | undefine
   const baseDomRange = decodeDomRangeFragment(base);
   if (baseDomRange) {
     domRange = baseDomRange;
-    cssSelector = baseDomRange.start.cssSelector;
+    cssSelector = baseDomRange.container ?? baseDomRange.start.cssSelector;
   } else {
     const decoded = decodeCssSelectorFragment(base);
     if (decoded !== undefined) {

@@ -6,6 +6,7 @@ export const OPENING_PUNCT_CLASS = "\\p{Ps}\\p{Pi}¿¡";
 
 const BINDING_PUNCT_RE = new RegExp(`^[${BINDING_PUNCT_CLASS}]`, "u");
 const OPENING_PUNCT_RE = new RegExp(`^[${OPENING_PUNCT_CLASS}]`, "u");
+const SINGLE_PUNCT_RE = /^\p{P}$/u;
 
 export function startsWithBindingPunct(s: string): boolean {
   return BINDING_PUNCT_RE.test(s);
@@ -13,4 +14,28 @@ export function startsWithBindingPunct(s: string): boolean {
 
 export function startsWithOpeningPunct(s: string): boolean {
   return OPENING_PUNCT_RE.test(s);
+}
+
+// Whether `s` is exactly one punctuation character (any Unicode category,
+// not just the binding/opening classes above) — e.g. for deduplicating a
+// repeated citation mark, as opposed to a genuine one-letter/digit piece.
+export function isSinglePunctuationChar(s: string): boolean {
+  return SINGLE_PUNCT_RE.test(s);
+}
+
+// Some TTS engines sniff plain text for markup and choke on it — a same-length,
+// never-vocalized swap avoids that without shifting any reported charIndex.
+export function neutralizeAngleBrackets(text: string): string {
+  return text.replace(/[<>]/g, "\u200B");
+}
+
+// Decodes quote/nbsp/numeric HTML entities only \u2014 not &lt;/&gt;/&amp;, which
+// callers stripping markup (e.g. stripSsmlTags()) need to see literally first.
+export function decodeResidualHtmlEntities(text: string): string {
+  return text
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, "\u00A0")
+    .replace(/&#(\d+);/g, (_, dec: string) => String.fromCodePoint(Number(dec)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex: string) => String.fromCodePoint(parseInt(hex, 16)));
 }

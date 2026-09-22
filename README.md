@@ -40,7 +40,17 @@ We are now on the sixth phase: verbosity and prosody, in particular contextualiz
 
 ## Demos
 
-### [Voice selection with playback demo](https://readium.org/speech/demo)
+### [In-context demo](https://readium.org/speech/demo)
+
+In-context reading with seamless voice selection (grouped by region and sorted based on quality), and playback control, providing an optional read-along experience that integrates naturally with the content.
+
+A scenario picker switches between sample documents (a plain article, fixed-layout pages with cross-column sentences, word-level and letter-level positioned spans, combined FXL patterns, and Unicode look-alikes/ASCII imitations), each exercising a different extraction path.
+
+Settings include a verbosity selector (none/few/some/most) demonstrating [contextualization](docs/Preferences.md) — synthesized announcements spoken around content based on its role (entering/leaving a section, a footnote, a pullquote…) — a segmentation mode (structure/sentence), playback speed, and, for the read-along experience, independent highlight styles (highlight, underline, strikethrough, outline, text color, mask) and colors for the current utterance and the current word.
+
+A side panel shows the [Guided Navigation](docs/GuidedNavigation.md) object and the [utterances](docs/UtteranceExtraction.md) extracted from the current scenario, live, synced to playback as it progresses.
+
+### [Voice selection with playback demo](https://readium.org/speech/demo/voice-selection)
 
 - fetching a list of all available languages, translating them to the user's locale and sorting them based on these translations
 - returning a list of voices for a given language, grouped by region and sorted based on quality
@@ -48,14 +58,6 @@ We are now on the sixth phase: verbosity and prosody, in particular contextualiz
 - using embedded test utterances to demo voices
 - using the current Navigator for playback control
 - highlighting: as playback progresses, the current word/sentence is highlighted
-
-### [In-context demo](https://readium.org/speech/demo/article)
-
-In-context reading with seamless voice selection (grouped by region and sorted based on quality), and playback control, providing an optional read-along experience that integrates naturally with the content.
-
-Settings include a verbosity selector (none/few/some/most) demonstrating [contextualization](docs/Preferences.md) — synthesized announcements spoken around content based on its role (entering/leaving a section, a footnote, a pullquote…) — and, for the read-along experience, independent highlight styles (highlight, underline, strikethrough, outline, text color, mask) and colors for the current utterance and the current word.
-
-The panel alongside the article shows the [Guided Navigation](docs/GuidedNavigation.md) object and the [utterances](docs/UtteranceExtraction.md) extracted from it, live.
 
 ### [Extraction playground](https://readium.org/speech/demo/playground)
 
@@ -182,8 +184,8 @@ The project includes demo applications that can be served locally:
    ```
 
 2. Open your browser to:
-   - [Voice selection demo](http://localhost:8080/demo)
-   - [In-context reading demo](http://localhost:8080/demo/article)
+   - [In-context reading demo](http://localhost:8080/demo)
+   - [Voice selection demo](http://localhost:8080/demo/voice-selection)
    - [Extraction playground](http://localhost:8080/demo/playground)
 
 ### ChromeOS Debugging

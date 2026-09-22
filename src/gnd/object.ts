@@ -19,6 +19,16 @@ export interface ObjBuilder {
 // `separator` (e.g. `<hr>`) is content-free by design.
 const contentFreeRoles: readonly GndRole[] = ["math", "separator"];
 
+// Marks text substituted from aria-label/aria-labelledby rather than the
+// element's own content — the Node set mirrors the Builder one across finalizeToGndObject().
+export const ariaSubstitutedBuilders = new WeakSet<ObjBuilder>();
+export const ariaSubstitutedNodes = new WeakSet<GndObject>();
+
+// A substituted link's own CSS selector — its `textref` is its href, which
+// never resolves to an on-page location, so this is its fallback box (set only by link()).
+export const substitutedOwnSelectorBuilders = new WeakMap<ObjBuilder, string>();
+export const substitutedOwnSelectorNodes = new WeakMap<GndObject, string>();
+
 export function isEmptyObj(o: ObjBuilder): boolean {
   if (o.role?.some((role) => contentFreeRoles.includes(role))) return false;
   return (
@@ -125,6 +135,9 @@ export function finalizeToGndObject(o: ObjBuilder): GndObject {
   if (o.role && o.role.length > 0) node.role = o.role;
   if (o.children && o.children.length > 0) node.children = o.children.map(finalizeToGndObject);
   if (o.description) node.description = o.description;
+  if (ariaSubstitutedBuilders.has(o)) ariaSubstitutedNodes.add(node);
+  const ownSelector = substitutedOwnSelectorBuilders.get(o);
+  if (ownSelector) substitutedOwnSelectorNodes.set(node, ownSelector);
   return node;
 }
 

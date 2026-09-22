@@ -2,6 +2,28 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.10.0] - 2026-09-22
+
+### Added
+
+- `ExtractUtterancesOptions.segmentation` — split utterances at real sentence boundaries instead of one per structural unit, reconstructing a sentence across sibling nodes when it genuinely spans them. `mode: "sentence"` (default `"structure"`), plus `suppressions` (per-language abbreviations to not treat as sentence endings) and `segmenter` (swap in a custom sentence segmenter for the built-in `Intl.Segmenter`-based one). See [UtteranceExtraction.md](docs/UtteranceExtraction.md#segmentation).
+- `ReadiumSpeechUtterance.offsets`/`UtteranceOffset` — the ranges of `plain`/`ssml` backed by real source text, each with its own `locate`; an utterance with none is what `synthetic` used to flag.
+- `ReadiumSpeechNavigator`'s `"boundary"` event, previously only `"word"`, now also fires `"sentence"`/`"structure"` (matching the active `segmentation` mode) whenever the current utterance changes, with `detail.locate` resolved to a `LocatorOptions[]`. `resolveUtteranceLocate()` (sentence/structure) and `resolveBoundaryLocate()` (word) are the two helpers behind this — the same ones to call yourself when driving playback without `ReadiumSpeechNavigator`. See [Playback.md](docs/Playback.md#boundary-events) and [Highlighting.md](docs/Highlighting.md#highlighting-from-locateoffsets).
+- `ReadiumSpeechNavigatorConfiguration.segmentationOverrides` and `ISpeechPreferences.segmentation`/`ISpeechDefaults.segmentation` — the live `segmentation.mode` preference, plus construction-time `suppressions`/`segmenter`.
+- `ExtractUtterancesOptions.substitutions` — rewrite ASCII imitations of Unicode symbols (e.g. `"1/2"`, `"(c)"`) so the engine speaks the symbol, merged on top of a built-in table.
+- `makeGnd()`/`parseMarkup()`'s `textrefs.roles` accepts `"leaf-text"`, matching a roleless block that owns its own text directly (e.g. a `<div>` standing in for `<p>`). See [GuidedNavigation.md](docs/GuidedNavigation.md#text-references-textrefs).
+
+### Fixed
+
+- `WebSpeechEngine` no longer resolves a stray/delayed `boundary` event from an already-cancelled utterance against whatever utterance is current by the time it arrives.
+- `WebSpeechEngine` no longer emits a duplicate `start`/`pause`/`resume` event for the same playback action — previously fired once eagerly and again from the native `SpeechSynthesisUtterance` event, which also doubled `ReadiumSpeechNavigator`'s synthesized `boundary` event on `start`.
+- Text sent to `WebSpeechEngine`/`SpeechServerEngine` now has angle brackets neutralized so plain text containing `<`/`>` can't be misread as markup.
+- Generated CSS selectors (`makeGnd()`/`parseMarkup()`) no longer use attribute selectors, which could latch onto a JS-mutated attribute (e.g. an inline `style` set by a layout script) and silently stop matching once it changed.
+
+### Removed
+
+- `ReadiumSpeechUtterance.synthetic` — an empty/absent `offsets` is now what marks an utterance as synthesized rather than sourced.
+
 ## [0.9.2] - 2026-09-16
 
 ### Fixed

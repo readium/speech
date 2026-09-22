@@ -27,12 +27,14 @@ export interface KnownSelector {
 function domRangePoint(
   node: Text,
   offset: number,
-  docRoot: Document | null,
+  selectorRoot: Element | null,
+  rootAnchor: string | null,
   known: KnownSelector | undefined,
 ): DomRangeJSON["start"] | undefined {
   const container = node.parentElement;
   if (!container) return undefined;
-  const cssSelector = known && container === known.el ? known.selector : selectorForElement(container, docRoot);
+  const cssSelector =
+    known && container === known.el ? known.selector : selectorForElement(container, selectorRoot, rootAnchor);
   if (!cssSelector) return undefined;
   return { cssSelector, textNodeIndex: textNodeIndexAmongChildren(container, node), charOffset: offset };
 }
@@ -42,11 +44,12 @@ function domRangePoint(
 // against a live, already-rendered document (see TextrefOptions.domRange).
 export function generateDomRange(
   range: { first: [Text, number]; last: [Text, number] },
-  docRoot: Document | null,
+  selectorRoot: Element | null,
+  rootAnchor: string | null,
   known?: KnownSelector,
 ): DomRangeJSON | undefined {
-  const start = domRangePoint(...range.first, docRoot, known);
+  const start = domRangePoint(...range.first, selectorRoot, rootAnchor, known);
   if (!start) return undefined;
-  const end = domRangePoint(...range.last, docRoot, known);
+  const end = domRangePoint(...range.last, selectorRoot, rootAnchor, known);
   return end ? { start, end } : { start };
 }

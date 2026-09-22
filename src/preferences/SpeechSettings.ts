@@ -1,8 +1,9 @@
 import type { GndRole } from "../gnd/types.js";
 import type { ConfigurableSettings } from "./Configurable.js";
 import { SpeechDefaults } from "./SpeechDefaults.js";
-import type { AutoPauseScope, ExtractionFormat, LanguageMode, SpeechPreferences, VerbosityPreset } from "./SpeechPreferences.js";
+import type { AutoPauseScope, SpeechPreferences, VerbosityPreset } from "./SpeechPreferences.js";
 import { contextualizedAtVerbosity, skippedAtVerbosity } from "./verbosityTables.js";
+import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
 
 export class SpeechSettings implements ConfigurableSettings {
   [key: string]: unknown;
@@ -13,6 +14,7 @@ export class SpeechSettings implements ConfigurableSettings {
   public readonly skip: GndRole[];
   public readonly contextualize: GndRole[];
   public readonly language: LanguageMode;
+  public readonly segmentation: Segmentation;
   public readonly pauseDuration: number;
   public readonly autoPause: AutoPauseScope;
   public readonly rate: number;
@@ -35,6 +37,7 @@ export class SpeechSettings implements ConfigurableSettings {
       this.contextualize = [...contextualizedAtVerbosity[this.verbosity]];
     }
     this.language = preferences.language ?? defaults.language;
+    this.segmentation = preferences.segmentation ?? defaults.segmentation;
     this.pauseDuration = preferences.pauseDuration ?? defaults.pauseDuration;
     this.autoPause = preferences.autoPause ?? defaults.autoPause;
     this.rate = preferences.rate ?? defaults.rate;

@@ -12,7 +12,7 @@ editor.pauseDuration.value = 500;
 await navigator.submitPreferences(editor.preferences);
 ```
 
-`submitPreferences()` always resolves `navigator.settings`. Prosody (`pauseDuration`, `autoPause`, `rate`, `pitch`, `volume`) applies regardless of how content was loaded, except that `autoPause: "block"` only has block boundaries to work with on content loaded via `loadGndContent()` — content loaded via `loadContent()` has none, so it never triggers there. The extraction group (`format`, `inlineContextualization`, `verbosity`, `skip`, `contextualize`, `language`) only takes effect on content loaded via `loadGndContent()` — see [Playback](Playback.md) — and only reloads the queue when one of those fields actually changes value. A reload during playback resumes at the same content rather than restarting, falling back to the nearest earlier point still present if that exact content got skipped by the new settings.
+`submitPreferences()` always resolves `navigator.settings`. Prosody (`pauseDuration`, `autoPause`, `rate`, `pitch`, `volume`) applies regardless of how content was loaded, except that `autoPause: "block"` only has block boundaries to work with on content loaded via `loadGndContent()` — content loaded via `loadContent()` has none, so it never triggers there. The extraction group (`format`, `inlineContextualization`, `verbosity`, `skip`, `contextualize`, `language`, `segmentation`) only takes effect on content loaded via `loadGndContent()` — see [Playback](Playback.md) — and only reloads the queue when one of those fields actually changes value. A reload during playback resumes at the same content rather than restarting, falling back to the nearest earlier point still present if that exact content got skipped by the new settings.
 
 ## Defaults
 
@@ -60,6 +60,8 @@ volume?: number;                                 // default 1.0, range [0, 1]
 `rate`/`pitch`/`volume` are pushed straight to the engine's own `setRate`/`setPitch`/`setVolume` on every `submitPreferences()` call — unlike the extraction-time preferences, no reload. An engine that needs to re-synthesize already-buffered content on parameter changes handles that itself inside those setters.
 
 `language` (`"none" | "block-level" | "always"`, default `"block-level"`) is the same option documented in [Utterance Extraction](UtteranceExtraction.md#options).
+
+`segmentation` (`"structure" | "sentence"`, default `"structure"`) is the same option documented in [Utterance Extraction](UtteranceExtraction.md#segmentation) — only its `mode`; per-language `suppressions` and a custom `segmenter` are construction-only (see [`segmentationOverrides`](Playback.md#segmentationoverrides)), not a live preference.
 
 ## `format` / `inlineContextualization`
 

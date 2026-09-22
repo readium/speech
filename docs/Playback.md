@@ -91,6 +91,21 @@ Each field forwards to the matching [`extractUtterances` option](UtteranceExtrac
 - `params` → [`contextualization.params`](UtteranceExtraction.md#contextualizationparams)
 - `shapes` → [`contextualization.shapes`](UtteranceExtraction.md#contextualizationshapes), but keyed one level deeper, by [verbosity level](Preferences.md#verbosity) (`{ table: { few: "inline", most: "block" } }`) — each preset already has its own built-in shape table, so an override here only needs the levels you want to change, `"custom"` included (custom is the one level with no built-in table of its own).
 
+### `segmentationOverrides`
+
+Also set once at construction, same rationale as `contextualizationOverrides`:
+
+```typescript
+const navigator = new ReadiumSpeechNavigator(engine, {
+  segmentationOverrides: { suppressions, segmenter },
+});
+```
+
+- `suppressions` → [`segmentation.suppressions`](UtteranceExtraction.md#segmentation)
+- `segmenter` → [`segmentation.segmenter`](UtteranceExtraction.md#segmenter)
+
+`segmentation.mode` itself stays a live `submitPreferences()` setting (see [Preferences](Preferences.md#verbosity)) — only these two are construction-time, since neither is meant to change mid-session.
+
 ## Events
 
 ### `ReadiumSpeechPlaybackEvent`
@@ -105,7 +120,7 @@ type ReadiumSpeechPlaybackEvent = {
     | "stop"            // Playback stopped manually
     | "skip"            // Skipped to another utterance
     | "error"           // An error occurred
-    | "boundary"        // Reached a word/sentence boundary
+    | "boundary"        // Reached a word/sentence/structure boundary
     | "mark"            // Reached a named mark in SSML
     | "idle"            // No content loaded
     | "loading"         // Loading content
@@ -115,6 +130,16 @@ type ReadiumSpeechPlaybackEvent = {
   detail?: any;  // Event-specific data
 };
 ```
+
+### `"boundary"` events
+
+`detail.name` is `"word"`, `"sentence"`, or `"structure"` — the last two mirror the `segmentation` option's own values ([Utterance Extraction](UtteranceExtraction.md#segmentation)).
+
+For `"word"`, `detail.charIndex`/`detail.charLength` are always positions in `utterance.plain` — the coordinate space the engine actually speaks against, regardless of which engine or whether the utterance was originally authored with `ssml`. When the boundary can be resolved against the current utterance's `offsets`, the navigator also attaches `detail.locate` (a `LocatorOptions`, ready for `createLocator()`) and `detail.word` (the matched word's text).
+
+`"sentence"` (utterances extracted with `segmentation: "sentence"`) and `"structure"` (`segmentation: "structure"`, the default) are synthesized by the navigator itself whenever the current utterance changes — real engines rarely emit a native sentence boundary mark. `detail.locate` is here a `LocatorOptions[]` (a `"word"` boundary's `detail.locate` is a single `LocatorOptions` — same key, the shape follows `detail.name`), already resolved for the active segmentation mode.
+
+See [Highlighting.md](Highlighting.md#highlighting-from-locateoffsets) for how to turn `detail.locate` into a decoration, and for the `resolveBoundaryLocate()`/`resolveUtteranceLocate()` functions this attaches internally — needed directly only when driving playback without `ReadiumSpeechNavigator`.
 
 ### Speaking in an utterance's own content language
 
@@ -135,10 +160,16 @@ interface ReadiumSpeechUtterance {
   ssml?: string;        // SSML rendering, when available
   language?: string;    // Language of this content (BCP 47)
   locate?: LocatorOptions; // Decoded from the source node's textref — spread into createLocator()/decorate()
-  synthetic?: boolean;  // True when plain/ssml is a synthesized label/announcement, not text copied from the source
+  offsets?: UtteranceOffset[]; // Ranges of plain/ssml backed by real source text, each with its own locate
+}
+
+interface UtteranceOffset {
+  start: number;
+  end: number;
+  locate: LocatorOptions;
 }
 ```
 
 Represents a single piece of content to be spoken, as plain text and/or SSML.
 
-`synthetic` is set on a contextualization catalog entry, or an alt/caption-derived description, rather than text found verbatim in the document (e.g. a table's "Table. 3 lines. 2 columns." or a pagebreak's label) — `locate` is still safe to use for element-scoped highlighting, but a word-level substring/text-quote search against the DOM should be skipped, since the text isn't actually there.
+`offsets` covers the stretches of `plain`/`ssml` that came verbatim from the document, each with the `locate` of the DOM node it came from — a word-level substring/text-quote search is safe within those ranges. A synthesized label/announcement (a contextualization catalog entry, or an alt/caption-derived description — e.g. a table's "Table. 3 lines. 2 columns." or a pagebreak's label) has no `offsets` at all: `locate` is still safe for element-scoped highlighting, but there's no real text to search for. A single utterance can carry more than one entry when its text was reconstructed across multiple source elements (e.g. one sentence split across two `<div>`s).
