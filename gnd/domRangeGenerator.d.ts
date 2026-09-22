@@ -6,4 +6,4 @@ export interface KnownSelector {
 export declare function generateDomRange(range: {
     first: [Text, number];
     last: [Text, number];
-}, docRoot: Document | null, known?: KnownSelector): DomRangeJSON | undefined;
+}, selectorRoot: Element | null, rootAnchor: string | null, known?: KnownSelector): DomRangeJSON | undefined;

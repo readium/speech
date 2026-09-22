@@ -1,8 +1,7 @@
 import { GndRole } from '../gnd/types.js';
+import { ExtractionFormat, LanguageMode, Segmentation } from '../utterances/types.js';
 import { ConfigurablePreferences } from './Configurable.js';
 export type VerbosityPreset = "none" | "few" | "some" | "most" | "custom";
-export type LanguageMode = "none" | "block-level" | "always";
-export type ExtractionFormat = "plain" | "ssml";
 export type AutoPauseScope = "none" | "utterance" | "block";
 export interface ISpeechPreferences {
     format?: ExtractionFormat | null;
@@ -11,6 +10,7 @@ export interface ISpeechPreferences {
     skip?: GndRole[] | null;
     contextualize?: GndRole[] | null;
     language?: LanguageMode | null;
+    segmentation?: Segmentation | null;
     pauseDuration?: number | null;
     autoPause?: AutoPauseScope | null;
     rate?: number | null;
@@ -24,6 +24,7 @@ export declare class SpeechPreferences implements ISpeechPreferences, Configurab
     skip: GndRole[] | null | undefined;
     contextualize: GndRole[] | null | undefined;
     language: LanguageMode | null | undefined;
+    segmentation: Segmentation | null | undefined;
     pauseDuration: number | null | undefined;
     autoPause: AutoPauseScope | null | undefined;
     rate: number | null | undefined;

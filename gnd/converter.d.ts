@@ -14,7 +14,10 @@ export declare class Converter {
     selectorPredicate: ((roles: GndRole[]) => boolean) | null;
     domRangeEnabled: boolean;
     textFragmentEnabled: boolean;
+    leafTextEnabled: boolean;
     docRoot: Document | null;
+    selectorRoot: Element | null;
+    selectorRootAnchor: string | null;
     private root;
     private current;
     private foldedCaptions;

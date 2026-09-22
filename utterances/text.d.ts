@@ -1,4 +1,5 @@
 import { GndObject } from '../gnd/types.js';
+import { SubstitutionTable } from './types.js';
 export interface ResolvedNodeText {
     plain?: string;
     ssml?: string;
@@ -25,9 +26,37 @@ export interface ResolvedNodeText {
  */
 export declare function resolveNodeText(text: GndObject["text"]): ResolvedNodeText | undefined;
 export declare function stripSsmlTags(ssml: string): string;
+export declare function stripSsmlTagsWithMap(ssml: string): {
+    plain: string;
+    map: number[];
+};
+export declare function ssmlIndexToPlainIndex(map: number[], ssmlIndex: number): number;
+export declare function substituteWithMap(text: string, table: SubstitutionTable): {
+    text: string;
+    map: number[];
+};
+export declare function substitutedIndexToSourceIndex(map: number[], substitutedIndex: number): number;
+export interface SsmlTextAtom {
+    kind: "paired" | "selfClosing" | "text";
+    raw: string;
+    tag?: string;
+    attrs?: string;
+    innerText?: string;
+    text?: string;
+}
+export declare function unescapeSsmlEntities(text: string): string;
+export declare function tokenizeSsmlTextAtoms(ssml: string): SsmlTextAtom[];
+export interface SsmlSubstitutionResult {
+    ssml: string;
+    plain: string;
+    map: number[];
+}
+export declare function substituteSsmlText(ssml: string, table: SubstitutionTable): SsmlSubstitutionResult;
 export interface LangSegment {
     plain: string;
     language?: string;
+    start: number;
+    end: number;
 }
 export declare function hasLangTag(ssml: string): boolean;
 /**

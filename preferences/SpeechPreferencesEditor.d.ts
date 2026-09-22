@@ -1,7 +1,8 @@
 import { IPreferencesEditor } from './PreferencesEditor.js';
 import { BooleanPreference, EnumPreference, RangePreference, StringArrayPreference } from './Preference.js';
-import { SpeechPreferences, VerbosityPreset, LanguageMode, ExtractionFormat, AutoPauseScope } from './SpeechPreferences.js';
+import { SpeechPreferences, VerbosityPreset, AutoPauseScope } from './SpeechPreferences.js';
 import { SpeechSettings } from './SpeechSettings.js';
+import { ExtractionFormat, LanguageMode, Segmentation } from '../utterances/types.js';
 export declare class SpeechPreferencesEditor implements IPreferencesEditor {
     preferences: SpeechPreferences;
     private settings;
@@ -14,6 +15,7 @@ export declare class SpeechPreferencesEditor implements IPreferencesEditor {
     get skip(): StringArrayPreference;
     get contextualize(): StringArrayPreference;
     get language(): EnumPreference<LanguageMode>;
+    get segmentation(): EnumPreference<Segmentation>;
     get pauseDuration(): RangePreference<number>;
     get autoPause(): EnumPreference<AutoPauseScope>;
     get rate(): RangePreference<number>;

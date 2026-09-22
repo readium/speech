@@ -8,16 +8,22 @@ import { SpeechSettings } from './preferences/SpeechSettings';
 import { ContextualizationShapeOverrides } from './preferences/verbosityTables';
 import { ReadiumSpeechUtterance } from './utterance';
 import { Contextualizations } from './utterances/types';
+import { SentenceSegmenter } from './utterances/sentenceSegmenter';
 import { ReadiumSpeechVoice } from './voices/types';
 export interface ContextualizationOverrides {
     contextualizations?: Contextualizations;
     shapes?: ContextualizationShapeOverrides;
     params?: (role: string, node: GndObject) => Record<string, string> | undefined;
 }
+export interface SegmentationOverrides {
+    suppressions?: Record<string, string[]>;
+    segmenter?: SentenceSegmenter;
+}
 export interface ReadiumSpeechNavigatorConfiguration {
     preferences?: ISpeechPreferences;
     defaults?: ISpeechDefaults;
     contextualizationOverrides?: ContextualizationOverrides;
+    segmentationOverrides?: SegmentationOverrides;
 }
 export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     private engine;
@@ -30,6 +36,7 @@ export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorCon
     private _settings;
     private _preferencesEditor;
     private readonly contextualizationOverrides?;
+    private readonly segmentationOverrides?;
     private source;
     private contentSources;
     private contentBlockStarts;
@@ -65,6 +72,7 @@ export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorCon
     getState(): ReadiumSpeechPlaybackState;
     on(event: ReadiumSpeechPlaybackEvent["type"] | "contentchange", listener: (event: ReadiumSpeechPlaybackEvent) => void): () => void;
     private emitEvent;
+    private emitUtteranceBoundary;
     private emitContentChangeEvent;
     get settings(): SpeechSettings;
     get preferencesEditor(): SpeechPreferencesEditor;
