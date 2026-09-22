@@ -101,11 +101,29 @@ test("substituteSsmlText rewrites text content but leaves tags/attributes untouc
   const table: SubstitutionTable = { "(c)": "©" };
   const ssml = 'Copyright (c) 2026, <lang xml:lang="fr">(c) non traduit</lang>';
   const result = substituteSsmlText(ssml, table);
-  t.is(result, 'Copyright © 2026, <lang xml:lang="fr">© non traduit</lang>');
+  t.is(result.ssml, 'Copyright © 2026, <lang xml:lang="fr">© non traduit</lang>');
 });
 
 test("substituteSsmlText escapes a custom replace() result before splicing it into SSML", (t) => {
   const table: SubstitutionTable = { angle: { pattern: /angle/g, replace: "<b>&</b>" } };
   const result = substituteSsmlText("an angle here", table);
-  t.is(result, "an &lt;b&gt;&amp;&lt;/b&gt; here");
+  t.is(result.ssml, "an &lt;b&gt;&amp;&lt;/b&gt; here");
+});
+
+test("substituteSsmlText applies a match that crosses a tag boundary, spliced in flat", (t) => {
+  const table: SubstitutionTable = { "1)": "X" };
+  const ssml = "1<emphasis>)</emphasis> rest";
+  const result = substituteSsmlText(ssml, table);
+  // "1)" spans the emphasis tag, so there's no single tag it could stay wrapped
+  // in — it's substituted flat rather than left unmatched.
+  t.is(result.ssml, "X rest");
+  t.is(result.plain, "1) rest");
+});
+
+test("substituteSsmlText keeps a match fully inside one atom wrapped in its tag, even next to a crossing match", (t) => {
+  const table: SubstitutionTable = { "(c)": "©", "1)": "X" };
+  const ssml = '1<emphasis>)</emphasis> and <lang xml:lang="fr">(c)</lang> too';
+  const result = substituteSsmlText(ssml, table);
+  t.is(result.ssml, 'X and <lang xml:lang="fr">©</lang> too');
+  t.is(result.plain, "1) and (c) too");
 });

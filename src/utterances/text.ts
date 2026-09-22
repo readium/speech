@@ -204,24 +204,36 @@ interface SubstitutionSpan {
   replacement: string;
 }
 
-// Runs every rule over `text` (leftmost-match wins on overlap), returning
-// the rewritten text plus `map[i]` = the source index for output char i.
-export function substituteWithMap(text: string, table: SubstitutionTable): { text: string; map: number[] } {
-  const spans: SubstitutionSpan[] = [];
+// Every rule's matches over `text`, resolved to a sorted, non-overlapping
+// set (leftmost match wins on overlap).
+function resolveSubstitutionSpans(text: string, table: SubstitutionTable): SubstitutionSpan[] {
+  const candidates: SubstitutionSpan[] = [];
   for (const rule of compileSubstitutionTable(table)) {
     for (const match of text.matchAll(rule.regex)) {
       const start = match.index!;
       const replacement = typeof rule.replace === "string" ? rule.replace : rule.replace(...(match as unknown as string[]));
-      spans.push({ start, end: start + match[0].length, replacement });
+      candidates.push({ start, end: start + match[0].length, replacement });
     }
   }
-  spans.sort((a, b) => a.start - b.start);
+  candidates.sort((a, b) => a.start - b.start);
 
+  const spans: SubstitutionSpan[] = [];
+  let cursor = 0;
+  for (const span of candidates) {
+    if (span.start < cursor) continue; // overlaps a previously accepted span — leftmost wins
+    spans.push(span);
+    cursor = span.end;
+  }
+  return spans;
+}
+
+// Runs every rule over `text` (leftmost-match wins on overlap), returning
+// the rewritten text plus `map[i]` = the source index for output char i.
+export function substituteWithMap(text: string, table: SubstitutionTable): { text: string; map: number[] } {
   let out = "";
   const map: number[] = [];
   let cursor = 0;
-  for (const span of spans) {
-    if (span.start < cursor) continue; // overlaps a previously accepted span — leftmost wins
+  for (const span of resolveSubstitutionSpans(text, table)) {
     while (cursor < span.start) {
       out += text[cursor];
       map.push(cursor);
@@ -282,18 +294,141 @@ function tokenizeSsmlTextAtoms(ssml: string): SsmlTextAtom[] {
   return atoms;
 }
 
+export interface SsmlSubstitutionResult {
+  ssml: string;
+  plain: string; // the pre-substitution text `map` resolves into, same shape as stripSsmlTags(ssml)
+  map: number[]; // map[i] = position in `plain` for substituted-plain char i
+}
+
+interface PlainSegment {
+  start: number;
+  end: number; // exclusive
+  atomIndex: number; // -1 for a synthetic glue space (no ssml form)
+}
+
 // Rewrites SSML text content only (tags/attributes untouched), re-escaping
 // each replacement so a caller-supplied `replace` can't corrupt the markup.
-export function substituteSsmlText(ssml: string, table: SubstitutionTable): string {
-  return tokenizeSsmlTextAtoms(ssml)
-    .map((atom) => {
-      if (atom.kind === "selfClosing") return atom.raw;
-      if (atom.kind === "text") return ssmlTextEscape(substituteWithMap(atom.text!, table).text);
-      const openTag = `<${atom.tag}${atom.attrs}>`;
-      const closeTag = `</${atom.tag}>`;
-      return `${openTag}${ssmlTextEscape(substituteWithMap(atom.innerText!, table).text)}${closeTag}`;
-    })
-    .join("");
+// A rule matched entirely within one atom's own text stays wrapped in that
+// atom's tag; a match spanning two atoms (crossing a tag boundary) has no
+// single tag it could unambiguously belong to, so it's spliced in flat
+// instead of silently left unmatched. `plain`/`map` describe the same
+// rewrite over tag-stripped text.
+export function substituteSsmlText(ssml: string, table: SubstitutionTable): SsmlSubstitutionResult {
+  const atoms = tokenizeSsmlTextAtoms(ssml);
+
+  // Pass 1: lay out `plain` (tag-stripped, with the same tag-boundary glue
+  // space as stripSsmlTagsWithMap) and record which atom (or glue) owns each span of it.
+  let plain = "";
+  let lastWasSpace = false;
+  const segments: PlainSegment[] = [];
+  const atomSegmentIndices: number[][] = atoms.map(() => []);
+
+  atoms.forEach((atom, atomIndex) => {
+    if (atom.kind === "selfClosing") return;
+    const sourceText = atom.kind === "paired" ? atom.innerText! : atom.text!;
+    if (!lastWasSpace && plain.length > 0 && sourceText.length > 0 && !startsWithBindingPunct(sourceText) && !/^\s/.test(sourceText)) {
+      const glueStart = plain.length;
+      plain += " ";
+      atomSegmentIndices[atomIndex].push(segments.length);
+      segments.push({ start: glueStart, end: glueStart + 1, atomIndex: -1 });
+      lastWasSpace = true;
+    }
+    const start = plain.length;
+    plain += sourceText;
+    atomSegmentIndices[atomIndex].push(segments.length);
+    segments.push({ start, end: plain.length, atomIndex });
+    if (sourceText.length > 0) lastWasSpace = /\s$/.test(sourceText);
+  });
+
+  const spans = resolveSubstitutionSpans(plain, table);
+
+  // Pass 2: walk atoms in order, applying `spans` against `plain` positions.
+  // A real atom's escaped output accumulates in `buffer` until it's known
+  // safe to wrap in that atom's tag; a span crossing out of the current
+  // atom flushes early and is spliced in unwrapped.
+  let outSsml = "";
+  let substitutedPlain = "";
+  const map: number[] = [];
+  let bufferAtom = -2; // -2 = nothing buffered, >=0 = index of the atom currently accumulating
+  let buffer = "";
+  let spanIndex = 0;
+
+  const flushBuffer = () => {
+    if (bufferAtom >= 0) {
+      const atom = atoms[bufferAtom];
+      outSsml += atom.kind === "paired" ? `<${atom.tag}${atom.attrs}>${buffer}</${atom.tag}>` : buffer;
+    }
+    buffer = "";
+    bufferAtom = -2;
+  };
+
+  for (let atomIndex = 0; atomIndex < atoms.length; atomIndex++) {
+    const atom = atoms[atomIndex];
+    if (atom.kind === "selfClosing") {
+      flushBuffer();
+      outSsml += atom.raw;
+      continue;
+    }
+    for (const segIndex of atomSegmentIndices[atomIndex]) {
+      const segment = segments[segIndex];
+      let cursor = segment.start;
+      while (cursor < segment.end) {
+        const span = spanIndex < spans.length ? spans[spanIndex] : undefined;
+        if (span && span.start <= cursor && span.end > cursor) {
+          const startingHere = span.start === cursor;
+          const crossesOut = span.end > segment.end;
+          if (startingHere) {
+            substitutedPlain += span.replacement;
+            for (let i = 0; i < span.replacement.length; i++) map.push(span.start);
+            if (segment.atomIndex === -1 || crossesOut) {
+              flushBuffer();
+              outSsml += ssmlTextEscape(span.replacement);
+            } else {
+              if (bufferAtom !== segment.atomIndex) {
+                flushBuffer();
+                bufferAtom = segment.atomIndex;
+              }
+              buffer += ssmlTextEscape(span.replacement);
+            }
+          }
+          cursor = Math.min(span.end, segment.end);
+          if (span.end <= segment.end) spanIndex++;
+          continue;
+        }
+        const next = span ? Math.min(span.start, segment.end) : segment.end;
+        const text = plain.slice(cursor, next);
+        substitutedPlain += text;
+        for (let i = 0; i < text.length; i++) map.push(cursor + i);
+        if (segment.atomIndex === -1) {
+          flushBuffer();
+        } else {
+          if (bufferAtom !== segment.atomIndex) {
+            flushBuffer();
+            bufferAtom = segment.atomIndex;
+          }
+          buffer += ssmlTextEscape(text);
+        }
+        cursor = next;
+      }
+    }
+  }
+  flushBuffer();
+
+  let plainStart = 0;
+  while (plainStart < plain.length && /\s/.test(plain[plainStart])) plainStart++;
+  let plainEnd = plain.length;
+  while (plainEnd > plainStart && /\s/.test(plain[plainEnd - 1])) plainEnd--;
+  let subStart = 0;
+  while (subStart < substitutedPlain.length && /\s/.test(substitutedPlain[subStart])) subStart++;
+  let subEnd = substitutedPlain.length;
+  while (subEnd > subStart && /\s/.test(substitutedPlain[subEnd - 1])) subEnd--;
+
+  const trimmedPlain = plain.slice(plainStart, plainEnd);
+  const trimmedMap = map
+    .slice(subStart, subEnd)
+    .map((v) => Math.min(Math.max(v - plainStart, 0), Math.max(trimmedPlain.length - 1, 0)));
+
+  return { ssml: outSsml, plain: trimmedPlain, map: trimmedMap };
 }
 
 export interface LangSegment {
