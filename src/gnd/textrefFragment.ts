@@ -121,7 +121,8 @@ export interface DecodedTextref {
 export function combineDomRangeTextrefs(first: DecodedTextref, last: DecodedTextref): DecodedTextref | undefined {
   if (!first.domRange || !last.domRange) return undefined;
   const domRange: DomRangeJSON = { start: first.domRange.start, end: last.domRange.end ?? last.domRange.start };
-  return { domRange, cssSelector: domRange.start.cssSelector };
+  if (first.domRange.container !== undefined) domRange.container = first.domRange.container;
+  return { domRange, cssSelector: domRange.container ?? domRange.start.cssSelector };
 }
 
 // Decodes a node's own generated textref, distinguishing it from an
