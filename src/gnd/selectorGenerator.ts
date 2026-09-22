@@ -77,7 +77,10 @@ export function selectorForElement(
 // selectorForElement's raw value so callers that already hold that value
 // (e.g. domRangeGenerator.ts, reusing it for the same element) can skip
 // recomputing it.
+// A bare id never combines with anything else, so " " or ">" only ever
+// appears when rootAnchor got prefixed onto a compound climbed selector —
+// that still needs #css() encoding despite starting with "#" itself.
 export function textrefForSelector(selector: string | undefined): string | undefined {
   if (!selector) return undefined;
-  return selector.startsWith("#") ? selector : encodeCssSelectorFragment(selector);
+  return selector.startsWith("#") && !/[ >]/.test(selector) ? selector : encodeCssSelectorFragment(selector);
 }
