@@ -28,3 +28,14 @@ export function isSinglePunctuationChar(s: string): boolean {
 export function neutralizeAngleBrackets(text: string): string {
   return text.replace(/[<>]/g, "\u200B");
 }
+
+// Decodes quote/nbsp/numeric HTML entities only \u2014 not &lt;/&gt;/&amp;, which
+// callers stripping markup (e.g. stripSsmlTags()) need to see literally first.
+export function decodeResidualHtmlEntities(text: string): string {
+  return text
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&nbsp;/g, "\u00A0")
+    .replace(/&#(\d+);/g, (_, dec: string) => String.fromCodePoint(Number(dec)))
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex: string) => String.fromCodePoint(parseInt(hex, 16)));
+}
