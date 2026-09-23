@@ -303,8 +303,13 @@ function currentExtractionOptions() {
   const settings = configurable.settings;
   const options = { format: settings.format, skip: settings.skip, contextualize: settings.contextualize };
   if (settings.inlineContextualization) options.inlineContextualization = true;
-  if (settings.language) options.language = settings.language;
-  if (settings.segmentation) options.segmentation = { mode: settings.segmentation };
+  // Fixtures encode "default" as omitting language/segmentation entirely
+  // (scripts/generate-utterances.js) — only carry them when they diverge
+  // from the library default, so bridging/matching below sees the same shape.
+  if (settings.language && settings.language !== libraryDefaults?.language) options.language = settings.language;
+  if (settings.segmentation && settings.segmentation !== libraryDefaults?.segmentation) {
+    options.segmentation = { mode: settings.segmentation };
+  }
   return options;
 }
 
@@ -423,6 +428,21 @@ function renderList() {
 
 function deepEqual(a, b) {
   return JSON.stringify(sortKeysDeep(a)) === JSON.stringify(sortKeysDeep(b));
+}
+
+// Strips implementation-specific selector output before comparing against
+// cross-platform fixture JSON, which never carries it.
+function stripLocatorDetails(value) {
+  if (Array.isArray(value)) return value.map(stripLocatorDetails);
+  if (value && typeof value === "object") {
+    const out = {};
+    for (const [key, val] of Object.entries(value)) {
+      if (key === "textref" || key === "locate" || key === "offsets") continue;
+      out[key] = stripLocatorDetails(val);
+    }
+    return out;
+  }
+  return value;
 }
 
 function sortKeysDeep(value) {
@@ -680,7 +700,11 @@ async function renderUtterancesPanel() {
     utterancesActualEl.textContent = JSON.stringify(actualUtterances, null, 2);
     setBadge(
       utterancesBadgeEl,
-      expected === undefined ? "none" : deepEqual(actualUtterances, expected) ? "pass" : "fail",
+      expected === undefined
+        ? "none"
+        : deepEqual(stripLocatorDetails(actualUtterances), stripLocatorDetails(expected))
+          ? "pass"
+          : "fail",
     );
     renderSpeechList(actualUtterances);
   } catch (err) {
