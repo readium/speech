@@ -41,6 +41,7 @@ const totalUtterancesSpan = document.getElementById("totalUtterances");
 const readAlongCheckbox = document.getElementById("readAlong");
 const readAlongGroup = document.getElementById("readAlongOptions");
 const autoScrollCheckbox = document.getElementById("autoScroll");
+const playerBar = document.querySelector(".player-bar");
 const decorateSyntheticCheckbox = document.getElementById("decorateSynthetic");
 const syncPanelsCheckbox = document.getElementById("syncPanels");
 const wordHighlightUnavailable = document.getElementById("wordHighlightUnavailable");
@@ -1092,9 +1093,16 @@ function enterUtterance(index) {
   const target = currentUtterance.locate.cssSelector
     ? document.querySelector(currentUtterance.locate.cssSelector)
     : null;
-  if (target && autoScrollEnabled) {
+  if (target && autoScrollEnabled && currentUtterance.offsets?.length) {
+    // The floating player bar sits fixed over the reading area — reserve
+    // space for it so scrollIntoView never tucks the target behind it.
+    const playerBarHeight = playerBar ? playerBar.getBoundingClientRect().height + 20 : 0;
+    const main = target.closest(".main") || document.scrollingElement;
+    if (main) main.style.scrollPaddingBottom = `${playerBarHeight}px`;
+
+    const viewportBottom = (window.innerHeight || document.documentElement.clientHeight) - playerBarHeight;
     const rect = target.getBoundingClientRect();
-    const inView = rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight);
+    const inView = rect.top >= 0 && rect.bottom <= viewportBottom;
     if (!inView) target.scrollIntoView({ behavior: resolveScrollBehavior("smooth"), block: "center" });
   }
 
