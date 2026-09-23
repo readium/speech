@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.10.1] - 2026-09-23
+
+### Fixed
+
+- Removing a decoration near certain inline elements no longer leaves stale highlight pixels on-screen in WebKit, via `@readium/decorator@1.2.3`.
+
 ## [0.10.0] - 2026-09-22
 
 ### Added
