@@ -115,10 +115,21 @@
             "maximum": 2,
             "default": 1
           },
-          "pitchControl": {
-            "type": "boolean",
-            "description": "Indicates if the pitch of a voice can be controlled.",
-            "default": true
+          "controls": {
+            "type": "object",
+            "description": "Indicates which controls are available for a given voice.",
+            "properties": {
+              "boundary": {
+                "description": "Indicates whether a voice returns boundary events.",
+                "type": "boolean",
+                "default": true
+              },
+              "pitch": {
+                "description": "Indicates whether a voice can be pitch adjusted.",
+                "type": "boolean",
+                "default": true
+              }
+            }
           },
           "os": {
             "type": "array",

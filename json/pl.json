@@ -59,6 +59,9 @@
       ],
       "rate": 1,
       "pitch": 1,
+      "controls": {
+        "boundary": false
+      },
       "browser": [
         "ChromeDesktop"
       ],

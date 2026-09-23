@@ -158,6 +158,7 @@
     {
       "label": "Weibliche Google-Stimme",
       "name": "Google Deutsch",
+      "note": "This voice is pre-loaded in Chrome on desktop. Utterances that are longer than 14 seconds long can trigger a bug with this voice, check the notes in the project's README for more information.",
       "language": "de-DE",
       "gender": "female",
       "quality": [
@@ -165,6 +166,9 @@
       ],
       "rate": 1,
       "pitch": 1,
+      "controls": {
+        "boundary": false
+      },
       "browser": [
         "ChromeDesktop"
       ],
