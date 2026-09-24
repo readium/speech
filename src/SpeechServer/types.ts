@@ -1,4 +1,4 @@
-import { TGender, TQuality, TServerVoiceControls } from "../voices/types";
+import { TGender, TQuality, TVoiceControls } from "../voices/types";
 
 export interface SpeechServerVoice {
   name: string;
@@ -48,5 +48,5 @@ export interface SpeechServerSynthesizeBoundaryResponse {
 export interface SpeechServerServiceInfo {
   output: { formats: SpeechServerAudioFormat[]; default: SpeechServerAudioFormat };
   limits: { maxTextLength: number; maxConcurrentSyntheses: number };
-  providers: { id: string; installedLanguages: string[]; quality?: TQuality; controls?: TServerVoiceControls }[];
+  providers: { id: string; installedLanguages: string[]; quality?: TQuality; controls?: TVoiceControls }[];
 }

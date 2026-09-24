@@ -19,10 +19,10 @@ export type TLocalizedName = "android" | "apple";
 export type TSource = "json" | "browser" | "server";
 
 /**
- * Controls a speech-server voice reports as enabled, e.g. {ssml: true}.
+ * Controls a voice reports as enabled, e.g. {ssml: true}.
  * A control absent from this object is not supported by that voice.
  */
-export interface TServerVoiceControls {
+export interface TVoiceControls {
   pitch?: boolean;
   speed?: boolean;
   ssml?: boolean;
@@ -56,9 +56,9 @@ export interface ReadiumSpeechJSONVoice {
   gender?: TGender;
   children?: boolean;
   quality?: TQuality[];
-  rate?: number;  
+  rate?: number;
   pitch?: number;
-  pitchControl?: boolean;
+  controls?: TVoiceControls;
   os?: TOperatingSystem[];
   browser?: TBrowser[];
   preloaded?: boolean;
@@ -87,8 +87,7 @@ export interface ReadiumSpeechVoice {
   
   // Quality and capabilities
   quality?: TQuality;      // Voice quality level
-  pitchControl?: boolean;  // Whether pitch can be controlled
-  
+
   // Performance settings
   pitch?: number;         // Current pitch (0-2, where 1 is normal)
   rate?: number;          // Speech rate (0.1-10, where 1 is normal)
@@ -103,7 +102,7 @@ export interface ReadiumSpeechVoice {
   note?: string;          // Additional notes about the voice
   provider?: string;      // Voice provider (e.g., "Microsoft", "Google", or a speech-server provider id)
   identifier?: string;    // Opaque id to send back to a server provider (e.g. a speech-server voice URN)
-  controls?: TServerVoiceControls; // Which playback controls a server-sourced voice actually honors
+  controls?: TVoiceControls; // Which playback controls this voice actually honors
 
   // Runtime-derived flags
   isDefault?: boolean;    // Whether this is the platform's default voice

@@ -2,7 +2,7 @@
   "language": "ta",
   "defaultRegion": "ta-IN",
   "testUtterance": "வணக்கம், என் பெயர் {name} மற்றும் நான் ஒரு தமிழ் குரல்",
-  "voices": [ 
+  "voices": [
     {
       "label": "Pallavi",
       "name": "Microsoft Pallavi Online (Natural) - Tamil (India)",
@@ -12,11 +12,13 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false
+      }
     },
     {
       "label": "Valluvar",
@@ -27,11 +29,13 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false
+      }
     },
     {
       "label": "Saranya",
@@ -42,11 +46,13 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false
+      }
     },
     {
       "label": "Kumar",
@@ -57,11 +63,13 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false
+      }
     },
     {
       "label": "Kani",
@@ -72,11 +80,13 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false
+      }
     },
     {
       "label": "Surya",
@@ -87,11 +97,13 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false
+      }
     },
     {
       "label": "Venba",
@@ -102,11 +114,13 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false
+      }
     },
     {
       "label": "Anbu",
@@ -117,11 +131,13 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false
+      }
     },
     {
       "label": "Vani",
@@ -157,7 +173,6 @@
       ],
       "preloaded": true
     },
-
     {
       "label": "பெண் குரல்",
       "name": "Android Speech Recognition and Synthesis from Google ta-in-x-tac-network",

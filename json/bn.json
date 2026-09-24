@@ -2,7 +2,7 @@
   "language": "bn",
   "defaultRegion": "bn-IN",
   "testUtterance": "হ্যালো, আমার নাম {name} এবং আমি একজন বাংলা ভয়েস।",
-  "voices": [ 
+  "voices": [
     {
       "label": "Tanishaa",
       "name": "Microsoft Tanishaa Online (Natural) - Bengali (India)",
@@ -12,11 +12,13 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false
+      }
     },
     {
       "label": "Bashkar",
@@ -27,11 +29,13 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false
+      }
     },
     {
       "label": "Nabanita",
@@ -42,11 +46,13 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false
+      }
     },
     {
       "label": "Pradeep",
@@ -57,11 +63,13 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false
+      }
     },
     {
       "label": "Piya",

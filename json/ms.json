@@ -2,7 +2,7 @@
   "language": "ms",
   "defaultRegion": "ms-MY",
   "testUtterance": "Hello, nama saya {name} dan saya suara Melayu.",
-  "voices": [ 
+  "voices": [
     {
       "label": "Yasmin",
       "name": "Microsoft Yasmin Online (Natural) - Malay (Malaysia)",
@@ -12,11 +12,13 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false
+      }
     },
     {
       "label": "Osman",
@@ -27,11 +29,13 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false
+      }
     },
     {
       "label": "Amira",
@@ -67,7 +71,6 @@
       ],
       "preloaded": true
     },
-
     {
       "label": "Suara perempuan 1",
       "name": "Android Speech Recognition and Synthesis from Google ms-my-x-msc-network",
