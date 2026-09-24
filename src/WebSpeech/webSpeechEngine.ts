@@ -4,6 +4,7 @@ import { ReadiumSpeechUtterance } from "../utterance";
 import { ReadiumSpeechVoice } from "../voices/types";
 import { WebSpeechVoiceManager } from "./WebSpeechVoiceManager";
 import { normalizeLanguageCode } from "../voices/languages";
+import { filterByBoundarySupport } from "../voices/sorting";
 import { extractLangRegionFromBCP47 } from "../utils/language";
 
 import { detectFeatures, WebSpeechFeatures } from "../utils/features";
@@ -209,7 +210,10 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
         await WebSpeechVoiceManager.initialize({ languages: [language] });
         this.voices = this.voiceManager!.getVoices();
 
-        const candidates = this.voices.filter(voice => this.voiceMatchesLanguage(voice, language));
+        const languageMatches = this.voices.filter(voice => this.voiceMatchesLanguage(voice, language));
+        const needsBoundary = this.currentVoice?.controls?.boundary !== false;
+        const candidates = filterByBoundarySupport(languageMatches, needsBoundary);
+
         const sorted = await this.voiceManager!.sortVoicesByQuality(candidates);
         const matched = sorted[0] ?? null;
         this.languageVoiceCache.set(language, matched);

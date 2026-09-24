@@ -1,6 +1,6 @@
 import test from "ava";
 import { FallbackSpeechEngine } from "../../build/index.js";
-import { FakeEngine, FakeFallbackProvider, FakePrimaryProvider, tick, wait, deferred, stubOnLine } from "./testUtils.js";
+import { FakeEngine, FakeFallbackProvider, FakePrimaryProvider, makeReadiumVoice, tick, wait, deferred, stubOnLine } from "./testUtils.js";
 
 // =============================================
 // Basic delegation
@@ -80,6 +80,38 @@ test.serial("falls back to a language-only match when no voice satisfies both la
 
   t.truthy(fallbackProvider.receivedVoice, "a voice was still picked");
   t.is(fallbackProvider.receivedVoice.language, "fr-FR", "language-only match, gender requirement dropped");
+});
+
+test.serial("prefers a fallback voice matching the failed voice's boundary-event support", async (t) => {
+  const primary = new FakeEngine();
+  primary.setCurrentVoiceForTest({ language: "fr-FR", gender: "female", controls: { boundary: false } });
+
+  const fallbackProvider = new FakeFallbackProvider();
+  fallbackProvider.voices = [
+    makeReadiumVoice({ name: "French Female, boundary", language: "fr-FR", gender: "female", offlineAvailability: true }),
+    makeReadiumVoice({ name: "French Female, no boundary", language: "fr-FR", gender: "female", offlineAvailability: true, controls: { boundary: false } })
+  ];
+  const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  wrapper.loadUtterances([{ plain: "hello" }]);
+
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await tick();
+
+  t.is(fallbackProvider.receivedVoice?.name, "French Female, no boundary", "matched language, gender and boundary-event support");
+});
+
+test.serial("falls back to a language-and-gender-only match when no voice satisfies boundary-event support", async (t) => {
+  const primary = new FakeEngine();
+  primary.setCurrentVoiceForTest({ language: "fr-FR", gender: "female", controls: { boundary: false } }); // no non-boundary fr female voice seeded
+
+  const fallbackProvider = new FakeFallbackProvider();
+  const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  wrapper.loadUtterances([{ plain: "hello" }]);
+
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await tick();
+
+  t.is(fallbackProvider.receivedVoice?.name, "French Female", "boundary requirement dropped, language and gender still matched");
 });
 
 test.serial("while offline, only considers offline-available voices, since an online one would risk the same network failure", async (t) => {
