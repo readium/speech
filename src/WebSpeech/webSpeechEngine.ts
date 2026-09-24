@@ -299,6 +299,14 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     ) {
       this.defaultVoice = await this.voiceManager.getDefaultVoice([this.currentVoice.language], this.voices);
     }
+
+    // Cached entries were matched against the previous voice's boundary support;
+    // a change invalidates them so content-language switching doesn't reuse a mismatch.
+    const previousNeedsBoundary = previousVoice?.controls?.boundary !== false;
+    const currentNeedsBoundary = this.currentVoice?.controls?.boundary !== false;
+    if (previousVoice && previousNeedsBoundary !== currentNeedsBoundary) {
+      this.languageVoiceCache.clear();
+    }
   }
 
   async getAvailableVoices(): Promise<ReadiumSpeechVoice[]> {
