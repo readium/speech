@@ -21,7 +21,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -42,7 +43,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -59,7 +61,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -76,7 +79,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -93,7 +97,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -111,7 +116,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -132,7 +138,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -153,7 +160,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -170,7 +178,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -187,7 +196,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -204,7 +214,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -221,7 +232,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -238,7 +250,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -255,7 +268,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -272,7 +286,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -290,7 +305,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -307,7 +323,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -324,7 +341,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -341,7 +359,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -358,7 +377,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -379,7 +399,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -396,7 +417,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -413,7 +435,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -430,7 +453,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -450,7 +474,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -467,7 +492,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -484,7 +510,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -501,7 +528,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -518,7 +546,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -535,7 +564,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -552,7 +582,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -569,7 +600,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -586,7 +618,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -603,7 +636,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -620,7 +654,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -637,7 +672,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -654,7 +690,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -671,7 +708,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -688,7 +726,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -705,7 +744,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -722,7 +762,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -739,7 +780,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -756,7 +798,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
@@ -773,7 +816,8 @@
       ],
       "preloaded": true,
       "controls": {
-        "pitch": false
+        "pitch": false,
+        "boundary": false
       }
     },
     {
