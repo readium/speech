@@ -54,3 +54,9 @@ export declare const sortVoicesByRegions: (preferredLanguages: string[], voices:
  * ranking sortAlphabetically would produce over the rest.
  */
 export declare const pickBestVoiceByRegion: (language: string, voices: ReadiumSpeechVoice[]) => Promise<ReadiumSpeechVoice | null>;
+/**
+ * Narrows to voices whose boundary-event support matches `needsBoundary`, so switching voice
+ * (by language, by fallback, ...) doesn't silently drop or gain word-boundary highlighting.
+ * Falls back to the full list when nothing matches, rather than returning no candidates at all.
+ */
+export declare const filterByBoundarySupport: (voices: ReadiumSpeechVoice[], needsBoundary: boolean) => ReadiumSpeechVoice[];

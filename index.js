@@ -1,4 +1,4 @@
-const F = (n) => {
+const I = (n) => {
   if (!n) return ["", void 0];
   const e = n.replace(/_/g, "-");
   try {
@@ -401,16 +401,16 @@ const F = (n) => {
     ],
     testUtterance: "你好，我叫 {name}，係越中文聲。"
   }
-}, Vt = /* @__PURE__ */ new Map(), lo = /* @__PURE__ */ Object.assign({ "../../json/ar.json": () => import("./ar-CJhBAgKq.js"), "../../json/bg.json": () => import("./bg-JvP4LoOT.js"), "../../json/bho.json": () => import("./bho-CpuLBMN3.js"), "../../json/bn.json": () => import("./bn-84u93pMd.js"), "../../json/ca.json": () => import("./ca-DdScTbex.js"), "../../json/cmn.json": () => import("./cmn-Dd1zrvTE.js"), "../../json/cs.json": () => import("./cs-CDMne0uc.js"), "../../json/da.json": () => import("./da-oFf4cHgj.js"), "../../json/de.json": () => import("./de-Bjgc3bVq.js"), "../../json/el.json": () => import("./el-FkKIcghI.js"), "../../json/en.json": () => import("./en-BELFJRDQ.js"), "../../json/es.json": () => import("./es-nAmbEkcR.js"), "../../json/eu.json": () => import("./eu-DxWirHU-.js"), "../../json/fa.json": () => import("./fa-CTVUniYi.js"), "../../json/fi.json": () => import("./fi-Do6QFzRv.js"), "../../json/fr.json": () => import("./fr-B5-P9o29.js"), "../../json/gl.json": () => import("./gl-DqSXeC_F.js"), "../../json/he.json": () => import("./he-CpyNwgaH.js"), "../../json/hi.json": () => import("./hi-CeOBacbl.js"), "../../json/hr.json": () => import("./hr-CSpU18l6.js"), "../../json/hu.json": () => import("./hu-oONHmpR6.js"), "../../json/id.json": () => import("./id-BpZuB5Iw.js"), "../../json/it.json": () => import("./it-CM4X84UA.js"), "../../json/ja.json": () => import("./ja-e-iw3c4_.js"), "../../json/kk.json": () => import("./kk-BdLCAb2s.js"), "../../json/kn.json": () => import("./kn-BYRvouO5.js"), "../../json/ko.json": () => import("./ko-EIouMDK1.js"), "../../json/mr.json": () => import("./mr-DN-hwEV1.js"), "../../json/ms.json": () => import("./ms-B5E3oaWE.js"), "../../json/nb.json": () => import("./nb-DOw05HBh.js"), "../../json/nl.json": () => import("./nl-CEydw4A9.js"), "../../json/pl.json": () => import("./pl-Ivj_eAP7.js"), "../../json/pt.json": () => import("./pt-BPEGqRmW.js"), "../../json/ro.json": () => import("./ro-BQ617SOx.js"), "../../json/ru.json": () => import("./ru-Dieeph4H.js"), "../../json/sk.json": () => import("./sk-pEiOt4GQ.js"), "../../json/sl.json": () => import("./sl-Z6jWAR8J.js"), "../../json/sv.json": () => import("./sv-BT09piiZ.js"), "../../json/ta.json": () => import("./ta-B0YMGW5q.js"), "../../json/te.json": () => import("./te-ax-HNsAY.js"), "../../json/th.json": () => import("./th-C7Dbxwoz.js"), "../../json/tr.json": () => import("./tr-mipEichO.js"), "../../json/uk.json": () => import("./uk-CHdx7DHz.js"), "../../json/vi.json": () => import("./vi-DrlcEwAD.js"), "../../json/wuu.json": () => import("./wuu-C6uQvT6g.js"), "../../json/yue.json": () => import("./yue-CFroa59o.js") });
-async function co(n) {
+}, Vt = /* @__PURE__ */ new Map(), co = /* @__PURE__ */ Object.assign({ "../../json/ar.json": () => import("./ar-BGKtJRyt.js"), "../../json/bg.json": () => import("./bg-D9Q1JriY.js"), "../../json/bho.json": () => import("./bho-CpuLBMN3.js"), "../../json/bn.json": () => import("./bn-Bpn_lzoe.js"), "../../json/ca.json": () => import("./ca-5hzouNcE.js"), "../../json/cmn.json": () => import("./cmn-DlnYMCd8.js"), "../../json/cs.json": () => import("./cs-CDpMkMNO.js"), "../../json/da.json": () => import("./da-XWCfWAwB.js"), "../../json/de.json": () => import("./de-DU0USiOh.js"), "../../json/el.json": () => import("./el-ClBwbIAW.js"), "../../json/en.json": () => import("./en-l3wcpTw3.js"), "../../json/es.json": () => import("./es-DwOFJY07.js"), "../../json/eu.json": () => import("./eu-DxWirHU-.js"), "../../json/fa.json": () => import("./fa-Ml9KtIw1.js"), "../../json/fi.json": () => import("./fi-Dk-5Fhhl.js"), "../../json/fr.json": () => import("./fr-MfhjukJ4.js"), "../../json/gl.json": () => import("./gl-DwtzWds9.js"), "../../json/he.json": () => import("./he-CfajFNE_.js"), "../../json/hi.json": () => import("./hi-pv2ttBoh.js"), "../../json/hr.json": () => import("./hr-MRApcEKR.js"), "../../json/hu.json": () => import("./hu-DGRDZdHH.js"), "../../json/id.json": () => import("./id-DZUuUiTG.js"), "../../json/it.json": () => import("./it-DJUYnjyj.js"), "../../json/ja.json": () => import("./ja-BpFcZRMu.js"), "../../json/kk.json": () => import("./kk-C480t1iH.js"), "../../json/kn.json": () => import("./kn-BVqs26qv.js"), "../../json/ko.json": () => import("./ko-TNoPZd6N.js"), "../../json/mr.json": () => import("./mr-DstAHTvT.js"), "../../json/ms.json": () => import("./ms-BceBSD-j.js"), "../../json/nb.json": () => import("./nb-CwPbwG-i.js"), "../../json/nl.json": () => import("./nl-BmW-Dmw5.js"), "../../json/pl.json": () => import("./pl-CH8qoDu8.js"), "../../json/pt.json": () => import("./pt-CjCENn24.js"), "../../json/ro.json": () => import("./ro-BlJN7qkA.js"), "../../json/ru.json": () => import("./ru-udzq1D5e.js"), "../../json/sk.json": () => import("./sk-VAEHsTWJ.js"), "../../json/sl.json": () => import("./sl-DaZQ1gp0.js"), "../../json/sv.json": () => import("./sv-CicHwXe4.js"), "../../json/ta.json": () => import("./ta-CvpRY89g.js"), "../../json/te.json": () => import("./te-D5TcdW9V.js"), "../../json/th.json": () => import("./th-CYakoFVa.js"), "../../json/tr.json": () => import("./tr-BfYrcAz7.js"), "../../json/uk.json": () => import("./uk-BVs6lQbX.js"), "../../json/vi.json": () => import("./vi-DP1xN9KL.js"), "../../json/wuu.json": () => import("./wuu-C6uQvT6g.js"), "../../json/yue.json": () => import("./yue-C8kEWdfv.js") });
+async function uo(n) {
   try {
-    const e = n.split("-")[0], t = lo[`../../json/${e}.json`];
+    const e = n.split("-")[0], t = co[`../../json/${e}.json`];
     if (!t)
       throw new Error(`No voice data found for language: ${n}`);
     const s = (await t()).default;
     return {
       ...s,
-      voices: s.voices.map(fo)
+      voices: s.voices.map(go)
     };
   } catch (e) {
     return console.warn(`Failed to load voice data for ${n}:`, e), {
@@ -422,12 +422,12 @@ async function co(n) {
   }
 }
 function Gn(n) {
-  return Vt.has(n) || Vt.set(n, co(n)), Vt.get(n);
+  return Vt.has(n) || Vt.set(n, uo(n)), Vt.get(n);
 }
-const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "apple"], fo = (n) => ({
+const ho = ["veryLow", "low", "normal", "high", "veryHigh"], fo = ["android", "apple"], go = (n) => ({
   ...n,
-  quality: n.quality?.filter((e) => uo.includes(e)),
-  localizedName: n.localizedName && ho.includes(n.localizedName) ? n.localizedName : void 0
+  quality: n.quality?.filter((e) => ho.includes(e)),
+  localizedName: n.localizedName && fo.includes(n.localizedName) ? n.localizedName : void 0
 }), Ve = {
   cmn: "cmn",
   "cmn-CN": "cmn-CN",
@@ -440,7 +440,7 @@ const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "a
   "zh-HK": "yue-HK",
   wuu: "wuu",
   "wuu-CN": "wuu-CN"
-}, B = (n) => {
+}, U = (n) => {
   if (!n) return "";
   let e = n.toLowerCase().replace(/_/g, "-");
   if (/\w{2,3}-\w{2,3}/.test(e)) {
@@ -451,7 +451,7 @@ const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "a
 }, tn = async (n) => {
   if (!n) return [];
   try {
-    const e = B(n);
+    const e = U(n);
     try {
       const i = await Gn(e);
       if (i?.voices?.length)
@@ -459,7 +459,7 @@ const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "a
     } catch (i) {
       console.warn(`Failed to load voices for ${e}:`, i);
     }
-    const [t] = F(e);
+    const [t] = I(e);
     if (t !== e)
       try {
         const i = await Gn(t);
@@ -484,7 +484,7 @@ const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "a
 }, Xn = (n) => {
   if (!n) return "";
   try {
-    const e = B(n), t = G[e];
+    const e = U(n), t = G[e];
     if (t?.testUtterance)
       return t.testUtterance;
     if (e in Ve) {
@@ -492,7 +492,7 @@ const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "a
       if (s && G[s]?.testUtterance)
         return G[s].testUtterance;
     }
-    const [i] = F(e);
+    const [i] = I(e);
     return i !== e && G[i]?.testUtterance ? G[i].testUtterance : "";
   } catch (e) {
     return console.error(`Error in getTestUtterance for ${n}:`, e), "";
@@ -500,7 +500,7 @@ const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "a
 }, Dt = (n) => {
   if (!n) return "";
   try {
-    const e = B(n), t = G[e];
+    const e = U(n), t = G[e];
     if (t?.defaultRegion)
       return `${e}-${t.defaultRegion}`;
     if (e in Ve) {
@@ -511,7 +511,7 @@ const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "a
           return `${s}-${r.defaultRegion}`;
       }
     }
-    const [i] = F(e);
+    const [i] = I(e);
     if (i !== e) {
       const s = G[i];
       if (s?.defaultRegion)
@@ -521,12 +521,12 @@ const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "a
   } catch (e) {
     return console.error(`Failed to get default region for ${n}:`, e), "";
   }
-}, It = (n) => {
+}, Ft = (n) => {
   if (!n?.length) return [];
   const e = /* @__PURE__ */ new Set(), t = /* @__PURE__ */ new Map(), i = /* @__PURE__ */ new Map();
   for (const [s, r] of n.entries()) {
     if (!r) continue;
-    const o = B(r), [a, l] = F(o);
+    const o = U(r), [a, l] = I(o);
     l && (e.add(l), i.has(l) || i.set(l, s)), t.has(a) || t.set(a, /* @__PURE__ */ new Set()), l && t.get(a).add(l);
   }
   return Array.from(t.entries()).map(([s, r]) => {
@@ -539,7 +539,7 @@ const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "a
       return d - f;
     });
     if (c.length === 0) {
-      const u = Dt(s), [, h] = F(u);
+      const u = Dt(s), [, h] = I(u);
       h && c.push(h);
     }
     return {
@@ -551,7 +551,7 @@ const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "a
   const e = /* @__PURE__ */ new Map();
   for (const i of n) {
     if (i.source !== "json") continue;
-    const [s] = F(i.language);
+    const [s] = I(i.language);
     e.has(s) || e.set(s, []), e.get(s).push(i);
   }
   const t = /* @__PURE__ */ new Map();
@@ -569,13 +569,13 @@ const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "a
     r.size > 0 && t.set(i, r);
   }
   return t;
-}, go = {
+}, po = {
   veryLow: 1,
   low: 2,
   normal: 3,
   high: 4,
   veryHigh: 5
-}, pt = (n) => n ? go[n] ?? 0 : 0, re = (n, e, t, i) => {
+}, pt = (n) => n ? po[n] ?? 0 : 0, re = (n, e, t, i) => {
   const s = pt(n.quality), r = pt(e.quality);
   if (t && i && n.source === "json" && e.source === "json") {
     const o = t.get(i);
@@ -586,22 +586,22 @@ const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "a
     }
   }
   return r !== s ? r - s : n.name.localeCompare(e.name);
-}, Ft = (n, e) => {
+}, It = (n, e) => {
   const t = new Map(e.map((r) => [r.baseLang, r])), i = /* @__PURE__ */ new Map(), s = [];
   for (const r of n) {
-    const [o] = F(r.language);
+    const [o] = I(r.language);
     t.get(o) ? (i.has(o) || i.set(o, []), i.get(o).push(r)) : s.push(r);
   }
   return { voicesByLang: i, otherLangVoices: s };
 }, ws = (n, e, t, i) => {
-  const [, s] = F(n.language), [, r] = F(e.language), o = s && t.regions.includes(s), a = r && t.regions.includes(r);
+  const [, s] = I(n.language), [, r] = I(e.language), o = s && t.regions.includes(s), a = r && t.regions.includes(r);
   if (o && a) {
     const d = t.regions.indexOf(s), f = t.regions.indexOf(r);
     return d === f ? re(n, e, i, t.baseLang) : d - f;
   }
   if (o) return -1;
   if (a) return 1;
-  const l = Dt(t.baseLang), [, c] = F(l), u = !!c && s === c, h = !!c && r === c;
+  const l = Dt(t.baseLang), [, c] = I(l), u = !!c && s === c, h = !!c && r === c;
   if (u && !h) return -1;
   if (!u && h) return 1;
   if (s && r) {
@@ -609,15 +609,15 @@ const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "a
     return d !== 0 ? d : re(n, e, i, t.baseLang);
   }
   return s ? -1 : r ? 1 : re(n, e, i, t.baseLang);
-}, po = async (n, e, t) => {
+}, mo = async (n, e, t) => {
   const i = t ?? await ve(n);
   n.sort((s, r) => ws(s, r, e, i));
 }, xs = (n, e, t) => {
-  const [i] = F(n.language), [s] = F(e.language), r = nn(i).toLowerCase(), o = nn(s).toLowerCase(), a = r.localeCompare(o);
+  const [i] = I(n.language), [s] = I(e.language), r = nn(i).toLowerCase(), o = nn(s).toLowerCase(), a = r.localeCompare(o);
   if (a !== 0)
     return a;
   if (i === s) {
-    const l = Dt(i), [, c] = F(n.language), [, u] = F(e.language), h = l && c === l.split("-")[1], d = l && u === l.split("-")[1];
+    const l = Dt(i), [, c] = I(n.language), [, u] = I(e.language), h = l && c === l.split("-")[1], d = l && u === l.split("-")[1];
     if (h && !d) return -1;
     if (!h && d) return 1;
     if (c && u) {
@@ -631,37 +631,40 @@ const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "a
 }, sn = async (n, e) => {
   const t = e ?? await ve(n);
   n.sort((i, s) => xs(i, s, t));
-}, mo = async (n, e) => {
+}, So = async (n, e) => {
   if (!e?.length) return [];
-  const t = It(n || []), { voicesByLang: i, otherLangVoices: s } = Ft(e, t), r = await ve(e), o = [];
+  const t = Ft(n || []), { voicesByLang: i, otherLangVoices: s } = It(e, t), r = await ve(e), o = [];
   for (const a of t) {
     const l = i.get(a.baseLang);
-    l && (await po(l, a, r), o.push(...l));
+    l && (await mo(l, a, r), o.push(...l));
   }
   return await sn(s, r), o.push(...s), o;
-}, So = async (n, e) => {
+}, yo = async (n, e) => {
   if (!e.length) return null;
-  const [t] = It([n]), { voicesByLang: i, otherLangVoices: s } = Ft(e, [t]), r = i.get(t.baseLang), o = r?.length ? r : s, a = await ve(e), l = r?.length ? (c, u) => ws(c, u, t, a) : (c, u) => xs(c, u, a);
+  const [t] = Ft([n]), { voicesByLang: i, otherLangVoices: s } = It(e, [t]), r = i.get(t.baseLang), o = r?.length ? r : s, a = await ve(e), l = r?.length ? (c, u) => ws(c, u, t, a) : (c, u) => xs(c, u, a);
   return o.reduce((c, u) => l(u, c) < 0 ? u : c);
-}, yo = [{ name: "Albert", nativeID: ["com.apple.speech.synthesis.voice.Albert"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bad News", nativeID: ["com.apple.speech.synthesis.voice.BadNews"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Mauvaises nouvelles", "Malas noticias", "Brutte notizie"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bahh", nativeID: ["com.apple.speech.synthesis.voice.Bahh"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bells", nativeID: ["com.apple.speech.synthesis.voice.Bells"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Cloches", "Campanas", "Campane"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Boing", nativeID: ["com.apple.speech.synthesis.voice.Boing"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bubbles", nativeID: ["com.apple.speech.synthesis.voice.Bubbles"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bulles", "Burbujas", "Bollicine"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Cellos", nativeID: ["com.apple.speech.synthesis.voice.Cellos"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Violoncelles", "Violonchelos", "Violoncelli"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Good News", nativeID: ["com.apple.speech.synthesis.voice.GoodNews"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bonnes nouvelles", "Buenas noticias", "Buone notizie"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Jester", nativeID: ["com.apple.speech.synthesis.voice.Hysterical"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bouffon", "Bufón", "Giullare"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Organ", nativeID: ["com.apple.speech.synthesis.voice.Organ"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Orgue", "Órgano", "Organo"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Superstar", nativeID: ["com.apple.speech.synthesis.voice.Princess"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Superestrella"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Trinoids", nativeID: ["com.apple.speech.synthesis.voice.Trinoids"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Trinoïdes"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Whisper", nativeID: ["com.apple.speech.synthesis.voice.Whisper"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Murmure", "Susurro", "Sussurro"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Wobble", nativeID: ["com.apple.speech.synthesis.voice.Deranged"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Zarvox", nativeID: ["com.apple.speech.synthesis.voice.Zarvox"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }], bo = {
-  voices: yo
-}, vo = [{ name: "Eddy", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Flo", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Grandma", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Grandpa", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Jacques", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Reed", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Rocko", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Sandy", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Shelley", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Fred", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Junior", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Kathy", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Ralph", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "eSpeak Arabic", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ar", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Bulgarian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "bg", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Bengali", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "bn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Catalan", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ca", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Chinese (Mandarin, latin as English)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "cmn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Czech", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "cs", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Danish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "da", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak German", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "de", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Greek", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "el", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Spanish (Spain)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "es", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Estonian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "et", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Finnish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "fi", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Gujarati", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "gu", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Croatian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "hr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Hungarian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "hu", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Indonesian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "id", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Italian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "it", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Kannada", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "kn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Korean", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ko", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Lithuanian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "lt", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Latvian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "lv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Malayalm", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ml", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Marathi", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "mr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Malay", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ms", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Norwegian Bokmål", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "nb", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Polish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "pl", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Portuguese (Brazil)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "pt-br", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Romanian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ro", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Russian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ru", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Slovak", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sk", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Slovenian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sl", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Serbian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Swedish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Swahili", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sw", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Tamil", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ta", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Telugu", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "te", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Turkish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "tr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Vietnamese (Northern)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "vi", os: ["ChromeOS"], preloaded: !0 }], wo = {
-  voices: vo
-}, xo = bo, Eo = wo, rn = (n, e) => xo.voices.some(
+}, Es = (n, e) => {
+  const t = n.filter((i) => i.controls?.boundary !== !1 === e);
+  return t.length > 0 ? t : n;
+}, bo = [{ name: "Albert", nativeID: ["com.apple.speech.synthesis.voice.Albert"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bad News", nativeID: ["com.apple.speech.synthesis.voice.BadNews"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Mauvaises nouvelles", "Malas noticias", "Brutte notizie"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bahh", nativeID: ["com.apple.speech.synthesis.voice.Bahh"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bells", nativeID: ["com.apple.speech.synthesis.voice.Bells"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Cloches", "Campanas", "Campane"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Boing", nativeID: ["com.apple.speech.synthesis.voice.Boing"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bubbles", nativeID: ["com.apple.speech.synthesis.voice.Bubbles"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bulles", "Burbujas", "Bollicine"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Cellos", nativeID: ["com.apple.speech.synthesis.voice.Cellos"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Violoncelles", "Violonchelos", "Violoncelli"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Good News", nativeID: ["com.apple.speech.synthesis.voice.GoodNews"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bonnes nouvelles", "Buenas noticias", "Buone notizie"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Jester", nativeID: ["com.apple.speech.synthesis.voice.Hysterical"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bouffon", "Bufón", "Giullare"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Organ", nativeID: ["com.apple.speech.synthesis.voice.Organ"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Orgue", "Órgano", "Organo"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Superstar", nativeID: ["com.apple.speech.synthesis.voice.Princess"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Superestrella"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Trinoids", nativeID: ["com.apple.speech.synthesis.voice.Trinoids"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Trinoïdes"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Whisper", nativeID: ["com.apple.speech.synthesis.voice.Whisper"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Murmure", "Susurro", "Sussurro"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Wobble", nativeID: ["com.apple.speech.synthesis.voice.Deranged"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Zarvox", nativeID: ["com.apple.speech.synthesis.voice.Zarvox"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }], vo = {
+  voices: bo
+}, wo = [{ name: "Eddy", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Flo", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Grandma", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Grandpa", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Jacques", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Reed", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Rocko", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Sandy", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Shelley", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Fred", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Junior", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Kathy", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Ralph", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "eSpeak Arabic", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ar", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Bulgarian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "bg", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Bengali", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "bn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Catalan", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ca", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Chinese (Mandarin, latin as English)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "cmn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Czech", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "cs", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Danish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "da", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak German", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "de", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Greek", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "el", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Spanish (Spain)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "es", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Estonian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "et", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Finnish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "fi", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Gujarati", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "gu", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Croatian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "hr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Hungarian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "hu", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Indonesian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "id", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Italian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "it", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Kannada", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "kn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Korean", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ko", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Lithuanian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "lt", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Latvian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "lv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Malayalm", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ml", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Marathi", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "mr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Malay", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ms", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Norwegian Bokmål", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "nb", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Polish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "pl", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Portuguese (Brazil)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "pt-br", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Romanian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ro", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Russian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ru", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Slovak", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sk", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Slovenian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sl", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Serbian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Swedish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Swahili", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sw", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Tamil", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ta", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Telugu", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "te", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Turkish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "tr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Vietnamese (Northern)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "vi", os: ["ChromeOS"], preloaded: !0 }], xo = {
+  voices: wo
+}, Eo = vo, Co = xo, rn = (n, e) => Eo.voices.some(
   (t) => n.includes(t.name) || e && t.nativeID?.some((i) => e.includes(i)) || t.altNames?.some((i) => n.includes(i))
-), on = (n, e) => Eo.voices.some(
+), on = (n, e) => Co.voices.some(
   (t) => n.includes(t.name)
-) || e === "veryLow", Jn = (n) => n?.length ? n.filter((e) => !(e.isNovelty || rn(e.name, e.voiceURI))) : [], Yn = (n) => n?.length ? n.filter((e) => !on(e.name, e.quality)) : [], Co = { ar: { normal: "محسن", high: "استثنائي" }, ca: { normal: "millorada", high: "prèmium" }, "cmn-CN": { normal: "优化音质", high: "高音质" }, "cmn-TW": { normal: "增強音質", high: "高音質" }, cs: { normal: "vylepšená verze", high: "prémiový" }, da: { normal: "forbedret", high: "høj kvalitet" }, de: { normal: "erweitert", high: "premium" }, el: { normal: "βελτιωμένη", high: "υψηλής ποιότητας" }, en: { normal: "Enhanced", high: "Premium" }, es: { normal: "mejorada", high: "premium" }, fi: { normal: "parannettu", high: "korkealaatuinen" }, fr: { normal: "premium", high: "de qualité" }, he: { normal: "משופר", high: "פרימיום" }, hi: { normal: "बेहतर", high: "प्रीमियम" }, hr: { normal: "poboljšani", high: "vrhunski" }, hu: { normal: "továbbfejlesztett", high: "prémium" }, id: { normal: "Ditingkatkan", high: "Premium" }, it: { normal: "ottimizzata", high: "premium" }, ja: { normal: "拡張", high: "プレミアム" }, ko: { normal: "고품질", high: "프리미엄" }, ms: { normal: "Dipertingkat", high: "Premium" }, nb: { normal: "forbedret", high: "premium" }, nl: { normal: "verbeterd", high: "premium" }, pl: { normal: "rozszerzony", high: "premium" }, pt: { normal: "melhorada", high: "premium" }, ro: { normal: "îmbunătățită", high: "premium" }, ru: { normal: "улучшенный", high: "высшее качество" }, sk: { normal: "vylepšený", high: "prémiový" }, sl: { normal: "izboljšano", high: "prvovrsten" }, sv: { normal: "förbättrad", high: "premium" }, th: { normal: "คุณภาพสูง", high: "คุณภาพสูง" }, tr: { normal: "Geliştirilmiş", high: "Yüksek Kaliteli" }, uk: { normal: "вдосконалений", high: "високої якості" }, vi: { normal: "Nâng cao", high: "Cao cấp" } }, ko = {
-  quality: Co
+) || e === "veryLow", Jn = (n) => n?.length ? n.filter((e) => !(e.isNovelty || rn(e.name, e.voiceURI))) : [], Yn = (n) => n?.length ? n.filter((e) => !on(e.name, e.quality)) : [], ko = { ar: { normal: "محسن", high: "استثنائي" }, ca: { normal: "millorada", high: "prèmium" }, "cmn-CN": { normal: "优化音质", high: "高音质" }, "cmn-TW": { normal: "增強音質", high: "高音質" }, cs: { normal: "vylepšená verze", high: "prémiový" }, da: { normal: "forbedret", high: "høj kvalitet" }, de: { normal: "erweitert", high: "premium" }, el: { normal: "βελτιωμένη", high: "υψηλής ποιότητας" }, en: { normal: "Enhanced", high: "Premium" }, es: { normal: "mejorada", high: "premium" }, fi: { normal: "parannettu", high: "korkealaatuinen" }, fr: { normal: "premium", high: "de qualité" }, he: { normal: "משופר", high: "פרימיום" }, hi: { normal: "बेहतर", high: "प्रीमियम" }, hr: { normal: "poboljšani", high: "vrhunski" }, hu: { normal: "továbbfejlesztett", high: "prémium" }, id: { normal: "Ditingkatkan", high: "Premium" }, it: { normal: "ottimizzata", high: "premium" }, ja: { normal: "拡張", high: "プレミアム" }, ko: { normal: "고품질", high: "프리미엄" }, ms: { normal: "Dipertingkat", high: "Premium" }, nb: { normal: "forbedret", high: "premium" }, nl: { normal: "verbeterd", high: "premium" }, pl: { normal: "rozszerzony", high: "premium" }, pt: { normal: "melhorada", high: "premium" }, ro: { normal: "îmbunătățită", high: "premium" }, ru: { normal: "улучшенный", high: "высшее качество" }, sk: { normal: "vylepšený", high: "prémiový" }, sl: { normal: "izboljšano", high: "prvovrsten" }, sv: { normal: "förbättrad", high: "premium" }, th: { normal: "คุณภาพสูง", high: "คุณภาพสูง" }, tr: { normal: "Geliştirilmiş", high: "Yüksek Kaliteli" }, uk: { normal: "вдосконалений", high: "високої якості" }, vi: { normal: "Nâng cao", high: "Cao cấp" } }, Ro = {
+  quality: ko
 }, an = {
-  apple: ko.quality
+  apple: Ro.quality
   // android: androidQualities.quality
-}, Ro = (n, e, t) => {
+}, Ao = (n, e, t) => {
   if (!n) return;
   const i = Array.isArray(t) ? t : t ? [t] : [];
   for (const s of i)
     if (s && an[s]) {
-      const r = an[s], o = F(e)[0], a = r[e] || r[o];
+      const r = an[s], o = I(e)[0], a = r[e] || r[o];
       if (a) {
         const l = n.toLowerCase(), { normal: c, high: u } = a;
         if (u && l.includes(u.toLowerCase()))
@@ -670,7 +673,7 @@ const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "a
           return "normal";
       }
     }
-}, Ao = (n, e) => {
+}, Oo = (n, e) => {
   const t = an[e];
   if (t)
     for (const [i, { high: s, normal: r }] of Object.entries(t)) {
@@ -678,7 +681,7 @@ const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "a
       if (o && a)
         return i;
     }
-}, Oo = {
+}, No = {
   low: {
     values: ["super-compact", "compact"],
     quality: "low"
@@ -694,17 +697,17 @@ const uo = ["veryLow", "low", "normal", "high", "veryHigh"], ho = ["android", "a
 }, Qn = (n) => {
   if (!n) return;
   const t = n.toLowerCase().split(/[._-]/);
-  for (const i of Object.values(Oo))
+  for (const i of Object.values(No))
     if (i.values.some((s) => t.includes(s)))
       return i.quality;
 };
-function No(n, e) {
+function To(n, e) {
   if (n.name === n.originalName) return n;
   if (e.name === e.originalName) return e;
   const t = [n.originalName, ...n.altNames || []], i = [e.originalName, ...e.altNames || []], s = t.findIndex((o) => i.includes(o)), r = i.findIndex((o) => t.includes(o));
   return s === -1 && r === -1 || s !== -1 && (r === -1 || s <= r) ? n : e;
 }
-function To(n, e) {
+function Do(n, e) {
   if (!n.altNames && !e.altNames)
     return !1;
   const t = n.originalName, i = e.originalName, s = n.altNames || [], r = e.altNames || [];
@@ -762,7 +765,7 @@ class N {
     const i = N.toBaseLangSet(t);
     return e.filter((s) => {
       if (!s?.lang) return !1;
-      const r = B(s.lang), [o] = N.extractLangRegionFromBCP47(r);
+      const r = U(s.lang), [o] = N.extractLangRegionFromBCP47(r);
       return i.has(o);
     });
   }
@@ -773,7 +776,7 @@ class N {
   static toBaseLangSet(e) {
     return new Set(
       e.map((t) => {
-        const i = B(t), [s] = N.extractLangRegionFromBCP47(i);
+        const i = U(t), [s] = N.extractLangRegionFromBCP47(i);
         return s;
       })
     );
@@ -804,7 +807,7 @@ class N {
    * @returns A tuple of [language, region] where language is lowercase and region is UPPERCASE
    */
   static extractLangRegionFromBCP47(e) {
-    return F(e);
+    return I(e);
   }
   /**
    * Clean voice name by removing specific formatting
@@ -843,7 +846,7 @@ class N {
    */
   updateSystemLocale(e) {
     if (!e?.length) return;
-    const t = e.map((s) => s.name), i = Ao(t, "apple");
+    const t = e.map((s) => s.name), i = Oo(t, "apple");
     i && (this.systemLocale = i);
   }
   /**
@@ -860,7 +863,7 @@ class N {
         if (o) return o;
       }
     if (t?.localizedName && e.voiceURI && e.lang) {
-      const r = Ro(
+      const r = Ao(
         e.voiceURI,
         this.systemLocale,
         t.localizedName
@@ -894,8 +897,8 @@ class N {
       const s = `${i.language.toLowerCase()}_${this.normalizeVoiceName(i.name)}`, r = t.get(s);
       if (!r)
         t.set(s, i);
-      else if (To(i, r)) {
-        const o = No(i, r);
+      else if (Do(i, r)) {
+        const o = To(i, r);
         t.set(s, o);
       } else {
         const o = pt(r.quality);
@@ -940,10 +943,10 @@ class N {
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
     const s = i ?? this.voices, r = t ? this.filterVoices(t, s) : s, o = [], a = /* @__PURE__ */ new Set();
     for (const l of r) {
-      const u = B(l.language).split("-")[0];
+      const u = U(l.language).split("-")[0];
       if (!a.has(u)) {
         const h = nn(u, e), d = r.filter(
-          (f) => B(f.language).split("-")[0] === u
+          (f) => U(f.language).split("-")[0] === u
         ).length;
         o.push({ code: u, label: h, count: d }), a.add(u);
       }
@@ -1028,7 +1031,7 @@ class N {
     const t = this.countVoiceDuplicates(e);
     return await Promise.all(
       e.filter((s) => s?.name && s?.lang).map(async (s) => {
-        const r = B(s.lang), [o] = N.extractLangRegionFromBCP47(r), a = this.normalizeVoiceName(s.name), l = `${s.lang.toLowerCase()}_${a}`, c = t.get(l) || 1;
+        const r = U(s.lang), [o] = N.extractLangRegionFromBCP47(r), a = this.normalizeVoiceName(s.name), l = `${s.lang.toLowerCase()}_${a}`, c = t.get(l) || 1;
         let u = await tn(r);
         (!u || u.length === 0) && (u = await tn(o));
         const h = this.findMatchingJsonVoice(u, a), d = this.inferVoiceQuality(s, h, c);
@@ -1154,7 +1157,7 @@ class N {
       const l = [...i];
       return await sn(l), l;
     }
-    const s = It(e), { voicesByLang: r, otherLangVoices: o } = Ft(i, s), a = [];
+    const s = Ft(e), { voicesByLang: r, otherLangVoices: o } = It(i, s), a = [];
     for (const l of s) {
       const c = r.get(l.baseLang);
       c && (await N.sortByDefaultRegion(c, l.baseLang), a.push(...c));
@@ -1168,7 +1171,7 @@ class N {
    * @returns Sorted array of voices
    */
   async sortVoicesByRegions(e, t) {
-    return mo(e, t || this.voices);
+    return So(e, t || this.voices);
   }
   /**
    * Group voices by the specified criteria
@@ -1200,7 +1203,7 @@ class N {
     return i;
   }
 }
-const Do = ["webKit", "moz", "ms", "o"], Io = [
+const Fo = ["webKit", "moz", "ms", "o"], Io = [
   "boundary",
   "end",
   "error",
@@ -1208,10 +1211,10 @@ const Do = ["webKit", "moz", "ms", "o"], Io = [
   "pause",
   "resume",
   "start"
-], Fo = (n) => `${n.charAt(0).toUpperCase()}${n.slice(1)}`, Ne = (n = {}, e) => Object.hasOwnProperty.call(n, e) || e in n || !!n[e], Po = (n) => typeof window < "u" && n in window, Lo = (n) => {
-  const e = Fo(n), t = Do.map((s) => `${s}${e}`), i = [n, e].concat(t).find(Po);
+], Po = (n) => `${n.charAt(0).toUpperCase()}${n.slice(1)}`, Ne = (n = {}, e) => Object.hasOwnProperty.call(n, e) || e in n || !!n[e], Lo = (n) => typeof window < "u" && n in window, $o = (n) => {
+  const e = Po(n), t = Fo.map((s) => `${s}${e}`), i = [n, e].concat(t).find(Lo);
   return i && typeof window < "u" ? window[i] : void 0;
-}, $o = () => {
+}, Mo = () => {
   const n = {};
   [
     "speechSynthesis",
@@ -1220,14 +1223,14 @@ const Do = ["webKit", "moz", "ms", "o"], Io = [
     "speechSynthesisEvent",
     "speechSynthesisErrorEvent"
   ].forEach((t) => {
-    n[t] = Lo(t);
+    n[t] = $o(t);
   }), n.onvoiceschanged = Ne(n.speechSynthesis, "onvoiceschanged"), n.speechSynthesisSpeaking = Ne(n.speechSynthesis, "speaking"), n.speechSynthesisPaused = Ne(n.speechSynthesis, "paused");
   const e = n.speechSynthesisUtterance ? Ne(n.speechSynthesisUtterance, "prototype") : !1;
   return Io.forEach((t) => {
     const i = `on${t}`;
     n[i] = e && n.speechSynthesisUtterance ? Ne(n.speechSynthesisUtterance.prototype, i) : !1;
   }), n;
-}, Mo = () => {
+}, _o = () => {
   const e = typeof window < "u" && (window.navigator || {}).userAgent || "", t = () => /android/i.test(e), i = () => /kaios/i.test(e), s = () => typeof window.InstallTrigger < "u" ? !0 : /firefox/i.test(e), r = () => typeof window.GestureEvent < "u" || /safari/i.test(e);
   return {
     isAndroid: t(),
@@ -1265,44 +1268,44 @@ const ht = (n, e) => Math.min(Math.max(n, 0), Math.max(e - 1, 0));
 function oe(n, e, t, i) {
   return Number.isFinite(n) ? Math.max(e, Math.min(t, n)) : i;
 }
-const ye = "\\p{Pe}\\p{Pf}.,;:!?，。、；：！？،؛؟", ln = "\\p{Ps}\\p{Pi}¿¡", _o = new RegExp(`^[${ye}]`, "u"), Uo = new RegExp(`^[${ln}]`, "u"), Bo = new RegExp("^\\p{P}$", "u");
+const ye = "\\p{Pe}\\p{Pf}.,;:!?，。、；：！？،؛؟", ln = "\\p{Ps}\\p{Pi}¿¡", Bo = new RegExp(`^[${ye}]`, "u"), Uo = new RegExp(`^[${ln}]`, "u"), zo = new RegExp("^\\p{P}$", "u");
 function Ee(n) {
-  return _o.test(n);
-}
-function zo(n) {
-  return Uo.test(n);
-}
-function Vo(n) {
   return Bo.test(n);
 }
-function Es(n) {
-  return n.replace(/[<>]/g, "​");
+function Vo(n) {
+  return Uo.test(n);
 }
 function jo(n) {
+  return zo.test(n);
+}
+function Cs(n) {
+  return n.replace(/[<>]/g, "​");
+}
+function Ho(n) {
   return n.replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&nbsp;/g, " ").replace(/&#(\d+);/g, (e, t) => String.fromCodePoint(Number(t))).replace(/&#x([0-9a-fA-F]+);/g, (e, t) => String.fromCodePoint(parseInt(t, 16)));
 }
 function Xe(n) {
   return n.plain === "" && n.ssml === "" && n.language === "";
 }
-function Ho(n) {
+function Wo(n) {
   if (!n || Xe(n)) return;
   if (n.ssml === "" && n.language === "") return n.plain;
   const e = { language: n.language };
   return n.plain !== "" && (e.plain = n.plain), n.ssml !== "" && (e.ssml = n.ssml), e;
 }
-function Wo(n, e) {
+function Ko(n, e) {
   if (n.lang !== e.lang || n.tag !== e.tag) return !1;
   const t = Object.entries(n.attrs ?? {}), i = Object.entries(e.attrs ?? {});
   return t.length !== i.length ? !1 : t.every(([s, r]) => e.attrs?.[s] === r);
 }
-const X = (n) => n.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"), jt = (n) => n.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"), Ko = /[\u00A0\u2007\u202F]/;
-function qo(n) {
-  return Ko.test(n);
+const X = (n) => n.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;"), jt = (n) => n.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"), qo = /[\u00A0\u2007\u202F]/;
+function Go(n) {
+  return qo.test(n);
 }
 function we(n, e) {
   let t = "", i = !1, s = !1;
   for (const r of n)
-    if (qo(r))
+    if (Go(r))
       t += r, i = !1, s = !0;
     else if (/\s/.test(r)) {
       if (e && !s || i) continue;
@@ -1310,14 +1313,14 @@ function we(n, e) {
     } else r !== "​" && r !== "­" && (t += r, i = !1, s = !0);
   return t;
 }
-const Go = /\s*<readium:[a-zA-Z][\w-]*\s+id="[^"]*"\s*\/>\s*/g;
-function Xo(n) {
-  return n.replace(Go, (t, i, s) => {
+const Xo = /\s*<readium:[a-zA-Z][\w-]*\s+id="[^"]*"\s*\/>\s*/g;
+function Jo(n) {
+  return n.replace(Xo, (t, i, s) => {
     const r = s.slice(i + t.length);
     return r.length === 0 || Ee(r) ? "" : " ";
   }).replace(/ {2,}/g, " ").trim();
 }
-function Jo(n) {
+function Yo(n) {
   return n.includes("<");
 }
 function Rn(n) {
@@ -1325,15 +1328,15 @@ function Rn(n) {
   if (typeof n == "string") return { plain: n };
   const e = { language: n.language };
   if (n.ssml) {
-    const t = Xo(n.ssml);
-    Jo(t) && (e.ssml = t);
+    const t = Jo(n.ssml);
+    Yo(t) && (e.ssml = t);
   }
   return n.plain && (e.plain = n.plain), e.plain || e.ssml ? e : void 0;
 }
 function ae(n) {
-  return Cs(n).plain;
+  return ks(n).plain;
 }
-function Cs(n) {
+function ks(n) {
   let e = "";
   const t = [];
   let i = !1, s = 0;
@@ -1370,26 +1373,26 @@ function Zn(n, e) {
   return t;
 }
 const ei = /* @__PURE__ */ new WeakMap();
-function Yo(n) {
+function Qo(n) {
   return n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
-function Qo(n) {
-  const e = Yo(n), t = /\w/.test(n[0]) ? "(?<!\\w)" : "", i = /\w/.test(n[n.length - 1]) ? "(?!\\w)" : "";
+function Zo(n) {
+  const e = Qo(n), t = /\w/.test(n[0]) ? "(?<!\\w)" : "", i = /\w/.test(n[n.length - 1]) ? "(?!\\w)" : "";
   return `${t}${e}${i}`;
 }
-function Zo(n, e) {
+function ea(n, e) {
   if (typeof e == "string")
-    return { regex: new RegExp(Qo(n), "g"), replace: e };
+    return { regex: new RegExp(Zo(n), "g"), replace: e };
   const t = e.pattern.flags.includes("g") ? e.pattern.flags : `${e.pattern.flags}g`;
   return { regex: new RegExp(e.pattern.source, t), replace: e.replace };
 }
-function ea(n) {
+function ta(n) {
   let e = ei.get(n);
-  return e || (e = Object.entries(n).map(([t, i]) => Zo(t, i)), ei.set(n, e)), e;
+  return e || (e = Object.entries(n).map(([t, i]) => ea(t, i)), ei.set(n, e)), e;
 }
-function ks(n, e) {
+function Rs(n, e) {
   const t = [];
-  for (const r of ea(e))
+  for (const r of ta(e))
     for (const o of n.matchAll(r.regex)) {
       const a = o.index, l = typeof r.replace == "string" ? r.replace : r.replace(...o);
       t.push({ start: a, end: a + o[0].length, replacement: l });
@@ -1401,11 +1404,11 @@ function ks(n, e) {
     r.start < s || (i.push(r), s = r.end);
   return i;
 }
-function ta(n, e) {
+function na(n, e) {
   let t = "";
   const i = [];
   let s = 0;
-  for (const r of ks(n, e)) {
+  for (const r of Rs(n, e)) {
     for (; s < r.start; )
       t += n[s], i.push(s), s++;
     for (let o = 0; o < r.replacement.length; o++)
@@ -1419,18 +1422,18 @@ function ta(n, e) {
 function ti(n, e) {
   return n.length ? e <= 0 ? n[0] : e >= n.length ? n[n.length - 1] + 1 : n[e] : e;
 }
-const na = /<([a-zA-Z][\w-]*)([^>]*)>([\s\S]*?)<\/\1>|<[a-zA-Z][\w-]*\b[^>]*\/>|[^<]+/g;
+const ia = /<([a-zA-Z][\w-]*)([^>]*)>([\s\S]*?)<\/\1>|<[a-zA-Z][\w-]*\b[^>]*\/>|[^<]+/g;
 function ni(n) {
   return n.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 }
-function Rs(n) {
+function As(n) {
   const e = [];
-  for (const t of n.matchAll(na))
+  for (const t of n.matchAll(ia))
     t[1] !== void 0 ? e.push({ kind: "paired", raw: t[0], tag: t[1], attrs: t[2], innerText: ni(t[3]) }) : t[0][0] === "<" ? e.push({ kind: "selfClosing", raw: t[0] }) : e.push({ kind: "text", raw: t[0], text: ni(t[0]) });
   return e;
 }
-function ia(n, e) {
-  const t = Rs(n);
+function sa(n, e) {
+  const t = As(n);
   let i = "", s = !1;
   const r = [], o = t.map(() => []);
   t.forEach((v, C) => {
@@ -1443,7 +1446,7 @@ function ia(n, e) {
     const A = i.length;
     i += R, o[C].push(r.length), r.push({ start: A, end: i.length, atomIndex: C }), R.length > 0 && (s = /\s$/.test(R));
   });
-  const a = ks(i, e);
+  const a = Rs(i, e);
   let l = "", c = "";
   const u = [];
   let h = -2, d = "", f = 0;
@@ -1466,8 +1469,8 @@ function ia(n, e) {
       for (; T < A.end; ) {
         const O = f < a.length ? a[f] : void 0;
         if (O && O.start <= T && O.end > T) {
-          const I = O.start === T, $ = O.end > A.end;
-          if (I) {
+          const F = O.start === T, $ = O.end > A.end;
+          if (F) {
             c += O.replacement;
             for (let Re = 0; Re < O.replacement.length; Re++) u.push(O.start);
             A.atomIndex === -1 || $ ? (g(), l += X(O.replacement)) : (h !== A.atomIndex && (g(), h = A.atomIndex), d += X(O.replacement));
@@ -1477,7 +1480,7 @@ function ia(n, e) {
         }
         const Ze = O ? Math.min(O.start, A.end) : A.end, ue = i.slice(T, Ze);
         c += ue;
-        for (let I = 0; I < ue.length; I++) u.push(T + I);
+        for (let F = 0; F < ue.length; F++) u.push(T + F);
         A.atomIndex === -1 ? (g(), l += X(ue)) : (h !== A.atomIndex && (g(), h = A.atomIndex), d += X(ue)), T = Ze;
       }
     }
@@ -1494,24 +1497,24 @@ function ia(n, e) {
   const S = i.slice(p, m), y = u.slice(b, w).map((v) => Math.min(Math.max(v - p, 0), Math.max(S.length - 1, 0)));
   return { ssml: l, plain: S, map: y };
 }
-const As = /<lang xml:lang="([^"]*)">([\s\S]*?)<\/lang>/g;
-function Os(n) {
-  return new RegExp(As).test(n);
+const Os = /<lang xml:lang="([^"]*)">([\s\S]*?)<\/lang>/g;
+function Ns(n) {
+  return new RegExp(Os).test(n);
 }
 function ii(n) {
   return n.replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/ {2,}/g, " ");
 }
-const sa = new RegExp(
+const ra = new RegExp(
   `\\s+|[${ln}]+|[${ye}]+|[^\\s${ln}${ye}]+`,
   "gu"
 );
 function Ht(n) {
   const e = [];
-  for (const [t] of n.matchAll(sa))
-    /^\s/.test(t) ? e.push({ kind: "space" }) : zo(t) ? e.push({ kind: "open", text: t }) : Ee(t) ? e.push({ kind: "close", text: t }) : e.push({ kind: "word", text: t });
+  for (const [t] of n.matchAll(ra))
+    /^\s/.test(t) ? e.push({ kind: "space" }) : Vo(t) ? e.push({ kind: "open", text: t }) : Ee(t) ? e.push({ kind: "close", text: t }) : e.push({ kind: "word", text: t });
   return e;
 }
-function ra(n) {
+function oa(n) {
   let e = "", t = !1;
   for (const i of n) {
     if (i.kind === "space") {
@@ -1522,20 +1525,20 @@ function ra(n) {
   }
   return e;
 }
-function oa(n) {
+function aa(n) {
   let e = n.length;
   for (; e > 0 && (n[e - 1].kind === "space" || n[e - 1].kind === "open"); ) e--;
   return n.slice(e).some((t) => t.kind === "open") ? n.splice(e) : [];
 }
-function aa(n) {
+function la(n) {
   let e = 0;
   for (; e < n.length && (n[e].kind === "space" || n[e].kind === "close"); ) e++;
   return n.slice(0, e).some((t) => t.kind === "close") ? n.splice(0, e) : [];
 }
-function Ns(n, e) {
+function Ts(n, e) {
   const t = [];
   let i = 0;
-  for (const o of n.matchAll(As))
+  for (const o of n.matchAll(Os))
     t.push({
       tokens: Ht(ii(n.slice(i, o.index))),
       language: e,
@@ -1547,23 +1550,23 @@ function Ns(n, e) {
     tagged: !1
   });
   for (let o = 0; o < t.length - 1; o++)
-    !t[o].tagged && t[o + 1].tagged ? t[o + 1].tokens.unshift(...oa(t[o].tokens)) : t[o].tagged && !t[o + 1].tagged && t[o].tokens.push(...aa(t[o + 1].tokens));
+    !t[o].tagged && t[o + 1].tagged ? t[o + 1].tokens.unshift(...aa(t[o].tokens)) : t[o].tagged && !t[o + 1].tagged && t[o].tokens.push(...la(t[o + 1].tokens));
   const s = [];
   let r = 0;
   for (const o of t) {
-    const a = ra(o.tokens);
+    const a = oa(o.tokens);
     a && (s.push({ plain: a, language: o.language, start: r, end: r + a.length }), r += a.length);
   }
   return s;
 }
-const Ts = /<readium:[a-zA-Z][\w-]*\s+id="([^"]*)"\s*\/>/g;
-function la(n) {
-  return new RegExp(Ts).test(n);
-}
+const Ds = /<readium:[a-zA-Z][\w-]*\s+id="([^"]*)"\s*\/>/g;
 function ca(n) {
+  return new RegExp(Ds).test(n);
+}
+function ua(n) {
   const e = [];
   let t = 0;
-  for (const s of n.matchAll(Ts)) {
+  for (const s of n.matchAll(Ds)) {
     const r = n.slice(t, s.index).trim();
     r && e.push({ ssml: r }), e.push({ placeholderId: s[1] }), t = s.index + s[0].length;
   }
@@ -1582,6 +1585,8 @@ class si {
   voices = [];
   defaultVoice = null;
   speakInContentLanguage = !1;
+  // Keyed by `${language}:${needsBoundary}` — the boundary requirement rides in the key
+  // so a voice switch that flips it warms/reads a distinct slot instead of a stale one.
   languageVoiceCache = /* @__PURE__ */ new Map();
   warmingLanguages = /* @__PURE__ */ new Map();
   speakGeneration = 0;
@@ -1605,7 +1610,7 @@ class si {
   features;
   patches;
   constructor() {
-    if (this.features = $o(), this.patches = Mo(), !this.features.speechSynthesis || !this.features.speechSynthesisUtterance)
+    if (this.features = Mo(), this.patches = _o(), !this.features.speechSynthesis || !this.features.speechSynthesisUtterance)
       throw new Error("Web Speech API is not available in this environment");
     this.speechSynthesis = this.features.speechSynthesis, this.speechSynthesisUtterance = this.features.speechSynthesisUtterance;
   }
@@ -1656,8 +1661,11 @@ class si {
   }
   // No cross-region fallback: fr-FR content must not match an fr-CA voice.
   voiceMatchesLanguage(e, t) {
-    const [i, s] = F(t), [r, o] = F(e.language);
+    const [i, s] = I(t), [r, o] = I(e.language);
     return r === i && (!s || o === s);
+  }
+  languageCacheKey(e, t) {
+    return `${e}:${t}`;
   }
   // Returns `undefined` (not a fallback voice) when content.language hasn't
   // been warmed into languageVoiceCache yet — callers must await for it.
@@ -1665,11 +1673,12 @@ class si {
     const t = this.getCurrentVoiceForUtterance(this.currentVoice);
     if (!this.speakInContentLanguage || !e.language)
       return t;
-    const i = B(e.language);
+    const i = U(e.language);
     if (t && this.voiceMatchesLanguage(t, i))
       return t;
-    if (this.languageVoiceCache.has(i))
-      return this.languageVoiceCache.get(i) ?? t;
+    const s = t?.controls?.boundary !== !1, r = this.languageCacheKey(i, s);
+    if (this.languageVoiceCache.has(r))
+      return this.languageVoiceCache.get(r) ?? t;
   }
   // Awaits warming for a not-yet-seen content language rather than falling back
   // to the wrong-language voice.
@@ -1677,24 +1686,24 @@ class si {
     const t = this.voiceForUtteranceSync(e);
     return t !== void 0 ? t : (await this.warmLanguageVoiceCache([e]), this.voiceForUtteranceSync(e) ?? this.getCurrentVoiceForUtterance(this.currentVoice));
   }
-  // Dedupes in-flight warms per language so an awaited call and a
-  // fire-and-forget one for the same language don't redo the work.
+  // Dedupes in-flight warms per (language, boundary requirement) so an awaited call and a
+  // fire-and-forget one for the same slot don't redo the work.
   async warmLanguageVoiceCache(e) {
     if (!this.speakInContentLanguage || !this.voiceManager)
       return;
-    const t = new Set(
-      e.map((o) => o.language).filter((o) => !!o).map((o) => B(o)).filter((o) => !this.languageVoiceCache.has(o))
-    ), i = [...t].filter((o) => this.warmingLanguages.has(o)), r = [...t].filter((o) => !this.warmingLanguages.has(o)).map((o) => {
-      const a = (async () => {
-        await N.initialize({ languages: [o] }), this.voices = this.voiceManager.getVoices();
-        const l = this.voices.filter((h) => this.voiceMatchesLanguage(h, o)), u = (await this.voiceManager.sortVoicesByQuality(l))[0] ?? null;
-        this.languageVoiceCache.set(o, u), u || this.emitEvent({ type: "languagefallback", detail: { language: o, reason: "no-matching-voice" } });
+    const t = this.getCurrentVoiceForUtterance(this.currentVoice)?.controls?.boundary !== !1, i = new Set(
+      e.map((a) => a.language).filter((a) => !!a).map((a) => U(a)).filter((a) => !this.languageVoiceCache.has(this.languageCacheKey(a, t)))
+    ), s = [...i].filter((a) => this.warmingLanguages.has(this.languageCacheKey(a, t))), o = [...i].filter((a) => !this.warmingLanguages.has(this.languageCacheKey(a, t))).map((a) => {
+      const l = this.languageCacheKey(a, t), c = (async () => {
+        await N.initialize({ languages: [a] }), this.voices = this.voiceManager.getVoices();
+        const u = this.voices.filter((g) => this.voiceMatchesLanguage(g, a)), h = Es(u, t), f = (await this.voiceManager.sortVoicesByQuality(h))[0] ?? null;
+        this.languageVoiceCache.set(l, f), f || this.emitEvent({ type: "languagefallback", detail: { language: a, reason: "no-matching-voice" } });
       })();
-      return this.warmingLanguages.set(o, a.finally(() => this.warmingLanguages.delete(o))), this.warmingLanguages.get(o);
+      return this.warmingLanguages.set(l, c.finally(() => this.warmingLanguages.delete(l))), this.warmingLanguages.get(l);
     });
     await Promise.all([
-      ...r,
-      ...i.map((o) => this.warmingLanguages.get(o))
+      ...o,
+      ...s.map((a) => this.warmingLanguages.get(this.languageCacheKey(a, t)))
     ]);
   }
   getCurrentVoice() {
@@ -1712,7 +1721,7 @@ class si {
   toPlainText(e) {
     return e.map((t) => ({
       ...t,
-      plain: t.plain ?? (t.ssml ? ae(jo(t.ssml)) : "")
+      plain: t.plain ?? (t.ssml ? ae(Ho(t.ssml)) : "")
     }));
   }
   // Queue Management
@@ -1765,7 +1774,7 @@ class si {
     }
     const t = this.currentUtterances[this.currentUtteranceIndex], i = t.plain ?? "";
     this.validateText(i);
-    const s = this.createUtterance(Es(i)), r = await this.voiceForUtterance(t);
+    const s = this.createUtterance(Cs(i)), r = await this.voiceForUtterance(t);
     if (e === this.speakGeneration) {
       if (r && this.voiceManager) {
         const o = this.voiceManager.convertToSpeechSynthesisVoice(r);
@@ -1909,7 +1918,7 @@ class si {
     this.stop(), this.stopResumeInfinity(), this.events.clear(), this.currentUtterances = [], this.currentVoice = null, this.voices = [], this.defaultVoice = null, this.languageVoiceCache.clear(), this.warmingLanguages.clear(), this.initialized = !1;
   }
 }
-class vd {
+class wd {
   id = "webspeech";
   name = "Web Speech API";
   voiceEngine = null;
@@ -1925,11 +1934,11 @@ class vd {
     this.voiceEngine && (await this.voiceEngine.destroy(), this.voiceEngine = null);
   }
 }
-function Ds(n, e) {
+function Fs(n, e) {
   const t = [];
   let i = -1, s = -1;
   const r = () => {
-    i !== -1 && (t.push({ text: ua(n, i, s), offset: n[i].offset }), i = -1, s = -1);
+    i !== -1 && (t.push({ text: ha(n, i, s), offset: n[i].offset }), i = -1, s = -1);
   };
   for (let o = 0; o < n.length; o++) {
     const a = n[o];
@@ -1942,14 +1951,14 @@ function Ds(n, e) {
   }
   return r(), t;
 }
-function ua(n, e, t) {
+function ha(n, e, t) {
   const i = n[e], s = n[t];
   return i === s ? i.text : n.slice(e, t + 1).map((r) => r.text).join("");
 }
 const Is = new RegExp(
   `[^${ye}]*[${ye}]+\\s*|[^${ye}]+$`,
   "gu"
-), ha = /\S+\s*|\s+/g;
+), da = /\S+\s*|\s+/g;
 function An(n, e, t) {
   const i = [];
   for (const s of n.matchAll(t))
@@ -1959,7 +1968,7 @@ function An(n, e, t) {
 function On(n, e) {
   if (n.text.length <= e || n.atomic)
     return [n];
-  const t = An(n.text, n.offset, ha);
+  const t = An(n.text, n.offset, da);
   if (t.length > 1)
     return t.flatMap((o) => On(o, e));
   const i = [];
@@ -1968,23 +1977,23 @@ function On(n, e) {
     r.length > 0 && r.length + o.length > e && (i.push({ text: r, offset: s, atomic: !1 }), s += r.length, r = ""), r += o;
   return r.length > 0 && i.push({ text: r, offset: s, atomic: !1 }), i;
 }
-function da(n, e) {
+function fa(n, e) {
   if (n.length <= e)
     return [{ text: n, offset: 0 }];
   const i = An(n, 0, Is).flatMap((s) => On(s, e));
-  return Ds(i, e);
+  return Fs(i, e);
 }
-const fa = /<([a-zA-Z][\w-]*)\b[^>]*>[\s\S]*?<\/\1>|<[a-zA-Z][\w-]*\b[^>]*\/>|[^<]+/g;
-function ga(n, e) {
+const ga = /<([a-zA-Z][\w-]*)\b[^>]*>[\s\S]*?<\/\1>|<[a-zA-Z][\w-]*\b[^>]*\/>|[^<]+/g;
+function pa(n, e) {
   if (n.length <= e)
     return [{ text: n, offset: 0 }];
   const t = [];
-  for (const s of n.matchAll(fa))
+  for (const s of n.matchAll(ga))
     s[0][0] === "<" ? t.push({ text: s[0], offset: s.index, atomic: !0 }) : t.push(...An(s[0], s.index, Is));
   const i = t.flatMap((s) => On(s, e));
-  return Ds(i, e);
+  return Fs(i, e);
 }
-const pa = {
+const ma = {
   wav: "audio/wav",
   mp3: "audio/mpeg",
   opus: "audio/ogg",
@@ -1994,31 +2003,31 @@ const pa = {
   webm: "audio/webm",
   m4a: "audio/mp4"
 };
-function ma(n) {
-  return pa[n] ?? `audio/${n}`;
+function Sa(n) {
+  return ma[n] ?? `audio/${n}`;
 }
-const Sa = ["flac", "wav", "opus", "aac", "ogg", "webm", "mp3"], ya = ["opus", "aac", "webm", "ogg", "mp3", "wav", "flac"];
-function ba(n, e, t) {
-  const i = (a) => t(ma(a)) !== "", s = n.formats.filter(i);
+const ya = ["flac", "wav", "opus", "aac", "ogg", "webm", "mp3"], ba = ["opus", "aac", "webm", "ogg", "mp3", "wav", "flac"];
+function va(n, e, t) {
+  const i = (a) => t(Sa(a)) !== "", s = n.formats.filter(i);
   if (e.preferredFormat && s.includes(e.preferredFormat))
     return e.preferredFormat;
-  const r = e.strategy === "bandwidth" ? ya : Sa, o = [...r, ...s.filter((a) => !r.includes(a))];
+  const r = e.strategy === "bandwidth" ? ba : ya, o = [...r, ...s.filter((a) => !r.includes(a))];
   for (const a of o)
     if (s.includes(a))
       return a;
   return n.default;
 }
-const va = /* @__PURE__ */ new Set(["wav", "flac"]), wa = {
+const wa = /* @__PURE__ */ new Set(["wav", "flac"]), xa = {
   mp3: 48e3,
   opus: 24e3,
   aac: 48e3,
   ogg: 48e3,
   webm: 32e3
 };
-function xa(n, e, t) {
-  return va.has(n) || !e || !t ? void 0 : t.saveData === !0 || /2g/.test(t.effectiveType ?? "") ? wa[n] : void 0;
+function Ea(n, e, t) {
+  return wa.has(n) || !e || !t ? void 0 : t.saveData === !0 || /2g/.test(t.effectiveType ?? "") ? xa[n] : void 0;
 }
-function Fs(n, e) {
+function Ps(n, e) {
   return {
     source: "server",
     label: n.name,
@@ -2042,17 +2051,17 @@ class je extends Error {
     super(e), this.name = "SpeechServerError", this.status = t.status, this.type = t.type, this.title = t.title, this.instance = t.instance;
   }
 }
-class Ps extends je {
+class Ls extends je {
   constructor(e) {
     super(e, { status: 408, type: "https://readium.org/speech-server/error#stall", title: "Synthesis Stalled" }), this.name = "SpeechServerStallError";
   }
 }
-class Ls extends Error {
+class $s extends Error {
   constructor(e) {
     super(e), this.name = "SpeechServerAudioDecodeError";
   }
 }
-class $s extends Error {
+class Ms extends Error {
   constructor(e) {
     super(e), this.name = "SpeechServerNetworkError";
   }
@@ -2071,23 +2080,23 @@ async function _e(n) {
     }
   return new je(`Request failed with status ${n.status}`, { status: n.status });
 }
-const Ea = 3, Ca = 400;
-function ka(n) {
+const Ca = 3, ka = 400;
+function Ra(n) {
   const e = atob(n), t = new Uint8Array(e.length);
   for (let i = 0; i < e.length; i++)
     t[i] = e.charCodeAt(i);
   return t.buffer;
 }
-function Ra(n) {
+function Aa(n) {
   return oe(n, 0.25, 4, 1);
 }
 function tt(n) {
   return n?.plain ?? n?.ssml ?? void 0;
 }
 function ri(n) {
-  return n instanceof Ps ? { message: n.message, status: n.status, type: n.type, title: n.title, instance: n.instance, recoverable: !0 } : n instanceof je ? { message: n.message, status: n.status, type: n.type, title: n.title, instance: n.instance, recoverable: !1 } : n instanceof Ls ? { message: n.message, recoverable: !1 } : n instanceof $s ? { message: n.message, recoverable: !0 } : n instanceof Error ? { message: n.message, recoverable: !1 } : { message: String(n), recoverable: !1 };
+  return n instanceof Ls ? { message: n.message, status: n.status, type: n.type, title: n.title, instance: n.instance, recoverable: !0 } : n instanceof je ? { message: n.message, status: n.status, type: n.type, title: n.title, instance: n.instance, recoverable: !1 } : n instanceof $s ? { message: n.message, recoverable: !1 } : n instanceof Ms ? { message: n.message, recoverable: !0 } : n instanceof Error ? { message: n.message, recoverable: !1 } : { message: String(n), recoverable: !1 };
 }
-class Aa {
+class Oa {
   endpoints;
   fetchImpl;
   currentVoice = null;
@@ -2126,7 +2135,7 @@ class Aa {
   pitch = 1;
   volume = 1;
   constructor(e) {
-    this.endpoints = e.endpoints, this.fetchImpl = e.fetch ?? fetch.bind(globalThis), this.prefetchWindow = e.prefetchWindow ?? Ea, this.readyBufferChars = e.readyBufferChars ?? Ca, this.overLengthText = e.overLengthText ?? "split", this.timeoutMs = e.timeoutMs, this.formatOptions = e.format ?? {}, this.canPlayType = typeof Audio < "u" ? (t) => new Audio().canPlayType(t) : () => "";
+    this.endpoints = e.endpoints, this.fetchImpl = e.fetch ?? fetch.bind(globalThis), this.prefetchWindow = e.prefetchWindow ?? Ca, this.readyBufferChars = e.readyBufferChars ?? ka, this.overLengthText = e.overLengthText ?? "split", this.timeoutMs = e.timeoutMs, this.formatOptions = e.format ?? {}, this.canPlayType = typeof Audio < "u" ? (t) => new Audio().canPlayType(t) : () => "";
   }
   // Lets a provider that already fetched /voices seed this engine without a second request.
   setAvailableVoices(e) {
@@ -2138,7 +2147,7 @@ class Aa {
     try {
       return await this.fetchImpl(e, t);
     } catch (i) {
-      throw i instanceof TypeError ? new $s(i.message) : i;
+      throw i instanceof TypeError ? new Ms(i.message) : i;
     }
   }
   loadUtterances(e, t) {
@@ -2201,7 +2210,7 @@ class Aa {
     if (!e.ok)
       throw await _e(e);
     const i = await e.json(), s = new Map(t.providers.map((r) => [r.id, r.controls]));
-    return this.voices = i.map((r) => Fs(r, s.get(r.provider))), this.voices;
+    return this.voices = i.map((r) => Ps(r, s.get(r.provider))), this.voices;
   }
   // Cached after the first successful fetch; a failed fetch isn't cached, so the next
   // synthesize() call retries rather than being stuck on a transient network error.
@@ -2295,7 +2304,7 @@ class Aa {
     this.liveControllers.forEach((e) => e.abort()), this.liveControllers.clear();
   }
   async synthesizeStream(e, t) {
-    const i = this.currentUtterances[e], s = !i.plain && !!i.ssml, r = this.speakInContentLanguage ? i.language : void 0, o = tt(i) ?? "", a = s ? Cs(o).map : void 0, l = tt(this.currentUtterances[e - 1]), c = tt(this.currentUtterances[e + 1]), u = await this.getServiceInfo(), h = ba(u.output, this.formatOptions, this.canPlayType), d = navigator.connection, f = xa(h, this.formatOptions.adaptBitrateToNetwork ?? !1, d);
+    const i = this.currentUtterances[e], s = !i.plain && !!i.ssml, r = this.speakInContentLanguage ? i.language : void 0, o = tt(i) ?? "", a = s ? ks(o).map : void 0, l = tt(this.currentUtterances[e - 1]), c = tt(this.currentUtterances[e + 1]), u = await this.getServiceInfo(), h = va(u.output, this.formatOptions, this.canPlayType), d = navigator.connection, f = Ea(h, this.formatOptions.adaptBitrateToNetwork ?? !1, d);
     if (o.length <= u.limits.maxTextLength) {
       const w = new AbortController();
       return (t ? this.activeControllers : this.liveControllers).add(w), [{
@@ -2312,7 +2321,7 @@ class Aa {
           title: "Payload Too Large"
         }
       );
-    const g = Math.min(u.limits.maxTextLength, this.readyBufferChars), p = s ? ga(o, g) : da(o, g), m = [];
+    const g = Math.min(u.limits.maxTextLength, this.readyBufferChars), p = s ? pa(o, g) : fa(o, g), m = [];
     let b = Promise.resolve();
     for (let w = 0; w < p.length; w++) {
       const S = w === 0 ? l : p[w - 1].text, y = w === p.length - 1 ? c : p[w + 1].text, v = p[w], C = new AbortController();
@@ -2332,7 +2341,7 @@ class Aa {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: t.id,
-          text: r ? i : Es(i),
+          text: r ? i : Cs(i),
           ssml: r,
           language: a,
           voice: this.currentVoice?.identifier ?? this.currentVoice?.name,
@@ -2345,12 +2354,12 @@ class Aa {
       });
       if (!f.ok)
         throw await _e(f);
-      const g = await f.json(), p = ka(g.audio);
+      const g = await f.json(), p = Ra(g.audio);
       let m;
       try {
         m = await this.ensureAudioContext().decodeAudioData(p);
       } catch {
-        throw new Ls("Audio playback failed");
+        throw new $s("Audio playback failed");
       }
       return { audioBuffer: m, format: g.format, boundaries: g.boundaries, textOffset: s, ssmlMap: o };
     } finally {
@@ -2371,7 +2380,7 @@ class Aa {
     const s = i + this.timeoutMs;
     return new Promise((r, o) => {
       const a = setTimeout(() => {
-        t.abort(), o(new Ps(`No audio chunk arrived within ${s.toFixed(0)}ms of the playback buffer running dry`));
+        t.abort(), o(new Ls(`No audio chunk arrived within ${s.toFixed(0)}ms of the playback buffer running dry`));
       }, s);
       e.then(
         (l) => {
@@ -2388,7 +2397,7 @@ class Aa {
     const i = await this.awaitWithStallDeadline(e[0].promise, e[0].controller, 0);
     if (t !== this.speakGeneration)
       return;
-    const s = this.ensureAudioContext(), r = this.masterGain, a = this.currentVoice?.controls?.speed === !0 ? 1 : Ra(this.rate);
+    const s = this.ensureAudioContext(), r = this.masterGain, a = this.currentVoice?.controls?.speed === !0 ? 1 : Aa(this.rate);
     this.scheduledChunks = [], this.setState("playing"), this.emitEvent({ type: "start" });
     let l = s.currentTime, c = null;
     const u = (h) => {
@@ -2543,7 +2552,7 @@ class Aa {
     this.stop(), await this.audioContext?.close(), this.audioContext = null, this.masterGain = null, this.events.clear(), this.currentUtterances = [], this.currentVoice = null, this.voices = [];
   }
 }
-class wd {
+class xd {
   id = "speech-server";
   name = "Readium Speech Server";
   options;
@@ -2564,20 +2573,20 @@ class wd {
     if (!i.ok)
       throw await _e(i);
     const s = await t.json(), r = await i.json(), o = new Map(r.providers.map((a) => [a.id, a.controls]));
-    return this.voices = s.map((a) => Fs(a, o.get(a.provider))), this.voices;
+    return this.voices = s.map((a) => Ps(a, o.get(a.provider))), this.voices;
   }
   async createEngine(e) {
-    const t = new Aa(this.options);
+    const t = new Oa(this.options);
     return this.voices.length > 0 && t.setAvailableVoices(this.voices), e && t.setVoice(e), t;
   }
   async destroy() {
     this.voices = [];
   }
 }
-function Oa(n) {
+function Na(n) {
   return n.detail?.recoverable === !0;
 }
-const Na = 3e4, Ta = [
+const Ta = 3e4, Da = [
   "start",
   "pause",
   "resume",
@@ -2592,7 +2601,7 @@ const Na = 3e4, Ta = [
   "voiceschanged",
   "languagefallback"
 ];
-class Da {
+class Fa {
   activeEngine;
   primaryProvider;
   fallbackProvider;
@@ -2627,7 +2636,7 @@ class Da {
   events = new Pt();
   unbindActiveEngine = null;
   constructor(e) {
-    this.activeEngine = e.primaryEngine, this.primaryProvider = e.primaryProvider, this.fallbackProvider = e.fallbackProvider, this.onFailure = e.onFailure ?? "fallback", this.healthCheckIntervalMs = e.healthCheckIntervalMs ?? Na, this.lastVoiceRequest = e.primaryEngine.getCurrentVoice() ?? void 0, this.bindActiveEngine();
+    this.activeEngine = e.primaryEngine, this.primaryProvider = e.primaryProvider, this.fallbackProvider = e.fallbackProvider, this.onFailure = e.onFailure ?? "fallback", this.healthCheckIntervalMs = e.healthCheckIntervalMs ?? Ta, this.lastVoiceRequest = e.primaryEngine.getCurrentVoice() ?? void 0, this.bindActiveEngine();
   }
   async initialize() {
     return this.activeEngine.initialize?.();
@@ -2727,13 +2736,13 @@ class Da {
     this.events.emit(e.type, e);
   }
   bindActiveEngine() {
-    const e = this.activeEngine, t = Ta.map((i) => e.on(i, (s) => {
+    const e = this.activeEngine, t = Da.map((i) => e.on(i, (s) => {
       this.emitEvent(s), this.maybeRecoverNow();
     }));
     t.push(e.on("error", (i) => this.handleError(i))), this.unbindActiveEngine = () => t.forEach((i) => i());
   }
   handleError(e) {
-    if (this.hasFallenBack || this.swapInFlight || this.onFailure === "error" || !Oa(e)) {
+    if (this.hasFallenBack || this.swapInFlight || this.onFailure === "error" || !Na(e)) {
       this.emitEvent(e);
       return;
     }
@@ -2774,7 +2783,7 @@ class Da {
     await this.performSwap(
       async () => {
         const s = this.activeEngine.getCurrentVoice() ?? (typeof this.lastVoiceRequest == "object" ? this.lastVoiceRequest : null), r = s?.language || this.currentUtterances[this.desiredIndex]?.language || (typeof navigator < "u" ? navigator.language : "en");
-        if (t = await this.pickBestFallbackVoice(r, s?.gender), !t) throw new Error("no offline-available fallback voice found");
+        if (t = await this.pickBestFallbackVoice(r, s?.gender, s?.controls?.boundary !== !1), !t) throw new Error("no offline-available fallback voice found");
         return this.fallbackProvider.createEngine(t);
       },
       () => (this.hasFallenBack = !0, this.onFailure === "fallbackAndRecover" && this.startHealthCheck(), { type: "enginefallback", detail: { reason: e.detail, voice: t } }),
@@ -2815,21 +2824,24 @@ class Da {
   // Only skip the offlineAvailability filter when navigator.onLine is confirmed true — unknown
   // (unimplemented navigator.onLine) defaults to restricting, not to allowing online voices.
   //
-  // Language narrows first, gender second: a same-language wrong-gender voice beats a
-  // different-language right-gender one. Falls back to any language if none matches, then to
-  // any gender within that if none matches. Region/quality ranking within the final candidate
-  // set is delegated to pickBestVoiceByRegion, the same ranking logic sortVoicesByRegions uses.
-  async pickBestFallbackVoice(e, t) {
-    const i = await this.fallbackProvider.getVoices(), r = typeof navigator < "u" && navigator.onLine === !0 ? i : i.filter((d) => d.offlineAvailability === !0);
-    if (r.length === 0) return null;
-    const [o] = It([e]), { voicesByLang: a } = Ft(r, [o]), l = a.get(o.baseLang) ?? [], c = l.length > 0 ? l : r, u = t ? c.filter((d) => d.gender === t) : [], h = u.length > 0 ? u : c;
-    return So(e, h);
+  // Language narrows first, gender second, boundary-support third: a same-language wrong-gender
+  // voice beats a different-language right-gender one, and a same-gender voice that drops
+  // boundary events beats one that also mismatches on boundary support. Falls back to any
+  // language if none matches, then to any gender within that if none matches, then to any
+  // boundary support within that if none matches. Region/quality ranking within the final
+  // candidate set is delegated to pickBestVoiceByRegion, the same ranking logic
+  // sortVoicesByRegions uses.
+  async pickBestFallbackVoice(e, t, i) {
+    const s = await this.fallbackProvider.getVoices(), o = typeof navigator < "u" && navigator.onLine === !0 ? s : s.filter((g) => g.offlineAvailability === !0);
+    if (o.length === 0) return null;
+    const [a] = Ft([e]), { voicesByLang: l } = It(o, [a]), c = l.get(a.baseLang) ?? [], u = c.length > 0 ? c : o, h = t ? u.filter((g) => g.gender === t) : [], d = h.length > 0 ? h : u, f = Es(d, i);
+    return yo(e, f);
   }
   async destroy() {
     this.teardownEpoch++, this.healthCheckTimer !== null && (clearTimeout(this.healthCheckTimer), this.healthCheckTimer = null), this.unbindActiveEngine?.(), this.events.clear(), await this.activeEngine.destroy();
   }
 }
-class xd {
+class Ed {
   id = "fallback";
   name = "Fallback";
   primary;
@@ -2857,7 +2869,7 @@ class xd {
         throw i;
       return this.fallback.createEngine(e);
     }
-    return new Da({
+    return new Fa({
       primaryEngine: t,
       primaryProvider: this.primary,
       fallbackProvider: this.fallback,
@@ -2871,15 +2883,15 @@ class xd {
 }
 let Ia = class {
 };
-function Fa(n) {
+function Pa(n) {
   return (n.getComputedStyle(n.document.documentElement).writingMode || n.getComputedStyle(n.document.body).writingMode) === "vertical-lr";
 }
-function Pa(n) {
+function La(n) {
   const e = n.getComputedStyle(n.document.documentElement).writingMode || n.getComputedStyle(n.document.body).writingMode;
   return e === "vertical-rl" || e === "vertical-lr";
 }
 function he(n) {
-  const e = Pa(n), t = e && Fa(n), i = n.innerWidth, s = n.innerHeight, r = n.document.scrollingElement, o = r.scrollLeft, a = r.scrollTop, l = parseInt(n.getComputedStyle(n.document.documentElement).getPropertyValue("column-count")), c = e && !t ? r.scrollWidth - i + o : o, u = a;
+  const e = La(n), t = e && Pa(n), i = n.innerWidth, s = n.innerHeight, r = n.document.scrollingElement, o = r.scrollLeft, a = r.scrollTop, l = parseInt(n.getComputedStyle(n.document.documentElement).getPropertyValue("column-count")), c = e && !t ? r.scrollWidth - i + o : o, u = a;
   return { isVertical: e, isVertLR: t, viewportInlineSize: e ? s : i, viewportBlockSize: e ? i : s, pageInlineSize: e ? s : i / (l || 1), xDocOffset: c, yDocOffset: u, inlineScrollOffset: e ? u : c, blockScrollOffset: e ? c : u, inlineStart: (h) => e ? h.top : h.left, blockStart: (h) => e ? h.left : h.top, inlineSize: (h) => e ? h.height : h.width, blockSize: (h) => e ? h.width : h.height, applyPosition(h, d, f, g, p, m) {
     h.style.position = "absolute", h.style.zIndex = "2147483646", e ? (h.style.top = `${d * m}px`, h.style.left = `${f * m}px`, h.style.height = `${g * m}px`, h.style.width = `${p * m}px`) : (h.style.left = `${d * m}px`, h.style.top = `${f * m}px`, h.style.width = `${g * m}px`, h.style.height = `${p * m}px`);
   }, toRect(h, d, f, g) {
@@ -2889,11 +2901,11 @@ function he(n) {
 function oi(n, e) {
   return n.document.documentElement.style.getPropertyValue(e);
 }
-function La(n) {
+function $a(n) {
   return n && Array.isArray(n) ? n : void 0;
 }
-function $a(n) {
-  return n && typeof n == "string" ? [n] : La(n);
+function Ma(n) {
+  return n && typeof n == "string" ? [n] : $a(n);
 }
 function dt(n) {
   return isNaN(n) ? void 0 : n;
@@ -2901,7 +2913,7 @@ function dt(n) {
 function Wt(n) {
   return dt(n) !== void 0 && Math.sign(n) >= 0 ? n : void 0;
 }
-let mt = class Ms {
+let mt = class _s {
   constructor(e) {
     this.cssSelector = e.cssSelector, this.textNodeIndex = e.textNodeIndex, this.charOffset = e.charOffset;
   }
@@ -2910,13 +2922,13 @@ let mt = class Ms {
     let t = Wt(e.textNodeIndex);
     if (t === void 0) return;
     let i = Wt(e.charOffset);
-    return i === void 0 && (i = Wt(e.offset)), new Ms({ cssSelector: e.cssSelector, textNodeIndex: t, charOffset: i });
+    return i === void 0 && (i = Wt(e.offset)), new _s({ cssSelector: e.cssSelector, textNodeIndex: t, charOffset: i });
   }
   serialize() {
     const e = { cssSelector: this.cssSelector, textNodeIndex: this.textNodeIndex };
     return this.charOffset !== void 0 && (e.charOffset = this.charOffset), e;
   }
-}, _s = class Us {
+}, Bs = class Us {
   constructor(e) {
     this.start = e.start, this.end = e.end;
   }
@@ -2930,14 +2942,14 @@ let mt = class Ms {
     return this.end && (e.end = this.end.serialize()), e;
   }
 }, nt = null, Kt = null, Te = 0;
-const ge = { r: 255, g: 255, b: 255, a: 1 }, de = /* @__PURE__ */ new Map(), Ma = () => {
+const ge = { r: 255, g: 255, b: 255, a: 1 }, de = /* @__PURE__ */ new Map(), _a = () => {
   if (!nt) if (typeof OffscreenCanvas < "u") nt = new OffscreenCanvas(5, 5), Kt = nt.getContext("2d", { willReadFrequently: !0, desynchronized: !0 });
   else {
     const n = document.createElement("canvas");
     n.width = 5, n.height = 5, nt = n, Kt = n.getContext("2d", { willReadFrequently: !0, desynchronized: !0 });
   }
   return Kt;
-}, _a = (n) => {
+}, Ba = (n) => {
   if (!n) return !0;
   const e = n.trim().toLowerCase();
   return e.startsWith("var(") || ["transparent", "currentcolor", "inherit", "initial", "revert", "unset", "revert-layer"].includes(e) ? !0 : ["linear-gradient", "radial-gradient", "conic-gradient", "repeating-linear-gradient", "repeating-radial-gradient", "repeating-conic-gradient"].some((t) => e.includes(t));
@@ -2946,8 +2958,8 @@ const ge = { r: 255, g: 255, b: 255, a: 1 }, de = /* @__PURE__ */ new Map(), Ma 
 }, le = (n, e = null) => {
   const t = e ? `${n}|${e}` : n, i = de.get(t);
   if (i !== void 0) return i ?? ge;
-  if (_a(n)) return it(n, "Unsupported color format or special value."), de.set(t, null), ge;
-  const s = Ma();
+  if (Ba(n)) return it(n, "Unsupported color format or special value."), de.set(t, null), ge;
+  const s = _a();
   if (!s) return it(n, "Could not get canvas context."), de.set(t, null), ge;
   try {
     Te === 0 && s.clearRect(0, 0, 5, 5);
@@ -2971,25 +2983,25 @@ const ge = { r: 255, g: 255, b: 255, a: 1 }, de = /* @__PURE__ */ new Map(), Ma 
 }, St = (n, e) => {
   const t = typeof n == "string" ? le(n) : n, i = typeof e == "string" ? le(e) : e, s = cn(t), r = cn(i), o = Math.max(s, r), a = Math.min(s, r);
   return (o + 0.05) / (a + 0.05);
-}, Bs = (n, e = null) => {
+}, zs = (n, e = null) => {
   const t = le(n, e), i = St(t, { r: 255, g: 255, b: 255, a: 1 }), s = St(t, { r: 0, g: 0, b: 0, a: 1 });
   return i > s;
-}, ai = (n, e = null) => Bs(n, e) ? "white" : "black", Ua = (n) => {
+}, ai = (n, e = null) => zs(n, e) ? "white" : "black", Ua = (n) => {
   const e = n.a !== void 0 ? n.a : 1;
   return `rgba(${Math.round(n.r)}, ${Math.round(n.g)}, ${Math.round(n.b)}, ${e})`;
-}, Ba = (n, e) => ({ r: Math.min(255, n.r + (255 - n.r) * e), g: Math.min(255, n.g + (255 - n.g) * e), b: Math.min(255, n.b + (255 - n.b) * e), a: n.a ?? 1 }), za = (n, e) => ({ r: Math.max(0, n.r * (1 - e)), g: Math.max(0, n.g * (1 - e)), b: Math.max(0, n.b * (1 - e)), a: n.a ?? 1 }), fe = (n, e = null, t = 3) => {
+}, za = (n, e) => ({ r: Math.min(255, n.r + (255 - n.r) * e), g: Math.min(255, n.g + (255 - n.g) * e), b: Math.min(255, n.b + (255 - n.b) * e), a: n.a ?? 1 }), Va = (n, e) => ({ r: Math.max(0, n.r * (1 - e)), g: Math.max(0, n.g * (1 - e)), b: Math.max(0, n.b * (1 - e)), a: n.a ?? 1 }), fe = (n, e = null, t = 3) => {
   const i = le(n), s = e ? le(e) : { r: 255, g: 255, b: 255, a: 1 };
   let r = St(i, s);
   if (r >= t) return n;
   const o = cn(s) < 0.5;
   let a = { ...i, a: i.a ?? 1 };
   const l = 20, c = 0.1;
-  for (let u = 0; u < l && (o ? a = Ba(a, c) : a = za(a, c), r = St(a, s), !(r >= t)); u++) ;
+  for (let u = 0; u < l && (o ? a = za(a, c) : a = Va(a, c), r = St(a, s), !(r >= t)); u++) ;
   return Ua(a);
-}, zs = () => typeof navigator > "u" ? "" : navigator.userAgent || "", Vs = () => typeof navigator > "u" ? void 0 : navigator.userAgentData || void 0;
-let js = class {
+}, Vs = () => typeof navigator > "u" ? "" : navigator.userAgent || "", js = () => typeof navigator > "u" ? void 0 : navigator.userAgentData || void 0;
+let Hs = class {
   constructor() {
-    const e = Vs(), t = zs(), i = (r) => (typeof r == "string" || typeof r == "number") && r ? String(r).replace(/_/g, ".").split(".").map((o) => parseInt(o) || 0) : [], s = (r = "") => {
+    const e = js(), t = Vs(), i = (r) => (typeof r == "string" || typeof r == "number") && r ? String(r).replace(/_/g, ".").split(".").map((o) => parseInt(o) || 0) : [], s = (r = "") => {
       if (!r) return [];
       const o = new RegExp("^.*" + r + "[ :\\/]?(\\d+([\\._]\\d+)*).*$");
       return o.test(t) ? i(t.replace(o, "$1")) : [];
@@ -3019,17 +3031,17 @@ let js = class {
       return r;
     }, []) };
   }
-}, Va = class extends js {
+}, ja = class extends Hs {
   get iOSRequest() {
-    const e = Vs(), t = zs();
+    const e = js(), t = Vs();
     if (this.OS.iOS && !this.OS.iPadOS) return "mobile";
     if (this.OS.iPadOS) return /\(iPad;/.test(t) || e && /^iPad(OS)?$/.test(e.platform) ? "mobile" : "desktop";
   }
 };
-const li = new js();
-new Va();
+const li = new Hs();
+new ja();
 const ci = ":~:text=";
-function ja(n) {
+function Ha(n) {
   if (!n) return;
   const e = n.indexOf(ci);
   if (e === -1) return;
@@ -3042,7 +3054,7 @@ function ja(n) {
     return;
   }
 }
-const Hs = ["ADDRESS", "ARTICLE", "ASIDE", "BLOCKQUOTE", "BR", "DETAILS", "DIALOG", "DD", "DIV", "DL", "DT", "FIELDSET", "FIGCAPTION", "FIGURE", "FOOTER", "FORM", "H1", "H2", "H3", "H4", "H5", "H6", "HEADER", "HGROUP", "HR", "LI", "MAIN", "NAV", "OL", "P", "PRE", "SECTION", "TABLE", "UL", "TR", "TH", "TD", "COLGROUP", "COL", "CAPTION", "THEAD", "TBODY", "TFOOT"], Le = /[\t-\r -#%-\*,-\/:;\?@\[-\]_\{\}\x85\xA0\xA1\xA7\xAB\xB6\xB7\xBB\xBF\u037E\u0387\u055A-\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A-\u066D\u06D4\u0700-\u070D\u07F7-\u07F9\u0830-\u083E\u085E\u0964\u0965\u0970\u0AF0\u0DF4\u0E4F\u0E5A\u0E5B\u0F04-\u0F12\u0F14\u0F3A-\u0F3D\u0F85\u0FD0-\u0FD4\u0FD9\u0FDA\u104A-\u104F\u10FB\u1360-\u1368\u1400\u166D\u166E\u1680\u169B\u169C\u16EB-\u16ED\u1735\u1736\u17D4-\u17D6\u17D8-\u17DA\u1800-\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0-\u1AA6\u1AA8-\u1AAD\u1B5A-\u1B60\u1BFC-\u1BFF\u1C3B-\u1C3F\u1C7E\u1C7F\u1CC0-\u1CC7\u1CD3\u2000-\u200A\u2010-\u2029\u202F-\u2043\u2045-\u2051\u2053-\u205F\u207D\u207E\u208D\u208E\u2308-\u230B\u2329\u232A\u2768-\u2775\u27C5\u27C6\u27E6-\u27EF\u2983-\u2998\u29D8-\u29DB\u29FC\u29FD\u2CF9-\u2CFC\u2CFE\u2CFF\u2D70\u2E00-\u2E2E\u2E30-\u2E44\u3000-\u3003\u3008-\u3011\u3014-\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D-\uA60F\uA673\uA67E\uA6F2-\uA6F7\uA874-\uA877\uA8CE\uA8CF\uA8F8-\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1-\uA9CD\uA9DE\uA9DF\uAA5C-\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uFD3E\uFD3F\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01-\uFF03\uFF05-\uFF0A\uFF0C-\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B-\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F-\uFF65]|\uD800[\uDD00-\uDD02\uDF9F\uDFD0]|\uD801\uDD6F|\uD802[\uDC57\uDD1F\uDD3F\uDE50-\uDE58\uDE7F\uDEF0-\uDEF6\uDF39-\uDF3F\uDF99-\uDF9C]|\uD804[\uDC47-\uDC4D\uDCBB\uDCBC\uDCBE-\uDCC1\uDD40-\uDD43\uDD74\uDD75\uDDC5-\uDDC9\uDDCD\uDDDB\uDDDD-\uDDDF\uDE38-\uDE3D\uDEA9]|\uD805[\uDC4B-\uDC4F\uDC5B\uDC5D\uDCC6\uDDC1-\uDDD7\uDE41-\uDE43\uDE60-\uDE6C\uDF3C-\uDF3E]|\uD807[\uDC41-\uDC45\uDC70\uDC71]|\uD809[\uDC70-\uDC74]|\uD81A[\uDE6E\uDE6F\uDEF5\uDF37-\uDF3B\uDF44]|\uD82F\uDC9F|\uD836[\uDE87-\uDE8B]|\uD83A[\uDD5E\uDD5F]/u, Ha = /[^\t-\r -#%-\*,-\/:;\?@\[-\]_\{\}\x85\xA0\xA1\xA7\xAB\xB6\xB7\xBB\xBF\u037E\u0387\u055A-\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A-\u066D\u06D4\u0700-\u070D\u07F7-\u07F9\u0830-\u083E\u085E\u0964\u0965\u0970\u0AF0\u0DF4\u0E4F\u0E5A\u0E5B\u0F04-\u0F12\u0F14\u0F3A-\u0F3D\u0F85\u0FD0-\u0FD4\u0FD9\u0FDA\u104A-\u104F\u10FB\u1360-\u1368\u1400\u166D\u166E\u1680\u169B\u169C\u16EB-\u16ED\u1735\u1736\u17D4-\u17D6\u17D8-\u17DA\u1800-\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0-\u1AA6\u1AA8-\u1AAD\u1B5A-\u1B60\u1BFC-\u1BFF\u1C3B-\u1C3F\u1C7E\u1C7F\u1CC0-\u1CC7\u1CD3\u2000-\u200A\u2010-\u2029\u202F-\u2043\u2045-\u2051\u2053-\u205F\u207D\u207E\u208D\u208E\u2308-\u230B\u2329\u232A\u2768-\u2775\u27C5\u27C6\u27E6-\u27EF\u2983-\u2998\u29D8-\u29DB\u29FC\u29FD\u2CF9-\u2CFC\u2CFE\u2CFF\u2D70\u2E00-\u2E2E\u2E30-\u2E44\u3000-\u3003\u3008-\u3011\u3014-\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D-\uA60F\uA673\uA67E\uA6F2-\uA6F7\uA874-\uA877\uA8CE\uA8CF\uA8F8-\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1-\uA9CD\uA9DE\uA9DF\uAA5C-\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uFD3E\uFD3F\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01-\uFF03\uFF05-\uFF0A\uFF0C-\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B-\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F-\uFF65]|\uD800[\uDD00-\uDD02\uDF9F\uDFD0]|\uD801\uDD6F|\uD802[\uDC57\uDD1F\uDD3F\uDE50-\uDE58\uDE7F\uDEF0-\uDEF6\uDF39-\uDF3F\uDF99-\uDF9C]|\uD804[\uDC47-\uDC4D\uDCBB\uDCBC\uDCBE-\uDCC1\uDD40-\uDD43\uDD74\uDD75\uDDC5-\uDDC9\uDDCD\uDDDB\uDDDD-\uDDDF\uDE38-\uDE3D\uDEA9]|\uD805[\uDC4B-\uDC4F\uDC5B\uDC5D\uDCC6\uDDC1-\uDDD7\uDE41-\uDE43\uDE60-\uDE6C\uDF3C-\uDF3E]|\uD807[\uDC41-\uDC45\uDC70\uDC71]|\uD809[\uDC70-\uDC74]|\uD81A[\uDE6E\uDE6F\uDEF5\uDF37-\uDF3B\uDF44]|\uD82F\uDC9F|\uD836[\uDE87-\uDE8B]|\uD83A[\uDD5E\uDD5F]/u, Ws = (n, e, t) => {
+const Ws = ["ADDRESS", "ARTICLE", "ASIDE", "BLOCKQUOTE", "BR", "DETAILS", "DIALOG", "DD", "DIV", "DL", "DT", "FIELDSET", "FIGCAPTION", "FIGURE", "FOOTER", "FORM", "H1", "H2", "H3", "H4", "H5", "H6", "HEADER", "HGROUP", "HR", "LI", "MAIN", "NAV", "OL", "P", "PRE", "SECTION", "TABLE", "UL", "TR", "TH", "TD", "COLGROUP", "COL", "CAPTION", "THEAD", "TBODY", "TFOOT"], Le = /[\t-\r -#%-\*,-\/:;\?@\[-\]_\{\}\x85\xA0\xA1\xA7\xAB\xB6\xB7\xBB\xBF\u037E\u0387\u055A-\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A-\u066D\u06D4\u0700-\u070D\u07F7-\u07F9\u0830-\u083E\u085E\u0964\u0965\u0970\u0AF0\u0DF4\u0E4F\u0E5A\u0E5B\u0F04-\u0F12\u0F14\u0F3A-\u0F3D\u0F85\u0FD0-\u0FD4\u0FD9\u0FDA\u104A-\u104F\u10FB\u1360-\u1368\u1400\u166D\u166E\u1680\u169B\u169C\u16EB-\u16ED\u1735\u1736\u17D4-\u17D6\u17D8-\u17DA\u1800-\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0-\u1AA6\u1AA8-\u1AAD\u1B5A-\u1B60\u1BFC-\u1BFF\u1C3B-\u1C3F\u1C7E\u1C7F\u1CC0-\u1CC7\u1CD3\u2000-\u200A\u2010-\u2029\u202F-\u2043\u2045-\u2051\u2053-\u205F\u207D\u207E\u208D\u208E\u2308-\u230B\u2329\u232A\u2768-\u2775\u27C5\u27C6\u27E6-\u27EF\u2983-\u2998\u29D8-\u29DB\u29FC\u29FD\u2CF9-\u2CFC\u2CFE\u2CFF\u2D70\u2E00-\u2E2E\u2E30-\u2E44\u3000-\u3003\u3008-\u3011\u3014-\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D-\uA60F\uA673\uA67E\uA6F2-\uA6F7\uA874-\uA877\uA8CE\uA8CF\uA8F8-\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1-\uA9CD\uA9DE\uA9DF\uAA5C-\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uFD3E\uFD3F\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01-\uFF03\uFF05-\uFF0A\uFF0C-\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B-\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F-\uFF65]|\uD800[\uDD00-\uDD02\uDF9F\uDFD0]|\uD801\uDD6F|\uD802[\uDC57\uDD1F\uDD3F\uDE50-\uDE58\uDE7F\uDEF0-\uDEF6\uDF39-\uDF3F\uDF99-\uDF9C]|\uD804[\uDC47-\uDC4D\uDCBB\uDCBC\uDCBE-\uDCC1\uDD40-\uDD43\uDD74\uDD75\uDDC5-\uDDC9\uDDCD\uDDDB\uDDDD-\uDDDF\uDE38-\uDE3D\uDEA9]|\uD805[\uDC4B-\uDC4F\uDC5B\uDC5D\uDCC6\uDDC1-\uDDD7\uDE41-\uDE43\uDE60-\uDE6C\uDF3C-\uDF3E]|\uD807[\uDC41-\uDC45\uDC70\uDC71]|\uD809[\uDC70-\uDC74]|\uD81A[\uDE6E\uDE6F\uDEF5\uDF37-\uDF3B\uDF44]|\uD82F\uDC9F|\uD836[\uDE87-\uDE8B]|\uD83A[\uDD5E\uDD5F]/u, Wa = /[^\t-\r -#%-\*,-\/:;\?@\[-\]_\{\}\x85\xA0\xA1\xA7\xAB\xB6\xB7\xBB\xBF\u037E\u0387\u055A-\u055F\u0589\u058A\u05BE\u05C0\u05C3\u05C6\u05F3\u05F4\u0609\u060A\u060C\u060D\u061B\u061E\u061F\u066A-\u066D\u06D4\u0700-\u070D\u07F7-\u07F9\u0830-\u083E\u085E\u0964\u0965\u0970\u0AF0\u0DF4\u0E4F\u0E5A\u0E5B\u0F04-\u0F12\u0F14\u0F3A-\u0F3D\u0F85\u0FD0-\u0FD4\u0FD9\u0FDA\u104A-\u104F\u10FB\u1360-\u1368\u1400\u166D\u166E\u1680\u169B\u169C\u16EB-\u16ED\u1735\u1736\u17D4-\u17D6\u17D8-\u17DA\u1800-\u180A\u1944\u1945\u1A1E\u1A1F\u1AA0-\u1AA6\u1AA8-\u1AAD\u1B5A-\u1B60\u1BFC-\u1BFF\u1C3B-\u1C3F\u1C7E\u1C7F\u1CC0-\u1CC7\u1CD3\u2000-\u200A\u2010-\u2029\u202F-\u2043\u2045-\u2051\u2053-\u205F\u207D\u207E\u208D\u208E\u2308-\u230B\u2329\u232A\u2768-\u2775\u27C5\u27C6\u27E6-\u27EF\u2983-\u2998\u29D8-\u29DB\u29FC\u29FD\u2CF9-\u2CFC\u2CFE\u2CFF\u2D70\u2E00-\u2E2E\u2E30-\u2E44\u3000-\u3003\u3008-\u3011\u3014-\u301F\u3030\u303D\u30A0\u30FB\uA4FE\uA4FF\uA60D-\uA60F\uA673\uA67E\uA6F2-\uA6F7\uA874-\uA877\uA8CE\uA8CF\uA8F8-\uA8FA\uA8FC\uA92E\uA92F\uA95F\uA9C1-\uA9CD\uA9DE\uA9DF\uAA5C-\uAA5F\uAADE\uAADF\uAAF0\uAAF1\uABEB\uFD3E\uFD3F\uFE10-\uFE19\uFE30-\uFE52\uFE54-\uFE61\uFE63\uFE68\uFE6A\uFE6B\uFF01-\uFF03\uFF05-\uFF0A\uFF0C-\uFF0F\uFF1A\uFF1B\uFF1F\uFF20\uFF3B-\uFF3D\uFF3F\uFF5B\uFF5D\uFF5F-\uFF65]|\uD800[\uDD00-\uDD02\uDF9F\uDFD0]|\uD801\uDD6F|\uD802[\uDC57\uDD1F\uDD3F\uDE50-\uDE58\uDE7F\uDEF0-\uDEF6\uDF39-\uDF3F\uDF99-\uDF9C]|\uD804[\uDC47-\uDC4D\uDCBB\uDCBC\uDCBE-\uDCC1\uDD40-\uDD43\uDD74\uDD75\uDDC5-\uDDC9\uDDCD\uDDDB\uDDDD-\uDDDF\uDE38-\uDE3D\uDEA9]|\uD805[\uDC4B-\uDC4F\uDC5B\uDC5D\uDCC6\uDDC1-\uDDD7\uDE41-\uDE43\uDE60-\uDE6C\uDF3C-\uDF3E]|\uD807[\uDC41-\uDC45\uDC70\uDC71]|\uD809[\uDC70-\uDC74]|\uD81A[\uDE6E\uDE6F\uDEF5\uDF37-\uDF3B\uDF44]|\uD82F\uDC9F|\uD836[\uDE87-\uDE8B]|\uD83A[\uDD5E\uDD5F]/u, Ks = (n, e, t) => {
   const i = [], s = e.createRange();
   for (s.selectNodeContents(t ?? e); !s.collapsed && i.length < 2; ) {
     let r;
@@ -3051,7 +3063,7 @@ const Hs = ["ADDRESS", "ARTICLE", "ASIDE", "BLOCKQUOTE", "BR", "DETAILS", "DIALO
       if (o == null) break;
       st(s, o.startContainer, o.startOffset);
       const a = e.createRange();
-      if (a.setStart(o.endContainer, o.endOffset), a.setEnd(s.endContainer, s.endOffset), Ks(a), a.collapsed || (r = $e(n.textStart, a), r == null)) break;
+      if (a.setStart(o.endContainer, o.endOffset), a.setEnd(s.endContainer, s.endOffset), qs(a), a.collapsed || (r = $e(n.textStart, a), r == null)) break;
       if (r.compareBoundaryPoints(Range.START_TO_START, a) !== 0) continue;
     } else {
       if (r = $e(n.textStart, s), r == null) break;
@@ -3086,7 +3098,7 @@ const Hs = ["ADDRESS", "ARTICLE", "ASIDE", "BLOCKQUOTE", "BR", "DETAILS", "DIALO
   return i;
 }, q = { NO_SUFFIX_MATCH: 0, SUFFIX_MATCH: 1, MISPLACED_SUFFIX: 2 }, ui = (n, e, t, i) => {
   const s = i.createRange();
-  s.setStart(e.endContainer, e.endOffset), s.setEnd(t.endContainer, t.endOffset), Ks(s);
+  s.setStart(e.endContainer, e.endOffset), s.setEnd(t.endContainer, t.endOffset), qs(s);
   const r = $e(n, s);
   return r == null ? q.NO_SUFFIX_MATCH : r.compareBoundaryPoints(Range.START_TO_START, s) !== 0 ? q.MISPLACED_SUFFIX : q.SUFFIX_MATCH;
 }, st = (n, e, t) => {
@@ -3095,8 +3107,8 @@ const Hs = ["ADDRESS", "ARTICLE", "ASIDE", "BLOCKQUOTE", "BR", "DETAILS", "DIALO
   } catch {
     n.setStartAfter(e);
   }
-}, Ks = (n) => {
-  const e = qs(n);
+}, qs = (n) => {
+  const e = Gs(n);
   let t = e.nextNode();
   for (; !n.collapsed && t != null; ) {
     if (t !== n.startContainer && n.setStart(t, 0), t.textContent.length > n.startOffset && !t.textContent[n.startOffset].match(/\s/)) return;
@@ -3106,7 +3118,7 @@ const Hs = ["ADDRESS", "ARTICLE", "ASIDE", "BLOCKQUOTE", "BR", "DETAILS", "DIALO
       t = e.nextNode(), t == null ? n.collapse() : n.setStart(t, 0);
     }
   }
-}, qs = (n) => (n.commonAncestorContainer.ownerDocument ?? n.commonAncestorContainer).createTreeWalker(n.commonAncestorContainer, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT, { acceptNode: (e) => Ka(e, n) }), Wa = (n) => {
+}, Gs = (n) => (n.commonAncestorContainer.ownerDocument ?? n.commonAncestorContainer).createTreeWalker(n.commonAncestorContainer, NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT, { acceptNode: (e) => qa(e, n) }), Ka = (n) => {
   if (n.hidden === "until-found") return !0;
   const e = n.attributes;
   return !!(e && e.hidden && e.hidden.value === "until-found");
@@ -3115,39 +3127,39 @@ const Hs = ["ADDRESS", "ARTICLE", "ASIDE", "BLOCKQUOTE", "BR", "DETAILS", "DIALO
   for (; e != null && !(e instanceof HTMLElement); ) e = e.parentNode;
   const t = e?.ownerDocument?.defaultView;
   if (e != null && t != null) {
-    if (Wa(e)) return !0;
+    if (Ka(e)) return !0;
     const i = t.getComputedStyle(e);
     if (i.visibility === "hidden" || i.display === "none" || parseInt(i.height, 10) === 0 && i.overflowY != "visible" || parseInt(i.width, 10) === 0 && i.overflowX != "visible" || parseInt(i.opacity, 10) === 0) return !1;
   }
   return !0;
-}, Gs = (n, e) => e != null && !e.intersectsNode(n) ? NodeFilter.FILTER_REJECT : Nn(n) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT, Ka = (n, e) => e != null && !e.intersectsNode(n) || !Nn(n) ? NodeFilter.FILTER_REJECT : n.nodeType === Node.TEXT_NODE ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP, qa = (n, e) => {
+}, Xs = (n, e) => e != null && !e.intersectsNode(n) ? NodeFilter.FILTER_REJECT : Nn(n) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT, qa = (n, e) => e != null && !e.intersectsNode(n) || !Nn(n) ? NodeFilter.FILTER_REJECT : n.nodeType === Node.TEXT_NODE ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP, Ga = (n, e) => {
   const t = [];
   let i = [];
-  const s = Array.from(Xa(n, (r) => Gs(r, e)));
-  for (const r of s) r.nodeType === Node.TEXT_NODE ? i.push(r) : r instanceof HTMLElement && Hs.includes(r.tagName.toUpperCase()) && i.length > 0 && (t.push(i), i = []);
+  const s = Array.from(Ja(n, (r) => Xs(r, e)));
+  for (const r of s) r.nodeType === Node.TEXT_NODE ? i.push(r) : r instanceof HTMLElement && Ws.includes(r.tagName.toUpperCase()) && i.length > 0 && (t.push(i), i = []);
   return i.length > 0 && t.push(i), t;
-}, Ga = (n, e, t) => {
+}, Xa = (n, e, t) => {
   let i = "";
   return n.length === 1 ? i = n[0].textContent.substring(e, t) : i = n[0].textContent.substring(e) + n.slice(1, -1).reduce((s, r) => s + r.textContent, "") + n.slice(-1)[0].textContent.substring(0, t), i.replace(/[\t\n\r ]+/g, " ");
 };
-function* Xa(n, e) {
+function* Ja(n, e) {
   const t = (n.ownerDocument ?? n).createTreeWalker(n, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, { acceptNode: e }), i = /* @__PURE__ */ new Set();
-  for (; Js(t, i) !== null; ) yield t.currentNode;
+  for (; Ys(t, i) !== null; ) yield t.currentNode;
 }
 const $e = (n, e) => {
-  const t = qa(e.commonAncestorContainer, e), i = Xs(e.commonAncestorContainer.ownerDocument ?? void 0);
+  const t = Ga(e.commonAncestorContainer, e), i = Js(e.commonAncestorContainer.ownerDocument ?? void 0);
   for (const s of t) {
-    const r = Ja(n, e, s, i);
+    const r = Ya(n, e, s, i);
     if (r !== void 0) return r;
   }
-}, Ja = (n, e, t, i) => {
+}, Ya = (n, e, t, i) => {
   if (!n || !e || !(t || []).length) return;
-  const s = t[0] === e.startContainer ? e.startOffset : 0, r = Y(Ga(t, s, void 0)), o = Y(n);
+  const s = t[0] === e.startContainer ? e.startOffset : 0, r = Y(Xa(t, s, void 0)), o = Y(n);
   let a = 0, l, c;
   for (; a < r.length; ) {
     const u = r.indexOf(o, a);
     if (u === -1) return;
-    if (Ya(r, u, o.length, i)) {
+    if (Qa(r, u, o.length, i)) {
       const h = Y(t[0].data.slice(0, s)).length;
       l = hi(h + u, t, !1), c = hi(h + u + o.length, t, !0);
     }
@@ -3179,7 +3191,7 @@ const $e = (n, e) => {
       s.slice(-1) === " " && l.slice(0, 1) === " " && (i -= 1), s = l;
     }
   }
-}, Ya = (n, e, t, i) => {
+}, Qa = (n, e, t, i) => {
   if (e < 0 || e >= n.length || t <= 0 || e + t > n.length) return !1;
   if (i) {
     const s = i.segment(n), r = s.containing(e);
@@ -3188,12 +3200,12 @@ const $e = (n, e) => {
     if (a && a.isWordLike && a.index != o) return !1;
   } else if (n[e].match(Le) && (++e, --t, !t) || n[e + t - 1].match(Le) && (--t, !t) || e !== 0 && !n[e - 1].match(Le) || e + t !== n.length && !n[e + t].match(Le)) return !1;
   return !0;
-}, Y = (n) => (n || "").normalize("NFKD").replace(/\s+/g, " ").replace(/[\u0300-\u036f]/g, "").toLowerCase(), Xs = (n) => {
+}, Y = (n) => (n || "").normalize("NFKD").replace(/\s+/g, " ").replace(/[\u0300-\u036f]/g, "").toLowerCase(), Js = (n) => {
   if (Intl.Segmenter) {
     const e = n?.documentElement?.lang || n?.defaultView?.navigator?.language || void 0;
     return new Intl.Segmenter(e, { granularity: "word" });
   }
-}, Js = (n, e) => {
+}, Ys = (n, e) => {
   if (!e.has(n.currentNode)) {
     const s = n.firstChild();
     if (s !== null) return s;
@@ -3202,7 +3214,7 @@ const $e = (n, e) => {
   if (t !== null) return t;
   const i = n.parentNode();
   return i !== null && e.add(i), i;
-}, Qa = (n, e) => {
+}, Za = (n, e) => {
   if (!e.has(n.currentNode)) {
     const s = n.lastChild();
     if (s !== null) return s;
@@ -3211,29 +3223,29 @@ const $e = (n, e) => {
   if (t !== null) return t;
   const i = n.parentNode();
   return i !== null && e.add(i), i;
-}, k = { BLOCK_ELEMENTS: Hs, BOUNDARY_CHARS: Le, NON_BOUNDARY_CHARS: Ha, acceptNodeIfVisibleInRange: Gs, normalizeString: Y, makeNewSegmenter: Xs, forwardTraverse: Js, backwardTraverse: Qa, makeTextNodeWalker: qs, isNodeVisible: Nn }, Za = 300, Ys = 20, el = 1, di = 3, fi = 1;
-let tl = 500, Qs;
-class Zs extends Error {
+}, k = { BLOCK_ELEMENTS: Ws, BOUNDARY_CHARS: Le, NON_BOUNDARY_CHARS: Wa, acceptNodeIfVisibleInRange: Xs, normalizeString: Y, makeNewSegmenter: Js, forwardTraverse: Ys, backwardTraverse: Za, makeTextNodeWalker: Gs, isNodeVisible: Nn }, el = 300, Qs = 20, tl = 1, di = 3, fi = 1;
+let nl = 500, Zs;
+class er extends Error {
   constructor() {
     super(...arguments), this.isTimeout = !0;
   }
 }
-const ne = { SUCCESS: 0, INVALID_SELECTION: 1, AMBIGUOUS: 2, TIMEOUT: 3, EXECUTION_FAILED: 4 }, nl = (n, e = Date.now()) => {
+const ne = { SUCCESS: 0, INVALID_SELECTION: 1, AMBIGUOUS: 2, TIMEOUT: 3, EXECUTION_FAILED: 4 }, il = (n, e = Date.now()) => {
   try {
-    return il(n, e);
+    return sl(n, e);
   } catch (t) {
-    return t instanceof Zs ? { status: ne.TIMEOUT } : { status: ne.EXECUTION_FAILED };
+    return t instanceof er ? { status: ne.TIMEOUT } : { status: ne.EXECUTION_FAILED };
   }
-}, il = (n, e) => {
-  rl(e);
-  const t = n.startContainer.ownerDocument, i = sl(t);
-  dl(n), pl(n);
+}, sl = (n, e) => {
+  ol(e);
+  const t = n.startContainer.ownerDocument, i = rl(t);
+  fl(n), ml(n);
   const s = n.cloneRange();
-  if (fl(n), n.collapsed) return { status: ne.INVALID_SELECTION };
+  if (gl(n), n.collapsed) return { status: ne.INVALID_SELECTION };
   let r;
-  if (al(n)) {
+  if (ll(n)) {
     const h = k.normalizeString(n.toString()), d = { textStart: h };
-    if (h.length >= Ys && tr(d, t, i)) return { status: ne.SUCCESS, fragment: d };
+    if (h.length >= Qs && nr(d, t, i)) return { status: ne.SUCCESS, fragment: d };
     r = new Gt(t, i).setExactTextMatch(h);
   } else {
     const h = gi(n), d = pi(n);
@@ -3252,18 +3264,18 @@ const ne = { SUCCESS: 0, INVALID_SELECTION: 1, AMBIGUOUS: 2, TIMEOUT: 3, EXECUTI
     if (h != null) return { status: ne.SUCCESS, fragment: h };
   } while (u);
   return { status: ne.AMBIGUOUS };
-}, sl = (n) => n.querySelector("body") ?? n.documentElement, L = () => {
-  const n = Date.now() - Qs;
-  if (n > tl) throw new Zs(`Fragment generation timed out after ${n} ms.`);
-}, rl = (n) => {
-  Qs = n;
+}, rl = (n) => n.querySelector("body") ?? n.documentElement, L = () => {
+  const n = Date.now() - Zs;
+  if (n > nl) throw new er(`Fragment generation timed out after ${n} ms.`);
+}, ol = (n) => {
+  Zs = n;
 }, gi = (n) => {
   let e = Je(n);
   const t = ce(e, n.endContainer);
   if (!t) return;
   const i = /* @__PURE__ */ new Set();
   n.startContainer.nodeType === Node.ELEMENT_NODE && n.startOffset === n.startContainer.childNodes.length && i.add(n.startContainer);
-  const s = e, r = new er(n, !0), o = n.cloneRange();
+  const s = e, r = new tr(n, !0), o = n.cloneRange();
   for (; !o.collapsed && e != null; ) {
     if (L(), e.contains?.(s) ? o.setStartAfter(e) : o.setStartBefore(e), r.appendNode(e), r.textInBlock !== null) return r.textInBlock;
     e = k.forwardTraverse(t, i);
@@ -3274,15 +3286,15 @@ const ne = { SUCCESS: 0, INVALID_SELECTION: 1, AMBIGUOUS: 2, TIMEOUT: 3, EXECUTI
   if (!t) return;
   const i = /* @__PURE__ */ new Set();
   n.endContainer.nodeType === Node.ELEMENT_NODE && n.endOffset === 0 && i.add(n.endContainer);
-  const s = e, r = new er(n, !1), o = n.cloneRange();
+  const s = e, r = new tr(n, !1), o = n.cloneRange();
   for (; !o.collapsed && e != null; ) {
     if (L(), e.contains?.(s) ? o.setEnd(e, 0) : o.setEndAfter(e), r.appendNode(e), r.textInBlock !== null) return r.textInBlock;
     e = k.backwardTraverse(t, i);
   }
-}, ol = { ALL_PARTS: 1, SHARED_START_AND_END: 2, CONTEXT_ONLY: 3 };
+}, al = { ALL_PARTS: 1, SHARED_START_AND_END: 2, CONTEXT_ONLY: 3 };
 let Gt = class {
   constructor(e, t) {
-    this.Mode = ol, this.startOffset = null, this.endOffset = null, this.prefixOffset = null, this.suffixOffset = null, this.prefixSearchSpace = "", this.backwardsPrefixSearchSpace = "", this.suffixSearchSpace = "", this.numIterations = 0, this.doc = e, this.root = t;
+    this.Mode = al, this.startOffset = null, this.endOffset = null, this.prefixOffset = null, this.suffixOffset = null, this.prefixSearchSpace = "", this.backwardsPrefixSearchSpace = "", this.suffixSearchSpace = "", this.numIterations = 0, this.doc = e, this.root = t;
   }
   tryToMakeUniqueFragment() {
     let e;
@@ -3294,7 +3306,7 @@ let Gt = class {
       const t = this.getSuffixSearchSpace().substring(0, this.suffixOffset).trim();
       t && (e.suffix = t);
     }
-    return tr(e, this.doc, this.root) ? e : void 0;
+    return nr(e, this.doc, this.root) ? e : void 0;
   }
   embiggen() {
     let e = !0;
@@ -3328,7 +3340,7 @@ let Gt = class {
       }
     }
     let t = !1;
-    if ((!e || this.startOffset + this.backwardsEndOffset() < Ys || this.numIterations >= el) && (this.backwardsPrefixOffset() != null && this.backwardsPrefixOffset() !== this.getPrefixSearchSpace().length || this.suffixOffset != null && this.suffixOffset !== this.getSuffixSearchSpace().length) && (t = !0), t) {
+    if ((!e || this.startOffset + this.backwardsEndOffset() < Qs || this.numIterations >= tl) && (this.backwardsPrefixOffset() != null && this.backwardsPrefixOffset() !== this.getPrefixSearchSpace().length || this.suffixOffset != null && this.suffixOffset !== this.getSuffixSearchSpace().length) && (t = !0), t) {
       const i = this.getNumberOfContextWordsToAdd();
       if (this.backwardsPrefixOffset() < this.getPrefixSearchSpace().length) {
         let s = 0;
@@ -3439,7 +3451,7 @@ let Gt = class {
     this.prefixOffset != null && (this.prefixOffset = this.getPrefixSearchSpace().length - e);
   }
 };
-class er {
+class tr {
   constructor(e, t) {
     this.textFound = !1, this.textNodes = [], this.textInBlock = null, this.searchRange = e, this.isForwardTraversal = t;
   }
@@ -3459,23 +3471,23 @@ class er {
     return e === this.searchRange.startContainer && this.searchRange.startOffset !== 0 && (t = this.searchRange.startOffset), e === this.searchRange.endContainer && this.searchRange.endOffset !== s && (i = this.searchRange.endOffset), t !== null || i !== null ? { textContent: (e.textContent ?? "").substring(t ?? 0, i ?? s) } : e;
   }
 }
-const tr = (n, e, t) => Ws(n, e, t).length === 1, ft = (n) => [...n || ""].reverse().join(""), al = (n) => n.toString().length > Za ? !1 : !ul(n), Je = (n) => {
+const nr = (n, e, t) => Ks(n, e, t).length === 1, ft = (n) => [...n || ""].reverse().join(""), ll = (n) => n.toString().length > el ? !1 : !hl(n), Je = (n) => {
   let e = n.startContainer;
   return e.nodeType == Node.ELEMENT_NODE && n.startOffset < e.childNodes.length && (e = e.childNodes[n.startOffset]), e;
 }, Lt = (n) => {
   let e = n.endContainer;
   return e.nodeType == Node.ELEMENT_NODE && n.endOffset > 0 && (e = e.childNodes[n.endOffset - 1]), e;
-}, ll = (n) => {
+}, cl = (n) => {
   const e = Je(n);
   if (Tn(e) && k.isNodeVisible(e)) return e;
   const t = k.makeTextNodeWalker(n);
   return t.currentNode = e, t.nextNode();
-}, cl = (n) => {
+}, ul = (n) => {
   const e = Lt(n);
   if (Tn(e) && k.isNodeVisible(e)) return e;
   const t = k.makeTextNodeWalker(n);
   return t.currentNode = e, k.backwardTraverse(t, /* @__PURE__ */ new Set());
-}, ul = (n) => {
+}, hl = (n) => {
   const e = n.cloneRange();
   let t = Je(e);
   const i = ce(t);
@@ -3492,7 +3504,7 @@ const tr = (n, e, t) => Ws(n, e, t).length === 1, ft = (n) => [...n || ""].rever
   if (i < t.data.length && k.BOUNDARY_CHARS.test(t.data[i])) return i;
   const s = t.data.substring(0, i), r = ft(s).search(k.BOUNDARY_CHARS);
   return r !== -1 ? i - r : -1;
-}, hl = (n, e) => {
+}, dl = (n, e) => {
   if (n.nodeType !== Node.TEXT_NODE) return -1;
   const t = n, i = e ?? 0;
   if (i < t.data.length && i > 0 && k.BOUNDARY_CHARS.test(t.data[i - 1])) return i;
@@ -3505,11 +3517,11 @@ const tr = (n, e, t) => Ws(n, e, t).length === 1, ft = (n) => [...n || ""].rever
   for (; !t.contains?.(i) || !Z(t); ) t.parentNode && (t = t.parentNode);
   const s = (t.ownerDocument ?? t).createTreeWalker(t, NodeFilter.SHOW_ELEMENT | NodeFilter.SHOW_TEXT, { acceptNode: (r) => k.acceptNodeIfVisibleInRange(r) });
   return s.currentNode = n, s;
-}, dl = (n) => {
+}, fl = (n) => {
   const e = k.makeNewSegmenter(n.startContainer.ownerDocument ?? void 0);
   if (e) {
     const t = Je(n);
-    t !== n.startContainer && n.setStartBefore(t), nr(e, !1, n);
+    t !== n.startContainer && n.setStartBefore(t), ir(e, !1, n);
   } else {
     const t = mi(n.startContainer, n.startOffset);
     if (t !== -1) {
@@ -3534,17 +3546,17 @@ const tr = (n, e, t) => Ws(n, e, t).length === 1, ft = (n) => [...n || ""].rever
       r = k.backwardTraverse(i, s), n.collapse();
     }
   }
-}, fl = (n) => {
-  const e = ll(n);
+}, gl = (n) => {
+  const e = cl(n);
   if (e == null) {
     n.collapse();
     return;
   }
   Je(n) !== e && n.setStart(e, 0);
-  const t = Lt(n), i = cl(n);
+  const t = Lt(n), i = ul(n);
   t !== i && n.setEnd(i, (i.textContent ?? "").length);
-}, nr = (n, e, t) => {
-  const i = e ? { node: t.endContainer, offset: t.endOffset } : { node: t.startContainer, offset: t.startOffset }, s = gl(i.node);
+}, ir = (n, e, t) => {
+  const i = e ? { node: t.endContainer, offset: t.endOffset } : { node: t.startContainer, offset: t.startOffset }, s = pl(i.node);
   if (!s) return;
   const r = s.preNodes.reduce((g, p) => g.concat(p.textContent ?? ""), ""), o = s.innerNodes.reduce((g, p) => g.concat(p.textContent ?? ""), "");
   let a = r.length;
@@ -3569,7 +3581,7 @@ const tr = (n, e, t) => Ws(n, e, t).length === 1, ft = (n) => [...n || ""].rever
     f += p;
   }
   e ? t.setEndAfter(c[c.length - 1]) : t.setStartBefore(c[0]);
-}, gl = (n) => {
+}, pl = (n) => {
   const e = [], t = ce(n);
   if (!t) return;
   const i = /* @__PURE__ */ new Set();
@@ -3590,11 +3602,11 @@ const tr = (n, e, t) => Ws(n, e, t).length === 1, ft = (n) => [...n || ""].rever
   let c = k.forwardTraverse(a, l);
   for (; c != null && !Z(c); ) L(), c.nodeType === Node.TEXT_NODE && o.push(c), c = k.forwardTraverse(a, l);
   return { preNodes: e, innerNodes: r, postNodes: o };
-}, pl = (n) => {
+}, ml = (n) => {
   const e = k.makeNewSegmenter(n.endContainer.ownerDocument ?? void 0);
   if (e) {
     const t = Lt(n);
-    t !== n.endContainer && n.setEndAfter(t), nr(e, !0, n);
+    t !== n.endContainer && n.setEndAfter(t), ir(e, !0, n);
   } else {
     let t = n.endOffset, i = n.endContainer;
     i.nodeType === Node.ELEMENT_NODE && n.endOffset < i.childNodes.length && (i = i.childNodes[n.endOffset]);
@@ -3603,7 +3615,7 @@ const tr = (n, e, t) => Ws(n, e, t).length === 1, ft = (n) => [...n || ""].rever
     const r = /* @__PURE__ */ new Set([i]);
     for (; i != null; ) {
       L();
-      const o = hl(i, t);
+      const o = dl(i, t);
       if (t = null, o !== -1) {
         n.setEnd(i, o);
         return;
@@ -3620,16 +3632,16 @@ const tr = (n, e, t) => Ws(n, e, t).length === 1, ft = (n) => [...n || ""].rever
 function un(n) {
   return n.otherLocations?.get("cssSelector");
 }
-function ml(n) {
-  return _s.deserialize(n.otherLocations?.get("domRange"));
-}
 function Sl(n) {
+  return Bs.deserialize(n.otherLocations?.get("domRange"));
+}
+function yl(n) {
   for (const e of n.fragments) {
-    const t = ja(e);
+    const t = Ha(e);
     if (t) return t;
   }
 }
-let pe = class ir {
+let pe = class sr {
   constructor(e) {
     this.fragments = e.fragments ? e.fragments : new Array(), this.progression = e.progression, this.totalProgression = e.totalProgression, this.position = e.position, this.otherLocations = e.otherLocations;
   }
@@ -3638,24 +3650,24 @@ let pe = class ir {
     const t = dt(e.progression), i = dt(e.totalProgression), s = dt(e.position), r = /* @__PURE__ */ new Map(), o = /* @__PURE__ */ new Set(["fragment", "fragments", "progression", "totalProgression", "position", "otherLocations"]);
     return Object.entries(e).forEach(([a, l]) => {
       o.has(a) || r.set(a, l);
-    }), e.otherLocations instanceof Map && e.otherLocations.forEach((a, l) => r.set(l, a)), new ir({ fragments: $a(e.fragments || e.fragment), progression: t !== void 0 && t >= 0 && t <= 1 ? t : void 0, totalProgression: i !== void 0 && i >= 0 && i <= 1 ? i : void 0, position: s !== void 0 && s > 0 ? s : void 0, otherLocations: r.size === 0 ? void 0 : r });
+    }), e.otherLocations instanceof Map && e.otherLocations.forEach((a, l) => r.set(l, a)), new sr({ fragments: Ma(e.fragments || e.fragment), progression: t !== void 0 && t >= 0 && t <= 1 ? t : void 0, totalProgression: i !== void 0 && i >= 0 && i <= 1 ? i : void 0, position: s !== void 0 && s > 0 ? s : void 0, otherLocations: r.size === 0 ? void 0 : r });
   }
   serialize() {
     const e = {};
     return this.fragments && (e.fragments = this.fragments), this.progression !== void 0 && (e.progression = this.progression), this.totalProgression !== void 0 && (e.totalProgression = this.totalProgression), this.position !== void 0 && (e.position = this.position), this.otherLocations && this.otherLocations.forEach((t, i) => e[i] = t), e;
   }
-}, sr = class rr {
+}, rr = class or {
   constructor(e) {
     this.after = e.after, this.before = e.before, this.highlight = e.highlight;
   }
   static deserialize(e) {
-    if (e) return new rr({ after: e.after, before: e.before, highlight: e.highlight });
+    if (e) return new or({ after: e.after, before: e.before, highlight: e.highlight });
   }
   serialize() {
     const e = {};
     return this.after !== void 0 && (e.after = this.after), this.before !== void 0 && (e.before = this.before), this.highlight !== void 0 && (e.highlight = this.highlight), e;
   }
-}, or = class hn {
+}, ar = class hn {
   constructor(e) {
     const t = e.href.indexOf("#"), i = t >= 0 ? e.href.slice(t + 1) : void 0;
     this.href = t >= 0 ? e.href.slice(0, t) : e.href, this.type = e.type, this.title = e.title;
@@ -3663,7 +3675,7 @@ let pe = class ir {
     this.locations = e.locations ? r ? new pe({ ...e.locations, fragments: [i] }) : e.locations : i ? new pe({ fragments: [i] }) : new pe({}), this.text = e.text;
   }
   static deserialize(e) {
-    if (e && e.href && e.type) return new hn({ href: e.href, type: e.type, title: e.title, locations: pe.deserialize(e.locations), text: sr.deserialize(e.text) });
+    if (e && e.href && e.type) return new hn({ href: e.href, type: e.type, title: e.title, locations: pe.deserialize(e.locations), text: rr.deserialize(e.text) });
   }
   serialize() {
     const e = { href: this.href, type: this.type };
@@ -3676,11 +3688,11 @@ let pe = class ir {
 function Si(n) {
   return n.split("").reverse().join("");
 }
-function yl(n, e, t) {
+function bl(n, e, t) {
   const i = Si(e);
   return t.map((s) => {
     const r = Math.max(0, s.end - e.length - s.errors), o = Si(n.slice(r, s.end));
-    return { start: ar(o, i, s.errors).reduce((a, l) => s.end - l.end < a ? s.end - l.end : a, s.end), end: s.end, errors: s.errors };
+    return { start: lr(o, i, s.errors).reduce((a, l) => s.end - l.end < a ? s.end - l.end : a, s.end), end: s.end, errors: s.errors };
   });
 }
 function Xt(n) {
@@ -3693,7 +3705,7 @@ function yi(n, e, t, i) {
   const d = Xt(u & n.lastRowMask[t]) - Xt(h & n.lastRowMask[t]);
   return u <<= 1, h <<= 1, h |= o, u |= Xt(i) - o, s = h | ~(l | u), r = u & l, n.P[t] = s, n.M[t] = r, d;
 }
-function ar(n, e, t) {
+function lr(n, e, t) {
   if (e.length === 0) return [];
   t = Math.min(t, e.length);
   const i = [], s = 32, r = Math.ceil(e.length / s) - 1, o = { P: new Uint32Array(r + 1), M: new Uint32Array(r + 1), lastRowMask: new Uint32Array(r + 1) };
@@ -3737,22 +3749,22 @@ function ar(n, e, t) {
   }
   return i;
 }
-function bl(n, e, t) {
-  const i = ar(n, e, t);
-  return yl(n, e, i);
+function vl(n, e, t) {
+  const i = lr(n, e, t);
+  return bl(n, e, i);
 }
-function lr(n, e, t) {
+function cr(n, e, t) {
   let i = 0;
   const s = [];
   for (; i !== -1; ) i = n.indexOf(e, i), i !== -1 && (s.push({ start: i, end: i + e.length, errors: 0 }), i += 1);
-  return s.length > 0 ? s : bl(n, e, t);
+  return s.length > 0 ? s : vl(n, e, t);
 }
 function bi(n, e) {
-  return e.length === 0 || n.length === 0 ? 0 : 1 - lr(n, e, e.length)[0].errors / e.length;
+  return e.length === 0 || n.length === 0 ? 0 : 1 - cr(n, e, e.length)[0].errors / e.length;
 }
-function vl(n, e, t = {}) {
+function wl(n, e, t = {}) {
   if (e.length === 0) return null;
-  const i = Math.min(256, e.length / 2), s = lr(n, e, i);
+  const i = Math.min(256, e.length / 2), s = cr(n, e, i);
   if (s.length === 0) return null;
   const r = (a) => {
     const l = 1 - a.errors / e.length, c = t.prefix ? bi(n.slice(Math.max(0, a.start - t.prefix.length), a.start), t.prefix) : 1, u = t.suffix ? bi(n.slice(a.end, a.end + t.suffix.length), t.suffix) : 1;
@@ -3785,7 +3797,7 @@ function vi(n, e) {
   if (r && o >= 0) return { node: r, offset: o };
   throw new RangeError("No text nodes with non-whitespace text found in range");
 }
-function wl(n) {
+function xl(n) {
   if (!n.toString().trim().length) throw new RangeError("Range contains no non-whitespace text");
   if (n.startContainer.nodeType !== Node.TEXT_NODE) throw new RangeError("Range startContainer is not a text node");
   if (n.endContainer.nodeType !== Node.TEXT_NODE) throw new RangeError("Range endContainer is not a text node");
@@ -3803,7 +3815,7 @@ function wl(n) {
   }
   return e;
 }
-function cr(n) {
+function ur(n) {
   switch (n.nodeType) {
     case Node.ELEMENT_NODE:
     case Node.TEXT_NODE:
@@ -3814,10 +3826,10 @@ function cr(n) {
 }
 function wi(n) {
   let e = n.previousSibling, t = 0;
-  for (; e; ) t += cr(e), e = e.previousSibling;
+  for (; e; ) t += ur(e), e = e.previousSibling;
   return t;
 }
-function ur(n, ...e) {
+function hr(n, ...e) {
   let t = e.shift();
   const i = n.ownerDocument.createNodeIterator(n, NodeFilter.SHOW_TEXT), s = [];
   let r = i.nextNode(), o, a = 0;
@@ -3839,7 +3851,7 @@ let rt = class me {
   }
   resolve(e = {}) {
     try {
-      return ur(this.element, this.offset)[0];
+      return hr(this.element, this.offset)[0];
     } catch (t) {
       if (this.offset === 0 && e.direction !== void 0) {
         const i = document.createTreeWalker(this.element.getRootNode(), NodeFilter.SHOW_TEXT);
@@ -3871,7 +3883,7 @@ let rt = class me {
       case Node.ELEMENT_NODE: {
         if (t < 0 || t > e.childNodes.length) throw new Error("Child node offset is out of range");
         let i = 0;
-        for (let s = 0; s < t; s++) i += cr(e.childNodes[s]);
+        for (let s = 0; s < t; s++) i += ur(e.childNodes[s]);
         return new me(e, i);
       }
       default:
@@ -3887,7 +3899,7 @@ let rt = class me {
   }
   toRange() {
     let e, t;
-    this.start.element === this.end.element && this.start.offset <= this.end.offset ? [e, t] = ur(this.start.element, this.start.offset, this.end.offset) : (e = this.start.resolve({ direction: 1 }), t = this.end.resolve({ direction: 2 }));
+    this.start.element === this.end.element && this.start.offset <= this.end.offset ? [e, t] = hr(this.start.element, this.start.offset, this.end.offset) : (e = this.start.resolve({ direction: 1 }), t = this.end.resolve({ direction: 2 }));
     const i = new Range();
     return i.setStart(e.node, e.offset), i.setEnd(t.node, t.offset), i;
   }
@@ -3899,9 +3911,9 @@ let rt = class me {
     return new Me(new rt(e, t), new rt(e, i));
   }
   static trimmedRange(e) {
-    return wl(Me.fromRange(e).toRange());
+    return xl(Me.fromRange(e).toRange());
   }
-}, xl = class gn {
+}, El = class gn {
   constructor(e, t, i) {
     this.root = e, this.start = t, this.end = i;
   }
@@ -3918,7 +3930,7 @@ let rt = class me {
   toRange() {
     return fn.fromOffsets(this.root, this.start, this.end).toRange();
   }
-}, El = class pn {
+}, Cl = class pn {
   constructor(e, t, i = {}) {
     this.root = e, this.exact = t, this.context = i;
   }
@@ -3937,12 +3949,12 @@ let rt = class me {
     return this.toPositionAnchor(e).toRange();
   }
   toPositionAnchor(e = {}) {
-    const t = this.root.textContent, i = vl(t, this.exact, { ...this.context, hint: e.hint });
+    const t = this.root.textContent, i = wl(t, this.exact, { ...this.context, hint: e.hint });
     if (!i) throw new Error("Quote not found");
-    return new xl(this.root, i.start, i.end);
+    return new El(this.root, i.start, i.end);
   }
 };
-function Cl(n) {
+function kl(n) {
   const e = n.tagName.toUpperCase();
   return e === "IMG" || e === "VIDEO" || e === "AUDIO" || e === "IFRAME" || e === "OBJECT" || e === "EMBED" || e === "CANVAS";
 }
@@ -3971,11 +3983,11 @@ function Ei(n, e) {
   }
   return console.error(`Can't resolve domRange textNodeIndex ${e.textNodeIndex} for selector: ${e.cssSelector}`), null;
 }
-function kl(n, e) {
+function Rl(n, e) {
   try {
     const t = e.locations, i = e.text;
     if (t) {
-      const s = ml(t);
+      const s = Sl(t);
       if (s) {
         const r = Ei(n, s.start), o = s.end ? Ei(n, s.end) : r;
         if (r && o) try {
@@ -3987,14 +3999,14 @@ function kl(n, e) {
       }
     }
     if (t) {
-      const s = Sl(t);
+      const s = yl(t);
       if (s) {
-        const r = xi(n, t), o = Ws(s, n, r);
+        const r = xi(n, t), o = Ks(s, n, r);
         if (o.length > 0) return o[0];
       }
     }
     if (i && i.highlight) {
-      const s = xi(n, t), r = new El(s, i.highlight, { prefix: i.before, suffix: i.after });
+      const s = xi(n, t), r = new Cl(s, i.highlight, { prefix: i.before, suffix: i.after });
       try {
         return r.toRange();
       } catch {
@@ -4008,7 +4020,7 @@ function kl(n, e) {
       }
       if (s) {
         const r = n.createRange();
-        return s.childNodes.length === 0 || Cl(s) ? (r.selectNode(s), r) : (r.setStartBefore(s), r.setEndAfter(s), r);
+        return s.childNodes.length === 0 || kl(s) ? (r.selectNode(s), r) : (r.setStartBefore(s), r.setEndAfter(s), r);
       }
     }
   } catch (t) {
@@ -4016,7 +4028,7 @@ function kl(n, e) {
   }
   return null;
 }
-function Rl(n, e) {
+function Al(n, e) {
   const t = e.map((l) => l.toUpperCase()), i = [], s = n.commonAncestorContainer, r = s.nodeType === Node.TEXT_NODE ? s.parentNode : s, o = n.startContainer.ownerDocument.createTreeWalker(r, NodeFilter.SHOW_TEXT);
   let a = o.nextNode();
   for (; a; ) {
@@ -4048,7 +4060,7 @@ function De(n, e, t = !1, i = 0) {
     for (const u of c) s.push({ bottom: u.bottom, height: u.height, left: u.left, right: u.right, top: u.top, width: u.width });
   }
   if (i) for (const c of s) c.left -= i, c.top -= i, c.right += i, c.bottom += i, c.width += i * 2, c.height += i * 2;
-  const r = hr(s, 1, e, t), o = Ol(r, 1), a = dr(o), l = 4;
+  const r = dr(s, 1, e, t), o = Nl(r, 1), a = fr(o), l = 4;
   for (let c = a.length - 1; c >= 0; c--) {
     const u = a[c];
     if (!(u.width * u.height > l)) if (a.length > 1) a.splice(c, 1);
@@ -4056,46 +4068,46 @@ function De(n, e, t = !1, i = 0) {
   }
   return a;
 }
-function hr(n, e, t, i = !1) {
+function dr(n, e, t, i = !1) {
   for (let s = 0; s < n.length; s++) for (let r = s + 1; r < n.length; r++) {
     const o = n[s], a = n[r];
     if (o === a) continue;
-    const l = U(o.top, a.top, e) && U(o.bottom, a.bottom, e), c = U(o.left, a.left, e) && U(o.right, a.right, e);
-    if ((c && !t && !i || l && !c) && fr(o, a, e)) {
-      const u = n.filter((d) => d !== o && d !== a), h = Al(o, a);
-      return u.push(h), hr(u, e, t, i);
+    const l = B(o.top, a.top, e) && B(o.bottom, a.bottom, e), c = B(o.left, a.left, e) && B(o.right, a.right, e);
+    if ((c && !t && !i || l && !c) && gr(o, a, e)) {
+      const u = n.filter((d) => d !== o && d !== a), h = Ol(o, a);
+      return u.push(h), dr(u, e, t, i);
     }
   }
   return n;
 }
-function Al(n, e) {
+function Ol(n, e) {
   const t = Math.min(n.left, e.left), i = Math.max(n.right, e.right), s = Math.min(n.top, e.top), r = Math.max(n.bottom, e.bottom);
   return { bottom: r, height: r - s, left: t, right: i, top: s, width: i - t };
 }
-function Ol(n, e) {
+function Nl(n, e) {
   const t = new Set(n);
   for (const i of n) {
     if (!(i.width > 1 && i.height > 1)) {
       t.delete(i);
       continue;
     }
-    for (const s of n) if (i !== s && t.has(s) && Nl(s, i, e)) {
+    for (const s of n) if (i !== s && t.has(s) && Tl(s, i, e)) {
       t.delete(i);
       break;
     }
   }
   return Array.from(t);
 }
-function Nl(n, e, t) {
+function Tl(n, e, t) {
   return Q(n, e.left, e.top, t) && Q(n, e.right, e.top, t) && Q(n, e.left, e.bottom, t) && Q(n, e.right, e.bottom, t);
 }
 function Q(n, e, t, i) {
-  return (n.left < e || U(n.left, e, i)) && (n.right > e || U(n.right, e, i)) && (n.top < t || U(n.top, t, i)) && (n.bottom > t || U(n.bottom, t, i));
+  return (n.left < e || B(n.left, e, i)) && (n.right > e || B(n.right, e, i)) && (n.top < t || B(n.top, t, i)) && (n.bottom > t || B(n.bottom, t, i));
 }
-function dr(n) {
+function fr(n) {
   for (let e = 0; e < n.length; e++) for (let t = e + 1; t < n.length; t++) {
     const i = n[e], s = n[t];
-    if (i !== s && fr(i, s, -1)) {
+    if (i !== s && gr(i, s, -1)) {
       let r = [], o;
       const a = Ci(i, s);
       if (a.length === 1) r = a, o = i;
@@ -4104,13 +4116,13 @@ function dr(n) {
         a.length < c.length ? (r = a, o = i) : (r = c, o = s);
       }
       const l = n.filter((c) => c !== o);
-      return Array.prototype.push.apply(l, r), dr(l);
+      return Array.prototype.push.apply(l, r), fr(l);
     }
   }
   return n;
 }
 function Ci(n, e) {
-  const t = Tl(e, n);
+  const t = Dl(e, n);
   if (t.height === 0 || t.width === 0) return [n];
   const i = [];
   {
@@ -4131,18 +4143,18 @@ function Ci(n, e) {
   }
   return i;
 }
-function Tl(n, e) {
+function Dl(n, e) {
   const t = Math.max(n.left, e.left), i = Math.min(n.right, e.right), s = Math.max(n.top, e.top), r = Math.min(n.bottom, e.bottom);
   return { bottom: r, height: Math.max(0, r - s), left: t, right: i, top: s, width: Math.max(0, i - t) };
 }
-function fr(n, e, t) {
-  return (n.left < e.right || t >= 0 && U(n.left, e.right, t)) && (e.left < n.right || t >= 0 && U(e.left, n.right, t)) && (n.top < e.bottom || t >= 0 && U(n.top, e.bottom, t)) && (e.top < n.bottom || t >= 0 && U(e.top, n.bottom, t));
+function gr(n, e, t) {
+  return (n.left < e.right || t >= 0 && B(n.left, e.right, t)) && (e.left < n.right || t >= 0 && B(e.left, n.right, t)) && (n.top < e.bottom || t >= 0 && B(n.top, e.bottom, t)) && (e.top < n.bottom || t >= 0 && B(e.top, n.bottom, t));
 }
-function U(n, e, t) {
+function B(n, e, t) {
   return Math.abs(n - e) <= t;
 }
-const ki = ["div", "span", "p", "br", "hr", "b", "i", "em", "strong", "s", "u", "mark", "small", "sub", "sup", "abbr", "cite", "code", "data", "dfn", "kbd", "q", "samp", "time", "var", "blockquote", "pre", "svg", "g", "path", "circle", "ellipse", "rect", "line", "polygon", "polyline", "text", "tspan", "defs", "use"], Dl = /^on/i, Il = /* @__PURE__ */ new Set(["href", "src", "action", "formaction", "xlink:href"]), Fl = /^\s*(javascript|data):/i;
-function Pl(n, e) {
+const ki = ["div", "span", "p", "br", "hr", "b", "i", "em", "strong", "s", "u", "mark", "small", "sub", "sup", "abbr", "cite", "code", "data", "dfn", "kbd", "q", "samp", "time", "var", "blockquote", "pre", "svg", "g", "path", "circle", "ellipse", "rect", "line", "polygon", "polyline", "text", "tspan", "defs", "use"], Fl = /^on/i, Il = /* @__PURE__ */ new Set(["href", "src", "action", "formaction", "xlink:href"]), Pl = /^\s*(javascript|data):/i;
+function Ll(n, e) {
   const t = n.document.createElement("div");
   if ("Sanitizer" in n && typeof t.setHTML == "function") try {
     const s = new n.Sanitizer({ allowElements: ki });
@@ -4150,17 +4162,17 @@ function Pl(n, e) {
   } catch {
   }
   const i = n.document.implementation.createHTMLDocument("");
-  for (i.body.innerHTML = e, Ll(i.body, new Set(ki)); i.body.firstChild; ) t.appendChild(n.document.adoptNode(i.body.firstChild));
+  for (i.body.innerHTML = e, $l(i.body, new Set(ki)); i.body.firstChild; ) t.appendChild(n.document.adoptNode(i.body.firstChild));
   return t.firstElementChild;
 }
-function Ll(n, e) {
+function $l(n, e) {
   const t = Array.from(n.querySelectorAll("*")).reverse();
   for (const i of t) {
     if (!e.has(i.localName)) {
       i.replaceWith(...Array.from(i.childNodes));
       continue;
     }
-    for (const { name: s, value: r } of Array.from(i.attributes)) (Dl.test(s) || Il.has(s) && Fl.test(r)) && i.removeAttribute(s);
+    for (const { name: s, value: r } of Array.from(i.attributes)) (Fl.test(s) || Il.has(s) && Pl.test(r)) && i.removeAttribute(s);
   }
 }
 function Jt(n) {
@@ -4175,11 +4187,11 @@ function Jt(n) {
   }
 }
 const E = { Highlight: "highlight", HighlightUnderline: "highlightUnderline", Underline: "underline", Strikethrough: "strikethrough", Outline: "outline", TextColor: "textColor", Mask: "mask", Template: "template" };
-var $l = ((n) => (n.Wrap = "wrap", n.Viewport = "viewport", n.Bounds = "bounds", n.Page = "page", n))($l || {}), Ml = ((n) => (n.Boxes = "boxes", n.Bounds = "bounds", n))(Ml || {});
-const _l = () => "Highlight" in window, Ri = ["IMG", "IMAGE", "AUDIO", "VIDEO", "SVG"], Ul = /* @__PURE__ */ new Set(["SUP", "SUB", "SMALL", "CODE"]);
-class Bl {
+var Ml = ((n) => (n.Wrap = "wrap", n.Viewport = "viewport", n.Bounds = "bounds", n.Page = "page", n))(Ml || {}), _l = ((n) => (n.Boxes = "boxes", n.Bounds = "bounds", n))(_l || {});
+const Bl = () => "Highlight" in window, Ri = ["IMG", "IMAGE", "AUDIO", "VIDEO", "SVG"], Ul = /* @__PURE__ */ new Set(["SUP", "SUB", "SMALL", "CODE"]);
+class zl {
   constructor(e, t, i, s) {
-    this.wnd = e, this.comms = t, this.id = i, this.name = s, this.items = [], this.lastItemId = 0, this.container = void 0, this._activatable = !1, this._hoverable = !1, this.hoveredItem = void 0, this.experimentalHighlights = !1, this._tintSubKeys = /* @__PURE__ */ new Map(), this._subKeyCounter = 0, this.pendingWebkitReflow = null, this.maskSvg = void 0, this.shadowHost = void 0, this.shadowRoot = void 0, this.currentRender = 0, _l() && (this.experimentalHighlights = !0, this.notTextFlag = /* @__PURE__ */ new Map()), this.activationHandler = this.handleActivation.bind(this), this.wnd.document.addEventListener("pointerup", this.activationHandler), this.hoverHandler = this.handleHover.bind(this), this.wnd.document.addEventListener("pointermove", this.hoverHandler);
+    this.wnd = e, this.comms = t, this.id = i, this.name = s, this.items = [], this.lastItemId = 0, this.container = void 0, this._activatable = !1, this._hoverable = !1, this.hoveredItem = void 0, this.experimentalHighlights = !1, this._tintSubKeys = /* @__PURE__ */ new Map(), this._subKeyCounter = 0, this.pendingWebkitReflow = null, this.maskSvg = void 0, this.shadowHost = void 0, this.shadowRoot = void 0, this.currentRender = 0, Bl() && (this.experimentalHighlights = !0, this.notTextFlag = /* @__PURE__ */ new Map()), this.activationHandler = this.handleActivation.bind(this), this.wnd.document.addEventListener("pointerup", this.activationHandler), this.hoverHandler = this.handleHover.bind(this), this.wnd.document.addEventListener("pointermove", this.hoverHandler);
   }
   get activatable() {
     return this._activatable;
@@ -4200,7 +4212,7 @@ class Bl {
     }
   }
   add(e) {
-    const t = `${this.id}-${this.lastItemId++}`, i = kl(this.wnd.document, e.locator);
+    const t = `${this.id}-${this.lastItemId++}`, i = Rl(this.wnd.document, e.locator);
     if (!i) {
       this.comms.log("Can't locate DOM range for decoration", e);
       return;
@@ -4475,7 +4487,7 @@ class Bl {
   }
   computeOverlayRects(e, t, i, s) {
     if (e.decoration?.style?.layout === "bounds") return [s ? { left: i.left - s, right: i.right + s, top: i.top - s, bottom: i.bottom + s, width: i.width + s * 2, height: i.height + s * 2 } : i];
-    const r = e.decoration.style.type, o = r === E.Underline || r === E.Strikethrough, a = r === E.Strikethrough, l = o ? Rl(e.range, ["rt", "rp"]) : e.range;
+    const r = e.decoration.style.type, o = r === E.Underline || r === E.Strikethrough, a = r === E.Strikethrough, l = o ? Al(e.range, ["rt", "rp"]) : e.range;
     let c = De(l, !0, t.isVertical, o ? 0 : s);
     return c = c.sort((u, h) => t.isVertical ? (t.isVertLR ? 1 : -1) * (u.left - h.left) : u.top - h.top), c.map((u) => {
       let h = u;
@@ -4512,7 +4524,7 @@ class Bl {
     let c;
     if (a.type === E.Template) {
       a.stylesheet && this.injectCustomStylesheet(a.stylesheet);
-      const h = Pl(this.wnd, a.element);
+      const h = Ll(this.wnd, a.element);
       if (!h) {
         e.container = t, e.clickableElements = [];
         return;
@@ -4571,7 +4583,7 @@ class Bl {
     return this.container || (this.shadowRoot || (this.shadowHost = this.wnd.document.createElement("div"), this.shadowHost.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none", this.wnd.document.body.appendChild(this.shadowHost), this.shadowRoot = this.shadowHost.attachShadow({ mode: "open" })), this.container = this.wnd.document.createElement("div"), this.container.setAttribute("id", this.id), this.container.dataset.group = this.name, this.container.dataset.readium = "true", this.container.style.setProperty("pointer-events", "none"), this.container.style.display = "contents", this.shadowRoot.appendChild(this.container)), this.container;
   }
   getCurrentDarkMode() {
-    return oi(this.wnd, "--USER__appearance") === "readium-night-on" || Bs(this.getBackgroundColor());
+    return oi(this.wnd, "--USER__appearance") === "readium-night-on" || zs(this.getBackgroundColor());
   }
   getBackgroundColor() {
     return oi(this.wnd, "--USER__backgroundColor") || this.wnd.getComputedStyle(this.wnd.document.documentElement).getPropertyValue("background-color");
@@ -4644,7 +4656,7 @@ class Bl {
     this.wnd.document.getElementById(`${this.id}-custom-style`)?.remove(), this.container && (this.container.remove(), this.container = void 0);
   }
 }
-const gr = class Se extends Ia {
+const pr = class Se extends Ia {
   constructor() {
     super(...arguments), this.observedResizeTargets = /* @__PURE__ */ new Map(), this.resizeFrame = 0, this.lastGroupId = 0, this.groups = /* @__PURE__ */ new Map(), this.handleResizer = this.handleResize.bind(this), this.scrollScheduled = !1, this.handleScroller = this.handleScroll.bind(this);
   }
@@ -4671,7 +4683,7 @@ const gr = class Se extends Ia {
   mount(e, t) {
     return this.wnd = e, t.register("decorate", Se.moduleName, (i, s) => {
       const r = i;
-      (r.action === "add" || r.action === "update") && r.decoration.locator && (r.decoration.locator = or.deserialize(r.decoration.locator)), this.groups.has(r.group) || this.groups.set(r.group, new Bl(e, t, `readium-decoration-${this.lastGroupId++}`, r.group));
+      (r.action === "add" || r.action === "update") && r.decoration.locator && (r.decoration.locator = ar.deserialize(r.decoration.locator)), this.groups.has(r.group) || this.groups.set(r.group, new zl(e, t, `readium-decoration-${this.lastGroupId++}`, r.group));
       const o = this.groups.get(r.group);
       switch (r.action) {
         case "add":
@@ -4715,11 +4727,11 @@ const gr = class Se extends Ia {
     t && (this.resizeObserver.unobserve(t), this.observedResizeTargets.delete(e));
   }
 };
-gr.moduleName = "decorator";
-let zl = gr;
-const Vl = new Set(Object.values(E));
-function jl(n, e) {
-  return n === E.TextColor ? typeof window < "u" && "Highlight" in window : Vl.has(n) ? !0 : !!e?.[n];
+pr.moduleName = "decorator";
+let Vl = pr;
+const jl = new Set(Object.values(E));
+function Hl(n, e) {
+  return n === E.TextColor ? typeof window < "u" && "Highlight" in window : jl.has(n) ? !0 : !!e?.[n];
 }
 function Ai(n, e) {
   const { style: t } = n;
@@ -4736,7 +4748,7 @@ function Ai(n, e) {
 function Oi(n, e) {
   return typeof n.element == "function" ? n.element(e) : n.element;
 }
-function Hl(n, e) {
+function Wl(n, e) {
   if (n.type !== e.type) return !1;
   if (n.type === E.Template) {
     const s = n, r = e;
@@ -4745,10 +4757,10 @@ function Hl(n, e) {
   const t = n, i = e;
   return t.tint === i.tint && t.layout === i.layout && t.width === i.width && (t.enforceContrast ?? !0) === (i.enforceContrast ?? !0) && (t.expand ?? 0) === (i.expand ?? 0);
 }
-function Wl(n, e) {
-  return n.locator.href === e.locator.href && JSON.stringify(n.locator.locations?.serialize?.() ?? n.locator.locations) === JSON.stringify(e.locator.locations?.serialize?.() ?? e.locator.locations) && JSON.stringify(n.locator.text ?? null) === JSON.stringify(e.locator.text ?? null) && Hl(n.style, e.style) && JSON.stringify(n.extras ?? null) === JSON.stringify(e.extras ?? null);
+function Kl(n, e) {
+  return n.locator.href === e.locator.href && JSON.stringify(n.locator.locations?.serialize?.() ?? n.locator.locations) === JSON.stringify(e.locator.locations?.serialize?.() ?? e.locator.locations) && JSON.stringify(n.locator.text ?? null) === JSON.stringify(e.locator.text ?? null) && Wl(n.style, e.style) && JSON.stringify(n.extras ?? null) === JSON.stringify(e.extras ?? null);
 }
-class pr {
+class mr {
   constructor() {
     this.queue = [], this.channel = typeof MessageChannel < "u" ? new MessageChannel() : void 0, this.channel && (this.channel.port1.onmessage = () => this.flush());
   }
@@ -4764,14 +4776,14 @@ class pr {
     this.queue = [];
   }
 }
-class Kl {
+class ql {
   constructor() {
-    this.frame = new ql(this), this.host = new Gl(this);
+    this.frame = new Gl(this), this.host = new Xl(this);
   }
 }
-class ql {
+class Gl {
   constructor(e) {
-    this.channel = e, this.registrar = /* @__PURE__ */ new Map(), this.outbox = new pr(), this.ready = !0;
+    this.channel = e, this.registrar = /* @__PURE__ */ new Map(), this.outbox = new mr(), this.ready = !0;
   }
   register(e, t, i) {
     (Array.isArray(e) ? e : [e]).forEach((s) => {
@@ -4809,9 +4821,9 @@ class ql {
     this.registrar.clear(), this.outbox.clear();
   }
 }
-class Gl {
+class Xl {
   constructor(e) {
-    this.channel = e, this.listeners = /* @__PURE__ */ new Map(), this.outbox = new pr(), this.ready = !0;
+    this.channel = e, this.listeners = /* @__PURE__ */ new Map(), this.outbox = new mr(), this.ready = !0;
   }
   send(e, t, i) {
     this.outbox.push(() => this.channel.frame._dispatch(e, t, i ?? (() => {
@@ -4829,7 +4841,7 @@ class Gl {
     this.listeners.get(e)?.forEach((i) => i(t));
   }
 }
-class Xl {
+class Jl {
   constructor(e, t = {}) {
     this.host = e, this._decorations = /* @__PURE__ */ new Map(), this._activationState = /* @__PURE__ */ new Map(), this._hoverState = /* @__PURE__ */ new Map(), this._observers = /* @__PURE__ */ new Map(), this._hoveredDecorations = /* @__PURE__ */ new Map(), this._config = t, t.resizeWatchSelectors?.forEach((i) => this.addDecorationResizeTarget(i)), e.on("decoration_activated", (i) => {
       const s = i, r = this._decorations.get(s.group)?.find((o) => o.id === s.decorationId);
@@ -4849,13 +4861,13 @@ class Xl {
     this.host.send("decoration_resize", { action: "unwatch", selector: e });
   }
   supportsDecorationStyle(e) {
-    return jl(e, this._config.decorationTemplates);
+    return Hl(e, this._config.decorationTemplates);
   }
   applyDecorations(e, t) {
     const i = this._decorations.get(t) ?? [], s = new Map(i.map((l) => [l.id, l])), r = new Map(e.map((l) => [l.id, l]));
     for (const [l, c] of s) {
       const u = r.get(l);
-      u ? Wl(c, u) || this.host.send("decorate", { group: t, action: "update", decoration: Ai(u, this._config.decorationTemplates) }) : this.host.send("decorate", { group: t, action: "remove", decoration: { id: l } });
+      u ? Kl(c, u) || this.host.send("decorate", { group: t, action: "update", decoration: Ai(u, this._config.decorationTemplates) }) : this.host.send("decorate", { group: t, action: "remove", decoration: { id: l } });
     }
     for (const [l, c] of r) s.has(l) || this.host.send("decorate", { group: t, action: "add", decoration: Ai(c, this._config.decorationTemplates) });
     this._decorations.set(t, e);
@@ -4881,27 +4893,27 @@ class Xl {
     this._decorations.clear(), this._activationState.clear(), this._hoverState.clear(), this._observers.clear(), this._hoveredDecorations.clear();
   }
 }
-function Jl(n) {
-  return new _s({
+function Yl(n) {
+  return new Bs({
     start: new mt(n.start),
     end: n.end ? new mt(n.end) : void 0
   });
 }
-function Yl(n, e = window) {
-  const { text: t, cssSelector: i, domRange: s, fragment: r } = n, o = t ? new sr(t) : void 0, a = i || s ? /* @__PURE__ */ new Map() : void 0;
-  a && (i && a.set("cssSelector", i), s && a.set("domRange", Jl(s).serialize()));
+function Ql(n, e = window) {
+  const { text: t, cssSelector: i, domRange: s, fragment: r } = n, o = t ? new rr(t) : void 0, a = i || s ? /* @__PURE__ */ new Map() : void 0;
+  a && (i && a.set("cssSelector", i), s && a.set("domRange", Yl(s).serialize()));
   const c = a !== void 0 || r !== void 0 ? new pe({
     fragments: r ? [r] : void 0,
     otherLocations: a
   }) : void 0;
-  return new or({
+  return new ar({
     href: e.location.href,
     type: "text/html",
     text: o,
     locations: c
   });
 }
-class Ql extends Xl {
+class Zl extends Jl {
   constructor(e, t, i, s = {}) {
     super(e.host, s), this.channel = e, this.wnd = t, this.decorator = i;
   }
@@ -4914,7 +4926,7 @@ class Ql extends Xl {
       e.map(({ id: i, style: s, ...r }) => ({
         id: i,
         style: s,
-        locator: Yl(r, this.wnd)
+        locator: Ql(r, this.wnd)
       })),
       t
     );
@@ -4923,11 +4935,11 @@ class Ql extends Xl {
     super.destroy(), this.decorator.unmount(this.wnd, this.channel.frame), this.channel.frame.destroy();
   }
 }
-function Ad(n = window, e = {}) {
-  const t = new Kl(), i = new zl();
-  return i.mount(n, t.frame), new Ql(t, n, i, e);
+function Od(n = window, e = {}) {
+  const t = new ql(), i = new Vl();
+  return i.mount(n, t.frame), new Zl(t, n, i, e);
 }
-class Od {
+class Nd {
   providers = /* @__PURE__ */ new Map();
   register(e) {
     if (this.providers.has(e.id))
@@ -4967,7 +4979,7 @@ class Od {
     return t;
   }
 }
-const yt = { range: [0, 5e3], step: 100 }, bt = { range: [0.1, 10], step: 0.1 }, vt = { range: [0, 2], step: 0.1 }, wt = { range: [0, 1], step: 0.05 }, Dn = ["none", "few", "some", "most", "custom"], In = ["none", "block-level", "always"], Fn = ["plain", "ssml"], Pn = ["none", "utterance", "block"], Ln = ["structure", "sentence"], Ni = [
+const yt = { range: [0, 5e3], step: 100 }, bt = { range: [0.1, 10], step: 0.1 }, vt = { range: [0, 2], step: 0.1 }, wt = { range: [0, 1], step: 0.05 }, Dn = ["none", "few", "some", "most", "custom"], Fn = ["none", "block-level", "always"], In = ["plain", "ssml"], Pn = ["none", "utterance", "block"], Ln = ["structure", "sentence"], Ni = [
   "format",
   "inlineContextualization",
   "verbosity",
@@ -4991,7 +5003,7 @@ function J(n, e) {
 function He(n) {
   return n == null || Array.isArray(n) && n.every((e) => typeof e == "string") ? n : void 0;
 }
-class Zl {
+class ec {
   format;
   inlineContextualization;
   verbosity;
@@ -5005,7 +5017,7 @@ class Zl {
   pitch;
   volume;
   constructor(e = {}) {
-    this.format = z(e.format, Fn) ?? "plain", this.inlineContextualization = $n(e.inlineContextualization) ?? !1, this.verbosity = z(e.verbosity, Dn) ?? "few", this.skip = He(e.skip) ?? [], this.contextualize = He(e.contextualize) ?? [], this.language = z(e.language, In) ?? "block-level", this.segmentation = z(e.segmentation, Ln) ?? "structure", this.pauseDuration = J(e.pauseDuration, yt.range) ?? 300, this.autoPause = z(e.autoPause, Pn) ?? "none", this.rate = J(e.rate, bt.range) ?? 1, this.pitch = J(e.pitch, vt.range) ?? 1, this.volume = J(e.volume, wt.range) ?? 1;
+    this.format = z(e.format, In) ?? "plain", this.inlineContextualization = $n(e.inlineContextualization) ?? !1, this.verbosity = z(e.verbosity, Dn) ?? "few", this.skip = He(e.skip) ?? [], this.contextualize = He(e.contextualize) ?? [], this.language = z(e.language, Fn) ?? "block-level", this.segmentation = z(e.segmentation, Ln) ?? "structure", this.pauseDuration = J(e.pauseDuration, yt.range) ?? 300, this.autoPause = z(e.autoPause, Pn) ?? "none", this.rate = J(e.rate, bt.range) ?? 1, this.pitch = J(e.pitch, vt.range) ?? 1, this.volume = J(e.volume, wt.range) ?? 1;
   }
 }
 class We {
@@ -5022,7 +5034,7 @@ class We {
   pitch;
   volume;
   constructor(e = {}) {
-    this.format = z(e.format, Fn), this.inlineContextualization = $n(e.inlineContextualization), this.verbosity = z(e.verbosity, Dn), this.skip = He(e.skip), this.contextualize = He(e.contextualize), this.language = z(e.language, In), this.segmentation = z(e.segmentation, Ln), this.pauseDuration = J(e.pauseDuration, yt.range), this.autoPause = z(e.autoPause, Pn), this.rate = J(e.rate, bt.range), this.pitch = J(e.pitch, vt.range), this.volume = J(e.volume, wt.range);
+    this.format = z(e.format, In), this.inlineContextualization = $n(e.inlineContextualization), this.verbosity = z(e.verbosity, Dn), this.skip = He(e.skip), this.contextualize = He(e.contextualize), this.language = z(e.language, Fn), this.segmentation = z(e.segmentation, Ln), this.pauseDuration = J(e.pauseDuration, yt.range), this.autoPause = z(e.autoPause, Pn), this.rate = J(e.rate, bt.range), this.pitch = J(e.pitch, vt.range), this.volume = J(e.volume, wt.range);
   }
   merging(e) {
     const t = { ...this };
@@ -5060,7 +5072,7 @@ class $t {
     this._value = null, this._onChange(this._value);
   }
 }
-class Ie extends $t {
+class Fe extends $t {
   _supportedValues;
   constructor({
     initialValue: e = null,
@@ -5083,7 +5095,7 @@ class Ie extends $t {
     return this._supportedValues;
   }
 }
-class ec extends $t {
+class tc extends $t {
   set value(e) {
     if (e != null && $n(e) === void 0)
       throw new Error(`Value '${String(e)}' is not a boolean.`);
@@ -5179,16 +5191,16 @@ class Di {
     this.preferences[e] = t;
   }
   get format() {
-    return new Ie({
+    return new Fe({
       initialValue: this.preferences.format,
       effectiveValue: this.settings.format,
       isEffective: this.preferences.format != null,
       onChange: (e) => this.updatePreference("format", e ?? null),
-      supportedValues: Fn
+      supportedValues: In
     });
   }
   get inlineContextualization() {
-    return new ec({
+    return new tc({
       initialValue: this.preferences.inlineContextualization,
       effectiveValue: this.settings.inlineContextualization,
       isEffective: this.preferences.inlineContextualization != null,
@@ -5196,7 +5208,7 @@ class Di {
     });
   }
   get verbosity() {
-    return new Ie({
+    return new Fe({
       initialValue: this.preferences.verbosity,
       effectiveValue: this.settings.verbosity,
       isEffective: this.preferences.verbosity != null,
@@ -5221,16 +5233,16 @@ class Di {
     });
   }
   get language() {
-    return new Ie({
+    return new Fe({
       initialValue: this.preferences.language,
       effectiveValue: this.settings.language,
       isEffective: this.preferences.language != null,
       onChange: (e) => this.updatePreference("language", e ?? null),
-      supportedValues: In
+      supportedValues: Fn
     });
   }
   get segmentation() {
-    return new Ie({
+    return new Fe({
       initialValue: this.preferences.segmentation,
       effectiveValue: this.settings.segmentation,
       isEffective: this.preferences.segmentation != null,
@@ -5249,7 +5261,7 @@ class Di {
     });
   }
   get autoPause() {
-    return new Ie({
+    return new Fe({
       initialValue: this.preferences.autoPause,
       effectiveValue: this.settings.autoPause,
       isEffective: this.preferences.autoPause != null,
@@ -5288,8 +5300,8 @@ class Di {
     });
   }
 }
-const mr = ["audio", "figure", "image", "math", "table", "video"], Sr = [
-  ...mr,
+const Sr = ["audio", "figure", "image", "math", "table", "video"], yr = [
+  ...Sr,
   "blockquote",
   "chapter",
   "cover",
@@ -5302,8 +5314,8 @@ const mr = ["audio", "figure", "image", "math", "table", "video"], Sr = [
   "rowheader",
   "subtitle",
   "tip"
-], tc = [
-  ...Sr,
+], nc = [
+  ...yr,
   "abstract",
   "acknowledgments",
   "afterword",
@@ -5347,7 +5359,7 @@ const mr = ["audio", "figure", "image", "math", "table", "video"], Sr = [
   "separator",
   "summary",
   "term"
-], nc = {
+], ic = {
   none: /* @__PURE__ */ new Set([
     "aside",
     "audio",
@@ -5415,11 +5427,11 @@ const mr = ["audio", "figure", "image", "math", "table", "video"], Sr = [
     "toc"
   ]),
   most: /* @__PURE__ */ new Set(["landmarks", "loa", "loi", "lot", "lov", "toc"])
-}, ic = {
+}, sc = {
   none: /* @__PURE__ */ new Set(),
-  few: new Set(mr),
-  some: new Set(Sr),
-  most: new Set(tc)
+  few: new Set(Sr),
+  some: new Set(yr),
+  most: new Set(nc)
 }, mn = {
   table: { few: "inline", some: "block", most: "block" }
 };
@@ -5429,14 +5441,14 @@ function at(n) {
     e[t] = mn[t]?.[n] ?? "inline";
   return e;
 }
-const sc = {
+const rc = {
   none: at("none"),
   few: at("few"),
   some: at("some"),
   most: at("most")
-}, Nd = Object.keys(mn);
-function rc(n, e) {
-  const t = n === "custom" ? {} : sc[n];
+}, Td = Object.keys(mn);
+function oc(n, e) {
+  const t = n === "custom" ? {} : rc[n];
   if (!e) return t;
   const i = { ...t };
   for (const s of Object.keys(e)) {
@@ -5445,7 +5457,7 @@ function rc(n, e) {
   }
   return i;
 }
-class Ii {
+class Fi {
   format;
   inlineContextualization;
   verbosity;
@@ -5459,26 +5471,26 @@ class Ii {
   pitch;
   volume;
   constructor(e, t) {
-    this.format = e.format ?? t.format, this.inlineContextualization = e.inlineContextualization ?? t.inlineContextualization, this.verbosity = e.verbosity ?? t.verbosity, this.verbosity === "custom" ? (this.skip = e.skip ?? t.skip, this.contextualize = e.contextualize ?? t.contextualize) : (this.skip = [...nc[this.verbosity]], this.contextualize = [...ic[this.verbosity]]), this.language = e.language ?? t.language, this.segmentation = e.segmentation ?? t.segmentation, this.pauseDuration = e.pauseDuration ?? t.pauseDuration, this.autoPause = e.autoPause ?? t.autoPause, this.rate = e.rate ?? t.rate, this.pitch = e.pitch ?? t.pitch, this.volume = e.volume ?? t.volume;
+    this.format = e.format ?? t.format, this.inlineContextualization = e.inlineContextualization ?? t.inlineContextualization, this.verbosity = e.verbosity ?? t.verbosity, this.verbosity === "custom" ? (this.skip = e.skip ?? t.skip, this.contextualize = e.contextualize ?? t.contextualize) : (this.skip = [...ic[this.verbosity]], this.contextualize = [...sc[this.verbosity]]), this.language = e.language ?? t.language, this.segmentation = e.segmentation ?? t.segmentation, this.pauseDuration = e.pauseDuration ?? t.pauseDuration, this.autoPause = e.autoPause ?? t.autoPause, this.rate = e.rate ?? t.rate, this.pitch = e.pitch ?? t.pitch, this.volume = e.volume ?? t.volume;
   }
 }
-const Fi = /* @__PURE__ */ new WeakMap(), yr = /* @__PURE__ */ new WeakMap();
+const Ii = /* @__PURE__ */ new WeakMap(), br = /* @__PURE__ */ new WeakMap();
 function Pi(n, e) {
-  yr.set(n, e);
+  br.set(n, e);
 }
-const br = /* @__PURE__ */ new WeakSet();
+const vr = /* @__PURE__ */ new WeakSet();
 function Li(n) {
-  return br.add(n), n;
+  return vr.add(n), n;
 }
-function oc(n, e, t) {
-  const i = yr.get(n);
+function ac(n, e, t) {
+  const i = br.get(n);
   if (i) {
     const u = ti(i.map, e), h = ti(i.map, e + t);
     e = u, t = Math.max(0, h - u);
   }
   const s = n.offsets, r = !n.plain && !!n.ssml, o = i?.plain ?? n.plain ?? (n.ssml ? ae(n.ssml) : "");
   if (!s?.length || !o) return;
-  const a = Fi.get(n), l = a !== void 0 && e >= a.cursor;
+  const a = Ii.get(n), l = a !== void 0 && e >= a.cursor;
   let c = l ? a.cursor : 0;
   for (let u = l ? a.pieceIndex : 0; u < s.length; u++) {
     const h = s[u], d = h.locate.text?.highlight, f = d ? r ? ae(d) : d : o.slice(c);
@@ -5487,8 +5499,8 @@ function oc(n, e, t) {
     if (g === -1) continue;
     const p = g + f.length;
     if (e >= g && e < p) {
-      if (br.has(h.locate)) return;
-      Fi.set(n, { pieceIndex: u, cursor: c });
+      if (vr.has(h.locate)) return;
+      Ii.set(n, { pieceIndex: u, cursor: c });
       const m = e - g, b = f.substring(m, Math.min(m + t, f.length));
       return { locate: {
         ...h.locate,
@@ -5503,20 +5515,20 @@ function oc(n, e, t) {
     c = p;
   }
 }
-function ac(n, e) {
+function lc(n, e) {
   return e === "sentence" && n.offsets?.length ? n.offsets.map((t) => t.locate) : n.locate ? [n.locate] : [];
 }
-const x = (n) => typeof n == "string", Fe = () => {
+const x = (n) => typeof n == "string", Ie = () => {
   let n, e;
   const t = new Promise((i, s) => {
     n = i, e = s;
   });
   return t.resolve = n, t.reject = e, t;
-}, $i = (n) => n == null ? "" : String(n), lc = (n, e, t) => {
+}, $i = (n) => n == null ? "" : String(n), cc = (n, e, t) => {
   n.forEach((i) => {
     e[i] && (t[i] = e[i]);
   });
-}, cc = /###/g, Mi = (n) => n && n.includes("###") ? n.replace(cc, ".") : n, _i = (n) => !n || x(n), Ue = (n, e, t) => {
+}, uc = /###/g, Mi = (n) => n && n.includes("###") ? n.replace(uc, ".") : n, _i = (n) => !n || x(n), Be = (n, e, t) => {
   const i = x(e) ? e.split(".") : e;
   let s = 0;
   for (; s < i.length - 1; ) {
@@ -5528,48 +5540,48 @@ const x = (n) => typeof n == "string", Fe = () => {
     obj: n,
     k: Mi(i[s])
   };
-}, Ui = (n, e, t) => {
+}, Bi = (n, e, t) => {
   const {
     obj: i,
     k: s
-  } = Ue(n, e, Object);
+  } = Be(n, e, Object);
   if (i !== void 0 || e.length === 1) {
     i[s] = t;
     return;
   }
-  let r = e[e.length - 1], o = e.slice(0, e.length - 1), a = Ue(n, o, Object);
+  let r = e[e.length - 1], o = e.slice(0, e.length - 1), a = Be(n, o, Object);
   for (; a.obj === void 0 && o.length; )
-    r = `${o[o.length - 1]}.${r}`, o = o.slice(0, o.length - 1), a = Ue(n, o, Object), a?.obj && typeof a.obj[`${a.k}.${r}`] < "u" && (a.obj = void 0);
+    r = `${o[o.length - 1]}.${r}`, o = o.slice(0, o.length - 1), a = Be(n, o, Object), a?.obj && typeof a.obj[`${a.k}.${r}`] < "u" && (a.obj = void 0);
   a.obj[`${a.k}.${r}`] = t;
-}, uc = (n, e, t, i) => {
+}, hc = (n, e, t, i) => {
   const {
     obj: s,
     k: r
-  } = Ue(n, e, Object);
+  } = Be(n, e, Object);
   s[r] = s[r] || [], s[r].push(t);
 }, xt = (n, e) => {
   const {
     obj: t,
     k: i
-  } = Ue(n, e);
+  } = Be(n, e);
   if (t && Object.prototype.hasOwnProperty.call(t, i))
     return t[i];
-}, hc = (n, e, t) => {
+}, dc = (n, e, t) => {
   const i = xt(n, t);
   return i !== void 0 ? i : xt(e, t);
-}, vr = (n, e, t) => {
+}, wr = (n, e, t) => {
   for (const i in e)
-    i !== "__proto__" && i !== "constructor" && (Object.prototype.hasOwnProperty.call(n, i) ? x(n[i]) || n[i] instanceof String || x(e[i]) || e[i] instanceof String ? t && (n[i] = e[i]) : vr(n[i], e[i], t) : n[i] = e[i]);
+    i !== "__proto__" && i !== "constructor" && (Object.prototype.hasOwnProperty.call(n, i) ? x(n[i]) || n[i] instanceof String || x(e[i]) || e[i] instanceof String ? t && (n[i] = e[i]) : wr(n[i], e[i], t) : n[i] = e[i]);
   return n;
-}, K = (n) => n.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), dc = {
+}, K = (n) => n.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&"), fc = {
   "&": "&amp;",
   "<": "&lt;",
   ">": "&gt;",
   '"': "&quot;",
   "'": "&#39;",
   "/": "&#x2F;"
-}, fc = (n) => x(n) ? n.replace(/[&<>"'\/]/g, (e) => dc[e]) : n;
-class gc {
+}, gc = (n) => x(n) ? n.replace(/[&<>"'\/]/g, (e) => fc[e]) : n;
+class pc {
   constructor(e) {
     this.capacity = e, this.regExpMap = /* @__PURE__ */ new Map(), this.regExpQueue = [];
   }
@@ -5581,11 +5593,11 @@ class gc {
     return this.regExpQueue.length === this.capacity && this.regExpMap.delete(this.regExpQueue.shift()), this.regExpMap.set(e, i), this.regExpQueue.push(e), i;
   }
 }
-const pc = [" ", ",", "?", "!", ";"], mc = new gc(20), Sc = (n, e, t) => {
+const mc = [" ", ",", "?", "!", ";"], Sc = new pc(20), yc = (n, e, t) => {
   e = e || "", t = t || "";
-  const i = pc.filter((o) => !e.includes(o) && !t.includes(o));
+  const i = mc.filter((o) => !e.includes(o) && !t.includes(o));
   if (i.length === 0) return !0;
-  const s = mc.getRegExp(`(${i.map((o) => o === "?" ? "\\?" : o).join("|")})`);
+  const s = Sc.getRegExp(`(${i.map((o) => o === "?" ? "\\?" : o).join("|")})`);
   let r = !s.test(n);
   if (!r) {
     const o = n.indexOf(t);
@@ -5612,7 +5624,7 @@ const pc = [" ", ",", "?", "!", ";"], mc = new gc(20), Sc = (n, e, t) => {
     s = o;
   }
   return s;
-}, Ke = (n) => n?.replace(/_/g, "-"), yc = {
+}, Ke = (n) => n?.replace(/_/g, "-"), bc = {
   type: "logger",
   log(n) {
     this.output("log", n);
@@ -5632,7 +5644,7 @@ class Et {
     this.init(e, t);
   }
   init(e, t = {}) {
-    this.prefix = t.prefix || "i18next:", this.logger = e || yc, this.options = t, this.debug = t.debug;
+    this.prefix = t.prefix || "i18next:", this.logger = e || bc, this.options = t, this.debug = t.debug;
   }
   log(...e) {
     return this.forward(e, "log", "", !0);
@@ -5696,7 +5708,7 @@ class Mt {
     });
   }
 }
-class Bi extends Mt {
+class Ui extends Mt {
   constructor(e, t = {
     ns: ["translation"],
     defaultNS: "translation"
@@ -5722,7 +5734,7 @@ class Bi extends Mt {
   }) {
     const o = r.keySeparator !== void 0 ? r.keySeparator : this.options.keySeparator;
     let a = [e, t];
-    i && (a = a.concat(o ? i.split(o) : i)), e.includes(".") && (a = e.split("."), s = t, t = a[1]), this.addNamespaces(t), Ui(this.data, a, s), r.silent || this.emit("added", e, t, i, s);
+    i && (a = a.concat(o ? i.split(o) : i)), e.includes(".") && (a = e.split("."), s = t, t = a[1]), this.addNamespaces(t), Bi(this.data, a, s), r.silent || this.emit("added", e, t, i, s);
   }
   addResources(e, t, i, s = {
     silent: !1
@@ -5740,10 +5752,10 @@ class Bi extends Mt {
     let a = [e, t];
     e.includes(".") && (a = e.split("."), s = i, i = t, t = a[1]), this.addNamespaces(t);
     let l = xt(this.data, a) || {};
-    o.skipCopy || (i = JSON.parse(JSON.stringify(i))), s ? vr(l, i, r) : l = {
+    o.skipCopy || (i = JSON.parse(JSON.stringify(i))), s ? wr(l, i, r) : l = {
       ...l,
       ...i
-    }, Ui(this.data, a, l), o.silent || this.emit("added", e, t, i);
+    }, Bi(this.data, a, l), o.silent || this.emit("added", e, t, i);
   }
   removeResourceBundle(e, t) {
     this.hasResourceBundle(e, t) && delete this.data[e][t], this.removeNamespaces(t), this.emit("removed", e, t);
@@ -5765,7 +5777,7 @@ class Bi extends Mt {
     return this.data;
   }
 }
-var wr = {
+var xr = {
   processors: {},
   addPostProcessor(n) {
     this.processors[n.name] = n;
@@ -5776,16 +5788,16 @@ var wr = {
     }), e;
   }
 };
-const xr = /* @__PURE__ */ Symbol("i18next/PATH_KEY");
-function bc() {
+const Er = /* @__PURE__ */ Symbol("i18next/PATH_KEY");
+function vc() {
   const n = [], e = /* @__PURE__ */ Object.create(null);
   let t;
-  return e.get = (i, s) => (t?.revoke?.(), s === xr ? n : (n.push(s), t = Proxy.revocable(i, e), t.proxy)), Proxy.revocable(/* @__PURE__ */ Object.create(null), e).proxy;
+  return e.get = (i, s) => (t?.revoke?.(), s === Er ? n : (n.push(s), t = Proxy.revocable(i, e), t.proxy)), Proxy.revocable(/* @__PURE__ */ Object.create(null), e).proxy;
 }
 function be(n, e) {
   const {
-    [xr]: t
-  } = n(bc()), i = e?.keySeparator ?? ".", s = e?.nsSeparator ?? ":", r = e?.enableSelector === "strict";
+    [Er]: t
+  } = n(vc()), i = e?.keySeparator ?? ".", s = e?.nsSeparator ?? ":", r = e?.enableSelector === "strict";
   if (t.length > 1 && s) {
     const o = e?.ns, a = r ? Array.isArray(o) ? o : o ? [o] : null : Array.isArray(o) ? o : null;
     if (a && (r ? a : a.length > 1 ? a.slice(1) : []).includes(t[0]))
@@ -5796,7 +5808,7 @@ function be(n, e) {
 const Yt = (n) => !x(n) && typeof n != "boolean" && typeof n != "number";
 class Ct extends Mt {
   constructor(e, t = {}) {
-    super(), lc(["resourceStore", "languageUtils", "pluralResolver", "interpolator", "backendConnector", "i18nFormat", "utils"], e, this), this.options = t, this.options.keySeparator === void 0 && (this.options.keySeparator = "."), this.logger = W.create("translator"), this.checkedLoadedFor = {};
+    super(), cc(["resourceStore", "languageUtils", "pluralResolver", "interpolator", "backendConnector", "i18nFormat", "utils"], e, this), this.options = t, this.options.keySeparator === void 0 && (this.options.keySeparator = "."), this.logger = W.create("translator"), this.checkedLoadedFor = {};
   }
   changeLanguage(e) {
     e && (this.language = e);
@@ -5818,7 +5830,7 @@ class Ct extends Mt {
     i === void 0 && (i = ":");
     const s = t.keySeparator !== void 0 ? t.keySeparator : this.options.keySeparator;
     let r = t.ns || this.options.defaultNS || [];
-    const o = i && e.includes(i), a = !this.options.userDefinedKeySeparator && !t.keySeparator && !this.options.userDefinedNsSeparator && !t.nsSeparator && !Sc(e, i, s);
+    const o = i && e.includes(i), a = !this.options.userDefinedKeySeparator && !t.keySeparator && !this.options.userDefinedNsSeparator && !t.nsSeparator && !yc(e, i, s);
     if (o && !a) {
       const l = e.match(this.interpolator.nestingRegexp);
       if (l && l.length > 0)
@@ -5844,10 +5856,10 @@ class Ct extends Mt {
     typeof e == "function" && (e = be(e, {
       ...this.options,
       ...s
-    })), Array.isArray(e) || (e = [String(e)]), e = e.map((I) => typeof I == "function" ? be(I, {
+    })), Array.isArray(e) || (e = [String(e)]), e = e.map((F) => typeof F == "function" ? be(F, {
       ...this.options,
       ...s
-    }) : String(I));
+    }) : String(F));
     const r = s.returnDetails !== void 0 ? s.returnDetails : this.options.returnDetails, o = s.keySeparator !== void 0 ? s.keySeparator : this.options.keySeparator, {
       key: a,
       namespaces: l
@@ -5882,14 +5894,14 @@ class Ct extends Mt {
     if (S && O && Ze && !b.includes(ue) && !(x(w) && Array.isArray(O))) {
       if (!s.returnObjects && !this.options.returnObjects) {
         this.options.returnedObjectHandler || this.logger.warn("accessing an object - but returnObjects options is not enabled!");
-        const I = this.options.returnedObjectHandler ? this.options.returnedObjectHandler(p, O, {
+        const F = this.options.returnedObjectHandler ? this.options.returnedObjectHandler(p, O, {
           ...s,
           ns: l
         }) : `key '${a} (${this.language})' returned an object instead of string.`;
-        return r ? (f.res = I, f.usedParams = this.getUsedParamsDetails(s), f) : I;
+        return r ? (f.res = F, f.usedParams = this.getUsedParamsDetails(s), f) : F;
       }
       if (o) {
-        const I = Array.isArray(O), $ = I ? [] : {}, Re = I ? m : p;
+        const F = Array.isArray(O), $ = F ? [] : {}, Re = F ? m : p;
         for (const V in O)
           if (Object.prototype.hasOwnProperty.call(O, V)) {
             const j = `${Re}${o}${V}`;
@@ -5909,10 +5921,10 @@ class Ct extends Mt {
     } else if (S && x(w) && Array.isArray(g))
       g = g.join(w), g && (g = this.extendTranslation(g, e, s, i));
     else {
-      let I = !1, $ = !1;
-      !this.isValidLookup(g) && v && (I = !0, g = T), this.isValidLookup(g) || ($ = !0, g = a);
+      let F = !1, $ = !1;
+      !this.isValidLookup(g) && v && (F = !0, g = T), this.isValidLookup(g) || ($ = !0, g = a);
       const V = (s.missingKeyNoValueFallbackToKey || this.options.missingKeyNoValueFallbackToKey) && $ ? void 0 : g, j = v && T !== g && this.options.updateMissing;
-      if ($ || I || j) {
+      if ($ || F || j) {
         if (this.logger.log(j ? "updateKey" : "missingKey", h, c, y && !j ? `${a}${this.pluralResolver.getSuffix(h, s.count, s)}` : a, j ? T : g), o) {
           const M = this.resolve(a, {
             ...s,
@@ -5937,7 +5949,7 @@ class Ct extends Mt {
           });
         }) : Kn(Ae, a, T));
       }
-      g = this.extendTranslation(g, e, s, f, i), $ && g === a && this.options.appendNamespaceToMissingKey && (g = `${c}${u}${a}`), ($ || I) && this.options.parseMissingKeyHandler && (g = this.options.parseMissingKeyHandler(this.options.appendNamespaceToMissingKey ? `${c}${u}${a}` : a, I ? g : void 0, s));
+      g = this.extendTranslation(g, e, s, f, i), $ && g === a && this.options.appendNamespaceToMissingKey && (g = `${c}${u}${a}`), ($ || F) && this.options.parseMissingKeyHandler && (g = this.options.parseMissingKeyHandler(this.options.appendNamespaceToMissingKey ? `${c}${u}${a}` : a, F ? g : void 0, s));
     }
     return r ? (f.res = g, f.usedParams = this.getUsedParamsDetails(s), f) : g;
   }
@@ -5974,7 +5986,7 @@ class Ct extends Mt {
       !i.lng && s && s.res && (i.lng = this.language || s.usedLng), i.nest !== !1 && (e = this.interpolator.nest(e, (...h) => r?.[0] === h[0] && !i.context ? (this.logger.warn(`It seems you are nesting recursively key: ${h[0]} in key: ${t[0]}`), null) : this.translate(...h, t), i)), i.interpolation && this.interpolator.reset();
     }
     const o = i.postProcess || this.options.postProcess, a = x(o) ? [o] : o;
-    return e != null && a?.length && i.applyPostProcessor !== !1 && (e = wr.handle(a, e, t, this.options && this.options.postProcessPassResolved ? {
+    return e != null && a?.length && i.applyPostProcessor !== !1 && (e = xr.handle(a, e, t, this.options && this.options.postProcessPassResolved ? {
       i18nResolved: {
         ...s,
         usedParams: this.getUsedParamsDetails(i)
@@ -6143,7 +6155,7 @@ const Vi = {
     pluralCategories: ["one", "other"]
   })
 };
-class vc {
+class wc {
   constructor(e, t = {}) {
     this.languageUtils = e, this.options = t, this.logger = W.create("pluralResolver"), this.pluralRulesCache = {};
   }
@@ -6188,9 +6200,9 @@ class vc {
   }
 }
 const Hi = (n, e, t, i = ".", s = !0) => {
-  let r = hc(n, e, t);
+  let r = dc(n, e, t);
   return !r && s && x(t) && (r = Sn(n, t, i), r === void 0 && (r = Sn(e, t, i))), r;
-}, wc = (n) => n.replace(/\$/g, "$$$$");
+}, xc = (n) => n.replace(/\$/g, "$$$$");
 class Wi {
   constructor(e = {}) {
     this.logger = W.create("interpolator"), this.options = e, this.format = e?.interpolation?.format || ((t) => t), this.init(e);
@@ -6218,7 +6230,7 @@ class Wi {
       maxReplaces: b,
       alwaysFormat: w
     } = e.interpolation;
-    this.escape = t !== void 0 ? t : fc, this.escapeValue = i !== void 0 ? i : !0, this.useRawValueToEscape = s !== void 0 ? s : !1, this.prefix = r ? K(r) : o || "{{", this.suffix = a ? K(a) : l || "}}", this.formatSeparator = c || ",", this.unescapePrefix = u ? "" : h ? K(h) : "-", this.unescapeSuffix = this.unescapePrefix ? "" : u ? K(u) : "", this.nestingPrefix = d ? K(d) : f || K("$t("), this.nestingSuffix = g ? K(g) : p || K(")"), this.nestingOptionsSeparator = m || ",", this.maxReplaces = b || 1e3, this.alwaysFormat = w !== void 0 ? w : !1, this.resetRegExp();
+    this.escape = t !== void 0 ? t : gc, this.escapeValue = i !== void 0 ? i : !0, this.useRawValueToEscape = s !== void 0 ? s : !1, this.prefix = r ? K(r) : o || "{{", this.suffix = a ? K(a) : l || "}}", this.formatSeparator = c || ",", this.unescapePrefix = u ? "" : h ? K(h) : "-", this.unescapeSuffix = this.unescapePrefix ? "" : u ? K(u) : "", this.nestingPrefix = d ? K(d) : f || K("$t("), this.nestingSuffix = g ? K(g) : p || K(")"), this.nestingOptionsSeparator = m || ",", this.maxReplaces = b || 1e3, this.alwaysFormat = w !== void 0 ? w : !1, this.resetRegExp();
   }
   reset() {
     this.options && this.init(this.options);
@@ -6269,7 +6281,7 @@ class Wi {
             this.logger.warn(`missed to pass in variable ${g} for interpolating ${e}`), o = "";
         else !x(o) && !this.useRawValueToEscape && (o = $i(o));
         const p = f.safeValue(o);
-        if (e = e.replace(r[0], wc(p)), h ? (f.regex.lastIndex += p.length, f.regex.lastIndex -= r[0].length) : f.regex.lastIndex = 0, a++, a >= this.maxReplaces)
+        if (e = e.replace(r[0], xc(p)), h ? (f.regex.lastIndex += p.length, f.regex.lastIndex -= r[0].length) : f.regex.lastIndex = 0, a++, a >= this.maxReplaces)
           break;
       }
     }), e;
@@ -6309,7 +6321,7 @@ class Wi {
     return e;
   }
 }
-const xc = (n) => {
+const Ec = (n) => {
   let e = n.toLowerCase().trim();
   const t = {};
   if (n.includes("(")) {
@@ -6339,8 +6351,8 @@ const xc = (n) => {
     let a = e[o];
     return a || (a = n(Ke(i), s), e[o] = a), a(t);
   };
-}, Ec = (n) => (e, t, i) => n(Ke(t), i)(e);
-class Cc {
+}, Cc = (n) => (e, t, i) => n(Ke(t), i)(e);
+class kc {
   constructor(e = {}) {
     this.logger = W.create("formatter"), this.options = e, this.init(e);
   }
@@ -6348,7 +6360,7 @@ class Cc {
     interpolation: {}
   }) {
     this.formatSeparator = t.interpolation.formatSeparator || ",";
-    const i = t.cacheInBuiltFormats ? Ki : Ec;
+    const i = t.cacheInBuiltFormats ? Ki : Cc;
     this.formats = {
       number: i((s, r) => {
         const o = new Intl.NumberFormat(s, {
@@ -6402,7 +6414,7 @@ class Cc {
       const {
         formatName: u,
         formatOptions: h
-      } = xc(c);
+      } = Ec(c);
       if (this.formats[u]) {
         let d = l;
         try {
@@ -6422,10 +6434,10 @@ class Cc {
     }, e);
   }
 }
-const kc = (n, e) => {
+const Rc = (n, e) => {
   n.pending[e] !== void 0 && (delete n.pending[e], n.pendingCount--);
 };
-class Rc extends Mt {
+class Ac extends Mt {
   constructor(e, t, i, s = {}) {
     super(), this.backend = e, this.store = t, this.services = i, this.languageUtils = i.languageUtils, this.options = s, this.logger = W.create("backendConnector"), this.waitingReads = [], this.maxParallelReads = s.maxParallelReads || 10, this.readingCalls = 0, this.maxRetries = s.maxRetries >= 0 ? s.maxRetries : 5, this.retryTimeout = s.retryTimeout >= 1 ? s.retryTimeout : 350, this.state = {}, this.queue = [], this.backend?.init?.(i, s.backend, s);
   }
@@ -6457,7 +6469,7 @@ class Rc extends Mt {
     }), this.state[e] = t ? -1 : 2, t && i && (this.state[e] = 0);
     const a = {};
     this.queue.forEach((l) => {
-      uc(l.loaded, [r], o), kc(l, e), t && l.errors.push(t), l.pendingCount === 0 && !l.done && (Object.keys(l.loaded).forEach((c) => {
+      hc(l.loaded, [r], o), Rc(l, e), t && l.errors.push(t), l.pendingCount === 0 && !l.done && (Object.keys(l.loaded).forEach((c) => {
         a[c] || (a[c] = {});
         const u = l.loaded[c];
         u.length && u.forEach((h) => {
@@ -6612,16 +6624,16 @@ const Qt = () => ({
   },
   cacheInBuiltFormats: !0
 }), qi = (n) => (x(n.ns) && (n.ns = [n.ns]), x(n.fallbackLng) && (n.fallbackLng = [n.fallbackLng]), x(n.fallbackNS) && (n.fallbackNS = [n.fallbackNS]), n.supportedLngs && !n.supportedLngs.includes("cimode") && (n.supportedLngs = n.supportedLngs.concat(["cimode"])), n), lt = () => {
-}, Ac = (n) => {
+}, Oc = (n) => {
   Object.getOwnPropertyNames(Object.getPrototypeOf(n)).forEach((t) => {
     typeof n[t] == "function" && (n[t] = n[t].bind(n));
   });
 };
-class Be extends Mt {
+class Ue extends Mt {
   constructor(e = {}, t) {
     if (super(), this.options = qi(e), this.services = {}, this.logger = W, this.modules = {
       external: []
-    }, Ac(this), t && !this.isInitialized && !e.isClone) {
+    }, Oc(this), t && !this.isInitialized && !e.isClone) {
       if (!this.options.initAsync)
         return this.init(e, t), this;
       setTimeout(() => {
@@ -6644,15 +6656,15 @@ class Be extends Mt {
     if (!this.options.isClone) {
       this.modules.logger ? W.init(s(this.modules.logger), this.options) : W.init(null, this.options);
       let c;
-      this.modules.formatter ? c = this.modules.formatter : c = Cc;
+      this.modules.formatter ? c = this.modules.formatter : c = kc;
       const u = new zi(this.options);
-      this.store = new Bi(this.options.resources, this.options);
+      this.store = new Ui(this.options.resources, this.options);
       const h = this.services;
-      h.logger = W, h.resourceStore = this.store, h.languageUtils = u, h.pluralResolver = new vc(u, {
+      h.logger = W, h.resourceStore = this.store, h.languageUtils = u, h.pluralResolver = new wc(u, {
         prepend: this.options.pluralSeparator
       }), c && (h.formatter = s(c), h.formatter.init && h.formatter.init(h, this.options), this.options.interpolation.format = h.formatter.format.bind(h.formatter)), h.interpolator = new Wi(this.options), h.utils = {
         hasLoadedNamespace: this.hasLoadedNamespace.bind(this)
-      }, h.backendConnector = new Rc(s(this.modules.backend), h.resourceStore, h, this.options), h.backendConnector.on("*", (d, ...f) => {
+      }, h.backendConnector = new Ac(s(this.modules.backend), h.resourceStore, h, this.options), h.backendConnector.on("*", (d, ...f) => {
         this.emit(d, ...f);
       }), this.modules.languageDetector && (h.languageDetector = s(this.modules.languageDetector), h.languageDetector.init && h.languageDetector.init(h, this.options.detection, this.options)), this.modules.i18nFormat && (h.i18nFormat = s(this.modules.i18nFormat), h.i18nFormat.init && h.i18nFormat.init(this)), this.translator = new Ct(this.services, this.options), this.translator.on("*", (d, ...f) => {
         this.emit(d, ...f);
@@ -6669,7 +6681,7 @@ class Be extends Mt {
     }), ["addResource", "addResources", "addResourceBundle", "removeResourceBundle"].forEach((c) => {
       this[c] = (...u) => (this.store[c](...u), this);
     });
-    const a = Fe(), l = () => {
+    const a = Ie(), l = () => {
       const c = (u, h) => {
         this.isInitializing = !1, this.isInitialized && !this.initializedStoreOnce && this.logger.warn("init: i18next is already initialized. You should call init just once!"), this.isInitialized = !0, this.options.isClone || this.logger.log("initialized", this.options), this.emit("initialized", this.options), a.resolve(h), t(u, h);
       };
@@ -6696,7 +6708,7 @@ class Be extends Mt {
       i(null);
   }
   reloadResources(e, t, i) {
-    const s = Fe();
+    const s = Ie();
     return typeof e == "function" && (i = e, e = void 0), typeof t == "function" && (i = t, t = void 0), e || (e = this.languages), t || (t = this.options.ns), i || (i = lt), this.services.backendConnector.reload(e, t, (r) => {
       s.resolve(), i(r);
     }), s;
@@ -6704,7 +6716,7 @@ class Be extends Mt {
   use(e) {
     if (!e) throw new Error("You are passing an undefined module! Please check the object you are passing to i18next.use()");
     if (!e.type) throw new Error("You are passing a wrong module! Please check the object you are passing to i18next.use()");
-    return e.type === "backend" && (this.modules.backend = e), (e.type === "logger" || e.log && e.warn && e.error) && (this.modules.logger = e), e.type === "languageDetector" && (this.modules.languageDetector = e), e.type === "i18nFormat" && (this.modules.i18nFormat = e), e.type === "postProcessor" && wr.addPostProcessor(e), e.type === "formatter" && (this.modules.formatter = e), e.type === "3rdParty" && this.modules.external.push(e), this;
+    return e.type === "backend" && (this.modules.backend = e), (e.type === "logger" || e.log && e.warn && e.error) && (this.modules.logger = e), e.type === "languageDetector" && (this.modules.languageDetector = e), e.type === "i18nFormat" && (this.modules.i18nFormat = e), e.type === "postProcessor" && xr.addPostProcessor(e), e.type === "formatter" && (this.modules.formatter = e), e.type === "3rdParty" && this.modules.external.push(e), this;
   }
   setResolvedLanguage(e) {
     if (!(!e || !this.languages) && !["cimode", "dev"].includes(e)) {
@@ -6720,7 +6732,7 @@ class Be extends Mt {
   }
   changeLanguage(e, t) {
     this.isLanguageChangingTo = e;
-    const i = Fe();
+    const i = Ie();
     this.emit("languageChanging", e);
     const s = (a) => {
       this.language = a, this.languages = this.services.languageUtils.toResolveHierarchy(a), this.resolvedLanguage = void 0, this.setResolvedLanguage(a);
@@ -6781,7 +6793,7 @@ class Be extends Mt {
     return !!(this.hasResourceBundle(i, e) || !this.services.backendConnector.backend || this.options.resources && !this.options.partialBundledLanguages || o(i, e) && (!s || o(r, e)));
   }
   loadNamespaces(e, t) {
-    const i = Fe();
+    const i = Ie();
     return this.options.ns ? (x(e) && (e = [e]), e.forEach((s) => {
       this.options.ns.includes(s) || this.options.ns.push(s);
     }), this.loadResources((s) => {
@@ -6789,7 +6801,7 @@ class Be extends Mt {
     }), i) : (t && t(), Promise.resolve());
   }
   loadLanguages(e, t) {
-    const i = Fe();
+    const i = Ie();
     x(e) && (e = [e]);
     const s = this.options.preload || [], r = e.filter((o) => !s.includes(o) && this.services.languageUtils.isSupportedCode(o));
     return r.length ? (this.options.preload = s.concat(r), this.loadResources((o) => {
@@ -6810,8 +6822,8 @@ class Be extends Mt {
     return e.toLowerCase().indexOf("-latn") > 1 ? "ltr" : t.includes(i.getLanguagePartFromCode(e)) || e.toLowerCase().indexOf("-arab") > 1 ? "rtl" : "ltr";
   }
   static createInstance(e = {}, t) {
-    const i = new Be(e, t);
-    return i.createInstance = Be.createInstance, i;
+    const i = new Ue(e, t);
+    return i.createInstance = Ue.createInstance, i;
   }
   cloneInstance(e = {}, t = lt) {
     const i = e.forkResourceStore;
@@ -6820,7 +6832,7 @@ class Be extends Mt {
       ...this.options,
       ...e,
       isClone: !0
-    }, r = new Be(s);
+    }, r = new Ue(s);
     if ((e.debug !== void 0 || e.prefix !== void 0) && (r.logger = r.logger.clone(e)), ["store", "services", "language"].forEach((a) => {
       r[a] = this[a];
     }), r.services = {
@@ -6833,7 +6845,7 @@ class Be extends Mt {
       }, l[c] = Object.keys(l[c]).reduce((u, h) => (u[h] = {
         ...l[c][h]
       }, u), l[c]), l), {});
-      r.store = new Bi(a, s), r.services.resourceStore = r.store;
+      r.store = new Ui(a, s), r.services.resourceStore = r.store;
     }
     if (e.interpolation) {
       const l = {
@@ -6862,7 +6874,7 @@ class Be extends Mt {
     };
   }
 }
-const P = Be.createInstance();
+const P = Ue.createInstance();
 P.createInstance;
 P.dir;
 P.init;
@@ -6880,7 +6892,7 @@ P.loadLanguages;
 function H(n) {
   return { pattern: new RegExp(`(\\d+)\\s?u${n}\\b`, "g"), replace: (e, t) => `${t}µ${n}` };
 }
-const Oc = {
+const Nc = {
   "1/4": "¼",
   "1/2": "½",
   "3/4": "¾",
@@ -6900,8 +6912,8 @@ const Oc = {
   "5/8": "⅝",
   "7/8": "⅞",
   "0/3": "↉"
-}, Nc = {
-  ...Oc,
+}, Tc = {
+  ...Nc,
   // Rejects "(c)" directly preceded by "(a)"/"(b)" (a lettered list, not a copyright notice).
   "(c)": { pattern: new RegExp("(?<!\\([ab]\\)\\s{0,3})\\(c\\)", "g"), replace: "©" },
   "(C)": { pattern: new RegExp("(?<!\\([AB]\\)\\s{0,3})\\(C\\)", "g"), replace: "©" },
@@ -6927,14 +6939,14 @@ const Oc = {
   // convention for pronunciation, but drop the real prime marks silently.
   "′": "'",
   "″": '"'
-}, Tc = { contextualizations: { abstract: { block: { start: "Start of the abstract.", end: "End of the abstract." } }, acknowledgments: { block: { start: "Start of the acknowledgments.", end: "End of the acknowledgments." } }, afterword: { block: { start: "Start of the afterword.", end: "End of the afterword." } }, appendix: { block: { start: "Start of the appendix.", end: "End of the appendix." } }, aside: { block: { start: "Start of the aside.", end: "End of the aside." } }, audio: { inline: { labelled: "Audio with a label: {{ description }}", unlabelled: "Audio with no label." } }, bibliography: { block: { start: "Start of the bibliography.", end: "End of the bibliography." } }, blockquote: { inline: "Blockquote." }, cell: { inline: { withHeader: "{{ header }}: {{ value }}", withoutHeader: "{{ value }}" } }, chapter: { block: { start: "Start of the chapter.", end: "End of the chapter." } }, colophon: { inline: "Colophon." }, complementary: { block: { start: "Start of the complementary content.", end: "End of the complementary content." } }, conclusion: { block: { start: "Start of the conclusion.", end: "End of the conclusion." } }, cover: { inline: { labelled: "Cover with a label: {{ description }}", unlabelled: "Cover with no label." } }, credit: { inline: "Credit." }, credits: { block: { start: "Start of the credits.", end: "End of the credits." } }, dedication: { inline: "Dedication." }, definition: { inline: "Definition." }, details: { block: { start: "Start of the disclosure.", end: "End of the disclosure." } }, endnotes: { block: { start: "Start of the endnotes.", end: "End of the endnotes." } }, epigraph: { inline: "Epigraph." }, epilogue: { block: { start: "Start of the epilogue.", end: "End of the epilogue." } }, errata: { block: { start: "Start of the errata.", end: "End of the errata." } }, example: { block: { start: "Start of the example.", end: "End of the example." } }, figure: { inline: "Figure: {{ description }}" }, footnote: { block: { start: "Start of the footnote.", end: "End of the footnote." } }, foreword: { block: { start: "Start of the foreword.", end: "End of the foreword." } }, glossary: { block: { start: "Start of the glossary.", end: "End of the glossary." } }, heading1: { inline: "Heading level 1." }, heading2: { inline: "Heading level 2." }, heading3: { inline: "Heading level 3." }, heading4: { inline: "Heading level 4." }, heading5: { inline: "Heading level 5." }, heading6: { inline: "Heading level 6." }, image: { inline: { labelled: "Image with a label: {{ description }}", unlabelled: "Image with no label." } }, index: { block: { start: "Start of the index.", end: "End of the index." } }, introduction: { block: { start: "Start of the introduction.", end: "End of the introduction." } }, list: { block: { start: "Start of the list.", end: "End of the list." } }, listItem: { inline: "List item." }, math: { inline: { labelled: "{{ description }}", unlabelled: "Math formula with no label." } }, notice: { inline: "Notice." }, pagebreak: { inline: "Pagebreak." }, pagelist: { block: { start: "Start of the page list.", end: "End of the page list." } }, part: { inline: "Part." }, preface: { block: { start: "Start of the preface.", end: "End of the preface." } }, prologue: { block: { start: "Start of the prologue.", end: "End of the prologue." } }, pullquote: { inline: "Pullquote." }, qna: { block: { start: "Start of the questions and answers.", end: "End of the questions and answers." } }, row: { inline: "Row: {{ count }}" }, rowheader: { inline: { withHeader: "{{ header }}: {{ value }}", withoutHeader: "{{ value }}" } }, separator: { inline: "Separator." }, subtitle: { inline: "Subtitle." }, summary: { inline: "Summary." }, table: { block: { end: "End of the table.", start: { labelled: "Table: {{ description }}. {{ lines }}. {{ columns }}.", unlabelled: "Table. {{ lines }}. {{ columns }}." } }, inline: { labelled: "Table: {{ description }}. {{ lines }}. {{ columns }}.", unlabelled: "Table. {{ lines }}. {{ columns }}." }, parts: { columns_one: "1 column", columns_other: "{{ count }} columns", lines_one: "1 line", lines_other: "{{ count }} lines" } }, term: { inline: "Term." }, tip: { inline: "Tip." }, video: { inline: { labelled: "Video with a label: {{ description }}", unlabelled: "Video with no label." } } } }, Dc = {
-  speech: Tc
-}, Er = Dc.speech.contextualizations, Gi = { en: Er }, Ic = {};
-async function Fc(n) {
+}, Dc = { contextualizations: { abstract: { block: { start: "Start of the abstract.", end: "End of the abstract." } }, acknowledgments: { block: { start: "Start of the acknowledgments.", end: "End of the acknowledgments." } }, afterword: { block: { start: "Start of the afterword.", end: "End of the afterword." } }, appendix: { block: { start: "Start of the appendix.", end: "End of the appendix." } }, aside: { block: { start: "Start of the aside.", end: "End of the aside." } }, audio: { inline: { labelled: "Audio with a label: {{ description }}", unlabelled: "Audio with no label." } }, bibliography: { block: { start: "Start of the bibliography.", end: "End of the bibliography." } }, blockquote: { inline: "Blockquote." }, cell: { inline: { withHeader: "{{ header }}: {{ value }}", withoutHeader: "{{ value }}" } }, chapter: { block: { start: "Start of the chapter.", end: "End of the chapter." } }, colophon: { inline: "Colophon." }, complementary: { block: { start: "Start of the complementary content.", end: "End of the complementary content." } }, conclusion: { block: { start: "Start of the conclusion.", end: "End of the conclusion." } }, cover: { inline: { labelled: "Cover with a label: {{ description }}", unlabelled: "Cover with no label." } }, credit: { inline: "Credit." }, credits: { block: { start: "Start of the credits.", end: "End of the credits." } }, dedication: { inline: "Dedication." }, definition: { inline: "Definition." }, details: { block: { start: "Start of the disclosure.", end: "End of the disclosure." } }, endnotes: { block: { start: "Start of the endnotes.", end: "End of the endnotes." } }, epigraph: { inline: "Epigraph." }, epilogue: { block: { start: "Start of the epilogue.", end: "End of the epilogue." } }, errata: { block: { start: "Start of the errata.", end: "End of the errata." } }, example: { block: { start: "Start of the example.", end: "End of the example." } }, figure: { inline: "Figure: {{ description }}" }, footnote: { block: { start: "Start of the footnote.", end: "End of the footnote." } }, foreword: { block: { start: "Start of the foreword.", end: "End of the foreword." } }, glossary: { block: { start: "Start of the glossary.", end: "End of the glossary." } }, heading1: { inline: "Heading level 1." }, heading2: { inline: "Heading level 2." }, heading3: { inline: "Heading level 3." }, heading4: { inline: "Heading level 4." }, heading5: { inline: "Heading level 5." }, heading6: { inline: "Heading level 6." }, image: { inline: { labelled: "Image with a label: {{ description }}", unlabelled: "Image with no label." } }, index: { block: { start: "Start of the index.", end: "End of the index." } }, introduction: { block: { start: "Start of the introduction.", end: "End of the introduction." } }, list: { block: { start: "Start of the list.", end: "End of the list." } }, listItem: { inline: "List item." }, math: { inline: { labelled: "{{ description }}", unlabelled: "Math formula with no label." } }, notice: { inline: "Notice." }, pagebreak: { inline: "Pagebreak." }, pagelist: { block: { start: "Start of the page list.", end: "End of the page list." } }, part: { inline: "Part." }, preface: { block: { start: "Start of the preface.", end: "End of the preface." } }, prologue: { block: { start: "Start of the prologue.", end: "End of the prologue." } }, pullquote: { inline: "Pullquote." }, qna: { block: { start: "Start of the questions and answers.", end: "End of the questions and answers." } }, row: { inline: "Row: {{ count }}" }, rowheader: { inline: { withHeader: "{{ header }}: {{ value }}", withoutHeader: "{{ value }}" } }, separator: { inline: "Separator." }, subtitle: { inline: "Subtitle." }, summary: { inline: "Summary." }, table: { block: { end: "End of the table.", start: { labelled: "Table: {{ description }}. {{ lines }}. {{ columns }}.", unlabelled: "Table. {{ lines }}. {{ columns }}." } }, inline: { labelled: "Table: {{ description }}. {{ lines }}. {{ columns }}.", unlabelled: "Table. {{ lines }}. {{ columns }}." }, parts: { columns_one: "1 column", columns_other: "{{ count }} columns", lines_one: "1 line", lines_other: "{{ count }} lines" } }, term: { inline: "Term." }, tip: { inline: "Tip." }, video: { inline: { labelled: "Video with a label: {{ description }}", unlabelled: "Video with no label." } } } }, Fc = {
+  speech: Dc
+}, Cr = Fc.speech.contextualizations, Gi = { en: Cr }, Ic = {};
+async function Pc(n) {
   const e = Gi[n];
   if (e) return e;
   const t = Ic[n];
-  if (!t) return Er;
+  if (!t) return Cr;
   const i = (await t()).speech.contextualizations;
   return Gi[n] = i, i;
 }
@@ -6953,25 +6965,25 @@ function Zt(n, e, t) {
   for (; i > e && /\s/.test(n[i - 1]); ) i--;
   return i;
 }
-const Pc = /[\s([{"'“‘]/;
-function Lc(n, e) {
+const Lc = /[\s([{"'“‘]/;
+function $c(n, e) {
   for (const t of e) {
     if (n.length < t.length || !n.endsWith(t)) continue;
     const i = n.length - t.length - 1;
-    if (i < 0 || Pc.test(n[i])) return !0;
+    if (i < 0 || Lc.test(n[i])) return !0;
   }
   return !1;
 }
-function $c(n) {
+function Mc(n) {
   let e = 0;
   for (const t of n)
     if (new RegExp("\\p{L}", "u").test(t) && e++, e >= 2) return !0;
   return !1;
 }
-function Mc(n) {
+function _c(n) {
   return /\.{3,}$/.test(n);
 }
-function _c(n, e, t, i) {
+function Bc(n, e, t, i) {
   if (i === "“") return !0;
   if (i !== '"') return !1;
   let s = 0;
@@ -6979,7 +6991,7 @@ function _c(n, e, t, i) {
   return s % 2 === 1;
 }
 const Uc = new RegExp(`[.!?][”"'’)\\]]*\\s+—\\s+(?=\\p{Lu})`, "gu");
-function Bc(n, e) {
+function zc(n, e) {
   const t = [...n.matchAll(Uc)].map((s) => s.index + s[0].length);
   if (t.length === 0) return e;
   const i = [];
@@ -6991,20 +7003,20 @@ function Bc(n, e) {
   }
   return i;
 }
-function zc(n, e, t) {
-  const i = Bc(n, e).map((r) => ({ ...r }));
+function Vc(n, e, t) {
+  const i = zc(n, e).map((r) => ({ ...r }));
   for (let r = 0; r < i.length - 1; r++) {
     const o = Zt(n, i[r].start, i[r].end);
     if (o !== i[r].end || o <= i[r].start) continue;
     const a = n[o - 1];
-    _c(n, i[r].start, o, a) && (i[r].end -= 1, i[r + 1].start -= 1);
+    Bc(n, i[r].start, o, a) && (i[r].end -= 1, i[r + 1].start -= 1);
   }
   const s = [];
   for (const r of i) {
     let o = r;
     for (; s.length > 0; ) {
       const a = s[s.length - 1], l = Zt(n, a.start, a.end), c = n.slice(a.start, l);
-      if (!Lc(c, t) && $c(c) && !Mc(c)) break;
+      if (!$c(c, t) && Mc(c) && !_c(c)) break;
       s.pop(), o = { start: a.start, end: o.end };
     }
     s.push(o);
@@ -7015,16 +7027,16 @@ function zc(n, e, t) {
   });
 }
 const Ji = /* @__PURE__ */ new Map();
-function Vc(n) {
+function jc(n) {
   let e = Ji.get(n);
   return e || (e = new Intl.Segmenter(n, { granularity: "sentence" }), Ji.set(n, e)), e;
 }
-async function jc(n, e, t) {
+async function Hc(n, e, t) {
   if (e === "") return [];
-  const s = [...Vc(n).segment(e)].map((o) => ({ start: o.index, end: o.index + o.segment.length })), r = t ? [...Xi[n] ?? [], ...t] : Xi[n] ?? [];
-  return zc(e, s, r);
+  const s = [...jc(n).segment(e)].map((o) => ({ start: o.index, end: o.index + o.segment.length })), r = t ? [...Xi[n] ?? [], ...t] : Xi[n] ?? [];
+  return Vc(e, s, r);
 }
-const Td = [
+const Dd = [
   "aside",
   "audio",
   "bibliography",
@@ -7050,7 +7062,7 @@ const Td = [
   "table",
   "toc",
   "video"
-], Hc = [
+], Wc = [
   // Headings
   "heading1",
   "heading2",
@@ -7108,13 +7120,13 @@ const Td = [
   "section",
   "summary",
   "tip"
-], Wc = {
+], Kc = {
   footnote: { drops: ["aside"], unconditional: !0 },
   cover: { drops: ["image"] },
   pullquote: { drops: ["blockquote", "aside"] },
   epigraph: { drops: ["blockquote"] }
-}, Kc = ["noteref", "pagebreak"], qc = ["audio", "video", "image", "figure", "math", "table", "cover"], Gc = ["cell", "rowheader"], Xc = ["separator"], Yi = new Set(Hc), Jc = new Set(Kc), Yc = new Set(qc), Cr = new Set(Gc), Qc = new Set(Xc);
-function Zc(n, e) {
+}, qc = ["noteref", "pagebreak"], Gc = ["audio", "video", "image", "figure", "math", "table", "cover"], Xc = ["cell", "rowheader"], Jc = ["separator"], Yi = new Set(Wc), Yc = new Set(qc), Qc = new Set(Gc), kr = new Set(Xc), Zc = new Set(Jc);
+function eu(n, e) {
   const t = P.createInstance();
   return t.init({
     lng: n,
@@ -7122,35 +7134,35 @@ function Zc(n, e) {
     interpolation: { escapeValue: !1 }
   }), t;
 }
-function eu(n, e, t) {
+function tu(n, e, t) {
   if (!e) return n;
   const i = { ...n };
   for (const s of Object.keys(e))
     i[s] = t(n[s], e[s]);
   return i;
 }
-function kr(n, e) {
+function Rr(n, e) {
   if (typeof e == "string" || typeof n != "object") return e;
   const t = { ...n };
   for (const i of Object.keys(e))
-    t[i] = kr(n[i], e[i]);
+    t[i] = Rr(n[i], e[i]);
   return t;
 }
-function tu(n, e) {
-  return eu(n, e, kr);
+function nu(n, e) {
+  return tu(n, e, Rr);
 }
-function Rr(n, e = [], t = /* @__PURE__ */ new Map()) {
+function Ar(n, e = [], t = /* @__PURE__ */ new Map()) {
   for (const i of n)
-    t.set(i, e), i.children && Rr(i.children, [i, ...e], t);
+    t.set(i, e), i.children && Ar(i.children, [i, ...e], t);
   return t;
 }
-async function Ar(n, e) {
-  const t = e.contextualizationLocale ?? "en", i = tu(
-    await Fc(t),
+async function Or(n, e) {
+  const t = e.contextualizationLocale ?? "en", i = nu(
+    await Pc(t),
     e.contextualization?.contextualizations
   );
   return {
-    i18n: Zc(t, i),
+    i18n: eu(t, i),
     skip: new Set(e.skip ?? []),
     contextualize: new Set(e.contextualize ?? []),
     contextualizationShapes: e.contextualization?.shapes ?? {},
@@ -7163,35 +7175,35 @@ async function Ar(n, e) {
     // (Intl.Segmenter has no built-in equivalent of its own) — this is only
     // the caller's own additive extras, per `SegmentationOptions.suppressions`.
     segmentationSuppressions: e.segmentation?.suppressions ?? {},
-    segmenter: e.segmentation?.segmenter ?? jc,
+    segmenter: e.segmentation?.segmenter ?? Hc,
     // Per-key override, not an additive union — each key holds one whole rule.
-    substitutions: { ...Nc, ...e.substitutions },
+    substitutions: { ...Tc, ...e.substitutions },
     blockStarts: /* @__PURE__ */ new Set(),
     tableRowNumbers: /* @__PURE__ */ new Map(),
     tableCellHeaders: /* @__PURE__ */ new Map(),
     synthetic: /* @__PURE__ */ new Set(),
-    ancestorChains: Rr(n),
+    ancestorChains: Ar(n),
     pendingRange: /* @__PURE__ */ new Map(),
     edgeSubstitutedLocate: /* @__PURE__ */ new WeakMap()
   };
 }
-const nu = /<lang xml:lang="[^"]*">([\s\S]*?)<\/lang>/g;
-function Or(n) {
-  return n.replace(nu, "$1");
+const iu = /<lang xml:lang="[^"]*">([\s\S]*?)<\/lang>/g;
+function Nr(n) {
+  return n.replace(iu, "$1");
 }
 const yn = "#css(", bn = ")";
-function iu(n) {
+function su(n) {
   return `${yn}${encodeURIComponent(n)}${bn}`;
 }
-function su(n) {
+function ru(n) {
   if (!(!n || !n.startsWith(yn) || !n.endsWith(bn)))
     return decodeURIComponent(n.slice(yn.length, -bn.length));
 }
 const vn = "#domrange(", wn = ")";
-function ru(n) {
+function ou(n) {
   return `${vn}${encodeURIComponent(JSON.stringify(n))}${wn}`;
 }
-function ou(n) {
+function au(n) {
   if (!(!n || !n.startsWith(vn) || !n.endsWith(wn)))
     try {
       const e = JSON.parse(decodeURIComponent(n.slice(vn.length, -wn.length)));
@@ -7204,11 +7216,11 @@ const xn = ":~:text=";
 function ct(n) {
   return encodeURIComponent(n).replace(/-/g, "%2D");
 }
-function Nr(n) {
+function Tr(n) {
   let e = "";
   return n.prefix && (e += `${ct(n.prefix)}-,`), e += ct(n.textStart), n.textEnd && (e += `,${ct(n.textEnd)}`), n.suffix && (e += `,-${ct(n.suffix)}`), `${xn}${e}`;
 }
-function au(n) {
+function lu(n) {
   if (!n) return;
   const e = n.indexOf(xn);
   if (e === -1) return;
@@ -7222,7 +7234,7 @@ function au(n) {
       return;
     }
 }
-function lu(n, e) {
+function cu(n, e) {
   if (!n.domRange || !e.domRange) return;
   const t = { start: n.domRange.start, end: e.domRange.end ?? e.domRange.start };
   return n.domRange.container !== void 0 && (t.container = n.domRange.container), { domRange: t, cssSelector: t.container ?? t.start.cssSelector };
@@ -7232,18 +7244,18 @@ function Qi(n) {
   if (!e) return;
   const t = e.indexOf(":~:"), i = t === -1 ? e : e.slice(0, t);
   let s, r;
-  const o = ou(i);
+  const o = au(i);
   if (o)
     r = o, s = o.container ?? o.start.cssSelector;
   else {
-    const c = su(i);
+    const c = ru(i);
     c !== void 0 ? s = c : n?.id && i === `#${CSS.escape(n.id)}` && (s = i);
   }
-  const a = au(e);
+  const a = lu(e);
   if (s === void 0 && r === void 0 && a === void 0)
     return;
   const l = {};
-  return s !== void 0 && (l.cssSelector = s), r !== void 0 && (l.domRange = r), a?.textEnd !== void 0 ? l.fragment = Nr(a) : a && (l.text = { highlight: a.textStart }, a.prefix !== void 0 && (l.text.before = a.prefix), a.suffix !== void 0 && (l.text.after = a.suffix)), l;
+  return s !== void 0 && (l.cssSelector = s), r !== void 0 && (l.domRange = r), a?.textEnd !== void 0 ? l.fragment = Tr(a) : a && (l.text = { highlight: a.textStart }, a.prefix !== void 0 && (l.text.before = a.prefix), a.suffix !== void 0 && (l.text.after = a.suffix)), l;
 }
 function Ce(n, e) {
   const t = n.cssSelector ?? n.domRange?.start.cssSelector;
@@ -7262,9 +7274,9 @@ function Mn(n, e) {
     return n.own ? n.ref : Ce(n.ref, e);
 }
 function _n(n, e, t) {
-  return (n && e ? lu(n.ref, e.ref) : void 0) ?? t;
+  return (n && e ? cu(n.ref, e.ref) : void 0) ?? t;
 }
-function Tr(n, e, t) {
+function Dr(n, e, t) {
   const { ancestorChains: i } = t, s = /* @__PURE__ */ new Map();
   for (const r of e)
     r && !Array.isArray(r) && s.set(r, (s.get(r) ?? 0) + 1);
@@ -7285,18 +7297,18 @@ function Tr(n, e, t) {
     return h;
   });
 }
-function Un(n) {
+function Bn(n) {
   const e = Rn(n.text);
   return e ? e.plain ?? (e.ssml ? ae(e.ssml) : "") : "";
 }
-function cu(n) {
+function uu(n) {
   const e = /* @__PURE__ */ new Map(), t = /* @__PURE__ */ new Map();
   let i = 0, s;
   return n.forEach((r, o) => {
     e.set(r, o + 1);
     const a = r.children ?? [];
     if (i = Math.max(i, a.length), a.some((l) => l.role?.includes("columnheader"))) {
-      s = a.map(Un);
+      s = a.map(Bn);
       return;
     }
     s && a.forEach((l, c) => {
@@ -7315,7 +7327,7 @@ function se(n, e, t, i) {
   n.push(...i);
   for (let s = 0; s < i.length; s++) e.push(t);
 }
-function Dr(n, e, t, i, s, r, o) {
+function Fr(n, e, t, i, s, r, o) {
   o ? (s.some((a) => t.blockStarts.has(a)) && t.blockStarts.add(o), se(n, e, r[0] ?? i, [o])) : (n.push(...s), e.push(...r));
 }
 function qe(n, e, t, i) {
@@ -7323,13 +7335,13 @@ function qe(n, e, t, i) {
   if (s && n.i18n.exists(s)) return n.i18n.t(s, i);
   if (n.i18n.exists(e)) return n.i18n.t(e, i);
 }
-function Bn(n, e) {
-  return Cr.has(n) ? !0 : e.contextualize.has(n);
+function Un(n, e) {
+  return kr.has(n) ? !0 : e.contextualize.has(n);
 }
-function uu(n, e, t) {
+function hu(n, e, t) {
   return e.some((i) => {
-    const s = Wc[i];
-    return s?.drops.includes(n) ? s.unconditional || Bn(i, t) : !1;
+    const s = Kc[i];
+    return s?.drops.includes(n) ? s.unconditional || Un(i, t) : !1;
   });
 }
 function kt(n, e, t, i, s) {
@@ -7342,7 +7354,7 @@ function kt(n, e, t, i, s) {
 }
 function Zi(n, e, t, i, s, r) {
   const o = r?.value;
-  if (o !== void 0 && o === Un(t)) {
+  if (o !== void 0 && o === Bn(t)) {
     if (i.language !== "none") {
       const l = typeof t.text == "object" ? t.text.language : void 0;
       l && (n.language = l);
@@ -7354,7 +7366,7 @@ function Zi(n, e, t, i, s, r) {
   a !== void 0 && a === t.description && (s === "figure" || s === "table") && kt(n, e, a, t, i);
 }
 function es(n, e, t, i, s, r, o, a) {
-  if (!Bn(s, i)) return;
+  if (!Un(s, i)) return;
   if ((i.i18n.exists(`${s}.block.start`) || i.i18n.exists(`${s}.block.end`)) && i.contextualizationShapes[s] !== "inline") {
     const c = r === "before" ? `${s}.block.start` : `${s}.block.end`, u = qe(i, c, o, a);
     if (u) {
@@ -7375,19 +7387,19 @@ function ts(n, e, t, i) {
   const s = `${e}.parts.${t}`;
   return n.i18n.exists(s, { count: i }) ? n.i18n.t(s, { count: i }) : String(i);
 }
-function hu(n) {
+function du(n) {
   return n.description === void 0 ? { variantKey: "unlabelled" } : { variantKey: "labelled", params: { description: n.description } };
 }
 function ns(n, e) {
   const t = e.tableCellHeaders.get(n);
   return {
     variantKey: t !== void 0 ? "withHeader" : "withoutHeader",
-    params: { header: t ?? "", value: Un(n) }
+    params: { header: t ?? "", value: Bn(n) }
   };
 }
-const du = {
+const fu = {
   table: (n, e) => {
-    const t = (n.children ?? []).filter((s) => s.role?.includes("row")), i = cu(t);
+    const t = (n.children ?? []).filter((s) => s.role?.includes("row")), i = uu(t);
     for (const [s, r] of i.rowNumbers) e.tableRowNumbers.set(s, r);
     for (const [s, r] of i.cellHeaders) e.tableCellHeaders.set(s, r);
     return {
@@ -7402,21 +7414,21 @@ const du = {
   rowheader: ns
 };
 function is(n, e, t) {
-  const i = hu(e);
+  const i = du(e);
   let s = i.variantKey, r = i.params;
-  const o = du[n]?.(e, t);
+  const o = fu[n]?.(e, t);
   o && (o.variantKey && (s = o.variantKey), r = { ...r, ...o.params });
   const a = t.contextualizationParams?.(n, e);
   return a && (r = { ...r, ...a }), { variantKey: s, params: r };
 }
-const fu = ["math", "separator"], zn = /* @__PURE__ */ new WeakSet(), ke = /* @__PURE__ */ new WeakSet(), Ir = /* @__PURE__ */ new WeakMap(), Fr = /* @__PURE__ */ new WeakMap();
+const gu = ["math", "separator"], zn = /* @__PURE__ */ new WeakSet(), ke = /* @__PURE__ */ new WeakSet(), Ir = /* @__PURE__ */ new WeakMap(), Pr = /* @__PURE__ */ new WeakMap();
 function En(n) {
-  return n.role?.some((e) => fu.includes(e)) ? !1 : !n.audioref && !n.imgref && !n.textref && !n.videoref && (!n.text || Xe(n.text)) && !(n.children && n.children.length > 0) && !n.description;
-}
-function gu(n) {
-  return !n.audioref && !n.imgref && !n.textref && !n.videoref && (!n.text || Xe(n.text)) && !!(n.children && n.children.length > 0) && !(n.role && n.role.length > 0) && !n.id;
+  return n.role?.some((e) => gu.includes(e)) ? !1 : !n.audioref && !n.imgref && !n.textref && !n.videoref && (!n.text || Xe(n.text)) && !(n.children && n.children.length > 0) && !n.description;
 }
 function pu(n) {
+  return !n.audioref && !n.imgref && !n.textref && !n.videoref && (!n.text || Xe(n.text)) && !!(n.children && n.children.length > 0) && !(n.role && n.role.length > 0) && !n.id;
+}
+function mu(n) {
   return !(n.role && n.role.length > 0) && !n.id && !n.textref && !n.imgref && !n.audioref && !n.videoref;
 }
 class ut {
@@ -7429,7 +7441,7 @@ class ut {
     for (const i of this.children) {
       const s = i.finalize();
       if (!En(s)) {
-        if (gu(s)) {
+        if (pu(s)) {
           t.push(...s.children ?? []);
           continue;
         }
@@ -7442,7 +7454,7 @@ class ut {
     }
     if ((!e.text || Xe(e.text)) && e.children?.length === 1) {
       const i = e.children[0];
-      pu(i) && (i.text && (e.text = i.text), e.children = i.children);
+      mu(i) && (i.text && (e.text = i.text), e.children = i.children);
     }
     return e;
   }
@@ -7450,20 +7462,20 @@ class ut {
 function Cn(n) {
   const e = {};
   n.id && (e.id = n.id), n.textref && (e.textref = n.textref), n.imgref && (e.imgref = n.imgref), n.audioref && (e.audioref = n.audioref), n.videoref && (e.videoref = n.videoref);
-  const t = Ho(n.text);
+  const t = Wo(n.text);
   t !== void 0 && (e.text = t), n.role && n.role.length > 0 && (e.role = n.role), n.children && n.children.length > 0 && (e.children = n.children.map(Cn)), n.description && (e.description = n.description), zn.has(n) && ke.add(e);
   const i = Ir.get(n);
-  return i && Fr.set(e, i), e;
+  return i && Pr.set(e, i), e;
 }
-function Pr(n) {
+function Lr(n) {
   const e = {};
-  return n.id && (e.id = n.id), n.textref && (e.textref = n.textref), n.imgref && (e.imgref = n.imgref), n.audioref && (e.audioref = n.audioref), n.videoref && (e.videoref = n.videoref), n.role && (e.role = n.role), n.description && (e.description = n.description), typeof n.text == "string" ? e.text = { plain: n.text, ssml: "", language: "" } : n.text && (e.text = { plain: n.text.plain ?? "", ssml: n.text.ssml ?? "", language: n.text.language }), n.children && (e.children = n.children.map(Pr)), e;
+  return n.id && (e.id = n.id), n.textref && (e.textref = n.textref), n.imgref && (e.imgref = n.imgref), n.audioref && (e.audioref = n.audioref), n.videoref && (e.videoref = n.videoref), n.role && (e.role = n.role), n.description && (e.description = n.description), typeof n.text == "string" ? e.text = { plain: n.text, ssml: "", language: "" } : n.text && (e.text = { plain: n.text.plain ?? "", ssml: n.text.ssml ?? "", language: n.text.language }), n.children && (e.children = n.children.map(Lr)), e;
 }
 function Rt(n) {
   let e = "";
   const t = [];
   for (const i of n) {
-    if (i.length === 1 && Vo(i) && e.endsWith(i)) {
+    if (i.length === 1 && jo(i) && e.endsWith(i)) {
       t.push({ start: e.length, end: e.length });
       continue;
     }
@@ -7474,12 +7486,12 @@ function Rt(n) {
   return { joined: e, ranges: t };
 }
 function _t(n, e) {
-  const t = Fr.get(n);
+  const t = Pr.get(n);
   if (t) return Li({ cssSelector: t });
   const i = _(n, e.ancestorChains)?.ref;
   return i && Li(i);
 }
-function mu(n, e, t) {
+function Su(n, e, t) {
   const i = [];
   return n.forEach((s, r) => {
     if (s.offsets) {
@@ -7503,7 +7515,7 @@ function ss(n, e, t, i) {
   if (!(!e || Array.isArray(e) || !ke.has(e)))
     return _t(e, i);
 }
-function Su(n, e, t) {
+function yu(n, e, t) {
   const i = n.map((l, c) => {
     if (l.locate) return l.locate;
     if (t.synthetic.has(l)) return;
@@ -7537,21 +7549,21 @@ function Vn(n, e, t) {
   if (r.length === 0) return;
   const { joined: l } = Rt(r), c = t.format === "ssml" ? { ssml: l } : { plain: l };
   i && (c.language = i), n.some((g) => t.synthetic.has(g)) && t.synthetic.add(c);
-  const u = mu(o, a, t);
+  const u = Su(o, a, t);
   u.length > 0 && (c.offsets = u);
-  const h = Su(o, a, t);
+  const h = yu(o, a, t);
   h && (c.locate = h);
   const d = ss(o[0], a[0], "leading", t), f = ss(o[o.length - 1], a[o.length - 1], "trailing", t);
   return (d || f) && t.edgeSubstitutedLocate.set(c, { leading: d, trailing: f }), c;
 }
-function Lr(n, e, t, i) {
-  if (e === "plain" && t !== "block-level" && t !== "none" && n.ssml && Os(n.ssml))
-    return Ns(n.ssml, n.language).map((r) => {
+function $r(n, e, t, i) {
+  if (e === "plain" && t !== "block-level" && t !== "none" && n.ssml && Ns(n.ssml))
+    return Ts(n.ssml, n.language).map((r) => {
       const o = { plain: r.plain };
       return r.language && (o.language = r.language), i.pendingRange.set(o, { start: r.start, end: r.end }), o;
     });
   const s = {};
-  return n.language && (s.language = n.language), e === "ssml" ? s.ssml = n.ssml ?? X(n.plain ?? "") : s.plain = n.plain ?? ae(n.ssml ?? ""), (t === "block-level" || t === "none") && (s.ssml && (s.ssml = Or(s.ssml)), t === "none" && delete s.language), [s];
+  return n.language && (s.language = n.language), e === "ssml" ? s.ssml = n.ssml ?? X(n.plain ?? "") : s.plain = n.plain ?? ae(n.ssml ?? ""), (t === "block-level" || t === "none") && (s.ssml && (s.ssml = Nr(s.ssml)), t === "none" && delete s.language), [s];
 }
 function Ye(n, e) {
   return e !== "ssml" ? n : n.replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
@@ -7559,8 +7571,8 @@ function Ye(n, e) {
 function rs(n, e) {
   return e.size > 0 && n.some((t) => e.has(t));
 }
-function yu(n, e) {
-  const t = Rn(n.text), i = t ? Lr(t, e.format, e.language, e) : [];
+function bu(n, e) {
+  const t = Rn(n.text), i = t ? $r(t, e.format, e.language, e) : [];
   if (!e.contextualize.has("pagebreak")) return i;
   const s = e.i18n.exists("pagebreak.block.start") ? "pagebreak.block.start" : "pagebreak.inline", r = qe(e, s);
   if (r === void 0) return i;
@@ -7569,38 +7581,38 @@ function yu(n, e) {
   const a = Vn([o, ...i], [void 0, ...i.map(() => n)], e);
   return a ? (a.plain !== void 0 && (a.plain += "."), a.ssml !== void 0 && (a.ssml += "."), [a]) : [o, ...i];
 }
-function bu(n) {
-  return (n.role ?? []).some((e) => Jc.has(e));
+function vu(n) {
+  return (n.role ?? []).some((e) => Yc.has(e));
 }
-function vu(n, e, t, i, s, r) {
+function wu(n, e, t, i, s, r) {
   const o = typeof n.text == "object" ? n.text.language : void 0, a = new Map((n.children ?? []).map((d) => [d.id, d])), l = [], c = [], u = [];
-  for (const d of ca(e)) {
+  for (const d of ua(e)) {
     if (d.placeholderId !== void 0) {
       const g = a.get(d.placeholderId);
       if (!g) continue;
-      s.inlineContextualization || !bu(g) ? $r(g, l, c, s, r) : u.push(g);
+      s.inlineContextualization || !vu(g) ? Mr(g, l, c, s, r) : u.push(g);
       continue;
     }
     if (!d.ssml) continue;
-    if (s.format === "plain" && s.language !== "block-level" && s.language !== "none" && Os(d.ssml)) {
-      for (const g of Ns(d.ssml, o)) {
+    if (s.format === "plain" && s.language !== "block-level" && s.language !== "none" && Ns(d.ssml)) {
+      for (const g of Ts(d.ssml, o)) {
         const p = { plain: g.plain };
         g.language && (p.language = g.language), l.push(p), c.push(n);
       }
       continue;
     }
     const f = {};
-    o && (f.language = o), s.format === "ssml" ? f.ssml = d.ssml : f.plain = ae(d.ssml), (s.language === "block-level" || s.language === "none") && (f.ssml && (f.ssml = Or(f.ssml)), s.language === "none" && delete f.language), l.push(f), c.push(n);
+    o && (f.language = o), s.format === "ssml" ? f.ssml = d.ssml : f.plain = ae(d.ssml), (s.language === "block-level" || s.language === "none") && (f.ssml && (f.ssml = Nr(f.ssml)), s.language === "none" && delete f.language), l.push(f), c.push(n);
   }
   const h = l.length > 1 ? Vn(l, c, s) : void 0;
-  return Dr(t, i, s, n, l, c, h), u;
+  return Fr(t, i, s, n, l, c, h), u;
 }
-function $r(n, e, t, i, s) {
+function Mr(n, e, t, i, s) {
   const r = n.role ?? [];
   if (rs(r, i.skip)) return;
   const o = r.some((d) => Yi.has(d)), a = o && !s, l = e.length, c = r.filter(
-    (d) => d !== "footnote" && d !== "pagebreak" && !uu(d, r, i)
-  ), u = r.some((d) => Yc.has(d) && i.contextualize.has(d)), h = r.includes("table") && n.description !== void 0 && !u;
+    (d) => d !== "footnote" && d !== "pagebreak" && !hu(d, r, i)
+  ), u = r.some((d) => Qc.has(d) && i.contextualize.has(d)), h = r.includes("table") && n.description !== void 0 && !u;
   if (h) {
     const d = ie(n.description, i);
     kt(d, n.description, n.description, n, i), se(e, t, n, [d]);
@@ -7623,26 +7635,26 @@ function $r(n, e, t, i, s) {
             A !== void 0 && (S.push(ie(A, i)), y.push(d));
           }
           const R = w && S.length > 1 ? Vn(S, y, i) : void 0;
-          Dr(e, t, i, d, S, y, R);
+          Fr(e, t, i, d, S, y, R);
         } else
           te([d], e, t, i, s);
     }
-  else if (!r.some((d) => Qc.has(d))) {
+  else if (!r.some((d) => Zc.has(d))) {
     const d = typeof n.text == "object" ? n.text.ssml : void 0;
-    if (d && la(d)) {
-      const f = vu(n, d, e, t, i, s);
+    if (d && ca(d)) {
+      const f = wu(n, d, e, t, i, s);
       if (f.length > 0) {
         const g = s || o && e.length > l;
         te(f, e, t, i, g);
       }
     } else if (r.includes("pagebreak")) {
-      if (se(e, t, n, yu(n, i)), n.children) {
+      if (se(e, t, n, bu(n, i)), n.children) {
         const f = s || o && e.length > l;
         te(n.children, e, t, i, f);
       }
     } else {
-      const g = r.some((p) => Cr.has(p) && Bn(p, i)) ? void 0 : Rn(n.text);
-      if (g && se(e, t, n, Lr(g, i.format, i.language, i)), n.children) {
+      const g = r.some((p) => kr.has(p) && Un(p, i)) ? void 0 : Rn(n.text);
+      if (g && se(e, t, n, $r(g, i.format, i.language, i)), n.children) {
         const p = s || o && e.length > l;
         te(n.children, e, t, i, p);
       }
@@ -7659,11 +7671,11 @@ function $r(n, e, t, i, s) {
   }
 }
 function te(n, e, t, i, s) {
-  n.forEach((r, o) => $r(r, e, t, i, o === 0 ? s : !1));
+  n.forEach((r, o) => Mr(r, e, t, i, o === 0 ? s : !1));
 }
-const wu = Rs;
-async function Mr(n, e, t, i) {
-  const s = wu(n);
+const xu = As;
+async function _r(n, e, t, i) {
+  const s = xu(n);
   let r = "";
   const o = [];
   for (const d of s)
@@ -7695,13 +7707,13 @@ async function Mr(n, e, t, i) {
     }
   }), c && l.push(c.replace(/[ \t\r\n]+$/, "")), l;
 }
-async function xu(n, e) {
+async function Eu(n, e) {
   const t = n.language ?? "en", i = e.segmentationSuppressions[t], s = e.format === "ssml" ? n.ssml : n.plain;
   if (!s) return;
   const r = await e.segmenter(t, Ye(s, e.format), i);
   if (r.length <= 1) return;
   if (e.format !== "ssml") return r.map((a) => ({ text: a.text, start: a.start, end: a.contentEnd }));
-  const o = await Mr(s, t, e.segmenter, i);
+  const o = await _r(s, t, e.segmenter, i);
   if (o)
     return r.map((a, l) => ({ text: o[l], start: a.start, end: a.contentEnd }));
 }
@@ -7726,13 +7738,13 @@ function as(n) {
 function ls(n, e, t, i) {
   return i.edgeSubstitutedLocate.get(e)?.[t] ? !0 : !!n && !Array.isArray(n) && ke.has(n);
 }
-function Eu(n, e, t, i, s) {
+function Cu(n, e, t, i, s) {
   if (s.synthetic.has(n) || s.synthetic.has(t) || !e || !i) return !1;
   const r = s.format === "ssml" ? n.ssml : n.plain, o = s.format === "ssml" ? t.ssml : t.plain;
   return !(!r || !o || (n.language ?? "en") !== (t.language ?? "en") || as(e).some((a) => os.has(a)) || as(i).some((a) => os.has(a)) || ls(e, n, "trailing", s) || ls(i, t, "leading", s));
 }
 async function cs(n, e, t, i, s) {
-  const r = t.synthetic.has(n) ? void 0 : await xu(n, t);
+  const r = t.synthetic.has(n) ? void 0 : await Eu(n, t);
   if (!r) {
     i.push(n), s.push(e);
     return;
@@ -7756,7 +7768,7 @@ function At(n, e) {
   for (; t < n.length - 1 && n[t + 1].start <= e; ) t++;
   return t;
 }
-async function Cu(n, e, t, i) {
+async function ku(n, e, t, i) {
   const s = n.map((c) => Ye(e.format === "ssml" ? c.ssml : c.plain, e.format)), { joined: r, ranges: o } = Rt(s), a = await e.segmenter(t, r, i), l = new Array(n.length - 1).fill(!1);
   for (const c of a) {
     const u = At(o, c.start), h = c.end > c.start ? At(o, c.end - 1) : u;
@@ -7764,7 +7776,7 @@ async function Cu(n, e, t, i) {
   }
   return l;
 }
-function ku(n, e, t, i, s, r, o) {
+function Ru(n, e, t, i, s, r, o) {
   const a = [];
   for (let l = s; l <= r; l++) {
     const c = _(e[l], o.ancestorChains);
@@ -7776,33 +7788,33 @@ function ku(n, e, t, i, s, r, o) {
   }
   return a;
 }
-async function Ru(n, e, t, i, s) {
+async function Au(n, e, t, i, s) {
   const r = n[0].language ?? "en", o = t.segmentationSuppressions[r], a = n.map((g) => Ye(t.format === "ssml" ? g.ssml : g.plain, t.format)), { joined: l, ranges: c } = Rt(a), u = await t.segmenter(r, l, o);
   let h, d;
-  t.format === "ssml" && (d = Rt(n.map((g) => g.ssml)).joined, h = u.length > 1 ? await Mr(d, r, t.segmenter, o) : void 0), (u.length > 0 ? u : [{ text: l, start: 0, end: l.length, contentEnd: l.length }]).forEach((g, p) => {
+  t.format === "ssml" && (d = Rt(n.map((g) => g.ssml)).joined, h = u.length > 1 ? await _r(d, r, t.segmenter, o) : void 0), (u.length > 0 ? u : [{ text: l, start: 0, end: l.length, contentEnd: l.length }]).forEach((g, p) => {
     const m = At(c, g.start), b = g.end > g.start ? At(c, g.end - 1) : m, w = t.format === "ssml" ? h ? h[p] : d : g.text, S = { [t.format]: w };
     r && (S.language = r), n.slice(m, b + 1).some((T) => t.blockStarts.has(T)) && t.blockStarts.add(S);
-    const v = ku(n, e, c, g, m, b, t);
+    const v = Ru(n, e, c, g, m, b, t);
     v.length > 0 && (S.offsets = v);
     const C = _(e[m], t.ancestorChains), R = Mn(C, w), A = m !== b ? _n(C, _(e[b], t.ancestorChains), R) : R;
     A && (S.locate = A), i.push(S), s.push(m === b ? e[m] : [e[m], e[b]]);
   });
 }
-async function _r(n, e, t) {
+async function Br(n, e, t) {
   if (t.segmentation !== "sentence") return { out: n, sources: e };
   const i = [], s = [];
   let r = 0;
   for (; r < n.length; ) {
     let o = r;
-    for (; o + 1 < n.length && Eu(n[o], e[o], n[o + 1], e[o + 1], t); ) o++;
+    for (; o + 1 < n.length && Cu(n[o], e[o], n[o + 1], e[o + 1], t); ) o++;
     if (o === r) {
       await cs(n[r], e[r], t, i, s), r = o + 1;
       continue;
     }
-    const a = n.slice(r, o + 1), l = e.slice(r, o + 1), c = a[0].language ?? "en", u = await Cu(a, t, c, t.segmentationSuppressions[c]);
+    const a = n.slice(r, o + 1), l = e.slice(r, o + 1), c = a[0].language ?? "en", u = await ku(a, t, c, t.segmentationSuppressions[c]);
     let h = 0;
     for (let d = 0; d < a.length; d++)
-      d < a.length - 1 && u[d] || (h === d ? await cs(a[h], l[h], t, i, s) : await Ru(a.slice(h, d + 1), l.slice(h, d + 1), t, i, s), h = d + 1);
+      d < a.length - 1 && u[d] || (h === d ? await cs(a[h], l[h], t, i, s) : await Au(a.slice(h, d + 1), l.slice(h, d + 1), t, i, s), h = d + 1);
     r = o + 1;
   }
   return { out: i, sources: s };
@@ -7810,29 +7822,29 @@ async function _r(n, e, t) {
 function Ur(n, e) {
   return Object.keys(e.substitutions).length === 0 ? n : n.map((t) => {
     if (t.ssml) {
-      const { ssml: a, plain: l, map: c } = ia(t.ssml, e.substitutions);
+      const { ssml: a, plain: l, map: c } = sa(t.ssml, e.substitutions);
       if (a === t.ssml) return t;
       const u = { ...t, ssml: a };
       return Pi(u, { plain: l, map: c }), u;
     }
     const i = t.plain;
     if (!i) return t;
-    const { text: s, map: r } = ta(i, e.substitutions);
+    const { text: s, map: r } = na(i, e.substitutions);
     if (s === i) return t;
     const o = { ...t, plain: s };
     return Pi(o, { plain: i, map: r }), o;
   });
 }
-async function Dd(n, e) {
-  const t = [], i = [], s = await Ar(n, e);
+async function Fd(n, e) {
+  const t = [], i = [], s = await Or(n, e);
   te(n, t, i, s, !1);
-  const r = await _r(t, i, s);
-  return Ur(Tr(r.out, r.sources, s), s);
+  const r = await Br(t, i, s);
+  return Ur(Dr(r.out, r.sources, s), s);
 }
-async function Au(n, e) {
-  const t = [], i = [], s = await Ar(n, e);
+async function Ou(n, e) {
+  const t = [], i = [], s = await Or(n, e);
   te(n, t, i, s, !1);
-  const r = await _r(t, i, s), o = r.out.map((l) => s.blockStarts.has(l)), a = Tr(r.out, r.sources, s);
+  const r = await Br(t, i, s), o = r.out.map((l) => s.blockStarts.has(l)), a = Dr(r.out, r.sources, s);
   return { utterances: Ur(a, s), sources: r.sources, blockStarts: o };
 }
 class Id {
@@ -7871,7 +7883,7 @@ class Id {
   // Index to speak() on the next play() when autoPause has stopped playback between utterances.
   pendingAutoPauseIndex = null;
   constructor(e, t = {}) {
-    this.engine = e, this._defaults = new Zl(t.defaults), this._preferences = new We(t.preferences), this._settings = new Ii(this._preferences, this._defaults), this.contextualizationOverrides = t.contextualizationOverrides, this.segmentationOverrides = t.segmentationOverrides, this.setupEngineListeners(), this.applyEngineParameters(), this.initializeEngine();
+    this.engine = e, this._defaults = new ec(t.defaults), this._preferences = new We(t.preferences), this._settings = new Fi(this._preferences, this._defaults), this.contextualizationOverrides = t.contextualizationOverrides, this.segmentationOverrides = t.segmentationOverrides, this.setupEngineListeners(), this.applyEngineParameters(), this.initializeEngine();
   }
   // Unlike pauseDuration/autoPause (read live off settings), the engine owns rate/pitch/volume and must be pushed.
   applyEngineParameters() {
@@ -7923,7 +7935,7 @@ class Id {
         this.setNavigatorState("ready"), this.emitEvent({ type: "ready" });
       }
     }), this.engine.on("boundary", (e) => {
-      const { charIndex: t, charLength: i } = e.detail ?? {}, s = this.getCurrentContent(), r = s && typeof t == "number" && typeof i == "number" ? oc(s, t, i) : void 0;
+      const { charIndex: t, charLength: i } = e.detail ?? {}, s = this.getCurrentContent(), r = s && typeof t == "number" && typeof i == "number" ? ac(s, t, i) : void 0;
       this.emitEvent(r ? { ...e, detail: { ...e.detail, ...r } } : e);
     }), this.engine.on("mark", (e) => {
       this.emitEvent(e);
@@ -7973,14 +7985,14 @@ class Id {
   // Re-runs extraction from `this.source`, resuming near the old position if playback was underway.
   async reextract() {
     if (!this.source) return;
-    const e = this.navigatorState === "playing" || this.navigatorState === "paused" ? this.navigatorState : null, t = this.contentSources, i = this.getCurrentUtteranceIndex(), { utterances: s, sources: r, blockStarts: o } = await Au(this.source, {
+    const e = this.navigatorState === "playing" || this.navigatorState === "paused" ? this.navigatorState : null, t = this.contentSources, i = this.getCurrentUtteranceIndex(), { utterances: s, sources: r, blockStarts: o } = await Ou(this.source, {
       format: this._settings.format,
       inlineContextualization: this._settings.inlineContextualization,
       skip: this._settings.skip,
       contextualize: this._settings.contextualize,
       contextualization: {
         contextualizations: this.contextualizationOverrides?.contextualizations,
-        shapes: rc(this._settings.verbosity, this.contextualizationOverrides?.shapes),
+        shapes: oc(this._settings.verbosity, this.contextualizationOverrides?.shapes),
         params: this.contextualizationOverrides?.params
       },
       language: this._settings.language,
@@ -8082,7 +8094,7 @@ class Id {
   // LocatorOptions there — and the same "resolve, then skip if there's nothing
   // to show" shape, since there's no raw engine event to fall back to unenriched.
   emitUtteranceBoundary(e) {
-    const t = this._settings.segmentation, i = ac(e, t);
+    const t = this._settings.segmentation, i = lc(e, t);
     if (!i.length) return;
     const s = t === "sentence" ? "sentence" : "structure";
     this.emitEvent({
@@ -8107,7 +8119,7 @@ class Id {
   }
   async applyPreferences() {
     const e = this._settings;
-    this._settings = new Ii(this._preferences, this._defaults), this.applyEngineParameters(), this._preferencesEditor !== null && (this._preferencesEditor = new Di(this._preferences, this._settings)), Ni.some((t) => !this.sameSettingValue(e[t], this._settings[t])) && await this.reextract();
+    this._settings = new Fi(this._preferences, this._defaults), this.applyEngineParameters(), this._preferencesEditor !== null && (this._preferencesEditor = new Di(this._preferences, this._settings)), Ni.some((t) => !this.sameSettingValue(e[t], this._settings[t])) && await this.reextract();
   }
   // Arrays (skip/contextualize) compare as sets, not by reference.
   sameSettingValue(e, t) {
@@ -8117,7 +8129,7 @@ class Id {
     this.clearPendingAdvance(), this.events.clear(), await this.engine.destroy();
   }
 }
-const Ou = [
+const Nu = [
   "heading1",
   "heading2",
   "heading3",
@@ -8194,7 +8206,7 @@ const Ou = [
   term: "term",
   "doc-tip": "tip",
   "doc-toc": "toc"
-}, Nu = {
+}, Tu = {
   abstract: "abstract",
   acknowledgments: "acknowledgments",
   afterword: "afterword",
@@ -8254,7 +8266,7 @@ const Ou = [
   glossterm: "term",
   tip: "tip",
   toc: "toc"
-}, Tu = {
+}, Du = {
   article: "article",
   aside: "aside",
   audio: "audio",
@@ -8290,43 +8302,43 @@ const Ou = [
   dt: "term",
   video: "video",
   svg: "image"
-}, Du = /* @__PURE__ */ new Set(["table", "tr", "td", "th"]), Iu = /* @__PURE__ */ new Set(["table", "row", "cell", "columnheader", "rowheader"]);
-function Fu(n) {
+}, Fu = /* @__PURE__ */ new Set(["table", "tr", "td", "th"]), Iu = /* @__PURE__ */ new Set(["table", "row", "cell", "columnheader", "rowheader"]);
+function Pu(n) {
   const e = n.getAttribute("role");
   if (!e) return !1;
   const t = e.split(/\s+/).filter(Boolean);
   return t.includes("presentation") || t.includes("none");
 }
-function Pu(n) {
+function Lu(n) {
   for (let e = n.parentElement; e; e = e.parentElement)
-    if (Fu(e)) return !0;
+    if (Pu(e)) return !0;
   return !1;
 }
-function Lu(n, e, t) {
-  return Du.has(e) || t.some((i) => Iu.has(i));
+function $u(n, e, t) {
+  return Fu.has(e) || t.some((i) => Iu.has(i));
 }
 function gt(n, e) {
   const t = n.getAttribute("role");
   return t ? t.split(/\s+/).filter(Boolean).includes(e) : !1;
 }
-function $u(n) {
+function Mu(n) {
   return n.tagName.toLowerCase() === "table" || gt(n, "table") || gt(n, "grid") || gt(n, "treegrid");
 }
-function Mu(n) {
+function _u(n) {
   return n.tagName.toLowerCase() === "tr" || gt(n, "row");
 }
-function _u(n) {
+function Bu(n) {
   let e = null;
   for (let i = n.parentElement; i; i = i.parentElement)
-    if ($u(i)) {
+    if (Mu(i)) {
       e = i;
       break;
     }
   return e ? e.ownerDocument.createTreeWalker(e, NodeFilter.SHOW_ELEMENT, {
-    acceptNode: (i) => Mu(i) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP
+    acceptNode: (i) => _u(i) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP
   }).nextNode() === n : !1;
 }
-function Br(n) {
+function zr(n) {
   const e = [];
   let t = !1;
   const i = n.getAttribute("role");
@@ -8335,27 +8347,27 @@ function Br(n) {
       if ((r === "presentation" || r === "none") && (t = !0), r === "heading") {
         let o = 2;
         const a = parseInt(n.getAttribute("aria-level") ?? "", 10);
-        Number.isFinite(a) && a >= 1 && (o = Math.min(a, 6)), e.push(Ou[o - 1]);
+        Number.isFinite(a) && a >= 1 && (o = Math.min(a, 6)), e.push(Nu[o - 1]);
       } else us[r] && e.push(us[r]);
   const s = n.getAttribute("epub:type");
   if (s)
     for (const r of s.split(/\s+/).filter(Boolean)) {
-      const o = Nu[r];
+      const o = Tu[r];
       o && e.push(o);
     }
   return { attrRoles: e, presentational: t };
 }
-function zr(n) {
-  const { attrRoles: e, presentational: t } = Br(n);
+function Vr(n) {
+  const { attrRoles: e, presentational: t } = zr(n);
   return e.length > 0 || t;
 }
 function ze(n) {
   const e = [], t = (o) => {
     e.includes(o) || e.push(o);
-  }, { attrRoles: i, presentational: s } = Br(n), r = n.tagName.toLowerCase();
+  }, { attrRoles: i, presentational: s } = zr(n), r = n.tagName.toLowerCase();
   if (s)
     return ["presentation"];
-  if (Lu(n, r, i) && Pu(n))
+  if ($u(n, r, i) && Lu(n))
     return ["presentation"];
   if (r === "body")
     t("body");
@@ -8369,11 +8381,11 @@ function ze(n) {
         break;
       default: {
         const o = n.parentElement;
-        o && _u(o) ? t("columnheader") : n.previousElementSibling === null ? t("rowheader") : t("cell");
+        o && Bu(o) ? t("columnheader") : n.previousElementSibling === null ? t("rowheader") : t("cell");
       }
     }
   else {
-    const o = Tu[r];
+    const o = Du[r];
     o && t(o);
   }
   for (const o of i) t(o);
@@ -8390,7 +8402,7 @@ function Uu(n) {
   };
   return t(n), e;
 }
-function Ut(n) {
+function Bt(n) {
   return we(Uu(n), !0).trim();
 }
 function kn(n) {
@@ -8400,7 +8412,7 @@ function kn(n) {
       e += i.nodeValue ?? "";
       return;
     }
-    if (!(i.nodeType === 1 && !s && zr(i)))
+    if (!(i.nodeType === 1 && !s && Vr(i)))
       for (let r = i.firstChild; r; r = r.nextSibling) t(r, !1);
   };
   return t(n, !0), e;
@@ -8408,7 +8420,7 @@ function kn(n) {
 function ds(n) {
   return we(kn(n), !0).trim();
 }
-function Bu(n) {
+function zu(n) {
   if (hs(n))
     return [null, !1];
   const e = (n.getAttribute("aria-labelledby") ?? "").trim();
@@ -8447,7 +8459,7 @@ function Bu(n) {
   } else if (s === "svg") {
     const r = n.querySelector(":scope > title");
     if (r) {
-      const o = Ut(r);
+      const o = Bt(r);
       if (o) return [{ language: "", plain: o }, !0];
     }
   } else if (s === "math") {
@@ -8456,17 +8468,17 @@ function Bu(n) {
   }
   return [null, !0];
 }
-const zu = {
+const Vu = {
   em: ["emphasis"],
   b: ["emphasis"],
   i: ["emphasis", { level: "reduced" }],
   strong: ["emphasis", { level: "strong" }],
   br: ["break"]
 };
-function Vu(n) {
-  return zu[n] ?? ["", void 0];
+function ju(n) {
+  return Vu[n] ?? ["", void 0];
 }
-const ju = /* @__PURE__ */ new Set([
+const Hu = /* @__PURE__ */ new Set([
   "script",
   "style",
   "template",
@@ -8479,7 +8491,7 @@ const ju = /* @__PURE__ */ new Set([
   "rt",
   "rp",
   "rtc"
-]), Hu = 1;
+]), Wu = 1;
 function fs(n) {
   for (let e = n; e; e = e.parentElement) {
     const t = e.getAttribute("xml:lang");
@@ -8489,17 +8501,17 @@ function fs(n) {
   }
   return "";
 }
-function Wu(n) {
+function Ku(n) {
   for (let e = n.firstChild; e; e = e.nextSibling)
-    if (e.nodeType === Hu) return !0;
+    if (e.nodeType === Wu) return !0;
   return !1;
 }
-function Vr(n, e) {
+function jr(n, e) {
   for (let t = e; t; t = t.parentElement)
     if (t === n) return !0;
   return !1;
 }
-const Ku = /* @__PURE__ */ new Set([
+const qu = /* @__PURE__ */ new Set([
   "object",
   "base",
   "font",
@@ -8566,14 +8578,14 @@ const Ku = /* @__PURE__ */ new Set([
   "nobr",
   "rb"
 ]);
-function qu(n) {
-  return Ku.has(n);
-}
 function Gu(n) {
+  return qu.has(n);
+}
+function Xu(n) {
   const e = n.slice(0, 500);
   return /<\?xml\b/.test(e) || /xmlns:epub=/.test(e) || /DOCTYPE\s+html\s+PUBLIC\s+"-\/\/W3C\/\/DTD XHTML/i.test(e) ? "application/xhtml+xml" : "text/html";
 }
-function jr(n) {
+function Hr(n) {
   return typeof n == "object" && n !== null && n.nodeType === Node.ELEMENT_NODE;
 }
 const Ge = {
@@ -8588,14 +8600,14 @@ const Ge = {
   nthchild: "nthchild",
   nthoftype: "nthoftype"
 };
-function Xu(n, e) {
+function Ju(n, e) {
   return Object.values(n).includes(e);
 }
-const Ju = "CssSelectorGenerator";
+const Yu = "CssSelectorGenerator";
 function Ot(n = "unknown problem", ...e) {
-  console.warn(`${Ju}: ${n}`, ...e);
+  console.warn(`${Yu}: ${n}`, ...e);
 }
-const Yu = {
+const Qu = {
   selectors: [
     D.id,
     D.class,
@@ -8617,19 +8629,19 @@ const Yu = {
 function Pe(n) {
   return !!n;
 }
-function Qu(n) {
-  return Array.isArray(n) ? n.filter((e) => Xu(D, e)) : [];
+function Zu(n) {
+  return Array.isArray(n) ? n.filter((e) => Ju(D, e)) : [];
 }
-function Hr(n) {
+function Wr(n) {
   return n instanceof RegExp;
 }
-function Zu(n) {
-  return ["string", "function"].includes(typeof n) || Hr(n);
+function eh(n) {
+  return ["string", "function"].includes(typeof n) || Wr(n);
 }
 function gs(n) {
-  return Array.isArray(n) ? n.filter(Zu) : [];
+  return Array.isArray(n) ? n.filter(eh) : [];
 }
-function eh(n) {
+function th(n) {
   return n != null && typeof n == "object" && "nodeType" in n && typeof n.nodeType == "number";
 }
 function ps(n) {
@@ -8639,9 +8651,9 @@ function ps(n) {
     // this includes Shadow DOM root
     Node.ELEMENT_NODE
   ];
-  return eh(n) && e.includes(n.nodeType);
+  return th(n) && e.includes(n.nodeType);
 }
-function Wr(n, e) {
+function Kr(n, e) {
   if (ps(n))
     return n.contains(e) || Ot("element root mismatch", "Provided root does not contain the element. This will most likely result in producing a fallback selector using element's real root node. If you plan to use the selector using provided root (e.g. `root.querySelector`), it will not work as intended."), n;
   const t = e.getRootNode({ composed: !1 });
@@ -8650,13 +8662,13 @@ function Wr(n, e) {
 function en(n) {
   return typeof n == "number" ? n : Number.POSITIVE_INFINITY;
 }
-function th(n, e = {}) {
-  const t = Object.assign(Object.assign({}, Yu), e);
+function nh(n, e = {}) {
+  const t = Object.assign(Object.assign({}, Qu), e);
   return {
-    selectors: Qu(t.selectors),
+    selectors: Zu(t.selectors),
     whitelist: gs(t.whitelist),
     blacklist: gs(t.blacklist),
-    root: Wr(t.root, n),
+    root: Kr(t.root, n),
     combineWithinSelector: Pe(t.combineWithinSelector),
     combineBetweenSelectors: Pe(t.combineBetweenSelectors),
     includeTag: Pe(t.includeTag),
@@ -8674,15 +8686,15 @@ function Qe(n = []) {
     return i.filter((o) => r.has(o));
   }, e);
 }
-function nh(n) {
+function ih(n) {
   return [].concat(...n);
 }
-function ih(n) {
+function sh(n) {
   return n.replace(/[|\\{}()[\]^$+?.]/g, "\\$&").replace(/\*/g, ".+");
 }
 function Nt(n) {
   const e = n.map((t) => {
-    if (Hr(t))
+    if (Wr(t))
       return (i) => t.test(i);
     if (typeof t == "function")
       return (i) => {
@@ -8690,7 +8702,7 @@ function Nt(n) {
         return typeof s != "boolean" ? (Ot("pattern matcher function invalid", "Provided pattern matching function does not return boolean. It's result will be ignored.", t), !1) : s;
       };
     if (typeof t == "string") {
-      const i = new RegExp("^" + ih(t) + "$");
+      const i = new RegExp("^" + sh(t) + "$");
       return (s) => i.test(s);
     }
     return Ot("pattern matcher invalid", "Pattern matching only accepts strings, regular expressions and/or functions. This item is invalid and will be ignored.", t), () => !1;
@@ -8698,115 +8710,115 @@ function Nt(n) {
   return (t) => e.some((i) => i(t));
 }
 function jn(n, e, t) {
-  const i = Wr(t, n[0]).querySelectorAll(e);
+  const i = Kr(t, n[0]).querySelectorAll(e);
   if (i.length !== n.length)
     return !1;
   const s = new Set(i);
   return n.every((r) => s.has(r));
 }
-function Kr(n, e) {
+function qr(n, e) {
   e = e ?? Hn(n);
   const t = [];
   let i = n;
   for (; i && i !== e; )
-    jr(i) && t.push(i), i = i.parentNode;
+    Hr(i) && t.push(i), i = i.parentNode;
   return t;
 }
-function sh(n, e) {
-  return Qe(n.map((t) => Kr(t, e)));
+function rh(n, e) {
+  return Qe(n.map((t) => qr(t, e)));
 }
-function rh(n) {
+function oh(n) {
   return typeof n == "object" && n !== null && "nodeType" in n && n.nodeType === Node.DOCUMENT_FRAGMENT_NODE && "host" in n;
 }
 function Hn(n) {
   return n.ownerDocument.querySelector(":root");
 }
-const qr = ", ", oh = new RegExp([
+const Gr = ", ", ah = new RegExp([
   "^$",
   // empty or not set
   "\\s"
   // contains whitespace
-].join("|")), ah = new RegExp([
+].join("|")), lh = new RegExp([
   "^$"
   // empty or not set
-].join("|")), Gr = [
+].join("|")), Xr = [
   D.nthoftype,
   D.tag,
   D.id,
   D.class,
   D.attribute,
   D.nthchild
-], lh = Nt([
+], ch = Nt([
   "class",
   "id",
   // Angular attributes
   "ng-*"
 ]);
-function ch({ name: n }) {
+function uh({ name: n }) {
   return `[${n}]`;
 }
-function uh({ name: n, value: e }) {
+function hh({ name: n, value: e }) {
   return `[${n}='${e}']`;
 }
-function hh({ nodeName: n, nodeValue: e }, t) {
+function dh({ nodeName: n, nodeValue: e }, t) {
   const i = t.tagName.toLowerCase();
-  return ["input", "option"].includes(i) && n === "value" || n === "src" && e?.startsWith("data:") ? !1 : !lh(n);
+  return ["input", "option"].includes(i) && n === "value" || n === "src" && e?.startsWith("data:") ? !1 : !ch(n);
 }
-function dh({ nodeName: n, nodeValue: e }) {
+function fh({ nodeName: n, nodeValue: e }) {
   return {
     name: xe(n),
     value: xe(e ?? void 0)
   };
 }
-function Xr(n, e) {
-  const t = Array.from(n.attributes).filter((i) => hh(i, n)).map(dh);
+function Jr(n, e) {
+  const t = Array.from(n.attributes).filter((i) => dh(i, n)).map(fh);
   return [
-    ...t.map(ch),
-    ...t.map(uh)
+    ...t.map(uh),
+    ...t.map(hh)
   ];
 }
-function fh(n, e) {
-  const t = n.map((i) => Xr(i));
+function gh(n, e) {
+  const t = n.map((i) => Jr(i));
   return Qe(t);
 }
-const gh = /^[a-z_-]{3,}$/i, ph = /[bcdfghjklmnpqrstvwxyz]{4,}/i;
-function mh(n) {
-  if (!gh.test(n) || n.includes("_") && !n.includes("__") || /^(css|sc|jsx|emotion|makeStyles|MuiButton|MuiBox)-/i.test(n))
+const ph = /^[a-z_-]{3,}$/i, mh = /[bcdfghjklmnpqrstvwxyz]{4,}/i;
+function Sh(n) {
+  if (!ph.test(n) || n.includes("_") && !n.includes("__") || /^(css|sc|jsx|emotion|makeStyles|MuiButton|MuiBox)-/i.test(n))
     return !1;
   const e = n.split(new RegExp("--|__|[-]|(?<=[a-z])(?=[A-Z])")).filter((t) => t.length > 0);
   if (e.length === 0 || e.length === 1 && e[0].length < 4)
     return !1;
   for (const t of e)
-    if (t.length <= 2 || ph.test(t))
+    if (t.length <= 2 || mh.test(t))
       return !1;
   return !0;
 }
-function Jr(n, e) {
+function Yr(n, e) {
   var t;
-  const i = ((t = n.getAttribute("class")) !== null && t !== void 0 ? t : "").trim().split(/\s+/).filter((r) => !ah.test(r));
+  const i = ((t = n.getAttribute("class")) !== null && t !== void 0 ? t : "").trim().split(/\s+/).filter((r) => !lh.test(r));
   let s = i;
   if (e?.ignoreGeneratedClassNames) {
     const r = Nt(e.whitelist);
     s = i.filter((o) => {
       const a = `.${xe(o)}`;
-      return r(a) ? !0 : mh(o);
+      return r(a) ? !0 : Sh(o);
     });
   }
   return s.map((r) => `.${xe(r)}`);
 }
-function Sh(n, e) {
-  const t = n.map((i) => Jr(i, e));
+function yh(n, e) {
+  const t = n.map((i) => Yr(i, e));
   return Qe(t);
 }
-function Yr(n, e) {
+function Qr(n, e) {
   var t;
   const i = (t = n.getAttribute("id")) !== null && t !== void 0 ? t : "", s = `#${xe(i)}`, r = n.getRootNode({ composed: !1 });
-  return !oh.test(i) && jn([n], s, r) ? [s] : [];
+  return !ah.test(i) && jn([n], s, r) ? [s] : [];
 }
-function yh(n, e) {
-  return n.length === 0 || n.length > 1 ? [] : Yr(n[0]);
+function bh(n, e) {
+  return n.length === 0 || n.length > 1 ? [] : Qr(n[0]);
 }
-function Qr(n, e) {
+function Zr(n, e) {
   const t = n.parentNode, i = t && "children" in t ? t.children : null;
   if (i) {
     for (let s = 0; s < i.length; s++)
@@ -8815,22 +8827,22 @@ function Qr(n, e) {
   }
   return [];
 }
-function bh(n, e) {
-  return Qe(n.map((t) => Qr(t)));
+function vh(n, e) {
+  return Qe(n.map((t) => Zr(t)));
 }
-function Zr(n, e) {
+function eo(n, e) {
   return [
     xe(n.tagName.toLowerCase())
   ];
 }
-function eo(n, e) {
+function to(n, e) {
   const t = [
-    ...new Set(nh(n.map((i) => Zr(i))))
+    ...new Set(ih(n.map((i) => eo(i))))
   ];
   return t.length === 0 || t.length > 1 ? [] : [t[0]];
 }
-function to(n, e) {
-  const t = eo([n])[0], i = n.parentNode, s = i && "children" in i ? i : null;
+function no(n, e) {
+  const t = to([n])[0], i = n.parentNode, s = i && "children" in i ? i : null;
   if (s) {
     const o = Array.from(s.children).filter((a) => a.tagName.toLowerCase() === t).indexOf(n);
     if (o > -1)
@@ -8840,23 +8852,23 @@ function to(n, e) {
   }
   return [];
 }
-function vh(n, e) {
-  return Qe(n.map((t) => to(t)));
+function wh(n, e) {
+  return Qe(n.map((t) => no(t)));
 }
-function* no(n = [], { maxResults: e = Number.POSITIVE_INFINITY } = {}) {
-  let t = 0, i = io(1);
+function* io(n = [], { maxResults: e = Number.POSITIVE_INFINITY } = {}) {
+  let t = 0, i = so(1);
   for (; i.length <= n.length && t < e; ) {
     t += 1;
     const s = new Array(i.length);
     for (let r = 0; r < i.length; r++)
       s[r] = n[i[r]];
-    yield s, i = xh(i, n.length - 1);
+    yield s, i = Eh(i, n.length - 1);
   }
 }
-function wh(n = [], { maxResults: e = Number.POSITIVE_INFINITY } = {}) {
-  return Array.from(no(n, { maxResults: e }));
+function xh(n = [], { maxResults: e = Number.POSITIVE_INFINITY } = {}) {
+  return Array.from(io(n, { maxResults: e }));
 }
-function xh(n = [], e = 0) {
+function Eh(n = [], e = 0) {
   const t = n.length;
   if (t === 0)
     return n;
@@ -8864,19 +8876,19 @@ function xh(n = [], e = 0) {
   for (; i >= 0 && n[i] === e - (t - 1 - i); )
     i -= 1;
   if (i < 0)
-    return io(t + 1);
+    return so(t + 1);
   n[i] += 1;
   for (let s = i + 1; s < t; s++)
     n[s] = n[s - 1] + 1;
   return n;
 }
-function io(n = 1) {
+function so(n = 1) {
   const e = new Array(n);
   for (let t = 0; t < n; t++)
     e[t] = t;
   return e;
 }
-function* Eh(n = {}) {
+function* Ch(n = {}) {
   const e = Object.entries(n);
   if (e.length === 0)
     return;
@@ -8900,36 +8912,36 @@ function* Eh(n = {}) {
       });
   }
 }
-const Ch = "3a".toUpperCase(), kh = /[ !"#$%&'()[\]{|}<>*+,./;=?@^`~\\]/;
+const kh = "3a".toUpperCase(), Rh = /[ !"#$%&'()[\]{|}<>*+,./;=?@^`~\\]/;
 function xe(n = "") {
-  return CSS ? CSS.escape(n) : Rh(n);
+  return CSS ? CSS.escape(n) : Ah(n);
 }
-function Rh(n = "") {
-  return n.split("").map((e) => e === ":" ? `\\${Ch} ` : kh.test(e) ? `\\${e}` : escape(e).replace(/%/g, "\\")).join("");
+function Ah(n = "") {
+  return n.split("").map((e) => e === ":" ? `\\${kh} ` : Rh.test(e) ? `\\${e}` : escape(e).replace(/%/g, "\\")).join("");
 }
-const Ah = {
+const Oh = {
+  tag: to,
+  id: bh,
+  class: yh,
+  attribute: gh,
+  nthchild: vh,
+  nthoftype: wh
+}, Nh = {
   tag: eo,
-  id: yh,
-  class: Sh,
-  attribute: fh,
-  nthchild: bh,
-  nthoftype: vh
-}, Oh = {
-  tag: Zr,
-  id: Yr,
-  class: Jr,
-  attribute: Xr,
-  nthchild: Qr,
-  nthoftype: to
+  id: Qr,
+  class: Yr,
+  attribute: Jr,
+  nthchild: Zr,
+  nthoftype: no
 };
-function Nh(n, e, t) {
-  return Oh[e](n, t);
-}
 function Th(n, e, t) {
-  const i = Ah[e];
+  return Nh[e](n, t);
+}
+function Dh(n, e, t) {
+  const i = Oh[e];
   return i(n, t);
 }
-function Dh(n = [], e, t) {
+function Fh(n = [], e, t) {
   return n.filter((i) => t(i) || !e(i));
 }
 function Ih(n = [], e) {
@@ -8938,7 +8950,7 @@ function Ih(n = [], e) {
     return s && !r ? -1 : !s && r ? 1 : 0;
   });
 }
-function Bt() {
+function Ut() {
   const n = /* @__PURE__ */ new Map();
   let e;
   return (t, i) => {
@@ -8949,87 +8961,87 @@ function Bt() {
     return r || (r = ms(t, i), n.set(s, r)), r;
   };
 }
-function* Fh(n, e, t = Bt()) {
+function* Ph(n, e, t = Ut()) {
   const i = /* @__PURE__ */ new Set(), s = t(n, e);
-  for (const r of Mh(s, e))
+  for (const r of _h(s, e))
     i.has(r) || (i.add(r), yield r);
 }
 function ms(n, e) {
   const { blacklist: t, whitelist: i, combineWithinSelector: s, maxCombinations: r } = e, o = Nt(t), a = Nt(i), l = (c, u) => {
-    const h = Th(n, u, e), d = Dh(h, o, a), f = Ih(d, a);
-    return c[u] = s ? Array.from(no(f, { maxResults: r })) : f.map((g) => [g]), c;
+    const h = Dh(n, u, e), d = Fh(h, o, a), f = Ih(d, a);
+    return c[u] = s ? Array.from(io(f, { maxResults: r })) : f.map((g) => [g]), c;
   };
-  return Ph(e).reduce(l, {});
+  return Lh(e).reduce(l, {});
 }
-function Ph(n) {
+function Lh(n) {
   const { selectors: e, includeTag: t } = n, i = [...e];
   return t && !i.includes("tag") && i.push("tag"), i;
 }
-function Lh(n) {
+function $h(n) {
   return n.includes(D.tag) || n.includes(D.nthoftype) ? [...n] : [...n, D.tag];
 }
-function $h(n) {
-  const { selectors: e, combineBetweenSelectors: t, includeTag: i, maxCandidates: s } = n, r = t ? wh(e, { maxResults: s }) : e.map((o) => [o]);
-  return i ? r.map(Lh) : r;
-}
-function* Mh(n, e) {
-  for (const t of $h(e))
-    yield* _h(t, n);
+function Mh(n) {
+  const { selectors: e, combineBetweenSelectors: t, includeTag: i, maxCandidates: s } = n, r = t ? xh(e, { maxResults: s }) : e.map((o) => [o]);
+  return i ? r.map($h) : r;
 }
 function* _h(n, e) {
+  for (const t of Mh(e))
+    yield* Bh(t, n);
+}
+function* Bh(n, e) {
   const t = {};
   for (const i of n) {
     const s = e[i];
     s && s.length > 0 && (t[i] = s);
   }
-  for (const i of Eh(t))
-    yield Bh(i);
+  for (const i of Ch(t))
+    yield zh(i);
 }
 function Uh(n, e) {
   return e[n] ? e[n].join("") : "";
 }
-function Bh(n = {}) {
-  const e = [...Gr];
+function zh(n = {}) {
+  const e = [...Xr];
   return n[D.tag] && n[D.nthoftype] && e.splice(e.indexOf(D.tag), 1), e.map((t) => Uh(t, n)).join("");
 }
-function zh(n, e) {
+function Vh(n, e) {
   return [
     ...n.map((t) => e + Ge.DESCENDANT + t),
     ...n.map((t) => e + Ge.CHILD + t)
   ];
 }
-function* Vh(n, e) {
+function* jh(n, e) {
   if (e === "")
     yield* n;
   else
     for (const t of n)
-      yield* zh([t], e);
+      yield* Vh([t], e);
 }
-function* jh(n, e, t = "", i, s = Bt()) {
-  const r = Fh(n, i, s);
-  for (const o of Vh(r, t))
+function* Hh(n, e, t = "", i, s = Ut()) {
+  const r = Ph(n, i, s);
+  for (const o of jh(r, t))
     jn(n, o, e) && (yield o);
 }
-function* Hh(n, e, t = "", i, s = Bt()) {
+function* Wh(n, e, t = "", i, s = Ut()) {
   if (n.length === 0)
     return null;
   const r = [
     n.length > 1 ? n : [],
-    ...sh(n, e).map((o) => [o])
+    ...rh(n, e).map((o) => [o])
   ];
   for (const o of r)
-    for (const a of jh(o, e, t, i, s))
+    for (const a of Hh(o, e, t, i, s))
       yield {
         foundElements: o,
         selector: a
       };
 }
-function* Wh({ elements: n, root: e, rootSelector: t = "", options: i }) {
+function* Kh({ elements: n, root: e, rootSelector: t = "", options: i }) {
   let s = e, r = t, o = !0;
-  const a = Bt();
+  const a = Ut();
   for (; o; ) {
     let l = !1;
-    for (const c of Hh(n, s, r, i, a)) {
+    for (const c of Wh(n, s, r, i, a)) {
       const { foundElements: u, selector: h } = c;
       if (l = !0, jn(n, h, e))
         yield h;
@@ -9041,29 +9053,29 @@ function* Wh({ elements: n, root: e, rootSelector: t = "", options: i }) {
     l || (o = !1);
   }
 }
-function Kh(n) {
+function qh(n) {
   (n instanceof NodeList || n instanceof HTMLCollection) && (n = Array.from(n));
-  const e = (Array.isArray(n) ? n : [n]).filter(jr);
+  const e = (Array.isArray(n) ? n : [n]).filter(Hr);
   return [...new Set(e)];
 }
-function qh(n) {
+function Gh(n) {
   return {
     value: n,
     include: !1
   };
 }
-function Gh(n, e, t = Ge.NONE) {
+function Xh(n, e, t = Ge.NONE) {
   const i = {};
   return e.forEach((s) => {
-    Reflect.set(i, s, Nh(n, s).map(qh));
+    Reflect.set(i, s, Th(n, s).map(Gh));
   }), {
     element: n,
     operator: t,
     selectors: i
   };
 }
-function Xh({ selectors: n, operator: e }) {
-  let t = [...Gr];
+function Jh({ selectors: n, operator: e }) {
+  let t = [...Xr];
   n[D.tag] && n[D.nthoftype] && (t = t.filter((s) => s !== D.tag));
   let i = "";
   return t.forEach((s) => {
@@ -9073,10 +9085,10 @@ function Xh({ selectors: n, operator: e }) {
     });
   }), e + i;
 }
-function Jh(n, e) {
-  const t = Kr(n, e).reverse(), i = rh(e), s = t.map((o, a) => {
+function Yh(n, e) {
+  const t = qr(n, e).reverse(), i = oh(e), s = t.map((o, a) => {
     var l;
-    const c = Gh(
+    const c = Xh(
       o,
       [D.nthchild],
       // do not use child combinator for the first element in ShadowRoot
@@ -9086,12 +9098,12 @@ function Jh(n, e) {
       u.include = !0;
     }), c;
   });
-  return [i ? "" : e ? ":scope" : ":root", ...s.map(Xh)].join("");
+  return [i ? "" : e ? ":scope" : ":root", ...s.map(Jh)].join("");
 }
-function Yh(n, e) {
-  return n.map((t) => Jh(t, e)).join(qr);
+function Qh(n, e) {
+  return n.map((t) => Yh(t, e)).join(Gr);
 }
-var Qh = function(n, e) {
+var Zh = function(n, e) {
   var t = {};
   for (var i in n) Object.prototype.hasOwnProperty.call(n, i) && e.indexOf(i) < 0 && (t[i] = n[i]);
   if (n != null && typeof Object.getOwnPropertySymbols == "function")
@@ -9099,15 +9111,15 @@ var Qh = function(n, e) {
       e.indexOf(i[s]) < 0 && Object.prototype.propertyIsEnumerable.call(n, i[s]) && (t[i[s]] = n[i[s]]);
   return t;
 };
-function so(n, e = {}) {
+function ro(n, e = {}) {
   const t = Object.assign(Object.assign({}, e), { maxResults: 1 });
-  return Zh(n, t).next().value;
+  return ed(n, t).next().value;
 }
-function* Zh(n, e = {}) {
+function* ed(n, e = {}) {
   var t;
-  const i = Kh(n), s = th(i[0], e), r = (t = s.root) !== null && t !== void 0 ? t : Hn(i[0]);
+  const i = qh(n), s = nh(i[0], e), r = (t = s.root) !== null && t !== void 0 ? t : Hn(i[0]);
   let o = 0;
-  for (const l of Wh({
+  for (const l of Kh({
     elements: i,
     options: s,
     root: r,
@@ -9116,17 +9128,17 @@ function* Zh(n, e = {}) {
     if (yield l, o++, o >= s.maxResults)
       return;
   if (i.length > 1) {
-    const { maxResults: l } = e, c = Qh(e, ["maxResults"]);
-    if (yield i.map((u) => so(u, c)).join(qr), o++, o >= s.maxResults)
+    const { maxResults: l } = e, c = Zh(e, ["maxResults"]);
+    if (yield i.map((u) => ro(u, c)).join(Gr), o++, o >= s.maxResults)
       return;
   }
   const a = e.root !== void 0;
-  yield Yh(i, s.useScope || a ? r : void 0);
+  yield Qh(i, s.useScope || a ? r : void 0);
 }
 function Wn(n, e) {
   return n.querySelectorAll(`#${CSS.escape(e)}`).length === 1;
 }
-function ed(n) {
+function td(n) {
   const e = n.getAttribute("id");
   if (e && Wn(n.ownerDocument, e)) return `#${CSS.escape(e)}`;
   const t = n.parentElement, i = n.tagName.toLowerCase();
@@ -9138,44 +9150,44 @@ function ed(n) {
   }
   return s.filter((r) => r.tagName === n.tagName).length === 1 ? i : `${i}:nth-child(${s.indexOf(n) + 1})`;
 }
-function ro(n, e) {
+function oo(n, e) {
   const t = [];
   let i = n;
   for (; i && i !== e; ) {
-    const s = ed(i);
+    const s = td(i);
     if (t.unshift(s), s.startsWith("#")) return t;
     i = i.parentElement;
   }
   return i === e ? t : void 0;
 }
-function td(n) {
+function nd(n) {
   if (!n) return null;
   const e = n.getAttribute("id");
   if (e && Wn(n.ownerDocument, e)) return `#${CSS.escape(e)}`;
-  const t = n.ownerDocument.documentElement, i = ro(n, t) ?? [];
+  const t = n.ownerDocument.documentElement, i = oo(n, t) ?? [];
   return i.length > 0 && i[0].startsWith("#") ? i.join(" > ") : [t.tagName.toLowerCase(), ...i].join(" > ");
 }
 function zt(n, e, t) {
   const i = n.getAttribute("id");
   if (i && (!e || Wn(n.ownerDocument, i))) return `#${CSS.escape(i)}`;
   if (!e)
-    return so(n, { selectors: ["id", "class", "tag", "nthchild"] }) ?? void 0;
+    return ro(n, { selectors: ["id", "class", "tag", "nthchild"] }) ?? void 0;
   if (n === e) return t ?? void 0;
-  const s = ro(n, e);
+  const s = oo(n, e);
   if (!(!s || s.length === 0))
     return s[0].startsWith("#") ? s.join(" > ") : t ? `${t} > ${s.join(" > ")}` : s.join(" > ");
 }
-function oo(n, e) {
+function ao(n, e) {
   if (!n) return;
   const t = e.getAttribute("id");
-  return !!t && n === `#${CSS.escape(t)}` ? n : iu(n);
+  return !!t && n === `#${CSS.escape(t)}` ? n : su(n);
 }
-const nd = 3;
-function id(n, e) {
+const id = 3;
+function sd(n, e) {
   let t = 0;
   for (const i of Array.from(n.childNodes)) {
     if (i === e) return t;
-    i.nodeType === nd && t++;
+    i.nodeType === id && t++;
   }
   return t;
 }
@@ -9184,42 +9196,42 @@ function Ss(n, e, t, i, s) {
   if (!r) return;
   const o = s && r === s.el ? s.selector : zt(r, t, i);
   if (o)
-    return { cssSelector: o, textNodeIndex: id(r, n), charOffset: e };
+    return { cssSelector: o, textNodeIndex: sd(r, n), charOffset: e };
 }
-function sd(n, e, t, i) {
+function rd(n, e, t, i) {
   const s = Ss(...n.first, e, t, i);
   if (!s) return;
   const r = Ss(...n.last, e, t, i);
   return r ? { start: s, end: r } : { start: s };
 }
-function rd(n) {
-  const e = nl(n);
+function od(n) {
+  const e = il(n);
   return e.status === ne.SUCCESS ? e.fragment : void 0;
 }
-const ao = "leaf-text";
+const lo = "leaf-text";
 function ys(n) {
   if (n === !0) return (e) => e.length > 0;
   if (Array.isArray(n) && n.length > 0) {
-    const e = new Set(n.filter((t) => t !== ao));
+    const e = new Set(n.filter((t) => t !== lo));
     return (t) => t.some((i) => e.has(i));
   }
   return null;
 }
 function bs(n) {
-  return n === !0 || Array.isArray(n) && n.includes(ao);
-}
-function od(n) {
-  return !!n && typeof n == "object" && !Array.isArray(n);
+  return n === !0 || Array.isArray(n) && n.includes(lo);
 }
 function ad(n) {
-  return od(n) ? {
+  return !!n && typeof n == "object" && !Array.isArray(n);
+}
+function ld(n) {
+  return ad(n) ? {
     predicate: ys(n.roles),
     leafText: bs(n.roles),
     domRange: !!n.domRange,
     textFragment: !!n.textFragment
   } : { predicate: ys(n), leafText: bs(n), domRange: !1, textFragment: !1 };
 }
-class ld {
+class cd {
   claimed = /* @__PURE__ */ new Set();
   counters = /* @__PURE__ */ new Map();
   // `isTaken` additionally excludes ids already in use elsewhere (e.g. a
@@ -9238,12 +9250,12 @@ class ld {
     return this.claimed.has(e) ? !1 : (this.claimed.add(e), !0);
   }
 }
-function cd(n) {
+function ud(n) {
   for (let e = n.parentElement; e; e = e.parentElement)
     if (ze(e).includes("endnotes")) return !0;
   return !1;
 }
-function ud(n, e, t) {
+function hd(n, e, t) {
   const i = [], s = (r, o) => {
     const a = r.getAttribute("id");
     if (a && !e.has(a) && e.set(a, r), o = o || r.getAttribute("aria-hidden") === "true" || r.hasAttribute("hidden"), !o && r.tagName.toLowerCase() === "a" && ze(r).includes("noteref")) {
@@ -9255,61 +9267,61 @@ function ud(n, e, t) {
   s(n, !1);
   for (const r of i) {
     const o = e.get(r.id);
-    o && (Vr(o, r.ref) || cd(o) || t.add(o));
+    o && (jr(o, r.ref) || ud(o) || t.add(o));
   }
 }
-function hd(n, e, t, i) {
+function dd(n, e, t, i) {
   const s = { role: i }, r = (e.getAttribute("title") ?? "").trim();
   r ? s.text = { plain: r, ssml: "", language: "" } : t && (s.text = { plain: t.plain ?? "", ssml: t.ssml ?? "", language: t.language }, zn.add(s));
-  const o = !!(s.text && !Xe(s.text)), a = !n.xmlParsed && (Wu(e) || o && e.firstChild !== null);
+  const o = !!(s.text && !Xe(s.text)), a = !n.xmlParsed && (Ku(e) || o && e.firstChild !== null);
   if (!o && !a) {
-    const u = Ut(e);
+    const u = Bt(e);
     u && (s.text = { plain: u, ssml: "", language: "" });
   }
-  const l = zt(e, n.selectorRoot, n.selectorRootAnchor), c = oo(l, e);
+  const l = zt(e, n.selectorRoot, n.selectorRootAnchor), c = ao(l, e);
   return c && (s.textref = c), n.placeholder(e, "pagebreak", s), a;
 }
-function dd(n, e, t) {
-  const i = { role: t }, s = Ut(e);
+function fd(n, e, t) {
+  const i = { role: t }, s = Bt(e);
   s && (i.text = { plain: s, ssml: "", language: "" });
   const r = e.getAttribute("href") ?? "";
   let o = e.getAttribute("id") ?? "";
   if (!o && r.startsWith("#") && (o = r.slice(1)), r.startsWith("#")) {
     const a = r.slice(1), l = n.ids.get(a);
-    if (l && !Vr(l, e) && n.noterefDepth < 3) {
+    if (l && !jr(l, e) && n.noterefDepth < 3) {
       const c = n.spawnChild(l);
       c.convert(l);
       const u = c.result();
       u.length > 0 && (i.children = u.map((h) => {
-        const d = Pr(h);
+        const d = Lr(h);
         return delete d.id, d;
       }));
     }
   }
   !i.children && r && (i.children = [{ textref: r }]), n.placeholder(e, "noteref", i, o || void 0);
 }
-function fd(n, e, t, i) {
+function gd(n, e, t, i) {
   const s = {};
   if (t.length > 0 && (s.role = t), i) {
     s.text = { plain: i.plain ?? "", ssml: i.ssml ?? "", language: i.language }, zn.add(s);
     const o = zt(e, n.selectorRoot, n.selectorRootAnchor);
     o && Ir.set(s, o);
   } else {
-    const o = Ut(e);
+    const o = Bt(e);
     o && (s.text = { plain: o, ssml: "", language: "" });
   }
   const r = e.getAttribute("href");
   r && (s.textref = r), n.placeholder(e, t[0] ?? "link", s);
 }
-const gd = 3, pd = 1, md = /* @__PURE__ */ new Set(["summary", "dfn", "span"]);
+const pd = 3, md = 1, Sd = /* @__PURE__ */ new Set(["summary", "dfn", "span"]);
 function vs(n, e) {
-  return md.has(n) && e.length > 0 ? !0 : !qu(n);
+  return Sd.has(n) && e.length > 0 ? !0 : !Gu(n);
 }
 class Tt {
   xmlParsed;
   ids = /* @__PURE__ */ new Map();
   suppressed = /* @__PURE__ */ new Set();
-  idAlloc = new ld();
+  idAlloc = new cd();
   noterefDepth = 0;
   allowNode = null;
   selectorPredicate = null;
@@ -9363,7 +9375,7 @@ class Tt {
     return i.ids = this.ids, i.suppressed = this.suppressed, i.idAlloc = this.idAlloc, i.noterefDepth = this.noterefDepth + t, i.allowNode = e, i.docRoot = this.docRoot, i.selectorRoot = this.selectorRoot, i.selectorRootAnchor = this.selectorRootAnchor, i.selectorPredicate = this.selectorPredicate, i.domRangeEnabled = this.domRangeEnabled, i.textFragmentEnabled = this.textFragmentEnabled, i.leafTextEnabled = this.leafTextEnabled, i;
   }
   prescan(e) {
-    ud(e, this.ids, this.suppressed);
+    hd(e, this.ids, this.suppressed);
   }
   // Converts root itself — used when root is meaningful content in its own
   // right (e.g. a footnote element referenced by a noteref), not just a
@@ -9387,17 +9399,17 @@ class Tt {
   // inherited `noText` — except `caption`, always the already-folded source.
   descend(e, t) {
     const i = new ut();
-    i.el = e, i.noText = this.foldedCaptions.has(e) || (!zr(e) || t.includes("caption")) && this.current.noText, this.current.children.push(i), this.current = i;
+    i.el = e, i.noText = this.foldedCaptions.has(e) || (!Vr(e) || t.includes("caption")) && this.current.noText, this.current.children.push(i), this.current = i;
   }
   appendChild(e) {
     e.noText = this.current.noText, this.current.children.push(e);
   }
   walk(e) {
-    if (e.nodeType === gd) {
+    if (e.nodeType === pd) {
       this.text(e);
       return;
     }
-    if (e.nodeType !== pd) return;
+    if (e.nodeType !== md) return;
     const t = e, i = this.current, s = this.head(t);
     if (!s)
       for (let r = t.firstChild; r; r = r.nextSibling) this.walk(r);
@@ -9407,8 +9419,8 @@ class Tt {
   // wholesale, invisible, or explicitly skipped).
   head(e) {
     const t = e.tagName.toLowerCase();
-    if (ju.has(t) || this.suppressed.has(e) && e !== this.allowNode) return !0;
-    const [i, s] = Bu(e);
+    if (Hu.has(t) || this.suppressed.has(e) && e !== this.allowNode) return !0;
+    const [i, s] = zu(e);
     if (!s && e !== this.allowNode) return !0;
     const r = ze(e);
     if ((t === "img" || t === "svg") && (r.includes("presentation") || i === null && e.hasAttribute("alt") && e.getAttribute("alt").trim() === ""))
@@ -9416,11 +9428,11 @@ class Tt {
     if (t === "br")
       return this.current.noText || (this.closeSegment(), this.segments.push({ kind: "break" }), this.flowEndsWithSpace = !0), !0;
     if (r.includes("pagebreak"))
-      return !hd(this, e, i, r);
+      return !dd(this, e, i, r);
     if (t === "a" && r.includes("noteref") && e.getAttribute("href"))
-      return dd(this, e, r), !0;
+      return fd(this, e, r), !0;
     if (t === "a" && e.getAttribute("href"))
-      return fd(this, e, r, i), !0;
+      return gd(this, e, r, i), !0;
     if (t === "img") {
       const l = { role: r }, c = e.getAttribute("src");
       return c && (l.imgref = c), i && (l.description = i.plain), this.placeholder(e, "image", l), !0;
@@ -9488,15 +9500,15 @@ class Tt {
   // fixed order regardless of which others are also enabled.
   applyTextref(e) {
     const t = this.current.object, i = zt(e, this.selectorRoot, this.selectorRootAnchor);
-    if (t.textref = oo(i, e), this.domRangeEnabled && this.lastFlowRange) {
-      const s = i ? { el: e, selector: i } : void 0, r = sd(this.lastFlowRange, this.selectorRoot, this.selectorRootAnchor, s);
-      r && (t.textref = ru({ ...r, container: i }));
+    if (t.textref = ao(i, e), this.domRangeEnabled && this.lastFlowRange) {
+      const s = i ? { el: e, selector: i } : void 0, r = rd(this.lastFlowRange, this.selectorRoot, this.selectorRootAnchor, s);
+      r && (t.textref = ou({ ...r, container: i }));
     }
     if (this.textFragmentEnabled && this.lastFlowRange && this.docRoot) {
       const s = this.docRoot.createRange();
       s.setStart(...this.lastFlowRange.first), s.setEnd(...this.lastFlowRange.last);
-      const r = rd(s);
-      r && (t.textref = `${t.textref ?? "#"}${Nr(r)}`);
+      const r = od(s);
+      r && (t.textref = `${t.textref ?? "#"}${Tr(r)}`);
     }
   }
   text(e) {
@@ -9507,7 +9519,7 @@ class Tt {
       return;
     }
     const i = this.textContext(e);
-    if (Wo(i, this.currentCtx) || (this.closeSegment(), this.currentCtx = i), this.textAcc += we(t, this.flowEndsWithSpace), this.updateFlowSpace(), this.domRangeEnabled || this.textFragmentEnabled) {
+    if (Ko(i, this.currentCtx) || (this.closeSegment(), this.currentCtx = i), this.textAcc += we(t, this.flowEndsWithSpace), this.updateFlowSpace(), this.domRangeEnabled || this.textFragmentEnabled) {
       const s = e;
       this.flowFirstNode === null && (this.flowFirstNode = s, this.flowFirstOffset = t.search(/\S/)), this.flowLastNode = s, this.flowLastOffset = t.length - (t.match(/\s+$/)?.[0].length ?? 0);
     }
@@ -9515,7 +9527,7 @@ class Tt {
   textContext(e) {
     const t = { lang: fs(e.parentElement), tag: "" };
     for (let i = e.parentElement; i && i !== this.current.el; i = i.parentElement) {
-      const [s, r] = Vu(i.tagName.toLowerCase());
+      const [s, r] = ju(i.tagName.toLowerCase());
       if (s && s !== "break") {
         t.tag = s, t.attrs = r;
         break;
@@ -9651,86 +9663,86 @@ class Tt {
     this.appendChild(w), i && r && (this.lastFlowRange = { first: [i, s], last: [r, o] });
   }
 }
-const Sd = /<body[\s>]/i;
-function yd(n, e, t) {
-  const { predicate: i, leafText: s, domRange: r, textFragment: o } = ad(t?.textrefs);
+const yd = /<body[\s>]/i;
+function bd(n, e, t) {
+  const { predicate: i, leafText: s, domRange: r, textFragment: o } = ld(t?.textrefs);
   if (typeof n != "string") {
     const h = e ?? (n.ownerDocument.contentType === "text/html" ? "text/html" : "application/xhtml+xml"), d = new Tt(h === "application/xhtml+xml");
-    return d.selectorPredicate = i, d.leafTextEnabled = s, d.domRangeEnabled = r, d.textFragmentEnabled = o, d.docRoot = n.ownerDocument, d.selectorRoot = n, d.selectorRootAnchor = td(n), d.convert(n), d.result();
+    return d.selectorPredicate = i, d.leafTextEnabled = s, d.domRangeEnabled = r, d.textFragmentEnabled = o, d.docRoot = n.ownerDocument, d.selectorRoot = n, d.selectorRootAnchor = nd(n), d.convert(n), d.result();
   }
-  const a = e ?? Gu(n), l = new DOMParser().parseFromString(n, a), c = new Tt(a === "application/xhtml+xml");
+  const a = e ?? Xu(n), l = new DOMParser().parseFromString(n, a), c = new Tt(a === "application/xhtml+xml");
   c.selectorPredicate = i, c.leafTextEnabled = s, c.textFragmentEnabled = o, c.docRoot = l;
   const u = l.querySelector("body");
-  return u && !Sd.test(n) ? c.convertChildren(u) : c.convert(u ?? l.documentElement), c.result();
+  return u && !yd.test(n) ? c.convertChildren(u) : c.convert(u ?? l.documentElement), c.result();
 }
-function Fd(n, e, t) {
-  return { guided: yd(n, e, t) };
+function Pd(n, e, t) {
+  return { guided: bd(n, e, t) };
 }
 export {
-  Vl as BUILTIN_DECORATION_TYPES,
-  ec as BooleanPreference,
-  Xl as DecorationController,
-  Ml as DecorationLayout,
+  jl as BUILTIN_DECORATION_TYPES,
+  tc as BooleanPreference,
+  Jl as DecorationController,
+  _l as DecorationLayout,
   E as DecorationStyleType,
-  $l as DecorationWidth,
-  zl as Decorator,
-  Kl as DirectCommsChannel,
-  ql as DirectCommsFrame,
-  Gl as DirectCommsHost,
-  Ie as EnumPreference,
-  xd as FallbackEngineProvider,
-  Da as FallbackSpeechEngine,
-  or as Locator,
+  Ml as DecorationWidth,
+  Vl as Decorator,
+  ql as DirectCommsChannel,
+  Gl as DirectCommsFrame,
+  Xl as DirectCommsHost,
+  Fe as EnumPreference,
+  Ed as FallbackEngineProvider,
+  Fa as FallbackSpeechEngine,
+  ar as Locator,
   pe as LocatorLocations,
-  sr as LocatorText,
+  rr as LocatorText,
   $t as Preference,
   ot as RangePreference,
-  Ql as ReadiumSpeechDecorationController,
+  Zl as ReadiumSpeechDecorationController,
   Id as ReadiumSpeechNavigator,
-  Od as ReadiumSpeechProviderRegistry,
-  Zl as SpeechDefaults,
+  Nd as ReadiumSpeechProviderRegistry,
+  ec as SpeechDefaults,
   We as SpeechPreferences,
   Di as SpeechPreferencesEditor,
-  Ls as SpeechServerAudioDecodeError,
-  Aa as SpeechServerEngine,
-  wd as SpeechServerEngineProvider,
+  $s as SpeechServerAudioDecodeError,
+  Oa as SpeechServerEngine,
+  xd as SpeechServerEngineProvider,
   je as SpeechServerError,
-  $s as SpeechServerNetworkError,
-  Ps as SpeechServerStallError,
-  Ii as SpeechSettings,
+  Ms as SpeechServerNetworkError,
+  Ls as SpeechServerStallError,
+  Fi as SpeechSettings,
   Ti as StringArrayPreference,
   si as WebSpeechEngine,
-  vd as WebSpeechEngineProvider,
+  wd as WebSpeechEngineProvider,
   N as WebSpeechVoiceManager,
-  Hc as blockLevelRoles,
+  Wc as blockLevelRoles,
   Ve as chineseVariantMap,
-  da as chunkPlainText,
-  ga as chunkSsmlText,
-  sc as contextualizationShapesAtVerbosity,
-  ic as contextualizedAtVerbosity,
-  Yl as createLocator,
-  su as decodeCssSelectorFragment,
-  ou as decodeDomRangeFragment,
+  fa as chunkPlainText,
+  pa as chunkSsmlText,
+  rc as contextualizationShapesAtVerbosity,
+  sc as contextualizedAtVerbosity,
+  Ql as createLocator,
+  ru as decodeCssSelectorFragment,
+  au as decodeDomRangeFragment,
   Qi as decodeTextref,
-  Wl as decorationsEqual,
-  Er as defaultContextualizations,
-  iu as encodeCssSelectorFragment,
-  ru as encodeDomRangeFragment,
-  Dd as extractUtterances,
-  Oa as isRecoverableFailure,
-  Fd as makeGnd,
-  Fs as mapServerVoice,
-  ma as mimeTypeForFormat,
-  yd as parseMarkup,
-  oc as resolveBoundaryLocate,
+  Kl as decorationsEqual,
+  Cr as defaultContextualizations,
+  su as encodeCssSelectorFragment,
+  ou as encodeDomRangeFragment,
+  Fd as extractUtterances,
+  Na as isRecoverableFailure,
+  Pd as makeGnd,
+  Ps as mapServerVoice,
+  Sa as mimeTypeForFormat,
+  bd as parseMarkup,
+  ac as resolveBoundaryLocate,
   Ai as resolveDecorationForWire,
-  ac as resolveUtteranceLocate,
-  xa as selectBitrate,
-  ba as selectFormat,
-  Ad as setupDecorations,
-  Nd as shapeableRoles,
-  Td as skippableRoles,
-  nc as skippedAtVerbosity,
-  jl as supportsDecorationStyle,
+  lc as resolveUtteranceLocate,
+  Ea as selectBitrate,
+  va as selectFormat,
+  Od as setupDecorations,
+  Td as shapeableRoles,
+  Dd as skippableRoles,
+  ic as skippedAtVerbosity,
+  Hl as supportsDecorationStyle,
   _e as toSpeechServerError
 };
