@@ -143,7 +143,7 @@ See [Highlighting.md](Highlighting.md#highlighting-from-locateoffsets) for how t
 
 ### Speaking in an utterance's own content language
 
-By default, playback always uses the selected/default voice. Call `setSpeakInContentLanguage(true)` to instead match each utterance's own `language` field to the best available voice for that language, falling back to the selected/default voice when no match exists (which also fires a `"languagefallback"` event with `detail: { language, reason: "no-matching-voice" }`).
+By default, playback always uses the selected/default voice. Call `setSpeakInContentLanguage(true)` to instead match each utterance's own `language` field to the best available voice for that language, preferring one with the same boundary-event support as the currently selected voice, and falling back to the selected/default voice when no match exists at all (which also fires a `"languagefallback"` event with `detail: { language, reason: "no-matching-voice" }`).
 
 ### `ReadiumSpeechPlaybackState`
 

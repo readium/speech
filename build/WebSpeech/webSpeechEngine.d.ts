@@ -43,6 +43,7 @@ export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     private validateText;
     private getCurrentVoiceForUtterance;
     private voiceMatchesLanguage;
+    private languageCacheKey;
     private voiceForUtteranceSync;
     private voiceForUtterance;
     private warmLanguageVoiceCache;
