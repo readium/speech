@@ -324,7 +324,7 @@ Each voice documented in this repo supports the following optional properties:
 
 - `rate` is an integer between 0.1 and 10 that defaults to 1 and provides a recommended default speech rate for each voice
 - `pitch` is an integer between 0 and 2 that defaults to 1 and provides a recommended default pitch for each voice
-- `controls` is an object indicating which controls are available for a voice; each property defaults to `true` when omitted:
+- `controls` (`TVoiceControls`) is an object indicating which controls are available for a voice; each property defaults to `true` when omitted:
   - `pitch` indicates if a voice can be pitch controlled
   - `boundary` indicates if a voice returns boundary events
 

@@ -1,9 +1,9 @@
-import { ReadiumSpeechVoice, TVoiceControls } from "../voices/types";
+import { ReadiumSpeechVoice, TServerVoiceControls } from "../voices/types";
 import { SpeechServerVoice } from "./types";
 
 // `controls` isn't sent per voice — it's a provider-wide default from `GET /service`,
 // merged in here so each voice still reports what it actually honors.
-export function mapServerVoice(voice: SpeechServerVoice, providerControls?: TVoiceControls): ReadiumSpeechVoice {
+export function mapServerVoice(voice: SpeechServerVoice, providerControls?: TServerVoiceControls): ReadiumSpeechVoice {
   return {
     source: "server",
     label: voice.name,

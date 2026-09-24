@@ -184,7 +184,7 @@ interface ReadiumSpeechVoice {
   
   // Quality and capabilities
   quality?: TQuality[];    // Available quality levels for this voice ("veryLow" | "low" | "normal" | "high" | "veryHigh")
-  controls?: TVoiceControls; // Which playback controls this voice actually honors
+  controls?: TServerVoiceControls; // Which playback controls this voice actually honors
   
   // Performance settings
   pitch?: number;         // Current pitch (0-2, where 1 is normal)
@@ -233,10 +233,10 @@ type TGender = "female" | "male" | "neutral";
 type TSource = "json" | "browser";
 ```
 
-### `TVoiceControls`
+### `TServerVoiceControls`
 
 ```typescript
-interface TVoiceControls {
+interface TServerVoiceControls {
   pitch?: boolean;
   speed?: boolean;
   ssml?: boolean;
@@ -244,4 +244,12 @@ interface TVoiceControls {
 }
 ```
 
-`boundary` defaults to enabled when absent; `pitch`/`speed`/`ssml` are not defaulted the same way and should be treated as unsupported unless explicitly `true`.
+The speech server's `GET /service` always sends every field explicitly. Client code reading a `controls` object that might be partial should still treat `boundary` as enabled when absent and `pitch`/`speed`/`ssml` as unsupported when absent.
+
+### `TVoiceControls`
+
+```typescript
+type TVoiceControls = Pick<TServerVoiceControls, "pitch" | "boundary">;
+```
+
+Used for json/browser voices, where both properties default to enabled when absent.

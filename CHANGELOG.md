@@ -6,12 +6,12 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ### Added
 
-- `TVoiceControls.boundary` — voices now report boundary-event support (`controls.boundary` in JSON voice data, matching `voices.schema.json`), alongside the existing `pitch`/`speed`/`ssml`.
+- `TServerVoiceControls.boundary` — voices now report boundary-event support (`controls.boundary` in JSON voice data, matching `voices.schema.json`), alongside the existing `pitch`/`speed`/`ssml`.
+- `TVoiceControls` — the `pitch`/`boundary` subset of `TServerVoiceControls` applicable to json/browser voices.
 - `FallbackEngineProvider`'s mid-playback voice matching, and `WebSpeechEngine`'s per-content-language voice switching (`setSpeakInContentLanguage`), now also prefer a voice with the same boundary-event support as the one being replaced, falling back to the wider match when none exists.
 
 ### Changed
 
-- `TServerVoiceControls` renamed to `TVoiceControls`, since it's no longer server-specific.
 - `ReadiumSpeechJSONVoice.pitchControl` (`boolean`) replaced by `controls.pitch`, matching `voices.schema.json`; all bundled JSON voice data converted accordingly.
 
 ### Removed

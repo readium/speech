@@ -19,16 +19,22 @@ export type TLocalizedName = "android" | "apple";
 export type TSource = "json" | "browser" | "server";
 
 /**
- * Controls a voice reports as enabled, e.g. {ssml: true}.
- * `boundary` defaults to enabled when absent; `pitch`/`speed`/`ssml` are not defaulted
- * the same way and should be treated as unsupported unless explicitly `true`.
+ * Controls a speech-server voice reports as enabled, e.g. {ssml: true}.
+ * `GET /service` always sends every field explicitly; client code reading a `controls`
+ * object that might be partial should still treat `boundary` as enabled when absent and
+ * `pitch`/`speed`/`ssml` as unsupported when absent.
  */
-export interface TVoiceControls {
+export interface TServerVoiceControls {
   pitch?: boolean;
   speed?: boolean;
   ssml?: boolean;
   boundary?: boolean;
 }
+
+/**
+ * Controls a json/browser voice reports as enabled. Both default to enabled when absent.
+ */
+export type TVoiceControls = Pick<TServerVoiceControls, "pitch" | "boundary">;
 
 /**
  * Supported operating systems for voices
@@ -103,7 +109,7 @@ export interface ReadiumSpeechVoice {
   note?: string;          // Additional notes about the voice
   provider?: string;      // Voice provider (e.g., "Microsoft", "Google", or a speech-server provider id)
   identifier?: string;    // Opaque id to send back to a server provider (e.g. a speech-server voice URN)
-  controls?: TVoiceControls; // Which playback controls this voice actually honors
+  controls?: TServerVoiceControls; // Which playback controls this voice actually honors
 
   // Runtime-derived flags
   isDefault?: boolean;    // Whether this is the platform's default voice
