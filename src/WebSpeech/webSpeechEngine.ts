@@ -173,7 +173,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       return selectedVoice;
     }
 
-    const needsBoundary = this.currentVoice?.controls?.boundary !== false;
+    const needsBoundary = selectedVoice?.controls?.boundary !== false;
     const key = this.languageCacheKey(language, needsBoundary);
     if (this.languageVoiceCache.has(key)) {
       return this.languageVoiceCache.get(key) ?? selectedVoice;
@@ -201,7 +201,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       return;
     }
 
-    const needsBoundary = this.currentVoice?.controls?.boundary !== false;
+    const needsBoundary = this.getCurrentVoiceForUtterance(this.currentVoice)?.controls?.boundary !== false;
 
     const languages = new Set(
       contents
