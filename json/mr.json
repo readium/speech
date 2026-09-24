@@ -2,7 +2,7 @@
   "language": "mr",
   "defaultRegion": "mr-IN",
   "testUtterance": "नमस्कार, माझे नाव {name} आहे आणि मी एक मराठी आवाज आहे.",
-  "voices": [ 
+  "voices": [
     {
       "label": "Aarohi",
       "name": "Microsoft Aarohi Online (Natural) - Marathi (India)",
@@ -12,11 +12,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Manohar",
@@ -27,11 +30,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Ananya",
@@ -73,7 +79,10 @@
       "os": [
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     }
   ]
 }

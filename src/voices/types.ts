@@ -20,7 +20,9 @@ export type TSource = "json" | "browser" | "server";
 
 /**
  * Controls a speech-server voice reports as enabled, e.g. {ssml: true}.
- * A control absent from this object is not supported by that voice.
+ * `GET /service` always sends every field explicitly; client code reading a `controls`
+ * object that might be partial should still treat `boundary` as enabled when absent and
+ * `pitch`/`speed`/`ssml` as unsupported when absent.
  */
 export interface TServerVoiceControls {
   pitch?: boolean;
@@ -28,6 +30,11 @@ export interface TServerVoiceControls {
   ssml?: boolean;
   boundary?: boolean;
 }
+
+/**
+ * Controls a json/browser voice reports as enabled. Both default to enabled when absent.
+ */
+export type TVoiceControls = Pick<TServerVoiceControls, "pitch" | "boundary">;
 
 /**
  * Supported operating systems for voices
@@ -56,9 +63,9 @@ export interface ReadiumSpeechJSONVoice {
   gender?: TGender;
   children?: boolean;
   quality?: TQuality[];
-  rate?: number;  
+  rate?: number;
   pitch?: number;
-  pitchControl?: boolean;
+  controls?: TVoiceControls;
   os?: TOperatingSystem[];
   browser?: TBrowser[];
   preloaded?: boolean;
@@ -87,8 +94,7 @@ export interface ReadiumSpeechVoice {
   
   // Quality and capabilities
   quality?: TQuality;      // Voice quality level
-  pitchControl?: boolean;  // Whether pitch can be controlled
-  
+
   // Performance settings
   pitch?: number;         // Current pitch (0-2, where 1 is normal)
   rate?: number;          // Speech rate (0.1-10, where 1 is normal)
@@ -103,7 +109,7 @@ export interface ReadiumSpeechVoice {
   note?: string;          // Additional notes about the voice
   provider?: string;      // Voice provider (e.g., "Microsoft", "Google", or a speech-server provider id)
   identifier?: string;    // Opaque id to send back to a server provider (e.g. a speech-server voice URN)
-  controls?: TServerVoiceControls; // Which playback controls a server-sourced voice actually honors
+  controls?: TServerVoiceControls; // Which playback controls this voice actually honors
 
   // Runtime-derived flags
   isDefault?: boolean;    // Whether this is the platform's default voice

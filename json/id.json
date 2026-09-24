@@ -12,11 +12,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Ardi",
@@ -27,11 +30,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Suara Google wanita",
@@ -44,6 +50,9 @@
       ],
       "rate": 1,
       "pitch": 1,
+      "controls": {
+        "boundary": false
+      },
       "browser": [
         "ChromeDesktop"
       ],
@@ -107,7 +116,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "Suara wanita 2",
@@ -132,7 +144,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "Suara laki-laki 1",
@@ -157,7 +172,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "Suara laki-laki 2",
@@ -182,7 +200,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     }
   ]
 }

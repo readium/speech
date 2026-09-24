@@ -295,3 +295,13 @@ export const pickBestVoiceByRegion = async (
 
   return pool.reduce((best, candidate) => (compare(candidate, best) < 0 ? candidate : best));
 };
+
+/**
+ * Narrows to voices whose boundary-event support matches `needsBoundary`, so switching voice
+ * (by language, by fallback, ...) doesn't silently drop or gain word-boundary highlighting.
+ * Falls back to the full list when nothing matches, rather than returning no candidates at all.
+ */
+export const filterByBoundarySupport = (voices: ReadiumSpeechVoice[], needsBoundary: boolean): ReadiumSpeechVoice[] => {
+  const matches = voices.filter(voice => (voice.controls?.boundary !== false) === needsBoundary);
+  return matches.length > 0 ? matches : voices;
+};

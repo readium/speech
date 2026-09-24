@@ -4,6 +4,7 @@ import { ReadiumSpeechUtterance } from "../utterance";
 import { ReadiumSpeechVoice } from "../voices/types";
 import { WebSpeechVoiceManager } from "./WebSpeechVoiceManager";
 import { normalizeLanguageCode } from "../voices/languages";
+import { filterByBoundarySupport } from "../voices/sorting";
 import { extractLangRegionFromBCP47 } from "../utils/language";
 
 import { detectFeatures, WebSpeechFeatures } from "../utils/features";
@@ -29,6 +30,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private defaultVoice: ReadiumSpeechVoice | null = null;
 
   private speakInContentLanguage: boolean = false;
+  // Keyed by `${language}:${needsBoundary}` — the boundary requirement rides in the key
+  // so a voice switch that flips it warms/reads a distinct slot instead of a stale one.
   private languageVoiceCache: Map<string, ReadiumSpeechVoice | null> = new Map();
   private warmingLanguages: Map<string, Promise<void>> = new Map();
   private speakGeneration: number = 0;
@@ -151,6 +154,10 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return voiceLang === lang && (!region || voiceRegion === region);
   }
 
+  private languageCacheKey(language: string, needsBoundary: boolean): string {
+    return `${language}:${needsBoundary}`;
+  }
+
   // Returns `undefined` (not a fallback voice) when content.language hasn't
   // been warmed into languageVoiceCache yet — callers must await for it.
   private voiceForUtteranceSync(content: ReadiumSpeechUtterance): ReadiumSpeechVoice | null | undefined {
@@ -166,8 +173,10 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       return selectedVoice;
     }
 
-    if (this.languageVoiceCache.has(language)) {
-      return this.languageVoiceCache.get(language) ?? selectedVoice;
+    const needsBoundary = selectedVoice?.controls?.boundary !== false;
+    const key = this.languageCacheKey(language, needsBoundary);
+    if (this.languageVoiceCache.has(key)) {
+      return this.languageVoiceCache.get(key) ?? selectedVoice;
     }
 
     return undefined;
@@ -185,45 +194,50 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return this.voiceForUtteranceSync(content) ?? this.getCurrentVoiceForUtterance(this.currentVoice);
   }
 
-  // Dedupes in-flight warms per language so an awaited call and a
-  // fire-and-forget one for the same language don't redo the work.
+  // Dedupes in-flight warms per (language, boundary requirement) so an awaited call and a
+  // fire-and-forget one for the same slot don't redo the work.
   private async warmLanguageVoiceCache(contents: ReadiumSpeechUtterance[]): Promise<void> {
     if (!this.speakInContentLanguage || !this.voiceManager) {
       return;
     }
+
+    const needsBoundary = this.getCurrentVoiceForUtterance(this.currentVoice)?.controls?.boundary !== false;
 
     const languages = new Set(
       contents
         .map(content => content.language)
         .filter((language): language is string => !!language)
         .map(language => normalizeLanguageCode(language))
-        .filter(language => !this.languageVoiceCache.has(language))
+        .filter(language => !this.languageVoiceCache.has(this.languageCacheKey(language, needsBoundary)))
     );
 
-    const pending = [...languages].filter(language => this.warmingLanguages.has(language));
-    const toWarm = [...languages].filter(language => !this.warmingLanguages.has(language));
+    const pending = [...languages].filter(language => this.warmingLanguages.has(this.languageCacheKey(language, needsBoundary)));
+    const toWarm = [...languages].filter(language => !this.warmingLanguages.has(this.languageCacheKey(language, needsBoundary)));
 
     const warmPromises = toWarm.map((language) => {
+      const key = this.languageCacheKey(language, needsBoundary);
       const promise = (async () => {
         // Broaden the singleton in case initialize() was scoped narrower than this content needs
         await WebSpeechVoiceManager.initialize({ languages: [language] });
         this.voices = this.voiceManager!.getVoices();
 
-        const candidates = this.voices.filter(voice => this.voiceMatchesLanguage(voice, language));
+        const languageMatches = this.voices.filter(voice => this.voiceMatchesLanguage(voice, language));
+        const candidates = filterByBoundarySupport(languageMatches, needsBoundary);
+
         const sorted = await this.voiceManager!.sortVoicesByQuality(candidates);
         const matched = sorted[0] ?? null;
-        this.languageVoiceCache.set(language, matched);
+        this.languageVoiceCache.set(key, matched);
         if (!matched) {
           this.emitEvent({ type: "languagefallback", detail: { language, reason: "no-matching-voice" } });
         }
       })();
-      this.warmingLanguages.set(language, promise.finally(() => this.warmingLanguages.delete(language)));
-      return this.warmingLanguages.get(language)!;
+      this.warmingLanguages.set(key, promise.finally(() => this.warmingLanguages.delete(key)));
+      return this.warmingLanguages.get(key)!;
     });
 
     await Promise.all([
       ...warmPromises,
-      ...pending.map(language => this.warmingLanguages.get(language)!)
+      ...pending.map(language => this.warmingLanguages.get(this.languageCacheKey(language, needsBoundary))!)
     ]);
   }
 

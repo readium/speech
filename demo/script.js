@@ -506,10 +506,10 @@ function handleReadAlongChange(e) {
 }
 
 // Word-level boundary events aren't reliable for voices with
-// offlineAvailability === false, so only word highlighting (not read along
+// controls.boundary === false, so only word highlighting (not read along
 // as a whole, i.e. sentence highlighting keeps working) is disabled for them.
 function updateWordHighlightAvailability() {
-  const unavailable = !!currentVoice && currentVoice.offlineAvailability === false;
+  const unavailable = !!currentVoice && currentVoice.controls?.boundary === false;
   wordHighlightAvailable = !unavailable;
 
   if (wordStyleSelect) wordStyleSelect.disabled = unavailable;

@@ -2,7 +2,7 @@
   "language": "cmn",
   "defaultRegion": "cmn-CN",
   "testUtterance": "你好，我的名字是 {name}，我是普通话配音。",
-  "voices": [ 
+  "voices": [
     {
       "label": "Xiaoxiao",
       "name": "Microsoft Xiaoxiao Online (Natural) - Chinese (Mainland)",
@@ -13,11 +13,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Xiaoyi",
@@ -29,11 +32,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Yunxi",
@@ -45,11 +51,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Yunxia",
@@ -61,11 +70,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Xiaobei",
@@ -77,11 +89,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Xiaoni",
@@ -93,11 +108,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Yunjian",
@@ -109,11 +127,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Yunyang",
@@ -125,11 +146,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "HsiaoChen",
@@ -141,11 +165,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "HsiaoYu",
@@ -157,11 +184,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "YunJhe",
@@ -173,11 +203,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Google 女声",
@@ -191,6 +224,9 @@
       ],
       "rate": 1,
       "pitch": 1,
+      "controls": {
+        "boundary": false
+      },
       "browser": [
         "ChromeDesktop"
       ],
@@ -208,6 +244,9 @@
       ],
       "rate": 1,
       "pitch": 1,
+      "controls": {
+        "boundary": false
+      },
       "browser": [
         "ChromeDesktop"
       ],
@@ -691,7 +730,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "女声2",
@@ -715,7 +757,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "男声1",
@@ -739,7 +784,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "男声2",
@@ -763,7 +811,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "女聲",
@@ -788,7 +839,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "男聲1",
@@ -813,7 +867,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "男聲2",
@@ -838,7 +895,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     }
   ]
 }

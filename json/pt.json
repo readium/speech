@@ -12,11 +12,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Duarte",
@@ -27,11 +30,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Francisca",
@@ -42,11 +48,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Thalita",
@@ -57,11 +66,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Antonio",
@@ -72,11 +84,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Voz feminina do Google",
@@ -89,6 +104,9 @@
       ],
       "rate": 1,
       "pitch": 1,
+      "controls": {
+        "boundary": false
+      },
       "browser": [
         "ChromeDesktop"
       ],
@@ -272,7 +290,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "Voz feminina 2 (Portugal)",
@@ -297,7 +318,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "Voz masculina 1 (Portugal)",
@@ -321,7 +345,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "Voz masculina 2 (Portugal)",
@@ -345,7 +372,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "Voz feminina 1 (Brasil)",
@@ -371,7 +401,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "Voz feminina 2 (Brasil)",
@@ -395,7 +428,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "Voz masculina  (Brasil)",
@@ -419,7 +455,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     }
   ]
 }

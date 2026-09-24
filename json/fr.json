@@ -13,11 +13,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Denise",
@@ -28,11 +31,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Charline",
@@ -43,11 +49,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Ariane",
@@ -58,11 +67,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Eloise",
@@ -74,11 +86,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Remy",
@@ -90,11 +105,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Henri",
@@ -105,11 +123,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Gerard",
@@ -120,11 +141,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Fabrice",
@@ -135,11 +159,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Sylvie",
@@ -153,11 +180,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Antoine",
@@ -168,11 +198,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Jean",
@@ -183,11 +216,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Thierry",
@@ -201,11 +237,14 @@
         "veryHigh"
       ],
       "rate": 1,
-      "pitchControl": false,
       "browser": [
         "Edge"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "pitch": false,
+        "boundary": false
+      }
     },
     {
       "label": "Voix Google féminine (France)",
@@ -218,6 +257,9 @@
       ],
       "rate": 1,
       "pitch": 1,
+      "controls": {
+        "boundary": false
+      },
       "browser": [
         "ChromeDesktop"
       ],
@@ -485,7 +527,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "Voix féminine 2 (France)",
@@ -510,7 +555,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "Voix féminine 3 (France)",
@@ -535,7 +583,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "Voix masculine 1 (France)",
@@ -560,7 +611,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "Voix masculine 2 (France)",
@@ -585,7 +639,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "Voix féminine 1 (Canada)",
@@ -609,7 +666,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "Voix féminine 2 (Canada)",
@@ -632,7 +692,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "Voix masculine 1 (Canada)",
@@ -655,7 +718,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     },
     {
       "label": "Voix masculine 2 (Canada)",
@@ -678,7 +744,10 @@
         "Android",
         "ChromeOS"
       ],
-      "preloaded": true
+      "preloaded": true,
+      "controls": {
+        "boundary": false
+      }
     }
   ]
 }
