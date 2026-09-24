@@ -118,6 +118,7 @@
           "controls": {
             "type": "object",
             "description": "Indicates which controls are available for a given voice.",
+            "additionalProperties": false,
             "properties": {
               "boundary": {
                 "description": "Indicates whether a voice returns boundary events.",
