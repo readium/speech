@@ -322,9 +322,11 @@ When using the [Web Speech API](https://developer.mozilla.org/en-US/docs/Web/API
 
 Each voice documented in this repo supports the following optional properties:
 
-- `pitchControl` is a boolean that defaults to `true` and indicates if a voice can be pitch controlled
 - `rate` is an integer between 0.1 and 10 that defaults to 1 and provides a recommended default speech rate for each voice
 - `pitch` is an integer between 0 and 2 that defaults to 1 and provides a recommended default pitch for each voice
+- `controls` is an object indicating which controls are available for a voice; each property defaults to `true` when omitted:
+  - `pitch` indicates if a voice can be pitch controlled
+  - `boundary` indicates if a voice returns boundary events
 
 **Example 10: Microsoft voice where the pitch cannot be adjusted**
 
@@ -334,7 +336,9 @@ Each voice documented in this repo supports the following optional properties:
   "name": "Microsoft Ana Online (Natural) - English (United States)",
   "language": "en-US",
   "gender": "female",
-  "pitchControl": false
+  "controls": {
+    "pitch": false
+  }
 }
 ```
 

@@ -184,7 +184,7 @@ interface ReadiumSpeechVoice {
   
   // Quality and capabilities
   quality?: TQuality[];    // Available quality levels for this voice ("veryLow" | "low" | "normal" | "high" | "veryHigh")
-  pitchControl?: boolean;  // Whether pitch can be controlled
+  controls?: TVoiceControls; // Which playback controls this voice actually honors
   
   // Performance settings
   pitch?: number;         // Current pitch (0-2, where 1 is normal)
@@ -232,3 +232,16 @@ type TGender = "female" | "male" | "neutral";
 ```typescript
 type TSource = "json" | "browser";
 ```
+
+### `TVoiceControls`
+
+```typescript
+interface TVoiceControls {
+  pitch?: boolean;
+  speed?: boolean;
+  ssml?: boolean;
+  boundary?: boolean;
+}
+```
+
+Every control defaults to `true` when absent, except `ssml`.
