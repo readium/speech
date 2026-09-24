@@ -244,4 +244,4 @@ interface TVoiceControls {
 }
 ```
 
-Every control defaults to `true` when absent, except `ssml`.
+`boundary` defaults to enabled when absent; `pitch`/`speed`/`ssml` are not defaulted the same way and should be treated as unsupported unless explicitly `true`.

@@ -20,7 +20,8 @@ export type TSource = "json" | "browser" | "server";
 
 /**
  * Controls a voice reports as enabled, e.g. {ssml: true}.
- * Every control defaults to true when absent, except `ssml`.
+ * `boundary` defaults to enabled when absent; `pitch`/`speed`/`ssml` are not defaulted
+ * the same way and should be treated as unsupported unless explicitly `true`.
  */
 export interface TVoiceControls {
   pitch?: boolean;
