@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.11.1] - 2026-09-30
+
+### Changed
+
+- `@readium/shared`, `@readium/decorator` and `@readium/helpers` are no longer bundled into `build/`; they're imported from `dependencies`, now as caret ranges (`^2.6.0`, `^1.2.4`, `^1.1.1`) instead of exact versions, so an app depending on them too shares one copy with this package.
+
 ## [0.11.0] - 2026-09-24
 
 ### Added
