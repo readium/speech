@@ -7,11 +7,12 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ### Added
 
 - `AutoPauseScope` and `ExtractionFormat` types.
-- The supported values and ranges behind preference validation: `verbosityPresets`, `languageModes`, `extractionFormats`, `autoPauseScopes`, `segmentationModes`, `rateRangeConfig`, `pitchRangeConfig`, `volumeRangeConfig`, `pauseDurationRangeConfig` (`RangeConfig`), plus `extractionPreferenceKeys`.
+- The supported values and ranges behind preference validation: `verbosityPresets`, `languageModes`, `extractionFormats`, `autoPauseScopes`, `segmentationModes`, `rateRangeConfig`, `pitchRangeConfig`, `volumeRangeConfig`, `pauseDurationRangeConfig` (`RangeConfig`), plus `extractionPreferenceKeys`. All are frozen.
 
 ### Changed
 
 - Dependencies are no longer bundled into `build/`; they're imported from `dependencies`, with `@readium/shared`, `@readium/decorator` and `@readium/helpers` now as caret ranges (`^2.6.0`, `^1.2.4`, `^1.1.1`) instead of exact versions, so an app depending on them too shares one copy with this package.
+- `IEnumPreference.supportedValues` is now `readonly T[]` and `IRangePreference.supportedRange` is now `readonly [T, T]`; they return the same frozen values the library validates against.
 
 ### Removed
 
