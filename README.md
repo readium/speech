@@ -170,13 +170,12 @@ npm run build
 ```
 
 This will compile the TypeScript code and generate the following outputs in the `build/` directory:
-- `index.js` (ES modules)
-- `index.cjs` (CommonJS)
+- `index.js` (ES module, with dependencies left as imports for the consumer's bundler to resolve)
 - TypeScript type definitions
 
 ### Running Demos Locally
 
-The project includes demo applications that can be served locally:
+The demos import the library source directly and are served by Vite:
 
 1. Start the local development server:
    ```bash

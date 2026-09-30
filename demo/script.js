@@ -9,7 +9,7 @@ import {
   parseMarkup,
   decodeTextref,
   resolveUtteranceLocate,
-} from "../build/index.js";
+} from "../src/index.ts";
 
 // Set up the Decorator for TTS word/sentence highlights — also watches
 // .main (the flex item that resizes when the panel/controls columns

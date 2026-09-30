@@ -2,11 +2,20 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
-## [0.11.1] - 2026-09-30
+## [0.12.0] - 2026-09-30
+
+### Added
+
+- `AutoPauseScope` and `ExtractionFormat` types.
+- The supported values and ranges behind preference validation: `verbosityPresets`, `languageModes`, `extractionFormats`, `autoPauseScopes`, `segmentationModes`, `rateRangeConfig`, `pitchRangeConfig`, `volumeRangeConfig`, `pauseDurationRangeConfig` (`RangeConfig`), plus `extractionPreferenceKeys`.
 
 ### Changed
 
-- `@readium/shared`, `@readium/decorator` and `@readium/helpers` are no longer bundled into `build/`; they're imported from `dependencies`, now as caret ranges (`^2.6.0`, `^1.2.4`, `^1.1.1`) instead of exact versions, so an app depending on them too shares one copy with this package.
+- Dependencies are no longer bundled into `build/`; they're imported from `dependencies`, with `@readium/shared`, `@readium/decorator` and `@readium/helpers` now as caret ranges (`^2.6.0`, `^1.2.4`, `^1.1.1`) instead of exact versions, so an app depending on them too shares one copy with this package.
+
+### Removed
+
+- The CommonJS build (`build/index.cjs`). The package is ESM-only; `require("@readium/speech")` still works on Node versions that support `require()` of ES modules.
 
 ## [0.11.0] - 2026-09-24
 

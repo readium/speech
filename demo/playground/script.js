@@ -66,7 +66,7 @@ let SpeechPreferencesEditorClass = null;
 let skippableRolesList = null;
 let contextualizationCatalog = null;
 try {
-  const mod = await import("../../build/index.js");
+  const mod = await import("../../src/index.ts");
   if (typeof mod.parseMarkup === "function") {
     converter = mod;
   }
@@ -123,10 +123,9 @@ try {
     }
   }
 } catch (err) {
-  // build/index.js may not exist yet (run `npm run build`) or may not
-  // export these yet; logged rather than silently swallowed so a real
-  // failure here doesn't just look like an empty options list.
-  console.error("Failed to load @readium/speech build/index.js:", err);
+  // Logged rather than silently swallowed so a real failure here doesn't
+  // just look like an empty options list.
+  console.error("Failed to load @readium/speech:", err);
 }
 
 // Fixed fallback values — unlike `Preference.effectiveValue`, which tracks
