@@ -12,7 +12,7 @@ export default defineConfig({
       formats: ["es", "cjs"]
     },
     rollupOptions: {
-      external: [],
+      external: [/^@readium\//],
       output: {
         exports: "named"
       }
