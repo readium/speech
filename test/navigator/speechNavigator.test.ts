@@ -1,21 +1,23 @@
 import test from "ava";
-import type { GndObject } from "../../src/gnd/types.js";
+import { GuidedNavigationObject } from "@readium/shared";
 import { ReadiumSpeechNavigator, SpeechPreferences } from "../../build/index.js";
 import { MockEngine } from "./mockEngine.js";
 
-const listTree: GndObject[] = [{ role: ["list"], text: { language: "en", plain: "Hello world." } }];
+const gnd = (json: unknown[]): GuidedNavigationObject[] => GuidedNavigationObject.deserializeArray(json)!;
 
-const twoParagraphTree: GndObject[] = [
+const listTree = gnd([{ role: ["list"], text: { language: "en", plain: "Hello world." } }]);
+
+const twoParagraphTree = gnd([
   { role: ["paragraph"], text: { language: "en", plain: "First." } },
   { role: ["paragraph"], text: { language: "en", plain: "Second." } },
-];
+]);
 
 // "few" skips the footnote entirely; "most" doesn't — shifts every later index.
-const footnoteThenParagraphsTree: GndObject[] = [
+const footnoteThenParagraphsTree = gnd([
   { role: ["footnote"], text: { language: "en", plain: "A footnote." } },
   { role: ["paragraph"], text: { language: "en", plain: "First." } },
   { role: ["paragraph"], text: { language: "en", plain: "Second." } },
-];
+]);
 
 test("navigator defaults to 'few' verbosity when none is set", (t) => {
   const engine = new MockEngine();
@@ -23,7 +25,7 @@ test("navigator defaults to 'few' verbosity when none is set", (t) => {
   t.is(navigator.settings.verbosity, "few");
 });
 
-const tableTree: GndObject[] = [
+const tableTree = gnd([
   {
     role: ["table"],
     children: [
@@ -33,7 +35,7 @@ const tableTree: GndObject[] = [
       },
     ],
   },
-];
+]);
 
 test("table contextualization is inline at 'few', block from 'some' on", async (t) => {
   const engine = new MockEngine();

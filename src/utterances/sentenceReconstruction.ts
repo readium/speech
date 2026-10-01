@@ -1,6 +1,7 @@
-import type { GndObject, GndRole } from "../gnd/types.js";
-import { ariaSubstitutedNodes } from "../gnd/object.js";
+import type { GuidedNavigationObject } from "@readium/shared";
+import { isAriaSubstituted, type GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
+import { nodeRoles } from "./nodeFields.js";
 import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
 import { joinPieceTexts, plainOf, substitutedBareLocate } from "./mergeUtterances.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
@@ -45,9 +46,9 @@ const neverJoinRoles: ReadonlySet<GndRole> = new Set([
   "heading6",
 ]);
 
-function rolesOf(source: GndObject | [GndObject, GndObject] | undefined): GndRole[] {
+function rolesOf(source: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject] | undefined): GndRole[] {
   if (!source) return [];
-  return (Array.isArray(source) ? source[1] : source).role ?? [];
+  return nodeRoles(Array.isArray(source) ? source[1] : source);
 }
 
 // Whether `utterance`'s leading/trailing text is an aria substitution rather
@@ -59,7 +60,7 @@ function isSubstitutedEdge(
   ctx: WalkContext,
 ): boolean {
   if (ctx.edgeSubstitutedLocate.get(utterance)?.[edge]) return true;
-  return !!source && !Array.isArray(source) && ariaSubstitutedNodes.has(source);
+  return !!source && !Array.isArray(source) && isAriaSubstituted(source);
 }
 
 // Whether `next` may join `prev`'s run for sentence-boundary detection —
@@ -104,7 +105,7 @@ async function pushSplitSingle(
   if (wasBlockStart) ctx.blockStarts.delete(utterance);
   const node = Array.isArray(source) ? undefined : source;
   const nodeRef = node ? resolveNodeLocate(node, ctx.ancestorChains) : undefined;
-  const nodeOwnSubstitutedLocate = node && ariaSubstitutedNodes.has(node) ? substitutedBareLocate(node, ctx) : undefined;
+  const nodeOwnSubstitutedLocate = node && isAriaSubstituted(node) ? substitutedBareLocate(node, ctx) : undefined;
   const edges = ctx.edgeSubstitutedLocate.get(utterance);
   fragments.forEach(({ text: fragment, start, end }, k) => {
     const split: ReadiumSpeechUtterance = { ...utterance, [ctx.format]: fragment };
@@ -161,7 +162,7 @@ async function detectGenuineJoins(
 // Always quote-scoped, so a consumer can relocate a piece within spoken text by content.
 function buildJoinedOffsets(
   pieces: ReadiumSpeechUtterance[],
-  pieceSources: GndObject[],
+  pieceSources: GuidedNavigationObject[],
   ranges: { start: number; end: number }[],
   boundary: { start: number; end: number; contentEnd: number },
   startIdx: number,
@@ -190,7 +191,7 @@ function buildJoinedOffsets(
 // sentence has no trailing-separator artifact), mapping sentences back onto the piece(s) they span.
 async function pushJoinedGroup(
   pieces: ReadiumSpeechUtterance[],
-  pieceSources: GndObject[],
+  pieceSources: GuidedNavigationObject[],
   ctx: WalkContext,
   newOut: ReadiumSpeechUtterance[],
   newSources: SourceTrace,
@@ -259,7 +260,7 @@ export async function splitIntoSentenceUtterances(
       continue;
     }
     const pieces = out.slice(i, j + 1);
-    const pieceSources = sources.slice(i, j + 1) as GndObject[];
+    const pieceSources = sources.slice(i, j + 1) as GuidedNavigationObject[];
     const language = pieces[0].language ?? "en";
     const joinedWithNext = await detectGenuineJoins(pieces, ctx, language, ctx.segmentationSuppressions[language]);
     let start = 0;

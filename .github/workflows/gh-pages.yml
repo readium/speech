@@ -33,7 +33,7 @@ jobs:
       - name: Node build
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
       - run: |
           npm ci --foreground-scripts
           npm run build:demo
@@ -51,6 +51,7 @@ jobs:
           cp -r ./json ./build-demo/
           cp -r ./docs ./build-demo/
           cp -r ./fixtures ./build-demo/
+          cp -r ./node_modules/@readium/guided-navigation/fixtures/. ./build-demo/fixtures/
           cp -r ./locales ./build-demo/
           cp ./voices.schema.json ./build-demo/
           ls -laR ./build-demo

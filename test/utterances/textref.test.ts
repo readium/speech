@@ -1,6 +1,6 @@
-import "../gnd/setup.js";
+import "../domSetup.js";
 import test from "ava";
-import { parseMarkup } from "../../src/gnd/converter.js";
+import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances, extractUtterancesWithSources } from "../../src/utterances/extractUtterances.js";
 
 test("extractUtterances attaches cssSelector from the source node's textref", async (t) => {

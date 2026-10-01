@@ -1,9 +1,28 @@
 import { defineConfig } from "vite";
 import dts from "vite-plugin-dts";
-import { resolve } from "path";
+import { createReadStream, existsSync, statSync } from "fs";
+import { join, resolve } from "path";
 import pkg from "./package.json" with { type: "json" };
 
 const dependencies = Object.keys(pkg.dependencies ?? {});
+
+const localFixturesDir = resolve(__dirname, "fixtures");
+const gndFixturesDir = resolve(__dirname, "node_modules/@readium/guided-navigation/fixtures");
+
+// Serves /fixtures/ as gh-pages lays it out: local utterances.json merged with @readium/guided-navigation's fixtures.
+const gndFixtures = {
+  name: "gnd-fixtures",
+  configureServer(server) {
+    server.middlewares.use("/fixtures", (req, res, next) => {
+      const path = decodeURIComponent((req.url ?? "").split("?")[0]);
+      const file = join(gndFixturesDir, path);
+      if (existsSync(join(localFixturesDir, path)) || !file.startsWith(gndFixturesDir) || !existsSync(file) || !statSync(file).isFile()) {
+        return next();
+      }
+      createReadStream(file).pipe(res);
+    });
+  },
+};
 
 const shared = {
   define: {
@@ -59,7 +78,11 @@ const libraryBuild = {
   ]
 };
 
-export default defineConfig(({ mode }) => ({
-  ...shared,
-  ...(mode === "demo" ? demoBuild : libraryBuild)
-}));
+export default defineConfig(({ mode }) => {
+  const config = mode === "demo" ? demoBuild : libraryBuild;
+  return {
+    ...shared,
+    ...config,
+    plugins: [gndFixtures, ...(config.plugins ?? [])]
+  };
+});

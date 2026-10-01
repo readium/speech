@@ -1,5 +1,6 @@
 import i18next, { type i18n } from "i18next";
-import type { GndObject, GndRole } from "../gnd/types.js";
+import type { GuidedNavigationObject } from "@readium/shared";
+import type { GndRole } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { builtInSubstitutions } from "./builtInSubstitutions.js";
@@ -31,7 +32,7 @@ export interface WalkContext {
   // `ExtractUtterancesOptions.contextualization.shapes`.
   contextualizationShapes: Partial<Record<GndRole, "inline" | "block">>;
   // See `ExtractUtterancesOptions.contextualization.params`.
-  contextualizationParams?: (role: GndRole, node: GndObject) => Record<string, string> | undefined;
+  contextualizationParams?: (role: GndRole, node: GuidedNavigationObject) => Record<string, string> | undefined;
   format: ExtractionFormat;
   inlineContextualization: boolean;
   language?: LanguageMode;
@@ -47,12 +48,12 @@ export interface WalkContext {
   // Populated from a table node the moment it's reached, then read back as
   // its rows/cells are walked — same identity-keyed, single-call-scoped
   // pattern as `blockStarts`.
-  tableRowNumbers: Map<GndObject, number>;
-  tableCellHeaders: Map<GndObject, string>;
+  tableRowNumbers: Map<GuidedNavigationObject, number>;
+  tableCellHeaders: Map<GuidedNavigationObject, string>;
   // Identity-keyed synthesized-label tracking, same reason as `blockStarts`.
   synthetic: Set<ReadiumSpeechUtterance>;
   // Every node's own ancestors (nearest first) — see `resolveNodeLocate()`.
-  ancestorChains: Map<GndObject, GndObject[]>;
+  ancestorChains: Map<GuidedNavigationObject, GuidedNavigationObject[]>;
   // A language-split utterance's position in its source node's own text
   // (see `applyFormat`) — read back by `attachLocate()`, same identity-keyed pattern.
   pendingRange: Map<ReadiumSpeechUtterance, { start: number; end: number }>;
@@ -63,7 +64,7 @@ export interface WalkContext {
 
 // Parallel to `out`: which node produced each utterance. A sentence
 // reconstructed across sibling nodes carries a `[first, last]` tuple instead.
-export type SourceTrace = (GndObject | [GndObject, GndObject] | undefined)[];
+export type SourceTrace = (GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject] | undefined)[];
 
 export const blockLevelRoleSet: ReadonlySet<GndRole> = new Set(blockLevelRoles);
 export const deferrablePlaceholderRoleSet: ReadonlySet<GndRole> = new Set(deferrablePlaceholderRoles);
@@ -115,7 +116,7 @@ function mergeContextualizations(base: Contextualizations, override: Contextuali
 // when the utterance's own source has none of its own (e.g. its text lives
 // on an unroled child wrapping a link, whose own textref is that link's
 // href, not a DOM locator — see textrefFragment.ts's decodeTextref()).
-function buildAncestorChains(nodes: GndObject[], chain: GndObject[] = [], out = new Map<GndObject, GndObject[]>()): Map<GndObject, GndObject[]> {
+function buildAncestorChains(nodes: GuidedNavigationObject[], chain: GuidedNavigationObject[] = [], out = new Map<GuidedNavigationObject, GuidedNavigationObject[]>()): Map<GuidedNavigationObject, GuidedNavigationObject[]> {
   for (const node of nodes) {
     out.set(node, chain);
     if (node.children) buildAncestorChains(node.children, [node, ...chain], out);
@@ -123,7 +124,7 @@ function buildAncestorChains(nodes: GndObject[], chain: GndObject[] = [], out = 
   return out;
 }
 
-export async function makeWalkContext(nodes: GndObject[], options: ExtractUtterancesOptions): Promise<WalkContext> {
+export async function makeWalkContext(nodes: GuidedNavigationObject[], options: ExtractUtterancesOptions): Promise<WalkContext> {
   const locale = options.contextualizationLocale ?? "en";
   const contextualizations = mergeContextualizations(
     await contextualizationsForLocale(locale),

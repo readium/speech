@@ -1,4 +1,4 @@
-import { ssmlTextEscape } from "../gnd/text.js";
+import { ssmlTextEscape } from "@readium/helpers";
 import type { SentenceSegmenter } from "./sentenceSegmenter.js";
 import { tokenizeSsmlTextAtoms, type SsmlTextAtom as Atom } from "./text.js";
 

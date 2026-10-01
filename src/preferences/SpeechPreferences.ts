@@ -1,4 +1,4 @@
-import type { GndRole } from "../gnd/types.js";
+import type { GndRole } from "@readium/guided-navigation";
 import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
 import type { ConfigurablePreferences } from "./Configurable.js";
 import {

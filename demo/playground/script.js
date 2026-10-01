@@ -50,8 +50,8 @@ const speechUtterancesEl = document.getElementById("speech-utterances");
 const speechToggleEl = document.getElementById("speech-toggle");
 const speechStopEl = document.getElementById("speech-stop");
 
-// Feature-detect the GND converter, the utterance extractor, and the
-// read-aloud navigator, if/when @readium/speech exports them.
+// Feature-detect the GND converter (@readium/guided-navigation), the utterance
+// extractor, and the read-aloud navigator, if/when @readium/speech exports them.
 let converter = null;
 let utteranceExtractor = null;
 let NavigatorClass = null;
@@ -66,10 +66,15 @@ let SpeechPreferencesEditorClass = null;
 let skippableRolesList = null;
 let contextualizationCatalog = null;
 try {
-  const mod = await import("../../src/index.ts");
-  if (typeof mod.parseMarkup === "function") {
-    converter = mod;
+  const gndModule = await import("@readium/guided-navigation");
+  if (typeof gndModule.parseMarkup === "function") {
+    converter = gndModule;
   }
+} catch {
+  // Not available — the GND pane stays pending.
+}
+try {
+  const mod = await import("../../src/index.ts");
   if (typeof mod.extractUtterances === "function") {
     utteranceExtractor = mod;
   }
@@ -719,7 +724,7 @@ async function selectFixture(id) {
     fetch(base + "meta.json").then((r) => r.json()),
     fetch(base + entry.files.input).then((r) => r.text()),
     fetch(base + entry.files.gnd).then((r) => r.json()),
-    fetch(base + entry.files.utterances).then((r) => r.json()),
+    fetch(base + "utterances.json").then((r) => r.json()),
   ]);
 
   fixtureMetaEl.replaceChildren();
@@ -743,8 +748,9 @@ async function selectFixture(id) {
   } else {
     try {
       gndActual = converter.parseMarkup(inputHtml);
-      gndActualEl.textContent = JSON.stringify(withSchemaKeyOrder(toStoredShape(gndActual)), null, 2);
-      setBadge(gndBadgeEl, deepEqual(gndActual, expectedTopLevel(gnd)) ? "pass" : "fail");
+      const gndActualJson = gndActual.map((o) => o.serialize());
+      gndActualEl.textContent = JSON.stringify(withSchemaKeyOrder(toStoredShape(gndActualJson)), null, 2);
+      setBadge(gndBadgeEl, deepEqual(gndActualJson, expectedTopLevel(gnd)) ? "pass" : "fail");
     } catch (err) {
       gndActualEl.textContent = String(err);
       setBadge(gndBadgeEl, "fail");

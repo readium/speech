@@ -1,11 +1,14 @@
-import "../gnd/setup.js";
+import "../domSetup.js";
 import test from "ava";
-import { loadManifest, loadFixture, stripLocatorDetails } from "../testUtils.js";
-import { parseMarkup } from "../../src/gnd/converter.js";
+import { loadManifest, loadFixture, localFixtureIds, stripLocatorDetails } from "../testUtils.js";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 import type { ExtractUtterancesOptions } from "../../src/utterances/types.js";
 
 const manifest = loadManifest();
+
+test("every @readium/guided-navigation fixture has a utterances.json, and vice versa", (t) => {
+  t.deepEqual(localFixtureIds().sort(), manifest.map((entry) => entry.id).sort());
+});
 
 function sortKeysDeep(value: unknown): unknown {
   if (Array.isArray(value)) return value.map(sortKeysDeep);
@@ -22,16 +25,20 @@ function sortKeysDeep(value: unknown): unknown {
 
 for (const entry of manifest) {
   const fixture = loadFixture(entry.id);
-  // Every case below shares this same inputHtml (only options vary) — parsing
-  // once per fixture instead of once per case avoids ~400x redundant reparses.
-  const gnd = parseMarkup(fixture.inputHtml);
 
-  for (const { options: optionSets, utterances } of fixture.utterances.cases) {
-    for (const options of optionSets) {
-      test(`fixture "${entry.id}": extractUtterances matches utterances.json's case ${JSON.stringify(options)}`, async (t) => {
-        const actual = await extractUtterances(gnd, options as ExtractUtterancesOptions);
-        t.deepEqual(sortKeysDeep(stripLocatorDetails(actual)), sortKeysDeep(utterances));
-      });
-    }
-  }
+  fixture.utterances.cases.forEach(({ options: optionSets, utterances }, index) => {
+    // One test per case rather than per option set: the largest fixtures have tens of thousands of option sets.
+    test(`fixture "${entry.id}": extractUtterances matches utterances.json's case ${index} for all ${optionSets.length} option sets`, async (t) => {
+      const expected = sortKeysDeep(utterances);
+      const expectedJson = JSON.stringify(expected);
+      for (const options of optionSets) {
+        const actual = sortKeysDeep(stripLocatorDetails(await extractUtterances(fixture.gnd, options as ExtractUtterancesOptions)));
+        if (JSON.stringify(actual) !== expectedJson) {
+          t.deepEqual(actual, expected, `options: ${JSON.stringify(options)}`);
+          return;
+        }
+      }
+      t.pass();
+    });
+  });
 }

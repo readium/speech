@@ -1,5 +1,5 @@
 import { ReadiumSpeechPlaybackEngine } from "./engine";
-import { GndObject } from "./gnd/types";
+import type { GuidedNavigationObject } from "@readium/shared";
 import { ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator";
 import { extractionPreferenceKeys } from "./preferences/constraints";
 import { ISpeechDefaults, SpeechDefaults } from "./preferences/SpeechDefaults";
@@ -21,7 +21,7 @@ import { EventEmitter } from "./utils/eventEmitter";
 export interface ContextualizationOverrides {
   contextualizations?: Contextualizations;
   shapes?: ContextualizationShapeOverrides;
-  params?: (role: string, node: GndObject) => Record<string, string> | undefined;
+  params?: (role: string, node: GuidedNavigationObject) => Record<string, string> | undefined;
 }
 
 // Same rationale as ContextualizationOverrides — static, not a preference.
@@ -63,7 +63,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // extraction-affecting fields (format, verbosity, skip, contextualize,
   // language, segmentation) a no-op on content loaded via loadContent() — prosody
   // fields (rate/pitch/volume/pauseDuration/autoPause) still apply.
-  private source: GndObject[] | undefined;
+  private source: GuidedNavigationObject[] | undefined;
 
   // Parallel to `contentQueue`, from the extraction that produced it — lets
   // reextract() find where to resume after a reload (see resolveResumeIndex).
@@ -255,7 +255,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.setContentQueue(content);
   }
 
-  async loadGndContent(nodes: GndObject[]): Promise<void> {
+  async loadGndContent(nodes: GuidedNavigationObject[]): Promise<void> {
     this.source = nodes;
     await this.reextract();
   }

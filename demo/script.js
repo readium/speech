@@ -6,10 +6,9 @@ import {
   DecorationStyleType,
   DecorationLayout,
   createLocator,
-  parseMarkup,
-  decodeTextref,
   resolveUtteranceLocate,
 } from "../src/index.ts";
+import { parseMarkup, decodeTextref } from "@readium/guided-navigation";
 
 // Set up the Decorator for TTS word/sentence highlights — also watches
 // .main (the flex item that resizes when the panel/controls columns
@@ -731,13 +730,15 @@ function renderJsonValue(value, depth, keyFilter) {
 function renderGndNode(node, depth, keyFilter) {
   const pad = "  ".repeat(depth);
   const padIn = "  ".repeat(depth + 1);
-  const keys = Object.keys(node).filter(keyFilter);
+  // Renders the node's JSON, but recurses into node.children so each child keeps its identity in gndNodeIds.
+  const json = node.serialize();
+  const keys = Object.keys(json).filter(keyFilter);
   const body = !keys.length
     ? "{}"
     : "{\n" +
       keys
         .map((k) => {
-          const value = node[k];
+          const value = k === "children" ? node.children : json[k];
           const rendered =
             k === "children" && Array.isArray(value)
               ? renderGndNodeArray(value, depth + 1, keyFilter)

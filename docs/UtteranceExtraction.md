@@ -5,15 +5,16 @@
 `extractUtterances` walks a [Guided Navigation](GuidedNavigation.md) tree into a flat, ordered list of `ReadiumSpeechUtterance`s ready for playback.
 
 ```typescript
-import { makeGnd, extractUtterances } from "@readium/speech";
+import { parseMarkup } from "@readium/guided-navigation";
+import { extractUtterances } from "@readium/speech";
 
-const gnd = makeGnd(`<p lang="en">It was a dark and stormy night.</p>`);
+const gnd = parseMarkup(`<p lang="en">It was a dark and stormy night.</p>`);
 
-await extractUtterances(gnd.guided, { format: "plain" });
+await extractUtterances(gnd, { format: "plain" });
 // [{ language: "en", plain: "It was a dark and stormy night." }]
 ```
 
-Takes `GndObject[]` (`parseMarkup()`'s return / `GndDocument.guided`), not a wrapped `GndDocument`.
+Takes `GuidedNavigationObject[]` (`parseMarkup()`'s return / `GuidedNavigationDocument.guided`), not a wrapped `GuidedNavigationDocument`.
 
 ```typescript
 interface ReadiumSpeechUtterance {
@@ -52,7 +53,7 @@ interface ExtractUtterancesOptions {
 interface ContextualizationOptions {
   contextualizations?: Contextualizations;
   shapes?: Partial<Record<GndRole, "inline" | "block">>;
-  params?: (role: GndRole, node: GndObject) => Record<string, string> | undefined;
+  params?: (role: GndRole, node: GuidedNavigationObject) => Record<string, string> | undefined;
 }
 
 interface SegmentationOptions {
@@ -98,7 +99,7 @@ Quick reference:
 
 ### `format`
 
-Picks the one field every utterance in the result carries, so a consumer never has to check per-utterance which of `plain`/`ssml` is populated. Whichever a `GndObject` doesn't natively have is synthesized (`plain` → escaped `ssml`; `ssml` → tags stripped to `plain`).
+Picks the one field every utterance in the result carries, so a consumer never has to check per-utterance which of `plain`/`ssml` is populated. Whichever a `GuidedNavigationObject` doesn't natively have is synthesized (`plain` → escaped `ssml`; `ssml` → tags stripped to `plain`).
 
 ### `skip`
 
@@ -187,7 +188,7 @@ await extractUtterances(gnd, { ...options, contextualization: { ...options.conte
 
 #### `contextualization.params`
 
-Extra `{{ placeholder }}` values for a role, computed from its `GndObject` fields — for a placeholder the extractor has no built-in source for at all.
+Extra `{{ placeholder }}` values for a role, computed from its `GuidedNavigationObject` fields — for a placeholder the extractor has no built-in source for at all.
 
 `table`/`row`/`cell`/`rowheader`'s own `lines`/`columns`/`count`/`header`/`value` don't need this: reference them directly in your `contextualizations` wording and they resolve on their own, since the extractor always computes table structure regardless of whether this field is set.
 

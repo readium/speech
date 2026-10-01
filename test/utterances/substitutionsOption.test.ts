@@ -1,6 +1,6 @@
-import "../gnd/setup.js";
+import "../domSetup.js";
 import test from "ava";
-import { parseMarkup } from "../../src/gnd/converter.js";
+import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 
 test("substitutions: a built-in substitution applies by default", async (t) => {

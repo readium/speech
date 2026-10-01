@@ -147,7 +147,7 @@ Documentation provides guides for:
 - [Playback API](docs/Playback.md)
 - [Preferences](docs/Preferences.md) — verbosity and prosody settings via `SpeechPreferences`/`SpeechSettings`
 - [Highlighting](docs/Highlighting.md)
-- [Guided Navigation](docs/GuidedNavigation.md) — extracting [Guided Navigation objects](https://readium.org/guided-navigation) from HTML/XHTML content
+- [Guided Navigation](docs/GuidedNavigation.md) — getting [Guided Navigation objects](https://readium.org/guided-navigation) from HTML/XHTML content with `@readium/guided-navigation`
 - [Utterance Extraction](docs/UtteranceExtraction.md) — extracting utterances from Guided Navigation objects
 - [Provider Registry](docs/ProviderRegistry.md) — using more than one `ReadiumSpeechEngineProvider` (e.g. WebSpeech and speech-server) side by side
 - [WebSpeechEngine](docs/WebSpeechEngine.md) — the `ReadiumSpeechPlaybackEngine` backed by the browser's Web Speech API
@@ -202,11 +202,10 @@ For ChromeOS development, the project includes a debug mode that mocks the Web S
 ```bash
 npm test           # build + full suite
 npm run test:voices     # WebSpeechVoiceManager only
-npm run test:gnd        # HTML/XHTML -> Guided Navigation conversion
 npm run test:utterances # Guided Navigation -> utterance extraction
 ```
 
-`test:gnd` and `test:utterances` are both driven by [`fixtures/`](fixtures/README.md), a language-agnostic conformance suite of paired input/expected-output files (`input.html`/`input.xhtml`, `gnd.json`, `utterances.json`) covering the [Guided Navigation](docs/GuidedNavigation.md) and [utterance extraction](docs/UtteranceExtraction.md) stages one role/encoding/option at a time. Each fixture is a plain-file test case any platform implementation can consume, not just this TypeScript one — see [fixtures/README.md](fixtures/README.md) for the format, how to add a fixture, and how a fixture "passes".
+`test:utterances` is driven by [`fixtures/`](fixtures/README.md): the expected utterances, one option combination at a time, for every fixture of [`@readium/guided-navigation`](https://github.com/readium/ts-toolkit/tree/develop/guided-navigation)'s language-agnostic conformance suite. Each fixture is a plain-file test case any platform implementation can consume, not just this TypeScript one — see [fixtures/README.md](fixtures/README.md) for the format, how to add a fixture, and how a fixture "passes".
 
 ## Acknowledgments
 

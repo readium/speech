@@ -1,12 +1,12 @@
-import { ssmlTextEscape } from "../gnd/text.js";
-import { ariaSubstitutedNodes, substitutedOwnSelectorNodes } from "../gnd/object.js";
-import type { GndObject } from "../gnd/types.js";
+import { ssmlTextEscape, startsWithBindingPunct } from "@readium/helpers";
+import type { GuidedNavigationObject } from "@readium/shared";
+import { isAriaSubstituted, substitutedOwnSelector } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { stripLangTags } from "./language.js";
 import { hasLangTag, splitOnLangTags, stripSsmlTags, type ResolvedNodeText } from "./text.js";
 import type { ExtractionFormat, LanguageMode } from "./types.js";
-import { isSinglePunctuationChar, startsWithBindingPunct } from "../utils/text.js";
+import { isSinglePunctuationChar } from "../utils/text.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import { markNonQuotable } from "./boundaryLocate.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
@@ -33,8 +33,8 @@ export function joinPieceTexts(parts: string[]): { joined: string; ranges: { sta
 
 // A substituted node's own box when computed (precise), else its nearest
 // ancestor's — never a quote search, since the substituted text isn't on the page.
-export function substitutedBareLocate(node: GndObject, ctx: WalkContext): LocatorOptions | undefined {
-  const ownSelector = substitutedOwnSelectorNodes.get(node);
+export function substitutedBareLocate(node: GuidedNavigationObject, ctx: WalkContext): LocatorOptions | undefined {
+  const ownSelector = substitutedOwnSelector(node);
   if (ownSelector) return markNonQuotable({ cssSelector: ownSelector });
   const ref = resolveNodeLocate(node, ctx.ancestorChains)?.ref;
   return ref && markNonQuotable(ref);
@@ -58,7 +58,7 @@ function buildMergeOffsets(pieces: ReadiumSpeechUtterance[], pieceSources: Sourc
     const text = ctx.format === "ssml" ? piece.ssml : piece.plain;
     if (!text) return;
     const range = ctx.pendingRange.get(piece);
-    const locate = ariaSubstitutedNodes.has(source) ? (substitutedBareLocate(source, ctx) ?? nodeRef.ref) : subLocateFor(nodeRef.ref, text);
+    const locate = isAriaSubstituted(source) ? (substitutedBareLocate(source, ctx) ?? nodeRef.ref) : subLocateFor(nodeRef.ref, text);
     offsets.push({ start: range?.start ?? 0, end: range?.end ?? text.length, locate });
   });
   return offsets;
@@ -74,7 +74,7 @@ function substitutedLocateAt(
 ): LocatorOptions | undefined {
   const recorded = ctx.edgeSubstitutedLocate.get(piece);
   if (recorded) return recorded[edge];
-  if (!source || Array.isArray(source) || !ariaSubstitutedNodes.has(source)) return undefined;
+  if (!source || Array.isArray(source) || !isAriaSubstituted(source)) return undefined;
   return substitutedBareLocate(source, ctx);
 }
 
@@ -87,7 +87,7 @@ function buildMergeLocate(pieces: ReadiumSpeechUtterance[], pieceSources: Source
     if (!source || Array.isArray(source)) return undefined;
     const text = ctx.format === "ssml" ? piece.ssml : piece.plain;
     if (!text) return undefined;
-    if (ariaSubstitutedNodes.has(source)) return substitutedBareLocate(source, ctx);
+    if (isAriaSubstituted(source)) return substitutedBareLocate(source, ctx);
     return preciseLocateFor(resolveNodeLocate(source, ctx.ancestorChains), text);
   });
   const firstIndex = locates.findIndex((locate) => locate !== undefined);

@@ -1,4 +1,4 @@
-import type { GndRole } from "../gnd/types.js";
+import type { GndRole } from "@readium/guided-navigation";
 
 // https://github.com/readium/guided-navigation/blob/main/roles.md#list-of-skippable-roles
 // Roles a reader may choose to skip past during playback — ancillary

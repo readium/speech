@@ -1,4 +1,4 @@
-import type { GndRole } from "../gnd/types.js";
+import type { GndRole } from "@readium/guided-navigation";
 import type { VerbosityPreset } from "./SpeechPreferences.js";
 
 // Per-role skip/contextualize behavior at each verbosity preset. Both

@@ -1,8 +1,9 @@
-import type { GndObject } from "../gnd/types.js";
+import type { GuidedNavigationObject } from "@readium/shared";
+import { spokenText } from "./nodeFields.js";
 import { resolveNodeText, stripSsmlTags } from "./text.js";
 
-export function plainTextOf(node: GndObject): string {
-  const resolved = resolveNodeText(node.text);
+export function plainTextOf(node: GuidedNavigationObject): string {
+  const resolved = resolveNodeText(spokenText(node));
   if (!resolved) return "";
   return resolved.plain ?? (resolved.ssml ? stripSsmlTags(resolved.ssml) : "");
 }
@@ -10,15 +11,15 @@ export function plainTextOf(node: GndObject): string {
 export interface TableStructure {
   lines: number;
   columns: number;
-  rowNumbers: Map<GndObject, number>;
-  cellHeaders: Map<GndObject, string>;
+  rowNumbers: Map<GuidedNavigationObject, number>;
+  cellHeaders: Map<GuidedNavigationObject, string>;
 }
 
 // GND publishes no colspan/rowspan, so header association is purely
 // positional: a header row's Nth cell governs every later row's Nth cell.
-export function computeTableStructure(rows: GndObject[]): TableStructure {
-  const rowNumbers = new Map<GndObject, number>();
-  const cellHeaders = new Map<GndObject, string>();
+export function computeTableStructure(rows: GuidedNavigationObject[]): TableStructure {
+  const rowNumbers = new Map<GuidedNavigationObject, number>();
+  const cellHeaders = new Map<GuidedNavigationObject, string>();
   let columns = 0;
   let activeHeader: string[] | undefined;
 
@@ -27,14 +28,13 @@ export function computeTableStructure(rows: GndObject[]): TableStructure {
     const cells = row.children ?? [];
     columns = Math.max(columns, cells.length);
 
-    if (cells.some((cell) => cell.role?.includes("columnheader"))) {
+    if (cells.some((cell) => cell.role?.has("columnheader"))) {
       activeHeader = cells.map(plainTextOf);
       return;
     }
     if (!activeHeader) return;
     cells.forEach((cell, position) => {
-      const roles = cell.role ?? [];
-      if (!roles.includes("cell") && !roles.includes("rowheader")) return;
+      if (!cell.role?.has("cell") && !cell.role?.has("rowheader")) return;
       const header = activeHeader![position];
       if (header) cellHeaders.set(cell, header);
     });

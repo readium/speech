@@ -1,4 +1,4 @@
-import type { GndObject } from "../gnd/types.js";
+import type { GuidedNavigationObject } from "@readium/shared";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import type { ExtractUtterancesOptions } from "./types.js";
 import { makeWalkContext, type SourceTrace } from "./walkContext.js";
@@ -14,11 +14,11 @@ export type { SourceTrace } from "./walkContext.js";
  * Navigation node tree, following the patterns documented at
  * https://github.com/readium/guided-navigation/tree/main/examples/read-aloud.
  *
- * Accepts `GndObject[]` (as returned by `parseMarkup()`, or `GndDocument.guided`)
+ * Accepts `GuidedNavigationObject[]` (as returned by `parseMarkup()`, or `GuidedNavigationDocument.guided`)
  * rather than a wrapped document.
  */
 export async function extractUtterances(
-  nodes: GndObject[],
+  nodes: GuidedNavigationObject[],
   options: ExtractUtterancesOptions,
 ): Promise<ReadiumSpeechUtterance[]> {
   const out: ReadiumSpeechUtterance[] = [];
@@ -34,7 +34,7 @@ export async function extractUtterances(
  * and `blockStarts[i]`: whether `utterances[i]` begins a new block-level element.
  */
 export async function extractUtterancesWithSources(
-  nodes: GndObject[],
+  nodes: GuidedNavigationObject[],
   options: ExtractUtterancesOptions,
 ): Promise<{ utterances: ReadiumSpeechUtterance[]; sources: SourceTrace; blockStarts: boolean[] }> {
   const utterances: ReadiumSpeechUtterance[] = [];

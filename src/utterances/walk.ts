@@ -1,6 +1,8 @@
-import type { GndObject, GndRole } from "../gnd/types.js";
+import type { GuidedNavigationObject } from "@readium/shared";
+import type { GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { stripLangTags } from "./language.js";
+import { descriptionOf, nodeRoles, spokenText } from "./nodeFields.js";
 import {
   hasLangTag,
   hasPlaceholder,
@@ -35,7 +37,7 @@ function isSkipped(roles: GndRole[], skip: ReadonlySet<GndRole>): boolean {
 
 // A pagebreak's label merges into its "Pagebreak." contextualization as one
 // utterance, with a synthesized trailing period.
-function buildPagebreakUtterance(node: GndObject, ctx: WalkContext): ReadiumSpeechUtterance[] {
+function buildPagebreakUtterance(node: GuidedNavigationObject, ctx: WalkContext): ReadiumSpeechUtterance[] {
   const resolved = resolveNodeText(node.text);
   const own = resolved ? applyFormat(resolved, ctx.format, ctx.language, ctx) : [];
   if (!ctx.contextualize.has("pagebreak")) return own;
@@ -51,25 +53,25 @@ function buildPagebreakUtterance(node: GndObject, ctx: WalkContext): ReadiumSpee
   return [merged];
 }
 
-function isDeferrable(child: GndObject): boolean {
-  return (child.role ?? []).some((role) => deferrablePlaceholderRoleSet.has(role));
+function isDeferrable(child: GuidedNavigationObject): boolean {
+  return nodeRoles(child).some((role) => deferrablePlaceholderRoleSet.has(role));
 }
 
 // Splits the sentence on its placeholders, merging inline ones back into one
 // utterance; deferred ones are returned for the caller to walk separately.
 function emitWithPlaceholders(
-  node: GndObject,
+  node: GuidedNavigationObject,
   rawSsml: string,
   out: ReadiumSpeechUtterance[],
   sources: SourceTrace,
   ctx: WalkContext,
   suppress: boolean,
-): GndObject[] {
-  const language = typeof node.text === "object" ? node.text.language : undefined;
+): GuidedNavigationObject[] {
+  const language = node.text?.language;
   const childrenById = new Map((node.children ?? []).map((child) => [child.id, child] as const));
   const pieces: ReadiumSpeechUtterance[] = [];
   const pieceSources: SourceTrace = [];
-  const deferred: GndObject[] = [];
+  const deferred: GuidedNavigationObject[] = [];
   for (const segment of splitOnPlaceholders(rawSsml)) {
     if (segment.placeholderId !== undefined) {
       const child = childrenById.get(segment.placeholderId);
@@ -112,8 +114,9 @@ function emitWithPlaceholders(
   return deferred;
 }
 
-function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, suppress: boolean): void {
-  const roles = node.role ?? [];
+function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, suppress: boolean): void {
+  const roles = nodeRoles(node);
+  const description = descriptionOf(node);
   if (isSkipped(roles, ctx.skip)) return;
 
   // A node carrying a block-level role opens a new block — unless
@@ -142,10 +145,10 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
   // is suppressed when a role that's actually firing already folded it
   // into its own announcement (e.g. "Table: Team roster. 3 lines...").
   const foldsDescription = roles.some((role) => descriptionFoldingRoleSet.has(role) && ctx.contextualize.has(role));
-  const isTableCaption = roles.includes("table") && node.description !== undefined && !foldsDescription;
+  const isTableCaption = roles.includes("table") && description !== undefined && !foldsDescription;
   if (isTableCaption) {
-    const utterance = formatPlain(node.description!, ctx);
-    scopeToQuote(utterance, node.description!, node.description!, node, ctx);
+    const utterance = formatPlain(description!, ctx);
+    scopeToQuote(utterance, description!, description!, node, ctx);
     push(out, sources, node, [utterance]);
   }
 
@@ -156,7 +159,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
   for (const role of contextualizedRoles) {
     // An unlabelled figure has nothing to say and doesn't announce at all
     // (its content still speaks normally) — the only role with this rule.
-    if (role === "figure" && node.description === undefined) continue;
+    if (role === "figure" && description === undefined) continue;
     const { variantKey, params } = contextualizationParamsFor(role, node, ctx);
     pushRoleContextualization(out, sources, node, ctx, role, "before", variantKey, params);
   }
@@ -168,7 +171,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
   // kind of child is walked as-is.
   if (roles.includes("noteref")) {
     for (const child of node.children ?? []) {
-      const childRoles = child.role ?? [];
+      const childRoles = nodeRoles(child);
       if (isSkipped(childRoles, ctx.skip)) continue;
       if (childRoles.includes("footnote")) {
         const footnoteContextualized = ctx.contextualize.has("footnote");
@@ -207,7 +210,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
   } else if (roles.some((role) => contentlessRoleSet.has(role))) {
     // Ignored entirely — see `contentlessRoles`.
   } else {
-    const rawSsml = typeof node.text === "object" ? node.text.ssml : undefined;
+    const rawSsml = spokenText(node)?.ssml;
     if (rawSsml && hasPlaceholder(rawSsml)) {
       const deferred = emitWithPlaceholders(node, rawSsml, out, sources, ctx, suppress);
       if (deferred.length > 0) {
@@ -222,7 +225,7 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
       }
     } else {
       const foldsValue = roles.some((role) => valueFoldingRoleSet.has(role) && isRoleContextualized(role, ctx));
-      const resolved = foldsValue ? undefined : resolveNodeText(node.text);
+      const resolved = foldsValue ? undefined : resolveNodeText(spokenText(node));
       if (resolved) {
         push(out, sources, node, applyFormat(resolved, ctx.format, ctx.language, ctx));
       }
@@ -237,15 +240,15 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
     ctx.blockStarts.add(out[beforeLength]);
   }
 
-  if (node.description !== undefined && !foldsDescription && !isTableCaption) {
-    const utterance = formatPlain(node.description, ctx);
+  if (description !== undefined && !foldsDescription && !isTableCaption) {
+    const utterance = formatPlain(description, ctx);
     // Only figure/table can fold real DOM text into description; other roles' is ARIA attribute text with no DOM location.
-    if (roles.includes("figure")) scopeToQuote(utterance, node.description, node.description, node, ctx);
+    if (roles.includes("figure")) scopeToQuote(utterance, description, description, node, ctx);
     push(out, sources, node, [utterance]);
   }
 
   for (const role of contextualizedRoles) {
-    if (role === "figure" && node.description === undefined) continue;
+    if (role === "figure" && description === undefined) continue;
     const { variantKey, params } = contextualizationParamsFor(role, node, ctx);
     pushRoleContextualization(out, sources, node, ctx, role, "after", variantKey, params);
   }
@@ -255,6 +258,6 @@ function walkNode(node: GndObject, out: ReadiumSpeechUtterance[], sources: Sourc
 // sibling, whatever a prior sibling's subtree spoke has already broken any
 // "nothing in between" chain, so each subsequent sibling is free to open
 // its own boundary.
-export function walk(nodes: GndObject[], out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, suppress: boolean): void {
+export function walk(nodes: GuidedNavigationObject[], out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, suppress: boolean): void {
   nodes.forEach((node, index) => walkNode(node, out, sources, ctx, index === 0 ? suppress : false));
 }

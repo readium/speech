@@ -1,6 +1,6 @@
-import "../gnd/setup.js";
+import "../domSetup.js";
 import test from "ava";
-import { parseMarkup } from "../../src/gnd/converter.js";
+import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 import { resolveBoundaryLocate } from "../../src/utterances/boundaryLocate.js";
 
