@@ -15,6 +15,20 @@ test("extractUtterances leaves locate undefined when textrefs was off at generat
   t.is(utterance.locate, undefined);
 });
 
+test("an aria-substituted link gets no locate when textrefs was off at generation time", async (t) => {
+  const inputs = [
+    '<p>Into speech. <a href="#gloss" aria-labelledby="lbl">*</a></p><p>synthesized speech can be created.</p><span id="lbl" hidden>see glossary entry</span>',
+    '<p><a href="#ref" aria-label="See note one.">[1]</a> Into speech.</p>',
+  ];
+  for (const html of inputs) {
+    for (const mode of ["structure", "sentence"] as const) {
+      const utterances = await extractUtterances(parseMarkup(html), { format: "plain", segmentation: { mode } });
+      t.true(utterances.length > 0);
+      t.true(utterances.every((u) => u.locate === undefined && u.offsets === undefined), `${mode}: ${html}`);
+    }
+  }
+});
+
 test("extractUtterancesWithSources also attaches cssSelector, alongside sources", async (t) => {
   const gnd = parseMarkup("<p>Hello.</p>", undefined, { textrefs: true });
   const { utterances } = await extractUtterancesWithSources(gnd, { format: "plain" });

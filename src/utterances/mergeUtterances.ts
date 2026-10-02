@@ -87,7 +87,7 @@ function buildMergeLocate(pieces: ReadiumSpeechUtterance[], pieceSources: Source
     if (!source || Array.isArray(source)) return undefined;
     const text = ctx.format === "ssml" ? piece.ssml : piece.plain;
     if (!text) return undefined;
-    if (isAriaSubstituted(source)) return substitutedBareLocate(source, ctx);
+    if (isAriaSubstituted(source)) return resolveNodeLocate(source, ctx.ancestorChains) && substitutedBareLocate(source, ctx);
     return preciseLocateFor(resolveNodeLocate(source, ctx.ancestorChains), text);
   });
   const firstIndex = locates.findIndex((locate) => locate !== undefined);

@@ -113,7 +113,7 @@ async function pushSplitSingle(
       (k === 0 ? edges?.leading : undefined) ??
       (k === fragments.length - 1 ? edges?.trailing : undefined) ??
       nodeOwnSubstitutedLocate;
-    if (substitutedLocate) {
+    if (substitutedLocate && nodeRef) {
       split.locate = substitutedLocate;
       split.offsets = [{ start, end, locate: substitutedLocate }];
     } else if (nodeRef) {
