@@ -50,8 +50,8 @@ jobs:
           cp ./demo/voice-selection/sampleText.json ./build-demo/demo/voice-selection/
           cp -r ./json ./build-demo/
           cp -r ./docs ./build-demo/
-          cp -r ./fixtures ./build-demo/
-          cp -r ./node_modules/@readium/guided-navigation/fixtures/. ./build-demo/fixtures/
+          cp -r ./node_modules/@readium/guided-navigation/fixtures ./build-demo/
+          cp -r ./fixtures/. ./build-demo/fixtures/
           cp -r ./locales ./build-demo/
           cp ./voices.schema.json ./build-demo/
           ls -laR ./build-demo
