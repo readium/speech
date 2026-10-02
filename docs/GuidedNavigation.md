@@ -6,7 +6,8 @@ Guided Navigation (GND) generation lives in [`@readium/guided-navigation`](https
 import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances } from "@readium/speech";
 
-const utterances = await extractUtterances(parseMarkup(html, undefined, { textrefs: true }));
+const gnd = parseMarkup(html, undefined, { textrefs: true });
+const utterances = await extractUtterances(gnd);
 ```
 
-Pass objects returned by `parseMarkup()`/`makeGnd()` rather than deserialized JSON: text taken from `aria-label`/`aria-labelledby` is only known on those, and without it such text gets quote-located instead of located on its element.
+Pass objects returned by `parseMarkup()` (or `makeGnd()`'s `.guided`) rather than deserialized JSON: text taken from `aria-label`/`aria-labelledby` is only known on those, and without it such text gets quote-located instead of located on its element.

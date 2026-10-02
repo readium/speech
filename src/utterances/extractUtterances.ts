@@ -19,7 +19,7 @@ export type { SourceTrace } from "./walkContext.js";
  */
 export async function extractUtterances(
   nodes: GuidedNavigationObject[],
-  options: ExtractUtterancesOptions,
+  options: ExtractUtterancesOptions = {},
 ): Promise<ReadiumSpeechUtterance[]> {
   const out: ReadiumSpeechUtterance[] = [];
   const sources: SourceTrace = [];
@@ -35,7 +35,7 @@ export async function extractUtterances(
  */
 export async function extractUtterancesWithSources(
   nodes: GuidedNavigationObject[],
-  options: ExtractUtterancesOptions,
+  options: ExtractUtterancesOptions = {},
 ): Promise<{ utterances: ReadiumSpeechUtterance[]; sources: SourceTrace; blockStarts: boolean[] }> {
   const utterances: ReadiumSpeechUtterance[] = [];
   const sources: SourceTrace = [];
