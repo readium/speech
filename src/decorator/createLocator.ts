@@ -3,6 +3,8 @@ import { DomRange, DomRangePoint } from "@readium/shared/html";
 import type { DomRangeJSON } from "@readium/guided-navigation";
 
 export interface LocatorOptions {
+  // The resource the locate points into, from an href-qualified textref.
+  href?: string;
   // Text-quote anchoring.
   text?: { highlight?: string; before?: string; after?: string };
   cssSelector?: string;
@@ -17,10 +19,9 @@ function toDomRange(json: DomRangeJSON): DomRange {
   });
 }
 
-// href/type are required by Locator's constructor but never read when
-// anchoring within the current document, so they're always synthesized here.
+// Without an href in options, href is the current document's, which is all anchoring within it needs.
 export function createLocator(options: LocatorOptions, wnd: Window = window): Locator {
-  const { text: textOptions, cssSelector, domRange, fragment } = options;
+  const { href, text: textOptions, cssSelector, domRange, fragment } = options;
 
   const text = textOptions ? new LocatorText(textOptions) : undefined;
 
@@ -38,7 +39,7 @@ export function createLocator(options: LocatorOptions, wnd: Window = window): Lo
     : undefined;
 
   return new Locator({
-    href: wnd.location.href,
+    href: href ?? wnd.location.href,
     type: "text/html",
     text,
     locations

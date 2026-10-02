@@ -2,6 +2,17 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.13.0] - 2026-10-02
+
+### Added
+
+- `LocatorOptions.href`: the resource a `locate` points into, taken from href-qualified textrefs (`chapter.xhtml#css(...)`). It's kept on every `locate`, `offsets` entry and word boundary, so a sentence reconstructed across resources (e.g. fixed-layout pages stitched in reading order) maps each piece back to its own resource.
+- `createLocator()` uses `href` from its options when present, instead of the current document's.
+
+### Changed
+
+- `@readium/guided-navigation` is now `^1.1.0`.
+
 ## [0.12.0] - 2026-10-02
 
 ### Added

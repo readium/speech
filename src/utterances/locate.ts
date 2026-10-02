@@ -8,7 +8,10 @@ import type { SourceTrace, WalkContext } from "./walkContext.js";
 // character-offset domRange would need its internal text-node layout.
 export function subLocateFor(nodeRef: DecodedTextref, quoteText: string): LocatorOptions {
   const cssSelector = nodeRef.cssSelector ?? nodeRef.domRange?.start.cssSelector;
-  return cssSelector ? { cssSelector, text: { highlight: quoteText } } : { ...nodeRef, text: { highlight: quoteText } };
+  if (!cssSelector) return { ...nodeRef, text: { highlight: quoteText } };
+  const locate: LocatorOptions = { cssSelector, text: { highlight: quoteText } };
+  if (nodeRef.href !== undefined) locate.href = nodeRef.href;
+  return locate;
 }
 
 // Decodes each utterance's source node textref (if any) into `locate`, for
