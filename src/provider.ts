@@ -1,5 +1,5 @@
-import { ReadiumSpeechPlaybackEngine } from "./engine";
-import { ReadiumSpeechVoice } from "./voices/types";
+import { ReadiumSpeechPlaybackEngine } from "./engine.js";
+import { ReadiumSpeechVoice } from "./voices/types.js";
 
 export interface ReadiumSpeechEngineProvider {
   readonly id: string;

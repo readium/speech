@@ -1,2 +1,2 @@
-export * from "./setupDecorations";
-export * from "./createLocator";
+export * from "./setupDecorations.js";
+export * from "./createLocator.js";

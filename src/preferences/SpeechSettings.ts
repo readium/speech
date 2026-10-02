@@ -1,4 +1,4 @@
-import type { GndRole } from "../gnd/types.js";
+import type { GndRole } from "@readium/guided-navigation";
 import type { ConfigurableSettings } from "./Configurable.js";
 import { SpeechDefaults } from "./SpeechDefaults.js";
 import type { AutoPauseScope, SpeechPreferences, VerbosityPreset } from "./SpeechPreferences.js";

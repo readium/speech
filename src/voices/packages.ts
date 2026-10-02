@@ -1,4 +1,4 @@
-import { TQuality } from "./types";
+import { TQuality } from "./types.js";
 
 type PackageQuality = {
   [key: string]: {

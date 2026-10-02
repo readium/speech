@@ -1,20 +1,20 @@
-import { ReadiumSpeechPlaybackEngine } from "../engine";
-import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navigator";
-import { ReadiumSpeechUtterance } from "../utterance";
-import { ReadiumSpeechVoice } from "../voices/types";
-import { WebSpeechVoiceManager } from "./WebSpeechVoiceManager";
-import { normalizeLanguageCode } from "../voices/languages";
-import { filterByBoundarySupport } from "../voices/sorting";
-import { extractLangRegionFromBCP47 } from "../utils/language";
+import { ReadiumSpeechPlaybackEngine } from "../engine.js";
+import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navigator.js";
+import { ReadiumSpeechUtterance } from "../utterance.js";
+import { ReadiumSpeechVoice } from "../voices/types.js";
+import { WebSpeechVoiceManager } from "./WebSpeechVoiceManager.js";
+import { normalizeLanguageCode } from "../voices/languages.js";
+import { filterByBoundarySupport } from "../voices/sorting.js";
+import { extractLangRegionFromBCP47 } from "../utils/language.js";
 
-import { detectFeatures, WebSpeechFeatures } from "../utils/features";
-import { detectPlatformFeatures, WebSpeechPlatformPatches } from "../utils/patches";
-import { EventEmitter } from "../utils/eventEmitter";
-import { clampIndex } from "../utils/array";
-import { clamp } from "../utils/clamp";
+import { detectFeatures, WebSpeechFeatures } from "../utils/features.js";
+import { detectPlatformFeatures, WebSpeechPlatformPatches } from "../utils/patches.js";
+import { EventEmitter } from "../utils/eventEmitter.js";
+import { clampIndex } from "../utils/array.js";
+import { clamp } from "../utils/clamp.js";
 
-import { decodeResidualHtmlEntities, neutralizeAngleBrackets } from "../utils/text";
-import { stripSsmlTags } from "../utterances/text";
+import { decodeResidualHtmlEntities, neutralizeAngleBrackets } from "../utils/text.js";
+import { stripSsmlTags } from "../utterances/text.js";
 
 export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private speechSynthesis: SpeechSynthesis;

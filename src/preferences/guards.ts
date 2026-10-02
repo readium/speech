@@ -10,7 +10,7 @@ export function ensureEnumValue<T extends string | number | symbol>(value: T | n
   return supportedValues.includes(value) ? value : undefined;
 }
 
-export function ensureValueInRange(value: number | null | undefined, range: [number, number]): number | null | undefined {
+export function ensureValueInRange(value: number | null | undefined, range: readonly [number, number]): number | null | undefined {
   if (value === undefined || value === null) return value;
   if (typeof value !== "number" || Number.isNaN(value)) return undefined;
   const min = Math.min(...range);

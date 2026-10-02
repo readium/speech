@@ -8,11 +8,11 @@ export interface IPreference<T> {
 }
 
 export interface IEnumPreference<T> extends IPreference<T> {
-  supportedValues: T[];
+  supportedValues: readonly T[];
 }
 
 export interface IRangePreference<T> extends IPreference<T> {
-  supportedRange: [T, T];
+  supportedRange: readonly [T, T];
   step: number;
   increment(): void;
   decrement(): void;
@@ -66,7 +66,7 @@ export class Preference<T> implements IPreference<T> {
 }
 
 export class EnumPreference<T extends string | number | symbol> extends Preference<T> implements IEnumPreference<T> {
-  private readonly _supportedValues: T[];
+  private readonly _supportedValues: readonly T[];
 
   constructor({
     initialValue = null,
@@ -79,7 +79,7 @@ export class EnumPreference<T extends string | number | symbol> extends Preferen
     effectiveValue?: T | null;
     isEffective: boolean;
     onChange: (newValue: T | null | undefined) => void;
-    supportedValues: T[];
+    supportedValues: readonly T[];
   }) {
     super({ initialValue, effectiveValue, isEffective, onChange });
     this._supportedValues = supportedValues;
@@ -97,7 +97,7 @@ export class EnumPreference<T extends string | number | symbol> extends Preferen
     return this._value;
   }
 
-  get supportedValues(): T[] {
+  get supportedValues(): readonly T[] {
     return this._supportedValues;
   }
 }
@@ -131,7 +131,7 @@ export class StringArrayPreference extends Preference<string[]> {
 }
 
 export class RangePreference<T extends number> extends Preference<T> implements IRangePreference<T> {
-  private readonly _supportedRange: [T, T];
+  private readonly _supportedRange: readonly [T, T];
   private readonly _step: number;
   private readonly _decimals: number;
 
@@ -147,7 +147,7 @@ export class RangePreference<T extends number> extends Preference<T> implements 
     effectiveValue?: T | null;
     isEffective: boolean;
     onChange: (newValue: T | null | undefined) => void;
-    supportedRange: [T, T];
+    supportedRange: readonly [T, T];
     step: number;
   }) {
     super({ initialValue, effectiveValue, isEffective, onChange });
@@ -168,7 +168,7 @@ export class RangePreference<T extends number> extends Preference<T> implements 
     return this._value;
   }
 
-  get supportedRange(): [T, T] {
+  get supportedRange(): readonly [T, T] {
     return this._supportedRange;
   }
 

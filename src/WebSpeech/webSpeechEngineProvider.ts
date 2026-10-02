@@ -1,7 +1,7 @@
-import { ReadiumSpeechEngineProvider } from "../provider";
-import { ReadiumSpeechPlaybackEngine } from "../engine";
-import { ReadiumSpeechVoice } from "../voices/types";
-import { WebSpeechEngine } from "./webSpeechEngine";
+import { ReadiumSpeechEngineProvider } from "../provider.js";
+import { ReadiumSpeechPlaybackEngine } from "../engine.js";
+import { ReadiumSpeechVoice } from "../voices/types.js";
+import { WebSpeechEngine } from "./webSpeechEngine.js";
 
 export class WebSpeechEngineProvider implements ReadiumSpeechEngineProvider {
   readonly id: string = "webspeech";

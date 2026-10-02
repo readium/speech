@@ -1,6 +1,6 @@
 import { Locator, LocatorLocations, LocatorText } from "@readium/shared";
 import { DomRange, DomRangePoint } from "@readium/shared/html";
-import type { DomRangeJSON } from "../gnd/textrefFragment.js";
+import type { DomRangeJSON } from "@readium/guided-navigation";
 
 export interface LocatorOptions {
   // Text-quote anchoring.

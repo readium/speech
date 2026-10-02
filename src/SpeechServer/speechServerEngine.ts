@@ -1,23 +1,23 @@
-import { ReadiumSpeechPlaybackEngine } from "../engine";
-import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navigator";
-import { ReadiumSpeechUtterance } from "../utterance";
-import { ReadiumSpeechVoice } from "../voices/types";
-import { mapServerVoice } from "./speechServerVoiceMapping";
-import { SpeechServerAudioDecodeError, SpeechServerError, SpeechServerNetworkError, SpeechServerStallError, toSpeechServerError } from "./errors";
-import { ErrorEventDetail } from "../Fallback/recoverableFailure";
-import { EventEmitter } from "../utils/eventEmitter";
-import { clampIndex } from "../utils/array";
-import { clamp } from "../utils/clamp";
-import { chunkPlainText, chunkSsmlText, TextChunk } from "./chunkText";
-import { ssmlIndexToPlainIndex, stripSsmlTagsWithMap } from "../utterances/text";
-import { neutralizeAngleBrackets } from "../utils/text";
-import { CanPlayType, selectBitrate, selectFormat, SpeechServerFormatOptions } from "./selectFormat";
+import { ReadiumSpeechPlaybackEngine } from "../engine.js";
+import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navigator.js";
+import { ReadiumSpeechUtterance } from "../utterance.js";
+import { ReadiumSpeechVoice } from "../voices/types.js";
+import { mapServerVoice } from "./speechServerVoiceMapping.js";
+import { SpeechServerAudioDecodeError, SpeechServerError, SpeechServerNetworkError, SpeechServerStallError, toSpeechServerError } from "./errors.js";
+import { ErrorEventDetail } from "../Fallback/recoverableFailure.js";
+import { EventEmitter } from "../utils/eventEmitter.js";
+import { clampIndex } from "../utils/array.js";
+import { clamp } from "../utils/clamp.js";
+import { chunkPlainText, chunkSsmlText, TextChunk } from "./chunkText.js";
+import { ssmlIndexToPlainIndex, stripSsmlTagsWithMap } from "../utterances/text.js";
+import { neutralizeAngleBrackets } from "../utils/text.js";
+import { CanPlayType, selectBitrate, selectFormat, SpeechServerFormatOptions } from "./selectFormat.js";
 import {
   SpeechServerServiceInfo,
   SpeechServerSynthesizeBoundaryResponse,
   SpeechServerTimingMark,
   SpeechServerVoice
-} from "./types";
+} from "./types.js";
 
 // navigator.connection (the Network Information API) isn't in the default lib.dom types and is
 // Chromium-only — this narrow local shape avoids reaching for `any` to read it.

@@ -1,6 +1,6 @@
-import { extractLangRegionFromBCP47 } from "../utils/language";
-import type { ReadiumSpeechJSONVoice, VoiceData, TQuality, TLocalizedName } from "./types";
-import { LANGUAGE_METADATA } from '../generated/language-metadata';
+import { extractLangRegionFromBCP47 } from "../utils/language.js";
+import type { ReadiumSpeechJSONVoice, VoiceData, TQuality, TLocalizedName } from "./types.js";
+import { LANGUAGE_METADATA } from '../generated/language-metadata.js';
 
 export interface LanguageWithRegions {
   baseLang: string;              // Base language code (e.g., "en", "fr")
@@ -329,4 +329,4 @@ export const processLanguages = (languages: string[]): LanguageWithRegions[] => 
 };
 
 // Re-export types for backward compatibility
-export * from "./types";
+export * from "./types.js";

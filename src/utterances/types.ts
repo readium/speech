@@ -1,4 +1,5 @@
-import type { GndObject, GndRole } from "../gnd/types.js";
+import type { GuidedNavigationObject } from "@readium/shared";
+import type { GndRole } from "@readium/guided-navigation";
 import type { SentenceSegmenter } from "./sentenceSegmenter.js";
 
 // Canonical extraction-option enums — imported by src/preferences/SpeechPreferences.ts
@@ -36,7 +37,7 @@ export interface ContextualizationOptions {
   // one only this caller's `contextualizations` catalog defines — it's the
   // only source of params, since nothing else knows what that role's node
   // carries.
-  params?: (role: GndRole, node: GndObject) => Record<string, string> | undefined;
+  params?: (role: GndRole, node: GuidedNavigationObject) => Record<string, string> | undefined;
 }
 
 // See `ExtractUtterancesOptions.substitutions` below.

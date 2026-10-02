@@ -1,4 +1,4 @@
-import { WebSpeechVoiceManager, WebSpeechEngine, ReadiumSpeechNavigator, chineseVariantMap, setupDecorations, DecorationStyleType } from "../../build/index.js";
+import { WebSpeechVoiceManager, WebSpeechEngine, ReadiumSpeechNavigator, chineseVariantMap, setupDecorations, DecorationStyleType } from "../../src/index.ts";
 
 // Set up the Decorator for TTS word highlights
 const decoCtrl = setupDecorations();

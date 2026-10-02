@@ -1,4 +1,4 @@
-import { BINDING_PUNCT_CLASS } from "../utils/text";
+import { BINDING_PUNCT_CLASS } from "@readium/helpers";
 
 export interface TextChunk {
   text: string;
@@ -59,7 +59,7 @@ function sliceAtoms(atoms: Atom[], start: number, end: number): string {
 }
 
 // Splits on the same Unicode-aware binding-punctuation class used elsewhere in this codebase
-// (src/utils/text.ts) — CJK/Arabic terminators included, not just ASCII .!?. Trailing
+// (@readium/helpers) — CJK/Arabic terminators included, not just ASCII .!?. Trailing
 // whitespace is absorbed when present but not required, since CJK sentences run together.
 const SENTENCE_RE = new RegExp(
   `[^${BINDING_PUNCT_CLASS}]*[${BINDING_PUNCT_CLASS}]+\\s*|[^${BINDING_PUNCT_CLASS}]+$`,

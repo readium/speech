@@ -1,27 +1,27 @@
-import { ReadiumSpeechPlaybackEngine } from "./engine";
-import { GndObject } from "./gnd/types";
-import { ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator";
-import { extractionPreferenceKeys } from "./preferences/constraints";
-import { ISpeechDefaults, SpeechDefaults } from "./preferences/SpeechDefaults";
-import { ISpeechPreferences, SpeechPreferences } from "./preferences/SpeechPreferences";
-import { SpeechPreferencesEditor } from "./preferences/SpeechPreferencesEditor";
-import { SpeechSettings } from "./preferences/SpeechSettings";
-import { ContextualizationShapeOverrides, resolveContextualizationShapes } from "./preferences/verbosityTables";
-import { ReadiumSpeechUtterance } from "./utterance";
-import { resolveBoundaryLocate } from "./utterances/boundaryLocate";
-import { resolveUtteranceLocate } from "./utterances/utteranceLocate";
-import { extractUtterancesWithSources, type SourceTrace } from "./utterances/extractUtterances";
-import { Contextualizations } from "./utterances/types";
-import type { SentenceSegmenter } from "./utterances/sentenceSegmenter";
-import { ReadiumSpeechVoice } from "./voices/types";
-import { EventEmitter } from "./utils/eventEmitter";
+import { ReadiumSpeechPlaybackEngine } from "./engine.js";
+import type { GuidedNavigationObject } from "@readium/shared";
+import { ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator.js";
+import { extractionPreferenceKeys } from "./preferences/constraints.js";
+import { ISpeechDefaults, SpeechDefaults } from "./preferences/SpeechDefaults.js";
+import { ISpeechPreferences, SpeechPreferences } from "./preferences/SpeechPreferences.js";
+import { SpeechPreferencesEditor } from "./preferences/SpeechPreferencesEditor.js";
+import { SpeechSettings } from "./preferences/SpeechSettings.js";
+import { ContextualizationShapeOverrides, resolveContextualizationShapes } from "./preferences/verbosityTables.js";
+import { ReadiumSpeechUtterance } from "./utterance.js";
+import { resolveBoundaryLocate } from "./utterances/boundaryLocate.js";
+import { resolveUtteranceLocate } from "./utterances/utteranceLocate.js";
+import { extractUtterancesWithSources, type SourceTrace } from "./utterances/extractUtterances.js";
+import { Contextualizations } from "./utterances/types.js";
+import type { SentenceSegmenter } from "./utterances/sentenceSegmenter.js";
+import { ReadiumSpeechVoice } from "./voices/types.js";
+import { EventEmitter } from "./utils/eventEmitter.js";
 
 // Set once at construction, never through `submitPreferences()` — none of
 // this changes at runtime the way a preference does.
 export interface ContextualizationOverrides {
   contextualizations?: Contextualizations;
   shapes?: ContextualizationShapeOverrides;
-  params?: (role: string, node: GndObject) => Record<string, string> | undefined;
+  params?: (role: string, node: GuidedNavigationObject) => Record<string, string> | undefined;
 }
 
 // Same rationale as ContextualizationOverrides — static, not a preference.
@@ -63,7 +63,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // extraction-affecting fields (format, verbosity, skip, contextualize,
   // language, segmentation) a no-op on content loaded via loadContent() — prosody
   // fields (rate/pitch/volume/pauseDuration/autoPause) still apply.
-  private source: GndObject[] | undefined;
+  private source: GuidedNavigationObject[] | undefined;
 
   // Parallel to `contentQueue`, from the extraction that produced it — lets
   // reextract() find where to resume after a reload (see resolveResumeIndex).
@@ -255,7 +255,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.setContentQueue(content);
   }
 
-  async loadGndContent(nodes: GndObject[]): Promise<void> {
+  async loadGndContent(nodes: GuidedNavigationObject[]): Promise<void> {
     this.source = nodes;
     await this.reextract();
   }

@@ -33,25 +33,25 @@ jobs:
       - name: Node build
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
       - run: |
           npm ci --foreground-scripts
-          npm run build
+          npm run build:demo
           ls -la ./
-          ls -laR ./build
           ls -laR ./demo
           ls -laR ./json
           ls -laR ./docs
           ls -laR ./fixtures
           ls -laR ./locales
-          mkdir build-demo
           cp README.md ./build-demo/
           cp CHANGELOG.md ./build-demo/
-          cp -r ./build ./build-demo/
-          cp -r ./demo ./build-demo/
+          cp -r ./demo/scenarios ./build-demo/demo/
+          cp ./demo/hawking-speech-synthesiser.jpg ./build-demo/demo/
+          cp ./demo/voice-selection/sampleText.json ./build-demo/demo/voice-selection/
           cp -r ./json ./build-demo/
           cp -r ./docs ./build-demo/
-          cp -r ./fixtures ./build-demo/
+          cp -r ./node_modules/@readium/guided-navigation/fixtures ./build-demo/
+          cp -r ./fixtures/. ./build-demo/fixtures/
           cp -r ./locales ./build-demo/
           cp ./voices.schema.json ./build-demo/
           ls -laR ./build-demo

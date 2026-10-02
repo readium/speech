@@ -1,4 +1,4 @@
-import { ReadiumSpeechPlaybackEvent } from "../navigator";
+import { ReadiumSpeechPlaybackEvent } from "../navigator.js";
 
 // Convention for an "error" event's detail: an engine must set `recoverable: true` only when
 // it never actually reached the server/API (network failure, timeout) — false otherwise,

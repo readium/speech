@@ -1,4 +1,6 @@
-import { existsSync, readFileSync } from "fs";
+import { existsSync, readdirSync, readFileSync } from "fs";
+import { GuidedNavigationObject } from "@readium/shared";
+import { parseMarkup } from "@readium/guided-navigation";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
@@ -23,17 +25,7 @@ export interface FixtureManifestEntry {
   files: {
     input: string;
     gnd: string;
-    utterances: string;
   };
-}
-
-export interface FixtureMeta {
-  id: string;
-  description: string;
-  role: string;
-  rolesCovered: string[];
-  sourceRef: string;
-  inputKind: "fragment" | "document";
 }
 
 // Every ExtractUtterancesOptions combination that produces this exact output.
@@ -48,32 +40,53 @@ export interface UtterancesFile {
 }
 
 export interface LoadedFixture {
-  meta: FixtureMeta;
-  inputHtml: string;
-  gnd: unknown;
+  gnd: GuidedNavigationObject[];
   utterances: UtterancesFile;
 }
 
+const gndFixturesDir = join(__dirname, "../node_modules/@readium/guided-navigation/fixtures");
 const fixturesDir = join(__dirname, "../fixtures");
 
 /**
- * Test-only helper to read fixtures/manifest.json
+ * Test-only helper to read @readium/guided-navigation's fixtures/manifest.json
  */
 export function loadManifest(): FixtureManifestEntry[] {
-  return JSON.parse(readFileSync(join(fixturesDir, "manifest.json"), "utf-8"));
+  return JSON.parse(readFileSync(join(gndFixturesDir, "manifest.json"), "utf-8"));
+}
+
+// Expected output depends on aria substitution, which gnd.json can't carry: parsed from input markup instead.
+const parsedInputFixtures = new Set<string>(
+  JSON.parse(readFileSync(join(__dirname, "../scripts/fixture-exceptions.json"), "utf-8")).parsedInput,
+);
+
+/**
+ * Test-only helper to read a fixture's gnd.json from @readium/guided-navigation, and its local utterances.json
+ */
+export function loadFixture(entry: FixtureManifestEntry): LoadedFixture {
+  const utterances: UtterancesFile = JSON.parse(readFileSync(join(fixturesDir, entry.id, "utterances.json"), "utf-8"));
+  if (parsedInputFixtures.has(entry.id)) {
+    return { gnd: parseMarkup(readFileSync(join(gndFixturesDir, entry.dir, entry.files.input), "utf-8")), utterances };
+  }
+  const gndJson = JSON.parse(readFileSync(join(gndFixturesDir, entry.id, "gnd.json"), "utf-8"));
+  return { gnd: GuidedNavigationObject.deserializeArray(fixtureTopLevel(gndJson))!, utterances };
 }
 
 /**
- * Test-only helper to read every file of a fixture directory by id
+ * Test-only helper listing the fixture ids that have a local utterances.json
  */
-export function loadFixture(id: string): LoadedFixture {
-  const dir = join(fixturesDir, id);
-  const meta: FixtureMeta = JSON.parse(readFileSync(join(dir, "meta.json"), "utf-8"));
-  const inputFile = existsSync(join(dir, "input.xhtml")) ? "input.xhtml" : "input.html";
-  const inputHtml = readFileSync(join(dir, inputFile), "utf-8");
-  const gnd = JSON.parse(readFileSync(join(dir, "gnd.json"), "utf-8"));
-  const utterances: UtterancesFile = JSON.parse(readFileSync(join(dir, "utterances.json"), "utf-8"));
-  return { meta, inputHtml, gnd, utterances };
+export function localFixtureIds(): string[] {
+  return readdirSync(fixturesDir, { withFileTypes: true })
+    .filter((entry) => entry.isDirectory() && existsSync(join(fixturesDir, entry.name, "utterances.json")))
+    .map((entry) => entry.name);
+}
+
+// gnd.json holds one object, or `{ children: [...] }` for several top-level siblings.
+function fixtureTopLevel(gnd: unknown): unknown[] {
+  if (gnd && typeof gnd === "object" && !Array.isArray(gnd)) {
+    const keys = Object.keys(gnd);
+    if (keys.length === 1 && keys[0] === "children") return (gnd as { children: unknown[] }).children;
+  }
+  return [gnd];
 }
 
 // Strips implementation-specific selector output before comparing against

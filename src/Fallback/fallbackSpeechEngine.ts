@@ -1,12 +1,12 @@
-import { ReadiumSpeechPlaybackEngine } from "../engine";
-import { ReadiumSpeechEngineProvider } from "../provider";
-import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navigator";
-import { ReadiumSpeechUtterance } from "../utterance";
-import { ReadiumSpeechVoice } from "../voices/types";
-import { processLanguages } from "../voices/languages";
-import { groupVoicesByLanguage, pickBestVoiceByRegion, filterByBoundarySupport } from "../voices/sorting";
-import { EventEmitter } from "../utils/eventEmitter";
-import { isRecoverableFailure } from "./recoverableFailure";
+import { ReadiumSpeechPlaybackEngine } from "../engine.js";
+import { ReadiumSpeechEngineProvider } from "../provider.js";
+import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navigator.js";
+import { ReadiumSpeechUtterance } from "../utterance.js";
+import { ReadiumSpeechVoice } from "../voices/types.js";
+import { processLanguages } from "../voices/languages.js";
+import { groupVoicesByLanguage, pickBestVoiceByRegion, filterByBoundarySupport } from "../voices/sorting.js";
+import { EventEmitter } from "../utils/eventEmitter.js";
+import { isRecoverableFailure } from "./recoverableFailure.js";
 
 export interface FallbackSpeechEngineOptions {
   primaryEngine: ReadiumSpeechPlaybackEngine;

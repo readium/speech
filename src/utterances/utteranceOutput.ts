@@ -1,6 +1,6 @@
-import { ssmlTextEscape } from "../gnd/text.js";
+import { ssmlTextEscape } from "@readium/helpers";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
-import type { GndObject } from "../gnd/types.js";
+import type { GuidedNavigationObject } from "@readium/shared";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
 
 // Contextualization/label text is always plain (no markup) — formats it
@@ -24,7 +24,7 @@ export function pushPiecesOrMerged(
   out: ReadiumSpeechUtterance[],
   sources: SourceTrace,
   ctx: WalkContext,
-  node: GndObject,
+  node: GuidedNavigationObject,
   pieces: ReadiumSpeechUtterance[],
   pieceSources: SourceTrace,
   merged: ReadiumSpeechUtterance | undefined,

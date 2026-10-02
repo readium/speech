@@ -1,4 +1,4 @@
-import { SpeechServerAudioFormat } from "./types";
+import { SpeechServerAudioFormat } from "./types.js";
 
 // Mirrors HTMLAudioElement.canPlayType's return type exactly, so this module stays decoupled
 // from lib.dom and is callable with a fake predicate in non-browser test environments.

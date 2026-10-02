@@ -1,7 +1,7 @@
-import "../gnd/setup.js";
+import "../domSetup.js";
 import test from "ava";
-import { parseMarkup } from "../../src/gnd/converter.js";
-import { decodeTextref } from "../../src/gnd/textrefFragment.js";
+import { parseMarkup } from "@readium/guided-navigation";
+import { decodeTextref } from "@readium/guided-navigation";
 import { extractUtterances, extractUtterancesWithSources } from "../../src/utterances/extractUtterances.js";
 import type { SentenceBoundary, SentenceSegmenter } from "../../src/utterances/sentenceSegmenter.js";
 

@@ -1,6 +1,6 @@
 {
   "name": "@readium/speech",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "A TypeScript library for implementing read aloud features with Web technologies, following best practices for digital publishing.",
   "author": "Readium Foundation",
   "keywords": [
@@ -21,50 +21,50 @@
   },
   "license": "BSD-3-Clause",
   "type": "module",
-  "main": "./build/index.cjs",
-  "module": "./build/index.js",
+  "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "sideEffects": false,
+  "engines": {
+    "node": ">=24"
+  },
   "files": [
     "build"
   ],
   "exports": {
     ".": {
       "types": "./build/index.d.ts",
-      "import": "./build/index.js",
-      "require": "./build/index.cjs"
+      "default": "./build/index.js"
     }
   },
   "scripts": {
     "test": "npm run build && NODE_NO_WARNINGS=1 ava test/**/*.test.ts",
     "test:voices": "npm run build && NODE_NO_WARNINGS=1 ava test/WebSpeechVoiceManager/*.test.ts",
-    "test:gnd": "NODE_NO_WARNINGS=1 ava test/gnd/*.test.ts",
     "test:utterances": "NODE_NO_WARNINGS=1 ava test/utterances/*.test.ts",
     "generate-metadata": "node scripts/generate-metadata.js",
-    "generate-fixtures-manifest": "node scripts/build-fixtures-manifest.js",
     "generate-utterances": "npm run build && node scripts/generate-utterances.js",
-    "clean": "rimraf ./build",
+    "clean": "rimraf ./build ./build-demo",
     "build": "vite build",
-    "start": "http-server ./",
+    "build:demo": "vite build --mode demo",
+    "prepublishOnly": "npm run build",
+    "start": "vite",
     "watch": "tsc -w"
   },
   "devDependencies": {
     "@ava/typescript": "^6.0.0",
     "@types/jsdom": "^30.0.0",
     "ava": "^6.4.0",
-    "http-server": "^14.1.1",
     "jsdom": "^30.0.1",
     "rimraf": "^6.0.1",
-    "ts-node": "^10.9.2",
+    "tsx": "^4.23.15",
     "typescript": "^5.8.3",
     "vite": "^7.1.9",
     "vite-plugin-dts": "^4.5.4"
   },
   "dependencies": {
-    "@readium/decorator": "1.2.3",
-    "@readium/helpers": "1.1.0",
-    "@readium/shared": "2.5.1",
-    "css-selector-generator": "^3.9.4",
+    "@readium/decorator": "^1.2.5",
+    "@readium/guided-navigation": "^1.0.1",
+    "@readium/helpers": "^1.2.0",
+    "@readium/shared": "^2.7.0",
     "i18next": "^26.4.0"
   }
 }

@@ -1,6 +1,6 @@
-import "../gnd/setup.js";
+import "../domSetup.js";
 import test from "ava";
-import { parseMarkup } from "../../src/gnd/converter.js";
+import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances, extractUtterancesWithSources } from "../../src/utterances/extractUtterances.js";
 
 test("extractUtterances attaches cssSelector from the source node's textref", async (t) => {
@@ -13,6 +13,20 @@ test("extractUtterances leaves locate undefined when textrefs was off at generat
   const gnd = parseMarkup("<p>Hello.</p>");
   const [utterance] = await extractUtterances(gnd, { format: "plain" });
   t.is(utterance.locate, undefined);
+});
+
+test("an aria-substituted link gets no locate when textrefs was off at generation time", async (t) => {
+  const inputs = [
+    '<p>Into speech. <a href="#gloss" aria-labelledby="lbl">*</a></p><p>synthesized speech can be created.</p><span id="lbl" hidden>see glossary entry</span>',
+    '<p><a href="#ref" aria-label="See note one.">[1]</a> Into speech.</p>',
+  ];
+  for (const html of inputs) {
+    for (const mode of ["structure", "sentence"] as const) {
+      const utterances = await extractUtterances(parseMarkup(html), { format: "plain", segmentation: { mode } });
+      t.true(utterances.length > 0);
+      t.true(utterances.every((u) => u.locate === undefined && u.offsets === undefined), `${mode}: ${html}`);
+    }
+  }
 });
 
 test("extractUtterancesWithSources also attaches cssSelector, alongside sources", async (t) => {
@@ -30,9 +44,10 @@ test("a link embedded in a larger flow merges into one utterance, falling back t
   t.is(utterance.locate?.cssSelector, "p");
 });
 
-// The hoist-collision case (object.ts never merges the link's href into
-// the block's own textref) plus the ancestor fallback above, combined: the
-// block's cssSelector survives on the <p> node for attachLocate() to find.
+// The hoist-collision case (@readium/guided-navigation's object.ts never
+// merges the link's href into the block's own textref) plus the ancestor
+// fallback above, combined: the block's cssSelector survives on the <p> node
+// for attachLocate() to find.
 test("a link as a block's sole content falls back to the block's own cssSelector", async (t) => {
   const gnd = parseMarkup('<p><a href="chapter1.xhtml">Chapter 1</a></p>', undefined, { textrefs: true });
   const [utterance] = await extractUtterances(gnd, { format: "plain" });
@@ -44,7 +59,7 @@ test("extractUtterances attaches an exact-match highlight when the text is uniqu
   const gnd = parseMarkup("<p>A unique sentence.</p>", undefined, { textrefs: { roles: true, textFragment: true } });
   const [utterance] = await extractUtterances(gnd, { format: "plain" });
   // Case-normalized by the polyfill's exact-match path — see the equivalent
-  // gnd/textref.test.ts case for why.
+  // @readium/guided-navigation textref.test.ts case for why.
   t.is(utterance.locate?.text?.highlight, "a unique sentence.");
 });
 

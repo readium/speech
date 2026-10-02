@@ -1,6 +1,8 @@
-import type { GndObject, GndRole } from "../gnd/types.js";
+import type { GuidedNavigationObject } from "@readium/shared";
+import type { GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
+import { descriptionOf } from "./nodeFields.js";
 import { roleDropOverrides } from "./roles.js";
 import { computeTableStructure, plainTextOf } from "./tableStructure.js";
 import { formatPlain, push } from "./utteranceOutput.js";
@@ -34,7 +36,7 @@ export function isDroppedByAnotherRole(role: GndRole, roles: GndRole[], ctx: Wal
 
 // Narrows utterance's offsets/locate to quoteText's own span within text.
 // Leaves ctx.synthetic alone — that also gates sentence-splitting/merging.
-export function scopeToQuote(utterance: ReadiumSpeechUtterance, text: string, quoteText: string, node: GndObject, ctx: WalkContext): void {
+export function scopeToQuote(utterance: ReadiumSpeechUtterance, text: string, quoteText: string, node: GuidedNavigationObject, ctx: WalkContext): void {
   const start = text.lastIndexOf(quoteText);
   if (start === -1) return;
   const resolved = resolveNodeLocate(node, ctx.ancestorChains);
@@ -44,14 +46,14 @@ export function scopeToQuote(utterance: ReadiumSpeechUtterance, text: string, qu
   utterance.locate = resolved.own ? resolved.ref : quoteLocate;
 }
 
-// `value` is always real DOM text. `description` is real DOM text only for figure/table (an implicit <figcaption>/<caption> fold); for every other describable role it's ARIA attribute text with no DOM location — GndObject carries no tag to tell the two apart otherwise.
-function scopeToOwnValue(utterance: ReadiumSpeechUtterance, text: string, node: GndObject, ctx: WalkContext, role: string, params?: Record<string, string>): void {
+// `value` is always real DOM text. `description` is real DOM text only for figure/table (an implicit <figcaption>/<caption> fold); for every other describable role it's ARIA attribute text with no DOM location — GuidedNavigationObject carries no tag to tell the two apart otherwise.
+function scopeToOwnValue(utterance: ReadiumSpeechUtterance, text: string, node: GuidedNavigationObject, ctx: WalkContext, role: string, params?: Record<string, string>): void {
   const value = params?.value;
   if (value !== undefined && value === plainTextOf(node)) {
     // Language reflects the node's own real text regardless of whether a
     // locate can be computed — a node with no textref still lost its language otherwise.
     if (ctx.language !== "none") {
-      const language = typeof node.text === "object" ? node.text.language : undefined;
+      const language = node.text?.language;
       if (language) utterance.language = language;
     }
     ctx.synthetic.delete(utterance);
@@ -59,7 +61,7 @@ function scopeToOwnValue(utterance: ReadiumSpeechUtterance, text: string, node: 
     return;
   }
   const description = params?.description;
-  if (description !== undefined && description === node.description && (role === "figure" || role === "table")) {
+  if (description !== undefined && description === descriptionOf(node) && (role === "figure" || role === "table")) {
     scopeToQuote(utterance, text, description, node, ctx);
   }
 }
@@ -72,7 +74,7 @@ function scopeToOwnValue(utterance: ReadiumSpeechUtterance, text: string, node: 
 export function pushRoleContextualization(
   out: ReadiumSpeechUtterance[],
   sources: SourceTrace,
-  node: GndObject,
+  node: GuidedNavigationObject,
   ctx: WalkContext,
   role: string,
   phase: "before" | "after",
@@ -108,16 +110,17 @@ export function resolvePluralPart(ctx: WalkContext, role: string, name: string, 
 }
 
 type ContextualizationParams = { variantKey?: string; params?: Record<string, string> };
-type ContextualizationParamsProvider = (node: GndObject, ctx: WalkContext) => ContextualizationParams;
+type ContextualizationParamsProvider = (node: GuidedNavigationObject, ctx: WalkContext) => ContextualizationParams;
 
 // Any node with a `description` gets `{{ description }}` interpolated,
 // whatever its role, plus a labelled/unlabelled variant a catalog entry can opt into.
-function genericDescriptionParams(node: GndObject): ContextualizationParams {
-  if (node.description === undefined) return { variantKey: "unlabelled" };
-  return { variantKey: "labelled", params: { description: node.description } };
+function genericDescriptionParams(node: GuidedNavigationObject): ContextualizationParams {
+  const description = descriptionOf(node);
+  if (description === undefined) return { variantKey: "unlabelled" };
+  return { variantKey: "labelled", params: { description } };
 }
 
-function cellOrRowheaderParams(node: GndObject, ctx: WalkContext): ContextualizationParams {
+function cellOrRowheaderParams(node: GuidedNavigationObject, ctx: WalkContext): ContextualizationParams {
   const header = ctx.tableCellHeaders.get(node);
   return {
     variantKey: header !== undefined ? "withHeader" : "withoutHeader",
@@ -128,7 +131,7 @@ function cellOrRowheaderParams(node: GndObject, ctx: WalkContext): Contextualiza
 // Structural data only computable by walking the table, for the roles that need it.
 const builtInContextualizationParamProviders: Partial<Record<GndRole, ContextualizationParamsProvider>> = {
   table: (node, ctx) => {
-    const rows = (node.children ?? []).filter((child) => child.role?.includes("row"));
+    const rows = (node.children ?? []).filter((child) => child.role?.has("row"));
     const structure = computeTableStructure(rows);
     for (const [row, count] of structure.rowNumbers) ctx.tableRowNumbers.set(row, count);
     for (const [cell, header] of structure.cellHeaders) ctx.tableCellHeaders.set(cell, header);
@@ -145,7 +148,7 @@ const builtInContextualizationParamProviders: Partial<Record<GndRole, Contextual
 };
 
 // Layers generic description params, then structural params, then the caller's own — later wins per key.
-export function contextualizationParamsFor(role: string, node: GndObject, ctx: WalkContext): ContextualizationParams {
+export function contextualizationParamsFor(role: string, node: GuidedNavigationObject, ctx: WalkContext): ContextualizationParams {
   const generic = genericDescriptionParams(node);
   let variantKey = generic.variantKey;
   let params = generic.params;

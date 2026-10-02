@@ -1,4 +1,4 @@
-import type { GndRole } from "../gnd/types.js";
+import type { GndRole } from "@readium/guided-navigation";
 import {
   autoPauseScopes,
   extractionFormats,

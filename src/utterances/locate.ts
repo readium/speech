@@ -1,5 +1,5 @@
-import type { GndObject } from "../gnd/types.js";
-import { combineDomRangeTextrefs, decodeTextref, type DecodedTextref } from "../gnd/textrefFragment.js";
+import type { GuidedNavigationObject } from "@readium/shared";
+import { combineDomRangeTextrefs, decodeTextref, type DecodedTextref } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
@@ -13,13 +13,13 @@ export function subLocateFor(nodeRef: DecodedTextref, quoteText: string): Locato
 
 // Decodes each utterance's source node textref (if any) into `locate`, for
 // a consumer to spread straight into createLocator()/decorate() to drive DOM
-// highlighting — see textrefFragment.ts. Falls back through enclosing
-// ancestors (nearest first) when the source node itself has no locator of
-// its own.
+// highlighting — see @readium/guided-navigation's textrefFragment.ts. Falls
+// back through enclosing ancestors (nearest first) when the source node itself
+// has no locator of its own.
 // Resolves one node's own locator, falling back through its ancestors
 // (nearest first) when it has no textref of its own — `own: false` then,
 // since the result describes that ancestor's whole extent, not just this node.
-export function resolveNodeLocate(node: GndObject, ancestorChains: Map<GndObject, GndObject[]>): { own: boolean; ref: DecodedTextref } | undefined {
+export function resolveNodeLocate(node: GuidedNavigationObject, ancestorChains: Map<GuidedNavigationObject, GuidedNavigationObject[]>): { own: boolean; ref: DecodedTextref } | undefined {
   const ref = decodeTextref(node);
   if (ref) return { own: true, ref };
   for (const ancestor of ancestorChains.get(node) ?? []) {
@@ -59,7 +59,7 @@ export function attachLocate(
   const { ancestorChains } = ctx;
   // Several utterances can share one node (e.g. a language-split fragment)
   // — bare-reusing its locate for any of them would anchor the whole node.
-  const nodeUseCount = new Map<GndObject, number>();
+  const nodeUseCount = new Map<GuidedNavigationObject, number>();
   for (const source of sources) {
     if (source && !Array.isArray(source)) nodeUseCount.set(source, (nodeUseCount.get(source) ?? 0) + 1);
   }

@@ -1,9 +1,9 @@
-import { GndObject } from "./gnd/types";
-import { Configurable } from "./preferences/Configurable";
-import { SpeechPreferences } from "./preferences/SpeechPreferences";
-import { SpeechSettings } from "./preferences/SpeechSettings";
-import { ReadiumSpeechVoice } from "./voices/types";
-import { ReadiumSpeechUtterance } from "./utterance";
+import type { GuidedNavigationObject } from "@readium/shared";
+import { Configurable } from "./preferences/Configurable.js";
+import { SpeechPreferences } from "./preferences/SpeechPreferences.js";
+import { SpeechSettings } from "./preferences/SpeechSettings.js";
+import { ReadiumSpeechVoice } from "./voices/types.js";
+import { ReadiumSpeechUtterance } from "./utterance.js";
 
 export type ReadiumSpeechPlaybackState = "playing" | "paused" | "idle" | "loading" | "ready";
 
@@ -42,7 +42,7 @@ export interface ReadiumSpeechNavigatorContract extends Configurable<SpeechSetti
   // preferences change via `submitPreferences()`. `loadContent()` above
   // keeps no source, so preference changes are no-ops on content loaded
   // that way.
-  loadGndContent(nodes: GndObject[]): Promise<void>;
+  loadGndContent(nodes: GuidedNavigationObject[]): Promise<void>;
   getCurrentContent(): ReadiumSpeechUtterance | null;
   getContentQueue(): ReadiumSpeechUtterance[];
   

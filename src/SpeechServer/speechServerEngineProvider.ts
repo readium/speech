@@ -1,10 +1,10 @@
-import { ReadiumSpeechEngineProvider } from "../provider";
-import { ReadiumSpeechPlaybackEngine } from "../engine";
-import { ReadiumSpeechVoice } from "../voices/types";
-import { SpeechServerEngine, SpeechServerEngineOptions } from "./speechServerEngine";
-import { mapServerVoice } from "./speechServerVoiceMapping";
-import { toSpeechServerError } from "./errors";
-import { SpeechServerServiceInfo, SpeechServerVoice } from "./types";
+import { ReadiumSpeechEngineProvider } from "../provider.js";
+import { ReadiumSpeechPlaybackEngine } from "../engine.js";
+import { ReadiumSpeechVoice } from "../voices/types.js";
+import { SpeechServerEngine, SpeechServerEngineOptions } from "./speechServerEngine.js";
+import { mapServerVoice } from "./speechServerVoiceMapping.js";
+import { toSpeechServerError } from "./errors.js";
+import { SpeechServerServiceInfo, SpeechServerVoice } from "./types.js";
 
 // Reuses SpeechServerEngineOptions wholesale (not a hand-picked subset) so every option the
 // engine accepts is also available through the provider, with nothing to keep in sync.

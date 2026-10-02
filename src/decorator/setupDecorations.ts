@@ -5,7 +5,7 @@ import {
   DecorationControllerConfig,
 } from "@readium/decorator";
 import type { Decoration, DecorationStyle } from "@readium/decorator";
-import { createLocator, type LocatorOptions } from "./createLocator";
+import { createLocator, type LocatorOptions } from "./createLocator.js";
 
 export interface DecorationInput extends LocatorOptions {
   id: string;

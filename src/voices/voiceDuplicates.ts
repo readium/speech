@@ -1,4 +1,4 @@
-import { ReadiumSpeechVoice } from "./types";
+import { ReadiumSpeechVoice } from "./types.js";
 
 /**
  * Selects the preferred voice between two voices that represent the same voice
