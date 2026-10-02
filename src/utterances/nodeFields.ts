@@ -1,5 +1,6 @@
 import type { GuidedNavigationObject, GuidedNavigationText } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
+import { stripSsmlTags } from "./text.js";
 
 export function nodeRoles(node: GuidedNavigationObject): GndRole[] {
   return node.role ? [...node.role] : [];
@@ -12,5 +13,7 @@ export function spokenText(node: GuidedNavigationObject): GuidedNavigationText |
 
 // Only a description's text is spoken; its refs, if any, are ignored.
 export function descriptionOf(node: GuidedNavigationObject): string | undefined {
-  return node.description?.text?.plain;
+  const text = node.description?.text;
+  if (!text) return undefined;
+  return text.plain ?? (text.ssml !== undefined ? stripSsmlTags(text.ssml) : undefined);
 }
