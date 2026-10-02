@@ -1,16 +1,16 @@
-import { ReadiumSpeechJSONVoice, ReadiumSpeechVoice, TGender, TQuality, TSource } from "../voices/types";
-import { getTestUtterance, getVoices, processLanguages, normalizeLanguageCode, getDefaultRegion, getLanguageDisplayName } from "../voices/languages";
-import { createJsonOrderMap, getQualityValue, sortByQuality, groupVoicesByLanguage, sortAlphabetically, sortVoicesByRegions } from "../voices/sorting";
+import { ReadiumSpeechJSONVoice, ReadiumSpeechVoice, TGender, TQuality, TSource } from "../voices/types.js";
+import { getTestUtterance, getVoices, processLanguages, normalizeLanguageCode, getDefaultRegion, getLanguageDisplayName } from "../voices/languages.js";
+import { createJsonOrderMap, getQualityValue, sortByQuality, groupVoicesByLanguage, sortAlphabetically, sortVoicesByRegions } from "../voices/sorting.js";
 import { 
   isNoveltyVoice, 
   isVeryLowQualityVoice, 
   filterOutNoveltyVoices, 
   filterOutVeryLowQualityVoices 
-} from "../voices/filters";
-import { findLocaleWithQualityIndicators, getInferredQualityFromPlatform } from "../voices/localized";
-import { getInferredQualityFromPackageName } from "../voices/packages";
-import { extractLangRegionFromBCP47 } from "../utils/language";
-import { shouldMergeVoicesByName, selectPreferredVoiceByName } from "../voices/voiceDuplicates";
+} from "../voices/filters.js";
+import { findLocaleWithQualityIndicators, getInferredQualityFromPlatform } from "../voices/localized.js";
+import { getInferredQualityFromPackageName } from "../voices/packages.js";
+import { extractLangRegionFromBCP47 } from "../utils/language.js";
+import { shouldMergeVoicesByName, selectPreferredVoiceByName } from "../voices/voiceDuplicates.js";
 
 /**
  * Options for filtering voices

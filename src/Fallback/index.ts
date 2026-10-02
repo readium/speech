@@ -1,3 +1,3 @@
-export * from "./fallbackSpeechEngine";
-export * from "./fallbackEngineProvider";
-export * from "./recoverableFailure";
+export * from "./fallbackSpeechEngine.js";
+export * from "./fallbackEngineProvider.js";
+export * from "./recoverableFailure.js";

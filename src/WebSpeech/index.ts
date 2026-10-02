@@ -1,3 +1,3 @@
-export * from "./WebSpeechVoiceManager";
-export * from "./webSpeechEngine";
-export * from "./webSpeechEngineProvider";
+export * from "./WebSpeechVoiceManager.js";
+export * from "./webSpeechEngine.js";
+export * from "./webSpeechEngineProvider.js";

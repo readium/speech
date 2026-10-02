@@ -1,9 +1,9 @@
 import type { GuidedNavigationObject } from "@readium/shared";
-import { Configurable } from "./preferences/Configurable";
-import { SpeechPreferences } from "./preferences/SpeechPreferences";
-import { SpeechSettings } from "./preferences/SpeechSettings";
-import { ReadiumSpeechVoice } from "./voices/types";
-import { ReadiumSpeechUtterance } from "./utterance";
+import { Configurable } from "./preferences/Configurable.js";
+import { SpeechPreferences } from "./preferences/SpeechPreferences.js";
+import { SpeechSettings } from "./preferences/SpeechSettings.js";
+import { ReadiumSpeechVoice } from "./voices/types.js";
+import { ReadiumSpeechUtterance } from "./utterance.js";
 
 export type ReadiumSpeechPlaybackState = "playing" | "paused" | "idle" | "loading" | "ready";
 

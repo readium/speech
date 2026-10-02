@@ -1,20 +1,20 @@
-import { ReadiumSpeechPlaybackEngine } from "./engine";
+import { ReadiumSpeechPlaybackEngine } from "./engine.js";
 import type { GuidedNavigationObject } from "@readium/shared";
-import { ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator";
-import { extractionPreferenceKeys } from "./preferences/constraints";
-import { ISpeechDefaults, SpeechDefaults } from "./preferences/SpeechDefaults";
-import { ISpeechPreferences, SpeechPreferences } from "./preferences/SpeechPreferences";
-import { SpeechPreferencesEditor } from "./preferences/SpeechPreferencesEditor";
-import { SpeechSettings } from "./preferences/SpeechSettings";
-import { ContextualizationShapeOverrides, resolveContextualizationShapes } from "./preferences/verbosityTables";
-import { ReadiumSpeechUtterance } from "./utterance";
-import { resolveBoundaryLocate } from "./utterances/boundaryLocate";
-import { resolveUtteranceLocate } from "./utterances/utteranceLocate";
-import { extractUtterancesWithSources, type SourceTrace } from "./utterances/extractUtterances";
-import { Contextualizations } from "./utterances/types";
-import type { SentenceSegmenter } from "./utterances/sentenceSegmenter";
-import { ReadiumSpeechVoice } from "./voices/types";
-import { EventEmitter } from "./utils/eventEmitter";
+import { ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator.js";
+import { extractionPreferenceKeys } from "./preferences/constraints.js";
+import { ISpeechDefaults, SpeechDefaults } from "./preferences/SpeechDefaults.js";
+import { ISpeechPreferences, SpeechPreferences } from "./preferences/SpeechPreferences.js";
+import { SpeechPreferencesEditor } from "./preferences/SpeechPreferencesEditor.js";
+import { SpeechSettings } from "./preferences/SpeechSettings.js";
+import { ContextualizationShapeOverrides, resolveContextualizationShapes } from "./preferences/verbosityTables.js";
+import { ReadiumSpeechUtterance } from "./utterance.js";
+import { resolveBoundaryLocate } from "./utterances/boundaryLocate.js";
+import { resolveUtteranceLocate } from "./utterances/utteranceLocate.js";
+import { extractUtterancesWithSources, type SourceTrace } from "./utterances/extractUtterances.js";
+import { Contextualizations } from "./utterances/types.js";
+import type { SentenceSegmenter } from "./utterances/sentenceSegmenter.js";
+import { ReadiumSpeechVoice } from "./voices/types.js";
+import { EventEmitter } from "./utils/eventEmitter.js";
 
 // Set once at construction, never through `submitPreferences()` — none of
 // this changes at runtime the way a preference does.

@@ -1,8 +1,8 @@
-import type { TQuality, TLocalizedName } from "./types";
-import { extractLangRegionFromBCP47 } from "../utils/language";
+import type { TQuality, TLocalizedName } from "./types.js";
+import { extractLangRegionFromBCP47 } from "../utils/language.js";
 
 // Import platform-specific configurations
-import appleQualities from "@json/localizedNames/apple.json";
+import appleQualities from "@json/localizedNames/apple.json" with { type: "json" };
 
 interface LocalizedQuality {
   normal: string;

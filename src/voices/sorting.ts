@@ -1,6 +1,6 @@
-import { ReadiumSpeechVoice } from "./types";
-import { getVoices, processLanguages, getDefaultRegion, getLanguageDisplayName, LanguageWithRegions } from "./languages";
-import { extractLangRegionFromBCP47 } from "../utils/language";
+import { ReadiumSpeechVoice } from "./types.js";
+import { getVoices, processLanguages, getDefaultRegion, getLanguageDisplayName, LanguageWithRegions } from "./languages.js";
+import { extractLangRegionFromBCP47 } from "../utils/language.js";
 
 /**
  * Create a map of language codes to their respective voice order maps

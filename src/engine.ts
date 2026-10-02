@@ -1,6 +1,6 @@
-import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator";
-import { ReadiumSpeechUtterance } from "./utterance";
-import { ReadiumSpeechVoice } from "./voices/types";
+import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator.js";
+import { ReadiumSpeechUtterance } from "./utterance.js";
+import { ReadiumSpeechVoice } from "./voices/types.js";
 
 export interface ReadiumSpeechPlaybackEngine {
   // Lifecycle hook a navigator can call after construction, before first use

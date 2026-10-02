@@ -1,7 +1,7 @@
-import type { ReadiumSpeechVoice } from "./types";
-import { TQuality } from "./types";
-import noveltyFilterData from "@json/filters/novelty.json";
-import veryLowQualityFilterData from "@json/filters/veryLowQuality.json";
+import type { ReadiumSpeechVoice } from "./types.js";
+import { TQuality } from "./types.js";
+import noveltyFilterData from "@json/filters/novelty.json" with { type: "json" };
+import veryLowQualityFilterData from "@json/filters/veryLowQuality.json" with { type: "json" };
 
 interface FilterVoice {
   name: string;

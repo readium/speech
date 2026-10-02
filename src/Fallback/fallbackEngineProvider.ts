@@ -1,7 +1,7 @@
-import { ReadiumSpeechEngineProvider } from "../provider";
-import { ReadiumSpeechPlaybackEngine } from "../engine";
-import { ReadiumSpeechVoice } from "../voices/types";
-import { FallbackSpeechEngine } from "./fallbackSpeechEngine";
+import { ReadiumSpeechEngineProvider } from "../provider.js";
+import { ReadiumSpeechPlaybackEngine } from "../engine.js";
+import { ReadiumSpeechVoice } from "../voices/types.js";
+import { FallbackSpeechEngine } from "./fallbackSpeechEngine.js";
 
 export interface FallbackEngineProviderOptions {
   primary: ReadiumSpeechEngineProvider;

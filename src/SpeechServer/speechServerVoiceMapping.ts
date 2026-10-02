@@ -1,5 +1,5 @@
-import { ReadiumSpeechVoice, TServerVoiceControls } from "../voices/types";
-import { SpeechServerVoice } from "./types";
+import { ReadiumSpeechVoice, TServerVoiceControls } from "../voices/types.js";
+import { SpeechServerVoice } from "./types.js";
 
 // `controls` isn't sent per voice — it's a provider-wide default from `GET /service`,
 // merged in here so each voice still reports what it actually honors.
