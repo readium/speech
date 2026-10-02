@@ -3,17 +3,22 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { JSDOM } from "jsdom";
 import { GuidedNavigationObject } from "@readium/shared";
+import { parseMarkup } from "@readium/guided-navigation";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const FIXTURES_DIR = path.join(__dirname, "../fixtures");
 const GND_FIXTURES_DIR = path.join(__dirname, "../node_modules/@readium/guided-navigation/fixtures");
 
-// decodeTextref() (used by extractUtterances to compute `locate`) needs
-// CSS.escape, which this plain-Node script has no browser global for.
-if (typeof globalThis.CSS === "undefined") {
-  const { window } = new JSDOM("", { url: "http://localhost/" });
-  globalThis.CSS = window.CSS;
+// Plain Node has no native DOM: these are the globals @readium/guided-navigation needs.
+const { window } = new JSDOM("", { url: "http://localhost/" });
+for (const name of ["DOMParser", "Node", "NodeFilter", "Range", "HTMLElement", "NodeList", "HTMLCollection", "XMLSerializer", "CSS"]) {
+  if (typeof globalThis[name] === "undefined") globalThis[name] = window[name];
 }
+
+// Expected output depends on aria substitution, which gnd.json can't carry: parsed from input markup instead.
+const PARSED_INPUT_FIXTURES = new Set(
+  JSON.parse(readFileSync(path.join(__dirname, "fixture-exceptions.json"), "utf-8")).parsedInput,
+);
 
 // Regenerates every fixture's utterances.json from @readium/guided-navigation's gnd.json, using the
 // real @readium/speech build. `npm run build` first.
@@ -88,14 +93,20 @@ const languageValues = [undefined, "always", "block-level", "none"];
 const inlineContextualizationValues = [false, true];
 const segmentationModeValues = [undefined, "sentence"];
 
-const ids = JSON.parse(readFileSync(path.join(GND_FIXTURES_DIR, "manifest.json"), "utf-8"))
-  .map((entry) => entry.id)
-  .sort();
+const entries = JSON.parse(readFileSync(path.join(GND_FIXTURES_DIR, "manifest.json"), "utf-8"))
+  .sort((a, b) => a.id.localeCompare(b.id));
 
-for (const id of ids) {
-  const dir = path.join(FIXTURES_DIR, id);
-  const gnd = JSON.parse(readFileSync(path.join(GND_FIXTURES_DIR, id, "gnd.json"), "utf-8"));
-  const nodes = GuidedNavigationObject.deserializeArray(expectedTopLevel(gnd));
+function loadNodes(entry) {
+  if (PARSED_INPUT_FIXTURES.has(entry.id)) {
+    return parseMarkup(readFileSync(path.join(GND_FIXTURES_DIR, entry.dir, entry.files.input), "utf-8"));
+  }
+  const gnd = JSON.parse(readFileSync(path.join(GND_FIXTURES_DIR, entry.id, "gnd.json"), "utf-8"));
+  return GuidedNavigationObject.deserializeArray(expectedTopLevel(gnd));
+}
+
+for (const entry of entries) {
+  const dir = path.join(FIXTURES_DIR, entry.id);
+  const nodes = loadNodes(entry);
   const rolesInTree = collectRoles(nodes);
 
   const skipSubsets = subsets([...allSkippableRoles].filter((role) => rolesInTree.has(role)));
@@ -167,4 +178,4 @@ for (const id of ids) {
   writeFileSync(path.join(dir, "utterances.json"), JSON.stringify({ cases }, null, 2) + "\n");
 }
 
-console.log(`Regenerated utterances.json for ${ids.length} fixtures.`);
+console.log(`Regenerated utterances.json for ${entries.length} fixtures.`);

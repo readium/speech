@@ -62,7 +62,7 @@
   },
   "dependencies": {
     "@readium/decorator": "^1.2.5",
-    "@readium/guided-navigation": "^1.0.0",
+    "@readium/guided-navigation": "^1.0.1",
     "@readium/helpers": "^1.2.0",
     "@readium/shared": "^2.7.0",
     "i18next": "^26.4.0"
