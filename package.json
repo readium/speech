@@ -1,6 +1,6 @@
 {
   "name": "@readium/speech",
-  "version": "0.12.0",
+  "version": "0.13.0",
   "description": "A TypeScript library for implementing read aloud features with Web technologies, following best practices for digital publishing.",
   "author": "Readium Foundation",
   "keywords": [
@@ -62,7 +62,7 @@
   },
   "dependencies": {
     "@readium/decorator": "^1.2.5",
-    "@readium/guided-navigation": "^1.0.1",
+    "@readium/guided-navigation": "^1.1.0",
     "@readium/helpers": "^1.2.0",
     "@readium/shared": "^2.7.0",
     "i18next": "^26.4.0"

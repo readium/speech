@@ -35,8 +35,12 @@ export function joinPieceTexts(parts: string[]): { joined: string; ranges: { sta
 // ancestor's — never a quote search, since the substituted text isn't on the page.
 export function substitutedBareLocate(node: GuidedNavigationObject, ctx: WalkContext): LocatorOptions | undefined {
   const ownSelector = substitutedOwnSelector(node);
-  if (ownSelector) return markNonQuotable({ cssSelector: ownSelector });
   const ref = resolveNodeLocate(node, ctx.ancestorChains)?.ref;
+  if (ownSelector) {
+    const locate: LocatorOptions = { cssSelector: ownSelector };
+    if (ref?.href !== undefined) locate.href = ref.href;
+    return markNonQuotable(locate);
+  }
   return ref && markNonQuotable(ref);
 }
 

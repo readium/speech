@@ -14,6 +14,11 @@ test("createLocator: sets href from wnd.location.href and type to text/html", (t
   t.is(locator.type, "text/html");
 });
 
+test("createLocator: uses the href from options over wnd.location.href", (t) => {
+  const locator = createLocator({ href: "page2.xhtml", text: { highlight: "world" } }, mockWindow);
+  t.is(locator.href, "page2.xhtml");
+});
+
 // =============================================
 // text (highlight/before/after)
 // =============================================

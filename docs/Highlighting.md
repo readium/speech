@@ -58,9 +58,10 @@ decorations.decorate([{
 
 ### 2. `createLocator` + `applyDecorations`
 
-`Locator` requires `href`/`type`, but they're never read when anchoring
-within the current document — `createLocator` synthesizes them for you, so
-you only provide what actually locates the content: `text: { highlight,
+`Locator` requires `href`/`type`. `createLocator` takes the `href` from the
+locate when its textref named a resource (`chapter.xhtml#css(...)`), so the
+`Locator` points into that resource, and falls back to the current
+document's otherwise. You only provide what actually locates the content: `text: { highlight,
 before, after }` (text-quote matching) and/or `cssSelector`/`domRange`/`fragment`
 (CSS-selector, exact DOM-range, or element-id/raw-fragment anchoring — combine
 `cssSelector` with `text` to scope the text search to that selector). `fragment`
