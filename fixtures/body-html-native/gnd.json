@@ -2,5 +2,7 @@
   "role": [
     "body"
   ],
-  "text": "The full content of the document."
+  "text": {
+    "plain": "The full content of the document."
+  }
 }

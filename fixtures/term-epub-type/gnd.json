@@ -9,7 +9,9 @@
       ],
       "children": [
         {
-          "text": "lighthouse",
+          "text": {
+            "plain": "lighthouse"
+          },
           "role": [
             "term"
           ]

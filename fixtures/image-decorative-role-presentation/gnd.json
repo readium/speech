@@ -4,13 +4,17 @@
       "role": [
         "paragraph"
       ],
-      "text": "Before the divider."
+      "text": {
+        "plain": "Before the divider."
+      }
     },
     {
       "role": [
         "paragraph"
       ],
-      "text": "After the divider."
+      "text": {
+        "plain": "After the divider."
+      }
     }
   ]
 }

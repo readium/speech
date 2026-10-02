@@ -2,5 +2,7 @@
   "role": [
     "region"
   ],
-  "text": "A named region of interest within the page."
+  "text": {
+    "plain": "A named region of interest within the page."
+  }
 }

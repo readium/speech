@@ -2,5 +2,7 @@
   "role": [
     "navigation"
   ],
-  "text": "Link to the next chapter."
+  "text": {
+    "plain": "Link to the next chapter."
+  }
 }

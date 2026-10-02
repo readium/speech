@@ -2,5 +2,7 @@
   "role": [
     "epigraph"
   ],
-  "text": "A lighthouse is a compromise with the sea. — Anonymous"
+  "text": {
+    "plain": "A lighthouse is a compromise with the sea. — Anonymous"
+  }
 }

@@ -9,13 +9,17 @@
       ],
       "children": [
         {
-          "text": "Name",
+          "text": {
+            "plain": "Name"
+          },
           "role": [
             "columnheader"
           ]
         },
         {
-          "text": "Role",
+          "text": {
+            "plain": "Role"
+          },
           "role": [
             "columnheader"
           ]
@@ -28,13 +32,17 @@
       ],
       "children": [
         {
-          "text": "Ada",
+          "text": {
+            "plain": "Ada"
+          },
           "role": [
             "rowheader"
           ]
         },
         {
-          "text": "Engineer",
+          "text": {
+            "plain": "Engineer"
+          },
           "role": [
             "cell"
           ]
@@ -47,13 +55,17 @@
       ],
       "children": [
         {
-          "text": "Grace",
+          "text": {
+            "plain": "Grace"
+          },
           "role": [
             "rowheader"
           ]
         },
         {
-          "text": "Admiral",
+          "text": {
+            "plain": "Admiral"
+          },
           "role": [
             "cell"
           ]
@@ -61,5 +73,9 @@
       ]
     }
   ],
-  "description": "Team roster"
+  "description": {
+    "text": {
+      "plain": "Team roster"
+    }
+  }
 }

@@ -9,7 +9,9 @@
       ],
       "children": [
         {
-          "text": "Name",
+          "text": {
+            "plain": "Name"
+          },
           "role": [
             "columnheader"
           ]

@@ -2,5 +2,7 @@
   "role": [
     "main"
   ],
-  "text": "The central topic of this document."
+  "text": {
+    "plain": "The central topic of this document."
+  }
 }

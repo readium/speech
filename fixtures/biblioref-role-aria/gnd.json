@@ -2,6 +2,8 @@
   "role": [
     "biblioref"
   ],
-  "text": "See Smith, 1988",
+  "text": {
+    "plain": "See Smith, 1988"
+  },
   "textref": "#smith1988"
 }

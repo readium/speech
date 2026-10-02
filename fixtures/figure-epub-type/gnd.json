@@ -13,7 +13,11 @@
           "role": [
             "image"
           ],
-          "description": "A bar chart showing sales growth"
+          "description": {
+            "text": {
+              "plain": "A bar chart showing sales growth"
+            }
+          }
         }
       ]
     }

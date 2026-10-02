@@ -4,18 +4,23 @@
       "role": [
         "paragraph"
       ],
-      "text": "Section one."
+      "text": {
+        "plain": "Section one."
+      }
     },
     {
       "role": [
         "separator"
-      ]
+      ],
+      "textref": "#css(div)"
     },
     {
       "role": [
         "paragraph"
       ],
-      "text": "Section two."
+      "text": {
+        "plain": "Section two."
+      }
     }
   ]
 }

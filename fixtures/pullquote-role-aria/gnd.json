@@ -2,5 +2,7 @@
   "role": [
     "pullquote"
   ],
-  "text": "The lamp still turns, though no one climbs the stairs anymore."
+  "text": {
+    "plain": "The lamp still turns, though no one climbs the stairs anymore."
+  }
 }

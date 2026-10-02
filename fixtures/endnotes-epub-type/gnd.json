@@ -21,7 +21,9 @@
               "children": [
                 {
                   "id": "note1",
-                  "text": "See introduction for background.",
+                  "text": {
+                    "plain": "See introduction for background."
+                  },
                   "role": [
                     "aside",
                     "footnote"
@@ -36,7 +38,9 @@
               "children": [
                 {
                   "id": "note2",
-                  "text": "See chapter three for details.",
+                  "text": {
+                    "plain": "See chapter three for details."
+                  },
                   "role": [
                     "aside",
                     "footnote"

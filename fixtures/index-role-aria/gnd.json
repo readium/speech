@@ -15,7 +15,9 @@
           "children": [
             {
               "textref": "chapter1.xhtml#fresnel",
-              "text": "Fresnel lens"
+              "text": {
+                "plain": "Fresnel lens"
+              }
             }
           ]
         },
@@ -26,7 +28,9 @@
           "children": [
             {
               "textref": "chapter3.xhtml#keepers",
-              "text": "Keepers"
+              "text": {
+                "plain": "Keepers"
+              }
             }
           ]
         }

@@ -2,5 +2,7 @@
   "role": [
     "acknowledgments"
   ],
-  "text": "The author thanks the keepers of Fastnet Rock for their recollections."
+  "text": {
+    "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
+  }
 }

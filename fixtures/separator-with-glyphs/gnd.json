@@ -4,19 +4,25 @@
       "role": [
         "paragraph"
       ],
-      "text": "Before."
+      "text": {
+        "plain": "Before."
+      }
     },
     {
       "role": [
         "separator"
       ],
-      "text": "* * *"
+      "text": {
+        "plain": "* * *"
+      }
     },
     {
       "role": [
         "paragraph"
       ],
-      "text": "After."
+      "text": {
+        "plain": "After."
+      }
     }
   ]
 }

@@ -2,6 +2,27 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.12.0] - 2026-10-02
+
+### Added
+
+- `AutoPauseScope` and `ExtractionFormat` types.
+- The supported values and ranges behind preference validation: `verbosityPresets`, `languageModes`, `extractionFormats`, `autoPauseScopes`, `segmentationModes`, `rateRangeConfig`, `pitchRangeConfig`, `volumeRangeConfig`, `pauseDurationRangeConfig` (`RangeConfig`), plus `extractionPreferenceKeys`. All are frozen.
+
+### Changed
+
+- **Breaking:** requires Node.js 24 or later.
+- **Breaking:** Guided Navigation generation moved to [`@readium/guided-navigation`](https://github.com/readium/ts-toolkit/tree/develop/guided-navigation). `makeGnd`, `parseMarkup`, `decodeTextref`, the `#css(...)`/`#domrange(...)` encoders and decoders, and the `GndRole`, `GndMediaType`, `GndGenerationOptions`, `TextrefOptions` and `DomRangeJSON` types are no longer exported from `@readium/speech`; import them from `@readium/guided-navigation`.
+- **Breaking:** `extractUtterances()`, `loadGndContent()` and `contextualization.params` take `@readium/shared`'s `GuidedNavigationObject` instead of `GndObject`. `GndObject`, `GndText` and `GndDocument` are removed.
+- Dependencies are no longer bundled into `build/`; they're imported from `dependencies`, with `@readium/shared`, `@readium/decorator` and `@readium/helpers` now as caret ranges (`^2.7.0`, `^1.2.5`, `^1.2.0`) instead of exact versions, and `@readium/guided-navigation` as `^1.0.1`, so an app depending on them too shares one copy with this package.
+- `extractUtterances()`'s `options` argument is now optional; omitting it uses the defaults.
+- `IEnumPreference.supportedValues` is now `readonly T[]` and `IRangePreference.supportedRange` is now `readonly [T, T]`; they return the same frozen values the library validates against.
+
+### Removed
+
+- The CommonJS build (`build/index.cjs`). The package is ESM-only; `require("@readium/speech")` still works on Node versions that support `require()` of ES modules.
+- The `css-selector-generator` dependency.
+
 ## [0.11.0] - 2026-09-24
 
 ### Added

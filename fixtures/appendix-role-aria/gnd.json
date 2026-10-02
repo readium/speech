@@ -2,5 +2,7 @@
   "role": [
     "appendix"
   ],
-  "text": "A table of lighthouse construction dates referenced in the text."
+  "text": {
+    "plain": "A table of lighthouse construction dates referenced in the text."
+  }
 }

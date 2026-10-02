@@ -2,6 +2,8 @@
   "role": [
     "glossref"
   ],
-  "text": "See glossary: Fresnel lens",
+  "text": {
+    "plain": "See glossary: Fresnel lens"
+  },
   "textref": "#fresnel-lens"
 }

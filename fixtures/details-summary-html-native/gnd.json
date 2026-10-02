@@ -7,10 +7,14 @@
       "role": [
         "summary"
       ],
-      "text": "Click to expand"
+      "text": {
+        "plain": "Click to expand"
+      }
     },
     {
-      "text": "Additional details the reader can expand."
+      "text": {
+        "plain": "Additional details the reader can expand."
+      }
     }
   ]
 }

@@ -14,7 +14,9 @@
           ],
           "children": [
             {
-              "text": "Outer"
+              "text": {
+                "plain": "Outer"
+              }
             },
             {
               "role": [
@@ -27,7 +29,9 @@
                   ],
                   "children": [
                     {
-                      "text": "Inner",
+                      "text": {
+                        "plain": "Inner"
+                      },
                       "role": [
                         "cell"
                       ]

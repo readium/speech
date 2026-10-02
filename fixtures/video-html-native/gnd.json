@@ -3,5 +3,9 @@
     "video"
   ],
   "videoref": "lamp-mechanism.mp4",
-  "description": "The lamp mechanism rotating at dusk"
+  "description": {
+    "text": {
+      "plain": "The lamp mechanism rotating at dusk"
+    }
+  }
 }

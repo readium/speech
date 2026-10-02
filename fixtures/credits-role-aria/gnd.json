@@ -13,14 +13,18 @@
             "listItem",
             "credit"
           ],
-          "text": "Cover photograph by A. Keeper."
+          "text": {
+            "plain": "Cover photograph by A. Keeper."
+          }
         },
         {
           "role": [
             "listItem",
             "credit"
           ],
-          "text": "Maps by B. Cartographer."
+          "text": {
+            "plain": "Maps by B. Cartographer."
+          }
         }
       ]
     }

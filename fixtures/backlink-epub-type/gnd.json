@@ -5,7 +5,9 @@
   "children": [
     {
       "textref": "#ref1",
-      "text": "Return to reference",
+      "text": {
+        "plain": "Return to reference"
+      },
       "role": [
         "backlink"
       ]

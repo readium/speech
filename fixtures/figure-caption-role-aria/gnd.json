@@ -2,5 +2,10 @@
   "role": [
     "figure"
   ],
-  "description": "ASCII Art of a cat face"
+  "textref": "#css(div)",
+  "description": {
+    "text": {
+      "plain": "ASCII Art of a cat face"
+    }
+  }
 }

@@ -2,5 +2,7 @@
   "role": [
     "subtitle"
   ],
-  "text": "A History of Coastal Lights"
+  "text": {
+    "plain": "A History of Coastal Lights"
+  }
 }

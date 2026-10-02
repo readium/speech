@@ -4,19 +4,25 @@
   ],
   "children": [
     {
-      "text": "One",
+      "text": {
+        "plain": "One"
+      },
       "role": [
         "listItem"
       ]
     },
     {
-      "text": "Ninety-nine",
+      "text": {
+        "plain": "Ninety-nine"
+      },
       "role": [
         "listItem"
       ]
     },
     {
-      "text": "Three",
+      "text": {
+        "plain": "Three"
+      },
       "role": [
         "listItem"
       ]

@@ -4,19 +4,25 @@
   ],
   "children": [
     {
-      "text": "Fifth",
+      "text": {
+        "plain": "Fifth"
+      },
       "role": [
         "listItem"
       ]
     },
     {
-      "text": "Sixth",
+      "text": {
+        "plain": "Sixth"
+      },
       "role": [
         "listItem"
       ]
     },
     {
-      "text": "Seventh",
+      "text": {
+        "plain": "Seventh"
+      },
       "role": [
         "listItem"
       ]

@@ -6,8 +6,7 @@
     "description": "abstract role via epub:type=\"abstract\"",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -17,8 +16,27 @@
     "description": "abstract role via explicit ARIA role=\"doc-abstract\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
+    }
+  },
+  {
+    "id": "accessible-name-labelledby-aria-hidden",
+    "dir": "accessible-name-labelledby-aria-hidden",
+    "role": "accessible-name",
+    "description": "A link named via aria-labelledby pointing at an element marked aria-hidden=\"true\": the hidden label still names the link, and is not emitted on its own",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json"
+    }
+  },
+  {
+    "id": "accessible-name-labelledby-hidden-attribute",
+    "dir": "accessible-name-labelledby-hidden-attribute",
+    "role": "accessible-name",
+    "description": "A link named via aria-labelledby pointing at an element hidden with the native hidden attribute: the hidden label still names the link, and is not emitted on its own",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json"
     }
   },
   {
@@ -28,8 +46,7 @@
     "description": "acknowledgments role via epub:type=\"acknowledgments\"",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -39,8 +56,7 @@
     "description": "acknowledgments role via explicit ARIA role=\"doc-acknowledgments\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -50,8 +66,7 @@
     "description": "afterword role via epub:type=\"afterword\"",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -61,8 +76,7 @@
     "description": "afterword role via explicit ARIA role=\"doc-afterword\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -72,8 +86,7 @@
     "description": "appendix role via epub:type=\"appendix\" on a <section>",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -83,8 +96,7 @@
     "description": "appendix role via explicit ARIA role=\"doc-appendix\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -94,8 +106,7 @@
     "description": "article role via native <article> element",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -105,8 +116,7 @@
     "description": "article role via explicit ARIA role=\"article\" — the only encoding of this role previously untested; article-html-native covers the native <article> element",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -116,8 +126,7 @@
     "description": "aside role via epub:type=\"aside\" on a neutral <div> (isolating the epub:type code path from the native <aside> tag mapping) — the only encoding of this role previously untested; aside-html-native covers the native element",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -127,8 +136,7 @@
     "description": "aside role via native <aside> element",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -138,8 +146,7 @@
     "description": "audio role via native <audio src> element, with an aria-label as the accessible description",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -149,8 +156,7 @@
     "description": "audio role via native <audio src> element, with no accessible name at all",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -160,8 +166,7 @@
     "description": "backlink role via epub:type=\"backlink\" on an <a href>",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -171,8 +176,7 @@
     "description": "backlink role via explicit ARIA role=\"doc-backlink\" on an <a href>",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -182,8 +186,7 @@
     "description": "A bibliography list of cited references, via epub:type=\"bibliography\" on a <section>",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -193,8 +196,7 @@
     "description": "A bibliography list of cited references, via explicit ARIA role",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -204,8 +206,7 @@
     "description": "biblioref role via epub:type=\"biblioref\" on an <a href>",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -215,8 +216,7 @@
     "description": "biblioref role via explicit ARIA role=\"doc-biblioref\" on an <a href>",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -226,8 +226,7 @@
     "description": "blockquote role via native <blockquote> element",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -237,8 +236,7 @@
     "description": "blockquote role via explicit ARIA role=\"blockquote\" — the only encoding of this role previously untested; blockquote-html-native covers the native <blockquote> element",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -248,8 +246,7 @@
     "description": "body role via native <body> element",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -259,8 +256,7 @@
     "description": "chapter role via epub:type=\"chapter\", containing a heading",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -270,8 +266,7 @@
     "description": "chapter role via explicit ARIA role=\"doc-chapter\", containing a heading",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -281,8 +276,7 @@
     "description": "colophon role via epub:type=\"colophon\"",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -292,8 +286,7 @@
     "description": "colophon role via explicit ARIA role=\"doc-colophon\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -303,8 +296,7 @@
     "description": "complementary role via explicit ARIA role=\"complementary\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -314,8 +306,7 @@
     "description": "conclusion role via epub:type=\"conclusion\"",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -325,8 +316,7 @@
     "description": "conclusion role via explicit ARIA role=\"doc-conclusion\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -336,8 +326,7 @@
     "description": "cover role via epub:type=\"cover\" on a <section> wrapping the cover image",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -347,8 +336,7 @@
     "description": "cover role via explicit ARIA role=\"doc-cover\" on an <img>",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -358,8 +346,7 @@
     "description": "credit role via epub:type=\"credit\" on a <span>",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -369,8 +356,7 @@
     "description": "credit role via explicit ARIA role=\"doc-credit\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -380,8 +366,7 @@
     "description": "A collection of credits, via epub:type=\"credits\"; each entry is a <span epub:type=\"credit\">",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -391,8 +376,7 @@
     "description": "A collection of credits, via explicit ARIA role",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -402,8 +386,7 @@
     "description": "dedication role via epub:type=\"dedication\"",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -413,8 +396,7 @@
     "description": "dedication role via explicit ARIA role=\"doc-dedication\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -424,8 +406,7 @@
     "description": "definition role via epub:type=\"glossdef\" on a <dd>, nested in a <dl epub:type=\"glossary\">",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -435,8 +416,7 @@
     "description": "definition role via native <dd> element, nested in a <dl> as its content model requires",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -446,8 +426,7 @@
     "description": "definition role via explicit ARIA role=\"definition\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -457,8 +436,7 @@
     "description": "details role via native <details> element",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -468,8 +446,7 @@
     "description": "details role via native <details> element, with its <summary> as the visible disclosure label",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -479,8 +456,7 @@
     "description": "A collection of endnotes, via epub:type=\"endnotes\" on a <section>; each entry is an <aside epub:type=\"footnote\">",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -490,8 +466,7 @@
     "description": "A collection of endnotes, via explicit ARIA role",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -501,8 +476,7 @@
     "description": "epigraph role via epub:type=\"epigraph\"",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -512,8 +486,7 @@
     "description": "epigraph role via explicit ARIA role=\"doc-epigraph\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -523,8 +496,7 @@
     "description": "epilogue role via epub:type=\"epilogue\"",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -534,8 +506,7 @@
     "description": "epilogue role via explicit ARIA role=\"doc-epilogue\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -545,8 +516,7 @@
     "description": "errata role via epub:type=\"errata\"",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -556,8 +526,7 @@
     "description": "errata role via explicit ARIA role=\"doc-errata\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -567,8 +536,7 @@
     "description": "example role via epub:type=\"example\"",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -578,8 +546,7 @@
     "description": "example role via explicit ARIA role=\"doc-example\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -589,8 +556,7 @@
     "description": "A figure containing an image, with no caption, via native <figure>",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -600,8 +566,7 @@
     "description": "A figure containing an image, with no caption, via explicit role=\"figure\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -611,8 +576,7 @@
     "description": "A native <figure><figcaption> with no explicit aria-labelledby — the figcaption's text folds into the figure's own description (HTML-AAM implicit name), and the figcaption is not spoken as a separate child. Contrast with figure-caption-html-native, which has an explicit aria-labelledby pointing at the same figcaption.",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -622,8 +586,7 @@
     "description": "A role=\"figure\" with a role=\"caption\" child and no explicit aria-labelledby — the caption's text folds into the figure's own description, same as the native <figcaption> case, and isn't spoken as a separate child.",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -633,8 +596,7 @@
     "description": "A figure with a <pre> body and a <figcaption>, via native <figure>",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -644,8 +606,7 @@
     "description": "A figure with a <pre> body and a <figcaption>, via explicit role=\"figure\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -655,8 +616,7 @@
     "description": "A figure labelled via aria-labelledby pointing at a figcaption whose credit is nested inside it as a role=\"doc-credit\" span",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -666,8 +626,7 @@
     "description": "A figure with an implicit (figcaption) caption whose credit is nested inside it as a role=\"doc-credit\" span, rather than a sibling",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -677,8 +636,7 @@
     "description": "A figure with an implicit (figcaption) caption and a sibling credit line, via explicit ARIA role=\"doc-credit\" on a <p>",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -688,8 +646,7 @@
     "description": "A figure whose extended description comes from aria-describedby rather than a visible caption — an extension beyond the read-aloud examples doc, which only documents figcaption/aria-labelledby",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -699,8 +656,7 @@
     "description": "figure role via epub:type=\"figure\" on a neutral <div> (isolating the epub:type code path from the native <figure> tag mapping), containing an image — the only encoding of this role previously untested",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -710,8 +666,7 @@
     "description": "A figure with no accessible name of its own, containing an image that also has no accessible name of its own — the figure's own announcement has nothing to say (no caption/label anywhere), unlike figure-basic-* where the child image still carries a label",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -721,8 +676,7 @@
     "description": "A paragraph with one footnote reference and its footnote content, via epub:type",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -732,8 +686,7 @@
     "description": "A paragraph with one footnote reference and its footnote content, including the backlink back to the reference, via explicit ARIA roles",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -743,8 +696,7 @@
     "description": "foreword role via epub:type=\"foreword\"",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -754,8 +706,7 @@
     "description": "foreword role via explicit ARIA role=\"doc-foreword\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -765,8 +716,7 @@
     "description": "A glossary of term/definition entries via epub:type=\"glossary\" on a <dl>, with term/definition as its directly owned elements",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -776,8 +726,7 @@
     "description": "A glossary of term/definition entries via explicit ARIA role=\"doc-glossary\" on a <dl>, with each term wrapped in <dfn id=\"...\"> so a doc-glossref can target it, matching the spec's own worked example",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -787,8 +736,7 @@
     "description": "glossref role via epub:type=\"glossref\" on an <a href>",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -798,8 +746,7 @@
     "description": "glossref role via explicit ARIA role=\"doc-glossref\" on an <a href>",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -809,8 +756,7 @@
     "description": "Two glossref links mid-sentence (not the sole content of their block), via explicit ARIA role=\"doc-glossref\" on <a href>",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -820,8 +766,7 @@
     "description": "header role via native <header> element",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -831,8 +776,7 @@
     "description": "heading1 through heading6 via native <h1>-<h6> elements (bundled: same pathway, repeated depth)",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -842,8 +786,7 @@
     "description": "heading1 through heading6 via role=\"heading\" + aria-level (bundled: same pathway, repeated depth)",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -853,8 +796,7 @@
     "description": "An <h2> with role=\"presentation\", stripping its native heading semantics — the resulting node carries only the presentation role, no heading2, so no \"Heading level 2.\" announcement or heading block-boundary fires, though its text still reads normally",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -864,8 +806,7 @@
     "description": "An element marked aria-hidden=\"true\" is excluded from the GND tree entirely, producing no node and no utterance",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -875,8 +816,7 @@
     "description": "An element marked with the native hidden attribute is excluded from the GND tree entirely, producing no node and no utterance",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -886,8 +826,7 @@
     "description": "An image with alt text via native <img alt>",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -897,8 +836,7 @@
     "description": "A decorative image with empty alt, mapping to the presentation role and producing no utterance",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -908,8 +846,7 @@
     "description": "A decorative image marked with an explicit role=\"presentation\", producing no utterance",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -919,8 +856,7 @@
     "description": "A decorative image with a whitespace-only alt (not literally empty), still mapping to the presentation role and producing no utterance — exercises the trim() in the decorative-image check rather than a literal empty-string comparison",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -930,8 +866,7 @@
     "description": "An <img> with no alt attribute at all and no other accessible-name source — distinct from a decorative image (empty alt or role=\"presentation\"), which maps to the presentation role instead",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -941,8 +876,7 @@
     "description": "A non-<img> element acting as an image via role=\"img\" and aria-label",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -952,8 +886,7 @@
     "description": "An index navigation list, containing links to key subjects and names, via epub:type",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -963,8 +896,7 @@
     "description": "An index navigation list, containing links to key subjects and names, via explicit ARIA role",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -974,8 +906,7 @@
     "description": "introduction role via epub:type=\"introduction\"",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -985,8 +916,7 @@
     "description": "introduction role via explicit ARIA role=\"doc-introduction\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -996,8 +926,7 @@
     "description": "A landmarks navigation list, containing links to the cover, table of contents, and start of content",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1007,8 +936,7 @@
     "description": "Sibling paragraphs each declaring their own language, overriding the document's default",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1018,8 +946,7 @@
     "description": "A paragraph in a document whose <html lang> differs from the default, with no inline language shift or other SSML trigger",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1029,8 +956,7 @@
     "description": "An inline foreign-language phrase using the HTML lang attribute (not xml:lang) on a plain, non-semantic span",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1040,8 +966,7 @@
     "description": "A paragraph with a language switch nested inside another language switch",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1051,8 +976,7 @@
     "description": "A paragraph where the same foreign language appears twice, separated by base-language text",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1062,8 +986,7 @@
     "description": "A paragraph with two different inline foreign-language phrases",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1073,8 +996,7 @@
     "description": "An ARIA listitem with explicit aria-posinset/aria-setsize (for lists that don't expose their full membership in the DOM, e.g. paginated or virtualized ones) — neither attribute is read anywhere in the converter. Per ARIA semantics these should take precedence over any DOM-computed position/count when present, which a future position-numbering implementation needs to account for, not just count DOM siblings",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1084,8 +1006,7 @@
     "description": "list role via epub:type=\"list\" on neutral <div> elements (isolating the epub:type code path from the native <ul>/<ol> tag mapping), with epub:type=\"list-item\" children — the only encoding of this role previously untested; every other list fixture (including pagelist-epub-type, which nests a plain native <ol>) exercises the list role via the native tag, never epub:type",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1095,8 +1016,7 @@
     "description": "An unordered list via native <ul>/<li> elements",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1106,8 +1026,7 @@
     "description": "A native <ol>/<li> where the second <li> carries aria-posinset — it overrides only that item's own baked ordinal; the native counting chain for its siblings continues unaffected (per WAI-ARIA's aria-posinset semantics, meant for lists that don't expose their full membership in the DOM), so the third item stays 3, not 100",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1117,8 +1036,7 @@
     "description": "An <ol> whose second <li value=\"10\"> resets the running count, so the baked ordinal for the third item is 11, not 3 — HTML's <li value> semantics persist to every following sibling until overridden again",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1128,8 +1046,7 @@
     "description": "A plain native <ol> with no start/reversed — produces the exact same GND shape as list-html-native's <ul> (both map to a bare \"list\" role via simpleElementTypeRoles, with no ordered/unordered distinction preserved anywhere in the schema). This is the baseline that any future listItem position-numbering feature has to solve first: whether to speak a number at all depends on knowing the list was ordered, which the GND format currently cannot express",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1139,8 +1056,7 @@
     "description": "An <ol reversed> — the baked ordinal counts down from the list's length instead of counting up from 1",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1150,8 +1066,7 @@
     "description": "An <ol start=\"5\"> — the start attribute shifts the baked ordinal for every item, not just the first",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1161,8 +1076,7 @@
     "description": "An unordered list via explicit role=\"list\"/\"listitem\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1172,8 +1086,7 @@
     "description": "A <li> with role=\"presentation\", stripping its native listItem semantics while its sibling item keeps normal listItem behavior",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1183,8 +1096,7 @@
     "description": "A list-of-audio-clips navigation list, containing links to audio clips in the work",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1194,8 +1106,7 @@
     "description": "A list-of-illustrations navigation list, containing links to illustrations in the work",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1205,8 +1116,7 @@
     "description": "A list-of-tables navigation list, containing links to tables in the work",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1216,8 +1126,7 @@
     "description": "A list-of-video-clips navigation list, containing links to video clips in the work",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1227,8 +1136,7 @@
     "description": "main role via native <main> element",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1238,8 +1146,7 @@
     "description": "main role via explicit ARIA role=\"main\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1249,8 +1156,7 @@
     "description": "math role via native MathML <math> markup, with a spoken-form description for read-aloud",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1260,8 +1166,7 @@
     "description": "math role via native MathML <math> markup, with no alttext/aria-label and non-trivial children — no spoken-form description available for read-aloud",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1271,8 +1176,7 @@
     "description": "math role via explicit ARIA role=\"math\" on a rendered formula, with an aria-label carrying the spoken form for read-aloud",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1282,8 +1186,7 @@
     "description": "navigation role via native <nav> element",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1293,8 +1196,7 @@
     "description": "navigation role via explicit ARIA role=\"navigation\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1304,8 +1206,7 @@
     "description": "A standalone noteref link, via explicit ARIA role=\"doc-noteref\", with no resolvable footnote/endnote target",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1315,8 +1216,7 @@
     "description": "A noteref's target footnote, nested inside an endnotes section via epub:type, still appears at its own location (unlike a footnote outside any endnotes section, which is suppressed there since a noteref already embeds it inline)",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1326,8 +1226,7 @@
     "description": "A noteref's target footnote, nested inside an endnotes section via explicit ARIA roles, still appears at its own location (unlike a footnote outside any endnotes section, which is suppressed there since a noteref already embeds it inline)",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1337,8 +1236,7 @@
     "description": "notice role via epub:type=\"notice\"",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1348,8 +1246,7 @@
     "description": "notice role via explicit ARIA role=\"doc-notice\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1359,8 +1256,7 @@
     "description": "A standalone pagebreak and one falling in the middle of a sentence, via epub:type=\"pagebreak\"",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1370,8 +1266,7 @@
     "description": "A standalone pagebreak and one falling in the middle of a sentence, via role=\"doc-pagebreak\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1381,8 +1276,7 @@
     "description": "A page-list navigation list, containing links to pagebreaks, via epub:type",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1392,8 +1286,7 @@
     "description": "A page-list navigation list, containing links to pagebreaks, via explicit ARIA role",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1403,8 +1296,7 @@
     "description": "A single paragraph, the only encoding pathway for this role",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1414,8 +1306,7 @@
     "description": "part role via epub:type=\"part\", containing a heading",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1425,8 +1316,7 @@
     "description": "part role via explicit ARIA role=\"doc-part\", containing a heading",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1436,8 +1326,7 @@
     "description": "preface role via epub:type=\"preface\"",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1447,8 +1336,7 @@
     "description": "preface role via explicit ARIA role=\"doc-preface\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1458,8 +1346,7 @@
     "description": "preformatted role via native <pre> element",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1469,8 +1356,7 @@
     "description": "presentation role via explicit ARIA role=\"presentation\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1480,8 +1366,7 @@
     "description": "prologue role via epub:type=\"prologue\"",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1491,8 +1376,7 @@
     "description": "prologue role via explicit ARIA role=\"doc-prologue\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1502,8 +1386,7 @@
     "description": "pullquote role via epub:type=\"pullquote\" on an <aside>",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1513,8 +1396,7 @@
     "description": "pullquote role via explicit ARIA role=\"doc-pullquote\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1524,8 +1406,7 @@
     "description": "qna role via epub:type=\"qna\" on a <section>",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1535,8 +1416,7 @@
     "description": "qna role via explicit ARIA role=\"doc-qna\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1546,8 +1426,7 @@
     "description": "region role via explicit ARIA role=\"region\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1557,8 +1436,7 @@
     "description": "section role via native <section> element with no more specific semantic",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1568,8 +1446,7 @@
     "description": "separator role via native <hr> element; a purely visual divider with no read-aloud content",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1579,8 +1456,7 @@
     "description": "separator role via explicit ARIA role=\"separator\"; a purely visual divider with no read-aloud content",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1590,8 +1466,7 @@
     "description": "separator role whose visible content is a decorative glyph run (\"* * *\"), not meaningful text",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1601,8 +1476,7 @@
     "description": "subtitle role via epub:type=\"subtitle\"",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1612,8 +1486,7 @@
     "description": "subtitle role via explicit ARIA role=\"doc-subtitle\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1623,8 +1496,7 @@
     "description": "summary role via native <summary> element",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1634,8 +1506,7 @@
     "description": "A table with an accessible name via aria-label — the {description} branch of table's own announcement template. Uses aria-label rather than a native <caption> element since native <caption>/<figcaption> implicit accessible-name folding is not yet implemented (see CONTEXTUALIZATION_PLAN.md)",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1645,8 +1516,7 @@
     "description": "A native <table><caption> with no explicit aria-labelledby — the caption becomes a separate child node with role \"caption\", not folded into the table's own description field. Directly demonstrates the caption-folding gap noted in CONTEXTUALIZATION_PLAN.md: table.md's spec assumes <caption> \"can end up in description\", but that implicit association isn't implemented. Contrast with table-caption (which uses explicit aria-label and does populate description) and table-caption-role-aria (the same un-folded-caption behavior via role=\"caption\")",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1656,8 +1526,7 @@
     "description": "An ARIA table with an explicit role=\"caption\" child (no aria-labelledby) — same un-folded behavior as table-caption-element-html-native (a separate role \"caption\" child, not folded into the table's own description), confirmed via the explicit-ARIA encoding rather than a native <caption> element",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1667,8 +1536,7 @@
     "description": "A native columnheader with colspan=\"2\" spanning two data columns — colspan is not read or tracked at all; the second data row's two cells carry no header-association information reflecting that a single header covers both of them. Relevant to the planned cell/rowheader {header}: {value} template work, which needs real column-index tracking to get this right. See table-colspan-role-aria for the aria-colspan equivalent",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1678,8 +1546,7 @@
     "description": "An ARIA columnheader with aria-colspan=\"2\" spanning two data columns — same as table-colspan-html-native's native colspan, aria-colspan is not read or tracked at all either, confirmed via the explicit-ARIA encoding",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1689,8 +1556,7 @@
     "description": "table role via epub:type=\"table\"/\"table-row\"/\"table-cell\" on neutral <div> elements — the only encoding of table previously untested, despite extensive native/ARIA table coverage. epub:type has no columnheader/rowheader equivalent at all (only table/table-row/table-cell are mapped in epubTypeRoles), so this is necessarily a header-less data grid, same shape as table-no-headers",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1700,8 +1566,17 @@
     "description": "A table with a header row and row headers, via native <table>/<tr>/<th>/<td>",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
+    }
+  },
+  {
+    "id": "table-in-role-none-wrapper",
+    "dir": "table-in-role-none-wrapper",
+    "role": "table",
+    "description": "A native <table> inside a <div role=\"none\">: a div has no required owned elements, so presentation doesn't reach the table, which keeps its table/row/columnheader/cell roles",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1711,8 +1586,17 @@
     "description": "A native <table> nested inside another native table's cell — confirms recursion handles it correctly (the inner table's own row/cell structure resolves independently, nested under the outer cell alongside its own text). See table-nested-role-aria for the ARIA-role equivalent",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
+    }
+  },
+  {
+    "id": "table-nested-in-presentation-table",
+    "dir": "table-nested-in-presentation-table",
+    "role": "presentation",
+    "description": "A data table nested in a layout <table role=\"presentation\">: only the outer table's own rows/cells inherit presentation; the inner table keeps its table/row/columnheader/cell roles",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1722,8 +1606,7 @@
     "description": "An ARIA table (role=\"table\"/role=\"row\"/role=\"cell\") nested inside another ARIA table's cell — same correct recursion as table-nested-html-native, confirmed via the explicit-ARIA encoding",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1733,8 +1616,7 @@
     "description": "A bare data table with no columnheader/rowheader row at all — the header-less \"{value}\" branch of cell's announcement template",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1744,30 +1626,37 @@
     "description": "A table with a header row and row headers, via explicit ARIA table/row/columnheader/rowheader/cell roles",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
+    }
+  },
+  {
+    "id": "table-role-presentation-explicit-cell",
+    "dir": "table-role-presentation-explicit-cell",
+    "role": "presentation",
+    "description": "A <td role=\"cell\"> in a <table role=\"presentation\"> keeps its explicit role, while its sibling <td> with no role inherits presentation",
+    "files": {
+      "input": "input.html",
+      "gnd": "gnd.json"
     }
   },
   {
     "id": "table-role-presentation-html-native",
     "dir": "table-role-presentation-html-native",
     "role": "presentation",
-    "description": "A native <table role=\"presentation\"> whose rows/cells still resolve to normal row/columnheader/cell roles — role stripping is per-element only and does not cascade down through a table's structure, unlike the ARIA \"presentational table\" rule (HTML-AAM), which drops the whole subtree's table semantics when the table itself is presentational and nothing else in the subtree carries an explicit table role. Captured as a baseline, not an endorsement. See table-role-presentation-role-aria for the equivalent built entirely from ARIA roles",
+    "description": "A native <table role=\"presentation\">: its rows/cells have no explicit role, so they inherit presentation (ARIA presentational inheritance to required owned elements). See table-role-presentation-role-aria for explicit roles, which don't inherit",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
     "id": "table-role-presentation-role-aria",
     "dir": "table-role-presentation-role-aria",
     "role": "presentation",
-    "description": "An ARIA table (role=\"presentation\" wrapping role=\"row\"/role=\"columnheader\"/role=\"cell\") — same non-cascading behavior as table-role-presentation-html-native, confirmed via the explicit-ARIA encoding rather than a native <table>",
+    "description": "role=\"presentation\" on a wrapper doesn't override descendants' explicit role=\"row\"/\"columnheader\"/\"cell\" (ARIA presentational inheritance skips explicit roles)",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1777,8 +1666,7 @@
     "description": "An ARIA table with an explicit role=\"rowgroup\" wrapper around its rows — rowgroup is not in GND's role vocabulary at all, so the wrapper is treated as an unknown role and spliced away transparently, same as native <thead>/<tbody>/<tfoot> (see table-sectioning). Captured as a baseline confirming this is consistent across both encodings, not a native-only quirk",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1788,8 +1676,7 @@
     "description": "A native rowheader with rowspan=\"2\" spanning two data rows — rowspan is not read or tracked at all; the second row's cell carries no rowheader association even though the spanned header logically covers it too. Same relevance as table-colspan-html-native for the planned header-association work. See table-rowspan-role-aria for the aria-rowspan equivalent",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1799,8 +1686,7 @@
     "description": "An ARIA rowheader with aria-rowspan=\"2\" spanning two data rows — same as table-rowspan-html-native's native rowspan, aria-rowspan is not read or tracked at all either, confirmed via the explicit-ARIA encoding",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1810,8 +1696,7 @@
     "description": "<thead>/<tbody>/<tfoot> are transparent — their rows flatten directly into the table's children with no rowgroup role or boundary marker of any kind. GND's role vocabulary has no rowgroup role at all (not in roles.md), so this is presumed intentional (grouping is visual-only, not meaningful for read-aloud), but was previously unconfirmed by any fixture — a tfoot row like a totals row is indistinguishable from a tbody row",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1821,8 +1706,7 @@
     "description": "A <th> with no scope attribute at all — falls back to a plain cell rather than columnheader/rowheader, since the converter only infers header direction from an explicit scope=\"col\"/\"row\" and does not implement HTML-AAM's implicit header-association algorithm. This is extremely common real-world markup (most authors omit scope), captured here as a baseline, not an endorsement of the current fallback",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1832,8 +1716,7 @@
     "description": "term role via epub:type=\"glossterm\" on a <dt>, nested in a <dl epub:type=\"glossary\">",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1843,8 +1726,7 @@
     "description": "term role via native <dfn> element",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1854,8 +1736,7 @@
     "description": "term role via explicit ARIA role=\"term\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1865,8 +1746,7 @@
     "description": "tip role via epub:type=\"tip\" on an <aside>",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1876,8 +1756,7 @@
     "description": "tip role via explicit ARIA role=\"doc-tip\"",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1887,8 +1766,7 @@
     "description": "A table-of-contents navigation list, containing links to sectional headings, via epub:type",
     "files": {
       "input": "input.xhtml",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1898,8 +1776,7 @@
     "description": "A table-of-contents navigation list, containing links to sectional headings, via explicit ARIA role",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1909,8 +1786,7 @@
     "description": "video role via native <video src> element, with an aria-label as the accessible description",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   },
   {
@@ -1920,8 +1796,7 @@
     "description": "video role via native <video src> element, with no accessible name at all",
     "files": {
       "input": "input.html",
-      "gnd": "gnd.json",
-      "utterances": "utterances.json"
+      "gnd": "gnd.json"
     }
   }
 ]

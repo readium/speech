@@ -3,5 +3,9 @@
     "audio"
   ],
   "audioref": "foghorn-recording.mp3",
-  "description": "Foghorn recording from the 1962 restoration"
+  "description": {
+    "text": {
+      "plain": "Foghorn recording from the 1962 restoration"
+    }
+  }
 }

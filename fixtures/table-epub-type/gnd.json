@@ -14,13 +14,17 @@
           ],
           "children": [
             {
-              "text": "Ada",
+              "text": {
+                "plain": "Ada"
+              },
               "role": [
                 "cell"
               ]
             },
             {
-              "text": "Engineer",
+              "text": {
+                "plain": "Engineer"
+              },
               "role": [
                 "cell"
               ]

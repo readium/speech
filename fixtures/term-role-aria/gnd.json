@@ -2,5 +2,7 @@
   "role": [
     "term"
   ],
-  "text": "lighthouse"
+  "text": {
+    "plain": "lighthouse"
+  }
 }

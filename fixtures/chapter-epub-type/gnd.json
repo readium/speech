@@ -10,7 +10,9 @@
       ],
       "children": [
         {
-          "text": "Title of the chapter",
+          "text": {
+            "plain": "Title of the chapter"
+          },
           "role": [
             "heading1"
           ]

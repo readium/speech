@@ -11,7 +11,9 @@
     {
       "id": "glossref1",
       "textref": "#gloss-front-end",
-      "text": "front-end",
+      "text": {
+        "plain": "front-end"
+      },
       "role": [
         "glossref"
       ]
@@ -19,7 +21,9 @@
     {
       "id": "glossref2",
       "textref": "#gloss-back-end",
-      "text": "back-end",
+      "text": {
+        "plain": "back-end"
+      },
       "role": [
         "glossref"
       ]

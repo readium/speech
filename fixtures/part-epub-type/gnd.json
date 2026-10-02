@@ -10,7 +10,9 @@
       ],
       "children": [
         {
-          "text": "Title of the part",
+          "text": {
+            "plain": "Title of the part"
+          },
           "role": [
             "heading1"
           ]

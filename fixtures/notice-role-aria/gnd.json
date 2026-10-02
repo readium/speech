@@ -2,5 +2,7 @@
   "role": [
     "notice"
   ],
-  "text": "Caution: the tower stairs are uneven."
+  "text": {
+    "plain": "Caution: the tower stairs are uneven."
+  }
 }

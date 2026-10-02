@@ -9,13 +9,17 @@
       ],
       "children": [
         {
-          "text": "Ada",
+          "text": {
+            "plain": "Ada"
+          },
           "role": [
             "rowheader"
           ]
         },
         {
-          "text": "Engineer",
+          "text": {
+            "plain": "Engineer"
+          },
           "role": [
             "cell"
           ]
@@ -28,7 +32,9 @@
       ],
       "children": [
         {
-          "text": "2020",
+          "text": {
+            "plain": "2020"
+          },
           "role": [
             "cell"
           ]

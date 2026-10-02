@@ -9,13 +9,17 @@
       ],
       "children": [
         {
-          "text": "First item",
+          "text": {
+            "plain": "First item"
+          },
           "role": [
             "listItem"
           ]
         },
         {
-          "text": "Second item",
+          "text": {
+            "plain": "Second item"
+          },
           "role": [
             "listItem"
           ]

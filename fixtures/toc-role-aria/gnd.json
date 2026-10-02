@@ -16,7 +16,9 @@
           "children": [
             {
               "textref": "chapter1.xhtml",
-              "text": "Chapter One"
+              "text": {
+                "plain": "Chapter One"
+              }
             }
           ]
         },
@@ -27,7 +29,9 @@
           "children": [
             {
               "textref": "chapter2.xhtml",
-              "text": "Chapter Two"
+              "text": {
+                "plain": "Chapter Two"
+              }
             }
           ]
         },
@@ -38,7 +42,9 @@
           "children": [
             {
               "textref": "chapter3.xhtml",
-              "text": "Chapter Three"
+              "text": {
+                "plain": "Chapter Three"
+              }
             }
           ]
         }

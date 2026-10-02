@@ -21,7 +21,9 @@
               "children": [
                 {
                   "textref": "#pg1",
-                  "text": "Page 1"
+                  "text": {
+                    "plain": "Page 1"
+                  }
                 }
               ]
             },
@@ -32,7 +34,9 @@
               "children": [
                 {
                   "textref": "#pg2",
-                  "text": "Page 2"
+                  "text": {
+                    "plain": "Page 2"
+                  }
                 }
               ]
             },
@@ -43,7 +47,9 @@
               "children": [
                 {
                   "textref": "#pg3",
-                  "text": "Page 3"
+                  "text": {
+                    "plain": "Page 3"
+                  }
                 }
               ]
             }

@@ -9,7 +9,9 @@
       ],
       "children": [
         {
-          "text": "A structure that contains an enumeration of related content items.",
+          "text": {
+            "plain": "A structure that contains an enumeration of related content items."
+          },
           "role": [
             "definition"
           ]

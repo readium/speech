@@ -4,13 +4,17 @@
   ],
   "children": [
     {
-      "text": "Normal item",
+      "text": {
+        "plain": "Normal item"
+      },
       "role": [
         "listItem"
       ]
     },
     {
-      "text": "Stripped item",
+      "text": {
+        "plain": "Stripped item"
+      },
       "role": [
         "presentation"
       ]

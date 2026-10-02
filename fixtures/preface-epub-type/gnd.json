@@ -4,7 +4,9 @@
   ],
   "children": [
     {
-      "text": "This edition adds a chapter on automation.",
+      "text": {
+        "plain": "This edition adds a chapter on automation."
+      },
       "role": [
         "preface"
       ]

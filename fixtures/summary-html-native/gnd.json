@@ -2,5 +2,7 @@
   "role": [
     "summary"
   ],
-  "text": "Click to expand"
+  "text": {
+    "plain": "Click to expand"
+  }
 }

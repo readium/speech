@@ -4,7 +4,9 @@
   ],
   "children": [
     {
-      "text": "Fifth of seven",
+      "text": {
+        "plain": "Fifth of seven"
+      },
       "role": [
         "listItem"
       ]

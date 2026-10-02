@@ -21,7 +21,9 @@
               "children": [
                 {
                   "textref": "chapter1.xhtml#audio1",
-                  "text": "Audio 1. Foghorn recording"
+                  "text": {
+                    "plain": "Audio 1. Foghorn recording"
+                  }
                 }
               ]
             },
@@ -32,7 +34,9 @@
               "children": [
                 {
                   "textref": "chapter2.xhtml#audio2",
-                  "text": "Audio 2. Keeper's log reading"
+                  "text": {
+                    "plain": "Audio 2. Keeper's log reading"
+                  }
                 }
               ]
             }

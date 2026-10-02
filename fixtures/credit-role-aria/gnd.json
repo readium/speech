@@ -2,5 +2,7 @@
   "role": [
     "credit"
   ],
-  "text": "Cover photograph by A. Keeper."
+  "text": {
+    "plain": "Cover photograph by A. Keeper."
+  }
 }

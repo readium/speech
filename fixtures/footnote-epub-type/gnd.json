@@ -15,13 +15,17 @@
       "children": [
         {
           "id": "note1",
-          "text": "[1]",
+          "text": {
+            "plain": "[1]"
+          },
           "role": [
             "noteref"
           ],
           "children": [
             {
-              "text": "Text of the footnote.",
+              "text": {
+                "plain": "Text of the footnote."
+              },
               "role": [
                 "aside",
                 "footnote"

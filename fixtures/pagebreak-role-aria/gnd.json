@@ -4,7 +4,9 @@
       "role": [
         "pagebreak"
       ],
-      "text": "4"
+      "text": {
+        "plain": "4"
+      }
     },
     {
       "role": [
@@ -21,7 +23,9 @@
             "pagebreak"
           ],
           "id": "pagebreak1",
-          "text": "5"
+          "text": {
+            "plain": "5"
+          }
         }
       ]
     }

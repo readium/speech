@@ -2,5 +2,7 @@
   "role": [
     "tip"
   ],
-  "text": "Tip: wind the mechanism fully before dusk."
+  "text": {
+    "plain": "Tip: wind the mechanism fully before dusk."
+  }
 }

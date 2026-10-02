@@ -8,7 +8,11 @@
       "role": [
         "image"
       ],
-      "description": "A metal-edged case with a red textured front panel."
+      "description": {
+        "text": {
+          "plain": "A metal-edged case with a red textured front panel."
+        }
+      }
     },
     {
       "id": "hawking-caption",
@@ -17,7 +21,9 @@
       ],
       "children": [
         {
-          "text": "Photo: Science Museum London, CC BY-SA 2.0.",
+          "text": {
+            "plain": "Photo: Science Museum London, CC BY-SA 2.0."
+          },
           "role": [
             "credit"
           ]
@@ -25,5 +31,9 @@
       ]
     }
   ],
-  "description": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+  "description": {
+    "text": {
+      "plain": "Computer and speech synthesiser housing used by Stephen Hawking in 1999"
+    }
+  }
 }

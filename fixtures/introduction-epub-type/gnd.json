@@ -4,7 +4,9 @@
   ],
   "children": [
     {
-      "text": "This work explores the history of coastal lighthouses.",
+      "text": {
+        "plain": "This work explores the history of coastal lighthouses."
+      },
       "role": [
         "introduction"
       ]

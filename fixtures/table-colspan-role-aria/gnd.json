@@ -9,7 +9,9 @@
       ],
       "children": [
         {
-          "text": "Name and Role",
+          "text": {
+            "plain": "Name and Role"
+          },
           "role": [
             "columnheader"
           ]
@@ -22,13 +24,17 @@
       ],
       "children": [
         {
-          "text": "Ada",
+          "text": {
+            "plain": "Ada"
+          },
           "role": [
             "cell"
           ]
         },
         {
-          "text": "Engineer",
+          "text": {
+            "plain": "Engineer"
+          },
           "role": [
             "cell"
           ]

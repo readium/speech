@@ -19,7 +19,7 @@ interface ReadiumSpeechNavigatorContract {
   
   // Content Management
   loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
-  loadGndContent(nodes: GndObject[]): Promise<void>;
+  loadGndContent(nodes: GuidedNavigationObject[]): Promise<void>;
   getCurrentContent(): ReadiumSpeechUtterance | null;
   getContentQueue(): ReadiumSpeechUtterance[];
   

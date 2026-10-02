@@ -12,13 +12,17 @@
           "role": [
             "columnheader"
           ],
-          "text": "Name"
+          "text": {
+            "plain": "Name"
+          }
         },
         {
           "role": [
             "columnheader"
           ],
-          "text": "Role"
+          "text": {
+            "plain": "Role"
+          }
         }
       ]
     },
@@ -31,13 +35,17 @@
           "role": [
             "rowheader"
           ],
-          "text": "Ada"
+          "text": {
+            "plain": "Ada"
+          }
         },
         {
           "role": [
             "cell"
           ],
-          "text": "Engineer"
+          "text": {
+            "plain": "Engineer"
+          }
         }
       ]
     },
@@ -50,13 +58,17 @@
           "role": [
             "rowheader"
           ],
-          "text": "Grace"
+          "text": {
+            "plain": "Grace"
+          }
         },
         {
           "role": [
             "cell"
           ],
-          "text": "Admiral"
+          "text": {
+            "plain": "Admiral"
+          }
         }
       ]
     }

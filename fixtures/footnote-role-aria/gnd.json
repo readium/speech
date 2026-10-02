@@ -15,7 +15,9 @@
             "noteref"
           ],
           "id": "noteref1",
-          "text": "[1]",
+          "text": {
+            "plain": "[1]"
+          },
           "children": [
             {
               "role": [
@@ -33,7 +35,9 @@
                   "role": [
                     "backlink"
                   ],
-                  "text": "1.",
+                  "text": {
+                    "plain": "1."
+                  },
                   "textref": "#noteref1"
                 }
               ]

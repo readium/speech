@@ -8,7 +8,9 @@
       "role": [
         "heading1"
       ],
-      "text": "Title of the part"
+      "text": {
+        "plain": "Title of the part"
+      }
     }
   ]
 }

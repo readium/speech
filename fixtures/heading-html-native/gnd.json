@@ -4,37 +4,49 @@
       "role": [
         "heading1"
       ],
-      "text": "Chapter One"
+      "text": {
+        "plain": "Chapter One"
+      }
     },
     {
       "role": [
         "heading2"
       ],
-      "text": "Section A"
+      "text": {
+        "plain": "Section A"
+      }
     },
     {
       "role": [
         "heading3"
       ],
-      "text": "Subsection i"
+      "text": {
+        "plain": "Subsection i"
+      }
     },
     {
       "role": [
         "heading4"
       ],
-      "text": "Detail heading"
+      "text": {
+        "plain": "Detail heading"
+      }
     },
     {
       "role": [
         "heading5"
       ],
-      "text": "Note heading"
+      "text": {
+        "plain": "Note heading"
+      }
     },
     {
       "role": [
         "heading6"
       ],
-      "text": "Aside heading"
+      "text": {
+        "plain": "Aside heading"
+      }
     }
   ]
 }

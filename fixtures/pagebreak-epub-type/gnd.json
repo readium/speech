@@ -4,7 +4,9 @@
   ],
   "children": [
     {
-      "text": "4",
+      "text": {
+        "plain": "4"
+      },
       "role": [
         "pagebreak"
       ]
@@ -21,7 +23,9 @@
       "children": [
         {
           "id": "pagebreak1",
-          "text": "5",
+          "text": {
+            "plain": "5"
+          },
           "role": [
             "pagebreak"
           ]

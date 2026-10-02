@@ -9,7 +9,9 @@
       ],
       "children": [
         {
-          "text": "Name",
+          "text": {
+            "plain": "Name"
+          },
           "role": [
             "columnheader"
           ]
@@ -22,7 +24,9 @@
       ],
       "children": [
         {
-          "text": "Ada",
+          "text": {
+            "plain": "Ada"
+          },
           "role": [
             "cell"
           ]
@@ -35,7 +39,9 @@
       ],
       "children": [
         {
-          "text": "Total: 1",
+          "text": {
+            "plain": "Total: 1"
+          },
           "role": [
             "cell"
           ]

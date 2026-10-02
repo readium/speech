@@ -9,13 +9,17 @@
       ],
       "children": [
         {
-          "text": "Ada",
+          "text": {
+            "plain": "Ada"
+          },
           "role": [
             "cell"
           ]
         },
         {
-          "text": "Engineer",
+          "text": {
+            "plain": "Engineer"
+          },
           "role": [
             "cell"
           ]
@@ -28,13 +32,17 @@
       ],
       "children": [
         {
-          "text": "Grace",
+          "text": {
+            "plain": "Grace"
+          },
           "role": [
             "cell"
           ]
         },
         {
-          "text": "Admiral",
+          "text": {
+            "plain": "Admiral"
+          },
           "role": [
             "cell"
           ]

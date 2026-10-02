@@ -14,7 +14,9 @@
           ],
           "children": [
             {
-              "text": "For instance, a Fresnel lens focuses light into a narrow beam.",
+              "text": {
+                "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
+              },
               "role": [
                 "paragraph",
                 "example"

@@ -2,5 +2,7 @@
   "role": [
     "details"
   ],
-  "text": "Additional details the reader can expand."
+  "text": {
+    "plain": "Additional details the reader can expand."
+  }
 }

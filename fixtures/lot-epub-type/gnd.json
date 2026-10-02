@@ -21,7 +21,9 @@
               "children": [
                 {
                   "textref": "appendix.xhtml#table1",
-                  "text": "Table 1. Lighthouse construction dates"
+                  "text": {
+                    "plain": "Table 1. Lighthouse construction dates"
+                  }
                 }
               ]
             },
@@ -32,7 +34,9 @@
               "children": [
                 {
                   "textref": "appendix.xhtml#table2",
-                  "text": "Table 2. Keeper staffing by decade"
+                  "text": {
+                    "plain": "Table 2. Keeper staffing by decade"
+                  }
                 }
               ]
             }

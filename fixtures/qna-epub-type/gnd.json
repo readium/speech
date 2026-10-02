@@ -4,7 +4,9 @@
   ],
   "children": [
     {
-      "text": "Q: How often was the lamp refueled? A: Nightly, by hand.",
+      "text": {
+        "plain": "Q: How often was the lamp refueled? A: Nightly, by hand."
+      },
       "role": [
         "section",
         "qna"

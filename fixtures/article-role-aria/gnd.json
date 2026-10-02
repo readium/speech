@@ -1,5 +1,7 @@
 {
-  "text": "A self-contained article about lighthouse keeping.",
+  "text": {
+    "plain": "A self-contained article about lighthouse keeping."
+  },
   "role": [
     "article"
   ]

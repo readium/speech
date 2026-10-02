@@ -2,7 +2,11 @@
   "role": [
     "table"
   ],
-  "description": "Team roster",
+  "description": {
+    "text": {
+      "plain": "Team roster"
+    }
+  },
   "children": [
     {
       "role": [
@@ -10,7 +14,9 @@
       ],
       "children": [
         {
-          "text": "Name",
+          "text": {
+            "plain": "Name"
+          },
           "role": [
             "columnheader"
           ]
