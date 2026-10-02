@@ -30,9 +30,10 @@ test("a link embedded in a larger flow merges into one utterance, falling back t
   t.is(utterance.locate?.cssSelector, "p");
 });
 
-// The hoist-collision case (object.ts never merges the link's href into
-// the block's own textref) plus the ancestor fallback above, combined: the
-// block's cssSelector survives on the <p> node for attachLocate() to find.
+// The hoist-collision case (@readium/guided-navigation's object.ts never
+// merges the link's href into the block's own textref) plus the ancestor
+// fallback above, combined: the block's cssSelector survives on the <p> node
+// for attachLocate() to find.
 test("a link as a block's sole content falls back to the block's own cssSelector", async (t) => {
   const gnd = parseMarkup('<p><a href="chapter1.xhtml">Chapter 1</a></p>', undefined, { textrefs: true });
   const [utterance] = await extractUtterances(gnd, { format: "plain" });
@@ -44,7 +45,7 @@ test("extractUtterances attaches an exact-match highlight when the text is uniqu
   const gnd = parseMarkup("<p>A unique sentence.</p>", undefined, { textrefs: { roles: true, textFragment: true } });
   const [utterance] = await extractUtterances(gnd, { format: "plain" });
   // Case-normalized by the polyfill's exact-match path — see the equivalent
-  // gnd/textref.test.ts case for why.
+  // @readium/guided-navigation textref.test.ts case for why.
   t.is(utterance.locate?.text?.highlight, "a unique sentence.");
 });
 

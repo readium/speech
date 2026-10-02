@@ -13,9 +13,9 @@ export function subLocateFor(nodeRef: DecodedTextref, quoteText: string): Locato
 
 // Decodes each utterance's source node textref (if any) into `locate`, for
 // a consumer to spread straight into createLocator()/decorate() to drive DOM
-// highlighting — see textrefFragment.ts. Falls back through enclosing
-// ancestors (nearest first) when the source node itself has no locator of
-// its own.
+// highlighting — see @readium/guided-navigation's textrefFragment.ts. Falls
+// back through enclosing ancestors (nearest first) when the source node itself
+// has no locator of its own.
 // Resolves one node's own locator, falling back through its ancestors
 // (nearest first) when it has no textref of its own — `own: false` then,
 // since the result describes that ancestor's whole extent, not just this node.

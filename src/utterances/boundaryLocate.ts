@@ -15,9 +15,10 @@ export function recordSubstitutionSource(utterance: ReadiumSpeechUtterance, sour
   substitutionSources.set(utterance, source);
 }
 
-// A locate built for aria-substituted text (see gnd/object.ts) has nothing
-// real in the DOM to slice per-word quotes from — resolveBoundaryLocate()
-// skips word matching for it entirely rather than quote-searching garbage.
+// A locate built for aria-substituted text (see @readium/guided-navigation's
+// object.ts) has nothing real in the DOM to slice per-word quotes from —
+// resolveBoundaryLocate() skips word matching for it entirely rather than
+// quote-searching garbage.
 const nonQuotableLocates = new WeakSet<LocatorOptions>();
 
 export function markNonQuotable<T extends LocatorOptions>(locate: T): T {

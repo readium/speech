@@ -41,7 +41,7 @@ function stripPlaceholders(ssml: string): string {
 // remains, as opposed to a placeholder-only string that's now redundant with
 // the `plain` variant (which the GND converter guarantees is present
 // whenever the only reason `ssml` existed was an embedded placeholder — see
-// `converter.ts`'s `hasPlaceholder` handling).
+// `@readium/guided-navigation`'s `converter.ts` `hasPlaceholder` handling).
 function hasSsmlMarkup(s: string): boolean {
   return s.includes("<");
 }
@@ -83,7 +83,7 @@ export function resolveNodeText(text: GuidedNavigationObject["text"]): ResolvedN
 // applies, for synthesizing a `plain` variant from a node that only
 // naturally has `ssml` (e.g. an inline language shift with no embedded
 // placeholder, so the GND converter never generated a `plain` variant for
-// it — see `converter.ts`'s `flushText()`).
+// it — see `@readium/guided-navigation`'s `converter.ts` `flushText()`).
 export function stripSsmlTags(ssml: string): string {
   return stripSsmlTagsWithMap(ssml).plain;
 }

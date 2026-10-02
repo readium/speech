@@ -58,7 +58,8 @@ export interface WalkContext {
   // (see `applyFormat`) — read back by `attachLocate()`, same identity-keyed pattern.
   pendingRange: Map<ReadiumSpeechUtterance, { start: number; end: number }>;
   // Set for a merge whose leading/trailing piece is aria-substituted (see
-  // gnd/object.ts) to that piece's own bare locate — text never quote-searchable.
+  // @readium/guided-navigation's object.ts) to that piece's own bare locate —
+  // text never quote-searchable.
   edgeSubstitutedLocate: WeakMap<ReadiumSpeechUtterance, { leading?: LocatorOptions; trailing?: LocatorOptions }>;
 }
 
@@ -115,7 +116,7 @@ function mergeContextualizations(base: Contextualizations, override: Contextuali
 // used by attachLocate() to fall back to an enclosing node's textref
 // when the utterance's own source has none of its own (e.g. its text lives
 // on an unroled child wrapping a link, whose own textref is that link's
-// href, not a DOM locator — see textrefFragment.ts's decodeTextref()).
+// href, not a DOM locator — see @readium/guided-navigation's decodeTextref()).
 function buildAncestorChains(nodes: GuidedNavigationObject[], chain: GuidedNavigationObject[] = [], out = new Map<GuidedNavigationObject, GuidedNavigationObject[]>()): Map<GuidedNavigationObject, GuidedNavigationObject[]> {
   for (const node of nodes) {
     out.set(node, chain);
