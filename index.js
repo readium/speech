@@ -2863,17 +2863,17 @@ function $s(n) {
   });
 }
 function Gs(n, e = window) {
-  const { text: t, cssSelector: s, domRange: i, fragment: a } = n, r = t ? new bn(t) : void 0, o = s || i ? /* @__PURE__ */ new Map() : void 0;
-  o && (s && o.set("cssSelector", s), i && o.set("domRange", $s(i).serialize()));
-  const c = o !== void 0 || a !== void 0 ? new wn({
-    fragments: a ? [a] : void 0,
-    otherLocations: o
+  const { href: t, text: s, cssSelector: i, domRange: a, fragment: r } = n, o = s ? new bn(s) : void 0, l = i || a ? /* @__PURE__ */ new Map() : void 0;
+  l && (i && l.set("cssSelector", i), a && l.set("domRange", $s(a).serialize()));
+  const u = l !== void 0 || r !== void 0 ? new wn({
+    fragments: r ? [r] : void 0,
+    otherLocations: l
   }) : void 0;
   return new kn({
-    href: e.location.href,
+    href: t ?? e.location.href,
     type: "text/html",
-    text: r,
-    locations: c
+    text: o,
+    locations: u
   });
 }
 class Ks extends vn {
@@ -3799,7 +3799,9 @@ function $e(n) {
 }
 function H(n, e) {
   const t = n.cssSelector ?? n.domRange?.start.cssSelector;
-  return t ? { cssSelector: t, text: { highlight: e } } : { ...n, text: { highlight: e } };
+  if (!t) return { ...n, text: { highlight: e } };
+  const s = { cssSelector: t, text: { highlight: e } };
+  return n.href !== void 0 && (s.href = n.href), s;
 }
 function A(n, e) {
   const t = Xe(n);
@@ -3976,9 +3978,11 @@ function pe(n) {
   return { joined: e, ranges: t };
 }
 function Ce(n, e) {
-  const t = Rn(n);
-  if (t) return St({ cssSelector: t });
-  const s = A(n, e.ancestorChains)?.ref;
+  const t = Rn(n), s = A(n, e.ancestorChains)?.ref;
+  if (t) {
+    const i = { cssSelector: t };
+    return s?.href !== void 0 && (i.href = s.href), St(i);
+  }
   return s && St(s);
 }
 function Ni(n, e, t) {
