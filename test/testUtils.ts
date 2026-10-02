@@ -1,5 +1,4 @@
 import { existsSync, readdirSync, readFileSync } from "fs";
-import { GuidedNavigationObject } from "@readium/shared";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 
@@ -39,7 +38,7 @@ export interface UtterancesFile {
 }
 
 export interface LoadedFixture {
-  gnd: GuidedNavigationObject[];
+  inputHtml: string;
   utterances: UtterancesFile;
 }
 
@@ -54,12 +53,12 @@ export function loadManifest(): FixtureManifestEntry[] {
 }
 
 /**
- * Test-only helper to read a fixture's gnd.json from @readium/guided-navigation, and its local utterances.json
+ * Test-only helper to read a fixture's input from @readium/guided-navigation, and its local utterances.json
  */
-export function loadFixture(id: string): LoadedFixture {
-  const gndJson = JSON.parse(readFileSync(join(gndFixturesDir, id, "gnd.json"), "utf-8"));
-  const utterances: UtterancesFile = JSON.parse(readFileSync(join(fixturesDir, id, "utterances.json"), "utf-8"));
-  return { gnd: GuidedNavigationObject.deserializeArray(fixtureTopLevel(gndJson))!, utterances };
+export function loadFixture(entry: FixtureManifestEntry): LoadedFixture {
+  const inputHtml = readFileSync(join(gndFixturesDir, entry.dir, entry.files.input), "utf-8");
+  const utterances: UtterancesFile = JSON.parse(readFileSync(join(fixturesDir, entry.id, "utterances.json"), "utf-8"));
+  return { inputHtml, utterances };
 }
 
 /**
@@ -69,15 +68,6 @@ export function localFixtureIds(): string[] {
   return readdirSync(fixturesDir, { withFileTypes: true })
     .filter((entry) => entry.isDirectory() && existsSync(join(fixturesDir, entry.name, "utterances.json")))
     .map((entry) => entry.name);
-}
-
-// gnd.json holds one object, or `{ children: [...] }` for several top-level siblings.
-function fixtureTopLevel(gnd: unknown): unknown[] {
-  if (gnd && typeof gnd === "object" && !Array.isArray(gnd)) {
-    const keys = Object.keys(gnd);
-    if (keys.length === 1 && keys[0] === "children") return (gnd as { children: unknown[] }).children;
-  }
-  return [gnd];
 }
 
 // Strips implementation-specific selector output before comparing against

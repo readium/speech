@@ -1,6 +1,7 @@
 import "../domSetup.js";
 import test from "ava";
 import { loadManifest, loadFixture, localFixtureIds, stripLocatorDetails } from "../testUtils.js";
+import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 import type { ExtractUtterancesOptions } from "../../src/utterances/types.js";
 
@@ -24,7 +25,9 @@ function sortKeysDeep(value: unknown): unknown {
 }
 
 for (const entry of manifest) {
-  const fixture = loadFixture(entry.id);
+  const fixture = loadFixture(entry);
+  // Parsed, not deserialized from gnd.json: only parseMarkup() output carries aria-substitution data.
+  const gnd = parseMarkup(fixture.inputHtml);
 
   fixture.utterances.cases.forEach(({ options: optionSets, utterances }, index) => {
     // One test per case rather than per option set: the largest fixtures have tens of thousands of option sets.
@@ -32,7 +35,7 @@ for (const entry of manifest) {
       const expected = sortKeysDeep(utterances);
       const expectedJson = JSON.stringify(expected);
       for (const options of optionSets) {
-        const actual = sortKeysDeep(stripLocatorDetails(await extractUtterances(fixture.gnd, options as ExtractUtterancesOptions)));
+        const actual = sortKeysDeep(stripLocatorDetails(await extractUtterances(gnd, options as ExtractUtterancesOptions)));
         if (JSON.stringify(actual) !== expectedJson) {
           t.deepEqual(actual, expected, `options: ${JSON.stringify(options)}`);
           return;
