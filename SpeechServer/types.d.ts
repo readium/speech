@@ -1,4 +1,4 @@
-import { TGender, TQuality, TServerVoiceControls } from '../voices/types';
+import { TGender, TQuality, TServerVoiceControls } from '../voices/types.js';
 export interface SpeechServerVoice {
     name: string;
     originalName: string;

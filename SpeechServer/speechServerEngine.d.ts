@@ -1,8 +1,8 @@
-import { ReadiumSpeechPlaybackEngine } from '../engine';
-import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from '../navigator';
-import { ReadiumSpeechUtterance } from '../utterance';
-import { ReadiumSpeechVoice } from '../voices/types';
-import { SpeechServerFormatOptions } from './selectFormat';
+import { ReadiumSpeechPlaybackEngine } from '../engine.js';
+import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from '../navigator.js';
+import { ReadiumSpeechUtterance } from '../utterance.js';
+import { ReadiumSpeechVoice } from '../voices/types.js';
+import { SpeechServerFormatOptions } from './selectFormat.js';
 export interface SpeechServerEndpoints {
     voices: string;
     synthesize: string;

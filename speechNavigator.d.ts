@@ -1,19 +1,19 @@
-import { ReadiumSpeechPlaybackEngine } from './engine';
-import { GndObject } from './gnd/types';
-import { ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from './navigator';
-import { ISpeechDefaults } from './preferences/SpeechDefaults';
-import { ISpeechPreferences, SpeechPreferences } from './preferences/SpeechPreferences';
-import { SpeechPreferencesEditor } from './preferences/SpeechPreferencesEditor';
-import { SpeechSettings } from './preferences/SpeechSettings';
-import { ContextualizationShapeOverrides } from './preferences/verbosityTables';
-import { ReadiumSpeechUtterance } from './utterance';
-import { Contextualizations } from './utterances/types';
-import { SentenceSegmenter } from './utterances/sentenceSegmenter';
-import { ReadiumSpeechVoice } from './voices/types';
+import { ReadiumSpeechPlaybackEngine } from './engine.js';
+import { GuidedNavigationObject } from '@readium/shared';
+import { ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from './navigator.js';
+import { ISpeechDefaults } from './preferences/SpeechDefaults.js';
+import { ISpeechPreferences, SpeechPreferences } from './preferences/SpeechPreferences.js';
+import { SpeechPreferencesEditor } from './preferences/SpeechPreferencesEditor.js';
+import { SpeechSettings } from './preferences/SpeechSettings.js';
+import { ContextualizationShapeOverrides } from './preferences/verbosityTables.js';
+import { ReadiumSpeechUtterance } from './utterance.js';
+import { Contextualizations } from './utterances/types.js';
+import { SentenceSegmenter } from './utterances/sentenceSegmenter.js';
+import { ReadiumSpeechVoice } from './voices/types.js';
 export interface ContextualizationOverrides {
     contextualizations?: Contextualizations;
     shapes?: ContextualizationShapeOverrides;
-    params?: (role: string, node: GndObject) => Record<string, string> | undefined;
+    params?: (role: string, node: GuidedNavigationObject) => Record<string, string> | undefined;
 }
 export interface SegmentationOverrides {
     suppressions?: Record<string, string[]>;
@@ -54,7 +54,7 @@ export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorCon
     setSpeakInContentLanguage(enabled: boolean): void;
     getSpeakInContentLanguage(): boolean;
     loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
-    loadGndContent(nodes: GndObject[]): Promise<void>;
+    loadGndContent(nodes: GuidedNavigationObject[]): Promise<void>;
     private setContentQueue;
     private reextract;
     private resolveResumeIndex;

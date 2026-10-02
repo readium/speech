@@ -1,9 +1,9 @@
-import { GndObject } from '../gnd/types.js';
-export declare function plainTextOf(node: GndObject): string;
+import { GuidedNavigationObject } from '@readium/shared';
+export declare function plainTextOf(node: GuidedNavigationObject): string;
 export interface TableStructure {
     lines: number;
     columns: number;
-    rowNumbers: Map<GndObject, number>;
-    cellHeaders: Map<GndObject, string>;
+    rowNumbers: Map<GuidedNavigationObject, number>;
+    cellHeaders: Map<GuidedNavigationObject, string>;
 }
-export declare function computeTableStructure(rows: GndObject[]): TableStructure;
+export declare function computeTableStructure(rows: GuidedNavigationObject[]): TableStructure;

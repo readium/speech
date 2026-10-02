@@ -1,4 +1,4 @@
-import { GndRole } from '../gnd/types.js';
+import { GndRole } from '@readium/guided-navigation';
 import { ExtractionFormat, LanguageMode, Segmentation } from '../utterances/types.js';
 import { ConfigurablePreferences } from './Configurable.js';
 export type VerbosityPreset = "none" | "few" | "some" | "most" | "custom";

@@ -1,4 +1,4 @@
-import { SpeechServerAudioFormat } from './types';
+import { SpeechServerAudioFormat } from './types.js';
 export type CanPlayTypeResult = "probably" | "maybe" | "";
 export type CanPlayType = (mime: string) => CanPlayTypeResult;
 export declare function mimeTypeForFormat(format: string): string;

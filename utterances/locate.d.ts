@@ -1,10 +1,10 @@
-import { GndObject } from '../gnd/types.js';
-import { DecodedTextref } from '../gnd/textrefFragment.js';
+import { GuidedNavigationObject } from '@readium/shared';
+import { DecodedTextref } from '@readium/guided-navigation';
 import { LocatorOptions } from '../decorator/createLocator.js';
 import { ReadiumSpeechUtterance } from '../utterance.js';
 import { SourceTrace, WalkContext } from './walkContext.js';
 export declare function subLocateFor(nodeRef: DecodedTextref, quoteText: string): LocatorOptions;
-export declare function resolveNodeLocate(node: GndObject, ancestorChains: Map<GndObject, GndObject[]>): {
+export declare function resolveNodeLocate(node: GuidedNavigationObject, ancestorChains: Map<GuidedNavigationObject, GuidedNavigationObject[]>): {
     own: boolean;
     ref: DecodedTextref;
 } | undefined;

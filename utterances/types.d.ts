@@ -1,4 +1,5 @@
-import { GndObject, GndRole } from '../gnd/types.js';
+import { GuidedNavigationObject } from '@readium/shared';
+import { GndRole } from '@readium/guided-navigation';
 import { SentenceSegmenter } from './sentenceSegmenter.js';
 export type ExtractionFormat = "plain" | "ssml";
 export type LanguageMode = "none" | "block-level" | "always";
@@ -10,7 +11,7 @@ export type Contextualizations = Record<GndRole, ContextualizationEntry>;
 export interface ContextualizationOptions {
     contextualizations?: Contextualizations;
     shapes?: Partial<Record<GndRole, "inline" | "block">>;
-    params?: (role: GndRole, node: GndObject) => Record<string, string> | undefined;
+    params?: (role: GndRole, node: GuidedNavigationObject) => Record<string, string> | undefined;
 }
 export type SubstitutionRule = string | {
     pattern: RegExp;

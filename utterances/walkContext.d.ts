@@ -1,5 +1,6 @@
 import { i18n } from 'i18next';
-import { GndObject, GndRole } from '../gnd/types.js';
+import { GuidedNavigationObject } from '@readium/shared';
+import { GndRole } from '@readium/guided-navigation';
 import { LocatorOptions } from '../decorator/createLocator.js';
 import { ReadiumSpeechUtterance } from '../utterance.js';
 import { SentenceSegmenter } from './sentenceSegmenter.js';
@@ -9,7 +10,7 @@ export interface WalkContext {
     skip: ReadonlySet<GndRole>;
     contextualize: ReadonlySet<GndRole>;
     contextualizationShapes: Partial<Record<GndRole, "inline" | "block">>;
-    contextualizationParams?: (role: GndRole, node: GndObject) => Record<string, string> | undefined;
+    contextualizationParams?: (role: GndRole, node: GuidedNavigationObject) => Record<string, string> | undefined;
     format: ExtractionFormat;
     inlineContextualization: boolean;
     language?: LanguageMode;
@@ -18,10 +19,10 @@ export interface WalkContext {
     segmenter: SentenceSegmenter;
     substitutions: SubstitutionTable;
     blockStarts: Set<ReadiumSpeechUtterance>;
-    tableRowNumbers: Map<GndObject, number>;
-    tableCellHeaders: Map<GndObject, string>;
+    tableRowNumbers: Map<GuidedNavigationObject, number>;
+    tableCellHeaders: Map<GuidedNavigationObject, string>;
     synthetic: Set<ReadiumSpeechUtterance>;
-    ancestorChains: Map<GndObject, GndObject[]>;
+    ancestorChains: Map<GuidedNavigationObject, GuidedNavigationObject[]>;
     pendingRange: Map<ReadiumSpeechUtterance, {
         start: number;
         end: number;
@@ -31,10 +32,10 @@ export interface WalkContext {
         trailing?: LocatorOptions;
     }>;
 }
-export type SourceTrace = (GndObject | [GndObject, GndObject] | undefined)[];
+export type SourceTrace = (GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject] | undefined)[];
 export declare const blockLevelRoleSet: ReadonlySet<GndRole>;
 export declare const deferrablePlaceholderRoleSet: ReadonlySet<GndRole>;
 export declare const descriptionFoldingRoleSet: ReadonlySet<GndRole>;
 export declare const valueFoldingRoleSet: ReadonlySet<GndRole>;
 export declare const contentlessRoleSet: ReadonlySet<GndRole>;
-export declare function makeWalkContext(nodes: GndObject[], options: ExtractUtterancesOptions): Promise<WalkContext>;
+export declare function makeWalkContext(nodes: GuidedNavigationObject[], options: ExtractUtterancesOptions): Promise<WalkContext>;

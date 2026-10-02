@@ -1,5 +1,5 @@
 import { Locator } from '@readium/shared';
-import { DomRangeJSON } from '../gnd/textrefFragment.js';
+import { DomRangeJSON } from '@readium/guided-navigation';
 export interface LocatorOptions {
     text?: {
         highlight?: string;

@@ -1,4 +1,4 @@
-import { ReadiumSpeechVoice, TQuality } from './types';
+import { ReadiumSpeechVoice, TQuality } from './types.js';
 export declare const isNoveltyVoice: (voiceName: string, voiceId?: string) => boolean;
 export declare const isVeryLowQualityVoice: (voiceName: string, quality?: TQuality) => boolean;
 export declare const filterOutNoveltyVoices: (voices: ReadiumSpeechVoice[]) => ReadiumSpeechVoice[];

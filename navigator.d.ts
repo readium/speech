@@ -1,9 +1,9 @@
-import { GndObject } from './gnd/types';
-import { Configurable } from './preferences/Configurable';
-import { SpeechPreferences } from './preferences/SpeechPreferences';
-import { SpeechSettings } from './preferences/SpeechSettings';
-import { ReadiumSpeechVoice } from './voices/types';
-import { ReadiumSpeechUtterance } from './utterance';
+import { GuidedNavigationObject } from '@readium/shared';
+import { Configurable } from './preferences/Configurable.js';
+import { SpeechPreferences } from './preferences/SpeechPreferences.js';
+import { SpeechSettings } from './preferences/SpeechSettings.js';
+import { ReadiumSpeechVoice } from './voices/types.js';
+import { ReadiumSpeechUtterance } from './utterance.js';
 export type ReadiumSpeechPlaybackState = "playing" | "paused" | "idle" | "loading" | "ready";
 export interface ReadiumSpeechPlaybackEvent {
     type: "start" | "pause" | "resume" | "end" | "stop" | "skip" | "error" | "boundary" | "mark" | "idle" | "loading" | "ready" | "voiceschanged" | "languagefallback" | "enginefallback" | "enginerecovered";
@@ -16,7 +16,7 @@ export interface ReadiumSpeechNavigatorContract extends Configurable<SpeechSetti
     setSpeakInContentLanguage(enabled: boolean): void;
     getSpeakInContentLanguage(): boolean;
     loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
-    loadGndContent(nodes: GndObject[]): Promise<void>;
+    loadGndContent(nodes: GuidedNavigationObject[]): Promise<void>;
     getCurrentContent(): ReadiumSpeechUtterance | null;
     getContentQueue(): ReadiumSpeechUtterance[];
     play(): void;

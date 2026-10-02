@@ -1,4 +1,4 @@
-import { ReadiumSpeechVoice, TGender, TQuality, TSource } from '../voices/types';
+import { ReadiumSpeechVoice, TGender, TQuality, TSource } from '../voices/types.js';
 /**
  * Options for filtering voices
  */

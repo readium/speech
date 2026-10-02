@@ -1,4 +1,4 @@
-import { GndObject } from '../gnd/types.js';
+import { GuidedNavigationObject } from '@readium/shared';
 import { SubstitutionTable } from './types.js';
 export interface ResolvedNodeText {
     plain?: string;
@@ -6,7 +6,7 @@ export interface ResolvedNodeText {
     language?: string;
 }
 /**
- * Resolves a `GndObject.text` value (a plain string, or a `GndText`
+ * Resolves a `GuidedNavigationObject.text` value (a `GuidedNavigationText`
  * carrying separate plain/SSML variants) into the shape an utterance needs.
  *
  * Mirrors the Readium text object as-is: `plain` and `ssml` are independent
@@ -24,7 +24,7 @@ export interface ResolvedNodeText {
  * text node under it, so this is the only place that document-declared
  * language would otherwise be lost.
  */
-export declare function resolveNodeText(text: GndObject["text"]): ResolvedNodeText | undefined;
+export declare function resolveNodeText(text: GuidedNavigationObject["text"]): ResolvedNodeText | undefined;
 export declare function stripSsmlTags(ssml: string): string;
 export declare function stripSsmlTagsWithMap(ssml: string): {
     plain: string;
@@ -77,7 +77,7 @@ export declare function hasPlaceholder(ssml: string): boolean;
 /**
  * Splits a raw (pre-`stripPlaceholders`) SSML string on its embedded
  * `<readium:TAG id="...">` placeholders, for `inlineContextualization`: each
- * placeholder becomes its own segment (resolved via the `GndObject` sharing
+ * placeholder becomes its own segment (resolved via the `GuidedNavigationObject` sharing
  * its `id`) instead of being spoken after the whole enclosing text.
  */
 export declare function splitOnPlaceholders(ssml: string): SsmlSegment[];

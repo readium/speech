@@ -1,4 +1,4 @@
-import { GndRole } from '../gnd/types.js';
+import { GndRole } from '@readium/guided-navigation';
 import { VerbosityPreset } from './SpeechPreferences.js';
 export declare const skippedAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "custom">, ReadonlySet<GndRole>>>;
 export declare const contextualizedAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "custom">, ReadonlySet<GndRole>>>;

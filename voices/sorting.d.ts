@@ -1,5 +1,5 @@
-import { ReadiumSpeechVoice } from './types';
-import { LanguageWithRegions } from './languages';
+import { ReadiumSpeechVoice } from './types.js';
+import { LanguageWithRegions } from './languages.js';
 /**
  * Create a map of language codes to their respective voice order maps
  * @param voices Array of voices to analyze

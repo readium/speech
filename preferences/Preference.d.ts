@@ -5,10 +5,10 @@ export interface IPreference<T> {
     clear(): void;
 }
 export interface IEnumPreference<T> extends IPreference<T> {
-    supportedValues: T[];
+    supportedValues: readonly T[];
 }
 export interface IRangePreference<T> extends IPreference<T> {
-    supportedRange: [T, T];
+    supportedRange: readonly [T, T];
     step: number;
     increment(): void;
     decrement(): void;
@@ -38,11 +38,11 @@ export declare class EnumPreference<T extends string | number | symbol> extends 
         effectiveValue?: T | null;
         isEffective: boolean;
         onChange: (newValue: T | null | undefined) => void;
-        supportedValues: T[];
+        supportedValues: readonly T[];
     });
     set value(value: T | null | undefined);
     get value(): T | null | undefined;
-    get supportedValues(): T[];
+    get supportedValues(): readonly T[];
 }
 export declare class BooleanPreference extends Preference<boolean> {
     set value(value: boolean | null | undefined);
@@ -61,12 +61,12 @@ export declare class RangePreference<T extends number> extends Preference<T> imp
         effectiveValue?: T | null;
         isEffective: boolean;
         onChange: (newValue: T | null | undefined) => void;
-        supportedRange: [T, T];
+        supportedRange: readonly [T, T];
         step: number;
     });
     set value(value: T | null | undefined);
     get value(): T | null | undefined;
-    get supportedRange(): [T, T];
+    get supportedRange(): readonly [T, T];
     get step(): number;
     increment(): void;
     decrement(): void;

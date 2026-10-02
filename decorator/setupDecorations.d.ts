@@ -1,5 +1,5 @@
 import { DirectCommsChannel, Decorator, DecorationController, DecorationControllerConfig, DecorationStyle } from '@readium/decorator';
-import { LocatorOptions } from './createLocator';
+import { LocatorOptions } from './createLocator.js';
 export interface DecorationInput extends LocatorOptions {
     id: string;
     style: DecorationStyle;

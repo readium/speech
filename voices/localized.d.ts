@@ -1,4 +1,4 @@
-import { TQuality, TLocalizedName } from './types';
+import { TQuality, TLocalizedName } from './types.js';
 interface LocalizedQuality {
     normal: string;
     high: string;

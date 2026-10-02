@@ -1,7 +1,7 @@
-import { ReadiumSpeechPlaybackEngine } from '../engine';
-import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from '../navigator';
-import { ReadiumSpeechUtterance } from '../utterance';
-import { ReadiumSpeechVoice } from '../voices/types';
+import { ReadiumSpeechPlaybackEngine } from '../engine.js';
+import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from '../navigator.js';
+import { ReadiumSpeechUtterance } from '../utterance.js';
+import { ReadiumSpeechVoice } from '../voices/types.js';
 export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     private speechSynthesis;
     private speechSynthesisUtterance;

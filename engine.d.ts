@@ -1,6 +1,6 @@
-import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from './navigator';
-import { ReadiumSpeechUtterance } from './utterance';
-import { ReadiumSpeechVoice } from './voices/types';
+import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from './navigator.js';
+import { ReadiumSpeechUtterance } from './utterance.js';
+import { ReadiumSpeechVoice } from './voices/types.js';
 export interface ReadiumSpeechPlaybackEngine {
     initialize?(): Promise<unknown>;
     loadUtterances(contents: ReadiumSpeechUtterance[], startIndex?: number): void;

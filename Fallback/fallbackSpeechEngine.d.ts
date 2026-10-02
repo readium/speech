@@ -1,8 +1,8 @@
-import { ReadiumSpeechPlaybackEngine } from '../engine';
-import { ReadiumSpeechEngineProvider } from '../provider';
-import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from '../navigator';
-import { ReadiumSpeechUtterance } from '../utterance';
-import { ReadiumSpeechVoice } from '../voices/types';
+import { ReadiumSpeechPlaybackEngine } from '../engine.js';
+import { ReadiumSpeechEngineProvider } from '../provider.js';
+import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from '../navigator.js';
+import { ReadiumSpeechUtterance } from '../utterance.js';
+import { ReadiumSpeechVoice } from '../voices/types.js';
 export interface FallbackSpeechEngineOptions {
     primaryEngine: ReadiumSpeechPlaybackEngine;
     primaryProvider: ReadiumSpeechEngineProvider;

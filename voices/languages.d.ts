@@ -1,4 +1,4 @@
-import { ReadiumSpeechJSONVoice } from './types';
+import { ReadiumSpeechJSONVoice } from './types.js';
 export interface LanguageWithRegions {
     baseLang: string;
     regions: string[];
@@ -47,4 +47,4 @@ export declare const getDefaultRegion: (lang: string) => string;
  * @returns Array of LanguageWithRegions objects with language and region information
  */
 export declare const processLanguages: (languages: string[]) => LanguageWithRegions[];
-export * from './types';
+export * from './types.js';

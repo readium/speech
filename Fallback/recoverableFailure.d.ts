@@ -1,4 +1,4 @@
-import { ReadiumSpeechPlaybackEvent } from '../navigator';
+import { ReadiumSpeechPlaybackEvent } from '../navigator.js';
 export interface ErrorEventDetail {
     message: string;
     recoverable: boolean;

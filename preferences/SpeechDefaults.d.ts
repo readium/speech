@@ -1,4 +1,4 @@
-import { GndRole } from '../gnd/types.js';
+import { GndRole } from '@readium/guided-navigation';
 import { AutoPauseScope, VerbosityPreset } from './SpeechPreferences.js';
 import { ExtractionFormat, LanguageMode, Segmentation } from '../utterances/types.js';
 export interface ISpeechDefaults {
