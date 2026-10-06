@@ -7,6 +7,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ### Fixed
 
 - `segmentation: "sentence"` no longer reconstructs a sentence across a roled container boundary. A `<p>` inside a `<header>` no longer glues onto the paragraph after it, and nav-list entries (toc, pagelist, index, landmarks, loa/loi/lot/lov) no longer glue onto each other. Unroled and `presentation` wrappers still allow joining, so fixed-layout fragments and layout-table cells reconstruct as before.
+- `segmentation: "sentence"` applies abbreviation suppressions to region-tagged languages. `en-US` text now gets the built-in `en` list (no more break after "Mr."), and `segmentation.suppressions` entries for `en` and `en-US` both apply to it. Language keys match case-insensitively.
 
 ## [0.13.0] - 2026-10-02
 

@@ -216,6 +216,49 @@ test("segmentation: sentence merges caller suppressions with built-ins rather th
   );
 });
 
+test("segmentation: sentence applies the primary language's built-in suppressions to a region-tagged language", async (t) => {
+  const gnd = parseMarkup('<p lang="en-US">Mr. Utterson the lawyer was a man.</p>');
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.is(utterances[0].language, "en-US");
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["Mr. Utterson the lawyer was a man."]
+  );
+});
+
+test("segmentation: sentence matches built-in suppressions case-insensitively", async (t) => {
+  const gnd = parseMarkup('<p lang="EN-us">Mr. Utterson the lawyer was a man.</p>');
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.is(utterances[0].language, "EN-us");
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["Mr. Utterson the lawyer was a man."]
+  );
+});
+
+test("segmentation: sentence combines caller suppressions for the primary language and the exact tag", async (t) => {
+  const gnd = parseMarkup('<p lang="en-US">We visited Zqxk. University and Vwbj. College.</p>');
+  const utterances = await extractUtterances(gnd, {
+    format: "plain",
+    segmentation: { mode: "sentence", suppressions: { EN: ["Zqxk."], "en-us": ["Vwbj."] } },
+  });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["We visited Zqxk. University and Vwbj. College."]
+  );
+});
+
+test("segmentation: sentence does not apply a region-tagged language's suppressions to another region", async (t) => {
+  const gnd = parseMarkup('<p lang="en-GB">We visited Zqxk. University last year.</p>');
+  const withoutSuppressions = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  const withOtherRegionSuppressions = await extractUtterances(gnd, {
+    format: "plain",
+    segmentation: { mode: "sentence", suppressions: { "en-US": ["Zqxk."] } },
+  });
+  t.true(withoutSuppressions.length > 1, "baseline: an unrecognized token isn't specially suppressed");
+  t.deepEqual(withOtherRegionSuppressions, withoutSuppressions);
+});
+
 test("segmentation: sentence reconstructs a sentence split across two sibling paragraphs", async (t) => {
   const gnd = parseMarkup("<p>This sentence continues</p><p>across two paragraphs.</p>");
   const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
@@ -522,4 +565,18 @@ test("segmentation: sentence passes the configured suppressions through to a cal
     segmentation: { mode: "sentence", segmenter: recordingSegmenter, suppressions: { en: ["Zqxk."] } },
   });
   t.deepEqual(received, [["Zqxk."]]);
+});
+
+test("segmentation: sentence passes undefined suppressions to a caller-supplied segmenter when none match the language", async (t) => {
+  const received: (string[] | undefined)[] = [];
+  const recordingSegmenter: SentenceSegmenter = async (language, text, customSuppressions) => {
+    received.push(customSuppressions);
+    return commaSegmenter(language, text, customSuppressions);
+  };
+  const gnd = parseMarkup("<p>Apples, oranges, bananas.</p>");
+  await extractUtterances(gnd, {
+    format: "plain",
+    segmentation: { mode: "sentence", segmenter: recordingSegmenter, suppressions: { fr: ["Zqxk."] } },
+  });
+  t.deepEqual(received, [undefined]);
 });

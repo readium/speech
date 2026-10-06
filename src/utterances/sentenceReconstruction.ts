@@ -1,6 +1,7 @@
 import type { GuidedNavigationObject } from "@readium/shared";
 import { isAriaSubstituted, type GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
+import { entriesForLanguage } from "../utils/language.js";
 import { nodeRoles } from "./nodeFields.js";
 import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
 import { joinPieceTexts, plainOf, substitutedBareLocate } from "./mergeUtterances.js";
@@ -16,7 +17,7 @@ async function sentenceFragmentsOf(
   ctx: WalkContext,
 ): Promise<{ text: string; start: number; end: number }[] | undefined> {
   const language = utterance.language ?? "en";
-  const customSuppressions = ctx.segmentationSuppressions[language];
+  const customSuppressions = entriesForLanguage(ctx.segmentationSuppressions, language);
   const sourceText = ctx.format === "ssml" ? utterance.ssml : utterance.plain;
   if (!sourceText) return undefined;
   const boundaries = await ctx.segmenter(language, plainOf(sourceText, ctx.format), customSuppressions);
@@ -209,7 +210,7 @@ async function pushJoinedGroup(
   newSources: SourceTrace,
 ): Promise<void> {
   const language = pieces[0].language ?? "en";
-  const suppressions = ctx.segmentationSuppressions[language];
+  const suppressions = entriesForLanguage(ctx.segmentationSuppressions, language);
   const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
   const { joined: joinedPlain, ranges } = joinPieceTexts(plainParts);
   const boundaries = await ctx.segmenter(language, joinedPlain, suppressions);
@@ -274,7 +275,7 @@ export async function splitIntoSentenceUtterances(
     const pieces = out.slice(i, j + 1);
     const pieceSources = sources.slice(i, j + 1) as GuidedNavigationObject[];
     const language = pieces[0].language ?? "en";
-    const joinedWithNext = await detectGenuineJoins(pieces, ctx, language, ctx.segmentationSuppressions[language]);
+    const joinedWithNext = await detectGenuineJoins(pieces, ctx, language, entriesForLanguage(ctx.segmentationSuppressions, language));
     let start = 0;
     for (let k = 0; k < pieces.length; k++) {
       if (k < pieces.length - 1 && joinedWithNext[k]) continue;
