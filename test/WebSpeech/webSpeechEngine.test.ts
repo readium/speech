@@ -1,0 +1,133 @@
+import test from "ava";
+import { WebSpeechEngine } from "../../build/index.js";
+
+class MockUtterance {
+  voice: any = null;
+  lang = "";
+  rate = 1;
+  pitch = 1;
+  volume = 1;
+  onstart: (() => void) | null = null;
+  onend: (() => void) | null = null;
+  onerror: ((event: any) => void) | null = null;
+  onpause: (() => void) | null = null;
+  onresume: (() => void) | null = null;
+  onboundary: ((event: any) => void) | null = null;
+  onmark: ((event: any) => void) | null = null;
+  constructor(public text: string) {}
+}
+
+interface MockSynth {
+  spoken: MockUtterance[];
+  calls: string[];
+}
+
+function setWebSpeechGlobals(): MockSynth {
+  if (typeof (globalThis as any).window === "undefined") {
+    (globalThis as any).window = globalThis;
+  }
+  const synth: MockSynth = { spoken: [], calls: [] };
+  (globalThis as any).window.SpeechSynthesisUtterance = MockUtterance;
+  (globalThis as any).window.speechSynthesis = {
+    speaking: false,
+    paused: false,
+    onvoiceschanged: null,
+    getVoices: () => [],
+    speak: (u: MockUtterance) => { synth.calls.push("speak"); synth.spoken.push(u); },
+    cancel: () => { synth.calls.push("cancel"); },
+    pause: () => { synth.calls.push("pause"); },
+    resume: () => { synth.calls.push("resume"); },
+    addEventListener: () => {},
+    removeEventListener: () => {}
+  };
+  return synth;
+}
+
+const flush = () => new Promise<void>(resolve => setTimeout(resolve, 0));
+
+function makeVoice(name: string) {
+  return { source: "json", label: name, name, originalName: name, language: "en-US", identifier: name } as any;
+}
+
+async function speakThenPause(engine: WebSpeechEngine, synth: MockSynth) {
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }], 1);
+  engine.speak();
+  await flush();
+  engine.pause();
+  synth.calls.length = 0;
+}
+
+test.serial("resume without a parameter change while paused resumes natively", async (t) => {
+  const synth = setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  await speakThenPause(engine, synth);
+
+  engine.resume();
+  await flush();
+
+  t.deepEqual(synth.calls, ["resume"]);
+});
+
+test.serial("setRate while paused restarts the paused utterance with the new rate on resume", async (t) => {
+  const synth = setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  await speakThenPause(engine, synth);
+
+  engine.setRate(2);
+  await flush();
+  t.deepEqual(synth.calls, [], "paused — no restart yet");
+
+  engine.resume();
+  await flush();
+
+  t.false(synth.calls.includes("resume"), "the native utterance with the old rate is not resumed");
+  const last = synth.spoken[synth.spoken.length - 1];
+  t.is(last.text, "Second.");
+  t.is(last.rate, 2);
+});
+
+test.serial("setPitch and setVolume while paused apply on resume", async (t) => {
+  const synth = setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  await speakThenPause(engine, synth);
+
+  engine.setPitch(1.5);
+  engine.setVolume(0.5);
+  engine.resume();
+  await flush();
+
+  const last = synth.spoken[synth.spoken.length - 1];
+  t.is(last.pitch, 1.5);
+  t.is(last.volume, 0.5);
+});
+
+test.serial("setVoice while paused applies on resume and keeps the current position", async (t) => {
+  const synth = setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  await engine.setVoice(makeVoice("A"));
+  await speakThenPause(engine, synth);
+
+  await engine.setVoice(makeVoice("B"));
+  t.is(engine.getCurrentUtteranceIndex(), 1);
+
+  engine.resume();
+  await flush();
+
+  t.false(synth.calls.includes("resume"));
+  t.is(synth.spoken[synth.spoken.length - 1].text, "Second.");
+});
+
+test.serial("setRate while playing restarts the current utterance with the new rate", async (t) => {
+  const synth = setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  engine.loadUtterances([{ plain: "First." }]);
+  engine.speak();
+  await flush();
+  const before = synth.spoken.length;
+
+  engine.setRate(2);
+  await flush();
+
+  t.is(synth.spoken.length, before + 1);
+  t.is(synth.spoken[synth.spoken.length - 1].rate, 2);
+});

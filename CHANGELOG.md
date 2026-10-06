@@ -8,6 +8,12 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 - `segmentation: "sentence"` no longer reconstructs a sentence across a roled container boundary. A `<p>` inside a `<header>` no longer glues onto the paragraph after it, and nav-list entries (toc, pagelist, index, landmarks, loa/loi/lot/lov) no longer glue onto each other. Unroled and `presentation` wrappers still allow joining, so fixed-layout fragments and layout-table cells reconstruct as before.
 - `segmentation: "sentence"` applies abbreviation suppressions to region-tagged languages. `en-US` text now gets the built-in `en` list (no more break after "Mr."), and `segmentation.suppressions` entries for `en` and `en-US` both apply to it. Language keys match case-insensitively.
+- Changing rate, pitch, volume, voice or content language while paused now applies on resume. Previously the paused utterance resumed with its old settings, and the change only took effect from the next utterance.
+- Changing voice or content language while speaking now restarts the current utterance with the new setting, like rate and pitch already did.
+
+### Changed
+
+- `WebSpeechEngine.setVoice()` no longer jumps back to the first utterance when the voice changes; the current position is kept.
 
 ## [0.13.0] - 2026-10-02
 

@@ -246,10 +246,12 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   setSpeakInContentLanguage(enabled: boolean): void {
+    if (enabled === this.speakInContentLanguage) return;
     this.speakInContentLanguage = enabled;
     if (enabled) {
       void this.warmLanguageVoiceCache(this.currentUtterances);
     }
+    this.scheduleRestartIfSpeaking();
   }
 
   getSpeakInContentLanguage(): boolean {
@@ -286,19 +288,11 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       const foundVoice = this.voices.find(v => v.name === voice || v.language === voice);
       if (foundVoice) {
         this.currentVoice = foundVoice;
-        // Reset position when voice changes for fresh start with new voice
-        if (previousVoice && previousVoice.name !== foundVoice.name) {
-          this.currentUtteranceIndex = 0;
-        }
       } else {
         console.warn(`Voice "${voice}" not found`);
       }
     } else {
       this.currentVoice = voice;
-      // Reset position when voice changes for fresh start with new voice
-      if (previousVoice && previousVoice.name !== voice.name) {
-        this.currentUtteranceIndex = 0;
-      }
     }
 
     // Update default voice if language changed
@@ -308,6 +302,10 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.currentVoice.language !== this.defaultVoice.language
     ) {
       this.defaultVoice = await this.voiceManager.getDefaultVoice([this.currentVoice.language], this.voices);
+    }
+
+    if (this.currentVoice?.name !== previousVoice?.name) {
+      this.scheduleRestartIfSpeaking();
     }
   }
 
@@ -669,10 +667,13 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return this.volume;
   }
 
-  // rate/pitch/volume are baked into the SpeechSynthesisUtterance object once, at speak()-time —
-  // restart the in-flight one so a change applies now instead of waiting for the next utterance.
-  // Coalesces multiple same-tick changes (e.g. rate+pitch together) into a single restart.
+  // Voice, language, rate, pitch and volume are baked into the SpeechSynthesisUtterance at speak()-time:
+  // restart it so a change applies now (or on resume when paused). Same-tick changes coalesce.
   private scheduleRestartIfSpeaking(): void {
+    if (this.playbackState === "paused") {
+      this.pausedAtUtteranceIndex = null; // makes resume() restart instead of resuming natively
+      return;
+    }
     if (!this.isSpeakingInternal || this.restartPending) return;
     this.restartPending = true;
     queueMicrotask(() => {
