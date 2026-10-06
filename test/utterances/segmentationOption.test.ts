@@ -349,6 +349,36 @@ test("segmentation: sentence never reconstructs across a table cell boundary", a
   );
 });
 
+test("segmentation: sentence never reconstructs out of a header into the paragraph after it", async (t) => {
+  const gnd = parseMarkup("<header><h1>Title</h1><p>A subtitle</p></header><p>First sentence. Second one.</p>");
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["Title", "A subtitle", "First sentence.", "Second one."]
+  );
+});
+
+test("segmentation: sentence never reconstructs across a section boundary", async (t) => {
+  const gnd = parseMarkup("<section><p>The end of one section</p></section><section><p>the start of another.</p></section>");
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["The end of one section", "the start of another."]
+  );
+});
+
+test("segmentation: sentence still reconstructs across fragments under different unroled parents", async (t) => {
+  const gnd = parseMarkup(
+    "<div><div><span>This sentence begins</span><span> in one column</span></div>" +
+      "<div><span>and ends</span><span> in another.</span></div></div>"
+  );
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["This sentence begins in one column and ends in another."]
+  );
+});
+
 test("segmentation: sentence never merges an aria-label substitution into the next paragraph regardless of role", async (t) => {
   const doc = new DOMParser().parseFromString(
     `<body><p>Into speech. <a href="#gloss" aria-label="see glossary entry">*</a></p>` +

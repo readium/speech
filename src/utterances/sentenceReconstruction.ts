@@ -51,6 +51,17 @@ function rolesOf(source: GuidedNavigationObject | [GuidedNavigationObject, Guide
   return nodeRoles(Array.isArray(source) ? source[1] : source);
 }
 
+// Ancestors carrying a semantic role, at the given edge of a source; unroled and
+// `presentation` wrappers (e.g. fixed-layout `<div>`s, layout tables) are not boundaries.
+function roledAncestors(source: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject], edge: "leading" | "trailing", ctx: WalkContext): GuidedNavigationObject[] {
+  const node = Array.isArray(source) ? source[edge === "leading" ? 0 : 1] : source;
+  return (ctx.ancestorChains.get(node) ?? []).filter((ancestor) => nodeRoles(ancestor).some((role) => role !== "presentation"));
+}
+
+function sameRoledContainers(a: GuidedNavigationObject[], b: GuidedNavigationObject[]): boolean {
+  return a.length === b.length && a.every((ancestor, i) => ancestor === b[i]);
+}
+
 // Whether `utterance`'s leading/trailing text is an aria substitution rather
 // than real prose — such text must never join into a neighbor.
 function isSubstitutedEdge(
@@ -81,6 +92,7 @@ function canExtendRun(
   if ((prev.language ?? "en") !== (next.language ?? "en")) return false;
   if (rolesOf(prevSource).some((role) => neverJoinRoles.has(role))) return false;
   if (rolesOf(nextSource).some((role) => neverJoinRoles.has(role))) return false;
+  if (!sameRoledContainers(roledAncestors(prevSource, "trailing", ctx), roledAncestors(nextSource, "leading", ctx))) return false;
   if (isSubstitutedEdge(prevSource, prev, "trailing", ctx)) return false;
   if (isSubstitutedEdge(nextSource, next, "leading", ctx)) return false;
   return true;

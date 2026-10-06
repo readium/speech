@@ -78,16 +78,16 @@
       ],
       "utterances": [
         {
-          "plain": "Table 1.",
-          "language": "en"
+          "plain": "Table 1."
         },
         {
-          "plain": "Lighthouse construction dates Table 2.",
-          "language": "en"
+          "plain": "Lighthouse construction dates"
         },
         {
-          "plain": "Keeper staffing by decade",
-          "language": "en"
+          "plain": "Table 2."
+        },
+        {
+          "plain": "Keeper staffing by decade"
         }
       ]
     },
@@ -257,16 +257,16 @@
           "plain": "Start of the list."
         },
         {
-          "plain": "Table 1.",
-          "language": "en"
+          "plain": "Table 1."
         },
         {
-          "plain": "Lighthouse construction dates Table 2.",
-          "language": "en"
+          "plain": "Lighthouse construction dates"
         },
         {
-          "plain": "Keeper staffing by decade",
-          "language": "en"
+          "plain": "Table 2."
+        },
+        {
+          "plain": "Keeper staffing by decade"
         },
         {
           "plain": "End of the list."
@@ -1468,16 +1468,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Table 1.",
-          "language": "en"
+          "ssml": "Table 1."
         },
         {
-          "ssml": "Lighthouse construction dates Table 2.",
-          "language": "en"
+          "ssml": "Lighthouse construction dates"
         },
         {
-          "ssml": "Keeper staffing by decade",
-          "language": "en"
+          "ssml": "Table 2."
+        },
+        {
+          "ssml": "Keeper staffing by decade"
         }
       ]
     },
@@ -1647,16 +1647,16 @@
           "ssml": "Start of the list."
         },
         {
-          "ssml": "Table 1.",
-          "language": "en"
+          "ssml": "Table 1."
         },
         {
-          "ssml": "Lighthouse construction dates Table 2.",
-          "language": "en"
+          "ssml": "Lighthouse construction dates"
         },
         {
-          "ssml": "Keeper staffing by decade",
-          "language": "en"
+          "ssml": "Table 2."
+        },
+        {
+          "ssml": "Keeper staffing by decade"
         },
         {
           "ssml": "End of the list."
