@@ -369,7 +369,14 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   pause(): void {
     if (this.navigatorState === "playing") {
-      this.clearPendingAdvance();
+      if (this.pendingAdvanceTimeout !== null) {
+        // Between utterances the engine has nothing to pause, so play() must speak() the next one instead.
+        this.clearPendingAdvance();
+        this.pendingAutoPauseIndex = this.getCurrentUtteranceIndex() + 1;
+        this.setNavigatorState("paused");
+        this.emitEvent({ type: "pause" });
+        return;
+      }
       this.pendingAutoPauseIndex = null;
       this.setNavigatorState("paused");
       this.engine.pause();

@@ -238,6 +238,75 @@ test("content ending naturally resets to utterance 0, so a later play() restarts
   t.is(engine.speakCalls.length, 1, "play() from idle calls speak() to restart");
 });
 
+test("pause during the pauseDuration gap continues with the next utterance on play()", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([
+    { plain: "First.", language: "en" },
+    { plain: "Second.", language: "en" },
+  ]);
+  engine.emit({ type: "ready" });
+  await navigator.submitPreferences(new SpeechPreferences({ pauseDuration: 60 }));
+  const pauses: string[] = [];
+  navigator.on("pause", () => pauses.push("pause"));
+
+  navigator.play();
+  engine.emit({ type: "end" });
+  navigator.pause();
+
+  t.is(navigator.getState(), "paused");
+  t.is(engine.pauseCalls, 0, "the engine has nothing to pause between utterances");
+  t.deepEqual(pauses, ["pause"]);
+
+  await new Promise((resolve) => setTimeout(resolve, 120));
+  t.is(engine.speakCalls.length, 1, "the pending advance was cancelled");
+
+  navigator.play();
+  t.is(navigator.getState(), "playing");
+  t.is(engine.resumeCalls, 0);
+  t.is(engine.speakCalls.length, 2);
+  t.is(engine.getCurrentUtteranceIndex(), 1);
+});
+
+test("next() while paused during the pauseDuration gap is the utterance spoken on play()", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([
+    { plain: "First.", language: "en" },
+    { plain: "Second.", language: "en" },
+    { plain: "Third.", language: "en" },
+  ]);
+  engine.emit({ type: "ready" });
+  await navigator.submitPreferences(new SpeechPreferences({ pauseDuration: 60 }));
+
+  navigator.play();
+  engine.emit({ type: "end" });
+  navigator.pause();
+  navigator.next();
+
+  navigator.play();
+  t.is(engine.speakCalls.length, 2);
+  t.is(engine.getCurrentUtteranceIndex(), 1);
+});
+
+test("pause mid-utterance pauses and resumes the engine", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([
+    { plain: "First.", language: "en" },
+    { plain: "Second.", language: "en" },
+  ]);
+  engine.emit({ type: "ready" });
+
+  navigator.play();
+  navigator.pause();
+  t.is(engine.pauseCalls, 1);
+
+  navigator.play();
+  t.is(engine.resumeCalls, 1);
+  t.is(engine.speakCalls.length, 1, "resumed, not re-spoken");
+});
+
 test("autoPause 'utterance' fully pauses instead of continuing automatically", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);

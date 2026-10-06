@@ -10,6 +10,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - `segmentation: "sentence"` applies abbreviation suppressions to region-tagged languages. `en-US` text now gets the built-in `en` list (no more break after "Mr."), and `segmentation.suppressions` entries for `en` and `en-US` both apply to it. Language keys match case-insensitively.
 - Changing rate, pitch, volume, voice or content language while paused now applies on resume. Previously the paused utterance resumed with its old settings, and the change only took effect from the next utterance.
 - Changing voice or content language while speaking now restarts the current utterance with the new setting, like rate and pitch already did.
+- Pausing during `pauseDuration` between utterances no longer stalls playback on resume; it continues with the next utterance.
 
 ### Changed
 
