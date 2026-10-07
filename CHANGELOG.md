@@ -2,7 +2,12 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
-## [0.13.1] - 2026-10-06
+## [0.14.0] - 2026-10-07
+
+### Added
+
+- Voice filtering helpers: `filterByLanguages`, `filterOutNoveltyVoices`, `filterOutVeryLowQualityVoices`, `isNoveltyVoice`, `isVeryLowQualityVoice`, `filterByBoundarySupport`.
+- Voice sorting helpers: `sortByQuality`, `sortByPreferredRegion`, `sortAlphabetically`, `sortVoicesByRegions`, `groupVoicesByLanguage`, `pickBestVoiceByRegion`, `compareByPreferredRegion`, `compareAlphabetically`, `getQualityValue`, `createJsonOrderMap`.
 
 ### Fixed
 
