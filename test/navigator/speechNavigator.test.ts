@@ -102,6 +102,21 @@ test.serial("submitPreferences warns when an extraction-affecting preference has
   t.true(String(calls[0][0]).includes("no effect on content loaded via loadContent()"));
 });
 
+test.serial("submitPreferences does not warn when no content has been loaded yet", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+
+  const calls: unknown[][] = [];
+  const original = console.warn;
+  console.warn = (...args: unknown[]) => calls.push(args);
+  try {
+    await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  } finally {
+    console.warn = original;
+  }
+  t.is(calls.length, 0);
+});
+
 test.serial("submitPreferences does not warn for prosody-only preferences on plain loadContent", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);

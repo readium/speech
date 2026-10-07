@@ -499,7 +499,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   async submitPreferences(preferences: SpeechPreferences): Promise<void> {
-    if (!this.source && extractionPreferenceKeys.some((key) => preferences[key] !== undefined)) {
+    if (!this.source && this.contentQueue.length > 0 && extractionPreferenceKeys.some((key) => preferences[key] !== undefined)) {
       console.warn(
         "submitPreferences(): extraction-affecting preferences (format, inlineContextualization, verbosity, skip, contextualize, language, segmentation) have no effect on content loaded via loadContent() — use loadGndContent() to re-extract on submission.",
       );
