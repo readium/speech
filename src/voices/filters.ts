@@ -35,3 +35,29 @@ export const filterOutVeryLowQualityVoices = (voices: ReadiumSpeechVoice[]): Rea
   if (!voices?.length) return [];
   return voices.filter(voice => !isVeryLowQualityVoice(voice.name, voice.quality));
 }
+
+/**
+ * Keeps voices whose language or alternative language matches one of `languages`,
+ * either exactly or by base language (e.g. "en" or "en-US" keep "en-GB").
+ */
+export const filterByLanguages = (voices: ReadiumSpeechVoice[], languages: string | string[]): ReadiumSpeechVoice[] => {
+  const langs = Array.isArray(languages) ? languages : [languages];
+
+  return voices.filter(voice => {
+    return langs.some(requestedLang => {
+      const reqLang = requestedLang.toLowerCase();
+      const voiceLang = voice.language?.toLowerCase();
+      const voiceAltLang = voice.altLanguage?.toLowerCase();
+
+      // Check direct matches first
+      if (voiceLang === reqLang || voiceAltLang === reqLang) {
+        return true;
+      }
+
+      // Then check base language matches
+      const [reqBase] = reqLang.split("-");
+      return (voiceLang && voiceLang.startsWith(reqBase)) ||
+             (voiceAltLang && voiceAltLang.startsWith(reqBase));
+    });
+  });
+}

@@ -13,6 +13,8 @@ export { chineseVariantMap } from "./voices/languages.js";
 
 // Other exports
 export * from "./voices/types.js";
+export * from "./voices/filters.js";
+export * from "./voices/sorting.js";
 export * from "./engine.js";
 export * from "./navigator.js";
 export * from "./provider.js";
