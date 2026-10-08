@@ -1585,7 +1585,7 @@ class dt {
   utterancesBeingCancelled = !1;
   // Flag to track if utterances are being cancelled
   lacksNativePauseEvents = !1;
-  // Google online voices in desktop Chrome never fire onpause/onresume
+  // Google and Chrome OS voices never fire onpause/onresume
   // Playback parameters
   rate = 1;
   pitch = 1;
@@ -1761,7 +1761,7 @@ class dt {
     if (e === this.speakGeneration) {
       if (this.lacksNativePauseEvents = !1, a && this.voiceManager) {
         const r = this.voiceManager.convertToSpeechSynthesisVoice(a);
-        r && (i.voice = r, i.lang = r.lang, this.lacksNativePauseEvents = !r.localService && r.name.startsWith("Google"));
+        r && (i.voice = r, i.lang = r.lang, this.lacksNativePauseEvents = r.name.startsWith("Google") || r.name.startsWith("Chrome OS"));
       }
       t.language && (i.lang = t.language), i.rate = this.rate, i.pitch = this.pitch, i.volume = this.volume, i.onstart = () => {
         if (e !== this.speakGeneration) return;
