@@ -277,6 +277,11 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
           const match = voices.find(v => v.identifier === voice || v.name === voice);
           if (match) {
             this.currentVoice = match;
+            // The placeholder has no `controls` and may carry a name as identifier: re-synthesize if that changed anything.
+            if (match.identifier !== voice || match.controls?.speed === true) {
+              this.clearPrefetchCache();
+              this.scheduleRestartIfSpeaking();
+            }
           }
         }).catch(() => {});
       }

@@ -625,6 +625,29 @@ test.serial("setVoice(string) with an uncached identifier resolves controls.spee
   t.is(MockAudioBufferSourceNode.instances[0].playbackRate.value, 1, "server-honored speed is trusted, not doubled with a local fallback");
 });
 
+test.serial("setVoice(string) with an uncached identifier while speaking restarts again once the real voice resolves", async (t) => {
+  let resolveVoices!: () => void;
+  const voicesReady = new Promise<void>(resolve => { resolveVoices = resolve; });
+  const { fetchImpl } = createMockFetch({
+    voices: async () => { await voicesReady; return [makeServerVoice()]; },
+    service: () => ({ json: { ...defaultServiceInfo(), providers: [{ id: "pocket", installedLanguages: ["en"], controls: { speed: true } }] } }),
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl });
+  engine.setRate(2);
+  engine.loadUtterances([{ plain: "Hello" }]);
+  engine.speak();
+  await flush();
+
+  engine.setVoice("urn:readium:tts:pocket:alba");
+  await flush();
+  t.is(MockAudioBufferSourceNode.instances.at(-1)!.playbackRate.value, 2, "placeholder has no controls, so the rate is faked locally");
+
+  resolveVoices();
+  await flush();
+  t.is(MockAudioBufferSourceNode.instances.at(-1)!.playbackRate.value, 1, "restarted with the resolved voice, whose server-side speed isn't doubled");
+});
+
 test.serial("setVoice(string) called again before the background voice lookup resolves doesn't get overwritten by the stale lookup", async (t) => {
   const { fetchImpl } = createMockFetch({
     voices: () => [
