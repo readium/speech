@@ -290,7 +290,7 @@ A supplied `segmenter` fully replaces the built-in one — it's handed the same 
 
 #### Reconstruction heuristics
 
-Input: the flat, ordered utterance list the walk (above) produced. Reconstruction never goes back to the GND tree — it operates on this list only.
+Input: the flat, ordered utterance list the walk (above) produced, plus each utterance's source node's ancestors in the GND tree.
 
 **Step 1 — eligibility.** For each pair of adjacent utterances A, B, A may extend a run into B only if all of the following hold:
 
@@ -298,6 +298,7 @@ Input: the flat, ordered utterance list the walk (above) produced. Reconstructio
 - Neither A nor B was authored by extraction itself rather than lifted from the source — e.g. an image's `description` (its alt text) is extraction-authored, since it stands in for text the document doesn't have.
 - A and B have the same `language`, treating a missing `language` on either one as `"en"`.
 - Neither A's nor B's source node carries a role where missing punctuation is not meaningful: `cell`, `rowheader`, `row`, `table`, `list`, `listItem`, `heading1`–`heading6`.
+- A and B sit in the same roled containers: no ancestor with a role other than `presentation` holds one but not the other. `<p>A subtitle</p>` inside a `<header>` never joins the `<p>` after it, and neither do two `listItem`s. Unroled and `presentation` wrappers don't count, so fixed-layout fragments under separate positioning `<div>`s still join.
 
 A maximal run of pairwise-eligible utterances is built by scanning forward while eligibility holds.
 

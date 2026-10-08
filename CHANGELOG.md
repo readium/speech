@@ -2,6 +2,31 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.14.0] - 2026-10-08
+
+### Added
+
+- Voice filtering helpers: `filterByLanguages`, `filterOutNoveltyVoices`, `filterOutVeryLowQualityVoices`, `isNoveltyVoice`, `isVeryLowQualityVoice`, `filterByBoundarySupport`.
+- Voice sorting helpers: `sortByQuality`, `sortByPreferredRegion`, `sortAlphabetically`, `sortVoicesByRegions`, `groupVoicesByLanguage`, `pickBestVoiceByRegion`, `compareByPreferredRegion`, `compareAlphabetically`, `getQualityValue`, `createJsonOrderMap`.
+
+### Fixed
+
+- `segmentation: "sentence"` no longer reconstructs a sentence across a roled container boundary. A `<p>` inside a `<header>` no longer glues onto the paragraph after it, and nav-list entries (toc, pagelist, index, landmarks, loa/loi/lot/lov) no longer glue onto each other. Unroled and `presentation` wrappers still allow joining, so fixed-layout fragments and layout-table cells reconstruct as before.
+- `segmentation: "sentence"` applies abbreviation suppressions to region-tagged languages. `en-US` text now gets the built-in `en` list (no more break after "Mr."), and `segmentation.suppressions` entries for `en` and `en-US` both apply to it. Language keys match case-insensitively.
+- Changing rate, pitch, volume, voice or content language while paused now applies on resume. Previously the paused utterance resumed with its old settings, and the change only took effect from the next utterance.
+- Changing voice or content language while speaking now restarts the current utterance with the new setting, like rate and pitch already did.
+- `WebSpeechEngine`: a restarted utterance is no longer cut off by late events (e.g. `interrupted`) from the utterance it replaced.
+- `WebSpeechEngine` emits `pause` and `resume` for Google online voices in desktop Chrome, which never fire the native `onpause`/`onresume`.
+- `WebSpeechEngine.setCurrentUtteranceIndex()` calls `onComplete(true)` when the index is unchanged, like `SpeechServerEngine`. Previously it never called it.
+- `SpeechServerEngine`: changing voice or content language while paused on a long, split utterance no longer emits an `error` that stopped playback, and setting the current voice again no longer interrupts it.
+- `play()` after an extraction-affecting `submitPreferences()` made while paused now resumes playback, instead of staying silent.
+- Pausing during `pauseDuration` between utterances no longer stalls playback on resume; it continues with the next utterance.
+- `submitPreferences()` no longer warns that extraction-affecting preferences have no effect when no content has been loaded yet. The warning now only fires for content loaded via `loadContent()`.
+
+### Changed
+
+- `WebSpeechEngine.setVoice()` no longer jumps back to the first utterance when the voice changes; the current position is kept.
+
 ## [0.13.0] - 2026-10-02
 
 ### Added
