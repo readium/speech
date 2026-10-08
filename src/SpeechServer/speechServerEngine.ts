@@ -283,9 +283,8 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     } else {
       this.currentVoice = voice;
     }
-    this.abortLiveControllers();
-    this.clearPrefetchCache();
     if (this.currentVoice?.identifier !== previousIdentifier) {
+      this.clearPrefetchCache();
       this.scheduleRestartIfSpeaking();
     }
   }
@@ -336,7 +335,6 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   setSpeakInContentLanguage(enabled: boolean): void {
     if (enabled === this.speakInContentLanguage) return;
     this.speakInContentLanguage = enabled;
-    this.abortLiveControllers();
     this.clearPrefetchCache();
     this.scheduleRestartIfSpeaking();
   }

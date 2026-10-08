@@ -1555,6 +1555,88 @@ test.serial("resume without a parameter change while paused does not re-synthesi
   t.is(engine.getState(), "playing");
 });
 
+// One utterance split into several /synthesize requests: the first resolves, later ones hang until aborted.
+function createSplitUtteranceEngine() {
+  const maxTextLength = 20;
+  const synthBodies: any[] = [];
+  const fetchImpl = (async (url: string, init?: any) => {
+    if (url.endsWith("/service")) {
+      return { ok: true, status: 200, headers: { get: () => "application/json" }, json: async () => ({ ...defaultServiceInfo(), limits: { maxTextLength, maxConcurrentSyntheses: 2 } }) };
+    }
+    if (!url.endsWith("/synthesize")) {
+      throw new Error(`Unhandled mock fetch URL: ${url}`);
+    }
+    synthBodies.push(JSON.parse(init.body));
+    if (synthBodies.length > 1) {
+      await new Promise<void>((_resolve, reject) => {
+        init.signal.addEventListener("abort", () => reject(new DOMException("Aborted", "AbortError")));
+      });
+    }
+    return { ok: true, status: 200, headers: { get: () => "application/json" }, json: async () => ({ audio: wavBase64(), format: "wav", boundaries: null }) };
+  }) as unknown as typeof fetch;
+
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0, readyBufferChars: 5 });
+  engine.loadUtterances([{ plain: "First sentence here now. Second sentence follows too.", language: "en-US" }]);
+  const errors: any[] = [];
+  engine.on("error", (e: any) => errors.push(e.detail));
+  return { engine, synthBodies, errors };
+}
+
+test.serial("setVoice while paused mid-download of a split utterance emits no error and applies on resume", async (t) => {
+  const { engine, synthBodies, errors } = createSplitUtteranceEngine();
+  engine.speak(0);
+  await flush();
+  engine.pause();
+  t.true(synthBodies.length > 1, "sanity check: a later chunk is still in flight");
+
+  engine.setVoice(makeServerVoice({ identifier: "urn:readium:tts:pocket:other" }) as any);
+  await flush();
+  t.deepEqual(errors, []);
+  t.is(engine.getState(), "paused");
+
+  const before = synthBodies.length;
+  engine.resume();
+  await flush();
+  t.true(synthBodies.length > before, "resume re-synthesizes the paused utterance");
+  t.is(synthBodies[before].voice, "urn:readium:tts:pocket:other");
+  t.deepEqual(errors, []);
+});
+
+test.serial("setSpeakInContentLanguage while paused mid-download of a split utterance emits no error and applies on resume", async (t) => {
+  const { engine, synthBodies, errors } = createSplitUtteranceEngine();
+  engine.speak(0);
+  await flush();
+  engine.pause();
+
+  engine.setSpeakInContentLanguage(true);
+  await flush();
+  t.deepEqual(errors, []);
+  t.is(engine.getState(), "paused");
+
+  const before = synthBodies.length;
+  engine.resume();
+  await flush();
+  t.true(synthBodies.length > before, "resume re-synthesizes the paused utterance");
+  t.is(synthBodies[before].language, "en-US");
+  t.deepEqual(errors, []);
+});
+
+test.serial("setVoice with the current voice while playing a split utterance does not interrupt it", async (t) => {
+  const { engine, synthBodies, errors } = createSplitUtteranceEngine();
+  const voice = makeServerVoice() as any;
+  engine.setVoice(voice);
+  engine.speak(0);
+  await flush();
+  const before = synthBodies.length;
+
+  engine.setVoice(voice);
+  await flush();
+
+  t.deepEqual(errors, []);
+  t.is(synthBodies.length, before, "no new request");
+  t.is(engine.getState(), "playing");
+});
+
 test.serial("setRate during the inter-utterance gap does not replay the utterance that just ended", async (t) => {
   const { fetchImpl, calls } = createMockFetch({
     synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
