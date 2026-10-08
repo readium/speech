@@ -1,5 +1,5 @@
 import test from "ava";
-import { WebSpeechEngine } from "../../build/index.js";
+import { WebSpeechEngine, WebSpeechVoiceManager } from "../../build/index.js";
 
 class MockUtterance {
   voice: any = null;
@@ -168,4 +168,47 @@ test.serial("the current utterance being interrupted still emits stop", async (t
 
   t.is(engine.getState(), "idle");
   t.deepEqual(events, ["stop"]);
+});
+
+async function pausedWithNativeVoice(nativeVoice: { name: string; localService: boolean }) {
+  (WebSpeechVoiceManager as any).instance = undefined;
+  (WebSpeechVoiceManager as any).initializationPromise = null;
+  const synth = setWebSpeechGlobals();
+  const voice = { voiceURI: nativeVoice.name, lang: "en-US", default: false, ...nativeVoice };
+  (globalThis as any).window.speechSynthesis.getVoices = () => [voice];
+  const engine = new WebSpeechEngine();
+  await engine.initialize();
+  const [readiumVoice] = await engine.getAvailableVoices();
+  await engine.setVoice(readiumVoice);
+  engine.loadUtterances([{ plain: "First." }]);
+  const events: string[] = [];
+  engine.on("pause", () => events.push("pause"));
+  engine.on("resume", () => events.push("resume"));
+  engine.speak();
+  await flush();
+  const utterance = synth.spoken[synth.spoken.length - 1];
+  engine.pause();
+  return { engine, utterance, events };
+}
+
+test.serial("pause and resume emit their events for a Google online voice, which never fires the native ones", async (t) => {
+  const { engine, utterance, events } = await pausedWithNativeVoice({ name: "Google US English", localService: false });
+
+  t.is(utterance.voice?.name, "Google US English");
+  t.deepEqual(events, ["pause"]);
+  engine.resume();
+  t.deepEqual(events, ["pause", "resume"]);
+});
+
+test.serial("pause and resume leave their events to the native handlers for a local voice", async (t) => {
+  const { engine, utterance, events } = await pausedWithNativeVoice({ name: "Samantha", localService: true });
+
+  t.is(utterance.voice?.name, "Samantha");
+  t.deepEqual(events, []);
+  utterance.onpause?.();
+  t.deepEqual(events, ["pause"]);
+  engine.resume();
+  t.deepEqual(events, ["pause"]);
+  utterance.onresume?.();
+  t.deepEqual(events, ["pause", "resume"]);
 });

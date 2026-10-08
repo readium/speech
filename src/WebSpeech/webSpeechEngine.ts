@@ -46,6 +46,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private initialized: boolean = false;
   private maxLengthExceeded: "error" | "none" | "warn" = "warn";
   private utterancesBeingCancelled: boolean = false; // Flag to track if utterances are being cancelled
+  private lacksNativePauseEvents: boolean = false; // Google online voices in desktop Chrome never fire onpause/onresume
 
   // Playback parameters
   private rate: number = 1.0;
@@ -400,6 +401,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       return;
     }
 
+    this.lacksNativePauseEvents = false;
     if (selectedVoice && this.voiceManager) {
       // Convert ReadiumSpeechVoice to SpeechSynthesisVoice using the initialized voiceManager
       const nativeVoice = this.voiceManager.convertToSpeechSynthesisVoice(selectedVoice);
@@ -407,6 +409,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       if (nativeVoice) {
         utterance.voice = nativeVoice; // Use the real native voice from cache
         utterance.lang = nativeVoice.lang;
+        this.lacksNativePauseEvents = !nativeVoice.localService && nativeVoice.name.startsWith("Google");
       }
     }
 
@@ -594,7 +597,9 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
         this.emitEvent({ type: "pause" });
       } else {
         this.speechSynthesis.pause();
-        // Non-Android fires the native onpause handler asynchronously; emitting here too would duplicate it.
+        // Non-Android fires the native onpause handler asynchronously, so emitting here would duplicate it,
+        // except for voices that never fire it.
+        if (this.lacksNativePauseEvents) this.emitEvent({ type: "pause" });
       }
     }
   }
@@ -616,8 +621,9 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
         this.speak(this.currentUtteranceIndex);
       } else {
         // Otherwise, resume from where we left off — the native onresume handler
-        // fires asynchronously; emitting here too would duplicate it.
+        // fires asynchronously; emitting here too would duplicate it, except for voices that never fire it.
         this.speechSynthesis.resume();
+        if (this.lacksNativePauseEvents) this.emitEvent({ type: "resume" });
       }
       
       // Reset the paused index

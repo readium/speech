@@ -16,6 +16,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - Changing rate, pitch, volume, voice or content language while paused now applies on resume. Previously the paused utterance resumed with its old settings, and the change only took effect from the next utterance.
 - Changing voice or content language while speaking now restarts the current utterance with the new setting, like rate and pitch already did.
 - `WebSpeechEngine`: a restarted utterance is no longer cut off by late events (e.g. `interrupted`) from the utterance it replaced.
+- `WebSpeechEngine` emits `pause` and `resume` for Google online voices in desktop Chrome, which never fire the native `onpause`/`onresume`.
 - Pausing during `pauseDuration` between utterances no longer stalls playback on resume; it continues with the next utterance.
 - `submitPreferences()` no longer warns that extraction-affecting preferences have no effect when no content has been loaded yet. The warning now only fires for content loaded via `loadContent()`.
 
