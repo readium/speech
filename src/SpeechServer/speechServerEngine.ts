@@ -255,7 +255,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   setVoice(voice: ReadiumSpeechVoice | string): void {
-    const previousIdentifier = this.currentVoice?.identifier;
+    const previousId = this.currentVoice?.identifier ?? this.currentVoice?.name;
     if (typeof voice === "string") {
       const found = this.voices.find(v => v.identifier === voice || v.name === voice);
       if (found) {
@@ -288,7 +288,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     } else {
       this.currentVoice = voice;
     }
-    if (this.currentVoice?.identifier !== previousIdentifier) {
+    if ((this.currentVoice?.identifier ?? this.currentVoice?.name) !== previousId) {
       this.clearPrefetchCache();
       this.scheduleRestartIfSpeaking();
     }

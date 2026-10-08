@@ -1234,6 +1234,26 @@ test.serial("setRate while actively speaking restarts the current utterance imme
   t.is(JSON.parse(synthCalls[synthCalls.length - 1].init.body).output.speed, 2);
 });
 
+test.serial("setVoice between two identifier-less voices while speaking restarts with the new name", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.setVoice(makeServerVoice({ identifier: undefined, name: "Alba" }) as any);
+  engine.loadUtterances([{ plain: "First." }]);
+
+  engine.speak(0);
+  await flush();
+  const before = calls.filter(c => c.url.endsWith("/synthesize")).length;
+
+  engine.setVoice(makeServerVoice({ identifier: undefined, name: "Estelle" }) as any);
+  await flush();
+
+  const synthCalls = calls.filter(c => c.url.endsWith("/synthesize"));
+  t.is(synthCalls.length, before + 1);
+  t.is(JSON.parse(synthCalls[synthCalls.length - 1].init.body).voice, "Estelle");
+});
+
 test.serial("setRate and setPitch in the same tick coalesce into a single restart", async (t) => {
   const { fetchImpl, calls } = createMockFetch({
     synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
