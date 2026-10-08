@@ -26,6 +26,7 @@ export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     private initialized;
     private maxLengthExceeded;
     private utterancesBeingCancelled;
+    private lacksNativePauseEvents;
     private rate;
     private pitch;
     private volume;

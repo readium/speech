@@ -43,6 +43,7 @@ export declare class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     private liveControllers;
     private isSpeakingInternal;
     private restartPending;
+    private restartOnResume;
     private audioContext;
     private masterGain;
     private scheduledChunks;

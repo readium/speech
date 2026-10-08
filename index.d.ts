@@ -6,6 +6,8 @@ export * from './decorator/index.js';
 export { Locator, LocatorLocations, LocatorText } from '@readium/shared';
 export { chineseVariantMap } from './voices/languages.js';
 export * from './voices/types.js';
+export * from './voices/filters.js';
+export * from './voices/sorting.js';
 export * from './engine.js';
 export * from './navigator.js';
 export * from './provider.js';
