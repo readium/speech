@@ -460,6 +460,27 @@ test("an extraction-affecting change mid-pause resumes paused at the same conten
   t.is(engine.getCurrentUtteranceIndex(), expectedIndex);
 });
 
+test("play() after an extraction-affecting change mid-pause speaks the resumed content instead of resuming the reloaded engine", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  await navigator.loadGndContent(footnoteThenParagraphsTree);
+  engine.emit({ type: "ready" });
+  navigator.play();
+  navigator.jumpTo(1, true);
+  navigator.pause();
+
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  engine.emit({ type: "ready" });
+  const speakCallsBefore = engine.speakCalls.length;
+
+  navigator.play();
+
+  t.is(engine.resumeCalls, 0);
+  t.is(engine.speakCalls.length, speakCallsBefore + 1);
+  const expectedIndex = navigator.getContentQueue().findIndex((u) => u.plain === "Second.");
+  t.is(engine.getCurrentUtteranceIndex(), expectedIndex);
+});
+
 test("resuming falls back to the nearest earlier node still present when the current one got skipped", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);

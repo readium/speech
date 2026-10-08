@@ -182,6 +182,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       }
       if (resumeState === "paused") {
         const index = resumeIndex ?? 0;
+        // The engine is "ready", not "paused", after the reload: play() must speak() rather than resume().
+        this.pendingAutoPauseIndex = index;
         if (index > 0) this.engine.setCurrentUtteranceIndex(index, () => this.setNavigatorState("paused"));
         else this.setNavigatorState("paused");
         return;
