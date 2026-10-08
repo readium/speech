@@ -713,6 +713,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     // If the index isn't changing
     if (index === this.currentUtteranceIndex) {
+      onComplete?.(true);
       return;
     }
 

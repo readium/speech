@@ -17,6 +17,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - Changing voice or content language while speaking now restarts the current utterance with the new setting, like rate and pitch already did.
 - `WebSpeechEngine`: a restarted utterance is no longer cut off by late events (e.g. `interrupted`) from the utterance it replaced.
 - `WebSpeechEngine` emits `pause` and `resume` for Google online voices in desktop Chrome, which never fire the native `onpause`/`onresume`.
+- `WebSpeechEngine.setCurrentUtteranceIndex()` calls `onComplete(true)` when the index is unchanged, like `SpeechServerEngine`. Previously it never called it.
 - `SpeechServerEngine`: changing voice or content language while paused on a long, split utterance no longer emits an `error` that stopped playback, and setting the current voice again no longer interrupts it.
 - `play()` after an extraction-affecting `submitPreferences()` made while paused now resumes playback, instead of staying silent.
 - Pausing during `pauseDuration` between utterances no longer stalls playback on resume; it continues with the next utterance.
