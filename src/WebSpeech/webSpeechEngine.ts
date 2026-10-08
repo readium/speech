@@ -420,6 +420,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     // Set up event handlers with resume infinity pattern
     utterance.onstart = () => {
+      if (generation !== this.speakGeneration) return;
       this.isSpeakingInternal = true;
       this.isPausedInternal = false;
       this.setState("playing");
@@ -442,7 +443,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
         this.utterancesBeingCancelled = false;
         return;
       }
-      
+      if (generation !== this.speakGeneration) return;
+
       // Don't continue if stopped
       if (this.playbackState === "idle") {
         return;
@@ -462,6 +464,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     };
 
     utterance.onerror = (event) => {
+      if (generation !== this.speakGeneration) return;
       // Skip error handling for Android pause operations
       if (event.error === "interrupted" && this.patches.isAndroid && this.isAndroidPaused) {
         return;
@@ -496,12 +499,14 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     };
 
     utterance.onpause = () => {
+      if (generation !== this.speakGeneration) return;
       this.isPausedInternal = true;
       this.isSpeakingInternal = false;
       this.emitEvent({ type: "pause" });
     };
 
     utterance.onresume = () => {
+      if (generation !== this.speakGeneration) return;
       this.isPausedInternal = false;
       this.isSpeakingInternal = true;
       this.emitEvent({ type: "resume" });
@@ -525,6 +530,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     // Handle SSML marks
     utterance.onmark = (event) => {
+      if (generation !== this.speakGeneration) return;
       this.emitEvent({
         type: "mark",
         detail: {

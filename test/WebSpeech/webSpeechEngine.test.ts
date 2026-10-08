@@ -131,3 +131,41 @@ test.serial("setRate while playing restarts the current utterance with the new r
   t.is(synth.spoken.length, before + 1);
   t.is(synth.spoken[synth.spoken.length - 1].rate, 2);
 });
+
+test.serial("late events from an utterance replaced by a restart are ignored", async (t) => {
+  const synth = setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }]);
+  engine.speak();
+  await flush();
+  const replaced = synth.spoken[synth.spoken.length - 1];
+  replaced.onstart?.();
+
+  engine.setRate(2);
+  await flush();
+  const events: string[] = [];
+  for (const type of ["stop", "end", "error"] as const) engine.on(type, () => events.push(type));
+
+  replaced.onerror?.({ error: "interrupted" });
+  replaced.onend?.();
+
+  t.is(engine.getState(), "playing");
+  t.deepEqual(events, []);
+});
+
+test.serial("the current utterance being interrupted still emits stop", async (t) => {
+  const synth = setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  engine.loadUtterances([{ plain: "First." }]);
+  engine.speak();
+  await flush();
+  const current = synth.spoken[synth.spoken.length - 1];
+  current.onstart?.();
+  const events: string[] = [];
+  engine.on("stop", () => events.push("stop"));
+
+  current.onerror?.({ error: "interrupted" });
+
+  t.is(engine.getState(), "idle");
+  t.deepEqual(events, ["stop"]);
+});
