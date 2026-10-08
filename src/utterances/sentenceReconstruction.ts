@@ -1,6 +1,7 @@
 import type { GuidedNavigationObject } from "@readium/shared";
 import { isAriaSubstituted, type GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
+import { entriesForLanguage } from "../utils/language.js";
 import { nodeRoles } from "./nodeFields.js";
 import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
 import { joinPieceTexts, plainOf, substitutedBareLocate } from "./mergeUtterances.js";
@@ -16,7 +17,7 @@ async function sentenceFragmentsOf(
   ctx: WalkContext,
 ): Promise<{ text: string; start: number; end: number }[] | undefined> {
   const language = utterance.language ?? "en";
-  const customSuppressions = ctx.segmentationSuppressions[language];
+  const customSuppressions = entriesForLanguage(ctx.segmentationSuppressions, language);
   const sourceText = ctx.format === "ssml" ? utterance.ssml : utterance.plain;
   if (!sourceText) return undefined;
   const boundaries = await ctx.segmenter(language, plainOf(sourceText, ctx.format), customSuppressions);
@@ -51,6 +52,17 @@ function rolesOf(source: GuidedNavigationObject | [GuidedNavigationObject, Guide
   return nodeRoles(Array.isArray(source) ? source[1] : source);
 }
 
+// Ancestors carrying a semantic role, at the given edge of a source; unroled and
+// `presentation` wrappers (e.g. fixed-layout `<div>`s, layout tables) are not boundaries.
+function roledAncestors(source: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject], edge: "leading" | "trailing", ctx: WalkContext): GuidedNavigationObject[] {
+  const node = Array.isArray(source) ? source[edge === "leading" ? 0 : 1] : source;
+  return (ctx.ancestorChains.get(node) ?? []).filter((ancestor) => nodeRoles(ancestor).some((role) => role !== "presentation"));
+}
+
+function sameRoledContainers(a: GuidedNavigationObject[], b: GuidedNavigationObject[]): boolean {
+  return a.length === b.length && a.every((ancestor, i) => ancestor === b[i]);
+}
+
 // Whether `utterance`'s leading/trailing text is an aria substitution rather
 // than real prose — such text must never join into a neighbor.
 function isSubstitutedEdge(
@@ -81,6 +93,7 @@ function canExtendRun(
   if ((prev.language ?? "en") !== (next.language ?? "en")) return false;
   if (rolesOf(prevSource).some((role) => neverJoinRoles.has(role))) return false;
   if (rolesOf(nextSource).some((role) => neverJoinRoles.has(role))) return false;
+  if (!sameRoledContainers(roledAncestors(prevSource, "trailing", ctx), roledAncestors(nextSource, "leading", ctx))) return false;
   if (isSubstitutedEdge(prevSource, prev, "trailing", ctx)) return false;
   if (isSubstitutedEdge(nextSource, next, "leading", ctx)) return false;
   return true;
@@ -197,7 +210,7 @@ async function pushJoinedGroup(
   newSources: SourceTrace,
 ): Promise<void> {
   const language = pieces[0].language ?? "en";
-  const suppressions = ctx.segmentationSuppressions[language];
+  const suppressions = entriesForLanguage(ctx.segmentationSuppressions, language);
   const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
   const { joined: joinedPlain, ranges } = joinPieceTexts(plainParts);
   const boundaries = await ctx.segmenter(language, joinedPlain, suppressions);
@@ -262,7 +275,7 @@ export async function splitIntoSentenceUtterances(
     const pieces = out.slice(i, j + 1);
     const pieceSources = sources.slice(i, j + 1) as GuidedNavigationObject[];
     const language = pieces[0].language ?? "en";
-    const joinedWithNext = await detectGenuineJoins(pieces, ctx, language, ctx.segmentationSuppressions[language]);
+    const joinedWithNext = await detectGenuineJoins(pieces, ctx, language, entriesForLanguage(ctx.segmentationSuppressions, language));
     let start = 0;
     for (let k = 0; k < pieces.length; k++) {
       if (k < pieces.length - 1 && joinedWithNext[k]) continue;

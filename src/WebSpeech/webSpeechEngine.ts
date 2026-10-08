@@ -46,6 +46,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private initialized: boolean = false;
   private maxLengthExceeded: "error" | "none" | "warn" = "warn";
   private utterancesBeingCancelled: boolean = false; // Flag to track if utterances are being cancelled
+  private lacksNativePauseEvents: boolean = false; // Google online voices in desktop Chrome never fire onpause/onresume
 
   // Playback parameters
   private rate: number = 1.0;
@@ -246,10 +247,12 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   setSpeakInContentLanguage(enabled: boolean): void {
+    if (enabled === this.speakInContentLanguage) return;
     this.speakInContentLanguage = enabled;
     if (enabled) {
       void this.warmLanguageVoiceCache(this.currentUtterances);
     }
+    this.scheduleRestartIfSpeaking();
   }
 
   getSpeakInContentLanguage(): boolean {
@@ -286,19 +289,15 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       const foundVoice = this.voices.find(v => v.name === voice || v.language === voice);
       if (foundVoice) {
         this.currentVoice = foundVoice;
-        // Reset position when voice changes for fresh start with new voice
-        if (previousVoice && previousVoice.name !== foundVoice.name) {
-          this.currentUtteranceIndex = 0;
-        }
       } else {
         console.warn(`Voice "${voice}" not found`);
       }
     } else {
       this.currentVoice = voice;
-      // Reset position when voice changes for fresh start with new voice
-      if (previousVoice && previousVoice.name !== voice.name) {
-        this.currentUtteranceIndex = 0;
-      }
+    }
+
+    if (this.currentVoice?.name !== previousVoice?.name) {
+      this.scheduleRestartIfSpeaking();
     }
 
     // Update default voice if language changed
@@ -402,6 +401,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       return;
     }
 
+    this.lacksNativePauseEvents = false;
     if (selectedVoice && this.voiceManager) {
       // Convert ReadiumSpeechVoice to SpeechSynthesisVoice using the initialized voiceManager
       const nativeVoice = this.voiceManager.convertToSpeechSynthesisVoice(selectedVoice);
@@ -409,6 +409,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       if (nativeVoice) {
         utterance.voice = nativeVoice; // Use the real native voice from cache
         utterance.lang = nativeVoice.lang;
+        this.lacksNativePauseEvents = !nativeVoice.localService && nativeVoice.name.startsWith("Google");
       }
     }
 
@@ -422,6 +423,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     // Set up event handlers with resume infinity pattern
     utterance.onstart = () => {
+      if (generation !== this.speakGeneration) return;
       this.isSpeakingInternal = true;
       this.isPausedInternal = false;
       this.setState("playing");
@@ -444,7 +446,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
         this.utterancesBeingCancelled = false;
         return;
       }
-      
+      if (generation !== this.speakGeneration) return;
+
       // Don't continue if stopped
       if (this.playbackState === "idle") {
         return;
@@ -464,6 +467,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     };
 
     utterance.onerror = (event) => {
+      if (generation !== this.speakGeneration) return;
       // Skip error handling for Android pause operations
       if (event.error === "interrupted" && this.patches.isAndroid && this.isAndroidPaused) {
         return;
@@ -498,12 +502,14 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     };
 
     utterance.onpause = () => {
+      if (generation !== this.speakGeneration) return;
       this.isPausedInternal = true;
       this.isSpeakingInternal = false;
       this.emitEvent({ type: "pause" });
     };
 
     utterance.onresume = () => {
+      if (generation !== this.speakGeneration) return;
       this.isPausedInternal = false;
       this.isSpeakingInternal = true;
       this.emitEvent({ type: "resume" });
@@ -527,6 +533,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     // Handle SSML marks
     utterance.onmark = (event) => {
+      if (generation !== this.speakGeneration) return;
       this.emitEvent({
         type: "mark",
         detail: {
@@ -590,7 +597,9 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
         this.emitEvent({ type: "pause" });
       } else {
         this.speechSynthesis.pause();
-        // Non-Android fires the native onpause handler asynchronously; emitting here too would duplicate it.
+        // Non-Android fires the native onpause handler asynchronously, so emitting here would duplicate it,
+        // except for voices that never fire it.
+        if (this.lacksNativePauseEvents) this.emitEvent({ type: "pause" });
       }
     }
   }
@@ -612,8 +621,9 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
         this.speak(this.currentUtteranceIndex);
       } else {
         // Otherwise, resume from where we left off — the native onresume handler
-        // fires asynchronously; emitting here too would duplicate it.
+        // fires asynchronously; emitting here too would duplicate it, except for voices that never fire it.
         this.speechSynthesis.resume();
+        if (this.lacksNativePauseEvents) this.emitEvent({ type: "resume" });
       }
       
       // Reset the paused index
@@ -669,16 +679,20 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return this.volume;
   }
 
-  // rate/pitch/volume are baked into the SpeechSynthesisUtterance object once, at speak()-time —
-  // restart the in-flight one so a change applies now instead of waiting for the next utterance.
-  // Coalesces multiple same-tick changes (e.g. rate+pitch together) into a single restart.
+  // Voice, language, rate, pitch and volume are baked into the SpeechSynthesisUtterance at speak()-time:
+  // restart it so a change applies now (or on resume when paused). Same-tick changes coalesce.
   private scheduleRestartIfSpeaking(): void {
+    if (this.playbackState === "paused") {
+      this.pausedAtUtteranceIndex = null; // makes resume() restart instead of resuming natively
+      return;
+    }
     if (!this.isSpeakingInternal || this.restartPending) return;
     this.restartPending = true;
     queueMicrotask(() => {
       if (!this.restartPending) return; // a real speak() call already superseded this
       this.restartPending = false;
-      if (this.isSpeakingInternal) this.speak(this.currentUtteranceIndex);
+      if (this.playbackState === "paused") this.pausedAtUtteranceIndex = null;
+      else if (this.isSpeakingInternal) this.speak(this.currentUtteranceIndex);
     });
   }
 
@@ -700,6 +714,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     // If the index isn't changing
     if (index === this.currentUtteranceIndex) {
+      onComplete?.(true);
       return;
     }
 

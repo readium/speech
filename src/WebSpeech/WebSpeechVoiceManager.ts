@@ -4,8 +4,9 @@ import { createJsonOrderMap, getQualityValue, sortByQuality, groupVoicesByLangua
 import { 
   isNoveltyVoice, 
   isVeryLowQualityVoice, 
-  filterOutNoveltyVoices, 
-  filterOutVeryLowQualityVoices 
+  filterOutNoveltyVoices,
+  filterOutVeryLowQualityVoices,
+  filterByLanguages
 } from "../voices/filters.js";
 import { findLocaleWithQualityIndicators, getInferredQualityFromPlatform } from "../voices/localized.js";
 import { getInferredQualityFromPackageName } from "../voices/packages.js";
@@ -679,25 +680,7 @@ export class WebSpeechVoiceManager {
     };
 
     if (filterOptions.languages) {
-      const langs = Array.isArray(filterOptions.languages) ? filterOptions.languages : [filterOptions.languages];
-      
-      result = result.filter(voice => {
-        return langs.some(requestedLang => {
-          const reqLang = requestedLang.toLowerCase();
-          const voiceLang = voice.language?.toLowerCase();
-          const voiceAltLang = voice.altLanguage?.toLowerCase();
-          
-          // Check direct matches first
-          if (voiceLang === reqLang || voiceAltLang === reqLang) {
-            return true;
-          }
-          
-          // Then check base language matches
-          const [reqBase] = reqLang.split("-");
-          return (voiceLang && voiceLang.startsWith(reqBase)) || 
-                 (voiceAltLang && voiceAltLang.startsWith(reqBase));
-        });
-      });
+      result = filterByLanguages(result, filterOptions.languages);
     }
     
     if (filterOptions.source) {

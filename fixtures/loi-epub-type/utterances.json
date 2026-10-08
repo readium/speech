@@ -78,16 +78,16 @@
       ],
       "utterances": [
         {
-          "plain": "Figure 1.",
-          "language": "en"
+          "plain": "Figure 1."
         },
         {
-          "plain": "Lighthouse cross-section Figure 2.",
-          "language": "en"
+          "plain": "Lighthouse cross-section"
         },
         {
-          "plain": "Fresnel lens diagram",
-          "language": "en"
+          "plain": "Figure 2."
+        },
+        {
+          "plain": "Fresnel lens diagram"
         }
       ]
     },
@@ -257,16 +257,16 @@
           "plain": "Start of the list."
         },
         {
-          "plain": "Figure 1.",
-          "language": "en"
+          "plain": "Figure 1."
         },
         {
-          "plain": "Lighthouse cross-section Figure 2.",
-          "language": "en"
+          "plain": "Lighthouse cross-section"
         },
         {
-          "plain": "Fresnel lens diagram",
-          "language": "en"
+          "plain": "Figure 2."
+        },
+        {
+          "plain": "Fresnel lens diagram"
         },
         {
           "plain": "End of the list."
@@ -1468,16 +1468,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Figure 1.",
-          "language": "en"
+          "ssml": "Figure 1."
         },
         {
-          "ssml": "Lighthouse cross-section Figure 2.",
-          "language": "en"
+          "ssml": "Lighthouse cross-section"
         },
         {
-          "ssml": "Fresnel lens diagram",
-          "language": "en"
+          "ssml": "Figure 2."
+        },
+        {
+          "ssml": "Fresnel lens diagram"
         }
       ]
     },
@@ -1647,16 +1647,16 @@
           "ssml": "Start of the list."
         },
         {
-          "ssml": "Figure 1.",
-          "language": "en"
+          "ssml": "Figure 1."
         },
         {
-          "ssml": "Lighthouse cross-section Figure 2.",
-          "language": "en"
+          "ssml": "Lighthouse cross-section"
         },
         {
-          "ssml": "Fresnel lens diagram",
-          "language": "en"
+          "ssml": "Figure 2."
+        },
+        {
+          "ssml": "Fresnel lens diagram"
         },
         {
           "ssml": "End of the list."

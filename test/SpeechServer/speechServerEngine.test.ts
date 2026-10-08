@@ -625,6 +625,29 @@ test.serial("setVoice(string) with an uncached identifier resolves controls.spee
   t.is(MockAudioBufferSourceNode.instances[0].playbackRate.value, 1, "server-honored speed is trusted, not doubled with a local fallback");
 });
 
+test.serial("setVoice(string) with an uncached identifier while speaking restarts again once the real voice resolves", async (t) => {
+  let resolveVoices!: () => void;
+  const voicesReady = new Promise<void>(resolve => { resolveVoices = resolve; });
+  const { fetchImpl } = createMockFetch({
+    voices: async () => { await voicesReady; return [makeServerVoice()]; },
+    service: () => ({ json: { ...defaultServiceInfo(), providers: [{ id: "pocket", installedLanguages: ["en"], controls: { speed: true } }] } }),
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" }, fetch: fetchImpl });
+  engine.setRate(2);
+  engine.loadUtterances([{ plain: "Hello" }]);
+  engine.speak();
+  await flush();
+
+  engine.setVoice("urn:readium:tts:pocket:alba");
+  await flush();
+  t.is(MockAudioBufferSourceNode.instances.at(-1)!.playbackRate.value, 2, "placeholder has no controls, so the rate is faked locally");
+
+  resolveVoices();
+  await flush();
+  t.is(MockAudioBufferSourceNode.instances.at(-1)!.playbackRate.value, 1, "restarted with the resolved voice, whose server-side speed isn't doubled");
+});
+
 test.serial("setVoice(string) called again before the background voice lookup resolves doesn't get overwritten by the stale lookup", async (t) => {
   const { fetchImpl } = createMockFetch({
     voices: () => [
@@ -1211,6 +1234,26 @@ test.serial("setRate while actively speaking restarts the current utterance imme
   t.is(JSON.parse(synthCalls[synthCalls.length - 1].init.body).output.speed, 2);
 });
 
+test.serial("setVoice between two identifier-less voices while speaking restarts with the new name", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.setVoice(makeServerVoice({ identifier: undefined, name: "Alba" }) as any);
+  engine.loadUtterances([{ plain: "First." }]);
+
+  engine.speak(0);
+  await flush();
+  const before = calls.filter(c => c.url.endsWith("/synthesize")).length;
+
+  engine.setVoice(makeServerVoice({ identifier: undefined, name: "Estelle" }) as any);
+  await flush();
+
+  const synthCalls = calls.filter(c => c.url.endsWith("/synthesize"));
+  t.is(synthCalls.length, before + 1);
+  t.is(JSON.parse(synthCalls[synthCalls.length - 1].init.body).voice, "Estelle");
+});
+
 test.serial("setRate and setPitch in the same tick coalesce into a single restart", async (t) => {
   const { fetchImpl, calls } = createMockFetch({
     synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
@@ -1485,6 +1528,180 @@ test.serial("setRate while paused does not restart", async (t) => {
   await flush();
 
   t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, before, "paused — no restart");
+});
+
+test.serial("setRate while paused applies on resume", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }]);
+  const events: string[] = [];
+  engine.on("resume", () => events.push("resume"));
+
+  engine.speak(0);
+  await flush();
+  engine.pause();
+  const before = calls.filter(c => c.url.endsWith("/synthesize")).length;
+
+  engine.setRate(2);
+  engine.resume();
+  await flush();
+
+  const synthCalls = calls.filter(c => c.url.endsWith("/synthesize"));
+  t.is(synthCalls.length, before + 1, "resume re-synthesizes the paused utterance");
+  t.is(JSON.parse(synthCalls[synthCalls.length - 1].init.body).text, "First.");
+  t.is(JSON.parse(synthCalls[synthCalls.length - 1].init.body).output.speed, 2);
+  t.deepEqual(events, ["resume"]);
+});
+
+test.serial("setVoice while paused applies on resume", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }]);
+
+  engine.speak(0);
+  await flush();
+  engine.pause();
+  const before = calls.filter(c => c.url.endsWith("/synthesize")).length;
+
+  engine.setVoice(makeServerVoice({ identifier: "urn:readium:tts:pocket:other" }) as any);
+  await flush();
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, before, "paused — no restart yet");
+
+  engine.resume();
+  await flush();
+
+  const synthCalls = calls.filter(c => c.url.endsWith("/synthesize"));
+  t.is(synthCalls.length, before + 1, "resume re-synthesizes the paused utterance");
+  t.is(JSON.parse(synthCalls[synthCalls.length - 1].init.body).voice, "urn:readium:tts:pocket:other");
+});
+
+test.serial("setRate then pause in the same tick applies the new rate on resume", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }]);
+
+  engine.speak(0);
+  await flush();
+  const before = calls.filter(c => c.url.endsWith("/synthesize")).length;
+
+  engine.setRate(2);
+  engine.pause();
+  await flush();
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, before, "paused — no restart yet");
+
+  engine.resume();
+  await flush();
+
+  const synthCalls = calls.filter(c => c.url.endsWith("/synthesize"));
+  t.is(synthCalls.length, before + 1, "resume re-synthesizes the paused utterance");
+  t.is(JSON.parse(synthCalls[synthCalls.length - 1].init.body).output.speed, 2);
+});
+
+test.serial("resume without a parameter change while paused does not re-synthesize", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }]);
+
+  engine.speak(0);
+  await flush();
+  engine.pause();
+  const before = calls.filter(c => c.url.endsWith("/synthesize")).length;
+
+  engine.resume();
+  await flush();
+
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, before);
+  t.is(engine.getState(), "playing");
+});
+
+// One utterance split into several /synthesize requests: the first resolves, later ones hang until aborted.
+function createSplitUtteranceEngine() {
+  const maxTextLength = 20;
+  const synthBodies: any[] = [];
+  const fetchImpl = (async (url: string, init?: any) => {
+    if (url.endsWith("/service")) {
+      return { ok: true, status: 200, headers: { get: () => "application/json" }, json: async () => ({ ...defaultServiceInfo(), limits: { maxTextLength, maxConcurrentSyntheses: 2 } }) };
+    }
+    if (!url.endsWith("/synthesize")) {
+      throw new Error(`Unhandled mock fetch URL: ${url}`);
+    }
+    synthBodies.push(JSON.parse(init.body));
+    if (synthBodies.length > 1) {
+      await new Promise<void>((_resolve, reject) => {
+        init.signal.addEventListener("abort", () => reject(new DOMException("Aborted", "AbortError")));
+      });
+    }
+    return { ok: true, status: 200, headers: { get: () => "application/json" }, json: async () => ({ audio: wavBase64(), format: "wav", boundaries: null }) };
+  }) as unknown as typeof fetch;
+
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0, readyBufferChars: 5 });
+  engine.loadUtterances([{ plain: "First sentence here now. Second sentence follows too.", language: "en-US" }]);
+  const errors: any[] = [];
+  engine.on("error", (e: any) => errors.push(e.detail));
+  return { engine, synthBodies, errors };
+}
+
+test.serial("setVoice while paused mid-download of a split utterance emits no error and applies on resume", async (t) => {
+  const { engine, synthBodies, errors } = createSplitUtteranceEngine();
+  engine.speak(0);
+  await flush();
+  engine.pause();
+  t.true(synthBodies.length > 1, "sanity check: a later chunk is still in flight");
+
+  engine.setVoice(makeServerVoice({ identifier: "urn:readium:tts:pocket:other" }) as any);
+  await flush();
+  t.deepEqual(errors, []);
+  t.is(engine.getState(), "paused");
+
+  const before = synthBodies.length;
+  engine.resume();
+  await flush();
+  t.true(synthBodies.length > before, "resume re-synthesizes the paused utterance");
+  t.is(synthBodies[before].voice, "urn:readium:tts:pocket:other");
+  t.deepEqual(errors, []);
+});
+
+test.serial("setSpeakInContentLanguage while paused mid-download of a split utterance emits no error and applies on resume", async (t) => {
+  const { engine, synthBodies, errors } = createSplitUtteranceEngine();
+  engine.speak(0);
+  await flush();
+  engine.pause();
+
+  engine.setSpeakInContentLanguage(true);
+  await flush();
+  t.deepEqual(errors, []);
+  t.is(engine.getState(), "paused");
+
+  const before = synthBodies.length;
+  engine.resume();
+  await flush();
+  t.true(synthBodies.length > before, "resume re-synthesizes the paused utterance");
+  t.is(synthBodies[before].language, "en-US");
+  t.deepEqual(errors, []);
+});
+
+test.serial("setVoice with the current voice while playing a split utterance does not interrupt it", async (t) => {
+  const { engine, synthBodies, errors } = createSplitUtteranceEngine();
+  const voice = makeServerVoice() as any;
+  engine.setVoice(voice);
+  engine.speak(0);
+  await flush();
+  const before = synthBodies.length;
+
+  engine.setVoice(voice);
+  await flush();
+
+  t.deepEqual(errors, []);
+  t.is(synthBodies.length, before, "no new request");
+  t.is(engine.getState(), "playing");
 });
 
 test.serial("setRate during the inter-utterance gap does not replay the utterance that just ended", async (t) => {

@@ -182,6 +182,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       }
       if (resumeState === "paused") {
         const index = resumeIndex ?? 0;
+        // The engine is "ready", not "paused", after the reload: play() must speak() rather than resume().
+        this.pendingAutoPauseIndex = index;
         if (index > 0) this.engine.setCurrentUtteranceIndex(index, () => this.setNavigatorState("paused"));
         else this.setNavigatorState("paused");
         return;
@@ -369,7 +371,14 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   pause(): void {
     if (this.navigatorState === "playing") {
-      this.clearPendingAdvance();
+      if (this.pendingAdvanceTimeout !== null) {
+        // Between utterances the engine has nothing to pause, so play() must speak() the next one instead.
+        this.clearPendingAdvance();
+        this.pendingAutoPauseIndex = this.getCurrentUtteranceIndex() + 1;
+        this.setNavigatorState("paused");
+        this.emitEvent({ type: "pause" });
+        return;
+      }
       this.pendingAutoPauseIndex = null;
       this.setNavigatorState("paused");
       this.engine.pause();
@@ -492,7 +501,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   async submitPreferences(preferences: SpeechPreferences): Promise<void> {
-    if (!this.source && extractionPreferenceKeys.some((key) => preferences[key] !== undefined)) {
+    if (!this.source && this.contentQueue.length > 0 && extractionPreferenceKeys.some((key) => preferences[key] !== undefined)) {
       console.warn(
         "submitPreferences(): extraction-affecting preferences (format, inlineContextualization, verbosity, skip, contextualize, language, segmentation) have no effect on content loaded via loadContent() — use loadGndContent() to re-extract on submission.",
       );

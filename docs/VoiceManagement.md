@@ -156,6 +156,56 @@ voiceManager.getTestUtterance(language: string): string
 
 Retrieves a sample text string suitable for testing text-to-speech functionality in the specified language. If no sample text is available for the specified language, it returns an empty string.
 
+## Standalone Helpers
+
+Exported functions that work on any `ReadiumSpeechVoice[]`, without a `WebSpeechVoiceManager` instance.
+
+### Filtering
+
+```typescript
+filterByLanguages(voices: ReadiumSpeechVoice[], languages: string | string[]): ReadiumSpeechVoice[]
+filterOutNoveltyVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[]
+filterOutVeryLowQualityVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[]
+filterByBoundarySupport(voices: ReadiumSpeechVoice[], needsBoundary: boolean): ReadiumSpeechVoice[]
+
+isNoveltyVoice(voiceName: string, voiceId?: string): boolean
+isVeryLowQualityVoice(voiceName: string, quality?: TQuality): boolean
+```
+
+- `filterByLanguages`: matches `language` or `altLanguage`, exactly or by base language (`"en"` and `"en-US"` both keep `"en-GB"`).
+- `filterOutNoveltyVoices` / `isNoveltyVoice`: [novelty.json](../json/filters/novelty.json), plus voices flagged `isNovelty`.
+- `filterOutVeryLowQualityVoices` / `isVeryLowQualityVoice`: [veryLowQuality.json](../json/filters/veryLowQuality.json), plus voices with `quality: "veryLow"`.
+- `filterByBoundarySupport`: a voice supports boundaries unless `controls.boundary === false`. Returns the full list when nothing matches.
+
+### Sorting
+
+```typescript
+async sortVoicesByRegions(preferredLanguages: string[], voices: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice[]>
+async pickBestVoiceByRegion(language: string, voices: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice | null>
+```
+
+`sortVoicesByRegions` returns a new array, in the same order as `voiceManager.sortVoicesByRegions()`. `pickBestVoiceByRegion` returns what would come first in `sortVoicesByRegions([language], voices)`, without sorting the whole list.
+
+Lower-level building blocks:
+
+```typescript
+async sortByPreferredRegion(voices, processedLang: { baseLang: string; regions: string[] }, jsonOrderMaps?): Promise<void>
+async sortAlphabetically(voices, jsonOrderMaps?): Promise<void>
+
+compareByPreferredRegion(a, b, processedLang, jsonOrderMaps): number
+compareAlphabetically(a, b, jsonOrderMaps): number
+sortByQuality(a, b, jsonOrderMaps?, baseLang?): number
+
+groupVoicesByLanguage(voices, processedLangs): { voicesByLang: Map<string, ReadiumSpeechVoice[]>; otherLangVoices: ReadiumSpeechVoice[] }
+async createJsonOrderMap(voices): Promise<Map<string, Map<string, number>>>
+getQualityValue(quality): number
+```
+
+- `sortByPreferredRegion` and `sortAlphabetically` sort in place.
+- `sortByQuality` is a comparator, not a sort. For two `"json"` voices listed in `jsonOrderMaps` under `baseLang`, their JSON order wins; otherwise higher quality first, then name.
+- `createJsonOrderMap`: base language → voice name → index in that language's JSON data, for `"json"` voices only. Built automatically when omitted.
+- `getQualityValue`: `veryLow` 1 … `veryHigh` 5, `0` when missing or unknown.
+
 ## Interfaces & Types
 
 ### `ReadiumSpeechVoice`

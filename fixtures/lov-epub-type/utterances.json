@@ -78,16 +78,16 @@
       ],
       "utterances": [
         {
-          "plain": "Video 1.",
-          "language": "en"
+          "plain": "Video 1."
         },
         {
-          "plain": "Lamp mechanism in motion Video 2.",
-          "language": "en"
+          "plain": "Lamp mechanism in motion"
         },
         {
-          "plain": "Automation retrofit",
-          "language": "en"
+          "plain": "Video 2."
+        },
+        {
+          "plain": "Automation retrofit"
         }
       ]
     },
@@ -257,16 +257,16 @@
           "plain": "Start of the list."
         },
         {
-          "plain": "Video 1.",
-          "language": "en"
+          "plain": "Video 1."
         },
         {
-          "plain": "Lamp mechanism in motion Video 2.",
-          "language": "en"
+          "plain": "Lamp mechanism in motion"
         },
         {
-          "plain": "Automation retrofit",
-          "language": "en"
+          "plain": "Video 2."
+        },
+        {
+          "plain": "Automation retrofit"
         },
         {
           "plain": "End of the list."
@@ -1468,16 +1468,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Video 1.",
-          "language": "en"
+          "ssml": "Video 1."
         },
         {
-          "ssml": "Lamp mechanism in motion Video 2.",
-          "language": "en"
+          "ssml": "Lamp mechanism in motion"
         },
         {
-          "ssml": "Automation retrofit",
-          "language": "en"
+          "ssml": "Video 2."
+        },
+        {
+          "ssml": "Automation retrofit"
         }
       ]
     },
@@ -1647,16 +1647,16 @@
           "ssml": "Start of the list."
         },
         {
-          "ssml": "Video 1.",
-          "language": "en"
+          "ssml": "Video 1."
         },
         {
-          "ssml": "Lamp mechanism in motion Video 2.",
-          "language": "en"
+          "ssml": "Lamp mechanism in motion"
         },
         {
-          "ssml": "Automation retrofit",
-          "language": "en"
+          "ssml": "Video 2."
+        },
+        {
+          "ssml": "Automation retrofit"
         },
         {
           "ssml": "End of the list."

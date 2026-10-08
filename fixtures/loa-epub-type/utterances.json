@@ -78,16 +78,16 @@
       ],
       "utterances": [
         {
-          "plain": "Audio 1.",
-          "language": "en"
+          "plain": "Audio 1."
         },
         {
-          "plain": "Foghorn recording Audio 2.",
-          "language": "en"
+          "plain": "Foghorn recording"
         },
         {
-          "plain": "Keeper's log reading",
-          "language": "en"
+          "plain": "Audio 2."
+        },
+        {
+          "plain": "Keeper's log reading"
         }
       ]
     },
@@ -257,16 +257,16 @@
           "plain": "Start of the list."
         },
         {
-          "plain": "Audio 1.",
-          "language": "en"
+          "plain": "Audio 1."
         },
         {
-          "plain": "Foghorn recording Audio 2.",
-          "language": "en"
+          "plain": "Foghorn recording"
         },
         {
-          "plain": "Keeper's log reading",
-          "language": "en"
+          "plain": "Audio 2."
+        },
+        {
+          "plain": "Keeper's log reading"
         },
         {
           "plain": "End of the list."
@@ -1468,16 +1468,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Audio 1.",
-          "language": "en"
+          "ssml": "Audio 1."
         },
         {
-          "ssml": "Foghorn recording Audio 2.",
-          "language": "en"
+          "ssml": "Foghorn recording"
         },
         {
-          "ssml": "Keeper's log reading",
-          "language": "en"
+          "ssml": "Audio 2."
+        },
+        {
+          "ssml": "Keeper's log reading"
         }
       ]
     },
@@ -1647,16 +1647,16 @@
           "ssml": "Start of the list."
         },
         {
-          "ssml": "Audio 1.",
-          "language": "en"
+          "ssml": "Audio 1."
         },
         {
-          "ssml": "Foghorn recording Audio 2.",
-          "language": "en"
+          "ssml": "Foghorn recording"
         },
         {
-          "ssml": "Keeper's log reading",
-          "language": "en"
+          "ssml": "Audio 2."
+        },
+        {
+          "ssml": "Keeper's log reading"
         },
         {
           "ssml": "End of the list."

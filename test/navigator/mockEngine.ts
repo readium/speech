@@ -11,6 +11,8 @@ export class MockEngine implements ReadiumSpeechPlaybackEngine {
   loadUtterancesStartIndexCalls: (number | undefined)[] = [];
   speakCalls: number[] = [];
   stopCalls = 0;
+  pauseCalls = 0;
+  resumeCalls = 0;
   private index = 0;
   private listeners = new Map<ReadiumSpeechPlaybackEvent["type"], ((event: ReadiumSpeechPlaybackEvent) => void)[]>();
 
@@ -36,8 +38,12 @@ export class MockEngine implements ReadiumSpeechPlaybackEngine {
     if (utteranceIndex !== undefined) this.index = utteranceIndex;
     this.speakCalls.push(Date.now());
   }
-  pause(): void {}
-  resume(): void {}
+  pause(): void {
+    this.pauseCalls++;
+  }
+  resume(): void {
+    this.resumeCalls++;
+  }
   stop(): void {
     this.stopCalls++;
     this.emit({ type: "stop" });

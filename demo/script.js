@@ -1000,7 +1000,6 @@ async function handleVoiceChange(e) {
 
   if (navigator) {
     try {
-      navigator.stop();
       navigator.setVoice(currentVoice);
       updateUI();
     } catch (error) {

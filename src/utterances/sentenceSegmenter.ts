@@ -1,3 +1,4 @@
+import { entriesForLanguage } from "../utils/language.js";
 import { builtInSuppressions } from "./builtInSuppressions.js";
 import { refineSentenceBoundaries } from "./sentenceBoundaryMerge.js";
 
@@ -41,8 +42,7 @@ export async function segmentSentences(
   const raw = segments.map((segment) => ({ start: segment.index, end: segment.index + segment.segment.length }));
   // Intl.Segmenter has no abbreviation-suppression concept of its own, so
   // the built-in list (not just a caller's extras) has to be applied here.
-  const suppressions = customSuppressions
-    ? [...(builtInSuppressions[language] ?? []), ...customSuppressions]
-    : (builtInSuppressions[language] ?? []);
+  const builtIn = entriesForLanguage(builtInSuppressions, language) ?? [];
+  const suppressions = customSuppressions ? [...builtIn, ...customSuppressions] : builtIn;
   return refineSentenceBoundaries(text, raw, suppressions);
 }

@@ -158,6 +158,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private liveControllers: Set<AbortController> = new Set();
   private isSpeakingInternal: boolean = false;
   private restartPending: boolean = false;
+  private restartOnResume: boolean = false;
 
   private audioContext: AudioContext | null = null;
   private masterGain: GainNode | null = null;
@@ -254,6 +255,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   setVoice(voice: ReadiumSpeechVoice | string): void {
+    const previousId = this.currentVoice?.identifier ?? this.currentVoice?.name;
     if (typeof voice === "string") {
       const found = this.voices.find(v => v.identifier === voice || v.name === voice);
       if (found) {
@@ -275,14 +277,21 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
           const match = voices.find(v => v.identifier === voice || v.name === voice);
           if (match) {
             this.currentVoice = match;
+            // The placeholder has no `controls` and may carry a name as identifier: re-synthesize if that changed anything.
+            if (match.identifier !== voice || match.controls?.speed === true) {
+              this.clearPrefetchCache();
+              this.scheduleRestartIfSpeaking();
+            }
           }
         }).catch(() => {});
       }
     } else {
       this.currentVoice = voice;
     }
-    this.abortLiveControllers();
-    this.clearPrefetchCache();
+    if ((this.currentVoice?.identifier ?? this.currentVoice?.name) !== previousId) {
+      this.clearPrefetchCache();
+      this.scheduleRestartIfSpeaking();
+    }
   }
 
   getCurrentVoice(): ReadiumSpeechVoice | null {
@@ -329,9 +338,10 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   setSpeakInContentLanguage(enabled: boolean): void {
+    if (enabled === this.speakInContentLanguage) return;
     this.speakInContentLanguage = enabled;
-    this.abortLiveControllers();
     this.clearPrefetchCache();
+    this.scheduleRestartIfSpeaking();
   }
 
   getSpeakInContentLanguage(): boolean {
@@ -346,6 +356,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       this.currentUtteranceIndex = utteranceIndex;
     }
     this.restartPending = false; // any real speak() call supersedes a stale deferred restart
+    this.restartOnResume = false;
 
     if (this.currentUtterances.length === 0) {
       console.warn("No utterances loaded");
@@ -755,6 +766,12 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
 
   resume(): void {
     if (this.playbackState === "paused" && this.audioContext) {
+      if (this.restartOnResume) {
+        // speak() emits its own "loading"/"start", not "resume" — this is the only "resume" signal for a restart.
+        this.emitEvent({ type: "resume" });
+        this.speak(this.currentUtteranceIndex);
+        return;
+      }
       this.audioContext.resume().catch(() => {});
       this.startBoundaryPolling(this.speakGeneration);
       this.isSpeakingInternal = true;
@@ -770,6 +787,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     this.abortLiveControllers();
     this.clearPrefetchCache();
     this.isSpeakingInternal = false;
+    this.restartOnResume = false;
     this.currentUtteranceIndex = 0;
     this.setState("idle");
     this.emitEvent({ type: "stop" });
@@ -812,15 +830,20 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     return this.volume;
   }
 
-  // rate/pitch are baked into each chunk's synthesis request at fetch-time — restart the
-  // in-flight utterance so a change applies now. Coalesces same-tick changes into one restart.
+  // Voice, language, rate and pitch are baked into each chunk's synthesis request at fetch-time:
+  // restart the utterance so a change applies now (or on resume when paused). Same-tick changes coalesce.
   private scheduleRestartIfSpeaking(): void {
+    if (this.playbackState === "paused") {
+      this.restartOnResume = true;
+      return;
+    }
     if (!this.isSpeakingInternal || this.restartPending) return;
     this.restartPending = true;
     queueMicrotask(() => {
       if (!this.restartPending) return; // a real speak() call already superseded this
       this.restartPending = false;
-      if (this.isSpeakingInternal) this.speak(this.currentUtteranceIndex);
+      if (this.playbackState === "paused") this.restartOnResume = true;
+      else if (this.isSpeakingInternal) this.speak(this.currentUtteranceIndex);
     });
   }
 
