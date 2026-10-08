@@ -46,7 +46,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private initialized: boolean = false;
   private maxLengthExceeded: "error" | "none" | "warn" = "warn";
   private utterancesBeingCancelled: boolean = false; // Flag to track if utterances are being cancelled
-  private lacksNativePauseEvents: boolean = false; // Google online voices in desktop Chrome never fire onpause/onresume
+  private lacksNativePauseEvents: boolean = false; // Google and Chrome OS voices never fire onpause/onresume
 
   // Playback parameters
   private rate: number = 1.0;
@@ -409,7 +409,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       if (nativeVoice) {
         utterance.voice = nativeVoice; // Use the real native voice from cache
         utterance.lang = nativeVoice.lang;
-        this.lacksNativePauseEvents = !nativeVoice.localService && nativeVoice.name.startsWith("Google");
+        this.lacksNativePauseEvents = nativeVoice.name.startsWith("Google") || nativeVoice.name.startsWith("Chrome OS");
       }
     }
 

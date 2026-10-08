@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.14.1] - 2026-10-08
+
+### Fixed
+
+- `WebSpeechEngine` also emits `pause` and `resume` for Google (Natural) and Chrome OS voices, which never fire the native `onpause`/`onresume` either.
+
 ## [0.14.0] - 2026-10-08
 
 ### Added

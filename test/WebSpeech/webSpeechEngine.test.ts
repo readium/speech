@@ -243,6 +243,24 @@ test.serial("pause and resume emit their events for a Google online voice, which
   t.deepEqual(events, ["pause", "resume"]);
 });
 
+test.serial("pause and resume emit their events for a local Google (Natural) voice, which never fires the native ones", async (t) => {
+  const { engine, utterance, events } = await pausedWithNativeVoice({ name: "Google US English 5 (Natural)", localService: true });
+
+  t.is(utterance.voice?.name, "Google US English 5 (Natural)");
+  t.deepEqual(events, ["pause"]);
+  engine.resume();
+  t.deepEqual(events, ["pause", "resume"]);
+});
+
+test.serial("pause and resume emit their events for a Chrome OS voice, which never fires the native ones", async (t) => {
+  const { engine, utterance, events } = await pausedWithNativeVoice({ name: "Chrome OS US English 5", localService: true });
+
+  t.is(utterance.voice?.name, "Chrome OS US English 5");
+  t.deepEqual(events, ["pause"]);
+  engine.resume();
+  t.deepEqual(events, ["pause", "resume"]);
+});
+
 test.serial("pause and resume leave their events to the native handlers for a local voice", async (t) => {
   const { engine, utterance, events } = await pausedWithNativeVoice({ name: "Samantha", localService: true });
 
