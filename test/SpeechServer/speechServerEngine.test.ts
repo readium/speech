@@ -1579,6 +1579,30 @@ test.serial("setVoice while paused applies on resume", async (t) => {
   t.is(JSON.parse(synthCalls[synthCalls.length - 1].init.body).voice, "urn:readium:tts:pocket:other");
 });
 
+test.serial("setRate then pause in the same tick applies the new rate on resume", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: makeEndpoints(), fetch: fetchImpl, prefetchWindow: 0 });
+  engine.loadUtterances([{ plain: "First." }]);
+
+  engine.speak(0);
+  await flush();
+  const before = calls.filter(c => c.url.endsWith("/synthesize")).length;
+
+  engine.setRate(2);
+  engine.pause();
+  await flush();
+  t.is(calls.filter(c => c.url.endsWith("/synthesize")).length, before, "paused — no restart yet");
+
+  engine.resume();
+  await flush();
+
+  const synthCalls = calls.filter(c => c.url.endsWith("/synthesize"));
+  t.is(synthCalls.length, before + 1, "resume re-synthesizes the paused utterance");
+  t.is(JSON.parse(synthCalls[synthCalls.length - 1].init.body).output.speed, 2);
+});
+
 test.serial("resume without a parameter change while paused does not re-synthesize", async (t) => {
   const { fetchImpl, calls } = createMockFetch({
     synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })

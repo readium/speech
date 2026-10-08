@@ -842,7 +842,8 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     queueMicrotask(() => {
       if (!this.restartPending) return; // a real speak() call already superseded this
       this.restartPending = false;
-      if (this.isSpeakingInternal) this.speak(this.currentUtteranceIndex);
+      if (this.playbackState === "paused") this.restartOnResume = true;
+      else if (this.isSpeakingInternal) this.speak(this.currentUtteranceIndex);
     });
   }
 

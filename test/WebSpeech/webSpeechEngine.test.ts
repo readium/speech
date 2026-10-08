@@ -86,6 +86,28 @@ test.serial("setRate while paused restarts the paused utterance with the new rat
   t.is(last.rate, 2);
 });
 
+test.serial("setRate then pause in the same tick applies the new rate on resume", async (t) => {
+  const synth = setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }], 1);
+  engine.speak();
+  await flush();
+  synth.calls.length = 0;
+
+  engine.setRate(2);
+  engine.pause();
+  await flush();
+  t.deepEqual(synth.calls, ["pause"], "paused — no restart yet");
+
+  engine.resume();
+  await flush();
+
+  t.false(synth.calls.includes("resume"), "the native utterance with the old rate is not resumed");
+  const last = synth.spoken[synth.spoken.length - 1];
+  t.is(last.text, "Second.");
+  t.is(last.rate, 2);
+});
+
 test.serial("setPitch and setVolume while paused apply on resume", async (t) => {
   const synth = setWebSpeechGlobals();
   const engine = new WebSpeechEngine();
