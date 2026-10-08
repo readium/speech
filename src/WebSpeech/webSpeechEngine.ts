@@ -296,6 +296,10 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.currentVoice = voice;
     }
 
+    if (this.currentVoice?.name !== previousVoice?.name) {
+      this.scheduleRestartIfSpeaking();
+    }
+
     // Update default voice if language changed
     if (
       this.voiceManager && 
@@ -303,10 +307,6 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.currentVoice.language !== this.defaultVoice.language
     ) {
       this.defaultVoice = await this.voiceManager.getDefaultVoice([this.currentVoice.language], this.voices);
-    }
-
-    if (this.currentVoice?.name !== previousVoice?.name) {
-      this.scheduleRestartIfSpeaking();
     }
   }
 
