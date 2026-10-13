@@ -59,6 +59,9 @@ same as `contextualization.contextualizations`/`params` below — it needs a
 fixture-specific abbreviation list to matter, not a fixed combination that
 generalizes across fixtures.
 
+[`scripts/fixtureCases.js`](../scripts/fixtureCases.js) implements this scope
+and the comparison rules; the generator, tests and playground all use it.
+
 The options:
 
 - `format: "plain" | "ssml"` (default `"plain"`) — stated explicitly on

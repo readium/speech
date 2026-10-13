@@ -3,6 +3,7 @@ import { GuidedNavigationObject } from "@readium/shared";
 import { parseMarkup } from "@readium/guided-navigation";
 import { fileURLToPath } from "url";
 import { dirname, join } from "path";
+import { fixtureTopLevel, parsedInputFixtures } from "../scripts/fixtureCases.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -54,11 +55,6 @@ export function loadManifest(): FixtureManifestEntry[] {
   return JSON.parse(readFileSync(join(gndFixturesDir, "manifest.json"), "utf-8"));
 }
 
-// Expected output depends on aria substitution, which gnd.json can't carry: parsed from input markup instead.
-const parsedInputFixtures = new Set<string>(
-  JSON.parse(readFileSync(join(__dirname, "../scripts/fixture-exceptions.json"), "utf-8")).parsedInput,
-);
-
 /**
  * Test-only helper to read a fixture's gnd.json from @readium/guided-navigation, and its local utterances.json
  */
@@ -80,26 +76,3 @@ export function localFixtureIds(): string[] {
     .map((entry) => entry.name);
 }
 
-// gnd.json holds one object, or `{ children: [...] }` for several top-level siblings.
-function fixtureTopLevel(gnd: unknown): unknown[] {
-  if (gnd && typeof gnd === "object" && !Array.isArray(gnd)) {
-    const keys = Object.keys(gnd);
-    if (keys.length === 1 && keys[0] === "children") return (gnd as { children: unknown[] }).children;
-  }
-  return [gnd];
-}
-
-// Strips implementation-specific selector output before comparing against
-// cross-platform fixture JSON, which never carries it.
-export function stripLocatorDetails(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(stripLocatorDetails);
-  if (value && typeof value === "object") {
-    const out: Record<string, unknown> = {};
-    for (const [key, val] of Object.entries(value)) {
-      if (key === "textref" || key === "locate" || key === "offsets") continue;
-      out[key] = stripLocatorDetails(val);
-    }
-    return out;
-  }
-  return value;
-}
