@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- `WebSpeechVoiceManager` reports `controls.boundary: false` for every voice on Android, which never emits boundary events. Voices Chrome names after their language (e.g. “English United States”) aren’t in the JSON, and previously defaulted to supporting boundaries.
+
 ## [0.14.1] - 2026-10-08
 
 ### Fixed

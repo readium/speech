@@ -1,4 +1,4 @@
-import { ReadiumSpeechJSONVoice, ReadiumSpeechVoice, TGender, TQuality, TSource } from "../voices/types.js";
+import { ReadiumSpeechJSONVoice, ReadiumSpeechVoice, TGender, TQuality, TSource, TVoiceControls } from "../voices/types.js";
 import { getTestUtterance, getVoices, processLanguages, normalizeLanguageCode, getDefaultRegion, getLanguageDisplayName } from "../voices/languages.js";
 import { createJsonOrderMap, getQualityValue, sortByQuality, groupVoicesByLanguage, sortAlphabetically, sortVoicesByRegions } from "../voices/sorting.js";
 import { 
@@ -12,6 +12,7 @@ import { findLocaleWithQualityIndicators, getInferredQualityFromPlatform } from 
 import { getInferredQualityFromPackageName } from "../voices/packages.js";
 import { extractLangRegionFromBCP47 } from "../utils/language.js";
 import { shouldMergeVoicesByName, selectPreferredVoiceByName } from "../voices/voiceDuplicates.js";
+import { detectPlatformFeatures } from "../utils/patches.js";
 
 /**
  * Options for filtering voices
@@ -70,6 +71,7 @@ export class WebSpeechVoiceManager {
   private static instance: WebSpeechVoiceManager;
   private static initializationPromise: Promise<WebSpeechVoiceManager> | null = null;
   private systemLocale: string;
+  private isAndroid: boolean;
   private voices: ReadiumSpeechVoice[] = [];
   private browserVoices: SpeechSynthesisVoice[] = [];
   private isInitialized = false;
@@ -83,6 +85,7 @@ export class WebSpeechVoiceManager {
       throw new Error("Web Speech API is not available in this environment");
     }
     this.systemLocale = navigator.languages?.[0]?.split("-")[0] || "en";
+    this.isAndroid = detectPlatformFeatures().isAndroid;
   }
 
   /**
@@ -614,6 +617,11 @@ export class WebSpeechVoiceManager {
           
           // Infer quality using the helper method
           const quality = this.inferVoiceQuality(voice, jsonVoice, duplicatesCount);
+
+          // Android doesn't emit boundary events, whichever voice is used
+          const controls: TVoiceControls | undefined = this.isAndroid
+            ? { ...jsonVoice?.controls, boundary: false }
+            : jsonVoice?.controls;
           
           if (jsonVoice) {
             // Create the voice object with the determined quality
@@ -622,6 +630,7 @@ export class WebSpeechVoiceManager {
               label: jsonVoice.label ?? this.cleanVoiceName(voice.name),
               source: "json",
               originalName: voice.name,
+              ...(controls && { controls }),
               language: jsonVoice.language ?? normalizedLang,
               voiceURI: voice.voiceURI,
               quality,
@@ -638,6 +647,7 @@ export class WebSpeechVoiceManager {
             label: this.cleanVoiceName(voice.name),
             name: voice.name,
             originalName: voice.name,
+            ...(controls && { controls }),
             language: normalizedLang,
             voiceURI: voice.voiceURI,
             quality,
