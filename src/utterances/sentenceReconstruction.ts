@@ -228,14 +228,16 @@ async function pushJoinedGroup(
       ? boundaries
       : [{ text: joinedPlain, start: 0, end: joinedPlain.length, contentEnd: joinedPlain.length }];
 
+  // A block-start piece flags only the first sentence reaching it, the one holding its start.
+  const unclaimedBlockStarts = new Set(pieces.filter((piece) => ctx.blockStarts.has(piece)));
   effectiveBoundaries.forEach((boundary, k) => {
     const startIdx = pieceIndexAt(ranges, boundary.start);
     const endIdx = boundary.end > boundary.start ? pieceIndexAt(ranges, boundary.end - 1) : startIdx;
     const text = ctx.format === "ssml" ? (ssmlFragments ? ssmlFragments[k] : joinedSsml!) : boundary.text;
     const merged: ReadiumSpeechUtterance = { [ctx.format]: text };
     if (language) merged.language = language;
-    const wasBlockStart = pieces.slice(startIdx, endIdx + 1).some((piece) => ctx.blockStarts.has(piece));
-    if (wasBlockStart) ctx.blockStarts.add(merged);
+    const claimed = pieces.slice(startIdx, endIdx + 1).filter((piece) => unclaimedBlockStarts.delete(piece));
+    if (claimed.length > 0) ctx.blockStarts.add(merged);
     const offsets = buildJoinedOffsets(pieces, pieceSources, ranges, boundary, startIdx, endIdx, ctx);
     if (offsets.length > 0) merged.offsets = offsets;
 

@@ -1,6 +1,6 @@
 import "../domSetup.js";
 import test from "ava";
-import { parseMarkup } from "@readium/guided-navigation";
+import { makeGnd, parseMarkup } from "@readium/guided-navigation";
 import { decodeTextref } from "@readium/guided-navigation";
 import { extractUtterances, extractUtterancesWithSources } from "../../src/utterances/extractUtterances.js";
 import type { SentenceBoundary, SentenceSegmenter } from "../../src/utterances/sentenceSegmenter.js";
@@ -176,6 +176,78 @@ test("segmentation: sentence keeps blockStarts on only the first sentence of a s
     ["First.", "Second.", "Third."]
   );
   t.deepEqual(blockStarts, [true, false, true]);
+});
+
+const inlineMarkupParagraphs =
+  '<p>First <em>sentence</em> here. Second has a <a href="#x">link</a> inside. Third <span>with span</span> ends.</p><p>Next one. Two.</p>';
+
+const makeGndFrom = (body: string) => {
+  const doc = new DOMParser().parseFromString(`<html><body>${body}</body></html>`, "text/html");
+  return makeGnd(doc.body, "text/html", { textrefs: { roles: true }, href: "chapter.html" })!.guided!;
+};
+
+for (const [label, body] of [
+  ["bare", inlineMarkupParagraphs],
+  ["in a section", `<section>${inlineMarkupParagraphs}</section>`],
+]) {
+  test(`segmentation: sentence flags only each paragraph's first sentence with inline markup (${label})`, async (t) => {
+    const { utterances, blockStarts } = await extractUtterancesWithSources(makeGndFrom(body), {
+      format: "plain",
+      segmentation: { mode: "sentence" },
+    });
+    t.deepEqual(
+      utterances.map((u) => u.plain),
+      ["First sentence here.", "Second has a link inside.", "Third with span ends.", "Next one.", "Two."]
+    );
+    t.deepEqual(blockStarts, [true, false, false, true, false]);
+  });
+
+  test(`segmentation: structure flags each paragraph with inline markup (${label})`, async (t) => {
+    const { blockStarts } = await extractUtterancesWithSources(makeGndFrom(body), {
+      format: "plain",
+      segmentation: { mode: "structure" },
+    });
+    t.deepEqual(blockStarts, [true, true]);
+  });
+}
+
+test("segmentation: sentence flags only the joined sentence, not the rest of the paragraph it joins into", async (t) => {
+  const gnd = parseMarkup("<p>The Little Shopwindow</p><p>The lady is ready. Will she come? Not yet.</p><p>Next.</p>");
+  const { utterances, blockStarts } = await extractUtterancesWithSources(gnd, {
+    format: "plain",
+    segmentation: { mode: "sentence" },
+  });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["The Little Shopwindow The lady is ready.", "Will she come?", "Not yet.", "Next."]
+  );
+  t.deepEqual(blockStarts, [true, false, false, true]);
+});
+
+test("segmentation: sentence flags a later joined sentence that holds a paragraph's start", async (t) => {
+  const gnd = parseMarkup("<p>Start of</p><p>a sentence. Middle. End of</p><p>another one. Tail.</p>");
+  const { utterances, blockStarts } = await extractUtterancesWithSources(gnd, {
+    format: "plain",
+    segmentation: { mode: "sentence" },
+  });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["Start of a sentence.", "Middle.", "End of another one.", "Tail."]
+  );
+  t.deepEqual(blockStarts, [true, false, true, false]);
+});
+
+test("segmentation: sentence flags nested paragraphs, not just their enclosing section", async (t) => {
+  const gnd = makeGndFrom("<section><p>One. Two.</p><p>Three. Four.</p></section><section><p>Five.</p></section>");
+  const { utterances, blockStarts } = await extractUtterancesWithSources(gnd, {
+    format: "plain",
+    segmentation: { mode: "sentence" },
+  });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["One.", "Two.", "Three.", "Four.", "Five."]
+  );
+  t.deepEqual(blockStarts, [true, false, true, false, true]);
 });
 
 // "Zqxk." is fabricated so these test our own passthrough/scoping, not a
