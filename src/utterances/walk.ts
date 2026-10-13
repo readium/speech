@@ -24,8 +24,8 @@ import { formatPlain, push, pushPiecesOrMerged } from "./utteranceOutput.js";
 import {
   blockLevelRoleSet,
   contentlessRoleSet,
-  deferrablePlaceholderRoleSet,
   descriptionFoldingRoleSet,
+  inlineContextualizationRoleSet,
   valueFoldingRoleSet,
   type SourceTrace,
   type WalkContext,
@@ -53,8 +53,8 @@ function buildPagebreakUtterance(node: GuidedNavigationObject, ctx: WalkContext)
   return [merged];
 }
 
-function isDeferrable(child: GuidedNavigationObject): boolean {
-  return nodeRoles(child).some((role) => deferrablePlaceholderRoleSet.has(role));
+function isDeferred(child: GuidedNavigationObject, ctx: WalkContext): boolean {
+  return nodeRoles(child).some((role) => inlineContextualizationRoleSet.has(role) && !ctx.inlineContextualization.has(role));
 }
 
 // Splits the sentence on its placeholders, merging inline ones back into one
@@ -76,7 +76,7 @@ function emitWithPlaceholders(
     if (segment.placeholderId !== undefined) {
       const child = childrenById.get(segment.placeholderId);
       if (!child) continue;
-      if (ctx.inlineContextualization || !isDeferrable(child)) {
+      if (!isDeferred(child, ctx)) {
         walkNode(child, pieces, pieceSources, ctx, suppress);
       } else {
         deferred.push(child);
@@ -177,7 +177,7 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
         const footnoteContextualized = ctx.contextualize.has("footnote");
         const footnoteBlock = ctx.i18n.exists("footnote.block.start") || ctx.i18n.exists("footnote.block.end");
         const childEligible =
-          childRoles.some((role) => blockLevelRoleSet.has(role)) && !suppress && !ctx.inlineContextualization;
+          childRoles.some((role) => blockLevelRoleSet.has(role)) && !suppress && !ctx.inlineContextualization.has("noteref");
         const startText = footnoteContextualized ? resolveEntryText(ctx, footnoteBlock ? "footnote.block.start" : "footnote.inline") : undefined;
         const hasEntry = footnoteContextualized && (startText !== undefined || footnoteBlock);
         const pieces: ReadiumSpeechUtterance[] = [];

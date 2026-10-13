@@ -4,6 +4,10 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ## [Unreleased]
 
+### Changed
+
+- **Breaking:** `inlineContextualization` takes a list of roles instead of a boolean, so `noteref` and `pagebreak` can be chosen separately. `inlineContextualizationRoles` lists the accepted roles. `true` becomes `["noteref", "pagebreak"]`; a boolean is now dropped as invalid.
+
 ### Fixed
 
 - `WebSpeechVoiceManager` reports `controls.boundary: false` for every voice on Android, which never emits boundary events. Voices Chrome names after their language (e.g. “English United States”) aren’t in the JSON, and previously defaulted to supporting boundaries.

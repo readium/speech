@@ -77,12 +77,17 @@ test("an unsupported enum value is dropped to undefined", (t) => {
   t.is(prefs.language, undefined);
 });
 
-test("a non-boolean value for a boolean field is dropped to undefined", (t) => {
+test("a boolean inlineContextualization is dropped to undefined", (t) => {
   const prefs = new SpeechPreferences({
     // @ts-expect-error deliberately invalid
-    inlineContextualization: "yes",
+    inlineContextualization: true,
   });
   t.is(prefs.inlineContextualization, undefined);
+});
+
+test("an inlineContextualization role list is kept", (t) => {
+  const prefs = new SpeechPreferences({ inlineContextualization: ["pagebreak"] });
+  t.deepEqual(prefs.inlineContextualization, ["pagebreak"]);
 });
 
 test("explicit null is preserved (not coerced to undefined) for guarded fields", (t) => {

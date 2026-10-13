@@ -11,7 +11,7 @@ import {
   volumeRangeConfig,
 } from "./constraints.js";
 import type { IPreferencesEditor } from "./PreferencesEditor.js";
-import { BooleanPreference, EnumPreference, RangePreference, StringArrayPreference } from "./Preference.js";
+import { EnumPreference, RangePreference, StringArrayPreference } from "./Preference.js";
 import { SpeechPreferences, VerbosityPreset, AutoPauseScope } from "./SpeechPreferences.js";
 import { SpeechSettings } from "./SpeechSettings.js";
 import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
@@ -62,12 +62,12 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
     });
   }
 
-  get inlineContextualization(): BooleanPreference {
-    return new BooleanPreference({
+  get inlineContextualization(): StringArrayPreference {
+    return new StringArrayPreference({
       initialValue: this.preferences.inlineContextualization,
       effectiveValue: this.settings.inlineContextualization,
       isEffective: this.preferences.inlineContextualization != null,
-      onChange: (value) => this.updatePreference("inlineContextualization", value ?? null),
+      onChange: (value) => this.updatePreference("inlineContextualization", (value ?? null) as GndRole[] | null),
     });
   }
 

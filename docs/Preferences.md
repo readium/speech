@@ -69,5 +69,5 @@ Set once via `submitPreferences()` instead of on every `extractUtterances()` cal
 
 ```typescript
 format?: "plain" | "ssml";     // default "plain"
-inlineContextualization?: boolean;   // default false
+inlineContextualization?: GndRole[]; // default [], see inlineContextualizationRoles
 ```

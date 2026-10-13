@@ -45,7 +45,7 @@ interface ExtractUtterancesOptions {
   contextualizationLocale?: string;
   contextualization?: ContextualizationOptions;
   language?: "none" | "block-level" | "always";
-  inlineContextualization?: boolean;
+  inlineContextualization?: GndRole[];
   segmentation?: SegmentationOptions;
   substitutions?: SubstitutionTable;
 }
@@ -91,7 +91,7 @@ Quick reference:
 | `contextualization.shapes` | per the catalog | which of a role's shapes (single line vs. bounded pair) is spoken — the piece [verbosity levels](Preferences.md#verbosity) drive to make a role's announcement vary by level |
 | `contextualization.params` | none | supply a placeholder value the extractor has no built-in source for |
 | `language` | `"block-level"` | how a node's own inline-language spans render |
-| `inlineContextualization` | `false` | split a sentence at a mid-sentence pagebreak/footnote, instead of after it |
+| `inlineContextualization` | `[]` | which mid-sentence roles (`noteref`, `pagebreak`) split the sentence, instead of being spoken after it |
 | `segmentation.mode` | `"structure"` | one utterance per structural unit, or split/reconstruct at real sentence boundaries |
 | `segmentation.suppressions` | none | per-language abbreviations (e.g. `"d."`) that sentence mode won't treat as endings |
 | `segmentation.segmenter` | built-in `Intl.Segmenter`-based splitter | swap in a different sentence segmenter |
@@ -228,7 +228,16 @@ How a node's own inline spans (`<em lang="fr">`) render. Never merges across sib
 
 ### `inlineContextualization`
 
-A mid-sentence pagebreak/footnote splits the sentence at that exact point instead of after it finishes. Default `false`.
+Which mid-sentence roles split the sentence at that exact point instead of being spoken after it finishes. Default `[]`. `inlineContextualizationRoles` lists the accepted roles: `noteref` (its footnote is spoken in place) and `pagebreak`.
+
+```typescript
+// <p>...in the middle <span epub:type="pagebreak" title="Page 5"/> of a sentence.</p>
+await extractUtterances(gnd, { format: "plain" });
+// [{ language: "en", plain: "...in the middle of a sentence." }, { plain: "Page 5" }]
+
+await extractUtterances(gnd, { format: "plain", inlineContextualization: ["pagebreak"] });
+// [{ language: "en", plain: "...in the middle Page 5 of a sentence." }]
+```
 
 ### `segmentation`
 

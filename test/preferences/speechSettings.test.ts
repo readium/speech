@@ -10,7 +10,7 @@ test("defaults to the few preset and the rest of SpeechDefaults", (t) => {
   const settings = new SpeechSettings(new SpeechPreferences(), defaults);
   t.is(settings.verbosity, "few");
   t.is(settings.format, "plain");
-  t.is(settings.inlineContextualization, false);
+  t.deepEqual(settings.inlineContextualization, []);
   t.is(settings.language, "block-level");
   t.is(settings.pauseDuration, 300);
   t.is(settings.autoPause, "none");

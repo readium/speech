@@ -113,12 +113,9 @@ export interface ExtractUtterancesOptions {
   //    treated as one language, so nothing gets tagged at all.
   language?: LanguageMode;
 
-  // Whether a pagebreak/footnote placeholder that falls mid-sentence
-  // splits the enclosing utterance at that exact point (contextualization/
-  // content spoken *during* the sentence) instead of after the whole
-  // sentence finishes (default, `false` — today's only behavior, for
-  // either `format`).
-  inlineContextualization?: boolean;
+  // Roles from `inlineContextualizationRoles` whose mid-sentence placeholder splits
+  // the sentence at that point instead of being spoken after it. Default `[]`.
+  inlineContextualization?: GndRole[];
 
   // See `SegmentationOptions` above.
   segmentation?: SegmentationOptions;

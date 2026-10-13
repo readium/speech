@@ -12,7 +12,7 @@ const optionVerbosityEl = document.getElementById("option-verbosity");
 const optionSkipEl = document.getElementById("option-skip");
 const optionLanguageEl = document.getElementById("option-language");
 const optionSegmentationEl = document.getElementById("option-segmentation");
-const optionInterruptEl = document.getElementById("option-interrupt");
+const optionInlineContextualizationEl = document.getElementById("option-inline-contextualization");
 const optionContextualizeEl = document.getElementById("option-contextualize");
 const optionPauseDurationEl = document.getElementById("option-pause-duration");
 const optionPauseDurationValueEl = document.getElementById("option-pause-duration-value");
@@ -102,6 +102,14 @@ try {
   }
   if (typeof mod.SpeechPreferencesEditor === "function") {
     SpeechPreferencesEditorClass = mod.SpeechPreferencesEditor;
+  }
+  if (Array.isArray(mod.inlineContextualizationRoles)) {
+    for (const role of mod.inlineContextualizationRoles) {
+      const option = document.createElement("option");
+      option.value = role;
+      option.textContent = role;
+      optionInlineContextualizationEl.appendChild(option);
+    }
   }
   if (Array.isArray(mod.skippableRoles)) {
     // skippedAtVerbosity.none reaches beyond roles.md's skippableRoles (e.g. `audio`, `table`).
@@ -233,8 +241,9 @@ function renderToolbarState() {
   optionSkipEl.disabled = customRolesDisabled;
   optionContextualizeEl.disabled = customRolesDisabled;
 
-  setDefaultLabel(inlineContextualizationHintEl, libraryDefaults?.inlineContextualization);
-  optionInterruptEl.checked = editor.inlineContextualization.value ?? editor.inlineContextualization.effectiveValue;
+  setDefaultLabel(inlineContextualizationHintEl, libraryDefaults?.inlineContextualization.join(", ") || "none");
+  const inlineRoles = editor.inlineContextualization.value ?? editor.inlineContextualization.effectiveValue;
+  for (const option of optionInlineContextualizationEl.options) option.selected = inlineRoles.includes(option.value);
 
   for (const { key, inputEl, valueEl, hintEl, unit } of rangeControls) {
     setDefaultLabel(hintEl, libraryDefaults?.[key]);
@@ -257,7 +266,9 @@ async function applyPreferencesFromToolbar() {
   playbackNavigator?.stop();
   const editor = configurable.preferencesEditor;
   editor.format.value = currentFormat();
-  editor.inlineContextualization.value = optionInterruptEl?.checked ?? false;
+  editor.inlineContextualization.value = optionInlineContextualizationEl
+    ? [...optionInlineContextualizationEl.selectedOptions].map((o) => o.value)
+    : [];
   editor.verbosity.value = optionVerbosityEl?.value || "few";
   editor.language.value = optionLanguageEl?.value || null;
   editor.segmentation.value = optionSegmentationEl?.value || null;
@@ -306,7 +317,7 @@ function currentExtractionOptions() {
   if (!configurable) return { format: currentFormat(), skip: [], contextualize: [] };
   const settings = configurable.settings;
   const options = { format: settings.format, skip: settings.skip, contextualize: settings.contextualize };
-  if (settings.inlineContextualization) options.inlineContextualization = true;
+  if (settings.inlineContextualization.length > 0) options.inlineContextualization = settings.inlineContextualization;
   // Fixtures encode "default" as omitting language/segmentation entirely
   // (scripts/generate-utterances.js) — only carry them when they diverge
   // from the library default, so bridging/matching below sees the same shape.
@@ -337,15 +348,19 @@ function bridgeToFixtureOptions(resolvedOptions, rolesInTree) {
     (role) => rolesInTree.has(role) && contextualizationCatalog?.[role] !== undefined,
   );
 
+  const effectiveInline = (resolvedOptions.inlineContextualization ?? []).filter((role) => rolesInTree.has(role));
+
   const bridged = { ...resolvedOptions };
   delete bridged.skip;
   delete bridged.contextualize;
+  delete bridged.inlineContextualization;
   if (effectiveSkip.length > 0) bridged.skip = effectiveSkip;
   if (effectiveContextualize.length > 0) bridged.contextualize = effectiveContextualize;
+  if (effectiveInline.length > 0) bridged.inlineContextualization = effectiveInline;
   return bridged;
 }
 
-// `skip`/`contextualize` are sets (extractUtterances takes them as
+// Role lists are sets (extractUtterances takes them as
 // ReadonlySet<GndRole>), but stored/passed around as arrays — sort them so
 // role order (tree-walk order in fixtures, catalog/DOM order in this UI)
 // never causes a false mismatch.
@@ -353,6 +368,7 @@ function normalizeOptions(options) {
   const normalized = { ...options };
   if (normalized.skip) normalized.skip = [...normalized.skip].sort();
   if (normalized.contextualize) normalized.contextualize = [...normalized.contextualize].sort();
+  if (normalized.inlineContextualization) normalized.inlineContextualization = [...normalized.inlineContextualization].sort();
   return normalized;
 }
 
@@ -779,7 +795,7 @@ for (const radio of formatRadios) radio.addEventListener("change", applyPreferen
 optionVerbosityEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionLanguageEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionSegmentationEl?.addEventListener("change", applyPreferencesFromToolbar);
-optionInterruptEl?.addEventListener("change", applyPreferencesFromToolbar);
+optionInlineContextualizationEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionSkipEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionContextualizeEl?.addEventListener("change", applyPreferencesFromToolbar);
 for (const { inputEl, valueEl, unit } of rangeControls) {

@@ -25,22 +25,7 @@
         },
         {
           "format": "plain",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -54,23 +39,7 @@
         },
         {
           "format": "plain",
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -96,22 +65,7 @@
           "contextualize": [
             "details"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -125,23 +79,7 @@
           "contextualize": [
             "details"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -175,28 +113,7 @@
           "contextualize": [
             "details"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -216,29 +133,7 @@
           "contextualize": [
             "details"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -270,22 +165,7 @@
           "contextualize": [
             "summary"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "summary"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "summary"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -299,23 +179,7 @@
           "contextualize": [
             "summary"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "summary"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "summary"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -346,28 +210,7 @@
           "contextualize": [
             "summary"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "summary"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "summary"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -387,29 +230,7 @@
           "contextualize": [
             "summary"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "summary"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "summary"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -440,24 +261,7 @@
             "details",
             "summary"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -473,25 +277,7 @@
             "details",
             "summary"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -530,30 +316,7 @@
             "details",
             "summary"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -575,31 +338,7 @@
             "details",
             "summary"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -643,23 +382,6 @@
           "skip": [
             "details"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
           "language": "always"
         },
         {
@@ -668,25 +390,6 @@
             "details"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -713,25 +416,6 @@
           "skip": [
             "details"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
           "language": "none"
         },
         {
@@ -740,25 +424,6 @@
             "details"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -792,29 +457,6 @@
           "contextualize": [
             "details"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details"
-          ],
           "language": "always"
         },
         {
@@ -826,31 +468,6 @@
             "details"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -886,31 +503,6 @@
           "contextualize": [
             "details"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details"
-          ],
           "language": "none"
         },
         {
@@ -922,31 +514,6 @@
             "details"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -980,29 +547,6 @@
           "contextualize": [
             "summary"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "summary"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "summary"
-          ],
           "language": "always"
         },
         {
@@ -1014,31 +558,6 @@
             "summary"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "summary"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "summary"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1074,31 +593,6 @@
           "contextualize": [
             "summary"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "summary"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "summary"
-          ],
           "language": "none"
         },
         {
@@ -1110,31 +604,6 @@
             "summary"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "summary"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "summary"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1171,31 +640,6 @@
             "details",
             "summary"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details",
-            "summary"
-          ],
           "language": "always"
         },
         {
@@ -1208,33 +652,6 @@
             "summary"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1273,33 +690,6 @@
             "details",
             "summary"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details",
-            "summary"
-          ],
           "language": "none"
         },
         {
@@ -1312,33 +702,6 @@
             "summary"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1371,22 +734,7 @@
         },
         {
           "format": "ssml",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1400,23 +748,7 @@
         },
         {
           "format": "ssml",
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1442,22 +774,7 @@
           "contextualize": [
             "details"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -1471,23 +788,7 @@
           "contextualize": [
             "details"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -1521,28 +822,7 @@
           "contextualize": [
             "details"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1562,29 +842,7 @@
           "contextualize": [
             "details"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1616,22 +874,7 @@
           "contextualize": [
             "summary"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "summary"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "summary"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -1645,23 +888,7 @@
           "contextualize": [
             "summary"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "summary"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "summary"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -1692,28 +919,7 @@
           "contextualize": [
             "summary"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "summary"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "summary"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1733,29 +939,7 @@
           "contextualize": [
             "summary"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "summary"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "summary"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1786,24 +970,7 @@
             "details",
             "summary"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -1819,25 +986,7 @@
             "details",
             "summary"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -1876,30 +1025,7 @@
             "details",
             "summary"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1921,31 +1047,7 @@
             "details",
             "summary"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1989,23 +1091,6 @@
           "skip": [
             "details"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
           "language": "always"
         },
         {
@@ -2014,25 +1099,6 @@
             "details"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2059,25 +1125,6 @@
           "skip": [
             "details"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
           "language": "none"
         },
         {
@@ -2086,25 +1133,6 @@
             "details"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2138,29 +1166,6 @@
           "contextualize": [
             "details"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details"
-          ],
           "language": "always"
         },
         {
@@ -2172,31 +1177,6 @@
             "details"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2232,31 +1212,6 @@
           "contextualize": [
             "details"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details"
-          ],
           "language": "none"
         },
         {
@@ -2268,31 +1223,6 @@
             "details"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2326,29 +1256,6 @@
           "contextualize": [
             "summary"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "summary"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "summary"
-          ],
           "language": "always"
         },
         {
@@ -2360,31 +1267,6 @@
             "summary"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "summary"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "summary"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2420,31 +1302,6 @@
           "contextualize": [
             "summary"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "summary"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "summary"
-          ],
           "language": "none"
         },
         {
@@ -2456,31 +1313,6 @@
             "summary"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "summary"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "summary"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2517,31 +1349,6 @@
             "details",
             "summary"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details",
-            "summary"
-          ],
           "language": "always"
         },
         {
@@ -2554,33 +1361,6 @@
             "summary"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2619,33 +1399,6 @@
             "details",
             "summary"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details",
-            "summary"
-          ],
           "language": "none"
         },
         {
@@ -2658,33 +1411,6 @@
             "summary"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "details"
-          ],
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }

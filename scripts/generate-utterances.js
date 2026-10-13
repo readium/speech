@@ -33,7 +33,7 @@ try {
   console.error("Run `npm run build` first — could not import build/index.js.");
   throw err;
 }
-const { extractUtterances, skippableRoles, skippedAtVerbosity, defaultContextualizations, shapeableRoles } = mod;
+const { extractUtterances, skippableRoles, skippedAtVerbosity, defaultContextualizations, shapeableRoles, inlineContextualizationRoles } = mod;
 
 // skippedAtVerbosity.none reaches beyond roles.md's skippable-roles list (e.g. `audio`, `table`).
 const allSkippableRoles = new Set([...skippableRoles, ...(skippedAtVerbosity?.none ?? [])]);
@@ -90,7 +90,6 @@ function sameUtterances(a, b) {
 }
 
 const languageValues = [undefined, "always", "block-level", "none"];
-const inlineContextualizationValues = [false, true];
 const segmentationModeValues = [undefined, "sentence"];
 
 const entries = JSON.parse(readFileSync(path.join(GND_FIXTURES_DIR, "manifest.json"), "utf-8"))
@@ -113,6 +112,7 @@ for (const entry of entries) {
   const contextualizeSubsets = subsets(
     [...rolesInTree].filter((role) => defaultContextualizations?.[role] !== undefined),
   );
+  const inlineContextualizationSubsets = subsets(inlineContextualizationRoles.filter((role) => rolesInTree.has(role)));
   const cases = [];
   for (const format of ["plain", "ssml"]) {
     const defaultUtterances = stripLocatorDetails(await extractUtterances(nodes, { format }));
@@ -130,14 +130,14 @@ for (const entry of entries) {
         );
         for (const inlineRoles of subsets(shapeableInCombo)) {
           for (const language of languageValues) {
-            for (const inlineContextualization of inlineContextualizationValues) {
+            for (const inlineContextualization of inlineContextualizationSubsets) {
               for (const segmentationMode of segmentationModeValues) {
                 if (
                   skip.length === 0 &&
                   contextualize.length === 0 &&
                   inlineRoles.length === 0 &&
                   language === undefined &&
-                  !inlineContextualization &&
+                  inlineContextualization.length === 0 &&
                   segmentationMode === undefined
                 ) {
                   continue; // the default case itself, already pushed above
@@ -151,7 +151,7 @@ for (const entry of entries) {
                   };
                 }
                 if (language !== undefined) options.language = language;
-                if (inlineContextualization) options.inlineContextualization = true;
+                if (inlineContextualization.length > 0) options.inlineContextualization = inlineContextualization;
                 if (segmentationMode !== undefined) options.segmentation = { mode: segmentationMode };
 
                 const utterances = stripLocatorDetails(await extractUtterances(nodes, options));

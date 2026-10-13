@@ -9,7 +9,7 @@ export class SpeechSettings implements ConfigurableSettings {
   [key: string]: unknown;
 
   public readonly format: ExtractionFormat;
-  public readonly inlineContextualization: boolean;
+  public readonly inlineContextualization: GndRole[];
   public readonly verbosity: VerbosityPreset;
   public readonly skip: GndRole[];
   public readonly contextualize: GndRole[];

@@ -25,22 +25,7 @@
         },
         {
           "format": "plain",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -54,23 +39,7 @@
         },
         {
           "format": "plain",
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -104,22 +73,7 @@
           "contextualize": [
             "credits"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -133,23 +87,7 @@
           "contextualize": [
             "credits"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -183,28 +121,7 @@
           "contextualize": [
             "credits"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -224,29 +141,7 @@
           "contextualize": [
             "credits"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -286,22 +181,7 @@
           "contextualize": [
             "list"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -315,23 +195,7 @@
           "contextualize": [
             "list"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -365,28 +229,7 @@
           "contextualize": [
             "list"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -406,29 +249,7 @@
           "contextualize": [
             "list"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -470,24 +291,7 @@
             "credits",
             "list"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -503,25 +307,7 @@
             "credits",
             "list"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -563,30 +349,7 @@
             "credits",
             "list"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -608,31 +371,7 @@
             "credits",
             "list"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -678,22 +417,7 @@
           "contextualize": [
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -707,23 +431,7 @@
           "contextualize": [
             "listItem"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -757,28 +465,7 @@
           "contextualize": [
             "listItem"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -798,29 +485,7 @@
           "contextualize": [
             "listItem"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -862,24 +527,7 @@
             "credits",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -895,25 +543,7 @@
             "credits",
             "listItem"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -955,30 +585,7 @@
             "credits",
             "listItem"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1000,31 +607,7 @@
             "credits",
             "listItem"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1072,24 +655,7 @@
             "list",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -1105,25 +671,7 @@
             "list",
             "listItem"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -1165,30 +713,7 @@
             "list",
             "listItem"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1210,31 +735,7 @@
             "list",
             "listItem"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1284,26 +785,7 @@
             "list",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -1321,27 +803,7 @@
             "list",
             "listItem"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -1391,32 +853,7 @@
             "list",
             "listItem"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1440,33 +877,7 @@
             "list",
             "listItem"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1518,22 +929,7 @@
           "contextualize": [
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -1547,23 +943,7 @@
           "contextualize": [
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -1597,28 +977,7 @@
           "contextualize": [
             "credit"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1638,29 +997,7 @@
           "contextualize": [
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1702,24 +1039,7 @@
             "credits",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -1735,25 +1055,7 @@
             "credits",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -1795,30 +1097,7 @@
             "credits",
             "credit"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1840,31 +1119,7 @@
             "credits",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1912,24 +1167,7 @@
             "list",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -1945,25 +1183,7 @@
             "list",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -2005,30 +1225,7 @@
             "list",
             "credit"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2050,31 +1247,7 @@
             "list",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2124,26 +1297,7 @@
             "list",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -2161,27 +1315,7 @@
             "list",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -2231,32 +1365,7 @@
             "list",
             "credit"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2280,33 +1389,7 @@
             "list",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2360,24 +1443,7 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -2393,25 +1459,7 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -2453,30 +1501,7 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2498,31 +1523,7 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2572,26 +1573,7 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -2609,27 +1591,7 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -2679,32 +1641,7 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2728,33 +1665,7 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2810,26 +1721,7 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -2847,27 +1739,7 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -2917,32 +1789,7 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2966,33 +1813,7 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3050,28 +1871,7 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "plain",
@@ -3091,29 +1891,7 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -3171,34 +1949,7 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3224,35 +1975,7 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3322,22 +2045,7 @@
         },
         {
           "format": "ssml",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3351,23 +2059,7 @@
         },
         {
           "format": "ssml",
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3401,22 +2093,7 @@
           "contextualize": [
             "credits"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -3430,23 +2107,7 @@
           "contextualize": [
             "credits"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -3480,28 +2141,7 @@
           "contextualize": [
             "credits"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3521,29 +2161,7 @@
           "contextualize": [
             "credits"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3583,22 +2201,7 @@
           "contextualize": [
             "list"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -3612,23 +2215,7 @@
           "contextualize": [
             "list"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -3662,28 +2249,7 @@
           "contextualize": [
             "list"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3703,29 +2269,7 @@
           "contextualize": [
             "list"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3767,24 +2311,7 @@
             "credits",
             "list"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -3800,25 +2327,7 @@
             "credits",
             "list"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -3860,30 +2369,7 @@
             "credits",
             "list"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3905,31 +2391,7 @@
             "credits",
             "list"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3975,22 +2437,7 @@
           "contextualize": [
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -4004,23 +2451,7 @@
           "contextualize": [
             "listItem"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -4054,28 +2485,7 @@
           "contextualize": [
             "listItem"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4095,29 +2505,7 @@
           "contextualize": [
             "listItem"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4159,24 +2547,7 @@
             "credits",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -4192,25 +2563,7 @@
             "credits",
             "listItem"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -4252,30 +2605,7 @@
             "credits",
             "listItem"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4297,31 +2627,7 @@
             "credits",
             "listItem"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4369,24 +2675,7 @@
             "list",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -4402,25 +2691,7 @@
             "list",
             "listItem"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -4462,30 +2733,7 @@
             "list",
             "listItem"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4507,31 +2755,7 @@
             "list",
             "listItem"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4581,26 +2805,7 @@
             "list",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -4618,27 +2823,7 @@
             "list",
             "listItem"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -4688,32 +2873,7 @@
             "list",
             "listItem"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4737,33 +2897,7 @@
             "list",
             "listItem"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4815,22 +2949,7 @@
           "contextualize": [
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -4844,23 +2963,7 @@
           "contextualize": [
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -4894,28 +2997,7 @@
           "contextualize": [
             "credit"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4935,29 +3017,7 @@
           "contextualize": [
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4999,24 +3059,7 @@
             "credits",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -5032,25 +3075,7 @@
             "credits",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -5092,30 +3117,7 @@
             "credits",
             "credit"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5137,31 +3139,7 @@
             "credits",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5209,24 +3187,7 @@
             "list",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -5242,25 +3203,7 @@
             "list",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -5302,30 +3245,7 @@
             "list",
             "credit"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5347,31 +3267,7 @@
             "list",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5421,26 +3317,7 @@
             "list",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -5458,27 +3335,7 @@
             "list",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -5528,32 +3385,7 @@
             "list",
             "credit"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5577,33 +3409,7 @@
             "list",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5657,24 +3463,7 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -5690,25 +3479,7 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -5750,30 +3521,7 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5795,31 +3543,7 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5869,26 +3593,7 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -5906,27 +3611,7 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -5976,32 +3661,7 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -6025,33 +3685,7 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -6107,26 +3741,7 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -6144,27 +3759,7 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -6214,32 +3809,7 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -6263,33 +3833,7 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -6347,28 +3891,7 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true
         },
         {
           "format": "ssml",
@@ -6388,29 +3911,7 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -6468,34 +3969,7 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -6521,35 +3995,7 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }

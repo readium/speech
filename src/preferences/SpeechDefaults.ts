@@ -10,14 +10,14 @@ import {
   verbosityPresets,
   volumeRangeConfig,
 } from "./constraints.js";
-import { ensureBoolean, ensureEnumValue, ensureStringArray, ensureValueInRange } from "./guards.js";
+import { ensureEnumValue, ensureStringArray, ensureValueInRange } from "./guards.js";
 import type { AutoPauseScope, VerbosityPreset } from "./SpeechPreferences.js";
 import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
 
 // Guarded like ISpeechPreferences — an invalid value here falls back to the literal default below.
 export interface ISpeechDefaults {
   format?: ExtractionFormat | null;
-  inlineContextualization?: boolean | null;
+  inlineContextualization?: GndRole[] | null;
   verbosity?: VerbosityPreset | null;
   skip?: GndRole[] | null;
   contextualize?: GndRole[] | null;
@@ -32,7 +32,7 @@ export interface ISpeechDefaults {
 
 export class SpeechDefaults {
   public readonly format: ExtractionFormat;
-  public readonly inlineContextualization: boolean;
+  public readonly inlineContextualization: GndRole[];
   public readonly verbosity: VerbosityPreset;
   public readonly skip: GndRole[];
   public readonly contextualize: GndRole[];
@@ -46,7 +46,7 @@ export class SpeechDefaults {
 
   constructor(defaults: ISpeechDefaults = {}) {
     this.format = ensureEnumValue(defaults.format, extractionFormats) ?? "plain";
-    this.inlineContextualization = ensureBoolean(defaults.inlineContextualization) ?? false;
+    this.inlineContextualization = ensureStringArray(defaults.inlineContextualization) ?? [];
     this.verbosity = ensureEnumValue(defaults.verbosity, verbosityPresets) ?? "few";
     this.skip = ensureStringArray(defaults.skip) ?? [];
     this.contextualize = ensureStringArray(defaults.contextualize) ?? [];

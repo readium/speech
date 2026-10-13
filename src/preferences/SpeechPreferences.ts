@@ -12,7 +12,7 @@ import {
   verbosityPresets,
   volumeRangeConfig,
 } from "./constraints.js";
-import { ensureBoolean, ensureEnumValue, ensureStringArray, ensureValueInRange } from "./guards.js";
+import { ensureEnumValue, ensureStringArray, ensureValueInRange } from "./guards.js";
 
 export type VerbosityPreset = "none" | "few" | "some" | "most" | "custom";
 
@@ -23,7 +23,7 @@ export interface ISpeechPreferences {
   // Navigator's reextract(), or directly by a standalone
   // extractUtterances() caller.
   format?: ExtractionFormat | null; // default "plain"
-  inlineContextualization?: boolean | null; // default false
+  inlineContextualization?: GndRole[] | null; // default [], see inlineContextualizationRoles
 
   // Verbosity group — same consumers as above.
   verbosity?: VerbosityPreset | null; // default "few"
@@ -42,7 +42,7 @@ export interface ISpeechPreferences {
 
 export class SpeechPreferences implements ISpeechPreferences, ConfigurablePreferences<SpeechPreferences> {
   public format: ExtractionFormat | null | undefined;
-  public inlineContextualization: boolean | null | undefined;
+  public inlineContextualization: GndRole[] | null | undefined;
   public verbosity: VerbosityPreset | null | undefined;
   public skip: GndRole[] | null | undefined;
   public contextualize: GndRole[] | null | undefined;
@@ -56,7 +56,7 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
 
   constructor(preferences: ISpeechPreferences = {}) {
     this.format = ensureEnumValue(preferences.format, extractionFormats);
-    this.inlineContextualization = ensureBoolean(preferences.inlineContextualization);
+    this.inlineContextualization = ensureStringArray(preferences.inlineContextualization);
     this.verbosity = ensureEnumValue(preferences.verbosity, verbosityPresets);
     this.skip = ensureStringArray(preferences.skip);
     this.contextualize = ensureStringArray(preferences.contextualize);

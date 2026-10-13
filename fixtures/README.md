@@ -47,7 +47,8 @@ combination *within scope* (below) that appears in no case's `options` is
 understood to equal the default: absence is a positive claim, not a gap.
 Outside that scope, a fixture makes no claim either way.
 
-Scope, per format: `language` × `inlineContextualization` × `segmentation.mode`
+Scope, per format: `language` × `segmentation.mode`
+× every subset of (this fixture's roles ∩ `noteref`/`pagebreak`), for `inlineContextualization`
 × every subset of (this fixture's roles ∩ [roles.md's skippable-roles list])
 × every subset of (this fixture's roles ∩ roles with a
 contextualization-catalog entry) × every subset of (this fixture's roles ∩
@@ -77,9 +78,9 @@ The options:
   `contextualize`. Grouped under `contextualization` alongside
   `contextualizations`/`params` (unused by these fixtures) — see
   [Utterance Extraction](../docs/UtteranceExtraction.md#contextualization).
-- `inlineContextualization: boolean` — whether a pagebreak/footnote
-  reference that falls mid-sentence splits the sentence at that exact
-  point, instead of after the whole sentence finishes (the default).
+- `inlineContextualization: GndRole[]` — which of `noteref`/`pagebreak`,
+  when it falls mid-sentence, splits the sentence at that exact point
+  instead of after the whole sentence finishes (the default).
 - `language: "none" | "block-level" | "always"` — how a language shift
   between adjacent text is rendered: dropped entirely; kept as separate
   single-language utterances for `plain`, or merged into one utterance
