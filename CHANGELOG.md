@@ -10,6 +10,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - Engines' and `ReadiumSpeechNavigator`'s `"start"` event reports the voice an utterance is spoken with, as `detail.voice`.
 - `voice` preference: the voice of every utterance without its own, a single voice id or one per language. `ReadiumSpeechNavigator` applies it to content loaded via `loadContent()` and `loadGndContent()`, and reloads the queue when it changes.
 - `languageOverrides` extraction option and preference: the language content declared in a given language is spoken in, e.g. `{ en: "fr" }` for French content wrongly declared as English. Keys match by primary subtag, an exact tag winning over it.
+- `WebSpeechVoiceManager.getBrowserLanguages()`: the languages of every voice the browser has, with voice counts, without loading the voice data of those `initialize()` wasn't called with.
 - `valueForLanguage()`, matching a language-keyed record the way the `voice` and `languageOverrides` preferences are, `extractLangRegionFromBCP47()` and `getLanguageDisplayName()` are exported, as is `getVoiceId()`, the id `voice` takes for a voice.
 
 ### Changed

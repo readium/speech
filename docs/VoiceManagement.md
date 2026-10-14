@@ -60,6 +60,12 @@ voiceManager.getRegions(localization?: string, filterOptions?: VoiceFilterOption
 
 Returns arrays of languages and regions with their display names and voice counts. Both methods preserve the order of first occurrence when custom voices are provided.
 
+```typescript
+voiceManager.getBrowserLanguages(localization?: string): LanguageInfo[]
+```
+
+Returns the languages of every voice the browser has, sorted by name, including languages `initialize()` wasn't called with. Their voice data isn't loaded, so it is cheap, but no voice is filtered out either: initialize with a language to get its voices.
+
 ### Get Default Voice
 
 ```typescript

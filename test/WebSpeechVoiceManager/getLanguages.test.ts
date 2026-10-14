@@ -122,3 +122,23 @@ testWithContext("getLanguages: works with provided voices and filters", async (t
   t.is(languages[0].count, 1, "Should have 1 voice after filtering");
   t.is(languages[0].code, "en", "Should be English language");
 });
+testWithContext("getBrowserLanguages: covers the browser's voices whether or not they were loaded", async (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  // As when initialize() was only called with languages the browser has no voice for
+  (manager as any).voices = [];
+
+  t.deepEqual(manager.getLanguages(), []);
+  t.deepEqual(manager.getBrowserLanguages().map((language: any) => language.code).sort(), ["de", "en", "es", "fr", "it"]);
+});
+
+testWithContext("getBrowserLanguages: counts voices by base language", async (t: ExecutionContext<TestContext>) => {
+  const manager = t.context.manager;
+  (manager as any).browserVoices = [
+    { voiceURI: "a", name: "A", lang: "en-US", localService: true, default: true },
+    { voiceURI: "b", name: "B", lang: "en-GB", localService: true, default: false },
+    { voiceURI: "c", name: "C", lang: "fr-CA", localService: true, default: false }
+  ];
+
+  const counts = Object.fromEntries(manager.getBrowserLanguages().map((language: any) => [language.code, language.count]));
+  t.deepEqual(counts, { en: 2, fr: 1 });
+});

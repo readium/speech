@@ -431,25 +431,33 @@ export class WebSpeechVoiceManager {
     const voicesToCount = voices ?? this.voices;
     const filteredVoices = filterOptions ? this.filterVoices(filterOptions, voicesToCount) : voicesToCount;
     
-    const result: { code: string; label: string; count: number }[] = [];
-    const seen = new Set<string>();
-    
-    for (const voice of filteredVoices) {
-      const normalizedLang = normalizeLanguageCode(voice.language);
-      const key = normalizedLang.split("-")[0];
-      
-      if (!seen.has(key)) {
-        const displayName = getLanguageDisplayName(key, localization);
-        const count = filteredVoices.filter(v => 
-          normalizeLanguageCode(v.language).split("-")[0] === key
-        ).length;
-        
-        result.push({ code: key, label: displayName, count });
-        seen.add(key);
-      }
-    }
+    const result = this.countLanguages(filteredVoices.map(voice => voice.language), localization);
 
     return voices ? result : result.sort((a, b) => a.label.localeCompare(b.label));
+  }
+
+  /**
+   * Get the languages of every voice the browser has, with voice counts, sorted by name
+   * Unlike getLanguages(), it covers languages initialize() wasn't called with, without loading their voice data
+   * @param localization Optional BCP 47 language tag to use for language names
+   */
+  getBrowserLanguages(localization?: string): LanguageInfo[] {
+    if (!this.isInitialized) {
+      throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
+    }
+
+    const languages = this.browserVoices.filter(voice => voice?.lang).map(voice => voice.lang);
+    return this.countLanguages(languages, localization).sort((a, b) => a.label.localeCompare(b.label));
+  }
+
+  // By base language, in order of first occurrence
+  private countLanguages(languages: string[], localization?: string): LanguageInfo[] {
+    const counts = new Map<string, number>();
+    for (const language of languages) {
+      const key = normalizeLanguageCode(language).split("-")[0];
+      counts.set(key, (counts.get(key) ?? 0) + 1);
+    }
+    return [...counts].map(([code, count]) => ({ code, label: getLanguageDisplayName(code, localization), count }));
   }
 
   /**
