@@ -284,3 +284,20 @@ test.serial("an utterance's own voice is matched by voiceURI among voices sharin
 
   t.is(spoken[0].voice?.lang, "de-DE");
 });
+
+test.serial("voices of languages the manager is initialized with later are available, and spoken", async (t) => {
+  const { spoken } = setGlobals(mockVoices);
+  const engine = new WebSpeechEngine();
+  await engine.initialize({ languages: ["en"] });
+  t.false((await engine.getAvailableVoices()).some((v: any) => v.language === "fr-FR"));
+
+  await WebSpeechVoiceManager.initialize({ languages: ["fr"] });
+  const french = (await engine.getAvailableVoices()).find((v: any) => v.language === "fr-FR");
+  t.truthy(french);
+
+  engine.loadUtterances([{ id: "1", plain: "bonjour", language: "en-US", voice: french!.voiceURI }]);
+  engine.speak();
+  await new Promise(resolve => setTimeout(resolve, 20));
+
+  t.is(spoken[0].voice?.name, "French Voice");
+});

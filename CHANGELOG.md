@@ -7,7 +7,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ### Added
 
 - `ReadiumSpeechUtterance.voice`: the voice an engine speaks an utterance with, when it has it — matched by `voiceURI` (then `name`) on `WebSpeechEngine`, by `identifier` or `name` on `SpeechServerEngine`. Without one, engines use their own choice as before.
-- The `"start"` event reports the voice an utterance is spoken with, as `detail.voice`.
+- Engines' and `ReadiumSpeechNavigator`'s `"start"` event reports the voice an utterance is spoken with, as `detail.voice`.
 - `voice` preference: the voice of every utterance without its own, a single voice id or one per language. `ReadiumSpeechNavigator` applies it to content loaded via `loadContent()` and `loadGndContent()`, and reloads the queue when it changes.
 - `languageOverrides` extraction option and preference: the language content declared in a given language is spoken in, e.g. `{ en: "fr" }` for French content wrongly declared as English. Keys match by primary subtag, an exact tag winning over it.
 
@@ -22,6 +22,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ### Fixed
 
+- `WebSpeechEngine` has the voices of languages `WebSpeechVoiceManager.initialize()` is later called with, in `getAvailableVoices()` and for an utterance's `voice`, instead of only those it was initialized with.
 - `WebSpeechVoiceManager.convertToSpeechSynthesisVoice()` matches a voice's `voiceURI` first, then its `originalName`, then its normalized name: a voice sharing its normalized name with another quality or language (e.g. Apple's Eddy) no longer resolves to whichever came first.
 - With `segmentation: "sentence"`, a paragraph holding an inline footnote or pagebreak is split into sentences, the footnote or pagebreak staying inside its own. It was spoken as one utterance once announced, and split inside the footnote otherwise.
 - With `segmentation: "sentence"`, a footnote or pagebreak not in `inlineContextualization` is spoken right after the sentence holding it, instead of after the whole paragraph.

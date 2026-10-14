@@ -143,7 +143,7 @@ An utterance's `voice` is the voice an engine speaks it with, when it has that v
 
 `ReadiumSpeechNavigator` sets it on the utterances without one from its [`voice` preference](Preferences.md#voice), so it's only worth setting by hand for a specific utterance.
 
-Every engine's `"start"` event reports the voice actually used, as `detail.voice` (a `ReadiumSpeechVoice`, or `null` when none could be resolved), for consumers that depend on its `controls` — e.g. whether word boundaries will come.
+Every engine's `"start"` event, and so `ReadiumSpeechNavigator`'s, reports the voice actually used, as `detail.voice` (a `ReadiumSpeechVoice`, or `null` when none could be resolved), for consumers that depend on its `controls` — e.g. whether word boundaries will come.
 
 ### Speaking in an utterance's own content language
 

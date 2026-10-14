@@ -146,6 +146,7 @@ test.serial("resume right after an unawaited cross-language setVoice while pause
   await speakThenPause(engine, synth);
   (engine as any).defaultVoice = makeVoice("A");
   (engine as any).voiceManager = {
+    getVoices: () => [],
     getDefaultVoice: () => new Promise(() => {}),
     convertToSpeechSynthesisVoice: (voice: any) => ({ name: voice.name, lang: voice.language }),
   };

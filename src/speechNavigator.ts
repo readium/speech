@@ -113,13 +113,13 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   private setupEngineListeners(): void {
     // Bridge engine events to navigator state management
-    this.engine.on("start", () => {
+    this.engine.on("start", (event) => {
       this.setNavigatorState("playing");
       // Emitted before "start" so a "start" listener already sees fresh
       // sentence/utterance locate info instead of the previous utterance's.
       const utterance = this.getCurrentContent();
       if (utterance) this.emitUtteranceBoundary(utterance);
-      this.emitEvent({ type: "start" });
+      this.emitEvent({ type: "start", detail: event.detail });
     });
 
     this.engine.on("end", () => {

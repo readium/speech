@@ -3,7 +3,7 @@ export type { IPreferencesEditor } from "./PreferencesEditor.js";
 export { BooleanPreference, EnumPreference, Preference, RangePreference, StringArrayPreference } from "./Preference.js";
 export type { IEnumPreference, IPreference, IRangePreference } from "./Preference.js";
 export { SpeechPreferences } from "./SpeechPreferences.js";
-export type { AutoPauseScope, ISpeechPreferences, VerbosityPreset } from "./SpeechPreferences.js";
+export type { AutoPauseScope, ISpeechPreferences, VerbosityPreset, VoicePreference } from "./SpeechPreferences.js";
 export type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
 export {
   autoPauseScopes,

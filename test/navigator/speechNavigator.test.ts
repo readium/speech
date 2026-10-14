@@ -530,6 +530,19 @@ test("engine 'start' also emits a synthesized 'boundary' with name 'structure' (
   t.deepEqual(seen, ["boundary:structure", "start"]);
 });
 
+test("engine 'start' is re-emitted with its detail, reporting the voice used", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([{ plain: "Hello world.", language: "en" }]);
+  const voice = { name: "Voice", language: "en-US", voiceURI: "voice-en-US" };
+
+  let detail: any;
+  navigator.on("start", (event) => { detail = event.detail; });
+  engine.emit({ type: "start", detail: { voice } });
+
+  t.is(detail?.voice, voice);
+});
+
 function captureLastBoundary(navigator: ReadiumSpeechNavigator): { detail?: any } {
   const captured: { detail?: any } = {};
   navigator.on("boundary", (event) => {
