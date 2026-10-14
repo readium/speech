@@ -12,7 +12,7 @@ import {
 } from "./constraints.js";
 import type { IPreferencesEditor } from "./PreferencesEditor.js";
 import { EnumPreference, Preference, RangePreference, StringArrayPreference } from "./Preference.js";
-import { SpeechPreferences, VerbosityPreset, AutoPauseScope } from "./SpeechPreferences.js";
+import { SpeechPreferences, VerbosityPreset, AutoPauseScope, VoicePreference } from "./SpeechPreferences.js";
 import { SpeechSettings } from "./SpeechSettings.js";
 import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
 
@@ -41,6 +41,7 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
       language: null,
       languageOverrides: null,
       segmentation: null,
+      voice: null,
       pauseDuration: null,
       autoPause: null,
       rate: null,
@@ -126,6 +127,15 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
       isEffective: this.preferences.segmentation != null,
       onChange: (value) => this.updatePreference("segmentation", value ?? null),
       supportedValues: segmentationModes,
+    });
+  }
+
+  get voice(): Preference<VoicePreference> {
+    return new Preference<VoicePreference>({
+      initialValue: this.preferences.voice,
+      effectiveValue: this.settings.voice,
+      isEffective: this.preferences.voice != null,
+      onChange: (value) => this.updatePreference("voice", value ?? null),
     });
   }
 

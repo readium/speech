@@ -24,6 +24,10 @@ export function ensureStringRecord(value: Record<string, string> | null | undefi
   return Object.values(value).every((item) => typeof item === "string") ? value : undefined;
 }
 
+export function ensureStringOrStringRecord(value: string | Record<string, string> | null | undefined): string | Record<string, string> | null | undefined {
+  return typeof value === "string" ? value : ensureStringRecord(value as Record<string, string> | null | undefined);
+}
+
 // GND roles are an open vocabulary — only the shape is checked, not role names.
 export function ensureStringArray(value: string[] | null | undefined): string[] | null | undefined {
   if (value === undefined || value === null) return value;

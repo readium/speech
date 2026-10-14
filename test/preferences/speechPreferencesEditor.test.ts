@@ -76,6 +76,13 @@ test("languageOverrides: an explicit preference is effective and matches the res
   t.deepEqual(editor.preferences.languageOverrides, { en: "de" });
 });
 
+test("voice: unset preference has no effective voice, a set one is effective", (t) => {
+  t.is(makeEditor(new SpeechPreferences()).voice.effectiveValue, null);
+  const editor = makeEditor(new SpeechPreferences({ voice: { fr: "Thomas" } }));
+  t.deepEqual(editor.voice.effectiveValue, { fr: "Thomas" });
+  t.true(editor.voice.isEffective);
+});
+
 test("clear() actually resets preferences submitted through submitPreferences()", (t) => {
   const initial = new SpeechPreferences({ verbosity: "most", pauseDuration: 500 });
   const editor = makeEditor(initial);

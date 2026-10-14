@@ -668,11 +668,10 @@ export class WebSpeechVoiceManager {
   convertToSpeechSynthesisVoice(voice: ReadiumSpeechVoice): SpeechSynthesisVoice | undefined {
     if (!voice) return undefined;
     
-    return this.browserVoices.find(v => 
-      v.voiceURI === voice.voiceURI || 
-      v.name === voice.originalName ||
-      this.normalizeVoiceName(v.name) === this.normalizeVoiceName(voice.name)
-    );
+    // In order: normalized names are shared across a voice's qualities and languages
+    return this.browserVoices.find(v => voice.voiceURI !== undefined && v.voiceURI === voice.voiceURI) ??
+      this.browserVoices.find(v => v.name === voice.originalName) ??
+      this.browserVoices.find(v => this.normalizeVoiceName(v.name) === this.normalizeVoiceName(voice.name));
   }
 
   /**

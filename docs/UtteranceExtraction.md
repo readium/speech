@@ -22,6 +22,7 @@ interface ReadiumSpeechUtterance {
   plain?: string;
   ssml?: string;
   language?: string; // BCP 47
+  voice?: string; // never set by extraction, see Playback.md
   locate?: LocatorOptions; // Decoded from the source node's textref — spread into createLocator()/decorate(), see GuidedNavigation.md
   offsets?: UtteranceOffset[]; // Ranges of plain/ssml backed by real source text, each with its own locate
 }

@@ -20,6 +20,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private speechSynthesis: SpeechSynthesis;
   private speechSynthesisUtterance: any;
   private currentVoice: ReadiumSpeechVoice | null = null;
+  // The voice of the utterance being spoken, reported in its "start" event.
+  private speakingVoice: ReadiumSpeechVoice | null = null;
   private currentUtterances: ReadiumSpeechUtterance[] = [];
   private currentUtteranceIndex: number = 0;
   private playbackState: ReadiumSpeechPlaybackState = "idle";
@@ -29,7 +31,6 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private voices: ReadiumSpeechVoice[] = [];
   private defaultVoice: ReadiumSpeechVoice | null = null;
 
-  private speakInContentLanguage: boolean = false;
   // Keyed by `${language}:${needsBoundary}` — the boundary requirement rides in the key
   // so a voice switch that flips it warms/reads a distinct slot instead of a stale one.
   private languageVoiceCache: Map<string, ReadiumSpeechVoice | null> = new Map();
@@ -72,7 +73,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // Check infinity pattern for long texts (except on problematic platforms)
   // Skip resume infinity for Microsoft Natural voices as they have different behavior 
   private shouldUseResumeInfinity(): boolean {
-    const selectedVoice = this.currentVoice;
+    const selectedVoice = this.speakingVoice ?? this.currentVoice;
     const isMsNatural = !!(selectedVoice?.name &&
                          typeof selectedVoice.name === "string" &&
                          selectedVoice.name.toLocaleLowerCase().includes("(natural)"));
@@ -155,22 +156,38 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return voiceLang === lang && (!region || voiceRegion === region);
   }
 
+  // The selected voice keeps content in its own language, whatever the region.
+  private keepsSelectedVoice(voice: ReadiumSpeechVoice | null, language: string): boolean {
+    return !!voice && extractLangRegionFromBCP47(voice.language)[0] === extractLangRegionFromBCP47(language)[0];
+  }
+
   private languageCacheKey(language: string, needsBoundary: boolean): string {
     return `${language}:${needsBoundary}`;
+  }
+
+  // By `voiceURI`, as voices of one `name` can differ in quality or language.
+  private ownVoice(content: ReadiumSpeechUtterance): ReadiumSpeechVoice | undefined {
+    if (!content.voice) return undefined;
+    return this.voices.find(voice => voice.voiceURI === content.voice) ?? this.voices.find(voice => voice.name === content.voice);
   }
 
   // Returns `undefined` (not a fallback voice) when content.language hasn't
   // been warmed into languageVoiceCache yet — callers must await for it.
   private voiceForUtteranceSync(content: ReadiumSpeechUtterance): ReadiumSpeechVoice | null | undefined {
+    const ownVoice = this.ownVoice(content);
+    if (ownVoice) {
+      return ownVoice;
+    }
+
     const selectedVoice = this.getCurrentVoiceForUtterance(this.currentVoice);
 
-    if (!this.speakInContentLanguage || !content.language) {
+    if (!content.language) {
       return selectedVoice;
     }
 
     const language = normalizeLanguageCode(content.language);
 
-    if (selectedVoice && this.voiceMatchesLanguage(selectedVoice, language)) {
+    if (this.keepsSelectedVoice(selectedVoice, language)) {
       return selectedVoice;
     }
 
@@ -198,17 +215,20 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // Dedupes in-flight warms per (language, boundary requirement) so an awaited call and a
   // fire-and-forget one for the same slot don't redo the work.
   private async warmLanguageVoiceCache(contents: ReadiumSpeechUtterance[]): Promise<void> {
-    if (!this.speakInContentLanguage || !this.voiceManager) {
+    if (!this.voiceManager) {
       return;
     }
 
-    const needsBoundary = this.getCurrentVoiceForUtterance(this.currentVoice)?.controls?.boundary !== false;
+    const selectedVoice = this.getCurrentVoiceForUtterance(this.currentVoice);
+    const needsBoundary = selectedVoice?.controls?.boundary !== false;
 
     const languages = new Set(
       contents
+        .filter(content => !this.ownVoice(content))
         .map(content => content.language)
         .filter((language): language is string => !!language)
         .map(language => normalizeLanguageCode(language))
+        .filter(language => !this.keepsSelectedVoice(selectedVoice, language))
         .filter(language => !this.languageVoiceCache.has(this.languageCacheKey(language, needsBoundary)))
     );
 
@@ -244,19 +264,6 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   getCurrentVoice(): ReadiumSpeechVoice | null {
     return this.currentVoice;
-  }
-
-  setSpeakInContentLanguage(enabled: boolean): void {
-    if (enabled === this.speakInContentLanguage) return;
-    this.speakInContentLanguage = enabled;
-    if (enabled) {
-      void this.warmLanguageVoiceCache(this.currentUtterances);
-    }
-    this.scheduleRestartIfSpeaking();
-  }
-
-  getSpeakInContentLanguage(): boolean {
-    return this.speakInContentLanguage;
   }
 
   // Web Speech API has no SSML support: use the authored plain text, falling
@@ -402,6 +409,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     }
 
     this.lacksNativePauseEvents = false;
+    this.speakingVoice = selectedVoice;
     if (selectedVoice && this.voiceManager) {
       // Convert ReadiumSpeechVoice to SpeechSynthesisVoice using the initialized voiceManager
       const nativeVoice = this.voiceManager.convertToSpeechSynthesisVoice(selectedVoice);
@@ -427,7 +435,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.isSpeakingInternal = true;
       this.isPausedInternal = false;
       this.setState("playing");
-      this.emitEvent({ type: "start" });
+      this.emitEvent({ type: "start", detail: { voice: selectedVoice } });
 
       // Clear Android paused state when new utterance actually starts
       if (this.patches.isAndroid && this.isAndroidPaused) {
@@ -768,6 +776,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.events.clear();
     this.currentUtterances = [];
     this.currentVoice = null;
+    this.speakingVoice = null;
     this.voices = [];
     this.defaultVoice = null;
     this.languageVoiceCache.clear();

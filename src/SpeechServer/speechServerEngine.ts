@@ -137,7 +137,6 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private playbackState: ReadiumSpeechPlaybackState = "idle";
   private readonly events = new EventEmitter<ReadiumSpeechPlaybackEvent["type"], ReadiumSpeechPlaybackEvent>();
 
-  private speakInContentLanguage: boolean = false;
   private speakGeneration: number = 0;
   private loadGeneration: number = 0;
 
@@ -254,6 +253,12 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     return this.currentUtterances.length - 1;
   }
 
+  // The utterance's own voice when this server has it, else the current one.
+  private voiceFor(content: ReadiumSpeechUtterance | undefined): ReadiumSpeechVoice | null {
+    const ownVoice = content?.voice ? this.voices.find(v => v.identifier === content.voice || v.name === content.voice) : undefined;
+    return ownVoice ?? this.currentVoice;
+  }
+
   setVoice(voice: ReadiumSpeechVoice | string): void {
     const previousId = this.currentVoice?.identifier ?? this.currentVoice?.name;
     if (typeof voice === "string") {
@@ -337,17 +342,6 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     return response.json();
   }
 
-  setSpeakInContentLanguage(enabled: boolean): void {
-    if (enabled === this.speakInContentLanguage) return;
-    this.speakInContentLanguage = enabled;
-    this.clearPrefetchCache();
-    this.scheduleRestartIfSpeaking();
-  }
-
-  getSpeakInContentLanguage(): boolean {
-    return this.speakInContentLanguage;
-  }
-
   speak(utteranceIndex?: number): void {
     if (utteranceIndex !== undefined) {
       if (utteranceIndex < 0 || utteranceIndex >= this.currentUtterances.length) {
@@ -384,7 +378,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
         return;
       }
 
-      await this.scheduleChunksStreaming(chunkStream, generation);
+      await this.scheduleChunksStreaming(chunkStream, generation, this.voiceFor(this.currentUtterances[index]));
       this.fillPrefetchWindow(index);
     } catch (error) {
       if (generation !== this.speakGeneration) {
@@ -459,7 +453,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private async synthesizeStream(index: number, isPrefetch: boolean): Promise<ChunkStream> {
     const content = this.currentUtterances[index];
     const useSSML = !content.plain && !!content.ssml;
-    const language = this.speakInContentLanguage ? content.language : undefined;
+    const language = content.language;
     const text = utteranceText(content) ?? "";
     const ssmlMap = useSSML ? stripSsmlTagsWithMap(text).map : undefined;
 
@@ -538,7 +532,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
           text: useSSML ? text : neutralizeAngleBrackets(text),
           ssml: useSSML,
           language,
-          voice: this.currentVoice?.identifier ?? this.currentVoice?.name,
+          voice: this.voiceFor(content)?.identifier ?? this.voiceFor(content)?.name,
           prev_utterance: prevText,
           next_utterance: nextText,
           boundary: true,
@@ -608,7 +602,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   // Schedules chunks onto one continuous AudioContext timeline as they resolve.
-  private async scheduleChunksStreaming(chunkStream: ChunkStream, generation: number): Promise<void> {
+  private async scheduleChunksStreaming(chunkStream: ChunkStream, generation: number, voice: ReadiumSpeechVoice | null): Promise<void> {
     // Left uncaught: the caller's own catch handles a first-chunk failure as a playback error.
     // No buffer exists yet, so the stall deadline is just timeoutMs on its own.
     const first = await this.awaitWithStallDeadline(chunkStream[0].promise, chunkStream[0].controller, 0);
@@ -619,12 +613,12 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     const ctx = this.ensureAudioContext();
     const gain = this.masterGain!;
     // Only fake the rate locally when the server won't honor output.speed itself, else it'd double up.
-    const speedHonoredByServer = this.currentVoice?.controls?.speed === true;
+    const speedHonoredByServer = voice?.controls?.speed === true;
     const rate = speedHonoredByServer ? 1 : clampPlaybackRate(this.rate);
 
     this.scheduledChunks = [];
     this.setState("playing");
-    this.emitEvent({ type: "start" });
+    this.emitEvent({ type: "start", detail: { voice } });
 
     let t = ctx.currentTime;
     // Only the most recently scheduled node's onended should end the utterance.

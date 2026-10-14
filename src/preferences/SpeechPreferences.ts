@@ -12,11 +12,14 @@ import {
   verbosityPresets,
   volumeRangeConfig,
 } from "./constraints.js";
-import { ensureEnumValue, ensureStringArray, ensureStringRecord, ensureValueInRange } from "./guards.js";
+import { ensureEnumValue, ensureStringArray, ensureStringOrStringRecord, ensureStringRecord, ensureValueInRange } from "./guards.js";
 
 export type VerbosityPreset = "none" | "few" | "some" | "most" | "custom";
 
 export type AutoPauseScope = "none" | "utterance" | "block";
+
+// A voice id (a voice's `voiceURI`, or `identifier` for a server voice) for all content, or one per language.
+export type VoicePreference = string | Record<string, string>;
 
 export interface ISpeechPreferences {
   // Extraction rendering — consumed by extractUtterances via the
@@ -32,6 +35,9 @@ export interface ISpeechPreferences {
   language?: LanguageMode | null;
   languageOverrides?: Record<string, string> | null; // default {}, declared language -> spoken language
   segmentation?: Segmentation | null; // default "structure"
+
+  // Voice of every utterance without its own `voice`, by its language when a record — applied by ReadiumSpeechNavigator.
+  voice?: VoicePreference | null;
 
   // Prosody group — consumed by ReadiumSpeechNavigator's playback sequencing.
   pauseDuration?: number | null; // ms, default 300, delays every automatic continuation to the next utterance
@@ -50,6 +56,7 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
   public language: LanguageMode | null | undefined;
   public languageOverrides: Record<string, string> | null | undefined;
   public segmentation: Segmentation | null | undefined;
+  public voice: VoicePreference | null | undefined;
   public pauseDuration: number | null | undefined;
   public autoPause: AutoPauseScope | null | undefined;
   public rate: number | null | undefined;
@@ -65,6 +72,7 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
     this.language = ensureEnumValue(preferences.language, languageModes);
     this.languageOverrides = ensureStringRecord(preferences.languageOverrides);
     this.segmentation = ensureEnumValue(preferences.segmentation, segmentationModes);
+    this.voice = ensureStringOrStringRecord(preferences.voice);
     this.pauseDuration = ensureValueInRange(preferences.pauseDuration, pauseDurationRangeConfig.range);
     this.autoPause = ensureEnumValue(preferences.autoPause, autoPauseScopes);
     this.rate = ensureValueInRange(preferences.rate, rateRangeConfig.range);

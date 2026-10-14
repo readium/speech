@@ -523,7 +523,8 @@ async function setupDefaultVoice(navigator) {
     const boundaryVoices = allVoices.filter(v => v.controls?.boundary !== false);
     const voices = boundaryVoices.length > 0 ? boundaryVoices : allVoices;
     const voice = await voiceManager.getDefaultVoice("en-US", voices);
-    if (voice) navigator.setVoice(voice);
+    // Keyed by its own language, so content in another language still gets a voice of its own.
+    if (voice) await navigator.submitPreferences(new SpeechPreferencesClass({ voice: { [voice.language.split("-")[0]]: voice.voiceURI } }));
   } catch (err) {
     console.error("Failed to set up an English voice for playback:", err);
   }
@@ -548,7 +549,6 @@ function initPlaybackNavigator() {
   try {
     void VoiceManagerClass?.initialize({ languages: PLAYGROUND_LANGUAGES });
     const nav = new NavigatorClass(new EngineClass());
-    nav.setSpeakInContentLanguage(true);
     for (const type of ["start", "pause", "resume", "end", "stop", "ready", "error"]) {
       nav.on(type, syncSpeechUi);
     }

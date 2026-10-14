@@ -15,6 +15,7 @@ import { Contextualizations } from "./utterances/types.js";
 import type { SentenceSegmenter } from "./utterances/sentenceSegmenter.js";
 import { ReadiumSpeechVoice } from "./voices/types.js";
 import { EventEmitter } from "./utils/eventEmitter.js";
+import { valueForLanguage } from "./utils/language.js";
 
 // Set once at construction, never through `submitPreferences()` — none of
 // this changes at runtime the way a preference does.
@@ -40,6 +41,8 @@ export interface ReadiumSpeechNavigatorConfiguration {
 export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private engine: ReadiumSpeechPlaybackEngine;
   private contentQueue: ReadiumSpeechUtterance[] = [];
+  // `contentQueue` as loaded, before `voice` stamped it — re-stamped when that changes.
+  private loadedQueue: ReadiumSpeechUtterance[] = [];
   private readonly events = new EventEmitter<ReadiumSpeechPlaybackEvent["type"] | "contentchange", ReadiumSpeechPlaybackEvent>();
 
   // Navigator owns the state, not the engine
@@ -232,22 +235,6 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     return this.engine.getAvailableVoices();
   }
 
-  setVoice(voice: ReadiumSpeechVoice | string): void {
-    this.engine.setVoice(voice);
-  }
-
-  getCurrentVoice(): ReadiumSpeechVoice | null {
-    return this.engine.getCurrentVoice();
-  }
-
-  setSpeakInContentLanguage(enabled: boolean): void {
-    this.engine.setSpeakInContentLanguage(enabled);
-  }
-
-  getSpeakInContentLanguage(): boolean {
-    return this.engine.getSpeakInContentLanguage();
-  }
-
   // Content Management
   loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void {
     if (this.source) {
@@ -274,8 +261,9 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       this.engine.stop();
     }
 
-    const contents = Array.isArray(content) ? content : [content];
-    this.contentQueue = [...contents];
+    this.loadedQueue = Array.isArray(content) ? [...content] : [content];
+    const contents = this.loadedQueue.map((utterance) => this.withVoice(utterance));
+    this.contentQueue = contents;
     this.pendingResumeIndex = resumeIndex;
     this.pendingResumeState = resumeState;
 
@@ -286,6 +274,14 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.emitEvent({ type: "loading" });
     this.engine.loadUtterances(contents, resumeIndex ?? undefined);
     this.emitContentChangeEvent({ content: contents });
+  }
+
+  // The utterance's own voice, else `voice`'s for its language.
+  private withVoice(utterance: ReadiumSpeechUtterance): ReadiumSpeechUtterance {
+    const preference = this._settings.voice;
+    if (utterance.voice || !preference) return utterance;
+    const voice = typeof preference === "string" ? preference : utterance.language && valueForLanguage(preference, utterance.language);
+    return voice ? { ...utterance, voice } : utterance;
   }
 
   // Re-runs extraction from `this.source`, resuming near the old position if playback was underway.
@@ -524,6 +520,9 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     // Skip reextract() unless it would actually produce a different queue.
     if (extractionPreferenceKeys.some((key) => !this.sameSettingValue(previousSettings[key], this._settings[key]))) {
       await this.reextract();
+    } else if (this.loadedQueue.length > 0 && !this.sameSettingValue(previousSettings.voice, this._settings.voice)) {
+      const resumeState = this.navigatorState === "playing" || this.navigatorState === "paused" ? this.navigatorState : null;
+      this.setContentQueue(this.loadedQueue, resumeState ? this.getCurrentUtteranceIndex() : null, resumeState);
     }
   }
 

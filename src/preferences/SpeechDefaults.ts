@@ -10,8 +10,8 @@ import {
   verbosityPresets,
   volumeRangeConfig,
 } from "./constraints.js";
-import { ensureEnumValue, ensureStringArray, ensureStringRecord, ensureValueInRange } from "./guards.js";
-import type { AutoPauseScope, VerbosityPreset } from "./SpeechPreferences.js";
+import { ensureEnumValue, ensureStringArray, ensureStringOrStringRecord, ensureStringRecord, ensureValueInRange } from "./guards.js";
+import type { AutoPauseScope, VerbosityPreset, VoicePreference } from "./SpeechPreferences.js";
 import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
 
 // Guarded like ISpeechPreferences — an invalid value here falls back to the literal default below.
@@ -24,6 +24,7 @@ export interface ISpeechDefaults {
   language?: LanguageMode | null;
   languageOverrides?: Record<string, string> | null;
   segmentation?: Segmentation | null;
+  voice?: VoicePreference | null;
   pauseDuration?: number | null;
   autoPause?: AutoPauseScope | null;
   rate?: number | null;
@@ -40,6 +41,7 @@ export class SpeechDefaults {
   public readonly language: LanguageMode;
   public readonly languageOverrides: Record<string, string>;
   public readonly segmentation: Segmentation;
+  public readonly voice: VoicePreference | null;
   public readonly pauseDuration: number;
   public readonly autoPause: AutoPauseScope;
   public readonly rate: number;
@@ -55,6 +57,7 @@ export class SpeechDefaults {
     this.language = ensureEnumValue(defaults.language, languageModes) ?? "block-level";
     this.languageOverrides = ensureStringRecord(defaults.languageOverrides) ?? {};
     this.segmentation = ensureEnumValue(defaults.segmentation, segmentationModes) ?? "structure";
+    this.voice = ensureStringOrStringRecord(defaults.voice) ?? null;
     this.pauseDuration = ensureValueInRange(defaults.pauseDuration, pauseDurationRangeConfig.range) ?? 300;
     this.autoPause = ensureEnumValue(defaults.autoPause, autoPauseScopes) ?? "none";
     this.rate = ensureValueInRange(defaults.rate, rateRangeConfig.range) ?? 1.0;

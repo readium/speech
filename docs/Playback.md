@@ -11,11 +11,7 @@ Once initialized, you can use the navigator to load content (utterances) and con
 ```typescript
 interface ReadiumSpeechNavigatorContract {
   // Voice Management
-  getVoices(): Promise<ReadiumSpeechVoice[]>;
-  setVoice(voice: ReadiumSpeechVoice | string): void;
-  getCurrentVoice(): ReadiumSpeechVoice | null;
-  setSpeakInContentLanguage(enabled: boolean): void;
-  getSpeakInContentLanguage(): boolean;
+  getVoices(): Promise<ReadiumSpeechVoice[]>; // set one with the `voice` preference
   
   // Content Management
   loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
@@ -141,9 +137,17 @@ For `"word"`, `detail.charIndex`/`detail.charLength` are always positions in `ut
 
 See [Highlighting.md](Highlighting.md#highlighting-from-locateoffsets) for how to turn `detail.locate` into a decoration, and for the `resolveBoundaryLocate()`/`resolveUtteranceLocate()` functions this attaches internally — needed directly only when driving playback without `ReadiumSpeechNavigator`.
 
+### Speaking an utterance with its own voice
+
+An utterance's `voice` is the voice an engine speaks it with, when it has that voice: matched by `voiceURI` on `WebSpeechEngine` (then `name`, which voices of different quality or languages can share), by `identifier` or `name` on `SpeechServerEngine`. Without one, or with a voice the engine doesn't have (e.g. a `WebSpeechEngine` voice once `FallbackSpeechEngine` has swapped to a server), the engine uses its own choice, following the utterance's content language as below.
+
+`ReadiumSpeechNavigator` sets it on the utterances without one from its [`voice` preference](Preferences.md#voice), so it's only worth setting by hand for a specific utterance.
+
+Every engine's `"start"` event reports the voice actually used, as `detail.voice` (a `ReadiumSpeechVoice`, or `null` when none could be resolved), for consumers that depend on its `controls` — e.g. whether word boundaries will come.
+
 ### Speaking in an utterance's own content language
 
-By default, playback always uses the selected/default voice. Call `setSpeakInContentLanguage(true)` to instead match each utterance's own `language` field to the best available voice for that language, preferring one with the same boundary-event support as the currently selected voice, and falling back to the selected/default voice when no match exists at all (which also fires a `"languagefallback"` event with `detail: { language, reason: "no-matching-voice" }`).
+An utterance without a voice of its own is spoken in its `language`: with the selected/default voice when that voice speaks the same language, whatever the region, else with the best available voice for that language — region-strict, preferring one with the same boundary-event support as the selected voice. With no voice for that language at all, the selected/default voice speaks it and a `"languagefallback"` event fires with `detail: { language, reason: "no-matching-voice" }`. An utterance without a `language` is spoken with the selected/default voice. Extraction's [`language`](UtteranceExtraction.md#language) option decides which languages utterances carry, so `language: "none"` keeps one voice throughout.
 
 ### `ReadiumSpeechPlaybackState`
 
@@ -159,6 +163,7 @@ interface ReadiumSpeechUtterance {
   plain?: string;       // Plain-text rendering, when available
   ssml?: string;        // SSML rendering, when available
   language?: string;    // Language of this content (BCP 47)
+  voice?: string;       // Voice to speak it with: a voice's `voiceURI`, or its `identifier` for a server voice
   locate?: LocatorOptions; // Decoded from the source node's textref — spread into createLocator()/decorate()
   offsets?: UtteranceOffset[]; // Ranges of plain/ssml backed by real source text, each with its own locate
 }

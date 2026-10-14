@@ -600,3 +600,41 @@ test("skipping to another utterance while paused also emits the synthesized 'bou
   t.is(captured.detail.name, "structure");
   t.deepEqual(captured.detail.locate, [{ cssSelector: "p:nth-child(2)" }]);
 });
+
+test("voice stamps loadContent() utterances without their own voice, a record by their language", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { voice: { fr: "Thomas", "en-GB": "Daniel" } } });
+  navigator.loadContent([
+    { plain: "Bonjour.", language: "fr-FR" },
+    { plain: "Hello.", language: "en-GB" },
+    { plain: "Hi.", language: "en-US" },
+    { plain: "Salut.", language: "fr", voice: "Amelie" },
+    { plain: "No language." },
+  ]);
+  t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Thomas", "Daniel", undefined, "Amelie", undefined]);
+});
+
+test("a single voice stamps every utterance without its own, announcements included", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { voice: "Samantha", verbosity: "most" } });
+  await navigator.loadGndContent(listTree);
+  t.deepEqual(navigator.getContentQueue().map((u) => u.voice), ["Samantha", "Samantha", "Samantha"]);
+});
+
+test("changing voice re-stamps the loaded queue without re-extracting, resuming at the current utterance", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([{ plain: "One.", language: "fr" }, { plain: "Two.", language: "fr" }]);
+  engine.emit({ type: "ready" });
+  navigator.play();
+  engine.emit({ type: "end" });
+  await new Promise((resolve) => setTimeout(resolve, 350));
+
+  await navigator.submitPreferences(new SpeechPreferences({ voice: { fr: "Thomas" } }));
+  t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Thomas", "Thomas"]);
+  t.is(engine.loadUtterancesStartIndexCalls.at(-1), 1);
+
+  const loads = engine.loadUtterancesStartIndexCalls.length;
+  await navigator.submitPreferences(new SpeechPreferences({ voice: { fr: "Thomas" } }));
+  t.is(engine.loadUtterancesStartIndexCalls.length, loads, "an equal voice doesn't reload");
+});

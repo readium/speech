@@ -95,6 +95,13 @@ test("a languageOverrides record is kept", (t) => {
   t.deepEqual(prefs.languageOverrides, { en: "fr" });
 });
 
+test("a voice is kept as a single id or a record by language, anything else is dropped", (t) => {
+  t.is(new SpeechPreferences({ voice: "Thomas" }).voice, "Thomas");
+  t.deepEqual(new SpeechPreferences({ voice: { fr: "Thomas" } }).voice, { fr: "Thomas" });
+  // @ts-expect-error deliberately invalid
+  t.is(new SpeechPreferences({ voice: 1 }).voice, undefined);
+});
+
 test("a languageOverrides record with a non-string value, or an array, is dropped to undefined", (t) => {
   // @ts-expect-error deliberately invalid
   t.is(new SpeechPreferences({ languageOverrides: { en: 1 } }).languageOverrides, undefined);

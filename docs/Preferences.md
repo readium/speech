@@ -63,6 +63,21 @@ volume?: number;                                 // default 1.0, range [0, 1]
 
 `segmentation` (`"structure" | "sentence"`, default `"structure"`) is the same option documented in [Utterance Extraction](UtteranceExtraction.md#segmentation) — only its `mode`; per-language `suppressions` and a custom `segmenter` are construction-only (see [`segmentationOverrides`](Playback.md#segmentationoverrides)), not a live preference.
 
+## Voice
+
+```typescript
+voice?: string | Record<string, string>; // a voice id for all content, or one per language, default none
+```
+
+The voice of every utterance without its own [`voice`](Playback.md#speaking-an-utterance-with-its-own-voice), for content loaded via `loadContent()` and `loadGndContent()` alike. A voice id is a voice's `voiceURI`, or its `identifier` for a server voice. A record picks it by the utterance's `language`, keys matching like `languageOverrides`: by primary subtag, an exact tag winning over it. An utterance with no matching voice is left to the engine's own choice, which follows its content language (see [Playback](Playback.md#speaking-in-an-utterances-own-content-language)).
+
+```typescript
+await navigator.submitPreferences(new SpeechPreferences({ voice: "Samantha" }));
+await navigator.submitPreferences(new SpeechPreferences({ voice: { en: "Samantha", fr: "Thomas" } }));
+```
+
+Changing it reloads the queue with the new voices, resuming at the same utterance during playback, without re-extracting. `getContentQueue()` returns the utterances with their voice.
+
 ## `format` / `inlineContextualization`
 
 Set once via `submitPreferences()` instead of on every `extractUtterances()` call:

@@ -6,10 +6,15 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ### Added
 
+- `ReadiumSpeechUtterance.voice`: the voice an engine speaks an utterance with, when it has it — matched by `voiceURI` (then `name`) on `WebSpeechEngine`, by `identifier` or `name` on `SpeechServerEngine`. Without one, engines use their own choice as before.
+- The `"start"` event reports the voice an utterance is spoken with, as `detail.voice`.
+- `voice` preference: the voice of every utterance without its own, a single voice id or one per language. `ReadiumSpeechNavigator` applies it to content loaded via `loadContent()` and `loadGndContent()`, and reloads the queue when it changes.
 - `languageOverrides` extraction option and preference: the language content declared in a given language is spoken in, e.g. `{ en: "fr" }` for French content wrongly declared as English. Keys match by primary subtag, an exact tag winning over it.
 
 ### Changed
 
+- **Breaking:** `ReadiumSpeechNavigator`'s `setVoice()`/`getCurrentVoice()` are removed: set voices with the `voice` preference, and read the voice an utterance is spoken with from the `"start"` event's `detail.voice`. Engines keep theirs, as their own default voice.
+- **Breaking:** `setSpeakInContentLanguage()`/`getSpeakInContentLanguage()` are removed from engines and `ReadiumSpeechNavigator`. An utterance is always spoken in its `language`: with the selected voice when it speaks that language, whatever the region, else with that language's best voice. Extraction's `language: "none"` keeps one voice throughout.
 - **Breaking:** `inlineContextualization` takes a list of roles instead of a boolean, so `noteref` and `pagebreak` can be chosen separately. `inlineContextualizationRoles` lists the accepted roles. `true` becomes `["noteref", "pagebreak"]`; a boolean is now dropped as invalid.
 - A pagebreak label that is only a page number (`5`, `iv`, `五`, `ה׳`, `εʹ`…) is spoken as “Page 5”, with or without `contextualize: ["pagebreak"]`. The wording is the catalog's `pagebreak.number` entry.
 - Announcements carry the language of the contextualization catalog they come from (English when `contextualizationLocale` isn't shipped), so a voice can be chosen for them like for content. An announcement is no longer merged with content in another language.
@@ -17,6 +22,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ### Fixed
 
+- `WebSpeechVoiceManager.convertToSpeechSynthesisVoice()` matches a voice's `voiceURI` first, then its `originalName`, then its normalized name: a voice sharing its normalized name with another quality or language (e.g. Apple's Eddy) no longer resolves to whichever came first.
 - With `segmentation: "sentence"`, a paragraph holding an inline footnote or pagebreak is split into sentences, the footnote or pagebreak staying inside its own. It was spoken as one utterance once announced, and split inside the footnote otherwise.
 - With `segmentation: "sentence"`, a footnote or pagebreak not in `inlineContextualization` is spoken right after the sentence holding it, instead of after the whole paragraph.
 - With `segmentation: "sentence"` and `language: "none"`, a sentence joined across several pieces no longer gets `language: "en"`.

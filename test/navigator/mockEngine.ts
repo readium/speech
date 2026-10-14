@@ -29,10 +29,6 @@ export class MockEngine implements ReadiumSpeechPlaybackEngine {
   async getAvailableVoices(): Promise<ReadiumSpeechVoice[]> {
     return [];
   }
-  setSpeakInContentLanguage(): void {}
-  getSpeakInContentLanguage(): boolean {
-    return false;
-  }
 
   speak(utteranceIndex?: number): void {
     if (utteranceIndex !== undefined) this.index = utteranceIndex;

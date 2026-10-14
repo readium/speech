@@ -1,7 +1,7 @@
 import type { GndRole } from "@readium/guided-navigation";
 import type { ConfigurableSettings } from "./Configurable.js";
 import { SpeechDefaults } from "./SpeechDefaults.js";
-import type { AutoPauseScope, SpeechPreferences, VerbosityPreset } from "./SpeechPreferences.js";
+import type { AutoPauseScope, SpeechPreferences, VerbosityPreset, VoicePreference } from "./SpeechPreferences.js";
 import { contextualizedAtVerbosity, skippedAtVerbosity } from "./verbosityTables.js";
 import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
 
@@ -16,6 +16,7 @@ export class SpeechSettings implements ConfigurableSettings {
   public readonly language: LanguageMode;
   public readonly languageOverrides: Record<string, string>;
   public readonly segmentation: Segmentation;
+  public readonly voice: VoicePreference | null;
   public readonly pauseDuration: number;
   public readonly autoPause: AutoPauseScope;
   public readonly rate: number;
@@ -40,6 +41,7 @@ export class SpeechSettings implements ConfigurableSettings {
     this.language = preferences.language ?? defaults.language;
     this.languageOverrides = preferences.languageOverrides ?? defaults.languageOverrides;
     this.segmentation = preferences.segmentation ?? defaults.segmentation;
+    this.voice = preferences.voice ?? defaults.voice;
     this.pauseDuration = preferences.pauseDuration ?? defaults.pauseDuration;
     this.autoPause = preferences.autoPause ?? defaults.autoPause;
     this.rate = preferences.rate ?? defaults.rate;

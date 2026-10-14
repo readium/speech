@@ -103,12 +103,11 @@ async function makeEngine() {
 // Tests
 // =============================================
 
-test("speakInContentLanguage=false: always uses the selected voice, ignoring content.language", async (t) => {
+test("the selected voice keeps content in its own language, whatever the region", async (t) => {
   const { spoken } = setGlobals(mockVoices);
   const engine = await makeEngine();
   const voices = await engine.getAvailableVoices();
-  const enVoice = voices.find((v: any) => v.language.toLowerCase().startsWith("en"));
-  engine.setVoice(enVoice!);
+  engine.setVoice(voices.find((v: any) => v.language === "fr-CA")!);
 
   engine.loadUtterances([{ id: "1", plain: "bonjour", language: "fr-FR" }]);
   engine.speak();
@@ -116,15 +115,42 @@ test("speakInContentLanguage=false: always uses the selected voice, ignoring con
   await new Promise(resolve => setTimeout(resolve, 20));
 
   t.is(spoken.length, 1);
-  t.is(spoken[0].voice?.lang, "en-US", "selected voice used regardless of content.language when the feature is off");
+  t.is(spoken[0].voice?.lang, "fr-CA");
 });
 
-test("speakInContentLanguage=true: speak() called immediately after loadUtterances still picks the matching-language voice", async (t) => {
+test("content in another language than the selected voice's is spoken with a voice of its language", async (t) => {
+  const { spoken } = setGlobals(mockVoices);
+  const engine = await makeEngine();
+  const voices = await engine.getAvailableVoices();
+  engine.setVoice(voices.find((v: any) => v.language === "en-US")!);
+
+  engine.loadUtterances([{ id: "1", plain: "bonjour", language: "fr-FR" }]);
+  engine.speak();
+
+  await new Promise(resolve => setTimeout(resolve, 20));
+
+  t.is(spoken[0].voice?.lang, "fr-FR");
+});
+
+test("content without a language is spoken with the selected voice", async (t) => {
+  const { spoken } = setGlobals(mockVoices);
+  const engine = await makeEngine();
+  const voices = await engine.getAvailableVoices();
+  engine.setVoice(voices.find((v: any) => v.language === "en-US")!);
+
+  engine.loadUtterances([{ id: "1", plain: "bonjour" }]);
+  engine.speak();
+
+  await new Promise(resolve => setTimeout(resolve, 20));
+
+  t.is(spoken[0].voice?.lang, "en-US");
+});
+
+test("content language: speak() called immediately after loadUtterances still picks the matching-language voice", async (t) => {
   const { spoken } = setGlobals(mockVoices);
   const engine = new WebSpeechEngine();
   await engine.initialize();
 
-  engine.setSpeakInContentLanguage(true);
   engine.loadUtterances([{ id: "1", plain: "bonjour", language: "fr-FR" }]);
 
   // Call speak() right away, without waiting for the fire-and-forget cache warm to settle.
@@ -136,11 +162,10 @@ test("speakInContentLanguage=true: speak() called immediately after loadUtteranc
   t.is(spoken[0].voice?.lang, "fr-FR", "used the French voice matching content.language, not a wrong-language fallback");
 });
 
-test("speakInContentLanguage=true: region-strict matching (fr-FR content must not use the fr-CA voice)", async (t) => {
+test("content language: region-strict matching (fr-FR content must not use the fr-CA voice)", async (t) => {
   const { spoken } = setGlobals(mockVoices);
   const engine = new WebSpeechEngine();
   await engine.initialize();
-  engine.setSpeakInContentLanguage(true);
   engine.loadUtterances([{ id: "1", plain: "bonjour", language: "fr-FR" }]);
 
   engine.speak();
@@ -150,11 +175,10 @@ test("speakInContentLanguage=true: region-strict matching (fr-FR content must no
   t.not(spoken[0].voice?.lang, "fr-CA");
 });
 
-test("speakInContentLanguage=true: generation guard drops a stale resolution when speak() is called again before the first resolves", async (t) => {
+test("content language: generation guard drops a stale resolution when speak() is called again before the first resolves", async (t) => {
   const { spoken } = setGlobals(mockVoices);
   const engine = new WebSpeechEngine();
   await engine.initialize();
-  engine.setSpeakInContentLanguage(true);
   engine.loadUtterances([
     { id: "1", plain: "bonjour", language: "fr-FR" },
     { id: "2", plain: "hello", language: "en-US" }
@@ -173,7 +197,6 @@ test("languagefallback fires only when no voice matches at all, not merely becau
   setGlobals(mockVoices);
   const engine = new WebSpeechEngine();
   await engine.initialize();
-  engine.setSpeakInContentLanguage(true);
 
   const fallbacks: any[] = [];
   engine.on("languagefallback", (e: any) => fallbacks.push(e));
@@ -201,4 +224,63 @@ test("loadUtterances() emits exactly one \"ready\" per call, including back-to-b
   // Never played — state is still "ready" from the first load — yet a second load must still emit.
   engine.loadUtterances([{ id: "2", plain: "two" }]);
   t.is(readyEvents.length, 2, "second load while still ready");
+});
+
+test("an utterance's own voice wins over the selected voice and content-language matching", async (t) => {
+  const { spoken } = setGlobals(mockVoices);
+  const engine = await makeEngine();
+  const voices = await engine.getAvailableVoices();
+  engine.setVoice(voices.find((v: any) => v.language === "en-US")!);
+  const canadian = voices.find((v: any) => v.language === "fr-CA")!;
+
+  engine.loadUtterances([{ id: "1", plain: "bonjour", language: "fr-FR", voice: canadian.voiceURI }]);
+  engine.speak();
+  await new Promise(resolve => setTimeout(resolve, 20));
+
+  t.is(spoken[0].voice?.lang, "fr-CA");
+});
+
+test("an utterance voice this engine doesn't have falls back to its own choice", async (t) => {
+  const { spoken } = setGlobals(mockVoices);
+  const engine = await makeEngine();
+  const voices = await engine.getAvailableVoices();
+  engine.setVoice(voices.find((v: any) => v.language === "en-US")!);
+
+  engine.loadUtterances([{ id: "1", plain: "hello", language: "en-US", voice: "Unknown Voice" }]);
+  engine.speak();
+  await new Promise(resolve => setTimeout(resolve, 20));
+
+  t.is(spoken[0].voice?.lang, "en-US");
+});
+
+test("the start event reports the voice the utterance is spoken with", async (t) => {
+  setGlobals(mockVoices);
+  const engine = await makeEngine();
+  const voices = await engine.getAvailableVoices();
+  engine.setVoice(voices.find((v: any) => v.language === "en-US")!);
+  const french = voices.find((v: any) => v.language === "fr-FR")!;
+  const started: any[] = [];
+  engine.on("start", (event: any) => started.push(event.detail?.voice));
+
+  engine.loadUtterances([{ id: "1", plain: "bonjour", language: "fr-FR", voice: french.voiceURI }, { id: "2", plain: "hello", language: "en-US" }]);
+  engine.speak(0);
+  await new Promise(resolve => setTimeout(resolve, 20));
+  engine.speak(1);
+  await new Promise(resolve => setTimeout(resolve, 20));
+
+  t.deepEqual(started.map((voice) => voice?.language), ["fr-FR", "en-US"]);
+});
+
+// Serial: the only test here installing other voices, on globals the concurrent ones share.
+test.serial("an utterance's own voice is matched by voiceURI among voices sharing a name", async (t) => {
+  const { spoken } = setGlobals([...mockVoices, makeVoice("de-DE", "French Voice")]);
+  const engine = await makeEngine();
+  const voices = await engine.getAvailableVoices();
+  const german = voices.find((v: any) => v.language === "de-DE")!;
+
+  engine.loadUtterances([{ id: "1", plain: "hallo", language: "de-DE", voice: german.voiceURI }]);
+  engine.speak();
+  await new Promise(resolve => setTimeout(resolve, 20));
+
+  t.is(spoken[0].voice?.lang, "de-DE");
 });
