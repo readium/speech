@@ -112,10 +112,10 @@ Which roles get an announcement. The wording comes from the shipped catalog by d
 ```typescript
 // <p>...in the middle <span epub:type="pagebreak" title="5"/> of a sentence.</p>
 await extractUtterances(gnd, { format: "plain" });
-// [{ plain: "4" }, { language: "en", plain: "...in the middle of a sentence." }, { plain: "5" }]
+// [{ plain: "Page 4" }, { language: "en", plain: "...in the middle of a sentence." }, { plain: "Page 5" }]
 
 await extractUtterances(gnd, { format: "plain", contextualize: ["pagebreak"] });
-// [{ plain: "Pagebreak. 4." }, { language: "en", plain: "...in the middle of a sentence." }, { plain: "Pagebreak. 5." }]
+// [{ plain: "Pagebreak. Page 4." }, { language: "en", plain: "...in the middle of a sentence." }, { plain: "Pagebreak. Page 5." }]
 
 await extractUtterances(gnd, { format: "plain", skip: ["pagebreak"] });
 // [{ language: "en", plain: "...in the middle of a sentence." }]

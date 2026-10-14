@@ -20,6 +20,7 @@ import {
   scopeToQuote,
 } from "./contextualization.js";
 import { applyFormat, mergeUtterances } from "./mergeUtterances.js";
+import { isPageNumber } from "./pageNumber.js";
 import { formatPlain, push, pushPiecesOrMerged } from "./utteranceOutput.js";
 import {
   blockLevelRoleSet,
@@ -35,11 +36,22 @@ function isSkipped(roles: GndRole[], skip: ReadonlySet<GndRole>): boolean {
   return skip.size > 0 && roles.some((role) => skip.has(role));
 }
 
+// A bare page-number label is always spoken as "Page N", contextualized or not.
+function buildPagebreakLabel(node: GuidedNavigationObject, ctx: WalkContext): ReadiumSpeechUtterance[] {
+  const resolved = resolveNodeText(node.text);
+  if (!resolved) return [];
+  const label = resolved.plain ?? stripSsmlTags(resolved.ssml ?? "");
+  if (isPageNumber(label)) {
+    const text = resolveEntryText(ctx, "pagebreak.number", undefined, { number: label.trim() });
+    if (text !== undefined) return [formatPlain(text, ctx)];
+  }
+  return applyFormat(resolved, ctx.format, ctx.language, ctx);
+}
+
 // A pagebreak's label merges into its "Pagebreak." contextualization as one
 // utterance, with a synthesized trailing period.
 function buildPagebreakUtterance(node: GuidedNavigationObject, ctx: WalkContext): ReadiumSpeechUtterance[] {
-  const resolved = resolveNodeText(node.text);
-  const own = resolved ? applyFormat(resolved, ctx.format, ctx.language, ctx) : [];
+  const own = buildPagebreakLabel(node, ctx);
   if (!ctx.contextualize.has("pagebreak")) return own;
   const base = ctx.i18n.exists("pagebreak.block.start") ? "pagebreak.block.start" : "pagebreak.inline";
   const text = resolveEntryText(ctx, base);

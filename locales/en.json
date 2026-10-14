@@ -109,7 +109,7 @@
                 }
             },
             "notice": { "inline": "Notice." },
-            "pagebreak": { "inline": "Pagebreak." },
+            "pagebreak": { "inline": "Pagebreak.", "number": "Page {{ number }}" },
             "pagelist": {
                 "block": { "start": "Start of the page list.", "end": "End of the page list." }
             },

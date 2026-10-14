@@ -7,6 +7,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ### Changed
 
 - **Breaking:** `inlineContextualization` takes a list of roles instead of a boolean, so `noteref` and `pagebreak` can be chosen separately. `inlineContextualizationRoles` lists the accepted roles. `true` becomes `["noteref", "pagebreak"]`; a boolean is now dropped as invalid.
+- A pagebreak label that is only a page number (`5`, `iv`, `五`, `ה׳`, `εʹ`…) is spoken as “Page 5”, with or without `contextualize: ["pagebreak"]`. The wording is the catalog's `pagebreak.number` entry.
 
 ### Fixed
 
