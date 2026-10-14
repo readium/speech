@@ -1,6 +1,7 @@
 import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
+import { overriddenLanguage } from "./language.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { descriptionOf } from "./nodeFields.js";
 import { roleDropOverrides } from "./roles.js";
@@ -53,7 +54,7 @@ function scopeToOwnValue(utterance: ReadiumSpeechUtterance, text: string, node: 
     // Language reflects the node's own real text regardless of whether a
     // locate can be computed — a node with no textref still lost its language otherwise.
     if (ctx.language !== "none") {
-      const language = node.text?.language;
+      const language = overriddenLanguage(node.text?.language, ctx.languageOverrides);
       if (language) utterance.language = language;
     }
     ctx.synthetic.delete(utterance);

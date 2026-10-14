@@ -73,6 +73,18 @@ test("submitPreferences re-extracts content loaded via loadGndContent", async (t
   ]);
 });
 
+test("submitPreferences re-extracts when languageOverrides changes, not when it's resubmitted equal", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  await navigator.loadGndContent(listTree);
+  await navigator.submitPreferences(new SpeechPreferences({ languageOverrides: { en: "fr" } }));
+  t.deepEqual(navigator.getContentQueue(), [{ language: "fr", plain: "Hello world." }]);
+
+  const loads = engine.loadUtterancesStartIndexCalls.length;
+  await navigator.submitPreferences(new SpeechPreferences({ languageOverrides: { en: "fr" } }));
+  t.is(engine.loadUtterancesStartIndexCalls.length, loads);
+});
+
 // .serial: this and the next three tests all exercise submitPreferences()'s
 // console.warn side effect (an extraction-affecting change with no GND
 // source) — now that submitPreferences() is async, letting them run

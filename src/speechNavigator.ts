@@ -306,6 +306,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
         params: this.contextualizationOverrides?.params,
       },
       language: this._settings.language,
+      languageOverrides: this._settings.languageOverrides,
       segmentation: {
         mode: this._settings.segmentation,
         suppressions: this.segmentationOverrides?.suppressions,
@@ -503,7 +504,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   async submitPreferences(preferences: SpeechPreferences): Promise<void> {
     if (!this.source && this.contentQueue.length > 0 && extractionPreferenceKeys.some((key) => preferences[key] !== undefined)) {
       console.warn(
-        "submitPreferences(): extraction-affecting preferences (format, inlineContextualization, verbosity, skip, contextualize, language, segmentation) have no effect on content loaded via loadContent() — use loadGndContent() to re-extract on submission.",
+        "submitPreferences(): extraction-affecting preferences (format, inlineContextualization, verbosity, skip, contextualize, language, languageOverrides, segmentation) have no effect on content loaded via loadContent() — use loadGndContent() to re-extract on submission.",
       );
     }
 
@@ -526,10 +527,14 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     }
   }
 
-  // Arrays (skip/contextualize) compare as sets, not by reference.
+  // Arrays (skip/contextualize) compare as sets and records (languageOverrides) by entries, not by reference.
   private sameSettingValue(a: unknown, b: unknown): boolean {
     if (Array.isArray(a) && Array.isArray(b)) {
       return a.length === b.length && a.every((role) => b.includes(role));
+    }
+    if (a && b && typeof a === "object" && typeof b === "object") {
+      const entries = Object.entries(a);
+      return entries.length === Object.keys(b).length && entries.every(([key, value]) => (b as Record<string, unknown>)[key] === value);
     }
     return a === b;
   }

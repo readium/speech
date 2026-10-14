@@ -31,5 +31,6 @@ export const extractionPreferenceKeys: readonly (keyof ISpeechPreferences)[] = O
   "skip",
   "contextualize",
   "language",
+  "languageOverrides",
   "segmentation",
 ]);

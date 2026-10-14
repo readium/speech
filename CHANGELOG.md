@@ -4,6 +4,10 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ## [Unreleased]
 
+### Added
+
+- `languageOverrides` extraction option and preference: the language content declared in a given language is spoken in, e.g. `{ en: "fr" }` for French content wrongly declared as English. Keys match by primary subtag, an exact tag winning over it.
+
 ### Changed
 
 - **Breaking:** `inlineContextualization` takes a list of roles instead of a boolean, so `noteref` and `pagebreak` can be chosen separately. `inlineContextualizationRoles` lists the accepted roles. `true` becomes `["noteref", "pagebreak"]`; a boolean is now dropped as invalid.

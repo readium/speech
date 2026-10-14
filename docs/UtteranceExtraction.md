@@ -45,6 +45,7 @@ interface ExtractUtterancesOptions {
   contextualizationLocale?: string;
   contextualization?: ContextualizationOptions;
   language?: "none" | "block-level" | "always";
+  languageOverrides?: Record<string, string>;
   inlineContextualization?: GndRole[];
   segmentation?: SegmentationOptions;
   substitutions?: SubstitutionTable;
@@ -91,6 +92,7 @@ Quick reference:
 | `contextualization.shapes` | per the catalog | which of a role's shapes (single line vs. bounded pair) is spoken — the piece [verbosity levels](Preferences.md#verbosity) drive to make a role's announcement vary by level |
 | `contextualization.params` | none | supply a placeholder value the extractor has no built-in source for |
 | `language` | `"block-level"` | how a node's own inline-language spans render |
+| `languageOverrides` | none | the language content declared in a given language is spoken in |
 | `inlineContextualization` | `[]` | which mid-sentence roles (`noteref`, `pagebreak`) split the sentence, instead of being spoken after it |
 | `segmentation.mode` | `"structure"` | one utterance per structural unit, or split/reconstruct at real sentence boundaries |
 | `segmentation.suppressions` | none | per-language abbreviations (e.g. `"d."`) that sentence mode won't treat as endings |
@@ -227,6 +229,16 @@ How a node's own inline spans (`<em lang="fr">`) render. Never merges across sib
 - `"block-level"` (default) — inline spans merge untagged into the surrounding text; block-level `language` kept.
 - `"always"` — `ssml` keeps spans tagged; `plain` splits into one utterance per language run.
 - `"none"` — same merge as `"block-level"`, plus `language` dropped everywhere.
+
+### `languageOverrides`
+
+The language content declared in a given language is spoken in, for content whose `lang`/`xml:lang` is wrong. Keys match like `segmentation.suppressions`: by primary subtag, an exact tag winning over it. Content declared in any other language is left as is, and an override applies before sentence segmentation, so segmenter and suppressions follow the spoken language.
+
+```typescript
+// <html lang="en"><p>Bonjour <span lang="la">carpe diem</span>.</p></html>
+await extractUtterances(gnd, { format: "plain", language: "always", languageOverrides: { en: "fr" } });
+// [{ language: "fr", plain: "Bonjour" }, { language: "la", plain: "carpe diem." }]
+```
 
 ### `inlineContextualization`
 

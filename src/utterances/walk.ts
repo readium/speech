@@ -1,7 +1,7 @@
 import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
-import { stripLangTags } from "./language.js";
+import { overriddenLanguage, overrideLangTags, stripLangTags } from "./language.js";
 import { descriptionOf, nodeRoles, spokenText } from "./nodeFields.js";
 import {
   hasLangTag,
@@ -81,7 +81,8 @@ function emitWithPlaceholders(
   suppress: boolean,
   isBlockRole: boolean,
 ): GuidedNavigationObject[] {
-  const language = node.text?.language;
+  const declaredLanguage = node.text?.language;
+  const language = overriddenLanguage(declaredLanguage, ctx.languageOverrides);
   const childrenById = new Map((node.children ?? []).map((child) => [child.id, child] as const));
   const pieces: ReadiumSpeechUtterance[] = [];
   const pieceSources: SourceTrace = [];
@@ -117,9 +118,10 @@ function emitWithPlaceholders(
       ctx.language !== "none" &&
       hasLangTag(segment.ssml)
     ) {
-      for (const langSegment of splitOnLangTags(segment.ssml, language)) {
+      for (const langSegment of splitOnLangTags(segment.ssml, declaredLanguage)) {
         const utterance: ReadiumSpeechUtterance = { plain: langSegment.plain };
-        if (langSegment.language) utterance.language = langSegment.language;
+        const segmentLanguage = overriddenLanguage(langSegment.language, ctx.languageOverrides);
+        if (segmentLanguage) utterance.language = segmentLanguage;
         pieces.push(utterance);
         pieceSources.push(node);
       }
@@ -127,7 +129,7 @@ function emitWithPlaceholders(
     }
     const utterance: ReadiumSpeechUtterance = {};
     if (language) utterance.language = language;
-    if (ctx.format === "ssml") utterance.ssml = segment.ssml;
+    if (ctx.format === "ssml") utterance.ssml = overrideLangTags(segment.ssml, ctx.languageOverrides);
     else utterance.plain = stripSsmlTags(segment.ssml);
     if (ctx.language === "block-level" || ctx.language === "none") {
       if (utterance.ssml) utterance.ssml = stripLangTags(utterance.ssml);

@@ -3,7 +3,7 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import { isAriaSubstituted, substitutedOwnSelector } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
-import { stripLangTags } from "./language.js";
+import { overriddenLanguage, overrideLangTags, stripLangTags } from "./language.js";
 import { hasLangTag, splitOnLangTags, stripSsmlTags, type ResolvedNodeText } from "./text.js";
 import type { ExtractionFormat, LanguageMode } from "./types.js";
 import { isSinglePunctuationChar } from "../utils/text.js";
@@ -172,16 +172,18 @@ export function applyFormat(
   if (format === "plain" && language !== "block-level" && language !== "none" && resolved.ssml && hasLangTag(resolved.ssml)) {
     return splitOnLangTags(resolved.ssml, resolved.language).map((segment) => {
       const utterance: ReadiumSpeechUtterance = { plain: segment.plain };
-      if (segment.language) utterance.language = segment.language;
+      const segmentLanguage = overriddenLanguage(segment.language, ctx.languageOverrides);
+      if (segmentLanguage) utterance.language = segmentLanguage;
       ctx.pendingRange.set(utterance, { start: segment.start, end: segment.end });
       return utterance;
     });
   }
 
   const utterance: ReadiumSpeechUtterance = {};
-  if (resolved.language) utterance.language = resolved.language;
+  const resolvedLanguage = overriddenLanguage(resolved.language, ctx.languageOverrides);
+  if (resolvedLanguage) utterance.language = resolvedLanguage;
   if (format === "ssml") {
-    utterance.ssml = resolved.ssml ?? ssmlTextEscape(resolved.plain ?? "");
+    utterance.ssml = resolved.ssml ? overrideLangTags(resolved.ssml, ctx.languageOverrides) : ssmlTextEscape(resolved.plain ?? "");
   } else {
     utterance.plain = resolved.plain ?? stripSsmlTags(resolved.ssml ?? "");
   }

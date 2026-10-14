@@ -67,6 +67,15 @@ test("clear() resets preferences to explicit nulls, not undefined", (t) => {
   t.is(editor.preferences.pauseDuration, null);
 });
 
+test("languageOverrides: an explicit preference is effective and matches the resolved settings", (t) => {
+  const editor = makeEditor(new SpeechPreferences({ languageOverrides: { en: "fr" } }));
+  t.deepEqual(editor.languageOverrides.value, { en: "fr" });
+  t.deepEqual(editor.languageOverrides.effectiveValue, { en: "fr" });
+  t.true(editor.languageOverrides.isEffective);
+  editor.languageOverrides.value = { en: "de" };
+  t.deepEqual(editor.preferences.languageOverrides, { en: "de" });
+});
+
 test("clear() actually resets preferences submitted through submitPreferences()", (t) => {
   const initial = new SpeechPreferences({ verbosity: "most", pauseDuration: 500 });
   const editor = makeEditor(initial);

@@ -90,6 +90,18 @@ test("an inlineContextualization role list is kept", (t) => {
   t.deepEqual(prefs.inlineContextualization, ["pagebreak"]);
 });
 
+test("a languageOverrides record is kept", (t) => {
+  const prefs = new SpeechPreferences({ languageOverrides: { en: "fr" } });
+  t.deepEqual(prefs.languageOverrides, { en: "fr" });
+});
+
+test("a languageOverrides record with a non-string value, or an array, is dropped to undefined", (t) => {
+  // @ts-expect-error deliberately invalid
+  t.is(new SpeechPreferences({ languageOverrides: { en: 1 } }).languageOverrides, undefined);
+  // @ts-expect-error deliberately invalid
+  t.is(new SpeechPreferences({ languageOverrides: ["fr"] }).languageOverrides, undefined);
+});
+
 test("explicit null is preserved (not coerced to undefined) for guarded fields", (t) => {
   const prefs = new SpeechPreferences({ rate: null, verbosity: null, inlineContextualization: null });
   t.is(prefs.rate, null);

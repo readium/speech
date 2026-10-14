@@ -10,7 +10,7 @@ import {
   verbosityPresets,
   volumeRangeConfig,
 } from "./constraints.js";
-import { ensureEnumValue, ensureStringArray, ensureValueInRange } from "./guards.js";
+import { ensureEnumValue, ensureStringArray, ensureStringRecord, ensureValueInRange } from "./guards.js";
 import type { AutoPauseScope, VerbosityPreset } from "./SpeechPreferences.js";
 import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
 
@@ -22,6 +22,7 @@ export interface ISpeechDefaults {
   skip?: GndRole[] | null;
   contextualize?: GndRole[] | null;
   language?: LanguageMode | null;
+  languageOverrides?: Record<string, string> | null;
   segmentation?: Segmentation | null;
   pauseDuration?: number | null;
   autoPause?: AutoPauseScope | null;
@@ -37,6 +38,7 @@ export class SpeechDefaults {
   public readonly skip: GndRole[];
   public readonly contextualize: GndRole[];
   public readonly language: LanguageMode;
+  public readonly languageOverrides: Record<string, string>;
   public readonly segmentation: Segmentation;
   public readonly pauseDuration: number;
   public readonly autoPause: AutoPauseScope;
@@ -51,6 +53,7 @@ export class SpeechDefaults {
     this.skip = ensureStringArray(defaults.skip) ?? [];
     this.contextualize = ensureStringArray(defaults.contextualize) ?? [];
     this.language = ensureEnumValue(defaults.language, languageModes) ?? "block-level";
+    this.languageOverrides = ensureStringRecord(defaults.languageOverrides) ?? {};
     this.segmentation = ensureEnumValue(defaults.segmentation, segmentationModes) ?? "structure";
     this.pauseDuration = ensureValueInRange(defaults.pauseDuration, pauseDurationRangeConfig.range) ?? 300;
     this.autoPause = ensureEnumValue(defaults.autoPause, autoPauseScopes) ?? "none";

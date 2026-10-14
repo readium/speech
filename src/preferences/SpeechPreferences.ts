@@ -12,7 +12,7 @@ import {
   verbosityPresets,
   volumeRangeConfig,
 } from "./constraints.js";
-import { ensureEnumValue, ensureStringArray, ensureValueInRange } from "./guards.js";
+import { ensureEnumValue, ensureStringArray, ensureStringRecord, ensureValueInRange } from "./guards.js";
 
 export type VerbosityPreset = "none" | "few" | "some" | "most" | "custom";
 
@@ -30,6 +30,7 @@ export interface ISpeechPreferences {
   skip?: GndRole[] | null; // only consulted when verbosity === "custom"
   contextualize?: GndRole[] | null; // only consulted when verbosity === "custom"
   language?: LanguageMode | null;
+  languageOverrides?: Record<string, string> | null; // default {}, declared language -> spoken language
   segmentation?: Segmentation | null; // default "structure"
 
   // Prosody group — consumed by ReadiumSpeechNavigator's playback sequencing.
@@ -47,6 +48,7 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
   public skip: GndRole[] | null | undefined;
   public contextualize: GndRole[] | null | undefined;
   public language: LanguageMode | null | undefined;
+  public languageOverrides: Record<string, string> | null | undefined;
   public segmentation: Segmentation | null | undefined;
   public pauseDuration: number | null | undefined;
   public autoPause: AutoPauseScope | null | undefined;
@@ -61,6 +63,7 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
     this.skip = ensureStringArray(preferences.skip);
     this.contextualize = ensureStringArray(preferences.contextualize);
     this.language = ensureEnumValue(preferences.language, languageModes);
+    this.languageOverrides = ensureStringRecord(preferences.languageOverrides);
     this.segmentation = ensureEnumValue(preferences.segmentation, segmentationModes);
     this.pauseDuration = ensureValueInRange(preferences.pauseDuration, pauseDurationRangeConfig.range);
     this.autoPause = ensureEnumValue(preferences.autoPause, autoPauseScopes);

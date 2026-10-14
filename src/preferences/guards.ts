@@ -18,6 +18,12 @@ export function ensureValueInRange(value: number | null | undefined, range: read
   return value >= min && value <= max ? value : undefined;
 }
 
+export function ensureStringRecord(value: Record<string, string> | null | undefined): Record<string, string> | null | undefined {
+  if (value === undefined || value === null) return value;
+  if (typeof value !== "object" || Array.isArray(value)) return undefined;
+  return Object.values(value).every((item) => typeof item === "string") ? value : undefined;
+}
+
 // GND roles are an open vocabulary — only the shape is checked, not role names.
 export function ensureStringArray(value: string[] | null | undefined): string[] | null | undefined {
   if (value === undefined || value === null) return value;

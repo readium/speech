@@ -11,7 +11,7 @@ import {
   volumeRangeConfig,
 } from "./constraints.js";
 import type { IPreferencesEditor } from "./PreferencesEditor.js";
-import { EnumPreference, RangePreference, StringArrayPreference } from "./Preference.js";
+import { EnumPreference, Preference, RangePreference, StringArrayPreference } from "./Preference.js";
 import { SpeechPreferences, VerbosityPreset, AutoPauseScope } from "./SpeechPreferences.js";
 import { SpeechSettings } from "./SpeechSettings.js";
 import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
@@ -39,6 +39,7 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
       skip: null,
       contextualize: null,
       language: null,
+      languageOverrides: null,
       segmentation: null,
       pauseDuration: null,
       autoPause: null,
@@ -106,6 +107,15 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
       isEffective: this.preferences.language != null,
       onChange: (value) => this.updatePreference("language", value ?? null),
       supportedValues: languageModes,
+    });
+  }
+
+  get languageOverrides(): Preference<Record<string, string>> {
+    return new Preference<Record<string, string>>({
+      initialValue: this.preferences.languageOverrides,
+      effectiveValue: this.settings.languageOverrides,
+      isEffective: this.preferences.languageOverrides != null,
+      onChange: (value) => this.updatePreference("languageOverrides", value ?? null),
     });
   }
 

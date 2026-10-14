@@ -14,6 +14,7 @@ export class SpeechSettings implements ConfigurableSettings {
   public readonly skip: GndRole[];
   public readonly contextualize: GndRole[];
   public readonly language: LanguageMode;
+  public readonly languageOverrides: Record<string, string>;
   public readonly segmentation: Segmentation;
   public readonly pauseDuration: number;
   public readonly autoPause: AutoPauseScope;
@@ -37,6 +38,7 @@ export class SpeechSettings implements ConfigurableSettings {
       this.contextualize = [...contextualizedAtVerbosity[this.verbosity]];
     }
     this.language = preferences.language ?? defaults.language;
+    this.languageOverrides = preferences.languageOverrides ?? defaults.languageOverrides;
     this.segmentation = preferences.segmentation ?? defaults.segmentation;
     this.pauseDuration = preferences.pauseDuration ?? defaults.pauseDuration;
     this.autoPause = preferences.autoPause ?? defaults.autoPause;
