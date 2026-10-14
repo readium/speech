@@ -62,7 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the disclosure.",
+          "language": "en"
         },
+        {
+          "plain": "Additional details the reader can expand."
+        },
+        {
+          "plain": "End of the disclosure.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -316,7 +333,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the disclosure.",
+          "language": "en"
         },
+        {
+          "ssml": "Additional details the reader can expand."
+        },
+        {
+          "ssml": "End of the disclosure.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

@@ -62,7 +62,17 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Video with a label: The lamp mechanism rotating at dusk",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -310,7 +320,17 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Video with a label: The lamp mechanism rotating at dusk",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

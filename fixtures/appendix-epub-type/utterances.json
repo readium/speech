@@ -62,7 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the appendix.",
+          "language": "en"
         },
+        {
+          "plain": "A table of lighthouse construction dates referenced in the text."
+        },
+        {
+          "plain": "End of the appendix.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -155,7 +172,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the appendix.",
+          "language": "en"
         },
+        {
+          "ssml": "A table of lighthouse construction dates referenced in the text."
+        },
+        {
+          "ssml": "End of the appendix.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

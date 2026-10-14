@@ -62,7 +62,17 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Audio with a label: Foghorn recording from the 1962 restoration",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -310,7 +320,17 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Audio with a label: Foghorn recording from the 1962 restoration",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

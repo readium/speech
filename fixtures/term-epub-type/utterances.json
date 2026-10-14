@@ -62,7 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "language": "en"
         },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -143,7 +160,20 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Term.",
+          "language": "en"
         },
+        {
+          "plain": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -227,7 +257,28 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "language": "en"
         },
+        {
+          "plain": "Term.",
+          "language": "en"
+        },
+        {
+          "plain": "lighthouse"
+        },
+        {
+          "plain": "End of the glossary.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -674,7 +725,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "language": "en"
         },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -755,7 +823,20 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Term.",
+          "language": "en"
         },
+        {
+          "ssml": "lighthouse"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -839,7 +920,28 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "language": "en"
         },
+        {
+          "ssml": "Term.",
+          "language": "en"
+        },
+        {
+          "ssml": "lighthouse"
+        },
+        {
+          "ssml": "End of the glossary.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

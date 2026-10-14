@@ -62,7 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the introduction.",
+          "language": "en"
         },
+        {
+          "plain": "This work explores the history of coastal lighthouses."
+        },
+        {
+          "plain": "End of the introduction.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -155,7 +172,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the introduction.",
+          "language": "en"
         },
+        {
+          "ssml": "This work explores the history of coastal lighthouses."
+        },
+        {
+          "ssml": "End of the introduction.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

@@ -728,7 +728,8 @@
           "language": "en"
         },
         {
-          "plain": "Start of the footnote. Text of the footnote. End of the footnote."
+          "plain": "Start of the footnote. Text of the footnote. End of the footnote.",
+          "language": "en"
         }
       ]
     },
@@ -7042,7 +7043,8 @@
           "language": "en"
         },
         {
-          "ssml": "Start of the footnote. Text of the footnote. End of the footnote."
+          "ssml": "Start of the footnote. Text of the footnote. End of the footnote.",
+          "language": "en"
         }
       ]
     },

@@ -62,7 +62,20 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Blockquote.",
+          "language": "en"
         },
+        {
+          "plain": "To be, or not to be, that is the question."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -152,7 +165,20 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Blockquote.",
+          "language": "en"
         },
+        {
+          "ssml": "To be, or not to be, that is the question."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

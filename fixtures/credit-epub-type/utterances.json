@@ -72,18 +72,12 @@
             "credit"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "plain": "Credit."
+          "plain": "Credit.",
+          "language": "en"
         },
         {
           "plain": "Cover photograph by A. Keeper."
@@ -120,7 +114,42 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Credit.",
+          "language": "en"
         },
+        {
+          "plain": "Cover photograph by A."
+        },
+        {
+          "plain": "Keeper."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Credit."
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -216,18 +245,12 @@
             "credit"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "ssml": "Credit."
+          "ssml": "Credit.",
+          "language": "en"
         },
         {
           "ssml": "Cover photograph by A. Keeper."
@@ -264,7 +287,42 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Credit.",
+          "language": "en"
         },
+        {
+          "ssml": "Cover photograph by A."
+        },
+        {
+          "ssml": "Keeper."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Credit."
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

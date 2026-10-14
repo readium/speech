@@ -11,6 +11,13 @@ export function formatPlain(text: string, ctx: WalkContext): ReadiumSpeechUttera
   return utterance;
 }
 
+// A catalog entry's text, in the catalog's language.
+export function formatEntryText(text: string, ctx: WalkContext): ReadiumSpeechUtterance {
+  const utterance = formatPlain(text, ctx);
+  if (ctx.language !== "none") utterance.language = ctx.contextualizationLanguage;
+  return utterance;
+}
+
 export function push(out: ReadiumSpeechUtterance[], sources: SourceTrace, node: SourceTrace[number], items: ReadiumSpeechUtterance[]): void {
   out.push(...items);
   for (let i = 0; i < items.length; i++) sources.push(node);

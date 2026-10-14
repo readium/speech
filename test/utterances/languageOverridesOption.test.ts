@@ -50,3 +50,24 @@ test("languageOverrides applies before sentence segmentation, so sentences carry
     ["Bonsoir.", "fr"],
   ]);
 });
+
+test("announcements are in the contextualization catalog's language, not the content's, nor overridden", async (t) => {
+  const html = '<html lang="fr"><body><ul><li>Un.</li></ul></body></html>';
+  const utterances = await extractUtterances(parseMarkup(html), { format: "plain", contextualize: ["list"], languageOverrides: { fr: "de" } });
+  t.deepEqual(utterances.map((u) => [u.plain, u.language]), [
+    ["Start of the list.", "en"],
+    ["Un.", "de"],
+    ["End of the list.", "en"],
+  ]);
+});
+
+test("announcements follow an unshipped contextualizationLocale's fallback catalog, English", async (t) => {
+  const html = '<ul><li>One.</li></ul>';
+  const [start] = await extractUtterances(parseMarkup(html), { format: "plain", contextualize: ["list"], contextualizationLocale: "xx" });
+  t.is(start.language, "en");
+});
+
+test("announcements carry no language under language: \"none\"", async (t) => {
+  const [start] = await extractUtterances(parseMarkup("<ul><li>One.</li></ul>"), { format: "plain", contextualize: ["list"], language: "none" });
+  t.is(start.language, undefined);
+});

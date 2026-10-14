@@ -62,7 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the prologue.",
+          "language": "en"
         },
+        {
+          "plain": "Before the lamp was ever lit, the rock was already feared."
+        },
+        {
+          "plain": "End of the prologue.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -155,7 +172,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the prologue.",
+          "language": "en"
         },
+        {
+          "ssml": "Before the lamp was ever lit, the rock was already feared."
+        },
+        {
+          "ssml": "End of the prologue.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

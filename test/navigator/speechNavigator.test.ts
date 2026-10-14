@@ -42,22 +42,22 @@ test("table contextualization is inline at 'few', block from 'some' on", async (
   const navigator = new ReadiumSpeechNavigator(engine);
   await navigator.submitPreferences(new SpeechPreferences({ verbosity: "few" }));
   await navigator.loadGndContent(tableTree);
-  t.deepEqual(navigator.getContentQueue(), [{ plain: "Table. 1 line. 1 column." }]);
+  t.deepEqual(navigator.getContentQueue(), [{ language: "en", plain: "Table. 1 line. 1 column." }]);
 
   await navigator.submitPreferences(new SpeechPreferences({ verbosity: "some" }));
   t.deepEqual(navigator.getContentQueue(), [
-    { plain: "Table. 1 line. 1 column." },
-    { plain: "Row: 1" },
+    { language: "en", plain: "Table. 1 line. 1 column." },
+    { language: "en", plain: "Row: 1" },
     { language: "en", plain: "Cell." },
-    { plain: "End of the table." },
+    { language: "en", plain: "End of the table." },
   ]);
 
   await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
   t.deepEqual(navigator.getContentQueue(), [
-    { plain: "Table. 1 line. 1 column." },
-    { plain: "Row: 1" },
+    { language: "en", plain: "Table. 1 line. 1 column." },
+    { language: "en", plain: "Row: 1" },
     { language: "en", plain: "Cell." },
-    { plain: "End of the table." },
+    { language: "en", plain: "End of the table." },
   ]);
 });
 
@@ -67,9 +67,9 @@ test("submitPreferences re-extracts content loaded via loadGndContent", async (t
   await navigator.loadGndContent(listTree);
   await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
   t.deepEqual(navigator.getContentQueue(), [
-    { plain: "Start of the list." },
+    { language: "en", plain: "Start of the list." },
     { language: "en", plain: "Hello world." },
-    { plain: "End of the list." },
+    { language: "en", plain: "End of the list." },
   ]);
 });
 

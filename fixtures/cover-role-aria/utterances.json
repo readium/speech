@@ -62,7 +62,17 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Image with a label: Lighthouses of the Atlantic, by J. Smith",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -141,23 +151,6 @@
         {
           "format": "plain",
           "contextualize": [
-            "cover"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "cover"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
             "image",
             "cover"
           ]
@@ -206,25 +199,6 @@
             "cover"
           ],
           "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "image",
-            "cover"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "image",
-            "cover"
-          ],
-          "language": "none",
           "segmentation": {
             "mode": "sentence"
           }
@@ -302,29 +276,6 @@
             "image"
           ],
           "contextualize": [
-            "cover"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "cover"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
             "image",
             "cover"
           ]
@@ -388,6 +339,75 @@
             "cover"
           ],
           "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Cover with a label: Lighthouses of the Atlantic, by J. Smith",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "cover"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "cover"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "cover"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image",
+            "cover"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "language": "none",
           "segmentation": {
             "mode": "sentence"
           }
@@ -647,7 +667,17 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Image with a label: Lighthouses of the Atlantic, by J. Smith",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -726,23 +756,6 @@
         {
           "format": "ssml",
           "contextualize": [
-            "cover"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "cover"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
             "image",
             "cover"
           ]
@@ -791,25 +804,6 @@
             "cover"
           ],
           "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "image",
-            "cover"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "image",
-            "cover"
-          ],
-          "language": "none",
           "segmentation": {
             "mode": "sentence"
           }
@@ -887,29 +881,6 @@
             "image"
           ],
           "contextualize": [
-            "cover"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
-            "cover"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "image"
-          ],
-          "contextualize": [
             "image",
             "cover"
           ]
@@ -973,6 +944,75 @@
             "cover"
           ],
           "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Cover with a label: Lighthouses of the Atlantic, by J. Smith",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "cover"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "cover"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "cover"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image",
+            "cover"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "cover"
+          ],
+          "language": "none",
           "segmentation": {
             "mode": "sentence"
           }

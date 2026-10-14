@@ -65,7 +65,23 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Before."
         },
+        {
+          "plain": "Separator.",
+          "language": "en"
+        },
+        {
+          "plain": "After."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -161,7 +177,23 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Before."
         },
+        {
+          "ssml": "Separator.",
+          "language": "en"
+        },
+        {
+          "ssml": "After."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

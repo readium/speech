@@ -65,7 +65,23 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Section one."
         },
+        {
+          "plain": "Separator.",
+          "language": "en"
+        },
+        {
+          "plain": "Section two."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -161,7 +177,23 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Section one."
         },
+        {
+          "ssml": "Separator.",
+          "language": "en"
+        },
+        {
+          "ssml": "Section two."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

@@ -62,7 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the conclusion.",
+          "language": "en"
         },
+        {
+          "plain": "Lighthouses remain a symbol of safe passage."
+        },
+        {
+          "plain": "End of the conclusion.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -155,7 +172,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the conclusion.",
+          "language": "en"
         },
+        {
+          "ssml": "Lighthouses remain a symbol of safe passage."
+        },
+        {
+          "ssml": "End of the conclusion.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

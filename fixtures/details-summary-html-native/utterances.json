@@ -82,18 +82,12 @@
             "details"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "plain": "Start of the disclosure."
+          "plain": "Start of the disclosure.",
+          "language": "en"
         },
         {
           "plain": "Click to expand"
@@ -102,7 +96,8 @@
           "plain": "Additional details the reader can expand."
         },
         {
-          "plain": "End of the disclosure."
+          "plain": "End of the disclosure.",
+          "language": "en"
         }
       ]
     },
@@ -140,11 +135,38 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the disclosure."
+          "plain": "Start of the disclosure.",
+          "language": "en"
         },
         {
           "plain": "Click to expand Additional details the reader can expand.",
           "language": "en"
+        },
+        {
+          "plain": "End of the disclosure.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "details"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the disclosure."
+        },
+        {
+          "plain": "Click to expand"
+        },
+        {
+          "plain": "Additional details the reader can expand."
         },
         {
           "plain": "End of the disclosure."
@@ -197,18 +219,12 @@
             "summary"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "summary"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "plain": "Summary."
+          "plain": "Summary.",
+          "language": "en"
         },
         {
           "plain": "Click to expand"
@@ -252,11 +268,34 @@
       ],
       "utterances": [
         {
-          "plain": "Summary."
+          "plain": "Summary.",
+          "language": "en"
         },
         {
           "plain": "Click to expand Additional details the reader can expand.",
           "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Summary."
+        },
+        {
+          "plain": "Click to expand"
+        },
+        {
+          "plain": "Additional details the reader can expand."
         }
       ]
     },
@@ -306,22 +345,16 @@
             "summary"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "plain": "Start of the disclosure."
+          "plain": "Start of the disclosure.",
+          "language": "en"
         },
         {
-          "plain": "Summary."
+          "plain": "Summary.",
+          "language": "en"
         },
         {
           "plain": "Click to expand"
@@ -330,7 +363,8 @@
           "plain": "Additional details the reader can expand."
         },
         {
-          "plain": "End of the disclosure."
+          "plain": "End of the disclosure.",
+          "language": "en"
         }
       ]
     },
@@ -371,14 +405,46 @@
       ],
       "utterances": [
         {
+          "plain": "Start of the disclosure.",
+          "language": "en"
+        },
+        {
+          "plain": "Summary.",
+          "language": "en"
+        },
+        {
+          "plain": "Click to expand Additional details the reader can expand.",
+          "language": "en"
+        },
+        {
+          "plain": "End of the disclosure.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
           "plain": "Start of the disclosure."
         },
         {
           "plain": "Summary."
         },
         {
-          "plain": "Click to expand Additional details the reader can expand.",
-          "language": "en"
+          "plain": "Click to expand"
+        },
+        {
+          "plain": "Additional details the reader can expand."
         },
         {
           "plain": "End of the disclosure."
@@ -845,18 +911,12 @@
             "details"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "ssml": "Start of the disclosure."
+          "ssml": "Start of the disclosure.",
+          "language": "en"
         },
         {
           "ssml": "Click to expand"
@@ -865,7 +925,8 @@
           "ssml": "Additional details the reader can expand."
         },
         {
-          "ssml": "End of the disclosure."
+          "ssml": "End of the disclosure.",
+          "language": "en"
         }
       ]
     },
@@ -903,11 +964,38 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the disclosure."
+          "ssml": "Start of the disclosure.",
+          "language": "en"
         },
         {
           "ssml": "Click to expand Additional details the reader can expand.",
           "language": "en"
+        },
+        {
+          "ssml": "End of the disclosure.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the disclosure."
+        },
+        {
+          "ssml": "Click to expand"
+        },
+        {
+          "ssml": "Additional details the reader can expand."
         },
         {
           "ssml": "End of the disclosure."
@@ -960,18 +1048,12 @@
             "summary"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "summary"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "ssml": "Summary."
+          "ssml": "Summary.",
+          "language": "en"
         },
         {
           "ssml": "Click to expand"
@@ -1015,11 +1097,34 @@
       ],
       "utterances": [
         {
-          "ssml": "Summary."
+          "ssml": "Summary.",
+          "language": "en"
         },
         {
           "ssml": "Click to expand Additional details the reader can expand.",
           "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "summary"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Summary."
+        },
+        {
+          "ssml": "Click to expand"
+        },
+        {
+          "ssml": "Additional details the reader can expand."
         }
       ]
     },
@@ -1069,22 +1174,16 @@
             "summary"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "details",
-            "summary"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "ssml": "Start of the disclosure."
+          "ssml": "Start of the disclosure.",
+          "language": "en"
         },
         {
-          "ssml": "Summary."
+          "ssml": "Summary.",
+          "language": "en"
         },
         {
           "ssml": "Click to expand"
@@ -1093,7 +1192,8 @@
           "ssml": "Additional details the reader can expand."
         },
         {
-          "ssml": "End of the disclosure."
+          "ssml": "End of the disclosure.",
+          "language": "en"
         }
       ]
     },
@@ -1134,14 +1234,46 @@
       ],
       "utterances": [
         {
+          "ssml": "Start of the disclosure.",
+          "language": "en"
+        },
+        {
+          "ssml": "Summary.",
+          "language": "en"
+        },
+        {
+          "ssml": "Click to expand Additional details the reader can expand.",
+          "language": "en"
+        },
+        {
+          "ssml": "End of the disclosure.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "details",
+            "summary"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
           "ssml": "Start of the disclosure."
         },
         {
           "ssml": "Summary."
         },
         {
-          "ssml": "Click to expand Additional details the reader can expand.",
-          "language": "en"
+          "ssml": "Click to expand"
+        },
+        {
+          "ssml": "Additional details the reader can expand."
         },
         {
           "ssml": "End of the disclosure."

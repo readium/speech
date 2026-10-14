@@ -62,7 +62,20 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Notice.",
+          "language": "en"
         },
+        {
+          "plain": "Caution: the tower stairs are uneven."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -152,7 +165,20 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Notice.",
+          "language": "en"
         },
+        {
+          "ssml": "Caution: the tower stairs are uneven."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

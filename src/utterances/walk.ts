@@ -21,7 +21,7 @@ import {
 } from "./contextualization.js";
 import { applyFormat, mergeUtterances } from "./mergeUtterances.js";
 import { isPageNumber } from "./pageNumber.js";
-import { formatPlain, push, pushPiecesOrMerged } from "./utteranceOutput.js";
+import { formatEntryText, formatPlain, push, pushPiecesOrMerged } from "./utteranceOutput.js";
 import {
   blockLevelRoleSet,
   contentlessRoleSet,
@@ -44,7 +44,7 @@ function buildPagebreakLabel(node: GuidedNavigationObject, ctx: WalkContext): Re
   const label = resolved.plain ?? stripSsmlTags(resolved.ssml ?? "");
   if (isPageNumber(label)) {
     const text = resolveEntryText(ctx, "pagebreak.number", undefined, { number: label.trim() });
-    if (text !== undefined) return [formatPlain(text, ctx)];
+    if (text !== undefined) return [formatEntryText(text, ctx)];
   }
   return applyFormat(resolved, ctx.format, ctx.language, ctx);
 }
@@ -57,7 +57,7 @@ function buildPagebreakUtterance(node: GuidedNavigationObject, ctx: WalkContext)
   const base = ctx.i18n.exists("pagebreak.block.start") ? "pagebreak.block.start" : "pagebreak.inline";
   const text = resolveEntryText(ctx, base);
   if (text === undefined) return own;
-  const contextualization = formatPlain(text, ctx);
+  const contextualization = formatEntryText(text, ctx);
   if (own.length === 0) return [contextualization];
   const merged = mergeUtterances([contextualization, ...own], [undefined, ...own.map(() => node)], ctx);
   if (!merged) return [contextualization, ...own];
@@ -220,7 +220,7 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
         const pieces: ReadiumSpeechUtterance[] = [];
         const pieceSources: SourceTrace = [];
         if (startText !== undefined) {
-          pieces.push(formatPlain(startText, ctx));
+          pieces.push(formatEntryText(startText, ctx));
           pieceSources.push(child);
         }
         const inner: ReadiumSpeechUtterance[] = [];
@@ -234,7 +234,7 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
         if (hasEntry && footnoteBlock) {
           const endText = resolveEntryText(ctx, "footnote.block.end");
           if (endText !== undefined) {
-            pieces.push(formatPlain(endText, ctx));
+            pieces.push(formatEntryText(endText, ctx));
             pieceSources.push(child);
           }
         }

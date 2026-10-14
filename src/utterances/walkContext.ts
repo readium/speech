@@ -4,7 +4,7 @@ import type { GndRole } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { builtInSubstitutions } from "./builtInSubstitutions.js";
-import { contextualizationsForLocale } from "./contextualizations.js";
+import { catalogLocale, contextualizationsForLocale } from "./contextualizations.js";
 import { segmentSentences, type SentenceSegmenter } from "./sentenceSegmenter.js";
 import type {
   ContextualizationEntry,
@@ -26,6 +26,8 @@ import {
 export interface WalkContext {
   // Backs only `resolvePluralPart()`'s `<role>.parts.<name>` lookups.
   i18n: i18n;
+  // The language of `i18n`'s catalog, which every contextualization is spoken in.
+  contextualizationLanguage: string;
   skip: ReadonlySet<GndRole>;
   contextualize: ReadonlySet<GndRole>;
   // Per-role contextualization shape overrides for this call — see
@@ -137,6 +139,7 @@ export async function makeWalkContext(nodes: GuidedNavigationObject[], options: 
   );
   return {
     i18n: makeContextualizer(locale, contextualizations),
+    contextualizationLanguage: catalogLocale(locale),
     skip: new Set(options.skip ?? []),
     contextualize: new Set(options.contextualize ?? []),
     contextualizationShapes: options.contextualization?.shapes ?? {},

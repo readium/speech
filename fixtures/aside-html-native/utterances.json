@@ -62,7 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the aside.",
+          "language": "en"
         },
+        {
+          "plain": "By the way, lighthouses were once staffed around the clock."
+        },
+        {
+          "plain": "End of the aside.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -316,7 +333,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the aside.",
+          "language": "en"
         },
+        {
+          "ssml": "By the way, lighthouses were once staffed around the clock."
+        },
+        {
+          "ssml": "End of the aside.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

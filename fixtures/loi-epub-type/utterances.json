@@ -81,18 +81,12 @@
             "list"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "language": "en"
         },
         {
           "plain": "Figure 1. Lighthouse cross-section"
@@ -101,7 +95,8 @@
           "plain": "Figure 2. Fresnel lens diagram"
         },
         {
-          "plain": "End of the list."
+          "plain": "End of the list.",
+          "language": "en"
         }
       ]
     },
@@ -135,7 +130,58 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "language": "en"
         },
+        {
+          "plain": "Figure 1."
+        },
+        {
+          "plain": "Lighthouse cross-section"
+        },
+        {
+          "plain": "Figure 2."
+        },
+        {
+          "plain": "Fresnel lens diagram"
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "Figure 1. Lighthouse cross-section"
+        },
+        {
+          "plain": "Figure 2. Fresnel lens diagram"
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -189,24 +235,19 @@
             "listItem"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "language": "en"
         },
         {
           "plain": "Figure 1. Lighthouse cross-section"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "language": "en"
         },
         {
           "plain": "Figure 2. Fresnel lens diagram"
@@ -243,7 +284,58 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "List item.",
+          "language": "en"
         },
+        {
+          "plain": "Figure 1."
+        },
+        {
+          "plain": "Lighthouse cross-section"
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Figure 2."
+        },
+        {
+          "plain": "Fresnel lens diagram"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Figure 1. Lighthouse cross-section"
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Figure 2. Fresnel lens diagram"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -300,34 +392,30 @@
             "listItem"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "language": "en"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "language": "en"
         },
         {
           "plain": "Figure 1. Lighthouse cross-section"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "language": "en"
         },
         {
           "plain": "Figure 2. Fresnel lens diagram"
         },
         {
-          "plain": "End of the list."
+          "plain": "End of the list.",
+          "language": "en"
         }
       ]
     },
@@ -364,7 +452,73 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "language": "en"
         },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Figure 1."
+        },
+        {
+          "plain": "Lighthouse cross-section"
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Figure 2."
+        },
+        {
+          "plain": "Fresnel lens diagram"
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Figure 1. Lighthouse cross-section"
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Figure 2. Fresnel lens diagram"
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -834,18 +988,12 @@
             "list"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "language": "en"
         },
         {
           "ssml": "Figure 1. Lighthouse cross-section"
@@ -854,7 +1002,8 @@
           "ssml": "Figure 2. Fresnel lens diagram"
         },
         {
-          "ssml": "End of the list."
+          "ssml": "End of the list.",
+          "language": "en"
         }
       ]
     },
@@ -888,7 +1037,58 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
         },
+        {
+          "ssml": "Figure 1."
+        },
+        {
+          "ssml": "Lighthouse cross-section"
+        },
+        {
+          "ssml": "Figure 2."
+        },
+        {
+          "ssml": "Fresnel lens diagram"
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "Figure 1. Lighthouse cross-section"
+        },
+        {
+          "ssml": "Figure 2. Fresnel lens diagram"
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -942,24 +1142,19 @@
             "listItem"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "language": "en"
         },
         {
           "ssml": "Figure 1. Lighthouse cross-section"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "language": "en"
         },
         {
           "ssml": "Figure 2. Fresnel lens diagram"
@@ -996,7 +1191,58 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "language": "en"
         },
+        {
+          "ssml": "Figure 1."
+        },
+        {
+          "ssml": "Lighthouse cross-section"
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Figure 2."
+        },
+        {
+          "ssml": "Fresnel lens diagram"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Figure 1. Lighthouse cross-section"
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Figure 2. Fresnel lens diagram"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -1053,34 +1299,30 @@
             "listItem"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "language": "en"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "language": "en"
         },
         {
           "ssml": "Figure 1. Lighthouse cross-section"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "language": "en"
         },
         {
           "ssml": "Figure 2. Fresnel lens diagram"
         },
         {
-          "ssml": "End of the list."
+          "ssml": "End of the list.",
+          "language": "en"
         }
       ]
     },
@@ -1117,7 +1359,73 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
         },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Figure 1."
+        },
+        {
+          "ssml": "Lighthouse cross-section"
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Figure 2."
+        },
+        {
+          "ssml": "Fresnel lens diagram"
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Figure 1. Lighthouse cross-section"
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Figure 2. Fresnel lens diagram"
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

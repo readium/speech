@@ -62,7 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the preface.",
+          "language": "en"
         },
+        {
+          "plain": "This edition adds a chapter on automation."
+        },
+        {
+          "plain": "End of the preface.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -155,7 +172,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the preface.",
+          "language": "en"
         },
+        {
+          "ssml": "This edition adds a chapter on automation."
+        },
+        {
+          "ssml": "End of the preface.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

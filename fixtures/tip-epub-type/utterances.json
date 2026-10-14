@@ -62,7 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the aside.",
+          "language": "en"
         },
+        {
+          "plain": "Tip: wind the mechanism fully before dusk."
+        },
+        {
+          "plain": "End of the aside.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -143,7 +160,20 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Tip.",
+          "language": "en"
         },
+        {
+          "plain": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -227,7 +257,28 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the aside.",
+          "language": "en"
         },
+        {
+          "plain": "Tip.",
+          "language": "en"
+        },
+        {
+          "plain": "Tip: wind the mechanism fully before dusk."
+        },
+        {
+          "plain": "End of the aside.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -674,7 +725,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the aside.",
+          "language": "en"
         },
+        {
+          "ssml": "Tip: wind the mechanism fully before dusk."
+        },
+        {
+          "ssml": "End of the aside.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -755,7 +823,20 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Tip.",
+          "language": "en"
         },
+        {
+          "ssml": "Tip: wind the mechanism fully before dusk."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -839,7 +920,28 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the aside.",
+          "language": "en"
         },
+        {
+          "ssml": "Tip.",
+          "language": "en"
+        },
+        {
+          "ssml": "Tip: wind the mechanism fully before dusk."
+        },
+        {
+          "ssml": "End of the aside.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

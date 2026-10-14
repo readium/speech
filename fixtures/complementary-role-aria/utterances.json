@@ -62,7 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the complementary content.",
+          "language": "en"
         },
+        {
+          "plain": "A supporting note related to the main content."
+        },
+        {
+          "plain": "End of the complementary content.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -155,7 +172,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the complementary content.",
+          "language": "en"
         },
+        {
+          "ssml": "A supporting note related to the main content."
+        },
+        {
+          "ssml": "End of the complementary content.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

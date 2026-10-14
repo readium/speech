@@ -62,7 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the example.",
+          "language": "en"
         },
+        {
+          "plain": "For instance, a Fresnel lens focuses light into a narrow beam."
+        },
+        {
+          "plain": "End of the example.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -155,7 +172,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the example.",
+          "language": "en"
         },
+        {
+          "ssml": "For instance, a Fresnel lens focuses light into a narrow beam."
+        },
+        {
+          "ssml": "End of the example.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

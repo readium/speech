@@ -6,7 +6,7 @@ import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { descriptionOf } from "./nodeFields.js";
 import { roleDropOverrides } from "./roles.js";
 import { computeTableStructure, plainTextOf } from "./tableStructure.js";
-import { formatPlain, push } from "./utteranceOutput.js";
+import { formatEntryText, push } from "./utteranceOutput.js";
 import { valueFoldingRoleSet, type SourceTrace, type WalkContext } from "./walkContext.js";
 
 // `variantKey`, when given, picks a nested named-variant leaf (e.g.
@@ -88,7 +88,7 @@ export function pushRoleContextualization(
     const base = phase === "before" ? `${role}.block.start` : `${role}.block.end`;
     const text = resolveEntryText(ctx, base, variantKey, params);
     if (text) {
-      const utterance = formatPlain(text, ctx);
+      const utterance = formatEntryText(text, ctx);
       scopeToOwnValue(utterance, text, node, ctx, role, params);
       push(out, sources, node, [utterance]);
     }
@@ -97,7 +97,7 @@ export function pushRoleContextualization(
   if (phase === "before") {
     const text = resolveEntryText(ctx, `${role}.inline`, variantKey, params);
     if (text) {
-      const utterance = formatPlain(text, ctx);
+      const utterance = formatEntryText(text, ctx);
       scopeToOwnValue(utterance, text, node, ctx, role, params);
       push(out, sources, node, [utterance]);
     }

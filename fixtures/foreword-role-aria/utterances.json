@@ -62,7 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the foreword.",
+          "language": "en"
         },
+        {
+          "plain": "A respected maritime historian introduces this account of the coastline's lighthouses."
+        },
+        {
+          "plain": "End of the foreword.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -155,7 +172,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the foreword.",
+          "language": "en"
         },
+        {
+          "ssml": "A respected maritime historian introduces this account of the coastline's lighthouses."
+        },
+        {
+          "ssml": "End of the foreword.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

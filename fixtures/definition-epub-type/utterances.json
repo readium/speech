@@ -62,7 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "language": "en"
         },
+        {
+          "plain": "A structure that contains an enumeration of related content items."
+        },
+        {
+          "plain": "End of the glossary.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -143,7 +160,20 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Definition.",
+          "language": "en"
         },
+        {
+          "plain": "A structure that contains an enumeration of related content items."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -227,7 +257,28 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "language": "en"
         },
+        {
+          "plain": "Definition.",
+          "language": "en"
+        },
+        {
+          "plain": "A structure that contains an enumeration of related content items."
+        },
+        {
+          "plain": "End of the glossary.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -674,7 +725,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "language": "en"
         },
+        {
+          "ssml": "A structure that contains an enumeration of related content items."
+        },
+        {
+          "ssml": "End of the glossary.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -755,7 +823,20 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Definition.",
+          "language": "en"
         },
+        {
+          "ssml": "A structure that contains an enumeration of related content items."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -839,7 +920,28 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "language": "en"
         },
+        {
+          "ssml": "Definition.",
+          "language": "en"
+        },
+        {
+          "ssml": "A structure that contains an enumeration of related content items."
+        },
+        {
+          "ssml": "End of the glossary.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

@@ -62,7 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the errata.",
+          "language": "en"
         },
+        {
+          "plain": "Page 42: 'lightouse' should read 'lighthouse'."
+        },
+        {
+          "plain": "End of the errata.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -155,7 +172,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the errata.",
+          "language": "en"
         },
+        {
+          "ssml": "Page 42: 'lightouse' should read 'lighthouse'."
+        },
+        {
+          "ssml": "End of the errata.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

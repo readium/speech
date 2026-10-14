@@ -81,18 +81,12 @@
             "list"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "language": "en"
         },
         {
           "plain": "Audio 1. Foghorn recording"
@@ -101,7 +95,8 @@
           "plain": "Audio 2. Keeper's log reading"
         },
         {
-          "plain": "End of the list."
+          "plain": "End of the list.",
+          "language": "en"
         }
       ]
     },
@@ -135,7 +130,58 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "language": "en"
         },
+        {
+          "plain": "Audio 1."
+        },
+        {
+          "plain": "Foghorn recording"
+        },
+        {
+          "plain": "Audio 2."
+        },
+        {
+          "plain": "Keeper's log reading"
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "Audio 1. Foghorn recording"
+        },
+        {
+          "plain": "Audio 2. Keeper's log reading"
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -189,24 +235,19 @@
             "listItem"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "language": "en"
         },
         {
           "plain": "Audio 1. Foghorn recording"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "language": "en"
         },
         {
           "plain": "Audio 2. Keeper's log reading"
@@ -243,7 +284,58 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "List item.",
+          "language": "en"
         },
+        {
+          "plain": "Audio 1."
+        },
+        {
+          "plain": "Foghorn recording"
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Audio 2."
+        },
+        {
+          "plain": "Keeper's log reading"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Audio 1. Foghorn recording"
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Audio 2. Keeper's log reading"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -300,34 +392,30 @@
             "listItem"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "plain": "Start of the list."
+          "plain": "Start of the list.",
+          "language": "en"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "language": "en"
         },
         {
           "plain": "Audio 1. Foghorn recording"
         },
         {
-          "plain": "List item."
+          "plain": "List item.",
+          "language": "en"
         },
         {
           "plain": "Audio 2. Keeper's log reading"
         },
         {
-          "plain": "End of the list."
+          "plain": "End of the list.",
+          "language": "en"
         }
       ]
     },
@@ -364,7 +452,73 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "language": "en"
         },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Audio 1."
+        },
+        {
+          "plain": "Foghorn recording"
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Audio 2."
+        },
+        {
+          "plain": "Keeper's log reading"
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list."
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Audio 1. Foghorn recording"
+        },
+        {
+          "plain": "List item."
+        },
+        {
+          "plain": "Audio 2. Keeper's log reading"
+        },
+        {
+          "plain": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -834,18 +988,12 @@
             "list"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "language": "en"
         },
         {
           "ssml": "Audio 1. Foghorn recording"
@@ -854,7 +1002,8 @@
           "ssml": "Audio 2. Keeper's log reading"
         },
         {
-          "ssml": "End of the list."
+          "ssml": "End of the list.",
+          "language": "en"
         }
       ]
     },
@@ -888,7 +1037,58 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
         },
+        {
+          "ssml": "Audio 1."
+        },
+        {
+          "ssml": "Foghorn recording"
+        },
+        {
+          "ssml": "Audio 2."
+        },
+        {
+          "ssml": "Keeper's log reading"
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "Audio 1. Foghorn recording"
+        },
+        {
+          "ssml": "Audio 2. Keeper's log reading"
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -942,24 +1142,19 @@
             "listItem"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "language": "en"
         },
         {
           "ssml": "Audio 1. Foghorn recording"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "language": "en"
         },
         {
           "ssml": "Audio 2. Keeper's log reading"
@@ -996,7 +1191,58 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "language": "en"
         },
+        {
+          "ssml": "Audio 1."
+        },
+        {
+          "ssml": "Foghorn recording"
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Audio 2."
+        },
+        {
+          "ssml": "Keeper's log reading"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Audio 1. Foghorn recording"
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Audio 2. Keeper's log reading"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -1053,34 +1299,30 @@
             "listItem"
           ],
           "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none"
         }
       ],
       "utterances": [
         {
-          "ssml": "Start of the list."
+          "ssml": "Start of the list.",
+          "language": "en"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "language": "en"
         },
         {
           "ssml": "Audio 1. Foghorn recording"
         },
         {
-          "ssml": "List item."
+          "ssml": "List item.",
+          "language": "en"
         },
         {
           "ssml": "Audio 2. Keeper's log reading"
         },
         {
-          "ssml": "End of the list."
+          "ssml": "End of the list.",
+          "language": "en"
         }
       ]
     },
@@ -1117,7 +1359,73 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
         },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Audio 1."
+        },
+        {
+          "ssml": "Foghorn recording"
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Audio 2."
+        },
+        {
+          "ssml": "Keeper's log reading"
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list."
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Audio 1. Foghorn recording"
+        },
+        {
+          "ssml": "List item."
+        },
+        {
+          "ssml": "Audio 2. Keeper's log reading"
+        },
+        {
+          "ssml": "End of the list."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [

@@ -62,7 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the afterword.",
+          "language": "en"
         },
+        {
+          "plain": "Years later, the last lighthouse keeper reflects on automation."
+        },
+        {
+          "plain": "End of the afterword.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -155,7 +172,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the afterword.",
+          "language": "en"
         },
+        {
+          "ssml": "Years later, the last lighthouse keeper reflects on automation."
+        },
+        {
+          "ssml": "End of the afterword.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
