@@ -61,6 +61,9 @@ export interface WalkContext {
   // @readium/guided-navigation's object.ts) to that piece's own bare locate —
   // text never quote-searchable.
   edgeSubstitutedLocate: WeakMap<ReadiumSpeechUtterance, { leading?: LocatorOptions; trailing?: LocatorOptions }>;
+  // A sentence's pieces around its footnotes or pagebreaks, left unmerged for sentence segmentation to place:
+  // `inline` ones inside the sentence holding them, `after` ones right after it.
+  placeholderPieces: Map<ReadiumSpeechUtterance, { node: GuidedNavigationObject; placement?: "inline" | "after" }>;
 }
 
 // Parallel to `out`: which node produced each utterance. A sentence
@@ -155,5 +158,6 @@ export async function makeWalkContext(nodes: GuidedNavigationObject[], options: 
     ancestorChains: buildAncestorChains(nodes),
     pendingRange: new Map(),
     edgeSubstitutedLocate: new WeakMap(),
+    placeholderPieces: new Map(),
   };
 }

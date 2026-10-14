@@ -36,7 +36,17 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Name Ada",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "language": "none",
@@ -47,8 +57,7 @@
       ],
       "utterances": [
         {
-          "plain": "Name Ada",
-          "language": "en"
+          "plain": "Name Ada"
         }
       ]
     },
@@ -88,7 +97,17 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Name Ada",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "language": "none",
@@ -99,8 +118,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Name Ada",
-          "language": "en"
+          "ssml": "Name Ada"
         }
       ]
     }

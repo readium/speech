@@ -39,7 +39,20 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Before."
         },
+        {
+          "plain": "Not really a heading After.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "language": "none",
@@ -53,8 +66,7 @@
           "plain": "Before."
         },
         {
-          "plain": "Not really a heading After.",
-          "language": "en"
+          "plain": "Not really a heading After."
         }
       ]
     },
@@ -97,7 +109,20 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Before."
         },
+        {
+          "ssml": "Not really a heading After.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "language": "none",
@@ -111,8 +136,7 @@
           "ssml": "Before."
         },
         {
-          "ssml": "Not really a heading After.",
-          "language": "en"
+          "ssml": "Not really a heading After."
         }
       ]
     }

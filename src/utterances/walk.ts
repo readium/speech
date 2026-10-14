@@ -32,8 +32,9 @@ import {
   type WalkContext,
 } from "./walkContext.js";
 
-function isSkipped(roles: GndRole[], skip: ReadonlySet<GndRole>): boolean {
-  return skip.size > 0 && roles.some((role) => skip.has(role));
+// A role another one on the node drops (e.g. a footnote's `aside`) doesn't skip it.
+function isSkipped(roles: GndRole[], ctx: WalkContext): boolean {
+  return ctx.skip.size > 0 && roles.some((role) => ctx.skip.has(role) && !isDroppedByAnotherRole(role, roles, ctx));
 }
 
 // A bare page-number label is always spoken as "Page N", contextualized or not.
@@ -78,20 +79,34 @@ function emitWithPlaceholders(
   sources: SourceTrace,
   ctx: WalkContext,
   suppress: boolean,
+  isBlockRole: boolean,
 ): GuidedNavigationObject[] {
   const language = node.text?.language;
   const childrenById = new Map((node.children ?? []).map((child) => [child.id, child] as const));
   const pieces: ReadiumSpeechUtterance[] = [];
   const pieceSources: SourceTrace = [];
   const deferred: GuidedNavigationObject[] = [];
+  const inserted = new Set<ReadiumSpeechUtterance>();
+  const placedAfter = new Set<ReadiumSpeechUtterance>();
+  const isSentence = ctx.segmentation === "sentence";
   for (const segment of splitOnPlaceholders(rawSsml)) {
     if (segment.placeholderId !== undefined) {
       const child = childrenById.get(segment.placeholderId);
       if (!child) continue;
       if (!isDeferred(child, ctx)) {
+        const before = pieces.length;
         walkNode(child, pieces, pieceSources, ctx, suppress);
+        if (nodeRoles(child).some((role) => inlineContextualizationRoleSet.has(role))) {
+          pieces.slice(before).forEach((piece) => inserted.add(piece));
+        }
       } else {
         deferred.push(child);
+        // Walked in place for sentence segmentation to move after its sentence, same suppress as walk(deferred)
+        if (isSentence) {
+          const before = pieces.length;
+          walkNode(child, pieces, pieceSources, ctx, deferred.length === 1 && (suppress || isBlockRole));
+          pieces.slice(before).forEach((piece) => placedAfter.add(piece));
+        }
       }
       continue;
     }
@@ -121,6 +136,14 @@ function emitWithPlaceholders(
     pieces.push(utterance);
     pieceSources.push(node);
   }
+  if (isSentence && deferred.length + inserted.size > 0) {
+    pieces.forEach((piece) => {
+      const placement = inserted.has(piece) ? "inline" : placedAfter.has(piece) ? "after" : undefined;
+      ctx.placeholderPieces.set(piece, { node, placement });
+    });
+    pushPiecesOrMerged(out, sources, ctx, node, pieces, pieceSources, undefined);
+    return [];
+  }
   const merged = pieces.length > 1 ? mergeUtterances(pieces, pieceSources, ctx) : undefined;
   pushPiecesOrMerged(out, sources, ctx, node, pieces, pieceSources, merged);
   return deferred;
@@ -129,7 +152,7 @@ function emitWithPlaceholders(
 function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, suppress: boolean): void {
   const roles = nodeRoles(node);
   const description = descriptionOf(node);
-  if (isSkipped(roles, ctx.skip)) return;
+  if (isSkipped(roles, ctx)) return;
 
   // A node carrying a block-level role opens a new block — unless
   // `suppress` says an ancestor already claimed this same boundary. That
@@ -184,7 +207,7 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
   if (roles.includes("noteref")) {
     for (const child of node.children ?? []) {
       const childRoles = nodeRoles(child);
-      if (isSkipped(childRoles, ctx.skip)) continue;
+      if (isSkipped(childRoles, ctx)) continue;
       if (childRoles.includes("footnote")) {
         const footnoteContextualized = ctx.contextualize.has("footnote");
         const footnoteBlock = ctx.i18n.exists("footnote.block.start") || ctx.i18n.exists("footnote.block.end");
@@ -224,7 +247,7 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
   } else {
     const rawSsml = spokenText(node)?.ssml;
     if (rawSsml && hasPlaceholder(rawSsml)) {
-      const deferred = emitWithPlaceholders(node, rawSsml, out, sources, ctx, suppress);
+      const deferred = emitWithPlaceholders(node, rawSsml, out, sources, ctx, suppress, isBlockRole);
       if (deferred.length > 0) {
         const childSuppress = suppress || (isBlockRole && out.length > beforeLength);
         walk(deferred, out, sources, ctx, childSuppress);

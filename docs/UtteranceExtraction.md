@@ -105,6 +105,8 @@ Picks the one field every utterance in the result carries, so a consumer never h
 
 Drops a role and its whole subtree — content and announcement both — from the output. `skippableRoles` export is the [roles.md skippable set](https://github.com/readium/guided-navigation/blob/main/roles.md#list-of-skippable-roles).
 
+A role a more specific one on the same node drops isn't skipped either: skipping `aside` keeps `<aside epub:type="footnote">`, which `skip: ["footnote"]` drops instead. A `pullquote` or a `cover` drops its `aside`/`blockquote` or `image` this way only when contextualized.
+
 ### `contextualize`
 
 Which roles get an announcement. The wording comes from the shipped catalog by default — no need to supply your own `contextualizations` entry unless you want to change it (see below); a role with no entry at all, shipped or custom, just stays silent. Unlike `skip`, the underlying content still plays either way — only the extra announcement is gated by this.
@@ -228,7 +230,7 @@ How a node's own inline spans (`<em lang="fr">`) render. Never merges across sib
 
 ### `inlineContextualization`
 
-Which mid-sentence roles split the sentence at that exact point instead of being spoken after it finishes. Default `[]`. `inlineContextualizationRoles` lists the accepted roles: `noteref` (its footnote is spoken in place) and `pagebreak`.
+Which mid-sentence roles split the sentence at that exact point instead of being spoken after it finishes — after the sentence holding them with `segmentation: { mode: "sentence" }`, after their whole block otherwise. Default `[]`. `inlineContextualizationRoles` lists the accepted roles: `noteref` (its footnote is spoken in place) and `pagebreak`.
 
 ```typescript
 // <p>...in the middle <span epub:type="pagebreak" title="Page 5"/> of a sentence.</p>
@@ -238,6 +240,21 @@ await extractUtterances(gnd, { format: "plain" });
 await extractUtterances(gnd, { format: "plain", inlineContextualization: ["pagebreak"] });
 // [{ language: "en", plain: "...in the middle Page 5 of a sentence." }]
 ```
+
+With `segmentation: { mode: "sentence" }`, an inline footnote or pagebreak stays inside the sentence holding it, its own sentences never ending that one. Between two sentences, it closes the one before it:
+
+```typescript
+// <p>First with a note<a epub:type="noteref" href="#n1">1</a> here. Second sentence.</p>
+// <aside epub:type="footnote" id="n1"><p>The note.</p></aside>
+const options = { format: "plain", contextualize: ["footnote"], segmentation: { mode: "sentence" } };
+await extractUtterances(gnd, { ...options, inlineContextualization: ["noteref"] });
+// [{ plain: "First with a note Start of the footnote. The note. End of the footnote. here." }, { plain: "Second sentence." }]
+
+await extractUtterances(gnd, options);
+// [{ plain: "First with a note here." }, { plain: "Start of the footnote. The note. End of the footnote." }, { plain: "Second sentence." }]
+```
+
+A pagebreak opening a block is spoken before its first sentence.
 
 ### `segmentation`
 

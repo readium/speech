@@ -36,7 +36,17 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Click to expand Additional details the reader can expand.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "language": "none",
@@ -47,8 +57,7 @@
       ],
       "utterances": [
         {
-          "plain": "Click to expand Additional details the reader can expand.",
-          "language": "en"
+          "plain": "Click to expand Additional details the reader can expand."
         }
       ]
     },
@@ -127,7 +136,23 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the disclosure."
         },
+        {
+          "plain": "Click to expand Additional details the reader can expand.",
+          "language": "en"
+        },
+        {
+          "plain": "End of the disclosure."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -144,8 +169,7 @@
           "plain": "Start of the disclosure."
         },
         {
-          "plain": "Click to expand Additional details the reader can expand.",
-          "language": "en"
+          "plain": "Click to expand Additional details the reader can expand."
         },
         {
           "plain": "End of the disclosure."
@@ -224,7 +248,20 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Summary."
         },
+        {
+          "plain": "Click to expand Additional details the reader can expand.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -241,8 +278,7 @@
           "plain": "Summary."
         },
         {
-          "plain": "Click to expand Additional details the reader can expand.",
-          "language": "en"
+          "plain": "Click to expand Additional details the reader can expand."
         }
       ]
     },
@@ -331,7 +367,26 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the disclosure."
         },
+        {
+          "plain": "Summary."
+        },
+        {
+          "plain": "Click to expand Additional details the reader can expand.",
+          "language": "en"
+        },
+        {
+          "plain": "End of the disclosure."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -352,8 +407,7 @@
           "plain": "Summary."
         },
         {
-          "plain": "Click to expand Additional details the reader can expand.",
-          "language": "en"
+          "plain": "Click to expand Additional details the reader can expand."
         },
         {
           "plain": "End of the disclosure."
@@ -745,7 +799,17 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Click to expand Additional details the reader can expand.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "language": "none",
@@ -756,8 +820,7 @@
       ],
       "utterances": [
         {
-          "ssml": "Click to expand Additional details the reader can expand.",
-          "language": "en"
+          "ssml": "Click to expand Additional details the reader can expand."
         }
       ]
     },
@@ -836,7 +899,23 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the disclosure."
         },
+        {
+          "ssml": "Click to expand Additional details the reader can expand.",
+          "language": "en"
+        },
+        {
+          "ssml": "End of the disclosure."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -853,8 +932,7 @@
           "ssml": "Start of the disclosure."
         },
         {
-          "ssml": "Click to expand Additional details the reader can expand.",
-          "language": "en"
+          "ssml": "Click to expand Additional details the reader can expand."
         },
         {
           "ssml": "End of the disclosure."
@@ -933,7 +1011,20 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Summary."
         },
+        {
+          "ssml": "Click to expand Additional details the reader can expand.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -950,8 +1041,7 @@
           "ssml": "Summary."
         },
         {
-          "ssml": "Click to expand Additional details the reader can expand.",
-          "language": "en"
+          "ssml": "Click to expand Additional details the reader can expand."
         }
       ]
     },
@@ -1040,7 +1130,26 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the disclosure."
         },
+        {
+          "ssml": "Summary."
+        },
+        {
+          "ssml": "Click to expand Additional details the reader can expand.",
+          "language": "en"
+        },
+        {
+          "ssml": "End of the disclosure."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -1061,8 +1170,7 @@
           "ssml": "Summary."
         },
         {
-          "ssml": "Click to expand Additional details the reader can expand.",
-          "language": "en"
+          "ssml": "Click to expand Additional details the reader can expand."
         },
         {
           "ssml": "End of the disclosure."

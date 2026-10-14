@@ -42,13 +42,6 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
-        {
-          "format": "plain",
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
         }
       ],
       "utterances": [
@@ -59,6 +52,25 @@
         {
           "plain": "Keeper A person responsible for maintaining a lighthouse.",
           "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Fresnel lens A compact lens for focusing light."
+        },
+        {
+          "plain": "Keeper A person responsible for maintaining a lighthouse."
         }
       ]
     },
@@ -143,7 +155,27 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the glossary."
         },
+        {
+          "plain": "Fresnel lens A compact lens for focusing light.",
+          "language": "en"
+        },
+        {
+          "plain": "Keeper A person responsible for maintaining a lighthouse.",
+          "language": "en"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -160,12 +192,10 @@
           "plain": "Start of the glossary."
         },
         {
-          "plain": "Fresnel lens A compact lens for focusing light.",
-          "language": "en"
+          "plain": "Fresnel lens A compact lens for focusing light."
         },
         {
-          "plain": "Keeper A person responsible for maintaining a lighthouse.",
-          "language": "en"
+          "plain": "Keeper A person responsible for maintaining a lighthouse."
         },
         {
           "plain": "End of the glossary."
@@ -253,16 +283,6 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
         }
       ],
       "utterances": [
@@ -279,6 +299,34 @@
         {
           "plain": "Keeper A person responsible for maintaining a lighthouse.",
           "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "Fresnel lens A compact lens for focusing light."
+        },
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "Keeper A person responsible for maintaining a lighthouse."
         }
       ]
     },
@@ -376,7 +424,33 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the glossary."
         },
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "Fresnel lens A compact lens for focusing light.",
+          "language": "en"
+        },
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "Keeper A person responsible for maintaining a lighthouse.",
+          "language": "en"
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -397,15 +471,13 @@
           "plain": "Term."
         },
         {
-          "plain": "Fresnel lens A compact lens for focusing light.",
-          "language": "en"
+          "plain": "Fresnel lens A compact lens for focusing light."
         },
         {
           "plain": "Term."
         },
         {
-          "plain": "Keeper A person responsible for maintaining a lighthouse.",
-          "language": "en"
+          "plain": "Keeper A person responsible for maintaining a lighthouse."
         },
         {
           "plain": "End of the glossary."
@@ -1611,13 +1683,6 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
-        {
-          "format": "ssml",
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
         }
       ],
       "utterances": [
@@ -1628,6 +1693,25 @@
         {
           "ssml": "Keeper A person responsible for maintaining a lighthouse.",
           "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Fresnel lens A compact lens for focusing light."
+        },
+        {
+          "ssml": "Keeper A person responsible for maintaining a lighthouse."
         }
       ]
     },
@@ -1712,7 +1796,27 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the glossary."
         },
+        {
+          "ssml": "Fresnel lens A compact lens for focusing light.",
+          "language": "en"
+        },
+        {
+          "ssml": "Keeper A person responsible for maintaining a lighthouse.",
+          "language": "en"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -1729,12 +1833,10 @@
           "ssml": "Start of the glossary."
         },
         {
-          "ssml": "Fresnel lens A compact lens for focusing light.",
-          "language": "en"
+          "ssml": "Fresnel lens A compact lens for focusing light."
         },
         {
-          "ssml": "Keeper A person responsible for maintaining a lighthouse.",
-          "language": "en"
+          "ssml": "Keeper A person responsible for maintaining a lighthouse."
         },
         {
           "ssml": "End of the glossary."
@@ -1822,16 +1924,6 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
         }
       ],
       "utterances": [
@@ -1848,6 +1940,34 @@
         {
           "ssml": "Keeper A person responsible for maintaining a lighthouse.",
           "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "Fresnel lens A compact lens for focusing light."
+        },
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "Keeper A person responsible for maintaining a lighthouse."
         }
       ]
     },
@@ -1945,7 +2065,33 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the glossary."
         },
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "Fresnel lens A compact lens for focusing light.",
+          "language": "en"
+        },
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "Keeper A person responsible for maintaining a lighthouse.",
+          "language": "en"
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -1966,15 +2112,13 @@
           "ssml": "Term."
         },
         {
-          "ssml": "Fresnel lens A compact lens for focusing light.",
-          "language": "en"
+          "ssml": "Fresnel lens A compact lens for focusing light."
         },
         {
           "ssml": "Term."
         },
         {
-          "ssml": "Keeper A person responsible for maintaining a lighthouse.",
-          "language": "en"
+          "ssml": "Keeper A person responsible for maintaining a lighthouse."
         },
         {
           "ssml": "End of the glossary."

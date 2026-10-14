@@ -47,7 +47,7 @@ export function substitutedBareLocate(node: GuidedNavigationObject, ctx: WalkCon
 // One `offsets` entry per piece backed by real source text; an inner
 // merge's own `offsets` are reused as-is since each entry is already
 // anchored to its own source node's text. Synthesized pieces contribute nothing.
-function buildMergeOffsets(pieces: ReadiumSpeechUtterance[], pieceSources: SourceTrace, ctx: WalkContext): UtteranceOffset[] {
+export function buildMergeOffsets(pieces: ReadiumSpeechUtterance[], pieceSources: SourceTrace, ctx: WalkContext): UtteranceOffset[] {
   const offsets: UtteranceOffset[] = [];
   pieces.forEach((piece, i) => {
     if (piece.offsets) {
