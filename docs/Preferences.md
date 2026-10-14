@@ -69,7 +69,7 @@ volume?: number;                                 // default 1.0, range [0, 1]
 voice?: string | Record<string, string>; // a voice id for all content, or one per language, default none
 ```
 
-The voice of every utterance without its own [`voice`](Playback.md#speaking-an-utterance-with-its-own-voice), for content loaded via `loadContent()` and `loadGndContent()` alike. A voice id is a voice's `voiceURI`, or its `identifier` for a server voice. A record picks it by the utterance's `language`, keys matching like `languageOverrides`: by primary subtag, an exact tag winning over it. An utterance with no matching voice is left to the engine's own choice, which follows its content language (see [Playback](Playback.md#speaking-in-an-utterances-own-content-language)).
+The voice of every utterance without its own [`voice`](Playback.md#speaking-an-utterance-with-its-own-voice), for content loaded via `loadContent()` and `loadGndContent()` alike. A voice id is a voice's `voiceURI`, or its `identifier` for a server voice, as `getVoiceId(voice)` returns it. A record picks it by the utterance's `language`, keys matching like `languageOverrides`: by primary subtag, an exact tag winning over it. An utterance with no matching voice is left to the engine's own choice, which follows its content language (see [Playback](Playback.md#speaking-in-an-utterances-own-content-language)).
 
 ```typescript
 await navigator.submitPreferences(new SpeechPreferences({ voice: "Samantha" }));

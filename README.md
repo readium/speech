@@ -91,6 +91,7 @@ import {
   WebSpeechEngine,
   ReadiumSpeechNavigator,
   SpeechPreferences,
+  getVoiceId,
   setupDecorations,
   DecorationStyleType,
 } from "@readium/speech";
@@ -105,7 +106,7 @@ const voice = await voiceManager.getDefaultVoice("en-US");
 
 // Create a navigator instance
 const navigator = new ReadiumSpeechNavigator(new WebSpeechEngine());
-await navigator.submitPreferences(new SpeechPreferences({ voice: voice.voiceURI }));
+await navigator.submitPreferences(new SpeechPreferences({ voice: getVoiceId(voice) }));
 
 const content = document.getElementById("content");
 if (!content) throw new Error("Missing #content element");

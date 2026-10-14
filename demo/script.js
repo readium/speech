@@ -8,10 +8,11 @@ import {
   createLocator,
   resolveUtteranceLocate,
   SpeechPreferences,
+  getVoiceId,
 } from "../src/index.ts";
 
 // Keyed by its own language, so content in another language still gets a voice of its own.
-const voicePreferences = (voice) => new SpeechPreferences({ voice: { [voice.language.split("-")[0]]: voice.voiceURI } });
+const voicePreferences = (voice) => new SpeechPreferences({ voice: { [voice.language.split("-")[0]]: getVoiceId(voice) } });
 import { parseMarkup, decodeTextref } from "@readium/guided-navigation";
 
 // Set up the Decorator for TTS word/sentence highlights — also watches

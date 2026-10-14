@@ -16,6 +16,7 @@ export { extractLangRegionFromBCP47, valueForLanguage } from "./utils/language.j
 export * from "./voices/types.js";
 export * from "./voices/filters.js";
 export * from "./voices/sorting.js";
+export * from "./voices/voiceId.js";
 export * from "./engine.js";
 export * from "./navigator.js";
 export * from "./provider.js";

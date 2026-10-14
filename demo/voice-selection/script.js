@@ -1,4 +1,4 @@
-import { WebSpeechVoiceManager, WebSpeechEngine, ReadiumSpeechNavigator, SpeechPreferences, chineseVariantMap, setupDecorations, DecorationStyleType } from "../../src/index.ts";
+import { WebSpeechVoiceManager, WebSpeechEngine, ReadiumSpeechNavigator, SpeechPreferences, getVoiceId, chineseVariantMap, setupDecorations, DecorationStyleType } from "../../src/index.ts";
 
 // Set up the Decorator for TTS word highlights
 const decoCtrl = setupDecorations();
@@ -220,7 +220,7 @@ async function replaceCurrentVoiceIfFilteredOut(language) {
       
       if (currentVoice) {
         try {
-          await speechNavigator.submitPreferences(new SpeechPreferences({ voice: currentVoice.voiceURI }));
+          await speechNavigator.submitPreferences(new SpeechPreferences({ voice: getVoiceId(currentVoice) }));
           displayVoiceProperties(currentVoice);
           updateTestUtterance(currentVoice, language);
           
@@ -573,7 +573,7 @@ function setupEventListeners() {
       if (currentVoice) {
         try {
           // Set the voice for the navigator
-          await speechNavigator.submitPreferences(new SpeechPreferences({ voice: currentVoice.voiceURI }));
+          await speechNavigator.submitPreferences(new SpeechPreferences({ voice: getVoiceId(currentVoice) }));
           
           // Update the voice dropdown to reflect the selected voice
           const voiceOption = voiceSelect.querySelector(`option[value="${currentVoice.name}"]`);
@@ -608,7 +608,7 @@ function setupEventListeners() {
     if (currentVoice) {
       try {
         // Set the voice for the navigator
-        await speechNavigator.submitPreferences(new SpeechPreferences({ voice: currentVoice.voiceURI }));
+        await speechNavigator.submitPreferences(new SpeechPreferences({ voice: getVoiceId(currentVoice) }));
         
         // Display voice properties
         displayVoiceProperties(currentVoice);

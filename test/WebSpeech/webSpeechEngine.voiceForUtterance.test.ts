@@ -1,5 +1,5 @@
 import test from "ava";
-import { WebSpeechEngine, WebSpeechVoiceManager } from "../../build/index.js";
+import { WebSpeechEngine, WebSpeechVoiceManager, getVoiceId } from "../../build/index.js";
 
 // =============================================
 // Mock Web Speech API
@@ -272,13 +272,13 @@ test("the start event reports the voice the utterance is spoken with", async (t)
 });
 
 // Serial: the only test here installing other voices, on globals the concurrent ones share.
-test.serial("an utterance's own voice is matched by voiceURI among voices sharing a name", async (t) => {
+test.serial("an utterance's own voice, as getVoiceId() gives it, is matched by voiceURI among voices sharing a name", async (t) => {
   const { spoken } = setGlobals([...mockVoices, makeVoice("de-DE", "French Voice")]);
   const engine = await makeEngine();
   const voices = await engine.getAvailableVoices();
   const german = voices.find((v: any) => v.language === "de-DE")!;
 
-  engine.loadUtterances([{ id: "1", plain: "hallo", language: "de-DE", voice: german.voiceURI }]);
+  engine.loadUtterances([{ id: "1", plain: "hallo", language: "de-DE", voice: getVoiceId(german) }]);
   engine.speak();
   await new Promise(resolve => setTimeout(resolve, 20));
 
