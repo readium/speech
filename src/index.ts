@@ -9,7 +9,7 @@ export * from "./decorator/index.js";
 export { Locator, LocatorLocations, LocatorText } from "@readium/shared";
 
 // Data exports
-export { chineseVariantMap } from "./voices/languages.js";
+export { chineseVariantMap, getLanguageDisplayName } from "./voices/languages.js";
 export { extractLangRegionFromBCP47, valueForLanguage } from "./utils/language.js";
 
 // Other exports
