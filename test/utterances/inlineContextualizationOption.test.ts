@@ -126,44 +126,44 @@ async function spoken(markup: string, format: "plain" | "ssml", options: Paramet
 
 const sentenceOptions = { contextualize: ["footnote", "pagebreak"], segmentation: { mode: "sentence" } } as const;
 
+test("sentence segmentation speaks deferred announcements after their sentence in another language than the catalog's", async (t) => {
+  t.deepEqual(await spoken(inLanguage("fr", sentencesHtml), "plain", sentenceOptions), [
+    ["First with a note here.", "fr"],
+    ["Start of the footnote.", "en"],
+    ["The note.", "fr"],
+    ["End of the footnote.", "en"],
+    ["Second breaks.", "fr"],
+    ["Pagebreak. Page 5.", "en"],
+  ]);
+});
+
+test("sentence segmentation splits a sentence around an inline announcement in another language than the catalog's in plain text", async (t) => {
+  t.deepEqual(await spoken(inLanguage("fr", sentencesHtml), "plain", { ...sentenceOptions, inlineContextualization: ["noteref", "pagebreak"] }), [
+    ["First with a note", "fr"],
+    ["Start of the footnote.", "en"],
+    ["The note.", "fr"],
+    ["End of the footnote.", "en"],
+    ["here.", "fr"],
+    ["Second", "fr"],
+    ["Pagebreak. Page 5.", "en"],
+    ["breaks.", "fr"],
+  ]);
+});
+
+test("an inline pagebreak in another language than the catalog's is its own utterance in plain text", async (t) => {
+  t.deepEqual(await spoken(inLanguage("fr", html), "plain", { inlineContextualization: ["pagebreak"] }), [
+    ["Before the break", "fr"],
+    ["Page 5", "en"],
+    ["and before the note end of sentence.", "fr"],
+    ["The note.", "fr"],
+  ]);
+});
+
 for (const format of ["plain", "ssml"] as const) {
-  test(`sentence segmentation speaks deferred announcements after their sentence in another language than the catalog's (${format})`, async (t) => {
-    t.deepEqual(await spoken(inLanguage("fr", sentencesHtml), format, sentenceOptions), [
-      ["First with a note here.", "fr"],
-      ["Start of the footnote.", "en"],
-      ["The note.", "fr"],
-      ["End of the footnote.", "en"],
-      ["Second breaks.", "fr"],
-      ["Pagebreak. Page 5.", "en"],
-    ]);
-  });
-
-  test(`sentence segmentation splits a sentence around an inline announcement in another language than the catalog's (${format})`, async (t) => {
-    t.deepEqual(await spoken(inLanguage("fr", sentencesHtml), format, { ...sentenceOptions, inlineContextualization: ["noteref", "pagebreak"] }), [
-      ["First with a note", "fr"],
-      ["Start of the footnote.", "en"],
-      ["The note.", "fr"],
-      ["End of the footnote.", "en"],
-      ["here.", "fr"],
-      ["Second", "fr"],
-      ["Pagebreak. Page 5.", "en"],
-      ["breaks.", "fr"],
-    ]);
-  });
-
   test(`sentence segmentation keeps an inline announcement whole in content sharing the catalog's primary language (${format})`, async (t) => {
     t.deepEqual(await spoken(inLanguage("en-US", sentencesHtml), format, { ...sentenceOptions, inlineContextualization: ["noteref", "pagebreak"] }), [
       ["First with a note Start of the footnote. The note. End of the footnote. here.", "en-US"],
       ["Second Pagebreak. Page 5. breaks.", "en-US"],
-    ]);
-  });
-
-  test(`an inline pagebreak in another language than the catalog's is its own utterance (${format})`, async (t) => {
-    t.deepEqual(await spoken(inLanguage("fr", html), format, { inlineContextualization: ["pagebreak"] }), [
-      ["Before the break", "fr"],
-      ["Page 5", "en"],
-      ["and before the note end of sentence.", "fr"],
-      ["The note.", "fr"],
     ]);
   });
 
@@ -185,11 +185,34 @@ test("sentence segmentation splits SSML whose piece ends in a tag at its plain t
   ]);
 });
 
-test("sentence segmentation keeps SSML well-formed when splitting around an inline announcement in another language", async (t) => {
+const enLang = (ssml: string) => `<lang xml:lang="en">${ssml}</lang>`;
+
+test("sentence segmentation wraps a deferred note's announcements in another language than the catalog's in lang tags in SSML", async (t) => {
+  t.deepEqual(await spoken(inLanguage("fr", sentencesHtml), "ssml", sentenceOptions), [
+    ["First with a note here.", "fr"],
+    [`${enLang("Start of the footnote.")} The note. ${enLang("End of the footnote.")}`, "fr"],
+    ["Second breaks.", "fr"],
+    ["Pagebreak. Page 5.", "en"],
+  ]);
+});
+
+test("sentence segmentation keeps a sentence whole around an inline announcement in another language, in lang tags, in SSML", async (t) => {
+  t.deepEqual(await spoken(inLanguage("fr", sentencesHtml), "ssml", { ...sentenceOptions, inlineContextualization: ["noteref", "pagebreak"] }), [
+    [`First with a note ${enLang("Start of the footnote.")} The note. ${enLang("End of the footnote.")} here.`, "fr"],
+    [`Second ${enLang("Pagebreak. Page 5.")} breaks.`, "fr"],
+  ]);
+});
+
+test("an inline pagebreak in another language than the catalog's is wrapped in a lang tag in SSML", async (t) => {
+  t.deepEqual(await spoken(inLanguage("fr", html), "ssml", { inlineContextualization: ["pagebreak"] }), [
+    [`Before the break ${enLang("Page 5")} and before the note end of sentence.`, "fr"],
+    ["The note.", "fr"],
+  ]);
+});
+
+test("a lang-wrapped inline announcement keeps the sentence's SSML well-formed", async (t) => {
   t.deepEqual(await spoken(inLanguage("fr", emphasisHtml), "ssml", { ...sentenceOptions, inlineContextualization: ["pagebreak"] }), [
     ["One sentence.", "fr"],
-    ["Second <emphasis>bold</emphasis>", "fr"],
-    ["Pagebreak. Page 5.", "en"],
-    ["<emphasis> word</emphasis> breaks.", "fr"],
+    [`Second <emphasis>bold </emphasis>${enLang("Pagebreak. Page 5.")}<emphasis> word</emphasis> breaks.`, "fr"],
   ]);
 });

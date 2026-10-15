@@ -2,7 +2,7 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import { isAriaSubstituted, type GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { entriesForLanguage } from "../utils/language.js";
-import { languageRuns, sharedLanguage } from "./language.js";
+import { languageRuns, runLanguage, sharedLanguage, ssmlInLanguage } from "./language.js";
 import { nodeRoles } from "./nodeFields.js";
 import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
 import { buildMergeOffsets, joinPieceTexts, plainOf, substitutedBareLocate } from "./mergeUtterances.js";
@@ -304,7 +304,7 @@ function languageParts(
     const start = r === 0 ? sentence.start : ranges[first].start;
     const contentEnd = isLast ? sentence.contentEnd : ranges[last].end;
     const end = isLast ? sentence.end : ranges[last + 1].start;
-    const language = sharedLanguage(pieces.slice(first, last + 1), ctx) ?? undefined;
+    const language = runLanguage(pieces.slice(first, last + 1), ctx) ?? undefined;
     const boundary = { text: joined.slice(start, contentEnd), start, end, contentEnd };
     const isolated = runs.length > 1 && first === last && isInserted(pieces[first], ctx);
     return { boundary, startIdx: first, endIdx: last, language, sentenceEnd: isLast ? sentence.end : undefined, isolated };
@@ -336,7 +336,9 @@ async function pushJoinedGroup(
   let ssmlFragments: string[] | undefined;
   let joinedSsml: string | undefined;
   if (ctx.format === "ssml") {
-    joinedSsml = joinPieceTexts(pieces.map((piece) => piece.ssml!), plainParts).joined;
+    const partLanguages = new Map<number, string | undefined>();
+    for (const part of parts) for (let k = part.startIdx; k <= part.endIdx; k++) partLanguages.set(k, part.language);
+    joinedSsml = joinPieceTexts(pieces.map((piece, k) => ssmlInLanguage(piece, partLanguages.get(k), ctx)), plainParts).joined;
     const partBoundaries = parts.map((part) => part.boundary);
     ssmlFragments =
       parts.length > 1 ? await splitSsmlAtSentences(joinedSsml, language, async () => partBoundaries, suppressions) : undefined;

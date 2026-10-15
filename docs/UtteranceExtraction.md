@@ -130,7 +130,7 @@ await extractUtterances(gnd, { format: "plain", skip: ["pagebreak"] });
 
 `contextualizationLocale` and `contextualization` are unrelated to each other:
 
-- **`contextualizationLocale`** just retrieves a default shipped JSON catalog — it's a data-source switch, nothing more. Most consumers only need this one. Every announcement carries that catalog's locale as its `language` (English when the requested locale isn't shipped), unless `language` is `"none"`; `languageOverrides` doesn't apply to it. Merged with content in the same primary language, it takes the content's; in another language, it stays its own utterance.
+- **`contextualizationLocale`** just retrieves a default shipped JSON catalog — it's a data-source switch, nothing more. Most consumers only need this one. Every announcement carries that catalog's locale as its `language` (English when the requested locale isn't shipped), unless `language` is `"none"`; `languageOverrides` doesn't apply to it. Merged with content in the same primary language, it takes the content's; in another language, it's wrapped in a `<lang>` tag in SSML, and stays its own utterance in plain text.
 - **`contextualization`** (`contextualizations`/`shapes`/`params`) *overrides* whatever catalog ends up loaded — these three depend on each other, not on which locale you picked, which is why they're grouped into one object instead of three flat top-level options:
   - **`contextualizations`** rewords or extends the loaded catalog, for any subset of roles.
   - **`shapes`** picks, for a role whose entry (after that reword) has both forms, which one actually gets spoken.
