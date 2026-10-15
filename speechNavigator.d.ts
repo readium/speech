@@ -28,6 +28,7 @@ export interface ReadiumSpeechNavigatorConfiguration {
 export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     private engine;
     private contentQueue;
+    private loadedQueue;
     private readonly events;
     private navigatorState;
     private pendingAdvanceTimeout;
@@ -35,6 +36,7 @@ export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorCon
     private _preferences;
     private _settings;
     private _preferencesEditor;
+    private preferencesEditorEngineVoice;
     private readonly contextualizationOverrides?;
     private readonly segmentationOverrides?;
     private source;
@@ -49,18 +51,17 @@ export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorCon
     private setupEngineListeners;
     private setNavigatorState;
     getVoices(): Promise<ReadiumSpeechVoice[]>;
-    setVoice(voice: ReadiumSpeechVoice | string): void;
-    getCurrentVoice(): ReadiumSpeechVoice | null;
-    setSpeakInContentLanguage(enabled: boolean): void;
-    getSpeakInContentLanguage(): boolean;
     loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
     loadGndContent(nodes: GuidedNavigationObject[]): Promise<void>;
     private setContentQueue;
+    private withVoice;
     private reextract;
     private resolveResumeIndex;
     getCurrentContent(): ReadiumSpeechUtterance | null;
     getContentQueue(): ReadiumSpeechUtterance[];
     private getCurrentUtteranceIndex;
+    private resumePosition;
+    private resumeTarget;
     play(): void;
     pause(): void;
     stop(): void;

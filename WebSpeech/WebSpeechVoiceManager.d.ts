@@ -38,6 +38,7 @@ export declare class WebSpeechVoiceManager {
     private static instance;
     private static initializationPromise;
     private systemLocale;
+    private isAndroid;
     private voices;
     private browserVoices;
     private isInitialized;
@@ -143,6 +144,13 @@ export declare class WebSpeechVoiceManager {
      * @param voices Optional array of voices to count (defaults to this.voices)
      */
     getLanguages(localization?: string, filterOptions?: VoiceFilterOptions, voices?: ReadiumSpeechVoice[]): LanguageInfo[];
+    /**
+     * Get the languages of every voice the browser has, with voice counts, sorted by name
+     * Unlike getLanguages(), it covers languages initialize() wasn't called with, without loading their voice data
+     * @param localization Optional BCP 47 language tag to use for language names
+     */
+    getBrowserLanguages(localization?: string): LanguageInfo[];
+    private countLanguages;
     /**
      * Get available regions with voice counts
      * @param localization Optional BCP 47 language tag to use for region names

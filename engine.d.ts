@@ -7,8 +7,6 @@ export interface ReadiumSpeechPlaybackEngine {
     setVoice(voice: ReadiumSpeechVoice | string): void;
     getCurrentVoice(): ReadiumSpeechVoice | null;
     getAvailableVoices(): Promise<ReadiumSpeechVoice[]>;
-    setSpeakInContentLanguage(enabled: boolean): void;
-    getSpeakInContentLanguage(): boolean;
     speak(utteranceIndex?: number): void;
     pause(): void;
     resume(): void;

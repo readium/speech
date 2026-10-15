@@ -9,6 +9,7 @@ export interface ReadiumSpeechUtterance {
     plain?: string;
     ssml?: string;
     language?: string;
+    voice?: string;
     locate?: LocatorOptions;
     offsets?: UtteranceOffset[];
 }
