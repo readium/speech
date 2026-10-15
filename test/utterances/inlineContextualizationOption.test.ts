@@ -116,3 +116,61 @@ test("sentence segmentation places deferred notes and pagebreaks the same way in
     "Pagebreak. Page 5.",
   ]);
 });
+
+const inLanguage = (language: string, markup: string) => `<div lang="${language}">${markup}</div>`;
+
+async function spoken(markup: string, format: "plain" | "ssml", options: Parameters<typeof extractUtterances>[1]) {
+  const utterances = await extractUtterances(parseMarkup(markup, undefined, { textrefs: true }), { format, ...options });
+  return utterances.map((u) => [u[format], u.language]);
+}
+
+const sentenceOptions = { contextualize: ["footnote", "pagebreak"], segmentation: { mode: "sentence" } } as const;
+
+for (const format of ["plain", "ssml"] as const) {
+  test(`sentence segmentation speaks deferred announcements after their sentence in another language than the catalog's (${format})`, async (t) => {
+    t.deepEqual(await spoken(inLanguage("fr", sentencesHtml), format, sentenceOptions), [
+      ["First with a note here.", "fr"],
+      ["Start of the footnote.", "en"],
+      ["The note.", "fr"],
+      ["End of the footnote.", "en"],
+      ["Second breaks.", "fr"],
+      ["Pagebreak. Page 5.", "en"],
+    ]);
+  });
+
+  test(`sentence segmentation splits a sentence around an inline announcement in another language than the catalog's (${format})`, async (t) => {
+    t.deepEqual(await spoken(inLanguage("fr", sentencesHtml), format, { ...sentenceOptions, inlineContextualization: ["noteref", "pagebreak"] }), [
+      ["First with a note", "fr"],
+      ["Start of the footnote.", "en"],
+      ["The note.", "fr"],
+      ["End of the footnote.", "en"],
+      ["here.", "fr"],
+      ["Second", "fr"],
+      ["Pagebreak. Page 5.", "en"],
+      ["breaks.", "fr"],
+    ]);
+  });
+
+  test(`sentence segmentation keeps an inline announcement whole in content sharing the catalog's primary language (${format})`, async (t) => {
+    t.deepEqual(await spoken(inLanguage("en-US", sentencesHtml), format, { ...sentenceOptions, inlineContextualization: ["noteref", "pagebreak"] }), [
+      ["First with a note Start of the footnote. The note. End of the footnote. here.", "en-US"],
+      ["Second Pagebreak. Page 5. breaks.", "en-US"],
+    ]);
+  });
+
+  test(`an inline pagebreak in another language than the catalog's is its own utterance (${format})`, async (t) => {
+    t.deepEqual(await spoken(inLanguage("fr", html), format, { inlineContextualization: ["pagebreak"] }), [
+      ["Before the break", "fr"],
+      ["Page 5", "en"],
+      ["and before the note end of sentence.", "fr"],
+      ["The note.", "fr"],
+    ]);
+  });
+
+  test(`an inline pagebreak merges into content sharing the catalog's primary language (${format})`, async (t) => {
+    t.deepEqual(await spoken(inLanguage("en-US", html), format, { inlineContextualization: ["pagebreak"] }), [
+      ["Before the break Page 5 and before the note end of sentence.", "en-US"],
+      ["The note.", "en-US"],
+    ]);
+  });
+}

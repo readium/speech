@@ -1,7 +1,7 @@
 import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
-import { overriddenLanguage, overrideLangTags, stripLangTags } from "./language.js";
+import { languageRuns, overriddenLanguage, overrideLangTags, stripLangTags } from "./language.js";
 import { descriptionOf, nodeRoles, spokenText } from "./nodeFields.js";
 import {
   hasLangTag,
@@ -146,8 +146,12 @@ function emitWithPlaceholders(
     pushPiecesOrMerged(out, sources, ctx, node, pieces, pieceSources, undefined);
     return [];
   }
-  const merged = pieces.length > 1 ? mergeUtterances(pieces, pieceSources, ctx) : undefined;
-  pushPiecesOrMerged(out, sources, ctx, node, pieces, pieceSources, merged);
+  for (const [start, end] of languageRuns(pieces, ctx)) {
+    const run = pieces.slice(start, end);
+    const runSources = pieceSources.slice(start, end);
+    const merged = run.length > 1 ? mergeUtterances(run, runSources, ctx) : undefined;
+    pushPiecesOrMerged(out, sources, ctx, node, run, runSources, merged);
+  }
   return deferred;
 }
 

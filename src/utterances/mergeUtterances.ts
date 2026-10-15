@@ -3,7 +3,7 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import { isAriaSubstituted, substitutedOwnSelector } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
-import { overriddenLanguage, overrideLangTags, stripLangTags } from "./language.js";
+import { overriddenLanguage, overrideLangTags, sharedLanguage, stripLangTags } from "./language.js";
 import { hasLangTag, splitOnLangTags, stripSsmlTags, type ResolvedNodeText } from "./text.js";
 import type { ExtractionFormat, LanguageMode } from "./types.js";
 import { isSinglePunctuationChar } from "../utils/text.js";
@@ -117,8 +117,6 @@ export function mergeUtterances(
   pieceSources: SourceTrace,
   ctx: WalkContext,
 ): ReadiumSpeechUtterance | undefined {
-  let language: string | undefined;
-  let sawLanguage = false;
   const parts: string[] = [];
   const usedPieces: ReadiumSpeechUtterance[] = [];
   const usedSources: SourceTrace = [];
@@ -129,13 +127,10 @@ export function mergeUtterances(
     parts.push(text);
     usedPieces.push(piece);
     usedSources.push(pieceSources[i]);
-    if (piece.language !== undefined) {
-      if (sawLanguage && piece.language !== language) return undefined;
-      language = piece.language;
-      sawLanguage = true;
-    }
   }
   if (parts.length === 0) return undefined;
+  const language = sharedLanguage(usedPieces, ctx);
+  if (language === null) return undefined;
   const { joined } = joinPieceTexts(parts);
   const merged: ReadiumSpeechUtterance = ctx.format === "ssml" ? { ssml: joined } : { plain: joined };
   if (language) merged.language = language;
