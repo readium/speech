@@ -14,6 +14,7 @@ import { extractUtterancesWithSources, type SourceTrace } from "./utterances/ext
 import { Contextualizations } from "./utterances/types.js";
 import type { SentenceSegmenter } from "./utterances/sentenceSegmenter.js";
 import { ReadiumSpeechVoice } from "./voices/types.js";
+import { getVoiceId } from "./voices/voiceId.js";
 import { EventEmitter } from "./utils/eventEmitter.js";
 import { valueForLanguage } from "./utils/language.js";
 
@@ -58,6 +59,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private _preferences: SpeechPreferences;
   private _settings: SpeechSettings;
   private _preferencesEditor: SpeechPreferencesEditor | null = null;
+  private preferencesEditorEngineVoice: string | null = null;
   private readonly contextualizationOverrides?: ContextualizationOverrides;
   private readonly segmentationOverrides?: SegmentationOverrides;
 
@@ -502,9 +504,13 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     return new SpeechSettings(this._preferences, this._defaults, this.engine.getCurrentVoice());
   }
 
+  // Rebuilt, staged edits kept, once the engine's voice changes, e.g. when it picks its default after being read.
   get preferencesEditor(): SpeechPreferencesEditor {
-    if (this._preferencesEditor === null) {
-      this._preferencesEditor = new SpeechPreferencesEditor(this._preferences, this.settings);
+    const engineVoice = this.engine.getCurrentVoice();
+    const engineVoiceId = engineVoice ? getVoiceId(engineVoice) : null;
+    if (this._preferencesEditor === null || engineVoiceId !== this.preferencesEditorEngineVoice) {
+      this._preferencesEditor = new SpeechPreferencesEditor(this._preferencesEditor?.preferences ?? this._preferences, this.settings);
+      this.preferencesEditorEngineVoice = engineVoiceId;
     }
     return this._preferencesEditor;
   }

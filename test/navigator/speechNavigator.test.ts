@@ -763,3 +763,17 @@ test("submitting settings.voice back keeps content in other languages free to fo
   await navigator.submitPreferences(new SpeechPreferences({ voice: navigator.settings.voice }));
   t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["alba-en-US", undefined]);
 });
+
+test("preferencesEditor read before the engine picks its voice reports it once picked, keeping staged edits", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  const editor = navigator.preferencesEditor;
+  t.is(editor.voice.effectiveValue, null);
+  editor.rate.value = 1.5;
+
+  engine.getCurrentVoice = () => ({ source: "json", label: "Alba", name: "Alba", originalName: "Alba", language: "en-US", voiceURI: "alba-en-US" }) as ReadiumSpeechVoice;
+  const rebuilt = navigator.preferencesEditor;
+  t.deepEqual(rebuilt.voice.effectiveValue, { en: "alba-en-US" });
+  t.is(rebuilt.preferences.rate, 1.5);
+  t.is(navigator.preferencesEditor, rebuilt, "not rebuilt again while the engine's voice stays the same");
+});
