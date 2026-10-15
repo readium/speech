@@ -18,23 +18,43 @@ export function overriddenLanguage(language: string | undefined, languageOverrid
   return language === undefined ? undefined : (valueForLanguage(languageOverrides, language) ?? language);
 }
 
-// The language `pieces` are spoken in together, `null` if they disagree. A catalog entry's
-// language yields to content in the same primary language, e.g. "en" to "en-US".
-export function sharedLanguage(pieces: ReadiumSpeechUtterance[], ctx: WalkContext): string | undefined | null {
-  let content: string | undefined;
-  let entry: string | undefined;
-  for (const piece of pieces) {
-    const { language } = piece;
-    if (language === undefined) continue;
-    if (isCatalogEntry(piece, ctx)) {
-      entry = language;
-    } else {
-      if (content !== undefined && content !== language) return null;
-      content = language;
-    }
+// The languages of a run of pieces: its content's, and its catalog entries' (all in the catalog's).
+interface RunLanguages {
+  content?: string;
+  entry?: string;
+}
+
+function samePrimaryLanguage(a: string, b: string): boolean {
+  return extractLangRegionFromBCP47(a)[0] === extractLangRegionFromBCP47(b)[0];
+}
+
+// Adds `piece` to `run`, `false` when its language disagrees. A catalog entry's language yields to
+// content in the same primary language, e.g. "en" to "en-US"; `wrapsEntries` ignores it otherwise.
+function joinsRun(run: RunLanguages, piece: ReadiumSpeechUtterance, ctx: WalkContext, wrapsEntries: boolean): boolean {
+  const { language } = piece;
+  if (language === undefined) return true;
+  if (isCatalogEntry(piece, ctx)) {
+    if (!wrapsEntries && run.content !== undefined && !samePrimaryLanguage(run.content, language)) return false;
+    run.entry = language;
+    return true;
   }
-  if (content === undefined || entry === undefined) return content ?? entry;
-  return extractLangRegionFromBCP47(content)[0] === extractLangRegionFromBCP47(entry)[0] ? content : null;
+  if (run.content !== undefined && run.content !== language) return false;
+  if (!wrapsEntries && run.entry !== undefined && !samePrimaryLanguage(language, run.entry)) return false;
+  run.content = language;
+  return true;
+}
+
+function commonLanguage(pieces: ReadiumSpeechUtterance[], ctx: WalkContext, wrapsEntries: boolean): string | undefined | null {
+  const run: RunLanguages = {};
+  for (const piece of pieces) {
+    if (!joinsRun(run, piece, ctx, wrapsEntries)) return null;
+  }
+  return run.content ?? run.entry;
+}
+
+// The language `pieces` are spoken in together, `null` if they disagree.
+export function sharedLanguage(pieces: ReadiumSpeechUtterance[], ctx: WalkContext): string | undefined | null {
+  return commonLanguage(pieces, ctx, false);
 }
 
 function isCatalogEntry(piece: ReadiumSpeechUtterance, ctx: WalkContext): boolean {
@@ -44,29 +64,32 @@ function isCatalogEntry(piece: ReadiumSpeechUtterance, ctx: WalkContext): boolea
 // The language a run of pieces is spoken in, `null` if they disagree. In SSML, catalog entries
 // in another language don't count, being wrapped in a `<lang>` (see `ssmlInLanguage()`).
 export function runLanguage(pieces: ReadiumSpeechUtterance[], ctx: WalkContext): string | undefined | null {
-  if (ctx.format !== "ssml") return sharedLanguage(pieces, ctx);
-  const content = sharedLanguage(pieces.filter((piece) => !isCatalogEntry(piece, ctx)), ctx);
-  return content === undefined ? sharedLanguage(pieces, ctx) : content;
+  return commonLanguage(pieces, ctx, ctx.format === "ssml");
 }
 
 // A piece's SSML, a catalog entry in another primary language than `language` wrapped in a `<lang>`.
 export function ssmlInLanguage(piece: ReadiumSpeechUtterance, language: string | undefined, ctx: WalkContext): string {
   const ssml = piece.ssml ?? "";
   if (!language || !piece.language || !isCatalogEntry(piece, ctx)) return ssml;
-  if (extractLangRegionFromBCP47(piece.language)[0] === extractLangRegionFromBCP47(language)[0]) return ssml;
+  if (samePrimaryLanguage(piece.language, language)) return ssml;
   return `<lang xml:lang="${ssmlAttrEscape(piece.language)}">${ssml}</lang>`;
 }
 
 // Splits `pieces` into consecutive `[start, end)` runs that each have a `runLanguage()`.
 export function languageRuns(pieces: ReadiumSpeechUtterance[], ctx: WalkContext): [number, number][] {
+  const wrapsEntries = ctx.format === "ssml";
   const runs: [number, number][] = [];
   let start = 0;
-  for (let i = 1; i <= pieces.length; i++) {
-    if (i < pieces.length && runLanguage(pieces.slice(start, i + 1), ctx) !== null) continue;
+  let run: RunLanguages = {};
+  pieces.forEach((piece, i) => {
+    if (joinsRun(run, piece, ctx, wrapsEntries)) return;
     runs.push([start, i]);
     start = i;
-  }
-  return pieces.length > 0 ? runs : [];
+    run = {};
+    joinsRun(run, piece, ctx, wrapsEntries);
+  });
+  if (pieces.length > 0) runs.push([start, pieces.length]);
+  return runs;
 }
 
 export function overrideLangTags(ssml: string, languageOverrides: Record<string, string>): string {
