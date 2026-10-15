@@ -2,7 +2,7 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [0.15.0] - 2026-10-15
 
 ### Added
 
@@ -31,7 +31,6 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - With `segmentation: "sentence"`, a paragraph holding an inline footnote or pagebreak is split into sentences, the footnote or pagebreak staying inside its own. It was spoken as one utterance once announced, and split inside the footnote otherwise.
 - With `segmentation: "sentence"`, a footnote or pagebreak not in `inlineContextualization` is spoken right after the sentence holding it, instead of after the whole paragraph.
 - With `segmentation: "sentence"` and `language: "none"`, a sentence joined across several pieces no longer gets `language: "en"`.
-
 - `WebSpeechVoiceManager` reports `controls.boundary: false` for every voice on Android, which never emits boundary events. Voices Chrome names after their language (e.g. “English United States”) aren’t in the JSON, and previously defaulted to supporting boundaries.
 
 ## [0.14.1] - 2026-10-08
