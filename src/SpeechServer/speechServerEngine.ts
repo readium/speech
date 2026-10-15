@@ -134,6 +134,8 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private currentVoice: ReadiumSpeechVoice | null = null;
   private defaultVoice: ReadiumSpeechVoice | null = null;
   private voices: ReadiumSpeechVoice[] = [];
+  private voicesRequest: Promise<ReadiumSpeechVoice[]> | null = null;
+  private initializing: Promise<boolean> | null = null;
   // Keyed by `${language}:${needsBoundary}`, like WebSpeechEngine's, and holding the pick so concurrent prefetches share it
   private languageVoiceCache: Map<string, Promise<ReadiumSpeechVoice | null>> = new Map();
   private serviceInfo: SpeechServerServiceInfo | null = null;
@@ -188,15 +190,23 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   // Lets a provider that already fetched /voices seed this engine without a second request.
   setAvailableVoices(voices: ReadiumSpeechVoice[]): void {
     this.voices = voices;
+    this.voicesRequest = null;
     this.languageVoiceCache.clear();
   }
 
   // Fetches the voices, and picks the default one by the browser's languages, as WebSpeechEngine does
   async initialize(): Promise<boolean> {
-    const voices = await this.getAvailableVoices();
-    const preferredLanguages = typeof navigator !== "undefined" && navigator.languages?.length ? [...navigator.languages] : ["en"];
-    this.defaultVoice = (await sortVoicesByRegions(preferredLanguages, voices))[0] ?? null;
-    return true;
+    this.initializing = (async () => {
+      const voices = await this.getAvailableVoices();
+      const preferredLanguages = typeof navigator !== "undefined" && navigator.languages?.length ? [...navigator.languages] : ["en"];
+      this.defaultVoice = (await sortVoicesByRegions(preferredLanguages, voices))[0] ?? null;
+      return true;
+    })();
+    try {
+      return await this.initializing;
+    } finally {
+      this.initializing = null;
+    }
   }
 
   // Tags a fetch() TypeError (request never reached the network) as SpeechServerNetworkError,
@@ -270,6 +280,8 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
 
   // The utterance's own voice when this server has it, else one speaking its language, as on WebSpeechEngine.
   private async voiceFor(content: ReadiumSpeechUtterance | undefined): Promise<ReadiumSpeechVoice | null> {
+    // Without them, neither the utterance's voice nor its language could be matched; a failed load leaves the selected voice.
+    if (this.voices.length === 0) await (this.initializing ?? this.getAvailableVoices()).catch(() => {});
     const ownVoice = content?.voice ? this.voices.find(v => v.identifier === content.voice || v.name === content.voice) : undefined;
     if (ownVoice) {
       return ownVoice;
@@ -352,7 +364,15 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     if (this.voices.length > 0) {
       return this.voices;
     }
+    // Shared by concurrent callers, and kept unless it fails so an empty list isn't refetched each time
+    this.voicesRequest ??= this.fetchVoices().catch((error) => {
+      this.voicesRequest = null;
+      throw error;
+    });
+    return this.voicesRequest;
+  }
 
+  private async fetchVoices(): Promise<ReadiumSpeechVoice[]> {
     const [response, serviceInfo] = await Promise.all([this.fetchNetwork(this.endpoints.voices), this.getServiceInfo()]);
     if (!response.ok) {
       throw await toSpeechServerError(response);
@@ -955,6 +975,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     this.currentVoice = null;
     this.defaultVoice = null;
     this.voices = [];
+    this.voicesRequest = null;
     this.languageVoiceCache.clear();
   }
 }
