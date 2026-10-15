@@ -1,6 +1,7 @@
 import "../domSetup.js";
 import test from "ava";
 import { parseMarkup } from "@readium/guided-navigation";
+import { GuidedNavigationObject } from "@readium/shared";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 import { isPageNumber } from "../../src/utterances/pageNumber.js";
 
@@ -48,4 +49,38 @@ test("a contextualized bare page number keeps \"Pagebreak.\" and gets the \"Page
 test("a label that already says more than a number is left as is", async (t) => {
   t.deepEqual(await plain("Page 5"), ["Text.", "Page 5"]);
   t.deepEqual(await plain("Page 5", ["pagebreak"]), ["Text.", "Pagebreak. Page 5."]);
+});
+
+const frenchPagebreak = (label: string) =>
+  GuidedNavigationObject.deserializeArray([
+    {
+      text: { plain: "Avant après.", ssml: 'Avant <readium:pagebreak id="p" /> après.', language: "fr" },
+      children: [{ id: "p", role: ["pagebreak"], text: { plain: label, language: "fr" } }],
+    },
+  ])!;
+
+async function spokenPagebreak(format: "plain" | "ssml", inline: boolean) {
+  const utterances = await extractUtterances(frenchPagebreak("cinq"), {
+    format,
+    contextualize: ["pagebreak"],
+    inlineContextualization: inline ? ["pagebreak"] : [],
+  });
+  return utterances.map((u) => [u[format], u.language]);
+}
+
+test("a contextualized label in another language than the catalog's keeps its trailing period in plain text", async (t) => {
+  t.deepEqual(await spokenPagebreak("plain", false), [
+    ["Avant après.", "fr"],
+    ["Pagebreak.", "en"],
+    ["cinq.", "fr"],
+  ]);
+});
+
+test("an inline contextualized label in another language than the catalog's ends before the sentence resumes", async (t) => {
+  t.deepEqual(await spokenPagebreak("plain", true), [
+    ["Avant", "fr"],
+    ["Pagebreak.", "en"],
+    ["cinq. après.", "fr"],
+  ]);
+  t.deepEqual(await spokenPagebreak("ssml", true), [['Avant <lang xml:lang="en">Pagebreak.</lang> cinq. après.', "fr"]]);
 });

@@ -70,3 +70,21 @@ test("a lang-wrapped description in SSML follows languageOverrides and escapes i
 test("an announcement holding a description in the catalog's primary language is one utterance in the description's tag", async (t) => {
   t.deepEqual(spoken(await extractUtterances(gndWithLanguage("en-US"), { contextualize: ["image"] }))[1], ["Image with a label: Un chat", "en-US"]);
 });
+
+const frenchTable = () =>
+  GuidedNavigationObject.deserializeArray([
+    { role: ["table"], textref: "#css(table)", description: { text: { plain: "Ventes", language: "fr" } }, children: [{ role: ["row"], children: [{ role: ["cell"], text: { plain: "Mars", language: "fr" } }] }] },
+  ])!;
+
+test("punctuation closing a description in another language than the catalog's stays with it in plain text", async (t) => {
+  t.deepEqual(spoken(await extractUtterances(frenchTable(), { contextualize: ["table"] })).slice(0, 3), [
+    ["Table:", "en"],
+    ["Ventes.", "fr"],
+    ["1 line. 1 column.", "en"],
+  ]);
+});
+
+test("a split figure or table description highlights only the description, not the punctuation after it", async (t) => {
+  const utterances = await extractUtterances(frenchTable(), { contextualize: ["table"] });
+  t.deepEqual(utterances[1].offsets, [{ start: 0, end: 6, locate: { cssSelector: "table", text: { highlight: "Ventes" } } }]);
+});

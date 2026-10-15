@@ -49,8 +49,13 @@ function buildPagebreakLabel(node: GuidedNavigationObject, ctx: WalkContext): Re
   return applyFormat(resolved, ctx.format, ctx.language, ctx);
 }
 
+function appendPeriod(utterance: ReadiumSpeechUtterance): void {
+  if (utterance.plain !== undefined) utterance.plain += ".";
+  if (utterance.ssml !== undefined) utterance.ssml += ".";
+}
+
 // A pagebreak's label merges into its "Pagebreak." contextualization as one
-// utterance, with a synthesized trailing period.
+// utterance, with a synthesized trailing period, kept when the label can't merge (e.g. in another language).
 function buildPagebreakUtterance(node: GuidedNavigationObject, ctx: WalkContext): ReadiumSpeechUtterance[] {
   const own = buildPagebreakLabel(node, ctx);
   if (!ctx.contextualize.has("pagebreak")) return own;
@@ -60,9 +65,11 @@ function buildPagebreakUtterance(node: GuidedNavigationObject, ctx: WalkContext)
   const contextualization = formatEntryText(text, ctx);
   if (own.length === 0) return [contextualization];
   const merged = mergeUtterances([contextualization, ...own], [undefined, ...own.map(() => node)], ctx);
-  if (!merged) return [contextualization, ...own];
-  if (merged.plain !== undefined) merged.plain += ".";
-  if (merged.ssml !== undefined) merged.ssml += ".";
+  if (!merged) {
+    appendPeriod(own[own.length - 1]);
+    return [contextualization, ...own];
+  }
+  appendPeriod(merged);
   return [merged];
 }
 

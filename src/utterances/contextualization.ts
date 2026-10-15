@@ -7,6 +7,7 @@ import { overriddenLanguage } from "./language.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { descriptionLanguageOf, descriptionOf } from "./nodeFields.js";
 import { roleDropOverrides } from "./roles.js";
+import { splitOnLangTags } from "./text.js";
 import { computeTableStructure, plainTextOf } from "./tableStructure.js";
 import { formatDescription, formatEntryText, push } from "./utteranceOutput.js";
 import { valueFoldingRoleSet, type SourceTrace, type WalkContext } from "./walkContext.js";
@@ -127,23 +128,21 @@ function entryUtterances(
     scopeToOwnValue(utterance, text, node, ctx, role, params);
     return [utterance];
   }
+  const wrapped = `<lang xml:lang="${ssmlAttrEscape(language)}">${ssmlTextEscape(description!)}</lang>`;
+  const ssml = parts.map((part) => ssmlTextEscape(part)).join(wrapped);
   if (ctx.format === "ssml") {
     const utterance = formatEntryText(text, ctx);
-    const wrapped = `<lang xml:lang="${ssmlAttrEscape(language)}">${ssmlTextEscape(description!)}</lang>`;
-    utterance.ssml = parts.map((part) => ssmlTextEscape(part)).join(wrapped);
+    utterance.ssml = ssml;
     scopeToOwnValue(utterance, text, node, ctx, role, params);
     return [utterance];
   }
-  const utterances: ReadiumSpeechUtterance[] = [];
-  parts.forEach((part, i) => {
-    if (i > 0) {
-      const own = formatDescription(description!, node, ctx);
-      if (role === "figure" || role === "table") scopeToQuote(own, description!, description!, node, ctx);
-      utterances.push(own);
-    }
-    if (part.trim()) utterances.push(formatEntryText(part.trim(), ctx));
+  // Split like inline `<lang>` spans in content, punctuation closing the description staying with it.
+  return splitOnLangTags(ssml, ctx.contextualizationLanguage).map((segment) => {
+    if (segment.language !== language) return formatEntryText(segment.plain, ctx);
+    const own = formatDescription(segment.plain, node, ctx);
+    if (role === "figure" || role === "table") scopeToQuote(own, segment.plain, description!, node, ctx);
+    return own;
   });
-  return utterances;
 }
 
 // Falls back to the bare number when the catalog has no `parts` entry.
