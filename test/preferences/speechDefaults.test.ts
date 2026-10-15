@@ -20,6 +20,11 @@ test("constructor copies given fields", (t) => {
   t.is(defaults.rate, 1.5);
 });
 
+test("languageOverrides defaults to no override", (t) => {
+  t.deepEqual(new SpeechDefaults().languageOverrides, {});
+  t.deepEqual(new SpeechDefaults({ languageOverrides: { en: "fr" } }).languageOverrides, { en: "fr" });
+});
+
 test("an out-of-range numeric default falls back to the literal default, not undefined", (t) => {
   const defaults = new SpeechDefaults({ rate: 999, pitch: -1, volume: 5 });
   t.is(defaults.rate, 1);

@@ -24,3 +24,78 @@ for (const contextualize of [[], ["figure", "table"]] as GndRole[][]) {
     });
   }
 }
+
+function gndWithLanguage(language: string): GuidedNavigationObject[] {
+  return GuidedNavigationObject.deserializeArray([
+    { role: ["paragraph"], text: { plain: "Un texte.", language: "fr" } },
+    { role: ["image"], imgref: "a.png", description: { text: { plain: "Un chat", language } } },
+  ])!;
+}
+
+const spoken = (utterances: { plain?: string; ssml?: string; language?: string }[]) => utterances.map((u) => [u.plain ?? u.ssml, u.language]);
+
+test("a description is spoken in its declared language", async (t) => {
+  t.deepEqual(spoken(await extractUtterances(gndWithLanguage("fr"))), [["Un texte.", "fr"], ["Un chat", "fr"]]);
+});
+
+test("a description's language follows languageOverrides", async (t) => {
+  t.deepEqual(spoken(await extractUtterances(gndWithLanguage("fr"), { languageOverrides: { fr: "de" } }))[1], ["Un chat", "de"]);
+});
+
+test("a description has no language with language: \"none\"", async (t) => {
+  t.is((await extractUtterances(gndWithLanguage("fr"), { language: "none" }))[1].language, undefined);
+});
+
+test("an announcement is split around a description in another language than the catalog's in plain text", async (t) => {
+  t.deepEqual(spoken(await extractUtterances(gndWithLanguage("fr"), { contextualize: ["image"] })), [
+    ["Un texte.", "fr"],
+    ["Image with a label:", "en"],
+    ["Un chat", "fr"],
+  ]);
+});
+
+test("an announcement wraps a description in another language than the catalog's in a lang tag in SSML", async (t) => {
+  t.deepEqual(spoken(await extractUtterances(gndWithLanguage("fr"), { format: "ssml", contextualize: ["image"] })), [
+    ["Un texte.", "fr"],
+    ['Image with a label: <lang xml:lang="fr">Un chat</lang>', "en"],
+  ]);
+});
+
+test("a lang-wrapped description in SSML follows languageOverrides and escapes its text", async (t) => {
+  const gnd = GuidedNavigationObject.deserializeArray([{ role: ["image"], imgref: "a.png", description: { text: { plain: "Chat & chien", language: "fr" } } }])!;
+  const [utterance] = await extractUtterances(gnd, { format: "ssml", contextualize: ["image"], languageOverrides: { fr: "de" } });
+  t.is(utterance.ssml, 'Image with a label: <lang xml:lang="de">Chat &amp; chien</lang>');
+});
+
+test("an announcement holding a description in the catalog's primary language is one utterance in the description's tag", async (t) => {
+  t.deepEqual(spoken(await extractUtterances(gndWithLanguage("en-US"), { contextualize: ["image"] }))[1], ["Image with a label: Un chat", "en-US"]);
+});
+
+const frenchTable = () =>
+  GuidedNavigationObject.deserializeArray([
+    { role: ["table"], textref: "#css(table)", description: { text: { plain: "Ventes", language: "fr" } }, children: [{ role: ["row"], children: [{ role: ["cell"], text: { plain: "Mars", language: "fr" } }] }] },
+  ])!;
+
+test("punctuation closing a description in another language than the catalog's stays with it in plain text", async (t) => {
+  t.deepEqual(spoken(await extractUtterances(frenchTable(), { contextualize: ["table"] })).slice(0, 3), [
+    ["Table:", "en"],
+    ["Ventes.", "fr"],
+    ["1 line. 1 column.", "en"],
+  ]);
+});
+
+test("a split figure or table description highlights only the description, not the punctuation after it", async (t) => {
+  const utterances = await extractUtterances(frenchTable(), { contextualize: ["table"] });
+  t.deepEqual(utterances[1].offsets, [{ start: 0, end: 6, locate: { cssSelector: "table", text: { highlight: "Ventes" } } }]);
+});
+
+test("content declared in languages differing only in case is one language", async (t) => {
+  const gnd = GuidedNavigationObject.deserializeArray([
+    {
+      role: ["paragraph"],
+      text: { plain: "Avant après.", ssml: 'Avant <readium:pagebreak id="p" /> après.', language: "fr" },
+      children: [{ id: "p", role: ["pagebreak"], text: { plain: "cinq", language: "FR" } }],
+    },
+  ])!;
+  t.deepEqual(spoken(await extractUtterances(gnd, { inlineContextualization: ["pagebreak"] })), [["Avant cinq après.", "fr"]]);
+});

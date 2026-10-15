@@ -1,6 +1,6 @@
 import test from "ava";
 import { GuidedNavigationObject } from "@readium/shared";
-import { ReadiumSpeechNavigator, SpeechPreferences } from "../../build/index.js";
+import { ReadiumSpeechNavigator, ReadiumSpeechVoice, SpeechPreferences } from "../../build/index.js";
 import { MockEngine } from "./mockEngine.js";
 
 const gnd = (json: unknown[]): GuidedNavigationObject[] => GuidedNavigationObject.deserializeArray(json)!;
@@ -42,22 +42,22 @@ test("table contextualization is inline at 'few', block from 'some' on", async (
   const navigator = new ReadiumSpeechNavigator(engine);
   await navigator.submitPreferences(new SpeechPreferences({ verbosity: "few" }));
   await navigator.loadGndContent(tableTree);
-  t.deepEqual(navigator.getContentQueue(), [{ plain: "Table. 1 line. 1 column." }]);
+  t.deepEqual(navigator.getContentQueue(), [{ language: "en", plain: "Table. 1 line. 1 column." }]);
 
   await navigator.submitPreferences(new SpeechPreferences({ verbosity: "some" }));
   t.deepEqual(navigator.getContentQueue(), [
-    { plain: "Table. 1 line. 1 column." },
-    { plain: "Row: 1" },
+    { language: "en", plain: "Table. 1 line. 1 column." },
+    { language: "en", plain: "Row: 1" },
     { language: "en", plain: "Cell." },
-    { plain: "End of the table." },
+    { language: "en", plain: "End of the table." },
   ]);
 
   await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
   t.deepEqual(navigator.getContentQueue(), [
-    { plain: "Table. 1 line. 1 column." },
-    { plain: "Row: 1" },
+    { language: "en", plain: "Table. 1 line. 1 column." },
+    { language: "en", plain: "Row: 1" },
     { language: "en", plain: "Cell." },
-    { plain: "End of the table." },
+    { language: "en", plain: "End of the table." },
   ]);
 });
 
@@ -67,10 +67,22 @@ test("submitPreferences re-extracts content loaded via loadGndContent", async (t
   await navigator.loadGndContent(listTree);
   await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
   t.deepEqual(navigator.getContentQueue(), [
-    { plain: "Start of the list." },
+    { language: "en", plain: "Start of the list." },
     { language: "en", plain: "Hello world." },
-    { plain: "End of the list." },
+    { language: "en", plain: "End of the list." },
   ]);
+});
+
+test("submitPreferences re-extracts when languageOverrides changes, not when it's resubmitted equal", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  await navigator.loadGndContent(listTree);
+  await navigator.submitPreferences(new SpeechPreferences({ languageOverrides: { en: "fr" } }));
+  t.deepEqual(navigator.getContentQueue(), [{ language: "fr", plain: "Hello world." }]);
+
+  const loads = engine.loadUtterancesStartIndexCalls.length;
+  await navigator.submitPreferences(new SpeechPreferences({ languageOverrides: { en: "fr" } }));
+  t.is(engine.loadUtterancesStartIndexCalls.length, loads);
 });
 
 // .serial: this and the next three tests all exercise submitPreferences()'s
@@ -395,6 +407,81 @@ test("jumping while auto-paused resumes at the jumped-to index, not the original
   t.is(engine.getCurrentUtteranceIndex(), 2);
 });
 
+test("changing voice while auto-paused resumes at the withheld utterance, not the finished one", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([
+    { plain: "First.", language: "en" },
+    { plain: "Second.", language: "en" },
+  ]);
+  await navigator.submitPreferences(new SpeechPreferences({ autoPause: "utterance" }));
+
+  engine.emit({ type: "end" }); // finishes index 0, auto-pauses before index 1
+  await navigator.submitPreferences(new SpeechPreferences({ voice: "Samantha" }));
+  engine.emit({ type: "ready" });
+  t.is(navigator.getState(), "paused");
+
+  navigator.play();
+  t.is(engine.speakCalls.length, 1);
+  t.is(engine.getCurrentUtteranceIndex(), 1);
+});
+
+test("an extraction-affecting change while auto-paused resumes at the withheld utterance, not the finished one", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  await navigator.loadGndContent(footnoteThenParagraphsTree);
+  await navigator.submitPreferences(new SpeechPreferences({ autoPause: "utterance" }));
+
+  engine.emit({ type: "end" }); // finishes "First.", auto-pauses before "Second."
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  engine.emit({ type: "ready" });
+  t.is(navigator.getState(), "paused");
+
+  navigator.play();
+  const expectedIndex = navigator.getContentQueue().findIndex((u) => u.plain === "Second.");
+  t.is(engine.speakCalls.length, 1);
+  t.is(engine.getCurrentUtteranceIndex(), expectedIndex);
+});
+
+test("changing voice again before the reload is ready still resumes where playback was", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([
+    { plain: "First.", language: "en" },
+    { plain: "Second.", language: "en" },
+    { plain: "Third.", language: "en" },
+  ]);
+  engine.emit({ type: "ready" });
+  navigator.play();
+  navigator.jumpTo(2, true);
+
+  await navigator.submitPreferences(new SpeechPreferences({ voice: "Samantha" }));
+  await navigator.submitPreferences(new SpeechPreferences({ voice: "Daniel" })); // before "ready"
+  engine.emit({ type: "ready" });
+
+  t.is(navigator.getState(), "playing");
+  t.is(engine.getCurrentUtteranceIndex(), 2);
+  t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Daniel", "Daniel", "Daniel"]);
+});
+
+test("an extraction-affecting change before the previous reload is ready still resumes paused at the same content", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  await navigator.loadGndContent(footnoteThenParagraphsTree);
+  engine.emit({ type: "ready" });
+  navigator.play();
+  navigator.jumpTo(1, true); // "Second." under "few"
+  navigator.pause();
+
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "some" })); // before "ready"
+  engine.emit({ type: "ready" });
+
+  t.is(navigator.getState(), "paused");
+  const expectedIndex = navigator.getContentQueue().findIndex((u) => u.plain === "Second.");
+  t.is(engine.getCurrentUtteranceIndex(), expectedIndex);
+});
+
 test("prosody-only submitPreferences mid-playback does not reload the queue", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
@@ -518,6 +605,19 @@ test("engine 'start' also emits a synthesized 'boundary' with name 'structure' (
   t.deepEqual(seen, ["boundary:structure", "start"]);
 });
 
+test("engine 'start' is re-emitted with its detail, reporting the voice used", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([{ plain: "Hello world.", language: "en" }]);
+  const voice = { name: "Voice", language: "en-US", voiceURI: "voice-en-US" };
+
+  let detail: any;
+  navigator.on("start", (event) => { detail = event.detail; });
+  engine.emit({ type: "start", detail: { voice } });
+
+  t.is(detail?.voice, voice);
+});
+
 function captureLastBoundary(navigator: ReadiumSpeechNavigator): { detail?: any } {
   const captured: { detail?: any } = {};
   navigator.on("boundary", (event) => {
@@ -587,4 +687,93 @@ test("skipping to another utterance while paused also emits the synthesized 'bou
 
   t.is(captured.detail.name, "structure");
   t.deepEqual(captured.detail.locate, [{ cssSelector: "p:nth-child(2)" }]);
+});
+
+test("voice stamps loadContent() utterances without their own voice, a record by their language", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { voice: { fr: "Thomas", "en-GB": "Daniel" } } });
+  navigator.loadContent([
+    { plain: "Bonjour.", language: "fr-FR" },
+    { plain: "Hello.", language: "en-GB" },
+    { plain: "Hi.", language: "en-US" },
+    { plain: "Salut.", language: "fr", voice: "Amelie" },
+    { plain: "No language." },
+  ]);
+  t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Thomas", "Daniel", undefined, "Amelie", undefined]);
+});
+
+test("a single voice stamps every utterance without its own, announcements included", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { voice: "Samantha", verbosity: "most" } });
+  await navigator.loadGndContent(listTree);
+  t.deepEqual(navigator.getContentQueue().map((u) => u.voice), ["Samantha", "Samantha", "Samantha"]);
+});
+
+test("changing voice re-stamps the loaded queue without re-extracting, resuming at the current utterance", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([{ plain: "One.", language: "fr" }, { plain: "Two.", language: "fr" }]);
+  engine.emit({ type: "ready" });
+  navigator.play();
+  engine.emit({ type: "end" });
+  await new Promise((resolve) => setTimeout(resolve, 350));
+
+  await navigator.submitPreferences(new SpeechPreferences({ voice: { fr: "Thomas" } }));
+  t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Thomas", "Thomas"]);
+  t.is(engine.loadUtterancesStartIndexCalls.at(-1), 1);
+
+  const loads = engine.loadUtterancesStartIndexCalls.length;
+  await navigator.submitPreferences(new SpeechPreferences({ voice: { fr: "Thomas" } }));
+  t.is(engine.loadUtterancesStartIndexCalls.length, loads, "an equal voice doesn't reload");
+});
+
+class VoicedMockEngine extends MockEngine {
+  getCurrentVoice(): ReadiumSpeechVoice | null {
+    return { source: "json", label: "Alba", name: "Alba", originalName: "Alba", language: "en-US", voiceURI: "alba-en-US" } as ReadiumSpeechVoice;
+  }
+}
+
+test("settings.voice falls back to the engine's voice, filling its language in a record without it", async (t) => {
+  const navigator = new ReadiumSpeechNavigator(new VoicedMockEngine());
+  t.deepEqual(navigator.settings.voice, { en: "alba-en-US" }, "only for its language, so submitting it back doesn't pin it for all content");
+
+  await navigator.submitPreferences(new SpeechPreferences({ voice: { fr: "lea-fr-FR" } }));
+  t.deepEqual(navigator.settings.voice, { fr: "lea-fr-FR", en: "alba-en-US" });
+
+  await navigator.submitPreferences(new SpeechPreferences({ voice: { "en-GB": "oliver-en-GB", en: "eddy-en-US" } }));
+  t.deepEqual(navigator.settings.voice, { "en-GB": "oliver-en-GB", en: "eddy-en-US" }, "a record's own entry for the language wins");
+
+  await navigator.submitPreferences(new SpeechPreferences({ voice: "lea-fr-FR" }));
+  t.is(navigator.settings.voice, "lea-fr-FR");
+});
+
+test("the engine's voice isn't stamped on utterances, which stay free to follow their language", (t) => {
+  const engine = new VoicedMockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([{ plain: "Bonjour", language: "fr-FR" }]);
+
+  t.is(engine.loadedUtterances[0].voice, undefined);
+});
+
+test("submitting settings.voice back keeps content in other languages free to follow their language", async (t) => {
+  const engine = new VoicedMockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([{ plain: "Hello", language: "en-US" }, { plain: "Bonjour", language: "fr-FR" }]);
+
+  await navigator.submitPreferences(new SpeechPreferences({ voice: navigator.settings.voice }));
+  t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["alba-en-US", undefined]);
+});
+
+test("preferencesEditor read before the engine picks its voice reports it once picked, keeping staged edits", (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  const editor = navigator.preferencesEditor;
+  t.is(editor.voice.effectiveValue, null);
+  editor.rate.value = 1.5;
+
+  engine.getCurrentVoice = () => ({ source: "json", label: "Alba", name: "Alba", originalName: "Alba", language: "en-US", voiceURI: "alba-en-US" }) as ReadiumSpeechVoice;
+  const rebuilt = navigator.preferencesEditor;
+  t.deepEqual(rebuilt.voice.effectiveValue, { en: "alba-en-US" });
+  t.is(rebuilt.preferences.rate, 1.5);
+  t.is(navigator.preferencesEditor, rebuilt, "not rebuilt again while the engine's voice stays the same");
 });

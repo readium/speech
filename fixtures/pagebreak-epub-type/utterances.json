@@ -8,80 +8,15 @@
       ],
       "utterances": [
         {
-          "plain": "4"
+          "plain": "Page 4",
+          "language": "en"
         },
         {
           "plain": "And the next pagebreak is in the middle of a sentence.",
           "language": "en"
         },
         {
-          "plain": "5"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "plain",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        }
-      ],
-      "utterances": [
-        {
-          "plain": "4 And the next pagebreak is in the middle of a sentence.",
-          "language": "en"
-        },
-        {
-          "plain": "5"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "plain",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "language": "block-level",
-          "inlineContextualization": true
-        }
-      ],
-      "utterances": [
-        {
-          "plain": "4"
-        },
-        {
-          "plain": "And the next pagebreak is in the middle 5 of a sentence.",
+          "plain": "Page 5",
           "language": "en"
         }
       ]
@@ -90,7 +25,15 @@
       "options": [
         {
           "format": "plain",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ]
+        },
+        {
+          "format": "plain",
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -98,7 +41,16 @@
         {
           "format": "plain",
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ]
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -106,15 +58,16 @@
         {
           "format": "plain",
           "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "plain",
-          "language": "none",
-          "inlineContextualization": true,
+          "language": "block-level",
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -122,7 +75,11 @@
       ],
       "utterances": [
         {
-          "plain": "4 And the next pagebreak is in the middle 5 of a sentence.",
+          "plain": "Page 4",
+          "language": "en"
+        },
+        {
+          "plain": "And the next pagebreak is in the middle Page 5 of a sentence.",
           "language": "en"
         }
       ]
@@ -132,17 +89,24 @@
         {
           "format": "plain",
           "language": "none"
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "plain": "4"
+          "plain": "Page 4"
         },
         {
           "plain": "And the next pagebreak is in the middle of a sentence."
         },
         {
-          "plain": "5"
+          "plain": "Page 5"
         }
       ]
     },
@@ -151,15 +115,27 @@
         {
           "format": "plain",
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "inlineContextualization": [
+            "pagebreak"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "plain": "4"
+          "plain": "Page 4"
         },
         {
-          "plain": "And the next pagebreak is in the middle 5 of a sentence."
+          "plain": "And the next pagebreak is in the middle Page 5 of a sentence."
         }
       ]
     },
@@ -217,14 +193,16 @@
       ],
       "utterances": [
         {
-          "plain": "Pagebreak. 4."
+          "plain": "Pagebreak. Page 4.",
+          "language": "en"
         },
         {
           "plain": "And the next pagebreak is in the middle of a sentence.",
           "language": "en"
         },
         {
-          "plain": "Pagebreak. 5."
+          "plain": "Pagebreak. Page 5.",
+          "language": "en"
         }
       ]
     },
@@ -235,14 +213,18 @@
           "contextualize": [
             "pagebreak"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "plain",
           "contextualize": [
             "pagebreak"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -253,7 +235,9 @@
             "pagebreak"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "plain",
@@ -261,7 +245,9 @@
             "pagebreak"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -272,7 +258,9 @@
             "pagebreak"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "plain",
@@ -280,7 +268,9 @@
             "pagebreak"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -288,10 +278,11 @@
       ],
       "utterances": [
         {
-          "plain": "Pagebreak. 4."
+          "plain": "Pagebreak. Page 4.",
+          "language": "en"
         },
         {
-          "plain": "And the next pagebreak is in the middle Pagebreak. 5. of a sentence.",
+          "plain": "And the next pagebreak is in the middle Pagebreak. Page 5. of a sentence.",
           "language": "en"
         }
       ]
@@ -318,13 +309,13 @@
       ],
       "utterances": [
         {
-          "plain": "Pagebreak. 4."
+          "plain": "Pagebreak. Page 4."
         },
         {
           "plain": "And the next pagebreak is in the middle of a sentence."
         },
         {
-          "plain": "Pagebreak. 5."
+          "plain": "Pagebreak. Page 5."
         }
       ]
     },
@@ -336,7 +327,9 @@
             "pagebreak"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "plain",
@@ -344,7 +337,9 @@
             "pagebreak"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -352,10 +347,10 @@
       ],
       "utterances": [
         {
-          "plain": "Pagebreak. 4."
+          "plain": "Pagebreak. Page 4."
         },
         {
-          "plain": "And the next pagebreak is in the middle Pagebreak. 5. of a sentence."
+          "plain": "And the next pagebreak is in the middle Pagebreak. Page 5. of a sentence."
         }
       ]
     },
@@ -381,14 +376,18 @@
           "skip": [
             "pagebreak"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "plain",
           "skip": [
             "pagebreak"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -416,7 +415,9 @@
             "pagebreak"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "plain",
@@ -424,7 +425,9 @@
             "pagebreak"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -452,7 +455,9 @@
             "pagebreak"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "plain",
@@ -460,7 +465,9 @@
             "pagebreak"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -494,7 +501,9 @@
           "contextualize": [
             "pagebreak"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "plain",
@@ -504,7 +513,9 @@
           "contextualize": [
             "pagebreak"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -541,7 +552,9 @@
             "pagebreak"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "plain",
@@ -552,7 +565,9 @@
             "pagebreak"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -589,7 +604,9 @@
             "pagebreak"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "plain",
@@ -600,7 +617,9 @@
             "pagebreak"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -638,7 +657,9 @@
             "pagebreak"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "plain",
@@ -646,7 +667,9 @@
             "pagebreak"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -683,7 +706,9 @@
             "pagebreak"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "plain",
@@ -694,7 +719,9 @@
             "pagebreak"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -714,80 +741,15 @@
       ],
       "utterances": [
         {
-          "ssml": "4"
+          "ssml": "Page 4",
+          "language": "en"
         },
         {
           "ssml": "And the next pagebreak is in the middle of a sentence.",
           "language": "en"
         },
         {
-          "ssml": "5"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "ssml",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        }
-      ],
-      "utterances": [
-        {
-          "ssml": "4 And the next pagebreak is in the middle of a sentence.",
-          "language": "en"
-        },
-        {
-          "ssml": "5"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "ssml",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "language": "block-level",
-          "inlineContextualization": true
-        }
-      ],
-      "utterances": [
-        {
-          "ssml": "4"
-        },
-        {
-          "ssml": "And the next pagebreak is in the middle 5 of a sentence.",
+          "ssml": "Page 5",
           "language": "en"
         }
       ]
@@ -796,7 +758,15 @@
       "options": [
         {
           "format": "ssml",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ]
+        },
+        {
+          "format": "ssml",
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -804,7 +774,16 @@
         {
           "format": "ssml",
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ]
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -812,15 +791,16 @@
         {
           "format": "ssml",
           "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "ssml",
-          "language": "none",
-          "inlineContextualization": true,
+          "language": "block-level",
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -828,7 +808,11 @@
       ],
       "utterances": [
         {
-          "ssml": "4 And the next pagebreak is in the middle 5 of a sentence.",
+          "ssml": "Page 4",
+          "language": "en"
+        },
+        {
+          "ssml": "And the next pagebreak is in the middle Page 5 of a sentence.",
           "language": "en"
         }
       ]
@@ -838,17 +822,24 @@
         {
           "format": "ssml",
           "language": "none"
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "ssml": "4"
+          "ssml": "Page 4"
         },
         {
           "ssml": "And the next pagebreak is in the middle of a sentence."
         },
         {
-          "ssml": "5"
+          "ssml": "Page 5"
         }
       ]
     },
@@ -857,15 +848,27 @@
         {
           "format": "ssml",
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "inlineContextualization": [
+            "pagebreak"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "ssml": "4"
+          "ssml": "Page 4"
         },
         {
-          "ssml": "And the next pagebreak is in the middle 5 of a sentence."
+          "ssml": "And the next pagebreak is in the middle Page 5 of a sentence."
         }
       ]
     },
@@ -923,14 +926,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Pagebreak. 4."
+          "ssml": "Pagebreak. Page 4.",
+          "language": "en"
         },
         {
           "ssml": "And the next pagebreak is in the middle of a sentence.",
           "language": "en"
         },
         {
-          "ssml": "Pagebreak. 5."
+          "ssml": "Pagebreak. Page 5.",
+          "language": "en"
         }
       ]
     },
@@ -941,14 +946,18 @@
           "contextualize": [
             "pagebreak"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "ssml",
           "contextualize": [
             "pagebreak"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -959,7 +968,9 @@
             "pagebreak"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "ssml",
@@ -967,7 +978,9 @@
             "pagebreak"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -978,7 +991,9 @@
             "pagebreak"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "ssml",
@@ -986,7 +1001,9 @@
             "pagebreak"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -994,10 +1011,11 @@
       ],
       "utterances": [
         {
-          "ssml": "Pagebreak. 4."
+          "ssml": "Pagebreak. Page 4.",
+          "language": "en"
         },
         {
-          "ssml": "And the next pagebreak is in the middle Pagebreak. 5. of a sentence.",
+          "ssml": "And the next pagebreak is in the middle Pagebreak. Page 5. of a sentence.",
           "language": "en"
         }
       ]
@@ -1024,13 +1042,13 @@
       ],
       "utterances": [
         {
-          "ssml": "Pagebreak. 4."
+          "ssml": "Pagebreak. Page 4."
         },
         {
           "ssml": "And the next pagebreak is in the middle of a sentence."
         },
         {
-          "ssml": "Pagebreak. 5."
+          "ssml": "Pagebreak. Page 5."
         }
       ]
     },
@@ -1042,7 +1060,9 @@
             "pagebreak"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "ssml",
@@ -1050,7 +1070,9 @@
             "pagebreak"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1058,10 +1080,10 @@
       ],
       "utterances": [
         {
-          "ssml": "Pagebreak. 4."
+          "ssml": "Pagebreak. Page 4."
         },
         {
-          "ssml": "And the next pagebreak is in the middle Pagebreak. 5. of a sentence."
+          "ssml": "And the next pagebreak is in the middle Pagebreak. Page 5. of a sentence."
         }
       ]
     },
@@ -1087,14 +1109,18 @@
           "skip": [
             "pagebreak"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "ssml",
           "skip": [
             "pagebreak"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1122,7 +1148,9 @@
             "pagebreak"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "ssml",
@@ -1130,7 +1158,9 @@
             "pagebreak"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1158,7 +1188,9 @@
             "pagebreak"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "ssml",
@@ -1166,7 +1198,9 @@
             "pagebreak"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1200,7 +1234,9 @@
           "contextualize": [
             "pagebreak"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "ssml",
@@ -1210,7 +1246,9 @@
           "contextualize": [
             "pagebreak"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1247,7 +1285,9 @@
             "pagebreak"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "ssml",
@@ -1258,7 +1298,9 @@
             "pagebreak"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1295,7 +1337,9 @@
             "pagebreak"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "ssml",
@@ -1306,7 +1350,9 @@
             "pagebreak"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1344,7 +1390,9 @@
             "pagebreak"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "ssml",
@@ -1352,7 +1400,9 @@
             "pagebreak"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1389,7 +1439,9 @@
             "pagebreak"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "pagebreak"
+          ]
         },
         {
           "format": "ssml",
@@ -1400,7 +1452,9 @@
             "pagebreak"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "pagebreak"
+          ],
           "segmentation": {
             "mode": "sentence"
           }

@@ -31,10 +31,6 @@ export interface ReadiumSpeechPlaybackEvent {
 export interface ReadiumSpeechNavigatorContract extends Configurable<SpeechSettings, SpeechPreferences> {
   // Voice Management
   getVoices(): Promise<ReadiumSpeechVoice[]>;
-  setVoice(voice: ReadiumSpeechVoice | string): void;
-  getCurrentVoice(): ReadiumSpeechVoice | null;
-  setSpeakInContentLanguage(enabled: boolean): void;
-  getSpeakInContentLanguage(): boolean;
 
   // Content Management
   loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;

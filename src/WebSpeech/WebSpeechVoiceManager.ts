@@ -1,4 +1,4 @@
-import { ReadiumSpeechJSONVoice, ReadiumSpeechVoice, TGender, TQuality, TSource } from "../voices/types.js";
+import { ReadiumSpeechJSONVoice, ReadiumSpeechVoice, TGender, TQuality, TSource, TVoiceControls } from "../voices/types.js";
 import { getTestUtterance, getVoices, processLanguages, normalizeLanguageCode, getDefaultRegion, getLanguageDisplayName } from "../voices/languages.js";
 import { createJsonOrderMap, getQualityValue, sortByQuality, groupVoicesByLanguage, sortAlphabetically, sortVoicesByRegions } from "../voices/sorting.js";
 import { 
@@ -12,6 +12,7 @@ import { findLocaleWithQualityIndicators, getInferredQualityFromPlatform } from 
 import { getInferredQualityFromPackageName } from "../voices/packages.js";
 import { extractLangRegionFromBCP47 } from "../utils/language.js";
 import { shouldMergeVoicesByName, selectPreferredVoiceByName } from "../voices/voiceDuplicates.js";
+import { detectPlatformFeatures } from "../utils/patches.js";
 
 /**
  * Options for filtering voices
@@ -70,6 +71,7 @@ export class WebSpeechVoiceManager {
   private static instance: WebSpeechVoiceManager;
   private static initializationPromise: Promise<WebSpeechVoiceManager> | null = null;
   private systemLocale: string;
+  private isAndroid: boolean;
   private voices: ReadiumSpeechVoice[] = [];
   private browserVoices: SpeechSynthesisVoice[] = [];
   private isInitialized = false;
@@ -83,6 +85,7 @@ export class WebSpeechVoiceManager {
       throw new Error("Web Speech API is not available in this environment");
     }
     this.systemLocale = navigator.languages?.[0]?.split("-")[0] || "en";
+    this.isAndroid = detectPlatformFeatures().isAndroid;
   }
 
   /**
@@ -428,25 +431,33 @@ export class WebSpeechVoiceManager {
     const voicesToCount = voices ?? this.voices;
     const filteredVoices = filterOptions ? this.filterVoices(filterOptions, voicesToCount) : voicesToCount;
     
-    const result: { code: string; label: string; count: number }[] = [];
-    const seen = new Set<string>();
-    
-    for (const voice of filteredVoices) {
-      const normalizedLang = normalizeLanguageCode(voice.language);
-      const key = normalizedLang.split("-")[0];
-      
-      if (!seen.has(key)) {
-        const displayName = getLanguageDisplayName(key, localization);
-        const count = filteredVoices.filter(v => 
-          normalizeLanguageCode(v.language).split("-")[0] === key
-        ).length;
-        
-        result.push({ code: key, label: displayName, count });
-        seen.add(key);
-      }
-    }
+    const result = this.countLanguages(filteredVoices.map(voice => voice.language), localization);
 
     return voices ? result : result.sort((a, b) => a.label.localeCompare(b.label));
+  }
+
+  /**
+   * Get the languages of every voice the browser has, with voice counts, sorted by name
+   * Unlike getLanguages(), it covers languages initialize() wasn't called with, without loading their voice data
+   * @param localization Optional BCP 47 language tag to use for language names
+   */
+  getBrowserLanguages(localization?: string): LanguageInfo[] {
+    if (!this.isInitialized) {
+      throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
+    }
+
+    const languages = this.browserVoices.filter(voice => voice?.lang).map(voice => voice.lang);
+    return this.countLanguages(languages, localization).sort((a, b) => a.label.localeCompare(b.label));
+  }
+
+  // By base language, in order of first occurrence
+  private countLanguages(languages: string[], localization?: string): LanguageInfo[] {
+    const counts = new Map<string, number>();
+    for (const language of languages) {
+      const key = normalizeLanguageCode(language).split("-")[0];
+      counts.set(key, (counts.get(key) ?? 0) + 1);
+    }
+    return [...counts].map(([code, count]) => ({ code, label: getLanguageDisplayName(code, localization), count }));
   }
 
   /**
@@ -614,6 +625,11 @@ export class WebSpeechVoiceManager {
           
           // Infer quality using the helper method
           const quality = this.inferVoiceQuality(voice, jsonVoice, duplicatesCount);
+
+          // Android doesn't emit boundary events, whichever voice is used
+          const controls: TVoiceControls | undefined = this.isAndroid
+            ? { ...jsonVoice?.controls, boundary: false }
+            : jsonVoice?.controls;
           
           if (jsonVoice) {
             // Create the voice object with the determined quality
@@ -622,6 +638,7 @@ export class WebSpeechVoiceManager {
               label: jsonVoice.label ?? this.cleanVoiceName(voice.name),
               source: "json",
               originalName: voice.name,
+              ...(controls && { controls }),
               language: jsonVoice.language ?? normalizedLang,
               voiceURI: voice.voiceURI,
               quality,
@@ -638,6 +655,7 @@ export class WebSpeechVoiceManager {
             label: this.cleanVoiceName(voice.name),
             name: voice.name,
             originalName: voice.name,
+            ...(controls && { controls }),
             language: normalizedLang,
             voiceURI: voice.voiceURI,
             quality,
@@ -658,11 +676,10 @@ export class WebSpeechVoiceManager {
   convertToSpeechSynthesisVoice(voice: ReadiumSpeechVoice): SpeechSynthesisVoice | undefined {
     if (!voice) return undefined;
     
-    return this.browserVoices.find(v => 
-      v.voiceURI === voice.voiceURI || 
-      v.name === voice.originalName ||
-      this.normalizeVoiceName(v.name) === this.normalizeVoiceName(voice.name)
-    );
+    // In order: normalized names are shared across a voice's qualities and languages
+    return this.browserVoices.find(v => voice.voiceURI !== undefined && v.voiceURI === voice.voiceURI) ??
+      this.browserVoices.find(v => v.name === voice.originalName) ??
+      this.browserVoices.find(v => this.normalizeVoiceName(v.name) === this.normalizeVoiceName(voice.name));
   }
 
   /**

@@ -1,7 +1,7 @@
 export { extractUtterances } from "./extractUtterances.js";
 export { resolveBoundaryLocate } from "./boundaryLocate.js";
 export { resolveUtteranceLocate } from "./utteranceLocate.js";
-export { blockLevelRoles, skippableRoles } from "./roles.js";
+export { blockLevelRoles, inlineContextualizationRoles, skippableRoles } from "./roles.js";
 export { defaultContextualizations } from "./contextualizations.js";
 export type {
   ContextualizationEntry,

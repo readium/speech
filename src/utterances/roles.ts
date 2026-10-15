@@ -108,9 +108,9 @@ export const roleDropOverrides: Partial<Record<GndRole, { drops: GndRole[]; unco
   epigraph: { drops: ["blockquote"] },
 };
 
-// noteref/pagebreak text is a label, deferrable by `inlineContextualization`;
-// every other placeholder role carries real sentence content and stays inline.
-export const deferrablePlaceholderRoles: GndRole[] = ["noteref", "pagebreak"];
+// Placeholder roles `inlineContextualization` can speak mid-sentence instead of
+// deferring past the sentence; every other placeholder role always stays inline.
+export const inlineContextualizationRoles: GndRole[] = ["noteref", "pagebreak"];
 
 // Roles whose contextualization template folds `node.description` into its
 // own text (a labelled/unlabelled variant, `{{ description }}`, or both)

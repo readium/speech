@@ -7,7 +7,12 @@ import {
   DecorationLayout,
   createLocator,
   resolveUtteranceLocate,
+  SpeechPreferences,
+  getVoiceId,
 } from "../src/index.ts";
+
+// Keyed by its own language, so content in another language still gets a voice of its own.
+const voicePreferences = (voice) => new SpeechPreferences({ voice: { [voice.language.split("-")[0]]: getVoiceId(voice) } });
 import { parseMarkup, decodeTextref } from "@readium/guided-navigation";
 
 // Set up the Decorator for TTS word/sentence highlights — also watches
@@ -103,7 +108,6 @@ async function initialize() {
     enVoices = await voiceManager.getVoices({ removeDuplicates: true });
 
     navigator = new ReadiumSpeechNavigator(new WebSpeechEngine());
-    navigator.setSpeakInContentLanguage(true);
 
     // Broadens the shared WebSpeechVoiceManager singleton so the engine's
     // own voice lookup (used for content-language switching) covers French
@@ -134,7 +138,7 @@ async function initialize() {
 
     currentVoice = await voiceManager.getDefaultVoice("en", enVoices);
     if (currentVoice) {
-      navigator.setVoice(currentVoice);
+      await navigator.submitPreferences(voicePreferences(currentVoice));
       const option = voiceSelect.querySelector(`option[data-voice-uri="${currentVoice.voiceURI}"]`);
       if (option) option.selected = true;
     }
@@ -693,6 +697,7 @@ async function loadScenario(id) {
   if (articleAttribution) articleAttribution.hidden = id !== "article";
 
   applyScenarioLayouts(content);
+  (content.closest(".main") || document.scrollingElement)?.scrollTo(0, 0);
 
   currentSentenceIndex = -1;
   if (currentUtteranceInput) currentUtteranceInput.value = 1;
@@ -1000,7 +1005,7 @@ async function handleVoiceChange(e) {
 
   if (navigator) {
     try {
-      navigator.setVoice(currentVoice);
+      await navigator.submitPreferences(voicePreferences(currentVoice));
       updateUI();
     } catch (error) {
       console.error("Error changing voice:", error);

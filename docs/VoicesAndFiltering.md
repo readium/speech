@@ -328,6 +328,8 @@ Each voice documented in this repo supports the following optional properties:
   - `pitch` indicates if a voice can be pitch controlled
   - `boundary` indicates if a voice returns boundary events
 
+On Android, `WebSpeechVoiceManager` sets `boundary` to `false` for every voice, including those that aren’t in the JSON, as the platform doesn’t return boundary events.
+
 **Example 10: Microsoft voice where the pitch cannot be adjusted**
 
 ```json

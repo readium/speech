@@ -31,13 +31,6 @@
         },
         {
           "format": "plain",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
           "language": "always",
           "segmentation": {
             "mode": "sentence"
@@ -45,38 +38,7 @@
         },
         {
           "format": "plain",
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
           "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -97,16 +59,28 @@
       "options": [
         {
           "format": "plain",
-          "contextualize": [
-            "glossary"
-          ]
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Fresnel lens A compact lens for focusing light."
         },
+        {
+          "plain": "Keeper A person responsible for maintaining a lighthouse."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
             "glossary"
-          ],
-          "inlineContextualization": true
+          ]
         },
         {
           "format": "plain",
@@ -120,43 +94,13 @@
           "contextualize": [
             "glossary"
           ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary"
-          ],
           "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
         {
-          "plain": "Start of the glossary."
+          "plain": "Start of the glossary.",
+          "language": "en"
         },
         {
           "plain": "Fresnel lens"
@@ -171,7 +115,8 @@
           "plain": "A person responsible for maintaining a lighthouse."
         },
         {
-          "plain": "End of the glossary."
+          "plain": "End of the glossary.",
+          "language": "en"
         }
       ]
     },
@@ -191,16 +136,6 @@
           "contextualize": [
             "glossary"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary"
-          ],
           "language": "always",
           "segmentation": {
             "mode": "sentence"
@@ -211,50 +146,7 @@
           "contextualize": [
             "glossary"
           ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary"
-          ],
           "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -262,7 +154,8 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the glossary."
+          "plain": "Start of the glossary.",
+          "language": "en"
         },
         {
           "plain": "Fresnel lens A compact lens for focusing light.",
@@ -273,6 +166,66 @@
           "language": "en"
         },
         {
+          "plain": "End of the glossary.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the glossary."
+        },
+        {
+          "plain": "Fresnel lens"
+        },
+        {
+          "plain": "A compact lens for focusing light."
+        },
+        {
+          "plain": "Keeper"
+        },
+        {
+          "plain": "A person responsible for maintaining a lighthouse."
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the glossary."
+        },
+        {
+          "plain": "Fresnel lens A compact lens for focusing light."
+        },
+        {
+          "plain": "Keeper A person responsible for maintaining a lighthouse."
+        },
+        {
           "plain": "End of the glossary."
         }
       ]
@@ -290,13 +243,6 @@
           "contextualize": [
             "term"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term"
-          ],
           "language": "always"
         },
         {
@@ -304,43 +250,13 @@
           "contextualize": [
             "term"
           ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term"
-          ],
           "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
         {
-          "plain": "Term."
+          "plain": "Term.",
+          "language": "en"
         },
         {
           "plain": "Fresnel lens"
@@ -349,7 +265,8 @@
           "plain": "A compact lens for focusing light."
         },
         {
-          "plain": "Term."
+          "plain": "Term.",
+          "language": "en"
         },
         {
           "plain": "Keeper"
@@ -375,16 +292,6 @@
           "contextualize": [
             "term"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term"
-          ],
           "language": "always",
           "segmentation": {
             "mode": "sentence"
@@ -395,50 +302,7 @@
           "contextualize": [
             "term"
           ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term"
-          ],
           "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -446,14 +310,16 @@
       ],
       "utterances": [
         {
-          "plain": "Term."
+          "plain": "Term.",
+          "language": "en"
         },
         {
           "plain": "Fresnel lens A compact lens for focusing light.",
           "language": "en"
         },
         {
-          "plain": "Term."
+          "plain": "Term.",
+          "language": "en"
         },
         {
           "plain": "Keeper A person responsible for maintaining a lighthouse.",
@@ -466,74 +332,12 @@
         {
           "format": "plain",
           "contextualize": [
-            "glossary",
-            "term"
-          ]
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
             "term"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
-        {
-          "plain": "Start of the glossary."
-        },
         {
           "plain": "Term."
         },
@@ -551,9 +355,91 @@
         },
         {
           "plain": "A person responsible for maintaining a lighthouse."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Term."
         },
         {
-          "plain": "End of the glossary."
+          "plain": "Fresnel lens A compact lens for focusing light."
+        },
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "Keeper A person responsible for maintaining a lighthouse."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary",
+            "term"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "language": "en"
+        },
+        {
+          "plain": "Term.",
+          "language": "en"
+        },
+        {
+          "plain": "Fresnel lens"
+        },
+        {
+          "plain": "A compact lens for focusing light."
+        },
+        {
+          "plain": "Term.",
+          "language": "en"
+        },
+        {
+          "plain": "Keeper"
+        },
+        {
+          "plain": "A person responsible for maintaining a lighthouse."
+        },
+        {
+          "plain": "End of the glossary.",
+          "language": "en"
         }
       ]
     },
@@ -575,17 +461,6 @@
             "glossary",
             "term"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
           "language": "always",
           "segmentation": {
             "mode": "sentence"
@@ -597,54 +472,7 @@
             "glossary",
             "term"
           ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
           "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -652,23 +480,100 @@
       ],
       "utterances": [
         {
-          "plain": "Start of the glossary."
+          "plain": "Start of the glossary.",
+          "language": "en"
         },
         {
-          "plain": "Term."
+          "plain": "Term.",
+          "language": "en"
         },
         {
           "plain": "Fresnel lens A compact lens for focusing light.",
           "language": "en"
         },
         {
-          "plain": "Term."
+          "plain": "Term.",
+          "language": "en"
         },
         {
           "plain": "Keeper A person responsible for maintaining a lighthouse.",
           "language": "en"
         },
         {
+          "plain": "End of the glossary.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the glossary."
+        },
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "Fresnel lens"
+        },
+        {
+          "plain": "A compact lens for focusing light."
+        },
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "Keeper"
+        },
+        {
+          "plain": "A person responsible for maintaining a lighthouse."
+        },
+        {
+          "plain": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the glossary."
+        },
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "Fresnel lens A compact lens for focusing light."
+        },
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "Keeper A person responsible for maintaining a lighthouse."
+        },
+        {
           "plain": "End of the glossary."
         }
       ]
@@ -695,23 +600,6 @@
           "contextualize": [
             "definition"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "definition"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "definition"
-          ],
           "language": "always"
         },
         {
@@ -720,25 +608,6 @@
             "definition"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -759,26 +628,33 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Fresnel lens"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "plain": "Definition.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "plain": "A compact lens for focusing light."
         },
+        {
+          "plain": "Keeper"
+        },
+        {
+          "plain": "Definition.",
+          "language": "en"
+        },
+        {
+          "plain": "A person responsible for maintaining a lighthouse."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -792,25 +668,6 @@
             "definition"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -862,25 +719,6 @@
             "glossary",
             "definition"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
           "language": "always"
         },
         {
@@ -890,27 +728,6 @@
             "definition"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -933,28 +750,41 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "plain": "Fresnel lens"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "plain": "Definition.",
+          "language": "en"
         },
+        {
+          "plain": "A compact lens for focusing light."
+        },
+        {
+          "plain": "Keeper"
+        },
+        {
+          "plain": "Definition.",
+          "language": "en"
+        },
+        {
+          "plain": "A person responsible for maintaining a lighthouse."
+        },
+        {
+          "plain": "End of the glossary.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -970,27 +800,6 @@
             "definition"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1048,25 +857,6 @@
             "term",
             "definition"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term",
-            "definition"
-          ],
           "language": "always"
         },
         {
@@ -1076,27 +866,6 @@
             "definition"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1119,28 +888,41 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Term.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "plain": "Fresnel lens"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "plain": "Definition.",
+          "language": "en"
         },
+        {
+          "plain": "A compact lens for focusing light."
+        },
+        {
+          "plain": "Term.",
+          "language": "en"
+        },
+        {
+          "plain": "Keeper"
+        },
+        {
+          "plain": "Definition.",
+          "language": "en"
+        },
+        {
+          "plain": "A person responsible for maintaining a lighthouse."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -1156,27 +938,6 @@
             "definition"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1237,27 +998,6 @@
             "term",
             "definition"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
           "language": "always"
         },
         {
@@ -1268,29 +1008,6 @@
             "definition"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1315,30 +1032,49 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the glossary.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "plain": "Term.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "plain": "Fresnel lens"
         },
+        {
+          "plain": "Definition.",
+          "language": "en"
+        },
+        {
+          "plain": "A compact lens for focusing light."
+        },
+        {
+          "plain": "Term.",
+          "language": "en"
+        },
+        {
+          "plain": "Keeper"
+        },
+        {
+          "plain": "Definition.",
+          "language": "en"
+        },
+        {
+          "plain": "A person responsible for maintaining a lighthouse."
+        },
+        {
+          "plain": "End of the glossary.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -1356,29 +1092,6 @@
             "definition"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1439,23 +1152,6 @@
           "skip": [
             "glossary"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
           "language": "always"
         },
         {
@@ -1464,25 +1160,6 @@
             "glossary"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1509,25 +1186,6 @@
           "skip": [
             "glossary"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
           "language": "none"
         },
         {
@@ -1536,25 +1194,6 @@
             "glossary"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1588,29 +1227,6 @@
           "contextualize": [
             "glossary"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary"
-          ],
           "language": "always"
         },
         {
@@ -1622,31 +1238,6 @@
             "glossary"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1682,31 +1273,6 @@
           "contextualize": [
             "glossary"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary"
-          ],
           "language": "none"
         },
         {
@@ -1718,31 +1284,6 @@
             "glossary"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1776,29 +1317,6 @@
           "contextualize": [
             "term"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term"
-          ],
           "language": "always"
         },
         {
@@ -1810,31 +1328,6 @@
             "term"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1870,31 +1363,6 @@
           "contextualize": [
             "term"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term"
-          ],
           "language": "none"
         },
         {
@@ -1906,31 +1374,6 @@
             "term"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1967,31 +1410,6 @@
             "glossary",
             "term"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
           "language": "always"
         },
         {
@@ -2004,33 +1422,6 @@
             "term"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2069,33 +1460,6 @@
             "glossary",
             "term"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
           "language": "none"
         },
         {
@@ -2108,33 +1472,6 @@
             "term"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2168,29 +1505,6 @@
           "contextualize": [
             "definition"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "definition"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "definition"
-          ],
           "language": "always"
         },
         {
@@ -2202,31 +1516,6 @@
             "definition"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2262,31 +1551,6 @@
           "contextualize": [
             "definition"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "definition"
-          ],
           "language": "none"
         },
         {
@@ -2298,31 +1562,6 @@
             "definition"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2359,31 +1598,6 @@
             "glossary",
             "definition"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
           "language": "always"
         },
         {
@@ -2396,33 +1610,6 @@
             "definition"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2461,33 +1648,6 @@
             "glossary",
             "definition"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
           "language": "none"
         },
         {
@@ -2500,33 +1660,6 @@
             "definition"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2563,31 +1696,6 @@
             "term",
             "definition"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term",
-            "definition"
-          ],
           "language": "always"
         },
         {
@@ -2600,33 +1708,6 @@
             "definition"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2665,33 +1746,6 @@
             "term",
             "definition"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term",
-            "definition"
-          ],
           "language": "none"
         },
         {
@@ -2704,33 +1758,6 @@
             "definition"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2770,33 +1797,6 @@
             "term",
             "definition"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
           "language": "always"
         },
         {
@@ -2810,35 +1810,6 @@
             "definition"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2880,35 +1851,6 @@
             "term",
             "definition"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
           "language": "none"
         },
         {
@@ -2922,35 +1864,6 @@
             "definition"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2989,13 +1902,6 @@
         },
         {
           "format": "ssml",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
           "language": "always",
           "segmentation": {
             "mode": "sentence"
@@ -3003,38 +1909,7 @@
         },
         {
           "format": "ssml",
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
           "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3055,16 +1930,28 @@
       "options": [
         {
           "format": "ssml",
-          "contextualize": [
-            "glossary"
-          ]
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Fresnel lens A compact lens for focusing light."
         },
+        {
+          "ssml": "Keeper A person responsible for maintaining a lighthouse."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
             "glossary"
-          ],
-          "inlineContextualization": true
+          ]
         },
         {
           "format": "ssml",
@@ -3078,43 +1965,13 @@
           "contextualize": [
             "glossary"
           ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary"
-          ],
           "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
         {
-          "ssml": "Start of the glossary."
+          "ssml": "Start of the glossary.",
+          "language": "en"
         },
         {
           "ssml": "Fresnel lens"
@@ -3129,7 +1986,8 @@
           "ssml": "A person responsible for maintaining a lighthouse."
         },
         {
-          "ssml": "End of the glossary."
+          "ssml": "End of the glossary.",
+          "language": "en"
         }
       ]
     },
@@ -3149,16 +2007,6 @@
           "contextualize": [
             "glossary"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary"
-          ],
           "language": "always",
           "segmentation": {
             "mode": "sentence"
@@ -3169,50 +2017,7 @@
           "contextualize": [
             "glossary"
           ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary"
-          ],
           "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3220,7 +2025,8 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the glossary."
+          "ssml": "Start of the glossary.",
+          "language": "en"
         },
         {
           "ssml": "Fresnel lens A compact lens for focusing light.",
@@ -3231,6 +2037,66 @@
           "language": "en"
         },
         {
+          "ssml": "End of the glossary.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the glossary."
+        },
+        {
+          "ssml": "Fresnel lens"
+        },
+        {
+          "ssml": "A compact lens for focusing light."
+        },
+        {
+          "ssml": "Keeper"
+        },
+        {
+          "ssml": "A person responsible for maintaining a lighthouse."
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the glossary."
+        },
+        {
+          "ssml": "Fresnel lens A compact lens for focusing light."
+        },
+        {
+          "ssml": "Keeper A person responsible for maintaining a lighthouse."
+        },
+        {
           "ssml": "End of the glossary."
         }
       ]
@@ -3248,13 +2114,6 @@
           "contextualize": [
             "term"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term"
-          ],
           "language": "always"
         },
         {
@@ -3262,43 +2121,13 @@
           "contextualize": [
             "term"
           ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term"
-          ],
           "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
         {
-          "ssml": "Term."
+          "ssml": "Term.",
+          "language": "en"
         },
         {
           "ssml": "Fresnel lens"
@@ -3307,7 +2136,8 @@
           "ssml": "A compact lens for focusing light."
         },
         {
-          "ssml": "Term."
+          "ssml": "Term.",
+          "language": "en"
         },
         {
           "ssml": "Keeper"
@@ -3333,16 +2163,6 @@
           "contextualize": [
             "term"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term"
-          ],
           "language": "always",
           "segmentation": {
             "mode": "sentence"
@@ -3353,50 +2173,7 @@
           "contextualize": [
             "term"
           ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term"
-          ],
           "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3404,14 +2181,16 @@
       ],
       "utterances": [
         {
-          "ssml": "Term."
+          "ssml": "Term.",
+          "language": "en"
         },
         {
           "ssml": "Fresnel lens A compact lens for focusing light.",
           "language": "en"
         },
         {
-          "ssml": "Term."
+          "ssml": "Term.",
+          "language": "en"
         },
         {
           "ssml": "Keeper A person responsible for maintaining a lighthouse.",
@@ -3424,74 +2203,12 @@
         {
           "format": "ssml",
           "contextualize": [
-            "glossary",
-            "term"
-          ]
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
             "term"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
-        {
-          "ssml": "Start of the glossary."
-        },
         {
           "ssml": "Term."
         },
@@ -3509,9 +2226,91 @@
         },
         {
           "ssml": "A person responsible for maintaining a lighthouse."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Term."
         },
         {
-          "ssml": "End of the glossary."
+          "ssml": "Fresnel lens A compact lens for focusing light."
+        },
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "Keeper A person responsible for maintaining a lighthouse."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary",
+            "term"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "language": "en"
+        },
+        {
+          "ssml": "Term.",
+          "language": "en"
+        },
+        {
+          "ssml": "Fresnel lens"
+        },
+        {
+          "ssml": "A compact lens for focusing light."
+        },
+        {
+          "ssml": "Term.",
+          "language": "en"
+        },
+        {
+          "ssml": "Keeper"
+        },
+        {
+          "ssml": "A person responsible for maintaining a lighthouse."
+        },
+        {
+          "ssml": "End of the glossary.",
+          "language": "en"
         }
       ]
     },
@@ -3533,17 +2332,6 @@
             "glossary",
             "term"
           ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
           "language": "always",
           "segmentation": {
             "mode": "sentence"
@@ -3555,54 +2343,7 @@
             "glossary",
             "term"
           ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
           "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3610,23 +2351,100 @@
       ],
       "utterances": [
         {
-          "ssml": "Start of the glossary."
+          "ssml": "Start of the glossary.",
+          "language": "en"
         },
         {
-          "ssml": "Term."
+          "ssml": "Term.",
+          "language": "en"
         },
         {
           "ssml": "Fresnel lens A compact lens for focusing light.",
           "language": "en"
         },
         {
-          "ssml": "Term."
+          "ssml": "Term.",
+          "language": "en"
         },
         {
           "ssml": "Keeper A person responsible for maintaining a lighthouse.",
           "language": "en"
         },
         {
+          "ssml": "End of the glossary.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the glossary."
+        },
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "Fresnel lens"
+        },
+        {
+          "ssml": "A compact lens for focusing light."
+        },
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "Keeper"
+        },
+        {
+          "ssml": "A person responsible for maintaining a lighthouse."
+        },
+        {
+          "ssml": "End of the glossary."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossary",
+            "term"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the glossary."
+        },
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "Fresnel lens A compact lens for focusing light."
+        },
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "Keeper A person responsible for maintaining a lighthouse."
+        },
+        {
           "ssml": "End of the glossary."
         }
       ]
@@ -3653,23 +2471,6 @@
           "contextualize": [
             "definition"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "definition"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "definition"
-          ],
           "language": "always"
         },
         {
@@ -3678,25 +2479,6 @@
             "definition"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3717,26 +2499,33 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Fresnel lens"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "ssml": "Definition.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "ssml": "A compact lens for focusing light."
         },
+        {
+          "ssml": "Keeper"
+        },
+        {
+          "ssml": "Definition.",
+          "language": "en"
+        },
+        {
+          "ssml": "A person responsible for maintaining a lighthouse."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -3750,25 +2539,6 @@
             "definition"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3820,25 +2590,6 @@
             "glossary",
             "definition"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
           "language": "always"
         },
         {
@@ -3848,27 +2599,6 @@
             "definition"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3891,28 +2621,41 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "ssml": "Fresnel lens"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "ssml": "Definition.",
+          "language": "en"
         },
+        {
+          "ssml": "A compact lens for focusing light."
+        },
+        {
+          "ssml": "Keeper"
+        },
+        {
+          "ssml": "Definition.",
+          "language": "en"
+        },
+        {
+          "ssml": "A person responsible for maintaining a lighthouse."
+        },
+        {
+          "ssml": "End of the glossary.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -3928,27 +2671,6 @@
             "definition"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4006,25 +2728,6 @@
             "term",
             "definition"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term",
-            "definition"
-          ],
           "language": "always"
         },
         {
@@ -4034,27 +2737,6 @@
             "definition"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4077,28 +2759,41 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Term.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "ssml": "Fresnel lens"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "ssml": "Definition.",
+          "language": "en"
         },
+        {
+          "ssml": "A compact lens for focusing light."
+        },
+        {
+          "ssml": "Term.",
+          "language": "en"
+        },
+        {
+          "ssml": "Keeper"
+        },
+        {
+          "ssml": "Definition.",
+          "language": "en"
+        },
+        {
+          "ssml": "A person responsible for maintaining a lighthouse."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -4114,27 +2809,6 @@
             "definition"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4195,27 +2869,6 @@
             "term",
             "definition"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
           "language": "always"
         },
         {
@@ -4226,29 +2879,6 @@
             "definition"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4273,30 +2903,49 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the glossary.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "ssml": "Term.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "ssml": "Fresnel lens"
         },
+        {
+          "ssml": "Definition.",
+          "language": "en"
+        },
+        {
+          "ssml": "A compact lens for focusing light."
+        },
+        {
+          "ssml": "Term.",
+          "language": "en"
+        },
+        {
+          "ssml": "Keeper"
+        },
+        {
+          "ssml": "Definition.",
+          "language": "en"
+        },
+        {
+          "ssml": "A person responsible for maintaining a lighthouse."
+        },
+        {
+          "ssml": "End of the glossary.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -4314,29 +2963,6 @@
             "definition"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4397,23 +3023,6 @@
           "skip": [
             "glossary"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
           "language": "always"
         },
         {
@@ -4422,25 +3031,6 @@
             "glossary"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4467,25 +3057,6 @@
           "skip": [
             "glossary"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
           "language": "none"
         },
         {
@@ -4494,25 +3065,6 @@
             "glossary"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4546,29 +3098,6 @@
           "contextualize": [
             "glossary"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary"
-          ],
           "language": "always"
         },
         {
@@ -4580,31 +3109,6 @@
             "glossary"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4640,31 +3144,6 @@
           "contextualize": [
             "glossary"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary"
-          ],
           "language": "none"
         },
         {
@@ -4676,31 +3155,6 @@
             "glossary"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4734,29 +3188,6 @@
           "contextualize": [
             "term"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term"
-          ],
           "language": "always"
         },
         {
@@ -4768,31 +3199,6 @@
             "term"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4828,31 +3234,6 @@
           "contextualize": [
             "term"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term"
-          ],
           "language": "none"
         },
         {
@@ -4864,31 +3245,6 @@
             "term"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4925,31 +3281,6 @@
             "glossary",
             "term"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
           "language": "always"
         },
         {
@@ -4962,33 +3293,6 @@
             "term"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5027,33 +3331,6 @@
             "glossary",
             "term"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
           "language": "none"
         },
         {
@@ -5066,33 +3343,6 @@
             "term"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5126,29 +3376,6 @@
           "contextualize": [
             "definition"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "definition"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "definition"
-          ],
           "language": "always"
         },
         {
@@ -5160,31 +3387,6 @@
             "definition"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5220,31 +3422,6 @@
           "contextualize": [
             "definition"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "definition"
-          ],
           "language": "none"
         },
         {
@@ -5256,31 +3433,6 @@
             "definition"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5317,31 +3469,6 @@
             "glossary",
             "definition"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
           "language": "always"
         },
         {
@@ -5354,33 +3481,6 @@
             "definition"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5419,33 +3519,6 @@
             "glossary",
             "definition"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
           "language": "none"
         },
         {
@@ -5458,33 +3531,6 @@
             "definition"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5521,31 +3567,6 @@
             "term",
             "definition"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term",
-            "definition"
-          ],
           "language": "always"
         },
         {
@@ -5558,33 +3579,6 @@
             "definition"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5623,33 +3617,6 @@
             "term",
             "definition"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term",
-            "definition"
-          ],
           "language": "none"
         },
         {
@@ -5662,33 +3629,6 @@
             "definition"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "term",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5728,33 +3668,6 @@
             "term",
             "definition"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
           "language": "always"
         },
         {
@@ -5768,35 +3681,6 @@
             "definition"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5838,35 +3722,6 @@
             "term",
             "definition"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
           "language": "none"
         },
         {
@@ -5880,35 +3735,6 @@
             "definition"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "glossary"
-          ],
-          "contextualize": [
-            "glossary",
-            "term",
-            "definition"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }

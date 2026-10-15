@@ -1,6 +1,7 @@
 import "../domSetup.js";
 import test from "ava";
-import { loadManifest, loadFixture, localFixtureIds, stripLocatorDetails } from "../testUtils.js";
+import { loadManifest, loadFixture, localFixtureIds } from "../testUtils.js";
+import { sortKeysDeep, stripLocatorDetails } from "../../scripts/fixtureCases.js";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 import type { ExtractUtterancesOptions } from "../../src/utterances/types.js";
 
@@ -9,19 +10,6 @@ const manifest = loadManifest();
 test("every @readium/guided-navigation fixture has a utterances.json, and vice versa", (t) => {
   t.deepEqual(localFixtureIds().sort(), manifest.map((entry) => entry.id).sort());
 });
-
-function sortKeysDeep(value: unknown): unknown {
-  if (Array.isArray(value)) return value.map(sortKeysDeep);
-  if (value && typeof value === "object") {
-    return Object.keys(value)
-      .sort()
-      .reduce((acc: Record<string, unknown>, key) => {
-        acc[key] = sortKeysDeep((value as Record<string, unknown>)[key]);
-        return acc;
-      }, {});
-  }
-  return value;
-}
 
 for (const entry of manifest) {
   const fixture = loadFixture(entry);

@@ -22,22 +22,7 @@
         },
         {
           "format": "plain",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -51,23 +36,7 @@
         },
         {
           "format": "plain",
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -95,13 +64,6 @@
           "contextualize": [
             "qna"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "qna"
-          ],
           "language": "always"
         },
         {
@@ -109,15 +71,43 @@
           "contextualize": [
             "qna"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the questions and answers.",
+          "language": "en"
+        },
+        {
+          "plain": "Q: How often was the lamp refueled? A: Nightly, by hand."
+        },
+        {
+          "plain": "End of the questions and answers.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "qna"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
           "contextualize": [
             "qna"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -125,22 +115,36 @@
             "qna"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the questions and answers.",
+          "language": "en"
         },
+        {
+          "plain": "Q: How often was the lamp refueled?"
+        },
+        {
+          "plain": "A: Nightly, by hand."
+        },
+        {
+          "plain": "End of the questions and answers.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
             "qna"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "qna"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -162,79 +166,7 @@
           "contextualize": [
             "qna"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "qna"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "qna"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "qna"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "qna"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "qna"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "qna"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "qna"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -277,22 +209,7 @@
         },
         {
           "format": "ssml",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -306,23 +223,7 @@
         },
         {
           "format": "ssml",
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -350,13 +251,6 @@
           "contextualize": [
             "qna"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "qna"
-          ],
           "language": "always"
         },
         {
@@ -364,15 +258,43 @@
           "contextualize": [
             "qna"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the questions and answers.",
+          "language": "en"
+        },
+        {
+          "ssml": "Q: How often was the lamp refueled? A: Nightly, by hand."
+        },
+        {
+          "ssml": "End of the questions and answers.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "qna"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
           "contextualize": [
             "qna"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -380,22 +302,36 @@
             "qna"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the questions and answers.",
+          "language": "en"
         },
+        {
+          "ssml": "Q: How often was the lamp refueled?"
+        },
+        {
+          "ssml": "A: Nightly, by hand."
+        },
+        {
+          "ssml": "End of the questions and answers.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
             "qna"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "qna"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -417,79 +353,7 @@
           "contextualize": [
             "qna"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "qna"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "qna"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "qna"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "qna"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "qna"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "qna"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "qna"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }

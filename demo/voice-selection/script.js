@@ -1,4 +1,4 @@
-import { WebSpeechVoiceManager, WebSpeechEngine, ReadiumSpeechNavigator, chineseVariantMap, setupDecorations, DecorationStyleType } from "../../src/index.ts";
+import { WebSpeechVoiceManager, WebSpeechEngine, ReadiumSpeechNavigator, SpeechPreferences, getVoiceId, chineseVariantMap, setupDecorations, DecorationStyleType } from "../../src/index.ts";
 
 // Set up the Decorator for TTS word highlights
 const decoCtrl = setupDecorations();
@@ -35,41 +35,47 @@ let testUtterance = "";
 let userCustomUtterance = "";
 let lastNavigatorPosition = 1;
 
-const speechNavigator = new ReadiumSpeechNavigator(new WebSpeechEngine());
+let speechNavigator;
 
-// Set up event listeners for the navigator
-speechNavigator.on("boundary", (event) => {
-  if (event.detail && event.detail.name === "word") {
-    highlightCurrentWord(event.detail.charIndex, event.detail.charLength);
-  }
-});
+function setupNavigatorListeners() {
+  // Set up event listeners for the navigator
+  speechNavigator.on("boundary", (event) => {
+    if (event.detail && event.detail.name === "word") {
+      highlightCurrentWord(event.detail.charIndex, event.detail.charLength);
+    }
+  });
 
-speechNavigator.on("start", () => {
-  clearWordHighlighting();
-  updateUI();
-});
+  speechNavigator.on("start", () => {
+    clearWordHighlighting();
+    updateUI();
+  });
 
-speechNavigator.on("pause", updateUI);
-speechNavigator.on("resume", updateUI);
-speechNavigator.on("stop", () => {
-  clearWordHighlighting();
-  updateUI();
-});
+  speechNavigator.on("pause", updateUI);
+  speechNavigator.on("resume", updateUI);
+  speechNavigator.on("stop", () => {
+    clearWordHighlighting();
+    updateUI();
+  });
 
-speechNavigator.on("end", () => {
-  clearWordHighlighting();
-  updateUI();
-});
-speechNavigator.on("error", (event) => {
-  console.error("Navigator error:", event.detail);
-  updateUI();
-});
+  speechNavigator.on("end", () => {
+    clearWordHighlighting();
+    updateUI();
+  });
+  speechNavigator.on("error", (event) => {
+    console.error("Navigator error:", event.detail);
+    updateUI();
+  });
+}
 
 // Initialize the application
 async function init() {
   try {
     // Initialize the voice manager with preferred languages
     voiceManager = await WebSpeechVoiceManager.initialize();
+
+    // Created once voices are loaded, as in the main demo
+    speechNavigator = new ReadiumSpeechNavigator(new WebSpeechEngine());
+    setupNavigatorListeners();
     
     // Sort those voices by browser preference using sortVoicesByRegions
     const voices = await voiceManager.sortVoicesByRegions(window.navigator.languages);
@@ -214,7 +220,7 @@ async function replaceCurrentVoiceIfFilteredOut(language) {
       
       if (currentVoice) {
         try {
-          await speechNavigator.setVoice(currentVoice);
+          await speechNavigator.submitPreferences(new SpeechPreferences({ voice: getVoiceId(currentVoice) }));
           displayVoiceProperties(currentVoice);
           updateTestUtterance(currentVoice, language);
           
@@ -567,7 +573,7 @@ function setupEventListeners() {
       if (currentVoice) {
         try {
           // Set the voice for the navigator
-          await speechNavigator.setVoice(currentVoice);
+          await speechNavigator.submitPreferences(new SpeechPreferences({ voice: getVoiceId(currentVoice) }));
           
           // Update the voice dropdown to reflect the selected voice
           const voiceOption = voiceSelect.querySelector(`option[value="${currentVoice.name}"]`);
@@ -601,8 +607,11 @@ function setupEventListeners() {
     
     if (currentVoice) {
       try {
+        // The sample text is replaced below, so don't let the voice change resume the old one.
+        stopPlayback();
+
         // Set the voice for the navigator
-        await speechNavigator.setVoice(currentVoice);
+        await speechNavigator.submitPreferences(new SpeechPreferences({ voice: getVoiceId(currentVoice) }));
         
         // Display voice properties
         displayVoiceProperties(currentVoice);

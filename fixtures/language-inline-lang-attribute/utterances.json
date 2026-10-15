@@ -25,19 +25,6 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
-        {
-          "format": "plain",
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
         }
       ],
       "utterances": [
@@ -60,19 +47,6 @@
         {
           "format": "plain",
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -109,19 +83,6 @@
           "segmentation": {
             "mode": "sentence"
           }
-        },
-        {
-          "format": "ssml",
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
         }
       ],
       "utterances": [
@@ -140,19 +101,6 @@
         {
           "format": "ssml",
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }

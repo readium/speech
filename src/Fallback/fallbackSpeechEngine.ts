@@ -112,14 +112,6 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return this.activeEngine.getAvailableVoices();
   }
 
-  setSpeakInContentLanguage(enabled: boolean): void {
-    this.activeEngine.setSpeakInContentLanguage(enabled);
-  }
-
-  getSpeakInContentLanguage(): boolean {
-    return this.activeEngine.getSpeakInContentLanguage();
-  }
-
   // The navigator advances to the next utterance via speak(nextIndex) — the one gap where we can
   // recover without an audible glitch, so intercept it if the primary is already reachable.
   speak(utteranceIndex?: number): void {
@@ -248,7 +240,6 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     to.setRate(from.getRate());
     to.setPitch(from.getPitch());
     to.setVolume(from.getVolume());
-    to.setSpeakInContentLanguage(from.getSpeakInContentLanguage());
   }
 
   // Starts or defers a freshly loaded engine based on live intent, not a snapshot from before the

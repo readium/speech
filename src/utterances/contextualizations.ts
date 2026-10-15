@@ -15,6 +15,11 @@ const catalogCache: Record<string, Contextualizations> = { en: defaultContextual
 //   fr: () => import("../../locales/fr.json", { with: { type: "json" } }) as Promise<LocaleModule>,
 const localeLoaders: Record<string, () => Promise<LocaleModule>> = {};
 
+// The locale of the catalog `contextualizationsForLocale(locale)` resolves to, English when none is shipped.
+export function catalogLocale(locale: string): string {
+  return catalogCache[locale] || localeLoaders[locale] ? locale : "en";
+}
+
 export async function contextualizationsForLocale(locale: string): Promise<Contextualizations> {
   const cached = catalogCache[locale];
   if (cached) return cached;

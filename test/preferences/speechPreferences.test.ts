@@ -77,12 +77,36 @@ test("an unsupported enum value is dropped to undefined", (t) => {
   t.is(prefs.language, undefined);
 });
 
-test("a non-boolean value for a boolean field is dropped to undefined", (t) => {
+test("a boolean inlineContextualization is dropped to undefined", (t) => {
   const prefs = new SpeechPreferences({
     // @ts-expect-error deliberately invalid
-    inlineContextualization: "yes",
+    inlineContextualization: true,
   });
   t.is(prefs.inlineContextualization, undefined);
+});
+
+test("an inlineContextualization role list is kept", (t) => {
+  const prefs = new SpeechPreferences({ inlineContextualization: ["pagebreak"] });
+  t.deepEqual(prefs.inlineContextualization, ["pagebreak"]);
+});
+
+test("a languageOverrides record is kept", (t) => {
+  const prefs = new SpeechPreferences({ languageOverrides: { en: "fr" } });
+  t.deepEqual(prefs.languageOverrides, { en: "fr" });
+});
+
+test("a voice is kept as a single id or a record by language, anything else is dropped", (t) => {
+  t.is(new SpeechPreferences({ voice: "Thomas" }).voice, "Thomas");
+  t.deepEqual(new SpeechPreferences({ voice: { fr: "Thomas" } }).voice, { fr: "Thomas" });
+  // @ts-expect-error deliberately invalid
+  t.is(new SpeechPreferences({ voice: 1 }).voice, undefined);
+});
+
+test("a languageOverrides record with a non-string value, or an array, is dropped to undefined", (t) => {
+  // @ts-expect-error deliberately invalid
+  t.is(new SpeechPreferences({ languageOverrides: { en: 1 } }).languageOverrides, undefined);
+  // @ts-expect-error deliberately invalid
+  t.is(new SpeechPreferences({ languageOverrides: ["fr"] }).languageOverrides, undefined);
 });
 
 test("explicit null is preserved (not coerced to undefined) for guarded fields", (t) => {
@@ -90,4 +114,14 @@ test("explicit null is preserved (not coerced to undefined) for guarded fields",
   t.is(prefs.rate, null);
   t.is(prefs.verbosity, null);
   t.is(prefs.inlineContextualization, null);
+});
+
+test("keeps its own copy of array and record preferences", (t) => {
+  const skip = ["pagebreak"];
+  const languageOverrides = { en: "en-GB" };
+  const prefs = new SpeechPreferences({ skip, languageOverrides });
+  skip.push("footnote");
+  languageOverrides.en = "en-US";
+  t.deepEqual(prefs.skip, ["pagebreak"]);
+  t.deepEqual(prefs.languageOverrides, { en: "en-GB" });
 });

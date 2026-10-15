@@ -25,7 +25,6 @@ export class FakeEngine {
   private rate = 1;
   private pitch = 1;
   private volume = 1;
-  private speakInContentLanguage = false;
   private state = "idle";
 
   constructor(options: FakeEngineOptions = {}) {
@@ -66,14 +65,6 @@ export class FakeEngine {
 
   async getAvailableVoices(): Promise<any[]> {
     return [];
-  }
-
-  setSpeakInContentLanguage(enabled: boolean): void {
-    this.speakInContentLanguage = enabled;
-  }
-
-  getSpeakInContentLanguage(): boolean {
-    return this.speakInContentLanguage;
   }
 
   speak(index?: number): void {

@@ -11,8 +11,8 @@ import {
   volumeRangeConfig,
 } from "./constraints.js";
 import type { IPreferencesEditor } from "./PreferencesEditor.js";
-import { BooleanPreference, EnumPreference, RangePreference, StringArrayPreference } from "./Preference.js";
-import { SpeechPreferences, VerbosityPreset, AutoPauseScope } from "./SpeechPreferences.js";
+import { EnumPreference, Preference, RangePreference, StringArrayPreference } from "./Preference.js";
+import { SpeechPreferences, VerbosityPreset, AutoPauseScope, VoicePreference } from "./SpeechPreferences.js";
 import { SpeechSettings } from "./SpeechSettings.js";
 import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
 
@@ -39,7 +39,9 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
       skip: null,
       contextualize: null,
       language: null,
+      languageOverrides: null,
       segmentation: null,
+      voice: null,
       pauseDuration: null,
       autoPause: null,
       rate: null,
@@ -62,12 +64,12 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
     });
   }
 
-  get inlineContextualization(): BooleanPreference {
-    return new BooleanPreference({
+  get inlineContextualization(): StringArrayPreference {
+    return new StringArrayPreference({
       initialValue: this.preferences.inlineContextualization,
       effectiveValue: this.settings.inlineContextualization,
       isEffective: this.preferences.inlineContextualization != null,
-      onChange: (value) => this.updatePreference("inlineContextualization", value ?? null),
+      onChange: (value) => this.updatePreference("inlineContextualization", (value ?? null) as GndRole[] | null),
     });
   }
 
@@ -109,6 +111,15 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
     });
   }
 
+  get languageOverrides(): Preference<Record<string, string>> {
+    return new Preference<Record<string, string>>({
+      initialValue: this.preferences.languageOverrides,
+      effectiveValue: this.settings.languageOverrides,
+      isEffective: this.preferences.languageOverrides != null,
+      onChange: (value) => this.updatePreference("languageOverrides", value ?? null),
+    });
+  }
+
   get segmentation(): EnumPreference<Segmentation> {
     return new EnumPreference<Segmentation>({
       initialValue: this.preferences.segmentation,
@@ -116,6 +127,15 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
       isEffective: this.preferences.segmentation != null,
       onChange: (value) => this.updatePreference("segmentation", value ?? null),
       supportedValues: segmentationModes,
+    });
+  }
+
+  get voice(): Preference<VoicePreference> {
+    return new Preference<VoicePreference>({
+      initialValue: this.preferences.voice,
+      effectiveValue: this.settings.voice,
+      isEffective: this.preferences.voice != null,
+      onChange: (value) => this.updatePreference("voice", value ?? null),
     });
   }
 

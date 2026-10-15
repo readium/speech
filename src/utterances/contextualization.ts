@@ -1,11 +1,15 @@
+import { ssmlAttrEscape, ssmlTextEscape } from "@readium/helpers";
 import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
+import { extractLangRegionFromBCP47 } from "../utils/language.js";
+import { overriddenLanguage } from "./language.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
-import { descriptionOf } from "./nodeFields.js";
+import { descriptionLanguageOf, descriptionOf } from "./nodeFields.js";
 import { roleDropOverrides } from "./roles.js";
+import { splitOnLangTags } from "./text.js";
 import { computeTableStructure, plainTextOf } from "./tableStructure.js";
-import { formatPlain, push } from "./utteranceOutput.js";
+import { formatDescription, formatEntryText, push } from "./utteranceOutput.js";
 import { valueFoldingRoleSet, type SourceTrace, type WalkContext } from "./walkContext.js";
 
 // `variantKey`, when given, picks a nested named-variant leaf (e.g.
@@ -53,7 +57,7 @@ function scopeToOwnValue(utterance: ReadiumSpeechUtterance, text: string, node: 
     // Language reflects the node's own real text regardless of whether a
     // locate can be computed — a node with no textref still lost its language otherwise.
     if (ctx.language !== "none") {
-      const language = node.text?.language;
+      const language = overriddenLanguage(node.text?.language, ctx.languageOverrides);
       if (language) utterance.language = language;
     }
     ctx.synthetic.delete(utterance);
@@ -85,22 +89,60 @@ export function pushRoleContextualization(
   const isBlock = ctx.i18n.exists(`${role}.block.start`) || ctx.i18n.exists(`${role}.block.end`);
   if (isBlock && ctx.contextualizationShapes[role] !== "inline") {
     const base = phase === "before" ? `${role}.block.start` : `${role}.block.end`;
-    const text = resolveEntryText(ctx, base, variantKey, params);
-    if (text) {
-      const utterance = formatPlain(text, ctx);
-      scopeToOwnValue(utterance, text, node, ctx, role, params);
-      push(out, sources, node, [utterance]);
-    }
+    push(out, sources, node, entryUtterances(base, variantKey, params, node, role, ctx));
     return;
   }
   if (phase === "before") {
-    const text = resolveEntryText(ctx, `${role}.inline`, variantKey, params);
-    if (text) {
-      const utterance = formatPlain(text, ctx);
-      scopeToOwnValue(utterance, text, node, ctx, role, params);
-      push(out, sources, node, [utterance]);
-    }
+    push(out, sources, node, entryUtterances(`${role}.inline`, variantKey, params, node, role, ctx));
   }
+}
+
+const descriptionMarker = "\u0000";
+
+// An entry holding the node's description in another primary language than the catalog's wraps it in a `<lang>`
+// in SSML, and is split around it in plain text; in the same one, it's a single utterance in the description's tag.
+function entryUtterances(
+  base: string,
+  variantKey: string | undefined,
+  params: Record<string, string> | undefined,
+  node: GuidedNavigationObject,
+  role: string,
+  ctx: WalkContext,
+): ReadiumSpeechUtterance[] {
+  const text = resolveEntryText(ctx, base, variantKey, params);
+  if (!text) return [];
+  const description = params?.description;
+  const language =
+    ctx.language !== "none" && description !== undefined && description === descriptionOf(node)
+      ? overriddenLanguage(descriptionLanguageOf(node), ctx.languageOverrides)
+      : undefined;
+  const parts = language ? resolveEntryText(ctx, base, variantKey, { ...params, description: descriptionMarker })?.split(descriptionMarker) : undefined;
+  if (!language || !parts || parts.length < 2) {
+    const utterance = formatEntryText(text, ctx);
+    scopeToOwnValue(utterance, text, node, ctx, role, params);
+    return [utterance];
+  }
+  if (extractLangRegionFromBCP47(language)[0] === extractLangRegionFromBCP47(ctx.contextualizationLanguage)[0]) {
+    const utterance = formatEntryText(text, ctx);
+    utterance.language = language;
+    scopeToOwnValue(utterance, text, node, ctx, role, params);
+    return [utterance];
+  }
+  const wrapped = `<lang xml:lang="${ssmlAttrEscape(language)}">${ssmlTextEscape(description!)}</lang>`;
+  const ssml = parts.map((part) => ssmlTextEscape(part)).join(wrapped);
+  if (ctx.format === "ssml") {
+    const utterance = formatEntryText(text, ctx);
+    utterance.ssml = ssml;
+    scopeToOwnValue(utterance, text, node, ctx, role, params);
+    return [utterance];
+  }
+  // Split like inline `<lang>` spans in content, punctuation closing the description staying with it.
+  return splitOnLangTags(ssml, ctx.contextualizationLanguage).map((segment) => {
+    if (segment.language !== language) return formatEntryText(segment.plain, ctx);
+    const own = formatDescription(segment.plain, node, ctx);
+    if (role === "figure" || role === "table") scopeToQuote(own, segment.plain, description!, node, ctx);
+    return own;
+  });
 }
 
 // Falls back to the bare number when the catalog has no `parts` entry.

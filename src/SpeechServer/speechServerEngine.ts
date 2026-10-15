@@ -2,6 +2,9 @@ import { ReadiumSpeechPlaybackEngine } from "../engine.js";
 import { ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "../navigator.js";
 import { ReadiumSpeechUtterance } from "../utterance.js";
 import { ReadiumSpeechVoice } from "../voices/types.js";
+import { normalizeLanguageCode } from "../voices/languages.js";
+import { keepsSelectedVoice, voiceMatchesLanguage } from "../voices/languageMatching.js";
+import { filterByBoundarySupport, pickBestVoiceByRegion, sortVoicesByRegions } from "../voices/sorting.js";
 import { mapServerVoice } from "./speechServerVoiceMapping.js";
 import { SpeechServerAudioDecodeError, SpeechServerError, SpeechServerNetworkError, SpeechServerStallError, toSpeechServerError } from "./errors.js";
 import { ErrorEventDetail } from "../Fallback/recoverableFailure.js";
@@ -129,7 +132,12 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private fetchImpl: typeof fetch;
 
   private currentVoice: ReadiumSpeechVoice | null = null;
+  private defaultVoice: ReadiumSpeechVoice | null = null;
   private voices: ReadiumSpeechVoice[] = [];
+  private voicesRequest: Promise<ReadiumSpeechVoice[]> | null = null;
+  private initializing: Promise<boolean> | null = null;
+  // Keyed by `${language}:${needsBoundary}`, like WebSpeechEngine's, and holding the pick so concurrent prefetches share it
+  private languageVoiceCache: Map<string, Promise<ReadiumSpeechVoice | null>> = new Map();
   private serviceInfo: SpeechServerServiceInfo | null = null;
   private serviceInfoPromise: Promise<SpeechServerServiceInfo> | null = null;
   private currentUtterances: ReadiumSpeechUtterance[] = [];
@@ -137,7 +145,6 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private playbackState: ReadiumSpeechPlaybackState = "idle";
   private readonly events = new EventEmitter<ReadiumSpeechPlaybackEvent["type"], ReadiumSpeechPlaybackEvent>();
 
-  private speakInContentLanguage: boolean = false;
   private speakGeneration: number = 0;
   private loadGeneration: number = 0;
 
@@ -183,6 +190,23 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   // Lets a provider that already fetched /voices seed this engine without a second request.
   setAvailableVoices(voices: ReadiumSpeechVoice[]): void {
     this.voices = voices;
+    this.voicesRequest = null;
+    this.languageVoiceCache.clear();
+  }
+
+  // Fetches the voices, and picks the default one by the browser's languages, as WebSpeechEngine does
+  async initialize(): Promise<boolean> {
+    this.initializing = (async () => {
+      const voices = await this.getAvailableVoices();
+      const preferredLanguages = typeof navigator !== "undefined" && navigator.languages?.length ? [...navigator.languages] : ["en"];
+      this.defaultVoice = (await sortVoicesByRegions(preferredLanguages, voices))[0] ?? null;
+      return true;
+    })();
+    try {
+      return await this.initializing;
+    } finally {
+      this.initializing = null;
+    }
   }
 
   // Tags a fetch() TypeError (request never reached the network) as SpeechServerNetworkError,
@@ -254,6 +278,43 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     return this.currentUtterances.length - 1;
   }
 
+  // The utterance's own voice when this server has it, else one speaking its language, as on WebSpeechEngine.
+  private async voiceFor(content: ReadiumSpeechUtterance | undefined): Promise<ReadiumSpeechVoice | null> {
+    // Without them, neither the utterance's voice nor its language could be matched; a failed load leaves the selected voice.
+    if (this.voices.length === 0) await (this.initializing ?? this.getAvailableVoices()).catch(() => {});
+    const ownVoice = content?.voice ? this.voices.find(v => v.identifier === content.voice || v.name === content.voice) : undefined;
+    if (ownVoice) {
+      return ownVoice;
+    }
+
+    const selectedVoice = this.currentVoice ?? this.defaultVoice;
+    // Without the voice list yet, nothing to match against nor to cache
+    if (!content?.language || this.voices.length === 0 || keepsSelectedVoice(selectedVoice, content.language)) {
+      return selectedVoice;
+    }
+
+    const language = normalizeLanguageCode(content.language);
+    const needsBoundary = selectedVoice?.controls?.boundary !== false;
+    const key = `${language}:${needsBoundary}`;
+    let languageVoice = this.languageVoiceCache.get(key);
+    if (!languageVoice) {
+      languageVoice = this.pickLanguageVoice(language, needsBoundary);
+      this.languageVoiceCache.set(key, languageVoice);
+    }
+    return (await languageVoice) ?? selectedVoice;
+  }
+
+  private async pickLanguageVoice(language: string, needsBoundary: boolean): Promise<ReadiumSpeechVoice | null> {
+    const languageMatches = this.voices.filter(voice => voiceMatchesLanguage(voice, language));
+    const matched = languageMatches.length > 0
+      ? await pickBestVoiceByRegion(language, filterByBoundarySupport(languageMatches, needsBoundary))
+      : null;
+    if (!matched) {
+      this.emitEvent({ type: "languagefallback", detail: { language, reason: "no-matching-voice" } });
+    }
+    return matched;
+  }
+
   setVoice(voice: ReadiumSpeechVoice | string): void {
     const previousId = this.currentVoice?.identifier ?? this.currentVoice?.name;
     if (typeof voice === "string") {
@@ -294,15 +355,24 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     }
   }
 
+  // The default voice until one is set
   getCurrentVoice(): ReadiumSpeechVoice | null {
-    return this.currentVoice;
+    return this.currentVoice ?? this.defaultVoice;
   }
 
   async getAvailableVoices(): Promise<ReadiumSpeechVoice[]> {
     if (this.voices.length > 0) {
       return this.voices;
     }
+    // Shared by concurrent callers, and kept unless it fails so an empty list isn't refetched each time
+    this.voicesRequest ??= this.fetchVoices().catch((error) => {
+      this.voicesRequest = null;
+      throw error;
+    });
+    return this.voicesRequest;
+  }
 
+  private async fetchVoices(): Promise<ReadiumSpeechVoice[]> {
     const [response, serviceInfo] = await Promise.all([this.fetchNetwork(this.endpoints.voices), this.getServiceInfo()]);
     if (!response.ok) {
       throw await toSpeechServerError(response);
@@ -335,17 +405,6 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
       throw await toSpeechServerError(response);
     }
     return response.json();
-  }
-
-  setSpeakInContentLanguage(enabled: boolean): void {
-    if (enabled === this.speakInContentLanguage) return;
-    this.speakInContentLanguage = enabled;
-    this.clearPrefetchCache();
-    this.scheduleRestartIfSpeaking();
-  }
-
-  getSpeakInContentLanguage(): boolean {
-    return this.speakInContentLanguage;
   }
 
   speak(utteranceIndex?: number): void {
@@ -384,7 +443,11 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
         return;
       }
 
-      await this.scheduleChunksStreaming(chunkStream, generation);
+      const voice = await this.voiceFor(this.currentUtterances[index]);
+      if (generation !== this.speakGeneration) {
+        return;
+      }
+      await this.scheduleChunksStreaming(chunkStream, generation, voice);
       this.fillPrefetchWindow(index);
     } catch (error) {
       if (generation !== this.speakGeneration) {
@@ -459,7 +522,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   private async synthesizeStream(index: number, isPrefetch: boolean): Promise<ChunkStream> {
     const content = this.currentUtterances[index];
     const useSSML = !content.plain && !!content.ssml;
-    const language = this.speakInContentLanguage ? content.language : undefined;
+    const language = content.language;
     const text = utteranceText(content) ?? "";
     const ssmlMap = useSSML ? stripSsmlTagsWithMap(text).map : undefined;
 
@@ -530,6 +593,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }): Promise<SynthesizedChunk> {
     const { content, text, textOffset, useSSML, ssmlMap, language, prevText, nextText, format, bitrate, controller } = params;
     try {
+      const voice = await this.voiceFor(content);
       const response = await this.fetchNetwork(this.endpoints.synthesize, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -538,7 +602,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
           text: useSSML ? text : neutralizeAngleBrackets(text),
           ssml: useSSML,
           language,
-          voice: this.currentVoice?.identifier ?? this.currentVoice?.name,
+          voice: voice?.identifier ?? voice?.name,
           prev_utterance: prevText,
           next_utterance: nextText,
           boundary: true,
@@ -608,7 +672,7 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   // Schedules chunks onto one continuous AudioContext timeline as they resolve.
-  private async scheduleChunksStreaming(chunkStream: ChunkStream, generation: number): Promise<void> {
+  private async scheduleChunksStreaming(chunkStream: ChunkStream, generation: number, voice: ReadiumSpeechVoice | null): Promise<void> {
     // Left uncaught: the caller's own catch handles a first-chunk failure as a playback error.
     // No buffer exists yet, so the stall deadline is just timeoutMs on its own.
     const first = await this.awaitWithStallDeadline(chunkStream[0].promise, chunkStream[0].controller, 0);
@@ -619,12 +683,12 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     const ctx = this.ensureAudioContext();
     const gain = this.masterGain!;
     // Only fake the rate locally when the server won't honor output.speed itself, else it'd double up.
-    const speedHonoredByServer = this.currentVoice?.controls?.speed === true;
+    const speedHonoredByServer = voice?.controls?.speed === true;
     const rate = speedHonoredByServer ? 1 : clampPlaybackRate(this.rate);
 
     this.scheduledChunks = [];
     this.setState("playing");
-    this.emitEvent({ type: "start" });
+    this.emitEvent({ type: "start", detail: { voice } });
 
     let t = ctx.currentTime;
     // Only the most recently scheduled node's onended should end the utterance.
@@ -909,6 +973,9 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     this.events.clear();
     this.currentUtterances = [];
     this.currentVoice = null;
+    this.defaultVoice = null;
     this.voices = [];
+    this.voicesRequest = null;
+    this.languageVoiceCache.clear();
   }
 }

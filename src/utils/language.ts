@@ -26,6 +26,24 @@ export const extractLangRegionFromBCP47 = (lang: string): [string, string | unde
 }
 
 /**
+ * Looks up the value of a language-keyed map that applies to a BCP 47 tag:
+ * the exact tag's, else the primary language subtag's, matched case-insensitively.
+ * @param valuesByLanguage - Map keyed by language tag (e.g., { en: "fr", "en-GB": "de" })
+ * @param lang - The BCP 47 language tag (e.g., "en-US")
+ * @returns The value, or undefined if no key matches
+ */
+export const valueForLanguage = <T>(valuesByLanguage: Record<string, T>, lang: string): T | undefined => {
+  const tag = lang.toLowerCase().replace(/_/g, "-");
+  const [primary] = extractLangRegionFromBCP47(lang);
+  const entries = Object.entries(valuesByLanguage);
+  for (const key of [tag, primary]) {
+    const entry = entries.find(([candidate]) => candidate.toLowerCase().replace(/_/g, "-") === key);
+    if (entry) return entry[1];
+  }
+  return undefined;
+}
+
+/**
  * Collects the entries of a language-keyed map that apply to a BCP 47 tag:
  * the primary language subtag's entries plus the exact tag's, matched case-insensitively.
  * @param entriesByLanguage - Map keyed by language tag (e.g., { en: [...], "en-US": [...] })

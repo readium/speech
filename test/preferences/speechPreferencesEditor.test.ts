@@ -67,6 +67,22 @@ test("clear() resets preferences to explicit nulls, not undefined", (t) => {
   t.is(editor.preferences.pauseDuration, null);
 });
 
+test("languageOverrides: an explicit preference is effective and matches the resolved settings", (t) => {
+  const editor = makeEditor(new SpeechPreferences({ languageOverrides: { en: "fr" } }));
+  t.deepEqual(editor.languageOverrides.value, { en: "fr" });
+  t.deepEqual(editor.languageOverrides.effectiveValue, { en: "fr" });
+  t.true(editor.languageOverrides.isEffective);
+  editor.languageOverrides.value = { en: "de" };
+  t.deepEqual(editor.preferences.languageOverrides, { en: "de" });
+});
+
+test("voice: unset preference has no effective voice, a set one is effective", (t) => {
+  t.is(makeEditor(new SpeechPreferences()).voice.effectiveValue, null);
+  const editor = makeEditor(new SpeechPreferences({ voice: { fr: "Thomas" } }));
+  t.deepEqual(editor.voice.effectiveValue, { fr: "Thomas" });
+  t.true(editor.voice.isEffective);
+});
+
 test("clear() actually resets preferences submitted through submitPreferences()", (t) => {
   const initial = new SpeechPreferences({ verbosity: "most", pauseDuration: 500 });
   const editor = makeEditor(initial);
@@ -97,4 +113,15 @@ test("volume is a range preference with the expected bounds", (t) => {
   t.deepEqual(editor.volume.supportedRange, [0, 1]);
   t.is(editor.volume.step, 0.05);
   t.is(editor.volume.effectiveValue, 1);
+});
+
+test("editing an array or record preference in place leaves the navigator's preferences untouched", (t) => {
+  const preferences = new SpeechPreferences({ skip: ["pagebreak"], languageOverrides: { en: "en-GB" }, voice: { fr: "Amélie" } });
+  const editor = makeEditor(preferences);
+  editor.preferences.skip!.push("footnote");
+  editor.preferences.languageOverrides!.fr = "fr-CA";
+  (editor.preferences.voice as Record<string, string>).en = "Daniel";
+  t.deepEqual(preferences.skip, ["pagebreak"]);
+  t.deepEqual(preferences.languageOverrides, { en: "en-GB" });
+  t.deepEqual(preferences.voice, { fr: "Amélie" });
 });

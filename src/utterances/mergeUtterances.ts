@@ -3,7 +3,7 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import { isAriaSubstituted, substitutedOwnSelector } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
-import { stripLangTags } from "./language.js";
+import { overriddenLanguage, overrideLangTags, runLanguage, ssmlInLanguage, stripLangTags } from "./language.js";
 import { hasLangTag, splitOnLangTags, stripSsmlTags, type ResolvedNodeText } from "./text.js";
 import type { ExtractionFormat, LanguageMode } from "./types.js";
 import { isSinglePunctuationChar } from "../utils/text.js";
@@ -11,23 +11,29 @@ import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from ".
 import { markNonQuotable } from "./boundaryLocate.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
 
-// Concatenates `parts`, skipping redundant lone punctuation and spacing
-// pieces apart. `ranges[i]` is where `parts[i]` landed in `joined`.
-export function joinPieceTexts(parts: string[]): { joined: string; ranges: { start: number; end: number }[] } {
+// Concatenates `parts`, skipping redundant lone punctuation and spacing pieces apart, as decided
+// on `plainParts` (their plain text, for SSML `parts`). `ranges[i]` is where `parts[i]` landed in `joined`.
+export function joinPieceTexts(parts: string[], plainParts: string[] = parts): { joined: string; ranges: { start: number; end: number }[] } {
   let joined = "";
+  let plain = "";
   const ranges: { start: number; end: number }[] = [];
-  for (const part of parts) {
-    if (part.length === 1 && isSinglePunctuationChar(part) && joined.endsWith(part)) {
+  parts.forEach((part, i) => {
+    const plainPart = plainParts[i];
+    if (plainPart.length === 1 && isSinglePunctuationChar(plainPart) && plain.endsWith(plainPart)) {
       ranges.push({ start: joined.length, end: joined.length }); // redundant punctuation
-      continue;
+      return;
     }
     // Only synthesizes a joining space when the join would otherwise have
     // none at all — never adds a second one next to whitespace the pieces already carry.
-    if (joined && !startsWithBindingPunct(part) && !/\s$/.test(joined) && !/^\s/.test(part)) joined += " ";
+    if (plain && !startsWithBindingPunct(plainPart) && !/\s$/.test(plain) && !/^\s/.test(plainPart)) {
+      joined += " ";
+      plain += " ";
+    }
     const start = joined.length;
     joined += part;
+    plain += plainPart;
     ranges.push({ start, end: joined.length });
-  }
+  });
   return { joined, ranges };
 }
 
@@ -47,7 +53,7 @@ export function substitutedBareLocate(node: GuidedNavigationObject, ctx: WalkCon
 // One `offsets` entry per piece backed by real source text; an inner
 // merge's own `offsets` are reused as-is since each entry is already
 // anchored to its own source node's text. Synthesized pieces contribute nothing.
-function buildMergeOffsets(pieces: ReadiumSpeechUtterance[], pieceSources: SourceTrace, ctx: WalkContext): UtteranceOffset[] {
+export function buildMergeOffsets(pieces: ReadiumSpeechUtterance[], pieceSources: SourceTrace, ctx: WalkContext): UtteranceOffset[] {
   const offsets: UtteranceOffset[] = [];
   pieces.forEach((piece, i) => {
     if (piece.offsets) {
@@ -110,15 +116,13 @@ function buildMergeLocate(pieces: ReadiumSpeechUtterance[], pieceSources: Source
 }
 
 // Joins pieces read as one continuous occurrence into a single utterance.
-// Bails (`undefined`) on disagreeing `language`; still marked synthesized if
+// Bails (`undefined`) on disagreeing `language` (see `runLanguage()`); still marked synthesized if
 // any piece was, but real sourced pieces still get their own offsets/locate.
 export function mergeUtterances(
   pieces: ReadiumSpeechUtterance[],
   pieceSources: SourceTrace,
   ctx: WalkContext,
 ): ReadiumSpeechUtterance | undefined {
-  let language: string | undefined;
-  let sawLanguage = false;
   const parts: string[] = [];
   const usedPieces: ReadiumSpeechUtterance[] = [];
   const usedSources: SourceTrace = [];
@@ -129,14 +133,11 @@ export function mergeUtterances(
     parts.push(text);
     usedPieces.push(piece);
     usedSources.push(pieceSources[i]);
-    if (piece.language !== undefined) {
-      if (sawLanguage && piece.language !== language) return undefined;
-      language = piece.language;
-      sawLanguage = true;
-    }
   }
   if (parts.length === 0) return undefined;
-  const { joined } = joinPieceTexts(parts);
+  const language = runLanguage(usedPieces, ctx);
+  if (language === null) return undefined;
+  const { joined } = joinPieceTexts(ctx.format === "ssml" ? usedPieces.map((piece) => ssmlInLanguage(piece, language, ctx)) : parts);
   const merged: ReadiumSpeechUtterance = ctx.format === "ssml" ? { ssml: joined } : { plain: joined };
   if (language) merged.language = language;
   if (pieces.some((piece) => ctx.synthetic.has(piece))) ctx.synthetic.add(merged);
@@ -172,16 +173,18 @@ export function applyFormat(
   if (format === "plain" && language !== "block-level" && language !== "none" && resolved.ssml && hasLangTag(resolved.ssml)) {
     return splitOnLangTags(resolved.ssml, resolved.language).map((segment) => {
       const utterance: ReadiumSpeechUtterance = { plain: segment.plain };
-      if (segment.language) utterance.language = segment.language;
+      const segmentLanguage = overriddenLanguage(segment.language, ctx.languageOverrides);
+      if (segmentLanguage) utterance.language = segmentLanguage;
       ctx.pendingRange.set(utterance, { start: segment.start, end: segment.end });
       return utterance;
     });
   }
 
   const utterance: ReadiumSpeechUtterance = {};
-  if (resolved.language) utterance.language = resolved.language;
+  const resolvedLanguage = overriddenLanguage(resolved.language, ctx.languageOverrides);
+  if (resolvedLanguage) utterance.language = resolvedLanguage;
   if (format === "ssml") {
-    utterance.ssml = resolved.ssml ?? ssmlTextEscape(resolved.plain ?? "");
+    utterance.ssml = resolved.ssml ? overrideLangTags(resolved.ssml, ctx.languageOverrides) : ssmlTextEscape(resolved.plain ?? "");
   } else {
     utterance.plain = resolved.plain ?? stripSsmlTags(resolved.ssml ?? "");
   }

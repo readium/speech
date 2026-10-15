@@ -4,7 +4,7 @@ import type { GndRole } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { builtInSubstitutions } from "./builtInSubstitutions.js";
-import { contextualizationsForLocale } from "./contextualizations.js";
+import { catalogLocale, contextualizationsForLocale } from "./contextualizations.js";
 import { segmentSentences, type SentenceSegmenter } from "./sentenceSegmenter.js";
 import type {
   ContextualizationEntry,
@@ -17,7 +17,7 @@ import type {
 } from "./types.js";
 import {
   blockLevelRoles,
-  deferrablePlaceholderRoles,
+  inlineContextualizationRoles,
   descriptionFoldingRoles,
   valueFoldingRoles,
   contentlessRoles,
@@ -26,6 +26,8 @@ import {
 export interface WalkContext {
   // Backs only `resolvePluralPart()`'s `<role>.parts.<name>` lookups.
   i18n: i18n;
+  // The language of `i18n`'s catalog, which every contextualization is spoken in.
+  contextualizationLanguage: string;
   skip: ReadonlySet<GndRole>;
   contextualize: ReadonlySet<GndRole>;
   // Per-role contextualization shape overrides for this call — see
@@ -34,8 +36,9 @@ export interface WalkContext {
   // See `ExtractUtterancesOptions.contextualization.params`.
   contextualizationParams?: (role: GndRole, node: GuidedNavigationObject) => Record<string, string> | undefined;
   format: ExtractionFormat;
-  inlineContextualization: boolean;
+  inlineContextualization: ReadonlySet<GndRole>;
   language?: LanguageMode;
+  languageOverrides: Record<string, string>;
   segmentation: Segmentation;
   segmentationSuppressions: Record<string, string[]>;
   segmenter: SentenceSegmenter;
@@ -61,6 +64,9 @@ export interface WalkContext {
   // @readium/guided-navigation's object.ts) to that piece's own bare locate —
   // text never quote-searchable.
   edgeSubstitutedLocate: WeakMap<ReadiumSpeechUtterance, { leading?: LocatorOptions; trailing?: LocatorOptions }>;
+  // A sentence's pieces around its footnotes or pagebreaks, left unmerged for sentence segmentation to place:
+  // `inline` ones inside the sentence holding them, `after` ones right after it.
+  placeholderPieces: Map<ReadiumSpeechUtterance, { node: GuidedNavigationObject; placement?: "inline" | "after" }>;
 }
 
 // Parallel to `out`: which node produced each utterance. A sentence
@@ -68,7 +74,7 @@ export interface WalkContext {
 export type SourceTrace = (GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject] | undefined)[];
 
 export const blockLevelRoleSet: ReadonlySet<GndRole> = new Set(blockLevelRoles);
-export const deferrablePlaceholderRoleSet: ReadonlySet<GndRole> = new Set(deferrablePlaceholderRoles);
+export const inlineContextualizationRoleSet: ReadonlySet<GndRole> = new Set(inlineContextualizationRoles);
 export const descriptionFoldingRoleSet: ReadonlySet<GndRole> = new Set(descriptionFoldingRoles);
 export const valueFoldingRoleSet: ReadonlySet<GndRole> = new Set(valueFoldingRoles);
 export const contentlessRoleSet: ReadonlySet<GndRole> = new Set(contentlessRoles);
@@ -133,13 +139,15 @@ export async function makeWalkContext(nodes: GuidedNavigationObject[], options: 
   );
   return {
     i18n: makeContextualizer(locale, contextualizations),
+    contextualizationLanguage: catalogLocale(locale),
     skip: new Set(options.skip ?? []),
     contextualize: new Set(options.contextualize ?? []),
     contextualizationShapes: options.contextualization?.shapes ?? {},
     contextualizationParams: options.contextualization?.params,
     format: options.format ?? "plain",
-    inlineContextualization: options.inlineContextualization ?? false,
+    inlineContextualization: new Set(options.inlineContextualization ?? []),
     language: options.language ?? "block-level",
+    languageOverrides: options.languageOverrides ?? {},
     segmentation: options.segmentation?.mode ?? "structure",
     // segmentSentences() already applies builtInSuppressions internally
     // (Intl.Segmenter has no built-in equivalent of its own) — this is only
@@ -155,5 +163,6 @@ export async function makeWalkContext(nodes: GuidedNavigationObject[], options: 
     ancestorChains: buildAncestorChains(nodes),
     pendingRange: new Map(),
     edgeSubstitutedLocate: new WeakMap(),
+    placeholderPieces: new Map(),
   };
 }
