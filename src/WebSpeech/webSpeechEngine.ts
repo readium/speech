@@ -359,6 +359,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     }
 
     // Cancel any ongoing speech with Firefox workaround
+    const isReplacing = this.speechSynthesis.speaking;
     this.cancelCurrentSpeech();
     const generation = ++this.speakGeneration;
 
@@ -375,6 +376,12 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     // Ensure the utterance index is valid
     if (this.currentUtteranceIndex >= this.currentUtterances.length) {
       this.currentUtteranceIndex = 0;
+    }
+
+    // Safari ends an utterance spoken in the same task as cancel() at once, without speaking it
+    if (this.patches.isSafari && isReplacing) {
+      setTimeout(() => void this.speakCurrentUtterance(generation), 0);
+      return;
     }
 
     // Speak immediately for responsive navigation; voice resolution only

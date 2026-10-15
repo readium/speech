@@ -11,6 +11,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ### Fixed
 
 - With `language: "none"`, utterances keep the content's language when `loadGndContent()` is given one, instead of having none, so a `voice` record (e.g. `{ en: "…" }`) still applies instead of the engine's own voice.
+- In Safari, changing the rate, pitch, volume or voice while speaking no longer emits `"end"` for the restarted utterance without speaking it: Safari ends an utterance spoken right after `cancel()` at once, so `WebSpeechEngine` speaks it on the next task there.
 
 ## [0.15.0] - 2026-10-15
 
