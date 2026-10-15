@@ -21,7 +21,7 @@ import {
 } from "./contextualization.js";
 import { applyFormat, mergeUtterances } from "./mergeUtterances.js";
 import { isPageNumber } from "./pageNumber.js";
-import { formatEntryText, formatPlain, push, pushPiecesOrMerged } from "./utteranceOutput.js";
+import { formatDescription, formatEntryText, push, pushPiecesOrMerged } from "./utteranceOutput.js";
 import {
   blockLevelRoleSet,
   contentlessRoleSet,
@@ -188,7 +188,7 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
   const foldsDescription = roles.some((role) => descriptionFoldingRoleSet.has(role) && ctx.contextualize.has(role));
   const isTableCaption = roles.includes("table") && description !== undefined && !foldsDescription;
   if (isTableCaption) {
-    const utterance = formatPlain(description!, ctx);
+    const utterance = formatDescription(description!, node, ctx);
     scopeToQuote(utterance, description!, description!, node, ctx);
     push(out, sources, node, [utterance]);
   }
@@ -282,7 +282,7 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
   }
 
   if (description !== undefined && !foldsDescription && !isTableCaption) {
-    const utterance = formatPlain(description, ctx);
+    const utterance = formatDescription(description, node, ctx);
     // Only figure/table can fold real DOM text into description; other roles' is ARIA attribute text with no DOM location.
     if (roles.includes("figure")) scopeToQuote(utterance, description, description, node, ctx);
     push(out, sources, node, [utterance]);

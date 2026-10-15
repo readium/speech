@@ -17,3 +17,7 @@ export function descriptionOf(node: GuidedNavigationObject): string | undefined 
   if (!text) return undefined;
   return text.plain ?? (text.ssml !== undefined ? stripSsmlTags(text.ssml) : undefined);
 }
+
+export function descriptionLanguageOf(node: GuidedNavigationObject): string | undefined {
+  return node.description?.text?.language;
+}

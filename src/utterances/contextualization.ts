@@ -1,12 +1,14 @@
+import { ssmlAttrEscape, ssmlTextEscape } from "@readium/helpers";
 import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
+import { extractLangRegionFromBCP47 } from "../utils/language.js";
 import { overriddenLanguage } from "./language.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
-import { descriptionOf } from "./nodeFields.js";
+import { descriptionLanguageOf, descriptionOf } from "./nodeFields.js";
 import { roleDropOverrides } from "./roles.js";
 import { computeTableStructure, plainTextOf } from "./tableStructure.js";
-import { formatEntryText, push } from "./utteranceOutput.js";
+import { formatDescription, formatEntryText, push } from "./utteranceOutput.js";
 import { valueFoldingRoleSet, type SourceTrace, type WalkContext } from "./walkContext.js";
 
 // `variantKey`, when given, picks a nested named-variant leaf (e.g.
@@ -86,22 +88,62 @@ export function pushRoleContextualization(
   const isBlock = ctx.i18n.exists(`${role}.block.start`) || ctx.i18n.exists(`${role}.block.end`);
   if (isBlock && ctx.contextualizationShapes[role] !== "inline") {
     const base = phase === "before" ? `${role}.block.start` : `${role}.block.end`;
-    const text = resolveEntryText(ctx, base, variantKey, params);
-    if (text) {
-      const utterance = formatEntryText(text, ctx);
-      scopeToOwnValue(utterance, text, node, ctx, role, params);
-      push(out, sources, node, [utterance]);
-    }
+    push(out, sources, node, entryUtterances(base, variantKey, params, node, role, ctx));
     return;
   }
   if (phase === "before") {
-    const text = resolveEntryText(ctx, `${role}.inline`, variantKey, params);
-    if (text) {
-      const utterance = formatEntryText(text, ctx);
-      scopeToOwnValue(utterance, text, node, ctx, role, params);
-      push(out, sources, node, [utterance]);
-    }
+    push(out, sources, node, entryUtterances(`${role}.inline`, variantKey, params, node, role, ctx));
   }
+}
+
+const descriptionMarker = "\u0000";
+
+// An entry holding the node's description in another primary language than the catalog's wraps it in a `<lang>`
+// in SSML, and is split around it in plain text; in the same one, it's a single utterance in the description's tag.
+function entryUtterances(
+  base: string,
+  variantKey: string | undefined,
+  params: Record<string, string> | undefined,
+  node: GuidedNavigationObject,
+  role: string,
+  ctx: WalkContext,
+): ReadiumSpeechUtterance[] {
+  const text = resolveEntryText(ctx, base, variantKey, params);
+  if (!text) return [];
+  const description = params?.description;
+  const language =
+    ctx.language !== "none" && description !== undefined && description === descriptionOf(node)
+      ? overriddenLanguage(descriptionLanguageOf(node), ctx.languageOverrides)
+      : undefined;
+  const parts = language ? resolveEntryText(ctx, base, variantKey, { ...params, description: descriptionMarker })?.split(descriptionMarker) : undefined;
+  if (!language || !parts || parts.length < 2) {
+    const utterance = formatEntryText(text, ctx);
+    scopeToOwnValue(utterance, text, node, ctx, role, params);
+    return [utterance];
+  }
+  if (extractLangRegionFromBCP47(language)[0] === extractLangRegionFromBCP47(ctx.contextualizationLanguage)[0]) {
+    const utterance = formatEntryText(text, ctx);
+    utterance.language = language;
+    scopeToOwnValue(utterance, text, node, ctx, role, params);
+    return [utterance];
+  }
+  if (ctx.format === "ssml") {
+    const utterance = formatEntryText(text, ctx);
+    const wrapped = `<lang xml:lang="${ssmlAttrEscape(language)}">${ssmlTextEscape(description!)}</lang>`;
+    utterance.ssml = parts.map((part) => ssmlTextEscape(part)).join(wrapped);
+    scopeToOwnValue(utterance, text, node, ctx, role, params);
+    return [utterance];
+  }
+  const utterances: ReadiumSpeechUtterance[] = [];
+  parts.forEach((part, i) => {
+    if (i > 0) {
+      const own = formatDescription(description!, node, ctx);
+      if (role === "figure" || role === "table") scopeToQuote(own, description!, description!, node, ctx);
+      utterances.push(own);
+    }
+    if (part.trim()) utterances.push(formatEntryText(part.trim(), ctx));
+  });
+  return utterances;
 }
 
 // Falls back to the bare number when the catalog has no `parts` entry.
