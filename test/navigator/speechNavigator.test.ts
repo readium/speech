@@ -407,6 +407,42 @@ test("jumping while auto-paused resumes at the jumped-to index, not the original
   t.is(engine.getCurrentUtteranceIndex(), 2);
 });
 
+test("changing voice while auto-paused resumes at the withheld utterance, not the finished one", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([
+    { plain: "First.", language: "en" },
+    { plain: "Second.", language: "en" },
+  ]);
+  await navigator.submitPreferences(new SpeechPreferences({ autoPause: "utterance" }));
+
+  engine.emit({ type: "end" }); // finishes index 0, auto-pauses before index 1
+  await navigator.submitPreferences(new SpeechPreferences({ voice: "Samantha" }));
+  engine.emit({ type: "ready" });
+  t.is(navigator.getState(), "paused");
+
+  navigator.play();
+  t.is(engine.speakCalls.length, 1);
+  t.is(engine.getCurrentUtteranceIndex(), 1);
+});
+
+test("an extraction-affecting change while auto-paused resumes at the withheld utterance, not the finished one", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  await navigator.loadGndContent(footnoteThenParagraphsTree);
+  await navigator.submitPreferences(new SpeechPreferences({ autoPause: "utterance" }));
+
+  engine.emit({ type: "end" }); // finishes "First.", auto-pauses before "Second."
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  engine.emit({ type: "ready" });
+  t.is(navigator.getState(), "paused");
+
+  navigator.play();
+  const expectedIndex = navigator.getContentQueue().findIndex((u) => u.plain === "Second.");
+  t.is(engine.speakCalls.length, 1);
+  t.is(engine.getCurrentUtteranceIndex(), expectedIndex);
+});
+
 test("prosody-only submitPreferences mid-playback does not reload the queue", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);

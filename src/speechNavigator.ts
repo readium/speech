@@ -289,7 +289,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     if (!this.source) return;
     const resumeState = this.navigatorState === "playing" || this.navigatorState === "paused" ? this.navigatorState : null;
     const oldSources = this.contentSources;
-    const oldIndex = this.getCurrentUtteranceIndex();
+    const oldIndex = this.resumePosition();
 
     const { utterances, sources, blockStarts } = await extractUtterancesWithSources(this.source, {
       format: this._settings.format,
@@ -341,6 +341,11 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   private getCurrentUtteranceIndex(): number {
     return this.engine.getCurrentUtteranceIndex();
+  }
+
+  // Where play() continues: the utterance autoPause or a pause between utterances withheld, else the current one.
+  private resumePosition(): number {
+    return this.pendingAutoPauseIndex ?? this.getCurrentUtteranceIndex();
   }
 
   // Playback Control - Navigator coordinates engine operations
@@ -523,7 +528,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       await this.reextract();
     } else if (this.loadedQueue.length > 0 && !this.sameSettingValue(previousSettings.voice, this._settings.voice)) {
       const resumeState = this.navigatorState === "playing" || this.navigatorState === "paused" ? this.navigatorState : null;
-      this.setContentQueue(this.loadedQueue, resumeState ? this.getCurrentUtteranceIndex() : null, resumeState);
+      this.setContentQueue(this.loadedQueue, resumeState ? this.resumePosition() : null, resumeState);
     }
   }
 
