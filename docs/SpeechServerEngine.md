@@ -55,6 +55,12 @@ interface SpeechServerEngineOptions {
 - `format`: see below.
 - `timeoutMs`: see [Stall detection](#stall-detection).
 
+## Voices
+
+`initialize()` fetches `/voices` and picks the default voice by the browser's languages, as `WebSpeechEngine` does. `ReadiumSpeechNavigator` calls it on construction. Until a voice is set with `setVoice()`, requests are sent with that default, and `getCurrentVoice()` stays `null`.
+
+Each utterance is sent with its own [`voice`](Playback.md#speaking-an-utterance-with-its-own-voice) when the server has it, else following its `language` as described in [Playback.md](Playback.md#speaking-in-an-utterances-own-content-language): the selected or default voice when it speaks that language, else the best server voice for it, and `"languagefallback"` when there is none. The voice picked for a language is kept for the session.
+
 ## Format selection
 
 ```ts

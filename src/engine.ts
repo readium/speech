@@ -4,8 +4,8 @@ import { ReadiumSpeechVoice } from "./voices/types.js";
 
 export interface ReadiumSpeechPlaybackEngine {
   // Lifecycle hook a navigator can call after construction, before first use
-  // (e.g. WebSpeechEngine loading its voice list). Engines that don't need
-  // async setup, such as SpeechServerEngine, can omit it.
+  // (e.g. loading the voice list and picking a default voice). Engines that don't
+  // need async setup can omit it.
   initialize?(): Promise<unknown>;
 
   // Queue Management

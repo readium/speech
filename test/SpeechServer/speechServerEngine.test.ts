@@ -629,6 +629,86 @@ test.serial("an utterance's own voice is sent, decides whether the server or the
   t.deepEqual(started, ["urn:readium:tts:pocket:lea", "urn:readium:tts:pocket:alba"]);
 });
 
+const voiceEndpoints = { voices: "http://localhost:8000/voices", synthesize: "http://localhost:8000/synthesize", service: "http://localhost:8000/service" };
+
+const sentVoices = (calls: { url: string; init?: any }[]) => calls.filter(c => c.url.endsWith("/synthesize")).map(c => JSON.parse(c.init.body).voice);
+
+test.serial("content in another language than the selected voice's is sent with a voice of its language, region-strict, preferring the same boundary support", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: voiceEndpoints, fetch: fetchImpl });
+  engine.setAvailableVoices([
+    makeServerVoice({ controls: { boundary: true } }),
+    makeServerVoice({ name: "Lea", identifier: "urn:readium:tts:pocket:lea", language: "fr-FR", controls: { boundary: false } }),
+    makeServerVoice({ name: "Remi", identifier: "urn:readium:tts:pocket:remi", language: "fr-FR", controls: { boundary: true } }),
+    makeServerVoice({ name: "Celine", identifier: "urn:readium:tts:pocket:celine", language: "fr-CA", controls: { boundary: true } }),
+  ] as any);
+  engine.setVoice("urn:readium:tts:pocket:alba");
+  engine.loadUtterances([
+    { plain: "Bonjour", language: "fr-FR" },
+    { plain: "Hello", language: "en-GB" },
+    { plain: "Allo", language: "fr-CA" },
+  ]);
+
+  for (const index of [0, 1, 2]) {
+    engine.speak(index);
+    await flush();
+    await flush();
+  }
+
+  const voices = sentVoices(calls);
+  t.true(voices.includes("urn:readium:tts:pocket:remi"), "fr-FR content gets the fr-FR voice sending boundaries, like the selected one");
+  t.false(voices.includes("urn:readium:tts:pocket:lea"));
+  t.true(voices.includes("urn:readium:tts:pocket:celine"), "fr-CA content doesn't get an fr-FR voice");
+  t.true(voices.includes("urn:readium:tts:pocket:alba"), "en-GB content keeps the en-US selected voice");
+});
+
+test.serial("content in a language no voice speaks keeps the selected voice and fires languagefallback", async (t) => {
+  const { fetchImpl, calls } = createMockFetch({
+    synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+  });
+  const engine = new SpeechServerEngine({ endpoints: voiceEndpoints, fetch: fetchImpl });
+  engine.setAvailableVoices([makeServerVoice()] as any);
+  engine.setVoice("urn:readium:tts:pocket:alba");
+  const fallbacks: any[] = [];
+  engine.on("languagefallback", (event: any) => fallbacks.push(event.detail));
+  engine.loadUtterances([{ plain: "Hallo", language: "de-DE" }, { plain: "Tschüss", language: "de-DE" }]);
+
+  engine.speak(0);
+  await flush();
+  await flush();
+
+  t.true(sentVoices(calls).every(voice => voice === "urn:readium:tts:pocket:alba"));
+  t.deepEqual(fallbacks, [{ language: "de-DE", reason: "no-matching-voice" }], "fired once per language, prefetches sharing the pick");
+});
+
+test.serial("initialize() picks a default voice by the browser's languages, sent until a voice is set", async (t) => {
+  const originalNavigator = Object.getOwnPropertyDescriptor(globalThis, "navigator");
+  Object.defineProperty(globalThis, "navigator", { value: { languages: ["fr-FR", "en-US"], onLine: true }, configurable: true, writable: true });
+  try {
+    const { fetchImpl, calls } = createMockFetch({
+      voices: () => [makeServerVoice(), makeServerVoice({ name: "Lea", identifier: "urn:readium:tts:pocket:lea", language: "fr-FR" })],
+      synthesize: () => ({ json: { audio: wavBase64(), format: "wav", boundaries: null } })
+    });
+    const engine = new SpeechServerEngine({ endpoints: voiceEndpoints, fetch: fetchImpl });
+    await engine.initialize();
+    const started: any[] = [];
+    engine.on("start", (event: any) => started.push(event.detail?.voice?.identifier));
+    engine.loadUtterances([{ plain: "Bonjour" }]);
+
+    engine.speak(0);
+    await flush();
+    await flush();
+
+    t.is(sentVoices(calls)[0], "urn:readium:tts:pocket:lea");
+    t.deepEqual(started, ["urn:readium:tts:pocket:lea"]);
+    t.is(engine.getCurrentVoice(), null, "the default isn't a selected voice");
+  } finally {
+    if (originalNavigator) Object.defineProperty(globalThis, "navigator", originalNavigator);
+  }
+});
+
 test.serial("setVoice(string) with an uncached identifier resolves controls.speed in the background, avoiding a doubled rate once resolved", async (t) => {
   const { fetchImpl } = createMockFetch({
     voices: () => [makeServerVoice()],

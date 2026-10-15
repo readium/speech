@@ -5,7 +5,7 @@ import { ReadiumSpeechVoice } from "../voices/types.js";
 import { WebSpeechVoiceManager } from "./WebSpeechVoiceManager.js";
 import { normalizeLanguageCode } from "../voices/languages.js";
 import { filterByBoundarySupport } from "../voices/sorting.js";
-import { extractLangRegionFromBCP47 } from "../utils/language.js";
+import { keepsSelectedVoice, voiceMatchesLanguage } from "../voices/languageMatching.js";
 
 import { detectFeatures, WebSpeechFeatures } from "../utils/features.js";
 import { detectPlatformFeatures, WebSpeechPlatformPatches } from "../utils/patches.js";
@@ -147,18 +147,6 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return this.currentVoice || this.defaultVoice;
   }
 
-  // No cross-region fallback: fr-FR content must not match an fr-CA voice.
-  private voiceMatchesLanguage(voice: ReadiumSpeechVoice, language: string): boolean {
-    const [lang, region] = extractLangRegionFromBCP47(language);
-    const [voiceLang, voiceRegion] = extractLangRegionFromBCP47(voice.language);
-    return voiceLang === lang && (!region || voiceRegion === region);
-  }
-
-  // The selected voice keeps content in its own language, whatever the region.
-  private keepsSelectedVoice(voice: ReadiumSpeechVoice | null, language: string): boolean {
-    return !!voice && extractLangRegionFromBCP47(voice.language)[0] === extractLangRegionFromBCP47(language)[0];
-  }
-
   private languageCacheKey(language: string, needsBoundary: boolean): string {
     return `${language}:${needsBoundary}`;
   }
@@ -186,7 +174,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     const language = normalizeLanguageCode(content.language);
 
-    if (this.keepsSelectedVoice(selectedVoice, language)) {
+    if (keepsSelectedVoice(selectedVoice, language)) {
       return selectedVoice;
     }
 
@@ -227,7 +215,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
         .map(content => content.language)
         .filter((language): language is string => !!language)
         .map(language => normalizeLanguageCode(language))
-        .filter(language => !this.keepsSelectedVoice(selectedVoice, language))
+        .filter(language => !keepsSelectedVoice(selectedVoice, language))
         .filter(language => !this.languageVoiceCache.has(this.languageCacheKey(language, needsBoundary)))
     );
 
@@ -240,7 +228,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
         // Broaden the singleton in case initialize() was scoped narrower than this content needs
         await WebSpeechVoiceManager.initialize({ languages: [language] });
 
-        const languageMatches = this.voices.filter(voice => this.voiceMatchesLanguage(voice, language));
+        const languageMatches = this.voices.filter(voice => voiceMatchesLanguage(voice, language));
         const candidates = filterByBoundarySupport(languageMatches, needsBoundary);
 
         const sorted = await this.voiceManager!.sortVoicesByQuality(candidates);
