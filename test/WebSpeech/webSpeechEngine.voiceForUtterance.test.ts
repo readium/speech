@@ -302,6 +302,19 @@ test.serial("voices of languages the manager is initialized with later are avail
   t.is(spoken[0].voice?.name, "French Voice");
 });
 
+test.serial("an utterance's own voice of a language the manager wasn't initialized with is loaded and spoken", async (t) => {
+  const { spoken } = setGlobals(mockVoices);
+  const engine = new WebSpeechEngine();
+  await engine.initialize({ languages: ["en"] });
+  t.false((await engine.getAvailableVoices()).some((v: any) => v.language === "fr-FR"));
+
+  engine.loadUtterances([{ id: "1", plain: "hello", language: "en-US", voice: "French Voice-fr-FR" }]);
+  engine.speak();
+  await new Promise(resolve => setTimeout(resolve, 20));
+
+  t.is(spoken[0].voice?.name, "French Voice");
+});
+
 test.serial("getCurrentVoice() returns the default voice until one is set", async (t) => {
   setGlobals(mockVoices);
   const engine = await makeEngine();

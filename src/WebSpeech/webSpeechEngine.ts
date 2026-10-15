@@ -33,6 +33,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // Keyed by `${language}:${needsBoundary}` — the boundary requirement rides in the key
   // so a voice switch that flips it warms/reads a distinct slot instead of a stale one.
   private languageVoiceCache: Map<string, ReadiumSpeechVoice | null> = new Map();
+  // Languages of utterances' own voices loaded into the manager, even if it still lacks the voice
+  private loadedOwnVoiceLanguages: Set<string> = new Set();
   private warmingLanguages: Map<string, Promise<void>> = new Map();
   private speakGeneration: number = 0;
 
@@ -158,12 +160,23 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return voices.find(voice => voice.voiceURI === content.voice) ?? voices.find(voice => voice.name === content.voice);
   }
 
+  // The language of the utterance's voice when the browser has it but the manager hasn't loaded that language.
+  private unloadedOwnVoiceLanguage(content: ReadiumSpeechUtterance): string | undefined {
+    if (!content.voice || this.ownVoice(content)) return undefined;
+    const browserVoices = this.speechSynthesis.getVoices();
+    const language = (browserVoices.find(voice => voice.voiceURI === content.voice) ?? browserVoices.find(voice => voice.name === content.voice))?.lang;
+    return language && !this.loadedOwnVoiceLanguages.has(language) ? language : undefined;
+  }
+
   // Returns `undefined` (not a fallback voice) when content.language hasn't
-  // been warmed into languageVoiceCache yet — callers must await for it.
+  // been warmed into languageVoiceCache yet, or its own voice's language loaded — callers must await for it.
   private voiceForUtteranceSync(content: ReadiumSpeechUtterance): ReadiumSpeechVoice | null | undefined {
     const ownVoice = this.ownVoice(content);
     if (ownVoice) {
       return ownVoice;
+    }
+    if (this.unloadedOwnVoiceLanguage(content)) {
+      return undefined;
     }
 
     const selectedVoice = this.getCurrentVoiceForUtterance(this.currentVoice);
@@ -195,6 +208,13 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       return sync;
     }
 
+    const ownVoiceLanguage = this.unloadedOwnVoiceLanguage(content);
+    if (ownVoiceLanguage) {
+      await WebSpeechVoiceManager.initialize({ languages: [ownVoiceLanguage] });
+      this.loadedOwnVoiceLanguages.add(ownVoiceLanguage);
+      const synced = this.voiceForUtteranceSync(content);
+      if (synced !== undefined) return synced;
+    }
     await this.warmLanguageVoiceCache([content]);
     return this.voiceForUtteranceSync(content) ?? this.getCurrentVoiceForUtterance(this.currentVoice);
   }

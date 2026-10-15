@@ -139,7 +139,7 @@ See [Highlighting.md](Highlighting.md#highlighting-from-locateoffsets) for how t
 
 ### Speaking an utterance with its own voice
 
-An utterance's `voice` is the voice an engine speaks it with, when it has that voice: matched by `voiceURI` on `WebSpeechEngine` (then `name`, which voices of different quality or languages can share), by `identifier` or `name` on `SpeechServerEngine`. Without one, or with a voice the engine doesn't have (e.g. a `WebSpeechEngine` voice once `FallbackSpeechEngine` has swapped to a server), the engine uses its own choice, following the utterance's content language as below.
+An utterance's `voice` is the voice an engine speaks it with, when it has that voice: matched by `voiceURI` on `WebSpeechEngine` (then `name`, which voices of different quality or languages can share), among every voice of the browser, loading its language's voice data if `WebSpeechVoiceManager.initialize()` wasn't called with it; by `identifier` or `name` on `SpeechServerEngine`. Without one, or with a voice the engine doesn't have (e.g. a `WebSpeechEngine` voice once `FallbackSpeechEngine` has swapped to a server), the engine uses its own choice, following the utterance's content language as below.
 
 `ReadiumSpeechNavigator` sets it on the utterances without one from its [`voice` preference](Preferences.md#voice), so it's only worth setting by hand for a specific utterance.
 
