@@ -115,3 +115,13 @@ test("explicit null is preserved (not coerced to undefined) for guarded fields",
   t.is(prefs.verbosity, null);
   t.is(prefs.inlineContextualization, null);
 });
+
+test("keeps its own copy of array and record preferences", (t) => {
+  const skip = ["pagebreak"];
+  const languageOverrides = { en: "en-GB" };
+  const prefs = new SpeechPreferences({ skip, languageOverrides });
+  skip.push("footnote");
+  languageOverrides.en = "en-US";
+  t.deepEqual(prefs.skip, ["pagebreak"]);
+  t.deepEqual(prefs.languageOverrides, { en: "en-GB" });
+});

@@ -34,6 +34,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - An extraction-affecting preference changed while paused between utterances (by `autoPause`, or `pause()` during `pauseDuration`) resumes at the next utterance, instead of replaying the one that just ended.
 - An extraction-affecting preference changed again before the engine is ready with the previous change still resumes where playback was, instead of starting over from the first utterance.
 - With `segmentation: "sentence"` and `language: "none"`, a sentence joined across several pieces no longer gets `language: "en"`.
+- Preferences keep their own copy of arrays and records (`skip`, `contextualize`, `inlineContextualization`, `languageOverrides`, `voice`): changing one in place in a `preferencesEditor`, or in the object passed in, no longer changes the navigator's preferences without `submitPreferences()`.
 - `WebSpeechVoiceManager` reports `controls.boundary: false` for every voice on Android, which never emits boundary events. Voices Chrome names after their language (e.g. “English United States”) aren’t in the JSON, and previously defaulted to supporting boundaries.
 
 ## [0.14.1] - 2026-10-08

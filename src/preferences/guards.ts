@@ -1,4 +1,5 @@
 // Invalid values drop to undefined rather than throwing — SpeechPreferencesEditor's setters throw separately.
+// Arrays and records are copied, so later changes to the caller's object don't reach stored preferences.
 
 export function ensureBoolean(value: boolean | null | undefined): boolean | null | undefined {
   if (value === undefined || value === null) return value;
@@ -21,7 +22,7 @@ export function ensureValueInRange(value: number | null | undefined, range: read
 export function ensureStringRecord(value: Record<string, string> | null | undefined): Record<string, string> | null | undefined {
   if (value === undefined || value === null) return value;
   if (typeof value !== "object" || Array.isArray(value)) return undefined;
-  return Object.values(value).every((item) => typeof item === "string") ? value : undefined;
+  return Object.values(value).every((item) => typeof item === "string") ? { ...value } : undefined;
 }
 
 export function ensureStringOrStringRecord(value: string | Record<string, string> | null | undefined): string | Record<string, string> | null | undefined {
@@ -31,5 +32,5 @@ export function ensureStringOrStringRecord(value: string | Record<string, string
 // GND roles are an open vocabulary — only the shape is checked, not role names.
 export function ensureStringArray(value: string[] | null | undefined): string[] | null | undefined {
   if (value === undefined || value === null) return value;
-  return Array.isArray(value) && value.every((item) => typeof item === "string") ? value : undefined;
+  return Array.isArray(value) && value.every((item) => typeof item === "string") ? [...value] : undefined;
 }

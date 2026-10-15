@@ -114,3 +114,14 @@ test("volume is a range preference with the expected bounds", (t) => {
   t.is(editor.volume.step, 0.05);
   t.is(editor.volume.effectiveValue, 1);
 });
+
+test("editing an array or record preference in place leaves the navigator's preferences untouched", (t) => {
+  const preferences = new SpeechPreferences({ skip: ["pagebreak"], languageOverrides: { en: "en-GB" }, voice: { fr: "Amélie" } });
+  const editor = makeEditor(preferences);
+  editor.preferences.skip!.push("footnote");
+  editor.preferences.languageOverrides!.fr = "fr-CA";
+  (editor.preferences.voice as Record<string, string>).en = "Daniel";
+  t.deepEqual(preferences.skip, ["pagebreak"]);
+  t.deepEqual(preferences.languageOverrides, { en: "en-GB" });
+  t.deepEqual(preferences.voice, { fr: "Amélie" });
+});
