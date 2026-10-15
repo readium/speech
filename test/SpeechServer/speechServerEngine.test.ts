@@ -703,7 +703,7 @@ test.serial("initialize() picks a default voice by the browser's languages, sent
 
     t.is(sentVoices(calls)[0], "urn:readium:tts:pocket:lea");
     t.deepEqual(started, ["urn:readium:tts:pocket:lea"]);
-    t.is(engine.getCurrentVoice(), null, "the default isn't a selected voice");
+    t.is(engine.getCurrentVoice()?.identifier, "urn:readium:tts:pocket:lea", "getCurrentVoice() returns the default until a voice is set");
   } finally {
     if (originalNavigator) Object.defineProperty(globalThis, "navigator", originalNavigator);
   }

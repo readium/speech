@@ -343,8 +343,9 @@ export class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     }
   }
 
+  // The default voice until one is set
   getCurrentVoice(): ReadiumSpeechVoice | null {
-    return this.currentVoice;
+    return this.currentVoice ?? this.defaultVoice;
   }
 
   async getAvailableVoices(): Promise<ReadiumSpeechVoice[]> {

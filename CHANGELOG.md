@@ -25,6 +25,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ### Fixed
 
 - `SpeechServerEngine` speaks each utterance in its `language`, like `WebSpeechEngine`: with the selected voice when it speaks that language, else the best server voice for it, firing `"languagefallback"` when there is none. Its new `initialize()` picks a default voice by the browser's languages, used until a voice is set, instead of sending requests without one.
+- `getCurrentVoice()` returns the engine's default voice until one is set, on `WebSpeechEngine` and `SpeechServerEngine`, instead of `null`.
 - `WebSpeechEngine` has the voices of languages `WebSpeechVoiceManager.initialize()` is later called with, in `getAvailableVoices()` and for an utterance's `voice`, instead of only those it was initialized with.
 - `WebSpeechVoiceManager.convertToSpeechSynthesisVoice()` matches a voice's `voiceURI` first, then its `originalName`, then its normalized name: a voice sharing its normalized name with another quality or language (e.g. Apple's Eddy) no longer resolves to whichever came first.
 - With `segmentation: "sentence"`, a paragraph holding an inline footnote or pagebreak is split into sentences, the footnote or pagebreak staying inside its own. It was spoken as one utterance once announced, and split inside the footnote otherwise.

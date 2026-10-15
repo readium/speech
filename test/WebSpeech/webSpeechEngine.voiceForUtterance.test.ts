@@ -301,3 +301,14 @@ test.serial("voices of languages the manager is initialized with later are avail
 
   t.is(spoken[0].voice?.name, "French Voice");
 });
+
+test.serial("getCurrentVoice() returns the default voice until one is set", async (t) => {
+  setGlobals(mockVoices);
+  const engine = await makeEngine();
+  const defaultVoice = engine.getCurrentVoice();
+  t.truthy(defaultVoice);
+
+  const french = (await engine.getAvailableVoices()).find((v: any) => v.language === "fr-FR")!;
+  await engine.setVoice(french);
+  t.is(engine.getCurrentVoice(), french);
+});
