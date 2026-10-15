@@ -34,23 +34,6 @@
           "contextualize": [
             "acknowledgments"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "acknowledgments"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "acknowledgments"
-          ],
           "language": "always"
         },
         {
@@ -59,25 +42,6 @@
             "acknowledgments"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "acknowledgments"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "acknowledgments"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -98,26 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the acknowledgments.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "acknowledgments"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "plain": "The author thanks the keepers of Fastnet Rock for their recollections."
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "acknowledgments"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
+          "plain": "End of the acknowledgments.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -131,25 +93,6 @@
             "acknowledgments"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "acknowledgments"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "acknowledgments"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -201,23 +144,6 @@
           "contextualize": [
             "acknowledgments"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "acknowledgments"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "acknowledgments"
-          ],
           "language": "always"
         },
         {
@@ -226,25 +152,6 @@
             "acknowledgments"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "acknowledgments"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "acknowledgments"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -265,26 +172,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the acknowledgments.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "acknowledgments"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "ssml": "The author thanks the keepers of Fastnet Rock for their recollections."
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "acknowledgments"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
+          "ssml": "End of the acknowledgments.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -298,25 +203,6 @@
             "acknowledgments"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "acknowledgments"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "acknowledgments"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }

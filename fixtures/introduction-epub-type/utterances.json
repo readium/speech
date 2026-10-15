@@ -34,23 +34,6 @@
           "contextualize": [
             "introduction"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "introduction"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "introduction"
-          ],
           "language": "always"
         },
         {
@@ -59,25 +42,6 @@
             "introduction"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "introduction"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "introduction"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -98,26 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the introduction.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "introduction"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "plain": "This work explores the history of coastal lighthouses."
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "introduction"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
+          "plain": "End of the introduction.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -131,25 +93,6 @@
             "introduction"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "introduction"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "introduction"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -201,23 +144,6 @@
           "contextualize": [
             "introduction"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "introduction"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "introduction"
-          ],
           "language": "always"
         },
         {
@@ -226,25 +152,6 @@
             "introduction"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "introduction"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "introduction"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -265,26 +172,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the introduction.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "introduction"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "ssml": "This work explores the history of coastal lighthouses."
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "introduction"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
+          "ssml": "End of the introduction.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -298,25 +203,6 @@
             "introduction"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "introduction"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "introduction"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }

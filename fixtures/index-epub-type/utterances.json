@@ -37,23 +37,6 @@
           "contextualize": [
             "index"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index"
-          ],
           "language": "always"
         },
         {
@@ -62,25 +45,6 @@
             "index"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -101,26 +65,27 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the index.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "index"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "plain": "Fresnel lens"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "index"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "plain": "Keepers"
         },
+        {
+          "plain": "End of the index.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -134,25 +99,6 @@
             "index"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -195,23 +141,6 @@
           "contextualize": [
             "list"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
           "language": "always"
         },
         {
@@ -220,25 +149,6 @@
             "list"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -259,26 +169,27 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "plain": "Fresnel lens"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "plain": "Keepers"
         },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -292,25 +203,6 @@
             "list"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -356,25 +248,6 @@
             "index",
             "list"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "list"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "list"
-          ],
           "language": "always"
         },
         {
@@ -384,27 +257,6 @@
             "list"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -427,28 +279,35 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the index.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "list"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "plain": "Start of the list.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "list"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "plain": "Fresnel lens"
         },
+        {
+          "plain": "Keepers"
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "End of the index.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -464,27 +323,6 @@
             "list"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -533,23 +371,6 @@
           "contextualize": [
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
           "language": "always"
         },
         {
@@ -558,25 +379,6 @@
             "listItem"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -597,26 +399,27 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "List item.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "plain": "Fresnel lens"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "plain": "List item.",
+          "language": "en"
         },
+        {
+          "plain": "Keepers"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -630,25 +433,6 @@
             "listItem"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -694,25 +478,6 @@
             "index",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "listItem"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "listItem"
-          ],
           "language": "always"
         },
         {
@@ -722,27 +487,6 @@
             "listItem"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -765,28 +509,35 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the index.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "plain": "List item.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "plain": "Fresnel lens"
         },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Keepers"
+        },
+        {
+          "plain": "End of the index.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -802,27 +553,6 @@
             "listItem"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -874,25 +604,6 @@
             "list",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
           "language": "always"
         },
         {
@@ -902,27 +613,6 @@
             "listItem"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -945,28 +635,35 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "plain": "List item.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "plain": "Fresnel lens"
         },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Keepers"
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -982,27 +679,6 @@
             "listItem"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1057,27 +733,6 @@
             "list",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "list",
-            "listItem"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "list",
-            "listItem"
-          ],
           "language": "always"
         },
         {
@@ -1088,29 +743,6 @@
             "listItem"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1135,30 +767,43 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the index.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "plain": "Start of the list.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "plain": "List item.",
+          "language": "en"
         },
+        {
+          "plain": "Fresnel lens"
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Keepers"
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "End of the index.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -1176,29 +821,6 @@
             "listItem"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "index",
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1268,23 +890,6 @@
           "contextualize": [
             "index"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index"
-          ],
           "language": "always"
         },
         {
@@ -1293,25 +898,6 @@
             "index"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1332,26 +918,27 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the index.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "index"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "ssml": "Fresnel lens"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "index"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "ssml": "Keepers"
         },
+        {
+          "ssml": "End of the index.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -1365,25 +952,6 @@
             "index"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1426,23 +994,6 @@
           "contextualize": [
             "list"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
           "language": "always"
         },
         {
@@ -1451,25 +1002,6 @@
             "list"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1490,26 +1022,27 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "ssml": "Fresnel lens"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "ssml": "Keepers"
         },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -1523,25 +1056,6 @@
             "list"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1587,25 +1101,6 @@
             "index",
             "list"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "list"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "list"
-          ],
           "language": "always"
         },
         {
@@ -1615,27 +1110,6 @@
             "list"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1658,28 +1132,35 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the index.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "list"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "ssml": "Start of the list.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "list"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "ssml": "Fresnel lens"
         },
+        {
+          "ssml": "Keepers"
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "End of the index.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -1695,27 +1176,6 @@
             "list"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1764,23 +1224,6 @@
           "contextualize": [
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
           "language": "always"
         },
         {
@@ -1789,25 +1232,6 @@
             "listItem"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1828,26 +1252,27 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "ssml": "Fresnel lens"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "ssml": "List item.",
+          "language": "en"
         },
+        {
+          "ssml": "Keepers"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -1861,25 +1286,6 @@
             "listItem"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1925,25 +1331,6 @@
             "index",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "listItem"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "listItem"
-          ],
           "language": "always"
         },
         {
@@ -1953,27 +1340,6 @@
             "listItem"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1996,28 +1362,35 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the index.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "ssml": "List item.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "ssml": "Fresnel lens"
         },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Keepers"
+        },
+        {
+          "ssml": "End of the index.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -2033,27 +1406,6 @@
             "listItem"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2105,25 +1457,6 @@
             "list",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
           "language": "always"
         },
         {
@@ -2133,27 +1466,6 @@
             "listItem"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2176,28 +1488,35 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "ssml": "List item.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "ssml": "Fresnel lens"
         },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Keepers"
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -2213,27 +1532,6 @@
             "listItem"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2288,27 +1586,6 @@
             "list",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "list",
-            "listItem"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "list",
-            "listItem"
-          ],
           "language": "always"
         },
         {
@@ -2319,29 +1596,6 @@
             "listItem"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2366,30 +1620,43 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the index.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "ssml": "Start of the list.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
+          "ssml": "List item.",
+          "language": "en"
         },
+        {
+          "ssml": "Fresnel lens"
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Keepers"
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "End of the index.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -2407,29 +1674,6 @@
             "listItem"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "index",
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }

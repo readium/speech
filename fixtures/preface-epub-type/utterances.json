@@ -34,23 +34,6 @@
           "contextualize": [
             "preface"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "preface"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "preface"
-          ],
           "language": "always"
         },
         {
@@ -59,25 +42,6 @@
             "preface"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "preface"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "preface"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -98,26 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the preface.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "preface"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "plain": "This edition adds a chapter on automation."
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "preface"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
+          "plain": "End of the preface.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -131,25 +93,6 @@
             "preface"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "preface"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "preface"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -201,23 +144,6 @@
           "contextualize": [
             "preface"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "preface"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "preface"
-          ],
           "language": "always"
         },
         {
@@ -226,25 +152,6 @@
             "preface"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "preface"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "preface"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -265,26 +172,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the preface.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "preface"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "ssml": "This edition adds a chapter on automation."
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "preface"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
+          "ssml": "End of the preface.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -298,25 +203,6 @@
             "preface"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "preface"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "preface"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }

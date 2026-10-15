@@ -34,23 +34,6 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "aside"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "aside"
-          ],
           "language": "always"
         },
         {
@@ -59,25 +42,6 @@
             "aside"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -98,26 +62,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the aside.",
+          "language": "en"
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "plain": "A tangential note, set apart from the main text."
         },
         {
-          "format": "plain",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
+          "plain": "End of the aside.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -131,25 +93,6 @@
             "aside"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -189,23 +132,6 @@
           "skip": [
             "aside"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
           "language": "always"
         },
         {
@@ -214,25 +140,6 @@
             "aside"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -259,25 +166,6 @@
           "skip": [
             "aside"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
           "language": "none"
         },
         {
@@ -286,25 +174,6 @@
             "aside"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -338,29 +207,6 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
           "language": "always"
         },
         {
@@ -372,31 +218,6 @@
             "aside"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -432,31 +253,6 @@
           "contextualize": [
             "aside"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
           "language": "none"
         },
         {
@@ -468,31 +264,6 @@
             "aside"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -534,23 +305,6 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "aside"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "aside"
-          ],
           "language": "always"
         },
         {
@@ -559,25 +313,6 @@
             "aside"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -598,26 +333,24 @@
           "segmentation": {
             "mode": "sentence"
           }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the aside.",
+          "language": "en"
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
+          "ssml": "A tangential note, set apart from the main text."
         },
         {
-          "format": "ssml",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
+          "ssml": "End of the aside.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -631,25 +364,6 @@
             "aside"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -689,23 +403,6 @@
           "skip": [
             "aside"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
           "language": "always"
         },
         {
@@ -714,25 +411,6 @@
             "aside"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -759,25 +437,6 @@
           "skip": [
             "aside"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
           "language": "none"
         },
         {
@@ -786,25 +445,6 @@
             "aside"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -838,29 +478,6 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
           "language": "always"
         },
         {
@@ -872,31 +489,6 @@
             "aside"
           ],
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -932,31 +524,6 @@
           "contextualize": [
             "aside"
           ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
           "language": "none"
         },
         {
@@ -968,31 +535,6 @@
             "aside"
           ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }

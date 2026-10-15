@@ -22,6 +22,7 @@ interface ReadiumSpeechUtterance {
   plain?: string;
   ssml?: string;
   language?: string; // BCP 47
+  voice?: string; // never set by extraction, see Playback.md
   locate?: LocatorOptions; // Decoded from the source node's textref — spread into createLocator()/decorate(), see GuidedNavigation.md
   offsets?: UtteranceOffset[]; // Ranges of plain/ssml backed by real source text, each with its own locate
 }
@@ -45,7 +46,8 @@ interface ExtractUtterancesOptions {
   contextualizationLocale?: string;
   contextualization?: ContextualizationOptions;
   language?: "none" | "block-level" | "always";
-  inlineContextualization?: boolean;
+  languageOverrides?: Record<string, string>;
+  inlineContextualization?: GndRole[];
   segmentation?: SegmentationOptions;
   substitutions?: SubstitutionTable;
 }
@@ -91,7 +93,8 @@ Quick reference:
 | `contextualization.shapes` | per the catalog | which of a role's shapes (single line vs. bounded pair) is spoken — the piece [verbosity levels](Preferences.md#verbosity) drive to make a role's announcement vary by level |
 | `contextualization.params` | none | supply a placeholder value the extractor has no built-in source for |
 | `language` | `"block-level"` | how a node's own inline-language spans render |
-| `inlineContextualization` | `false` | split a sentence at a mid-sentence pagebreak/footnote, instead of after it |
+| `languageOverrides` | none | the language content declared in a given language is spoken in |
+| `inlineContextualization` | `[]` | which mid-sentence roles (`noteref`, `pagebreak`) split the sentence, instead of being spoken after it |
 | `segmentation.mode` | `"structure"` | one utterance per structural unit, or split/reconstruct at real sentence boundaries |
 | `segmentation.suppressions` | none | per-language abbreviations (e.g. `"d."`) that sentence mode won't treat as endings |
 | `segmentation.segmenter` | built-in `Intl.Segmenter`-based splitter | swap in a different sentence segmenter |
@@ -105,6 +108,8 @@ Picks the one field every utterance in the result carries, so a consumer never h
 
 Drops a role and its whole subtree — content and announcement both — from the output. `skippableRoles` export is the [roles.md skippable set](https://github.com/readium/guided-navigation/blob/main/roles.md#list-of-skippable-roles).
 
+A role a more specific one on the same node drops isn't skipped either: skipping `aside` keeps `<aside epub:type="footnote">`, which `skip: ["footnote"]` drops instead. A `pullquote` or a `cover` drops its `aside`/`blockquote` or `image` this way only when contextualized.
+
 ### `contextualize`
 
 Which roles get an announcement. The wording comes from the shipped catalog by default — no need to supply your own `contextualizations` entry unless you want to change it (see below); a role with no entry at all, shipped or custom, just stays silent. Unlike `skip`, the underlying content still plays either way — only the extra announcement is gated by this.
@@ -112,10 +117,10 @@ Which roles get an announcement. The wording comes from the shipped catalog by d
 ```typescript
 // <p>...in the middle <span epub:type="pagebreak" title="5"/> of a sentence.</p>
 await extractUtterances(gnd, { format: "plain" });
-// [{ plain: "4" }, { language: "en", plain: "...in the middle of a sentence." }, { plain: "5" }]
+// [{ plain: "Page 4" }, { language: "en", plain: "...in the middle of a sentence." }, { plain: "Page 5" }]
 
 await extractUtterances(gnd, { format: "plain", contextualize: ["pagebreak"] });
-// [{ plain: "Pagebreak. 4." }, { language: "en", plain: "...in the middle of a sentence." }, { plain: "Pagebreak. 5." }]
+// [{ plain: "Pagebreak. Page 4." }, { language: "en", plain: "...in the middle of a sentence." }, { plain: "Pagebreak. Page 5." }]
 
 await extractUtterances(gnd, { format: "plain", skip: ["pagebreak"] });
 // [{ language: "en", plain: "...in the middle of a sentence." }]
@@ -125,7 +130,7 @@ await extractUtterances(gnd, { format: "plain", skip: ["pagebreak"] });
 
 `contextualizationLocale` and `contextualization` are unrelated to each other:
 
-- **`contextualizationLocale`** just retrieves a default shipped JSON catalog — it's a data-source switch, nothing more. Most consumers only need this one.
+- **`contextualizationLocale`** just retrieves a default shipped JSON catalog — it's a data-source switch, nothing more. Most consumers only need this one. Every announcement carries that catalog's locale as its `language` (English when the requested locale isn't shipped), unless `language` is `"none"`; `languageOverrides` doesn't apply to it. Merged with content in the same primary language, it takes the content's; in another language, it's wrapped in a `<lang>` tag in SSML, and stays its own utterance in plain text.
 - **`contextualization`** (`contextualizations`/`shapes`/`params`) *overrides* whatever catalog ends up loaded — these three depend on each other, not on which locale you picked, which is why they're grouped into one object instead of three flat top-level options:
   - **`contextualizations`** rewords or extends the loaded catalog, for any subset of roles.
   - **`shapes`** picks, for a role whose entry (after that reword) has both forms, which one actually gets spoken.
@@ -226,9 +231,43 @@ How a node's own inline spans (`<em lang="fr">`) render. Never merges across sib
 - `"always"` — `ssml` keeps spans tagged; `plain` splits into one utterance per language run.
 - `"none"` — same merge as `"block-level"`, plus `language` dropped everywhere.
 
+### `languageOverrides`
+
+The language content declared in a given language is spoken in, for content whose `lang`/`xml:lang` is wrong. Keys match like `segmentation.suppressions`: by primary subtag, an exact tag winning over it. Content declared in any other language is left as is, and an override applies before sentence segmentation, so segmenter and suppressions follow the spoken language.
+
+```typescript
+// <html lang="en"><p>Bonjour <span lang="la">carpe diem</span>.</p></html>
+await extractUtterances(gnd, { format: "plain", language: "always", languageOverrides: { en: "fr" } });
+// [{ language: "fr", plain: "Bonjour" }, { language: "la", plain: "carpe diem." }]
+```
+
 ### `inlineContextualization`
 
-A mid-sentence pagebreak/footnote splits the sentence at that exact point instead of after it finishes. Default `false`.
+Which mid-sentence roles split the sentence at that exact point instead of being spoken after it finishes — after the sentence holding them with `segmentation: { mode: "sentence" }`, after their whole block otherwise. Default `[]`. `inlineContextualizationRoles` lists the accepted roles: `noteref` (its footnote is spoken in place) and `pagebreak`.
+
+```typescript
+// <p>...in the middle <span epub:type="pagebreak" title="Page 5"/> of a sentence.</p>
+await extractUtterances(gnd, { format: "plain" });
+// [{ language: "en", plain: "...in the middle of a sentence." }, { plain: "Page 5" }]
+
+await extractUtterances(gnd, { format: "plain", inlineContextualization: ["pagebreak"] });
+// [{ language: "en", plain: "...in the middle Page 5 of a sentence." }]
+```
+
+With `segmentation: { mode: "sentence" }`, an inline footnote or pagebreak stays inside the sentence holding it, its own sentences never ending that one. Between two sentences, it closes the one before it:
+
+```typescript
+// <p>First with a note<a epub:type="noteref" href="#n1">1</a> here. Second sentence.</p>
+// <aside epub:type="footnote" id="n1"><p>The note.</p></aside>
+const options = { format: "plain", contextualize: ["footnote"], segmentation: { mode: "sentence" } };
+await extractUtterances(gnd, { ...options, inlineContextualization: ["noteref"] });
+// [{ plain: "First with a note Start of the footnote. The note. End of the footnote. here." }, { plain: "Second sentence." }]
+
+await extractUtterances(gnd, options);
+// [{ plain: "First with a note here." }, { plain: "Start of the footnote. The note. End of the footnote." }, { plain: "Second sentence." }]
+```
+
+A pagebreak opening a block is spoken before its first sentence.
 
 ### `segmentation`
 

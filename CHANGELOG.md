@@ -2,6 +2,43 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.15.0] - 2026-10-15
+
+### Added
+
+- `ReadiumSpeechUtterance.voice`: the voice an engine speaks an utterance with, when it has it — matched by `voiceURI` (then `name`) on `WebSpeechEngine`, by `identifier` or `name` on `SpeechServerEngine`. Without one, engines use their own choice as before.
+- Engines' and `ReadiumSpeechNavigator`'s `"start"` event reports the voice an utterance is spoken with, as `detail.voice`.
+- `voice` preference: the voice of every utterance without its own, a single voice id or one per language. `ReadiumSpeechNavigator` applies it to content loaded via `loadContent()` and `loadGndContent()`, and reloads the queue when it changes.
+- `languageOverrides` extraction option and preference: the language content declared in a given language is spoken in, e.g. `{ en: "fr" }` for French content wrongly declared as English. Keys match by primary subtag, an exact tag winning over it.
+- `WebSpeechVoiceManager.getBrowserLanguages()`: the languages of every voice the browser has, with voice counts, without loading the voice data of those `initialize()` wasn't called with.
+- `valueForLanguage()`, matching a language-keyed record the way the `voice` and `languageOverrides` preferences are, `extractLangRegionFromBCP47()` and `getLanguageDisplayName()` are exported, as is `getVoiceId()`, the id `voice` takes for a voice.
+
+### Changed
+
+- **Breaking:** `ReadiumSpeechNavigator`'s `setVoice()`/`getCurrentVoice()` are removed: set voices with the `voice` preference, and read them from `settings.voice`, which falls back to the engine's voice for its language. The voice an utterance is actually spoken with is in the `"start"` event's `detail.voice`. Engines keep theirs, as their own default voice.
+- **Breaking:** `setSpeakInContentLanguage()`/`getSpeakInContentLanguage()` are removed from engines and `ReadiumSpeechNavigator`. An utterance is always spoken in its `language`: with the selected voice when it speaks that language, whatever the region, else with that language's best voice. Extraction's `language: "none"` keeps one voice throughout.
+- **Breaking:** `inlineContextualization` takes a list of roles instead of a boolean, so `noteref` and `pagebreak` can be chosen separately. `inlineContextualizationRoles` lists the accepted roles. `true` becomes `["noteref", "pagebreak"]`; a boolean is now dropped as invalid.
+- A pagebreak label that is only a page number (`5`, `iv`, `五`, `ה׳`, `εʹ`…) is spoken as “Page 5”, with or without `contextualize: ["pagebreak"]`. The wording is the catalog's `pagebreak.number` entry.
+- Announcements carry the language of the contextualization catalog they come from (English when `contextualizationLocale` isn't shipped), so a voice can be chosen for them like for content. One merged with content in the same primary language (e.g. `en` with `en-US`) takes the content's. In another language, it's wrapped in a `<lang>` tag in SSML, and its own utterance in plain text, an inline footnote or pagebreak splitting the sentence holding it around it.
+- `skip` ignores a role that a more specific one on the same node drops: skipping `aside` no longer skips `<aside epub:type="footnote">`, so notes can be kept while sidebars are skipped. Presets are unaffected.
+- `@readium/guided-navigation` is now `^1.1.3`, which gives descriptions and the text of page breaks, note references and links their language.
+
+### Fixed
+
+- `SpeechServerEngine` speaks each utterance in its `language`, like `WebSpeechEngine`: with the selected voice when it speaks that language, else the best server voice for it, firing `"languagefallback"` when there is none. Its new `initialize()` picks a default voice by the browser's languages, used until a voice is set, instead of sending requests without one.
+- `getCurrentVoice()` returns the engine's default voice until one is set, on `WebSpeechEngine` and `SpeechServerEngine`, instead of `null`.
+- `WebSpeechEngine` has the voices of languages `WebSpeechVoiceManager.initialize()` is later called with, in `getAvailableVoices()` and for an utterance's `voice`, instead of only those it was initialized with.
+- `WebSpeechVoiceManager.convertToSpeechSynthesisVoice()` matches a voice's `voiceURI` first, then its `originalName`, then its normalized name: a voice sharing its normalized name with another quality or language (e.g. Apple's Eddy) no longer resolves to whichever came first.
+- With `segmentation: "sentence"`, a paragraph holding an inline footnote or pagebreak is split into sentences, the footnote or pagebreak staying inside its own. It was spoken as one utterance once announced, and split inside the footnote otherwise.
+- With `segmentation: "sentence"`, a footnote or pagebreak not in `inlineContextualization` is spoken right after the sentence holding it, instead of after the whole paragraph.
+- Descriptions (alt text, labels, captions) are spoken in the language GND gives them, following `languageOverrides`. An announcement holding one in another language than its catalog's wraps it in a `<lang>` tag in SSML, and is split around it in plain text, e.g. “Image with a label:” and “Un chat”; in the same language, it stays one utterance in the description's language.
+- An extraction-affecting preference changed while paused between utterances (by `autoPause`, or `pause()` during `pauseDuration`) resumes at the next utterance, instead of replaying the one that just ended.
+- An extraction-affecting preference changed again before the engine is ready with the previous change still resumes where playback was, instead of starting over from the first utterance.
+- With `segmentation: "sentence"` and `language: "none"`, a sentence joined across several pieces no longer gets `language: "en"`.
+- Content declared in languages differing only in case (`fr`/`FR`) is spoken as one language, instead of being kept in separate utterances.
+- Preferences keep their own copy of arrays and records (`skip`, `contextualize`, `inlineContextualization`, `languageOverrides`, `voice`): changing one in place in a `preferencesEditor`, or in the object passed in, no longer changes the navigator's preferences without `submitPreferences()`.
+- `WebSpeechVoiceManager` reports `controls.boundary: false` for every voice on Android, which never emits boundary events. Voices Chrome names after their language (e.g. “English United States”) aren’t in the JSON, and previously defaulted to supporting boundaries.
+
 ## [0.14.1] - 2026-10-08
 
 ### Fixed

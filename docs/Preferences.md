@@ -12,7 +12,7 @@ editor.pauseDuration.value = 500;
 await navigator.submitPreferences(editor.preferences);
 ```
 
-`submitPreferences()` always resolves `navigator.settings`. Prosody (`pauseDuration`, `autoPause`, `rate`, `pitch`, `volume`) applies regardless of how content was loaded, except that `autoPause: "block"` only has block boundaries to work with on content loaded via `loadGndContent()` — content loaded via `loadContent()` has none, so it never triggers there. The extraction group (`format`, `inlineContextualization`, `verbosity`, `skip`, `contextualize`, `language`, `segmentation`) only takes effect on content loaded via `loadGndContent()` — see [Playback](Playback.md) — and only reloads the queue when one of those fields actually changes value. A reload during playback resumes at the same content rather than restarting, falling back to the nearest earlier point still present if that exact content got skipped by the new settings.
+`submitPreferences()` always resolves `navigator.settings`. Prosody (`pauseDuration`, `autoPause`, `rate`, `pitch`, `volume`) applies regardless of how content was loaded, except that `autoPause: "block"` only has block boundaries to work with on content loaded via `loadGndContent()` — content loaded via `loadContent()` has none, so it never triggers there. The extraction group (`format`, `inlineContextualization`, `verbosity`, `skip`, `contextualize`, `language`, `languageOverrides`, `segmentation`) only takes effect on content loaded via `loadGndContent()` — see [Playback](Playback.md) — and only reloads the queue when one of those fields actually changes value. A reload during playback resumes at the same content rather than restarting, falling back to the nearest earlier point still present if that exact content got skipped by the new settings.
 
 ## Defaults
 
@@ -31,7 +31,7 @@ Both `preferences` and `defaults` go through the same validation as `submitPrefe
 
 Every field on `SpeechPreferences` (and `SpeechDefaults`) is checked against its declared range/enum/type when constructed — an out-of-range number, an unrecognized enum value, or a wrong-typed value is dropped to `undefined` (or, for `SpeechDefaults`, falls back to the built-in literal) rather than silently accepted. This applies however the value arrives — `new SpeechPreferences(...)`, `submitPreferences(...)`, or a value deserialized from storage — not just when set through `SpeechPreferencesEditor`, whose per-field setters additionally throw immediately for interactive feedback (e.g. a UI slider going out of bounds).
 
-`skip`/`contextualize` are only checked for shape (an array of strings), not role membership — GND roles are an open vocabulary, not a fixed catalog.
+`skip`/`contextualize` are only checked for shape (an array of strings), not role membership — GND roles are an open vocabulary, not a fixed catalog. `languageOverrides` is likewise only checked for shape (a record of strings), not for valid language tags.
 
 ## Verbosity
 
@@ -63,11 +63,28 @@ volume?: number;                                 // default 1.0, range [0, 1]
 
 `segmentation` (`"structure" | "sentence"`, default `"structure"`) is the same option documented in [Utterance Extraction](UtteranceExtraction.md#segmentation) — only its `mode`; per-language `suppressions` and a custom `segmenter` are construction-only (see [`segmentationOverrides`](Playback.md#segmentationoverrides)), not a live preference.
 
+## Voice
+
+```typescript
+voice?: string | Record<string, string>; // a voice id for all content, or one per language, default none
+```
+
+The voice of every utterance without its own [`voice`](Playback.md#speaking-an-utterance-with-its-own-voice), for content loaded via `loadContent()` and `loadGndContent()` alike. A voice id is a voice's `voiceURI`, or its `identifier` for a server voice, as `getVoiceId(voice)` returns it. A record picks it by the utterance's `language`, keys matching like `languageOverrides`: by primary subtag, an exact tag winning over it. An utterance with no matching voice is left to the engine's own choice, which follows its content language (see [Playback](Playback.md#speaking-in-an-utterances-own-content-language)).
+
+`navigator.settings.voice` falls back to the engine's voice (`getCurrentVoice()`, its default until one is set): unset or a record without an entry for that voice's language, it gets one for it, e.g. `{ en: "alba-en-US" }`. So the voice of content in the engine voice's language is always `settings.voice`'s entry for that language, and submitting `settings.voice` back keeps other languages following their own. Utterances are only stamped from the preference itself, so the fallback never keeps them from following their language.
+
+```typescript
+await navigator.submitPreferences(new SpeechPreferences({ voice: "Samantha" }));
+await navigator.submitPreferences(new SpeechPreferences({ voice: { en: "Samantha", fr: "Thomas" } }));
+```
+
+Changing it reloads the queue with the new voices, resuming at the same utterance during playback, without re-extracting. `getContentQueue()` returns the utterances with their voice.
+
 ## `format` / `inlineContextualization`
 
 Set once via `submitPreferences()` instead of on every `extractUtterances()` call:
 
 ```typescript
 format?: "plain" | "ssml";     // default "plain"
-inlineContextualization?: boolean;   // default false
+inlineContextualization?: GndRole[]; // default [], see inlineContextualizationRoles
 ```

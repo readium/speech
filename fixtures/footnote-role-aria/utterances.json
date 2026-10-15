@@ -8,7 +8,7 @@
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote.",
+          "plain": "This text has a footnote in the middle of a sentence.",
           "language": "en"
         },
         {
@@ -21,24 +21,73 @@
       "options": [
         {
           "format": "plain",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -46,7 +95,22 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -54,81 +118,179 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote 1. Text of the footnote.",
-          "language": "en"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "plain",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "aside"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        }
-      ],
-      "utterances": [
-        {
-          "plain": "This text has a footnote 1.",
-          "language": "en"
-        },
-        {
-          "plain": "Text of the footnote.",
+          "plain": "This text has a footnote 1. Text of the footnote. in the middle of a sentence.",
           "language": "en"
         }
       ]
@@ -162,11 +324,51 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote."
+          "plain": "This text has a footnote in the middle of a sentence."
         },
         {
           "plain": "1. Text of the footnote."
@@ -178,29 +380,16 @@
         {
           "format": "plain",
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
-          "contextualize": [
-            "aside"
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
           ],
-          "language": "none",
-          "inlineContextualization": true
-        }
-      ],
-      "utterances": [
-        {
-          "plain": "This text has a footnote 1. Text of the footnote."
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "plain",
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -211,7 +400,71 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -219,10 +472,7 @@
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote 1."
-        },
-        {
-          "plain": "Text of the footnote."
+          "plain": "This text has a footnote 1. Text of the footnote. in the middle of a sentence."
         }
       ]
     },
@@ -331,11 +581,151 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote.",
+          "plain": "This text has a footnote in the middle of a sentence.",
           "language": "en"
         },
         {
@@ -351,14 +741,18 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -369,7 +763,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -377,7 +773,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -388,7 +786,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -396,7 +796,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -407,7 +809,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -415,7 +819,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -427,7 +833,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -436,7 +844,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -448,7 +858,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -457,7 +869,185 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -465,7 +1055,7 @@
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote Start of the footnote. 1. Text of the footnote. End of the footnote.",
+          "plain": "This text has a footnote Start of the footnote. 1. Text of the footnote. End of the footnote. in the middle of a sentence.",
           "language": "en"
         }
       ]
@@ -507,11 +1097,59 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote."
+          "plain": "This text has a footnote in the middle of a sentence."
         },
         {
           "plain": "Start of the footnote. 1. Text of the footnote. End of the footnote."
@@ -526,7 +1164,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -534,7 +1174,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -546,7 +1188,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -555,7 +1199,69 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -563,7 +1269,7 @@
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote Start of the footnote. 1. Text of the footnote. End of the footnote."
+          "plain": "This text has a footnote Start of the footnote. 1. Text of the footnote. End of the footnote. in the middle of a sentence."
         }
       ]
     },
@@ -572,542 +1278,6 @@
         {
           "format": "plain",
           "skip": [
-            "aside"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ]
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
             "footnote"
           ]
         },
@@ -1125,14 +1295,18 @@
           "skip": [
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
           "skip": [
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1160,7 +1334,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1168,7 +1344,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1196,7 +1374,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1204,7 +1384,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1238,7 +1420,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1248,7 +1432,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1285,7 +1471,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1296,7 +1484,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1333,7 +1523,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1344,7 +1536,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1378,7 +1572,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1388,7 +1584,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1425,7 +1623,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1436,7 +1636,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1473,7 +1675,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1484,7 +1688,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1521,7 +1727,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1532,7 +1740,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1572,7 +1782,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1584,7 +1796,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1624,7 +1838,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1636,7 +1852,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1664,7 +1882,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1672,7 +1892,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1703,7 +1925,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1712,7 +1936,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1743,7 +1969,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1752,7 +1980,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1789,7 +2019,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1800,7 +2032,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1840,7 +2074,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1852,7 +2088,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1892,7 +2130,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1904,7 +2144,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1941,7 +2183,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -1952,7 +2196,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -1992,7 +2238,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2004,7 +2252,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2044,7 +2294,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2056,7 +2308,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2096,7 +2350,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2108,7 +2364,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2151,7 +2409,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2164,7 +2424,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2207,7 +2469,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2220,7 +2484,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2245,14 +2511,18 @@
           "skip": [
             "noteref"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
           "skip": [
             "noteref"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2280,7 +2550,9 @@
             "noteref"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2288,7 +2560,9 @@
             "noteref"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2316,7 +2590,9 @@
             "noteref"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2324,7 +2600,9 @@
             "noteref"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2358,7 +2636,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2368,7 +2648,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2405,7 +2687,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2416,7 +2700,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2453,7 +2739,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2464,7 +2752,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2498,7 +2788,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2508,7 +2800,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2545,7 +2839,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2556,7 +2852,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2593,7 +2891,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2604,7 +2904,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2641,7 +2943,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2652,7 +2956,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2692,7 +2998,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2704,7 +3012,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2744,7 +3054,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2756,7 +3068,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2784,7 +3098,9 @@
             "aside",
             "noteref"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2792,7 +3108,9 @@
             "aside",
             "noteref"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2823,7 +3141,9 @@
             "noteref"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2832,7 +3152,9 @@
             "noteref"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2863,7 +3185,9 @@
             "noteref"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2872,7 +3196,9 @@
             "noteref"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2909,7 +3235,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2920,7 +3248,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -2960,7 +3290,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -2972,7 +3304,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3012,7 +3346,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3024,7 +3360,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3061,7 +3399,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3072,7 +3412,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3112,7 +3454,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3124,7 +3468,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3164,7 +3510,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3176,7 +3524,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3216,7 +3566,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3228,7 +3580,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3271,7 +3625,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3284,7 +3640,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3327,7 +3685,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3340,7 +3700,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3368,7 +3730,9 @@
             "footnote",
             "noteref"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3376,7 +3740,9 @@
             "footnote",
             "noteref"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3407,7 +3773,9 @@
             "noteref"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3416,7 +3784,9 @@
             "noteref"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3447,7 +3817,9 @@
             "noteref"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3456,7 +3828,9 @@
             "noteref"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3493,7 +3867,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3504,7 +3880,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3544,7 +3922,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3556,7 +3936,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3596,7 +3978,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3608,7 +3992,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3645,7 +4031,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3656,7 +4044,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3696,7 +4086,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3708,7 +4100,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3748,7 +4142,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3760,7 +4156,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3800,7 +4198,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3812,7 +4212,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3855,7 +4257,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3868,7 +4272,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3911,7 +4317,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3924,7 +4332,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3955,7 +4365,9 @@
             "footnote",
             "noteref"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -3964,7 +4376,9 @@
             "footnote",
             "noteref"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -3998,7 +4412,9 @@
             "noteref"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -4008,7 +4424,9 @@
             "noteref"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -4042,7 +4460,9 @@
             "noteref"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -4052,7 +4472,9 @@
             "noteref"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -4092,7 +4514,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -4104,7 +4528,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -4147,7 +4573,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -4160,7 +4588,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -4203,7 +4633,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -4216,7 +4648,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -4256,7 +4690,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -4268,7 +4704,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -4311,7 +4749,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -4324,7 +4764,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -4367,7 +4809,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -4380,7 +4824,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -4423,7 +4869,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -4436,7 +4884,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -4482,7 +4932,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -4496,7 +4948,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -4542,7 +4996,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -4556,7 +5012,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -4564,7 +5022,7 @@
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote.",
+          "plain": "This text has a footnote in the middle of a sentence.",
           "language": "en"
         }
       ]
@@ -4574,190 +5032,6 @@
         {
           "format": "plain",
           "skip": [
-            "aside"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "skip": [
             "footnote"
           ],
           "language": "none"
@@ -4778,7 +5052,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -4786,7 +5062,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -4823,7 +5101,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -4834,7 +5114,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -4871,7 +5153,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -4882,7 +5166,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -4922,7 +5208,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -4934,7 +5222,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -4965,7 +5255,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -4974,7 +5266,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5014,7 +5308,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5026,7 +5322,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5066,7 +5364,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5078,7 +5378,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5121,7 +5423,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5134,7 +5438,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5162,7 +5468,9 @@
             "noteref"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5170,7 +5478,9 @@
             "noteref"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5207,7 +5517,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5218,7 +5530,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5255,7 +5569,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5266,7 +5582,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5306,7 +5624,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5318,7 +5638,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5349,7 +5671,9 @@
             "noteref"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5358,7 +5682,9 @@
             "noteref"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5398,7 +5724,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5410,7 +5738,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5450,7 +5780,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5462,7 +5794,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5505,7 +5839,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5518,7 +5854,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5549,7 +5887,9 @@
             "noteref"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5558,7 +5898,9 @@
             "noteref"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5598,7 +5940,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5610,7 +5954,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5650,7 +5996,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5662,7 +6010,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5705,7 +6055,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5718,7 +6070,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5752,7 +6106,9 @@
             "noteref"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5762,7 +6118,9 @@
             "noteref"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5805,7 +6163,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5818,7 +6178,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5861,7 +6223,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5874,7 +6238,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5920,7 +6286,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "plain",
@@ -5934,7 +6302,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -5942,7 +6312,7 @@
       ],
       "utterances": [
         {
-          "plain": "This text has a footnote."
+          "plain": "This text has a footnote in the middle of a sentence."
         }
       ]
     },
@@ -5954,7 +6324,7 @@
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote.",
+          "ssml": "This text has a footnote in the middle of a sentence.",
           "language": "en"
         },
         {
@@ -5967,24 +6337,73 @@
       "options": [
         {
           "format": "ssml",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -5992,7 +6411,22 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -6000,81 +6434,179 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote 1. Text of the footnote.",
-          "language": "en"
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "ssml",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "aside"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        }
-      ],
-      "utterances": [
-        {
-          "ssml": "This text has a footnote 1.",
-          "language": "en"
-        },
-        {
-          "ssml": "Text of the footnote.",
+          "ssml": "This text has a footnote 1. Text of the footnote. in the middle of a sentence.",
           "language": "en"
         }
       ]
@@ -6108,11 +6640,51 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote."
+          "ssml": "This text has a footnote in the middle of a sentence."
         },
         {
           "ssml": "1. Text of the footnote."
@@ -6124,29 +6696,16 @@
         {
           "format": "ssml",
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
-          "contextualize": [
-            "aside"
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
           ],
-          "language": "none",
-          "inlineContextualization": true
-        }
-      ],
-      "utterances": [
-        {
-          "ssml": "This text has a footnote 1. Text of the footnote."
-        }
-      ]
-    },
-    {
-      "options": [
-        {
-          "format": "ssml",
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -6157,7 +6716,71 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -6165,10 +6788,7 @@
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote 1."
-        },
-        {
-          "ssml": "Text of the footnote."
+          "ssml": "This text has a footnote 1. Text of the footnote. in the middle of a sentence."
         }
       ]
     },
@@ -6277,11 +6897,151 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote.",
+          "ssml": "This text has a footnote in the middle of a sentence.",
           "language": "en"
         },
         {
@@ -6297,14 +7057,18 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -6315,7 +7079,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -6323,7 +7089,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -6334,7 +7102,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -6342,7 +7112,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -6353,7 +7125,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -6361,7 +7135,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -6373,7 +7149,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -6382,7 +7160,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -6394,7 +7174,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -6403,7 +7185,185 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -6411,7 +7371,7 @@
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote Start of the footnote. 1. Text of the footnote. End of the footnote.",
+          "ssml": "This text has a footnote Start of the footnote. 1. Text of the footnote. End of the footnote. in the middle of a sentence.",
           "language": "en"
         }
       ]
@@ -6453,11 +7413,59 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote."
+          "ssml": "This text has a footnote in the middle of a sentence."
         },
         {
           "ssml": "Start of the footnote. 1. Text of the footnote. End of the footnote."
@@ -6472,7 +7480,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -6480,7 +7490,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -6492,7 +7504,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -6501,7 +7515,69 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "footnote"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "aside"
+          ],
+          "contextualize": [
+            "aside",
+            "footnote"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -6509,7 +7585,7 @@
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote Start of the footnote. 1. Text of the footnote. End of the footnote."
+          "ssml": "This text has a footnote Start of the footnote. 1. Text of the footnote. End of the footnote. in the middle of a sentence."
         }
       ]
     },
@@ -6518,542 +7594,6 @@
         {
           "format": "ssml",
           "skip": [
-            "aside"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ]
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "always"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "always",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "block-level"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
             "footnote"
           ]
         },
@@ -7071,14 +7611,18 @@
           "skip": [
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
           "skip": [
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7106,7 +7650,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7114,7 +7660,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7142,7 +7690,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7150,7 +7700,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7184,7 +7736,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7194,7 +7748,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7231,7 +7787,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7242,7 +7800,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7279,7 +7839,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7290,7 +7852,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7324,7 +7888,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7334,7 +7900,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7371,7 +7939,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7382,7 +7952,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7419,7 +7991,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7430,7 +8004,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7467,7 +8043,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7478,7 +8056,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7518,7 +8098,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7530,7 +8112,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7570,7 +8154,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7582,7 +8168,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7610,7 +8198,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7618,7 +8208,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7649,7 +8241,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7658,7 +8252,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7689,7 +8285,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7698,7 +8296,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7735,7 +8335,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7746,7 +8348,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7786,7 +8390,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7798,7 +8404,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7838,7 +8446,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7850,7 +8460,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7887,7 +8499,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7898,7 +8512,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7938,7 +8554,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -7950,7 +8568,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -7990,7 +8610,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8002,7 +8624,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8042,7 +8666,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8054,7 +8680,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8097,7 +8725,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8110,7 +8740,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8153,7 +8785,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8166,7 +8800,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8191,14 +8827,18 @@
           "skip": [
             "noteref"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
           "skip": [
             "noteref"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8226,7 +8866,9 @@
             "noteref"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8234,7 +8876,9 @@
             "noteref"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8262,7 +8906,9 @@
             "noteref"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8270,7 +8916,9 @@
             "noteref"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8304,7 +8952,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8314,7 +8964,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8351,7 +9003,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8362,7 +9016,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8399,7 +9055,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8410,7 +9068,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8444,7 +9104,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8454,7 +9116,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8491,7 +9155,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8502,7 +9168,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8539,7 +9207,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8550,7 +9220,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8587,7 +9259,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8598,7 +9272,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8638,7 +9314,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8650,7 +9328,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8690,7 +9370,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8702,7 +9384,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8730,7 +9414,9 @@
             "aside",
             "noteref"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8738,7 +9424,9 @@
             "aside",
             "noteref"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8769,7 +9457,9 @@
             "noteref"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8778,7 +9468,9 @@
             "noteref"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8809,7 +9501,9 @@
             "noteref"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8818,7 +9512,9 @@
             "noteref"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8855,7 +9551,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8866,7 +9564,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8906,7 +9606,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8918,7 +9620,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -8958,7 +9662,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -8970,7 +9676,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9007,7 +9715,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9018,7 +9728,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9058,7 +9770,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9070,7 +9784,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9110,7 +9826,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9122,7 +9840,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9162,7 +9882,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9174,7 +9896,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9217,7 +9941,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9230,7 +9956,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9273,7 +10001,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9286,7 +10016,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9314,7 +10046,9 @@
             "footnote",
             "noteref"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9322,7 +10056,9 @@
             "footnote",
             "noteref"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9353,7 +10089,9 @@
             "noteref"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9362,7 +10100,9 @@
             "noteref"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9393,7 +10133,9 @@
             "noteref"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9402,7 +10144,9 @@
             "noteref"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9439,7 +10183,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9450,7 +10196,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9490,7 +10238,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9502,7 +10252,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9542,7 +10294,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9554,7 +10308,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9591,7 +10347,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9602,7 +10360,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9642,7 +10402,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9654,7 +10416,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9694,7 +10458,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9706,7 +10472,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9746,7 +10514,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9758,7 +10528,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9801,7 +10573,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9814,7 +10588,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9857,7 +10633,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9870,7 +10648,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9901,7 +10681,9 @@
             "footnote",
             "noteref"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9910,7 +10692,9 @@
             "footnote",
             "noteref"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9944,7 +10728,9 @@
             "noteref"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9954,7 +10740,9 @@
             "noteref"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -9988,7 +10776,9 @@
             "noteref"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -9998,7 +10788,9 @@
             "noteref"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -10038,7 +10830,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -10050,7 +10844,9 @@
           "contextualize": [
             "aside"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -10093,7 +10889,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -10106,7 +10904,9 @@
             "aside"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -10149,7 +10949,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -10162,7 +10964,9 @@
             "aside"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -10202,7 +11006,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -10214,7 +11020,9 @@
           "contextualize": [
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -10257,7 +11065,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -10270,7 +11080,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -10313,7 +11125,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -10326,7 +11140,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -10369,7 +11185,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -10382,7 +11200,9 @@
             "aside",
             "footnote"
           ],
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -10428,7 +11248,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -10442,7 +11264,9 @@
             "footnote"
           ],
           "language": "always",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -10488,7 +11312,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -10502,7 +11328,9 @@
             "footnote"
           ],
           "language": "block-level",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -10510,7 +11338,7 @@
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote.",
+          "ssml": "This text has a footnote in the middle of a sentence.",
           "language": "en"
         }
       ]
@@ -10520,190 +11348,6 @@
         {
           "format": "ssml",
           "skip": [
-            "aside"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "footnote"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "none"
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "none",
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "skip": [
-            "aside"
-          ],
-          "contextualize": [
-            "aside",
-            "footnote"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "skip": [
             "footnote"
           ],
           "language": "none"
@@ -10724,7 +11368,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -10732,7 +11378,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -10769,7 +11417,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -10780,7 +11430,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -10817,7 +11469,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -10828,7 +11482,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -10868,7 +11524,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -10880,7 +11538,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -10911,7 +11571,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -10920,7 +11582,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -10960,7 +11624,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -10972,7 +11638,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11012,7 +11680,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11024,7 +11694,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11067,7 +11739,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11080,7 +11754,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11108,7 +11784,9 @@
             "noteref"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11116,7 +11794,9 @@
             "noteref"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11153,7 +11833,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11164,7 +11846,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11201,7 +11885,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11212,7 +11898,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11252,7 +11940,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11264,7 +11954,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11295,7 +11987,9 @@
             "noteref"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11304,7 +11998,9 @@
             "noteref"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11344,7 +12040,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11356,7 +12054,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11396,7 +12096,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11408,7 +12110,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11451,7 +12155,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11464,7 +12170,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11495,7 +12203,9 @@
             "noteref"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11504,7 +12214,9 @@
             "noteref"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11544,7 +12256,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11556,7 +12270,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11596,7 +12312,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11608,7 +12326,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11651,7 +12371,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11664,7 +12386,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11698,7 +12422,9 @@
             "noteref"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11708,7 +12434,9 @@
             "noteref"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11751,7 +12479,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11764,7 +12494,9 @@
             "aside"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11807,7 +12539,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11820,7 +12554,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11866,7 +12602,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true
+          "inlineContextualization": [
+            "noteref"
+          ]
         },
         {
           "format": "ssml",
@@ -11880,7 +12618,9 @@
             "footnote"
           ],
           "language": "none",
-          "inlineContextualization": true,
+          "inlineContextualization": [
+            "noteref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
@@ -11888,7 +12628,7 @@
       ],
       "utterances": [
         {
-          "ssml": "This text has a footnote."
+          "ssml": "This text has a footnote in the middle of a sentence."
         }
       ]
     }

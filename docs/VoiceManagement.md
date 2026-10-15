@@ -22,7 +22,7 @@ Creates and initializes a new WebSpeechVoiceManager instance. This static factor
 
 Returns a Promise that resolves with a `WebSpeechSpeechManager` instance. This instance is a singleton to ensure the same voice manager is used whether initialized directly or through the PlaybackEngine.
 
-Calling `initialize()` again on an already-initialized singleton doesn't create a new instance or reset it — it broadens the existing one to also cover any newly requested `languages`, keeping voices already loaded for earlier languages. Omitting `languages` on that later call is a no-op (not a retroactive "load everything"); only the very first call's absence of `languages` loads every voice.
+Calling `initialize()` again on an already-initialized singleton doesn't create a new instance or reset it — it broadens the existing one to also cover any newly requested `languages`, keeping voices already loaded for earlier languages. Omitting `languages` on that later call is a no-op (not a retroactive "load everything"); only the very first call's absence of `languages` loads every voice. A `WebSpeechEngine` already initialized gets the newly covered voices too, in `getAvailableVoices()` and for an utterance's `voice`.
 
 ### Get Voices
 
@@ -59,6 +59,12 @@ voiceManager.getRegions(localization?: string, filterOptions?: VoiceFilterOption
 ```
 
 Returns arrays of languages and regions with their display names and voice counts. Both methods preserve the order of first occurrence when custom voices are provided.
+
+```typescript
+voiceManager.getBrowserLanguages(localization?: string): LanguageInfo[]
+```
+
+Returns the languages of every voice the browser has, sorted by name, including languages `initialize()` wasn't called with. Their voice data isn't loaded, so it is cheap, but no voice is filtered out either: initialize with a language to get its voices.
 
 ### Get Default Voice
 

@@ -25,22 +25,7 @@
         },
         {
           "format": "plain",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -54,23 +39,7 @@
         },
         {
           "format": "plain",
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -104,13 +73,6 @@
           "contextualize": [
             "credits"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits"
-          ],
           "language": "always"
         },
         {
@@ -118,15 +80,46 @@
           "contextualize": [
             "credits"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the credits.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        },
+        {
+          "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
           "contextualize": [
             "credits"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -134,22 +127,42 @@
             "credits"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the credits.",
+          "language": "en"
         },
+        {
+          "plain": "Cover photograph by A."
+        },
+        {
+          "plain": "Keeper."
+        },
+        {
+          "plain": "Maps by B."
+        },
+        {
+          "plain": "Cartographer."
+        },
+        {
+          "plain": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
             "credits"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -174,79 +187,7 @@
           "contextualize": [
             "credits"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -286,13 +227,6 @@
           "contextualize": [
             "list"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
           "language": "always"
         },
         {
@@ -300,15 +234,46 @@
           "contextualize": [
             "list"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        },
+        {
+          "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
           "contextualize": [
             "list"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -316,22 +281,42 @@
             "list"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "language": "en"
         },
+        {
+          "plain": "Cover photograph by A."
+        },
+        {
+          "plain": "Keeper."
+        },
+        {
+          "plain": "Maps by B."
+        },
+        {
+          "plain": "Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
             "list"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -356,79 +341,7 @@
           "contextualize": [
             "list"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -470,14 +383,6 @@
             "credits",
             "list"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
           "language": "always"
         },
         {
@@ -486,8 +391,45 @@
             "credits",
             "list"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the credits.",
+          "language": "en"
+        },
+        {
+          "plain": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        },
+        {
+          "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -495,7 +437,10 @@
             "credits",
             "list"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -504,8 +449,44 @@
             "list"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the credits.",
+          "language": "en"
         },
+        {
+          "plain": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A."
+        },
+        {
+          "plain": "Keeper."
+        },
+        {
+          "plain": "Maps by B."
+        },
+        {
+          "plain": "Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -513,15 +494,6 @@
             "list"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -553,86 +525,7 @@
             "credits",
             "list"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -678,13 +571,6 @@
           "contextualize": [
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
           "language": "always"
         },
         {
@@ -692,15 +578,46 @@
           "contextualize": [
             "listItem"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B. Cartographer."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
           "contextualize": [
             "listItem"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -708,22 +625,42 @@
             "listItem"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "List item.",
+          "language": "en"
         },
+        {
+          "plain": "Cover photograph by A."
+        },
+        {
+          "plain": "Keeper."
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B."
+        },
+        {
+          "plain": "Cartographer."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
             "listItem"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -748,79 +685,7 @@
           "contextualize": [
             "listItem"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -862,14 +727,6 @@
             "credits",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
           "language": "always"
         },
         {
@@ -878,8 +735,45 @@
             "credits",
             "listItem"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the credits.",
+          "language": "en"
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "listItem"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -887,7 +781,10 @@
             "credits",
             "listItem"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -896,8 +793,44 @@
             "listItem"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the credits.",
+          "language": "en"
         },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A."
+        },
+        {
+          "plain": "Keeper."
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B."
+        },
+        {
+          "plain": "Cartographer."
+        },
+        {
+          "plain": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -905,15 +838,6 @@
             "listItem"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -945,86 +869,7 @@
             "credits",
             "listItem"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1072,14 +917,6 @@
             "list",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
           "language": "always"
         },
         {
@@ -1088,8 +925,45 @@
             "list",
             "listItem"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -1097,7 +971,10 @@
             "list",
             "listItem"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -1106,8 +983,44 @@
             "listItem"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "language": "en"
         },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A."
+        },
+        {
+          "plain": "Keeper."
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B."
+        },
+        {
+          "plain": "Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -1115,15 +1028,6 @@
             "listItem"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -1155,86 +1059,7 @@
             "list",
             "listItem"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1284,15 +1109,6 @@
             "list",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
           "language": "always"
         },
         {
@@ -1302,8 +1118,54 @@
             "list",
             "listItem"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the credits.",
+          "language": "en"
+        },
+        {
+          "plain": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -1312,7 +1174,10 @@
             "list",
             "listItem"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -1322,8 +1187,52 @@
             "listItem"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the credits.",
+          "language": "en"
         },
+        {
+          "plain": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A."
+        },
+        {
+          "plain": "Keeper."
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B."
+        },
+        {
+          "plain": "Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -1332,16 +1241,6 @@
             "listItem"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -1380,93 +1279,7 @@
             "list",
             "listItem"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1518,13 +1331,6 @@
           "contextualize": [
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
           "language": "always"
         },
         {
@@ -1532,15 +1338,46 @@
           "contextualize": [
             "credit"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B. Cartographer."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
           "contextualize": [
             "credit"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -1548,22 +1385,42 @@
             "credit"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Credit.",
+          "language": "en"
         },
+        {
+          "plain": "Cover photograph by A."
+        },
+        {
+          "plain": "Keeper."
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B."
+        },
+        {
+          "plain": "Cartographer."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
             "credit"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -1588,79 +1445,7 @@
           "contextualize": [
             "credit"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1702,14 +1487,6 @@
             "credits",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
           "language": "always"
         },
         {
@@ -1718,8 +1495,45 @@
             "credits",
             "credit"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the credits.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -1727,7 +1541,10 @@
             "credits",
             "credit"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -1736,8 +1553,44 @@
             "credit"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the credits.",
+          "language": "en"
         },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A."
+        },
+        {
+          "plain": "Keeper."
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B."
+        },
+        {
+          "plain": "Cartographer."
+        },
+        {
+          "plain": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -1745,15 +1598,6 @@
             "credit"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -1785,86 +1629,7 @@
             "credits",
             "credit"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -1912,14 +1677,6 @@
             "list",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
           "language": "always"
         },
         {
@@ -1928,8 +1685,45 @@
             "list",
             "credit"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -1937,7 +1731,10 @@
             "list",
             "credit"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -1946,8 +1743,44 @@
             "credit"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "language": "en"
         },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A."
+        },
+        {
+          "plain": "Keeper."
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B."
+        },
+        {
+          "plain": "Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -1955,15 +1788,6 @@
             "credit"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -1995,86 +1819,7 @@
             "list",
             "credit"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2124,15 +1869,6 @@
             "list",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
           "language": "always"
         },
         {
@@ -2142,8 +1878,54 @@
             "list",
             "credit"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the credits.",
+          "language": "en"
+        },
+        {
+          "plain": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -2152,7 +1934,10 @@
             "list",
             "credit"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -2162,8 +1947,52 @@
             "credit"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the credits.",
+          "language": "en"
         },
+        {
+          "plain": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A."
+        },
+        {
+          "plain": "Keeper."
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B."
+        },
+        {
+          "plain": "Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -2172,16 +2001,6 @@
             "credit"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -2220,93 +2039,7 @@
             "list",
             "credit"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2360,14 +2093,6 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
           "language": "always"
         },
         {
@@ -2376,8 +2101,45 @@
             "listItem",
             "credit"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B. Cartographer."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -2385,7 +2147,10 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -2394,8 +2159,44 @@
             "credit"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "List item.",
+          "language": "en"
         },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A."
+        },
+        {
+          "plain": "Keeper."
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B."
+        },
+        {
+          "plain": "Cartographer."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -2403,15 +2204,6 @@
             "credit"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -2443,86 +2235,7 @@
             "listItem",
             "credit"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2572,15 +2285,6 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
           "language": "always"
         },
         {
@@ -2590,8 +2294,54 @@
             "listItem",
             "credit"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the credits.",
+          "language": "en"
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "listItem",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -2600,7 +2350,10 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -2610,8 +2363,52 @@
             "credit"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the credits.",
+          "language": "en"
         },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A."
+        },
+        {
+          "plain": "Keeper."
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B."
+        },
+        {
+          "plain": "Cartographer."
+        },
+        {
+          "plain": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -2620,16 +2417,6 @@
             "credit"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -2668,93 +2455,7 @@
             "listItem",
             "credit"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -2810,15 +2511,6 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "always"
         },
         {
@@ -2828,8 +2520,54 @@
             "listItem",
             "credit"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -2838,7 +2576,10 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -2848,8 +2589,52 @@
             "credit"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the list.",
+          "language": "en"
         },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A."
+        },
+        {
+          "plain": "Keeper."
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B."
+        },
+        {
+          "plain": "Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -2858,16 +2643,6 @@
             "credit"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -2906,93 +2681,7 @@
             "listItem",
             "credit"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3050,16 +2739,6 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "always"
         },
         {
@@ -3070,8 +2749,63 @@
             "listItem",
             "credit"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the credits.",
+          "language": "en"
+        },
+        {
+          "plain": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A. Keeper."
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B. Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -3081,7 +2815,10 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "plain",
@@ -3092,8 +2829,60 @@
             "credit"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Start of the credits.",
+          "language": "en"
         },
+        {
+          "plain": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Cover photograph by A."
+        },
+        {
+          "plain": "Keeper."
+        },
+        {
+          "plain": "List item.",
+          "language": "en"
+        },
+        {
+          "plain": "Credit.",
+          "language": "en"
+        },
+        {
+          "plain": "Maps by B."
+        },
+        {
+          "plain": "Cartographer."
+        },
+        {
+          "plain": "End of the list.",
+          "language": "en"
+        },
+        {
+          "plain": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "plain",
           "contextualize": [
@@ -3103,17 +2892,6 @@
             "credit"
           ],
           "language": "none"
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -3159,100 +2937,7 @@
             "listItem",
             "credit"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "plain",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3322,22 +3007,7 @@
         },
         {
           "format": "ssml",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
           "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "always",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3351,23 +3021,7 @@
         },
         {
           "format": "ssml",
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3401,13 +3055,6 @@
           "contextualize": [
             "credits"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits"
-          ],
           "language": "always"
         },
         {
@@ -3415,15 +3062,46 @@
           "contextualize": [
             "credits"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the credits.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        },
+        {
+          "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
           "contextualize": [
             "credits"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -3431,22 +3109,42 @@
             "credits"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the credits.",
+          "language": "en"
         },
+        {
+          "ssml": "Cover photograph by A."
+        },
+        {
+          "ssml": "Keeper."
+        },
+        {
+          "ssml": "Maps by B."
+        },
+        {
+          "ssml": "Cartographer."
+        },
+        {
+          "ssml": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
             "credits"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -3471,79 +3169,7 @@
           "contextualize": [
             "credits"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3583,13 +3209,6 @@
           "contextualize": [
             "list"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
           "language": "always"
         },
         {
@@ -3597,15 +3216,46 @@
           "contextualize": [
             "list"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        },
+        {
+          "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
           "contextualize": [
             "list"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -3613,22 +3263,42 @@
             "list"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
         },
+        {
+          "ssml": "Cover photograph by A."
+        },
+        {
+          "ssml": "Keeper."
+        },
+        {
+          "ssml": "Maps by B."
+        },
+        {
+          "ssml": "Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
             "list"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -3653,79 +3323,7 @@
           "contextualize": [
             "list"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3767,14 +3365,6 @@
             "credits",
             "list"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
           "language": "always"
         },
         {
@@ -3783,8 +3373,45 @@
             "credits",
             "list"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the credits.",
+          "language": "en"
+        },
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        },
+        {
+          "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -3792,7 +3419,10 @@
             "credits",
             "list"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -3801,8 +3431,44 @@
             "list"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the credits.",
+          "language": "en"
         },
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A."
+        },
+        {
+          "ssml": "Keeper."
+        },
+        {
+          "ssml": "Maps by B."
+        },
+        {
+          "ssml": "Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -3810,15 +3476,6 @@
             "list"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -3850,86 +3507,7 @@
             "credits",
             "list"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -3975,13 +3553,6 @@
           "contextualize": [
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
           "language": "always"
         },
         {
@@ -3989,15 +3560,46 @@
           "contextualize": [
             "listItem"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B. Cartographer."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
           "contextualize": [
             "listItem"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -4005,22 +3607,42 @@
             "listItem"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "language": "en"
         },
+        {
+          "ssml": "Cover photograph by A."
+        },
+        {
+          "ssml": "Keeper."
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B."
+        },
+        {
+          "ssml": "Cartographer."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
             "listItem"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -4045,79 +3667,7 @@
           "contextualize": [
             "listItem"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4159,14 +3709,6 @@
             "credits",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
           "language": "always"
         },
         {
@@ -4175,8 +3717,45 @@
             "credits",
             "listItem"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the credits.",
+          "language": "en"
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "listItem"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -4184,7 +3763,10 @@
             "credits",
             "listItem"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -4193,8 +3775,44 @@
             "listItem"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the credits.",
+          "language": "en"
         },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A."
+        },
+        {
+          "ssml": "Keeper."
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B."
+        },
+        {
+          "ssml": "Cartographer."
+        },
+        {
+          "ssml": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -4202,15 +3820,6 @@
             "listItem"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -4242,86 +3851,7 @@
             "credits",
             "listItem"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4369,14 +3899,6 @@
             "list",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
           "language": "always"
         },
         {
@@ -4385,8 +3907,45 @@
             "list",
             "listItem"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -4394,7 +3953,10 @@
             "list",
             "listItem"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -4403,8 +3965,44 @@
             "listItem"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
         },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A."
+        },
+        {
+          "ssml": "Keeper."
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B."
+        },
+        {
+          "ssml": "Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -4412,15 +4010,6 @@
             "listItem"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -4452,86 +4041,7 @@
             "list",
             "listItem"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4581,15 +4091,6 @@
             "list",
             "listItem"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
           "language": "always"
         },
         {
@@ -4599,8 +4100,54 @@
             "list",
             "listItem"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the credits.",
+          "language": "en"
+        },
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -4609,7 +4156,10 @@
             "list",
             "listItem"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -4619,8 +4169,52 @@
             "listItem"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the credits.",
+          "language": "en"
         },
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A."
+        },
+        {
+          "ssml": "Keeper."
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B."
+        },
+        {
+          "ssml": "Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -4629,16 +4223,6 @@
             "listItem"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -4677,93 +4261,7 @@
             "list",
             "listItem"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4815,13 +4313,6 @@
           "contextualize": [
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
           "language": "always"
         },
         {
@@ -4829,15 +4320,46 @@
           "contextualize": [
             "credit"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B. Cartographer."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
           "contextualize": [
             "credit"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -4845,22 +4367,42 @@
             "credit"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Credit.",
+          "language": "en"
         },
+        {
+          "ssml": "Cover photograph by A."
+        },
+        {
+          "ssml": "Keeper."
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B."
+        },
+        {
+          "ssml": "Cartographer."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
             "credit"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -4885,79 +4427,7 @@
           "contextualize": [
             "credit"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -4999,14 +4469,6 @@
             "credits",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
           "language": "always"
         },
         {
@@ -5015,8 +4477,45 @@
             "credits",
             "credit"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the credits.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -5024,7 +4523,10 @@
             "credits",
             "credit"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -5033,8 +4535,44 @@
             "credit"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the credits.",
+          "language": "en"
         },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A."
+        },
+        {
+          "ssml": "Keeper."
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B."
+        },
+        {
+          "ssml": "Cartographer."
+        },
+        {
+          "ssml": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -5042,15 +4580,6 @@
             "credit"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -5082,86 +4611,7 @@
             "credits",
             "credit"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5209,14 +4659,6 @@
             "list",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
           "language": "always"
         },
         {
@@ -5225,8 +4667,45 @@
             "list",
             "credit"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -5234,7 +4713,10 @@
             "list",
             "credit"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -5243,8 +4725,44 @@
             "credit"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
         },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A."
+        },
+        {
+          "ssml": "Keeper."
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B."
+        },
+        {
+          "ssml": "Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -5252,15 +4770,6 @@
             "credit"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -5292,86 +4801,7 @@
             "list",
             "credit"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5421,15 +4851,6 @@
             "list",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
           "language": "always"
         },
         {
@@ -5439,8 +4860,54 @@
             "list",
             "credit"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the credits.",
+          "language": "en"
+        },
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -5449,7 +4916,10 @@
             "list",
             "credit"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -5459,8 +4929,52 @@
             "credit"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the credits.",
+          "language": "en"
         },
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A."
+        },
+        {
+          "ssml": "Keeper."
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B."
+        },
+        {
+          "ssml": "Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -5469,16 +4983,6 @@
             "credit"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -5517,93 +5021,7 @@
             "list",
             "credit"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5657,14 +5075,6 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
           "language": "always"
         },
         {
@@ -5673,8 +5083,45 @@
             "listItem",
             "credit"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B. Cartographer."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -5682,7 +5129,10 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -5691,8 +5141,44 @@
             "credit"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "List item.",
+          "language": "en"
         },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A."
+        },
+        {
+          "ssml": "Keeper."
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B."
+        },
+        {
+          "ssml": "Cartographer."
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -5700,15 +5186,6 @@
             "credit"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -5740,86 +5217,7 @@
             "listItem",
             "credit"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -5869,15 +5267,6 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
           "language": "always"
         },
         {
@@ -5887,8 +5276,54 @@
             "listItem",
             "credit"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the credits.",
+          "language": "en"
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "listItem",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -5897,7 +5332,10 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -5907,8 +5345,52 @@
             "credit"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the credits.",
+          "language": "en"
         },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A."
+        },
+        {
+          "ssml": "Keeper."
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B."
+        },
+        {
+          "ssml": "Cartographer."
+        },
+        {
+          "ssml": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -5917,16 +5399,6 @@
             "credit"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -5965,93 +5437,7 @@
             "listItem",
             "credit"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -6107,15 +5493,6 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "always"
         },
         {
@@ -6125,8 +5502,54 @@
             "listItem",
             "credit"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -6135,7 +5558,10 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -6145,8 +5571,52 @@
             "credit"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
         },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A."
+        },
+        {
+          "ssml": "Keeper."
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B."
+        },
+        {
+          "ssml": "Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -6155,16 +5625,6 @@
             "credit"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -6203,93 +5663,7 @@
             "listItem",
             "credit"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
@@ -6347,16 +5721,6 @@
             "listItem",
             "credit"
           ],
-          "inlineContextualization": true
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "always"
         },
         {
@@ -6367,8 +5731,63 @@
             "listItem",
             "credit"
           ],
-          "language": "always",
-          "inlineContextualization": true
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the credits.",
+          "language": "en"
+        },
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A. Keeper."
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B. Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem",
+            "credit"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -6378,7 +5797,10 @@
             "listItem",
             "credit"
           ],
-          "language": "block-level"
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
         },
         {
           "format": "ssml",
@@ -6389,8 +5811,60 @@
             "credit"
           ],
           "language": "block-level",
-          "inlineContextualization": true
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Start of the credits.",
+          "language": "en"
         },
+        {
+          "ssml": "Start of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Cover photograph by A."
+        },
+        {
+          "ssml": "Keeper."
+        },
+        {
+          "ssml": "List item.",
+          "language": "en"
+        },
+        {
+          "ssml": "Credit.",
+          "language": "en"
+        },
+        {
+          "ssml": "Maps by B."
+        },
+        {
+          "ssml": "Cartographer."
+        },
+        {
+          "ssml": "End of the list.",
+          "language": "en"
+        },
+        {
+          "ssml": "End of the credits.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
         {
           "format": "ssml",
           "contextualize": [
@@ -6400,17 +5874,6 @@
             "credit"
           ],
           "language": "none"
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true
         }
       ],
       "utterances": [
@@ -6456,100 +5919,7 @@
             "listItem",
             "credit"
           ],
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "always",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "block-level",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "block-level",
-          "inlineContextualization": true,
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
           "language": "none",
-          "segmentation": {
-            "mode": "sentence"
-          }
-        },
-        {
-          "format": "ssml",
-          "contextualize": [
-            "credits",
-            "list",
-            "listItem",
-            "credit"
-          ],
-          "language": "none",
-          "inlineContextualization": true,
           "segmentation": {
             "mode": "sentence"
           }
