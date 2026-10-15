@@ -486,8 +486,9 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   // Preferences API (Configurable<SpeechSettings, SpeechPreferences>)
+  // With the engine's voice, which content without its own is spoken with; utterances are stamped from the preference alone.
   get settings(): SpeechSettings {
-    return this._settings;
+    return new SpeechSettings(this._preferences, this._defaults, this.engine.getCurrentVoice());
   }
 
   get preferencesEditor(): SpeechPreferencesEditor {
@@ -514,7 +515,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.applyEngineParameters();
 
     if (this._preferencesEditor !== null) {
-      this._preferencesEditor = new SpeechPreferencesEditor(this._preferences, this._settings);
+      this._preferencesEditor = new SpeechPreferencesEditor(this._preferences, this.settings);
     }
 
     // Skip reextract() unless it would actually produce a different queue.

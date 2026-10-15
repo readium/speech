@@ -4,6 +4,19 @@ import { SpeechDefaults } from "./SpeechDefaults.js";
 import type { AutoPauseScope, SpeechPreferences, VerbosityPreset, VoicePreference } from "./SpeechPreferences.js";
 import { contextualizedAtVerbosity, skippedAtVerbosity } from "./verbosityTables.js";
 import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
+import type { ReadiumSpeechVoice } from "../voices/types.js";
+import { getVoiceId } from "../voices/voiceId.js";
+import { extractLangRegionFromBCP47, valueForLanguage } from "../utils/language.js";
+
+// Content without a voice of its own is spoken with the engine's, which a record only lacks for its language
+const withEngineVoice = (voice: VoicePreference | null, engineVoice?: ReadiumSpeechVoice | null): VoicePreference | null => {
+  if (!engineVoice || typeof voice === "string") return voice;
+  const engineVoiceId = getVoiceId(engineVoice);
+  if (!voice) return engineVoiceId;
+  const [language] = extractLangRegionFromBCP47(engineVoice.language);
+  if (!language || valueForLanguage(voice, language) !== undefined) return voice;
+  return { ...voice, [language]: engineVoiceId };
+};
 
 export class SpeechSettings implements ConfigurableSettings {
   [key: string]: unknown;
@@ -23,7 +36,10 @@ export class SpeechSettings implements ConfigurableSettings {
   public readonly pitch: number;
   public readonly volume: number;
 
-  constructor(preferences: SpeechPreferences, defaults: SpeechDefaults) {
+  /**
+   * @param engineVoice The engine's voice, which `voice` falls back to: when unset, or for its language in a record without it.
+   */
+  constructor(preferences: SpeechPreferences, defaults: SpeechDefaults, engineVoice?: ReadiumSpeechVoice | null) {
     this.format = preferences.format ?? defaults.format;
     this.inlineContextualization = preferences.inlineContextualization ?? defaults.inlineContextualization;
     this.verbosity = preferences.verbosity ?? defaults.verbosity;
@@ -41,7 +57,7 @@ export class SpeechSettings implements ConfigurableSettings {
     this.language = preferences.language ?? defaults.language;
     this.languageOverrides = preferences.languageOverrides ?? defaults.languageOverrides;
     this.segmentation = preferences.segmentation ?? defaults.segmentation;
-    this.voice = preferences.voice ?? defaults.voice;
+    this.voice = withEngineVoice(preferences.voice ?? defaults.voice, engineVoice);
     this.pauseDuration = preferences.pauseDuration ?? defaults.pauseDuration;
     this.autoPause = preferences.autoPause ?? defaults.autoPause;
     this.rate = preferences.rate ?? defaults.rate;

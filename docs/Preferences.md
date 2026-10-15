@@ -71,6 +71,8 @@ voice?: string | Record<string, string>; // a voice id for all content, or one p
 
 The voice of every utterance without its own [`voice`](Playback.md#speaking-an-utterance-with-its-own-voice), for content loaded via `loadContent()` and `loadGndContent()` alike. A voice id is a voice's `voiceURI`, or its `identifier` for a server voice, as `getVoiceId(voice)` returns it. A record picks it by the utterance's `language`, keys matching like `languageOverrides`: by primary subtag, an exact tag winning over it. An utterance with no matching voice is left to the engine's own choice, which follows its content language (see [Playback](Playback.md#speaking-in-an-utterances-own-content-language)).
 
+`navigator.settings.voice` falls back to the engine's voice (`getCurrentVoice()`, its default until one is set): unset, it is that voice's id, and a record without an entry for that voice's language gets one for it. So the voice of content in the engine voice's language is always `settings.voice`, or its entry for that language. Utterances are only stamped from the preference itself, so the fallback never keeps them from following their language.
+
 ```typescript
 await navigator.submitPreferences(new SpeechPreferences({ voice: "Samantha" }));
 await navigator.submitPreferences(new SpeechPreferences({ voice: { en: "Samantha", fr: "Thomas" } }));

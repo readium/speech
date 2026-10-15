@@ -1,6 +1,6 @@
 import test from "ava";
 import { GuidedNavigationObject } from "@readium/shared";
-import { ReadiumSpeechNavigator, SpeechPreferences } from "../../build/index.js";
+import { ReadiumSpeechNavigator, ReadiumSpeechVoice, SpeechPreferences } from "../../build/index.js";
 import { MockEngine } from "./mockEngine.js";
 
 const gnd = (json: unknown[]): GuidedNavigationObject[] => GuidedNavigationObject.deserializeArray(json)!;
@@ -650,4 +650,32 @@ test("changing voice re-stamps the loaded queue without re-extracting, resuming 
   const loads = engine.loadUtterancesStartIndexCalls.length;
   await navigator.submitPreferences(new SpeechPreferences({ voice: { fr: "Thomas" } }));
   t.is(engine.loadUtterancesStartIndexCalls.length, loads, "an equal voice doesn't reload");
+});
+
+class VoicedMockEngine extends MockEngine {
+  getCurrentVoice(): ReadiumSpeechVoice | null {
+    return { source: "json", label: "Alba", name: "Alba", originalName: "Alba", language: "en-US", voiceURI: "alba-en-US" } as ReadiumSpeechVoice;
+  }
+}
+
+test("settings.voice falls back to the engine's voice, filling its language in a record without it", async (t) => {
+  const navigator = new ReadiumSpeechNavigator(new VoicedMockEngine());
+  t.is(navigator.settings.voice, "alba-en-US");
+
+  await navigator.submitPreferences(new SpeechPreferences({ voice: { fr: "lea-fr-FR" } }));
+  t.deepEqual(navigator.settings.voice, { fr: "lea-fr-FR", en: "alba-en-US" });
+
+  await navigator.submitPreferences(new SpeechPreferences({ voice: { "en-GB": "oliver-en-GB", en: "eddy-en-US" } }));
+  t.deepEqual(navigator.settings.voice, { "en-GB": "oliver-en-GB", en: "eddy-en-US" }, "a record's own entry for the language wins");
+
+  await navigator.submitPreferences(new SpeechPreferences({ voice: "lea-fr-FR" }));
+  t.is(navigator.settings.voice, "lea-fr-FR");
+});
+
+test("the engine's voice isn't stamped on utterances, which stay free to follow their language", (t) => {
+  const engine = new VoicedMockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([{ plain: "Bonjour", language: "fr-FR" }]);
+
+  t.is(engine.loadedUtterances[0].voice, undefined);
 });
