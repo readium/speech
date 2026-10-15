@@ -735,7 +735,7 @@ class VoicedMockEngine extends MockEngine {
 
 test("settings.voice falls back to the engine's voice, filling its language in a record without it", async (t) => {
   const navigator = new ReadiumSpeechNavigator(new VoicedMockEngine());
-  t.is(navigator.settings.voice, "alba-en-US");
+  t.deepEqual(navigator.settings.voice, { en: "alba-en-US" }, "only for its language, so submitting it back doesn't pin it for all content");
 
   await navigator.submitPreferences(new SpeechPreferences({ voice: { fr: "lea-fr-FR" } }));
   t.deepEqual(navigator.settings.voice, { fr: "lea-fr-FR", en: "alba-en-US" });
@@ -753,4 +753,13 @@ test("the engine's voice isn't stamped on utterances, which stay free to follow 
   navigator.loadContent([{ plain: "Bonjour", language: "fr-FR" }]);
 
   t.is(engine.loadedUtterances[0].voice, undefined);
+});
+
+test("submitting settings.voice back keeps content in other languages free to follow their language", async (t) => {
+  const engine = new VoicedMockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([{ plain: "Hello", language: "en-US" }, { plain: "Bonjour", language: "fr-FR" }]);
+
+  await navigator.submitPreferences(new SpeechPreferences({ voice: navigator.settings.voice }));
+  t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["alba-en-US", undefined]);
 });

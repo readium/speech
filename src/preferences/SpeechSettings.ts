@@ -8,14 +8,13 @@ import type { ReadiumSpeechVoice } from "../voices/types.js";
 import { getVoiceId } from "../voices/voiceId.js";
 import { extractLangRegionFromBCP47, valueForLanguage } from "../utils/language.js";
 
-// Content without a voice of its own is spoken with the engine's, which a record only lacks for its language
+// Content without a voice of its own is spoken with the engine's, for its language only:
+// a bare id would mean that voice for all content once submitted back.
 const withEngineVoice = (voice: VoicePreference | null, engineVoice?: ReadiumSpeechVoice | null): VoicePreference | null => {
   if (!engineVoice || typeof voice === "string") return voice;
-  const engineVoiceId = getVoiceId(engineVoice);
-  if (!voice) return engineVoiceId;
   const [language] = extractLangRegionFromBCP47(engineVoice.language);
-  if (!language || valueForLanguage(voice, language) !== undefined) return voice;
-  return { ...voice, [language]: engineVoiceId };
+  if (!language || (voice && valueForLanguage(voice, language) !== undefined)) return voice;
+  return { ...voice, [language]: getVoiceId(engineVoice) };
 };
 
 export class SpeechSettings implements ConfigurableSettings {

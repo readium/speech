@@ -15,7 +15,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ### Changed
 
-- **Breaking:** `ReadiumSpeechNavigator`'s `setVoice()`/`getCurrentVoice()` are removed: set voices with the `voice` preference, and read them from `settings.voice`, which falls back to the engine's voice when unset. The voice an utterance is actually spoken with is in the `"start"` event's `detail.voice`. Engines keep theirs, as their own default voice.
+- **Breaking:** `ReadiumSpeechNavigator`'s `setVoice()`/`getCurrentVoice()` are removed: set voices with the `voice` preference, and read them from `settings.voice`, which falls back to the engine's voice for its language. The voice an utterance is actually spoken with is in the `"start"` event's `detail.voice`. Engines keep theirs, as their own default voice.
 - **Breaking:** `setSpeakInContentLanguage()`/`getSpeakInContentLanguage()` are removed from engines and `ReadiumSpeechNavigator`. An utterance is always spoken in its `language`: with the selected voice when it speaks that language, whatever the region, else with that language's best voice. Extraction's `language: "none"` keeps one voice throughout.
 - **Breaking:** `inlineContextualization` takes a list of roles instead of a boolean, so `noteref` and `pagebreak` can be chosen separately. `inlineContextualizationRoles` lists the accepted roles. `true` becomes `["noteref", "pagebreak"]`; a boolean is now dropped as invalid.
 - A pagebreak label that is only a page number (`5`, `iv`, `五`, `ה׳`, `εʹ`…) is spoken as “Page 5”, with or without `contextualize: ["pagebreak"]`. The wording is the catalog's `pagebreak.number` entry.
