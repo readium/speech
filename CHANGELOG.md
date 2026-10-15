@@ -21,6 +21,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - A pagebreak label that is only a page number (`5`, `iv`, `五`, `ה׳`, `εʹ`…) is spoken as “Page 5”, with or without `contextualize: ["pagebreak"]`. The wording is the catalog's `pagebreak.number` entry.
 - Announcements carry the language of the contextualization catalog they come from (English when `contextualizationLocale` isn't shipped), so a voice can be chosen for them like for content. One merged with content in the same primary language (e.g. `en` with `en-US`) takes the content's. In another language, it's wrapped in a `<lang>` tag in SSML, and its own utterance in plain text, an inline footnote or pagebreak splitting the sentence holding it around it.
 - `skip` ignores a role that a more specific one on the same node drops: skipping `aside` no longer skips `<aside epub:type="footnote">`, so notes can be kept while sidebars are skipped. Presets are unaffected.
+- `@readium/guided-navigation` is now `^1.1.3`, which gives descriptions and the text of page breaks, note references and links their language.
 
 ### Fixed
 
