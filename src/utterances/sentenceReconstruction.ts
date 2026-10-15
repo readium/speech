@@ -2,7 +2,7 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import { isAriaSubstituted, type GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { entriesForLanguage } from "../utils/language.js";
-import { languageRuns, runLanguage, sharedLanguage, ssmlInLanguage } from "./language.js";
+import { languageRuns, runLanguage, sameLanguage, sharedLanguage, ssmlInLanguage } from "./language.js";
 import { nodeRoles } from "./nodeFields.js";
 import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
 import { buildMergeOffsets, joinPieceTexts, plainOf, substitutedBareLocate } from "./mergeUtterances.js";
@@ -116,7 +116,7 @@ function canExtendRun(
   const nextText = ctx.format === "ssml" ? next.ssml : next.plain;
   if (!prevText || !nextText) return false;
   if (isSamePlaceholderSentence(prev, next, ctx)) return true;
-  if ((prev.language ?? "en") !== (next.language ?? "en")) return false;
+  if (!sameLanguage(prev.language ?? "en", next.language ?? "en")) return false;
   if (ctx.synthetic.has(prev) || ctx.synthetic.has(next)) return false;
   if (!prevSource || !nextSource) return false;
   if (rolesOf(prevSource).some((role) => neverJoinRoles.has(role))) return false;

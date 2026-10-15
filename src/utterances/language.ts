@@ -24,6 +24,11 @@ interface RunLanguages {
   entry?: string;
 }
 
+// BCP 47 tags are case-insensitive: "en-US" and "en-us" are the same language.
+export function sameLanguage(a: string | undefined, b: string | undefined): boolean {
+  return a === b || (a !== undefined && b !== undefined && a.toLowerCase() === b.toLowerCase());
+}
+
 function samePrimaryLanguage(a: string, b: string): boolean {
   return extractLangRegionFromBCP47(a)[0] === extractLangRegionFromBCP47(b)[0];
 }
@@ -38,7 +43,7 @@ function joinsRun(run: RunLanguages, piece: ReadiumSpeechUtterance, ctx: WalkCon
     run.entry = language;
     return true;
   }
-  if (run.content !== undefined && run.content !== language) return false;
+  if (run.content !== undefined && !sameLanguage(run.content, language)) return false;
   if (!wrapsEntries && run.entry !== undefined && !samePrimaryLanguage(language, run.entry)) return false;
   run.content = language;
   return true;
@@ -58,7 +63,7 @@ export function sharedLanguage(pieces: ReadiumSpeechUtterance[], ctx: WalkContex
 }
 
 function isCatalogEntry(piece: ReadiumSpeechUtterance, ctx: WalkContext): boolean {
-  return ctx.synthetic.has(piece) && piece.language === ctx.contextualizationLanguage;
+  return ctx.synthetic.has(piece) && sameLanguage(piece.language, ctx.contextualizationLanguage);
 }
 
 // The language a run of pieces is spoken in, `null` if they disagree. In SSML, catalog entries

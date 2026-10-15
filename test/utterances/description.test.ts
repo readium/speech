@@ -88,3 +88,14 @@ test("a split figure or table description highlights only the description, not t
   const utterances = await extractUtterances(frenchTable(), { contextualize: ["table"] });
   t.deepEqual(utterances[1].offsets, [{ start: 0, end: 6, locate: { cssSelector: "table", text: { highlight: "Ventes" } } }]);
 });
+
+test("content declared in languages differing only in case is one language", async (t) => {
+  const gnd = GuidedNavigationObject.deserializeArray([
+    {
+      role: ["paragraph"],
+      text: { plain: "Avant après.", ssml: 'Avant <readium:pagebreak id="p" /> après.', language: "fr" },
+      children: [{ id: "p", role: ["pagebreak"], text: { plain: "cinq", language: "FR" } }],
+    },
+  ])!;
+  t.deepEqual(spoken(await extractUtterances(gnd, { inlineContextualization: ["pagebreak"] })), [["Avant cinq après.", "fr"]]);
+});
