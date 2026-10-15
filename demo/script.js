@@ -697,6 +697,7 @@ async function loadScenario(id) {
   if (articleAttribution) articleAttribution.hidden = id !== "article";
 
   applyScenarioLayouts(content);
+  (content.closest(".main") || document.scrollingElement)?.scrollTo(0, 0);
 
   currentSentenceIndex = -1;
   if (currentUtteranceInput) currentUtteranceInput.value = 1;

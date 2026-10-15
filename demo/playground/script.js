@@ -515,7 +515,7 @@ function highlightWordBoundary(event) {
 // Desktop's preloaded Google voices) never fire "word" boundary events at
 // all, per their controls.boundary metadata — a boundary-capable voice is
 // preferred, falling back to any English voice if none support it.
-async function setupDefaultVoice(navigator) {
+async function setupDefaultVoice(navigator, engine) {
   if (!VoiceManagerClass) return;
   try {
     const voiceManager = await VoiceManagerClass.initialize({ languages: ["en-US"] });
@@ -523,8 +523,11 @@ async function setupDefaultVoice(navigator) {
     const boundaryVoices = allVoices.filter(v => v.controls?.boundary !== false);
     const voices = boundaryVoices.length > 0 ? boundaryVoices : allVoices;
     const voice = await voiceManager.getDefaultVoice("en-US", voices);
+    if (!voice) return;
+    // Content without a language is spoken with the engine's voice, which otherwise follows the browser's.
+    engine.setVoice(voice);
     // Keyed by its own language, so content in another language still gets a voice of its own.
-    if (voice) await navigator.submitPreferences(new SpeechPreferencesClass({ voice: { [voice.language.split("-")[0]]: voice.voiceURI } }));
+    await navigator.submitPreferences(new SpeechPreferencesClass({ voice: { [voice.language.split("-")[0]]: voice.voiceURI } }));
   } catch (err) {
     console.error("Failed to set up an English voice for playback:", err);
   }
@@ -548,14 +551,15 @@ function initPlaybackNavigator() {
   if (!NavigatorClass || !EngineClass) return null;
   try {
     void VoiceManagerClass?.initialize({ languages: PLAYGROUND_LANGUAGES });
-    const nav = new NavigatorClass(new EngineClass());
+    const engine = new EngineClass();
+    const nav = new NavigatorClass(engine);
     for (const type of ["start", "pause", "resume", "end", "stop", "ready", "error"]) {
       nav.on(type, syncSpeechUi);
     }
     nav.on("boundary", highlightWordBoundary);
     nav.on("end", clearWordHighlight);
     nav.on("stop", clearWordHighlight);
-    voiceReadyPromise = setupDefaultVoice(nav);
+    voiceReadyPromise = setupDefaultVoice(nav, engine);
     return nav;
   } catch (err) {
     console.error("Failed to construct playback engine (Web Speech API unavailable?):", err);
@@ -606,9 +610,9 @@ async function renderUtterancesPanel() {
     setBadge(utterancesBadgeEl, "pending");
   } else {
     try {
-      const actual = await utteranceExtractor.extractUtterances(comparisonInput, options);
+      const actual = stripLocatorDetails(await utteranceExtractor.extractUtterances(comparisonInput, options));
       utterancesActualEl.textContent = JSON.stringify(actual, null, 2);
-      const pass = sameJson(stripLocatorDetails(actual), stripLocatorDetails(expected));
+      const pass = sameJson(actual, stripLocatorDetails(expected));
       setBadge(utterancesBadgeEl, expected === undefined ? "none" : pass ? "pass" : "fail");
     } catch (err) {
       utterancesActualEl.textContent = String(err);

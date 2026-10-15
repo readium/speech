@@ -607,6 +607,9 @@ function setupEventListeners() {
     
     if (currentVoice) {
       try {
+        // The sample text is replaced below, so don't let the voice change resume the old one.
+        stopPlayback();
+
         // Set the voice for the navigator
         await speechNavigator.submitPreferences(new SpeechPreferences({ voice: getVoiceId(currentVoice) }));
         
