@@ -443,6 +443,45 @@ test("an extraction-affecting change while auto-paused resumes at the withheld u
   t.is(engine.getCurrentUtteranceIndex(), expectedIndex);
 });
 
+test("changing voice again before the reload is ready still resumes where playback was", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([
+    { plain: "First.", language: "en" },
+    { plain: "Second.", language: "en" },
+    { plain: "Third.", language: "en" },
+  ]);
+  engine.emit({ type: "ready" });
+  navigator.play();
+  navigator.jumpTo(2, true);
+
+  await navigator.submitPreferences(new SpeechPreferences({ voice: "Samantha" }));
+  await navigator.submitPreferences(new SpeechPreferences({ voice: "Daniel" })); // before "ready"
+  engine.emit({ type: "ready" });
+
+  t.is(navigator.getState(), "playing");
+  t.is(engine.getCurrentUtteranceIndex(), 2);
+  t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Daniel", "Daniel", "Daniel"]);
+});
+
+test("an extraction-affecting change before the previous reload is ready still resumes paused at the same content", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  await navigator.loadGndContent(footnoteThenParagraphsTree);
+  engine.emit({ type: "ready" });
+  navigator.play();
+  navigator.jumpTo(1, true); // "Second." under "few"
+  navigator.pause();
+
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" }));
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "some" })); // before "ready"
+  engine.emit({ type: "ready" });
+
+  t.is(navigator.getState(), "paused");
+  const expectedIndex = navigator.getContentQueue().findIndex((u) => u.plain === "Second.");
+  t.is(engine.getCurrentUtteranceIndex(), expectedIndex);
+});
+
 test("prosody-only submitPreferences mid-playback does not reload the queue", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);

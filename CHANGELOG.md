@@ -31,6 +31,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - With `segmentation: "sentence"`, a paragraph holding an inline footnote or pagebreak is split into sentences, the footnote or pagebreak staying inside its own. It was spoken as one utterance once announced, and split inside the footnote otherwise.
 - With `segmentation: "sentence"`, a footnote or pagebreak not in `inlineContextualization` is spoken right after the sentence holding it, instead of after the whole paragraph.
 - An extraction-affecting preference changed while paused between utterances (by `autoPause`, or `pause()` during `pauseDuration`) resumes at the next utterance, instead of replaying the one that just ended.
+- An extraction-affecting preference changed again before the engine is ready with the previous change still resumes where playback was, instead of starting over from the first utterance.
 - With `segmentation: "sentence"` and `language: "none"`, a sentence joined across several pieces no longer gets `language: "en"`.
 - `WebSpeechVoiceManager` reports `controls.boundary: false` for every voice on Android, which never emits boundary events. Voices Chrome names after their language (e.g. “English United States”) aren’t in the JSON, and previously defaulted to supporting boundaries.
 

@@ -287,9 +287,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // Re-runs extraction from `this.source`, resuming near the old position if playback was underway.
   private async reextract(): Promise<void> {
     if (!this.source) return;
-    const resumeState = this.navigatorState === "playing" || this.navigatorState === "paused" ? this.navigatorState : null;
+    const { index: oldIndex, state: resumeState } = this.resumeTarget();
     const oldSources = this.contentSources;
-    const oldIndex = this.resumePosition();
 
     const { utterances, sources, blockStarts } = await extractUtterancesWithSources(this.source, {
       format: this._settings.format,
@@ -312,7 +311,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.contentSources = sources;
     this.contentBlockStarts = blockStarts;
 
-    const resumeIndex = resumeState ? this.resolveResumeIndex(oldSources, oldIndex, sources) : null;
+    const resumeIndex = resumeState && oldIndex !== null ? this.resolveResumeIndex(oldSources, oldIndex, sources) : null;
     this.setContentQueue(utterances, resumeIndex, resumeState);
   }
 
@@ -346,6 +345,13 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // Where play() continues: the utterance autoPause or a pause between utterances withheld, else the current one.
   private resumePosition(): number {
     return this.pendingAutoPauseIndex ?? this.getCurrentUtteranceIndex();
+  }
+
+  // The playback a reload restores: the current one, or the one a reload still loading was to restore.
+  private resumeTarget(): { index: number | null; state: "playing" | "paused" | null } {
+    if (this.navigatorState === "loading") return { index: this.pendingResumeIndex, state: this.pendingResumeState };
+    const state = this.navigatorState === "playing" || this.navigatorState === "paused" ? this.navigatorState : null;
+    return { index: state ? this.resumePosition() : null, state };
   }
 
   // Playback Control - Navigator coordinates engine operations
@@ -527,8 +533,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     if (extractionPreferenceKeys.some((key) => !this.sameSettingValue(previousSettings[key], this._settings[key]))) {
       await this.reextract();
     } else if (this.loadedQueue.length > 0 && !this.sameSettingValue(previousSettings.voice, this._settings.voice)) {
-      const resumeState = this.navigatorState === "playing" || this.navigatorState === "paused" ? this.navigatorState : null;
-      this.setContentQueue(this.loadedQueue, resumeState ? this.resumePosition() : null, resumeState);
+      const { index, state } = this.resumeTarget();
+      this.setContentQueue(this.loadedQueue, index, state);
     }
   }
 
