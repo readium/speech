@@ -336,7 +336,7 @@ async function pushJoinedGroup(
   let ssmlFragments: string[] | undefined;
   let joinedSsml: string | undefined;
   if (ctx.format === "ssml") {
-    joinedSsml = joinPieceTexts(pieces.map((piece) => piece.ssml!)).joined;
+    joinedSsml = joinPieceTexts(pieces.map((piece) => piece.ssml!), plainParts).joined;
     const partBoundaries = parts.map((part) => part.boundary);
     ssmlFragments =
       parts.length > 1 ? await splitSsmlAtSentences(joinedSsml, language, async () => partBoundaries, suppressions) : undefined;

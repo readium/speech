@@ -174,3 +174,22 @@ for (const format of ["plain", "ssml"] as const) {
     ]);
   });
 }
+
+const emphasisHtml = '<p>One sentence. Second <em>bold <span epub:type="pagebreak" title="5"></span> word</em> breaks.</p>';
+
+test("sentence segmentation splits SSML whose piece ends in a tag at its plain text's boundaries", async (t) => {
+  t.deepEqual(await spoken(emphasisHtml, "ssml", sentenceOptions), [
+    ["One sentence.", "en"],
+    ["Second <emphasis>bold </emphasis><emphasis> word</emphasis> breaks.", "en"],
+    ["Pagebreak. Page 5.", "en"],
+  ]);
+});
+
+test("sentence segmentation keeps SSML well-formed when splitting around an inline announcement in another language", async (t) => {
+  t.deepEqual(await spoken(inLanguage("fr", emphasisHtml), "ssml", { ...sentenceOptions, inlineContextualization: ["pagebreak"] }), [
+    ["One sentence.", "fr"],
+    ["Second <emphasis>bold</emphasis>", "fr"],
+    ["Pagebreak. Page 5.", "en"],
+    ["<emphasis> word</emphasis> breaks.", "fr"],
+  ]);
+});

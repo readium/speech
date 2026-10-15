@@ -11,23 +11,29 @@ import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from ".
 import { markNonQuotable } from "./boundaryLocate.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
 
-// Concatenates `parts`, skipping redundant lone punctuation and spacing
-// pieces apart. `ranges[i]` is where `parts[i]` landed in `joined`.
-export function joinPieceTexts(parts: string[]): { joined: string; ranges: { start: number; end: number }[] } {
+// Concatenates `parts`, skipping redundant lone punctuation and spacing pieces apart, as decided
+// on `plainParts` (their plain text, for SSML `parts`). `ranges[i]` is where `parts[i]` landed in `joined`.
+export function joinPieceTexts(parts: string[], plainParts: string[] = parts): { joined: string; ranges: { start: number; end: number }[] } {
   let joined = "";
+  let plain = "";
   const ranges: { start: number; end: number }[] = [];
-  for (const part of parts) {
-    if (part.length === 1 && isSinglePunctuationChar(part) && joined.endsWith(part)) {
+  parts.forEach((part, i) => {
+    const plainPart = plainParts[i];
+    if (plainPart.length === 1 && isSinglePunctuationChar(plainPart) && plain.endsWith(plainPart)) {
       ranges.push({ start: joined.length, end: joined.length }); // redundant punctuation
-      continue;
+      return;
     }
     // Only synthesizes a joining space when the join would otherwise have
     // none at all — never adds a second one next to whitespace the pieces already carry.
-    if (joined && !startsWithBindingPunct(part) && !/\s$/.test(joined) && !/^\s/.test(part)) joined += " ";
+    if (plain && !startsWithBindingPunct(plainPart) && !/\s$/.test(plain) && !/^\s/.test(plainPart)) {
+      joined += " ";
+      plain += " ";
+    }
     const start = joined.length;
     joined += part;
+    plain += plainPart;
     ranges.push({ start, end: joined.length });
-  }
+  });
   return { joined, ranges };
 }
 
