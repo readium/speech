@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `ReadiumSpeechNavigator`'s `loadContent()` and `loadGndContent()` take the content's language as a whole, as `{ language }` (`ReadiumSpeechContentOptions`). Utterances without a `language` of their own get it, and `languageOverrides` applies to it on content loaded via `loadGndContent()`.
+
+### Fixed
+
+- With `language: "none"`, utterances keep the content's language when `loadGndContent()` is given one, instead of having none, so a `voice` record (e.g. `{ en: "…" }`) still applies instead of the engine's own voice.
+
 ## [0.15.0] - 2026-10-15
 
 ### Added

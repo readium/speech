@@ -1,6 +1,6 @@
 import { ReadiumSpeechPlaybackEngine } from "./engine.js";
 import type { GuidedNavigationObject } from "@readium/shared";
-import { ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator.js";
+import { ReadiumSpeechContentOptions, ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator.js";
 import { extractionPreferenceKeys } from "./preferences/constraints.js";
 import { ISpeechDefaults, SpeechDefaults } from "./preferences/SpeechDefaults.js";
 import { ISpeechPreferences, SpeechPreferences } from "./preferences/SpeechPreferences.js";
@@ -11,6 +11,7 @@ import { ReadiumSpeechUtterance } from "./utterance.js";
 import { resolveBoundaryLocate } from "./utterances/boundaryLocate.js";
 import { resolveUtteranceLocate } from "./utterances/utteranceLocate.js";
 import { extractUtterancesWithSources, type SourceTrace } from "./utterances/extractUtterances.js";
+import { overriddenLanguage } from "./utterances/language.js";
 import { Contextualizations } from "./utterances/types.js";
 import type { SentenceSegmenter } from "./utterances/sentenceSegmenter.js";
 import { ReadiumSpeechVoice } from "./voices/types.js";
@@ -69,6 +70,9 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // language, segmentation) a no-op on content loaded via loadContent() — prosody
   // fields (rate/pitch/volume/pauseDuration/autoPause) still apply.
   private source: GuidedNavigationObject[] | undefined;
+
+  // The language of the loaded content as a whole, given with it.
+  private contentLanguage: string | undefined;
 
   // Parallel to `contentQueue`, from the extraction that produced it — lets
   // reextract() find where to resume after a reload (see resolveResumeIndex).
@@ -238,16 +242,18 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   // Content Management
-  loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void {
+  loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[], options: ReadiumSpeechContentOptions = {}): void {
     if (this.source) {
       throw new Error("loadContent() cannot be used after loadGndContent() — the two are exclusive. Create a new navigator instance to switch content sources.");
     }
 
+    this.contentLanguage = options.language;
     this.setContentQueue(content);
   }
 
-  async loadGndContent(nodes: GuidedNavigationObject[]): Promise<void> {
+  async loadGndContent(nodes: GuidedNavigationObject[], options: ReadiumSpeechContentOptions = {}): Promise<void> {
     this.source = nodes;
+    this.contentLanguage = options.language;
     await this.reextract();
   }
 
@@ -264,7 +270,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     }
 
     this.loadedQueue = Array.isArray(content) ? [...content] : [content];
-    const contents = this.loadedQueue.map((utterance) => this.withVoice(utterance));
+    const contents = this.loadedQueue.map((utterance) => this.withVoice(this.withLanguage(utterance)));
     this.contentQueue = contents;
     this.pendingResumeIndex = resumeIndex;
     this.pendingResumeState = resumeState;
@@ -276,6 +282,16 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.emitEvent({ type: "loading" });
     this.engine.loadUtterances(contents, resumeIndex ?? undefined);
     this.emitContentChangeEvent({ content: contents });
+  }
+
+  // The content's language when the utterance has none, or for every extracted one with `language: "none"`,
+  // which ignores the languages declared inside the content.
+  private withLanguage(utterance: ReadiumSpeechUtterance): ReadiumSpeechUtterance {
+    if (this.contentLanguage === undefined) return utterance;
+    const isExtracted = this.source !== undefined;
+    if (utterance.language && !(isExtracted && this._settings.language === "none")) return utterance;
+    const language = isExtracted ? overriddenLanguage(this.contentLanguage, this._settings.languageOverrides) : this.contentLanguage;
+    return { ...utterance, language };
   }
 
   // The utterance's own voice, else `voice`'s for its language.

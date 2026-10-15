@@ -229,7 +229,7 @@ How a node's own inline spans (`<em lang="fr">`) render. Never merges across sib
 
 - `"block-level"` (default) — inline spans merge untagged into the surrounding text; block-level `language` kept.
 - `"always"` — `ssml` keeps spans tagged; `plain` splits into one utterance per language run.
-- `"none"` — same merge as `"block-level"`, plus `language` dropped everywhere.
+- `"none"` — same merge as `"block-level"`, plus `language` dropped everywhere. `ReadiumSpeechNavigator` then gives every utterance the content's language, when [`loadGndContent()`](Playback.md) is given one.
 
 ### `languageOverrides`
 
