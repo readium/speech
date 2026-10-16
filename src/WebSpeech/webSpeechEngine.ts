@@ -360,6 +360,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     }
 
     // Cancel any ongoing speech with Firefox workaround
+    // Safari fires the replaced utterance's "canceled" error within cancel(): made stale first, as elsewhere
+    if (this.patches.isSafari) this.speakGeneration++;
     this.cancelCurrentSpeech();
     const generation = ++this.speakGeneration;
 
