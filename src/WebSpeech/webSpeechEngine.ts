@@ -16,6 +16,9 @@ import { clamp } from "../utils/clamp.js";
 import { decodeResidualHtmlEntities, neutralizeAngleBrackets } from "../utils/text.js";
 import { stripSsmlTags } from "../utterances/text.js";
 
+// Safari ends whichever utterance is current when a cancelled one's late "finished" arrives, about 100 ms after cancel()
+const SAFARI_CANCEL_SETTLE_DELAY = 250;
+
 export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private speechSynthesis: SpeechSynthesis;
   private speechSynthesisUtterance: any;
@@ -383,7 +386,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     // Safari ends an utterance spoken in the same task as cancel() at once, without speaking it
     if (this.patches.isSafari && this.hasCancelledInTask) {
-      this.speakNextTask(generation, 1);
+      this.speakNextTask(generation, 1, SAFARI_CANCEL_SETTLE_DELAY);
       return;
     }
 
@@ -414,11 +417,17 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
   
   // Safari: `unstartedRetries` is how many more times to speak it if Safari ends it without starting it, as it can right after cancel()
-  private speakNextTask(generation: number, unstartedRetries: number): void {
+  private speakNextTask(generation: number, unstartedRetries: number, delay: number = 0): void {
     setTimeout(() => {
       // A later speak() or stop() superseded it
-      if (generation === this.speakGeneration) void this.speakCurrentUtterance(generation, unstartedRetries);
-    }, 0);
+      if (generation !== this.speakGeneration) return;
+      // Paused before it was spoken: resume() speaks it from the start
+      if (this.playbackState === "paused") {
+        this.pausedAtUtteranceIndex = null;
+        return;
+      }
+      void this.speakCurrentUtterance(generation, unstartedRetries);
+    }, delay);
   }
 
   private async speakCurrentUtterance(generation: number, unstartedRetries?: number): Promise<void> {

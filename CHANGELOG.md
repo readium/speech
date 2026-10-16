@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- In Safari, changing the pitch or volume while speaking or paused no longer speaks the restarted utterance twice, first without word boundaries: the late end of the utterance `cancel()` replaced ended the restarted one, which Safari still spoke. `WebSpeechEngine` now waits 250 ms after interrupting speech before speaking there.
+
 ## [0.16.0] - 2026-10-16
 
 ### Added
