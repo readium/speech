@@ -101,6 +101,8 @@ function reattachClosingQuotes(text: string, raw: RawBoundary[]): RawBoundary[] 
       const opening = openingQuoteOf[text[i]];
       const prevText = text.slice(prev.start, prev.end);
       if (opening === undefined || count(prevText, opening) <= count(prevText, text[i])) break;
+      // A letter or digit right after it makes it an elision ("’E’s"), not a closing quote
+      if (/[\p{L}\p{N}]/u.test(text[i + 1] ?? "")) break;
       i++;
       while (i < current.end && /\s/.test(text[i])) i++;
       prev.end = current.start = i;
