@@ -233,6 +233,21 @@ test.serial("in Safari, a restart superseded before the next task isn't spoken",
   t.is(synth.spoken.length, before);
 });
 
+test.serial("in Safari, a restart superseded by a stop and a new queue emits no end", async (t) => {
+  const { engine } = await speakingEngine(true);
+  let ends = 0;
+  engine.on("end", () => { ends++; });
+
+  engine.setRate(2);
+  await drainMicrotasks();
+  engine.stop();
+  engine.loadUtterances([]);
+  await flush();
+
+  t.is(ends, 0);
+  t.is(engine.getState(), "ready");
+});
+
 test.serial("outside Safari, a restart speaks the utterance again right away", async (t) => {
   const { synth, engine } = await speakingEngine(false);
   const before = synth.spoken.length;

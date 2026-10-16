@@ -383,7 +383,10 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     // Safari ends an utterance spoken in the same task as cancel() at once, without speaking it
     if (this.patches.isSafari && this.hasCancelledInTask) {
-      setTimeout(() => void this.speakCurrentUtterance(generation), 0);
+      setTimeout(() => {
+        // A later speak() or stop() superseded it
+        if (generation === this.speakGeneration) void this.speakCurrentUtterance(generation);
+      }, 0);
       return;
     }
 
