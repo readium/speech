@@ -73,6 +73,31 @@ test("empty text yields no boundaries", async (t) => {
   t.deepEqual(await segmentSentences("en", ""), []);
 });
 
+for (const [name, space] of [["space", " "], ["no-break space", " "], ["narrow no-break space", " "]]) {
+  for (const mark of ["!", "?", "."]) {
+    test(`a closing guillemet after "${mark}" and a ${name} stays with its sentence`, async (t) => {
+      const text = `«${space}Il n’y a rien${space}${mark}${space}»`;
+      const boundaries = await segmentSentences("fr", text);
+      t.deepEqual(boundaries.map((b) => b.text), [text]);
+    });
+  }
+}
+
+test("a closing guillemet stays with its sentence, the next one starting after it", async (t) => {
+  const boundaries = await segmentSentences("fr", "« Il n’y a rien ! » Elle se tut. « Vraiment ? »");
+  t.deepEqual(boundaries.map((b) => b.text), ["« Il n’y a rien ! »", "Elle se tut.", "« Vraiment ? »"]);
+});
+
+test("a guillemet opening the next quote stays with it, as in German", async (t) => {
+  const boundaries = await segmentSentences("de", "Er sagte: »Ja.« »Nein.« Dann ging er.");
+  t.deepEqual(boundaries.map((b) => b.text), ["Er sagte: »Ja.«", "»Nein.«", "Dann ging er."]);
+});
+
+test("splitSsmlAtSentences keeps a closing guillemet with its sentence", async (t) => {
+  const result = await splitSsmlAtSentences("« Il n’y a rien ! » Elle se tut.", "fr", segmentSentences);
+  t.deepEqual(result, ["« Il n’y a rien ! »", "Elle se tut."]);
+});
+
 test("splitSsmlAtSentences splits plain ssml text at sentence boundaries", async (t) => {
   const result = await splitSsmlAtSentences("Hello world. This is a test.", "en", segmentSentences);
   t.deepEqual(result, ["Hello world.", "This is a test."]);

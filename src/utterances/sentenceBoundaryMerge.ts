@@ -83,13 +83,41 @@ function splitAtEmDashAttribution(text: string, raw: RawBoundary[]): RawBoundary
   return result;
 }
 
+// Each closing quote's opening one, both ways for guillemets (« French », » German «).
+const openingQuoteOf: Record<string, string> = { "»": "«", "«": "»", "›": "‹", "‹": "›", "”": "“", "“": "„", "’": "‘", "‘": "‚" };
+
+const count = (text: string, char: string): number => text.split(char).length - 1;
+
+// Intl.Segmenter splits off a closing quote spaced after the terminator (French "rien ! »"):
+// one closing a quote still open in the previous sentence moves back to it.
+function reattachClosingQuotes(text: string, raw: RawBoundary[]): RawBoundary[] {
+  const result: RawBoundary[] = [];
+  for (const boundary of raw) {
+    const current = { ...boundary };
+    const prev = result[result.length - 1];
+    let i = current.start;
+    while (prev && i < current.end) {
+      while (i < current.end && /\s/.test(text[i])) i++;
+      const opening = openingQuoteOf[text[i]];
+      const prevText = text.slice(prev.start, prev.end);
+      if (opening === undefined || count(prevText, opening) <= count(prevText, text[i])) break;
+      i++;
+      while (i < current.end && /\s/.test(text[i])) i++;
+      prev.end = current.start = i;
+    }
+    if (current.start < current.end) result.push(current);
+    else if (prev) prev.end = current.end;
+  }
+  return result;
+}
+
 // Reconciles Intl.Segmenter's raw sentence boundaries against this repo's
 // abbreviation suppression lists (which Intl.Segmenter has no equivalent
 // for) and a narrow fix for it swallowing an unspaced opening quote into the
 // previous sentence (only reproduces with zero whitespace between two
 // adjacent quoted sentences — e.g. `”"Next…` glued with no separator).
 export function refineSentenceBoundaries(text: string, raw: RawBoundary[], suppressions: string[]): SentenceBoundary[] {
-  const fixed = splitAtEmDashAttribution(text, raw).map((b) => ({ ...b }));
+  const fixed = reattachClosingQuotes(text, splitAtEmDashAttribution(text, raw));
   for (let i = 0; i < fixed.length - 1; i++) {
     const contentEnd = trimmedEnd(text, fixed[i].start, fixed[i].end);
     // Only a glued (no trailing separator) boundary can have swallowed a

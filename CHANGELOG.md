@@ -13,6 +13,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 - With `language: "none"`, utterances keep the content's language when `loadGndContent()` is given one, instead of having none, so a `voice` record (e.g. `{ en: "…" }`) still applies instead of the engine's own voice.
 - With `segmentation: "sentence"`, a sentence of content without `lang`/`xml:lang` is in the content's language when `loadGndContent()` is given one, instead of English, and with `language: "none"`, sentences are segmented in it, with its abbreviations.
+- With `segmentation: "sentence"`, a closing quote spaced after the sentence's last mark, as in French (`« Il n’y a rien ! »`), stays with its sentence instead of being an utterance of its own or starting the next one.
 - In Safari, changing the rate, pitch, volume or voice while speaking no longer emits `"end"` for the restarted utterance without speaking it: Safari ends an utterance spoken right after `cancel()` at once, so `WebSpeechEngine` speaks it on the next task there.
 - `ReadiumSpeechNavigator`'s word boundaries in substituted text (e.g. `100deg` spoken as `100°`) locate the source text again when a `voice` or the content's language applies to the utterance.
 
