@@ -11,7 +11,6 @@ import { ReadiumSpeechUtterance } from "./utterance.js";
 import { resolveBoundaryLocate } from "./utterances/boundaryLocate.js";
 import { resolveUtteranceLocate } from "./utterances/utteranceLocate.js";
 import { extractUtterancesWithSources, type SourceTrace } from "./utterances/extractUtterances.js";
-import { overriddenLanguage } from "./utterances/language.js";
 import { Contextualizations } from "./utterances/types.js";
 import type { SentenceSegmenter } from "./utterances/sentenceSegmenter.js";
 import { ReadiumSpeechVoice } from "./voices/types.js";
@@ -285,14 +284,10 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.emitContentChangeEvent({ content: contents });
   }
 
-  // The content's language when the utterance has none, or for every extracted one with `language: "none"`,
-  // which ignores the languages declared inside the content.
+  // The content's language when a loadContent() utterance has none; extraction applies it to loadGndContent()'s.
   private withLanguage(utterance: ReadiumSpeechUtterance): ReadiumSpeechUtterance {
-    if (this.contentLanguage === undefined) return utterance;
-    const isExtracted = this.source !== undefined;
-    if (utterance.language && !(isExtracted && this._settings.language === "none")) return utterance;
-    const language = isExtracted ? overriddenLanguage(this.contentLanguage, this._settings.languageOverrides) : this.contentLanguage;
-    return { ...utterance, language };
+    if (this.source !== undefined || this.contentLanguage === undefined || utterance.language) return utterance;
+    return { ...utterance, language: this.contentLanguage };
   }
 
   // The utterance's own voice, else `voice`'s for its language.
@@ -320,6 +315,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
         params: this.contextualizationOverrides?.params,
       },
       language: this._settings.language,
+      contentLanguage: this.contentLanguage,
       languageOverrides: this._settings.languageOverrides,
       segmentation: {
         mode: this._settings.segmentation,

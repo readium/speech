@@ -3,7 +3,7 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import { isAriaSubstituted, substitutedOwnSelector } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
-import { overriddenLanguage, overrideLangTags, runLanguage, ssmlInLanguage, stripLangTags } from "./language.js";
+import { languageFor, overrideLangTags, runLanguage, ssmlInLanguage, stripLangTags } from "./language.js";
 import { hasLangTag, splitOnLangTags, stripSsmlTags, type ResolvedNodeText } from "./text.js";
 import type { ExtractionFormat, LanguageMode } from "./types.js";
 import { isSinglePunctuationChar } from "../utils/text.js";
@@ -161,9 +161,9 @@ export function mergeUtterances(
 //  - "block-level": ignore this node's own inline spans — unwrap any
 //    `<lang>` tags in its `ssml`, merging their text into the surrounding
 //    flow with no language of its own. Keeps this node's own `language`.
-//  - "none": same unwrapping as "block-level", and additionally drops this
-//    node's own `language` — the document is being treated as one
-//    language throughout, so nothing gets tagged at all.
+//  - "none": same unwrapping as "block-level", and this node's own
+//    `language` gives way to the content's (`contentLanguage`), if any —
+//    the document is being treated as one language throughout.
 export function applyFormat(
   resolved: ResolvedNodeText,
   format: ExtractionFormat,
@@ -173,7 +173,7 @@ export function applyFormat(
   if (format === "plain" && language !== "block-level" && language !== "none" && resolved.ssml && hasLangTag(resolved.ssml)) {
     return splitOnLangTags(resolved.ssml, resolved.language).map((segment) => {
       const utterance: ReadiumSpeechUtterance = { plain: segment.plain };
-      const segmentLanguage = overriddenLanguage(segment.language, ctx.languageOverrides);
+      const segmentLanguage = languageFor(segment.language, ctx);
       if (segmentLanguage) utterance.language = segmentLanguage;
       ctx.pendingRange.set(utterance, { start: segment.start, end: segment.end });
       return utterance;
@@ -181,16 +181,15 @@ export function applyFormat(
   }
 
   const utterance: ReadiumSpeechUtterance = {};
-  const resolvedLanguage = overriddenLanguage(resolved.language, ctx.languageOverrides);
+  const resolvedLanguage = languageFor(resolved.language, ctx);
   if (resolvedLanguage) utterance.language = resolvedLanguage;
   if (format === "ssml") {
     utterance.ssml = resolved.ssml ? overrideLangTags(resolved.ssml, ctx.languageOverrides) : ssmlTextEscape(resolved.plain ?? "");
   } else {
     utterance.plain = resolved.plain ?? stripSsmlTags(resolved.ssml ?? "");
   }
-  if (language === "block-level" || language === "none") {
-    if (utterance.ssml) utterance.ssml = stripLangTags(utterance.ssml);
-    if (language === "none") delete utterance.language;
+  if ((language === "block-level" || language === "none") && utterance.ssml) {
+    utterance.ssml = stripLangTags(utterance.ssml);
   }
   return [utterance];
 }

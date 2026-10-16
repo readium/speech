@@ -18,6 +18,11 @@ export function overriddenLanguage(language: string | undefined, languageOverrid
   return language === undefined ? undefined : (valueForLanguage(languageOverrides, language) ?? language);
 }
 
+// The language content declared in `declared` is spoken in: the content's when undeclared, or always with "none".
+export function languageFor(declared: string | undefined, ctx: WalkContext): string | undefined {
+  return overriddenLanguage(ctx.language === "none" ? ctx.contentLanguage : declared ?? ctx.contentLanguage, ctx.languageOverrides);
+}
+
 // The languages of a run of pieces: its content's, and its catalog entries' (all in the catalog's).
 interface RunLanguages {
   content?: string;

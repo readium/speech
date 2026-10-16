@@ -39,6 +39,7 @@ export interface WalkContext {
   inlineContextualization: ReadonlySet<GndRole>;
   language?: LanguageMode;
   languageOverrides: Record<string, string>;
+  contentLanguage?: string;
   segmentation: Segmentation;
   segmentationSuppressions: Record<string, string[]>;
   segmenter: SentenceSegmenter;
@@ -148,6 +149,7 @@ export async function makeWalkContext(nodes: GuidedNavigationObject[], options: 
     inlineContextualization: new Set(options.inlineContextualization ?? []),
     language: options.language ?? "block-level",
     languageOverrides: options.languageOverrides ?? {},
+    contentLanguage: options.contentLanguage,
     segmentation: options.segmentation?.mode ?? "structure",
     // segmentSentences() already applies builtInSuppressions internally
     // (Intl.Segmenter has no built-in equivalent of its own) — this is only

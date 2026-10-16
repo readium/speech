@@ -1,7 +1,7 @@
 import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
-import { languageRuns, overriddenLanguage, overrideLangTags, stripLangTags } from "./language.js";
+import { languageFor, languageRuns, overrideLangTags, stripLangTags } from "./language.js";
 import { descriptionOf, nodeRoles, spokenText } from "./nodeFields.js";
 import {
   hasLangTag,
@@ -89,7 +89,7 @@ function emitWithPlaceholders(
   isBlockRole: boolean,
 ): GuidedNavigationObject[] {
   const declaredLanguage = node.text?.language;
-  const language = overriddenLanguage(declaredLanguage, ctx.languageOverrides);
+  const language = languageFor(declaredLanguage, ctx);
   const childrenById = new Map((node.children ?? []).map((child) => [child.id, child] as const));
   const pieces: ReadiumSpeechUtterance[] = [];
   const pieceSources: SourceTrace = [];
@@ -127,7 +127,7 @@ function emitWithPlaceholders(
     ) {
       for (const langSegment of splitOnLangTags(segment.ssml, declaredLanguage)) {
         const utterance: ReadiumSpeechUtterance = { plain: langSegment.plain };
-        const segmentLanguage = overriddenLanguage(langSegment.language, ctx.languageOverrides);
+        const segmentLanguage = languageFor(langSegment.language, ctx);
         if (segmentLanguage) utterance.language = segmentLanguage;
         pieces.push(utterance);
         pieceSources.push(node);
@@ -138,9 +138,8 @@ function emitWithPlaceholders(
     if (language) utterance.language = language;
     if (ctx.format === "ssml") utterance.ssml = overrideLangTags(segment.ssml, ctx.languageOverrides);
     else utterance.plain = stripSsmlTags(segment.ssml);
-    if (ctx.language === "block-level" || ctx.language === "none") {
-      if (utterance.ssml) utterance.ssml = stripLangTags(utterance.ssml);
-      if (ctx.language === "none") delete utterance.language;
+    if ((ctx.language === "block-level" || ctx.language === "none") && utterance.ssml) {
+      utterance.ssml = stripLangTags(utterance.ssml);
     }
     pieces.push(utterance);
     pieceSources.push(node);

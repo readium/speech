@@ -71,10 +71,10 @@ Two ways to load content — simple and advanced:
 - `loadContent()` takes already-extracted `ReadiumSpeechUtterance`s directly. No GND, no extraction options — you own the utterance list.
 - `loadGndContent(nodes)` takes a raw [Guided Navigation](GuidedNavigation.md) tree instead. The navigator retains it and re-runs [`extractUtterances`](UtteranceExtraction.md) itself when an extraction-affecting preference changes via `submitPreferences()`, so verbosity/skip/contextualize/language stay live over the whole tree — `loadContent()` keeps no such source, so those preferences are no-ops on it; prosody preferences still apply either way — see [Preferences](Preferences.md).
 
-Both take the content's language as a whole, e.g. the publication's, as `{ language }`. Utterances without a `language` of their own get it, and so does every utterance extracted with [`language: "none"`](UtteranceExtraction.md#language), which ignores the languages declared inside the content. On content loaded via `loadGndContent()`, [`languageOverrides`](Preferences.md) applies to it. Without it, those utterances have no `language`, and the engine's voice speaks them.
+Both take the content's language as a whole, as `{ language }`. Utterances without a `language` of their own get it, and so does every utterance extracted with [`language: "none"`](UtteranceExtraction.md#language), which ignores the languages declared inside the content. On content loaded via `loadGndContent()`, it is extraction's [`contentLanguage`](UtteranceExtraction.md#contentlanguage): sentences are segmented in it, and [`languageOverrides`](Preferences.md) applies to it. Without it, those utterances have no `language`, and the engine's voice speaks them.
 
 ```typescript
-await navigator.loadGndContent(nodes, { language: publication.metadata.languages[0] });
+await navigator.loadGndContent(nodes, { language: "de" });
 ```
 
 ### `contextualizationOverrides`

@@ -3,7 +3,7 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { extractLangRegionFromBCP47 } from "../utils/language.js";
-import { overriddenLanguage } from "./language.js";
+import { languageFor } from "./language.js";
 import { resolveNodeLocate, subLocateFor } from "./locate.js";
 import { descriptionLanguageOf, descriptionOf } from "./nodeFields.js";
 import { roleDropOverrides } from "./roles.js";
@@ -56,10 +56,8 @@ function scopeToOwnValue(utterance: ReadiumSpeechUtterance, text: string, node: 
   if (value !== undefined && value === plainTextOf(node)) {
     // Language reflects the node's own real text regardless of whether a
     // locate can be computed — a node with no textref still lost its language otherwise.
-    if (ctx.language !== "none") {
-      const language = overriddenLanguage(node.text?.language, ctx.languageOverrides);
-      if (language) utterance.language = language;
-    }
+    const language = languageFor(node.text?.language, ctx);
+    if (language) utterance.language = language;
     ctx.synthetic.delete(utterance);
     scopeToQuote(utterance, text, value, node, ctx);
     return;
@@ -114,7 +112,7 @@ function entryUtterances(
   const description = params?.description;
   const language =
     ctx.language !== "none" && description !== undefined && description === descriptionOf(node)
-      ? overriddenLanguage(descriptionLanguageOf(node), ctx.languageOverrides)
+      ? languageFor(descriptionLanguageOf(node), ctx)
       : undefined;
   const parts = language ? resolveEntryText(ctx, base, variantKey, { ...params, description: descriptionMarker })?.split(descriptionMarker) : undefined;
   if (!language || !parts || parts.length < 2) {

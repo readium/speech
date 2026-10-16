@@ -2,7 +2,7 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import { isAriaSubstituted, type GndRole } from "@readium/guided-navigation";
 import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { entriesForLanguage } from "../utils/language.js";
-import { languageRuns, runLanguage, sameLanguage, sharedLanguage, ssmlInLanguage } from "./language.js";
+import { languageFor, languageRuns, runLanguage, sameLanguage, sharedLanguage, ssmlInLanguage } from "./language.js";
 import { nodeRoles } from "./nodeFields.js";
 import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
 import { buildMergeOffsets, joinPieceTexts, plainOf, substitutedBareLocate } from "./mergeUtterances.js";
@@ -361,7 +361,8 @@ async function pushJoinedGroup(
     }
     const text = ctx.format === "ssml" ? (ssmlFragments ? ssmlFragments[k] : joinedSsml!) : boundary.text;
     const merged: ReadiumSpeechUtterance = { [ctx.format]: text };
-    if (ctx.language !== "none") merged.language = partLanguage ?? "en";
+    const mergedLanguage = ctx.language === "none" ? languageFor(undefined, ctx) : partLanguage ?? "en";
+    if (mergedLanguage) merged.language = mergedLanguage;
     const claimed = pieces.slice(startIdx, endIdx + 1).filter((piece) => unclaimedBlockStarts.delete(piece));
     if (claimed.length > 0) ctx.blockStarts.add(merged);
     const offsets = buildJoinedOffsets(pieces, pieceSources, ranges, boundary, startIdx, endIdx, ctx);

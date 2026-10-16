@@ -7,10 +7,12 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ### Added
 
 - `ReadiumSpeechNavigator`'s `loadContent()` and `loadGndContent()` take the content's language as a whole, as `{ language }` (`ReadiumSpeechContentOptions`). Utterances without a `language` of their own get it, and `languageOverrides` applies to it on content loaded via `loadGndContent()`.
+- `contentLanguage` extraction option: the language of content without `lang`/`xml:lang`, and of all content with `language: "none"`. Sentences are segmented in it, and `languageOverrides` applies to it. `loadGndContent()`'s `{ language }` is passed as this option.
 
 ### Fixed
 
 - With `language: "none"`, utterances keep the content's language when `loadGndContent()` is given one, instead of having none, so a `voice` record (e.g. `{ en: "…" }`) still applies instead of the engine's own voice.
+- With `segmentation: "sentence"`, a sentence of content without `lang`/`xml:lang` is in the content's language when `loadGndContent()` is given one, instead of English, and with `language: "none"`, sentences are segmented in it, with its abbreviations.
 - In Safari, changing the rate, pitch, volume or voice while speaking no longer emits `"end"` for the restarted utterance without speaking it: Safari ends an utterance spoken right after `cancel()` at once, so `WebSpeechEngine` speaks it on the next task there.
 - `ReadiumSpeechNavigator`'s word boundaries in substituted text (e.g. `100deg` spoken as `100°`) locate the source text again when a `voice` or the content's language applies to the utterance.
 

@@ -29,7 +29,7 @@ export interface ReadiumSpeechPlaybackEvent {
 }
 
 export interface ReadiumSpeechContentOptions {
-  // BCP 47 tag of the content as a whole, e.g. the publication's language
+  // BCP 47 tag of the content as a whole
   language?: string;
 }
 

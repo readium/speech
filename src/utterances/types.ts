@@ -109,9 +109,14 @@ export interface ExtractUtterancesOptions {
   //    into the surrounding utterance untagged, keeping only that node's
   //    own (block-level) `language`.
   //  - "none": same merging as "block-level", and every utterance's
-  //    `language` is dropped entirely — the whole document is being
-  //    treated as one language, so nothing gets tagged at all.
+  //    `language` is `contentLanguage` below, or none without it — the whole
+  //    document is being treated as one language.
   language?: LanguageMode;
+
+  // BCP 47 tag of the content as a whole:
+  // the language of content without `lang`/`xml:lang`, and of all content with "none".
+  // Sentences are segmented in it, and `languageOverrides` applies to it.
+  contentLanguage?: string;
 
   // The language content declared in a given language is spoken in, e.g.
   // `{ en: "fr" }` for French content wrongly declared as English. Keyed like
