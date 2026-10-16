@@ -233,6 +233,70 @@ test.serial("in Safari, a restart superseded before the next task isn't spoken",
   t.is(synth.spoken.length, before);
 });
 
+test.serial("in Safari, a restart Safari ends without starting is spoken once more instead of emitting end", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  let ends = 0;
+  engine.on("end", () => { ends++; });
+
+  engine.setRate(2);
+  await flush();
+  await flush();
+  const restarted = synth.spoken.length;
+  synth.spoken[restarted - 1].onend?.();
+  await flush();
+
+  t.is(ends, 0);
+  t.is(synth.spoken.length, restarted + 1);
+});
+
+test.serial("in Safari, a retried restart that ends without starting again emits end", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  let ends = 0;
+  engine.on("end", () => { ends++; });
+
+  engine.setRate(2);
+  await flush();
+  await flush();
+  synth.spoken[synth.spoken.length - 1].onend?.();
+  await flush();
+  const retried = synth.spoken.length;
+  synth.spoken[retried - 1].onend?.();
+  await flush();
+
+  t.is(ends, 1);
+  t.is(synth.spoken.length, retried);
+});
+
+test.serial("in Safari, a restart Safari ends without starting while paused isn't spoken again", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+
+  engine.setRate(2);
+  await flush();
+  await flush();
+  const restarted = synth.spoken.length;
+  engine.pause();
+  synth.spoken[restarted - 1].onend?.();
+  await flush();
+
+  t.is(synth.spoken.length, restarted);
+});
+
+test.serial("in Safari, a restart that started then ends emits end", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  let ends = 0;
+  engine.on("end", () => { ends++; });
+
+  engine.setRate(2);
+  await flush();
+  await flush();
+  const restarted = synth.spoken[synth.spoken.length - 1];
+  restarted.onstart?.();
+  restarted.onend?.();
+  await flush();
+
+  t.is(ends, 1);
+});
+
 test.serial("in Safari, a restart superseded by a stop and a new queue emits no end", async (t) => {
   const { engine } = await speakingEngine(true);
   let ends = 0;

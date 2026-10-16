@@ -383,10 +383,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     // Safari ends an utterance spoken in the same task as cancel() at once, without speaking it
     if (this.patches.isSafari && this.hasCancelledInTask) {
-      setTimeout(() => {
-        // A later speak() or stop() superseded it
-        if (generation === this.speakGeneration) void this.speakCurrentUtterance(generation);
-      }, 0);
+      this.speakNextTask(generation, true);
       return;
     }
 
@@ -416,7 +413,15 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.speechSynthesis.cancel();
   }
   
-  private async speakCurrentUtterance(generation: number): Promise<void> {
+  // Safari: `retryIfUnstarted` speaks it once more if Safari ends it without starting it, as it can right after cancel()
+  private speakNextTask(generation: number, retryIfUnstarted: boolean): void {
+    setTimeout(() => {
+      // A later speak() or stop() superseded it
+      if (generation === this.speakGeneration) void this.speakCurrentUtterance(generation, retryIfUnstarted);
+    }, 0);
+  }
+
+  private async speakCurrentUtterance(generation: number, retryIfUnstarted = false): Promise<void> {
     if (this.currentUtteranceIndex >= this.currentUtterances.length) {
       this.setState("idle");
       this.emitEvent({ type: "end" });
@@ -462,7 +467,9 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     utterance.volume = this.volume;
 
     // Set up event handlers with resume infinity pattern
+    let started = false;
     utterance.onstart = () => {
+      started = true;
       if (generation !== this.speakGeneration) return;
       this.isSpeakingInternal = true;
       this.isPausedInternal = false;
@@ -490,6 +497,11 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
       // Don't continue if stopped
       if (this.playbackState === "idle") {
+        return;
+      }
+
+      if (retryIfUnstarted && !started && this.playbackState === "playing") {
+        this.speakNextTask(generation, false);
         return;
       }
       
