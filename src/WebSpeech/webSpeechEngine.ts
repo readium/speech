@@ -383,7 +383,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     // Safari ends an utterance spoken in the same task as cancel() at once, without speaking it
     if (this.patches.isSafari && this.hasCancelledInTask) {
-      this.speakNextTask(generation, true);
+      this.speakNextTask(generation, 1);
       return;
     }
 
@@ -413,15 +413,15 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.speechSynthesis.cancel();
   }
   
-  // Safari: `retryIfUnstarted` speaks it once more if Safari ends it without starting it, as it can right after cancel()
-  private speakNextTask(generation: number, retryIfUnstarted: boolean): void {
+  // Safari: `unstartedRetries` is how many more times to speak it if Safari ends it without starting it, as it can right after cancel()
+  private speakNextTask(generation: number, unstartedRetries: number): void {
     setTimeout(() => {
       // A later speak() or stop() superseded it
-      if (generation === this.speakGeneration) void this.speakCurrentUtterance(generation, retryIfUnstarted);
+      if (generation === this.speakGeneration) void this.speakCurrentUtterance(generation, unstartedRetries);
     }, 0);
   }
 
-  private async speakCurrentUtterance(generation: number, retryIfUnstarted = false): Promise<void> {
+  private async speakCurrentUtterance(generation: number, unstartedRetries?: number): Promise<void> {
     if (this.currentUtteranceIndex >= this.currentUtterances.length) {
       this.setState("idle");
       this.emitEvent({ type: "end" });
@@ -500,9 +500,16 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
         return;
       }
 
-      if (retryIfUnstarted && !started && this.playbackState === "playing") {
-        this.speakNextTask(generation, false);
-        return;
+      // Never spoken: not an end. resume() speaks it from the start when paused
+      if (unstartedRetries !== undefined && !started) {
+        if (this.playbackState === "paused") {
+          this.pausedAtUtteranceIndex = null;
+          return;
+        }
+        if (this.playbackState === "playing" && unstartedRetries > 0) {
+          this.speakNextTask(generation, unstartedRetries - 1);
+          return;
+        }
       }
       
       // Just report completion - navigator handles playback decisions

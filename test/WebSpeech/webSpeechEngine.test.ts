@@ -267,8 +267,10 @@ test.serial("in Safari, a retried restart that ends without starting again emits
   t.is(synth.spoken.length, retried);
 });
 
-test.serial("in Safari, a restart Safari ends without starting while paused isn't spoken again", async (t) => {
+test.serial("in Safari, a restart Safari ends without starting while paused emits no end, and resuming speaks it", async (t) => {
   const { synth, engine } = await speakingEngine(true);
+  let ends = 0;
+  engine.on("end", () => { ends++; });
 
   engine.setRate(2);
   await flush();
@@ -278,7 +280,36 @@ test.serial("in Safari, a restart Safari ends without starting while paused isn'
   synth.spoken[restarted - 1].onend?.();
   await flush();
 
-  t.is(synth.spoken.length, restarted);
+  t.is(ends, 0);
+  t.is(synth.spoken.length, restarted, "not spoken while paused");
+
+  engine.resume();
+  await flush();
+  await flush();
+  t.is(synth.spoken.length, restarted + 1);
+  t.is(synth.spoken[synth.spoken.length - 1].text, "First.");
+});
+
+test.serial("in Safari, a retried restart Safari ends without starting while paused emits no end either", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  let ends = 0;
+  engine.on("end", () => { ends++; });
+
+  engine.setRate(2);
+  await flush();
+  await flush();
+  synth.spoken[synth.spoken.length - 1].onend?.();
+  await flush();
+  const retried = synth.spoken.length;
+  engine.pause();
+  synth.spoken[retried - 1].onend?.();
+  await flush();
+
+  t.is(ends, 0);
+  engine.resume();
+  await flush();
+  await flush();
+  t.is(synth.spoken[synth.spoken.length - 1].text, "First.");
 });
 
 test.serial("in Safari, a restart that started then ends emits end", async (t) => {
