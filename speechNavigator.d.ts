@@ -1,6 +1,6 @@
 import { ReadiumSpeechPlaybackEngine } from './engine.js';
 import { GuidedNavigationObject } from '@readium/shared';
-import { ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from './navigator.js';
+import { ReadiumSpeechContentOptions, ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from './navigator.js';
 import { ISpeechDefaults } from './preferences/SpeechDefaults.js';
 import { ISpeechPreferences, SpeechPreferences } from './preferences/SpeechPreferences.js';
 import { SpeechPreferencesEditor } from './preferences/SpeechPreferencesEditor.js';
@@ -40,6 +40,7 @@ export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorCon
     private readonly contextualizationOverrides?;
     private readonly segmentationOverrides?;
     private source;
+    private contentLanguage;
     private contentSources;
     private contentBlockStarts;
     private pendingResumeIndex;
@@ -51,9 +52,10 @@ export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorCon
     private setupEngineListeners;
     private setNavigatorState;
     getVoices(): Promise<ReadiumSpeechVoice[]>;
-    loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
-    loadGndContent(nodes: GuidedNavigationObject[]): Promise<void>;
+    loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[], options?: ReadiumSpeechContentOptions): void;
+    loadGndContent(nodes: GuidedNavigationObject[], options?: ReadiumSpeechContentOptions): Promise<void>;
     private setContentQueue;
+    private withLanguage;
     private withVoice;
     private reextract;
     private resolveResumeIndex;

@@ -30,6 +30,7 @@ export interface ExtractUtterancesOptions {
     skip?: GndRole[];
     contextualize?: GndRole[];
     language?: LanguageMode;
+    contentLanguage?: string;
     languageOverrides?: Record<string, string>;
     inlineContextualization?: GndRole[];
     segmentation?: SegmentationOptions;

@@ -9,10 +9,13 @@ export interface ReadiumSpeechPlaybackEvent {
     type: "start" | "pause" | "resume" | "end" | "stop" | "skip" | "error" | "boundary" | "mark" | "idle" | "loading" | "ready" | "voiceschanged" | "languagefallback" | "enginefallback" | "enginerecovered";
     detail?: any;
 }
+export interface ReadiumSpeechContentOptions {
+    language?: string;
+}
 export interface ReadiumSpeechNavigatorContract extends Configurable<SpeechSettings, SpeechPreferences> {
     getVoices(): Promise<ReadiumSpeechVoice[]>;
-    loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
-    loadGndContent(nodes: GuidedNavigationObject[]): Promise<void>;
+    loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[], options?: ReadiumSpeechContentOptions): void;
+    loadGndContent(nodes: GuidedNavigationObject[], options?: ReadiumSpeechContentOptions): Promise<void>;
     getCurrentContent(): ReadiumSpeechUtterance | null;
     getContentQueue(): ReadiumSpeechUtterance[];
     play(): void;

@@ -2,6 +2,7 @@ import { ReadiumSpeechUtterance } from '../utterance.js';
 import { WalkContext } from './walkContext.js';
 export declare function stripLangTags(ssml: string): string;
 export declare function overriddenLanguage(language: string | undefined, languageOverrides: Record<string, string>): string | undefined;
+export declare function languageFor(declared: string | undefined, ctx: WalkContext): string | undefined;
 export declare function sameLanguage(a: string | undefined, b: string | undefined): boolean;
 export declare function sharedLanguage(pieces: ReadiumSpeechUtterance[], ctx: WalkContext): string | undefined | null;
 export declare function runLanguage(pieces: ReadiumSpeechUtterance[], ctx: WalkContext): string | undefined | null;

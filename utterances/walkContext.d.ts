@@ -16,6 +16,7 @@ export interface WalkContext {
     inlineContextualization: ReadonlySet<GndRole>;
     language?: LanguageMode;
     languageOverrides: Record<string, string>;
+    contentLanguage?: string;
     segmentation: Segmentation;
     segmentationSuppressions: Record<string, string[]>;
     segmenter: SentenceSegmenter;

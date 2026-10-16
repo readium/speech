@@ -26,6 +26,7 @@ export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     private initialized;
     private maxLengthExceeded;
     private utterancesBeingCancelled;
+    private hasCancelledInTask;
     private lacksNativePauseEvents;
     private rate;
     private pitch;
@@ -57,6 +58,7 @@ export declare class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     getAvailableVoices(): Promise<ReadiumSpeechVoice[]>;
     speak(utteranceIndex?: number): void;
     private cancelCurrentSpeech;
+    private speakNextTask;
     private speakCurrentUtterance;
     private startResumeInfinity;
     private stopResumeInfinity;
