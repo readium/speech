@@ -48,6 +48,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private initialized: boolean = false;
   private maxLengthExceeded: "error" | "none" | "warn" = "warn";
   private utterancesBeingCancelled: boolean = false; // Flag to track if utterances are being cancelled
+  private hasCancelledInTask: boolean = false; // Safari: cancel() stopped speech in the current task
   private lacksNativePauseEvents: boolean = false; // Google and Chrome OS voices never fire onpause/onresume
 
   // Playback parameters
@@ -73,12 +74,13 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // From Easy Speech,
   // Check infinity pattern for long texts (except on problematic platforms)
   // Skip resume infinity for Microsoft Natural voices as they have different behavior 
+  // Only for voices without pause events (Chrome's Google voices, which cut off long texts): others would report each pause/resume
   private shouldUseResumeInfinity(): boolean {
     const selectedVoice = this.speakingVoice ?? this.currentVoice;
     const isMsNatural = !!(selectedVoice?.name &&
                          typeof selectedVoice.name === "string" &&
                          selectedVoice.name.toLocaleLowerCase().includes("(natural)"));
-    return this.patches.isAndroid !== true && !this.patches.isFirefox && !this.patches.isSafari && !isMsNatural;
+    return this.patches.isAndroid !== true && !this.patches.isFirefox && !this.patches.isSafari && !isMsNatural && this.lacksNativePauseEvents;
   }
 
   // Creates a new SpeechSynthesisUtterance using detected constructor
@@ -359,6 +361,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     }
 
     // Cancel any ongoing speech with Firefox workaround
+    // Safari fires the replaced utterance's "canceled" error within cancel(): made stale first, as elsewhere
+    if (this.patches.isSafari) this.speakGeneration++;
     this.cancelCurrentSpeech();
     const generation = ++this.speakGeneration;
 
@@ -377,6 +381,12 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.currentUtteranceIndex = 0;
     }
 
+    // Safari ends an utterance spoken in the same task as cancel() at once, without speaking it
+    if (this.patches.isSafari && this.hasCancelledInTask) {
+      this.speakNextTask(generation, 1);
+      return;
+    }
+
     // Speak immediately for responsive navigation; voice resolution only
     // actually awaits anything when the content's language isn't cached yet
     void this.speakCurrentUtterance(generation);
@@ -392,11 +402,26 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
         this.utterancesBeingCancelled = false;
       }, 100);
     }
+
+    if (this.patches.isSafari && this.speechSynthesis.speaking) {
+      this.hasCancelledInTask = true;
+      setTimeout(() => {
+        this.hasCancelledInTask = false;
+      }, 0);
+    }
     
     this.speechSynthesis.cancel();
   }
   
-  private async speakCurrentUtterance(generation: number): Promise<void> {
+  // Safari: `unstartedRetries` is how many more times to speak it if Safari ends it without starting it, as it can right after cancel()
+  private speakNextTask(generation: number, unstartedRetries: number): void {
+    setTimeout(() => {
+      // A later speak() or stop() superseded it
+      if (generation === this.speakGeneration) void this.speakCurrentUtterance(generation, unstartedRetries);
+    }, 0);
+  }
+
+  private async speakCurrentUtterance(generation: number, unstartedRetries?: number): Promise<void> {
     if (this.currentUtteranceIndex >= this.currentUtterances.length) {
       this.setState("idle");
       this.emitEvent({ type: "end" });
@@ -442,7 +467,9 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     utterance.volume = this.volume;
 
     // Set up event handlers with resume infinity pattern
+    let started = false;
     utterance.onstart = () => {
+      started = true;
       if (generation !== this.speakGeneration) return;
       this.isSpeakingInternal = true;
       this.isPausedInternal = false;
@@ -471,6 +498,18 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       // Don't continue if stopped
       if (this.playbackState === "idle") {
         return;
+      }
+
+      // Never spoken: not an end. resume() speaks it from the start when paused
+      if (unstartedRetries !== undefined && !started) {
+        if (this.playbackState === "paused") {
+          this.pausedAtUtteranceIndex = null;
+          return;
+        }
+        if (this.playbackState === "playing" && unstartedRetries > 0) {
+          this.speakNextTask(generation, unstartedRetries - 1);
+          return;
+        }
       }
       
       // Just report completion - navigator handles playback decisions

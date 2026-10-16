@@ -83,13 +83,45 @@ function splitAtEmDashAttribution(text: string, raw: RawBoundary[]): RawBoundary
   return result;
 }
 
+// Each closing guillemet's opening one, both ways (« French », » German «).
+const openingGuillemetOf: Record<string, string> = { "»": "«", "«": "»", "›": "‹", "‹": "›" };
+
+// Intl.Segmenter splits off a closing guillemet spaced after the terminator (French "rien ! »"):
+// one closing a quote still open before it, maybe sentences earlier, moves back to the previous sentence.
+function reattachClosingGuillemets(text: string, raw: RawBoundary[]): RawBoundary[] {
+  const result: RawBoundary[] = [];
+  // Each mark is counted once, as the text before the previous sentence's end only grows
+  const counts = new Map<string, number>();
+  let counted = 0;
+  const countBefore = (end: number, char: string): number => {
+    for (; counted < end; counted++) counts.set(text[counted], (counts.get(text[counted]) ?? 0) + 1);
+    return counts.get(char) ?? 0;
+  };
+  for (const boundary of raw) {
+    const current = { ...boundary };
+    const prev = result[result.length - 1];
+    let i = current.start;
+    while (prev && i < current.end) {
+      while (i < current.end && /\s/.test(text[i])) i++;
+      const opening = openingGuillemetOf[text[i]];
+      if (opening === undefined || countBefore(prev.end, opening) <= countBefore(prev.end, text[i])) break;
+      i++;
+      while (i < current.end && /\s/.test(text[i])) i++;
+      prev.end = current.start = i;
+    }
+    if (current.start < current.end) result.push(current);
+    else if (prev) prev.end = current.end;
+  }
+  return result;
+}
+
 // Reconciles Intl.Segmenter's raw sentence boundaries against this repo's
 // abbreviation suppression lists (which Intl.Segmenter has no equivalent
 // for) and a narrow fix for it swallowing an unspaced opening quote into the
 // previous sentence (only reproduces with zero whitespace between two
 // adjacent quoted sentences — e.g. `”"Next…` glued with no separator).
 export function refineSentenceBoundaries(text: string, raw: RawBoundary[], suppressions: string[]): SentenceBoundary[] {
-  const fixed = splitAtEmDashAttribution(text, raw).map((b) => ({ ...b }));
+  const fixed = reattachClosingGuillemets(text, splitAtEmDashAttribution(text, raw));
   for (let i = 0; i < fixed.length - 1; i++) {
     const contentEnd = trimmedEnd(text, fixed[i].start, fixed[i].end);
     // Only a glued (no trailing separator) boundary can have swallowed a

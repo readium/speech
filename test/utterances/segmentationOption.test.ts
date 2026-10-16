@@ -652,3 +652,36 @@ test("segmentation: sentence passes undefined suppressions to a caller-supplied 
   });
   t.deepEqual(received, [undefined]);
 });
+
+test("segmentation: a caller's suppressions for English apply to content whose invalid language falls back to English", async (t) => {
+  const gnd = parseMarkup('<html><body><p lang="-">Hello Zqxk. Smith. Goodbye.</p></body></html>');
+  const utterances = await extractUtterances(gnd, {
+    format: "plain",
+    segmentation: { mode: "sentence", suppressions: { en: ["Zqxk."] } },
+  });
+  t.deepEqual(utterances.map((u) => u.plain), ["Hello Zqxk. Smith.", "Goodbye."]);
+});
+
+test.serial("segmentation: a caller's segmenter runs without Intl.Segmenter, given the suppressions of its input language", async (t) => {
+  const gnd = parseMarkup('<html><body><p lang="-">Hello, world</p></body></html>');
+  const received: (string[] | undefined)[] = [];
+  const segmenter: SentenceSegmenter = async (language, text, customSuppressions) => {
+    received.push(customSuppressions);
+    return commaSegmenter(language, text, customSuppressions);
+  };
+  const intlSegmenter = Intl.Segmenter;
+  delete (Intl as any).Segmenter;
+  try {
+    for (const [format, expected] of [["plain", ["Hello", "world"]], ["ssml", ["Hello,", "world"]]] as const) {
+      const utterances = await extractUtterances(gnd, {
+        format,
+        segmentation: { mode: "sentence", segmenter, suppressions: { "-": ["Zqxk."], en: ["Qxzk."] } },
+      });
+      t.deepEqual(utterances.map((u) => u[format]), expected);
+    }
+    t.true(received.length > 0);
+    t.true(received.every((suppressions) => suppressions?.[0] === "Zqxk."));
+  } finally {
+    (Intl as any).Segmenter = intlSegmenter;
+  }
+});

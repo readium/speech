@@ -197,6 +197,250 @@ test.serial("late events from an utterance replaced by a restart are ignored", a
   t.deepEqual(events, []);
 });
 
+async function speakingEngine(isSafari: boolean) {
+  const synth = setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  (engine as any).patches = { ...(engine as any).patches, isSafari };
+  engine.loadUtterances([{ plain: "First." }, { plain: "Second." }]);
+  engine.speak();
+  await flush();
+  (globalThis as any).window.speechSynthesis.speaking = true;
+  return { synth, engine };
+}
+
+test.serial("in Safari, a restart speaks the utterance again on the next task, after the cancel", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  const before = synth.spoken.length;
+
+  engine.setRate(2);
+  await flush();
+  t.is(synth.spoken.length, before, "not spoken in the task that cancelled");
+
+  await flush();
+  t.is(synth.spoken.length, before + 1);
+  t.is(synth.spoken[synth.spoken.length - 1].rate, 2);
+});
+
+test.serial("in Safari, a restart superseded before the next task isn't spoken", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  const before = synth.spoken.length;
+
+  engine.setRate(2);
+  await flush();
+  engine.stop();
+  await flush();
+
+  t.is(synth.spoken.length, before);
+});
+
+test.serial("in Safari, a restart Safari ends without starting is spoken once more instead of emitting end", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  let ends = 0;
+  engine.on("end", () => { ends++; });
+
+  engine.setRate(2);
+  await flush();
+  await flush();
+  const restarted = synth.spoken.length;
+  synth.spoken[restarted - 1].onend?.();
+  await flush();
+
+  t.is(ends, 0);
+  t.is(synth.spoken.length, restarted + 1);
+});
+
+test.serial("in Safari, a retried restart that ends without starting again emits end", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  let ends = 0;
+  engine.on("end", () => { ends++; });
+
+  engine.setRate(2);
+  await flush();
+  await flush();
+  synth.spoken[synth.spoken.length - 1].onend?.();
+  await flush();
+  const retried = synth.spoken.length;
+  synth.spoken[retried - 1].onend?.();
+  await flush();
+
+  t.is(ends, 1);
+  t.is(synth.spoken.length, retried);
+});
+
+test.serial("in Safari, a restart Safari ends without starting while paused emits no end, and resuming speaks it", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  let ends = 0;
+  engine.on("end", () => { ends++; });
+
+  engine.setRate(2);
+  await flush();
+  await flush();
+  const restarted = synth.spoken.length;
+  engine.pause();
+  synth.spoken[restarted - 1].onend?.();
+  await flush();
+
+  t.is(ends, 0);
+  t.is(synth.spoken.length, restarted, "not spoken while paused");
+
+  engine.resume();
+  await flush();
+  await flush();
+  t.is(synth.spoken.length, restarted + 1);
+  t.is(synth.spoken[synth.spoken.length - 1].text, "First.");
+});
+
+test.serial("in Safari, a retried restart Safari ends without starting while paused emits no end either", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  let ends = 0;
+  engine.on("end", () => { ends++; });
+
+  engine.setRate(2);
+  await flush();
+  await flush();
+  synth.spoken[synth.spoken.length - 1].onend?.();
+  await flush();
+  const retried = synth.spoken.length;
+  engine.pause();
+  synth.spoken[retried - 1].onend?.();
+  await flush();
+
+  t.is(ends, 0);
+  engine.resume();
+  await flush();
+  await flush();
+  t.is(synth.spoken[synth.spoken.length - 1].text, "First.");
+});
+
+test.serial("in Safari, a restart that started then ends emits end", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  let ends = 0;
+  engine.on("end", () => { ends++; });
+
+  engine.setRate(2);
+  await flush();
+  await flush();
+  const restarted = synth.spoken[synth.spoken.length - 1];
+  restarted.onstart?.();
+  restarted.onend?.();
+  await flush();
+
+  t.is(ends, 1);
+});
+
+test.serial("in Safari, a restart superseded by a stop and a new queue emits no end", async (t) => {
+  const { engine } = await speakingEngine(true);
+  let ends = 0;
+  engine.on("end", () => { ends++; });
+
+  engine.setRate(2);
+  await drainMicrotasks();
+  engine.stop();
+  engine.loadUtterances([]);
+  await flush();
+
+  t.is(ends, 0);
+  t.is(engine.getState(), "ready");
+});
+
+test.serial("outside Safari, a restart speaks the utterance again right away", async (t) => {
+  const { synth, engine } = await speakingEngine(false);
+  const before = synth.spoken.length;
+
+  engine.setRate(2);
+  await flush();
+
+  t.is(synth.spoken.length, before + 1);
+});
+
+// Runs what's left of the current task, without reaching the next one.
+const drainMicrotasks = async () => { for (let i = 0; i < 50; i++) await Promise.resolve(); };
+
+// Like Safari, cancel() stops speaking at once, so speak() after stop() finds nothing speaking.
+const cancelStopsSpeaking = () => {
+  const speechSynthesis = (globalThis as any).window.speechSynthesis;
+  const cancel = speechSynthesis.cancel;
+  speechSynthesis.cancel = () => { cancel(); speechSynthesis.speaking = false; };
+};
+
+test.serial("in Safari, speaking in the task that stopped speech waits for the next task", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  cancelStopsSpeaking();
+  const before = synth.spoken.length;
+
+  engine.stop();
+  engine.speak(1);
+  await drainMicrotasks();
+  t.is(synth.spoken.length, before, "not spoken in the task that cancelled");
+
+  await flush();
+  t.is(synth.spoken.length, before + 1);
+});
+
+// Like Safari, cancel() fires the spoken utterance's onerror("canceled") synchronously.
+const cancelErrorsSynchronously = (synth: MockSynth) => {
+  const speechSynthesis = (globalThis as any).window.speechSynthesis;
+  const cancel = speechSynthesis.cancel;
+  speechSynthesis.cancel = () => {
+    cancel();
+    synth.spoken[synth.spoken.length - 1]?.onerror?.({ error: "canceled" });
+    speechSynthesis.speaking = false;
+  };
+};
+
+test.serial("in Safari, replacing the spoken utterance emits no stop for it", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  cancelErrorsSynchronously(synth);
+  let stops = 0;
+  engine.on("stop", () => { stops++; });
+
+  engine.speak(1);
+  await flush();
+
+  t.is(stops, 0);
+  t.is(engine.getState(), "playing");
+});
+
+test.serial("in Safari, stop() still emits stop", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  cancelErrorsSynchronously(synth);
+  let stops = 0;
+  engine.on("stop", () => { stops++; });
+
+  engine.stop();
+
+  t.true(stops > 0);
+  t.is(engine.getState(), "idle");
+});
+
+test.serial("outside Safari, speaking right after stop() speaks right away", async (t) => {
+  const { synth, engine } = await speakingEngine(false);
+  cancelStopsSpeaking();
+  const before = synth.spoken.length;
+
+  engine.stop();
+  engine.speak(1);
+  await drainMicrotasks();
+
+  t.is(synth.spoken.length, before + 1);
+});
+
+const usesResumeInfinity = (lacksNativePauseEvents: boolean): boolean => {
+  setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  (engine as any).patches = { isAndroid: false, isFirefox: false, isSafari: false, isKaiOS: false };
+  (engine as any).lacksNativePauseEvents = lacksNativePauseEvents;
+  return (engine as any).shouldUseResumeInfinity();
+};
+
+test.serial("resume infinity runs for a voice without pause events, e.g. Chrome's Google voices", (t) => {
+  t.true(usesResumeInfinity(true));
+});
+
+test.serial("resume infinity doesn't run for a voice with pause events, which would report each pause/resume", (t) => {
+  t.false(usesResumeInfinity(false));
+});
+
 test.serial("the current utterance being interrupted still emits stop", async (t) => {
   const synth = setWebSpeechGlobals();
   const engine = new WebSpeechEngine();

@@ -1,6 +1,6 @@
 import { ReadiumSpeechPlaybackEngine } from "./engine.js";
 import type { GuidedNavigationObject } from "@readium/shared";
-import { ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator.js";
+import { ReadiumSpeechContentOptions, ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator.js";
 import { extractionPreferenceKeys } from "./preferences/constraints.js";
 import { ISpeechDefaults, SpeechDefaults } from "./preferences/SpeechDefaults.js";
 import { ISpeechPreferences, SpeechPreferences } from "./preferences/SpeechPreferences.js";
@@ -69,6 +69,9 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // language, segmentation) a no-op on content loaded via loadContent() — prosody
   // fields (rate/pitch/volume/pauseDuration/autoPause) still apply.
   private source: GuidedNavigationObject[] | undefined;
+
+  // The language of the loaded content as a whole, given with it.
+  private contentLanguage: string | undefined;
 
   // Parallel to `contentQueue`, from the extraction that produced it — lets
   // reextract() find where to resume after a reload (see resolveResumeIndex).
@@ -200,7 +203,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
     this.engine.on("boundary", (event) => {
       const { charIndex, charLength } = event.detail ?? {};
-      const utterance = this.getCurrentContent();
+      // As extracted, not as stamped: substitution metadata is keyed by the extracted utterance.
+      const utterance = this.loadedQueue[this.getCurrentUtteranceIndex()];
       const resolved = utterance && typeof charIndex === "number" && typeof charLength === "number"
         ? resolveBoundaryLocate(utterance, charIndex, charLength)
         : undefined;
@@ -238,16 +242,18 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   // Content Management
-  loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void {
+  loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[], options: ReadiumSpeechContentOptions = {}): void {
     if (this.source) {
       throw new Error("loadContent() cannot be used after loadGndContent() — the two are exclusive. Create a new navigator instance to switch content sources.");
     }
 
+    this.contentLanguage = options.language;
     this.setContentQueue(content);
   }
 
-  async loadGndContent(nodes: GuidedNavigationObject[]): Promise<void> {
+  async loadGndContent(nodes: GuidedNavigationObject[], options: ReadiumSpeechContentOptions = {}): Promise<void> {
     this.source = nodes;
+    this.contentLanguage = options.language;
     await this.reextract();
   }
 
@@ -264,7 +270,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     }
 
     this.loadedQueue = Array.isArray(content) ? [...content] : [content];
-    const contents = this.loadedQueue.map((utterance) => this.withVoice(utterance));
+    const contents = this.loadedQueue.map((utterance) => this.withVoice(this.withLanguage(utterance)));
     this.contentQueue = contents;
     this.pendingResumeIndex = resumeIndex;
     this.pendingResumeState = resumeState;
@@ -276,6 +282,12 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.emitEvent({ type: "loading" });
     this.engine.loadUtterances(contents, resumeIndex ?? undefined);
     this.emitContentChangeEvent({ content: contents });
+  }
+
+  // The content's language when a loadContent() utterance has none; extraction applies it to loadGndContent()'s.
+  private withLanguage(utterance: ReadiumSpeechUtterance): ReadiumSpeechUtterance {
+    if (this.source !== undefined || this.contentLanguage === undefined || utterance.language) return utterance;
+    return { ...utterance, language: this.contentLanguage };
   }
 
   // The utterance's own voice, else `voice`'s for its language.
@@ -303,6 +315,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
         params: this.contextualizationOverrides?.params,
       },
       language: this._settings.language,
+      contentLanguage: this.contentLanguage,
       languageOverrides: this._settings.languageOverrides,
       segmentation: {
         mode: this._settings.segmentation,

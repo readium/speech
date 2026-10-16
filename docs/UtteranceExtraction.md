@@ -46,6 +46,7 @@ interface ExtractUtterancesOptions {
   contextualizationLocale?: string;
   contextualization?: ContextualizationOptions;
   language?: "none" | "block-level" | "always";
+  contentLanguage?: string;
   languageOverrides?: Record<string, string>;
   inlineContextualization?: GndRole[];
   segmentation?: SegmentationOptions;
@@ -93,6 +94,7 @@ Quick reference:
 | `contextualization.shapes` | per the catalog | which of a role's shapes (single line vs. bounded pair) is spoken — the piece [verbosity levels](Preferences.md#verbosity) drive to make a role's announcement vary by level |
 | `contextualization.params` | none | supply a placeholder value the extractor has no built-in source for |
 | `language` | `"block-level"` | how a node's own inline-language spans render |
+| `contentLanguage` | none | the language of content without `lang`/`xml:lang` |
 | `languageOverrides` | none | the language content declared in a given language is spoken in |
 | `inlineContextualization` | `[]` | which mid-sentence roles (`noteref`, `pagebreak`) split the sentence, instead of being spoken after it |
 | `segmentation.mode` | `"structure"` | one utterance per structural unit, or split/reconstruct at real sentence boundaries |
@@ -130,7 +132,7 @@ await extractUtterances(gnd, { format: "plain", skip: ["pagebreak"] });
 
 `contextualizationLocale` and `contextualization` are unrelated to each other:
 
-- **`contextualizationLocale`** just retrieves a default shipped JSON catalog — it's a data-source switch, nothing more. Most consumers only need this one. Every announcement carries that catalog's locale as its `language` (English when the requested locale isn't shipped), unless `language` is `"none"`; `languageOverrides` doesn't apply to it. Merged with content in the same primary language, it takes the content's; in another language, it's wrapped in a `<lang>` tag in SSML, and stays its own utterance in plain text.
+- **`contextualizationLocale`** just retrieves a default shipped JSON catalog — it's a data-source switch, nothing more. Most consumers only need this one. Every announcement carries that catalog's locale as its `language` (English when the requested locale isn't shipped), unless `language` is `"none"`, which gives it `contentLanguage`; `languageOverrides` doesn't apply to the catalog's. Merged with content in the same primary language, it takes the content's; in another language, it's wrapped in a `<lang>` tag in SSML, and stays its own utterance in plain text.
 - **`contextualization`** (`contextualizations`/`shapes`/`params`) *overrides* whatever catalog ends up loaded — these three depend on each other, not on which locale you picked, which is why they're grouped into one object instead of three flat top-level options:
   - **`contextualizations`** rewords or extends the loaded catalog, for any subset of roles.
   - **`shapes`** picks, for a role whose entry (after that reword) has both forms, which one actually gets spoken.
@@ -229,7 +231,19 @@ How a node's own inline spans (`<em lang="fr">`) render. Never merges across sib
 
 - `"block-level"` (default) — inline spans merge untagged into the surrounding text; block-level `language` kept.
 - `"always"` — `ssml` keeps spans tagged; `plain` splits into one utterance per language run.
-- `"none"` — same merge as `"block-level"`, plus `language` dropped everywhere.
+- `"none"` — same merge as `"block-level"`, and every utterance's `language` is `contentLanguage`, or none without it.
+
+### `contentLanguage`
+
+The language of the content as a whole: content without `lang`/`xml:lang` is in it, and with `language: "none"`, all content is. Sentences are segmented in it, with its suppressions, and `languageOverrides` applies to it. Without it, that content has no `language`, and sentence segmentation falls back to English. [`loadGndContent()`](Playback.md)'s `{ language }` is passed as this option.
+
+```typescript
+// <p>Es war einmal.</p><p lang="fr">Il était une fois.</p>
+await extractUtterances(gnd, { format: "plain", contentLanguage: "de" });
+// [{ language: "de", plain: "Es war einmal." }, { language: "fr", plain: "Il était une fois." }]
+await extractUtterances(gnd, { format: "plain", language: "none", contentLanguage: "de" });
+// [{ language: "de", plain: "Es war einmal." }, { language: "de", plain: "Il était une fois." }]
+```
 
 ### `languageOverrides`
 

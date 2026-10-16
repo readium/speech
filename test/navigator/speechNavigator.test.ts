@@ -727,6 +727,74 @@ test("changing voice re-stamps the loaded queue without re-extracting, resuming 
   t.is(engine.loadUtterancesStartIndexCalls.length, loads, "an equal voice doesn't reload");
 });
 
+// German text wrongly declared English, with a genuinely French paragraph
+const mixedLanguageTree = gnd([
+  { role: ["paragraph"], text: { language: "en", plain: "Es war einmal." } },
+  { role: ["paragraph"], text: { language: "fr", plain: "Il était une fois." } },
+  { role: ["paragraph"], text: { plain: "Undeclared." } },
+]);
+
+test("language: none speaks every utterance in the content's language, which a voice record follows", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { language: "none", voice: { en: "Karen", fr: "Thomas" } } });
+  await navigator.loadGndContent(mixedLanguageTree, { language: "en-AU" });
+  t.deepEqual(engine.loadedUtterances.map((u) => u.language), ["en-AU", "en-AU", "en-AU"]);
+  t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Karen", "Karen", "Karen"]);
+});
+
+test("language: none without the content's language leaves utterances without one", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { language: "none" } });
+  await navigator.loadGndContent(mixedLanguageTree);
+  t.deepEqual(engine.loadedUtterances.map((u) => u.language), [undefined, undefined, undefined]);
+});
+
+test("other language modes keep declared languages, the content's going to utterances without one", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { language: "block-level" } });
+  await navigator.loadGndContent(mixedLanguageTree, { language: "de" });
+  t.deepEqual(engine.loadedUtterances.map((u) => u.language), ["en", "fr", "de"]);
+});
+
+test("sentence segmentation gives the content's language to undeclared sentences, not English", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { segmentation: "sentence", voice: { de: "Anna", en: "Karen" } } });
+  const tree = gnd([{ role: ["paragraph"], children: [{ text: { plain: "Es war " } }, { text: { plain: "einmal. Ein König." } }] }]);
+  await navigator.loadGndContent(tree, { language: "de" });
+  t.deepEqual(engine.loadedUtterances.map((u) => [u.plain, u.language, u.voice]), [["Es war einmal.", "de", "Anna"], ["Ein König.", "de", "Anna"]]);
+});
+
+test("a malformed content language doesn't stop sentence segmentation", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { segmentation: "sentence" } });
+  await navigator.loadGndContent(gnd([{ role: ["paragraph"], text: { plain: "Hello world. Goodbye." } }]), { language: "en_US" });
+  t.deepEqual(engine.loadedUtterances.map((u) => u.plain), ["Hello world.", "Goodbye."]);
+});
+
+test("with language: none, sentences are segmented in the content's language", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { segmentation: "sentence", language: "none" } });
+  await navigator.loadGndContent(gnd([{ role: ["paragraph"], text: { language: "en", plain: "Das steht im Buch, vgl. Kapitel zwei." } }]), { language: "de" });
+  t.deepEqual(engine.loadedUtterances.map((u) => u.plain), ["Das steht im Buch, vgl. Kapitel zwei."], "vgl. is a German abbreviation, not an ending");
+  t.deepEqual(engine.loadedUtterances.map((u) => u.language), ["de"]);
+});
+
+test("languageOverrides applies to the content's language", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { language: "none" } });
+  await navigator.loadGndContent(mixedLanguageTree, { language: "en" });
+  await navigator.submitPreferences(new SpeechPreferences({ languageOverrides: { en: "de" } }));
+  t.deepEqual(engine.loadedUtterances.map((u) => u.language), ["de", "de", "de"]);
+});
+
+test("loadContent() gives the content's language to utterances without one", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { voice: { en: "Karen" } } });
+  navigator.loadContent([{ plain: "Hello." }, { plain: "Bonjour.", language: "fr" }], { language: "en-AU" });
+  t.deepEqual(engine.loadedUtterances.map((u) => u.language), ["en-AU", "fr"]);
+  t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Karen", undefined]);
+});
+
 class VoicedMockEngine extends MockEngine {
   getCurrentVoice(): ReadiumSpeechVoice | null {
     return { source: "json", label: "Alba", name: "Alba", originalName: "Alba", language: "en-US", voiceURI: "alba-en-US" } as ReadiumSpeechVoice;

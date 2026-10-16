@@ -2,7 +2,7 @@ import { ssmlTextEscape } from "@readium/helpers";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import type { GuidedNavigationObject } from "@readium/shared";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
-import { overriddenLanguage } from "./language.js";
+import { languageFor } from "./language.js";
 import { descriptionLanguageOf } from "./nodeFields.js";
 
 // Contextualization/label text is always plain (no markup) — formats it
@@ -16,17 +16,16 @@ export function formatPlain(text: string, ctx: WalkContext): ReadiumSpeechUttera
 // A catalog entry's text, in the catalog's language.
 export function formatEntryText(text: string, ctx: WalkContext): ReadiumSpeechUtterance {
   const utterance = formatPlain(text, ctx);
-  if (ctx.language !== "none") utterance.language = ctx.contextualizationLanguage;
+  const language = ctx.language === "none" ? languageFor(undefined, ctx) : ctx.contextualizationLanguage;
+  if (language) utterance.language = language;
   return utterance;
 }
 
 // A node's description, in the language it's declared in.
 export function formatDescription(text: string, node: GuidedNavigationObject, ctx: WalkContext): ReadiumSpeechUtterance {
   const utterance = formatPlain(text, ctx);
-  if (ctx.language !== "none") {
-    const language = overriddenLanguage(descriptionLanguageOf(node), ctx.languageOverrides);
-    if (language) utterance.language = language;
-  }
+  const language = languageFor(descriptionLanguageOf(node), ctx);
+  if (language) utterance.language = language;
   return utterance;
 }
 

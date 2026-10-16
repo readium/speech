@@ -73,6 +73,57 @@ test("empty text yields no boundaries", async (t) => {
   t.deepEqual(await segmentSentences("en", ""), []);
 });
 
+for (const [name, space] of [["space", " "], ["no-break space", " "], ["narrow no-break space", " "]]) {
+  for (const mark of ["!", "?", "."]) {
+    test(`a closing guillemet after "${mark}" and a ${name} stays with its sentence`, async (t) => {
+      const text = `«${space}Il n’y a rien${space}${mark}${space}»`;
+      const boundaries = await segmentSentences("fr", text);
+      t.deepEqual(boundaries.map((b) => b.text), [text]);
+    });
+  }
+}
+
+test("a closing guillemet stays with its sentence, the next one starting after it", async (t) => {
+  const boundaries = await segmentSentences("fr", "« Il n’y a rien ! » Elle se tut. « Vraiment ? »");
+  t.deepEqual(boundaries.map((b) => b.text), ["« Il n’y a rien ! »", "Elle se tut.", "« Vraiment ? »"]);
+});
+
+test("a closing guillemet ending a quotation of several sentences stays with the last one", async (t) => {
+  const boundaries = await segmentSentences("fr", "« Il n’y a rien ! Vraiment rien ! » Elle se tut.");
+  t.deepEqual(boundaries.map((b) => b.text), ["« Il n’y a rien !", "Vraiment rien ! »", "Elle se tut."]);
+});
+
+test("English quotes and apostrophes are left as Intl.Segmenter splits them", async (t) => {
+  for (const [text, sentences] of [
+    ["‘Go on! ’E’s waiting.’", ["‘Go on!", "’E’s waiting.’"]],
+    ["‘Don’t wait!’ Then go.", ["‘Don’t wait!’", "Then go."]],
+    ["“The students’ books!” Then go.", ["“The students’ books!”", "Then go."]],
+  ] as const) {
+    const boundaries = await segmentSentences("en", text);
+    t.deepEqual(boundaries.map((b) => b.text), sentences);
+  }
+});
+
+test("a guillemet opening the next quote stays with it, as in German", async (t) => {
+  const boundaries = await segmentSentences("de", "Er sagte: »Ja.« »Nein.« Dann ging er.");
+  t.deepEqual(boundaries.map((b) => b.text), ["Er sagte: »Ja.«", "»Nein.«", "Dann ging er."]);
+});
+
+test("splitSsmlAtSentences keeps a closing guillemet with its sentence", async (t) => {
+  const result = await splitSsmlAtSentences("« Il n’y a rien ! » Elle se tut.", "fr", segmentSentences);
+  t.deepEqual(result, ["« Il n’y a rien ! »", "Elle se tut."]);
+});
+
+test("a language tag with an underscore segments like its hyphenated form", async (t) => {
+  const boundaries = await segmentSentences("en_US", "Hello Mr. Smith. Goodbye.");
+  t.deepEqual(boundaries.map((b) => b.text), ["Hello Mr. Smith.", "Goodbye."]);
+});
+
+test("an invalid language tag segments in English instead of throwing, with English abbreviations", async (t) => {
+  const boundaries = await segmentSentences("", "Hello Mr. Smith. Goodbye.");
+  t.deepEqual(boundaries.map((b) => b.text), ["Hello Mr. Smith.", "Goodbye."]);
+});
+
 test("splitSsmlAtSentences splits plain ssml text at sentence boundaries", async (t) => {
   const result = await splitSsmlAtSentences("Hello world. This is a test.", "en", segmentSentences);
   t.deepEqual(result, ["Hello world.", "This is a test."]);

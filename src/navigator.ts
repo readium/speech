@@ -28,17 +28,22 @@ export interface ReadiumSpeechPlaybackEvent {
   detail?: any;  // Event-specific data
 }
 
+export interface ReadiumSpeechContentOptions {
+  // BCP 47 tag of the content as a whole
+  language?: string;
+}
+
 export interface ReadiumSpeechNavigatorContract extends Configurable<SpeechSettings, SpeechPreferences> {
   // Voice Management
   getVoices(): Promise<ReadiumSpeechVoice[]>;
 
   // Content Management
-  loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[]): void;
+  loadContent(content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[], options?: ReadiumSpeechContentOptions): void;
   // Loads a raw Guided Navigation tree and re-runs extraction whenever
   // preferences change via `submitPreferences()`. `loadContent()` above
   // keeps no source, so preference changes are no-ops on content loaded
   // that way.
-  loadGndContent(nodes: GuidedNavigationObject[]): Promise<void>;
+  loadGndContent(nodes: GuidedNavigationObject[], options?: ReadiumSpeechContentOptions): Promise<void>;
   getCurrentContent(): ReadiumSpeechUtterance | null;
   getContentQueue(): ReadiumSpeechUtterance[];
   
