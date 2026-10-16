@@ -1,4 +1,4 @@
-import { entriesForLanguage } from "../utils/language.js";
+import { entriesForLanguage, extractLangRegionFromBCP47 } from "../utils/language.js";
 import { builtInSuppressions } from "./builtInSuppressions.js";
 import { refineSentenceBoundaries } from "./sentenceBoundaryMerge.js";
 
@@ -26,7 +26,14 @@ const segmenters = new Map<string, Intl.Segmenter>();
 function segmenterFor(language: string): Intl.Segmenter {
   let segmenter = segmenters.get(language);
   if (!segmenter) {
-    segmenter = new Intl.Segmenter(language, { granularity: "sentence" });
+    // Not normalizeLanguageCode(): it maps Chinese to voice codes, and its module needs Vite's import.meta.glob.
+    // Intl.Segmenter throws on a malformed tag (e.g. "en_US"): normalized, else English like content without a language.
+    try {
+      const [base, region] = extractLangRegionFromBCP47(language);
+      segmenter = new Intl.Segmenter(region ? `${base}-${region}` : base, { granularity: "sentence" });
+    } catch {
+      segmenter = new Intl.Segmenter("en", { granularity: "sentence" });
+    }
     segmenters.set(language, segmenter);
   }
   return segmenter;

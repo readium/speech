@@ -103,6 +103,16 @@ test("splitSsmlAtSentences keeps a closing guillemet with its sentence", async (
   t.deepEqual(result, ["« Il n’y a rien ! »", "Elle se tut."]);
 });
 
+test("a language tag with an underscore segments like its hyphenated form", async (t) => {
+  const boundaries = await segmentSentences("en_US", "Hello Mr. Smith. Goodbye.");
+  t.deepEqual(boundaries.map((b) => b.text), ["Hello Mr. Smith.", "Goodbye."]);
+});
+
+test("an invalid language tag segments in English instead of throwing", async (t) => {
+  const boundaries = await segmentSentences("", "Hello world. Goodbye.");
+  t.deepEqual(boundaries.map((b) => b.text), ["Hello world.", "Goodbye."]);
+});
+
 test("splitSsmlAtSentences splits plain ssml text at sentence boundaries", async (t) => {
   const result = await splitSsmlAtSentences("Hello world. This is a test.", "en", segmentSentences);
   t.deepEqual(result, ["Hello world.", "This is a test."]);

@@ -764,6 +764,13 @@ test("sentence segmentation gives the content's language to undeclared sentences
   t.deepEqual(engine.loadedUtterances.map((u) => [u.plain, u.language, u.voice]), [["Es war einmal.", "de", "Anna"], ["Ein König.", "de", "Anna"]]);
 });
 
+test("a malformed content language doesn't stop sentence segmentation", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { segmentation: "sentence" } });
+  await navigator.loadGndContent(gnd([{ role: ["paragraph"], text: { plain: "Hello world. Goodbye." } }]), { language: "en_US" });
+  t.deepEqual(engine.loadedUtterances.map((u) => u.plain), ["Hello world.", "Goodbye."]);
+});
+
 test("with language: none, sentences are segmented in the content's language", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine, { preferences: { segmentation: "sentence", language: "none" } });
