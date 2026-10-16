@@ -7,7 +7,7 @@ import { nodeRoles } from "./nodeFields.js";
 import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
 import { buildMergeOffsets, joinPieceTexts, plainOf, substitutedBareLocate } from "./mergeUtterances.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
-import type { SentenceBoundary } from "./sentenceSegmenter.js";
+import { suppressionLanguage, type SentenceBoundary } from "./sentenceSegmenter.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
 
 // Resolves a non-synthetic utterance into per-sentence fragments (`undefined`
@@ -19,7 +19,7 @@ async function sentenceFragmentsOf(
   ctx: WalkContext,
 ): Promise<{ text: string; start: number; end: number }[] | undefined> {
   const language = utterance.language ?? "en";
-  const customSuppressions = entriesForLanguage(ctx.segmentationSuppressions, language);
+  const customSuppressions = entriesForLanguage(ctx.segmentationSuppressions, suppressionLanguage(language));
   const sourceText = ctx.format === "ssml" ? utterance.ssml : utterance.plain;
   if (!sourceText) return undefined;
   const boundaries = await ctx.segmenter(language, plainOf(sourceText, ctx.format), customSuppressions);
@@ -322,7 +322,7 @@ async function pushJoinedGroup(
   placedAfter: PlacedAfter,
 ): Promise<void> {
   const language = segmentationLanguage(pieces, ctx);
-  const suppressions = entriesForLanguage(ctx.segmentationSuppressions, language);
+  const suppressions = entriesForLanguage(ctx.segmentationSuppressions, suppressionLanguage(language));
   const plainParts = pieces.map((piece) => plainOf((ctx.format === "ssml" ? piece.ssml : piece.plain)!, ctx.format));
   const { joined: joinedPlain, ranges } = joinPieceTexts(plainParts);
   const boundaries = keepInsertionsWhole(joinedPlain, await ctx.segmenter(language, joinedPlain, suppressions), pieces, ranges, ctx);
@@ -426,7 +426,7 @@ export async function splitIntoSentenceUtterances(
       continue;
     }
     const language = segmentationLanguage(pieces, ctx);
-    const genuineJoins = await detectGenuineJoins(pieces, ctx, language, entriesForLanguage(ctx.segmentationSuppressions, language));
+    const genuineJoins = await detectGenuineJoins(pieces, ctx, language, entriesForLanguage(ctx.segmentationSuppressions, suppressionLanguage(language)));
     const joinedWithNext = joinInsertions(pieces, genuineJoins, ctx);
     let start = 0;
     for (let k = 0; k < pieces.length; k++) {

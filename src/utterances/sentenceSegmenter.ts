@@ -21,22 +21,29 @@ export type SentenceSegmenter = (
   customSuppressions?: string[]
 ) => Promise<SentenceBoundary[]>;
 
-const segmenters = new Map<string, Intl.Segmenter>();
+// Each with the language its suppressions are looked up in: the given one, or English when it falls back.
+const segmenters = new Map<string, { segmenter: Intl.Segmenter; language: string }>();
 
-function segmenterFor(language: string): Intl.Segmenter {
-  let segmenter = segmenters.get(language);
-  if (!segmenter) {
+function segmenterFor(language: string): { segmenter: Intl.Segmenter; language: string } {
+  let entry = segmenters.get(language);
+  if (!entry) {
     // Not normalizeLanguageCode(): it maps Chinese to voice codes, and its module needs Vite's import.meta.glob.
     // Intl.Segmenter throws on a malformed tag (e.g. "en_US"): normalized, else English like content without a language.
     try {
       const [base, region] = extractLangRegionFromBCP47(language);
-      segmenter = new Intl.Segmenter(region ? `${base}-${region}` : base, { granularity: "sentence" });
+      const tag = region ? `${base}-${region}` : base;
+      entry = { segmenter: new Intl.Segmenter(tag, { granularity: "sentence" }), language };
     } catch {
-      segmenter = new Intl.Segmenter("en", { granularity: "sentence" });
+      entry = { segmenter: new Intl.Segmenter("en", { granularity: "sentence" }), language: "en" };
     }
-    segmenters.set(language, segmenter);
+    segmenters.set(language, entry);
   }
-  return segmenter;
+  return entry;
+}
+
+// The language suppressions for `language` are looked up in, built-in or the caller's.
+export function suppressionLanguage(language: string): string {
+  return segmenterFor(language).language;
 }
 
 export async function segmentSentences(
@@ -45,11 +52,12 @@ export async function segmentSentences(
   customSuppressions?: string[]
 ): Promise<SentenceBoundary[]> {
   if (text === "") return [];
-  const segments = [...segmenterFor(language).segment(text)];
+  const { segmenter, language: segmenterLanguage } = segmenterFor(language);
+  const segments = [...segmenter.segment(text)];
   const raw = segments.map((segment) => ({ start: segment.index, end: segment.index + segment.segment.length }));
   // Intl.Segmenter has no abbreviation-suppression concept of its own, so
   // the built-in list (not just a caller's extras) has to be applied here.
-  const builtIn = entriesForLanguage(builtInSuppressions, language) ?? [];
+  const builtIn = entriesForLanguage(builtInSuppressions, segmenterLanguage) ?? [];
   const suppressions = customSuppressions ? [...builtIn, ...customSuppressions] : builtIn;
   return refineSentenceBoundaries(text, raw, suppressions);
 }

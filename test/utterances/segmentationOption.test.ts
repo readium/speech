@@ -652,3 +652,12 @@ test("segmentation: sentence passes undefined suppressions to a caller-supplied 
   });
   t.deepEqual(received, [undefined]);
 });
+
+test("segmentation: a caller's suppressions for English apply to content whose invalid language falls back to English", async (t) => {
+  const gnd = parseMarkup('<html><body><p lang="-">Hello Zqxk. Smith. Goodbye.</p></body></html>');
+  const utterances = await extractUtterances(gnd, {
+    format: "plain",
+    segmentation: { mode: "sentence", suppressions: { en: ["Zqxk."] } },
+  });
+  t.deepEqual(utterances.map((u) => u.plain), ["Hello Zqxk. Smith.", "Goodbye."]);
+});

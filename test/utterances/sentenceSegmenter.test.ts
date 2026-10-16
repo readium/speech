@@ -113,9 +113,9 @@ test("a language tag with an underscore segments like its hyphenated form", asyn
   t.deepEqual(boundaries.map((b) => b.text), ["Hello Mr. Smith.", "Goodbye."]);
 });
 
-test("an invalid language tag segments in English instead of throwing", async (t) => {
-  const boundaries = await segmentSentences("", "Hello world. Goodbye.");
-  t.deepEqual(boundaries.map((b) => b.text), ["Hello world.", "Goodbye."]);
+test("an invalid language tag segments in English instead of throwing, with English abbreviations", async (t) => {
+  const boundaries = await segmentSentences("", "Hello Mr. Smith. Goodbye.");
+  t.deepEqual(boundaries.map((b) => b.text), ["Hello Mr. Smith.", "Goodbye."]);
 });
 
 test("splitSsmlAtSentences splits plain ssml text at sentence boundaries", async (t) => {
