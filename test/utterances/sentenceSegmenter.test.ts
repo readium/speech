@@ -88,6 +88,11 @@ test("a closing guillemet stays with its sentence, the next one starting after i
   t.deepEqual(boundaries.map((b) => b.text), ["« Il n’y a rien ! »", "Elle se tut.", "« Vraiment ? »"]);
 });
 
+test("a closing guillemet ending a quotation of several sentences stays with the last one", async (t) => {
+  const boundaries = await segmentSentences("fr", "« Il n’y a rien ! Vraiment rien ! » Elle se tut.");
+  t.deepEqual(boundaries.map((b) => b.text), ["« Il n’y a rien !", "Vraiment rien ! »", "Elle se tut."]);
+});
+
 test("an elision starting the next sentence stays with its word", async (t) => {
   const boundaries = await segmentSentences("en", "‘Go on! ’E’s waiting.’");
   t.deepEqual(boundaries.map((b) => b.text), ["‘Go on!", "’E’s waiting.’"]);
