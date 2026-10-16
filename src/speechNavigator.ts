@@ -204,7 +204,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
     this.engine.on("boundary", (event) => {
       const { charIndex, charLength } = event.detail ?? {};
-      const utterance = this.getCurrentContent();
+      // As extracted, not as stamped: substitution metadata is keyed by the extracted utterance.
+      const utterance = this.loadedQueue[this.getCurrentUtteranceIndex()];
       const resolved = utterance && typeof charIndex === "number" && typeof charLength === "number"
         ? resolveBoundaryLocate(utterance, charIndex, charLength)
         : undefined;
