@@ -243,6 +243,42 @@ test.serial("outside Safari, a restart speaks the utterance again right away", a
   t.is(synth.spoken.length, before + 1);
 });
 
+// Runs what's left of the current task, without reaching the next one.
+const drainMicrotasks = async () => { for (let i = 0; i < 50; i++) await Promise.resolve(); };
+
+// Like Safari, cancel() stops speaking at once, so speak() after stop() finds nothing speaking.
+const cancelStopsSpeaking = () => {
+  const speechSynthesis = (globalThis as any).window.speechSynthesis;
+  const cancel = speechSynthesis.cancel;
+  speechSynthesis.cancel = () => { cancel(); speechSynthesis.speaking = false; };
+};
+
+test.serial("in Safari, speaking in the task that stopped speech waits for the next task", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  cancelStopsSpeaking();
+  const before = synth.spoken.length;
+
+  engine.stop();
+  engine.speak(1);
+  await drainMicrotasks();
+  t.is(synth.spoken.length, before, "not spoken in the task that cancelled");
+
+  await flush();
+  t.is(synth.spoken.length, before + 1);
+});
+
+test.serial("outside Safari, speaking right after stop() speaks right away", async (t) => {
+  const { synth, engine } = await speakingEngine(false);
+  cancelStopsSpeaking();
+  const before = synth.spoken.length;
+
+  engine.stop();
+  engine.speak(1);
+  await drainMicrotasks();
+
+  t.is(synth.spoken.length, before + 1);
+});
+
 test.serial("the current utterance being interrupted still emits stop", async (t) => {
   const synth = setWebSpeechGlobals();
   const engine = new WebSpeechEngine();
