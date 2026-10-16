@@ -25,7 +25,7 @@ export const detectPlatformFeatures = (): WebSpeechPlatformPatches => {
     return /firefox/i.test(userAgent);
   };
   // WebKit, every iOS browser included; Chromium user agents mention Safari too
-  const isSafari = () => /AppleWebKit/i.test(userAgent) && !/Chrome|Chromium|Edg|OPR|Android/i.test(userAgent);
+  const isSafari = () => /AppleWebKit/i.test(userAgent) && !/Chrome|Chromium|Edg\/|OPR|Android/i.test(userAgent);
 
   return {
     isAndroid: isAndroid(),
