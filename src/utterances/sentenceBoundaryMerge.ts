@@ -83,12 +83,12 @@ function splitAtEmDashAttribution(text: string, raw: RawBoundary[]): RawBoundary
   return result;
 }
 
-// Each closing quote's opening one, both ways for guillemets (« French », » German «).
-const openingQuoteOf: Record<string, string> = { "»": "«", "«": "»", "›": "‹", "‹": "›", "”": "“", "“": "„", "’": "‘", "‘": "‚" };
+// Each closing guillemet's opening one, both ways (« French », » German «).
+const openingGuillemetOf: Record<string, string> = { "»": "«", "«": "»", "›": "‹", "‹": "›" };
 
-// Intl.Segmenter splits off a closing quote spaced after the terminator (French "rien ! »"):
+// Intl.Segmenter splits off a closing guillemet spaced after the terminator (French "rien ! »"):
 // one closing a quote still open before it, maybe sentences earlier, moves back to the previous sentence.
-function reattachClosingQuotes(text: string, raw: RawBoundary[]): RawBoundary[] {
+function reattachClosingGuillemets(text: string, raw: RawBoundary[]): RawBoundary[] {
   const result: RawBoundary[] = [];
   // Each mark is counted once, as the text before the previous sentence's end only grows
   const counts = new Map<string, number>();
@@ -103,10 +103,8 @@ function reattachClosingQuotes(text: string, raw: RawBoundary[]): RawBoundary[] 
     let i = current.start;
     while (prev && i < current.end) {
       while (i < current.end && /\s/.test(text[i])) i++;
-      const opening = openingQuoteOf[text[i]];
+      const opening = openingGuillemetOf[text[i]];
       if (opening === undefined || countBefore(prev.end, opening) <= countBefore(prev.end, text[i])) break;
-      // A letter or digit right after it makes it an elision ("’E’s"), not a closing quote
-      if (/[\p{L}\p{N}]/u.test(text[i + 1] ?? "")) break;
       i++;
       while (i < current.end && /\s/.test(text[i])) i++;
       prev.end = current.start = i;
@@ -123,7 +121,7 @@ function reattachClosingQuotes(text: string, raw: RawBoundary[]): RawBoundary[] 
 // previous sentence (only reproduces with zero whitespace between two
 // adjacent quoted sentences — e.g. `”"Next…` glued with no separator).
 export function refineSentenceBoundaries(text: string, raw: RawBoundary[], suppressions: string[]): SentenceBoundary[] {
-  const fixed = reattachClosingQuotes(text, splitAtEmDashAttribution(text, raw));
+  const fixed = reattachClosingGuillemets(text, splitAtEmDashAttribution(text, raw));
   for (let i = 0; i < fixed.length - 1; i++) {
     const contentEnd = trimmedEnd(text, fixed[i].start, fixed[i].end);
     // Only a glued (no trailing separator) boundary can have swallowed a

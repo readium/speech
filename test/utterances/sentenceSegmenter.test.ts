@@ -93,9 +93,15 @@ test("a closing guillemet ending a quotation of several sentences stays with the
   t.deepEqual(boundaries.map((b) => b.text), ["« Il n’y a rien !", "Vraiment rien ! »", "Elle se tut."]);
 });
 
-test("an elision starting the next sentence stays with its word", async (t) => {
-  const boundaries = await segmentSentences("en", "‘Go on! ’E’s waiting.’");
-  t.deepEqual(boundaries.map((b) => b.text), ["‘Go on!", "’E’s waiting.’"]);
+test("English quotes and apostrophes are left as Intl.Segmenter splits them", async (t) => {
+  for (const [text, sentences] of [
+    ["‘Go on! ’E’s waiting.’", ["‘Go on!", "’E’s waiting.’"]],
+    ["‘Don’t wait!’ Then go.", ["‘Don’t wait!’", "Then go."]],
+    ["“The students’ books!” Then go.", ["“The students’ books!”", "Then go."]],
+  ] as const) {
+    const boundaries = await segmentSentences("en", text);
+    t.deepEqual(boundaries.map((b) => b.text), sentences);
+  }
 });
 
 test("a guillemet opening the next quote stays with it, as in German", async (t) => {
