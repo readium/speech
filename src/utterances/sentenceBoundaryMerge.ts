@@ -86,12 +86,17 @@ function splitAtEmDashAttribution(text: string, raw: RawBoundary[]): RawBoundary
 // Each closing quote's opening one, both ways for guillemets (« French », » German «).
 const openingQuoteOf: Record<string, string> = { "»": "«", "«": "»", "›": "‹", "‹": "›", "”": "“", "“": "„", "’": "‘", "‘": "‚" };
 
-const count = (text: string, char: string): number => text.split(char).length - 1;
-
 // Intl.Segmenter splits off a closing quote spaced after the terminator (French "rien ! »"):
 // one closing a quote still open before it, maybe sentences earlier, moves back to the previous sentence.
 function reattachClosingQuotes(text: string, raw: RawBoundary[]): RawBoundary[] {
   const result: RawBoundary[] = [];
+  // Each mark is counted once, as the text before the previous sentence's end only grows
+  const counts = new Map<string, number>();
+  let counted = 0;
+  const countBefore = (end: number, char: string): number => {
+    for (; counted < end; counted++) counts.set(text[counted], (counts.get(text[counted]) ?? 0) + 1);
+    return counts.get(char) ?? 0;
+  };
   for (const boundary of raw) {
     const current = { ...boundary };
     const prev = result[result.length - 1];
@@ -99,8 +104,7 @@ function reattachClosingQuotes(text: string, raw: RawBoundary[]): RawBoundary[] 
     while (prev && i < current.end) {
       while (i < current.end && /\s/.test(text[i])) i++;
       const opening = openingQuoteOf[text[i]];
-      const before = text.slice(0, prev.end);
-      if (opening === undefined || count(before, opening) <= count(before, text[i])) break;
+      if (opening === undefined || countBefore(prev.end, opening) <= countBefore(prev.end, text[i])) break;
       // A letter or digit right after it makes it an elision ("’E’s"), not a closing quote
       if (/[\p{L}\p{N}]/u.test(text[i + 1] ?? "")) break;
       i++;
