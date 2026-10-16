@@ -74,12 +74,13 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   // From Easy Speech,
   // Check infinity pattern for long texts (except on problematic platforms)
   // Skip resume infinity for Microsoft Natural voices as they have different behavior 
+  // Only for voices without pause events (Chrome's Google voices, which cut off long texts): others would report each pause/resume
   private shouldUseResumeInfinity(): boolean {
     const selectedVoice = this.speakingVoice ?? this.currentVoice;
     const isMsNatural = !!(selectedVoice?.name &&
                          typeof selectedVoice.name === "string" &&
                          selectedVoice.name.toLocaleLowerCase().includes("(natural)"));
-    return this.patches.isAndroid !== true && !this.patches.isFirefox && !this.patches.isSafari && !isMsNatural;
+    return this.patches.isAndroid !== true && !this.patches.isFirefox && !this.patches.isSafari && !isMsNatural && this.lacksNativePauseEvents;
   }
 
   // Creates a new SpeechSynthesisUtterance using detected constructor

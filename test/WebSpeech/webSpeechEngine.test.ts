@@ -315,6 +315,22 @@ test.serial("outside Safari, speaking right after stop() speaks right away", asy
   t.is(synth.spoken.length, before + 1);
 });
 
+const usesResumeInfinity = (lacksNativePauseEvents: boolean): boolean => {
+  setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  (engine as any).patches = { isAndroid: false, isFirefox: false, isSafari: false, isKaiOS: false };
+  (engine as any).lacksNativePauseEvents = lacksNativePauseEvents;
+  return (engine as any).shouldUseResumeInfinity();
+};
+
+test.serial("resume infinity runs for a voice without pause events, e.g. Chrome's Google voices", (t) => {
+  t.true(usesResumeInfinity(true));
+});
+
+test.serial("resume infinity doesn't run for a voice with pause events, which would report each pause/resume", (t) => {
+  t.false(usesResumeInfinity(false));
+});
+
 test.serial("the current utterance being interrupted still emits stop", async (t) => {
   const synth = setWebSpeechGlobals();
   const engine = new WebSpeechEngine();
