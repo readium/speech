@@ -16,6 +16,9 @@ import { clamp } from "../utils/clamp.js";
 import { decodeResidualHtmlEntities, neutralizeAngleBrackets } from "../utils/text.js";
 import { stripSsmlTags } from "../utterances/text.js";
 
+// Safari ends whichever utterance is current when a cancelled one's late "finished" arrives, about 100 ms after cancel()
+const SAFARI_CANCEL_SETTLE_DELAY = 250;
+
 export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private speechSynthesis: SpeechSynthesis;
   private speechSynthesisUtterance: any;
@@ -48,7 +51,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private initialized: boolean = false;
   private maxLengthExceeded: "error" | "none" | "warn" = "warn";
   private utterancesBeingCancelled: boolean = false; // Flag to track if utterances are being cancelled
-  private hasCancelledInTask: boolean = false; // Safari: cancel() stopped speech in the current task
+  private lastCancelAt: number = -Infinity; // Safari: when cancel() last stopped speech
   private lacksNativePauseEvents: boolean = false; // Google and Chrome OS voices never fire onpause/onresume
 
   // Playback parameters
@@ -381,9 +384,10 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.currentUtteranceIndex = 0;
     }
 
-    // Safari ends an utterance spoken in the same task as cancel() at once, without speaking it
-    if (this.patches.isSafari && this.hasCancelledInTask) {
-      this.speakNextTask(generation, 1);
+    // Safari ends an utterance spoken before the last cancel() settled
+    const settleDelay = this.lastCancelAt + SAFARI_CANCEL_SETTLE_DELAY - Date.now();
+    if (this.patches.isSafari && settleDelay > 0) {
+      this.speakNextTask(generation, 1, settleDelay);
       return;
     }
 
@@ -403,22 +407,25 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       }, 100);
     }
 
-    if (this.patches.isSafari && this.speechSynthesis.speaking) {
-      this.hasCancelledInTask = true;
-      setTimeout(() => {
-        this.hasCancelledInTask = false;
-      }, 0);
-    }
+    if (this.patches.isSafari && this.speechSynthesis.speaking) this.lastCancelAt = Date.now();
     
     this.speechSynthesis.cancel();
   }
   
   // Safari: `unstartedRetries` is how many more times to speak it if Safari ends it without starting it, as it can right after cancel()
-  private speakNextTask(generation: number, unstartedRetries: number): void {
+  private speakNextTask(generation: number, unstartedRetries: number, delay: number = 0): void {
     setTimeout(() => {
       // A later speak() or stop() superseded it
-      if (generation === this.speakGeneration) void this.speakCurrentUtterance(generation, unstartedRetries);
-    }, 0);
+      if (generation !== this.speakGeneration) return;
+      // Paused before it was spoken: resume() speaks it from the start
+      if (this.playbackState === "paused") {
+        this.pausedAtUtteranceIndex = null;
+        return;
+      }
+      // Other content was loaded before it was spoken
+      if (this.playbackState !== "playing") return;
+      void this.speakCurrentUtterance(generation, unstartedRetries);
+    }, delay);
   }
 
   private async speakCurrentUtterance(generation: number, unstartedRetries?: number): Promise<void> {
