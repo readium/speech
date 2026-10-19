@@ -324,6 +324,19 @@ test.serial("in Safari, a restart paused before it is spoken isn't spoken, and r
   t.is(synth.spoken[synth.spoken.length - 1].rate, 2);
 });
 
+test.serial("in Safari, a restart isn't spoken once other content was loaded before it was", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  const before = synth.spoken.length;
+
+  engine.setRate(2);
+  await flush();
+  engine.loadUtterances([{ plain: "Other." }]);
+  await settle();
+
+  t.is(synth.spoken.length, before);
+  t.is(engine.getState(), "ready");
+});
+
 test.serial("in Safari, a restart that started then ends emits end", async (t) => {
   const { synth, engine } = await speakingEngine(true);
   let ends = 0;

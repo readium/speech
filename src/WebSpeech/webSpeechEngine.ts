@@ -422,6 +422,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
         this.pausedAtUtteranceIndex = null;
         return;
       }
+      // Other content was loaded before it was spoken
+      if (this.playbackState !== "playing") return;
       void this.speakCurrentUtterance(generation, unstartedRetries);
     }, delay);
   }
