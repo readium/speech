@@ -6,7 +6,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ### Fixed
 
-- In Safari, changing the pitch or volume while speaking or paused no longer speaks the restarted utterance twice, first without word boundaries: the late end of the utterance `cancel()` replaced ended the restarted one, which Safari still spoke. `WebSpeechEngine` now waits 250 ms after interrupting speech before speaking there.
+- In Safari, changing the rate, pitch or volume while speaking or paused, including repeatedly while dragging a slider, no longer speaks the restarted utterance twice, first without word boundaries: the late end of the utterance `cancel()` replaced ended the restarted one, which Safari still spoke. `WebSpeechEngine` now waits until 250 ms after it last interrupted speech before speaking there, so speaking another utterance while one is speaking, e.g. going to the next one, starts up to 250 ms later.
 
 ## [0.16.0] - 2026-10-16
 
