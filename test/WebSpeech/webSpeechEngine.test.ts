@@ -388,6 +388,22 @@ test.serial("in Safari, speaking in the task that stopped speech waits for the c
   t.is(synth.spoken.length, before + 1);
 });
 
+test.serial("in Safari, a second restart before the first cancel settled waits for it too", async (t) => {
+  const { synth, engine } = await speakingEngine(true);
+  cancelStopsSpeaking();
+  const before = synth.spoken.length;
+
+  engine.setRate(2);
+  await flush();
+  engine.setRate(3);
+  await flush();
+  t.is(synth.spoken.length, before, "not spoken before the first cancel settled");
+
+  await settle();
+  t.is(synth.spoken.length, before + 1);
+  t.is(synth.spoken[synth.spoken.length - 1].rate, 3);
+});
+
 // Like Safari, cancel() fires the spoken utterance's onerror("canceled") synchronously.
 const cancelErrorsSynchronously = (synth: MockSynth) => {
   const speechSynthesis = (globalThis as any).window.speechSynthesis;

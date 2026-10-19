@@ -51,7 +51,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
   private initialized: boolean = false;
   private maxLengthExceeded: "error" | "none" | "warn" = "warn";
   private utterancesBeingCancelled: boolean = false; // Flag to track if utterances are being cancelled
-  private hasCancelledInTask: boolean = false; // Safari: cancel() stopped speech in the current task
+  private lastCancelAt: number = -Infinity; // Safari: when cancel() last stopped speech
   private lacksNativePauseEvents: boolean = false; // Google and Chrome OS voices never fire onpause/onresume
 
   // Playback parameters
@@ -384,9 +384,10 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.currentUtteranceIndex = 0;
     }
 
-    // Safari ends an utterance spoken in the same task as cancel() at once, without speaking it
-    if (this.patches.isSafari && this.hasCancelledInTask) {
-      this.speakNextTask(generation, 1, SAFARI_CANCEL_SETTLE_DELAY);
+    // Safari ends an utterance spoken before the last cancel() settled
+    const settleDelay = this.lastCancelAt + SAFARI_CANCEL_SETTLE_DELAY - Date.now();
+    if (this.patches.isSafari && settleDelay > 0) {
+      this.speakNextTask(generation, 1, settleDelay);
       return;
     }
 
@@ -406,12 +407,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       }, 100);
     }
 
-    if (this.patches.isSafari && this.speechSynthesis.speaking) {
-      this.hasCancelledInTask = true;
-      setTimeout(() => {
-        this.hasCancelledInTask = false;
-      }, 0);
-    }
+    if (this.patches.isSafari && this.speechSynthesis.speaking) this.lastCancelAt = Date.now();
     
     this.speechSynthesis.cancel();
   }
