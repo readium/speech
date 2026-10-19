@@ -1,7 +1,7 @@
 import { DecorationController as ci, DirectCommsChannel as ui, Decorator as hi } from "@readium/decorator";
 export * from "@readium/decorator";
 import { LocatorText as di, LocatorLocations as gi, Locator as fi } from "@readium/shared";
-import { Locator as gr, LocatorLocations as fr, LocatorText as pr } from "@readium/shared";
+import { Locator as fr, LocatorLocations as pr, LocatorText as mr } from "@readium/shared";
 import { startsWithBindingPunct as he, ssmlTextEscape as T, BINDING_PUNCT_CLASS as se, ssmlAttrEscape as ln } from "@readium/helpers";
 import pi from "i18next";
 import { decodeTextref as Et, combineDomRangeTextrefs as mi, substitutedOwnSelector as vi, isAriaSubstituted as de } from "@readium/guided-navigation";
@@ -469,7 +469,7 @@ const wi = ["veryLow", "low", "normal", "high", "veryHigh"], ki = ["android", "a
     e = `${t.toLowerCase()}-${i.toUpperCase()}`;
   }
   return re[e] || e;
-}, je = async (n) => {
+}, De = async (n) => {
   if (!n) return [];
   try {
     const e = V(n);
@@ -493,7 +493,7 @@ const wi = ["veryLow", "low", "normal", "high", "veryHigh"], ki = ["android", "a
   } catch (e) {
     return console.error(`Error in getVoices for ${n}:`, e), [];
   }
-}, De = (n, e) => {
+}, je = (n, e) => {
   try {
     return new Intl.DisplayNames(
       e ? [e] : [],
@@ -577,7 +577,7 @@ const wi = ["veryLow", "low", "normal", "high", "veryHigh"], ki = ["android", "a
   }
   const t = /* @__PURE__ */ new Map();
   for (const [i, s] of e.entries()) {
-    const a = /* @__PURE__ */ new Map(), r = await je(i), o = /* @__PURE__ */ new Map();
+    const a = /* @__PURE__ */ new Map(), r = await De(i), o = /* @__PURE__ */ new Map();
     r.forEach((l, c) => {
       o.set(l.name.toLowerCase(), c), l.altNames?.forEach((u) => {
         o.set(u.toLowerCase(), c);
@@ -634,7 +634,7 @@ const wi = ["veryLow", "low", "normal", "high", "veryHigh"], ki = ["android", "a
   const i = t ?? await H(n);
   n.sort((s, a) => un(s, a, e, i));
 }, hn = (n, e, t) => {
-  const [i] = k(n.language), [s] = k(e.language), a = De(i).toLowerCase(), r = De(s).toLowerCase(), o = a.localeCompare(r);
+  const [i] = k(n.language), [s] = k(e.language), a = je(i).toLowerCase(), r = je(s).toLowerCase(), o = a.localeCompare(r);
   if (o !== 0)
     return o;
   if (i === s) {
@@ -737,7 +737,7 @@ function Bi(n, e) {
   const t = [n.originalName, ...n.altNames || []], i = [e.originalName, ...e.altNames || []], s = t.findIndex((r) => i.includes(r)), a = i.findIndex((r) => t.includes(r));
   return s === -1 && a === -1 || s !== -1 && (a === -1 || s <= a) ? n : e;
 }
-function ji(n, e) {
+function Di(n, e) {
   if (!n.altNames && !e.altNames)
     return !1;
   const t = n.originalName, i = e.originalName, s = n.altNames || [], a = e.altNames || [];
@@ -937,7 +937,7 @@ class C {
       const s = `${i.language.toLowerCase()}_${this.normalizeVoiceName(i.name)}`, a = t.get(s);
       if (!a)
         t.set(s, i);
-      else if (ji(i, a)) {
+      else if (Di(i, a)) {
         const r = Bi(i, a);
         t.set(s, r);
       } else {
@@ -1002,7 +1002,7 @@ class C {
       const a = V(s).split("-")[0];
       i.set(a, (i.get(a) ?? 0) + 1);
     }
-    return [...i].map(([s, a]) => ({ code: s, label: De(s, t), count: a }));
+    return [...i].map(([s, a]) => ({ code: s, label: je(s, t), count: a }));
   }
   /**
    * Get available regions with voice counts
@@ -1083,8 +1083,8 @@ class C {
     return await Promise.all(
       e.filter((s) => s?.name && s?.lang).map(async (s) => {
         const a = V(s.lang), [r] = C.extractLangRegionFromBCP47(a), o = this.normalizeVoiceName(s.name), l = `${s.lang.toLowerCase()}_${o}`, c = t.get(l) || 1;
-        let u = await je(a);
-        (!u || u.length === 0) && (u = await je(r));
+        let u = await De(a);
+        (!u || u.length === 0) && (u = await De(r));
         const g = this.findMatchingJsonVoice(u, o), d = this.inferVoiceQuality(s, g, c), h = this.isAndroid ? { ...g?.controls, boundary: !1 } : g?.controls;
         return g ? {
           ...g,
@@ -1247,7 +1247,7 @@ class C {
 const pn = (n, e) => {
   const [t, i] = k(e), [s, a] = k(n.language);
   return s === t && (!i || a === i);
-}, Ge = (n, e) => !!n && k(n.language)[0] === k(e)[0], Di = ["webKit", "moz", "ms", "o"], Fi = [
+}, Ge = (n, e) => !!n && k(n.language)[0] === k(e)[0], ji = ["webKit", "moz", "ms", "o"], Fi = [
   "boundary",
   "end",
   "error",
@@ -1256,7 +1256,7 @@ const pn = (n, e) => {
   "resume",
   "start"
 ], _i = (n) => `${n.charAt(0).toUpperCase()}${n.slice(1)}`, ne = (n = {}, e) => Object.hasOwnProperty.call(n, e) || e in n || !!n[e], $i = (n) => typeof window < "u" && n in window, qi = (n) => {
-  const e = _i(n), t = Di.map((s) => `${s}${e}`), i = [n, e].concat(t).find($i);
+  const e = _i(n), t = ji.map((s) => `${s}${e}`), i = [n, e].concat(t).find($i);
   return i && typeof window < "u" ? window[i] : void 0;
 }, Gi = () => {
   const n = {};
@@ -1475,7 +1475,7 @@ function rs(n, e) {
           const B = R.start === I, ee = R.end > E.end;
           if (B) {
             c += R.replacement;
-            for (let j = 0; j < R.replacement.length; j++) u.push(R.start);
+            for (let D = 0; D < R.replacement.length; D++) u.push(R.start);
             E.atomIndex === -1 || ee ? (f(), l += T(R.replacement)) : (g !== E.atomIndex && (f(), g = E.atomIndex), d += T(R.replacement));
           }
           I = Math.min(R.end, E.end), R.end <= E.end && h++;
@@ -1576,6 +1576,7 @@ function ds(n) {
   const i = n.slice(t).trim();
   return i && e.push({ ssml: i }), e;
 }
+const gs = 250;
 class Nt {
   speechSynthesis;
   speechSynthesisUtterance;
@@ -1608,8 +1609,8 @@ class Nt {
   maxLengthExceeded = "warn";
   utterancesBeingCancelled = !1;
   // Flag to track if utterances are being cancelled
-  hasCancelledInTask = !1;
-  // Safari: cancel() stopped speech in the current task
+  lastCancelAt = -1 / 0;
+  // Safari: when cancel() last stopped speech
   lacksNativePauseEvents = !1;
   // Google and Chrome OS voices never fire onpause/onresume
   // Playback parameters
@@ -1789,8 +1790,10 @@ class Nt {
     }
     this.patches.isSafari && this.speakGeneration++, this.cancelCurrentSpeech();
     const t = ++this.speakGeneration;
-    if (this.isSpeakingInternal = !0, this.isPausedInternal = !1, this.setState("playing"), this.stopResumeInfinity(), this.currentUtteranceIndex >= this.currentUtterances.length && (this.currentUtteranceIndex = 0), this.patches.isSafari && this.hasCancelledInTask) {
-      this.speakNextTask(t, 1);
+    this.isSpeakingInternal = !0, this.isPausedInternal = !1, this.setState("playing"), this.stopResumeInfinity(), this.currentUtteranceIndex >= this.currentUtterances.length && (this.currentUtteranceIndex = 0);
+    const i = this.lastCancelAt + gs - Date.now();
+    if (this.patches.isSafari && i > 0) {
+      this.speakNextTask(t, 1, i);
       return;
     }
     this.speakCurrentUtterance(t);
@@ -1798,15 +1801,19 @@ class Nt {
   cancelCurrentSpeech() {
     this.patches.isFirefox && this.speechSynthesis.speaking && (this.utterancesBeingCancelled = !0, setTimeout(() => {
       this.utterancesBeingCancelled = !1;
-    }, 100)), this.patches.isSafari && this.speechSynthesis.speaking && (this.hasCancelledInTask = !0, setTimeout(() => {
-      this.hasCancelledInTask = !1;
-    }, 0)), this.speechSynthesis.cancel();
+    }, 100)), this.patches.isSafari && this.speechSynthesis.speaking && (this.lastCancelAt = Date.now()), this.speechSynthesis.cancel();
   }
   // Safari: `unstartedRetries` is how many more times to speak it if Safari ends it without starting it, as it can right after cancel()
-  speakNextTask(e, t) {
+  speakNextTask(e, t, i = 0) {
     setTimeout(() => {
-      e === this.speakGeneration && this.speakCurrentUtterance(e, t);
-    }, 0);
+      if (e === this.speakGeneration) {
+        if (this.playbackState === "paused") {
+          this.pausedAtUtteranceIndex = null;
+          return;
+        }
+        this.playbackState === "playing" && this.speakCurrentUtterance(e, t);
+      }
+    }, i);
   }
   async speakCurrentUtterance(e, t) {
     if (this.currentUtteranceIndex >= this.currentUtterances.length) {
@@ -1981,7 +1988,7 @@ class Nt {
     this.stop(), this.stopResumeInfinity(), this.events.clear(), this.currentUtterances = [], this.currentVoice = null, this.speakingVoice = null, this.voiceManager = null, this.defaultVoice = null, this.languageVoiceCache.clear(), this.warmingLanguages.clear(), this.initialized = !1;
   }
 }
-class er {
+class tr {
   id = "webspeech";
   name = "Web Speech API";
   voiceEngine = null;
@@ -2001,7 +2008,7 @@ function Cn(n, e) {
   const t = [];
   let i = -1, s = -1;
   const a = () => {
-    i !== -1 && (t.push({ text: gs(n, i, s), offset: n[i].offset }), i = -1, s = -1);
+    i !== -1 && (t.push({ text: fs(n, i, s), offset: n[i].offset }), i = -1, s = -1);
   };
   for (let r = 0; r < n.length; r++) {
     const o = n[r];
@@ -2014,14 +2021,14 @@ function Cn(n, e) {
   }
   return a(), t;
 }
-function gs(n, e, t) {
+function fs(n, e, t) {
   const i = n[e], s = n[t];
   return i === s ? i.text : n.slice(e, t + 1).map((a) => a.text).join("");
 }
 const En = new RegExp(
   `[^${se}]*[${se}]+\\s*|[^${se}]+$`,
   "gu"
-), fs = /\S+\s*|\s+/g;
+), ps = /\S+\s*|\s+/g;
 function rt(n, e, t) {
   const i = [];
   for (const s of n.matchAll(t))
@@ -2031,7 +2038,7 @@ function rt(n, e, t) {
 function ot(n, e) {
   if (n.text.length <= e || n.atomic)
     return [n];
-  const t = rt(n.text, n.offset, fs);
+  const t = rt(n.text, n.offset, ps);
   if (t.length > 1)
     return t.flatMap((r) => ot(r, e));
   const i = [];
@@ -2040,23 +2047,23 @@ function ot(n, e) {
     a.length > 0 && a.length + r.length > e && (i.push({ text: a, offset: s, atomic: !1 }), s += a.length, a = ""), a += r;
   return a.length > 0 && i.push({ text: a, offset: s, atomic: !1 }), i;
 }
-function ps(n, e) {
+function ms(n, e) {
   if (n.length <= e)
     return [{ text: n, offset: 0 }];
   const i = rt(n, 0, En).flatMap((s) => ot(s, e));
   return Cn(i, e);
 }
-const ms = /<([a-zA-Z][\w-]*)\b[^>]*>[\s\S]*?<\/\1>|<[a-zA-Z][\w-]*\b[^>]*\/>|[^<]+/g;
-function vs(n, e) {
+const vs = /<([a-zA-Z][\w-]*)\b[^>]*>[\s\S]*?<\/\1>|<[a-zA-Z][\w-]*\b[^>]*\/>|[^<]+/g;
+function ys(n, e) {
   if (n.length <= e)
     return [{ text: n, offset: 0 }];
   const t = [];
-  for (const s of n.matchAll(ms))
+  for (const s of n.matchAll(vs))
     s[0][0] === "<" ? t.push({ text: s[0], offset: s.index, atomic: !0 }) : t.push(...rt(s[0], s.index, En));
   const i = t.flatMap((s) => ot(s, e));
   return Cn(i, e);
 }
-const ys = {
+const Ss = {
   wav: "audio/wav",
   mp3: "audio/mpeg",
   opus: "audio/ogg",
@@ -2066,29 +2073,29 @@ const ys = {
   webm: "audio/webm",
   m4a: "audio/mp4"
 };
-function Ss(n) {
-  return ys[n] ?? `audio/${n}`;
+function bs(n) {
+  return Ss[n] ?? `audio/${n}`;
 }
-const bs = ["flac", "wav", "opus", "aac", "ogg", "webm", "mp3"], ws = ["opus", "aac", "webm", "ogg", "mp3", "wav", "flac"];
-function ks(n, e, t) {
-  const i = (o) => t(Ss(o)) !== "", s = n.formats.filter(i);
+const ws = ["flac", "wav", "opus", "aac", "ogg", "webm", "mp3"], ks = ["opus", "aac", "webm", "ogg", "mp3", "wav", "flac"];
+function Cs(n, e, t) {
+  const i = (o) => t(bs(o)) !== "", s = n.formats.filter(i);
   if (e.preferredFormat && s.includes(e.preferredFormat))
     return e.preferredFormat;
-  const a = e.strategy === "bandwidth" ? ws : bs, r = [...a, ...s.filter((o) => !a.includes(o))];
+  const a = e.strategy === "bandwidth" ? ks : ws, r = [...a, ...s.filter((o) => !a.includes(o))];
   for (const o of r)
     if (s.includes(o))
       return o;
   return n.default;
 }
-const Cs = /* @__PURE__ */ new Set(["wav", "flac"]), Es = {
+const Es = /* @__PURE__ */ new Set(["wav", "flac"]), Rs = {
   mp3: 48e3,
   opus: 24e3,
   aac: 48e3,
   ogg: 48e3,
   webm: 32e3
 };
-function Rs(n, e, t) {
-  return Cs.has(n) || !e || !t ? void 0 : t.saveData === !0 || /2g/.test(t.effectiveType ?? "") ? Es[n] : void 0;
+function Is(n, e, t) {
+  return Es.has(n) || !e || !t ? void 0 : t.saveData === !0 || /2g/.test(t.effectiveType ?? "") ? Rs[n] : void 0;
 }
 function Rn(n, e) {
   return {
@@ -2143,14 +2150,14 @@ async function ae(n) {
     }
   return new oe(`Request failed with status ${n.status}`, { status: n.status });
 }
-const Is = 3, Ps = 400;
-function As(n) {
+const Ps = 3, As = 400;
+function Ls(n) {
   const e = atob(n), t = new Uint8Array(e.length);
   for (let i = 0; i < e.length; i++)
     t[i] = e.charCodeAt(i);
   return t.buffer;
 }
-function Ls(n) {
+function Os(n) {
   return q(n, 0.25, 4, 1);
 }
 function pe(n) {
@@ -2159,7 +2166,7 @@ function pe(n) {
 function Mt(n) {
   return n instanceof In ? { message: n.message, status: n.status, type: n.type, title: n.title, instance: n.instance, recoverable: !0 } : n instanceof oe ? { message: n.message, status: n.status, type: n.type, title: n.title, instance: n.instance, recoverable: !1 } : n instanceof Pn ? { message: n.message, recoverable: !1 } : n instanceof An ? { message: n.message, recoverable: !0 } : n instanceof Error ? { message: n.message, recoverable: !1 } : { message: String(n), recoverable: !1 };
 }
-class Os {
+class Vs {
   endpoints;
   fetchImpl;
   currentVoice = null;
@@ -2203,7 +2210,7 @@ class Os {
   pitch = 1;
   volume = 1;
   constructor(e) {
-    this.endpoints = e.endpoints, this.fetchImpl = e.fetch ?? fetch.bind(globalThis), this.prefetchWindow = e.prefetchWindow ?? Is, this.readyBufferChars = e.readyBufferChars ?? Ps, this.overLengthText = e.overLengthText ?? "split", this.timeoutMs = e.timeoutMs, this.formatOptions = e.format ?? {}, this.canPlayType = typeof Audio < "u" ? (t) => new Audio().canPlayType(t) : () => "";
+    this.endpoints = e.endpoints, this.fetchImpl = e.fetch ?? fetch.bind(globalThis), this.prefetchWindow = e.prefetchWindow ?? Ps, this.readyBufferChars = e.readyBufferChars ?? As, this.overLengthText = e.overLengthText ?? "split", this.timeoutMs = e.timeoutMs, this.formatOptions = e.format ?? {}, this.canPlayType = typeof Audio < "u" ? (t) => new Audio().canPlayType(t) : () => "";
   }
   // Lets a provider that already fetched /voices seed this engine without a second request.
   setAvailableVoices(e) {
@@ -2404,7 +2411,7 @@ class Os {
     this.liveControllers.forEach((e) => e.abort()), this.liveControllers.clear();
   }
   async synthesizeStream(e, t) {
-    const i = this.currentUtterances[e], s = !i.plain && !!i.ssml, a = i.language, r = pe(i) ?? "", o = s ? vn(r).map : void 0, l = pe(this.currentUtterances[e - 1]), c = pe(this.currentUtterances[e + 1]), u = await this.getServiceInfo(), g = ks(u.output, this.formatOptions, this.canPlayType), d = navigator.connection, h = Rs(g, this.formatOptions.adaptBitrateToNetwork ?? !1, d);
+    const i = this.currentUtterances[e], s = !i.plain && !!i.ssml, a = i.language, r = pe(i) ?? "", o = s ? vn(r).map : void 0, l = pe(this.currentUtterances[e - 1]), c = pe(this.currentUtterances[e + 1]), u = await this.getServiceInfo(), g = Cs(u.output, this.formatOptions, this.canPlayType), d = navigator.connection, h = Is(g, this.formatOptions.adaptBitrateToNetwork ?? !1, d);
     if (r.length <= u.limits.maxTextLength) {
       const v = new AbortController();
       return (t ? this.activeControllers : this.liveControllers).add(v), [{
@@ -2421,7 +2428,7 @@ class Os {
           title: "Payload Too Large"
         }
       );
-    const f = Math.min(u.limits.maxTextLength, this.readyBufferChars), p = s ? vs(r, f) : ps(r, f), m = [];
+    const f = Math.min(u.limits.maxTextLength, this.readyBufferChars), p = s ? ys(r, f) : ms(r, f), m = [];
     let S = Promise.resolve();
     for (let v = 0; v < p.length; v++) {
       const w = v === 0 ? l : p[v - 1].text, y = v === p.length - 1 ? c : p[v + 1].text, b = p[v], P = new AbortController();
@@ -2454,7 +2461,7 @@ class Os {
       });
       if (!f.ok)
         throw await ae(f);
-      const p = await f.json(), m = As(p.audio);
+      const p = await f.json(), m = Ls(p.audio);
       let S;
       try {
         S = await this.ensureAudioContext().decodeAudioData(m);
@@ -2497,7 +2504,7 @@ class Os {
     const s = await this.awaitWithStallDeadline(e[0].promise, e[0].controller, 0);
     if (t !== this.speakGeneration)
       return;
-    const a = this.ensureAudioContext(), r = this.masterGain, l = i?.controls?.speed === !0 ? 1 : Ls(this.rate);
+    const a = this.ensureAudioContext(), r = this.masterGain, l = i?.controls?.speed === !0 ? 1 : Os(this.rate);
     this.scheduledChunks = [], this.setState("playing"), this.emitEvent({ type: "start", detail: { voice: i } });
     let c = a.currentTime, u = null;
     const g = (d) => {
@@ -2662,7 +2669,7 @@ class Os {
     this.stop(), await this.audioContext?.close(), this.audioContext = null, this.masterGain = null, this.events.clear(), this.currentUtterances = [], this.currentVoice = null, this.defaultVoice = null, this.voices = [], this.voicesRequest = null, this.languageVoiceCache.clear();
   }
 }
-class tr {
+class nr {
   id = "speech-server";
   name = "Readium Speech Server";
   options;
@@ -2686,17 +2693,17 @@ class tr {
     return this.voices = s.map((o) => Rn(o, r.get(o.provider))), this.voices;
   }
   async createEngine(e) {
-    const t = new Os(this.options);
+    const t = new Vs(this.options);
     return this.voices.length > 0 && t.setAvailableVoices(this.voices), e && t.setVoice(e), t;
   }
   async destroy() {
     this.voices = [];
   }
 }
-function Vs(n) {
+function xs(n) {
   return n.detail?.recoverable === !0;
 }
-const xs = 3e4, Us = [
+const Us = 3e4, Ts = [
   "start",
   "pause",
   "resume",
@@ -2711,7 +2718,7 @@ const xs = 3e4, Us = [
   "voiceschanged",
   "languagefallback"
 ];
-class Ts {
+class zs {
   activeEngine;
   primaryProvider;
   fallbackProvider;
@@ -2746,7 +2753,7 @@ class Ts {
   events = new Ae();
   unbindActiveEngine = null;
   constructor(e) {
-    this.activeEngine = e.primaryEngine, this.primaryProvider = e.primaryProvider, this.fallbackProvider = e.fallbackProvider, this.onFailure = e.onFailure ?? "fallback", this.healthCheckIntervalMs = e.healthCheckIntervalMs ?? xs, this.lastVoiceRequest = e.primaryEngine.getCurrentVoice() ?? void 0, this.bindActiveEngine();
+    this.activeEngine = e.primaryEngine, this.primaryProvider = e.primaryProvider, this.fallbackProvider = e.fallbackProvider, this.onFailure = e.onFailure ?? "fallback", this.healthCheckIntervalMs = e.healthCheckIntervalMs ?? Us, this.lastVoiceRequest = e.primaryEngine.getCurrentVoice() ?? void 0, this.bindActiveEngine();
   }
   async initialize() {
     return this.activeEngine.initialize?.();
@@ -2840,13 +2847,13 @@ class Ts {
     this.events.emit(e.type, e);
   }
   bindActiveEngine() {
-    const e = this.activeEngine, t = Us.map((i) => e.on(i, (s) => {
+    const e = this.activeEngine, t = Ts.map((i) => e.on(i, (s) => {
       this.emitEvent(s), this.maybeRecoverNow();
     }));
     t.push(e.on("error", (i) => this.handleError(i))), this.unbindActiveEngine = () => t.forEach((i) => i());
   }
   handleError(e) {
-    if (this.hasFallenBack || this.swapInFlight || this.onFailure === "error" || !Vs(e)) {
+    if (this.hasFallenBack || this.swapInFlight || this.onFailure === "error" || !xs(e)) {
       this.emitEvent(e);
       return;
     }
@@ -2945,7 +2952,7 @@ class Ts {
     this.teardownEpoch++, this.healthCheckTimer !== null && (clearTimeout(this.healthCheckTimer), this.healthCheckTimer = null), this.unbindActiveEngine?.(), this.events.clear(), await this.activeEngine.destroy();
   }
 }
-class nr {
+class ir {
   id = "fallback";
   name = "Fallback";
   primary;
@@ -2973,7 +2980,7 @@ class nr {
         throw i;
       return this.fallback.createEngine(e);
     }
-    return new Ts({
+    return new zs({
       primaryEngine: t,
       primaryProvider: this.primary,
       fallbackProvider: this.fallback,
@@ -2985,15 +2992,15 @@ class nr {
     await Promise.all([this.primary.destroy(), this.fallback.destroy()]);
   }
 }
-function zs(n) {
+function Ns(n) {
   return new yi({
     start: new Rt(n.start),
     end: n.end ? new Rt(n.end) : void 0
   });
 }
-function Ns(n, e = window) {
+function Ms(n, e = window) {
   const { href: t, text: i, cssSelector: s, domRange: a, fragment: r } = n, o = i ? new di(i) : void 0, l = s || a ? /* @__PURE__ */ new Map() : void 0;
-  l && (s && l.set("cssSelector", s), a && l.set("domRange", zs(a).serialize()));
+  l && (s && l.set("cssSelector", s), a && l.set("domRange", Ns(a).serialize()));
   const u = l !== void 0 || r !== void 0 ? new gi({
     fragments: r ? [r] : void 0,
     otherLocations: l
@@ -3005,7 +3012,7 @@ function Ns(n, e = window) {
     locations: u
   });
 }
-class Ms extends ci {
+class Bs extends ci {
   constructor(e, t, i, s = {}) {
     super(e.host, s), this.channel = e, this.wnd = t, this.decorator = i;
   }
@@ -3021,7 +3028,7 @@ class Ms extends ci {
       e.map(({ id: i, style: s, ...a }) => ({
         id: i,
         style: s,
-        locator: Ns(a, this.wnd)
+        locator: Ms(a, this.wnd)
       })),
       t
     );
@@ -3030,12 +3037,12 @@ class Ms extends ci {
     super.destroy(), this.decorator.unmount(this.wnd, this.channel.frame), this.channel.frame.destroy();
   }
 }
-function ir(n = window, e = {}) {
+function sr(n = window, e = {}) {
   const t = new ui(), i = new hi();
-  return i.mount(n, t.frame), new Ms(t, n, i, e);
+  return i.mount(n, t.frame), new Bs(t, n, i, e);
 }
 const Ln = (n) => n.voiceURI ?? n.identifier ?? n.name;
-class sr {
+class ar {
   providers = /* @__PURE__ */ new Map();
   register(e) {
     if (this.providers.has(e.id))
@@ -3085,7 +3092,7 @@ const Le = (n, e, t) => Object.freeze({ range: Object.freeze([n, e]), step: t })
   "languageOverrides",
   "segmentation"
 ]);
-function Bs(n) {
+function Ds(n) {
   return n == null || typeof n == "boolean" ? n : void 0;
 }
 function O(n, e) {
@@ -3204,9 +3211,9 @@ class ie extends K {
     return this._supportedValues;
   }
 }
-class ar extends K {
+class rr extends K {
   set value(e) {
-    if (e != null && Bs(e) === void 0)
+    if (e != null && Ds(e) === void 0)
       throw new Error(`Value '${String(e)}' is not a boolean.`);
     this._value = e, this._onChange(this._value);
   }
@@ -3268,7 +3275,7 @@ class me extends K {
     return e.toString();
   }
 }
-class jt {
+class Dt {
   preferences;
   settings;
   // Cloned rather than aliased: edits made through this editor's setters
@@ -3441,7 +3448,7 @@ const Vn = ["audio", "figure", "image", "math", "table", "video"], xn = [
   "rowheader",
   "subtitle",
   "tip"
-], Ds = [
+], Fs = [
   ...xn,
   "abstract",
   "acknowledgments",
@@ -3486,7 +3493,7 @@ const Vn = ["audio", "figure", "image", "math", "table", "video"], xn = [
   "separator",
   "summary",
   "term"
-], Fs = {
+], _s = {
   none: /* @__PURE__ */ new Set([
     "aside",
     "audio",
@@ -3554,11 +3561,11 @@ const Vn = ["audio", "figure", "image", "math", "table", "video"], xn = [
     "toc"
   ]),
   most: /* @__PURE__ */ new Set(["landmarks", "loa", "loi", "lot", "lov", "toc"])
-}, _s = {
+}, $s = {
   none: /* @__PURE__ */ new Set(),
   few: new Set(Vn),
   some: new Set(xn),
-  most: new Set(Ds)
+  most: new Set(Fs)
 }, Ke = {
   table: { few: "inline", some: "block", most: "block" }
 };
@@ -3568,14 +3575,14 @@ function ve(n) {
     e[t] = Ke[t]?.[n] ?? "inline";
   return e;
 }
-const $s = {
+const qs = {
   none: ve("none"),
   few: ve("few"),
   some: ve("some"),
   most: ve("most")
-}, rr = Object.keys(Ke);
-function qs(n, e) {
-  const t = n === "custom" ? {} : $s[n];
+}, or = Object.keys(Ke);
+function Gs(n, e) {
+  const t = n === "custom" ? {} : qs[n];
   if (!e) return t;
   const i = { ...t };
   for (const s of Object.keys(e)) {
@@ -3584,7 +3591,7 @@ function qs(n, e) {
   }
   return i;
 }
-const Gs = (n, e) => {
+const Hs = (n, e) => {
   if (!e || typeof n == "string") return n;
   const [t] = k(e.language);
   return !t || n && nt(n, t) !== void 0 ? n : { ...n, [t]: Ln(e) };
@@ -3608,10 +3615,10 @@ class ze {
    * @param engineVoice The engine's voice, which `voice` falls back to: when unset, or for its language in a record without it.
    */
   constructor(e, t, i) {
-    this.format = e.format ?? t.format, this.inlineContextualization = e.inlineContextualization ?? t.inlineContextualization, this.verbosity = e.verbosity ?? t.verbosity, this.verbosity === "custom" ? (this.skip = e.skip ?? t.skip, this.contextualize = e.contextualize ?? t.contextualize) : (this.skip = [...Fs[this.verbosity]], this.contextualize = [..._s[this.verbosity]]), this.language = e.language ?? t.language, this.languageOverrides = e.languageOverrides ?? t.languageOverrides, this.segmentation = e.segmentation ?? t.segmentation, this.voice = Gs(e.voice ?? t.voice, i), this.pauseDuration = e.pauseDuration ?? t.pauseDuration, this.autoPause = e.autoPause ?? t.autoPause, this.rate = e.rate ?? t.rate, this.pitch = e.pitch ?? t.pitch, this.volume = e.volume ?? t.volume;
+    this.format = e.format ?? t.format, this.inlineContextualization = e.inlineContextualization ?? t.inlineContextualization, this.verbosity = e.verbosity ?? t.verbosity, this.verbosity === "custom" ? (this.skip = e.skip ?? t.skip, this.contextualize = e.contextualize ?? t.contextualize) : (this.skip = [..._s[this.verbosity]], this.contextualize = [...$s[this.verbosity]]), this.language = e.language ?? t.language, this.languageOverrides = e.languageOverrides ?? t.languageOverrides, this.segmentation = e.segmentation ?? t.segmentation, this.voice = Hs(e.voice ?? t.voice, i), this.pauseDuration = e.pauseDuration ?? t.pauseDuration, this.autoPause = e.autoPause ?? t.autoPause, this.rate = e.rate ?? t.rate, this.pitch = e.pitch ?? t.pitch, this.volume = e.volume ?? t.volume;
   }
 }
-const Dt = /* @__PURE__ */ new WeakMap(), Un = /* @__PURE__ */ new WeakMap();
+const jt = /* @__PURE__ */ new WeakMap(), Un = /* @__PURE__ */ new WeakMap();
 function Ft(n, e) {
   Un.set(n, e);
 }
@@ -3619,7 +3626,7 @@ const Tn = /* @__PURE__ */ new WeakSet();
 function _t(n) {
   return Tn.add(n), n;
 }
-function Hs(n, e, t) {
+function Ks(n, e, t) {
   const i = Un.get(n);
   if (i) {
     const u = Ut(i.map, e), g = Ut(i.map, e + t);
@@ -3627,7 +3634,7 @@ function Hs(n, e, t) {
   }
   const s = n.offsets, a = !n.plain && !!n.ssml, r = i?.plain ?? n.plain ?? (n.ssml ? N(n.ssml) : "");
   if (!s?.length || !r) return;
-  const o = Dt.get(n), l = o !== void 0 && e >= o.cursor;
+  const o = jt.get(n), l = o !== void 0 && e >= o.cursor;
   let c = l ? o.cursor : 0;
   for (let u = l ? o.pieceIndex : 0; u < s.length; u++) {
     const g = s[u], d = g.locate.text?.highlight, h = d ? a ? N(d) : d : r.slice(c);
@@ -3637,7 +3644,7 @@ function Hs(n, e, t) {
     const p = f + h.length;
     if (e >= f && e < p) {
       if (Tn.has(g.locate)) return;
-      Dt.set(n, { pieceIndex: u, cursor: c });
+      jt.set(n, { pieceIndex: u, cursor: c });
       const m = e - f, S = h.substring(m, Math.min(m + t, h.length));
       return { locate: {
         ...g.locate,
@@ -3652,13 +3659,13 @@ function Hs(n, e, t) {
     c = p;
   }
 }
-function Ks(n, e) {
+function Ws(n, e) {
   return e === "sentence" && n.offsets?.length ? n.offsets.map((t) => t.locate) : n.locate ? [n.locate] : [];
 }
 function x(n) {
   return { pattern: new RegExp(`(\\d+)\\s?u${n}\\b`, "g"), replace: (e, t) => `${t}µ${n}` };
 }
-const Ws = {
+const Qs = {
   "1/4": "¼",
   "1/2": "½",
   "3/4": "¾",
@@ -3678,8 +3685,8 @@ const Ws = {
   "5/8": "⅝",
   "7/8": "⅞",
   "0/3": "↉"
-}, Qs = {
-  ...Ws,
+}, Js = {
+  ...Qs,
   // Rejects "(c)" directly preceded by "(a)"/"(b)" (a lettered list, not a copyright notice).
   "(c)": { pattern: new RegExp("(?<!\\([ab]\\)\\s{0,3})\\(c\\)", "g"), replace: "©" },
   "(C)": { pattern: new RegExp("(?<!\\([AB]\\)\\s{0,3})\\(C\\)", "g"), replace: "©" },
@@ -3705,13 +3712,13 @@ const Ws = {
   // convention for pronunciation, but drop the real prime marks silently.
   "′": "'",
   "″": '"'
-}, Js = { contextualizations: { abstract: { block: { start: "Start of the abstract.", end: "End of the abstract." } }, acknowledgments: { block: { start: "Start of the acknowledgments.", end: "End of the acknowledgments." } }, afterword: { block: { start: "Start of the afterword.", end: "End of the afterword." } }, appendix: { block: { start: "Start of the appendix.", end: "End of the appendix." } }, aside: { block: { start: "Start of the aside.", end: "End of the aside." } }, audio: { inline: { labelled: "Audio with a label: {{ description }}", unlabelled: "Audio with no label." } }, bibliography: { block: { start: "Start of the bibliography.", end: "End of the bibliography." } }, blockquote: { inline: "Blockquote." }, cell: { inline: { withHeader: "{{ header }}: {{ value }}", withoutHeader: "{{ value }}" } }, chapter: { block: { start: "Start of the chapter.", end: "End of the chapter." } }, colophon: { inline: "Colophon." }, complementary: { block: { start: "Start of the complementary content.", end: "End of the complementary content." } }, conclusion: { block: { start: "Start of the conclusion.", end: "End of the conclusion." } }, cover: { inline: { labelled: "Cover with a label: {{ description }}", unlabelled: "Cover with no label." } }, credit: { inline: "Credit." }, credits: { block: { start: "Start of the credits.", end: "End of the credits." } }, dedication: { inline: "Dedication." }, definition: { inline: "Definition." }, details: { block: { start: "Start of the disclosure.", end: "End of the disclosure." } }, endnotes: { block: { start: "Start of the endnotes.", end: "End of the endnotes." } }, epigraph: { inline: "Epigraph." }, epilogue: { block: { start: "Start of the epilogue.", end: "End of the epilogue." } }, errata: { block: { start: "Start of the errata.", end: "End of the errata." } }, example: { block: { start: "Start of the example.", end: "End of the example." } }, figure: { inline: "Figure: {{ description }}" }, footnote: { block: { start: "Start of the footnote.", end: "End of the footnote." } }, foreword: { block: { start: "Start of the foreword.", end: "End of the foreword." } }, glossary: { block: { start: "Start of the glossary.", end: "End of the glossary." } }, heading1: { inline: "Heading level 1." }, heading2: { inline: "Heading level 2." }, heading3: { inline: "Heading level 3." }, heading4: { inline: "Heading level 4." }, heading5: { inline: "Heading level 5." }, heading6: { inline: "Heading level 6." }, image: { inline: { labelled: "Image with a label: {{ description }}", unlabelled: "Image with no label." } }, index: { block: { start: "Start of the index.", end: "End of the index." } }, introduction: { block: { start: "Start of the introduction.", end: "End of the introduction." } }, list: { block: { start: "Start of the list.", end: "End of the list." } }, listItem: { inline: "List item." }, math: { inline: { labelled: "{{ description }}", unlabelled: "Math formula with no label." } }, notice: { inline: "Notice." }, pagebreak: { inline: "Pagebreak.", number: "Page {{ number }}" }, pagelist: { block: { start: "Start of the page list.", end: "End of the page list." } }, part: { inline: "Part." }, preface: { block: { start: "Start of the preface.", end: "End of the preface." } }, prologue: { block: { start: "Start of the prologue.", end: "End of the prologue." } }, pullquote: { inline: "Pullquote." }, qna: { block: { start: "Start of the questions and answers.", end: "End of the questions and answers." } }, row: { inline: "Row: {{ count }}" }, rowheader: { inline: { withHeader: "{{ header }}: {{ value }}", withoutHeader: "{{ value }}" } }, separator: { inline: "Separator." }, subtitle: { inline: "Subtitle." }, summary: { inline: "Summary." }, table: { block: { end: "End of the table.", start: { labelled: "Table: {{ description }}. {{ lines }}. {{ columns }}.", unlabelled: "Table. {{ lines }}. {{ columns }}." } }, inline: { labelled: "Table: {{ description }}. {{ lines }}. {{ columns }}.", unlabelled: "Table. {{ lines }}. {{ columns }}." }, parts: { columns_one: "1 column", columns_other: "{{ count }} columns", lines_one: "1 line", lines_other: "{{ count }} lines" } }, term: { inline: "Term." }, tip: { inline: "Tip." }, video: { inline: { labelled: "Video with a label: {{ description }}", unlabelled: "Video with no label." } } } }, Zs = {
-  speech: Js
-}, zn = Zs.speech.contextualizations, We = { en: zn }, Nn = {};
-function Xs(n) {
+}, Zs = { contextualizations: { abstract: { block: { start: "Start of the abstract.", end: "End of the abstract." } }, acknowledgments: { block: { start: "Start of the acknowledgments.", end: "End of the acknowledgments." } }, afterword: { block: { start: "Start of the afterword.", end: "End of the afterword." } }, appendix: { block: { start: "Start of the appendix.", end: "End of the appendix." } }, aside: { block: { start: "Start of the aside.", end: "End of the aside." } }, audio: { inline: { labelled: "Audio with a label: {{ description }}", unlabelled: "Audio with no label." } }, bibliography: { block: { start: "Start of the bibliography.", end: "End of the bibliography." } }, blockquote: { inline: "Blockquote." }, cell: { inline: { withHeader: "{{ header }}: {{ value }}", withoutHeader: "{{ value }}" } }, chapter: { block: { start: "Start of the chapter.", end: "End of the chapter." } }, colophon: { inline: "Colophon." }, complementary: { block: { start: "Start of the complementary content.", end: "End of the complementary content." } }, conclusion: { block: { start: "Start of the conclusion.", end: "End of the conclusion." } }, cover: { inline: { labelled: "Cover with a label: {{ description }}", unlabelled: "Cover with no label." } }, credit: { inline: "Credit." }, credits: { block: { start: "Start of the credits.", end: "End of the credits." } }, dedication: { inline: "Dedication." }, definition: { inline: "Definition." }, details: { block: { start: "Start of the disclosure.", end: "End of the disclosure." } }, endnotes: { block: { start: "Start of the endnotes.", end: "End of the endnotes." } }, epigraph: { inline: "Epigraph." }, epilogue: { block: { start: "Start of the epilogue.", end: "End of the epilogue." } }, errata: { block: { start: "Start of the errata.", end: "End of the errata." } }, example: { block: { start: "Start of the example.", end: "End of the example." } }, figure: { inline: "Figure: {{ description }}" }, footnote: { block: { start: "Start of the footnote.", end: "End of the footnote." } }, foreword: { block: { start: "Start of the foreword.", end: "End of the foreword." } }, glossary: { block: { start: "Start of the glossary.", end: "End of the glossary." } }, heading1: { inline: "Heading level 1." }, heading2: { inline: "Heading level 2." }, heading3: { inline: "Heading level 3." }, heading4: { inline: "Heading level 4." }, heading5: { inline: "Heading level 5." }, heading6: { inline: "Heading level 6." }, image: { inline: { labelled: "Image with a label: {{ description }}", unlabelled: "Image with no label." } }, index: { block: { start: "Start of the index.", end: "End of the index." } }, introduction: { block: { start: "Start of the introduction.", end: "End of the introduction." } }, list: { block: { start: "Start of the list.", end: "End of the list." } }, listItem: { inline: "List item." }, math: { inline: { labelled: "{{ description }}", unlabelled: "Math formula with no label." } }, notice: { inline: "Notice." }, pagebreak: { inline: "Pagebreak.", number: "Page {{ number }}" }, pagelist: { block: { start: "Start of the page list.", end: "End of the page list." } }, part: { inline: "Part." }, preface: { block: { start: "Start of the preface.", end: "End of the preface." } }, prologue: { block: { start: "Start of the prologue.", end: "End of the prologue." } }, pullquote: { inline: "Pullquote." }, qna: { block: { start: "Start of the questions and answers.", end: "End of the questions and answers." } }, row: { inline: "Row: {{ count }}" }, rowheader: { inline: { withHeader: "{{ header }}: {{ value }}", withoutHeader: "{{ value }}" } }, separator: { inline: "Separator." }, subtitle: { inline: "Subtitle." }, summary: { inline: "Summary." }, table: { block: { end: "End of the table.", start: { labelled: "Table: {{ description }}. {{ lines }}. {{ columns }}.", unlabelled: "Table. {{ lines }}. {{ columns }}." } }, inline: { labelled: "Table: {{ description }}. {{ lines }}. {{ columns }}.", unlabelled: "Table. {{ lines }}. {{ columns }}." }, parts: { columns_one: "1 column", columns_other: "{{ count }} columns", lines_one: "1 line", lines_other: "{{ count }} lines" } }, term: { inline: "Term." }, tip: { inline: "Tip." }, video: { inline: { labelled: "Video with a label: {{ description }}", unlabelled: "Video with no label." } } } }, Xs = {
+  speech: Zs
+}, zn = Xs.speech.contextualizations, We = { en: zn }, Nn = {};
+function Ys(n) {
   return We[n] || Nn[n] ? n : "en";
 }
-async function Ys(n) {
+async function ea(n) {
   const e = We[n];
   if (e) return e;
   const t = Nn[n];
@@ -3719,7 +3726,7 @@ async function Ys(n) {
   const i = (await t()).speech.contextualizations;
   return We[n] = i, i;
 }
-const ea = {
+const ta = {
   de: ["A.", "A.M.", "Abs.", "Abt.", "Abw.", "Adj.", "Adr.", "Akt.", "Allg.", "Alt.", "App.", "Apr.", "Art.", "Aug.", "Ausg.", "Ausschl.", "B.", "Bed.", "Ben.", "Ber.", "Best.", "Bibl.", "C.", "Ca.", "Chin.", "Chr.", "Co.", "D.", "D. h.", "Dat.", "Dez.", "Di.", "Dim.", "Dipl.-Ing.", "Dipl.-Kfm.", "Dir.", "Do.", "Dr.", "Dtzd.", "Einh.", "Erf.", "Evtl.", "F.", "F.f.", "Fa.", "Fam.", "Feb.", "Fn.", "Folg.", "Forts. f.", "Fr.", "Frl.", "G.", "Gebr.", "Gem.", "Geograph.", "Ges.", "Gesch.", "Ggf.", "Hbf.", "Hptst.", "Hr.", "Hrn.", "Hrsg.", "I.", "Inc.", "Ing.", "Inh.", "Int.", "J.", "J.D.", "Jahrh.", "Jan.", "Jr.", "Kap.", "Kfm.", "Kl.", "Konv.", "Kop.", "L.", "Ltd.", "M.", "Max.", "Mi.", "Min.", "Mind.", "Mio.", "Mo.", "Mod.", "Mrd.", "Msp.", "N.", "Nov.", "Nr.", "O.", "Obj.", "Okt.", "Op.", "P.", "P.M.", "PIN.", "Pfd.", "Phys.", "Port.", "Prot.", "Proz.", "Qu.", "R.", "Rd.", "Reg.", "Reg.-Bez.", "Rel.", "Rep.", "S.A.", "Sa.", "Schr.", "Sek.", "Sep.", "Sept.", "So.", "Spezif.", "St.", "StR.", "Std.", "Str.", "T.", "Tel.", "Temp.", "Test.", "Trans.", "Tägl.", "U.", "U. U.", "U.S.", "U.S.A.", "U.U.", "Urspr.", "Ursprüngl.", "Verf.", "Vgl.", "W.", "Wg.", "Y.", "Z.", "Z. B.", "Z. Zt.", "Ztr.", "a.D.", "a.M.", "a.Rh.", "a.a.O.", "a.a.S.", "am.", "amtl.", "b.", "beil.", "d.J.", "d.Ä.", "e.V.", "e.Wz.", "e.h.", "ehem.", "eigtl.", "einschl.", "entspr.", "erw.", "ev.", "evtl.", "exkl.", "frz.", "geb.", "gedr.", "gek.", "gesch.", "gest.", "ggf.", "ggfs.", "hpts.", "i.A.", "i.B.", "i.H.", "i.J.", "i.R.", "i.V.", "inkl.", "jew.", "jhrl.", "k. u. k.", "k.u.k.", "kath.", "kfm.", "kgl.", "led.", "m.E.", "m.W.", "mtl.", "möbl.", "n. Chr.", "n.u.Z.", "näml.", "o.A.", "o.B.", "o.g.", "od.", "p.Adr.", "r.", "röm.", "röm.-kath.", "s.", "s.a.", "schles.", "schweiz.", "schwäb.", "sog.", "südd.", "tägl.", "u.", "u. Z.", "u.A.w.g.", "u.U.", "u.a.", "u.v.a.", "u.Ä.", "u.ä.", "v. Chr.", "v. H.", "v. u. Z.", "v.Chr.", "v.H.", "v.R.w.", "v.T.", "v.u.Z.", "verh.", "verw.", "vgl.", "z.", "z.B.", "z.Hd.", "z.Z.", "zzgl.", "österr."],
   en: ["A.D.", "A.I.", "A.M.", "A.S.", "AA.", "AB.", "Abs.", "Adj.", "Adv.", "Alt.", "Approx.", "Aug.", "B.V.", "C.F.", "C.O.D.", "Capt.", "Col.", "Comm.", "Conn.", "Cont.", "D.A.", "D.C.", "DC.", "DR.", "Dec.", "Def.", "Dept.", "Diff.", "Dr.", "E.G.", "E.g.", "Ed.", "Est.", "Etc.", "Ex.", "Exec.", "Feb.", "Fn.", "Fri.", "Hon.B.A.", "I.", "I.D.", "I.T.", "I.e.", "J.B.", "J.D.", "J.K.", "Jan.", "Jun.", "K.R.", "L.A.", "L.P.", "Lev.", "Lib.", "Lt.", "Lt.Cdr.", "M.", "M.I.T.", "M.R.", "M.T.", "MR.", "Maj.", "Mar.", "Mart.", "Mb.", "Md.", "Mgr.", "Min.", "Misc.", "Mr.", "Mrs.", "Ms.", "Mt.", "N.V.", "N.Y.", "Nov.", "Nr.", "Num.", "Op.", "Org.", "P.M.", "P.O.", "P.V.", "PP.", "Ph.D.", "Phys.", "Prof.", "Pvt.", "R.L.", "R.T.", "Rep.", "Rev.", "S.A.", "S.A.R.", "S.E.", "S.p.A.", "Sep.", "Sept.", "Sgt.", "Sq.", "St.", "U.S.", "U.S.A.", "U.S.C.", "VS.", "Yr.", "a.m.", "d.", "dr.", "exec.", "pp.", "vs."],
   es: ["A.C.", "AA.", "All.", "Ant.", "Av.", "Avda.", "Bien.", "C.", "C.P.", "C.S.", "C.V.", "CA.", "Col.", "Comm.", "Corp.", "Cía.", "D.", "DC.", "Da.", "Desc.", "Desv.", "Dr.", "Dra.", "Drs.", "Dto.", "Dª.", "Dña.", "Em.", "Emm.", "Exc.", "Excma.", "Excmas.", "Excmo.", "Excmos.", "Exma.", "Exmas.", "Exmo.", "Exmos.", "FF.CC.", "Fabric.", "Fr.", "H.P.", "Id.", "Ilma.", "Ilmas.", "Ilmo.", "Ilmos.", "Inc.", "JJ.OO.", "K.", "Kit.", "Korn.", "L.", "Lcda.", "Lcdo.", "Lda.", "Ldo.", "Lic.", "Ltd.", "Ltda.", "Ltdo.", "M.", "MM.", "Mons.", "Mr.", "Mrs.", "O.M.", "PP.", "R.D.", "R.U.", "RAM.", "RR.HH.", "Rdo.", "Rdos.", "Reg.", "Rev.", "Rol.", "Rvdmo.", "Rvdmos.", "Rvdo.", "Rvdos.", "SA.", "SS.AA.", "SS.MM.", "Sdad.", "Seg.", "Sol.", "Sr.", "Sra.", "Sras.", "Sres.", "Srta.", "Srtas.", "Sta.", "Sto.", "Trab.", "U.S.", "U.S.A.", "Var.", "Vda.", "a. C.", "a. e. c.", "abr.", "afma.", "afmas.", "afmo.", "afmos.", "ago.", "bco.", "bol.", "c/c.", "cap.", "cf.", "cfr.", "col.", "d. C.", "depto.", "deptos.", "dic.", "doc.", "dom.", "dpto.", "dptos.", "dtor.", "e. c.", "e.g.", "ed.", "ej.", "ene.", "feb.", "fig.", "figs.", "fund.", "hnos.", "jue.", "jul.", "jun.", "licda.", "licdo.", "lun.", "mar.", "may.", "mié.", "ms.", "mss.", "mtro.", "nov.", "ntra.", "ntro.", "oct.", "p.ej.", "prof.", "prov.", "sept.", "sras.", "sres.", "srs.", "ss.", "sáb.", "trad.", "v.gr.", "vid.", "vie.", "vs."],
@@ -3734,34 +3741,34 @@ function Ne(n, e, t) {
   for (; i > e && /\s/.test(n[i - 1]); ) i--;
   return i;
 }
-const ta = /[\s([{"'“‘]/;
-function na(n, e) {
+const na = /[\s([{"'“‘]/;
+function ia(n, e) {
   for (const t of e) {
     if (n.length < t.length || !n.endsWith(t)) continue;
     const i = n.length - t.length - 1;
-    if (i < 0 || ta.test(n[i])) return !0;
+    if (i < 0 || na.test(n[i])) return !0;
   }
   return !1;
 }
-function ia(n) {
+function sa(n) {
   let e = 0;
   for (const t of n)
     if (new RegExp("\\p{L}", "u").test(t) && e++, e >= 2) return !0;
   return !1;
 }
-function sa(n) {
+function aa(n) {
   return /\.{3,}$/.test(n);
 }
-function aa(n, e, t, i) {
+function ra(n, e, t, i) {
   if (i === "“") return !0;
   if (i !== '"') return !1;
   let s = 0;
   for (let a = e; a < t; a++) n[a] === '"' && s++;
   return s % 2 === 1;
 }
-const ra = new RegExp(`[.!?][”"'’)\\]]*\\s+—\\s+(?=\\p{Lu})`, "gu");
-function oa(n, e) {
-  const t = [...n.matchAll(ra)].map((s) => s.index + s[0].length);
+const oa = new RegExp(`[.!?][”"'’)\\]]*\\s+—\\s+(?=\\p{Lu})`, "gu");
+function la(n, e) {
+  const t = [...n.matchAll(oa)].map((s) => s.index + s[0].length);
   if (t.length === 0) return e;
   const i = [];
   for (const s of e) {
@@ -3772,8 +3779,8 @@ function oa(n, e) {
   }
   return i;
 }
-const la = { "»": "«", "«": "»", "›": "‹", "‹": "›" };
-function ca(n, e) {
+const ca = { "»": "«", "«": "»", "›": "‹", "‹": "›" };
+function ua(n, e) {
   const t = [], i = /* @__PURE__ */ new Map();
   let s = 0;
   const a = (r, o) => {
@@ -3785,7 +3792,7 @@ function ca(n, e) {
     let c = o.start;
     for (; l && c < o.end; ) {
       for (; c < o.end && /\s/.test(n[c]); ) c++;
-      const u = la[n[c]];
+      const u = ca[n[c]];
       if (u === void 0 || a(l.end, u) <= a(l.end, n[c])) break;
       for (c++; c < o.end && /\s/.test(n[c]); ) c++;
       l.end = o.start = c;
@@ -3794,20 +3801,20 @@ function ca(n, e) {
   }
   return t;
 }
-function ua(n, e, t) {
-  const i = ca(n, oa(n, e));
+function ha(n, e, t) {
+  const i = ua(n, la(n, e));
   for (let a = 0; a < i.length - 1; a++) {
     const r = Ne(n, i[a].start, i[a].end);
     if (r !== i[a].end || r <= i[a].start) continue;
     const o = n[r - 1];
-    aa(n, i[a].start, r, o) && (i[a].end -= 1, i[a + 1].start -= 1);
+    ra(n, i[a].start, r, o) && (i[a].end -= 1, i[a + 1].start -= 1);
   }
   const s = [];
   for (const a of i) {
     let r = a;
     for (; s.length > 0; ) {
       const o = s[s.length - 1], l = Ne(n, o.start, o.end), c = n.slice(o.start, l);
-      if (!na(c, t) && ia(c) && !sa(c)) break;
+      if (!ia(c, t) && sa(c) && !aa(c)) break;
       s.pop(), r = { start: o.start, end: r.end };
     }
     s.push(r);
@@ -3831,15 +3838,15 @@ function Mn(n) {
   }
   return e;
 }
-function ha(n) {
+function da(n) {
   return Mn(n).language;
 }
 async function Bn(n, e, t) {
   if (e === "") return [];
-  const { segmenter: i, language: s } = Mn(n), r = [...i.segment(e)].map((c) => ({ start: c.index, end: c.index + c.segment.length })), o = cn(ea, s) ?? [], l = t ? [...o, ...t] : o;
-  return ua(e, r, l);
+  const { segmenter: i, language: s } = Mn(n), r = [...i.segment(e)].map((c) => ({ start: c.index, end: c.index + c.segment.length })), o = cn(ta, s) ?? [], l = t ? [...o, ...t] : o;
+  return ha(e, r, l);
 }
-const or = [
+const lr = [
   "aside",
   "audio",
   "bibliography",
@@ -3865,7 +3872,7 @@ const or = [
   "table",
   "toc",
   "video"
-], da = [
+], ga = [
   // Headings
   "heading1",
   "heading2",
@@ -3923,13 +3930,13 @@ const or = [
   "section",
   "summary",
   "tip"
-], ga = {
+], fa = {
   footnote: { drops: ["aside"], unconditional: !0 },
   cover: { drops: ["image"] },
   pullquote: { drops: ["blockquote", "aside"] },
   epigraph: { drops: ["blockquote"] }
-}, fa = ["noteref", "pagebreak"], pa = ["audio", "video", "image", "figure", "math", "table", "cover"], ma = ["cell", "rowheader"], va = ["separator"], qt = new Set(da), jn = new Set(fa), ya = new Set(pa), Dn = new Set(ma), Sa = new Set(va);
-function ba(n, e) {
+}, pa = ["noteref", "pagebreak"], ma = ["audio", "video", "image", "figure", "math", "table", "cover"], va = ["cell", "rowheader"], ya = ["separator"], qt = new Set(ga), Dn = new Set(pa), Sa = new Set(ma), jn = new Set(va), ba = new Set(ya);
+function wa(n, e) {
   const t = pi.createInstance();
   return t.init({
     lng: n,
@@ -3937,7 +3944,7 @@ function ba(n, e) {
     interpolation: { escapeValue: !1 }
   }), t;
 }
-function wa(n, e, t) {
+function ka(n, e, t) {
   if (!e) return n;
   const i = { ...n };
   for (const s of Object.keys(e))
@@ -3951,8 +3958,8 @@ function Fn(n, e) {
     t[i] = Fn(n[i], e[i]);
   return t;
 }
-function ka(n, e) {
-  return wa(n, e, Fn);
+function Ca(n, e) {
+  return ka(n, e, Fn);
 }
 function _n(n, e = [], t = /* @__PURE__ */ new Map()) {
   for (const i of n)
@@ -3960,13 +3967,13 @@ function _n(n, e = [], t = /* @__PURE__ */ new Map()) {
   return t;
 }
 async function $n(n, e) {
-  const t = e.contextualizationLocale ?? "en", i = ka(
-    await Ys(t),
+  const t = e.contextualizationLocale ?? "en", i = Ca(
+    await ea(t),
     e.contextualization?.contextualizations
   );
   return {
-    i18n: ba(t, i),
-    contextualizationLanguage: Xs(t),
+    i18n: wa(t, i),
+    contextualizationLanguage: Ys(t),
     skip: new Set(e.skip ?? []),
     contextualize: new Set(e.contextualize ?? []),
     contextualizationShapes: e.contextualization?.shapes ?? {},
@@ -3983,7 +3990,7 @@ async function $n(n, e) {
     segmentationSuppressions: e.segmentation?.suppressions ?? {},
     segmenter: e.segmentation?.segmenter ?? Bn,
     // Per-key override, not an additive union — each key holds one whole rule.
-    substitutions: { ...Qs, ...e.substitutions },
+    substitutions: { ...Js, ...e.substitutions },
     blockStarts: /* @__PURE__ */ new Set(),
     tableRowNumbers: /* @__PURE__ */ new Map(),
     tableCellHeaders: /* @__PURE__ */ new Map(),
@@ -3994,9 +4001,9 @@ async function $n(n, e) {
     placeholderPieces: /* @__PURE__ */ new Map()
   };
 }
-const Ca = /<lang xml:lang="[^"]*">([\s\S]*?)<\/lang>/g;
+const Ea = /<lang xml:lang="[^"]*">([\s\S]*?)<\/lang>/g;
 function qn(n) {
-  return n.replace(Ca, "$1");
+  return n.replace(Ea, "$1");
 }
 function Gn(n, e) {
   return n === void 0 ? void 0 : nt(e, n) ?? n;
@@ -4020,7 +4027,7 @@ function Hn(n, e, t) {
     if (!Je(i, s, e, t)) return null;
   return i.content ?? i.entry;
 }
-function Ea(n, e) {
+function Ra(n, e) {
   return Hn(n, e, !1);
 }
 function Kn(n, e) {
@@ -4106,7 +4113,7 @@ function vt(n) {
   const e = st(Ze(n));
   return e ? e.plain ?? (e.ssml ? N(e.ssml) : "") : "";
 }
-function Ra(n) {
+function Ia(n) {
   const e = /* @__PURE__ */ new Map(), t = /* @__PURE__ */ new Map();
   let i = 0, s;
   return n.forEach((a, r) => {
@@ -4127,7 +4134,7 @@ function ei(n, e) {
   const t = e.format === "ssml" ? { ssml: T(n) } : { plain: n };
   return e.synthetic.add(t), t;
 }
-function D(n, e) {
+function j(n, e) {
   const t = ei(n, e), i = e.language === "none" ? M(void 0, e) : e.contextualizationLanguage;
   return i && (t.language = i), t;
 }
@@ -4148,11 +4155,11 @@ function Q(n, e, t, i) {
   if (n.i18n.exists(e)) return n.i18n.t(e, i);
 }
 function yt(n, e) {
-  return Dn.has(n) ? !0 : e.contextualize.has(n);
+  return jn.has(n) ? !0 : e.contextualize.has(n);
 }
 function ti(n, e, t) {
   return e.some((i) => {
-    const s = ga[i];
+    const s = fa[i];
     return s?.drops.includes(n) ? s.unconditional || yt(i, t) : !1;
   });
 }
@@ -4189,20 +4196,20 @@ function Kt(n, e, t, i, s, a) {
   if (!r) return [];
   const o = t?.description, l = a.language !== "none" && o !== void 0 && o === Oe(i) ? M(Xn(i), a) : void 0, c = l ? Q(a, n, e, { ...t, description: Ht })?.split(Ht) : void 0;
   if (!l || !c || c.length < 2) {
-    const d = D(r, a);
+    const d = j(r, a);
     return Me(d, r, i, a, s, t), [d];
   }
   if (k(l)[0] === k(a.contextualizationLanguage)[0]) {
-    const d = D(r, a);
+    const d = j(r, a);
     return d.language = l, Me(d, r, i, a, s, t), [d];
   }
   const u = `<lang xml:lang="${ln(l)}">${T(o)}</lang>`, g = c.map((d) => T(d)).join(u);
   if (a.format === "ssml") {
-    const d = D(r, a);
+    const d = j(r, a);
     return d.ssml = g, Me(d, r, i, a, s, t), [d];
   }
   return at(g, a.contextualizationLanguage).map((d) => {
-    if (d.language !== l) return D(d.plain, a);
+    if (d.language !== l) return j(d.plain, a);
     const h = Xe(d.plain, i, a);
     return (s === "figure" || s === "table") && ce(h, d.plain, o, i, a), h;
   });
@@ -4211,7 +4218,7 @@ function Wt(n, e, t, i) {
   const s = `${e}.parts.${t}`;
   return n.i18n.exists(s, { count: i }) ? n.i18n.t(s, { count: i }) : String(i);
 }
-function Ia(n) {
+function Pa(n) {
   const e = Oe(n);
   return e === void 0 ? { variantKey: "unlabelled" } : { variantKey: "labelled", params: { description: e } };
 }
@@ -4222,9 +4229,9 @@ function Qt(n, e) {
     params: { header: t ?? "", value: vt(n) }
   };
 }
-const Pa = {
+const Aa = {
   table: (n, e) => {
-    const t = (n.children ?? []).filter((s) => s.role?.has("row")), i = Ra(t);
+    const t = (n.children ?? []).filter((s) => s.role?.has("row")), i = Ia(t);
     for (const [s, a] of i.rowNumbers) e.tableRowNumbers.set(s, a);
     for (const [s, a] of i.cellHeaders) e.tableCellHeaders.set(s, a);
     return {
@@ -4239,9 +4246,9 @@ const Pa = {
   rowheader: Qt
 };
 function Jt(n, e, t) {
-  const i = Ia(e);
+  const i = Pa(e);
   let s = i.variantKey, a = i.params;
-  const r = Pa[n]?.(e, t);
+  const r = Aa[n]?.(e, t);
   r && (r.variantKey && (s = r.variantKey), a = { ...a, ...r.params });
   const o = t.contextualizationParams?.(n, e);
   return o && (a = { ...a, ...o }), { variantKey: s, params: a };
@@ -4292,7 +4299,7 @@ function Zt(n, e, t, i) {
   if (!(!e || Array.isArray(e) || !de(e)))
     return Ve(e, i);
 }
-function Aa(n, e, t) {
+function La(n, e, t) {
   const i = n.map((l, c) => {
     if (l.locate) return l.locate;
     if (t.synthetic.has(l)) return;
@@ -4326,7 +4333,7 @@ function St(n, e, t) {
   r && (l.language = r), n.some((h) => t.synthetic.has(h)) && t.synthetic.add(l);
   const c = ni(s, a, t);
   c.length > 0 && (l.offsets = c);
-  const u = Aa(s, a, t);
+  const u = La(s, a, t);
   u && (l.locate = u);
   const g = Zt(s[0], a[0], "leading", t), d = Zt(s[s.length - 1], a[s.length - 1], "trailing", t);
   return (g || d) && t.edgeSubstitutedLocate.set(l, { leading: g, trailing: d }), l;
@@ -4343,7 +4350,7 @@ function ii(n, e, t, i) {
 function ge(n, e) {
   return e !== "ssml" ? n : n.replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 }
-const Xt = "[\\u0391-\\u03A9\\u03B1-\\u03C9\\u03D8-\\u03E1]", La = "[\\u0374\\u02B9\\u0384']", Be = "[\\u05D0-\\u05EA]", Yt = "[\\u0400-\\u0481\\u048A-\\u04FF]", Oa = [
+const Xt = "[\\u0391-\\u03A9\\u03B1-\\u03C9\\u03D8-\\u03E1]", Oa = "[\\u0374\\u02B9\\u0384']", Be = "[\\u05D0-\\u05EA]", Yt = "[\\u0400-\\u0481\\u048A-\\u04FF]", Va = [
   new RegExp("^\\p{Nd}+$", "u"),
   new RegExp("^\\p{Nl}+$", "u"),
   /^(?=[MDCLXVI])M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i,
@@ -4351,57 +4358,57 @@ const Xt = "[\\u0391-\\u03A9\\u03B1-\\u03C9\\u03D8-\\u03E1]", La = "[\\u0374\\u0
   /^[፩-፼]+$/u,
   new RegExp(`^${Be}[\\u05F3']$`, "u"),
   new RegExp(`^${Be}+[\\u05F4"]${Be}$`, "u"),
-  new RegExp(`^(?:\\u0375${Xt})*${Xt}+${La}$`, "u"),
+  new RegExp(`^(?:\\u0375${Xt})*${Xt}+${Oa}$`, "u"),
   /^(?:[Ա-Ֆա-և]̅)+$/u,
   new RegExp(`^\\u0482?${Yt}+\\u0483${Yt}*$`, "u")
 ];
-function Va(n) {
+function xa(n) {
   const e = n.trim();
-  return e.length > 0 && Oa.some((t) => t.test(e));
+  return e.length > 0 && Va.some((t) => t.test(e));
 }
 function en(n, e) {
   return e.skip.size > 0 && n.some((t) => e.skip.has(t) && !ti(t, n, e));
 }
-function xa(n, e) {
+function Ua(n, e) {
   const t = st(n.text);
   if (!t) return [];
   const i = t.plain ?? N(t.ssml ?? "");
-  if (Va(i)) {
+  if (xa(i)) {
     const s = Q(e, "pagebreak.number", void 0, { number: i.trim() });
-    if (s !== void 0) return [D(s, e)];
+    if (s !== void 0) return [j(s, e)];
   }
   return ii(t, e.format, e.language, e);
 }
 function tn(n) {
   n.plain !== void 0 && (n.plain += "."), n.ssml !== void 0 && (n.ssml += ".");
 }
-function Ua(n, e) {
-  const t = xa(n, e);
+function Ta(n, e) {
+  const t = Ua(n, e);
   if (!e.contextualize.has("pagebreak")) return t;
   const i = e.i18n.exists("pagebreak.block.start") ? "pagebreak.block.start" : "pagebreak.inline", s = Q(e, i);
   if (s === void 0) return t;
-  const a = D(s, e);
+  const a = j(s, e);
   if (t.length === 0) return [a];
   const r = St([a, ...t], [void 0, ...t.map(() => n)], e);
   return r ? (tn(r), [r]) : (tn(t[t.length - 1]), [a, ...t]);
 }
-function Ta(n, e) {
-  return W(n).some((t) => jn.has(t) && !e.inlineContextualization.has(t));
+function za(n, e) {
+  return W(n).some((t) => Dn.has(t) && !e.inlineContextualization.has(t));
 }
-function za(n, e, t, i, s, a, r) {
+function Na(n, e, t, i, s, a, r) {
   const o = n.text?.language, l = M(o, s), c = new Map((n.children ?? []).map((m) => [m.id, m])), u = [], g = [], d = [], h = /* @__PURE__ */ new Set(), f = /* @__PURE__ */ new Set(), p = s.segmentation === "sentence";
   for (const m of ds(e)) {
     if (m.placeholderId !== void 0) {
       const v = c.get(m.placeholderId);
       if (!v) continue;
-      if (Ta(v, s)) {
+      if (za(v, s)) {
         if (d.push(v), p) {
           const w = u.length;
           et(v, u, g, s, d.length === 1 && (a || r)), u.slice(w).forEach((y) => f.add(y));
         }
       } else {
         const w = u.length;
-        et(v, u, g, s, a), W(v).some((y) => jn.has(y)) && u.slice(w).forEach((y) => h.add(y));
+        et(v, u, g, s, a), W(v).some((y) => Dn.has(y)) && u.slice(w).forEach((y) => h.add(y));
       }
       continue;
     }
@@ -4432,7 +4439,7 @@ function et(n, e, t, i, s) {
   if (en(a, i)) return;
   const o = a.some((h) => qt.has(h)), l = o && !s, c = e.length, u = a.filter(
     (h) => h !== "footnote" && h !== "pagebreak" && !ti(h, a, i)
-  ), g = a.some((h) => ya.has(h) && i.contextualize.has(h)), d = a.includes("table") && r !== void 0 && !g;
+  ), g = a.some((h) => Sa.has(h) && i.contextualize.has(h)), d = a.includes("table") && r !== void 0 && !g;
   if (d) {
     const h = Xe(r, n, i);
     ce(h, r, r, n, i), _(e, t, n, [h]);
@@ -4448,32 +4455,32 @@ function et(n, e, t, i, s) {
       if (!en(f, i))
         if (f.includes("footnote")) {
           const p = i.contextualize.has("footnote"), m = i.i18n.exists("footnote.block.start") || i.i18n.exists("footnote.block.end"), S = f.some((I) => qt.has(I)) && !s && !i.inlineContextualization.has("noteref"), v = p ? Q(i, m ? "footnote.block.start" : "footnote.inline") : void 0, w = p && (v !== void 0 || m), y = [], b = [];
-          v !== void 0 && (y.push(D(v, i)), b.push(h));
+          v !== void 0 && (y.push(j(v, i)), b.push(h));
           const P = [], A = [];
           if (F([h], P, A, i, s || S), S && P.length > 0 && i.blockStarts.add(P[0]), y.push(...P), b.push(...A), w && m) {
             const I = Q(i, "footnote.block.end");
-            I !== void 0 && (y.push(D(I, i)), b.push(h));
+            I !== void 0 && (y.push(j(I, i)), b.push(h));
           }
           const E = w && y.length > 1 ? St(y, b, i) : void 0;
           Ye(e, t, i, h, y, b, E);
         } else
           F([h], e, t, i, s);
     }
-  else if (!a.some((h) => Sa.has(h))) {
+  else if (!a.some((h) => ba.has(h))) {
     const h = Ze(n)?.ssml;
     if (h && hs(h)) {
-      const f = za(n, h, e, t, i, s, o);
+      const f = Na(n, h, e, t, i, s, o);
       if (f.length > 0) {
         const p = s || o && e.length > c;
         F(f, e, t, i, p);
       }
     } else if (a.includes("pagebreak")) {
-      if (_(e, t, n, Ua(n, i)), n.children) {
+      if (_(e, t, n, Ta(n, i)), n.children) {
         const f = s || o && e.length > c;
         F(n.children, e, t, i, f);
       }
     } else {
-      const p = a.some((m) => Dn.has(m) && yt(m, i)) ? void 0 : st(Ze(n));
+      const p = a.some((m) => jn.has(m) && yt(m, i)) ? void 0 : st(Ze(n));
       if (p && _(e, t, n, ii(p, i.format, i.language, i)), n.children) {
         const m = s || o && e.length > c;
         F(n.children, e, t, i, m);
@@ -4493,9 +4500,9 @@ function et(n, e, t, i, s) {
 function F(n, e, t, i, s) {
   n.forEach((a, r) => et(a, e, t, i, r === 0 ? s : !1));
 }
-const Na = Sn;
+const Ma = Sn;
 async function si(n, e, t, i) {
-  const s = Na(n);
+  const s = Ma(n);
   let a = "";
   const r = [];
   for (const d of s)
@@ -4528,10 +4535,10 @@ async function si(n, e, t, i) {
   }), c && l.push(c.replace(/[ \t\r\n]+$/, "")), l;
 }
 function bt(n, e) {
-  const t = e.segmenter === Bn ? ha(n) : n;
+  const t = e.segmenter === Bn ? da(n) : n;
   return cn(e.segmentationSuppressions, t);
 }
-async function Ma(n, e) {
+async function Ba(n, e) {
   const t = n.language ?? "en", i = bt(t, e), s = e.format === "ssml" ? n.ssml : n.plain;
   if (!s) return;
   const a = await e.segmenter(t, ge(s, e.format), i);
@@ -4563,7 +4570,7 @@ function an(n, e, t) {
   const i = Array.isArray(n) ? n[e === "leading" ? 0 : 1] : n;
   return (t.ancestorChains.get(i) ?? []).filter((s) => W(s).some((a) => a !== "presentation"));
 }
-function Ba(n, e) {
+function Da(n, e) {
   return n.length === e.length && n.every((t, i) => t === e[i]);
 }
 function rn(n, e, t, i) {
@@ -4584,12 +4591,12 @@ function tt(n, e, t) {
   const i = t.placeholderPieces.get(n)?.node;
   return i !== void 0 && i === t.placeholderPieces.get(e)?.node;
 }
-function Da(n, e, t, i, s) {
+function Fa(n, e, t, i, s) {
   const a = s.format === "ssml" ? n.ssml : n.plain, r = s.format === "ssml" ? t.ssml : t.plain;
-  return !a || !r ? !1 : tt(n, t, s) ? !0 : !(!ft(n.language ?? "en", t.language ?? "en") || s.synthetic.has(n) || s.synthetic.has(t) || !e || !i || sn(e).some((o) => nn.has(o)) || sn(i).some((o) => nn.has(o)) || !Ba(an(e, "trailing", s), an(i, "leading", s)) || rn(e, n, "trailing", s) || rn(i, t, "leading", s));
+  return !a || !r ? !1 : tt(n, t, s) ? !0 : !(!ft(n.language ?? "en", t.language ?? "en") || s.synthetic.has(n) || s.synthetic.has(t) || !e || !i || sn(e).some((o) => nn.has(o)) || sn(i).some((o) => nn.has(o)) || !Da(an(e, "trailing", s), an(i, "leading", s)) || rn(e, n, "trailing", s) || rn(i, t, "leading", s));
 }
 async function on(n, e, t, i, s) {
-  const a = t.synthetic.has(n) ? void 0 : await Ma(n, t);
+  const a = t.synthetic.has(n) ? void 0 : await Ba(n, t);
   if (!a) {
     i.push(n), s.push(e);
     return;
@@ -4613,7 +4620,7 @@ function ue(n, e) {
   for (; t < n.length - 1 && n[t + 1].start <= e; ) t++;
   return t;
 }
-async function Fa(n, e, t, i) {
+async function _a(n, e, t, i) {
   const s = n.map((c) => ge(e.format === "ssml" ? c.ssml : c.plain, e.format)), { joined: a, ranges: r } = Ee(s), o = await e.segmenter(t, a, i), l = new Array(n.length - 1).fill(!1);
   for (const c of o) {
     const u = ue(r, c.start), g = c.end > c.start ? ue(r, c.end - 1) : u;
@@ -4621,7 +4628,7 @@ async function Fa(n, e, t, i) {
   }
   return l;
 }
-function _a(n, e, t) {
+function $a(n, e, t) {
   const i = [...e];
   return n.forEach((s, a) => {
     if (!Z(s, t)) return;
@@ -4629,7 +4636,7 @@ function _a(n, e, t) {
     r && !i[a - 1] ? i[a - 1] = !0 : o && (i[a] = !0);
   }), i;
 }
-function $a(n, e, t, i, s) {
+function qa(n, e, t, i, s) {
   const a = (l) => Z(t[ue(i, l)], s), r = [];
   let o;
   return e.forEach((l, c) => {
@@ -4638,7 +4645,7 @@ function $a(n, e, t, i, s) {
     u && (a(l.contentEnd - 1) || a(u.start)) || (r.push({ text: n.slice(o.start, l.contentEnd), start: o.start, end: l.end, contentEnd: l.contentEnd }), o = void 0);
   }), r;
 }
-function qa(n, e, t, i, s, a, r) {
+function Ga(n, e, t, i, s, a, r) {
   const o = [];
   for (let l = s; l <= a; l++) {
     if (Z(n[l], r)) {
@@ -4655,18 +4662,18 @@ function qa(n, e, t, i, s, a, r) {
   return o;
 }
 function ri(n, e) {
-  const t = Ea(n, e);
+  const t = Ra(n, e);
   return t !== null ? t ?? "en" : n.find((i) => !Z(i, e))?.language ?? n[0].language ?? "en";
 }
-function Ga(n, e, t, i, s) {
+function Ha(n, e, t, i, s) {
   const a = ue(t, n.start), r = n.end > n.start ? ue(t, n.end - 1) : a, o = Jn(e.slice(a, r + 1), s);
   return o.map(([l, c], u) => {
     const g = a + l, d = a + c - 1, h = u === o.length - 1, f = u === 0 ? n.start : t[g].start, p = h ? n.contentEnd : t[d].end, m = h ? n.end : t[d + 1].start, S = Wn(e.slice(g, d + 1), s) ?? void 0, v = { text: i.slice(f, p), start: f, end: m, contentEnd: p }, w = o.length > 1 && g === d && Z(e[g], s);
     return { boundary: v, startIdx: g, endIdx: d, language: S, sentenceEnd: h ? n.end : void 0, isolated: w };
   });
 }
-async function Ha(n, e, t, i, s, a) {
-  const r = ri(n, t), o = bt(r, t), l = n.map((v) => ge(t.format === "ssml" ? v.ssml : v.plain, t.format)), { joined: c, ranges: u } = Ee(l), g = $a(c, await t.segmenter(r, c, o), n, u, t), h = (g.length > 0 ? g : [{ text: c, start: 0, end: c.length, contentEnd: c.length }]).flatMap((v) => Ga(v, n, u, c, t));
+async function Ka(n, e, t, i, s, a) {
+  const r = ri(n, t), o = bt(r, t), l = n.map((v) => ge(t.format === "ssml" ? v.ssml : v.plain, t.format)), { joined: c, ranges: u } = Ee(l), g = qa(c, await t.segmenter(r, c, o), n, u, t), h = (g.length > 0 ? g : [{ text: c, start: 0, end: c.length, contentEnd: c.length }]).flatMap((v) => Ha(v, n, u, c, t));
   let f, p;
   if (t.format === "ssml") {
     const v = /* @__PURE__ */ new Map();
@@ -4687,10 +4694,10 @@ async function Ha(n, e, t, i, s, a) {
     }
     const I = t.format === "ssml" ? f ? f[E] : p : v.text, R = { [t.format]: I }, X = t.language === "none" ? M(void 0, t) : b ?? "en";
     X && (R.language = X), n.slice(w, y + 1).filter((te) => m.delete(te)).length > 0 && t.blockStarts.add(R);
-    const B = qa(n, e, u, v, w, y, t);
+    const B = Ga(n, e, u, v, w, y, t);
     B.length > 0 && (R.offsets = B);
-    const ee = [...Array(y - w + 1).keys()].map((te) => w + te).filter((te) => !Z(n[te], t)), j = ee[0] ?? w, fe = ee[ee.length - 1] ?? y, wt = L(e[j], t.ancestorChains), kt = pt(wt, I), Ct = j !== fe ? mt(wt, L(e[fe], t.ancestorChains), kt) : kt;
-    Ct && (R.locate = Ct), i.push(R), s.push(j === fe ? e[j] : [e[j], e[fe]]), S(P, E);
+    const ee = [...Array(y - w + 1).keys()].map((te) => w + te).filter((te) => !Z(n[te], t)), D = ee[0] ?? w, fe = ee[ee.length - 1] ?? y, wt = L(e[D], t.ancestorChains), kt = pt(wt, I), Ct = D !== fe ? mt(wt, L(e[fe], t.ancestorChains), kt) : kt;
+    Ct && (R.locate = Ct), i.push(R), s.push(D === fe ? e[D] : [e[D], e[fe]]), S(P, E);
   });
 }
 async function oi(n, e, t) {
@@ -4699,7 +4706,7 @@ async function oi(n, e, t) {
   let a = 0;
   for (; a < n.length; ) {
     let r = a;
-    for (; r + 1 < n.length && Da(n[r], e[r], n[r + 1], e[r + 1], t); ) r++;
+    for (; r + 1 < n.length && Fa(n[r], e[r], n[r + 1], e[r + 1], t); ) r++;
     if (r === a) {
       await on(n[a], e[a], t, i, s), a = r + 1;
       continue;
@@ -4718,7 +4725,7 @@ async function oi(n, e, t) {
       a = r + 1;
       continue;
     }
-    const u = ri(o, t), g = await Fa(o, t, u, bt(u, t)), d = _a(o, g, t);
+    const u = ri(o, t), g = await _a(o, t, u, bt(u, t)), d = $a(o, g, t);
     let h = 0;
     for (let f = 0; f < o.length; f++)
       if (!(f < o.length - 1 && d[f])) {
@@ -4727,7 +4734,7 @@ async function oi(n, e, t) {
         else {
           const p = /* @__PURE__ */ new Map();
           for (let m = h; m <= f; m++) c.has(m) && p.set(m - h, c.get(m));
-          await Ha(o.slice(h, f + 1), l.slice(h, f + 1), t, i, s, p);
+          await Ka(o.slice(h, f + 1), l.slice(h, f + 1), t, i, s, p);
         }
         h = f + 1;
       }
@@ -4751,19 +4758,19 @@ function li(n, e) {
     return Ft(r, { plain: i, map: a }), r;
   });
 }
-async function lr(n, e = {}) {
+async function cr(n, e = {}) {
   const t = [], i = [], s = await $n(n, e);
   F(n, t, i, s, !1);
   const a = await oi(t, i, s);
   return li(Yn(a.out, a.sources, s), s);
 }
-async function Ka(n, e = {}) {
+async function Wa(n, e = {}) {
   const t = [], i = [], s = await $n(n, e);
   F(n, t, i, s, !1);
   const a = await oi(t, i, s), r = a.out.map((l) => s.blockStarts.has(l)), o = Yn(a.out, a.sources, s);
   return { utterances: li(o, s), sources: a.sources, blockStarts: r };
 }
-class cr {
+class ur {
   engine;
   contentQueue = [];
   // `contentQueue` as loaded, before `voice` stamped it — re-stamped when that changes.
@@ -4856,7 +4863,7 @@ class cr {
         this.setNavigatorState("ready"), this.emitEvent({ type: "ready" });
       }
     }), this.engine.on("boundary", (e) => {
-      const { charIndex: t, charLength: i } = e.detail ?? {}, s = this.loadedQueue[this.getCurrentUtteranceIndex()], a = s && typeof t == "number" && typeof i == "number" ? Hs(s, t, i) : void 0;
+      const { charIndex: t, charLength: i } = e.detail ?? {}, s = this.loadedQueue[this.getCurrentUtteranceIndex()], a = s && typeof t == "number" && typeof i == "number" ? Ks(s, t, i) : void 0;
       this.emitEvent(a ? { ...e, detail: { ...e.detail, ...a } } : e);
     }), this.engine.on("mark", (e) => {
       this.emitEvent(e);
@@ -4905,14 +4912,14 @@ class cr {
   // Re-runs extraction from `this.source`, resuming near the old position if playback was underway.
   async reextract() {
     if (!this.source) return;
-    const { index: e, state: t } = this.resumeTarget(), i = this.contentSources, { utterances: s, sources: a, blockStarts: r } = await Ka(this.source, {
+    const { index: e, state: t } = this.resumeTarget(), i = this.contentSources, { utterances: s, sources: a, blockStarts: r } = await Wa(this.source, {
       format: this._settings.format,
       inlineContextualization: this._settings.inlineContextualization,
       skip: this._settings.skip,
       contextualize: this._settings.contextualize,
       contextualization: {
         contextualizations: this.contextualizationOverrides?.contextualizations,
-        shapes: qs(this._settings.verbosity, this.contextualizationOverrides?.shapes),
+        shapes: Gs(this._settings.verbosity, this.contextualizationOverrides?.shapes),
         params: this.contextualizationOverrides?.params
       },
       language: this._settings.language,
@@ -5032,7 +5039,7 @@ class cr {
   // LocatorOptions there — and the same "resolve, then skip if there's nothing
   // to show" shape, since there's no raw engine event to fall back to unenriched.
   emitUtteranceBoundary(e) {
-    const t = this._settings.segmentation, i = Ks(e, t);
+    const t = this._settings.segmentation, i = Ws(e, t);
     if (!i.length) return;
     const s = t === "sentence" ? "sentence" : "structure";
     this.emitEvent({
@@ -5051,7 +5058,7 @@ class cr {
   // Rebuilt, staged edits kept, once the engine's voice changes, e.g. when it picks its default after being read.
   get preferencesEditor() {
     const e = this.engine.getCurrentVoice(), t = e ? Ln(e) : null;
-    return (this._preferencesEditor === null || t !== this.preferencesEditorEngineVoice) && (this._preferencesEditor = new jt(this._preferencesEditor?.preferences ?? this._preferences, this.settings), this.preferencesEditorEngineVoice = t), this._preferencesEditor;
+    return (this._preferencesEditor === null || t !== this.preferencesEditorEngineVoice) && (this._preferencesEditor = new Dt(this._preferencesEditor?.preferences ?? this._preferences, this.settings), this.preferencesEditorEngineVoice = t), this._preferencesEditor;
   }
   async submitPreferences(e) {
     !this.source && this.contentQueue.length > 0 && Bt.some((t) => e[t] !== void 0) && console.warn(
@@ -5060,7 +5067,7 @@ class cr {
   }
   async applyPreferences() {
     const e = this._settings;
-    if (this._settings = new ze(this._preferences, this._defaults), this.applyEngineParameters(), this._preferencesEditor !== null && (this._preferencesEditor = new jt(this._preferences, this.settings)), Bt.some((t) => !this.sameSettingValue(e[t], this._settings[t])))
+    if (this._settings = new ze(this._preferences, this._defaults), this.applyEngineParameters(), this._preferencesEditor !== null && (this._preferencesEditor = new Dt(this._preferences, this.settings)), Bt.some((t) => !this.sameSettingValue(e[t], this._settings[t])))
       await this.reextract();
     else if (this.loadedQueue.length > 0 && !this.sameSettingValue(e.voice, this._settings.voice)) {
       const { index: t, state: i } = this.resumeTarget();
@@ -5082,76 +5089,76 @@ class cr {
   }
 }
 export {
-  ar as BooleanPreference,
+  rr as BooleanPreference,
   ie as EnumPreference,
-  nr as FallbackEngineProvider,
-  Ts as FallbackSpeechEngine,
-  gr as Locator,
-  fr as LocatorLocations,
-  pr as LocatorText,
+  ir as FallbackEngineProvider,
+  zs as FallbackSpeechEngine,
+  fr as Locator,
+  pr as LocatorLocations,
+  mr as LocatorText,
   K as Preference,
   me as RangePreference,
-  Ms as ReadiumSpeechDecorationController,
-  cr as ReadiumSpeechNavigator,
-  sr as ReadiumSpeechProviderRegistry,
+  Bs as ReadiumSpeechDecorationController,
+  ur as ReadiumSpeechNavigator,
+  ar as ReadiumSpeechProviderRegistry,
   js as SpeechDefaults,
   le as SpeechPreferences,
-  jt as SpeechPreferencesEditor,
+  Dt as SpeechPreferencesEditor,
   Pn as SpeechServerAudioDecodeError,
-  Os as SpeechServerEngine,
-  tr as SpeechServerEngineProvider,
+  Vs as SpeechServerEngine,
+  nr as SpeechServerEngineProvider,
   oe as SpeechServerError,
   An as SpeechServerNetworkError,
   In as SpeechServerStallError,
   ze as SpeechSettings,
   Te as StringArrayPreference,
   Nt as WebSpeechEngine,
-  er as WebSpeechEngineProvider,
+  tr as WebSpeechEngineProvider,
   C as WebSpeechVoiceManager,
   ht as autoPauseScopes,
-  da as blockLevelRoles,
+  ga as blockLevelRoles,
   re as chineseVariantMap,
-  ps as chunkPlainText,
-  vs as chunkSsmlText,
+  ms as chunkPlainText,
+  ys as chunkSsmlText,
   hn as compareAlphabetically,
   un as compareByPreferredRegion,
-  $s as contextualizationShapesAtVerbosity,
-  _s as contextualizedAtVerbosity,
+  qs as contextualizationShapesAtVerbosity,
+  $s as contextualizedAtVerbosity,
   H as createJsonOrderMap,
-  Ns as createLocator,
+  Ms as createLocator,
   zn as defaultContextualizations,
   k as extractLangRegionFromBCP47,
-  lr as extractUtterances,
+  cr as extractUtterances,
   ut as extractionFormats,
   Bt as extractionPreferenceKeys,
   it as filterByBoundarySupport,
   xi as filterByLanguages,
   At as filterOutNoveltyVoices,
   Lt as filterOutVeryLowQualityVoices,
-  De as getLanguageDisplayName,
+  je as getLanguageDisplayName,
   Se as getQualityValue,
   Ln as getVoiceId,
   Pe as groupVoicesByLanguage,
-  fa as inlineContextualizationRoles,
+  pa as inlineContextualizationRoles,
   _e as isNoveltyVoice,
-  Vs as isRecoverableFailure,
+  xs as isRecoverableFailure,
   $e as isVeryLowQualityVoice,
   ct as languageModes,
   Rn as mapServerVoice,
-  Ss as mimeTypeForFormat,
+  bs as mimeTypeForFormat,
   be as pauseDurationRangeConfig,
   gn as pickBestVoiceByRegion,
   ke as pitchRangeConfig,
   we as rateRangeConfig,
-  Hs as resolveBoundaryLocate,
-  Ks as resolveUtteranceLocate,
+  Ks as resolveBoundaryLocate,
+  Ws as resolveUtteranceLocate,
   dt as segmentationModes,
-  Rs as selectBitrate,
-  ks as selectFormat,
-  ir as setupDecorations,
-  rr as shapeableRoles,
-  or as skippableRoles,
-  Fs as skippedAtVerbosity,
+  Is as selectBitrate,
+  Cs as selectFormat,
+  sr as setupDecorations,
+  or as shapeableRoles,
+  lr as skippableRoles,
+  _s as skippedAtVerbosity,
   Fe as sortAlphabetically,
   Ri as sortByPreferredRegion,
   $ as sortByQuality,
