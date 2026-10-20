@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- Abbreviations: a `<sub alias="…">` (from `<abbr title="…">`/`<acronym title="…">` in `@readium/guided-navigation`) is read as its abbreviation followed by its alias in parentheses, e.g. "The WHO (World Health Organization) said."; with `abbreviation` in `inlineContextualization`, the alias is spoken in its place; with `abbreviation` in `skip`, only the abbreviation is read. The alias is located on its abbreviation.
+
 ## [0.16.1] - 2026-10-19
 
 ### Fixed

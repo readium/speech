@@ -13,7 +13,7 @@ export function fixtureTopLevel(gnd: unknown): unknown[];
 export function stripLocatorDetails(value: unknown): unknown;
 export function sortKeysDeep(value: unknown): unknown;
 export function sameJson(a: unknown, b: unknown): boolean;
-export function collectRoles(nodes: { role?: string[]; children?: unknown[] }[], acc?: Set<string>): Set<string>;
+export function collectRoles(nodes: { role?: string[]; text?: { ssml?: string }; children?: unknown[] }[], acc?: Set<string>): Set<string>;
 export function subsets<T>(items: T[]): T[][];
 export function optionSpace(format: "plain" | "ssml", rolesInTree: Set<string>, lists: FixtureRoleLists): Generator<FixtureOptions>;
 export function canonicalOptions(options: Record<string, unknown>, rolesInTree: Set<string>, lists: FixtureRoleLists): FixtureOptions;

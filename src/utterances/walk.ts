@@ -9,6 +9,7 @@ import {
   resolveNodeText,
   splitOnLangTags,
   splitOnPlaceholders,
+  type SsmlSegment,
   stripSsmlTags,
 } from "./text.js";
 import {
@@ -20,6 +21,8 @@ import {
   scopeToQuote,
 } from "./contextualization.js";
 import { applyFormat, mergeUtterances } from "./mergeUtterances.js";
+import { resolveNodeLocate, subLocateFor } from "./locate.js";
+import { markNonQuotable } from "./boundaryLocate.js";
 import { isPageNumber } from "./pageNumber.js";
 import { formatDescription, formatEntryText, push, pushPiecesOrMerged } from "./utteranceOutput.js";
 import {
@@ -77,6 +80,19 @@ function isDeferred(child: GuidedNavigationObject, ctx: WalkContext): boolean {
   return nodeRoles(child).some((role) => inlineContextualizationRoleSet.has(role) && !ctx.inlineContextualization.has(role));
 }
 
+// An alias isn't on the page, so it's located on its abbreviation instead.
+function locateOnAbbreviation(aliasPieces: ReadiumSpeechUtterance[], abbreviationSsml: string, node: GuidedNavigationObject, ctx: WalkContext): void {
+  const nodeRef = resolveNodeLocate(node, ctx.ancestorChains);
+  if (!nodeRef) return;
+  const locate = markNonQuotable(subLocateFor(nodeRef.ref, stripSsmlTags(abbreviationSsml)));
+  for (const piece of aliasPieces) {
+    const text = ctx.format === "ssml" ? piece.ssml : piece.plain;
+    piece.locate = locate;
+    piece.offsets = [{ start: 0, end: text?.length ?? 0, locate }];
+    ctx.edgeSubstitutedLocate.set(piece, { leading: locate, trailing: locate });
+  }
+}
+
 // Splits the sentence on its placeholders, merging inline ones back into one
 // utterance; deferred ones are returned for the caller to walk separately.
 function emitWithPlaceholders(
@@ -97,7 +113,18 @@ function emitWithPlaceholders(
   const inserted = new Set<ReadiumSpeechUtterance>();
   const placedAfter = new Set<ReadiumSpeechUtterance>();
   const isSentence = ctx.segmentation === "sentence";
-  for (const segment of splitOnPlaceholders(rawSsml)) {
+  const abbreviationSkipped = ctx.skip.has("abbreviation");
+  const abbreviationInline = !abbreviationSkipped && ctx.inlineContextualization.has("abbreviation");
+  // An alias's pieces, pushed since `before`, stay in their sentence like an inline placeholder.
+  const placeAlias = (segment: SsmlSegment, before: number) => {
+    if (segment.abbreviation !== "alias") return;
+    const aliasPieces = pieces.slice(before);
+    locateOnAbbreviation(aliasPieces, segment.abbreviationText!, node, ctx);
+    aliasPieces.forEach((piece) => inserted.add(piece));
+  };
+  for (let segment of splitOnPlaceholders(rawSsml)) {
+    if (segment.abbreviation && (segment.abbreviation === "text" ? abbreviationInline : abbreviationSkipped)) continue;
+    if (segment.abbreviation === "alias" && !abbreviationInline) segment = { ...segment, ssml: segment.parenthesizedSsml };
     if (segment.placeholderId !== undefined) {
       const child = childrenById.get(segment.placeholderId);
       if (!child) continue;
@@ -119,6 +146,7 @@ function emitWithPlaceholders(
       continue;
     }
     if (!segment.ssml) continue;
+    const before = pieces.length;
     if (
       ctx.format === "plain" &&
       ctx.language !== "block-level" &&
@@ -132,6 +160,7 @@ function emitWithPlaceholders(
         pieces.push(utterance);
         pieceSources.push(node);
       }
+      placeAlias(segment, before);
       continue;
     }
     const utterance: ReadiumSpeechUtterance = {};
@@ -143,6 +172,7 @@ function emitWithPlaceholders(
     }
     pieces.push(utterance);
     pieceSources.push(node);
+    placeAlias(segment, before);
   }
   if (isSentence && deferred.length + inserted.size > 0) {
     pieces.forEach((piece) => {

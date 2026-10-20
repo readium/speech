@@ -572,6 +572,11 @@ export interface SsmlSegment {
   // The `id` of a `<readium:TAG id="...">` placeholder at this position,
   // linking to the sibling/child `GuidedNavigationObject` carrying that `id`.
   placeholderId?: string;
+  // Whether `ssml` is a `<sub alias>`'s abbreviation or its alias, each keeping a `<lang>` wrapping the `<sub>`.
+  abbreviation?: "text" | "alias";
+  // On an alias segment: the abbreviation's ssml, and the alias in parentheses, to follow it.
+  abbreviationText?: string;
+  parenthesizedSsml?: string;
 }
 
 // Matches a raw, unstripped `<readium:TAG id="...">` placeholder — the same
@@ -579,23 +584,48 @@ export interface SsmlSegment {
 // splitting the surrounding text apart instead of discarding it.
 const RAW_PLACEHOLDER_RE = /<readium:[a-zA-Z][\w-]*\s+id="([^"]*)"\s*\/>/g;
 
+// A `<sub>` with the `<lang>` wrapping just it (groups: opening tag, alias, abbreviation), or bare (alias, abbreviation).
+const ABBREVIATION_RE =
+  /(<lang\b[^>]*>)<sub\s+alias="([^"]*)"\s*>([\s\S]*?)<\/sub><\/lang>|<sub\s+alias="([^"]*)"\s*>([\s\S]*?)<\/sub>/;
+
+const PLACEHOLDER_OR_ABBREVIATION_RE = new RegExp(`${RAW_PLACEHOLDER_RE.source}|${ABBREVIATION_RE.source}`, "g");
+
+function unescapeSsmlAttr(value: string): string {
+  return unescapeSsmlEntities(value.replace(/&quot;/g, '"').replace(/&apos;/g, "'"));
+}
+
 export function hasPlaceholder(ssml: string): boolean {
-  return new RegExp(RAW_PLACEHOLDER_RE).test(ssml);
+  return new RegExp(PLACEHOLDER_OR_ABBREVIATION_RE).test(ssml);
 }
 
 /**
  * Splits a raw (pre-`stripPlaceholders`) SSML string on its embedded
- * `<readium:TAG id="...">` placeholders, for `inlineContextualization`: each
+ * `<readium:TAG id="...">` placeholders and `<sub alias>` abbreviations, for `inlineContextualization`: each
  * placeholder becomes its own segment (resolved via the `GuidedNavigationObject` sharing
  * its `id`) instead of being spoken after the whole enclosing text.
  */
 export function splitOnPlaceholders(ssml: string): SsmlSegment[] {
   const segments: SsmlSegment[] = [];
   let lastIndex = 0;
-  for (const match of ssml.matchAll(RAW_PLACEHOLDER_RE)) {
+  for (const match of ssml.matchAll(PLACEHOLDER_OR_ABBREVIATION_RE)) {
     const before = ssml.slice(lastIndex, match.index).trim();
     if (before) segments.push({ ssml: before });
-    segments.push({ placeholderId: match[1] });
+    if (match[1] !== undefined) {
+      segments.push({ placeholderId: match[1] });
+    } else {
+      const langOpen = match[2];
+      const alias = match[3] ?? match[5];
+      const text = match[4] ?? match[6];
+      const wrap = (inner: string) => (langOpen ? `${langOpen}${inner}</lang>` : inner);
+      segments.push({ ssml: wrap(text), abbreviation: "text" });
+      const aliasSsml = ssmlTextEscape(unescapeSsmlAttr(alias));
+      segments.push({
+        ssml: wrap(aliasSsml),
+        abbreviation: "alias",
+        abbreviationText: wrap(text),
+        parenthesizedSsml: wrap(`(${aliasSsml})`),
+      });
+    }
     lastIndex = match.index! + match[0].length;
   }
   const after = ssml.slice(lastIndex).trim();

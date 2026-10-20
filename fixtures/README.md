@@ -48,7 +48,8 @@ understood to equal the default: absence is a positive claim, not a gap.
 Outside that scope, a fixture makes no claim either way.
 
 Scope, per format: `language` × `segmentation.mode`
-× every subset of (this fixture's roles ∩ `noteref`/`pagebreak`), for `inlineContextualization`
+× every subset of (this fixture's roles ∩ `abbreviation`/`noteref`/`pagebreak`), for `inlineContextualization`
+(`abbreviation` counts as a fixture role when a `text.ssml` holds a `<sub alias>`)
 × every subset of (this fixture's roles ∩ [roles.md's skippable-roles list])
 × every subset of (this fixture's roles ∩ roles with a
 contextualization-catalog entry) × every subset of (this fixture's roles ∩

@@ -58,9 +58,11 @@ export function sameJson(a, b) {
   return JSON.stringify(sortKeysDeep(a)) === JSON.stringify(sortKeysDeep(b));
 }
 
+// An abbreviation is a `<sub alias>` in its node's text, not a node of its own.
 export function collectRoles(nodes, acc = new Set()) {
   for (const node of nodes) {
     for (const role of node.role ?? []) acc.add(role);
+    if (/<sub\s+alias=/.test(node.text?.ssml ?? "")) acc.add("abbreviation");
     if (node.children) collectRoles(node.children, acc);
   }
   return acc;

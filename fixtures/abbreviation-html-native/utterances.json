@@ -1,0 +1,590 @@
+{
+  "cases": [
+    {
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The WHO (World Health Organization) said.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "inlineContextualization": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "plain",
+          "inlineContextualization": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "inlineContextualization": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "inlineContextualization": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "inlineContextualization": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "inlineContextualization": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The World Health Organization said.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The WHO (World Health Organization) said."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none",
+          "inlineContextualization": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "inlineContextualization": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The World Health Organization said."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "abbreviation"
+          ],
+          "inlineContextualization": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "abbreviation"
+          ],
+          "inlineContextualization": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The WHO said.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The WHO said."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The WHO (World Health Organization) said.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "inlineContextualization": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "ssml",
+          "inlineContextualization": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "inlineContextualization": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "inlineContextualization": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "inlineContextualization": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "inlineContextualization": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The World Health Organization said.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The WHO (World Health Organization) said."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none",
+          "inlineContextualization": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "inlineContextualization": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The World Health Organization said."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "abbreviation"
+          ],
+          "inlineContextualization": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "abbreviation"
+          ],
+          "inlineContextualization": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "always",
+          "inlineContextualization": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "block-level",
+          "inlineContextualization": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The WHO said.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "abbreviation"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "abbreviation"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "abbreviation"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The WHO said."
+        }
+      ]
+    }
+  ]
+}

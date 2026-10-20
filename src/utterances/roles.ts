@@ -7,6 +7,7 @@ import type { GndRole } from "@readium/guided-navigation";
 // Nothing is skipped by default: pass a subset of this list (or all of
 // it) via `ExtractUtterancesOptions.skip` to opt in.
 export const skippableRoles: GndRole[] = [
+  "abbreviation",
   "aside",
   "audio",
   "bibliography",
@@ -110,7 +111,7 @@ export const roleDropOverrides: Partial<Record<GndRole, { drops: GndRole[]; unco
 
 // Placeholder roles `inlineContextualization` can speak mid-sentence instead of
 // deferring past the sentence; every other placeholder role always stays inline.
-export const inlineContextualizationRoles: GndRole[] = ["noteref", "pagebreak"];
+export const inlineContextualizationRoles: GndRole[] = ["abbreviation", "noteref", "pagebreak"];
 
 // Roles whose contextualization template folds `node.description` into its
 // own text (a labelled/unlabelled variant, `{{ description }}`, or both)
