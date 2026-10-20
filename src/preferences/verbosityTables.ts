@@ -75,17 +75,17 @@ const most: readonly GndRole[] = [
 export const skippedAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "custom">, ReadonlySet<GndRole>>> = {
   none: new Set([
     "aside", "audio", "bibliography", "biblioref", "cell", "columnheader", "details",
-    "endnotes", "figure", "footnote", "glossary", "image", "landmarks", "loa", "loi",
-    "lot", "lov", "noteref", "pagebreak", "pullquote", "row", "rowheader", "table", "toc", "video",
+    "endnotes", "figure", "glossary", "image", "landmarks", "loa", "loi",
+    "lot", "lov", "pullquote", "row", "rowheader", "table", "toc", "video",
   ]),
   few: new Set([
     "aside", "bibliography", "biblioref", "cell", "columnheader", "details", "endnotes",
-    "footnote", "glossary", "landmarks", "loa", "loi", "lot", "lov", "noteref",
-    "pagebreak", "pullquote", "row", "rowheader", "toc",
+    "glossary", "landmarks", "loa", "loi", "lot", "lov",
+    "pullquote", "row", "rowheader", "toc",
   ]),
   some: new Set([
-    "aside", "bibliography", "biblioref", "endnotes", "footnote", "glossary", "landmarks",
-    "loa", "loi", "lot", "lov", "noteref", "pagebreak", "pullquote", "toc",
+    "aside", "bibliography", "biblioref", "endnotes", "glossary", "landmarks",
+    "loa", "loi", "lot", "lov", "pullquote", "toc",
   ]),
   most: new Set(["landmarks", "loa", "loi", "lot", "lov", "toc"]),
 };

@@ -8,6 +8,10 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 - Abbreviations: a `<sub alias="…">` (from `<abbr title="…">`/`<acronym title="…">` in `@readium/guided-navigation`) is read as its abbreviation followed by its alias in parentheses, e.g. "The WHO (World Health Organization) said."; with `abbreviation` in `inlineContextualization`, the alias is spoken in its place; with `abbreviation` in `skip`, only the abbreviation is read. The alias is located on its abbreviation.
 
+### Changed
+
+- `verbosity` presets no longer skip footnotes, note references and page breaks: `skippedAtVerbosity` no longer has `footnote`, `noteref` or `pagebreak` at `none`/`few`/`some`, so they are spoken where `inlineContextualization` places them, and skipped only with `verbosity: "custom"` and them in `skip`.
+
 ## [0.16.1] - 2026-10-19
 
 ### Fixed

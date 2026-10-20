@@ -12,9 +12,9 @@ const twoParagraphTree = gnd([
   { role: ["paragraph"], text: { language: "en", plain: "Second." } },
 ]);
 
-// "few" skips the footnote entirely; "most" doesn't — shifts every later index.
-const footnoteThenParagraphsTree = gnd([
-  { role: ["footnote"], text: { language: "en", plain: "A footnote." } },
+// "few" skips the aside entirely; "most" doesn't — shifts every later index.
+const asideThenParagraphsTree = gnd([
+  { role: ["aside"], text: { language: "en", plain: "An aside." } },
   { role: ["paragraph"], text: { language: "en", plain: "First." } },
   { role: ["paragraph"], text: { language: "en", plain: "Second." } },
 ]);
@@ -429,7 +429,7 @@ test("changing voice while auto-paused resumes at the withheld utterance, not th
 test("an extraction-affecting change while auto-paused resumes at the withheld utterance, not the finished one", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  await navigator.loadGndContent(footnoteThenParagraphsTree);
+  await navigator.loadGndContent(asideThenParagraphsTree);
   await navigator.submitPreferences(new SpeechPreferences({ autoPause: "utterance" }));
 
   engine.emit({ type: "end" }); // finishes "First.", auto-pauses before "Second."
@@ -467,7 +467,7 @@ test("changing voice again before the reload is ready still resumes where playba
 test("an extraction-affecting change before the previous reload is ready still resumes paused at the same content", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  await navigator.loadGndContent(footnoteThenParagraphsTree);
+  await navigator.loadGndContent(asideThenParagraphsTree);
   engine.emit({ type: "ready" });
   navigator.play();
   navigator.jumpTo(1, true); // "Second." under "few"
@@ -516,24 +516,24 @@ test("extraction-affecting submitPreferences mid-playback cancels speech and the
 test("an extraction-affecting change mid-playback resumes at the same content, not index 0", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  await navigator.loadGndContent(footnoteThenParagraphsTree);
+  await navigator.loadGndContent(asideThenParagraphsTree);
   engine.emit({ type: "ready" });
   navigator.play();
-  navigator.jumpTo(1, true); // "Second." under "few" (footnote skipped, indices 0/1)
+  navigator.jumpTo(1, true); // "Second." under "few" (aside skipped, indices 0/1)
 
-  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" })); // footnote no longer skipped, shifts indices
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" })); // aside no longer skipped, shifts indices
   engine.emit({ type: "ready" });
 
   t.is(navigator.getState(), "playing");
   const expectedIndex = navigator.getContentQueue().findIndex((u) => u.plain === "Second.");
-  t.true(expectedIndex > 1, "the footnote now takes up earlier slots");
+  t.true(expectedIndex > 1, "the aside now takes up earlier slots");
   t.is(engine.getCurrentUtteranceIndex(), expectedIndex);
 });
 
 test("an extraction-affecting change mid-pause resumes paused at the same content", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  await navigator.loadGndContent(footnoteThenParagraphsTree);
+  await navigator.loadGndContent(asideThenParagraphsTree);
   engine.emit({ type: "ready" });
   navigator.play();
   navigator.jumpTo(1, true);
@@ -550,7 +550,7 @@ test("an extraction-affecting change mid-pause resumes paused at the same conten
 test("play() after an extraction-affecting change mid-pause speaks the resumed content instead of resuming the reloaded engine", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  await navigator.loadGndContent(footnoteThenParagraphsTree);
+  await navigator.loadGndContent(asideThenParagraphsTree);
   engine.emit({ type: "ready" });
   navigator.play();
   navigator.jumpTo(1, true);
@@ -571,13 +571,13 @@ test("play() after an extraction-affecting change mid-pause speaks the resumed c
 test("resuming falls back to the nearest earlier node still present when the current one got skipped", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);
-  await navigator.loadGndContent(footnoteThenParagraphsTree);
-  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" })); // footnote included
+  await navigator.loadGndContent(asideThenParagraphsTree);
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "most" })); // aside included
   engine.emit({ type: "ready" });
   navigator.play();
-  navigator.jumpTo(0, true); // the footnote's own utterance
+  navigator.jumpTo(0, true); // the aside's own utterance
 
-  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "few" })); // footnote skipped again
+  await navigator.submitPreferences(new SpeechPreferences({ verbosity: "few" })); // aside skipped again
   engine.emit({ type: "ready" });
 
   t.is(navigator.getState(), "playing");
