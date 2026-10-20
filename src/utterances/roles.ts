@@ -19,6 +19,7 @@ export const skippableRoles: GndRole[] = [
   "figure",
   "footnote",
   "glossary",
+  "glossref",
   "image",
   "landmarks",
   "loa",
@@ -111,7 +112,11 @@ export const roleDropOverrides: Partial<Record<GndRole, { drops: GndRole[]; unco
 
 // Placeholder roles `inlineContextualization` can speak mid-sentence instead of
 // deferring past the sentence; every other placeholder role always stays inline.
-export const inlineContextualizationRoles: GndRole[] = ["abbreviation", "noteref", "pagebreak"];
+export const inlineContextualizationRoles: GndRole[] = ["abbreviation", "biblioref", "glossref", "noteref", "pagebreak"];
+
+// References whose own text belongs to the sentence: placing or skipping them
+// only moves or drops the target embedded as their children.
+export const textReferenceRoles: GndRole[] = ["biblioref", "glossref"];
 
 // Roles whose contextualization template folds `node.description` into its
 // own text (a labelled/unlabelled variant, `{{ description }}`, or both)

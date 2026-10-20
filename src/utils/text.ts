@@ -2,10 +2,15 @@
 export const OPENING_PUNCT_CLASS = "\\p{Ps}\\p{Pi}¿¡";
 
 const OPENING_PUNCT_RE = new RegExp(`^[${OPENING_PUNCT_CLASS}]`, "u");
+const TRAILING_OPENING_PUNCT_RE = new RegExp(`[${OPENING_PUNCT_CLASS}]$`, "u");
 const SINGLE_PUNCT_RE = /^\p{P}$/u;
 
 export function startsWithOpeningPunct(s: string): boolean {
   return OPENING_PUNCT_RE.test(s);
+}
+
+export function endsWithOpeningPunct(s: string): boolean {
+  return TRAILING_OPENING_PUNCT_RE.test(s);
 }
 
 // Whether `s` is exactly one punctuation character (any Unicode category,

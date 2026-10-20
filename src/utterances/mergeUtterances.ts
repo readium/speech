@@ -6,7 +6,7 @@ import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { languageFor, overrideLangTags, runLanguage, ssmlInLanguage, stripLangTags } from "./language.js";
 import { hasLangTag, splitOnLangTags, stripSsmlTags, type ResolvedNodeText } from "./text.js";
 import type { ExtractionFormat, LanguageMode } from "./types.js";
-import { isSinglePunctuationChar } from "../utils/text.js";
+import { endsWithOpeningPunct, isSinglePunctuationChar } from "../utils/text.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import { markNonQuotable } from "./boundaryLocate.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
@@ -25,7 +25,7 @@ export function joinPieceTexts(parts: string[], plainParts: string[] = parts): {
     }
     // Only synthesizes a joining space when the join would otherwise have
     // none at all — never adds a second one next to whitespace the pieces already carry.
-    if (plain && !startsWithBindingPunct(plainPart) && !/\s$/.test(plain) && !/^\s/.test(plainPart)) {
+    if (plain && !startsWithBindingPunct(plainPart) && !endsWithOpeningPunct(plain) && !/\s$/.test(plain) && !/^\s/.test(plainPart)) {
       joined += " ";
       plain += " ";
     }

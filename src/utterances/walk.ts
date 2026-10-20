@@ -30,6 +30,7 @@ import {
   contentlessRoleSet,
   descriptionFoldingRoleSet,
   inlineContextualizationRoleSet,
+  textReferenceRoleSet,
   valueFoldingRoleSet,
   type SourceTrace,
   type WalkContext,
@@ -135,12 +136,24 @@ function emitWithPlaceholders(
           pieces.slice(before).forEach((piece) => inserted.add(piece));
         }
       } else {
-        deferred.push(child);
-        // Walked in place for sentence segmentation to move after its sentence, same suppress as walk(deferred)
-        if (isSentence) {
-          const before = pieces.length;
-          walkNode(child, pieces, pieceSources, ctx, deferred.length === 1 && (suppress || isBlockRole));
-          pieces.slice(before).forEach((piece) => placedAfter.add(piece));
+        const childRoles = nodeRoles(child);
+        const isTextReference = childRoles.some((role) => textReferenceRoleSet.has(role));
+        if (isTextReference) {
+          const resolved = resolveNodeText(spokenText(child));
+          for (const piece of resolved ? applyFormat(resolved, ctx.format, ctx.language, ctx) : []) {
+            pieces.push(piece);
+            pieceSources.push(child);
+          }
+        }
+        const targets = !isTextReference ? [child] : isSkipped(childRoles, ctx) ? [] : (child.children ?? []);
+        for (const target of targets) {
+          deferred.push(target);
+          // Walked in place for sentence segmentation to move after its sentence, same suppress as walk(deferred)
+          if (isSentence) {
+            const before = pieces.length;
+            walkNode(target, pieces, pieceSources, ctx, deferred.length === 1 && (suppress || isBlockRole));
+            pieces.slice(before).forEach((piece) => placedAfter.add(piece));
+          }
         }
       }
       continue;
@@ -194,7 +207,9 @@ function emitWithPlaceholders(
 function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, suppress: boolean): void {
   const roles = nodeRoles(node);
   const description = descriptionOf(node);
-  if (isSkipped(roles, ctx)) return;
+  // A skipped text reference is still read, without its embedded target.
+  const skipsTarget = roles.some((role) => textReferenceRoleSet.has(role)) && isSkipped(roles, ctx);
+  if (isSkipped(roles, ctx) && !skipsTarget) return;
 
   // A node carrying a block-level role opens a new block — unless
   // `suppress` says an ancestor already claimed this same boundary. That
@@ -306,7 +321,7 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
       if (resolved) {
         push(out, sources, node, applyFormat(resolved, ctx.format, ctx.language, ctx));
       }
-      if (node.children) {
+      if (node.children && !skipsTarget) {
         const childSuppress = suppress || (isBlockRole && out.length > beforeLength);
         walk(node.children, out, sources, ctx, childSuppress);
       }

@@ -96,7 +96,7 @@ Quick reference:
 | `language` | `"block-level"` | how a node's own inline-language spans render |
 | `contentLanguage` | none | the language of content without `lang`/`xml:lang` |
 | `languageOverrides` | none | the language content declared in a given language is spoken in |
-| `inlineContextualization` | `[]` | which mid-sentence roles (`abbreviation`, `noteref`, `pagebreak`) split the sentence, instead of being spoken after it |
+| `inlineContextualization` | `[]` | which mid-sentence roles (`abbreviation`, `biblioref`, `glossref`, `noteref`, `pagebreak`) split the sentence, instead of being spoken after it |
 | `segmentation.mode` | `"structure"` | one utterance per structural unit, or split/reconstruct at real sentence boundaries |
 | `segmentation.suppressions` | none | per-language abbreviations (e.g. `"d."`) that sentence mode won't treat as endings |
 | `segmentation.segmenter` | built-in `Intl.Segmenter`-based splitter | swap in a different sentence segmenter |
@@ -108,7 +108,7 @@ Picks the one field every utterance in the result carries, so a consumer never h
 
 ### `skip`
 
-Drops a role and its whole subtree — content and announcement both — from the output. `skippableRoles` export is the [roles.md skippable set](https://github.com/readium/guided-navigation/blob/main/roles.md#list-of-skippable-roles), plus `abbreviation`. Skipping `abbreviation` drops only its expansion: the abbreviation itself is still read.
+Drops a role and its whole subtree — content and announcement both — from the output. `skippableRoles` export is the [roles.md skippable set](https://github.com/readium/guided-navigation/blob/main/roles.md#list-of-skippable-roles), plus `abbreviation` and `glossref`. Skipping `abbreviation` drops only its expansion, and skipping `biblioref` or `glossref` only the bibliography entry or definition it embeds: the abbreviation or reference itself is still read.
 
 A role a more specific one on the same node drops isn't skipped either: skipping `aside` keeps `<aside epub:type="footnote">`, which `skip: ["footnote"]` drops instead. A `pullquote` or a `cover` drops its `aside`/`blockquote` or `image` this way only when contextualized.
 
@@ -257,7 +257,7 @@ await extractUtterances(gnd, { format: "plain", language: "always", languageOver
 
 ### `inlineContextualization`
 
-Which mid-sentence roles split the sentence at that exact point instead of being spoken after it finishes — after the sentence holding them with `segmentation: { mode: "sentence" }`, after their whole block otherwise. Default `[]`. `inlineContextualizationRoles` lists the accepted roles: `abbreviation`, `noteref` (its footnote is spoken in place) and `pagebreak`. An abbreviation's `<sub alias>` expansion is spoken in place of it, instead of in parentheses after it:
+Which mid-sentence roles split the sentence at that exact point instead of being spoken after it finishes — after the sentence holding them with `segmentation: { mode: "sentence" }`, after their whole block otherwise. Default `[]`. `inlineContextualizationRoles` lists the accepted roles: `abbreviation`, `biblioref` and `glossref` (the bibliography entry or definition they embed is spoken in place, after their own text), `noteref` (its footnote is spoken in place) and `pagebreak`. An abbreviation's `<sub alias>` expansion is spoken in place of it, instead of in parentheses after it:
 
 ```typescript
 // <p>The <abbr title="World Health Organization">WHO</abbr> said.</p>

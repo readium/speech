@@ -25,6 +25,63 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "inlineContextualization": [
+            "glossref"
+          ]
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "inlineContextualization": [
+            "glossref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossref"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossref"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossref"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "glossref"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "glossref"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "glossref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
@@ -55,6 +112,63 @@
         {
           "format": "ssml",
           "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "inlineContextualization": [
+            "glossref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "inlineContextualization": [
+            "glossref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossref"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossref"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossref"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "glossref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "glossref"
+          ],
+          "language": "none",
+          "inlineContextualization": [
+            "glossref"
+          ],
           "segmentation": {
             "mode": "sentence"
           }
