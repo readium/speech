@@ -1,0 +1,450 @@
+{
+  "cases": [
+    {
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "A"
+        },
+        {
+          "plain": "and"
+        },
+        {
+          "plain": "B"
+        },
+        {
+          "plain": "."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "A and B.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "A and B."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Term.",
+          "language": "en"
+        },
+        {
+          "plain": "A"
+        },
+        {
+          "plain": "and"
+        },
+        {
+          "plain": "Term.",
+          "language": "en"
+        },
+        {
+          "plain": "B"
+        },
+        {
+          "plain": "."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Term.",
+          "language": "en"
+        },
+        {
+          "plain": "A and",
+          "language": "en"
+        },
+        {
+          "plain": "Term.",
+          "language": "en"
+        },
+        {
+          "plain": "B.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "A"
+        },
+        {
+          "plain": "and"
+        },
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "B"
+        },
+        {
+          "plain": "."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "A and"
+        },
+        {
+          "plain": "Term."
+        },
+        {
+          "plain": "B."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "A"
+        },
+        {
+          "ssml": "and"
+        },
+        {
+          "ssml": "B"
+        },
+        {
+          "ssml": "."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "A and B.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "A and B."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Term.",
+          "language": "en"
+        },
+        {
+          "ssml": "A"
+        },
+        {
+          "ssml": "and"
+        },
+        {
+          "ssml": "Term.",
+          "language": "en"
+        },
+        {
+          "ssml": "B"
+        },
+        {
+          "ssml": "."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Term.",
+          "language": "en"
+        },
+        {
+          "ssml": "A and",
+          "language": "en"
+        },
+        {
+          "ssml": "Term.",
+          "language": "en"
+        },
+        {
+          "ssml": "B.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "A"
+        },
+        {
+          "ssml": "and"
+        },
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "B"
+        },
+        {
+          "ssml": "."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "term"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "A and"
+        },
+        {
+          "ssml": "Term."
+        },
+        {
+          "ssml": "B."
+        }
+      ]
+    }
+  ]
+}
