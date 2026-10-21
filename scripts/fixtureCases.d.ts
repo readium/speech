@@ -2,7 +2,7 @@ export interface FixtureRoleLists {
   skippableRoles: string[];
   contextualizableRoles: string[];
   shapeableRoles: string[];
-  inlineContextualizationRoles: string[];
+  interruptionRoles: string[];
 }
 
 export type FixtureOptions = Record<string, unknown> & { format: "plain" | "ssml" };

@@ -1,9 +1,10 @@
 import type { GndRole } from "@readium/guided-navigation";
-import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
+import type { ExtractionFormat, Interruption, LanguageMode, Segmentation } from "../utterances/types.js";
 import type { ConfigurablePreferences } from "./Configurable.js";
 import {
   autoPauseScopes,
   extractionFormats,
+  interruptionValues,
   languageModes,
   pauseDurationRangeConfig,
   pitchRangeConfig,
@@ -12,7 +13,7 @@ import {
   verbosityPresets,
   volumeRangeConfig,
 } from "./constraints.js";
-import { ensureEnumValue, ensureStringArray, ensureStringOrStringRecord, ensureStringRecord, ensureValueInRange } from "./guards.js";
+import { ensureEnumRecord, ensureEnumValue, ensureStringArray, ensureStringOrStringRecord, ensureStringRecord, ensureValueInRange } from "./guards.js";
 
 export type VerbosityPreset = "none" | "few" | "some" | "most" | "custom";
 
@@ -26,7 +27,7 @@ export interface ISpeechPreferences {
   // Navigator's reextract(), or directly by a standalone
   // extractUtterances() caller.
   format?: ExtractionFormat | null; // default "plain"
-  inlineContextualization?: GndRole[] | null; // default [], see inlineContextualizationRoles
+  interruptions?: Partial<Record<GndRole, Interruption>> | null; // default {} (each "after"), see interruptionRoles, applies under every verbosity
 
   // Verbosity group — same consumers as above.
   verbosity?: VerbosityPreset | null; // default "few"
@@ -49,7 +50,7 @@ export interface ISpeechPreferences {
 
 export class SpeechPreferences implements ISpeechPreferences, ConfigurablePreferences<SpeechPreferences> {
   public format: ExtractionFormat | null | undefined;
-  public inlineContextualization: GndRole[] | null | undefined;
+  public interruptions: Partial<Record<GndRole, Interruption>> | null | undefined;
   public verbosity: VerbosityPreset | null | undefined;
   public skip: GndRole[] | null | undefined;
   public contextualize: GndRole[] | null | undefined;
@@ -65,7 +66,7 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
 
   constructor(preferences: ISpeechPreferences = {}) {
     this.format = ensureEnumValue(preferences.format, extractionFormats);
-    this.inlineContextualization = ensureStringArray(preferences.inlineContextualization);
+    this.interruptions = ensureEnumRecord(preferences.interruptions, interruptionValues);
     this.verbosity = ensureEnumValue(preferences.verbosity, verbosityPresets);
     this.skip = ensureStringArray(preferences.skip);
     this.contextualize = ensureStringArray(preferences.contextualize);

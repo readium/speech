@@ -12,7 +12,7 @@ editor.pauseDuration.value = 500;
 await navigator.submitPreferences(editor.preferences);
 ```
 
-`submitPreferences()` always resolves `navigator.settings`. Prosody (`pauseDuration`, `autoPause`, `rate`, `pitch`, `volume`) applies regardless of how content was loaded, except that `autoPause: "block"` only has block boundaries to work with on content loaded via `loadGndContent()` — content loaded via `loadContent()` has none, so it never triggers there. The extraction group (`format`, `inlineContextualization`, `verbosity`, `skip`, `contextualize`, `language`, `languageOverrides`, `segmentation`) only takes effect on content loaded via `loadGndContent()` — see [Playback](Playback.md) — and only reloads the queue when one of those fields actually changes value. A reload during playback resumes at the same content rather than restarting, falling back to the nearest earlier point still present if that exact content got skipped by the new settings.
+`submitPreferences()` always resolves `navigator.settings`. Prosody (`pauseDuration`, `autoPause`, `rate`, `pitch`, `volume`) applies regardless of how content was loaded, except that `autoPause: "block"` only has block boundaries to work with on content loaded via `loadGndContent()` — content loaded via `loadContent()` has none, so it never triggers there. The extraction group (`format`, `interruptions`, `verbosity`, `skip`, `contextualize`, `language`, `languageOverrides`, `segmentation`) only takes effect on content loaded via `loadGndContent()` — see [Playback](Playback.md) — and only reloads the queue when one of those fields actually changes value. A reload during playback resumes at the same content rather than restarting, falling back to the nearest earlier point still present if that exact content got skipped by the new settings.
 
 ## Defaults
 
@@ -80,11 +80,13 @@ await navigator.submitPreferences(new SpeechPreferences({ voice: { en: "Samantha
 
 Changing it reloads the queue with the new voices, resuming at the same utterance during playback, without re-extracting. `getContentQueue()` returns the utterances with their voice.
 
-## `format` / `inlineContextualization`
+## `format` / `interruptions`
 
 Set once via `submitPreferences()` instead of on every `extractUtterances()` call:
 
 ```typescript
 format?: "plain" | "ssml";     // default "plain"
-inlineContextualization?: GndRole[]; // default [], see inlineContextualizationRoles
+interruptions?: Partial<Record<GndRole, "never" | "inline" | "after">>; // default each "after", see interruptionRoles
 ```
+
+`interruptions` applies under every `verbosity`, `"custom"` or not.

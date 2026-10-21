@@ -24,7 +24,7 @@ const optionVerbosityEl = document.getElementById("option-verbosity");
 const optionSkipEl = document.getElementById("option-skip");
 const optionLanguageEl = document.getElementById("option-language");
 const optionSegmentationEl = document.getElementById("option-segmentation");
-const optionInlineContextualizationEl = document.getElementById("option-inline-contextualization");
+const optionInterruptionsEl = document.getElementById("option-interruptions");
 const optionContextualizeEl = document.getElementById("option-contextualize");
 const optionPauseDurationEl = document.getElementById("option-pause-duration");
 const optionPauseDurationValueEl = document.getElementById("option-pause-duration-value");
@@ -40,7 +40,7 @@ const formatHintEl = document.getElementById("format-hint");
 const languageHintEl = document.getElementById("language-hint");
 const segmentationHintEl = document.getElementById("segmentation-hint");
 const verbosityHintEl = document.getElementById("verbosity-hint");
-const inlineContextualizationHintEl = document.getElementById("inline-contextualization-hint");
+const interruptionsHintEl = document.getElementById("interruptions-hint");
 const pauseDurationHintEl = document.getElementById("pause-duration-hint");
 const autoPauseHintEl = document.getElementById("auto-pause-hint");
 const rateHintEl = document.getElementById("rate-hint");
@@ -115,12 +115,22 @@ try {
   if (typeof mod.SpeechPreferencesEditor === "function") {
     SpeechPreferencesEditorClass = mod.SpeechPreferencesEditor;
   }
-  if (Array.isArray(mod.inlineContextualizationRoles)) {
-    for (const role of mod.inlineContextualizationRoles) {
-      const option = document.createElement("option");
-      option.value = role;
-      option.textContent = role;
-      optionInlineContextualizationEl.appendChild(option);
+  if (Array.isArray(mod.interruptionRoles)) {
+    for (const role of mod.interruptionRoles) {
+      const label = document.createElement("label");
+      const caption = document.createElement("span");
+      caption.className = "field-caption";
+      caption.textContent = role;
+      const select = document.createElement("select");
+      select.dataset.role = role;
+      for (const value of ["after", "inline", "never"]) {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = value;
+        select.appendChild(option);
+      }
+      label.append(caption, " ", select);
+      optionInterruptionsEl.appendChild(label);
     }
   }
   contextualizationShapesAtVerbosity = mod.contextualizationShapesAtVerbosity ?? null;
@@ -244,9 +254,9 @@ function renderToolbarState() {
   optionSkipEl.disabled = customRolesDisabled;
   optionContextualizeEl.disabled = customRolesDisabled;
 
-  setDefaultLabel(inlineContextualizationHintEl, libraryDefaults?.inlineContextualization.join(", ") || "none");
-  const inlineRoles = editor.inlineContextualization.value ?? editor.inlineContextualization.effectiveValue;
-  for (const option of optionInlineContextualizationEl.options) option.selected = inlineRoles.includes(option.value);
+  setDefaultLabel(interruptionsHintEl, "after");
+  const interruptions = editor.interruptions.value ?? editor.interruptions.effectiveValue;
+  for (const select of optionInterruptionsEl.querySelectorAll("select")) select.value = interruptions[select.dataset.role] ?? "after";
 
   for (const { key, inputEl, valueEl, hintEl, unit } of rangeControls) {
     setDefaultLabel(hintEl, libraryDefaults?.[key]);
@@ -269,9 +279,9 @@ async function applyPreferencesFromToolbar() {
   playbackNavigator?.stop();
   const editor = configurable.preferencesEditor;
   editor.format.value = currentFormat();
-  editor.inlineContextualization.value = optionInlineContextualizationEl
-    ? [...optionInlineContextualizationEl.selectedOptions].map((o) => o.value)
-    : [];
+  editor.interruptions.value = Object.fromEntries(
+    [...optionInterruptionsEl.querySelectorAll("select")].filter((s) => s.value !== "after").map((s) => [s.dataset.role, s.value]),
+  );
   editor.verbosity.value = optionVerbosityEl?.value || "few";
   editor.language.value = optionLanguageEl?.value || null;
   editor.segmentation.value = optionSegmentationEl?.value || null;
@@ -297,7 +307,7 @@ async function resetExtractionPreferences() {
   editor.language.clear();
   editor.segmentation.clear();
   editor.verbosity.clear();
-  editor.inlineContextualization.clear();
+  editor.interruptions.clear();
   editor.skip.clear();
   editor.contextualize.clear();
   await configurable.submitPreferences(editor.preferences);
@@ -323,7 +333,7 @@ function currentExtractionOptions() {
     format: settings.format,
     skip: settings.skip,
     contextualize: settings.contextualize,
-    inlineContextualization: settings.inlineContextualization,
+    interruptions: settings.interruptions,
     contextualization: {
       shapes: settings.verbosity === "custom" ? {} : (contextualizationShapesAtVerbosity?.[settings.verbosity] ?? {}),
     },
@@ -712,7 +722,7 @@ for (const radio of formatRadios) radio.addEventListener("change", applyPreferen
 optionVerbosityEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionLanguageEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionSegmentationEl?.addEventListener("change", applyPreferencesFromToolbar);
-optionInlineContextualizationEl?.addEventListener("change", applyPreferencesFromToolbar);
+optionInterruptionsEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionSkipEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionContextualizeEl?.addEventListener("change", applyPreferencesFromToolbar);
 for (const { inputEl, valueEl, unit } of rangeControls) {

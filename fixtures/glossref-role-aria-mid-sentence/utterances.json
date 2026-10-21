@@ -29,30 +29,47 @@
         {
           "format": "plain",
           "language": "none",
-          "inlineContextualization": [
-            "glossref"
-          ]
+          "interruptions": {
+            "glossref": "never"
+          }
         },
         {
           "format": "plain",
           "language": "none",
-          "inlineContextualization": [
-            "glossref"
-          ],
+          "interruptions": {
+            "glossref": "never"
+          },
           "segmentation": {
             "mode": "sentence"
           }
         },
         {
           "format": "plain",
-          "skip": [
+          "language": "none",
+          "interruptions": {
+            "glossref": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "glossref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
             "glossref"
           ],
           "language": "none"
         },
         {
           "format": "plain",
-          "skip": [
+          "contextualize": [
             "glossref"
           ],
           "language": "none",
@@ -62,23 +79,46 @@
         },
         {
           "format": "plain",
-          "skip": [
+          "contextualize": [
             "glossref"
           ],
           "language": "none",
-          "inlineContextualization": [
-            "glossref"
-          ]
+          "interruptions": {
+            "glossref": "never"
+          }
         },
         {
           "format": "plain",
-          "skip": [
+          "contextualize": [
             "glossref"
           ],
           "language": "none",
-          "inlineContextualization": [
+          "interruptions": {
+            "glossref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
             "glossref"
           ],
+          "language": "none",
+          "interruptions": {
+            "glossref": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "glossref": "inline"
+          },
           "segmentation": {
             "mode": "sentence"
           }
@@ -119,30 +159,47 @@
         {
           "format": "ssml",
           "language": "none",
-          "inlineContextualization": [
-            "glossref"
-          ]
+          "interruptions": {
+            "glossref": "never"
+          }
         },
         {
           "format": "ssml",
           "language": "none",
-          "inlineContextualization": [
-            "glossref"
-          ],
+          "interruptions": {
+            "glossref": "never"
+          },
           "segmentation": {
             "mode": "sentence"
           }
         },
         {
           "format": "ssml",
-          "skip": [
+          "language": "none",
+          "interruptions": {
+            "glossref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "glossref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
             "glossref"
           ],
           "language": "none"
         },
         {
           "format": "ssml",
-          "skip": [
+          "contextualize": [
             "glossref"
           ],
           "language": "none",
@@ -152,23 +209,46 @@
         },
         {
           "format": "ssml",
-          "skip": [
+          "contextualize": [
             "glossref"
           ],
           "language": "none",
-          "inlineContextualization": [
-            "glossref"
-          ]
+          "interruptions": {
+            "glossref": "never"
+          }
         },
         {
           "format": "ssml",
-          "skip": [
+          "contextualize": [
             "glossref"
           ],
           "language": "none",
-          "inlineContextualization": [
+          "interruptions": {
+            "glossref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
             "glossref"
           ],
+          "language": "none",
+          "interruptions": {
+            "glossref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "glossref": "inline"
+          },
           "segmentation": {
             "mode": "sentence"
           }

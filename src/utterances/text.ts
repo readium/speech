@@ -600,7 +600,7 @@ export function hasPlaceholder(ssml: string): boolean {
 
 /**
  * Splits a raw (pre-`stripPlaceholders`) SSML string on its embedded
- * `<readium:TAG id="...">` placeholders and `<sub alias>` abbreviations, for `inlineContextualization`: each
+ * `<readium:TAG id="...">` placeholders and `<sub alias>` abbreviations, for `interruptions`: each
  * placeholder becomes its own segment (resolved via the `GuidedNavigationObject` sharing
  * its `id`) instead of being spoken after the whole enclosing text.
  */

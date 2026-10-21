@@ -11,13 +11,14 @@ import type {
   Contextualizations,
   ExtractionFormat,
   ExtractUtterancesOptions,
+  Interruption,
   LanguageMode,
   Segmentation,
   SubstitutionTable,
 } from "./types.js";
 import {
   blockLevelRoles,
-  inlineContextualizationRoles,
+  interruptionRoles,
   descriptionFoldingRoles,
   valueFoldingRoles,
   contentlessRoles,
@@ -37,7 +38,7 @@ export interface WalkContext {
   // See `ExtractUtterancesOptions.contextualization.params`.
   contextualizationParams?: (role: GndRole, node: GuidedNavigationObject) => Record<string, string> | undefined;
   format: ExtractionFormat;
-  inlineContextualization: ReadonlySet<GndRole>;
+  interruptions: Partial<Record<GndRole, Interruption>>;
   language?: LanguageMode;
   languageOverrides: Record<string, string>;
   contentLanguage?: string;
@@ -76,7 +77,7 @@ export interface WalkContext {
 export type SourceTrace = (GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject] | undefined)[];
 
 export const blockLevelRoleSet: ReadonlySet<GndRole> = new Set(blockLevelRoles);
-export const inlineContextualizationRoleSet: ReadonlySet<GndRole> = new Set(inlineContextualizationRoles);
+export const interruptionRoleSet: ReadonlySet<GndRole> = new Set(interruptionRoles);
 export const descriptionFoldingRoleSet: ReadonlySet<GndRole> = new Set(descriptionFoldingRoles);
 export const valueFoldingRoleSet: ReadonlySet<GndRole> = new Set(valueFoldingRoles);
 export const contentlessRoleSet: ReadonlySet<GndRole> = new Set(contentlessRoles);
@@ -148,7 +149,7 @@ export async function makeWalkContext(nodes: GuidedNavigationObject[], options: 
     contextualizationShapes: options.contextualization?.shapes ?? {},
     contextualizationParams: options.contextualization?.params,
     format: options.format ?? "plain",
-    inlineContextualization: new Set(options.inlineContextualization ?? []),
+    interruptions: options.interruptions ?? {},
     language: options.language ?? "block-level",
     languageOverrides: options.languageOverrides ?? {},
     contentLanguage: options.contentLanguage,

@@ -29,12 +29,12 @@ test("a word on the second page resolves to that page's href", async (t) => {
   t.is(second?.locate.href, "page2.xhtml");
 });
 
-test("skipping pagebreak keeps a page label out of a stitched sentence", async (t) => {
+test("a pagebreak read never keeps its label out of a stitched sentence", async (t) => {
   const gnd = stitchedPages(
     "<p>This sentence continues</p>",
     '<span role="doc-pagebreak" aria-label="12"></span><p>across two pages.</p>',
   );
-  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" }, skip: ["pagebreak"] });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" }, interruptions: { pagebreak: "never" } });
   t.deepEqual(utterances.map((u) => u.plain), ["This sentence continues across two pages."]);
   t.deepEqual(utterances[0].offsets?.map((o) => o.locate.href), ["page1.xhtml", "page2.xhtml"]);
 });

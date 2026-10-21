@@ -2,7 +2,8 @@
   { 
     "id": "article", 
     "label": "Article (Wikipedia excerpt)", 
-    "file": "article.html" 
+    "file": "article.html",
+    "defaultSegmentation": "sentence"
   },
   {
     "id": "fixed-layout",

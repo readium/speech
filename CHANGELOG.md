@@ -6,13 +6,13 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ### Added
 
-- Abbreviations: a `<sub alias="…">` (from `<abbr title="…">`/`<acronym title="…">` in `@readium/guided-navigation`) is read as its abbreviation followed by its alias in parentheses, e.g. "The WHO (World Health Organization) said."; with `abbreviation` in `inlineContextualization`, the alias is spoken in its place; with `abbreviation` in `skip`, only the abbreviation is read. The alias is located on its abbreviation.
-- `biblioref` and `glossref` are placed like a note reference: the bibliography entry or definition `@readium/guided-navigation` embeds for a target in the same document is spoken after the sentence, or after the block without `segmentation: "sentence"`, in place with them in `inlineContextualization`, and not at all with them in `skip`. Their own text is always read in place. `glossref` added to `skippableRoles`.
+- Abbreviations: a `<sub alias="…">` (from `<abbr title="…">`/`<acronym title="…">` in `@readium/guided-navigation`) is read as its abbreviation followed by its alias in parentheses, e.g. "The WHO (World Health Organization) said."; with `interruptions: { abbreviation: "inline" }`, the alias is spoken in its place; with `"never"`, only the abbreviation is read. The alias is located on its abbreviation.
+- `biblioref` and `glossref` are read like a note reference: the bibliography entry or definition `@readium/guided-navigation` embeds for a target in the same document follows their `interruptions` setting. Their own text is always read in place. With `"after"`, a definition is read with its term, e.g. "Fresnel lens: A compact lens for focusing light."; with them in `contextualize`, it's preceded by "Glossary definition.", and a bibliography entry by "Bibliographic reference."
 
 ### Changed
 
-- `skip: ["biblioref"]` keeps the reference's own text (e.g. "See Smith, 1988"), dropping only the bibliography entry it embeds.
-- `verbosity` presets no longer skip footnotes, note references and page breaks: `skippedAtVerbosity` no longer has `footnote`, `noteref` or `pagebreak` at `none`/`few`/`some`, so they are spoken where `inlineContextualization` places them, and skipped only with `verbosity: "custom"` and them in `skip`.
+- **Breaking:** `interruptions` replaces `inlineContextualization`, in `ExtractUtterancesOptions` and `SpeechPreferences`: `{ noteref: "inline", pagebreak: "never" }`, each role `"never"`, `"inline"` or `"after"` (the default), and `interruptionRoles` replaces `inlineContextualizationRoles`. It applies under every `verbosity`: reading notes or page breaks never no longer takes `verbosity: "custom"` and `skip`. `skip` ignores `noteref`, `pagebreak` and `biblioref`, which leave `skippableRoles`.
+- `verbosity` presets no longer skip footnotes, note references, page breaks and bibliography references: `skippedAtVerbosity` no longer has `footnote`, `noteref`, `pagebreak` or `biblioref`.
 
 ### Fixed
 

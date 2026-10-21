@@ -74,17 +74,17 @@ const most: readonly GndRole[] = [
 // (roles.ts), the GND-spec skip list; most roles here aren't on it at all.
 export const skippedAtVerbosity: Readonly<Record<Exclude<VerbosityPreset, "custom">, ReadonlySet<GndRole>>> = {
   none: new Set([
-    "aside", "audio", "bibliography", "biblioref", "cell", "columnheader", "details",
+    "aside", "audio", "bibliography", "cell", "columnheader", "details",
     "endnotes", "figure", "glossary", "image", "landmarks", "loa", "loi",
     "lot", "lov", "pullquote", "row", "rowheader", "table", "toc", "video",
   ]),
   few: new Set([
-    "aside", "bibliography", "biblioref", "cell", "columnheader", "details", "endnotes",
+    "aside", "bibliography", "cell", "columnheader", "details", "endnotes",
     "glossary", "landmarks", "loa", "loi", "lot", "lov",
     "pullquote", "row", "rowheader", "toc",
   ]),
   some: new Set([
-    "aside", "bibliography", "biblioref", "endnotes", "glossary", "landmarks",
+    "aside", "bibliography", "endnotes", "glossary", "landmarks",
     "loa", "loi", "lot", "lov", "pullquote", "toc",
   ]),
   most: new Set(["landmarks", "loa", "loi", "lot", "lov", "toc"]),

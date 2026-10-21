@@ -14,7 +14,7 @@ import type { IPreferencesEditor } from "./PreferencesEditor.js";
 import { EnumPreference, Preference, RangePreference, StringArrayPreference } from "./Preference.js";
 import { SpeechPreferences, VerbosityPreset, AutoPauseScope, VoicePreference } from "./SpeechPreferences.js";
 import { SpeechSettings } from "./SpeechSettings.js";
-import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
+import type { ExtractionFormat, Interruption, LanguageMode, Segmentation } from "../utterances/types.js";
 
 export class SpeechPreferencesEditor implements IPreferencesEditor {
   preferences: SpeechPreferences;
@@ -34,7 +34,7 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
   clear(): void {
     this.preferences = new SpeechPreferences({
       format: null,
-      inlineContextualization: null,
+      interruptions: null,
       verbosity: null,
       skip: null,
       contextualize: null,
@@ -64,12 +64,12 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
     });
   }
 
-  get inlineContextualization(): StringArrayPreference {
-    return new StringArrayPreference({
-      initialValue: this.preferences.inlineContextualization,
-      effectiveValue: this.settings.inlineContextualization,
-      isEffective: this.preferences.inlineContextualization != null,
-      onChange: (value) => this.updatePreference("inlineContextualization", (value ?? null) as GndRole[] | null),
+  get interruptions(): Preference<Partial<Record<GndRole, Interruption>>> {
+    return new Preference<Partial<Record<GndRole, Interruption>>>({
+      initialValue: this.preferences.interruptions,
+      effectiveValue: this.settings.interruptions,
+      isEffective: this.preferences.interruptions != null,
+      onChange: (value) => this.updatePreference("interruptions", value ?? null),
     });
   }
 

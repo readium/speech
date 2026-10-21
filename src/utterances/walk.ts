@@ -1,5 +1,6 @@
 import type { GuidedNavigationObject } from "@readium/shared";
 import type { GndRole } from "@readium/guided-navigation";
+import type { Interruption } from "./types.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { languageFor, languageRuns, overrideLangTags, stripLangTags } from "./language.js";
 import { descriptionOf, nodeRoles, spokenText } from "./nodeFields.js";
@@ -29,16 +30,26 @@ import {
   blockLevelRoleSet,
   contentlessRoleSet,
   descriptionFoldingRoleSet,
-  inlineContextualizationRoleSet,
+  interruptionRoleSet,
   textReferenceRoleSet,
   valueFoldingRoleSet,
   type SourceTrace,
   type WalkContext,
 } from "./walkContext.js";
 
-// A role another one on the node drops (e.g. a footnote's `aside`) doesn't skip it.
+// A role another one on the node drops (e.g. a footnote's `aside`) doesn't skip it,
+// nor does a role `interruptions` controls instead.
 function isSkipped(roles: GndRole[], ctx: WalkContext): boolean {
-  return ctx.skip.size > 0 && roles.some((role) => ctx.skip.has(role) && !isDroppedByAnotherRole(role, roles, ctx));
+  return (
+    ctx.skip.size > 0 &&
+    roles.some((role) => ctx.skip.has(role) && !interruptionRoleSet.has(role) && !isDroppedByAnotherRole(role, roles, ctx))
+  );
+}
+
+// The `interruptions` setting of a node's interruption role, undefined when it has none.
+function interruptionOf(roles: GndRole[], ctx: WalkContext): Interruption | undefined {
+  const role = roles.find((r) => interruptionRoleSet.has(r));
+  return role === undefined ? undefined : (ctx.interruptions[role] ?? "after");
 }
 
 // A bare page-number label is always spoken as "Page N", contextualized or not.
@@ -77,8 +88,90 @@ function buildPagebreakUtterance(node: GuidedNavigationObject, ctx: WalkContext)
   return [merged];
 }
 
+// A reference's own text, as read in place in its sentence.
+function textReferenceText(ref: GuidedNavigationObject, ctx: WalkContext): ReadiumSpeechUtterance[] {
+  const resolved = resolveNodeText(spokenText(ref));
+  return resolved ? applyFormat(resolved, ctx.format, ctx.language, ctx) : [];
+}
+
+const termMarker = "\u0001";
+const valueMarker = "\u0002";
+
+function holdsTerm(node: GuidedNavigationObject): boolean {
+  return nodeRoles(node).includes("term") || (node.children ?? []).some(holdsTerm);
+}
+
+// Targets whose own contextualization a text reference's announcement or template already says.
+const announcedTargets = new Set<GuidedNavigationObject>();
+
+function termPath(node: GuidedNavigationObject): GuidedNavigationObject[] {
+  if (!holdsTerm(node)) return [];
+  return [node, ...(node.children ?? []).flatMap(termPath)];
+}
+
+// A text reference's targets, as one utterance: its `<role>.inline` contextualization, then the targets,
+// a glossary term among them worded once deferred through `<role>.term` (e.g. "{{ term }}: {{ value }}").
+// Read in place, the term is skipped, the reference's own text just read being it.
+function pushTextReferenceTargets(
+  ref: GuidedNavigationObject,
+  targets: GuidedNavigationObject[],
+  out: ReadiumSpeechUtterance[],
+  sources: SourceTrace,
+  ctx: WalkContext,
+  suppress: boolean,
+  deferred: boolean,
+): void {
+  const role = nodeRoles(ref).find((r) => textReferenceRoleSet.has(r));
+  const term = targets.length > 1 ? targets.find(holdsTerm) : undefined;
+  const values = targets.filter((target) => target !== term);
+  const contextualization = role && ctx.contextualize.has(role) ? resolveEntryText(ctx, `${role}.inline`) : undefined;
+  const template =
+    role && deferred && term ? resolveEntryText(ctx, `${role}.term`, undefined, { term: termMarker, value: valueMarker }) : undefined;
+  const walked = template ? targets : values;
+  if (contextualization === undefined && !template) {
+    walk(walked, out, sources, ctx, suppress);
+    return;
+  }
+  const eligible = nodeRoles(walked[0]).some((r) => blockLevelRoleSet.has(r)) && !suppress;
+  const pieces: ReadiumSpeechUtterance[] = [];
+  const pieceSources: SourceTrace = [];
+  if (contextualization !== undefined) {
+    pieces.push(formatEntryText(contextualization, ctx));
+    pieceSources.push(ref);
+  }
+  // Their own walk would otherwise claim the block boundary instead of this utterance's start.
+  const walkSuppress = suppress || eligible;
+  const announced = [...walked, ...(term ? termPath(term) : [])];
+  announced.forEach((node) => announcedTargets.add(node));
+  for (const part of (template ?? valueMarker).split(new RegExp(`(${termMarker}|${valueMarker})`))) {
+    if (part === termMarker) walk([term!], pieces, pieceSources, ctx, walkSuppress);
+    else if (part === valueMarker) walk(values, pieces, pieceSources, ctx, walkSuppress);
+    else if (part) {
+      pieces.push(formatEntryText(part, ctx));
+      pieceSources.push(ref);
+    }
+  }
+  announced.forEach((node) => announcedTargets.delete(node));
+  if (eligible && pieces.length > 0) ctx.blockStarts.add(pieces[0]);
+  const merged = pieces.length > 1 ? mergeUtterances(pieces, pieceSources, ctx) : undefined;
+  pushPiecesOrMerged(out, sources, ctx, ref, pieces, pieceSources, merged);
+}
+
+// A deferred interruption: a node, or a text reference's targets.
+type Deferred = { node: GuidedNavigationObject } | { ref: GuidedNavigationObject; targets: GuidedNavigationObject[] };
+
+// Walks deferred interruptions like `walk()` walks siblings.
+function walkDeferred(deferred: Deferred[], out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, suppress: boolean): void {
+  deferred.forEach((entry, index) => {
+    const own = index === 0 ? suppress : false;
+    if ("ref" in entry) pushTextReferenceTargets(entry.ref, entry.targets, out, sources, ctx, own, true);
+    else walkNode(entry.node, out, sources, ctx, own);
+  });
+}
+
 function isDeferred(child: GuidedNavigationObject, ctx: WalkContext): boolean {
-  return nodeRoles(child).some((role) => inlineContextualizationRoleSet.has(role) && !ctx.inlineContextualization.has(role));
+  const interruption = interruptionOf(nodeRoles(child), ctx);
+  return interruption !== undefined && interruption !== "inline";
 }
 
 // An alias isn't on the page, so it's located on its abbreviation instead.
@@ -104,18 +197,18 @@ function emitWithPlaceholders(
   ctx: WalkContext,
   suppress: boolean,
   isBlockRole: boolean,
-): GuidedNavigationObject[] {
+): Deferred[] {
   const declaredLanguage = node.text?.language;
   const language = languageFor(declaredLanguage, ctx);
   const childrenById = new Map((node.children ?? []).map((child) => [child.id, child] as const));
   const pieces: ReadiumSpeechUtterance[] = [];
   const pieceSources: SourceTrace = [];
-  const deferred: GuidedNavigationObject[] = [];
+  const deferred: Deferred[] = [];
   const inserted = new Set<ReadiumSpeechUtterance>();
   const placedAfter = new Set<ReadiumSpeechUtterance>();
   const isSentence = ctx.segmentation === "sentence";
-  const abbreviationSkipped = ctx.skip.has("abbreviation");
-  const abbreviationInline = !abbreviationSkipped && ctx.inlineContextualization.has("abbreviation");
+  const abbreviationSkipped = ctx.interruptions.abbreviation === "never";
+  const abbreviationInline = ctx.interruptions.abbreviation === "inline";
   // An alias's pieces, pushed since `before`, stay in their sentence like an inline placeholder.
   const placeAlias = (segment: SsmlSegment, before: number) => {
     if (segment.abbreviation !== "alias") return;
@@ -132,26 +225,29 @@ function emitWithPlaceholders(
       if (!isDeferred(child, ctx)) {
         const before = pieces.length;
         walkNode(child, pieces, pieceSources, ctx, suppress);
-        if (nodeRoles(child).some((role) => inlineContextualizationRoleSet.has(role))) {
+        if (nodeRoles(child).some((role) => interruptionRoleSet.has(role))) {
           pieces.slice(before).forEach((piece) => inserted.add(piece));
         }
       } else {
         const childRoles = nodeRoles(child);
         const isTextReference = childRoles.some((role) => textReferenceRoleSet.has(role));
         if (isTextReference) {
-          const resolved = resolveNodeText(spokenText(child));
-          for (const piece of resolved ? applyFormat(resolved, ctx.format, ctx.language, ctx) : []) {
+          for (const piece of textReferenceText(child, ctx)) {
             pieces.push(piece);
             pieceSources.push(child);
           }
         }
-        const targets = !isTextReference ? [child] : isSkipped(childRoles, ctx) ? [] : (child.children ?? []);
-        for (const target of targets) {
-          deferred.push(target);
-          // Walked in place for sentence segmentation to move after its sentence, same suppress as walk(deferred)
+        const targets: Deferred[] = !isTextReference
+          ? [{ node: child }]
+          : interruptionOf(childRoles, ctx) === "never" || !child.children?.length
+            ? []
+            : [{ ref: child, targets: child.children }];
+        for (const entry of targets) {
+          deferred.push(entry);
+          // Walked in place for sentence segmentation to move after its sentence, same suppress as walkDeferred()
           if (isSentence) {
             const before = pieces.length;
-            walkNode(target, pieces, pieceSources, ctx, deferred.length === 1 && (suppress || isBlockRole));
+            walkDeferred([entry], pieces, pieceSources, ctx, deferred.length === 1 && (suppress || isBlockRole));
             pieces.slice(before).forEach((piece) => placedAfter.add(piece));
           }
         }
@@ -207,9 +303,10 @@ function emitWithPlaceholders(
 function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], sources: SourceTrace, ctx: WalkContext, suppress: boolean): void {
   const roles = nodeRoles(node);
   const description = descriptionOf(node);
-  // A skipped text reference is still read, without its embedded target.
-  const skipsTarget = roles.some((role) => textReferenceRoleSet.has(role)) && isSkipped(roles, ctx);
-  if (isSkipped(roles, ctx) && !skipsTarget) return;
+  // A text reference read "never" keeps its own text, without its embedded target.
+  const never = interruptionOf(roles, ctx) === "never";
+  const skipsTarget = never && roles.some((role) => textReferenceRoleSet.has(role));
+  if (isSkipped(roles, ctx) || (never && !skipsTarget)) return;
 
   // A node carrying a block-level role opens a new block — unless
   // `suppress` says an ancestor already claimed this same boundary. That
@@ -225,10 +322,13 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
   const beforeLength = out.length;
 
   // Footnote and pagebreak are handled specially below (merged with their
-  // own content/label), so they're excluded from the generic loop here.
-  const contextualizedRoles = roles.filter(
-    (role) => role !== "footnote" && role !== "pagebreak" && !isDroppedByAnotherRole(role, roles, ctx),
-  );
+  // own content/label), text references with their deferred target, so they're excluded from the generic loop here.
+  const contextualizedRoles = announcedTargets.has(node)
+    ? []
+    : roles.filter(
+        (role) =>
+          role !== "footnote" && role !== "pagebreak" && !textReferenceRoleSet.has(role) && !isDroppedByAnotherRole(role, roles, ctx),
+      );
 
   // A description is supplementary/elaborating content (e.g. an extended
   // audio description) for most roles, spoken after the primary content —
@@ -269,7 +369,7 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
         const footnoteContextualized = ctx.contextualize.has("footnote");
         const footnoteBlock = ctx.i18n.exists("footnote.block.start") || ctx.i18n.exists("footnote.block.end");
         const childEligible =
-          childRoles.some((role) => blockLevelRoleSet.has(role)) && !suppress && !ctx.inlineContextualization.has("noteref");
+          childRoles.some((role) => blockLevelRoleSet.has(role)) && !suppress && ctx.interruptions.noteref !== "inline";
         const startText = footnoteContextualized ? resolveEntryText(ctx, footnoteBlock ? "footnote.block.start" : "footnote.inline") : undefined;
         const hasEntry = footnoteContextualized && (startText !== undefined || footnoteBlock);
         const pieces: ReadiumSpeechUtterance[] = [];
@@ -307,7 +407,7 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
       const deferred = emitWithPlaceholders(node, rawSsml, out, sources, ctx, suppress, isBlockRole);
       if (deferred.length > 0) {
         const childSuppress = suppress || (isBlockRole && out.length > beforeLength);
-        walk(deferred, out, sources, ctx, childSuppress);
+        walkDeferred(deferred, out, sources, ctx, childSuppress);
       }
     } else if (roles.includes("pagebreak")) {
       push(out, sources, node, buildPagebreakUtterance(node, ctx));
@@ -323,7 +423,11 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
       }
       if (node.children && !skipsTarget) {
         const childSuppress = suppress || (isBlockRole && out.length > beforeLength);
-        walk(node.children, out, sources, ctx, childSuppress);
+        if (roles.some((role) => textReferenceRoleSet.has(role))) {
+          pushTextReferenceTargets(node, node.children, out, sources, ctx, childSuppress, false);
+        } else {
+          walk(node.children, out, sources, ctx, childSuppress);
+        }
       }
     }
   }

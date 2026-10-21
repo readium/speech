@@ -261,6 +261,7 @@ function buildJoinedOffsets(
     const nodeRef = resolveNodeLocate(pieceSources[k], ctx.ancestorChains);
     if (!nodeRef) continue;
     const pieceRange = ranges[k];
+    const substitutedLocate = isAriaSubstituted(pieceSources[k]) ? substitutedBareLocate(pieceSources[k], ctx) : undefined;
     const contribStart = Math.max(pieceRange.start, boundary.start);
     // Only the last piece a sentence touches can carry its trailing separator; trim there only.
     const contribEnd = Math.min(pieceRange.end, k === endIdx ? boundary.contentEnd : boundary.end);
@@ -268,7 +269,7 @@ function buildJoinedOffsets(
     const localStart = contribStart - pieceRange.start;
     const localEnd = contribEnd - pieceRange.start;
     const text = plainOf((ctx.format === "ssml" ? pieces[k].ssml : pieces[k].plain)!, ctx.format);
-    const locate = subLocateFor(nodeRef.ref, text.slice(localStart, localEnd));
+    const locate = substitutedLocate ?? subLocateFor(nodeRef.ref, text.slice(localStart, localEnd));
     offsets.push({ start: localStart, end: localEnd, locate });
   }
   return offsets;
@@ -381,7 +382,9 @@ async function pushJoinedGroup(
     const firstIdx = ownIndices[0] ?? startIdx;
     const lastIdx = ownIndices[ownIndices.length - 1] ?? endIdx;
     const firstRef = resolveNodeLocate(pieceSources[firstIdx], ctx.ancestorChains);
-    const fallback = preciseLocateFor(firstRef, text);
+    const firstSource = pieceSources[firstIdx];
+    const fallback =
+      (isAriaSubstituted(firstSource) ? substitutedBareLocate(firstSource, ctx) : undefined) ?? preciseLocateFor(firstRef, text);
     const locate =
       firstIdx !== lastIdx ? spanLocate(firstRef, resolveNodeLocate(pieceSources[lastIdx], ctx.ancestorChains), fallback) : fallback;
     if (locate) merged.locate = locate;
