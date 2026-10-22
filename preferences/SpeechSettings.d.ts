@@ -2,12 +2,12 @@ import { GndRole } from '@readium/guided-navigation';
 import { ConfigurableSettings } from './Configurable.js';
 import { SpeechDefaults } from './SpeechDefaults.js';
 import { AutoPauseScope, SpeechPreferences, VerbosityPreset, VoicePreference } from './SpeechPreferences.js';
-import { ExtractionFormat, LanguageMode, Segmentation } from '../utterances/types.js';
+import { ExtractionFormat, Interruption, LanguageMode, Segmentation } from '../utterances/types.js';
 import { ReadiumSpeechVoice } from '../voices/types.js';
 export declare class SpeechSettings implements ConfigurableSettings {
     [key: string]: unknown;
     readonly format: ExtractionFormat;
-    readonly inlineContextualization: GndRole[];
+    readonly interruptions: Partial<Record<GndRole, Interruption>>;
     readonly verbosity: VerbosityPreset;
     readonly skip: GndRole[];
     readonly contextualize: GndRole[];

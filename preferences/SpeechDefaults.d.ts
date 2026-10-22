@@ -1,9 +1,9 @@
 import { GndRole } from '@readium/guided-navigation';
 import { AutoPauseScope, VerbosityPreset, VoicePreference } from './SpeechPreferences.js';
-import { ExtractionFormat, LanguageMode, Segmentation } from '../utterances/types.js';
+import { ExtractionFormat, Interruption, LanguageMode, Segmentation } from '../utterances/types.js';
 export interface ISpeechDefaults {
     format?: ExtractionFormat | null;
-    inlineContextualization?: GndRole[] | null;
+    interruptions?: Partial<Record<GndRole, Interruption>> | null;
     verbosity?: VerbosityPreset | null;
     skip?: GndRole[] | null;
     contextualize?: GndRole[] | null;
@@ -19,7 +19,7 @@ export interface ISpeechDefaults {
 }
 export declare class SpeechDefaults {
     readonly format: ExtractionFormat;
-    readonly inlineContextualization: GndRole[];
+    readonly interruptions: Partial<Record<GndRole, Interruption>>;
     readonly verbosity: VerbosityPreset;
     readonly skip: GndRole[];
     readonly contextualize: GndRole[];

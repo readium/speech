@@ -4,6 +4,7 @@ import { SentenceSegmenter } from './sentenceSegmenter.js';
 export type ExtractionFormat = "plain" | "ssml";
 export type LanguageMode = "none" | "block-level" | "always";
 export type Segmentation = "structure" | "sentence";
+export type Interruption = "never" | "inline" | "after";
 export type ContextualizationEntry = string | {
     [key: string]: ContextualizationEntry;
 };
@@ -32,7 +33,7 @@ export interface ExtractUtterancesOptions {
     language?: LanguageMode;
     contentLanguage?: string;
     languageOverrides?: Record<string, string>;
-    inlineContextualization?: GndRole[];
+    interruptions?: Partial<Record<GndRole, Interruption>>;
     segmentation?: SegmentationOptions;
     substitutions?: SubstitutionTable;
 }

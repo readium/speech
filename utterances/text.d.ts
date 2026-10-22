@@ -72,11 +72,14 @@ export declare function splitOnLangTags(ssml: string, baseLanguage: string | und
 export interface SsmlSegment {
     ssml?: string;
     placeholderId?: string;
+    abbreviation?: "text" | "alias";
+    abbreviationText?: string;
+    parenthesizedSsml?: string;
 }
 export declare function hasPlaceholder(ssml: string): boolean;
 /**
  * Splits a raw (pre-`stripPlaceholders`) SSML string on its embedded
- * `<readium:TAG id="...">` placeholders, for `inlineContextualization`: each
+ * `<readium:TAG id="...">` placeholders and `<sub alias>` abbreviations, for `interruptions`: each
  * placeholder becomes its own segment (resolved via the `GuidedNavigationObject` sharing
  * its `id`) instead of being spoken after the whole enclosing text.
  */

@@ -1,4 +1,4 @@
-import { ExtractionFormat, LanguageMode, Segmentation } from '../utterances/types.js';
+import { ExtractionFormat, Interruption, LanguageMode, Segmentation } from '../utterances/types.js';
 import { AutoPauseScope, ISpeechPreferences, VerbosityPreset } from './SpeechPreferences.js';
 export interface RangeConfig {
     readonly range: readonly [number, number];
@@ -13,4 +13,5 @@ export declare const languageModes: readonly LanguageMode[];
 export declare const extractionFormats: readonly ExtractionFormat[];
 export declare const autoPauseScopes: readonly AutoPauseScope[];
 export declare const segmentationModes: readonly Segmentation[];
+export declare const interruptionValues: readonly Interruption[];
 export declare const extractionPreferenceKeys: readonly (keyof ISpeechPreferences)[];
