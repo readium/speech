@@ -705,3 +705,25 @@ test("segmentation: sentence speaks the same sentences with and without textrefs
     }
   }
 });
+
+test("segmentation: sentence breaks in the same places whatever an abbreviation's mode", async (t) => {
+  const inputs = [
+    '<p>First. <abbr title="World Health Organization">WHO</abbr> said.</p>',
+    '<p>First <abbr title="World Health Organization">WHO</abbr>. Then said.</p>',
+    '<p>First. The <abbr title="World Health Organization">WHO</abbr> said. Third.</p>',
+    '<p>First. <abbr title="U.S. Army">USA</abbr> said. Third.</p>',
+  ];
+  for (const html of inputs) {
+    for (const textrefs of [false, true]) {
+      for (const format of ["plain", "ssml"] as const) {
+        const sentences = async (abbreviation: "inline" | "after" | "never") =>
+          (await extractUtterances(parseMarkup(html, undefined, { textrefs }), { format, segmentation: { mode: "sentence" }, interruptions: { abbreviation } }))
+            .length;
+        const never = await sentences("never");
+        for (const abbreviation of ["inline", "after"] as const) {
+          t.is(await sentences(abbreviation), never, `${format} ${abbreviation} textrefs=${textrefs}: ${html}`);
+        }
+      }
+    }
+  }
+});

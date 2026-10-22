@@ -212,15 +212,16 @@ function emitWithPlaceholders(
   const deferred: Deferred[] = [];
   const inserted = new Set<ReadiumSpeechUtterance>();
   const placedAfter = new Set<ReadiumSpeechUtterance>();
+  const aliases = new Set<ReadiumSpeechUtterance>();
   const isSentence = ctx.segmentation === "sentence";
   const abbreviationSkipped = ctx.interruptions.abbreviation === "never";
   const abbreviationInline = ctx.interruptions.abbreviation === "inline";
-  // An alias's pieces, pushed since `before`, stay in their sentence like an inline placeholder.
+  // An alias's pieces, pushed since `before`, stay whole in their sentence.
   const placeAlias = (segment: SsmlSegment, before: number) => {
     if (segment.abbreviation !== "alias") return;
     const aliasPieces = pieces.slice(before);
     locateOnAbbreviation(aliasPieces, segment.abbreviationText!, node, ctx);
-    aliasPieces.forEach((piece) => inserted.add(piece));
+    aliasPieces.forEach((piece) => aliases.add(piece));
   };
   for (let segment of splitOnPlaceholders(rawSsml)) {
     if (segment.abbreviation && (segment.abbreviation === "text" ? abbreviationInline : abbreviationSkipped)) continue;
@@ -289,9 +290,9 @@ function emitWithPlaceholders(
     pieceSources.push(node);
     placeAlias(segment, before);
   }
-  if (isSentence && deferred.length + inserted.size > 0) {
+  if (isSentence && deferred.length + inserted.size + aliases.size > 0) {
     pieces.forEach((piece) => {
-      const placement = inserted.has(piece) ? "inline" : placedAfter.has(piece) ? "after" : undefined;
+      const placement = inserted.has(piece) ? "inline" : placedAfter.has(piece) ? "after" : aliases.has(piece) ? "alias" : undefined;
       ctx.placeholderPieces.set(piece, { node, placement });
     });
     pushPiecesOrMerged(out, sources, ctx, node, pieces, pieceSources, undefined);

@@ -88,6 +88,10 @@ function isInserted(piece: ReadiumSpeechUtterance, ctx: WalkContext): boolean {
   return ctx.placeholderPieces.get(piece)?.placement === "inline";
 }
 
+function isAlias(piece: ReadiumSpeechUtterance, ctx: WalkContext): boolean {
+  return ctx.placeholderPieces.get(piece)?.placement === "alias";
+}
+
 function isPlacedAfter(piece: ReadiumSpeechUtterance, ctx: WalkContext): boolean {
   return ctx.placeholderPieces.get(piece)?.placement === "after";
 }
@@ -220,7 +224,8 @@ function joinInsertions(pieces: ReadiumSpeechUtterance[], joinedWithNext: boolea
   return joined;
 }
 
-// Drops the sentence boundaries next to or inside an inline footnote or pagebreak, which `joinInsertions()` grouped.
+// Drops the sentence boundaries next to or inside an inline footnote or pagebreak, which `joinInsertions()` grouped,
+// and those inside an abbreviation alias.
 function keepInsertionsWhole(
   text: string,
   boundaries: SentenceBoundary[],
@@ -229,12 +234,13 @@ function keepInsertionsWhole(
   ctx: WalkContext,
 ): SentenceBoundary[] {
   const insertedAt = (pos: number) => isInserted(pieces[pieceIndexAt(ranges, pos)], ctx);
+  const sameAliasAt = (a: number, b: number) => pieceIndexAt(ranges, a) === pieceIndexAt(ranges, b) && isAlias(pieces[pieceIndexAt(ranges, a)], ctx);
   const kept: SentenceBoundary[] = [];
   let first: SentenceBoundary | undefined;
   boundaries.forEach((boundary, k) => {
     first ??= boundary;
     const next = boundaries[k + 1];
-    if (next && (insertedAt(boundary.contentEnd - 1) || insertedAt(next.start))) return;
+    if (next && (insertedAt(boundary.contentEnd - 1) || insertedAt(next.start) || sameAliasAt(boundary.contentEnd - 1, next.start))) return;
     kept.push({ text: text.slice(first.start, boundary.contentEnd), start: first.start, end: boundary.end, contentEnd: boundary.contentEnd });
     first = undefined;
   });
@@ -255,7 +261,7 @@ function buildJoinedOffsets(
   const offsets: UtteranceOffset[] = [];
   for (let k = startIdx; k <= endIdx; k++) {
     // Never cut (see `keepInsertionsWhole()`), so its own offsets still hold.
-    if (isInserted(pieces[k], ctx)) {
+    if (isInserted(pieces[k], ctx) || isAlias(pieces[k], ctx)) {
       offsets.push(...buildMergeOffsets([pieces[k]], [pieceSources[k]], ctx));
       continue;
     }

@@ -69,9 +69,9 @@ export interface WalkContext {
   edgeSubstitutedLocate: WeakMap<ReadiumSpeechUtterance, { leading?: LocatorOptions; trailing?: LocatorOptions }>;
   // An abbreviation's alias locates: substituted like an aria label's, but prose that joins its sentence.
   aliasLocates: WeakSet<LocatorOptions>;
-  // A sentence's pieces around its footnotes or pagebreaks, left unmerged for sentence segmentation to place:
-  // `inline` ones inside the sentence holding them, `after` ones right after it.
-  placeholderPieces: Map<ReadiumSpeechUtterance, { node: GuidedNavigationObject; placement?: "inline" | "after" }>;
+  // A sentence's pieces around its footnotes, pagebreaks or abbreviation aliases, left unmerged for sentence segmentation to place:
+  // `inline` ones inside the sentence holding them, `after` ones right after it, `alias` ones where they fall, never cut.
+  placeholderPieces: Map<ReadiumSpeechUtterance, { node: GuidedNavigationObject; placement?: "inline" | "after" | "alias" }>;
 }
 
 // Parallel to `out`: which node produced each utterance. A sentence
