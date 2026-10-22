@@ -140,3 +140,25 @@ test("resolveBoundaryLocate on a substituted utterance resolves a charIndex+char
   const resolved = resolveBoundaryLocate(utterance, charIndex, "Celsius.".length);
   t.is(resolved?.locate.text?.highlight, "Celsius.");
 });
+
+test("page text after substituted text resolves word by word, even when it repeats the substituted source", async (t) => {
+  const substituted = [
+    '<abbr title="World Health Organization">WHO</abbr>',
+    '<a href="chapter.xhtml" aria-label="chapter one">1</a>',
+    '<a href="chapter.xhtml" aria-label="one">1</a>',
+  ];
+  for (const markup of substituted) {
+    for (const abbreviation of ["inline", "after"] as const) {
+      for (const format of ["plain", "ssml"] as const) {
+        const html = `<p>${markup} and WHO said one thing.</p>`;
+        const [utterance] = await extractUtterances(parseMarkup(html, undefined, { textrefs: true }), { format, interruptions: { abbreviation } });
+        const text = utterance.plain ?? utterance.ssml!.replace(/<[^>]+>/g, "");
+        const tail = text.lastIndexOf(" and ") + 1;
+        for (const match of text.slice(tail).matchAll(/\p{L}+/gu)) {
+          const resolved = resolveBoundaryLocate(utterance, tail + match.index!, match[0].length);
+          t.is(resolved?.word, match[0], `${format} ${abbreviation} ${markup}: ${match[0]}`);
+        }
+      }
+    }
+  }
+});

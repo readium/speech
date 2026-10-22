@@ -1,5 +1,5 @@
 import type { LocatorOptions } from "../decorator/createLocator.js";
-import type { ReadiumSpeechUtterance } from "../utterance.js";
+import type { ReadiumSpeechUtterance, UtteranceOffset } from "../utterance.js";
 import { stripSsmlTags, substitutedIndexToSourceIndex } from "./text.js";
 
 // Boundary events for one utterance arrive in increasing charIndex order
@@ -55,17 +55,29 @@ export function resolveBoundaryLocate(
   const resumable = cached !== undefined && charIndex >= cached.cursor;
   let cursor = resumable ? cached.cursor : 0;
 
+  const quoteOf = (offset: UtteranceOffset): string | undefined => {
+    const raw = offset.locate.text?.highlight;
+    return raw && (isSsml ? stripSsmlTags(raw) : raw);
+  };
+
   for (let i = resumable ? cached.pieceIndex : 0; i < offsets.length; i++) {
     const offset = offsets[i];
+    // Its spoken text isn't its quote, so it runs up to wherever the next quoted piece is found.
+    if (nonQuotableLocates.has(offset.locate)) {
+      const nextQuote = offsets.slice(i + 1).find((next) => !nonQuotableLocates.has(next.locate) && quoteOf(next));
+      const nextStart = nextQuote ? outputText.indexOf(quoteOf(nextQuote)!, cursor) : -1;
+      const end = nextStart === -1 ? outputText.length : nextStart;
+      if (charIndex >= cursor && charIndex < end) return undefined;
+      cursor = end;
+      continue;
+    }
     // No quote means this piece owns its whole node — its text is whatever remains unconsumed.
-    const rawPieceText = offset.locate.text?.highlight;
-    const pieceText = rawPieceText ? (isSsml ? stripSsmlTags(rawPieceText) : rawPieceText) : outputText.slice(cursor);
+    const pieceText = quoteOf(offset) ?? outputText.slice(cursor);
     if (!pieceText) continue;
     const start = outputText.indexOf(pieceText, cursor);
     if (start === -1) continue;
     const end = start + pieceText.length;
     if (charIndex >= start && charIndex < end) {
-      if (nonQuotableLocates.has(offset.locate)) return undefined;
       lastMatch.set(utterance, { pieceIndex: i, cursor });
       const localIndex = charIndex - start;
       const word = pieceText.substring(localIndex, Math.min(localIndex + charLength, pieceText.length));
