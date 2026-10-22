@@ -128,7 +128,7 @@ function pushTextReferenceTargets(
   const contextualization = role && ctx.contextualize.has(role) ? resolveEntryText(ctx, `${role}.inline`) : undefined;
   const template =
     role && deferred && term ? resolveEntryText(ctx, `${role}.term`, undefined, { term: termMarker, value: valueMarker }) : undefined;
-  const walked = template ? targets : values;
+  const walked = deferred ? targets : values;
   if (contextualization === undefined && !template) {
     walk(walked, out, sources, ctx, suppress);
     return;

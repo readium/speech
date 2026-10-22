@@ -3,7 +3,7 @@ import test from "ava";
 import { GuidedNavigationObject } from "@readium/shared";
 import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
-import type { Interruption } from "../../src/utterances/types.js";
+import type { Contextualizations, Interruption } from "../../src/utterances/types.js";
 
 const html =
   '<p>Before the break <span epub:type="pagebreak" title="5"></span> and before the note' +
@@ -230,5 +230,22 @@ test("a contextualized text reference with no targets reads only its own text", 
   for (const glossref of ["inline", "after", "never"] as const) {
     const utterances = await extractUtterances(gnd, { format: "plain", contextualize: ["glossref"], interruptions: { glossref } });
     t.deepEqual(utterances.map((u) => u.plain), ["See ", "term", " here."], glossref);
+  }
+});
+
+test("a template's punctuation around content in another language takes the content's language", async (t) => {
+  const glossary =
+    '<html lang="fr"><body><p>Voir <a role="doc-glossref" href="#g">OMS</a> ici.</p>' +
+    '<dl role="doc-glossary"><dt id="g">OMS</dt><dd>La définition.</dd></dl></body></html>';
+  for (const template of ["{{ term }}: {{ value }}", "{{ term }} : {{ value }}", "{{ term }} — {{ value }}", "{{ term }}，{{ value }}"]) {
+    for (const format of ["plain", "ssml"] as const) {
+      const utterances = await extractUtterances(parseMarkup(glossary), {
+        format,
+        interruptions: { glossref: "after" },
+        contextualization: { contextualizations: { glossref: { term: template } } as Contextualizations },
+      });
+      t.true(utterances.every((u) => u.language === "fr"), `${format} ${template}`);
+      t.false(utterances.some((u) => !/[\p{L}\p{N}]/u.test(u[format] ?? "")), `${format} ${template}`);
+    }
   }
 });
