@@ -11,16 +11,18 @@ import type {
   Contextualizations,
   ExtractionFormat,
   ExtractUtterancesOptions,
+  Interruption,
   LanguageMode,
   Segmentation,
   SubstitutionTable,
 } from "./types.js";
 import {
   blockLevelRoles,
-  inlineContextualizationRoles,
+  interruptionRoles,
   descriptionFoldingRoles,
   valueFoldingRoles,
   contentlessRoles,
+  textReferenceRoles,
 } from "./roles.js";
 
 export interface WalkContext {
@@ -36,7 +38,7 @@ export interface WalkContext {
   // See `ExtractUtterancesOptions.contextualization.params`.
   contextualizationParams?: (role: GndRole, node: GuidedNavigationObject) => Record<string, string> | undefined;
   format: ExtractionFormat;
-  inlineContextualization: ReadonlySet<GndRole>;
+  interruptions: Partial<Record<GndRole, Interruption>>;
   language?: LanguageMode;
   languageOverrides: Record<string, string>;
   contentLanguage?: string;
@@ -65,9 +67,11 @@ export interface WalkContext {
   // @readium/guided-navigation's object.ts) to that piece's own bare locate —
   // text never quote-searchable.
   edgeSubstitutedLocate: WeakMap<ReadiumSpeechUtterance, { leading?: LocatorOptions; trailing?: LocatorOptions }>;
-  // A sentence's pieces around its footnotes or pagebreaks, left unmerged for sentence segmentation to place:
-  // `inline` ones inside the sentence holding them, `after` ones right after it.
-  placeholderPieces: Map<ReadiumSpeechUtterance, { node: GuidedNavigationObject; placement?: "inline" | "after" }>;
+  // An abbreviation's alias locates: substituted like an aria label's, but prose that joins its sentence.
+  aliasLocates: WeakSet<LocatorOptions>;
+  // A sentence's pieces around its footnotes, pagebreaks or abbreviation aliases, left unmerged for sentence segmentation to place:
+  // `inline` ones inside the sentence holding them, `after` ones right after it, `alias` ones where they fall, never cut.
+  placeholderPieces: Map<ReadiumSpeechUtterance, { node: GuidedNavigationObject; placement?: "inline" | "after" | "alias" }>;
 }
 
 // Parallel to `out`: which node produced each utterance. A sentence
@@ -75,10 +79,11 @@ export interface WalkContext {
 export type SourceTrace = (GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject] | undefined)[];
 
 export const blockLevelRoleSet: ReadonlySet<GndRole> = new Set(blockLevelRoles);
-export const inlineContextualizationRoleSet: ReadonlySet<GndRole> = new Set(inlineContextualizationRoles);
+export const interruptionRoleSet: ReadonlySet<GndRole> = new Set(interruptionRoles);
 export const descriptionFoldingRoleSet: ReadonlySet<GndRole> = new Set(descriptionFoldingRoles);
 export const valueFoldingRoleSet: ReadonlySet<GndRole> = new Set(valueFoldingRoles);
 export const contentlessRoleSet: ReadonlySet<GndRole> = new Set(contentlessRoles);
+export const textReferenceRoleSet: ReadonlySet<GndRole> = new Set(textReferenceRoles);
 
 // Synchronous: resources are supplied inline, no backend plugin involved.
 function makeContextualizer(locale: string, contextualizations: Contextualizations): i18n {
@@ -146,7 +151,7 @@ export async function makeWalkContext(nodes: GuidedNavigationObject[], options: 
     contextualizationShapes: options.contextualization?.shapes ?? {},
     contextualizationParams: options.contextualization?.params,
     format: options.format ?? "plain",
-    inlineContextualization: new Set(options.inlineContextualization ?? []),
+    interruptions: options.interruptions ?? {},
     language: options.language ?? "block-level",
     languageOverrides: options.languageOverrides ?? {},
     contentLanguage: options.contentLanguage,
@@ -165,6 +170,7 @@ export async function makeWalkContext(nodes: GuidedNavigationObject[], options: 
     ancestorChains: buildAncestorChains(nodes),
     pendingRange: new Map(),
     edgeSubstitutedLocate: new WeakMap(),
+    aliasLocates: new WeakSet(),
     placeholderPieces: new Map(),
   };
 }

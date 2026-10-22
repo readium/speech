@@ -25,6 +25,103 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "glossref": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "glossref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "glossref": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "glossref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossref"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossref"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "glossref": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "glossref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "glossref": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "glossref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "glossref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
         }
       ],
       "utterances": [
@@ -55,6 +152,103 @@
         {
           "format": "ssml",
           "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "glossref": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "glossref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "glossref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "glossref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossref"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossref"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "glossref": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "glossref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "glossref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "glossref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "glossref": "inline"
+          },
           "segmentation": {
             "mode": "sentence"
           }

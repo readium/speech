@@ -7,6 +7,7 @@ import type { SentenceSegmenter } from "./sentenceSegmenter.js";
 export type ExtractionFormat = "plain" | "ssml";
 export type LanguageMode = "none" | "block-level" | "always";
 export type Segmentation = "structure" | "sentence";
+export type Interruption = "never" | "inline" | "after";
 
 // Synthesized navigational text the extractor adds around a node, keyed by
 // `GndRole` and resolved via i18next (`<role>.inline`, `<role>.block.start`/
@@ -123,9 +124,9 @@ export interface ExtractUtterancesOptions {
   // `segmentation.suppressions`, the exact tag winning over its primary subtag.
   languageOverrides?: Record<string, string>;
 
-  // Roles from `inlineContextualizationRoles` whose mid-sentence placeholder splits
-  // the sentence at that point instead of being spoken after it. Default `[]`.
-  inlineContextualization?: GndRole[];
+  // How each role from `interruptionRoles` is read where it interrupts the text:
+  // "never", "inline" at that point, or "after" it (the default).
+  interruptions?: Partial<Record<GndRole, Interruption>>;
 
   // See `SegmentationOptions` above.
   segmentation?: SegmentationOptions;

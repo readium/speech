@@ -5,12 +5,11 @@ import type { GndRole } from "@readium/guided-navigation";
 // content (asides, footnotes...) and navigational aids (tables of
 // contents, page lists...) that aren't part of the primary reading flow.
 // Nothing is skipped by default: pass a subset of this list (or all of
-// it) via `ExtractUtterancesOptions.skip` to opt in.
+// it) via `ExtractUtterancesOptions.skip` to opt in. Roles `interruptions` controls aren't here.
 export const skippableRoles: GndRole[] = [
   "aside",
   "audio",
   "bibliography",
-  "biblioref",
   "cell",
   "columnheader",
   "details",
@@ -24,8 +23,6 @@ export const skippableRoles: GndRole[] = [
   "loi",
   "lot",
   "lov",
-  "noteref",
-  "pagebreak",
   "pullquote",
   "row",
   "rowheader",
@@ -108,9 +105,13 @@ export const roleDropOverrides: Partial<Record<GndRole, { drops: GndRole[]; unco
   epigraph: { drops: ["blockquote"] },
 };
 
-// Placeholder roles `inlineContextualization` can speak mid-sentence instead of
-// deferring past the sentence; every other placeholder role always stays inline.
-export const inlineContextualizationRoles: GndRole[] = ["noteref", "pagebreak"];
+// Placeholder roles `interruptions` can speak mid-sentence, after, or not at all;
+// every other placeholder role always stays inline.
+export const interruptionRoles: GndRole[] = ["abbreviation", "biblioref", "glossref", "noteref", "pagebreak"];
+
+// References whose own text belongs to the sentence: their `interruptions`
+// setting only moves or drops the target embedded as their children.
+export const textReferenceRoles: GndRole[] = ["biblioref", "glossref"];
 
 // Roles whose contextualization template folds `node.description` into its
 // own text (a labelled/unlabelled variant, `{{ description }}`, or both)

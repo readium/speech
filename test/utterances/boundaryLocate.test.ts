@@ -140,3 +140,67 @@ test("resolveBoundaryLocate on a substituted utterance resolves a charIndex+char
   const resolved = resolveBoundaryLocate(utterance, charIndex, "Celsius.".length);
   t.is(resolved?.locate.text?.highlight, "Celsius.");
 });
+
+test("page text after substituted text resolves word by word, even when it repeats the substituted source", async (t) => {
+  const substituted = [
+    '<abbr title="World Health Organization">WHO</abbr>',
+    '<a href="chapter.xhtml" aria-label="chapter one">1</a>',
+    '<a href="chapter.xhtml" aria-label="one">1</a>',
+  ];
+  for (const markup of substituted) {
+    for (const abbreviation of ["inline", "after"] as const) {
+      for (const format of ["plain", "ssml"] as const) {
+        const html = `<p>${markup} and WHO said one thing.</p>`;
+        const [utterance] = await extractUtterances(parseMarkup(html, undefined, { textrefs: true }), { format, interruptions: { abbreviation } });
+        const text = utterance.plain ?? utterance.ssml!.replace(/<[^>]+>/g, "");
+        const tail = text.lastIndexOf(" and ") + 1;
+        for (const match of text.slice(tail).matchAll(/\p{L}+/gu)) {
+          const resolved = resolveBoundaryLocate(utterance, tail + match.index!, match[0].length);
+          t.is(resolved?.word, match[0], `${format} ${abbreviation} ${markup}: ${match[0]}`);
+        }
+      }
+    }
+  }
+});
+
+test("page text right after substituted text resolves word by word, even when it repeats the substitution", async (t) => {
+  const substituted = [
+    { markup: '<abbr title="one">1</abbr>', spoken: "one" },
+    { markup: '<abbr title="R&amp;D one">RD</abbr>', spoken: "R&D one" },
+    { markup: '<a href="chapter.xhtml" aria-label="one">1</a>', spoken: "one" },
+  ];
+  for (const { markup, spoken } of substituted) {
+    for (const mode of ["structure", "sentence"] as const) {
+      for (const format of ["plain", "ssml"] as const) {
+        const html = `<p>${markup} one</p>`;
+        const [utterance] = await extractUtterances(parseMarkup(html, undefined, { textrefs: true }), {
+          format,
+          segmentation: { mode },
+          interruptions: { abbreviation: "inline" },
+        });
+        const text = utterance.plain ?? utterance.ssml!.replace(/<[^>]+>/g, "").replace(/&amp;/g, "&");
+        t.is(text, `${spoken} one`);
+        for (const match of text.matchAll(/\p{L}+/gu)) {
+          const resolved = resolveBoundaryLocate(utterance, match.index!, match[0].length);
+          const label = `${format} ${mode} ${markup}: ${match[0]}@${match.index}`;
+          if (match.index! < spoken.length) t.is(resolved, undefined, label);
+          else t.is(resolved?.word, match[0], label);
+        }
+      }
+    }
+  }
+});
+
+test("a sentence's quote cut out of a longer run of page text carries that run around it", async (t) => {
+  const html =
+    "<body><p>A computer system is called a speech synthesizer. " +
+    'A <abbr title="text-to-speech">TTS</abbr> system converts text into speech.</p></body>';
+  const root = new DOMParser().parseFromString(html, "text/html").querySelector("body")!;
+  const gnd = parseMarkup(root, undefined, { textrefs: { roles: true, domRange: true } });
+  for (const abbreviation of ["inline", "after"] as const) {
+    const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" }, interruptions: { abbreviation } });
+    const first = utterances[1].offsets![0].locate.text!;
+    t.is(first.highlight, "A", abbreviation);
+    t.is(first.before, "A computer system is called a speech synthesizer. ", abbreviation);
+  }
+});

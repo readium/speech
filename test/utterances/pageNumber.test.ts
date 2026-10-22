@@ -63,7 +63,7 @@ async function spokenPagebreak(format: "plain" | "ssml", inline: boolean) {
   const utterances = await extractUtterances(frenchPagebreak("cinq"), {
     format,
     contextualize: ["pagebreak"],
-    inlineContextualization: inline ? ["pagebreak"] : [],
+    interruptions: inline ? { pagebreak: "inline" } : {},
   });
   return utterances.map((u) => [u[format], u.language]);
 }

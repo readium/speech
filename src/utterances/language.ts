@@ -1,6 +1,7 @@
 import { ssmlAttrEscape } from "@readium/helpers";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import { extractLangRegionFromBCP47, valueForLanguage } from "../utils/language.js";
+import { unescapeSsmlEntities } from "./text.js";
 import type { WalkContext } from "./walkContext.js";
 
 // Removes `<lang xml:lang="...">...</lang>` wrapping from an SSML string,
@@ -23,10 +24,11 @@ export function languageFor(declared: string | undefined, ctx: WalkContext): str
   return overriddenLanguage(ctx.language === "none" ? ctx.contentLanguage : declared ?? ctx.contentLanguage, ctx.languageOverrides);
 }
 
-// The languages of a run of pieces: its content's, and its catalog entries' (all in the catalog's).
+// The languages of a run of pieces: its content's, its catalog entries' (all in the catalog's), and its wordless ones'.
 interface RunLanguages {
   content?: string;
   entry?: string;
+  wordless?: string;
 }
 
 // BCP 47 tags are case-insensitive: "en-US" and "en-us" are the same language.
@@ -44,6 +46,10 @@ function joinsRun(run: RunLanguages, piece: ReadiumSpeechUtterance, ctx: WalkCon
   const { language } = piece;
   if (language === undefined) return true;
   if (isCatalogEntry(piece, ctx)) {
+    if (isWordless(piece)) {
+      run.wordless = language;
+      return true;
+    }
     if (!wrapsEntries && run.content !== undefined && !samePrimaryLanguage(run.content, language)) return false;
     run.entry = language;
     return true;
@@ -59,7 +65,7 @@ function commonLanguage(pieces: ReadiumSpeechUtterance[], ctx: WalkContext, wrap
   for (const piece of pieces) {
     if (!joinsRun(run, piece, ctx, wrapsEntries)) return null;
   }
-  return run.content ?? run.entry;
+  return run.content ?? run.entry ?? run.wordless;
 }
 
 // The language `pieces` are spoken in together, `null` if they disagree.
@@ -71,6 +77,11 @@ function isCatalogEntry(piece: ReadiumSpeechUtterance, ctx: WalkContext): boolea
   return ctx.synthetic.has(piece) && sameLanguage(piece.language, ctx.contextualizationLanguage);
 }
 
+// A catalog entry with no words (e.g. a template's ": ") takes the language of the content around it.
+function isWordless(piece: ReadiumSpeechUtterance): boolean {
+  return !/[\p{L}\p{N}]/u.test(piece.plain ?? unescapeSsmlEntities(piece.ssml ?? ""));
+}
+
 // The language a run of pieces is spoken in, `null` if they disagree. In SSML, catalog entries
 // in another language don't count, being wrapped in a `<lang>` (see `ssmlInLanguage()`).
 export function runLanguage(pieces: ReadiumSpeechUtterance[], ctx: WalkContext): string | undefined | null {
@@ -80,7 +91,7 @@ export function runLanguage(pieces: ReadiumSpeechUtterance[], ctx: WalkContext):
 // A piece's SSML, a catalog entry in another primary language than `language` wrapped in a `<lang>`.
 export function ssmlInLanguage(piece: ReadiumSpeechUtterance, language: string | undefined, ctx: WalkContext): string {
   const ssml = piece.ssml ?? "";
-  if (!language || !piece.language || !isCatalogEntry(piece, ctx)) return ssml;
+  if (!language || !piece.language || !isCatalogEntry(piece, ctx) || isWordless(piece)) return ssml;
   if (samePrimaryLanguage(piece.language, language)) return ssml;
   return `<lang xml:lang="${ssmlAttrEscape(piece.language)}">${ssml}</lang>`;
 }

@@ -1,8 +1,9 @@
 import type { GuidedNavigationObject } from "@readium/shared";
-import { combineDomRangeTextrefs, decodeTextref, type DecodedTextref } from "@readium/guided-navigation";
+import { combineDomRangeTextrefs, decodeTextref, isAriaSubstituted, type DecodedTextref } from "@readium/guided-navigation";
 import type { LocatorOptions } from "../decorator/createLocator.js";
 import type { ReadiumSpeechUtterance } from "../utterance.js";
 import type { SourceTrace, WalkContext } from "./walkContext.js";
+import { substitutedBareLocate } from "./mergeUtterances.js";
 
 // Anchors just `quoteText` within the node via a text-quote, since a
 // character-offset domRange would need its internal text-node layout.
@@ -84,7 +85,8 @@ export function attachLocate(
     if (!ctx.synthetic.has(u)) {
       const range = ctx.pendingRange.get(u);
       const shared = range !== undefined || (node && (nodeUseCount.get(node) ?? 0) > 1);
-      result.locate = resolved.own && !shared ? resolved.ref : subLocateFor(resolved.ref, text);
+      const substituted = node && isAriaSubstituted(node) ? substitutedBareLocate(node, ctx) : undefined;
+      result.locate = substituted ?? (resolved.own && !shared ? resolved.ref : subLocateFor(resolved.ref, text));
       result.offsets = [{ start: range?.start ?? 0, end: range?.end ?? text.length, locate: result.locate }];
     }
     return result;

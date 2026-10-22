@@ -2,6 +2,7 @@ import type { GndRole } from "@readium/guided-navigation";
 import {
   autoPauseScopes,
   extractionFormats,
+  interruptionValues,
   languageModes,
   pauseDurationRangeConfig,
   pitchRangeConfig,
@@ -10,14 +11,14 @@ import {
   verbosityPresets,
   volumeRangeConfig,
 } from "./constraints.js";
-import { ensureEnumValue, ensureStringArray, ensureStringOrStringRecord, ensureStringRecord, ensureValueInRange } from "./guards.js";
+import { ensureEnumRecord, ensureEnumValue, ensureStringArray, ensureStringOrStringRecord, ensureStringRecord, ensureValueInRange } from "./guards.js";
 import type { AutoPauseScope, VerbosityPreset, VoicePreference } from "./SpeechPreferences.js";
-import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
+import type { ExtractionFormat, Interruption, LanguageMode, Segmentation } from "../utterances/types.js";
 
 // Guarded like ISpeechPreferences — an invalid value here falls back to the literal default below.
 export interface ISpeechDefaults {
   format?: ExtractionFormat | null;
-  inlineContextualization?: GndRole[] | null;
+  interruptions?: Partial<Record<GndRole, Interruption>> | null;
   verbosity?: VerbosityPreset | null;
   skip?: GndRole[] | null;
   contextualize?: GndRole[] | null;
@@ -34,7 +35,7 @@ export interface ISpeechDefaults {
 
 export class SpeechDefaults {
   public readonly format: ExtractionFormat;
-  public readonly inlineContextualization: GndRole[];
+  public readonly interruptions: Partial<Record<GndRole, Interruption>>;
   public readonly verbosity: VerbosityPreset;
   public readonly skip: GndRole[];
   public readonly contextualize: GndRole[];
@@ -50,7 +51,7 @@ export class SpeechDefaults {
 
   constructor(defaults: ISpeechDefaults = {}) {
     this.format = ensureEnumValue(defaults.format, extractionFormats) ?? "plain";
-    this.inlineContextualization = ensureStringArray(defaults.inlineContextualization) ?? [];
+    this.interruptions = ensureEnumRecord(defaults.interruptions, interruptionValues) ?? {};
     this.verbosity = ensureEnumValue(defaults.verbosity, verbosityPresets) ?? "few";
     this.skip = ensureStringArray(defaults.skip) ?? [];
     this.contextualize = ensureStringArray(defaults.contextualize) ?? [];

@@ -2,6 +2,27 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.17.0] - 2026-10-22
+
+### Added
+
+- Abbreviations: a `<sub alias="…">` (from `<abbr title="…">`/`<acronym title="…">` in `@readium/guided-navigation`) is read as its abbreviation followed by its alias in parentheses, e.g. "The WHO (World Health Organization) said."; with `interruptions: { abbreviation: "inline" }`, the alias is spoken in its place; with `"never"`, only the abbreviation is read. The alias is located on its abbreviation.
+- `biblioref` and `glossref` are read like a note reference: the bibliography entry or definition `@readium/guided-navigation` embeds for a target in the same document follows their `interruptions` setting. Their own text is always read in place. With `"after"`, a definition is read with its term, e.g. "Fresnel lens: A compact lens for focusing light."; with them in `contextualize`, it's preceded by "Glossary definition.", and a bibliography entry by "Bibliographic reference."
+- `Interruption` type: `"never"`, `"inline"` or `"after"`.
+
+### Changed
+
+- **Breaking:** `interruptions` replaces `inlineContextualization`, in `ExtractUtterancesOptions`, `SpeechPreferences` and `SpeechPreferencesEditor`, where it's a `Preference` of that record instead of a `StringArrayPreference`: `{ noteref: "inline", pagebreak: "never" }`, each role `"never"`, `"inline"` or `"after"` (the default), and `interruptionRoles` replaces `inlineContextualizationRoles`. It applies under every `verbosity`: reading notes or page breaks never no longer takes `verbosity: "custom"` and `skip`. `skip` ignores `noteref`, `pagebreak` and `biblioref`, which leave `skippableRoles`.
+- `verbosity` presets no longer skip footnotes, note references, page breaks and bibliography references: `skippedAtVerbosity` no longer has `footnote`, `noteref`, `pagebreak` or `biblioref`.
+- `@readium/guided-navigation` is `^1.2.2`.
+
+### Fixed
+
+- Text spoken in place of a note reference, page break or other placeholder right after an opening bracket or quote no longer gets a space after it, e.g. "(Smith, 1988)" instead of "( Smith, 1988)".
+- An utterance that is only an element's `aria-label` (e.g. `<p><a aria-label="Note 1">[1]</a></p>`) is located on that element, or its nearest located ancestor, instead of searching the page for its label's text.
+- A table cell or row header holding a note reference is read once, as "Header: value", instead of its text being read again after it.
+- `ReadiumSpeechNavigator`'s word boundaries after an element's `aria-label` in the same utterance (e.g. `See <a aria-label="chapter one">1</a> and more words.`) locate their words again, instead of none past the label.
+
 ## [0.16.1] - 2026-10-19
 
 ### Fixed

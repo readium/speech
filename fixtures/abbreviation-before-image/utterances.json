@@ -1,0 +1,2258 @@
+{
+  "cases": [
+    {
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The WHO (World Health Organization) logo said so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The WHO logo said so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The World Health Organization logo said so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The WHO (World Health Organization) logo said so."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The WHO logo said so."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The World Health Organization logo said so."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The WHO (World Health Organization) Image with a label: logo said so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The WHO Image with a label: logo said so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The World Health Organization Image with a label: logo said so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The WHO (World Health Organization) Image with a label: logo said so."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The WHO Image with a label: logo said so."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The World Health Organization Image with a label: logo said so."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ]
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The WHO (World Health Organization) said so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The WHO said so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The World Health Organization said so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The WHO (World Health Organization) said so."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The WHO said so."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "The World Health Organization said so."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The WHO (World Health Organization) logo <emphasis>said</emphasis> so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The WHO logo <emphasis>said</emphasis> so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The World Health Organization logo <emphasis>said</emphasis> so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The WHO (World Health Organization) logo <emphasis>said</emphasis> so."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The WHO logo <emphasis>said</emphasis> so."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The World Health Organization logo <emphasis>said</emphasis> so."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The WHO (World Health Organization) Image with a label: logo <emphasis>said</emphasis> so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The WHO Image with a label: logo <emphasis>said</emphasis> so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The World Health Organization Image with a label: logo <emphasis>said</emphasis> so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The WHO (World Health Organization) Image with a label: logo <emphasis>said</emphasis> so."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The WHO Image with a label: logo <emphasis>said</emphasis> so."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The World Health Organization Image with a label: logo <emphasis>said</emphasis> so."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ]
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The WHO (World Health Organization) <emphasis>said</emphasis> so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The WHO <emphasis>said</emphasis> so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "always",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The World Health Organization <emphasis>said</emphasis> so.",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none"
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The WHO (World Health Organization) <emphasis>said</emphasis> so."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The WHO <emphasis>said</emphasis> so."
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "image"
+          ],
+          "contextualize": [
+            "image"
+          ],
+          "language": "none",
+          "interruptions": {
+            "abbreviation": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "The World Health Organization <emphasis>said</emphasis> so."
+        }
+      ]
+    }
+  ]
+}

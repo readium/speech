@@ -1,0 +1,1474 @@
+{
+  "cases": [
+    {
+      "options": [
+        {
+          "format": "plain"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1.",
+          "language": "en"
+        },
+        {
+          "plain": "Author Title. Year",
+          "language": "en"
+        },
+        {
+          "plain": "Author Title. Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1.",
+          "language": "en"
+        },
+        {
+          "plain": "Author Title. Year",
+          "language": "en"
+        },
+        {
+          "plain": "Author Title.",
+          "language": "en"
+        },
+        {
+          "plain": "Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "interruptions": {
+            "biblioref": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "biblioref": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "interruptions": {
+            "biblioref": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "always",
+          "interruptions": {
+            "biblioref": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "never"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1.",
+          "language": "en"
+        },
+        {
+          "plain": "Author Title. Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "always",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1.",
+          "language": "en"
+        },
+        {
+          "plain": "Author Title.",
+          "language": "en"
+        },
+        {
+          "plain": "Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "interruptions": {
+            "biblioref": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "biblioref": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "inline"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1 Author Title. Year.",
+          "language": "en"
+        },
+        {
+          "plain": "Author Title. Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1 Author Title. Year.",
+          "language": "en"
+        },
+        {
+          "plain": "Author Title.",
+          "language": "en"
+        },
+        {
+          "plain": "Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1."
+        },
+        {
+          "plain": "Author Title. Year"
+        },
+        {
+          "plain": "Author Title. Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1."
+        },
+        {
+          "plain": "Author Title. Year"
+        },
+        {
+          "plain": "Author Title."
+        },
+        {
+          "plain": "Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "biblioref": "never"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "biblioref": "never"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1."
+        },
+        {
+          "plain": "Author Title. Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1."
+        },
+        {
+          "plain": "Author Title."
+        },
+        {
+          "plain": "Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "biblioref": "inline"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1 Author Title. Year."
+        },
+        {
+          "plain": "Author Title. Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1 Author Title. Year."
+        },
+        {
+          "plain": "Author Title."
+        },
+        {
+          "plain": "Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ]
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1.",
+          "language": "en"
+        },
+        {
+          "plain": "Bibliographic reference. Author Title. Year",
+          "language": "en"
+        },
+        {
+          "plain": "Author Title. Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1.",
+          "language": "en"
+        },
+        {
+          "plain": "Bibliographic reference. Author Title. Year",
+          "language": "en"
+        },
+        {
+          "plain": "Author Title.",
+          "language": "en"
+        },
+        {
+          "plain": "Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "interruptions": {
+            "biblioref": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "always",
+          "interruptions": {
+            "biblioref": "inline"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "inline"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1 Bibliographic reference. Author Title. Year.",
+          "language": "en"
+        },
+        {
+          "plain": "Author Title. Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "always",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1 Bibliographic reference. Author Title. Year.",
+          "language": "en"
+        },
+        {
+          "plain": "Author Title.",
+          "language": "en"
+        },
+        {
+          "plain": "Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1."
+        },
+        {
+          "plain": "Bibliographic reference. Author Title. Year"
+        },
+        {
+          "plain": "Author Title. Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1."
+        },
+        {
+          "plain": "Bibliographic reference. Author Title. Year"
+        },
+        {
+          "plain": "Author Title."
+        },
+        {
+          "plain": "Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "biblioref": "inline"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1 Bibliographic reference. Author Title. Year."
+        },
+        {
+          "plain": "Author Title. Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "plain": "See 1 Bibliographic reference. Author Title. Year."
+        },
+        {
+          "plain": "Author Title."
+        },
+        {
+          "plain": "Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1.",
+          "language": "en"
+        },
+        {
+          "ssml": "Author Title. Year",
+          "language": "en"
+        },
+        {
+          "ssml": "Author Title. Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1.",
+          "language": "en"
+        },
+        {
+          "ssml": "Author Title. Year",
+          "language": "en"
+        },
+        {
+          "ssml": "Author Title.",
+          "language": "en"
+        },
+        {
+          "ssml": "Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "interruptions": {
+            "biblioref": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "biblioref": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "interruptions": {
+            "biblioref": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "always",
+          "interruptions": {
+            "biblioref": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "never"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1.",
+          "language": "en"
+        },
+        {
+          "ssml": "Author Title. Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "always",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1.",
+          "language": "en"
+        },
+        {
+          "ssml": "Author Title.",
+          "language": "en"
+        },
+        {
+          "ssml": "Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "interruptions": {
+            "biblioref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "biblioref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "inline"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1 Author Title. Year.",
+          "language": "en"
+        },
+        {
+          "ssml": "Author Title. Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1 Author Title. Year.",
+          "language": "en"
+        },
+        {
+          "ssml": "Author Title.",
+          "language": "en"
+        },
+        {
+          "ssml": "Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1."
+        },
+        {
+          "ssml": "Author Title. Year"
+        },
+        {
+          "ssml": "Author Title. Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1."
+        },
+        {
+          "ssml": "Author Title. Year"
+        },
+        {
+          "ssml": "Author Title."
+        },
+        {
+          "ssml": "Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "biblioref": "never"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "biblioref": "never"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1."
+        },
+        {
+          "ssml": "Author Title. Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1."
+        },
+        {
+          "ssml": "Author Title."
+        },
+        {
+          "ssml": "Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "biblioref": "inline"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1 Author Title. Year."
+        },
+        {
+          "ssml": "Author Title. Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1 Author Title. Year."
+        },
+        {
+          "ssml": "Author Title."
+        },
+        {
+          "ssml": "Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ]
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "always"
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1.",
+          "language": "en"
+        },
+        {
+          "ssml": "Bibliographic reference. Author Title. Year",
+          "language": "en"
+        },
+        {
+          "ssml": "Author Title. Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1.",
+          "language": "en"
+        },
+        {
+          "ssml": "Bibliographic reference. Author Title. Year",
+          "language": "en"
+        },
+        {
+          "ssml": "Author Title.",
+          "language": "en"
+        },
+        {
+          "ssml": "Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "interruptions": {
+            "biblioref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "always",
+          "interruptions": {
+            "biblioref": "inline"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "inline"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1 Bibliographic reference. Author Title. Year.",
+          "language": "en"
+        },
+        {
+          "ssml": "Author Title. Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "always",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1 Bibliographic reference. Author Title. Year.",
+          "language": "en"
+        },
+        {
+          "ssml": "Author Title.",
+          "language": "en"
+        },
+        {
+          "ssml": "Year",
+          "language": "en"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none"
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1."
+        },
+        {
+          "ssml": "Bibliographic reference. Author Title. Year"
+        },
+        {
+          "ssml": "Author Title. Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1."
+        },
+        {
+          "ssml": "Bibliographic reference. Author Title. Year"
+        },
+        {
+          "ssml": "Author Title."
+        },
+        {
+          "ssml": "Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "biblioref": "inline"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1 Bibliographic reference. Author Title. Year."
+        },
+        {
+          "ssml": "Author Title. Year"
+        }
+      ]
+    },
+    {
+      "options": [
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        }
+      ],
+      "utterances": [
+        {
+          "ssml": "See 1 Bibliographic reference. Author Title. Year."
+        },
+        {
+          "ssml": "Author Title."
+        },
+        {
+          "ssml": "Year"
+        }
+      ]
+    }
+  ]
+}

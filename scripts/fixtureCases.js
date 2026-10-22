@@ -1,6 +1,9 @@
 // Fixture scope and comparison rules (fixtures/README.md), shared by the generator, test/ and the playground.
 // No fs or library import: it runs in Node, ava and the browser alike.
 
+// Option sets grow exponentially with a fixture's roles: past this, its input covers more roles than it tests.
+export const maxUtterancesFileBytes = 10 * 1024 * 1024;
+
 // Expected output depends on aria substitution, which gnd.json can't carry: parsed from input markup instead.
 export const parsedInputFixtures = new Set([
   "accessible-name-labelledby-aria-hidden",
@@ -14,7 +17,7 @@ export function roleListsFrom(mod) {
     skippableRoles: [...new Set([...mod.skippableRoles, ...(mod.skippedAtVerbosity?.none ?? [])])],
     contextualizableRoles: Object.keys(mod.defaultContextualizations ?? {}),
     shapeableRoles: [...(mod.shapeableRoles ?? [])],
-    inlineContextualizationRoles: [...(mod.inlineContextualizationRoles ?? [])],
+    interruptionRoles: [...(mod.interruptionRoles ?? [])],
   };
 }
 
@@ -58,9 +61,11 @@ export function sameJson(a, b) {
   return JSON.stringify(sortKeysDeep(a)) === JSON.stringify(sortKeysDeep(b));
 }
 
+// An abbreviation is a `<sub alias>` in its node's text, not a node of its own.
 export function collectRoles(nodes, acc = new Set()) {
   for (const node of nodes) {
     for (const role of node.role ?? []) acc.add(role);
+    if (/<sub\s+alias=/.test(node.text?.ssml ?? "")) acc.add("abbreviation");
     if (node.children) collectRoles(node.children, acc);
   }
   return acc;
@@ -71,12 +76,20 @@ export function subsets(items) {
   return items.reduce((acc, item) => acc.concat(acc.map((set) => [...set, item])), [[]]);
 }
 
+// Every `interruptions` map over `roles`, "after" (the default) left unset.
+function interruptionSettings(roles) {
+  return roles.reduce(
+    (acc, role) => acc.flatMap((settings) => [settings, { ...settings, [role]: "never" }, { ...settings, [role]: "inline" }]),
+    [{}],
+  );
+}
+
 // Pool order is the order stored option sets list their roles in.
 function fixtureScope(rolesInTree, lists) {
   return {
     skip: lists.skippableRoles.filter((role) => rolesInTree.has(role)),
     contextualize: [...rolesInTree].filter((role) => lists.contextualizableRoles.includes(role)),
-    inlineContextualization: lists.inlineContextualizationRoles.filter((role) => rolesInTree.has(role)),
+    interruptions: lists.interruptionRoles.filter((role) => rolesInTree.has(role)),
   };
 }
 
@@ -88,7 +101,7 @@ function shapeableIn(contextualize, skip, lists) {
 const languageValues = [undefined, "always", "block-level", "none"];
 const segmentationModeValues = [undefined, "sentence"];
 
-function buildOptions(format, { skip, contextualize, inlineRoles, language, inlineContextualization, segmentationMode }) {
+function buildOptions(format, { skip, contextualize, inlineRoles, language, interruptions, segmentationMode }) {
   const options = { format };
   if (skip.length > 0) options.skip = skip;
   if (contextualize.length > 0) options.contextualize = contextualize;
@@ -96,7 +109,7 @@ function buildOptions(format, { skip, contextualize, inlineRoles, language, inli
     options.contextualization = { shapes: Object.fromEntries(inlineRoles.map((role) => [role, "inline"])) };
   }
   if (language !== undefined) options.language = language;
-  if (inlineContextualization.length > 0) options.inlineContextualization = inlineContextualization;
+  if (Object.keys(interruptions).length > 0) options.interruptions = interruptions;
   if (segmentationMode !== undefined) options.segmentation = { mode: segmentationMode };
   return options;
 }
@@ -108,17 +121,17 @@ export function* optionSpace(format, rolesInTree, lists) {
     for (const contextualize of subsets(scope.contextualize)) {
       for (const inlineRoles of subsets(shapeableIn(contextualize, skip, lists))) {
         for (const language of languageValues) {
-          for (const inlineContextualization of subsets(scope.inlineContextualization)) {
+          for (const interruptions of interruptionSettings(scope.interruptions)) {
             for (const segmentationMode of segmentationModeValues) {
               const isDefault =
                 skip.length === 0 &&
                 contextualize.length === 0 &&
                 inlineRoles.length === 0 &&
                 language === undefined &&
-                inlineContextualization.length === 0 &&
+                Object.keys(interruptions).length === 0 &&
                 segmentationMode === undefined;
               if (isDefault) continue;
-              yield buildOptions(format, { skip, contextualize, inlineRoles, language, inlineContextualization, segmentationMode });
+              yield buildOptions(format, { skip, contextualize, inlineRoles, language, interruptions, segmentationMode });
             }
           }
         }
@@ -136,12 +149,17 @@ export function canonicalOptions(options, rolesInTree, lists) {
   const shapes = options.contextualization?.shapes ?? {};
   const inlineRoles = shapeableIn(contextualize, skip, lists).filter((role) => shapes[role] === "inline");
   const segmentationMode = options.segmentation?.mode === "sentence" ? "sentence" : undefined;
+  const interruptions = {};
+  for (const role of scope.interruptions) {
+    const value = options.interruptions?.[role];
+    if (value && value !== "after") interruptions[role] = value;
+  }
   return buildOptions(options.format ?? "plain", {
     skip,
     contextualize,
     inlineRoles,
     language: options.language,
-    inlineContextualization: pick(scope.inlineContextualization, options.inlineContextualization),
+    interruptions,
     segmentationMode,
   });
 }
@@ -149,7 +167,7 @@ export function canonicalOptions(options, rolesInTree, lists) {
 // Role arrays are sets: compared regardless of order.
 function sortedRoleArrays(options) {
   const out = { ...options };
-  for (const key of ["skip", "contextualize", "inlineContextualization"]) {
+  for (const key of ["skip", "contextualize"]) {
     if (out[key]) out[key] = [...out[key]].sort();
   }
   return out;

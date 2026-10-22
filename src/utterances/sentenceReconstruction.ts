@@ -79,12 +79,17 @@ function isSubstitutedEdge(
   edge: "leading" | "trailing",
   ctx: WalkContext,
 ): boolean {
-  if (ctx.edgeSubstitutedLocate.get(utterance)?.[edge]) return true;
+  const locate = ctx.edgeSubstitutedLocate.get(utterance)?.[edge];
+  if (locate && !ctx.aliasLocates.has(locate)) return true;
   return !!source && !Array.isArray(source) && isAriaSubstituted(source);
 }
 
 function isInserted(piece: ReadiumSpeechUtterance, ctx: WalkContext): boolean {
   return ctx.placeholderPieces.get(piece)?.placement === "inline";
+}
+
+function isAlias(piece: ReadiumSpeechUtterance, ctx: WalkContext): boolean {
+  return ctx.placeholderPieces.get(piece)?.placement === "alias";
 }
 
 function isPlacedAfter(piece: ReadiumSpeechUtterance, ctx: WalkContext): boolean {
@@ -219,7 +224,8 @@ function joinInsertions(pieces: ReadiumSpeechUtterance[], joinedWithNext: boolea
   return joined;
 }
 
-// Drops the sentence boundaries next to or inside an inline footnote or pagebreak, which `joinInsertions()` grouped.
+// Drops the sentence boundaries next to or inside an inline footnote or pagebreak, which `joinInsertions()` grouped,
+// and those inside an abbreviation alias.
 function keepInsertionsWhole(
   text: string,
   boundaries: SentenceBoundary[],
@@ -228,12 +234,13 @@ function keepInsertionsWhole(
   ctx: WalkContext,
 ): SentenceBoundary[] {
   const insertedAt = (pos: number) => isInserted(pieces[pieceIndexAt(ranges, pos)], ctx);
+  const sameAliasAt = (a: number, b: number) => pieceIndexAt(ranges, a) === pieceIndexAt(ranges, b) && isAlias(pieces[pieceIndexAt(ranges, a)], ctx);
   const kept: SentenceBoundary[] = [];
   let first: SentenceBoundary | undefined;
   boundaries.forEach((boundary, k) => {
     first ??= boundary;
     const next = boundaries[k + 1];
-    if (next && (insertedAt(boundary.contentEnd - 1) || insertedAt(next.start))) return;
+    if (next && (insertedAt(boundary.contentEnd - 1) || insertedAt(next.start) || sameAliasAt(boundary.contentEnd - 1, next.start))) return;
     kept.push({ text: text.slice(first.start, boundary.contentEnd), start: first.start, end: boundary.end, contentEnd: boundary.contentEnd });
     first = undefined;
   });
@@ -254,13 +261,14 @@ function buildJoinedOffsets(
   const offsets: UtteranceOffset[] = [];
   for (let k = startIdx; k <= endIdx; k++) {
     // Never cut (see `keepInsertionsWhole()`), so its own offsets still hold.
-    if (isInserted(pieces[k], ctx)) {
+    if (isInserted(pieces[k], ctx) || isAlias(pieces[k], ctx)) {
       offsets.push(...buildMergeOffsets([pieces[k]], [pieceSources[k]], ctx));
       continue;
     }
     const nodeRef = resolveNodeLocate(pieceSources[k], ctx.ancestorChains);
     if (!nodeRef) continue;
     const pieceRange = ranges[k];
+    const substitutedLocate = isAriaSubstituted(pieceSources[k]) ? substitutedBareLocate(pieceSources[k], ctx) : undefined;
     const contribStart = Math.max(pieceRange.start, boundary.start);
     // Only the last piece a sentence touches can carry its trailing separator; trim there only.
     const contribEnd = Math.min(pieceRange.end, k === endIdx ? boundary.contentEnd : boundary.end);
@@ -268,7 +276,9 @@ function buildJoinedOffsets(
     const localStart = contribStart - pieceRange.start;
     const localEnd = contribEnd - pieceRange.start;
     const text = plainOf((ctx.format === "ssml" ? pieces[k].ssml : pieces[k].plain)!, ctx.format);
-    const locate = subLocateFor(nodeRef.ref, text.slice(localStart, localEnd));
+    const locate = substitutedLocate ?? subLocateFor(nodeRef.ref, text.slice(localStart, localEnd));
+    if (!substitutedLocate && localStart > 0) locate.text = { ...locate.text, before: text.slice(0, localStart) };
+    if (!substitutedLocate && localEnd < text.length) locate.text = { ...locate.text, after: text.slice(localEnd) };
     offsets.push({ start: localStart, end: localEnd, locate });
   }
   return offsets;
@@ -381,7 +391,9 @@ async function pushJoinedGroup(
     const firstIdx = ownIndices[0] ?? startIdx;
     const lastIdx = ownIndices[ownIndices.length - 1] ?? endIdx;
     const firstRef = resolveNodeLocate(pieceSources[firstIdx], ctx.ancestorChains);
-    const fallback = preciseLocateFor(firstRef, text);
+    const firstSource = pieceSources[firstIdx];
+    const fallback =
+      (isAriaSubstituted(firstSource) ? substitutedBareLocate(firstSource, ctx) : undefined) ?? preciseLocateFor(firstRef, text);
     const locate =
       firstIdx !== lastIdx ? spanLocate(firstRef, resolveNodeLocate(pieceSources[lastIdx], ctx.ancestorChains), fallback) : fallback;
     if (locate) merged.locate = locate;

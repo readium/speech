@@ -77,17 +77,16 @@ test("an unsupported enum value is dropped to undefined", (t) => {
   t.is(prefs.language, undefined);
 });
 
-test("a boolean inlineContextualization is dropped to undefined", (t) => {
-  const prefs = new SpeechPreferences({
-    // @ts-expect-error deliberately invalid
-    inlineContextualization: true,
-  });
-  t.is(prefs.inlineContextualization, undefined);
+test("an interruptions record with an unsupported value, or an array, is dropped to undefined", (t) => {
+  // @ts-expect-error deliberately invalid
+  t.is(new SpeechPreferences({ interruptions: { pagebreak: "sometimes" } }).interruptions, undefined);
+  // @ts-expect-error deliberately invalid
+  t.is(new SpeechPreferences({ interruptions: ["pagebreak"] }).interruptions, undefined);
 });
 
-test("an inlineContextualization role list is kept", (t) => {
-  const prefs = new SpeechPreferences({ inlineContextualization: ["pagebreak"] });
-  t.deepEqual(prefs.inlineContextualization, ["pagebreak"]);
+test("an interruptions record is kept", (t) => {
+  const prefs = new SpeechPreferences({ interruptions: { pagebreak: "never", noteref: "inline" } });
+  t.deepEqual(prefs.interruptions, { pagebreak: "never", noteref: "inline" });
 });
 
 test("a languageOverrides record is kept", (t) => {
@@ -110,10 +109,10 @@ test("a languageOverrides record with a non-string value, or an array, is droppe
 });
 
 test("explicit null is preserved (not coerced to undefined) for guarded fields", (t) => {
-  const prefs = new SpeechPreferences({ rate: null, verbosity: null, inlineContextualization: null });
+  const prefs = new SpeechPreferences({ rate: null, verbosity: null, interruptions: null });
   t.is(prefs.rate, null);
   t.is(prefs.verbosity, null);
-  t.is(prefs.inlineContextualization, null);
+  t.is(prefs.interruptions, null);
 });
 
 test("keeps its own copy of array and record preferences", (t) => {

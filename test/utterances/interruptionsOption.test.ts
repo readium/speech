@@ -1,32 +1,34 @@
 import "../domSetup.js";
 import test from "ava";
+import { GuidedNavigationObject } from "@readium/shared";
 import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
+import type { Contextualizations, Interruption } from "../../src/utterances/types.js";
 
 const html =
   '<p>Before the break <span epub:type="pagebreak" title="5"></span> and before the note' +
   '<a epub:type="noteref" href="#n1">1</a> end of sentence.</p>' +
   '<aside epub:type="footnote" id="n1"><p>The note.</p></aside>';
 
-async function plain(inlineContextualization?: ("noteref" | "pagebreak")[]): Promise<(string | undefined)[]> {
-  const utterances = await extractUtterances(parseMarkup(html), { format: "plain", inlineContextualization });
+async function plain(interruptions?: { noteref?: Interruption; pagebreak?: Interruption }): Promise<(string | undefined)[]> {
+  const utterances = await extractUtterances(parseMarkup(html), { format: "plain", interruptions });
   return utterances.map((u) => u.plain);
 }
 
-test("inlineContextualization defaults to deferring both pagebreak and noteref past the sentence", async (t) => {
+test("interruptions default to deferring both pagebreak and noteref past the sentence", async (t) => {
   t.deepEqual(await plain(), ["Before the break and before the note end of sentence.", "Page 5", "The note."]);
 });
 
-test("inlineContextualization: [\"pagebreak\"] speaks the pagebreak mid-sentence, still defers the note", async (t) => {
-  t.deepEqual(await plain(["pagebreak"]), ["Before the break Page 5 and before the note end of sentence.", "The note."]);
+test("an inline pagebreak is spoken mid-sentence, the note still deferred", async (t) => {
+  t.deepEqual(await plain({ pagebreak: "inline" }), ["Before the break Page 5 and before the note end of sentence.", "The note."]);
 });
 
-test("inlineContextualization: [\"noteref\"] speaks the note mid-sentence, still defers the pagebreak", async (t) => {
-  t.deepEqual(await plain(["noteref"]), ["Before the break and before the note The note. end of sentence.", "Page 5"]);
+test("an inline noteref speaks the note mid-sentence, the pagebreak still deferred", async (t) => {
+  t.deepEqual(await plain({ noteref: "inline" }), ["Before the break and before the note The note. end of sentence.", "Page 5"]);
 });
 
-test("inlineContextualization with both roles speaks both mid-sentence", async (t) => {
-  t.deepEqual(await plain(["noteref", "pagebreak"]), ["Before the break Page 5 and before the note The note. end of sentence."]);
+test("both inline are spoken mid-sentence", async (t) => {
+  t.deepEqual(await plain({ noteref: "inline", pagebreak: "inline" }), ["Before the break Page 5 and before the note The note. end of sentence."]);
 });
 
 const sentencesHtml =
@@ -40,7 +42,7 @@ const betweenHtml =
 async function sentences(markup: string, format: "plain" | "ssml") {
   return extractUtterances(parseMarkup(markup, undefined, { textrefs: true }), {
     format,
-    inlineContextualization: ["noteref", "pagebreak"],
+    interruptions: { noteref: "inline", pagebreak: "inline" },
     contextualize: ["footnote", "pagebreak"],
     segmentation: { mode: "sentence" },
   });
@@ -138,7 +140,7 @@ test("sentence segmentation speaks deferred announcements after their sentence i
 });
 
 test("sentence segmentation splits a sentence around an inline announcement in another language than the catalog's in plain text", async (t) => {
-  t.deepEqual(await spoken(inLanguage("fr", sentencesHtml), "plain", { ...sentenceOptions, inlineContextualization: ["noteref", "pagebreak"] }), [
+  t.deepEqual(await spoken(inLanguage("fr", sentencesHtml), "plain", { ...sentenceOptions, interruptions: { noteref: "inline", pagebreak: "inline" } }), [
     ["First with a note", "fr"],
     ["Start of the footnote.", "en"],
     ["The note.", "fr"],
@@ -151,7 +153,7 @@ test("sentence segmentation splits a sentence around an inline announcement in a
 });
 
 test("an inline pagebreak in another language than the catalog's is its own utterance in plain text", async (t) => {
-  t.deepEqual(await spoken(inLanguage("fr", html), "plain", { inlineContextualization: ["pagebreak"] }), [
+  t.deepEqual(await spoken(inLanguage("fr", html), "plain", { interruptions: { pagebreak: "inline" } }), [
     ["Before the break", "fr"],
     ["Page 5", "en"],
     ["and before the note end of sentence.", "fr"],
@@ -161,14 +163,14 @@ test("an inline pagebreak in another language than the catalog's is its own utte
 
 for (const format of ["plain", "ssml"] as const) {
   test(`sentence segmentation keeps an inline announcement whole in content sharing the catalog's primary language (${format})`, async (t) => {
-    t.deepEqual(await spoken(inLanguage("en-US", sentencesHtml), format, { ...sentenceOptions, inlineContextualization: ["noteref", "pagebreak"] }), [
+    t.deepEqual(await spoken(inLanguage("en-US", sentencesHtml), format, { ...sentenceOptions, interruptions: { noteref: "inline", pagebreak: "inline" } }), [
       ["First with a note Start of the footnote. The note. End of the footnote. here.", "en-US"],
       ["Second Pagebreak. Page 5. breaks.", "en-US"],
     ]);
   });
 
   test(`an inline pagebreak merges into content sharing the catalog's primary language (${format})`, async (t) => {
-    t.deepEqual(await spoken(inLanguage("en-US", html), format, { inlineContextualization: ["pagebreak"] }), [
+    t.deepEqual(await spoken(inLanguage("en-US", html), format, { interruptions: { pagebreak: "inline" } }), [
       ["Before the break Page 5 and before the note end of sentence.", "en-US"],
       ["The note.", "en-US"],
     ]);
@@ -197,22 +199,84 @@ test("sentence segmentation wraps a deferred note's announcements in another lan
 });
 
 test("sentence segmentation keeps a sentence whole around an inline announcement in another language, in lang tags, in SSML", async (t) => {
-  t.deepEqual(await spoken(inLanguage("fr", sentencesHtml), "ssml", { ...sentenceOptions, inlineContextualization: ["noteref", "pagebreak"] }), [
+  t.deepEqual(await spoken(inLanguage("fr", sentencesHtml), "ssml", { ...sentenceOptions, interruptions: { noteref: "inline", pagebreak: "inline" } }), [
     [`First with a note ${enLang("Start of the footnote.")} The note. ${enLang("End of the footnote.")} here.`, "fr"],
     [`Second ${enLang("Pagebreak. Page 5.")} breaks.`, "fr"],
   ]);
 });
 
 test("an inline pagebreak in another language than the catalog's is wrapped in a lang tag in SSML", async (t) => {
-  t.deepEqual(await spoken(inLanguage("fr", html), "ssml", { inlineContextualization: ["pagebreak"] }), [
+  t.deepEqual(await spoken(inLanguage("fr", html), "ssml", { interruptions: { pagebreak: "inline" } }), [
     [`Before the break ${enLang("Page 5")} and before the note end of sentence.`, "fr"],
     ["The note.", "fr"],
   ]);
 });
 
 test("a lang-wrapped inline announcement keeps the sentence's SSML well-formed", async (t) => {
-  t.deepEqual(await spoken(inLanguage("fr", emphasisHtml), "ssml", { ...sentenceOptions, inlineContextualization: ["pagebreak"] }), [
+  t.deepEqual(await spoken(inLanguage("fr", emphasisHtml), "ssml", { ...sentenceOptions, interruptions: { pagebreak: "inline" } }), [
     ["One sentence.", "fr"],
     [`Second <emphasis>bold </emphasis>${enLang("Pagebreak. Page 5.")}<emphasis> word</emphasis> breaks.`, "fr"],
   ]);
+});
+
+test("a contextualized text reference with no targets reads only its own text", async (t) => {
+  const gnd = [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      children: [{ text: "See " }, { role: ["glossref"], text: "term" }, { text: " here." }],
+    })!,
+  ];
+  (gnd[0].children![1] as { children?: GuidedNavigationObject[] }).children = [];
+  for (const glossref of ["inline", "after", "never"] as const) {
+    const utterances = await extractUtterances(gnd, { format: "plain", contextualize: ["glossref"], interruptions: { glossref } });
+    t.deepEqual(utterances.map((u) => u.plain), ["See ", "term", " here."], glossref);
+  }
+});
+
+test("a template's punctuation around content in another language takes the content's language", async (t) => {
+  const glossary =
+    '<html lang="fr"><body><p>Voir <a role="doc-glossref" href="#g">OMS</a> ici.</p>' +
+    '<dl role="doc-glossary"><dt id="g">OMS</dt><dd>La définition.</dd></dl></body></html>';
+  for (const template of ["{{ term }}: {{ value }}", "{{ term }} : {{ value }}", "{{ term }} — {{ value }}", "{{ term }}，{{ value }}"]) {
+    for (const contextualize of [[], ["glossref" as const]]) {
+      for (const format of ["plain", "ssml"] as const) {
+        const utterances = await extractUtterances(parseMarkup(glossary), {
+          format,
+          contextualize,
+          interruptions: { glossref: "after" },
+          contextualization: { contextualizations: { glossref: { term: template } } as Contextualizations },
+        });
+        const label = `${format} ${template} ${JSON.stringify(contextualize)}`;
+        t.true(utterances.filter((u) => u[format]?.includes("OMS")).every((u) => u.language === "fr"), label);
+        t.false(utterances.some((u) => !/[\p{L}\p{N}]/u.test(u[format] ?? "")), label);
+      }
+    }
+  }
+});
+
+test("an abbreviation reads as its page text, or with its content replaced by its title inline, whatever text is attached to it", async (t) => {
+  const inputs = [
+    '<p>Some <abbr title="application programming interface">API</abbr>s are useful.</p>',
+    '<p>A non-<abbr title="European Union">EU</abbr> state.</p>',
+    '<p>An <abbr title="application programming interface">API</abbr>-based tool.</p>',
+    '<p>The <abbr title="World Health Organization">WHO</abbr>’s role.</p>',
+    '<p>(<abbr title="World Health Organization">WHO</abbr>) said.</p>',
+    '<p lang="en">Les <abbr lang="fr" title="organisation non gouvernementale">ONG</abbr>s locales.</p>',
+  ];
+  const pageText = (html: string, inline: boolean) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    if (inline) doc.querySelectorAll("abbr").forEach((abbr) => (abbr.textContent = abbr.getAttribute("title")));
+    return doc.body.textContent!.trim();
+  };
+  for (const html of inputs) {
+    for (const abbreviation of ["inline", "never"] as const) {
+      for (const format of ["plain", "ssml"] as const) {
+        for (const mode of ["structure", "sentence"] as const) {
+          const utterances = await extractUtterances(parseMarkup(html), { format, segmentation: { mode }, interruptions: { abbreviation } });
+          const spoken = utterances.map((u) => (format === "ssml" ? u.ssml!.replace(/<[^>]+>/g, "") : u.plain)).join(" ");
+          t.is(spoken, pageText(html, abbreviation === "inline"), `${format} ${mode} ${abbreviation}: ${html}`);
+        }
+      }
+    }
+  }
 });

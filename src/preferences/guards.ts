@@ -25,6 +25,15 @@ export function ensureStringRecord(value: Record<string, string> | null | undefi
   return Object.values(value).every((item) => typeof item === "string") ? { ...value } : undefined;
 }
 
+export function ensureEnumRecord<T extends string>(
+  value: Partial<Record<string, T>> | null | undefined,
+  supportedValues: readonly T[],
+): Partial<Record<string, T>> | null | undefined {
+  if (value === undefined || value === null) return value;
+  if (typeof value !== "object" || Array.isArray(value)) return undefined;
+  return Object.values(value).every((item) => item !== undefined && supportedValues.includes(item)) ? { ...value } : undefined;
+}
+
 export function ensureStringOrStringRecord(value: string | Record<string, string> | null | undefined): string | Record<string, string> | null | undefined {
   return typeof value === "string" ? value : ensureStringRecord(value as Record<string, string> | null | undefined);
 }

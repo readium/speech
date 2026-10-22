@@ -3,7 +3,7 @@ import type { ConfigurableSettings } from "./Configurable.js";
 import { SpeechDefaults } from "./SpeechDefaults.js";
 import type { AutoPauseScope, SpeechPreferences, VerbosityPreset, VoicePreference } from "./SpeechPreferences.js";
 import { contextualizedAtVerbosity, skippedAtVerbosity } from "./verbosityTables.js";
-import type { ExtractionFormat, LanguageMode, Segmentation } from "../utterances/types.js";
+import type { ExtractionFormat, Interruption, LanguageMode, Segmentation } from "../utterances/types.js";
 import type { ReadiumSpeechVoice } from "../voices/types.js";
 import { getVoiceId } from "../voices/voiceId.js";
 import { extractLangRegionFromBCP47, valueForLanguage } from "../utils/language.js";
@@ -21,7 +21,7 @@ export class SpeechSettings implements ConfigurableSettings {
   [key: string]: unknown;
 
   public readonly format: ExtractionFormat;
-  public readonly inlineContextualization: GndRole[];
+  public readonly interruptions: Partial<Record<GndRole, Interruption>>;
   public readonly verbosity: VerbosityPreset;
   public readonly skip: GndRole[];
   public readonly contextualize: GndRole[];
@@ -40,7 +40,7 @@ export class SpeechSettings implements ConfigurableSettings {
    */
   constructor(preferences: SpeechPreferences, defaults: SpeechDefaults, engineVoice?: ReadiumSpeechVoice | null) {
     this.format = preferences.format ?? defaults.format;
-    this.inlineContextualization = preferences.inlineContextualization ?? defaults.inlineContextualization;
+    this.interruptions = preferences.interruptions ?? defaults.interruptions;
     this.verbosity = preferences.verbosity ?? defaults.verbosity;
 
     // `skip`/`contextualize` only apply under "custom" — every other preset

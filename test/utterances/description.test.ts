@@ -97,5 +97,5 @@ test("content declared in languages differing only in case is one language", asy
       children: [{ id: "p", role: ["pagebreak"], text: { plain: "cinq", language: "FR" } }],
     },
   ])!;
-  t.deepEqual(spoken(await extractUtterances(gnd, { inlineContextualization: ["pagebreak"] })), [["Avant cinq après.", "fr"]]);
+  t.deepEqual(spoken(await extractUtterances(gnd, { interruptions: { pagebreak: "inline" } })), [["Avant cinq après.", "fr"]]);
 });
