@@ -109,6 +109,62 @@ test("a guillemet opening the next quote stays with it, as in German", async (t)
   t.deepEqual(boundaries.map((b) => b.text), ["Er sagte: »Ja.«", "»Nein.«", "Dann ging er."]);
 });
 
+test("a dialogue dash after terminal punctuation starts a new sentence", async (t) => {
+  const boundaries = await segmentSentences(
+    "fr",
+    "… elle lui conterait tout son malheur. —Dites répondit Mme de Rênal. —Eh bien, madame, il me refuse; il les croit. —Qui vous refuse? dit Mme de Rênal respirant à peine.",
+  );
+  t.deepEqual(boundaries.map((b) => b.text), [
+    "… elle lui conterait tout son malheur.",
+    "—Dites répondit Mme de Rênal.",
+    "—Eh bien, madame, il me refuse; il les croit.",
+    "—Qui vous refuse? dit Mme de Rênal respirant à peine.",
+  ]);
+});
+
+test("a spaced dialogue dash after terminal punctuation starts a new sentence", async (t) => {
+  for (const dash of ["—", "―"]) {
+    const boundaries = await segmentSentences("fr", `Tout son malheur. ${dash} Dites répondit Mme de Rênal.`);
+    t.deepEqual(boundaries.map((b) => b.text), ["Tout son malheur.", `${dash} Dites répondit Mme de Rênal.`]);
+  }
+});
+
+test("an em dash attribution after a quote is its own sentence, opening with the dash", async (t) => {
+  const boundaries = await segmentSentences("en", "A lighthouse is a compromise with the sea. — Anonymous");
+  t.deepEqual(boundaries.map((b) => b.text), ["A lighthouse is a compromise with the sea.", "— Anonymous"]);
+});
+
+test("an em dash without terminal punctuation before it stays mid-sentence", async (t) => {
+  for (const text of ["He paused — then left.", "He paused—then left.", "He said “Stop!”—and ran."]) {
+    const boundaries = await segmentSentences("en", text);
+    t.deepEqual(boundaries.map((b) => b.text), [text]);
+  }
+});
+
+test("a dialogue dash before a lowercase word continues the sentence, as in a Spanish incise", async (t) => {
+  const boundaries = await segmentSentences("es", "—¿Qué quieres? —preguntó ella. Se fue.");
+  t.deepEqual(boundaries.map((b) => b.text), ["—¿Qué quieres? —preguntó ella.", "Se fue."]);
+});
+
+test("a lowercase word after a question or exclamation mark continues the sentence", async (t) => {
+  for (const [language, text, sentences] of [
+    ["en", "“Who?” she asked. Then left.", ["“Who?” she asked.", "Then left."]],
+    ["fr", "« Qui vous refuse ? » dit-elle. Bon.", ["« Qui vous refuse ? » dit-elle.", "Bon."]],
+    ["de", "Was? sagte er. Gut.", ["Was? sagte er.", "Gut."]],
+    ["es", "¿Qué? dijo él. ¡Hola! ¿Cómo estás?", ["¿Qué? dijo él.", "¡Hola!", "¿Cómo estás?"]],
+  ] as const) {
+    const boundaries = await segmentSentences(language, text);
+    t.deepEqual(boundaries.map((b) => b.text), sentences);
+  }
+});
+
+test("a capitalized word after a question or exclamation mark starts a new sentence", async (t) => {
+  for (const text of ["Who? Next one.", "Stop! Next one."]) {
+    const boundaries = await segmentSentences("en", text);
+    t.deepEqual(boundaries.map((b) => b.text), [text.slice(0, text.indexOf(" ")), "Next one."]);
+  }
+});
+
 test("splitSsmlAtSentences keeps a closing guillemet with its sentence", async (t) => {
   const result = await splitSsmlAtSentences("« Il n’y a rien ! » Elle se tut.", "fr", segmentSentences);
   t.deepEqual(result, ["« Il n’y a rien ! »", "Elle se tut."]);
@@ -140,11 +196,11 @@ test("splitSsmlAtSentences returns undefined for empty text", async (t) => {
 });
 
 test("splitSsmlAtSentences re-wraps a paired tag whose inner text spans a boundary", async (t) => {
-  const result = await splitSsmlAtSentences('See <lang xml:lang="fr">Bonjour. Ça va?</lang> after that.', "en", segmentSentences);
+  const result = await splitSsmlAtSentences('See <lang xml:lang="fr">Bonjour. Ça va?</lang> After that.', "en", segmentSentences);
   t.deepEqual(result, [
     'See <lang xml:lang="fr">Bonjour.</lang>',
     '<lang xml:lang="fr">Ça va?</lang>',
-    "after that.",
+    "After that.",
   ]);
 });
 

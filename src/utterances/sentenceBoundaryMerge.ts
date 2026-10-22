@@ -66,8 +66,20 @@ function isMisplacedClosingQuote(text: string, start: number, contentEnd: number
 // em dash mid-sentence (no punctuation before it) is left alone.
 const emDashAttributionRegExp = /[.!?][”"'’)\]]*\s+—\s+(?=\p{Lu})/gu;
 
+// A dialogue dash after terminal punctuation opens the next sentence, spaced or not ("malheur. —Dites"),
+// unless a lowercase word follows it, as in a Spanish incise ("¿Qué? —dijo él").
+const dialogueDashRegExp = /[.!?][”"'’»›)\]]*\s*(?=[—―]\s*(?!\p{Ll})\p{L})/gu;
+
 function splitAtEmDashAttribution(text: string, raw: RawBoundary[]): RawBoundary[] {
-  const splitPoints = [...text.matchAll(emDashAttributionRegExp)].map((match) => match.index + match[0].length);
+  return splitAt(text, raw, emDashAttributionRegExp);
+}
+
+function splitAtDialogueDash(text: string, raw: RawBoundary[]): RawBoundary[] {
+  return splitAt(text, raw, dialogueDashRegExp);
+}
+
+function splitAt(text: string, raw: RawBoundary[], regExp: RegExp): RawBoundary[] {
+  const splitPoints = [...text.matchAll(regExp)].map((match) => match.index + match[0].length);
   if (splitPoints.length === 0) return raw;
   const result: RawBoundary[] = [];
   for (const boundary of raw) {
@@ -81,6 +93,12 @@ function splitAtEmDashAttribution(text: string, raw: RawBoundary[]): RawBoundary
     result.push({ start: segStart, end: boundary.end });
   }
   return result;
+}
+
+// Intl.Segmenter breaks after "?"/"!" whatever follows, but a lowercase word continues the sentence
+// (“Who?” she asked). Scripts without case never match.
+function continuesAfterQuestionOrExclamation(prevText: string, text: string, start: number): boolean {
+  return /[?!][\s”"'’»›)\]]*$/u.test(prevText) && /^\p{Ll}/u.test(text.slice(start));
 }
 
 // Each closing guillemet's opening one, both ways (« French », » German «).
@@ -121,7 +139,7 @@ function reattachClosingGuillemets(text: string, raw: RawBoundary[]): RawBoundar
 // previous sentence (only reproduces with zero whitespace between two
 // adjacent quoted sentences — e.g. `”"Next…` glued with no separator).
 export function refineSentenceBoundaries(text: string, raw: RawBoundary[], suppressions: string[]): SentenceBoundary[] {
-  const fixed = reattachClosingGuillemets(text, splitAtEmDashAttribution(text, raw));
+  const fixed = reattachClosingGuillemets(text, splitAtDialogueDash(text, splitAtEmDashAttribution(text, raw)));
   for (let i = 0; i < fixed.length - 1; i++) {
     const contentEnd = trimmedEnd(text, fixed[i].start, fixed[i].end);
     // Only a glued (no trailing separator) boundary can have swallowed a
@@ -140,7 +158,13 @@ export function refineSentenceBoundaries(text: string, raw: RawBoundary[], suppr
       const prev = merged[merged.length - 1];
       const prevContentEnd = trimmedEnd(text, prev.start, prev.end);
       const prevText = text.slice(prev.start, prevContentEnd);
-      if (!endsWithSuppression(prevText, suppressions) && hasEnoughLetters(prevText) && !endsWithLiteralEllipsis(prevText)) break;
+      if (
+        !endsWithSuppression(prevText, suppressions) &&
+        hasEnoughLetters(prevText) &&
+        !endsWithLiteralEllipsis(prevText) &&
+        !continuesAfterQuestionOrExclamation(prevText, text, current.start)
+      )
+        break;
       merged.pop();
       current = { start: prev.start, end: current.end };
     }

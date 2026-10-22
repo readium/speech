@@ -131,7 +131,7 @@ test("segmentation: sentence splits ssml the same way as plain when there's no m
 });
 
 test("segmentation: sentence re-wraps a <lang> span whose inner text spans a sentence boundary", async (t) => {
-  const gnd = parseMarkup('<p>See <span lang="fr">Bonjour. Ça va?</span> after that.</p>');
+  const gnd = parseMarkup('<p>See <span lang="fr">Bonjour. Ça va?</span> After that.</p>');
   const utterances = await extractUtterances(gnd, {
     format: "ssml",
     segmentation: { mode: "sentence" },
@@ -142,7 +142,7 @@ test("segmentation: sentence re-wraps a <lang> span whose inner text spans a sen
     [
       'See <lang xml:lang="fr">Bonjour.</lang>',
       '<lang xml:lang="fr">Ça va?</lang>',
-      "after that.",
+      "After that.",
     ]
   );
 });
@@ -534,6 +534,43 @@ test("segmentation: sentence still merges plain unterminated prose across two pa
   t.deepEqual(
     utterances.map((u) => u.plain),
     ["This sentence continues across two paragraphs."]
+  );
+});
+
+test("segmentation: sentence keeps each paragraph opening with a dialogue dash its own", async (t) => {
+  const gnd = parseMarkup(
+    "<p>… elle lui conterait tout son malheur.</p><p>—Dites répondit Mme de Rênal.</p>" +
+      "<p>—Eh bien, madame, il me refuse; des méchants lui auront dit du mal de moi, il les croit.</p>" +
+      "<p>—Qui vous refuse? dit Mme de Rênal respirant à peine.</p>"
+  );
+  const utterances = await extractUtterances(gnd, { format: "plain", contentLanguage: "fr", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    [
+      "… elle lui conterait tout son malheur.",
+      "—Dites répondit Mme de Rênal.",
+      "—Eh bien, madame, il me refuse; des méchants lui auront dit du mal de moi, il les croit.",
+      "—Qui vous refuse? dit Mme de Rênal respirant à peine.",
+    ]
+  );
+});
+
+test("segmentation: sentence never joins a paragraph opening with a dialogue dash, whatever the segmenter", async (t) => {
+  const wholeSegmenter: SentenceSegmenter = async (_language, text) => [{ text, start: 0, contentEnd: text.length, end: text.length }];
+  const gnd = parseMarkup("<p>Il hésita</p><p>— Non, dit-il.</p>");
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", segmenter: wholeSegmenter } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["Il hésita", "— Non, dit-il."]
+  );
+});
+
+test("segmentation: sentence still joins an em dash opening an inline element mid-paragraph", async (t) => {
+  const gnd = parseMarkup("<p>It was red <em>—then blue</em>. Done.</p>");
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(
+    utterances.map((u) => u.plain),
+    ["It was red —then blue.", "Done."]
   );
 });
 

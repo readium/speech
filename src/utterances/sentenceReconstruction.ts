@@ -210,6 +210,15 @@ async function detectGenuineJoins(
   return joinedWithNext;
 }
 
+// A paragraph opening with a dialogue dash is a new turn of dialogue, never the previous sentence's continuation.
+function separateDialogueTurns(pieces: ReadiumSpeechUtterance[], joinedWithNext: boolean[], ctx: WalkContext): boolean[] {
+  return joinedWithNext.map((joined, k) => {
+    const next = pieces[k + 1];
+    const text = plainOf((ctx.format === "ssml" ? next.ssml : next.plain)!, ctx.format);
+    return joined && !(ctx.blockStarts.has(next) && /^\s*[—―]\s*\p{L}/u.test(text));
+  });
+}
+
 // An inline footnote or pagebreak never ends a sentence: it continues the one it interrupts,
 // closes the one ending right before it, or opens the next.
 function joinInsertions(pieces: ReadiumSpeechUtterance[], joinedWithNext: boolean[], ctx: WalkContext): boolean[] {
@@ -445,7 +454,7 @@ export async function splitIntoSentenceUtterances(
     }
     const language = segmentationLanguage(pieces, ctx);
     const genuineJoins = await detectGenuineJoins(pieces, ctx, language, callerSuppressions(language, ctx));
-    const joinedWithNext = joinInsertions(pieces, genuineJoins, ctx);
+    const joinedWithNext = joinInsertions(pieces, separateDialogueTurns(pieces, genuineJoins, ctx), ctx);
     let start = 0;
     for (let k = 0; k < pieces.length; k++) {
       if (k < pieces.length - 1 && joinedWithNext[k]) continue;

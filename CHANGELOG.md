@@ -2,6 +2,13 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Fixed
+
+- With `segmentation: "sentence"`, a dialogue dash (`—`, `―`) after a sentence's last mark starts a new sentence, spaced or not (`malheur. —Dites`), so paragraphs of dialogue are no longer merged into one utterance. A paragraph opening with a dialogue dash never continues the previous paragraph's sentence, whatever the `segmenter`. An em dash attribution (`… the sea. — Anonymous`) now opens with its dash instead of leaving it on the quote.
+- With `segmentation: "sentence"`, a lowercase word after `?` or `!` continues the sentence instead of starting a new one, e.g. `“Who?” she asked.` or `—Qui vous refuse? dit Mme de Rênal.`
+
 ## [0.17.0] - 2026-10-22
 
 ### Added

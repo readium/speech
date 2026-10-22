@@ -334,6 +334,11 @@ The built-in sentence splitter is [`Intl.Segmenter`](https://developer.mozilla.o
 - **Locale coverage is uneven.** The Unicode sentence-break algorithm behind it is tuned mainly for widely-used languages; boundary quality for less common locales can be noticeably weaker, and there's no per-locale opt-out — the same algorithm runs regardless of `language`.
 - **No built-in abbreviation handling.** `Intl.Segmenter` has no concept of "d." or "Mr." not ending a sentence; every such case is caught only by `suppressions`/`builtInSuppressions`, a fixed list rather than real disambiguation — an abbreviation missing from both lists still gets split on.
 
+On top of `Intl.Segmenter`, the built-in splitter also:
+
+- starts a new sentence at a dialogue dash (`—`, `―`) after `.`, `?` or `!`, spaced or not, unless a lowercase word follows it (Spanish `¿Qué? —dijo él`): `malheur. —Dites` → `malheur.` / `—Dites`.
+- doesn't end a sentence at `?` or `!` followed by a lowercase word: `“Who?” she asked.` is one sentence. Scripts without letter case are unaffected, and a word that is lowercase on its own (`What? iPhone sales rose.`) is joined too.
+
 Supply `segmenter` to replace the built-in splitter entirely for `"sentence"` mode:
 
 ```typescript
@@ -379,6 +384,7 @@ A maximal run of pairwise-eligible utterances is built by scanning forward while
 **Step 2 — confirmation.** Take the whole run's text, joined into one string, and run the real sentence segmenter on it once — segmentation is never decided any other way. For each gap between two pieces in the run:
 
 - The gap is a genuine join only if some detected sentence boundary extends past the gap into the next piece's own text. A boundary that lands exactly at the gap, consuming none of the next piece's text, does not count.
+- A gap before a paragraph opening with a dialogue dash (`—`, `―`) is never a join, whatever the segmenter returns.
 - Consecutive genuine-join gaps chain into one merge group. That group is then resegmented on its own, self-contained text — a confirmed group is not guaranteed to collapse into exactly one utterance; it can still yield more than one.
 
 Anything left outside a merge group is split on its own sentence boundaries independently.
