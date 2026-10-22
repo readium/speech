@@ -182,7 +182,7 @@ function locateOnAbbreviation(aliasPieces: ReadiumSpeechUtterance[], abbreviatio
   const locate = markNonQuotable(subLocateFor(nodeRef.ref, stripSsmlTags(abbreviationSsml)));
   ctx.aliasLocates.add(locate);
   for (const piece of aliasPieces) {
-    const text = ctx.format === "ssml" ? piece.ssml : piece.plain;
+    const text = ctx.format === "ssml" ? stripSsmlTags(piece.ssml ?? "") : piece.plain;
     piece.locate = locate;
     piece.offsets = [{ start: 0, end: text?.length ?? 0, locate }];
     ctx.edgeSubstitutedLocate.set(piece, { leading: locate, trailing: locate });

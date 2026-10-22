@@ -62,10 +62,12 @@ export function resolveBoundaryLocate(
 
   for (let i = resumable ? cached.pieceIndex : 0; i < offsets.length; i++) {
     const offset = offsets[i];
-    // Its spoken text isn't its quote, so it runs up to wherever the next quoted piece is found.
+    // Its spoken text isn't its quote, so it runs up to wherever the next quoted piece is found past its own length.
     if (nonQuotableLocates.has(offset.locate)) {
       const nextQuote = offsets.slice(i + 1).find((next) => !nonQuotableLocates.has(next.locate) && quoteOf(next));
-      const nextStart = nextQuote ? outputText.indexOf(quoteOf(nextQuote)!, cursor) : -1;
+      const quote = nextQuote && quoteOf(nextQuote)!;
+      const pastOwnLength = quote ? outputText.indexOf(quote, cursor + offset.end - offset.start) : -1;
+      const nextStart = quote && pastOwnLength === -1 ? outputText.indexOf(quote, cursor) : pastOwnLength;
       const end = nextStart === -1 ? outputText.length : nextStart;
       if (charIndex >= cursor && charIndex < end) return undefined;
       cursor = end;

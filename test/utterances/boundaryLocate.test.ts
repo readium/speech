@@ -162,3 +162,31 @@ test("page text after substituted text resolves word by word, even when it repea
     }
   }
 });
+
+test("page text right after substituted text resolves word by word, even when it repeats the substitution", async (t) => {
+  const substituted = [
+    { markup: '<abbr title="one">1</abbr>', spoken: "one" },
+    { markup: '<abbr title="R&amp;D one">RD</abbr>', spoken: "R&D one" },
+    { markup: '<a href="chapter.xhtml" aria-label="one">1</a>', spoken: "one" },
+  ];
+  for (const { markup, spoken } of substituted) {
+    for (const mode of ["structure", "sentence"] as const) {
+      for (const format of ["plain", "ssml"] as const) {
+        const html = `<p>${markup} one</p>`;
+        const [utterance] = await extractUtterances(parseMarkup(html, undefined, { textrefs: true }), {
+          format,
+          segmentation: { mode },
+          interruptions: { abbreviation: "inline" },
+        });
+        const text = utterance.plain ?? utterance.ssml!.replace(/<[^>]+>/g, "").replace(/&amp;/g, "&");
+        t.is(text, `${spoken} one`);
+        for (const match of text.matchAll(/\p{L}+/gu)) {
+          const resolved = resolveBoundaryLocate(utterance, match.index!, match[0].length);
+          const label = `${format} ${mode} ${markup}: ${match[0]}@${match.index}`;
+          if (match.index! < spoken.length) t.is(resolved, undefined, label);
+          else t.is(resolved?.word, match[0], label);
+        }
+      }
+    }
+  }
+});
