@@ -25,6 +25,7 @@
             "bibliography": {
                 "block": { "start": "Start of the bibliography.", "end": "End of the bibliography." }
             },
+            "biblioref": { "inline": "Bibliographic reference." },
             "blockquote": { "inline": "Blockquote." },
             "cell": {
                 "inline": {
@@ -80,6 +81,7 @@
             "glossary": {
                 "block": { "start": "Start of the glossary.", "end": "End of the glossary." }
             },
+            "glossref": { "inline": "Glossary definition.", "term": "{{ term }}: {{ value }}" },
             "heading1": { "inline": "Heading level 1." },
             "heading2": { "inline": "Heading level 2." },
             "heading3": { "inline": "Heading level 3." },

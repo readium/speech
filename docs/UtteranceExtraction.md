@@ -48,7 +48,7 @@ interface ExtractUtterancesOptions {
   language?: "none" | "block-level" | "always";
   contentLanguage?: string;
   languageOverrides?: Record<string, string>;
-  inlineContextualization?: GndRole[];
+  interruptions?: Partial<Record<GndRole, "never" | "inline" | "after">>;
   segmentation?: SegmentationOptions;
   substitutions?: SubstitutionTable;
 }
@@ -96,7 +96,7 @@ Quick reference:
 | `language` | `"block-level"` | how a node's own inline-language spans render |
 | `contentLanguage` | none | the language of content without `lang`/`xml:lang` |
 | `languageOverrides` | none | the language content declared in a given language is spoken in |
-| `inlineContextualization` | `[]` | which mid-sentence roles (`noteref`, `pagebreak`) split the sentence, instead of being spoken after it |
+| `interruptions` | each `"after"` | whether a note, page break, abbreviation expansion, definition or bibliography entry is read never, inline or after |
 | `segmentation.mode` | `"structure"` | one utterance per structural unit, or split/reconstruct at real sentence boundaries |
 | `segmentation.suppressions` | none | per-language abbreviations (e.g. `"d."`) that sentence mode won't treat as endings |
 | `segmentation.segmenter` | built-in `Intl.Segmenter`-based splitter | swap in a different sentence segmenter |
@@ -108,7 +108,7 @@ Picks the one field every utterance in the result carries, so a consumer never h
 
 ### `skip`
 
-Drops a role and its whole subtree — content and announcement both — from the output. `skippableRoles` export is the [roles.md skippable set](https://github.com/readium/guided-navigation/blob/main/roles.md#list-of-skippable-roles).
+Drops a role and its whole subtree — content and announcement both — from the output. `skippableRoles` export is the [roles.md skippable set](https://github.com/readium/guided-navigation/blob/main/roles.md#list-of-skippable-roles), minus the roles [`interruptions`](#interruptions) controls, which `skip` ignores.
 
 A role a more specific one on the same node drops isn't skipped either: skipping `aside` keeps `<aside epub:type="footnote">`, which `skip: ["footnote"]` drops instead. A `pullquote` or a `cover` drops its `aside`/`blockquote` or `image` this way only when contextualized.
 
@@ -255,17 +255,38 @@ await extractUtterances(gnd, { format: "plain", language: "always", languageOver
 // [{ language: "fr", plain: "Bonjour" }, { language: "la", plain: "carpe diem." }]
 ```
 
-### `inlineContextualization`
+### `interruptions`
 
-Which mid-sentence roles split the sentence at that exact point instead of being spoken after it finishes — after the sentence holding them with `segmentation: { mode: "sentence" }`, after their whole block otherwise. Default `[]`. `inlineContextualizationRoles` lists the accepted roles: `noteref` (its footnote is spoken in place) and `pagebreak`.
+How each role in `interruptionRoles` (`abbreviation`, `biblioref`, `glossref`, `noteref`, `pagebreak`) is read where it interrupts the text: `"never"`, `"inline"` at that exact point, or `"after"` (the default) — after the sentence holding it with `segmentation: { mode: "sentence" }`, after its whole block otherwise. Independent of `skip` and of verbosity presets.
+
+- `noteref`: its footnote. `"never"` drops it.
+- `pagebreak`: its label. `"never"` drops it.
+- `biblioref`/`glossref`: the bibliography entry or definition they embed; their own text is always read in place. With `"after"`, a definition is read as "term: definition" (catalog's `glossref.term`). With them in `contextualize`, "Bibliographic reference." or "Glossary definition." is read before the entry or definition.
+- `abbreviation`: its `<sub alias>` expansion, in parentheses right after the abbreviation with `"after"`, in place of it with `"inline"`; `"never"` reads the abbreviation only.
+
+```typescript
+// <p>The <abbr title="World Health Organization">WHO</abbr> said.</p>
+await extractUtterances(gnd, { format: "plain" });
+// [{ plain: "The WHO (World Health Organization) said." }]
+
+await extractUtterances(gnd, { format: "plain", interruptions: { abbreviation: "inline" } });
+// [{ plain: "The World Health Organization said." }]
+```
 
 ```typescript
 // <p>...in the middle <span epub:type="pagebreak" title="Page 5"/> of a sentence.</p>
 await extractUtterances(gnd, { format: "plain" });
 // [{ language: "en", plain: "...in the middle of a sentence." }, { plain: "Page 5" }]
 
-await extractUtterances(gnd, { format: "plain", inlineContextualization: ["pagebreak"] });
+await extractUtterances(gnd, { format: "plain", interruptions: { pagebreak: "inline" } });
 // [{ language: "en", plain: "...in the middle Page 5 of a sentence." }]
+```
+
+```typescript
+// <p>The light passes through a <a role="doc-glossref" href="#fresnel">Fresnel lens</a> at the top.</p>
+// <dl role="doc-glossary"><dt id="fresnel"><dfn>Fresnel lens</dfn></dt><dd>A compact lens for focusing light.</dd></dl>
+await extractUtterances(gnd, { format: "plain" });
+// [{ plain: "The light passes through a Fresnel lens at the top." }, { plain: "Fresnel lens: A compact lens for focusing light." }, ...]
 ```
 
 With `segmentation: { mode: "sentence" }`, an inline footnote or pagebreak stays inside the sentence holding it, its own sentences never ending that one. Between two sentences, it closes the one before it:
@@ -274,7 +295,7 @@ With `segmentation: { mode: "sentence" }`, an inline footnote or pagebreak stays
 // <p>First with a note<a epub:type="noteref" href="#n1">1</a> here. Second sentence.</p>
 // <aside epub:type="footnote" id="n1"><p>The note.</p></aside>
 const options = { format: "plain", contextualize: ["footnote"], segmentation: { mode: "sentence" } };
-await extractUtterances(gnd, { ...options, inlineContextualization: ["noteref"] });
+await extractUtterances(gnd, { ...options, interruptions: { noteref: "inline" } });
 // [{ plain: "First with a note Start of the footnote. The note. End of the footnote. here." }, { plain: "Second sentence." }]
 
 await extractUtterances(gnd, options);

@@ -27,7 +27,7 @@ repeating the payload:
   "cases": [
     {
       "options": [{ "format": "plain" }],
-      "utterances": [ /* the default: no skip/contextualize/language/inlineContextualization */ ]
+      "utterances": [ /* the default: no skip/contextualize/language/interruptions */ ]
     },
     {
       "options": [
@@ -48,7 +48,8 @@ understood to equal the default: absence is a positive claim, not a gap.
 Outside that scope, a fixture makes no claim either way.
 
 Scope, per format: `language` × `segmentation.mode`
-× every subset of (this fixture's roles ∩ `noteref`/`pagebreak`), for `inlineContextualization`
+× `never`/`inline`/`after` for each of this fixture's roles ∩ `interruptionRoles`, for `interruptions`
+(`abbreviation` counts as a fixture role when a `text.ssml` holds a `<sub alias>`)
 × every subset of (this fixture's roles ∩ [roles.md's skippable-roles list])
 × every subset of (this fixture's roles ∩ roles with a
 contextualization-catalog entry) × every subset of (this fixture's roles ∩
@@ -81,9 +82,9 @@ The options:
   `contextualize`. Grouped under `contextualization` alongside
   `contextualizations`/`params` (unused by these fixtures) — see
   [Utterance Extraction](../docs/UtteranceExtraction.md#contextualization).
-- `inlineContextualization: GndRole[]` — which of `noteref`/`pagebreak`,
-  when it falls mid-sentence, splits the sentence at that exact point
-  instead of after the whole sentence finishes (the default).
+- `interruptions: Partial<Record<GndRole, "never" | "inline">>` — how
+  each of this fixture's `interruptionRoles` is read: never, inline at
+  that exact point, or after (the default, left unset).
 - `language: "none" | "block-level" | "always"` — how a language shift
   between adjacent text is rendered: dropped entirely; kept as separate
   single-language utterances for `plain`, or merged into one utterance
