@@ -253,3 +253,30 @@ test("a template's punctuation around content in another language takes the cont
     }
   }
 });
+
+test("an abbreviation reads as its page text, or with its content replaced by its title inline, whatever text is attached to it", async (t) => {
+  const inputs = [
+    '<p>Some <abbr title="application programming interface">API</abbr>s are useful.</p>',
+    '<p>A non-<abbr title="European Union">EU</abbr> state.</p>',
+    '<p>An <abbr title="application programming interface">API</abbr>-based tool.</p>',
+    '<p>The <abbr title="World Health Organization">WHO</abbr>’s role.</p>',
+    '<p>(<abbr title="World Health Organization">WHO</abbr>) said.</p>',
+    '<p lang="en">Les <abbr lang="fr" title="organisation non gouvernementale">ONG</abbr>s locales.</p>',
+  ];
+  const pageText = (html: string, inline: boolean) => {
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    if (inline) doc.querySelectorAll("abbr").forEach((abbr) => (abbr.textContent = abbr.getAttribute("title")));
+    return doc.body.textContent!.trim();
+  };
+  for (const html of inputs) {
+    for (const abbreviation of ["inline", "never"] as const) {
+      for (const format of ["plain", "ssml"] as const) {
+        for (const mode of ["structure", "sentence"] as const) {
+          const utterances = await extractUtterances(parseMarkup(html), { format, segmentation: { mode }, interruptions: { abbreviation } });
+          const spoken = utterances.map((u) => (format === "ssml" ? u.ssml!.replace(/<[^>]+>/g, "") : u.plain)).join(" ");
+          t.is(spoken, pageText(html, abbreviation === "inline"), `${format} ${mode} ${abbreviation}: ${html}`);
+        }
+      }
+    }
+  }
+});

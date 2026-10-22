@@ -590,6 +590,9 @@ const ABBREVIATION_RE =
 
 const PLACEHOLDER_OR_ABBREVIATION_RE = new RegExp(`${RAW_PLACEHOLDER_RE.source}|${ABBREVIATION_RE.source}`, "g");
 
+const ATTACHED_END_RE = /[\p{L}\p{N}\p{Pd}]+$/u;
+const ATTACHED_START_RE = /^[\p{L}\p{N}\p{Pd}]+/u;
+
 function unescapeSsmlAttr(value: string): string {
   return unescapeSsmlEntities(value.replace(/&quot;/g, '"').replace(/&apos;/g, "'"));
 }
@@ -608,25 +611,31 @@ export function splitOnPlaceholders(ssml: string): SsmlSegment[] {
   const segments: SsmlSegment[] = [];
   let lastIndex = 0;
   for (const match of ssml.matchAll(PLACEHOLDER_OR_ABBREVIATION_RE)) {
-    const before = ssml.slice(lastIndex, match.index).trim();
+    const isAbbreviation = match[1] === undefined;
+    const end = match.index! + match[0].length;
+    // Text attached to an abbreviation (e.g. a plural "s") stays attached to it and to its alias, as SSML's <sub> reads.
+    const prefix = isAbbreviation ? (ssml.slice(lastIndex, match.index).match(ATTACHED_END_RE)?.[0] ?? "") : "";
+    const suffix = isAbbreviation ? (ssml.slice(end).match(ATTACHED_START_RE)?.[0] ?? "") : "";
+    const before = ssml.slice(lastIndex, match.index! - prefix.length).trim();
     if (before) segments.push({ ssml: before });
-    if (match[1] !== undefined) {
+    if (!isAbbreviation) {
       segments.push({ placeholderId: match[1] });
     } else {
       const langOpen = match[2];
       const alias = match[3] ?? match[5];
       const text = match[4] ?? match[6];
       const wrap = (inner: string) => (langOpen ? `${langOpen}${inner}</lang>` : inner);
-      segments.push({ ssml: wrap(text), abbreviation: "text" });
+      const attach = (inner: string) => wrap(`${prefix}${inner}${suffix}`);
+      segments.push({ ssml: attach(text), abbreviation: "text" });
       const aliasSsml = ssmlTextEscape(unescapeSsmlAttr(alias));
       segments.push({
-        ssml: wrap(aliasSsml),
+        ssml: attach(aliasSsml),
         abbreviation: "alias",
-        abbreviationText: wrap(text),
+        abbreviationText: attach(text),
         parenthesizedSsml: wrap(`(${aliasSsml})`),
       });
     }
-    lastIndex = match.index! + match[0].length;
+    lastIndex = end + suffix.length;
   }
   const after = ssml.slice(lastIndex).trim();
   if (after) segments.push({ ssml: after });
