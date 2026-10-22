@@ -238,14 +238,18 @@ test("a template's punctuation around content in another language takes the cont
     '<html lang="fr"><body><p>Voir <a role="doc-glossref" href="#g">OMS</a> ici.</p>' +
     '<dl role="doc-glossary"><dt id="g">OMS</dt><dd>La définition.</dd></dl></body></html>';
   for (const template of ["{{ term }}: {{ value }}", "{{ term }} : {{ value }}", "{{ term }} — {{ value }}", "{{ term }}，{{ value }}"]) {
-    for (const format of ["plain", "ssml"] as const) {
-      const utterances = await extractUtterances(parseMarkup(glossary), {
-        format,
-        interruptions: { glossref: "after" },
-        contextualization: { contextualizations: { glossref: { term: template } } as Contextualizations },
-      });
-      t.true(utterances.every((u) => u.language === "fr"), `${format} ${template}`);
-      t.false(utterances.some((u) => !/[\p{L}\p{N}]/u.test(u[format] ?? "")), `${format} ${template}`);
+    for (const contextualize of [[], ["glossref" as const]]) {
+      for (const format of ["plain", "ssml"] as const) {
+        const utterances = await extractUtterances(parseMarkup(glossary), {
+          format,
+          contextualize,
+          interruptions: { glossref: "after" },
+          contextualization: { contextualizations: { glossref: { term: template } } as Contextualizations },
+        });
+        const label = `${format} ${template} ${JSON.stringify(contextualize)}`;
+        t.true(utterances.filter((u) => u[format]?.includes("OMS")).every((u) => u.language === "fr"), label);
+        t.false(utterances.some((u) => !/[\p{L}\p{N}]/u.test(u[format] ?? "")), label);
+      }
     }
   }
 });

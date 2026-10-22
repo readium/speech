@@ -154,8 +154,12 @@ function pushTextReferenceTargets(
   }
   announced.forEach((node) => announcedTargets.delete(node));
   if (eligible && pieces.length > 0) ctx.blockStarts.add(pieces[0]);
-  const merged = pieces.length > 1 ? mergeUtterances(pieces, pieceSources, ctx) : undefined;
-  pushPiecesOrMerged(out, sources, ctx, ref, pieces, pieceSources, merged);
+  for (const [start, end] of languageRuns(pieces, ctx)) {
+    const run = pieces.slice(start, end);
+    const runSources = pieceSources.slice(start, end);
+    const merged = run.length > 1 ? mergeUtterances(run, runSources, ctx) : undefined;
+    pushPiecesOrMerged(out, sources, ctx, ref, run, runSources, merged);
+  }
 }
 
 // A deferred interruption: a node, or a text reference's targets.
