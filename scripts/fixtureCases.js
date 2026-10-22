@@ -1,6 +1,9 @@
 // Fixture scope and comparison rules (fixtures/README.md), shared by the generator, test/ and the playground.
 // No fs or library import: it runs in Node, ava and the browser alike.
 
+// Option sets grow exponentially with a fixture's roles: past this, its input covers more roles than it tests.
+export const maxUtterancesFileBytes = 10 * 1024 * 1024;
+
 // Expected output depends on aria substitution, which gnd.json can't carry: parsed from input markup instead.
 export const parsedInputFixtures = new Set([
   "accessible-name-labelledby-aria-hidden",

@@ -7,6 +7,7 @@ import { parseMarkup } from "@readium/guided-navigation";
 import {
   collectRoles,
   fixtureTopLevel,
+  maxUtterancesFileBytes,
   optionSpace,
   parsedInputFixtures,
   roleListsFrom,
@@ -80,8 +81,15 @@ for (const entry of entries) {
     cases.push(...groups.values());
   }
 
+  const json = JSON.stringify({ cases }, null, 2) + "\n";
+  if (Buffer.byteLength(json) > maxUtterancesFileBytes) {
+    const optionSets = cases.reduce((count, { options }) => count + options.length, 0);
+    throw new Error(
+      `${entry.id}: utterances.json would be ${(Buffer.byteLength(json) / 1024 / 1024).toFixed(1)} MB (${optionSets} option sets, roles: ${[...rolesInTree].join(", ")}). Reduce the fixture's input to the roles it tests.`,
+    );
+  }
   mkdirSync(dir, { recursive: true });
-  writeFileSync(path.join(dir, "utterances.json"), JSON.stringify({ cases }, null, 2) + "\n");
+  writeFileSync(path.join(dir, "utterances.json"), json);
 }
 
 console.log(`Regenerated utterances.json for ${entries.length} fixtures.`);

@@ -7,6 +7,7 @@ export interface FixtureRoleLists {
 
 export type FixtureOptions = Record<string, unknown> & { format: "plain" | "ssml" };
 
+export const maxUtterancesFileBytes: number;
 export const parsedInputFixtures: ReadonlySet<string>;
 export function roleListsFrom(mod: Record<string, unknown>): FixtureRoleLists;
 export function fixtureTopLevel(gnd: unknown): unknown[];
