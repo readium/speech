@@ -79,7 +79,8 @@ function isSubstitutedEdge(
   edge: "leading" | "trailing",
   ctx: WalkContext,
 ): boolean {
-  if (ctx.edgeSubstitutedLocate.get(utterance)?.[edge]) return true;
+  const locate = ctx.edgeSubstitutedLocate.get(utterance)?.[edge];
+  if (locate && !ctx.aliasLocates.has(locate)) return true;
   return !!source && !Array.isArray(source) && isAriaSubstituted(source);
 }
 

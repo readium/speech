@@ -685,3 +685,23 @@ test.serial("segmentation: a caller's segmenter runs without Intl.Segmenter, giv
     (Intl as any).Segmenter = intlSegmenter;
   }
 });
+
+test("segmentation: sentence speaks the same sentences with and without textrefs", async (t) => {
+  const inputs = [
+    '<p><dfn><abbr title="World Health Organization">WHO</abbr></dfn> <span>said.</span> Then more.</p>',
+    '<p><abbr title="World Health Organization"><dfn>WHO</dfn></abbr> said. Then more.</p>',
+    '<p>The <em><abbr title="World Health Organization">WHO</abbr></em> said. Then more.</p>',
+    '<p>See <a href="chapter.xhtml" aria-label="chapter one">1</a> now. Then more.</p>',
+  ];
+  for (const html of inputs) {
+    for (const abbreviation of ["inline", "after", "never"] as const) {
+      for (const format of ["plain", "ssml"] as const) {
+        const spoken = async (textrefs: boolean) =>
+          (await extractUtterances(parseMarkup(html, undefined, { textrefs }), { format, segmentation: { mode: "sentence" }, interruptions: { abbreviation } })).map(
+            (u) => u[format],
+          );
+        t.deepEqual(await spoken(true), await spoken(false), `${format} ${abbreviation}: ${html}`);
+      }
+    }
+  }
+});
