@@ -190,3 +190,17 @@ test("page text right after substituted text resolves word by word, even when it
     }
   }
 });
+
+test("a sentence's quote cut out of a longer run of page text carries that run around it", async (t) => {
+  const html =
+    "<body><p>A computer system is called a speech synthesizer. " +
+    'A <abbr title="text-to-speech">TTS</abbr> system converts text into speech.</p></body>';
+  const root = new DOMParser().parseFromString(html, "text/html").querySelector("body")!;
+  const gnd = parseMarkup(root, undefined, { textrefs: { roles: true, domRange: true } });
+  for (const abbreviation of ["inline", "after"] as const) {
+    const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" }, interruptions: { abbreviation } });
+    const first = utterances[1].offsets![0].locate.text!;
+    t.is(first.highlight, "A", abbreviation);
+    t.is(first.before, "A computer system is called a speech synthesizer. ", abbreviation);
+  }
+});

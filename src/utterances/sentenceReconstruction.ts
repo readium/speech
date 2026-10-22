@@ -277,6 +277,8 @@ function buildJoinedOffsets(
     const localEnd = contribEnd - pieceRange.start;
     const text = plainOf((ctx.format === "ssml" ? pieces[k].ssml : pieces[k].plain)!, ctx.format);
     const locate = substitutedLocate ?? subLocateFor(nodeRef.ref, text.slice(localStart, localEnd));
+    if (!substitutedLocate && localStart > 0) locate.text = { ...locate.text, before: text.slice(0, localStart) };
+    if (!substitutedLocate && localEnd < text.length) locate.text = { ...locate.text, after: text.slice(localEnd) };
     offsets.push({ start: localStart, end: localEnd, locate });
   }
   return offsets;
