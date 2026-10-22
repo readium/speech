@@ -121,6 +121,7 @@ function pushTextReferenceTargets(
   suppress: boolean,
   deferred: boolean,
 ): void {
+  if (targets.length === 0) return;
   const role = nodeRoles(ref).find((r) => textReferenceRoleSet.has(r));
   const term = targets.length > 1 ? targets.find(holdsTerm) : undefined;
   const values = targets.filter((target) => target !== term);

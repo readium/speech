@@ -1,5 +1,6 @@
 import "../domSetup.js";
 import test from "ava";
+import { GuidedNavigationObject } from "@readium/shared";
 import { parseMarkup } from "@readium/guided-navigation";
 import { extractUtterances } from "../../src/utterances/extractUtterances.js";
 import type { Interruption } from "../../src/utterances/types.js";
@@ -216,4 +217,18 @@ test("a lang-wrapped inline announcement keeps the sentence's SSML well-formed",
     ["One sentence.", "fr"],
     [`Second <emphasis>bold </emphasis>${enLang("Pagebreak. Page 5.")}<emphasis> word</emphasis> breaks.`, "fr"],
   ]);
+});
+
+test("a contextualized text reference with no targets reads only its own text", async (t) => {
+  const gnd = [
+    GuidedNavigationObject.deserialize({
+      role: ["paragraph"],
+      children: [{ text: "See " }, { role: ["glossref"], text: "term" }, { text: " here." }],
+    })!,
+  ];
+  (gnd[0].children![1] as { children?: GuidedNavigationObject[] }).children = [];
+  for (const glossref of ["inline", "after", "never"] as const) {
+    const utterances = await extractUtterances(gnd, { format: "plain", contextualize: ["glossref"], interruptions: { glossref } });
+    t.deepEqual(utterances.map((u) => u.plain), ["See ", "term", " here."], glossref);
+  }
 });
