@@ -404,7 +404,8 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
     // Ignored entirely — see `contentlessRoles`.
   } else {
     const rawSsml = spokenText(node)?.ssml;
-    if (rawSsml && hasPlaceholder(rawSsml)) {
+    const foldsValue = roles.some((role) => valueFoldingRoleSet.has(role) && isRoleContextualized(role, ctx));
+    if (rawSsml && hasPlaceholder(rawSsml) && !foldsValue) {
       const deferred = emitWithPlaceholders(node, rawSsml, out, sources, ctx, suppress, isBlockRole);
       if (deferred.length > 0) {
         const childSuppress = suppress || (isBlockRole && out.length > beforeLength);
@@ -417,7 +418,6 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
         walk(node.children, out, sources, ctx, childSuppress);
       }
     } else {
-      const foldsValue = roles.some((role) => valueFoldingRoleSet.has(role) && isRoleContextualized(role, ctx));
       const resolved = foldsValue ? undefined : resolveNodeText(spokenText(node));
       if (resolved) {
         push(out, sources, node, applyFormat(resolved, ctx.format, ctx.language, ctx));
