@@ -425,7 +425,7 @@ function walkNode(node: GuidedNavigationObject, out: ReadiumSpeechUtterance[], s
       if (node.children && !skipsTarget) {
         const childSuppress = suppress || (isBlockRole && out.length > beforeLength);
         if (roles.some((role) => textReferenceRoleSet.has(role))) {
-          pushTextReferenceTargets(node, node.children, out, sources, ctx, childSuppress, false);
+          pushTextReferenceTargets(node, node.children, out, sources, ctx, childSuppress, isDeferred(node, ctx));
         } else {
           walk(node.children, out, sources, ctx, childSuppress);
         }
