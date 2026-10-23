@@ -20,6 +20,12 @@
         {
           "format": "plain",
           "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
           }
@@ -28,8 +34,22 @@
           "format": "plain",
           "language": "always",
           "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
           }
         },
         {
@@ -50,6 +70,13 @@
     },
     {
       "options": [
+        {
+          "format": "plain",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
         {
           "format": "plain",
           "language": "none",
@@ -85,6 +112,12 @@
         {
           "format": "ssml",
           "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
           }
@@ -93,8 +126,22 @@
           "format": "ssml",
           "language": "always",
           "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "segmentation": {
             "mode": "sentence",
             "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence"
           }
         },
         {
@@ -115,6 +162,13 @@
     },
     {
       "options": [
+        {
+          "format": "ssml",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
         {
           "format": "ssml",
           "language": "none",

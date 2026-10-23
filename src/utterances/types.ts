@@ -54,7 +54,7 @@ export interface SegmentationOptions {
   // "sentence": split at real sentence boundaries instead.
   mode?: Segmentation;
 
-  // "sentence" mode only: reconstruct a sentence across elements when it genuinely
+  // "sentence" mode only: reconstruct a sentence across blocks when it genuinely
   // spans them, e.g. fixed-layout text fragments. Default false.
   reconstruct?: boolean;
 

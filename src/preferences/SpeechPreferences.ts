@@ -36,7 +36,7 @@ export interface ISpeechPreferences {
   language?: LanguageMode | null;
   languageOverrides?: Record<string, string> | null; // default {}, declared language -> spoken language
   segmentation?: Segmentation | null; // default "structure"
-  reconstruct?: boolean | null; // default false, joins a sentence split across elements with segmentation "sentence"
+  reconstruct?: boolean | null; // default false, joins a sentence split across blocks with segmentation "sentence"
 
   // Voice of every utterance without its own `voice`, by its language when a record — applied by ReadiumSpeechNavigator.
   voice?: VoicePreference | null;

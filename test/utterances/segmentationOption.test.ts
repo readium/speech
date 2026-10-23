@@ -349,10 +349,16 @@ test("segmentation: sentence keeps a sentence split across two sibling paragraph
   t.deepEqual(utterances.map((u) => doc.querySelector(u.locate!.domRange!.start.cssSelector)), paragraphs);
 });
 
-test("segmentation: sentence keeps a sentence split across two divs apart by default", async (t) => {
+test("segmentation: sentence joins a sentence split across two unroled divs by default, which aren't blocks", async (t) => {
   const gnd = parseMarkup("<div><div>This sentence continues</div><div>across two divs.</div></div>");
   const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
-  t.deepEqual(utterances.map((u) => u.plain), ["This sentence continues", "across two divs."]);
+  t.deepEqual(utterances.map((u) => u.plain), ["This sentence continues across two divs."]);
+});
+
+test("segmentation: sentence keeps an inline-roled element inside its sentence outside a paragraph by default", async (t) => {
+  const gnd = parseMarkup('<ul><li>Read <span role="doc-credit">Moby Dick</span> today. Then rest.</li></ul>');
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  t.deepEqual(utterances.map((u) => u.plain), ["Read Moby Dick today.", "Then rest."]);
 });
 
 test("segmentation: sentence keeps a note reference inside its sentence without reconstruct", async (t) => {

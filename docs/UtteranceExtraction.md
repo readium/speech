@@ -98,7 +98,7 @@ Quick reference:
 | `languageOverrides` | none | the language content declared in a given language is spoken in |
 | `interruptions` | each `"after"` | whether a note, page break, abbreviation expansion, definition or bibliography entry is read never, inline or after |
 | `segmentation.mode` | `"structure"` | one utterance per structural unit, or split at real sentence boundaries |
-| `segmentation.reconstruct` | `false` | in sentence mode, join a sentence split across elements (fixed layout) |
+| `segmentation.reconstruct` | `false` | in sentence mode, join a sentence split across blocks (fixed layout) |
 | `segmentation.suppressions` | none | per-language abbreviations (e.g. `"d."`) that sentence mode won't treat as endings |
 | `segmentation.segmenter` | built-in `Intl.Segmenter`-based splitter | swap in a different sentence segmenter |
 | `substitutions` | `builtInSubstitutions` | ASCII imitations of Unicode symbols (`"1/2"`, `"(c)"`, `"100deg"`) to rewrite before speaking |
@@ -316,7 +316,7 @@ await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence"
 // [{ plain: "Hello there. " }, { plain: "This has two sentences." }]
 ```
 
-A sentence always joins the inline content of its own `<p>`, heading or `<pre>`, e.g. a `<dfn>` and the text after it. With `reconstruct: true`, a sentence genuinely split across elements (e.g. a fixed-layout document with no enclosing paragraph, just positioned text fragments) is reconstructed into one utterance covering both:
+Without `reconstruct`, a sentence only joins pieces of its own block, the nearest element with a [block-level role](../src/utterances/roles.ts) (`paragraph`, `listItem`, `cell`, …), e.g. a `<dfn>` and the text after it. Unroled `<div>`s aren't blocks, so their pieces join when a sentence runs across them. With `reconstruct: true`, a sentence genuinely split across blocks (e.g. a fixed-layout document with no enclosing paragraph, just positioned text fragments) is reconstructed into one utterance covering both:
 
 ```typescript
 // <p>This sentence continues</p><p>across two paragraphs.</p>

@@ -63,7 +63,7 @@ volume?: number;                                 // default 1.0, range [0, 1]
 
 `segmentation` (`"structure" | "sentence"`, default `"structure"`) is the same option documented in [Utterance Extraction](UtteranceExtraction.md#segmentation) — only its `mode`; per-language `suppressions` and a custom `segmenter` are construction-only (see [`segmentationOverrides`](Playback.md#segmentationoverrides)), not a live preference.
 
-`reconstruct` (`boolean`, default `false`) is [`segmentation.reconstruct`](UtteranceExtraction.md#segmentation): with `segmentation: "sentence"`, it joins a sentence split across elements, e.g. fixed-layout text fragments. A live preference, so an app can offer it where extraction splits sentences badly on a page or publication.
+`reconstruct` (`boolean`, default `false`) is [`segmentation.reconstruct`](UtteranceExtraction.md#segmentation): with `segmentation: "sentence"`, it joins a sentence split across blocks, e.g. fixed-layout text fragments. A live preference, so an app can offer it where extraction splits sentences badly on a page or publication.
 
 ## Voice
 

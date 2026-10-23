@@ -6,7 +6,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 ### Changed
 
-- **Breaking:** `segmentation: { mode: "sentence" }` no longer reconstructs a sentence split across elements, e.g. two `<p>` or `<div>`, unless `segmentation.reconstruct` is `true` (the `reconstruct` preference in `ReadiumSpeechNavigator`, default `false`), meant for fixed-layout text fragments. A sentence still joins the inline content of its own `<p>`, heading or `<pre>`.
+- **Breaking:** `segmentation: { mode: "sentence" }` no longer reconstructs a sentence split across blocks, e.g. two `<p>`, unless `segmentation.reconstruct` is `true` (the `reconstruct` preference in `ReadiumSpeechNavigator`, default `false`), meant for fixed-layout text fragments. A sentence still joins across inline elements of its own block, and across unroled `<div>`s.
 
 ## [0.17.0] - 2026-10-22
 

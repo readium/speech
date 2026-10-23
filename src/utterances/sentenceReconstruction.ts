@@ -8,7 +8,7 @@ import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
 import { buildMergeOffsets, joinPieceTexts, plainOf, substitutedBareLocate } from "./mergeUtterances.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import { segmentSentences, suppressionLanguage, type SentenceBoundary } from "./sentenceSegmenter.js";
-import type { SourceTrace, WalkContext } from "./walkContext.js";
+import { blockLevelRoleSet, type SourceTrace, type WalkContext } from "./walkContext.js";
 
 // The caller's suppressions for `language`, in English when the built-in segmenter falls back to it; a caller's segmenter gets its input language's.
 function callerSuppressions(language: string, ctx: WalkContext): string[] | undefined {
@@ -67,27 +67,10 @@ function roledAncestors(source: GuidedNavigationObject | [GuidedNavigationObject
   return (ctx.ancestorChains.get(node) ?? []).filter((ancestor) => nodeRoles(ancestor).some((role) => role !== "presentation"));
 }
 
-// Elements HTML allows only inline content in: their child nodes are runs of one element, never separate ones.
-const phrasingOnlyRoles: ReadonlySet<GndRole> = new Set([
-  "paragraph",
-  "preformatted",
-  "heading1",
-  "heading2",
-  "heading3",
-  "heading4",
-  "heading5",
-  "heading6",
-]);
-
-// Without `reconstruct`, only runs of one element join, e.g. a `<dfn>` and the text after it in a `<p>`.
-function isSameElementJoin(
-  prevSource: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject],
-  nextSource: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject],
-  ctx: WalkContext,
-): boolean {
-  const prevParent = ctx.ancestorChains.get(Array.isArray(prevSource) ? prevSource[1] : prevSource)?.[0];
-  const nextParent = ctx.ancestorChains.get(Array.isArray(nextSource) ? nextSource[0] : nextSource)?.[0];
-  return !!prevParent && prevParent === nextParent && nodeRoles(prevParent).some((role) => phrasingOnlyRoles.has(role));
+// The nearest block-level node holding a source's leading/trailing edge, itself included.
+function blockOf(source: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject], edge: "leading" | "trailing", ctx: WalkContext) {
+  const node = Array.isArray(source) ? source[edge === "leading" ? 0 : 1] : source;
+  return [node, ...(ctx.ancestorChains.get(node) ?? [])].find((n) => nodeRoles(n).some((role) => blockLevelRoleSet.has(role)));
 }
 
 function sameRoledContainers(a: GuidedNavigationObject[], b: GuidedNavigationObject[]): boolean {
@@ -153,7 +136,7 @@ function canExtendRun(
   if (!sameLanguage(prev.language ?? "en", next.language ?? "en")) return false;
   if (ctx.synthetic.has(prev) || ctx.synthetic.has(next)) return false;
   if (!prevSource || !nextSource) return false;
-  if (!ctx.segmentationReconstruct && !isSameElementJoin(prevSource, nextSource, ctx)) return false;
+  if (!ctx.segmentationReconstruct && blockOf(prevSource, "trailing", ctx) !== blockOf(nextSource, "leading", ctx)) return false;
   if (rolesOf(prevSource).some((role) => neverJoinRoles.has(role))) return false;
   if (rolesOf(nextSource).some((role) => neverJoinRoles.has(role))) return false;
   if (!sameRoledContainers(roledAncestors(prevSource, "trailing", ctx), roledAncestors(nextSource, "leading", ctx))) return false;
