@@ -60,16 +60,20 @@ function rolesOf(source: GuidedNavigationObject | [GuidedNavigationObject, Guide
   return nodeRoles(Array.isArray(source) ? source[1] : source);
 }
 
+function edgeNode(source: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject], edge: "leading" | "trailing"): GuidedNavigationObject {
+  return Array.isArray(source) ? source[edge === "leading" ? 0 : 1] : source;
+}
+
 // Ancestors carrying a semantic role, at the given edge of a source; unroled and
 // `presentation` wrappers (e.g. fixed-layout `<div>`s, layout tables) are not boundaries.
 function roledAncestors(source: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject], edge: "leading" | "trailing", ctx: WalkContext): GuidedNavigationObject[] {
-  const node = Array.isArray(source) ? source[edge === "leading" ? 0 : 1] : source;
+  const node = edgeNode(source, edge);
   return (ctx.ancestorChains.get(node) ?? []).filter((ancestor) => nodeRoles(ancestor).some((role) => role !== "presentation"));
 }
 
 // The nearest block-level node holding a source's leading/trailing edge, itself included.
 function blockOf(source: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject], edge: "leading" | "trailing", ctx: WalkContext) {
-  const node = Array.isArray(source) ? source[edge === "leading" ? 0 : 1] : source;
+  const node = edgeNode(source, edge);
   return [node, ...(ctx.ancestorChains.get(node) ?? [])].find((n) => nodeRoles(n).some((role) => blockLevelRoleSet.has(role)));
 }
 
