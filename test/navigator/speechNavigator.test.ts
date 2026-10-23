@@ -84,6 +84,15 @@ test("submitPreferences re-extracts when reconstruct changes, joining a sentence
   t.deepEqual(navigator.getContentQueue().map((u) => u.plain), ["This sentence continues across two paragraphs."]);
 });
 
+test("submitPreferences doesn't re-extract when reconstruct changes in structure segmentation", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine);
+  await navigator.loadGndContent(twoParagraphTree);
+  const loads = engine.loadUtterancesStartIndexCalls.length;
+  await navigator.submitPreferences(new SpeechPreferences({ reconstruct: true }));
+  t.is(engine.loadUtterancesStartIndexCalls.length, loads);
+});
+
 test("submitPreferences re-extracts when languageOverrides changes, not when it's resubmitted equal", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);

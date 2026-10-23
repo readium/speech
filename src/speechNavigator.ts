@@ -550,12 +550,17 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     }
 
     // Skip reextract() unless it would actually produce a different queue.
-    if (extractionPreferenceKeys.some((key) => !this.sameSettingValue(previousSettings[key], this._settings[key]))) {
+    if (extractionPreferenceKeys.some((key) => !this.sameSettingValue(this.extractionValue(previousSettings, key), this.extractionValue(this._settings, key)))) {
       await this.reextract();
     } else if (this.loadedQueue.length > 0 && !this.sameSettingValue(previousSettings.voice, this._settings.voice)) {
       const { index, state } = this.resumeTarget();
       this.setContentQueue(this.loadedQueue, index, state);
     }
+  }
+
+  // `reconstruct` only shapes extraction in sentence segmentation.
+  private extractionValue(settings: SpeechSettings, key: (typeof extractionPreferenceKeys)[number]): unknown {
+    return key === "reconstruct" ? settings.segmentation === "sentence" && settings.reconstruct : settings[key];
   }
 
   // Arrays (skip/contextualize) compare as sets and records (languageOverrides) by entries, not by reference.
