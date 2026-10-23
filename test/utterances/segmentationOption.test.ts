@@ -445,7 +445,7 @@ test("segmentation: sentence reconstruction's offsets attribute each half of the
 
 test("segmentation: sentence does not falsely merge a genuine abbreviation-adjacent sentence end across paragraphs", async (t) => {
   const gnd = parseMarkup("<p>He works at Acme Inc.</p><p>Tomorrow starts early.</p>");
-  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", reconstruct: true } });
   t.deepEqual(
     utterances.map((u) => u.plain),
     ["He works at Acme Inc.", "Tomorrow starts early."]
@@ -494,7 +494,7 @@ test("segmentation: sentence reconstruction never double-spaces a boundary that 
 
 test("segmentation: sentence never reconstructs across a table cell boundary", async (t) => {
   const gnd = parseMarkup("<table><tr><td>eSpeak</td><td>Jonathan Duddington</td></tr></table>");
-  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", reconstruct: true } });
   t.deepEqual(
     utterances.map((u) => u.plain),
     ["eSpeak", "Jonathan Duddington"]
@@ -503,7 +503,7 @@ test("segmentation: sentence never reconstructs across a table cell boundary", a
 
 test("segmentation: sentence never reconstructs out of a header into the paragraph after it", async (t) => {
   const gnd = parseMarkup("<header><h1>Title</h1><p>A subtitle</p></header><p>First sentence. Second one.</p>");
-  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", reconstruct: true } });
   t.deepEqual(
     utterances.map((u) => u.plain),
     ["Title", "A subtitle", "First sentence.", "Second one."]
@@ -512,7 +512,7 @@ test("segmentation: sentence never reconstructs out of a header into the paragra
 
 test("segmentation: sentence never reconstructs across a section boundary", async (t) => {
   const gnd = parseMarkup("<section><p>The end of one section</p></section><section><p>the start of another.</p></section>");
-  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", reconstruct: true } });
   t.deepEqual(
     utterances.map((u) => u.plain),
     ["The end of one section", "the start of another."]
@@ -539,7 +539,7 @@ test("segmentation: sentence never merges an aria-label substitution into the ne
   );
   const root = doc.querySelector("body")!;
   const gnd = parseMarkup(root, undefined, { textrefs: { roles: true, domRange: true } });
-  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", reconstruct: true } });
   t.deepEqual(
     utterances.map((u) => u.plain),
     ["Into speech. see glossary entry", "Synthesized speech can be created."]
