@@ -31,7 +31,29 @@
         },
         {
           "format": "plain",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -40,7 +62,8 @@
           "format": "plain",
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -139,12 +162,33 @@
         },
         {
           "format": "plain",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
           "language": "always",
           "interruptions": {
             "biblioref": "never"
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -159,6 +203,17 @@
         },
         {
           "format": "plain",
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
           "contextualize": [
             "biblioref"
           ],
@@ -167,6 +222,19 @@
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -187,12 +255,40 @@
           "contextualize": [
             "biblioref"
           ],
+          "language": "always",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
           "language": "block-level",
           "interruptions": {
             "biblioref": "never"
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -258,7 +354,38 @@
         },
         {
           "format": "plain",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
           "language": "always",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
           "interruptions": {
             "biblioref": "inline"
           },
@@ -273,7 +400,8 @@
             "biblioref": "inline"
           },
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -319,6 +447,14 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -379,6 +515,17 @@
         },
         {
           "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
           "contextualize": [
             "biblioref"
           ],
@@ -388,6 +535,20 @@
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -432,6 +593,17 @@
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -501,7 +673,38 @@
           "contextualize": [
             "biblioref"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -513,7 +716,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -598,7 +802,47 @@
           "contextualize": [
             "biblioref"
           ],
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
           "language": "always",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "always",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level",
           "interruptions": {
             "biblioref": "inline"
           },
@@ -616,7 +860,8 @@
             "biblioref": "inline"
           },
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -668,6 +913,17 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -721,6 +977,20 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -766,7 +1036,29 @@
         },
         {
           "format": "ssml",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -775,7 +1067,8 @@
           "format": "ssml",
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -874,12 +1167,33 @@
         },
         {
           "format": "ssml",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
           "language": "always",
           "interruptions": {
             "biblioref": "never"
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -894,6 +1208,17 @@
         },
         {
           "format": "ssml",
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
           "contextualize": [
             "biblioref"
           ],
@@ -902,6 +1227,19 @@
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -922,12 +1260,40 @@
           "contextualize": [
             "biblioref"
           ],
+          "language": "always",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
           "language": "block-level",
           "interruptions": {
             "biblioref": "never"
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -993,7 +1359,38 @@
         },
         {
           "format": "ssml",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
           "language": "always",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
           "interruptions": {
             "biblioref": "inline"
           },
@@ -1008,7 +1405,8 @@
             "biblioref": "inline"
           },
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -1054,6 +1452,14 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -1114,6 +1520,17 @@
         },
         {
           "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
           "contextualize": [
             "biblioref"
           ],
@@ -1123,6 +1540,20 @@
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "biblioref": "never"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -1167,6 +1598,17 @@
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -1236,7 +1678,38 @@
           "contextualize": [
             "biblioref"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -1248,7 +1721,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -1333,7 +1807,47 @@
           "contextualize": [
             "biblioref"
           ],
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
           "language": "always",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "always",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "block-level",
           "interruptions": {
             "biblioref": "inline"
           },
@@ -1351,7 +1865,8 @@
             "biblioref": "inline"
           },
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -1402,6 +1917,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -1455,6 +1981,20 @@
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "biblioref"
+          ],
+          "language": "none",
+          "interruptions": {
+            "biblioref": "inline"
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],

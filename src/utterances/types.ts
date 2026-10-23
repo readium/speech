@@ -51,9 +51,12 @@ export type SubstitutionTable = Record<string, SubstitutionRule>;
 // See `ExtractUtterancesOptions.segmentation` below.
 export interface SegmentationOptions {
   // "structure" (default): one utterance per structural/block-level unit.
-  // "sentence": split at real sentence boundaries instead, reconstructing a
-  // sentence across sibling nodes when it genuinely spans them.
+  // "sentence": split at real sentence boundaries instead.
   mode?: Segmentation;
+
+  // "sentence" mode only: reconstruct a sentence across blocks when it genuinely
+  // spans them, e.g. fixed-layout text fragments. Default false.
+  reconstruct?: boolean;
 
   // Extra per-language abbreviations (with trailing period, e.g. "d.") that
   // "sentence" mode won't treat as sentence endings — keyed like `language`.

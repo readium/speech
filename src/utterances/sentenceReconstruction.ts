@@ -8,7 +8,7 @@ import { splitSsmlAtSentences } from "./splitSsmlAtSentences.js";
 import { buildMergeOffsets, joinPieceTexts, plainOf, substitutedBareLocate } from "./mergeUtterances.js";
 import { preciseLocateFor, resolveNodeLocate, spanLocate, subLocateFor } from "./locate.js";
 import { segmentSentences, suppressionLanguage, type SentenceBoundary } from "./sentenceSegmenter.js";
-import type { SourceTrace, WalkContext } from "./walkContext.js";
+import { blockLevelRoleSet, type SourceTrace, type WalkContext } from "./walkContext.js";
 
 // The caller's suppressions for `language`, in English when the built-in segmenter falls back to it; a caller's segmenter gets its input language's.
 function callerSuppressions(language: string, ctx: WalkContext): string[] | undefined {
@@ -60,11 +60,21 @@ function rolesOf(source: GuidedNavigationObject | [GuidedNavigationObject, Guide
   return nodeRoles(Array.isArray(source) ? source[1] : source);
 }
 
+function edgeNode(source: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject], edge: "leading" | "trailing"): GuidedNavigationObject {
+  return Array.isArray(source) ? source[edge === "leading" ? 0 : 1] : source;
+}
+
 // Ancestors carrying a semantic role, at the given edge of a source; unroled and
 // `presentation` wrappers (e.g. fixed-layout `<div>`s, layout tables) are not boundaries.
 function roledAncestors(source: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject], edge: "leading" | "trailing", ctx: WalkContext): GuidedNavigationObject[] {
-  const node = Array.isArray(source) ? source[edge === "leading" ? 0 : 1] : source;
+  const node = edgeNode(source, edge);
   return (ctx.ancestorChains.get(node) ?? []).filter((ancestor) => nodeRoles(ancestor).some((role) => role !== "presentation"));
+}
+
+// The nearest block-level node holding a source's leading/trailing edge, itself included.
+function blockOf(source: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject], edge: "leading" | "trailing", ctx: WalkContext) {
+  const node = edgeNode(source, edge);
+  return [node, ...(ctx.ancestorChains.get(node) ?? [])].find((n) => nodeRoles(n).some((role) => blockLevelRoleSet.has(role)));
 }
 
 function sameRoledContainers(a: GuidedNavigationObject[], b: GuidedNavigationObject[]): boolean {
@@ -130,6 +140,7 @@ function canExtendRun(
   if (!sameLanguage(prev.language ?? "en", next.language ?? "en")) return false;
   if (ctx.synthetic.has(prev) || ctx.synthetic.has(next)) return false;
   if (!prevSource || !nextSource) return false;
+  if (!ctx.segmentationReconstruct && blockOf(prevSource, "trailing", ctx) !== blockOf(nextSource, "leading", ctx)) return false;
   if (rolesOf(prevSource).some((role) => neverJoinRoles.has(role))) return false;
   if (rolesOf(nextSource).some((role) => neverJoinRoles.has(role))) return false;
   if (!sameRoledContainers(roledAncestors(prevSource, "trailing", ctx), roledAncestors(nextSource, "leading", ctx))) return false;
@@ -404,7 +415,7 @@ async function pushJoinedGroup(
   });
 }
 
-// Expands a multi-sentence utterance into one per sentence, and reconstructs
+// Expands a multi-sentence utterance into one per sentence, and with `reconstruct`,
 // a sentence split across sibling GND nodes — only the piece boundaries a
 // sentence genuinely reaches past get grouped and jointly resegmented.
 export async function splitIntoSentenceUtterances(

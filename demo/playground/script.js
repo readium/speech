@@ -24,6 +24,7 @@ const optionVerbosityEl = document.getElementById("option-verbosity");
 const optionSkipEl = document.getElementById("option-skip");
 const optionLanguageEl = document.getElementById("option-language");
 const optionSegmentationEl = document.getElementById("option-segmentation");
+const optionReconstructEl = document.getElementById("option-reconstruct");
 const optionInterruptionsEl = document.getElementById("option-interruptions");
 const optionContextualizeEl = document.getElementById("option-contextualize");
 const optionPauseDurationEl = document.getElementById("option-pause-duration");
@@ -39,6 +40,7 @@ const formatGroupEl = document.getElementById("format-group");
 const formatHintEl = document.getElementById("format-hint");
 const languageHintEl = document.getElementById("language-hint");
 const segmentationHintEl = document.getElementById("segmentation-hint");
+const reconstructHintEl = document.getElementById("reconstruct-hint");
 const verbosityHintEl = document.getElementById("verbosity-hint");
 const interruptionsHintEl = document.getElementById("interruptions-hint");
 const pauseDurationHintEl = document.getElementById("pause-duration-hint");
@@ -248,6 +250,10 @@ function renderToolbarState() {
   setDefaultLabel(segmentationHintEl, libraryDefaults?.segmentation);
   optionSegmentationEl.value = editor.segmentation.value ?? "";
 
+  setDefaultLabel(reconstructHintEl, libraryDefaults?.reconstruct);
+  optionReconstructEl.checked = editor.reconstruct.value ?? editor.reconstruct.effectiveValue;
+  optionReconstructEl.disabled = (editor.segmentation.value ?? editor.segmentation.effectiveValue) !== "sentence";
+
   setDefaultLabel(verbosityHintEl, libraryDefaults?.verbosity);
   optionVerbosityEl.value = editor.verbosity.value ?? editor.verbosity.effectiveValue;
   const customRolesDisabled = optionVerbosityEl.value !== "custom";
@@ -285,6 +291,7 @@ async function applyPreferencesFromToolbar() {
   editor.verbosity.value = optionVerbosityEl?.value || "few";
   editor.language.value = optionLanguageEl?.value || null;
   editor.segmentation.value = optionSegmentationEl?.value || null;
+  editor.reconstruct.value = optionReconstructEl?.checked || null;
   editor.autoPause.value = optionAutoPauseEl?.value || "none";
   for (const { key, inputEl } of rangeControls) {
     editor[key].value = Number(inputEl.value);
@@ -306,6 +313,7 @@ async function resetExtractionPreferences() {
   editor.format.clear();
   editor.language.clear();
   editor.segmentation.clear();
+  editor.reconstruct.clear();
   editor.verbosity.clear();
   editor.interruptions.clear();
   editor.skip.clear();
@@ -338,7 +346,7 @@ function currentExtractionOptions() {
       shapes: settings.verbosity === "custom" ? {} : (contextualizationShapesAtVerbosity?.[settings.verbosity] ?? {}),
     },
     language: settings.language,
-    segmentation: { mode: settings.segmentation },
+    segmentation: { mode: settings.segmentation, reconstruct: settings.reconstruct },
   };
   return options;
 }
@@ -722,6 +730,7 @@ for (const radio of formatRadios) radio.addEventListener("change", applyPreferen
 optionVerbosityEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionLanguageEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionSegmentationEl?.addEventListener("change", applyPreferencesFromToolbar);
+optionReconstructEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionInterruptionsEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionSkipEl?.addEventListener("change", applyPreferencesFromToolbar);
 optionContextualizeEl?.addEventListener("change", applyPreferencesFromToolbar);

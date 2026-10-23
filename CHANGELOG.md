@@ -2,6 +2,16 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [0.18.0] - 2026-10-23
+
+### Added
+
+- `segmentation.reconstruct` extraction option, and the matching `reconstruct` preference in `SpeechPreferences`, `SpeechDefaults` and `SpeechPreferencesEditor` (a `BooleanPreference`): with sentence segmentation, reconstructs a sentence split across blocks. Default `false`.
+
+### Changed
+
+- **Breaking:** `segmentation: { mode: "sentence" }` no longer reconstructs a sentence split across blocks, e.g. two `<p>`, unless `segmentation.reconstruct` is `true` (the `reconstruct` preference in `ReadiumSpeechNavigator`, default `false`), meant for fixed-layout text fragments. A sentence still joins across inline elements of its own block, and across unroled `<div>`s.
+
 ## [0.17.0] - 2026-10-22
 
 ### Added

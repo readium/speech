@@ -6,7 +6,7 @@ import { resolveUtteranceLocate } from "../../src/utterances/utteranceLocate.js"
 
 test("resolveUtteranceLocate returns one locate per offset piece in sentence mode", async (t) => {
   const gnd = parseMarkup("<p>This sentence continues</p><p>across two paragraphs.</p>", undefined, { textrefs: { roles: true } });
-  const [utterance] = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  const [utterance] = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", reconstruct: true } });
   t.is(utterance.offsets?.length, 2);
 
   const locates = resolveUtteranceLocate(utterance, "sentence");

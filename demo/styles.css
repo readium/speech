@@ -551,6 +551,7 @@ button:hover:not(:disabled) {
 .frag {
   position: absolute;
   top: 46px;
+  margin: 0;
   width: 46%;
   padding: 10px 12px;
   border-left: 4px solid #999;

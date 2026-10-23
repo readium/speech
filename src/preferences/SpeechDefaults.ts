@@ -11,7 +11,7 @@ import {
   verbosityPresets,
   volumeRangeConfig,
 } from "./constraints.js";
-import { ensureEnumRecord, ensureEnumValue, ensureStringArray, ensureStringOrStringRecord, ensureStringRecord, ensureValueInRange } from "./guards.js";
+import { ensureBoolean, ensureEnumRecord, ensureEnumValue, ensureStringArray, ensureStringOrStringRecord, ensureStringRecord, ensureValueInRange } from "./guards.js";
 import type { AutoPauseScope, VerbosityPreset, VoicePreference } from "./SpeechPreferences.js";
 import type { ExtractionFormat, Interruption, LanguageMode, Segmentation } from "../utterances/types.js";
 
@@ -25,6 +25,7 @@ export interface ISpeechDefaults {
   language?: LanguageMode | null;
   languageOverrides?: Record<string, string> | null;
   segmentation?: Segmentation | null;
+  reconstruct?: boolean | null;
   voice?: VoicePreference | null;
   pauseDuration?: number | null;
   autoPause?: AutoPauseScope | null;
@@ -42,6 +43,7 @@ export class SpeechDefaults {
   public readonly language: LanguageMode;
   public readonly languageOverrides: Record<string, string>;
   public readonly segmentation: Segmentation;
+  public readonly reconstruct: boolean;
   public readonly voice: VoicePreference | null;
   public readonly pauseDuration: number;
   public readonly autoPause: AutoPauseScope;
@@ -58,6 +60,7 @@ export class SpeechDefaults {
     this.language = ensureEnumValue(defaults.language, languageModes) ?? "block-level";
     this.languageOverrides = ensureStringRecord(defaults.languageOverrides) ?? {};
     this.segmentation = ensureEnumValue(defaults.segmentation, segmentationModes) ?? "structure";
+    this.reconstruct = ensureBoolean(defaults.reconstruct) ?? false;
     this.voice = ensureStringOrStringRecord(defaults.voice) ?? null;
     this.pauseDuration = ensureValueInRange(defaults.pauseDuration, pauseDurationRangeConfig.range) ?? 300;
     this.autoPause = ensureEnumValue(defaults.autoPause, autoPauseScopes) ?? "none";

@@ -319,6 +319,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       languageOverrides: this._settings.languageOverrides,
       segmentation: {
         mode: this._settings.segmentation,
+        reconstruct: this._settings.reconstruct,
         suppressions: this.segmentationOverrides?.suppressions,
         segmenter: this.segmentationOverrides?.segmenter,
       },
@@ -531,7 +532,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   async submitPreferences(preferences: SpeechPreferences): Promise<void> {
     if (!this.source && this.contentQueue.length > 0 && extractionPreferenceKeys.some((key) => preferences[key] !== undefined)) {
       console.warn(
-        "submitPreferences(): extraction-affecting preferences (format, interruptions, verbosity, skip, contextualize, language, languageOverrides, segmentation) have no effect on content loaded via loadContent() — use loadGndContent() to re-extract on submission.",
+        "submitPreferences(): extraction-affecting preferences (format, interruptions, verbosity, skip, contextualize, language, languageOverrides, segmentation, reconstruct) have no effect on content loaded via loadContent() — use loadGndContent() to re-extract on submission.",
       );
     }
 
@@ -549,12 +550,17 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     }
 
     // Skip reextract() unless it would actually produce a different queue.
-    if (extractionPreferenceKeys.some((key) => !this.sameSettingValue(previousSettings[key], this._settings[key]))) {
+    if (extractionPreferenceKeys.some((key) => !this.sameSettingValue(this.extractionValue(previousSettings, key), this.extractionValue(this._settings, key)))) {
       await this.reextract();
     } else if (this.loadedQueue.length > 0 && !this.sameSettingValue(previousSettings.voice, this._settings.voice)) {
       const { index, state } = this.resumeTarget();
       this.setContentQueue(this.loadedQueue, index, state);
     }
+  }
+
+  // `reconstruct` only shapes extraction in sentence segmentation.
+  private extractionValue(settings: SpeechSettings, key: (typeof extractionPreferenceKeys)[number]): unknown {
+    return key === "reconstruct" ? settings.segmentation === "sentence" && settings.reconstruct : settings[key];
   }
 
   // Arrays (skip/contextualize) compare as sets and records (languageOverrides) by entries, not by reference.

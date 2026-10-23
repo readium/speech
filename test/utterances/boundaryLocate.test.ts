@@ -18,7 +18,7 @@ test("resolveBoundaryLocate finds a word within a single-offset utterance", asyn
 
 test("resolveBoundaryLocate finds a word in the second of two offset pieces (sentence reconstructed across elements)", async (t) => {
   const gnd = parseMarkup("<p>This sentence continues</p><p>across two paragraphs.</p>", undefined, { textrefs: { roles: true } });
-  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", reconstruct: true } });
   t.is(utterances.length, 1);
   const [utterance] = utterances;
   t.is(utterance.plain, "This sentence continues across two paragraphs.");
@@ -36,7 +36,7 @@ test("resolveBoundaryLocate finds a word in the second of two offset pieces (sen
 
 test("resolveBoundaryLocate finds a word exactly at a piece boundary", async (t) => {
   const gnd = parseMarkup("<p>This sentence continues</p><p>across two paragraphs.</p>", undefined, { textrefs: { roles: true } });
-  const [utterance] = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  const [utterance] = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", reconstruct: true } });
 
   const charIndex = utterance.plain!.indexOf("across");
   const resolved = resolveBoundaryLocate(utterance, charIndex, "across".length);

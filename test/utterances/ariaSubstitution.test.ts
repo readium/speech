@@ -48,10 +48,10 @@ test("segmentation: sentence never merges an aria-labelledby substitution into t
     `<body><p>Into speech. <a href="#gloss" aria-labelledby="lbl">*</a></p>` +
       `<p>synthesized speech can be created.</p><span id="lbl" hidden>see glossary entry</span></body>`,
   );
-  const parsed = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  const parsed = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", reconstruct: true } });
   t.deepEqual(parsed.map((u) => u.plain), ["Into speech. see glossary entry", "synthesized speech can be created."]);
 
-  const deserialized = await extractUtterances(roundTrip(gnd), { format: "plain", segmentation: { mode: "sentence" } });
+  const deserialized = await extractUtterances(roundTrip(gnd), { format: "plain", segmentation: { mode: "sentence", reconstruct: true } });
   t.deepEqual(deserialized.map((u) => u.plain), ["Into speech. see glossary entry synthesized speech can be created."]);
 });
 

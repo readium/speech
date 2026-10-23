@@ -76,7 +76,7 @@ test("substitutions: applies after sentence-mode reconstruction joins sibling no
   const gnd = parseMarkup("<p>It measured 100</p><p>deg Celsius exactly.</p>");
   const utterances = await extractUtterances(gnd, {
     format: "plain",
-    segmentation: { mode: "sentence" },
+    segmentation: { mode: "sentence", reconstruct: true },
   });
   t.deepEqual(
     utterances.map((u) => u.plain),
