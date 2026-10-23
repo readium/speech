@@ -13,6 +13,7 @@ export interface ISpeechPreferences {
     language?: LanguageMode | null;
     languageOverrides?: Record<string, string> | null;
     segmentation?: Segmentation | null;
+    reconstruct?: boolean | null;
     voice?: VoicePreference | null;
     pauseDuration?: number | null;
     autoPause?: AutoPauseScope | null;
@@ -29,6 +30,7 @@ export declare class SpeechPreferences implements ISpeechPreferences, Configurab
     language: LanguageMode | null | undefined;
     languageOverrides: Record<string, string> | null | undefined;
     segmentation: Segmentation | null | undefined;
+    reconstruct: boolean | null | undefined;
     voice: VoicePreference | null | undefined;
     pauseDuration: number | null | undefined;
     autoPause: AutoPauseScope | null | undefined;

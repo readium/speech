@@ -1,6 +1,6 @@
 import { GndRole } from '@readium/guided-navigation';
 import { IPreferencesEditor } from './PreferencesEditor.js';
-import { EnumPreference, Preference, RangePreference, StringArrayPreference } from './Preference.js';
+import { BooleanPreference, EnumPreference, Preference, RangePreference, StringArrayPreference } from './Preference.js';
 import { SpeechPreferences, VerbosityPreset, AutoPauseScope, VoicePreference } from './SpeechPreferences.js';
 import { SpeechSettings } from './SpeechSettings.js';
 import { ExtractionFormat, Interruption, LanguageMode, Segmentation } from '../utterances/types.js';
@@ -18,6 +18,7 @@ export declare class SpeechPreferencesEditor implements IPreferencesEditor {
     get language(): EnumPreference<LanguageMode>;
     get languageOverrides(): Preference<Record<string, string>>;
     get segmentation(): EnumPreference<Segmentation>;
+    get reconstruct(): BooleanPreference;
     get voice(): Preference<VoicePreference>;
     get pauseDuration(): RangePreference<number>;
     get autoPause(): EnumPreference<AutoPauseScope>;

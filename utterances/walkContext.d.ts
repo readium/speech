@@ -18,6 +18,7 @@ export interface WalkContext {
     languageOverrides: Record<string, string>;
     contentLanguage?: string;
     segmentation: Segmentation;
+    segmentationReconstruct: boolean;
     segmentationSuppressions: Record<string, string[]>;
     segmenter: SentenceSegmenter;
     substitutions: SubstitutionTable;

@@ -10,6 +10,7 @@ export interface ISpeechDefaults {
     language?: LanguageMode | null;
     languageOverrides?: Record<string, string> | null;
     segmentation?: Segmentation | null;
+    reconstruct?: boolean | null;
     voice?: VoicePreference | null;
     pauseDuration?: number | null;
     autoPause?: AutoPauseScope | null;
@@ -26,6 +27,7 @@ export declare class SpeechDefaults {
     readonly language: LanguageMode;
     readonly languageOverrides: Record<string, string>;
     readonly segmentation: Segmentation;
+    readonly reconstruct: boolean;
     readonly voice: VoicePreference | null;
     readonly pauseDuration: number;
     readonly autoPause: AutoPauseScope;

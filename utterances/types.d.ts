@@ -21,6 +21,7 @@ export type SubstitutionRule = string | {
 export type SubstitutionTable = Record<string, SubstitutionRule>;
 export interface SegmentationOptions {
     mode?: Segmentation;
+    reconstruct?: boolean;
     suppressions?: Record<string, string[]>;
     segmenter?: SentenceSegmenter;
 }

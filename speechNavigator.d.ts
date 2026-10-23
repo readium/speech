@@ -81,6 +81,7 @@ export declare class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorCon
     get preferencesEditor(): SpeechPreferencesEditor;
     submitPreferences(preferences: SpeechPreferences): Promise<void>;
     private applyPreferences;
+    private extractionValue;
     private sameSettingValue;
     destroy(): Promise<void>;
 }

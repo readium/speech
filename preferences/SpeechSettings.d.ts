@@ -14,6 +14,7 @@ export declare class SpeechSettings implements ConfigurableSettings {
     readonly language: LanguageMode;
     readonly languageOverrides: Record<string, string>;
     readonly segmentation: Segmentation;
+    readonly reconstruct: boolean;
     readonly voice: VoicePreference | null;
     readonly pauseDuration: number;
     readonly autoPause: AutoPauseScope;
