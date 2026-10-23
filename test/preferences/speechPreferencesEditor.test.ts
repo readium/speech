@@ -67,6 +67,12 @@ test("reconstruct: unset preference reports the false default and isEffective fa
   t.false(editor.reconstruct.isEffective);
 });
 
+test("reconstruct: an explicit preference is effective only with sentence segmentation", (t) => {
+  t.false(makeEditor(new SpeechPreferences({ reconstruct: true })).reconstruct.isEffective);
+  t.false(makeEditor(new SpeechPreferences({ reconstruct: true, segmentation: "structure" })).reconstruct.isEffective);
+  t.true(makeEditor(new SpeechPreferences({ reconstruct: true, segmentation: "sentence" })).reconstruct.isEffective);
+});
+
 test("reconstruct: setting it stages the preference, a non-boolean throws", (t) => {
   const editor = makeEditor();
   editor.reconstruct.value = true;

@@ -135,7 +135,7 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
     return new BooleanPreference({
       initialValue: this.preferences.reconstruct,
       effectiveValue: this.settings.reconstruct,
-      isEffective: this.preferences.reconstruct != null,
+      isEffective: this.settings.segmentation === "sentence" && this.preferences.reconstruct != null,
       onChange: (value) => this.updatePreference("reconstruct", value ?? null),
     });
   }
