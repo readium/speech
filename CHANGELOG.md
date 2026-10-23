@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- **Breaking:** `segmentation: { mode: "sentence" }` no longer reconstructs a sentence split across elements, e.g. two `<p>` or `<div>`, unless `segmentation.reconstruct` is `true` (the `reconstruct` preference in `ReadiumSpeechNavigator`, default `false`), meant for fixed-layout text fragments. A sentence still joins the inline content of its own `<p>`, heading or `<pre>`.
+
 ## [0.17.0] - 2026-10-22
 
 ### Added

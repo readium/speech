@@ -99,9 +99,9 @@ function shapeableIn(contextualize, skip, lists) {
 }
 
 const languageValues = [undefined, "always", "block-level", "none"];
-const segmentationModeValues = [undefined, "sentence"];
+const segmentationValues = [undefined, { mode: "sentence" }, { mode: "sentence", reconstruct: true }];
 
-function buildOptions(format, { skip, contextualize, inlineRoles, language, interruptions, segmentationMode }) {
+function buildOptions(format, { skip, contextualize, inlineRoles, language, interruptions, segmentation }) {
   const options = { format };
   if (skip.length > 0) options.skip = skip;
   if (contextualize.length > 0) options.contextualize = contextualize;
@@ -110,7 +110,7 @@ function buildOptions(format, { skip, contextualize, inlineRoles, language, inte
   }
   if (language !== undefined) options.language = language;
   if (Object.keys(interruptions).length > 0) options.interruptions = interruptions;
-  if (segmentationMode !== undefined) options.segmentation = { mode: segmentationMode };
+  if (segmentation !== undefined) options.segmentation = segmentation;
   return options;
 }
 
@@ -122,16 +122,16 @@ export function* optionSpace(format, rolesInTree, lists) {
       for (const inlineRoles of subsets(shapeableIn(contextualize, skip, lists))) {
         for (const language of languageValues) {
           for (const interruptions of interruptionSettings(scope.interruptions)) {
-            for (const segmentationMode of segmentationModeValues) {
+            for (const segmentation of segmentationValues) {
               const isDefault =
                 skip.length === 0 &&
                 contextualize.length === 0 &&
                 inlineRoles.length === 0 &&
                 language === undefined &&
                 Object.keys(interruptions).length === 0 &&
-                segmentationMode === undefined;
+                segmentation === undefined;
               if (isDefault) continue;
-              yield buildOptions(format, { skip, contextualize, inlineRoles, language, interruptions, segmentationMode });
+              yield buildOptions(format, { skip, contextualize, inlineRoles, language, interruptions, segmentation });
             }
           }
         }
@@ -148,7 +148,12 @@ export function canonicalOptions(options, rolesInTree, lists) {
   const contextualize = pick(scope.contextualize, options.contextualize);
   const shapes = options.contextualization?.shapes ?? {};
   const inlineRoles = shapeableIn(contextualize, skip, lists).filter((role) => shapes[role] === "inline");
-  const segmentationMode = options.segmentation?.mode === "sentence" ? "sentence" : undefined;
+  const segmentation =
+    options.segmentation?.mode !== "sentence"
+      ? undefined
+      : options.segmentation.reconstruct
+        ? { mode: "sentence", reconstruct: true }
+        : { mode: "sentence" };
   const interruptions = {};
   for (const role of scope.interruptions) {
     const value = options.interruptions?.[role];
@@ -160,7 +165,7 @@ export function canonicalOptions(options, rolesInTree, lists) {
     inlineRoles,
     language: options.language,
     interruptions,
-    segmentationMode,
+    segmentation,
   });
 }
 

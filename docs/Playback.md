@@ -106,7 +106,7 @@ const navigator = new ReadiumSpeechNavigator(engine, {
 - `suppressions` → [`segmentation.suppressions`](UtteranceExtraction.md#segmentation)
 - `segmenter` → [`segmentation.segmenter`](UtteranceExtraction.md#segmenter)
 
-`segmentation.mode` itself stays a live `submitPreferences()` setting (see [Preferences](Preferences.md#verbosity)) — only these two are construction-time, since neither is meant to change mid-session.
+`segmentation.mode` and `segmentation.reconstruct` stay live `submitPreferences()` settings (see [Preferences](Preferences.md#verbosity)) — only these two are construction-time, since neither is meant to change mid-session.
 
 ## Events
 

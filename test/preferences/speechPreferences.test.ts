@@ -89,6 +89,12 @@ test("an interruptions record is kept", (t) => {
   t.deepEqual(prefs.interruptions, { pagebreak: "never", noteref: "inline" });
 });
 
+test("a boolean reconstruct is kept, any other value dropped to undefined", (t) => {
+  t.is(new SpeechPreferences({ reconstruct: true }).reconstruct, true);
+  // @ts-expect-error deliberately invalid
+  t.is(new SpeechPreferences({ reconstruct: "yes" }).reconstruct, undefined);
+});
+
 test("a languageOverrides record is kept", (t) => {
   const prefs = new SpeechPreferences({ languageOverrides: { en: "fr" } });
   t.deepEqual(prefs.languageOverrides, { en: "fr" });

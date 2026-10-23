@@ -25,9 +25,24 @@
         },
         {
           "format": "plain",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
           "language": "always",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -39,9 +54,25 @@
         },
         {
           "format": "plain",
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -116,9 +147,30 @@
           "contextualize": [
             "credits"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits"
+          ],
           "language": "always",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -130,6 +182,17 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -191,6 +254,17 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -270,7 +344,38 @@
           "contextualize": [
             "list"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -282,7 +387,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -344,6 +450,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -437,9 +554,32 @@
             "credits",
             "list"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list"
+          ],
           "language": "always",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -452,6 +592,18 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -529,6 +681,18 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -614,7 +778,38 @@
           "contextualize": [
             "listItem"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -626,7 +821,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -688,6 +884,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -781,7 +988,41 @@
             "credits",
             "listItem"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "listItem"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "listItem"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "listItem"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -794,7 +1035,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -872,6 +1114,18 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "listItem"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -971,7 +1225,41 @@
             "list",
             "listItem"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -984,7 +1272,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -1062,6 +1351,18 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -1174,9 +1475,34 @@
             "list",
             "listItem"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem"
+          ],
           "language": "always",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1190,6 +1516,19 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -1283,6 +1622,19 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -1374,7 +1726,38 @@
           "contextualize": [
             "credit"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credit"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -1386,7 +1769,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -1448,6 +1832,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -1541,7 +1936,41 @@
             "credits",
             "credit"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "credit"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "credit"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -1554,7 +1983,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -1632,6 +2062,18 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -1731,7 +2173,41 @@
             "list",
             "credit"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "credit"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "credit"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -1744,7 +2220,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -1822,6 +2299,18 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -1934,7 +2423,44 @@
             "list",
             "credit"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list",
+            "credit"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list",
+            "credit"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -1948,7 +2474,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -2042,6 +2569,19 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -2147,7 +2687,41 @@
             "listItem",
             "credit"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem",
+            "credit"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem",
+            "credit"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -2160,7 +2734,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -2238,6 +2813,18 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "listItem",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -2350,7 +2937,44 @@
             "listItem",
             "credit"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "listItem",
+            "credit"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "listItem",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "listItem",
+            "credit"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -2364,7 +2988,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -2458,6 +3083,19 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "listItem",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -2576,7 +3214,44 @@
             "listItem",
             "credit"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem",
+            "credit"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem",
+            "credit"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -2590,7 +3265,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -2684,6 +3360,19 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "list",
+            "listItem",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -2815,7 +3504,47 @@
             "listItem",
             "credit"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem",
+            "credit"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem",
+            "credit"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -2830,7 +3559,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -2940,6 +3670,20 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -3007,9 +3751,24 @@
         },
         {
           "format": "ssml",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
           "language": "always",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -3021,9 +3780,25 @@
         },
         {
           "format": "ssml",
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -3098,9 +3873,30 @@
           "contextualize": [
             "credits"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits"
+          ],
           "language": "always",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -3112,6 +3908,17 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -3173,6 +3980,17 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -3252,7 +4070,38 @@
           "contextualize": [
             "list"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -3264,7 +4113,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -3326,6 +4176,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -3419,9 +4280,32 @@
             "credits",
             "list"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list"
+          ],
           "language": "always",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -3434,6 +4318,18 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -3511,6 +4407,18 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -3596,7 +4504,38 @@
           "contextualize": [
             "listItem"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -3608,7 +4547,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -3670,6 +4610,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -3763,7 +4714,41 @@
             "credits",
             "listItem"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "listItem"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "listItem"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "listItem"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -3776,7 +4761,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -3854,6 +4840,18 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "listItem"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -3953,7 +4951,41 @@
             "list",
             "listItem"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -3966,7 +4998,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4044,6 +5077,18 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4156,9 +5201,34 @@
             "list",
             "listItem"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem"
+          ],
           "language": "always",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -4172,6 +5242,19 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -4265,6 +5348,19 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -4356,7 +5452,38 @@
           "contextualize": [
             "credit"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credit"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -4368,7 +5495,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4430,6 +5558,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4523,7 +5662,41 @@
             "credits",
             "credit"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "credit"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "credit"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -4536,7 +5709,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4614,6 +5788,18 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4713,7 +5899,41 @@
             "list",
             "credit"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "credit"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "credit"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -4726,7 +5946,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4804,6 +6025,18 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4916,7 +6149,44 @@
             "list",
             "credit"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list",
+            "credit"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list",
+            "credit"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -4930,7 +6200,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -5024,6 +6295,19 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -5129,7 +6413,41 @@
             "listItem",
             "credit"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem",
+            "credit"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem",
+            "credit"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -5142,7 +6460,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -5220,6 +6539,18 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "listItem",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -5332,7 +6663,44 @@
             "listItem",
             "credit"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "listItem",
+            "credit"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "listItem",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "listItem",
+            "credit"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -5346,7 +6714,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -5440,6 +6809,19 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "listItem",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -5558,7 +6940,44 @@
             "listItem",
             "credit"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem",
+            "credit"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem",
+            "credit"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -5572,7 +6991,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -5666,6 +7086,19 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "list",
+            "listItem",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -5797,7 +7230,47 @@
             "listItem",
             "credit"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem",
+            "credit"
+          ],
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem",
+            "credit"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem",
+            "credit"
+          ],
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -5812,7 +7285,8 @@
           ],
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -5922,6 +7396,20 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "credits",
+            "list",
+            "listItem",
+            "credit"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],

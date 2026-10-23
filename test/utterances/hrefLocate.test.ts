@@ -13,7 +13,7 @@ const stitchedPages = (page1: string, page2: string) => [
 
 test("a sentence cut across two stitched pages is one utterance whose pieces keep their own href", async (t) => {
   const gnd = stitchedPages("<p>This sentence continues</p>", "<p>across two pages.</p>");
-  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", reconstruct: true } });
   t.deepEqual(utterances.map((u) => u.plain), ["This sentence continues across two pages."]);
   t.deepEqual(utterances[0].offsets?.map((o) => o.locate.href), ["page1.xhtml", "page2.xhtml"]);
   t.is(utterances[0].locate?.href, "page1.xhtml");
@@ -21,7 +21,7 @@ test("a sentence cut across two stitched pages is one utterance whose pieces kee
 
 test("a word on the second page resolves to that page's href", async (t) => {
   const gnd = stitchedPages("<p>This sentence continues</p>", "<p>across two pages.</p>");
-  const [utterance] = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+  const [utterance] = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", reconstruct: true } });
   const first = resolveBoundaryLocate(utterance, utterance.plain!.indexOf("continues"), "continues".length);
   const second = resolveBoundaryLocate(utterance, utterance.plain!.indexOf("pages"), "pages".length);
   t.is(first?.locate.href, "page1.xhtml");
@@ -34,7 +34,7 @@ test("a pagebreak read never keeps its label out of a stitched sentence", async 
     "<p>This sentence continues</p>",
     '<span role="doc-pagebreak" aria-label="12"></span><p>across two pages.</p>',
   );
-  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" }, interruptions: { pagebreak: "never" } });
+  const utterances = await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", reconstruct: true }, interruptions: { pagebreak: "never" } });
   t.deepEqual(utterances.map((u) => u.plain), ["This sentence continues across two pages."]);
   t.deepEqual(utterances[0].offsets?.map((o) => o.locate.href), ["page1.xhtml", "page2.xhtml"]);
 });

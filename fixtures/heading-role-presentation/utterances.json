@@ -23,21 +23,24 @@
         {
           "format": "plain",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
           "format": "plain",
           "language": "always",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
           "format": "plain",
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -57,7 +60,8 @@
           "format": "plain",
           "language": "none",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -93,21 +97,24 @@
         {
           "format": "ssml",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
           "format": "ssml",
           "language": "always",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
           "format": "ssml",
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -127,7 +134,8 @@
           "format": "ssml",
           "language": "none",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],

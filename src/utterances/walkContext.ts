@@ -43,6 +43,7 @@ export interface WalkContext {
   languageOverrides: Record<string, string>;
   contentLanguage?: string;
   segmentation: Segmentation;
+  segmentationReconstruct: boolean;
   segmentationSuppressions: Record<string, string[]>;
   segmenter: SentenceSegmenter;
   // See `ExtractUtterancesOptions.substitutions`.
@@ -156,6 +157,7 @@ export async function makeWalkContext(nodes: GuidedNavigationObject[], options: 
     languageOverrides: options.languageOverrides ?? {},
     contentLanguage: options.contentLanguage,
     segmentation: options.segmentation?.mode ?? "structure",
+    segmentationReconstruct: options.segmentation?.reconstruct ?? false,
     // segmentSentences() already applies builtInSuppressions internally
     // (Intl.Segmenter has no built-in equivalent of its own) — this is only
     // the caller's own additive extras, per `SegmentationOptions.suppressions`.

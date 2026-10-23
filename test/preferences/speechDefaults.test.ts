@@ -20,6 +20,11 @@ test("constructor copies given fields", (t) => {
   t.is(defaults.rate, 1.5);
 });
 
+test("reconstruct defaults to false", (t) => {
+  t.false(new SpeechDefaults().reconstruct);
+  t.true(new SpeechDefaults({ reconstruct: true }).reconstruct);
+});
+
 test("languageOverrides defaults to no override", (t) => {
   t.deepEqual(new SpeechDefaults().languageOverrides, {});
   t.deepEqual(new SpeechDefaults({ languageOverrides: { en: "fr" } }).languageOverrides, { en: "fr" });

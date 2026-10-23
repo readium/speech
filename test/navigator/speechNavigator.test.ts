@@ -73,6 +73,15 @@ test("submitPreferences re-extracts content loaded via loadGndContent", async (t
   ]);
 });
 
+test("submitPreferences re-extracts when reconstruct changes, joining a sentence split across elements", async (t) => {
+  const engine = new MockEngine();
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { segmentation: "sentence" } });
+  await navigator.loadGndContent(gnd([{ children: [{ text: { plain: "This sentence continues" } }, { text: { plain: "across two divs." } }] }]));
+  t.deepEqual(navigator.getContentQueue().map((u) => u.plain), ["This sentence continues", "across two divs."]);
+  await navigator.submitPreferences(new SpeechPreferences({ reconstruct: true }));
+  t.deepEqual(navigator.getContentQueue().map((u) => u.plain), ["This sentence continues across two divs."]);
+});
+
 test("submitPreferences re-extracts when languageOverrides changes, not when it's resubmitted equal", async (t) => {
   const engine = new MockEngine();
   const navigator = new ReadiumSpeechNavigator(engine);

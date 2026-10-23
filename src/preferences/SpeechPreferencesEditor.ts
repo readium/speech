@@ -11,7 +11,7 @@ import {
   volumeRangeConfig,
 } from "./constraints.js";
 import type { IPreferencesEditor } from "./PreferencesEditor.js";
-import { EnumPreference, Preference, RangePreference, StringArrayPreference } from "./Preference.js";
+import { BooleanPreference, EnumPreference, Preference, RangePreference, StringArrayPreference } from "./Preference.js";
 import { SpeechPreferences, VerbosityPreset, AutoPauseScope, VoicePreference } from "./SpeechPreferences.js";
 import { SpeechSettings } from "./SpeechSettings.js";
 import type { ExtractionFormat, Interruption, LanguageMode, Segmentation } from "../utterances/types.js";
@@ -41,6 +41,7 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
       language: null,
       languageOverrides: null,
       segmentation: null,
+      reconstruct: null,
       voice: null,
       pauseDuration: null,
       autoPause: null,
@@ -127,6 +128,15 @@ export class SpeechPreferencesEditor implements IPreferencesEditor {
       isEffective: this.preferences.segmentation != null,
       onChange: (value) => this.updatePreference("segmentation", value ?? null),
       supportedValues: segmentationModes,
+    });
+  }
+
+  get reconstruct(): BooleanPreference {
+    return new BooleanPreference({
+      initialValue: this.preferences.reconstruct,
+      effectiveValue: this.settings.reconstruct,
+      isEffective: this.preferences.reconstruct != null,
+      onChange: (value) => this.updatePreference("reconstruct", value ?? null),
     });
   }
 

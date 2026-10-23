@@ -319,6 +319,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       languageOverrides: this._settings.languageOverrides,
       segmentation: {
         mode: this._settings.segmentation,
+        reconstruct: this._settings.reconstruct,
         suppressions: this.segmentationOverrides?.suppressions,
         segmenter: this.segmentationOverrides?.segmenter,
       },
@@ -531,7 +532,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   async submitPreferences(preferences: SpeechPreferences): Promise<void> {
     if (!this.source && this.contentQueue.length > 0 && extractionPreferenceKeys.some((key) => preferences[key] !== undefined)) {
       console.warn(
-        "submitPreferences(): extraction-affecting preferences (format, interruptions, verbosity, skip, contextualize, language, languageOverrides, segmentation) have no effect on content loaded via loadContent() — use loadGndContent() to re-extract on submission.",
+        "submitPreferences(): extraction-affecting preferences (format, interruptions, verbosity, skip, contextualize, language, languageOverrides, segmentation, reconstruct) have no effect on content loaded via loadContent() — use loadGndContent() to re-extract on submission.",
       );
     }
 

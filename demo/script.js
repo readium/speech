@@ -30,6 +30,7 @@ const articleAttribution = document.getElementById("articleAttribution");
 const voiceSelect = document.getElementById("voiceSelect");
 const verbositySelect = document.getElementById("verbositySelect");
 const segmentationSelect = document.getElementById("segmentationSelect");
+const reconstructCheckbox = document.getElementById("reconstructCheckbox");
 const speedInput = document.getElementById("speedInput");
 const speedValue = document.getElementById("speedValue");
 const utteranceStyleSelect = document.getElementById("utteranceStyleSelect");
@@ -97,7 +98,7 @@ let mobilePanel = null; // "gnd" | "utterances" | "settings" | null — which sp
 let gnd = null;
 let showTextrefs = false;
 let scenarioManifest = [];
-// Which scenario ids have already had their `defaultSegmentation` applied —
+// Which scenario ids have already had their `defaultSegmentation`/`defaultReconstruct` applied —
 // only pre-set on first visit, so it never fights a value the user picked afterward.
 let scenariosWithDefaultSegmentationApplied = new Set();
 
@@ -270,6 +271,7 @@ function setupEventListeners() {
   if (voiceSelect) voiceSelect.addEventListener("change", handleVoiceChange);
   if (verbositySelect) verbositySelect.addEventListener("change", handleVerbosityChange);
   if (segmentationSelect) segmentationSelect.addEventListener("change", handleSegmentationChange);
+  if (reconstructCheckbox) reconstructCheckbox.addEventListener("change", handleReconstructChange);
   if (scenarioSelect) scenarioSelect.addEventListener("change", (e) => loadScenario(e.target.value));
   new ResizeObserver(() => applyScenarioLayouts(content)).observe(content);
   if (speedInput) speedInput.addEventListener("input", handleSpeedChange);
@@ -471,6 +473,21 @@ async function handleSegmentationChange(e) {
   const editor = navigator.preferencesEditor;
   editor.segmentation.value = e.target.value;
   await navigator.submitPreferences(editor.preferences);
+  updateReconstructCheckbox();
+}
+
+async function handleReconstructChange(e) {
+  if (!navigator) return;
+  const editor = navigator.preferencesEditor;
+  editor.reconstruct.value = e.target.checked;
+  await navigator.submitPreferences(editor.preferences);
+}
+
+// `reconstruct` only has an effect in sentence segmentation.
+function updateReconstructCheckbox() {
+  if (!reconstructCheckbox || !navigator) return;
+  reconstructCheckbox.checked = navigator.settings.reconstruct;
+  reconstructCheckbox.disabled = navigator.settings.segmentation !== "sentence";
 }
 
 async function handleSpeedChange(e) {
@@ -674,7 +691,7 @@ async function loadScenarioManifest() {
 }
 
 // Swaps #content for the given scenario's markup and re-extracts. A
-// scenario's `defaultSegmentation` (if any) is only pre-set the first time
+// scenario's `defaultSegmentation`/`defaultReconstruct` (if any) is only pre-set the first time
 // that scenario is selected, so it never overrides a value the user later
 // picked for it themselves.
 async function loadScenario(id) {
@@ -688,8 +705,10 @@ async function loadScenario(id) {
     if (segmentationSelect) segmentationSelect.value = scenario.defaultSegmentation;
     const editor = navigator.preferencesEditor;
     editor.segmentation.value = scenario.defaultSegmentation;
+    editor.reconstruct.value = scenario.defaultReconstruct ?? false;
     await navigator.submitPreferences(editor.preferences);
   }
+  updateReconstructCheckbox();
 
   content.className = scenario.className ? `reader-content ${scenario.className}` : "reader-content";
   const response = await fetch(`scenarios/${scenario.file}`);

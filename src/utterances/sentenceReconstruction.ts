@@ -67,6 +67,29 @@ function roledAncestors(source: GuidedNavigationObject | [GuidedNavigationObject
   return (ctx.ancestorChains.get(node) ?? []).filter((ancestor) => nodeRoles(ancestor).some((role) => role !== "presentation"));
 }
 
+// Elements HTML allows only inline content in: their child nodes are runs of one element, never separate ones.
+const phrasingOnlyRoles: ReadonlySet<GndRole> = new Set([
+  "paragraph",
+  "preformatted",
+  "heading1",
+  "heading2",
+  "heading3",
+  "heading4",
+  "heading5",
+  "heading6",
+]);
+
+// Without `reconstruct`, only runs of one element join, e.g. a `<dfn>` and the text after it in a `<p>`.
+function isSameElementJoin(
+  prevSource: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject],
+  nextSource: GuidedNavigationObject | [GuidedNavigationObject, GuidedNavigationObject],
+  ctx: WalkContext,
+): boolean {
+  const prevParent = ctx.ancestorChains.get(Array.isArray(prevSource) ? prevSource[1] : prevSource)?.[0];
+  const nextParent = ctx.ancestorChains.get(Array.isArray(nextSource) ? nextSource[0] : nextSource)?.[0];
+  return !!prevParent && prevParent === nextParent && nodeRoles(prevParent).some((role) => phrasingOnlyRoles.has(role));
+}
+
 function sameRoledContainers(a: GuidedNavigationObject[], b: GuidedNavigationObject[]): boolean {
   return a.length === b.length && a.every((ancestor, i) => ancestor === b[i]);
 }
@@ -130,6 +153,7 @@ function canExtendRun(
   if (!sameLanguage(prev.language ?? "en", next.language ?? "en")) return false;
   if (ctx.synthetic.has(prev) || ctx.synthetic.has(next)) return false;
   if (!prevSource || !nextSource) return false;
+  if (!ctx.segmentationReconstruct && !isSameElementJoin(prevSource, nextSource, ctx)) return false;
   if (rolesOf(prevSource).some((role) => neverJoinRoles.has(role))) return false;
   if (rolesOf(nextSource).some((role) => neverJoinRoles.has(role))) return false;
   if (!sameRoledContainers(roledAncestors(prevSource, "trailing", ctx), roledAncestors(nextSource, "leading", ctx))) return false;
@@ -404,7 +428,7 @@ async function pushJoinedGroup(
   });
 }
 
-// Expands a multi-sentence utterance into one per sentence, and reconstructs
+// Expands a multi-sentence utterance into one per sentence, and with `reconstruct`,
 // a sentence split across sibling GND nodes — only the piece boundaries a
 // sentence genuinely reaches past get grouped and jointly resegmented.
 export async function splitIntoSentenceUtterances(

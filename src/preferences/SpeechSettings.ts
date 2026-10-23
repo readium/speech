@@ -28,6 +28,7 @@ export class SpeechSettings implements ConfigurableSettings {
   public readonly language: LanguageMode;
   public readonly languageOverrides: Record<string, string>;
   public readonly segmentation: Segmentation;
+  public readonly reconstruct: boolean;
   public readonly voice: VoicePreference | null;
   public readonly pauseDuration: number;
   public readonly autoPause: AutoPauseScope;
@@ -56,6 +57,7 @@ export class SpeechSettings implements ConfigurableSettings {
     this.language = preferences.language ?? defaults.language;
     this.languageOverrides = preferences.languageOverrides ?? defaults.languageOverrides;
     this.segmentation = preferences.segmentation ?? defaults.segmentation;
+    this.reconstruct = preferences.reconstruct ?? defaults.reconstruct;
     this.voice = withEngineVoice(preferences.voice ?? defaults.voice, engineVoice);
     this.pauseDuration = preferences.pauseDuration ?? defaults.pauseDuration;
     this.autoPause = preferences.autoPause ?? defaults.autoPause;

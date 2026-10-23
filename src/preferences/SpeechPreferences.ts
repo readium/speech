@@ -13,7 +13,7 @@ import {
   verbosityPresets,
   volumeRangeConfig,
 } from "./constraints.js";
-import { ensureEnumRecord, ensureEnumValue, ensureStringArray, ensureStringOrStringRecord, ensureStringRecord, ensureValueInRange } from "./guards.js";
+import { ensureBoolean, ensureEnumRecord, ensureEnumValue, ensureStringArray, ensureStringOrStringRecord, ensureStringRecord, ensureValueInRange } from "./guards.js";
 
 export type VerbosityPreset = "none" | "few" | "some" | "most" | "custom";
 
@@ -36,6 +36,7 @@ export interface ISpeechPreferences {
   language?: LanguageMode | null;
   languageOverrides?: Record<string, string> | null; // default {}, declared language -> spoken language
   segmentation?: Segmentation | null; // default "structure"
+  reconstruct?: boolean | null; // default false, joins a sentence split across elements with segmentation "sentence"
 
   // Voice of every utterance without its own `voice`, by its language when a record — applied by ReadiumSpeechNavigator.
   voice?: VoicePreference | null;
@@ -57,6 +58,7 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
   public language: LanguageMode | null | undefined;
   public languageOverrides: Record<string, string> | null | undefined;
   public segmentation: Segmentation | null | undefined;
+  public reconstruct: boolean | null | undefined;
   public voice: VoicePreference | null | undefined;
   public pauseDuration: number | null | undefined;
   public autoPause: AutoPauseScope | null | undefined;
@@ -73,6 +75,7 @@ export class SpeechPreferences implements ISpeechPreferences, ConfigurablePrefer
     this.language = ensureEnumValue(preferences.language, languageModes);
     this.languageOverrides = ensureStringRecord(preferences.languageOverrides);
     this.segmentation = ensureEnumValue(preferences.segmentation, segmentationModes);
+    this.reconstruct = ensureBoolean(preferences.reconstruct);
     this.voice = ensureStringOrStringRecord(preferences.voice);
     this.pauseDuration = ensureValueInRange(preferences.pauseDuration, pauseDurationRangeConfig.range);
     this.autoPause = ensureEnumValue(preferences.autoPause, autoPauseScopes);

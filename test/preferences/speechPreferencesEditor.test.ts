@@ -60,6 +60,21 @@ test("autoPause: an explicit preference is effective and matches the resolved se
   t.true(editor.autoPause.isEffective);
 });
 
+test("reconstruct: unset preference reports the false default and isEffective false", (t) => {
+  const editor = makeEditor();
+  t.is(editor.reconstruct.value, null);
+  t.false(editor.reconstruct.effectiveValue);
+  t.false(editor.reconstruct.isEffective);
+});
+
+test("reconstruct: setting it stages the preference, a non-boolean throws", (t) => {
+  const editor = makeEditor();
+  editor.reconstruct.value = true;
+  t.true(editor.preferences.reconstruct);
+  // @ts-expect-error deliberately invalid
+  t.throws(() => { editor.reconstruct.value = "yes"; });
+});
+
 test("clear() resets preferences to explicit nulls, not undefined", (t) => {
   const editor = makeEditor(new SpeechPreferences({ verbosity: "most", pauseDuration: 500 }));
   editor.clear();
