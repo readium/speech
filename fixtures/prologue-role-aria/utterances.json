@@ -34,6 +34,16 @@
           "contextualize": [
             "prologue"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "prologue"
+          ],
           "language": "always"
         },
         {
@@ -51,6 +61,17 @@
           "contextualize": [
             "prologue"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "prologue"
+          ],
           "language": "block-level"
         },
         {
@@ -61,6 +82,17 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "prologue"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -95,6 +127,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "prologue"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -144,6 +187,16 @@
           "contextualize": [
             "prologue"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "prologue"
+          ],
           "language": "always"
         },
         {
@@ -161,6 +214,17 @@
           "contextualize": [
             "prologue"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "prologue"
+          ],
           "language": "block-level"
         },
         {
@@ -171,6 +235,17 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "prologue"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -205,6 +280,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "prologue"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],

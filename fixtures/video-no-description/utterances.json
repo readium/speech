@@ -30,6 +30,16 @@
           "contextualize": [
             "video"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
           "language": "always"
         },
         {
@@ -47,6 +57,17 @@
           "contextualize": [
             "video"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
           "language": "block-level"
         },
         {
@@ -57,6 +78,17 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -84,6 +116,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "video"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -123,6 +166,16 @@
           "contextualize": [
             "video"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
           "language": "always"
         },
         {
@@ -140,6 +193,17 @@
           "contextualize": [
             "video"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
           "language": "block-level"
         },
         {
@@ -150,6 +214,17 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -177,6 +252,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "video"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],

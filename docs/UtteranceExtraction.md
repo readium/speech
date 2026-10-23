@@ -97,7 +97,8 @@ Quick reference:
 | `contentLanguage` | none | the language of content without `lang`/`xml:lang` |
 | `languageOverrides` | none | the language content declared in a given language is spoken in |
 | `interruptions` | each `"after"` | whether a note, page break, abbreviation expansion, definition or bibliography entry is read never, inline or after |
-| `segmentation.mode` | `"structure"` | one utterance per structural unit, or split/reconstruct at real sentence boundaries |
+| `segmentation.mode` | `"structure"` | one utterance per structural unit, or split at real sentence boundaries |
+| `segmentation.reconstruct` | `false` | in sentence mode, join a sentence split across blocks (fixed layout) |
 | `segmentation.suppressions` | none | per-language abbreviations (e.g. `"d."`) that sentence mode won't treat as endings |
 | `segmentation.segmenter` | built-in `Intl.Segmenter`-based splitter | swap in a different sentence segmenter |
 | `substitutions` | `builtInSubstitutions` | ASCII imitations of Unicode symbols (`"1/2"`, `"(c)"`, `"100deg"`) to rewrite before speaking |
@@ -307,12 +308,22 @@ A pagebreak opening a block is spoken before its first sentence.
 ### `segmentation`
 
 - `"structure"` (default) — one utterance per structural/block-level unit, whatever its sentence count.
-- `"sentence"` — split at real sentence boundaries instead: a multi-sentence node becomes several utterances, and a sentence genuinely split across sibling GND nodes (e.g. a fixed-layout document with no enclosing paragraph, just positioned text fragments) is reconstructed into one utterance covering both.
+- `"sentence"` — split at real sentence boundaries instead: a multi-sentence node becomes several utterances.
 
 ```typescript
 // <p>Hello there. This has two sentences.</p>
 await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
 // [{ plain: "Hello there. " }, { plain: "This has two sentences." }]
+```
+
+Without `reconstruct`, a sentence only joins pieces of its own block, the nearest element with a [block-level role](../src/utterances/roles.ts) (`paragraph`, `listItem`, `cell`, …), e.g. a `<dfn>` and the text after it. Unroled `<div>`s aren't blocks, so their pieces join when a sentence runs across them. With `reconstruct: true`, a sentence genuinely split across blocks (e.g. a fixed-layout document with no enclosing paragraph, just positioned text fragments) is reconstructed into one utterance covering both:
+
+```typescript
+// <p>This sentence continues</p><p>across two paragraphs.</p>
+await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence" } });
+// [{ plain: "This sentence continues" }, { plain: "across two paragraphs." }]
+await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", reconstruct: true } });
+// [{ plain: "This sentence continues across two paragraphs." }]
 ```
 
 Each utterance's `offsets` (see above) says which source element(s) it was built from — up to one entry per contributing node, so a sentence reconstructed across two elements gets two entries, each with its own `locate`.
@@ -364,7 +375,7 @@ A supplied `segmenter` fully replaces the built-in one — it's handed the same 
 
 #### Reconstruction heuristics
 
-Input: the flat, ordered utterance list the walk (above) produced, plus each utterance's source node's ancestors in the GND tree.
+With `reconstruct: true` only. Input: the flat, ordered utterance list the walk (above) produced, plus each utterance's source node's ancestors in the GND tree.
 
 **Step 1 — eligibility.** For each pair of adjacent utterances A, B, A may extend a run into B only if all of the following hold:
 

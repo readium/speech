@@ -34,6 +34,16 @@
           "contextualize": [
             "math"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "math"
+          ],
           "language": "always"
         },
         {
@@ -51,6 +61,17 @@
           "contextualize": [
             "math"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "math"
+          ],
           "language": "block-level"
         },
         {
@@ -61,6 +82,17 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "math"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -105,6 +137,16 @@
           "contextualize": [
             "math"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "math"
+          ],
           "language": "always"
         },
         {
@@ -122,6 +164,17 @@
           "contextualize": [
             "math"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "math"
+          ],
           "language": "block-level"
         },
         {
@@ -132,6 +185,17 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "math"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],

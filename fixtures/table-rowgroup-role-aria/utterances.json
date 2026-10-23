@@ -34,6 +34,16 @@
           "contextualize": [
             "table"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
           "language": "always"
         },
         {
@@ -51,6 +61,17 @@
           "contextualize": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -61,6 +82,17 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -95,6 +127,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -147,6 +190,21 @@
               "table": "inline"
             }
           },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "always"
         },
         {
@@ -174,6 +232,22 @@
               "table": "inline"
             }
           },
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "block-level"
         },
         {
@@ -189,6 +263,22 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -230,6 +320,22 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -263,6 +369,16 @@
           "contextualize": [
             "row"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "row"
+          ],
           "language": "always"
         },
         {
@@ -280,6 +396,17 @@
           "contextualize": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -290,6 +417,17 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -320,6 +458,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -357,6 +506,17 @@
             "table",
             "row"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "always"
         },
         {
@@ -376,6 +536,18 @@
             "table",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -387,6 +559,18 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -427,6 +611,18 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -485,6 +681,22 @@
               "table": "inline"
             }
           },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "always"
         },
         {
@@ -514,6 +726,23 @@
               "table": "inline"
             }
           },
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "block-level"
         },
         {
@@ -530,6 +759,23 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -577,6 +823,23 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -613,6 +876,16 @@
           "skip": [
             "columnheader"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
           "language": "always"
         },
         {
@@ -630,6 +903,17 @@
           "skip": [
             "columnheader"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
           "language": "block-level"
         },
         {
@@ -647,6 +931,17 @@
           "skip": [
             "columnheader"
           ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
           "language": "none"
         },
         {
@@ -662,6 +957,17 @@
         {
           "format": "plain",
           "skip": [
+            "columnheader"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
             "row"
           ]
         },
@@ -672,6 +978,16 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -696,6 +1012,17 @@
           "skip": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -706,6 +1033,17 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -730,6 +1068,17 @@
           "skip": [
             "row"
           ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
           "contextualize": [
             "row"
           ]
@@ -744,6 +1093,19 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -777,6 +1139,20 @@
           "contextualize": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -790,6 +1166,20 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -818,6 +1208,20 @@
         {
           "format": "plain",
           "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
             "columnheader",
             "row"
           ]
@@ -830,6 +1234,17 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -857,6 +1272,18 @@
             "columnheader",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -868,6 +1295,18 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -895,6 +1334,18 @@
             "columnheader",
             "row"
           ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
           "contextualize": [
             "row"
           ]
@@ -910,6 +1361,20 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -946,6 +1411,21 @@
           "contextualize": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -960,6 +1440,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -990,6 +1485,21 @@
         {
           "format": "plain",
           "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
             "table"
           ]
         },
@@ -1000,6 +1510,16 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1024,6 +1544,17 @@
           "skip": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -1034,6 +1565,17 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1058,6 +1600,17 @@
           "skip": [
             "table"
           ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
           "contextualize": [
             "table"
           ]
@@ -1072,6 +1625,19 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1105,6 +1671,20 @@
           "contextualize": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -1118,6 +1698,20 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1149,6 +1743,20 @@
             "table"
           ],
           "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
             "row"
           ]
         },
@@ -1162,6 +1770,19 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1195,6 +1816,20 @@
           "contextualize": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -1208,6 +1843,20 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1239,6 +1888,20 @@
             "table"
           ],
           "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
             "table",
             "row"
           ]
@@ -1254,6 +1917,20 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1290,6 +1967,21 @@
             "table",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -1304,6 +1996,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1334,6 +2041,21 @@
         {
           "format": "plain",
           "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
             "columnheader",
             "table"
           ]
@@ -1346,6 +2068,17 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1373,6 +2106,18 @@
             "columnheader",
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -1384,6 +2129,18 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1411,6 +2168,18 @@
             "columnheader",
             "table"
           ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
           "contextualize": [
             "table"
           ]
@@ -1426,6 +2195,20 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1462,6 +2245,21 @@
           "contextualize": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -1476,6 +2274,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1510,6 +2323,21 @@
             "table"
           ],
           "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
             "row"
           ]
         },
@@ -1524,6 +2352,20 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1560,6 +2402,21 @@
           "contextualize": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -1574,6 +2431,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1608,6 +2480,21 @@
             "table"
           ],
           "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
             "table",
             "row"
           ]
@@ -1624,6 +2511,21 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1663,6 +2565,22 @@
             "table",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -1678,6 +2596,22 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1710,6 +2644,22 @@
         {
           "format": "plain",
           "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
             "row",
             "table"
           ]
@@ -1722,6 +2672,17 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1749,6 +2710,18 @@
             "row",
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -1760,6 +2733,18 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1787,6 +2772,18 @@
             "row",
             "table"
           ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
           "contextualize": [
             "table"
           ]
@@ -1802,6 +2799,20 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1838,6 +2849,21 @@
           "contextualize": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -1852,6 +2878,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1886,6 +2927,21 @@
             "table"
           ],
           "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
             "row"
           ]
         },
@@ -1900,6 +2956,20 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1936,6 +3006,21 @@
           "contextualize": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -1950,6 +3035,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -1984,6 +3084,21 @@
             "table"
           ],
           "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
             "table",
             "row"
           ]
@@ -2000,6 +3115,21 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -2039,6 +3169,22 @@
             "table",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -2054,6 +3200,22 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -2086,6 +3248,22 @@
         {
           "format": "plain",
           "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
             "columnheader",
             "row",
             "table"
@@ -2100,6 +3278,18 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -2130,6 +3320,19 @@
             "row",
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -2142,6 +3345,19 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -2172,6 +3388,19 @@
             "row",
             "table"
           ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
           "contextualize": [
             "table"
           ]
@@ -2188,6 +3417,21 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -2227,6 +3471,22 @@
           "contextualize": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -2242,6 +3502,22 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -2279,6 +3555,22 @@
             "table"
           ],
           "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
             "row"
           ]
         },
@@ -2294,6 +3586,21 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -2333,6 +3640,22 @@
           "contextualize": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -2348,6 +3671,22 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -2385,6 +3724,22 @@
             "table"
           ],
           "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
             "table",
             "row"
           ]
@@ -2402,6 +3757,22 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -2444,6 +3815,23 @@
             "table",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -2473,6 +3861,23 @@
             "table",
             "row"
           ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "none"
         },
         {
@@ -2489,6 +3894,23 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -2525,6 +3947,19 @@
           "contextualize": [
             "table"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
           "language": "always"
         },
         {
@@ -2548,6 +3983,20 @@
           "contextualize": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -2566,6 +4015,20 @@
         {
           "format": "plain",
           "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
             "row"
           ],
           "contextualize": [
@@ -2582,6 +4045,19 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -2615,6 +4091,20 @@
           "contextualize": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -2628,6 +4118,20 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -2651,6 +4155,20 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -2687,6 +4205,21 @@
             "table",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -2701,6 +4234,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -2724,6 +4272,20 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -2760,6 +4322,21 @@
           "contextualize": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -2774,6 +4351,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -2799,6 +4391,21 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -2838,6 +4445,22 @@
             "table",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -2853,6 +4476,22 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -2895,6 +4534,20 @@
         {
           "format": "plain",
           "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
             "row"
           ],
           "contextualize": [
@@ -2913,6 +4566,20 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -2943,6 +4610,21 @@
         {
           "format": "plain",
           "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
             "columnheader",
             "row"
           ],
@@ -2972,6 +4654,21 @@
             "row"
           ],
           "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
             "table",
             "row"
           ],
@@ -2990,6 +4687,22 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -3048,6 +4761,24 @@
               "table": "inline"
             }
           },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "always"
         },
         {
@@ -3081,6 +4812,25 @@
               "table": "inline"
             }
           },
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "block-level"
         },
         {
@@ -3104,6 +4854,25 @@
         {
           "format": "plain",
           "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
             "row"
           ],
           "contextualize": [
@@ -3130,6 +4899,24 @@
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -3178,6 +4965,25 @@
               "table": "inline"
             }
           },
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "block-level"
         },
         {
@@ -3204,6 +5010,25 @@
             "row"
           ],
           "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
             "table",
             "row"
           ],
@@ -3229,6 +5054,25 @@
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -3280,6 +5124,26 @@
               "table": "inline"
             }
           },
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "block-level"
         },
         {
@@ -3304,6 +5168,26 @@
         {
           "format": "plain",
           "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
             "columnheader",
             "row"
           ],
@@ -3332,6 +5216,25 @@
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -3383,6 +5286,26 @@
               "table": "inline"
             }
           },
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "block-level"
         },
         {
@@ -3411,6 +5334,26 @@
             "row"
           ],
           "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
             "table",
             "row"
           ],
@@ -3437,6 +5380,26 @@
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -3491,6 +5454,27 @@
               "table": "inline"
             }
           },
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "block-level"
         },
         {
@@ -3511,6 +5495,27 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -3559,6 +5564,25 @@
         {
           "format": "plain",
           "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
             "row"
           ],
           "contextualize": [
@@ -3587,6 +5611,25 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -3627,6 +5670,26 @@
         {
           "format": "plain",
           "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
             "columnheader",
             "row"
           ],
@@ -3666,6 +5729,26 @@
             "row"
           ],
           "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
             "table",
             "row"
           ],
@@ -3694,6 +5777,27 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -3734,6 +5838,19 @@
           "contextualize": [
             "row"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
           "language": "always"
         },
         {
@@ -3757,6 +5874,20 @@
           "contextualize": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -3770,6 +5901,20 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -3803,6 +5948,20 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -3846,6 +6005,20 @@
             "table",
             "row"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "always"
         },
         {
@@ -3871,6 +6044,21 @@
             "table",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -3885,6 +6073,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -3928,6 +6131,21 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -3992,6 +6210,25 @@
               "table": "inline"
             }
           },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "always"
         },
         {
@@ -4027,6 +6264,26 @@
               "table": "inline"
             }
           },
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "block-level"
         },
         {
@@ -4046,6 +6303,26 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4095,6 +6372,26 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4141,6 +6438,16 @@
           "contextualize": [
             "table"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
           "language": "always"
         },
         {
@@ -4158,6 +6465,17 @@
           "contextualize": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -4168,6 +6486,17 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4202,6 +6531,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4254,6 +6594,21 @@
               "table": "inline"
             }
           },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "always"
         },
         {
@@ -4281,6 +6636,22 @@
               "table": "inline"
             }
           },
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "block-level"
         },
         {
@@ -4296,6 +6667,22 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4337,6 +6724,22 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -4370,6 +6773,16 @@
           "contextualize": [
             "row"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "row"
+          ],
           "language": "always"
         },
         {
@@ -4387,6 +6800,17 @@
           "contextualize": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -4397,6 +6821,17 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4427,6 +6862,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4464,6 +6910,17 @@
             "table",
             "row"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "always"
         },
         {
@@ -4483,6 +6940,18 @@
             "table",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -4494,6 +6963,18 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4534,6 +7015,18 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4592,6 +7085,22 @@
               "table": "inline"
             }
           },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "always"
         },
         {
@@ -4621,6 +7130,23 @@
               "table": "inline"
             }
           },
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "block-level"
         },
         {
@@ -4637,6 +7163,23 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -4684,6 +7227,23 @@
           "segmentation": {
             "mode": "sentence"
           }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
         }
       ],
       "utterances": [
@@ -4720,6 +7280,16 @@
           "skip": [
             "columnheader"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
           "language": "always"
         },
         {
@@ -4737,6 +7307,17 @@
           "skip": [
             "columnheader"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
           "language": "block-level"
         },
         {
@@ -4754,6 +7335,17 @@
           "skip": [
             "columnheader"
           ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
           "language": "none"
         },
         {
@@ -4769,6 +7361,17 @@
         {
           "format": "ssml",
           "skip": [
+            "columnheader"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
             "row"
           ]
         },
@@ -4779,6 +7382,16 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -4803,6 +7416,17 @@
           "skip": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -4813,6 +7437,17 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -4837,6 +7472,17 @@
           "skip": [
             "row"
           ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
           "contextualize": [
             "row"
           ]
@@ -4851,6 +7497,19 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -4884,6 +7543,20 @@
           "contextualize": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -4897,6 +7570,20 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -4925,6 +7612,20 @@
         {
           "format": "ssml",
           "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
             "columnheader",
             "row"
           ]
@@ -4937,6 +7638,17 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -4964,6 +7676,18 @@
             "columnheader",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -4975,6 +7699,18 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5002,6 +7738,18 @@
             "columnheader",
             "row"
           ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
           "contextualize": [
             "row"
           ]
@@ -5017,6 +7765,20 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5053,6 +7815,21 @@
           "contextualize": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -5067,6 +7844,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5097,6 +7889,21 @@
         {
           "format": "ssml",
           "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
             "table"
           ]
         },
@@ -5107,6 +7914,16 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5131,6 +7948,17 @@
           "skip": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -5141,6 +7969,17 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5165,6 +8004,17 @@
           "skip": [
             "table"
           ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
           "contextualize": [
             "table"
           ]
@@ -5179,6 +8029,19 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5212,6 +8075,20 @@
           "contextualize": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -5225,6 +8102,20 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5256,6 +8147,20 @@
             "table"
           ],
           "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
             "row"
           ]
         },
@@ -5269,6 +8174,19 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5302,6 +8220,20 @@
           "contextualize": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -5315,6 +8247,20 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5346,6 +8292,20 @@
             "table"
           ],
           "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
             "table",
             "row"
           ]
@@ -5361,6 +8321,20 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5397,6 +8371,21 @@
             "table",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -5411,6 +8400,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5441,6 +8445,21 @@
         {
           "format": "ssml",
           "skip": [
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
             "columnheader",
             "table"
           ]
@@ -5453,6 +8472,17 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5480,6 +8510,18 @@
             "columnheader",
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -5491,6 +8533,18 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5518,6 +8572,18 @@
             "columnheader",
             "table"
           ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
           "contextualize": [
             "table"
           ]
@@ -5533,6 +8599,20 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5569,6 +8649,21 @@
           "contextualize": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -5583,6 +8678,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5617,6 +8727,21 @@
             "table"
           ],
           "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
             "row"
           ]
         },
@@ -5631,6 +8756,20 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5667,6 +8806,21 @@
           "contextualize": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -5681,6 +8835,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5715,6 +8884,21 @@
             "table"
           ],
           "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
             "table",
             "row"
           ]
@@ -5731,6 +8915,21 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5770,6 +8969,22 @@
             "table",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -5785,6 +9000,22 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5817,6 +9048,22 @@
         {
           "format": "ssml",
           "skip": [
+            "columnheader",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
             "row",
             "table"
           ]
@@ -5829,6 +9076,17 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5856,6 +9114,18 @@
             "row",
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -5867,6 +9137,18 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5894,6 +9176,18 @@
             "row",
             "table"
           ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
           "contextualize": [
             "table"
           ]
@@ -5909,6 +9203,20 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5945,6 +9253,21 @@
           "contextualize": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -5959,6 +9282,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -5993,6 +9331,21 @@
             "table"
           ],
           "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
             "row"
           ]
         },
@@ -6007,6 +9360,20 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6043,6 +9410,21 @@
           "contextualize": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -6057,6 +9439,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6091,6 +9488,21 @@
             "table"
           ],
           "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
             "table",
             "row"
           ]
@@ -6107,6 +9519,21 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6146,6 +9573,22 @@
             "table",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -6161,6 +9604,22 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6193,6 +9652,22 @@
         {
           "format": "ssml",
           "skip": [
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
             "columnheader",
             "row",
             "table"
@@ -6207,6 +9682,18 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6237,6 +9724,19 @@
             "row",
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -6249,6 +9749,19 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6279,6 +9792,19 @@
             "row",
             "table"
           ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
           "contextualize": [
             "table"
           ]
@@ -6295,6 +9821,21 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6334,6 +9875,22 @@
           "contextualize": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -6349,6 +9906,22 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6386,6 +9959,22 @@
             "table"
           ],
           "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
             "row"
           ]
         },
@@ -6401,6 +9990,21 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6440,6 +10044,22 @@
           "contextualize": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -6455,6 +10075,22 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6492,6 +10128,22 @@
             "table"
           ],
           "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
             "table",
             "row"
           ]
@@ -6509,6 +10161,22 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6551,6 +10219,23 @@
             "table",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -6580,6 +10265,23 @@
             "table",
             "row"
           ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "none"
         },
         {
@@ -6596,6 +10298,23 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row",
+            "table"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -6632,6 +10351,19 @@
           "contextualize": [
             "table"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
           "language": "always"
         },
         {
@@ -6655,6 +10387,20 @@
           "contextualize": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -6673,6 +10419,20 @@
         {
           "format": "ssml",
           "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
             "row"
           ],
           "contextualize": [
@@ -6689,6 +10449,19 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6722,6 +10495,20 @@
           "contextualize": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -6735,6 +10522,20 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6758,6 +10559,20 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6794,6 +10609,21 @@
             "table",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -6808,6 +10638,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6831,6 +10676,20 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6867,6 +10726,21 @@
           "contextualize": [
             "table"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
           "language": "block-level"
         },
         {
@@ -6881,6 +10755,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6906,6 +10795,21 @@
           ],
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -6945,6 +10849,22 @@
             "table",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -6960,6 +10880,22 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -7002,6 +10938,20 @@
         {
           "format": "ssml",
           "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
             "row"
           ],
           "contextualize": [
@@ -7020,6 +10970,20 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -7050,6 +11014,21 @@
         {
           "format": "ssml",
           "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
             "columnheader",
             "row"
           ],
@@ -7079,6 +11058,21 @@
             "row"
           ],
           "contextualize": [
+            "table"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
             "table",
             "row"
           ],
@@ -7097,6 +11091,22 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -7155,6 +11165,24 @@
               "table": "inline"
             }
           },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "always"
         },
         {
@@ -7188,6 +11216,25 @@
               "table": "inline"
             }
           },
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "block-level"
         },
         {
@@ -7211,6 +11258,25 @@
         {
           "format": "ssml",
           "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
             "row"
           ],
           "contextualize": [
@@ -7237,6 +11303,24 @@
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -7285,6 +11369,25 @@
               "table": "inline"
             }
           },
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "block-level"
         },
         {
@@ -7311,6 +11414,25 @@
             "row"
           ],
           "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
             "table",
             "row"
           ],
@@ -7336,6 +11458,25 @@
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -7387,6 +11528,26 @@
               "table": "inline"
             }
           },
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "block-level"
         },
         {
@@ -7411,6 +11572,26 @@
         {
           "format": "ssml",
           "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
             "columnheader",
             "row"
           ],
@@ -7439,6 +11620,25 @@
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -7490,6 +11690,26 @@
               "table": "inline"
             }
           },
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "block-level"
         },
         {
@@ -7518,6 +11738,26 @@
             "row"
           ],
           "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
             "table",
             "row"
           ],
@@ -7544,6 +11784,26 @@
           },
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -7598,6 +11858,27 @@
               "table": "inline"
             }
           },
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "block-level"
         },
         {
@@ -7618,6 +11899,27 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -7666,6 +11968,25 @@
         {
           "format": "ssml",
           "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
             "row"
           ],
           "contextualize": [
@@ -7694,6 +12015,25 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -7734,6 +12074,26 @@
         {
           "format": "ssml",
           "skip": [
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
             "columnheader",
             "row"
           ],
@@ -7773,6 +12133,26 @@
             "row"
           ],
           "contextualize": [
+            "table"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
             "table",
             "row"
           ],
@@ -7801,6 +12181,27 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader",
+            "row"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -7841,6 +12242,19 @@
           "contextualize": [
             "row"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
           "language": "always"
         },
         {
@@ -7864,6 +12278,20 @@
           "contextualize": [
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -7877,6 +12305,20 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -7910,6 +12352,20 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -7953,6 +12409,20 @@
             "table",
             "row"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "always"
         },
         {
@@ -7978,6 +12448,21 @@
             "table",
             "row"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
           "language": "block-level"
         },
         {
@@ -7992,6 +12477,21 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -8035,6 +12535,21 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -8099,6 +12614,25 @@
               "table": "inline"
             }
           },
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "always"
         },
         {
@@ -8134,6 +12668,26 @@
               "table": "inline"
             }
           },
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
           "language": "block-level"
         },
         {
@@ -8153,6 +12707,26 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -8202,6 +12776,26 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "columnheader"
+          ],
+          "contextualize": [
+            "table",
+            "row"
+          ],
+          "contextualization": {
+            "shapes": {
+              "table": "inline"
+            }
+          },
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],

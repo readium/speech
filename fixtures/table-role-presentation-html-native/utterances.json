@@ -25,7 +25,29 @@
         },
         {
           "format": "plain",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -34,7 +56,8 @@
           "format": "plain",
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -52,6 +75,14 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -86,7 +117,29 @@
         },
         {
           "format": "ssml",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
           "language": "always",
+          "segmentation": {
+            "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "block-level",
           "segmentation": {
             "mode": "sentence"
           }
@@ -95,7 +148,8 @@
           "format": "ssml",
           "language": "block-level",
           "segmentation": {
-            "mode": "sentence"
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -113,6 +167,14 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],

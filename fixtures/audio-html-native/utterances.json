@@ -34,6 +34,16 @@
           "contextualize": [
             "audio"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "audio"
+          ],
           "language": "always"
         },
         {
@@ -51,6 +61,17 @@
           "contextualize": [
             "audio"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "audio"
+          ],
           "language": "block-level"
         },
         {
@@ -61,6 +82,17 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "audio"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -88,6 +120,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "contextualize": [
+            "audio"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -119,6 +162,16 @@
           "skip": [
             "audio"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "audio"
+          ],
           "language": "always"
         },
         {
@@ -129,6 +182,17 @@
           "language": "always",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "audio"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -153,6 +217,17 @@
           "skip": [
             "audio"
           ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "audio"
+          ],
           "language": "none"
         },
         {
@@ -163,6 +238,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "audio"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -194,6 +280,19 @@
           "contextualize": [
             "audio"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "audio"
+          ],
+          "contextualize": [
+            "audio"
+          ],
           "language": "always"
         },
         {
@@ -207,6 +306,20 @@
           "language": "always",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "audio"
+          ],
+          "contextualize": [
+            "audio"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -240,6 +353,20 @@
           "contextualize": [
             "audio"
           ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "audio"
+          ],
+          "contextualize": [
+            "audio"
+          ],
           "language": "none"
         },
         {
@@ -253,6 +380,20 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "plain",
+          "skip": [
+            "audio"
+          ],
+          "contextualize": [
+            "audio"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -292,6 +433,16 @@
           "contextualize": [
             "audio"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "audio"
+          ],
           "language": "always"
         },
         {
@@ -309,6 +460,17 @@
           "contextualize": [
             "audio"
           ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "audio"
+          ],
           "language": "block-level"
         },
         {
@@ -319,6 +481,17 @@
           "language": "block-level",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "audio"
+          ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -346,6 +519,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "contextualize": [
+            "audio"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
@@ -377,6 +561,16 @@
           "skip": [
             "audio"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "audio"
+          ],
           "language": "always"
         },
         {
@@ -387,6 +581,17 @@
           "language": "always",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "audio"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -411,6 +616,17 @@
           "skip": [
             "audio"
           ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "audio"
+          ],
           "language": "none"
         },
         {
@@ -421,6 +637,17 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "audio"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -452,6 +679,19 @@
           "contextualize": [
             "audio"
           ],
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "audio"
+          ],
+          "contextualize": [
+            "audio"
+          ],
           "language": "always"
         },
         {
@@ -465,6 +705,20 @@
           "language": "always",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "audio"
+          ],
+          "contextualize": [
+            "audio"
+          ],
+          "language": "always",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         },
         {
@@ -498,6 +752,20 @@
           "contextualize": [
             "audio"
           ],
+          "language": "block-level",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "audio"
+          ],
+          "contextualize": [
+            "audio"
+          ],
           "language": "none"
         },
         {
@@ -511,6 +779,20 @@
           "language": "none",
           "segmentation": {
             "mode": "sentence"
+          }
+        },
+        {
+          "format": "ssml",
+          "skip": [
+            "audio"
+          ],
+          "contextualize": [
+            "audio"
+          ],
+          "language": "none",
+          "segmentation": {
+            "mode": "sentence",
+            "reconstruct": true
           }
         }
       ],
