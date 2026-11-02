@@ -17,7 +17,8 @@ export interface ReadiumSpeechPlaybackEngine {
   setVoice(voice: ReadiumSpeechVoice | string): void;
   // The voice set, else the engine's default: the one content without a voice of its own starts from
   getCurrentVoice(): ReadiumSpeechVoice | null;
-  getAvailableVoices(): Promise<ReadiumSpeechVoice[]>;
+  // With languages, an engine loading voices by language loads theirs too
+  getAvailableVoices(languages?: string[]): Promise<ReadiumSpeechVoice[]>;
   
   // Playback Control
   speak(utteranceIndex?: number): void;

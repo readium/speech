@@ -27,7 +27,7 @@ const DEFAULT_HEALTH_CHECK_INTERVAL_MS = 30000;
 // to decide whether it's worth swapping engines over before being forwarded or not.
 const FORWARDED_EVENTS: ReadiumSpeechPlaybackEvent["type"][] = [
   "start", "pause", "resume", "end", "stop", "skip", "boundary", "mark",
-  "idle", "loading", "ready", "voiceschanged", "languagefallback"
+  "idle", "loading", "ready", "voiceschanged"
 ];
 
 // Wraps a primary engine and swaps to a fallback provider's engine the first time the primary
@@ -108,8 +108,8 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return this.activeEngine.getCurrentVoice();
   }
 
-  getAvailableVoices(): Promise<ReadiumSpeechVoice[]> {
-    return this.activeEngine.getAvailableVoices();
+  getAvailableVoices(languages?: string[]): Promise<ReadiumSpeechVoice[]> {
+    return this.activeEngine.getAvailableVoices(languages);
   }
 
   // The navigator advances to the next utterance via speak(nextIndex) — the one gap where we can

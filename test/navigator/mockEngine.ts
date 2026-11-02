@@ -97,3 +97,6 @@ export class MockEngine implements ReadiumSpeechPlaybackEngine {
 
   async destroy(): Promise<void> {}
 }
+
+// Lets a navigator finish loading content, which waits for its languages' voices to be picked.
+export const settled = (): Promise<void> => new Promise((resolve) => setTimeout(resolve, 0));

@@ -58,3 +58,22 @@ test("skip/contextualize are ignored under any non-custom preset", (t) => {
   t.false(settings.contextualize.includes("chapter"));
   t.deepEqual([...settings.contextualize].sort(), [...contextualizedAtVerbosity.few].sort());
 });
+
+test("a voice record keeps the defaults' voice for each tag it has none for", (t) => {
+  const settings = new SpeechSettings(
+    new SpeechPreferences({ voice: { fr: "amelie", "de-AT": "anna", en_us: "alex" } }),
+    new SpeechDefaults({ voice: { "fr-CA": "chantal", "en-US": "samantha", de: "helena" } }),
+  );
+  t.deepEqual(settings.voice, { fr: "amelie", "de-AT": "anna", en_us: "alex", "fr-CA": "chantal", de: "helena" });
+});
+
+test("a single voice replaces the defaults' voices", (t) => {
+  const settings = new SpeechSettings(new SpeechPreferences({ voice: "amelie" }), new SpeechDefaults({ voice: { en: "samantha" } }));
+  t.is(settings.voice, "amelie");
+});
+
+test("no voice, or an empty record, is the defaults' voice", (t) => {
+  const voiceDefaults = new SpeechDefaults({ voice: { en: "samantha" } });
+  t.deepEqual(new SpeechSettings(new SpeechPreferences(), voiceDefaults).voice, { en: "samantha" });
+  t.deepEqual(new SpeechSettings(new SpeechPreferences({ voice: {} }), voiceDefaults).voice, { en: "samantha" });
+});

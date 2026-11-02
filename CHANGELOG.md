@@ -2,6 +2,25 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `pickDefaultVoice()`, and `pickLanguageVoice()`: the voice content in a language gets, in its region, else the JSON's default region, else another, preferring the boundary support asked for.
+- `languages` in `ReadiumSpeechNavigatorConfiguration`: the content's languages, main first, each getting a voice picked as soon as the engine is initialized.
+- `getAvailableVoices(languages)` on `ReadiumSpeechPlaybackEngine`, `WebSpeechEngine` and `FallbackSpeechEngine`: `WebSpeechEngine` loads the voices of `languages` too when initialized with others.
+
+### Changed
+
+- `ReadiumSpeechNavigator` gives every utterance without a voice of its own the voice for its language in `settings.voice`, instead of leaving it to the engine: the `voice` preference's voices the engine has, merged over a voice picked for each language with `pickLanguageVoice()`, under the language's tag when the voice is of its region, else under its primary subtag. The main language's voice prefers boundary events, the other languages' match its boundary support. It fires `"languagefallback"` itself, once for a language without any voice, and picks again when the engine's voices change or `FallbackSpeechEngine` swaps engines.
+- `ReadiumSpeechNavigator.settings.voice` has the voice of each of `languages` and the loaded content's, the preference merged over the picks, instead of the preference with the engine's voice for its language. `"voiceschanged"` fires when they change.
+- A `voice` preference record keeps the defaults' voice for each tag it has none for, instead of replacing them.
+- **Breaking:** `loadContent()` with content in a language without a picked voice loads it once picked: until then the navigator is `"loading"`. A `play()` while `"loading"` now plays once the engine is ready instead of being ignored.
+- **Breaking:** `WebSpeechEngine` and `SpeechServerEngine` speak an utterance with its own voice, else their current voice, whatever its language, and no longer fire `"languagefallback"`, nor `FallbackSpeechEngine` forward it: `ReadiumSpeechNavigator` gives each utterance a voice for its language. Before, they switched to a voice of the utterance's language.
+- `WebSpeechEngine.setVoice()` matches a voice id by `voiceURI`, then `name`, as for an utterance's own voice, instead of by `name` or `language`.
+- Without a voice set with `setVoice()`, `WebSpeechEngine` and `SpeechServerEngine` speak with a default voice that prefers boundary events: on `WebSpeechEngine`, the best voice of the first of `initialize()`'s `languages` with voices; without them, and on `SpeechServerEngine`, by the user's preferred languages (`navigator.languages`).
+- Concurrent `WebSpeechEngine.initialize()` calls share the first one's, e.g. an app's with `languages` and `ReadiumSpeechNavigator`'s without, instead of each loading voices.
+
 ## [0.18.0] - 2026-10-23
 
 ### Added

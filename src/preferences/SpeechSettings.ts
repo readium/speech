@@ -4,17 +4,18 @@ import { SpeechDefaults } from "./SpeechDefaults.js";
 import type { AutoPauseScope, SpeechPreferences, VerbosityPreset, VoicePreference } from "./SpeechPreferences.js";
 import { contextualizedAtVerbosity, skippedAtVerbosity } from "./verbosityTables.js";
 import type { ExtractionFormat, Interruption, LanguageMode, Segmentation } from "../utterances/types.js";
-import type { ReadiumSpeechVoice } from "../voices/types.js";
-import { getVoiceId } from "../voices/voiceId.js";
-import { extractLangRegionFromBCP47, valueForLanguage } from "../utils/language.js";
+const languageTag = (language: string): string => language.toLowerCase().replace(/_/g, "-");
 
-// Content without a voice of its own is spoken with the engine's, for its language only:
-// a bare id would mean that voice for all content once submitted back.
-const withEngineVoice = (voice: VoicePreference | null, engineVoice?: ReadiumSpeechVoice | null): VoicePreference | null => {
-  if (!engineVoice || typeof voice === "string") return voice;
-  const [language] = extractLangRegionFromBCP47(engineVoice.language);
-  if (!language || (voice && valueForLanguage(voice, language) !== undefined)) return voice;
-  return { ...voice, [language]: getVoiceId(engineVoice) };
+// A record keeps the default's voice for each tag it has none for, so an exact tag still wins over its base language.
+const mergedVoice = (preference: VoicePreference | null | undefined, fallback: VoicePreference | null): VoicePreference | null => {
+  if (!preference || (typeof preference === "object" && Object.keys(preference).length === 0)) return fallback;
+  if (typeof preference === "string" || !fallback || typeof fallback === "string") return preference;
+  const tags = new Set(Object.keys(preference).map(languageTag));
+  const merged = { ...preference };
+  for (const [language, id] of Object.entries(fallback)) {
+    if (!tags.has(languageTag(language))) merged[language] = id;
+  }
+  return merged;
 };
 
 export class SpeechSettings implements ConfigurableSettings {
@@ -36,10 +37,7 @@ export class SpeechSettings implements ConfigurableSettings {
   public readonly pitch: number;
   public readonly volume: number;
 
-  /**
-   * @param engineVoice The engine's voice, which `voice` falls back to: when unset, or for its language in a record without it.
-   */
-  constructor(preferences: SpeechPreferences, defaults: SpeechDefaults, engineVoice?: ReadiumSpeechVoice | null) {
+  constructor(preferences: SpeechPreferences, defaults: SpeechDefaults) {
     this.format = preferences.format ?? defaults.format;
     this.interruptions = preferences.interruptions ?? defaults.interruptions;
     this.verbosity = preferences.verbosity ?? defaults.verbosity;
@@ -58,7 +56,7 @@ export class SpeechSettings implements ConfigurableSettings {
     this.languageOverrides = preferences.languageOverrides ?? defaults.languageOverrides;
     this.segmentation = preferences.segmentation ?? defaults.segmentation;
     this.reconstruct = preferences.reconstruct ?? defaults.reconstruct;
-    this.voice = withEngineVoice(preferences.voice ?? defaults.voice, engineVoice);
+    this.voice = mergedVoice(preferences.voice, defaults.voice);
     this.pauseDuration = preferences.pauseDuration ?? defaults.pauseDuration;
     this.autoPause = preferences.autoPause ?? defaults.autoPause;
     this.rate = preferences.rate ?? defaults.rate;
