@@ -626,8 +626,8 @@ export class WebSpeechVoiceManager {
           // Infer quality using the helper method
           const quality = this.inferVoiceQuality(voice, jsonVoice, duplicatesCount);
 
-          // Android doesn't emit boundary events, whichever voice is used
-          const controls: TVoiceControls | undefined = this.isAndroid
+          // Android doesn't emit boundary events, whichever voice is used, and a voice missing from the JSON may not either
+          const controls: TVoiceControls | undefined = this.isAndroid || !jsonVoice
             ? { ...jsonVoice?.controls, boundary: false }
             : jsonVoice?.controls;
           

@@ -18,6 +18,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - **Breaking:** `loadContent()` with content in a language without a picked voice loads it once picked: until then the navigator is `"loading"`. A `play()` while `"loading"` now plays once the engine is ready instead of being ignored.
 - **Breaking:** `WebSpeechEngine` and `SpeechServerEngine` speak an utterance with its own voice, else their current voice, whatever its language, and no longer fire `"languagefallback"`, nor `FallbackSpeechEngine` forward it: `ReadiumSpeechNavigator` gives each utterance a voice for its language. Before, they switched to a voice of the utterance's language.
 - `WebSpeechEngine.setVoice()` matches a voice id by `voiceURI`, then `name`, as for an utterance's own voice, instead of by `name` or `language`.
+- Web Speech voices missing from the JSON (`source: "browser"`) have `controls.boundary: false`, as they can't be known to return boundary events, like every voice on Android.
 - Without a voice set with `setVoice()`, `WebSpeechEngine` and `SpeechServerEngine` speak with a default voice that prefers boundary events: on `WebSpeechEngine`, the best voice of the first of `initialize()`'s `languages` with voices; without them, and on `SpeechServerEngine`, by the user's preferred languages (`navigator.languages`).
 - Concurrent `WebSpeechEngine.initialize()` calls share the first one's, e.g. an app's with `languages` and `ReadiumSpeechNavigator`'s without, instead of each loading voices.
 

@@ -319,4 +319,4 @@ The speech server's `GET /service` always sends every field explicitly. Client c
 type TVoiceControls = Pick<TServerVoiceControls, "pitch" | "boundary">;
 ```
 
-Used for json/browser voices, where both properties default to enabled when absent.
+Used for json/browser voices, where both properties default to enabled when absent. Browser voices, those missing from the JSON, always have `boundary: false`.
