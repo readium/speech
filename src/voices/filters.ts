@@ -1,5 +1,6 @@
 import type { ReadiumSpeechVoice } from "./types.js";
 import { TQuality } from "./types.js";
+import { voiceBaseLanguage } from "./voiceForLanguage.js";
 import noveltyFilterData from "@json/filters/novelty.json" with { type: "json" };
 import veryLowQualityFilterData from "@json/filters/veryLowQuality.json" with { type: "json" };
 
@@ -41,23 +42,9 @@ export const filterOutVeryLowQualityVoices = (voices: ReadiumSpeechVoice[]): Rea
  * either exactly or by base language (e.g. "en" or "en-US" keep "en-GB").
  */
 export const filterByLanguages = (voices: ReadiumSpeechVoice[], languages: string | string[]): ReadiumSpeechVoice[] => {
-  const langs = Array.isArray(languages) ? languages : [languages];
+  const bases = (Array.isArray(languages) ? languages : [languages]).map(voiceBaseLanguage);
 
   return voices.filter(voice => {
-    return langs.some(requestedLang => {
-      const reqLang = requestedLang.toLowerCase();
-      const voiceLang = voice.language?.toLowerCase();
-      const voiceAltLang = voice.altLanguage?.toLowerCase();
-
-      // Check direct matches first
-      if (voiceLang === reqLang || voiceAltLang === reqLang) {
-        return true;
-      }
-
-      // Then check base language matches
-      const [reqBase] = reqLang.split("-");
-      return (voiceLang && voiceLang.startsWith(reqBase)) ||
-             (voiceAltLang && voiceAltLang.startsWith(reqBase));
-    });
+    return [voice.language, voice.altLanguage].some(language => !!language && bases.includes(voiceBaseLanguage(language)));
   });
 }

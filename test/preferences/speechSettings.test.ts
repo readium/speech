@@ -58,3 +58,38 @@ test("skip/contextualize are ignored under any non-custom preset", (t) => {
   t.false(settings.contextualize.includes("chapter"));
   t.deepEqual([...settings.contextualize].sort(), [...contextualizedAtVerbosity.few].sort());
 });
+
+test("a voice record keeps the defaults' voice for each tag it has none for", (t) => {
+  const settings = new SpeechSettings(
+    new SpeechPreferences({ voice: { fr: "amelie", "de-AT": "anna", en_us: "alex" } }),
+    new SpeechDefaults({ voice: { "fr-CA": "chantal", "en-US": "samantha", de: "helena" } }),
+  );
+  t.deepEqual(settings.voice, { fr: "amelie", "de-AT": "anna", en_us: "alex", "fr-CA": "chantal", de: "helena" });
+});
+
+test("a voice record's tags replace the defaults' for the same voice language, e.g. zh-HK for yue-HK", (t) => {
+  const settings = new SpeechSettings(
+    new SpeechPreferences({ voice: { "zh-HK": "aasing" } }),
+    new SpeechDefaults({ voice: { "yue-HK": "sinji", cmn: "tingting" } }),
+  );
+  t.deepEqual(settings.voice, { "zh-HK": "aasing", cmn: "tingting" });
+});
+
+test("a voice record keeps the defaults' voice for another script of its language", (t) => {
+  const settings = new SpeechSettings(
+    new SpeechPreferences({ voice: { "sr-Latn": "latin" } }),
+    new SpeechDefaults({ voice: { "sr-Cyrl": "cyrillic" } }),
+  );
+  t.deepEqual(settings.voice, { "sr-Latn": "latin", "sr-Cyrl": "cyrillic" });
+});
+
+test("a single voice replaces the defaults' voices", (t) => {
+  const settings = new SpeechSettings(new SpeechPreferences({ voice: "amelie" }), new SpeechDefaults({ voice: { en: "samantha" } }));
+  t.is(settings.voice, "amelie");
+});
+
+test("no voice, or an empty record, is the defaults' voice", (t) => {
+  const voiceDefaults = new SpeechDefaults({ voice: { en: "samantha" } });
+  t.deepEqual(new SpeechSettings(new SpeechPreferences(), voiceDefaults).voice, { en: "samantha" });
+  t.deepEqual(new SpeechSettings(new SpeechPreferences({ voice: {} }), voiceDefaults).voice, { en: "samantha" });
+});

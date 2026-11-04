@@ -141,6 +141,20 @@ test.serial("setVoice while paused applies on resume and keeps the current posit
   t.is(synth.spoken[synth.spoken.length - 1].text, "Second.");
 });
 
+test.serial("setVoice while paused to another voice of the same name restarts with it on resume", async (t) => {
+  const synth = setWebSpeechGlobals();
+  const engine = new WebSpeechEngine();
+  await engine.setVoice({ ...makeVoice("A"), voiceURI: "A-1" });
+  await speakThenPause(engine, synth);
+
+  await engine.setVoice({ ...makeVoice("A"), voiceURI: "A-2" });
+  engine.resume();
+  await flush();
+
+  t.false(synth.calls.includes("resume"), "the native utterance with the old voice is not resumed");
+  t.is(synth.spoken[synth.spoken.length - 1].text, "Second.");
+});
+
 test.serial("resume right after an unawaited cross-language setVoice while paused restarts with the new voice", async (t) => {
   const synth = setWebSpeechGlobals();
   const engine = new WebSpeechEngine();

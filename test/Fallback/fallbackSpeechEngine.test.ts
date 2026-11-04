@@ -134,6 +134,29 @@ test.serial("while offline, only considers offline-available voices, since an on
   t.is(fallbackProvider.receivedVoice?.name, "French Male", "skipped the best language+gender match because it needs network, picked the offline-available one instead");
 });
 
+test.serial("while offline, once fallen back, getAvailableVoices() lists only offline-available voices", async (t) => {
+  const restoreOnLine = stubOnLine(false);
+  t.teardown(restoreOnLine);
+
+  const primary = new FakeEngine();
+  primary.setCurrentVoiceForTest({ language: "fr-FR", gender: "female" });
+  primary.availableVoices = [makeReadiumVoice({ name: "Online", language: "fr-FR" })];
+
+  const fallbackProvider = new FakeFallbackProvider();
+  const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  wrapper.loadUtterances([{ plain: "hello" }]);
+  t.deepEqual((await wrapper.getAvailableVoices()).map(voice => voice.name), ["Online"], "not restricted before falling back");
+
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await tick();
+  fallbackProvider.engine!.availableVoices = [
+    makeReadiumVoice({ name: "French Online", language: "fr-FR", offlineAvailability: false }),
+    makeReadiumVoice({ name: "French Offline", language: "fr-FR", offlineAvailability: true })
+  ];
+
+  t.deepEqual((await wrapper.getAvailableVoices()).map(voice => voice.name), ["French Offline"]);
+});
+
 test.serial("when navigator.onLine is unimplemented, defaults to restricting to offline-available voices", async (t) => {
   const restoreOnLine = stubOnLine(undefined as unknown as boolean);
   t.teardown(restoreOnLine);

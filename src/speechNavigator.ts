@@ -3,7 +3,7 @@ import type { GuidedNavigationObject } from "@readium/shared";
 import { ReadiumSpeechContentOptions, ReadiumSpeechNavigatorContract, ReadiumSpeechPlaybackEvent, ReadiumSpeechPlaybackState } from "./navigator.js";
 import { extractionPreferenceKeys } from "./preferences/constraints.js";
 import { ISpeechDefaults, SpeechDefaults } from "./preferences/SpeechDefaults.js";
-import { ISpeechPreferences, SpeechPreferences } from "./preferences/SpeechPreferences.js";
+import { ISpeechPreferences, SpeechPreferences, VoicePreference } from "./preferences/SpeechPreferences.js";
 import { SpeechPreferencesEditor } from "./preferences/SpeechPreferencesEditor.js";
 import { SpeechSettings } from "./preferences/SpeechSettings.js";
 import { ContextualizationShapeOverrides, resolveContextualizationShapes } from "./preferences/verbosityTables.js";
@@ -12,11 +12,15 @@ import { resolveBoundaryLocate } from "./utterances/boundaryLocate.js";
 import { resolveUtteranceLocate } from "./utterances/utteranceLocate.js";
 import { extractUtterancesWithSources, type SourceTrace } from "./utterances/extractUtterances.js";
 import { Contextualizations } from "./utterances/types.js";
+import { overriddenLanguage } from "./utterances/language.js";
 import type { SentenceSegmenter } from "./utterances/sentenceSegmenter.js";
 import { ReadiumSpeechVoice } from "./voices/types.js";
 import { getVoiceId } from "./voices/voiceId.js";
+import { pickLanguageVoice } from "./voices/defaultVoice.js";
+import { normalizeLanguageCode } from "./voices/languageCode.js";
+import { voiceBaseLanguage, voiceForLanguage } from "./voices/voiceForLanguage.js";
+import { extractLangRegionFromBCP47 } from "./utils/language.js";
 import { EventEmitter } from "./utils/eventEmitter.js";
-import { valueForLanguage } from "./utils/language.js";
 
 // Set once at construction, never through `submitPreferences()` — none of
 // this changes at runtime the way a preference does.
@@ -37,13 +41,17 @@ export interface ReadiumSpeechNavigatorConfiguration {
   defaults?: ISpeechDefaults;
   contextualizationOverrides?: ContextualizationOverrides;
   segmentationOverrides?: SegmentationOverrides;
+  // The content's languages, main first, e.g. a publication's: each gets a voice picked before content in it is loaded.
+  languages?: string[];
 }
 
 export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private engine: ReadiumSpeechPlaybackEngine;
+  private readonly languages: string[];
   private contentQueue: ReadiumSpeechUtterance[] = [];
   // `contentQueue` as loaded, before `voice` stamped it — re-stamped when that changes.
   private loadedQueue: ReadiumSpeechUtterance[] = [];
+  private loadedLanguages: string[] = [];
   private readonly events = new EventEmitter<ReadiumSpeechPlaybackEvent["type"] | "contentchange", ReadiumSpeechPlaybackEvent>();
 
   // Navigator owns the state, not the engine
@@ -59,7 +67,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private _preferences: SpeechPreferences;
   private _settings: SpeechSettings;
   private _preferencesEditor: SpeechPreferencesEditor | null = null;
-  private preferencesEditorEngineVoice: string | null = null;
+  private preferencesEditorVoice: VoicePreference | null = null;
   private readonly contextualizationOverrides?: ContextualizationOverrides;
   private readonly segmentationOverrides?: SegmentationOverrides;
 
@@ -89,6 +97,20 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // Index to speak() on the next play() when autoPause has stopped playback between utterances.
   private pendingAutoPauseIndex: number | null = null;
 
+  // The engine's voices, as last listed, which content without a voice of its own gets one of.
+  private voices: ReadiumSpeechVoice[] = [];
+  private voiceIds: Set<string> = new Set();
+  // Keyed by `${language}:${needsBoundary}`: the voice picked for content in a language, null when it has none.
+  private pickedVoices: Map<string, ReadiumSpeechVoice | null> = new Map();
+  private pickingVoices: Map<string, Promise<void>> = new Map();
+  // The engine's latest voice listing: one resolving after a newer one started gives way to it.
+  private voiceListing: Promise<ReadiumSpeechVoice[]> | null = null;
+  private reportedLanguageFallbacks: Set<string> = new Set();
+  // `settings.voice` as "voiceschanged" last told it, so loads and refreshes racing each other tell a change once.
+  private notifiedVoice: VoicePreference | null = null;
+  // Bumped by every setContentQueue(), so a load still waiting for its voices knows it was superseded.
+  private loadGeneration = 0;
+
   constructor(engine: ReadiumSpeechPlaybackEngine, configuration: ReadiumSpeechNavigatorConfiguration = {}) {
     this.engine = engine;
     this._defaults = new SpeechDefaults(configuration.defaults);
@@ -96,8 +118,10 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this._settings = new SpeechSettings(this._preferences, this._defaults);
     this.contextualizationOverrides = configuration.contextualizationOverrides;
     this.segmentationOverrides = configuration.segmentationOverrides;
+    this.languages = configuration.languages ?? [];
     this.setupEngineListeners();
     this.applyEngineParameters();
+    this.notifiedVoice = this.spokenVoice();
     void this.initializeEngine();
   }
 
@@ -111,9 +135,158 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private async initializeEngine(): Promise<void> {
     try {
       await this.engine.initialize?.();
+      await this.refreshVoices();
     } catch (error) {
       console.warn("Failed to initialize speech engine:", error);
     }
+  }
+
+  // The languages voices are picked for ahead: the configured ones, as `languageOverrides` speaks them, else the content's.
+  private spokenLanguages(): string[] {
+    const languages = this.languages.length > 0 ? this.languages : this.contentLanguage ? [this.contentLanguage] : [];
+    return languages.map(language => overriddenLanguage(language, this._settings.languageOverrides) ?? language);
+  }
+
+  // The voice for content in `language`: a single voice for all, else the record's exact tag, then its base language.
+  private voiceIdFor(voice: VoicePreference | null, language: string | undefined): string | undefined {
+    if (typeof voice === "string") return voice;
+    return voice && language ? voiceForLanguage(voice, language) : undefined;
+  }
+
+  // The main language's voice prefers boundary events; the others match its boundary support.
+  private needsBoundary(language: string): boolean {
+    const [main] = this.spokenLanguages();
+    if (!main || normalizeLanguageCode(language) === normalizeLanguageCode(main)) return true;
+    const picked = this.pickedVoices.get(this.pickKey(main, true));
+    const id = this.voiceIdFor(this.settingsWith(picked ? { [this.pickedVoiceKey(main, picked)]: getVoiceId(picked) } : null).voice, main);
+    const mainVoice = this.voices.find(voice => getVoiceId(voice) === id);
+    return mainVoice?.controls?.boundary !== false;
+  }
+
+  private pickKey(language: string, needsBoundary: boolean): string {
+    return `${normalizeLanguageCode(language)}:${needsBoundary}`;
+  }
+
+  // `undefined` until picked
+  private pickedVoice(language: string): ReadiumSpeechVoice | null | undefined {
+    return this.pickedVoices.get(this.pickKey(language, this.needsBoundary(language)));
+  }
+
+  private async pickVoice(language: string): Promise<void> {
+    const needsBoundary = this.needsBoundary(language);
+    const key = this.pickKey(language, needsBoundary);
+    if (this.pickedVoices.has(key)) return;
+    let picking = this.pickingVoices.get(key);
+    if (!picking) {
+      const voices = this.voices;
+      picking = pickLanguageVoice(language, voices, needsBoundary)
+        .then((voice) => {
+          // Unless the engine's voices changed meanwhile
+          if (this.voices === voices) this.pickedVoices.set(key, voice);
+        })
+        .finally(() => this.pickingVoices.delete(key));
+      this.pickingVoices.set(key, picking);
+    }
+    await picking;
+  }
+
+  // Lists the engine's voices for the spoken languages and `languages`, and picks one for each, the main language first.
+  private async pickVoices(languages: string[] = []): Promise<void> {
+    const spoken = this.spokenLanguages();
+    const all = [...new Set([...spoken, ...languages].map(language => normalizeLanguageCode(language)).filter(Boolean))];
+    let listing = this.engine.getAvailableVoices(all, this.preferredVoiceIds());
+    this.voiceListing = listing;
+    let voices = await listing;
+    while (listing !== this.voiceListing) {
+      listing = this.voiceListing!;
+      voices = await listing;
+    }
+    if (voices.length !== this.voices.length || voices.some(voice => !this.voiceIds.has(getVoiceId(voice)))) {
+      this.voices = voices;
+      this.voiceIds = new Set(voices.map(voice => getVoiceId(voice)));
+      this.pickedVoices.clear();
+      this.pickingVoices.clear();
+    }
+    if (spoken[0]) await this.pickVoice(spoken[0]);
+    await Promise.all(all.map(language => this.pickVoice(language)));
+  }
+
+  // Picks again, re-stamping loaded content whose voice that changes, and tells when the spoken voices change.
+  private async refreshVoices(): Promise<void> {
+    await this.pickVoices(this.loadedLanguages);
+    if (this.loadedQueue.length > 0 && this.stamped().some((utterance, index) => utterance.voice !== this.contentQueue[index]?.voice)) {
+      const { index, state } = this.resumeTarget();
+      await this.setContentQueue(this.loadedQueue, index, state);
+    }
+    this.notifyVoicesChanged();
+  }
+
+  // A swapped-in engine starts the queue stamped with the previous one's voices: held, then reloaded with its own.
+  private async refreshVoicesForEngine(): Promise<void> {
+    // Between utterances, playback resumes at the next one, unless moved meanwhile
+    const next = this.pendingAdvanceTimeout !== null ? this.getCurrentUtteranceIndex() + 1 : null;
+    this.clearPendingAdvance();
+    this.engine.pause();
+    await this.pickVoices(this.loadedLanguages);
+    if (this.loadedQueue.length > 0) {
+      const { index, state } = this.resumeTarget();
+      const resumeIndex = state && next !== null && this.getCurrentUtteranceIndex() === next - 1 ? next : index;
+      await this.setContentQueue(this.loadedQueue, resumeIndex, state);
+    }
+    this.notifyVoicesChanged();
+  }
+
+  private notifyVoicesChanged(): void {
+    const voice = this.spokenVoice();
+    if (this.sameSettingValue(this.notifiedVoice, voice)) return;
+    this.notifiedVoice = voice;
+    this.emitEvent({ type: "voiceschanged" });
+  }
+
+  private spokenVoice(): VoicePreference | null {
+    return this.settings.voice;
+  }
+
+  // The preference's voices the engine has, by their ids; an engine listing no voice can't tell, so it's trusted with them.
+  private availableVoice(voice: VoicePreference | null): VoicePreference | null {
+    if (typeof voice === "string") return this.listedVoiceId(voice) ?? null;
+    if (!voice) return null;
+    const voices = Object.fromEntries(Object.entries(voice).flatMap(([language, id]) => {
+      const listed = this.listedVoiceId(id);
+      return listed ? [[language, listed]] : [];
+    }));
+    return Object.keys(voices).length > 0 ? voices : null;
+  }
+
+  // Listed whatever their language, so they're kept rather than taken for another browser's.
+  private preferredVoiceIds(): string[] {
+    const voice = this._settings.voice;
+    return typeof voice === "string" ? [voice] : voice ? Object.values(voice) : [];
+  }
+
+  // Matched by id, else by name, as engines match a voice.
+  private listedVoiceId(id: string): string | undefined {
+    if (this.voices.length === 0) return id;
+    const voice = this.voices.find(voice => getVoiceId(voice) === id) ?? this.voices.find(voice => voice.name === id);
+    return voice && getVoiceId(voice);
+  }
+
+  // The voice picked for each spoken and loaded language.
+  private pickedVoiceRecord(): Record<string, string> | null {
+    const voices: Record<string, string> = {};
+    for (const language of new Set([...this.spokenLanguages(), ...this.loadedLanguages])) {
+      const picked = this.pickedVoice(language);
+      if (picked) voices[this.pickedVoiceKey(language, picked)] ??= getVoiceId(picked);
+    }
+    return Object.keys(voices).length > 0 ? voices : null;
+  }
+
+  // A pick is for the language's region only when the voice is of it, else for its base language.
+  private pickedVoiceKey(language: string, picked: ReadiumSpeechVoice): string {
+    const [base, region] = extractLangRegionFromBCP47(language);
+    if (region && extractLangRegionFromBCP47(picked.language)[1] === region) return language;
+    // Unless the base is another voice language's too, e.g. zh, Mandarin's, for zh-HK's Cantonese
+    return voiceBaseLanguage(base) === voiceBaseLanguage(language) ? base : language;
   }
 
   private setupEngineListeners(): void {
@@ -216,19 +389,17 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     });
 
     this.engine.on("voiceschanged", () => {
-      this.emitEvent({ type: "voiceschanged" });
-    });
-
-    this.engine.on("languagefallback", (event) => {
-      this.emitEvent(event);
+      void this.refreshVoices();
     });
 
     this.engine.on("enginefallback", (event) => {
       this.emitEvent(event);
+      void this.refreshVoicesForEngine();
     });
 
     this.engine.on("enginerecovered", (event) => {
       this.emitEvent(event);
+      void this.refreshVoicesForEngine();
     });
   }
 
@@ -248,7 +419,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     }
 
     this.contentLanguage = options.language;
-    this.setContentQueue(content);
+    void this.setContentQueue(content);
   }
 
   async loadGndContent(nodes: GuidedNavigationObject[], options: ReadiumSpeechContentOptions = {}): Promise<void> {
@@ -257,11 +428,11 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     await this.reextract();
   }
 
-  private setContentQueue(
+  private async setContentQueue(
     content: ReadiumSpeechUtterance | ReadiumSpeechUtterance[],
     resumeIndex: number | null = null,
     resumeState: "playing" | "paused" | null = null,
-  ): void {
+  ): Promise<void> {
     // Cancel any in-flight speech/pause before the reload — loadUtterances() resets the engine's index regardless.
     this.clearPendingAdvance();
     this.pendingAutoPauseIndex = null;
@@ -270,8 +441,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     }
 
     this.loadedQueue = Array.isArray(content) ? [...content] : [content];
-    const contents = this.loadedQueue.map((utterance) => this.withVoice(this.withLanguage(utterance)));
-    this.contentQueue = contents;
+    // Until loaded, the engine's "ready" is the previous content's
+    this.contentQueue = [];
     this.pendingResumeIndex = resumeIndex;
     this.pendingResumeState = resumeState;
 
@@ -280,8 +451,40 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     // they're confident playback won't immediately stall.
     this.setNavigatorState("loading");
     this.emitEvent({ type: "loading" });
+
+    // Content in a language without a picked voice waits for it rather than starting with another language's
+    const generation = ++this.loadGeneration;
+    const unvoiced = this.loadedQueue.map((utterance) => this.withLanguage(utterance)).filter((utterance) => !utterance.voice && utterance.language);
+    this.loadedLanguages = [...new Set(unvoiced.map((utterance) => utterance.language!))];
+    const unpicked = this.loadedLanguages.filter((language) => this.pickedVoice(language) === undefined);
+    if (unpicked.length > 0) {
+      await this.pickVoices(unpicked).catch(() => {});
+      if (generation !== this.loadGeneration) return;
+    }
+
+    const contents = this.stamped();
+    this.contentQueue = contents;
+    this.reportLanguageFallbacks(contents);
     this.engine.loadUtterances(contents, resumeIndex ?? undefined);
     this.emitContentChangeEvent({ content: contents });
+    this.notifyVoicesChanged();
+  }
+
+  private stamped(): ReadiumSpeechUtterance[] {
+    const voice = this.settings.voice;
+    return this.loadedQueue.map((utterance) => this.withVoice(this.withLanguage(utterance), voice));
+  }
+
+  // Once per language, for content in a language the engine has no voice for, spoken with the engine's own.
+  private reportLanguageFallbacks(contents: ReadiumSpeechUtterance[]): void {
+    if (this.voices.length === 0) return;
+    for (const utterance of contents) {
+      if (utterance.voice || !utterance.language || this.pickedVoice(utterance.language) !== null) continue;
+      const language = normalizeLanguageCode(utterance.language);
+      if (this.reportedLanguageFallbacks.has(language)) continue;
+      this.reportedLanguageFallbacks.add(language);
+      this.emitEvent({ type: "languagefallback", detail: { language: utterance.language, reason: "no-matching-voice" } });
+    }
   }
 
   // The content's language when a loadContent() utterance has none; extraction applies it to loadGndContent()'s.
@@ -290,11 +493,10 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     return { ...utterance, language: this.contentLanguage };
   }
 
-  // The utterance's own voice, else `voice`'s for its language.
-  private withVoice(utterance: ReadiumSpeechUtterance): ReadiumSpeechUtterance {
-    const preference = this._settings.voice;
-    if (utterance.voice || !preference) return utterance;
-    const voice = typeof preference === "string" ? preference : utterance.language && valueForLanguage(preference, utterance.language);
+  // The utterance's own voice, else the spoken voice for its language.
+  private withVoice(utterance: ReadiumSpeechUtterance, spokenVoice: VoicePreference | null): ReadiumSpeechUtterance {
+    if (utterance.voice) return utterance;
+    const voice = this.voiceIdFor(spokenVoice, utterance.language);
     return voice ? { ...utterance, voice } : utterance;
   }
 
@@ -328,7 +530,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.contentBlockStarts = blockStarts;
 
     const resumeIndex = resumeState && oldIndex !== null ? this.resolveResumeIndex(oldSources, oldIndex, sources) : null;
-    this.setContentQueue(utterances, resumeIndex, resumeState);
+    await this.setContentQueue(utterances, resumeIndex, resumeState);
   }
 
   // Nearest node at or before oldIndex that's still present in newSources.
@@ -390,6 +592,9 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     } else if (this.navigatorState === "playing") {
       // Already playing, do nothing or restart
       return;
+    } else if (this.navigatorState === "loading") {
+      // Played once the engine is ready, e.g. while the content's voices are picked
+      this.pendingResumeState = "playing";
     }
   }
 
@@ -406,6 +611,9 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       this.pendingAutoPauseIndex = null;
       this.setNavigatorState("paused");
       this.engine.pause();
+    } else if (this.navigatorState === "loading" && this.pendingResumeState === "playing") {
+      // Paused once the engine is ready, at the position it was to play from
+      this.pendingResumeState = "paused";
     }
   }
 
@@ -513,18 +721,24 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   // Preferences API (Configurable<SpeechSettings, SpeechPreferences>)
-  // With the engine's voice, which content without its own is spoken with; utterances are stamped from the preference alone.
   get settings(): SpeechSettings {
-    return new SpeechSettings(this._preferences, this._defaults, this.engine.getCurrentVoice());
+    return this.settingsWith(this.pickedVoiceRecord());
   }
 
-  // Rebuilt, staged edits kept, once the engine's voice changes, e.g. when it picks its default after being read.
+  // `picks` are the voice defaults; the preference's voices the engine doesn't have give way to them.
+  private settingsWith(picks: Record<string, string> | null): SpeechSettings {
+    return new SpeechSettings(
+      this._preferences.merging(new SpeechPreferences({ voice: this.availableVoice(this._settings.voice) })),
+      new SpeechDefaults({ ...this._defaults, voice: picks })
+    );
+  }
+
+  // Rebuilt, staged edits kept, once the spoken voices change, e.g. when they're picked after being read.
   get preferencesEditor(): SpeechPreferencesEditor {
-    const engineVoice = this.engine.getCurrentVoice();
-    const engineVoiceId = engineVoice ? getVoiceId(engineVoice) : null;
-    if (this._preferencesEditor === null || engineVoiceId !== this.preferencesEditorEngineVoice) {
+    const voice = this.spokenVoice();
+    if (this._preferencesEditor === null || !this.sameSettingValue(voice, this.preferencesEditorVoice)) {
       this._preferencesEditor = new SpeechPreferencesEditor(this._preferencesEditor?.preferences ?? this._preferences, this.settings);
-      this.preferencesEditorEngineVoice = engineVoiceId;
+      this.preferencesEditorVoice = voice;
     }
     return this._preferencesEditor;
   }
@@ -545,6 +759,11 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this._settings = new SpeechSettings(this._preferences, this._defaults);
     this.applyEngineParameters();
 
+    // Another main voice or spoken language changes the voices picked
+    if (!this.sameSettingValue(previousSettings.voice, this._settings.voice) || !this.sameSettingValue(previousSettings.languageOverrides, this._settings.languageOverrides)) {
+      await this.pickVoices().catch(() => {});
+    }
+
     if (this._preferencesEditor !== null) {
       this._preferencesEditor = new SpeechPreferencesEditor(this._preferences, this.settings);
     }
@@ -554,8 +773,9 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       await this.reextract();
     } else if (this.loadedQueue.length > 0 && !this.sameSettingValue(previousSettings.voice, this._settings.voice)) {
       const { index, state } = this.resumeTarget();
-      this.setContentQueue(this.loadedQueue, index, state);
+      await this.setContentQueue(this.loadedQueue, index, state);
     }
+    this.notifyVoicesChanged();
   }
 
   // `reconstruct` only shapes extraction in sentence segmentation.
@@ -576,6 +796,9 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   async destroy(): Promise<void> {
+    // A load still waiting for its voices is dropped, and the content isn't reloaded once voices are listed
+    this.loadGeneration++;
+    this.loadedQueue = [];
     this.clearPendingAdvance();
     this.events.clear();
     await this.engine.destroy();

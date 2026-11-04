@@ -27,7 +27,7 @@ const DEFAULT_HEALTH_CHECK_INTERVAL_MS = 30000;
 // to decide whether it's worth swapping engines over before being forwarded or not.
 const FORWARDED_EVENTS: ReadiumSpeechPlaybackEvent["type"][] = [
   "start", "pause", "resume", "end", "stop", "skip", "boundary", "mark",
-  "idle", "loading", "ready", "voiceschanged", "languagefallback"
+  "idle", "loading", "ready", "voiceschanged"
 ];
 
 // Wraps a primary engine and swaps to a fallback provider's engine the first time the primary
@@ -108,8 +108,10 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return this.activeEngine.getCurrentVoice();
   }
 
-  getAvailableVoices(): Promise<ReadiumSpeechVoice[]> {
-    return this.activeEngine.getAvailableVoices();
+  // Once fallen back, the same offline restriction as the fallback voice, so content isn't given a network one.
+  async getAvailableVoices(languages?: string[], voiceIds?: string[]): Promise<ReadiumSpeechVoice[]> {
+    const voices = await this.activeEngine.getAvailableVoices(languages, voiceIds);
+    return this.hasFallenBack ? this.reachableVoices(voices) : voices;
   }
 
   // The navigator advances to the next utterance via speak(nextIndex) — the one gap where we can
@@ -376,7 +378,11 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   // Only skip the offlineAvailability filter when navigator.onLine is confirmed true — unknown
   // (unimplemented navigator.onLine) defaults to restricting, not to allowing online voices.
-  //
+  private reachableVoices(voices: ReadiumSpeechVoice[]): ReadiumSpeechVoice[] {
+    const isOnlineConfirmed = typeof navigator !== "undefined" && navigator.onLine === true;
+    return isOnlineConfirmed ? voices : voices.filter(voice => voice.offlineAvailability === true);
+  }
+
   // Language narrows first, gender second, boundary-support third: a same-language wrong-gender
   // voice beats a different-language right-gender one, and a same-gender voice that drops
   // boundary events beats one that also mismatches on boundary support. Falls back to any
@@ -389,9 +395,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     gender: ReadiumSpeechVoice["gender"],
     needsBoundary: boolean
   ): Promise<ReadiumSpeechVoice | null> {
-    const allVoices = await this.fallbackProvider.getVoices();
-    const isOnlineConfirmed = typeof navigator !== "undefined" && navigator.onLine === true;
-    const voices = isOnlineConfirmed ? allVoices : allVoices.filter(voice => voice.offlineAvailability === true);
+    const voices = this.reachableVoices(await this.fallbackProvider.getVoices());
     if (voices.length === 0) return null;
 
     const [processedLang] = processLanguages([language]);

@@ -82,10 +82,9 @@ testWithContext("platform controls: voices report no boundary events on Android"
   }
 });
 
-testWithContext("platform controls: unmatched voices report no controls elsewhere", (t) => {
+testWithContext("platform controls: unmatched voices report no boundary events elsewhere", (t) => {
   const voices = t.context.manager.getVoices().filter(voice => voice.source === "browser");
 
-  // Verify voices missing from the JSON keep the default controls
   t.true(voices.length > 0);
-  t.true(voices.every(voice => voice.controls === undefined));
+  t.true(voices.every(voice => voice.controls?.boundary === false));
 });

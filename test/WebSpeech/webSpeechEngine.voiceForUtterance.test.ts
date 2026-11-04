@@ -1,96 +1,14 @@
 import test from "ava";
-import { WebSpeechEngine, WebSpeechVoiceManager, getVoiceId } from "../../build/index.js";
-
-// =============================================
-// Mock Web Speech API
-// =============================================
-// WebSpeechEngine needs a fuller speechSynthesis mock than the
-// WebSpeechVoiceManager test suite's (speak/cancel/pause/resume, plus a
-// SpeechSynthesisUtterance constructor) since it actually drives playback.
-
-class MockUtterance {
-  text: string;
-  voice: any = null;
-  lang = "";
-  rate = 1;
-  pitch = 1;
-  volume = 1;
-  onstart: (() => void) | null = null;
-  onend: (() => void) | null = null;
-  onerror: ((e: any) => void) | null = null;
-  onpause: (() => void) | null = null;
-  onresume: (() => void) | null = null;
-  onboundary: ((e: any) => void) | null = null;
-  onmark: ((e: any) => void) | null = null;
-
-  constructor(text: string) {
-    this.text = text;
-  }
-}
-
-function createMockSpeechSynthesis(mockVoices: any[]) {
-  const spoken: MockUtterance[] = [];
-  const synth = {
-    speaking: false,
-    paused: false,
-    onvoiceschanged: null as (() => void) | null,
-    getVoices: () => mockVoices,
-    speak: (utterance: MockUtterance) => {
-      spoken.push(utterance);
-      synth.speaking = true;
-      // Simulate the utterance completing asynchronously, like a real engine would.
-      queueMicrotask(() => {
-        utterance.onstart?.();
-        queueMicrotask(() => {
-          synth.speaking = false;
-          utterance.onend?.();
-        });
-      });
-    },
-    cancel: () => {
-      synth.speaking = false;
-    },
-    pause: () => {
-      synth.paused = true;
-    },
-    resume: () => {
-      synth.paused = false;
-    },
-    addEventListener: () => {},
-    removeEventListener: () => {}
-  };
-  return { synth, spoken };
-}
-
-function setGlobals(mockVoices: any[]) {
-  if (typeof (globalThis as any).window === "undefined") {
-    (globalThis as any).window = globalThis;
-  }
-  (globalThis as any).window.SpeechSynthesisUtterance = MockUtterance;
-  const { synth, spoken } = createMockSpeechSynthesis(mockVoices);
-  (globalThis as any).window.speechSynthesis = synth;
-  return { synth, spoken };
-}
-
-function makeVoice(lang: string, name: string) {
-  return { voiceURI: `${name}-${lang}`, name, lang, localService: true, default: false };
-}
-
-const mockVoices = [
-  makeVoice("en-US", "English Voice"),
-  makeVoice("fr-FR", "French Voice"),
-  makeVoice("fr-CA", "French Canadian Voice")
-];
+import { ReadiumSpeechNavigator, WebSpeechEngine, WebSpeechVoiceManager, getVoiceId } from "../../build/index.js";
+import { setGlobals, makeVoice, mockVoices, resetVoiceManager } from "./testUtils.js";
 
 test.beforeEach(() => {
-  (WebSpeechVoiceManager as any).instance = undefined;
-  (WebSpeechVoiceManager as any).initializationPromise = null;
+  resetVoiceManager();
   setGlobals(mockVoices);
 });
 
 test.afterEach.always(() => {
-  (WebSpeechVoiceManager as any).instance = undefined;
-  (WebSpeechVoiceManager as any).initializationPromise = null;
+  resetVoiceManager();
 });
 
 async function makeEngine() {
@@ -103,22 +21,7 @@ async function makeEngine() {
 // Tests
 // =============================================
 
-test("the selected voice keeps content in its own language, whatever the region", async (t) => {
-  const { spoken } = setGlobals(mockVoices);
-  const engine = await makeEngine();
-  const voices = await engine.getAvailableVoices();
-  engine.setVoice(voices.find((v: any) => v.language === "fr-CA")!);
-
-  engine.loadUtterances([{ id: "1", plain: "bonjour", language: "fr-FR" }]);
-  engine.speak();
-
-  await new Promise(resolve => setTimeout(resolve, 20));
-
-  t.is(spoken.length, 1);
-  t.is(spoken[0].voice?.lang, "fr-CA");
-});
-
-test("content in another language than the selected voice's is spoken with a voice of its language", async (t) => {
+test("content in another language than the selected voice's is spoken with the selected voice", async (t) => {
   const { spoken } = setGlobals(mockVoices);
   const engine = await makeEngine();
   const voices = await engine.getAvailableVoices();
@@ -129,7 +32,7 @@ test("content in another language than the selected voice's is spoken with a voi
 
   await new Promise(resolve => setTimeout(resolve, 20));
 
-  t.is(spoken[0].voice?.lang, "fr-FR");
+  t.is(spoken[0].voice?.lang, "en-US");
 });
 
 test("content without a language is spoken with the selected voice", async (t) => {
@@ -146,36 +49,7 @@ test("content without a language is spoken with the selected voice", async (t) =
   t.is(spoken[0].voice?.lang, "en-US");
 });
 
-test("content language: speak() called immediately after loadUtterances still picks the matching-language voice", async (t) => {
-  const { spoken } = setGlobals(mockVoices);
-  const engine = new WebSpeechEngine();
-  await engine.initialize();
-
-  engine.loadUtterances([{ id: "1", plain: "bonjour", language: "fr-FR" }]);
-
-  // Call speak() right away, without waiting for the fire-and-forget cache warm to settle.
-  engine.speak();
-
-  await new Promise(resolve => setTimeout(resolve, 20));
-
-  t.is(spoken.length, 1);
-  t.is(spoken[0].voice?.lang, "fr-FR", "used the French voice matching content.language, not a wrong-language fallback");
-});
-
-test("content language: region-strict matching (fr-FR content must not use the fr-CA voice)", async (t) => {
-  const { spoken } = setGlobals(mockVoices);
-  const engine = new WebSpeechEngine();
-  await engine.initialize();
-  engine.loadUtterances([{ id: "1", plain: "bonjour", language: "fr-FR" }]);
-
-  engine.speak();
-  await new Promise(resolve => setTimeout(resolve, 20));
-
-  t.is(spoken[0].voice?.lang, "fr-FR");
-  t.not(spoken[0].voice?.lang, "fr-CA");
-});
-
-test("content language: generation guard drops a stale resolution when speak() is called again before the first resolves", async (t) => {
+test("generation guard drops a stale resolution when speak() is called again before the first resolves", async (t) => {
   const { spoken } = setGlobals(mockVoices);
   const engine = new WebSpeechEngine();
   await engine.initialize();
@@ -184,30 +58,13 @@ test("content language: generation guard drops a stale resolution when speak() i
     { id: "2", plain: "hello", language: "en-US" }
   ]);
 
-  engine.speak(0); // triggers an async voice resolution for fr-FR
-  engine.speak(1); // supersedes it before the fr-FR resolution can complete
+  engine.speak(0); // triggers an async voice resolution
+  engine.speak(1); // supersedes it before the first resolution can complete
 
   await new Promise(resolve => setTimeout(resolve, 20));
 
   t.is(spoken.length, 1, "the superseded speak(0) call must not also reach speechSynthesis.speak()");
   t.is(spoken[0].text, "hello");
-});
-
-test("languagefallback fires only when no voice matches at all, not merely because the cache wasn't warm yet", async (t) => {
-  setGlobals(mockVoices);
-  const engine = new WebSpeechEngine();
-  await engine.initialize();
-
-  const fallbacks: any[] = [];
-  engine.on("languagefallback", (e: any) => fallbacks.push(e));
-
-  engine.loadUtterances([{ id: "1", plain: "hallo", language: "de-DE" }]); // no German voice in mockVoices
-  engine.speak();
-
-  await new Promise(resolve => setTimeout(resolve, 20));
-
-  t.is(fallbacks.length, 1);
-  t.is(fallbacks[0].detail.language, "de-DE");
 });
 
 test("loadUtterances() emits exactly one \"ready\" per call, including back-to-back calls while already ready", async (t) => {
@@ -226,7 +83,7 @@ test("loadUtterances() emits exactly one \"ready\" per call, including back-to-b
   t.is(readyEvents.length, 2, "second load while still ready");
 });
 
-test("an utterance's own voice wins over the selected voice and content-language matching", async (t) => {
+test("an utterance's own voice wins over the selected voice", async (t) => {
   const { spoken } = setGlobals(mockVoices);
   const engine = await makeEngine();
   const voices = await engine.getAvailableVoices();
@@ -240,7 +97,7 @@ test("an utterance's own voice wins over the selected voice and content-language
   t.is(spoken[0].voice?.lang, "fr-CA");
 });
 
-test("an utterance voice this engine doesn't have falls back to its own choice", async (t) => {
+test("an utterance voice this engine doesn't have falls back to the selected voice", async (t) => {
   const { spoken } = setGlobals(mockVoices);
   const engine = await makeEngine();
   const voices = await engine.getAvailableVoices();
@@ -285,6 +142,19 @@ test.serial("an utterance's own voice, as getVoiceId() gives it, is matched by v
   t.is(spoken[0].voice?.lang, "de-DE");
 });
 
+test.serial("setVoice() with a voice id matches it by voiceURI among voices sharing a name", async (t) => {
+  const { spoken } = setGlobals([...mockVoices, makeVoice("de-DE", "French Voice")]);
+  const engine = await makeEngine();
+  const voices = await engine.getAvailableVoices();
+  await engine.setVoice(getVoiceId(voices.find((v: any) => v.language === "de-DE")!));
+
+  engine.loadUtterances([{ id: "1", plain: "hallo" }]);
+  engine.speak();
+  await new Promise(resolve => setTimeout(resolve, 20));
+
+  t.is(spoken[0].voice?.lang, "de-DE");
+});
+
 test.serial("voices of languages the manager is initialized with later are available, and spoken", async (t) => {
   const { spoken } = setGlobals(mockVoices);
   const engine = new WebSpeechEngine();
@@ -313,6 +183,25 @@ test.serial("an utterance's own voice of a language the manager wasn't initializ
   await new Promise(resolve => setTimeout(resolve, 20));
 
   t.is(spoken[0].voice?.name, "French Voice");
+});
+
+test.serial("getAvailableVoices() lists the browser's voices asked for by id, whatever their language", async (t) => {
+  const engine = new WebSpeechEngine();
+  await engine.initialize({ languages: ["en"] });
+
+  const voices = await engine.getAvailableVoices(undefined, ["French Voice-fr-FR", "Missing"]);
+  t.true(voices.some((v: any) => v.voiceURI === "French Voice-fr-FR"));
+});
+
+test.serial("a navigator's voice preference of a language the engine wasn't initialized with is kept", async (t) => {
+  const engine = new WebSpeechEngine();
+  await engine.initialize({ languages: ["en"] });
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { voice: "French Voice-fr-FR" } });
+  navigator.loadContent([{ plain: "hello", language: "en-US" }]);
+  await new Promise(resolve => setTimeout(resolve, 20));
+
+  t.is(navigator.settings.voice, "French Voice-fr-FR");
+  t.is(navigator.getContentQueue()[0].voice, "French Voice-fr-FR");
 });
 
 test.serial("getCurrentVoice() returns the default voice until one is set", async (t) => {

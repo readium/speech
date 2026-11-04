@@ -45,6 +45,18 @@ testWithContext("filterVoices: filters by language", (t: ExecutionContext<TestCo
   t.true(multiLangVoices.every(v => v.language.startsWith("en") || v.language.startsWith("fr")));
 });
 
+testWithContext("filterVoices: keeps Chinese variants apart", (t: ExecutionContext<TestContext>) => {
+  const { manager } = t.context;
+  const testVoices = [
+    createTestVoice({ name: "Sinji", language: "yue-HK", altLanguage: "zh-HK" }),
+    createTestVoice({ name: "Tingting", language: "cmn-CN", altLanguage: "zh-CN" }),
+    createTestVoice({ name: "Meijia", language: "cmn-TW", altLanguage: "zh-TW" })
+  ];
+
+  t.deepEqual(manager.filterVoices({ languages: "zh-HK" }, testVoices).map(v => v.name), ["Sinji"]);
+  t.deepEqual(manager.filterVoices({ languages: "zh-TW" }, testVoices).map(v => v.name), ["Tingting", "Meijia"]);
+});
+
 testWithContext("filterVoices: filters by source", (t: ExecutionContext<TestContext>) => {
   const manager = t.context.manager;
   

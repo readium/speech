@@ -63,8 +63,10 @@ export class FakeEngine {
     return this.currentVoice;
   }
 
+  availableVoices: any[] = [];
+
   async getAvailableVoices(): Promise<any[]> {
-    return [];
+    return this.availableVoices;
   }
 
   speak(index?: number): void {
@@ -139,7 +141,7 @@ export class FakeEngine {
   }
 
   getUtteranceCount(): number {
-    return 0;
+    return this.loadUtterancesCalls.at(-1)?.length ?? 0;
   }
 
   on(event: string, callback: (event: any) => void): () => void {

@@ -57,9 +57,9 @@ interface SpeechServerEngineOptions {
 
 ## Voices
 
-`initialize()` fetches `/voices` and picks the default voice by the browser's languages, as `WebSpeechEngine` does. `ReadiumSpeechNavigator` calls it on construction. Until a voice is set with `setVoice()`, requests are sent with that default, which `getCurrentVoice()` returns.
+`initialize()` fetches `/voices` and picks the default voice by the user's preferred languages (`navigator.languages`), as `WebSpeechEngine` does without `languages`: the best voice of the first one with voices, preferring one with boundary events. `ReadiumSpeechNavigator` calls it on construction. Until a voice is set with `setVoice()`, requests are sent with that default, which `getCurrentVoice()` returns.
 
-Each utterance is sent with its own [`voice`](Playback.md#speaking-an-utterance-with-its-own-voice) when the server has it, else following its `language` as described in [Playback.md](Playback.md#speaking-in-an-utterances-own-content-language): the selected or default voice when it speaks that language, else the best server voice for it, and `"languagefallback"` when there is none. The voice picked for a language is kept for the session.
+Each utterance is sent with its own [`voice`](Playback.md#speaking-an-utterance-with-its-own-voice) when the server has it, else with the current voice, whatever the utterance's `language`. `ReadiumSpeechNavigator` gives each utterance a voice for its language (see [Playback.md](Playback.md#speaking-in-an-utterances-own-content-language)).
 
 ## Format selection
 
