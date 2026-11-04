@@ -22,6 +22,10 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - Without a voice set with `setVoice()`, `WebSpeechEngine` and `SpeechServerEngine` speak with a default voice that prefers boundary events: on `WebSpeechEngine`, the best voice of the first of `initialize()`'s `languages` with voices; without them, and on `SpeechServerEngine`, by the user's preferred languages (`navigator.languages`).
 - Concurrent `WebSpeechEngine.initialize()` calls share the first one's, e.g. an app's with `languages` and `ReadiumSpeechNavigator`'s without, instead of each loading voices.
 
+### Fixed
+
+- Filtering voices by language (`filterByLanguages()`, `getVoices({ languages })`) no longer keeps other Chinese variants' voices, e.g. Mandarin ones for `zh-HK`.
+
 ## [0.18.0] - 2026-10-23
 
 ### Added
