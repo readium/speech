@@ -109,8 +109,8 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
   }
 
   // Once fallen back, the same offline restriction as the fallback voice, so content isn't given a network one.
-  async getAvailableVoices(languages?: string[]): Promise<ReadiumSpeechVoice[]> {
-    const voices = await this.activeEngine.getAvailableVoices(languages);
+  async getAvailableVoices(languages?: string[], voiceIds?: string[]): Promise<ReadiumSpeechVoice[]> {
+    const voices = await this.activeEngine.getAvailableVoices(languages, voiceIds);
     return this.hasFallenBack ? this.reachableVoices(voices) : voices;
   }
 

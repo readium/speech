@@ -1,5 +1,5 @@
 import test from "ava";
-import { WebSpeechEngine, WebSpeechVoiceManager, getVoiceId } from "../../build/index.js";
+import { ReadiumSpeechNavigator, WebSpeechEngine, WebSpeechVoiceManager, getVoiceId } from "../../build/index.js";
 import { setGlobals, makeVoice, mockVoices, resetVoiceManager } from "./testUtils.js";
 
 test.beforeEach(() => {
@@ -183,6 +183,25 @@ test.serial("an utterance's own voice of a language the manager wasn't initializ
   await new Promise(resolve => setTimeout(resolve, 20));
 
   t.is(spoken[0].voice?.name, "French Voice");
+});
+
+test.serial("getAvailableVoices() lists the browser's voices asked for by id, whatever their language", async (t) => {
+  const engine = new WebSpeechEngine();
+  await engine.initialize({ languages: ["en"] });
+
+  const voices = await engine.getAvailableVoices(undefined, ["French Voice-fr-FR", "Missing"]);
+  t.true(voices.some((v: any) => v.voiceURI === "French Voice-fr-FR"));
+});
+
+test.serial("a navigator's voice preference of a language the engine wasn't initialized with is kept", async (t) => {
+  const engine = new WebSpeechEngine();
+  await engine.initialize({ languages: ["en"] });
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { voice: "French Voice-fr-FR" } });
+  navigator.loadContent([{ plain: "hello", language: "en-US" }]);
+  await new Promise(resolve => setTimeout(resolve, 20));
+
+  t.is(navigator.settings.voice, "French Voice-fr-FR");
+  t.is(navigator.getContentQueue()[0].voice, "French Voice-fr-FR");
 });
 
 test.serial("getCurrentVoice() returns the default voice until one is set", async (t) => {

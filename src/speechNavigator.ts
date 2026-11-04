@@ -194,7 +194,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private async pickVoices(languages: string[] = []): Promise<void> {
     const spoken = this.spokenLanguages();
     const all = [...new Set([...spoken, ...languages].map(language => normalizeLanguageCode(language)).filter(Boolean))];
-    let listing = this.engine.getAvailableVoices(all);
+    let listing = this.engine.getAvailableVoices(all, this.preferredVoiceIds());
     this.voiceListing = listing;
     let voices = await listing;
     while (listing !== this.voiceListing) {
@@ -250,6 +250,12 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       return listed ? [[language, listed]] : [];
     }));
     return Object.keys(voices).length > 0 ? voices : null;
+  }
+
+  // Listed whatever their language, so they're kept rather than taken for another browser's.
+  private preferredVoiceIds(): string[] {
+    const voice = this._settings.voice;
+    return typeof voice === "string" ? [voice] : voice ? Object.values(voice) : [];
   }
 
   // Matched by id, else by name, as engines match a voice.

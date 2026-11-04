@@ -158,11 +158,16 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return content.voice ? this.findVoice(content.voice) : undefined;
   }
 
+  // The language of a voice the browser has, whether or not the manager has loaded it.
+  private browserVoiceLanguage(id: string): string | undefined {
+    const browserVoices = this.speechSynthesis.getVoices();
+    return (browserVoices.find(voice => voice.voiceURI === id) ?? browserVoices.find(voice => voice.name === id))?.lang;
+  }
+
   // The language of the utterance's voice when the browser has it but the manager hasn't loaded that language.
   private unloadedOwnVoiceLanguage(content: ReadiumSpeechUtterance): string | undefined {
     if (!content.voice || this.ownVoice(content)) return undefined;
-    const browserVoices = this.speechSynthesis.getVoices();
-    const language = (browserVoices.find(voice => voice.voiceURI === content.voice) ?? browserVoices.find(voice => voice.name === content.voice))?.lang;
+    const language = this.browserVoiceLanguage(content.voice);
     return language && !this.loadedOwnVoiceLanguages.has(language) ? language : undefined;
   }
 
@@ -226,11 +231,12 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return this.voiceManager?.getVoices() ?? [];
   }
 
-  async getAvailableVoices(languages?: string[]): Promise<ReadiumSpeechVoice[]> {
+  async getAvailableVoices(languages?: string[], voiceIds?: string[]): Promise<ReadiumSpeechVoice[]> {
     try {
       if (!this.voiceManager) await this.initialize();
       // Broadens the manager when initialize() was scoped to other languages
-      if (languages?.length) await WebSpeechVoiceManager.initialize({ languages });
+      const all = [...(languages ?? []), ...(voiceIds ?? []).flatMap(id => this.browserVoiceLanguage(id) ?? [])];
+      if (all.length) await WebSpeechVoiceManager.initialize({ languages: all });
       return this.voices;
     } catch {
       return [];

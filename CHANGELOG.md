@@ -8,7 +8,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 
 - `pickDefaultVoice()`, and `pickLanguageVoice()`: the voice content in a language gets, in its region, else the JSON's default region, else another, preferring the boundary support asked for.
 - `languages` in `ReadiumSpeechNavigatorConfiguration`: the content's languages, main first, each getting a voice picked as soon as the engine is initialized.
-- `getAvailableVoices(languages)` on `ReadiumSpeechPlaybackEngine`, `WebSpeechEngine` and `FallbackSpeechEngine`: `WebSpeechEngine` loads the voices of `languages` too when initialized with others.
+- `getAvailableVoices(languages, voiceIds)` on `ReadiumSpeechPlaybackEngine`, `WebSpeechEngine` and `FallbackSpeechEngine`: `WebSpeechEngine` loads the voices of `languages`, and the languages of the browser voices in `voiceIds`, too when initialized with others.
 
 ### Changed
 
