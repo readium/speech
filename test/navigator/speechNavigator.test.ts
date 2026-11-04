@@ -959,6 +959,22 @@ test("play() while the content's voices are picked plays once the engine is read
   t.is(engine.loadedUtterances[0].voice, "Alba-en-US");
 });
 
+test("pause() after play() while the content's voices are picked keeps it from playing once ready", async (t) => {
+  const engine = new VoicedMockEngine([alba]);
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([{ plain: "Hello.", language: "en" }]);
+  navigator.play();
+  navigator.pause();
+
+  await settled();
+  engine.emit({ type: "ready" });
+  t.is(engine.speakCalls.length, 0);
+  t.is(navigator.getState(), "paused");
+
+  navigator.play();
+  t.is(engine.speakCalls.length, 1);
+});
+
 test("the previous content's ready while the content's voices are picked doesn't play it", async (t) => {
   const engine = new VoicedMockEngine([alba, lea]);
   const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en"] });
