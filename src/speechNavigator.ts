@@ -103,6 +103,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // Keyed by `${language}:${needsBoundary}`: the voice picked for content in a language, null when it has none.
   private pickedVoices: Map<string, ReadiumSpeechVoice | null> = new Map();
   private pickingVoices: Map<string, Promise<void>> = new Map();
+  // The engine's latest voice listing: one resolving after a newer one started gives way to it.
+  private voiceListing: Promise<ReadiumSpeechVoice[]> | null = null;
   private reportedLanguageFallbacks: Set<string> = new Set();
   // `settings.voice` as "voiceschanged" last told it, so loads and refreshes racing each other tell a change once.
   private notifiedVoice: VoicePreference | null = null;
@@ -192,7 +194,13 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private async pickVoices(languages: string[] = []): Promise<void> {
     const spoken = this.spokenLanguages();
     const all = [...new Set([...spoken, ...languages].map(language => normalizeLanguageCode(language)).filter(Boolean))];
-    const voices = await this.engine.getAvailableVoices(all);
+    let listing = this.engine.getAvailableVoices(all);
+    this.voiceListing = listing;
+    let voices = await listing;
+    while (listing !== this.voiceListing) {
+      listing = this.voiceListing!;
+      voices = await listing;
+    }
     if (voices.length !== this.voices.length || voices.some(voice => !this.voiceIds.has(getVoiceId(voice)))) {
       this.voices = voices;
       this.voiceIds = new Set(voices.map(voice => getVoiceId(voice)));

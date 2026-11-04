@@ -1072,6 +1072,29 @@ test("voices listed later are picked for content whose language is only on its u
   t.is(engine.loadedUtterances[0].voice, "Lea-fr-FR");
 });
 
+test("a voice list resolving after a newer one doesn't replace it", async (t) => {
+  let listFirst!: () => void;
+  const firstListed = new Promise<void>((resolve) => (listFirst = resolve));
+  let calls = 0;
+  const engine = new (class extends VoicedMockEngine {
+    async getAvailableVoices(): Promise<ReadiumSpeechVoice[]> {
+      if (++calls === 1) {
+        await firstListed;
+        return [alba];
+      }
+      return this.listed;
+    }
+  })([nora]);
+  const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en"] });
+  engine.emit({ type: "voiceschanged" });
+  await settled();
+  t.deepEqual(navigator.settings.voice, { en: "Nora-en-US" });
+
+  listFirst();
+  await settled();
+  t.deepEqual(navigator.settings.voice, { en: "Nora-en-US" });
+});
+
 test("destroy() drops a load still waiting for its voices", async (t) => {
   const engine = new VoicedMockEngine([alba]);
   const navigator = new ReadiumSpeechNavigator(engine);
