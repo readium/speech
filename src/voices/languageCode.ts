@@ -22,7 +22,8 @@ export const normalizeLanguageCode = (lang: string): string => {
   if (!lang) return "";
   
   // First normalize to lowercase and replace underscores with hyphens
-  let normalized = lang.toLowerCase().replace(/_/g, "-");
+  // A script doesn't tell voice languages apart, e.g. "zh-Hant-HK" is "zh-HK"
+  let normalized = lang.toLowerCase().replace(/_/g, "-").split("-").filter((subtag, index) => index === 0 || !/^[a-z]{4}$/.test(subtag)).join("-");
   
   // Handle BCP47 formatting (e.g., "en-US" -> "en-US", "en-us" -> "en-US")
   if (/\w{2,3}-\w{2,3}/.test(normalized)) {

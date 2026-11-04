@@ -1050,6 +1050,16 @@ test("Chinese variants get their own voice, keyed by their own tags", async (t) 
   t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Sinji-yue", "Tingting-cmn-CN"]);
 });
 
+test("Chinese content tagged with its script gets its variant's voice", async (t) => {
+  const engine = new VoicedMockEngine([listedVoice("Sinji", "yue-HK"), listedVoice("Tingting", "cmn-CN")]);
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([{ plain: "a", language: "zh-Hant-HK" }]);
+  await settled();
+
+  t.is(engine.loadedUtterances[0].voice, "Sinji-yue-HK");
+  t.deepEqual(navigator.settings.voice, { "zh-Hant-HK": "Sinji-yue-HK" });
+});
+
 test("a voice preference keyed by a Chinese variant's alias applies to it", async (t) => {
   const engine = new VoicedMockEngine([listedVoice("Sinji", "yue-HK"), listedVoice("Aasing", "yue-HK")]);
   const navigator = new ReadiumSpeechNavigator(engine, { preferences: { voice: { "yue-HK": "Aasing-yue-HK" } } });
