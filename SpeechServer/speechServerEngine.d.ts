@@ -25,7 +25,6 @@ export declare class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     private voices;
     private voicesRequest;
     private initializing;
-    private languageVoiceCache;
     private serviceInfo;
     private serviceInfoPromise;
     private currentUtterances;
@@ -62,7 +61,6 @@ export declare class SpeechServerEngine implements ReadiumSpeechPlaybackEngine {
     private bufferUntilReady;
     private indexCoveringChars;
     private voiceFor;
-    private pickLanguageVoice;
     setVoice(voice: ReadiumSpeechVoice | string): void;
     getCurrentVoice(): ReadiumSpeechVoice | null;
     getAvailableVoices(): Promise<ReadiumSpeechVoice[]>;

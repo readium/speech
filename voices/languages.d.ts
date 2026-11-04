@@ -1,17 +1,10 @@
+import { chineseVariantMap, normalizeLanguageCode } from './languageCode.js';
 import { ReadiumSpeechJSONVoice } from './types.js';
 export interface LanguageWithRegions {
     baseLang: string;
     regions: string[];
 }
-export declare const chineseVariantMap: {
-    [key: string]: string;
-};
-/**
- * Normalizes language code with special handling for Chinese variants
- * @param lang - Input language code
- * @returns Normalized language code
- */
-export declare const normalizeLanguageCode: (lang: string) => string;
+export { chineseVariantMap, normalizeLanguageCode };
 /**
  * Get all voices for a specific language
  * @param {string} lang - Language code (e.g., "en", "fr", "zh-CN")

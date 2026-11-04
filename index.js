@@ -1,12 +1,12 @@
-import { DecorationController as Ps, DirectCommsChannel as As, Decorator as Ls } from "@readium/decorator";
+import { DecorationController as Ai, DirectCommsChannel as Li, Decorator as Vi } from "@readium/decorator";
 export * from "@readium/decorator";
-import { LocatorText as Os, LocatorLocations as Vs, Locator as Ts } from "@readium/shared";
-import { Locator as jr, LocatorLocations as Fr, LocatorText as _r } from "@readium/shared";
-import { startsWithBindingPunct as fe, ssmlTextEscape as M, BINDING_PUNCT_CLASS as re, ssmlAttrEscape as wn } from "@readium/helpers";
-import Us from "i18next";
-import { substitutedOwnSelector as xs, isAriaSubstituted as H, decodeTextref as Bt, combineDomRangeTextrefs as Ns } from "@readium/guided-navigation";
-import { DomRange as zs, DomRangePoint as Dt } from "@readium/shared/html";
-const R = (n) => {
+import { LocatorText as Oi, LocatorLocations as Ti, Locator as xi } from "@readium/shared";
+import { Locator as _r, LocatorLocations as $r, LocatorText as Gr } from "@readium/shared";
+import { startsWithBindingPunct as me, ssmlTextEscape as B, BINDING_PUNCT_CLASS as ce, ssmlAttrEscape as kn } from "@readium/helpers";
+import Ui from "i18next";
+import { substitutedOwnSelector as Ni, isAriaSubstituted as K, decodeTextref as Dt, combineDomRangeTextrefs as zi } from "@readium/guided-navigation";
+import { DomRange as Bi, DomRangePoint as Ft } from "@readium/shared/html";
+const P = (n) => {
   if (!n) return ["", void 0];
   const e = n.replace(/_/g, "-");
   try {
@@ -22,20 +22,40 @@ const R = (n) => {
       t[1]?.toUpperCase()
     ];
   }
-}, ut = (n, e) => {
-  const t = e.toLowerCase().replace(/_/g, "-"), [s] = R(e), i = Object.entries(n);
-  for (const a of [t, s]) {
-    const r = i.find(([o]) => o.toLowerCase().replace(/_/g, "-") === a);
+}, ji = (n, e) => {
+  const t = e.toLowerCase().replace(/_/g, "-"), [i] = P(e), s = Object.entries(n);
+  for (const a of [t, i]) {
+    const r = s.find(([o]) => o.toLowerCase().replace(/_/g, "-") === a);
     if (r) return r[1];
   }
-}, kn = (n, e) => {
-  const t = e.toLowerCase().replace(/_/g, "-"), [s] = R(e);
-  let i;
-  for (const a of [s, t])
+}, Cn = (n, e) => {
+  const t = e.toLowerCase().replace(/_/g, "-"), [i] = P(e);
+  let s;
+  for (const a of [i, t])
     for (const [r, o] of Object.entries(n))
-      r.toLowerCase().replace(/_/g, "-") === a && (i ??= /* @__PURE__ */ new Set(), o.forEach((l) => i.add(l)));
-  return i && [...i];
-}, j = {
+      r.toLowerCase().replace(/_/g, "-") === a && (s ??= /* @__PURE__ */ new Set(), o.forEach((l) => s.add(l)));
+  return s && [...s];
+}, te = {
+  cmn: "cmn",
+  "cmn-CN": "cmn-CN",
+  "cmn-TW": "cmn-TW",
+  zh: "cmn",
+  "zh-CN": "cmn-CN",
+  "zh-TW": "cmn-TW",
+  yue: "yue",
+  "yue-HK": "yue-HK",
+  "zh-HK": "yue-HK",
+  wuu: "wuu",
+  "wuu-CN": "wuu-CN"
+}, L = (n) => {
+  if (!n) return "";
+  const e = (a) => {
+    if (!/\w{2,3}-\w{2,3}/.test(a)) return a;
+    const [r, o] = a.split("-");
+    return `${r}-${o.toUpperCase()}`;
+  }, t = n.toLowerCase().replace(/_/g, "-"), i = e(t), s = e(t.split("-").filter((a, r) => r === 0 || !/^[a-z]{4}$/.test(a)).join("-"));
+  return te[i] || te[s] || i;
+}, F = {
   ar: {
     defaultRegion: "SA",
     availableRegions: [
@@ -422,16 +442,16 @@ const R = (n) => {
     ],
     testUtterance: "你好，我叫 {name}，係越中文聲。"
   }
-}, Fe = /* @__PURE__ */ new Map(), Ms = /* @__PURE__ */ Object.assign({ "../../json/ar.json": () => import("./ar-BGKtJRyt.js"), "../../json/bg.json": () => import("./bg-D9Q1JriY.js"), "../../json/bho.json": () => import("./bho-CpuLBMN3.js"), "../../json/bn.json": () => import("./bn-Bpn_lzoe.js"), "../../json/ca.json": () => import("./ca-5hzouNcE.js"), "../../json/cmn.json": () => import("./cmn-DlnYMCd8.js"), "../../json/cs.json": () => import("./cs-CDpMkMNO.js"), "../../json/da.json": () => import("./da-XWCfWAwB.js"), "../../json/de.json": () => import("./de-DU0USiOh.js"), "../../json/el.json": () => import("./el-ClBwbIAW.js"), "../../json/en.json": () => import("./en-l3wcpTw3.js"), "../../json/es.json": () => import("./es-DwOFJY07.js"), "../../json/eu.json": () => import("./eu-DxWirHU-.js"), "../../json/fa.json": () => import("./fa-Ml9KtIw1.js"), "../../json/fi.json": () => import("./fi-Dk-5Fhhl.js"), "../../json/fr.json": () => import("./fr-MfhjukJ4.js"), "../../json/gl.json": () => import("./gl-DwtzWds9.js"), "../../json/he.json": () => import("./he-CfajFNE_.js"), "../../json/hi.json": () => import("./hi-pv2ttBoh.js"), "../../json/hr.json": () => import("./hr-MRApcEKR.js"), "../../json/hu.json": () => import("./hu-DGRDZdHH.js"), "../../json/id.json": () => import("./id-DZUuUiTG.js"), "../../json/it.json": () => import("./it-DJUYnjyj.js"), "../../json/ja.json": () => import("./ja-BpFcZRMu.js"), "../../json/kk.json": () => import("./kk-C480t1iH.js"), "../../json/kn.json": () => import("./kn-BVqs26qv.js"), "../../json/ko.json": () => import("./ko-TNoPZd6N.js"), "../../json/mr.json": () => import("./mr-DstAHTvT.js"), "../../json/ms.json": () => import("./ms-BceBSD-j.js"), "../../json/nb.json": () => import("./nb-CwPbwG-i.js"), "../../json/nl.json": () => import("./nl-BmW-Dmw5.js"), "../../json/pl.json": () => import("./pl-CH8qoDu8.js"), "../../json/pt.json": () => import("./pt-CjCENn24.js"), "../../json/ro.json": () => import("./ro-BlJN7qkA.js"), "../../json/ru.json": () => import("./ru-udzq1D5e.js"), "../../json/sk.json": () => import("./sk-VAEHsTWJ.js"), "../../json/sl.json": () => import("./sl-DaZQ1gp0.js"), "../../json/sv.json": () => import("./sv-CicHwXe4.js"), "../../json/ta.json": () => import("./ta-CvpRY89g.js"), "../../json/te.json": () => import("./te-D5TcdW9V.js"), "../../json/th.json": () => import("./th-CYakoFVa.js"), "../../json/tr.json": () => import("./tr-BfYrcAz7.js"), "../../json/uk.json": () => import("./uk-BVs6lQbX.js"), "../../json/vi.json": () => import("./vi-DP1xN9KL.js"), "../../json/wuu.json": () => import("./wuu-C6uQvT6g.js"), "../../json/yue.json": () => import("./yue-C8kEWdfv.js") });
-async function Bs(n) {
+}, $e = /* @__PURE__ */ new Map(), Mi = /* @__PURE__ */ Object.assign({ "../../json/ar.json": () => import("./ar-BGKtJRyt.js"), "../../json/bg.json": () => import("./bg-D9Q1JriY.js"), "../../json/bho.json": () => import("./bho-CpuLBMN3.js"), "../../json/bn.json": () => import("./bn-Bpn_lzoe.js"), "../../json/ca.json": () => import("./ca-5hzouNcE.js"), "../../json/cmn.json": () => import("./cmn-DlnYMCd8.js"), "../../json/cs.json": () => import("./cs-CDpMkMNO.js"), "../../json/da.json": () => import("./da-XWCfWAwB.js"), "../../json/de.json": () => import("./de-DU0USiOh.js"), "../../json/el.json": () => import("./el-ClBwbIAW.js"), "../../json/en.json": () => import("./en-l3wcpTw3.js"), "../../json/es.json": () => import("./es-DwOFJY07.js"), "../../json/eu.json": () => import("./eu-DxWirHU-.js"), "../../json/fa.json": () => import("./fa-Ml9KtIw1.js"), "../../json/fi.json": () => import("./fi-Dk-5Fhhl.js"), "../../json/fr.json": () => import("./fr-MfhjukJ4.js"), "../../json/gl.json": () => import("./gl-DwtzWds9.js"), "../../json/he.json": () => import("./he-CfajFNE_.js"), "../../json/hi.json": () => import("./hi-pv2ttBoh.js"), "../../json/hr.json": () => import("./hr-MRApcEKR.js"), "../../json/hu.json": () => import("./hu-DGRDZdHH.js"), "../../json/id.json": () => import("./id-DZUuUiTG.js"), "../../json/it.json": () => import("./it-DJUYnjyj.js"), "../../json/ja.json": () => import("./ja-BpFcZRMu.js"), "../../json/kk.json": () => import("./kk-C480t1iH.js"), "../../json/kn.json": () => import("./kn-BVqs26qv.js"), "../../json/ko.json": () => import("./ko-TNoPZd6N.js"), "../../json/mr.json": () => import("./mr-DstAHTvT.js"), "../../json/ms.json": () => import("./ms-BceBSD-j.js"), "../../json/nb.json": () => import("./nb-CwPbwG-i.js"), "../../json/nl.json": () => import("./nl-BmW-Dmw5.js"), "../../json/pl.json": () => import("./pl-CH8qoDu8.js"), "../../json/pt.json": () => import("./pt-CjCENn24.js"), "../../json/ro.json": () => import("./ro-BlJN7qkA.js"), "../../json/ru.json": () => import("./ru-udzq1D5e.js"), "../../json/sk.json": () => import("./sk-VAEHsTWJ.js"), "../../json/sl.json": () => import("./sl-DaZQ1gp0.js"), "../../json/sv.json": () => import("./sv-CicHwXe4.js"), "../../json/ta.json": () => import("./ta-CvpRY89g.js"), "../../json/te.json": () => import("./te-D5TcdW9V.js"), "../../json/th.json": () => import("./th-CYakoFVa.js"), "../../json/tr.json": () => import("./tr-BfYrcAz7.js"), "../../json/uk.json": () => import("./uk-BVs6lQbX.js"), "../../json/vi.json": () => import("./vi-DP1xN9KL.js"), "../../json/wuu.json": () => import("./wuu-C6uQvT6g.js"), "../../json/yue.json": () => import("./yue-C8kEWdfv.js") });
+async function Di(n) {
   try {
-    const e = n.split("-")[0], t = Ms[`../../json/${e}.json`];
+    const e = n.split("-")[0], t = Mi[`../../json/${e}.json`];
     if (!t)
       throw new Error(`No voice data found for language: ${n}`);
-    const i = (await t()).default;
+    const s = (await t()).default;
     return {
-      ...i,
-      voices: i.voices.map(Fs)
+      ...s,
+      voices: s.voices.map($i)
     };
   } catch (e) {
     return console.warn(`Failed to load voice data for ${n}:`, e), {
@@ -442,58 +462,38 @@ async function Bs(n) {
     };
   }
 }
-function jt(n) {
-  return Fe.has(n) || Fe.set(n, Bs(n)), Fe.get(n);
+function _t(n) {
+  return $e.has(n) || $e.set(n, Di(n)), $e.get(n);
 }
-const Ds = ["veryLow", "low", "normal", "high", "veryHigh"], js = ["android", "apple"], Fs = (n) => ({
+const Fi = ["veryLow", "low", "normal", "high", "veryHigh"], _i = ["android", "apple"], $i = (n) => ({
   ...n,
-  quality: n.quality?.filter((e) => Ds.includes(e)),
-  localizedName: n.localizedName && js.includes(n.localizedName) ? n.localizedName : void 0
-}), ce = {
-  cmn: "cmn",
-  "cmn-CN": "cmn-CN",
-  "cmn-TW": "cmn-TW",
-  zh: "cmn",
-  "zh-CN": "cmn-CN",
-  "zh-TW": "cmn-TW",
-  yue: "yue",
-  "yue-HK": "yue-HK",
-  "zh-HK": "yue-HK",
-  wuu: "wuu",
-  "wuu-CN": "wuu-CN"
-}, T = (n) => {
-  if (!n) return "";
-  let e = n.toLowerCase().replace(/_/g, "-");
-  if (/\w{2,3}-\w{2,3}/.test(e)) {
-    const [t, s] = e.split("-");
-    e = `${t.toLowerCase()}-${s.toUpperCase()}`;
-  }
-  return ce[e] || e;
-}, We = async (n) => {
+  quality: n.quality?.filter((e) => Fi.includes(e)),
+  localizedName: n.localizedName && _i.includes(n.localizedName) ? n.localizedName : void 0
+}), Je = async (n) => {
   if (!n) return [];
   try {
-    const e = T(n);
+    const e = L(n);
     try {
-      const s = await jt(e);
-      if (s?.voices?.length)
-        return s.voices;
-    } catch (s) {
-      console.warn(`Failed to load voices for ${e}:`, s);
+      const i = await _t(e);
+      if (i?.voices?.length)
+        return i.voices;
+    } catch (i) {
+      console.warn(`Failed to load voices for ${e}:`, i);
     }
-    const [t] = R(e);
+    const [t] = P(e);
     if (t !== e)
       try {
-        const s = await jt(t);
-        if (s?.voices?.length)
-          return s.voices;
-      } catch (s) {
-        console.warn(`Failed to load voices for base language ${t}:`, s);
+        const i = await _t(t);
+        if (i?.voices?.length)
+          return i.voices;
+      } catch (i) {
+        console.warn(`Failed to load voices for base language ${t}:`, i);
       }
     return [];
   } catch (e) {
     return console.error(`Error in getVoices for ${n}:`, e), [];
   }
-}, Qe = (n, e) => {
+}, Ze = (n, e) => {
   try {
     return new Intl.DisplayNames(
       e ? [e] : [],
@@ -502,143 +502,143 @@ const Ds = ["veryLow", "low", "normal", "high", "veryHigh"], js = ["android", "a
   } catch {
     return n.toUpperCase();
   }
-}, Ft = (n) => {
+}, $t = (n) => {
   if (!n) return "";
   try {
-    const e = T(n), t = j[e];
+    const e = L(n), t = F[e];
     if (t?.testUtterance)
       return t.testUtterance;
-    if (e in ce) {
-      const i = ce[e];
-      if (i && j[i]?.testUtterance)
-        return j[i].testUtterance;
+    if (e in te) {
+      const s = te[e];
+      if (s && F[s]?.testUtterance)
+        return F[s].testUtterance;
     }
-    const [s] = R(e);
-    return s !== e && j[s]?.testUtterance ? j[s].testUtterance : "";
+    const [i] = P(e);
+    return i !== e && F[i]?.testUtterance ? F[i].testUtterance : "";
   } catch (e) {
     return console.error(`Error in getTestUtterance for ${n}:`, e), "";
   }
-}, Ue = (n) => {
+}, Ne = (n) => {
   if (!n) return "";
   try {
-    const e = T(n), t = j[e];
+    const e = L(n), t = F[e];
     if (t?.defaultRegion)
       return `${e}-${t.defaultRegion}`;
-    if (e in ce) {
-      const i = ce[e];
-      if (i) {
-        const a = j[i];
+    if (e in te) {
+      const s = te[e];
+      if (s) {
+        const a = F[s];
         if (a?.defaultRegion)
-          return `${i}-${a.defaultRegion}`;
+          return `${s}-${a.defaultRegion}`;
       }
     }
-    const [s] = R(e);
-    if (s !== e) {
-      const i = j[s];
-      if (i?.defaultRegion)
-        return `${s}-${i.defaultRegion}`;
+    const [i] = P(e);
+    if (i !== e) {
+      const s = F[i];
+      if (s?.defaultRegion)
+        return `${i}-${s.defaultRegion}`;
     }
     return "";
   } catch (e) {
     return console.error(`Failed to get default region for ${n}:`, e), "";
   }
-}, xe = (n) => {
+}, ze = (n) => {
   if (!n?.length) return [];
-  const e = /* @__PURE__ */ new Set(), t = /* @__PURE__ */ new Map(), s = /* @__PURE__ */ new Map();
-  for (const [i, a] of n.entries()) {
+  const e = /* @__PURE__ */ new Set(), t = /* @__PURE__ */ new Map(), i = /* @__PURE__ */ new Map();
+  for (const [s, a] of n.entries()) {
     if (!a) continue;
-    const r = T(a), [o, l] = R(r);
-    l && (e.add(l), s.has(l) || s.set(l, i)), t.has(o) || t.set(o, /* @__PURE__ */ new Set()), l && t.get(o).add(l);
+    const r = L(a), [o, l] = P(r);
+    l && (e.add(l), i.has(l) || i.set(l, s)), t.has(o) || t.set(o, /* @__PURE__ */ new Set()), l && t.get(o).add(l);
   }
-  return Array.from(t.entries()).map(([i, a]) => {
+  return Array.from(t.entries()).map(([s, a]) => {
     const r = new Set(
-      j[i]?.availableRegions || []
+      F[s]?.availableRegions || []
     ), o = Array.from(a), l = Array.from(e).filter(
       (u) => r.has(u) && !o.includes(u)
     ), c = Array.from(/* @__PURE__ */ new Set([...o, ...l])).sort((u, d) => {
-      const h = s.get(u) ?? Number.MAX_SAFE_INTEGER, f = s.get(d) ?? Number.MAX_SAFE_INTEGER;
+      const h = i.get(u) ?? Number.MAX_SAFE_INTEGER, f = i.get(d) ?? Number.MAX_SAFE_INTEGER;
       return h - f;
     });
     if (c.length === 0) {
-      const u = Ue(i), [, d] = R(u);
+      const u = Ne(s), [, d] = P(u);
       d && c.push(d);
     }
     return {
-      baseLang: i,
+      baseLang: s,
       regions: c
     };
   });
-}, ee = async (n) => {
+}, ne = async (n) => {
   const e = /* @__PURE__ */ new Map();
-  for (const s of n) {
-    if (s.source !== "json") continue;
-    const [i] = R(s.language);
-    e.has(i) || e.set(i, []), e.get(i).push(s);
+  for (const i of n) {
+    if (i.source !== "json") continue;
+    const [s] = P(i.language);
+    e.has(s) || e.set(s, []), e.get(s).push(i);
   }
   const t = /* @__PURE__ */ new Map();
-  for (const [s, i] of e.entries()) {
-    const a = /* @__PURE__ */ new Map(), r = await We(s), o = /* @__PURE__ */ new Map();
+  for (const [i, s] of e.entries()) {
+    const a = /* @__PURE__ */ new Map(), r = await Je(i), o = /* @__PURE__ */ new Map();
     r.forEach((l, c) => {
       o.set(l.name.toLowerCase(), c), l.altNames?.forEach((u) => {
         o.set(u.toLowerCase(), c);
       });
     });
-    for (const l of i) {
+    for (const l of s) {
       const c = l.name.toLowerCase(), u = o.get(c);
       u !== void 0 && a.set(l.name, u);
     }
-    a.size > 0 && t.set(s, a);
+    a.size > 0 && t.set(i, a);
   }
   return t;
-}, _s = {
+}, Gi = {
   veryLow: 1,
   low: 2,
   normal: 3,
   high: 4,
   veryHigh: 5
-}, ke = (n) => n ? _s[n] ?? 0 : 0, Q = (n, e, t, s) => {
-  const i = ke(n.quality), a = ke(e.quality);
-  if (t && s && n.source === "json" && e.source === "json") {
-    const r = t.get(s);
+}, Ee = (n) => n ? Gi[n] ?? 0 : 0, J = (n, e, t, i) => {
+  const s = Ee(n.quality), a = Ee(e.quality);
+  if (t && i && n.source === "json" && e.source === "json") {
+    const r = t.get(i);
     if (r) {
       const o = r.get(n.name), l = r.get(e.name);
       if (o !== void 0 && l !== void 0)
         return o - l;
     }
   }
-  return a !== i ? a - i : n.name.localeCompare(e.name);
-}, Ne = (n, e) => {
-  const t = new Map(e.map((a) => [a.baseLang, a])), s = /* @__PURE__ */ new Map(), i = [];
+  return a !== s ? a - s : n.name.localeCompare(e.name);
+}, Be = (n, e) => {
+  const t = new Map(e.map((a) => [a.baseLang, a])), i = /* @__PURE__ */ new Map(), s = [];
   for (const a of n) {
-    const [r] = R(a.language);
-    t.get(r) ? (s.has(r) || s.set(r, []), s.get(r).push(a)) : i.push(a);
+    const [r] = P(a.language);
+    t.get(r) ? (i.has(r) || i.set(r, []), i.get(r).push(a)) : s.push(a);
   }
-  return { voicesByLang: s, otherLangVoices: i };
-}, Cn = (n, e, t, s) => {
-  const [, i] = R(n.language), [, a] = R(e.language), r = i && t.regions.includes(i), o = a && t.regions.includes(a);
+  return { voicesByLang: i, otherLangVoices: s };
+}, En = (n, e, t, i) => {
+  const [, s] = P(n.language), [, a] = P(e.language), r = s && t.regions.includes(s), o = a && t.regions.includes(a);
   if (r && o) {
-    const h = t.regions.indexOf(i), f = t.regions.indexOf(a);
-    return h === f ? Q(n, e, s, t.baseLang) : h - f;
+    const h = t.regions.indexOf(s), f = t.regions.indexOf(a);
+    return h === f ? J(n, e, i, t.baseLang) : h - f;
   }
   if (r) return -1;
   if (o) return 1;
-  const l = Ue(t.baseLang), [, c] = R(l), u = !!c && i === c, d = !!c && a === c;
+  const l = Ne(t.baseLang), [, c] = P(l), u = !!c && s === c, d = !!c && a === c;
   if (u && !d) return -1;
   if (!u && d) return 1;
-  if (i && a) {
-    const h = i.localeCompare(a);
-    return h !== 0 ? h : Q(n, e, s, t.baseLang);
+  if (s && a) {
+    const h = s.localeCompare(a);
+    return h !== 0 ? h : J(n, e, i, t.baseLang);
   }
-  return i ? -1 : a ? 1 : Q(n, e, s, t.baseLang);
-}, $s = async (n, e, t) => {
-  const s = t ?? await ee(n);
-  n.sort((i, a) => Cn(i, a, e, s));
-}, En = (n, e, t) => {
-  const [s] = R(n.language), [i] = R(e.language), a = Qe(s).toLowerCase(), r = Qe(i).toLowerCase(), o = a.localeCompare(r);
+  return s ? -1 : a ? 1 : J(n, e, i, t.baseLang);
+}, qi = async (n, e, t) => {
+  const i = t ?? await ne(n);
+  n.sort((s, a) => En(s, a, e, i));
+}, Rn = (n, e, t) => {
+  const [i] = P(n.language), [s] = P(e.language), a = Ze(i).toLowerCase(), r = Ze(s).toLowerCase(), o = a.localeCompare(r);
   if (o !== 0)
     return o;
-  if (s === i) {
-    const l = Ue(s), [, c] = R(n.language), [, u] = R(e.language), d = l && c === l.split("-")[1], h = l && u === l.split("-")[1];
+  if (i === s) {
+    const l = Ne(i), [, c] = P(n.language), [, u] = P(e.language), d = l && c === l.split("-")[1], h = l && u === l.split("-")[1];
     if (d && !h) return -1;
     if (!d && h) return 1;
     if (c && u) {
@@ -646,55 +646,55 @@ const Ds = ["veryLow", "low", "normal", "high", "veryHigh"], js = ["android", "a
       if (f !== 0)
         return f;
     }
-    return c && !u ? -1 : !c && u ? 1 : Q(n, e, t, s);
+    return c && !u ? -1 : !c && u ? 1 : J(n, e, t, i);
   }
-  return Q(n, e, t, s);
-}, Je = async (n, e) => {
-  const t = e ?? await ee(n);
-  n.sort((s, i) => En(s, i, t));
-}, Rn = async (n, e) => {
-  if (!e?.length) return [];
-  const t = xe(n || []), { voicesByLang: s, otherLangVoices: i } = Ne(e, t), a = await ee(e), r = [];
-  for (const o of t) {
-    const l = s.get(o.baseLang);
-    l && (await $s(l, o, a), r.push(...l));
-  }
-  return await Je(i, a), r.push(...i), r;
+  return J(n, e, t, i);
+}, Xe = async (n, e) => {
+  const t = e ?? await ne(n);
+  n.sort((i, s) => Rn(i, s, t));
 }, In = async (n, e) => {
+  if (!e?.length) return [];
+  const t = ze(n || []), { voicesByLang: i, otherLangVoices: s } = Be(e, t), a = await ne(e), r = [];
+  for (const o of t) {
+    const l = i.get(o.baseLang);
+    l && (await qi(l, o, a), r.push(...l));
+  }
+  return await Xe(s, a), r.push(...s), r;
+}, Pn = async (n, e) => {
   if (!e.length) return null;
-  const [t] = xe([n]), { voicesByLang: s, otherLangVoices: i } = Ne(e, [t]), a = s.get(t.baseLang), r = a?.length ? a : i, o = await ee(e), l = a?.length ? (c, u) => Cn(c, u, t, o) : (c, u) => En(c, u, o);
+  const [t] = ze([n]), { voicesByLang: i, otherLangVoices: s } = Be(e, [t]), a = i.get(t.baseLang), r = a?.length ? a : s, o = await ne(e), l = a?.length ? (c, u) => En(c, u, t, o) : (c, u) => Rn(c, u, o);
   return r.reduce((c, u) => l(u, c) < 0 ? u : c);
-}, ht = (n, e) => {
-  const t = n.filter((s) => s.controls?.boundary !== !1 === e);
+}, An = (n, e) => {
+  const t = n.filter((i) => i.controls?.boundary !== !1 === e);
   return t.length > 0 ? t : n;
-}, qs = [{ name: "Albert", nativeID: ["com.apple.speech.synthesis.voice.Albert"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bad News", nativeID: ["com.apple.speech.synthesis.voice.BadNews"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Mauvaises nouvelles", "Malas noticias", "Brutte notizie"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bahh", nativeID: ["com.apple.speech.synthesis.voice.Bahh"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bells", nativeID: ["com.apple.speech.synthesis.voice.Bells"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Cloches", "Campanas", "Campane"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Boing", nativeID: ["com.apple.speech.synthesis.voice.Boing"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bubbles", nativeID: ["com.apple.speech.synthesis.voice.Bubbles"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bulles", "Burbujas", "Bollicine"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Cellos", nativeID: ["com.apple.speech.synthesis.voice.Cellos"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Violoncelles", "Violonchelos", "Violoncelli"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Good News", nativeID: ["com.apple.speech.synthesis.voice.GoodNews"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bonnes nouvelles", "Buenas noticias", "Buone notizie"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Jester", nativeID: ["com.apple.speech.synthesis.voice.Hysterical"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bouffon", "Bufón", "Giullare"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Organ", nativeID: ["com.apple.speech.synthesis.voice.Organ"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Orgue", "Órgano", "Organo"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Superstar", nativeID: ["com.apple.speech.synthesis.voice.Princess"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Superestrella"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Trinoids", nativeID: ["com.apple.speech.synthesis.voice.Trinoids"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Trinoïdes"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Whisper", nativeID: ["com.apple.speech.synthesis.voice.Whisper"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Murmure", "Susurro", "Sussurro"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Wobble", nativeID: ["com.apple.speech.synthesis.voice.Deranged"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Zarvox", nativeID: ["com.apple.speech.synthesis.voice.Zarvox"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }], Gs = {
-  voices: qs
-}, Hs = [{ name: "Eddy", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Flo", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Grandma", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Grandpa", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Jacques", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Reed", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Rocko", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Sandy", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Shelley", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Fred", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Junior", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Kathy", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Ralph", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "eSpeak Arabic", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ar", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Bulgarian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "bg", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Bengali", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "bn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Catalan", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ca", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Chinese (Mandarin, latin as English)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "cmn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Czech", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "cs", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Danish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "da", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak German", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "de", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Greek", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "el", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Spanish (Spain)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "es", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Estonian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "et", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Finnish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "fi", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Gujarati", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "gu", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Croatian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "hr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Hungarian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "hu", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Indonesian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "id", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Italian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "it", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Kannada", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "kn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Korean", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ko", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Lithuanian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "lt", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Latvian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "lv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Malayalm", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ml", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Marathi", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "mr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Malay", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ms", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Norwegian Bokmål", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "nb", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Polish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "pl", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Portuguese (Brazil)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "pt-br", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Romanian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ro", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Russian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ru", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Slovak", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sk", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Slovenian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sl", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Serbian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Swedish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Swahili", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sw", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Tamil", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ta", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Telugu", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "te", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Turkish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "tr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Vietnamese (Northern)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "vi", os: ["ChromeOS"], preloaded: !0 }], Ks = {
-  voices: Hs
-}, Ws = Gs, Qs = Ks, Ze = (n, e) => Ws.voices.some(
-  (t) => n.includes(t.name) || e && t.nativeID?.some((s) => e.includes(s)) || t.altNames?.some((s) => n.includes(s))
-), Xe = (n, e) => Qs.voices.some(
+}, de = (n) => L(n).split("-")[0], Hi = (n, e) => {
+  const t = Object.entries(n).map(([i, s]) => [L(i), s]);
+  for (const i of [L(e), de(e)]) {
+    const s = t.find(([a]) => a === i);
+    if (s) return s[1];
+  }
+}, Ki = [{ name: "Albert", nativeID: ["com.apple.speech.synthesis.voice.Albert"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bad News", nativeID: ["com.apple.speech.synthesis.voice.BadNews"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Mauvaises nouvelles", "Malas noticias", "Brutte notizie"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bahh", nativeID: ["com.apple.speech.synthesis.voice.Bahh"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bells", nativeID: ["com.apple.speech.synthesis.voice.Bells"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Cloches", "Campanas", "Campane"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Boing", nativeID: ["com.apple.speech.synthesis.voice.Boing"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Bubbles", nativeID: ["com.apple.speech.synthesis.voice.Bubbles"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bulles", "Burbujas", "Bollicine"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Cellos", nativeID: ["com.apple.speech.synthesis.voice.Cellos"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Violoncelles", "Violonchelos", "Violoncelli"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Good News", nativeID: ["com.apple.speech.synthesis.voice.GoodNews"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bonnes nouvelles", "Buenas noticias", "Buone notizie"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Jester", nativeID: ["com.apple.speech.synthesis.voice.Hysterical"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Bouffon", "Bufón", "Giullare"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Organ", nativeID: ["com.apple.speech.synthesis.voice.Organ"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Orgue", "Órgano", "Organo"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Superstar", nativeID: ["com.apple.speech.synthesis.voice.Princess"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Superestrella"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Trinoids", nativeID: ["com.apple.speech.synthesis.voice.Trinoids"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Trinoïdes"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Whisper", nativeID: ["com.apple.speech.synthesis.voice.Whisper"], note: "This novelty voice is part of a pack preloaded by Apple.", altNames: ["Murmure", "Susurro", "Sussurro"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Wobble", nativeID: ["com.apple.speech.synthesis.voice.Deranged"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Zarvox", nativeID: ["com.apple.speech.synthesis.voice.Zarvox"], note: "This novelty voice is part of a pack preloaded by Apple.", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }], Qi = {
+  voices: Ki
+}, Wi = [{ name: "Eddy", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Flo", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Grandma", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Grandpa", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Jacques", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Reed", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Rocko", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Sandy", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Shelley", localizedName: "apple", note: "Eloquence voices are preloaded by default on Apple devices.", language: "en-US", otherLanguages: ["en-GB", "de-DE", "fr-FR", "fr-CA", "es-ES", "es-MX", "fi-FI", "it-IT", "ja-JP", "ko-KR", "pt-BR", "zh-CN", "zh-HK"], os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Fred", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Junior", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Kathy", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "Ralph", language: "en-US", os: ["macOS", "iOS", "iPadOS"], preloaded: !0 }, { name: "eSpeak Arabic", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ar", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Bulgarian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "bg", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Bengali", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "bn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Catalan", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ca", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Chinese (Mandarin, latin as English)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "cmn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Czech", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "cs", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Danish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "da", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak German", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "de", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Greek", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "el", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Spanish (Spain)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "es", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Estonian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "et", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Finnish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "fi", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Gujarati", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "gu", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Croatian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "hr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Hungarian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "hu", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Indonesian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "id", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Italian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "it", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Kannada", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "kn", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Korean", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ko", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Lithuanian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "lt", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Latvian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "lv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Malayalm", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ml", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Marathi", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "mr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Malay", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ms", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Norwegian Bokmål", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "nb", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Polish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "pl", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Portuguese (Brazil)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "pt-br", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Romanian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ro", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Russian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ru", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Slovak", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sk", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Slovenian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sl", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Serbian", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Swedish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sv", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Swahili", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "sw", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Tamil", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "ta", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Telugu", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "te", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Turkish", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "tr", os: ["ChromeOS"], preloaded: !0 }, { name: "eSpeak Vietnamese (Northern)", note: "eSpeak voices are preloaded by default on Chrome OS.", language: "vi", os: ["ChromeOS"], preloaded: !0 }], Ji = {
+  voices: Wi
+}, Zi = Qi, Xi = Ji, Ye = (n, e) => Zi.voices.some(
+  (t) => n.includes(t.name) || e && t.nativeID?.some((i) => e.includes(i)) || t.altNames?.some((i) => n.includes(i))
+), et = (n, e) => Xi.voices.some(
   (t) => n.includes(t.name)
-) || e === "veryLow", _t = (n) => n?.length ? n.filter((e) => !(e.isNovelty || Ze(e.name, e.voiceURI))) : [], $t = (n) => n?.length ? n.filter((e) => !Xe(e.name, e.quality)) : [], Js = (n, e) => {
-  const t = Array.isArray(e) ? e : [e];
-  return n.filter((s) => t.some((i) => {
-    const a = i.toLowerCase(), r = s.language?.toLowerCase(), o = s.altLanguage?.toLowerCase();
-    if (r === a || o === a)
-      return !0;
-    const [l] = a.split("-");
-    return r && r.startsWith(l) || o && o.startsWith(l);
-  }));
-}, Zs = { ar: { normal: "محسن", high: "استثنائي" }, ca: { normal: "millorada", high: "prèmium" }, "cmn-CN": { normal: "优化音质", high: "高音质" }, "cmn-TW": { normal: "增強音質", high: "高音質" }, cs: { normal: "vylepšená verze", high: "prémiový" }, da: { normal: "forbedret", high: "høj kvalitet" }, de: { normal: "erweitert", high: "premium" }, el: { normal: "βελτιωμένη", high: "υψηλής ποιότητας" }, en: { normal: "Enhanced", high: "Premium" }, es: { normal: "mejorada", high: "premium" }, fi: { normal: "parannettu", high: "korkealaatuinen" }, fr: { normal: "premium", high: "de qualité" }, he: { normal: "משופר", high: "פרימיום" }, hi: { normal: "बेहतर", high: "प्रीमियम" }, hr: { normal: "poboljšani", high: "vrhunski" }, hu: { normal: "továbbfejlesztett", high: "prémium" }, id: { normal: "Ditingkatkan", high: "Premium" }, it: { normal: "ottimizzata", high: "premium" }, ja: { normal: "拡張", high: "プレミアム" }, ko: { normal: "고품질", high: "프리미엄" }, ms: { normal: "Dipertingkat", high: "Premium" }, nb: { normal: "forbedret", high: "premium" }, nl: { normal: "verbeterd", high: "premium" }, pl: { normal: "rozszerzony", high: "premium" }, pt: { normal: "melhorada", high: "premium" }, ro: { normal: "îmbunătățită", high: "premium" }, ru: { normal: "улучшенный", high: "высшее качество" }, sk: { normal: "vylepšený", high: "prémiový" }, sl: { normal: "izboljšano", high: "prvovrsten" }, sv: { normal: "förbättrad", high: "premium" }, th: { normal: "คุณภาพสูง", high: "คุณภาพสูง" }, tr: { normal: "Geliştirilmiş", high: "Yüksek Kaliteli" }, uk: { normal: "вдосконалений", high: "високої якості" }, vi: { normal: "Nâng cao", high: "Cao cấp" } }, Xs = {
-  quality: Zs
-}, Ye = {
-  apple: Xs.quality
+) || e === "veryLow", tt = (n) => n?.length ? n.filter((e) => !(e.isNovelty || Ye(e.name, e.voiceURI))) : [], nt = (n) => n?.length ? n.filter((e) => !et(e.name, e.quality)) : [], Yi = (n, e) => {
+  const t = (Array.isArray(e) ? e : [e]).map(de);
+  return n.filter((i) => [i.language, i.altLanguage].some((s) => !!s && t.includes(de(s))));
+}, es = { ar: { normal: "محسن", high: "استثنائي" }, ca: { normal: "millorada", high: "prèmium" }, "cmn-CN": { normal: "优化音质", high: "高音质" }, "cmn-TW": { normal: "增強音質", high: "高音質" }, cs: { normal: "vylepšená verze", high: "prémiový" }, da: { normal: "forbedret", high: "høj kvalitet" }, de: { normal: "erweitert", high: "premium" }, el: { normal: "βελτιωμένη", high: "υψηλής ποιότητας" }, en: { normal: "Enhanced", high: "Premium" }, es: { normal: "mejorada", high: "premium" }, fi: { normal: "parannettu", high: "korkealaatuinen" }, fr: { normal: "premium", high: "de qualité" }, he: { normal: "משופר", high: "פרימיום" }, hi: { normal: "बेहतर", high: "प्रीमियम" }, hr: { normal: "poboljšani", high: "vrhunski" }, hu: { normal: "továbbfejlesztett", high: "prémium" }, id: { normal: "Ditingkatkan", high: "Premium" }, it: { normal: "ottimizzata", high: "premium" }, ja: { normal: "拡張", high: "プレミアム" }, ko: { normal: "고품질", high: "프리미엄" }, ms: { normal: "Dipertingkat", high: "Premium" }, nb: { normal: "forbedret", high: "premium" }, nl: { normal: "verbeterd", high: "premium" }, pl: { normal: "rozszerzony", high: "premium" }, pt: { normal: "melhorada", high: "premium" }, ro: { normal: "îmbunătățită", high: "premium" }, ru: { normal: "улучшенный", high: "высшее качество" }, sk: { normal: "vylepšený", high: "prémiový" }, sl: { normal: "izboljšano", high: "prvovrsten" }, sv: { normal: "förbättrad", high: "premium" }, th: { normal: "คุณภาพสูง", high: "คุณภาพสูง" }, tr: { normal: "Geliştirilmiş", high: "Yüksek Kaliteli" }, uk: { normal: "вдосконалений", high: "високої якості" }, vi: { normal: "Nâng cao", high: "Cao cấp" } }, ts = {
+  quality: es
+}, it = {
+  apple: ts.quality
   // android: androidQualities.quality
-}, Ys = (n, e, t) => {
+}, ns = (n, e, t) => {
   if (!n) return;
-  const s = Array.isArray(t) ? t : t ? [t] : [];
-  for (const i of s)
-    if (i && Ye[i]) {
-      const a = Ye[i], r = R(e)[0], o = a[e] || a[r];
+  const i = Array.isArray(t) ? t : t ? [t] : [];
+  for (const s of i)
+    if (s && it[s]) {
+      const a = it[s], r = P(e)[0], o = a[e] || a[r];
       if (o) {
         const l = n.toLowerCase(), { normal: c, high: u } = o;
         if (u && l.includes(u.toLowerCase()))
@@ -703,15 +703,15 @@ const Ds = ["veryLow", "low", "normal", "high", "veryHigh"], js = ["android", "a
           return "normal";
       }
     }
-}, ei = (n, e) => {
-  const t = Ye[e];
+}, is = (n, e) => {
+  const t = it[e];
   if (t)
-    for (const [s, { high: i, normal: a }] of Object.entries(t)) {
-      const r = i && n.some((l) => l.includes(i)), o = a && n.some((l) => l.includes(a));
+    for (const [i, { high: s, normal: a }] of Object.entries(t)) {
+      const r = s && n.some((l) => l.includes(s)), o = a && n.some((l) => l.includes(a));
       if (r && o)
-        return s;
+        return i;
     }
-}, ti = {
+}, ss = {
   low: {
     values: ["super-compact", "compact"],
     quality: "low"
@@ -724,35 +724,35 @@ const Ds = ["veryLow", "low", "normal", "high", "veryHigh"], js = ["android", "a
     values: ["premium"],
     quality: "high"
   }
-}, qt = (n) => {
+}, Gt = (n) => {
   if (!n) return;
   const t = n.toLowerCase().split(/[._-]/);
-  for (const s of Object.values(ti))
-    if (s.values.some((i) => t.includes(i)))
-      return s.quality;
+  for (const i of Object.values(ss))
+    if (i.values.some((s) => t.includes(s)))
+      return i.quality;
 };
-function ni(n, e) {
+function as(n, e) {
   if (n.name === n.originalName) return n;
   if (e.name === e.originalName) return e;
-  const t = [n.originalName, ...n.altNames || []], s = [e.originalName, ...e.altNames || []], i = t.findIndex((r) => s.includes(r)), a = s.findIndex((r) => t.includes(r));
-  return i === -1 && a === -1 || i !== -1 && (a === -1 || i <= a) ? n : e;
+  const t = [n.originalName, ...n.altNames || []], i = [e.originalName, ...e.altNames || []], s = t.findIndex((r) => i.includes(r)), a = i.findIndex((r) => t.includes(r));
+  return s === -1 && a === -1 || s !== -1 && (a === -1 || s <= a) ? n : e;
 }
-function si(n, e) {
+function rs(n, e) {
   if (!n.altNames && !e.altNames)
     return !1;
-  const t = n.originalName, s = e.originalName, i = n.altNames || [], a = e.altNames || [];
-  return a.includes(t) || i.includes(s) ? !0 : i.filter((o) => a.includes(o)).length > 0;
+  const t = n.originalName, i = e.originalName, s = n.altNames || [], a = e.altNames || [];
+  return a.includes(t) || s.includes(i) ? !0 : s.filter((o) => a.includes(o)).length > 0;
 }
-const Pn = () => {
-  const e = typeof window < "u" && (window.navigator || {}).userAgent || "", t = () => /android/i.test(e), s = () => /kaios/i.test(e), i = () => typeof window.InstallTrigger < "u" ? !0 : /firefox/i.test(e), a = () => /AppleWebKit/i.test(e) && !/Chrome|Chromium|Edg\/|OPR|Android/i.test(e);
+const Ln = () => {
+  const e = typeof window < "u" && (window.navigator || {}).userAgent || "", t = () => /android/i.test(e), i = () => /kaios/i.test(e), s = () => typeof window.InstallTrigger < "u" ? !0 : /firefox/i.test(e), a = () => /AppleWebKit/i.test(e) && !/Chrome|Chromium|Edg\/|OPR|Android/i.test(e);
   return {
     isAndroid: t(),
-    isFirefox: i() || s(),
+    isFirefox: s() || i(),
     isSafari: a(),
-    isKaiOS: s()
+    isKaiOS: i()
   };
 };
-class P {
+class I {
   static instance;
   static initializationPromise = null;
   systemLocale;
@@ -766,7 +766,7 @@ class P {
   constructor() {
     if (typeof window > "u" || !window.speechSynthesis)
       throw new Error("Web Speech API is not available in this environment");
-    this.systemLocale = navigator.languages?.[0]?.split("-")[0] || "en", this.isAndroid = Pn().isAndroid;
+    this.systemLocale = navigator.languages?.[0]?.split("-")[0] || "en", this.isAndroid = Ln().isAndroid;
   }
   /**
    * Initialize voice manager, or broaden an already-initialized singleton to
@@ -781,20 +781,20 @@ class P {
    * @returns Promise that resolves with the WebSpeechVoiceManager instance
    */
   static async initialize(e) {
-    if (P.instance?.isInitialized) {
-      const t = P.instance;
+    if (I.instance?.isInitialized) {
+      const t = I.instance;
       return e?.languages && e.languages.length > 0 && await t.broadenLanguages(e.languages), t;
     }
-    return P.initializationPromise || (P.initializationPromise = (async () => {
+    return I.initializationPromise || (I.initializationPromise = (async () => {
       try {
-        const t = new P();
-        P.instance = t, t.browserVoices = await t.getBrowserVoices(e?.maxTimeout, e?.interval), t.updateSystemLocale(t.browserVoices);
-        let s = t.browserVoices;
-        return e?.languages && e.languages.length > 0 ? (s = t.filterBrowserVoicesByLanguages(t.browserVoices, e.languages), t.scopedLanguages = P.toBaseLangSet(e.languages)) : t.scopedLanguages = null, t.voices = await t.parseToReadiumSpeechVoices(s), t.isInitialized = !0, t;
+        const t = new I();
+        I.instance = t, t.browserVoices = await t.getBrowserVoices(e?.maxTimeout, e?.interval), t.updateSystemLocale(t.browserVoices);
+        let i = t.browserVoices;
+        return e?.languages && e.languages.length > 0 ? (i = t.filterBrowserVoicesByLanguages(t.browserVoices, e.languages), t.scopedLanguages = I.toBaseLangSet(e.languages)) : t.scopedLanguages = null, t.voices = await t.parseToReadiumSpeechVoices(i), t.isInitialized = !0, t;
       } catch (t) {
-        throw P.initializationPromise = null, console.error("Failed to initialize WebSpeechVoiceManager:", t), t;
+        throw I.initializationPromise = null, console.error("Failed to initialize WebSpeechVoiceManager:", t), t;
       }
-    })()), P.initializationPromise;
+    })()), I.initializationPromise;
   }
   /**
    * Filter browser voices based on preferred languages
@@ -802,11 +802,11 @@ class P {
    */
   filterBrowserVoicesByLanguages(e, t) {
     if (!t?.length) return e;
-    const s = P.toBaseLangSet(t);
-    return e.filter((i) => {
-      if (!i?.lang) return !1;
-      const a = T(i.lang), [r] = P.extractLangRegionFromBCP47(a);
-      return s.has(r);
+    const i = I.toBaseLangSet(t);
+    return e.filter((s) => {
+      if (!s?.lang) return !1;
+      const a = L(s.lang), [r] = I.extractLangRegionFromBCP47(a);
+      return i.has(r);
     });
   }
   /**
@@ -816,8 +816,8 @@ class P {
   static toBaseLangSet(e) {
     return new Set(
       e.map((t) => {
-        const s = T(t), [i] = P.extractLangRegionFromBCP47(s);
-        return i;
+        const i = L(t), [s] = I.extractLangRegionFromBCP47(i);
+        return s;
       })
     );
   }
@@ -829,16 +829,16 @@ class P {
    */
   async broadenLanguages(e) {
     if (this.scopedLanguages === null) return;
-    const s = [...P.toBaseLangSet(e)].filter((o) => !this.scopedLanguages.has(o));
-    if (s.length === 0) return;
-    const i = s.filter((o) => this.broadenPromises.has(o)), a = s.filter((o) => !this.broadenPromises.has(o));
+    const i = [...I.toBaseLangSet(e)].filter((o) => !this.scopedLanguages.has(o));
+    if (i.length === 0) return;
+    const s = i.filter((o) => this.broadenPromises.has(o)), a = i.filter((o) => !this.broadenPromises.has(o));
     let r;
     a.length > 0 && (r = (async () => {
       const o = this.filterBrowserVoicesByLanguages(this.browserVoices, a), l = await this.parseToReadiumSpeechVoices(o);
       this.voices = [...this.voices, ...l], a.forEach((c) => this.scopedLanguages.add(c)), a.forEach((c) => this.broadenPromises.delete(c));
     })(), a.forEach((o) => this.broadenPromises.set(o, r))), await Promise.all([
       ...r ? [r] : [],
-      ...i.map((o) => this.broadenPromises.get(o))
+      ...s.map((o) => this.broadenPromises.get(o))
     ]);
   }
   /**
@@ -847,7 +847,7 @@ class P {
    * @returns A tuple of [language, region] where language is lowercase and region is UPPERCASE
    */
   static extractLangRegionFromBCP47(e) {
-    return R(e);
+    return P(e);
   }
   /**
    * Clean voice name by removing specific formatting
@@ -869,10 +869,10 @@ class P {
    */
   countVoiceDuplicates(e) {
     const t = /* @__PURE__ */ new Map();
-    for (const s of e) {
-      if (!s?.name || !s?.lang) continue;
-      const i = `${s.lang.toLowerCase()}_${this.normalizeVoiceName(s.name)}`;
-      t.set(i, (t.get(i) || 0) + 1);
+    for (const i of e) {
+      if (!i?.name || !i?.lang) continue;
+      const s = `${i.lang.toLowerCase()}_${this.normalizeVoiceName(i.name)}`;
+      t.set(s, (t.get(s) || 0) + 1);
     }
     return t;
   }
@@ -886,24 +886,24 @@ class P {
    */
   updateSystemLocale(e) {
     if (!e?.length) return;
-    const t = e.map((i) => i.name), s = ei(t, "apple");
-    s && (this.systemLocale = s);
+    const t = e.map((s) => s.name), i = is(t, "apple");
+    i && (this.systemLocale = i);
   }
   /**
    * Infer voice quality based on package, platform, JSON, or duplicate count
    * Returns null if quality cannot be determined
    * @private
    */
-  inferVoiceQuality(e, t, s) {
-    const i = e.voiceURI ? qt(e.voiceURI) : void 0;
-    if (i) return i;
+  inferVoiceQuality(e, t, i) {
+    const s = e.voiceURI ? Gt(e.voiceURI) : void 0;
+    if (s) return s;
     if (t?.nativeID && Array.isArray(t.nativeID))
       for (const a of t.nativeID) {
-        const r = qt(a);
+        const r = Gt(a);
         if (r) return r;
       }
     if (t?.localizedName && e.voiceURI && e.lang) {
-      const a = Ys(
+      const a = ns(
         e.voiceURI,
         this.systemLocale,
         t.localizedName
@@ -911,7 +911,7 @@ class P {
       if (a) return a;
     }
     if (t?.quality && t.quality.length > 0) {
-      const a = Math.min(s - 1, t.quality.length - 1), r = t.quality[a];
+      const a = Math.min(i - 1, t.quality.length - 1), r = t.quality[a];
       if (r)
         return r;
     }
@@ -923,7 +923,7 @@ class P {
    */
   findMatchingJsonVoice(e, t) {
     return e.find(
-      (s) => this.normalizeVoiceName(s.name) === t || s.altNames?.some((i) => this.normalizeVoiceName(i) === t)
+      (i) => this.normalizeVoiceName(i.name) === t || i.altNames?.some((s) => this.normalizeVoiceName(s) === t)
     );
   }
   /**
@@ -933,16 +933,16 @@ class P {
    */
   removeDuplicates(e) {
     const t = /* @__PURE__ */ new Map();
-    for (const s of e) {
-      const i = `${s.language.toLowerCase()}_${this.normalizeVoiceName(s.name)}`, a = t.get(i);
+    for (const i of e) {
+      const s = `${i.language.toLowerCase()}_${this.normalizeVoiceName(i.name)}`, a = t.get(s);
       if (!a)
-        t.set(i, s);
-      else if (si(s, a)) {
-        const r = ni(s, a);
-        t.set(i, r);
+        t.set(s, i);
+      else if (rs(i, a)) {
+        const r = as(i, a);
+        t.set(s, r);
       } else {
-        const r = ke(a.quality);
-        ke(s.quality) >= r && t.set(i, s);
+        const r = Ee(a.quality);
+        Ee(i.quality) >= r && t.set(s, i);
       }
     }
     return Array.from(t.values());
@@ -954,12 +954,12 @@ class P {
    */
   getTestUtterance(e) {
     if (!e) return "";
-    const t = Ft(e);
+    const t = $t(e);
     if (t) return t;
-    const [s] = P.extractLangRegionFromBCP47(e);
-    if (s && s !== e) {
-      const i = Ft(s);
-      if (i) return i;
+    const [i] = I.extractLangRegionFromBCP47(e);
+    if (i && i !== e) {
+      const s = $t(i);
+      if (s) return s;
     }
     return "";
   }
@@ -978,11 +978,11 @@ class P {
    * @param filterOptions Optional filters to apply to voices before counting languages
    * @param voices Optional array of voices to count (defaults to this.voices)
    */
-  getLanguages(e, t, s) {
-    if (!s && !this.isInitialized)
+  getLanguages(e, t, i) {
+    if (!i && !this.isInitialized)
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
-    const i = s ?? this.voices, a = t ? this.filterVoices(t, i) : i, r = this.countLanguages(a.map((o) => o.language), e);
-    return s ? r : r.sort((o, l) => o.label.localeCompare(l.label));
+    const s = i ?? this.voices, a = t ? this.filterVoices(t, s) : s, r = this.countLanguages(a.map((o) => o.language), e);
+    return i ? r : r.sort((o, l) => o.label.localeCompare(l.label));
   }
   /**
    * Get the languages of every voice the browser has, with voice counts, sorted by name
@@ -992,17 +992,17 @@ class P {
   getBrowserLanguages(e) {
     if (!this.isInitialized)
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
-    const t = this.browserVoices.filter((s) => s?.lang).map((s) => s.lang);
-    return this.countLanguages(t, e).sort((s, i) => s.label.localeCompare(i.label));
+    const t = this.browserVoices.filter((i) => i?.lang).map((i) => i.lang);
+    return this.countLanguages(t, e).sort((i, s) => i.label.localeCompare(s.label));
   }
   // By base language, in order of first occurrence
   countLanguages(e, t) {
-    const s = /* @__PURE__ */ new Map();
-    for (const i of e) {
-      const a = T(i).split("-")[0];
-      s.set(a, (s.get(a) ?? 0) + 1);
+    const i = /* @__PURE__ */ new Map();
+    for (const s of e) {
+      const a = L(s).split("-")[0];
+      i.set(a, (i.get(a) ?? 0) + 1);
     }
-    return [...s].map(([i, a]) => ({ code: i, label: Qe(i, t), count: a }));
+    return [...i].map(([s, a]) => ({ code: s, label: Ze(s, t), count: a }));
   }
   /**
    * Get available regions with voice counts
@@ -1010,16 +1010,16 @@ class P {
    * @param filterOptions Optional filters to apply to voices before counting regions
    * @param voices Optional array of voices to count (defaults to this.voices)
    */
-  getRegions(e, t, s) {
-    if (!s && !this.isInitialized)
+  getRegions(e, t, i) {
+    if (!i && !this.isInitialized)
       throw new Error("WebSpeechVoiceManager not initialized. Call initialize() first.");
-    const i = s ?? this.voices, a = t ? this.filterVoices(t, i) : i, r = [], o = /* @__PURE__ */ new Set(), l = /* @__PURE__ */ new Map();
+    const s = i ?? this.voices, a = t ? this.filterVoices(t, s) : s, r = [], o = /* @__PURE__ */ new Set(), l = /* @__PURE__ */ new Map();
     for (const c of a) {
-      const [, u] = P.extractLangRegionFromBCP47(c.language);
+      const [, u] = I.extractLangRegionFromBCP47(c.language);
       u && l.set(u, (l.get(u) || 0) + 1);
     }
     for (const c of a) {
-      const [, u] = P.extractLangRegionFromBCP47(c.language);
+      const [, u] = I.extractLangRegionFromBCP47(c.language);
       if (u && !o.has(u)) {
         let d = c.language;
         try {
@@ -1035,7 +1035,7 @@ class P {
         }), o.add(u);
       }
     }
-    return s ? r : r.sort((c, u) => c.label.localeCompare(u.label));
+    return i ? r : r.sort((c, u) => c.label.localeCompare(u.label));
   }
   /**
    * Get the default voice for language preferences
@@ -1045,16 +1045,16 @@ class P {
    */
   async getDefaultVoice(e, t) {
     if (!e) return null;
-    const s = Array.isArray(e) ? e : [e];
-    let i = t || this.getVoices({ languages: s });
-    return i.length ? (i = await this.sortVoicesByRegions(s, i), i[0]) : null;
+    const i = Array.isArray(e) ? e : [e];
+    let s = t || this.getVoices({ languages: i });
+    return s.length ? (s = await this.sortVoicesByRegions(i, s), s[0]) : null;
   }
   getBrowserVoices(e = 1e4, t = 10) {
-    const s = () => window.speechSynthesis?.getVoices() || [];
+    const i = () => window.speechSynthesis?.getVoices() || [];
     if (!window.speechSynthesis)
       return Promise.resolve([]);
-    const i = s();
-    return Array.isArray(i) && i.length ? Promise.resolve(i) : new Promise((a, r) => {
+    const s = i();
+    return Array.isArray(s) && s.length ? Promise.resolve(s) : new Promise((a, r) => {
       let o = Math.floor(e / t), l = !1;
       const c = () => {
         if (l) return;
@@ -1062,14 +1062,14 @@ class P {
         const u = () => {
           if (o < 1) return a([]);
           --o;
-          const d = s();
+          const d = i();
           if (Array.isArray(d) && d.length) return a(d);
           setTimeout(u, t);
         };
         setTimeout(u, t);
       };
       window.speechSynthesis.onvoiceschanged !== void 0 ? window.speechSynthesis.onvoiceschanged = () => {
-        const u = s();
+        const u = i();
         Array.isArray(u) && u.length ? a(u) : c();
       } : c(), setTimeout(() => a([]), e);
     });
@@ -1081,37 +1081,37 @@ class P {
   async parseToReadiumSpeechVoices(e) {
     const t = this.countVoiceDuplicates(e);
     return await Promise.all(
-      e.filter((i) => i?.name && i?.lang).map(async (i) => {
-        const a = T(i.lang), [r] = P.extractLangRegionFromBCP47(a), o = this.normalizeVoiceName(i.name), l = `${i.lang.toLowerCase()}_${o}`, c = t.get(l) || 1;
-        let u = await We(a);
-        (!u || u.length === 0) && (u = await We(r));
-        const d = this.findMatchingJsonVoice(u, o), h = this.inferVoiceQuality(i, d, c), f = this.isAndroid ? { ...d?.controls, boundary: !1 } : d?.controls;
+      e.filter((s) => s?.name && s?.lang).map(async (s) => {
+        const a = L(s.lang), [r] = I.extractLangRegionFromBCP47(a), o = this.normalizeVoiceName(s.name), l = `${s.lang.toLowerCase()}_${o}`, c = t.get(l) || 1;
+        let u = await Je(a);
+        (!u || u.length === 0) && (u = await Je(r));
+        const d = this.findMatchingJsonVoice(u, o), h = this.inferVoiceQuality(s, d, c), f = this.isAndroid || !d ? { ...d?.controls, boundary: !1 } : d?.controls;
         return d ? {
           ...d,
-          label: d.label ?? this.cleanVoiceName(i.name),
+          label: d.label ?? this.cleanVoiceName(s.name),
           source: "json",
-          originalName: i.name,
+          originalName: s.name,
           ...f && { controls: f },
           language: d.language ?? a,
-          voiceURI: i.voiceURI,
+          voiceURI: s.voiceURI,
           quality: h,
-          isDefault: i.default || !1,
-          offlineAvailability: i.localService || !1,
-          isNovelty: Ze(i.name, i.voiceURI),
-          isLowQuality: Xe(i.name, h)
+          isDefault: s.default || !1,
+          offlineAvailability: s.localService || !1,
+          isNovelty: Ye(s.name, s.voiceURI),
+          isLowQuality: et(s.name, h)
         } : {
           source: "browser",
-          label: this.cleanVoiceName(i.name),
-          name: i.name,
-          originalName: i.name,
+          label: this.cleanVoiceName(s.name),
+          name: s.name,
+          originalName: s.name,
           ...f && { controls: f },
           language: a,
-          voiceURI: i.voiceURI,
+          voiceURI: s.voiceURI,
           quality: h,
-          isDefault: i.default || !1,
-          offlineAvailability: i.localService || !1,
-          isNovelty: Ze(i.name, i.voiceURI),
-          isLowQuality: Xe(i.name, h)
+          isDefault: s.default || !1,
+          offlineAvailability: s.localService || !1,
+          isNovelty: Ye(s.name, s.voiceURI),
+          isLowQuality: et(s.name, h)
         };
       })
     );
@@ -1127,8 +1127,8 @@ class P {
    * Filter voices based on the provided options
    */
   filterVoices(e, t) {
-    let s = t ? [...t] : [...this.voices];
-    const i = {
+    let i = t ? [...t] : [...this.voices];
+    const s = {
       excludeNovelty: !0,
       // Default to true to filter out novelty voices
       excludeVeryLowQuality: !0,
@@ -1138,13 +1138,13 @@ class P {
       ...e
       // Let explicit options override the defaults
     };
-    if (i.languages && (s = Js(s, i.languages)), i.source && (s = s.filter((a) => a.source === i.source)), i.gender && (s = s.filter((a) => a.gender === i.gender)), i.quality) {
-      const a = Array.isArray(i.quality) ? i.quality : [i.quality];
-      s = s.filter((r) => r.quality && a.includes(r.quality));
+    if (s.languages && (i = Yi(i, s.languages)), s.source && (i = i.filter((a) => a.source === s.source)), s.gender && (i = i.filter((a) => a.gender === s.gender)), s.quality) {
+      const a = Array.isArray(s.quality) ? s.quality : [s.quality];
+      i = i.filter((r) => r.quality && a.includes(r.quality));
     }
-    return i.offlineOnly && (s = s.filter((a) => a.offlineAvailability === !0)), i.provider && (s = s.filter(
-      (a) => a.provider?.toLowerCase() === i.provider?.toLowerCase()
-    )), i.excludeNovelty && (s = _t(s)), i.excludeVeryLowQuality && (s = $t(s)), i.removeDuplicates && (s = this.removeDuplicates(s)), s;
+    return s.offlineOnly && (i = i.filter((a) => a.offlineAvailability === !0)), s.provider && (i = i.filter(
+      (a) => a.provider?.toLowerCase() === s.provider?.toLowerCase()
+    )), s.excludeNovelty && (i = tt(i)), s.excludeVeryLowQuality && (i = nt(i)), s.removeDuplicates && (i = this.removeDuplicates(i)), i;
   }
   /**
    * Filter out novelty voices
@@ -1153,7 +1153,7 @@ class P {
    */
   filterOutNoveltyVoices(e) {
     const t = e ?? this.voices;
-    return _t(t);
+    return tt(t);
   }
   /**
    * Filter out very low quality voices
@@ -1162,7 +1162,7 @@ class P {
    */
   filterOutVeryLowQualityVoices(e) {
     const t = e ?? this.voices;
-    return $t(t);
+    return nt(t);
   }
   /**
    * Sort voices by quality, respecting JSON name order, then alphabetically for undefined/null quality
@@ -1172,17 +1172,17 @@ class P {
   async sortVoicesByQuality(e) {
     const t = e || this.voices;
     if (!t?.length) return [];
-    const s = await ee(t);
-    return [...t].sort((i, a) => Q(i, a, s));
+    const i = await ne(t);
+    return [...t].sort((s, a) => J(s, a, i));
   }
   /**
    * Sort regions by default then alphabetically, sort voices by quality
    */
   static async sortByDefaultRegion(e, t) {
-    const s = await ee(e), i = Ue(t);
+    const i = await ne(e), s = Ne(t);
     e.sort((a, r) => {
-      const [, o] = P.extractLangRegionFromBCP47(a.language), [, l] = P.extractLangRegionFromBCP47(r.language), c = i && o === i.split("-")[1], u = i && l === i.split("-")[1];
-      return c && !u ? -1 : !c && u ? 1 : Q(a, r, s, t);
+      const [, o] = I.extractLangRegionFromBCP47(a.language), [, l] = I.extractLangRegionFromBCP47(r.language), c = s && o === s.split("-")[1], u = s && l === s.split("-")[1];
+      return c && !u ? -1 : !c && u ? 1 : J(a, r, i, t);
     });
   }
   /**
@@ -1192,18 +1192,18 @@ class P {
    * @returns Sorted array of voices
    */
   async sortVoicesByLanguages(e, t) {
-    const s = t || this.voices;
-    if (!s?.length) return [];
+    const i = t || this.voices;
+    if (!i?.length) return [];
     if (!e?.length) {
-      const l = [...s];
-      return await Je(l), l;
+      const l = [...i];
+      return await Xe(l), l;
     }
-    const i = xe(e), { voicesByLang: a, otherLangVoices: r } = Ne(s, i), o = [];
-    for (const l of i) {
+    const s = ze(e), { voicesByLang: a, otherLangVoices: r } = Be(i, s), o = [];
+    for (const l of s) {
       const c = a.get(l.baseLang);
-      c && (await P.sortByDefaultRegion(c, l.baseLang), o.push(...c));
+      c && (await I.sortByDefaultRegion(c, l.baseLang), o.push(...c));
     }
-    return await Je(r), o.push(...r), o;
+    return await Xe(r), o.push(...r), o;
   }
   /**
    * Sort voices by region preference, then alphabetically
@@ -1212,7 +1212,7 @@ class P {
    * @returns Sorted array of voices
    */
   async sortVoicesByRegions(e, t) {
-    return Rn(e, t || this.voices);
+    return In(e, t || this.voices);
   }
   /**
    * Group voices by the specified criteria
@@ -1221,12 +1221,12 @@ class P {
    * @returns Object with voice groups keyed by the grouping criteria
    */
   groupVoices(e, t) {
-    const s = {}, i = t || this.voices;
-    for (const a of i) {
+    const i = {}, s = t || this.voices;
+    for (const a of s) {
       let r = "Unknown";
       switch (e) {
         case "languages":
-          r = P.extractLangRegionFromBCP47(a.language)[0];
+          r = I.extractLangRegionFromBCP47(a.language)[0];
           break;
         case "gender":
           r = a.gender || "unknown";
@@ -1235,19 +1235,26 @@ class P {
           r = a.quality || "unknown";
           break;
         case "region":
-          const [, o] = P.extractLangRegionFromBCP47(a.language);
+          const [, o] = I.extractLangRegionFromBCP47(a.language);
           r = o || "unknown";
           break;
       }
-      s[r] || (s[r] = []), s[r].push(a);
+      i[r] || (i[r] = []), i[r].push(a);
     }
-    return s;
+    return i;
   }
 }
-const An = (n, e) => {
-  const [t, s] = R(e), [i, a] = R(n.language);
-  return i === t && (!s || a === s);
-}, et = (n, e) => !!n && R(n.language)[0] === R(e)[0], ii = ["webKit", "moz", "ms", "o"], ai = [
+const Vn = async (n, e, t = !0) => {
+  const i = (r) => P(L(r))[0], s = i(n), a = nt(tt(e)).filter((r) => i(r.language) === s);
+  return a.length === 0 ? null : Pn(n, An(a, t));
+}, On = async (n, e) => {
+  n?.length || (n = typeof navigator < "u" && navigator.languages?.length ? [...navigator.languages] : ["en"]);
+  for (const t of n) {
+    const i = await Vn(t, e);
+    if (i) return i;
+  }
+  return (await In(n, e))[0] ?? null;
+}, D = (n) => n.voiceURI ?? n.identifier ?? n.name, os = ["webKit", "moz", "ms", "o"], ls = [
   "boundary",
   "end",
   "error",
@@ -1255,10 +1262,10 @@ const An = (n, e) => {
   "pause",
   "resume",
   "start"
-], ri = (n) => `${n.charAt(0).toUpperCase()}${n.slice(1)}`, ie = (n = {}, e) => Object.hasOwnProperty.call(n, e) || e in n || !!n[e], oi = (n) => typeof window < "u" && n in window, li = (n) => {
-  const e = ri(n), t = ii.map((i) => `${i}${e}`), s = [n, e].concat(t).find(oi);
-  return s && typeof window < "u" ? window[s] : void 0;
-}, ci = () => {
+], cs = (n) => `${n.charAt(0).toUpperCase()}${n.slice(1)}`, oe = (n = {}, e) => Object.hasOwnProperty.call(n, e) || e in n || !!n[e], us = (n) => typeof window < "u" && n in window, hs = (n) => {
+  const e = cs(n), t = os.map((s) => `${s}${e}`), i = [n, e].concat(t).find(us);
+  return i && typeof window < "u" ? window[i] : void 0;
+}, ds = () => {
   const n = {};
   [
     "speechSynthesis",
@@ -1267,30 +1274,30 @@ const An = (n, e) => {
     "speechSynthesisEvent",
     "speechSynthesisErrorEvent"
   ].forEach((t) => {
-    n[t] = li(t);
-  }), n.onvoiceschanged = ie(n.speechSynthesis, "onvoiceschanged"), n.speechSynthesisSpeaking = ie(n.speechSynthesis, "speaking"), n.speechSynthesisPaused = ie(n.speechSynthesis, "paused");
-  const e = n.speechSynthesisUtterance ? ie(n.speechSynthesisUtterance, "prototype") : !1;
-  return ai.forEach((t) => {
-    const s = `on${t}`;
-    n[s] = e && n.speechSynthesisUtterance ? ie(n.speechSynthesisUtterance.prototype, s) : !1;
+    n[t] = hs(t);
+  }), n.onvoiceschanged = oe(n.speechSynthesis, "onvoiceschanged"), n.speechSynthesisSpeaking = oe(n.speechSynthesis, "speaking"), n.speechSynthesisPaused = oe(n.speechSynthesis, "paused");
+  const e = n.speechSynthesisUtterance ? oe(n.speechSynthesisUtterance, "prototype") : !1;
+  return ls.forEach((t) => {
+    const i = `on${t}`;
+    n[i] = e && n.speechSynthesisUtterance ? oe(n.speechSynthesisUtterance.prototype, i) : !1;
   }), n;
 };
-class ze {
+class je {
   listeners = /* @__PURE__ */ new Map();
   on(e, t) {
     return this.listeners.has(e) || this.listeners.set(e, []), this.listeners.get(e).push(t), () => {
-      const s = this.listeners.get(e);
-      if (s) {
-        const i = s.indexOf(t);
-        i > -1 && s.splice(i, 1);
+      const i = this.listeners.get(e);
+      if (i) {
+        const s = i.indexOf(t);
+        s > -1 && i.splice(s, 1);
       }
     };
   }
   emit(e, t) {
-    const s = this.listeners.get(e);
-    s && [...s].forEach((i) => {
+    const i = this.listeners.get(e);
+    i && [...i].forEach((s) => {
       try {
-        i(t);
+        s(t);
       } catch (a) {
         console.error(`Error in "${String(e)}" listener:`, a);
       }
@@ -1300,69 +1307,69 @@ class ze {
     this.listeners.clear();
   }
 }
-const we = (n, e) => Math.min(Math.max(n, 0), Math.max(e - 1, 0));
-function J(n, e, t, s) {
-  return Number.isFinite(n) ? Math.max(e, Math.min(t, n)) : s;
+const Ce = (n, e) => Math.min(Math.max(n, 0), Math.max(e - 1, 0));
+function Z(n, e, t, i) {
+  return Number.isFinite(n) ? Math.max(e, Math.min(t, n)) : i;
 }
-const Ce = "\\p{Ps}\\p{Pi}¿¡", ui = new RegExp(`^[${Ce}]`, "u"), hi = new RegExp(`[${Ce}]$`, "u"), di = new RegExp("^\\p{P}$", "u");
-function gi(n) {
-  return ui.test(n);
+const Re = "\\p{Ps}\\p{Pi}¿¡", gs = new RegExp(`^[${Re}]`, "u"), fs = new RegExp(`[${Re}]$`, "u"), ps = new RegExp("^\\p{P}$", "u");
+function ms(n) {
+  return gs.test(n);
 }
-function fi(n) {
-  return hi.test(n);
+function vs(n) {
+  return fs.test(n);
 }
-function pi(n) {
-  return di.test(n);
+function ys(n) {
+  return ps.test(n);
 }
-function Ln(n) {
+function Tn(n) {
   return n.replace(/[<>]/g, "​");
 }
-function mi(n) {
+function Ss(n) {
   return n.replace(/&quot;/g, '"').replace(/&apos;/g, "'").replace(/&nbsp;/g, " ").replace(/&#(\d+);/g, (e, t) => String.fromCodePoint(Number(t))).replace(/&#x([0-9a-fA-F]+);/g, (e, t) => String.fromCodePoint(parseInt(t, 16)));
 }
-const vi = /\s*<readium:[a-zA-Z][\w-]*\s+id="[^"]*"\s*\/>\s*/g;
-function yi(n) {
-  return n.replace(vi, (t, s, i) => {
-    const a = i.slice(s + t.length);
-    return a.length === 0 || fe(a) ? "" : " ";
+const bs = /\s*<readium:[a-zA-Z][\w-]*\s+id="[^"]*"\s*\/>\s*/g;
+function ws(n) {
+  return n.replace(bs, (t, i, s) => {
+    const a = s.slice(i + t.length);
+    return a.length === 0 || me(a) ? "" : " ";
   }).replace(/ {2,}/g, " ").trim();
 }
-function Si(n) {
+function ks(n) {
   return n.includes("<");
 }
 function Me(n) {
   if (n === void 0) return;
   const e = {};
   if (n.language !== void 0 && (e.language = n.language), n.ssml) {
-    const t = yi(n.ssml);
-    Si(t) && (e.ssml = t);
+    const t = ws(n.ssml);
+    ks(t) && (e.ssml = t);
   }
   return n.plain && (e.plain = n.plain), e.plain || e.ssml ? e : void 0;
 }
-function U(n) {
-  return On(n).plain;
+function x(n) {
+  return xn(n).plain;
 }
-function On(n) {
+function xn(n) {
   let e = "";
   const t = [];
-  let s = !1, i = 0;
-  for (; i < n.length; ) {
-    const o = n[i];
+  let i = !1, s = 0;
+  for (; s < n.length; ) {
+    const o = n[s];
     if (o === "<") {
-      const c = n.indexOf(">", i), u = c === -1 ? "" : n.slice(c + 1);
-      i = c === -1 ? n.length : c + 1, !s && e.length > 0 && u.length > 0 && !fe(u) && (e += " ", t.push(i), s = !0);
+      const c = n.indexOf(">", s), u = c === -1 ? "" : n.slice(c + 1);
+      s = c === -1 ? n.length : c + 1, !i && e.length > 0 && u.length > 0 && !me(u) && (e += " ", t.push(s), i = !0);
       continue;
     }
-    const l = n.startsWith("&lt;", i) ? "<" : n.startsWith("&gt;", i) ? ">" : n.startsWith("&amp;", i) ? "&" : void 0;
+    const l = n.startsWith("&lt;", s) ? "<" : n.startsWith("&gt;", s) ? ">" : n.startsWith("&amp;", s) ? "&" : void 0;
     if (l) {
-      e += l, t.push(i), i += l === "&" ? 5 : 4, s = !1;
+      e += l, t.push(s), s += l === "&" ? 5 : 4, i = !1;
       continue;
     }
     if (o === " ") {
-      s || (e += o, t.push(i), s = !0), i++;
+      i || (e += o, t.push(s), i = !0), s++;
       continue;
     }
-    e += o, t.push(i), s = !1, i++;
+    e += o, t.push(s), i = !1, s++;
   }
   let a = 0;
   for (; a < e.length && /\s/.test(e[a]); ) a++;
@@ -1370,89 +1377,89 @@ function On(n) {
   for (; r > a && /\s/.test(e[r - 1]); ) r--;
   return { plain: e.slice(a, r), map: t.slice(a, r) };
 }
-function Gt(n, e) {
-  let t = 0, s = n.length;
-  for (; t < s; ) {
-    const i = t + s >> 1;
-    n[i] < e ? t = i + 1 : s = i;
+function qt(n, e) {
+  let t = 0, i = n.length;
+  for (; t < i; ) {
+    const s = t + i >> 1;
+    n[s] < e ? t = s + 1 : i = s;
   }
   return t;
 }
 const Ht = /* @__PURE__ */ new WeakMap();
-function bi(n) {
+function Cs(n) {
   return n.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
-function wi(n) {
-  const e = bi(n), t = /\w/.test(n[0]) ? "(?<!\\w)" : "", s = /\w/.test(n[n.length - 1]) ? "(?!\\w)" : "";
-  return `${t}${e}${s}`;
+function Es(n) {
+  const e = Cs(n), t = /\w/.test(n[0]) ? "(?<!\\w)" : "", i = /\w/.test(n[n.length - 1]) ? "(?!\\w)" : "";
+  return `${t}${e}${i}`;
 }
-function ki(n, e) {
+function Rs(n, e) {
   if (typeof e == "string")
-    return { regex: new RegExp(wi(n), "g"), replace: e };
+    return { regex: new RegExp(Es(n), "g"), replace: e };
   const t = e.pattern.flags.includes("g") ? e.pattern.flags : `${e.pattern.flags}g`;
   return { regex: new RegExp(e.pattern.source, t), replace: e.replace };
 }
-function Ci(n) {
+function Is(n) {
   let e = Ht.get(n);
-  return e || (e = Object.entries(n).map(([t, s]) => ki(t, s)), Ht.set(n, e)), e;
+  return e || (e = Object.entries(n).map(([t, i]) => Rs(t, i)), Ht.set(n, e)), e;
 }
-function Vn(n, e) {
+function Un(n, e) {
   const t = [];
-  for (const a of Ci(e))
+  for (const a of Is(e))
     for (const r of n.matchAll(a.regex)) {
       const o = r.index, l = typeof a.replace == "string" ? a.replace : a.replace(...r);
       t.push({ start: o, end: o + r[0].length, replacement: l });
     }
   t.sort((a, r) => a.start - r.start);
-  const s = [];
-  let i = 0;
+  const i = [];
+  let s = 0;
   for (const a of t)
-    a.start < i || (s.push(a), i = a.end);
-  return s;
+    a.start < s || (i.push(a), s = a.end);
+  return i;
 }
-function Ei(n, e) {
+function Ps(n, e) {
   let t = "";
-  const s = [];
-  let i = 0;
-  for (const a of Vn(n, e)) {
-    for (; i < a.start; )
-      t += n[i], s.push(i), i++;
+  const i = [];
+  let s = 0;
+  for (const a of Un(n, e)) {
+    for (; s < a.start; )
+      t += n[s], i.push(s), s++;
     for (let r = 0; r < a.replacement.length; r++)
-      t += a.replacement[r], s.push(a.start);
-    i = a.end;
+      t += a.replacement[r], i.push(a.start);
+    s = a.end;
   }
-  for (; i < n.length; )
-    t += n[i], s.push(i), i++;
-  return { text: t, map: s };
+  for (; s < n.length; )
+    t += n[s], i.push(s), s++;
+  return { text: t, map: i };
 }
 function Kt(n, e) {
   return n.length ? e <= 0 ? n[0] : e >= n.length ? n[n.length - 1] + 1 : n[e] : e;
 }
-const Ri = /<([a-zA-Z][\w-]*)([^>]*)>([\s\S]*?)<\/\1>|<[a-zA-Z][\w-]*\b[^>]*\/>|[^<]+/g;
-function Ee(n) {
+const As = /<([a-zA-Z][\w-]*)([^>]*)>([\s\S]*?)<\/\1>|<[a-zA-Z][\w-]*\b[^>]*\/>|[^<]+/g;
+function Ie(n) {
   return n.replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 }
-function Tn(n) {
+function Nn(n) {
   const e = [];
-  for (const t of n.matchAll(Ri))
-    t[1] !== void 0 ? e.push({ kind: "paired", raw: t[0], tag: t[1], attrs: t[2], innerText: Ee(t[3]) }) : t[0][0] === "<" ? e.push({ kind: "selfClosing", raw: t[0] }) : e.push({ kind: "text", raw: t[0], text: Ee(t[0]) });
+  for (const t of n.matchAll(As))
+    t[1] !== void 0 ? e.push({ kind: "paired", raw: t[0], tag: t[1], attrs: t[2], innerText: Ie(t[3]) }) : t[0][0] === "<" ? e.push({ kind: "selfClosing", raw: t[0] }) : e.push({ kind: "text", raw: t[0], text: Ie(t[0]) });
   return e;
 }
-function Ii(n, e) {
-  const t = Tn(n);
-  let s = "", i = !1;
+function Ls(n, e) {
+  const t = Nn(n);
+  let i = "", s = !1;
   const a = [], r = t.map(() => []);
   t.forEach((b, k) => {
     if (b.kind === "selfClosing") return;
     const w = b.kind === "paired" ? b.innerText : b.text;
-    if (!i && s.length > 0 && w.length > 0 && !fe(w) && !/^\s/.test(w)) {
-      const I = s.length;
-      s += " ", r[k].push(a.length), a.push({ start: I, end: I + 1, atomIndex: -1 }), i = !0;
+    if (!s && i.length > 0 && w.length > 0 && !me(w) && !/^\s/.test(w)) {
+      const R = i.length;
+      i += " ", r[k].push(a.length), a.push({ start: R, end: R + 1, atomIndex: -1 }), s = !0;
     }
-    const E = s.length;
-    s += w, r[k].push(a.length), a.push({ start: E, end: s.length, atomIndex: k }), w.length > 0 && (i = /\s$/.test(w));
+    const E = i.length;
+    i += w, r[k].push(a.length), a.push({ start: E, end: i.length, atomIndex: k }), w.length > 0 && (s = /\s$/.test(w));
   });
-  const o = Vn(s, e);
+  const o = Un(i, e);
   let l = "", c = "";
   const u = [];
   let d = -2, h = "", f = 0;
@@ -1471,118 +1478,118 @@ function Ii(n, e) {
     }
     for (const w of r[b]) {
       const E = a[w];
-      let I = E.start;
-      for (; I < E.end; ) {
+      let R = E.start;
+      for (; R < E.end; ) {
         const A = f < o.length ? o[f] : void 0;
-        if (A && A.start <= I && A.end > I) {
-          const N = A.start === I, ne = A.end > E.end;
+        if (A && A.start <= R && A.end > R) {
+          const N = A.start === R, ae = A.end > E.end;
           if (N) {
             c += A.replacement;
-            for (let D = 0; D < A.replacement.length; D++) u.push(A.start);
-            E.atomIndex === -1 || ne ? (p(), l += M(A.replacement)) : (d !== E.atomIndex && (p(), d = E.atomIndex), h += M(A.replacement));
+            for (let M = 0; M < A.replacement.length; M++) u.push(A.start);
+            E.atomIndex === -1 || ae ? (p(), l += B(A.replacement)) : (d !== E.atomIndex && (p(), d = E.atomIndex), h += B(A.replacement));
           }
-          I = Math.min(A.end, E.end), A.end <= E.end && f++;
+          R = Math.min(A.end, E.end), A.end <= E.end && f++;
           continue;
         }
-        const L = A ? Math.min(A.start, E.end) : E.end, K = s.slice(I, L);
-        c += K;
-        for (let N = 0; N < K.length; N++) u.push(I + N);
-        E.atomIndex === -1 ? (p(), l += M(K)) : (d !== E.atomIndex && (p(), d = E.atomIndex), h += M(K)), I = L;
+        const V = A ? Math.min(A.start, E.end) : E.end, Q = i.slice(R, V);
+        c += Q;
+        for (let N = 0; N < Q.length; N++) u.push(R + N);
+        E.atomIndex === -1 ? (p(), l += B(Q)) : (d !== E.atomIndex && (p(), d = E.atomIndex), h += B(Q)), R = V;
       }
     }
   }
   p();
   let g = 0;
-  for (; g < s.length && /\s/.test(s[g]); ) g++;
-  let v = s.length;
-  for (; v > g && /\s/.test(s[v - 1]); ) v--;
+  for (; g < i.length && /\s/.test(i[g]); ) g++;
+  let v = i.length;
+  for (; v > g && /\s/.test(i[v - 1]); ) v--;
   let S = 0;
   for (; S < c.length && /\s/.test(c[S]); ) S++;
   let m = c.length;
   for (; m > S && /\s/.test(c[m - 1]); ) m--;
-  const C = s.slice(g, v), y = u.slice(S, m).map((b) => Math.min(Math.max(b - g, 0), Math.max(C.length - 1, 0)));
+  const C = i.slice(g, v), y = u.slice(S, m).map((b) => Math.min(Math.max(b - g, 0), Math.max(C.length - 1, 0)));
   return { ssml: l, plain: C, map: y };
 }
-const Un = /<lang xml:lang="([^"]*)">([\s\S]*?)<\/lang>/g;
-function xn(n) {
-  return new RegExp(Un).test(n);
+const zn = /<lang xml:lang="([^"]*)">([\s\S]*?)<\/lang>/g;
+function Bn(n) {
+  return new RegExp(zn).test(n);
 }
-function Wt(n) {
+function Qt(n) {
   return n.replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&").replace(/ {2,}/g, " ");
 }
-const Pi = new RegExp(
-  `\\s+|[${Ce}]+|[${re}]+|[^\\s${Ce}${re}]+`,
+const Vs = new RegExp(
+  `\\s+|[${Re}]+|[${ce}]+|[^\\s${Re}${ce}]+`,
   "gu"
 );
-function _e(n) {
+function Ge(n) {
   const e = [];
-  for (const [t] of n.matchAll(Pi))
-    /^\s/.test(t) ? e.push({ kind: "space" }) : gi(t) ? e.push({ kind: "open", text: t }) : fe(t) ? e.push({ kind: "close", text: t }) : e.push({ kind: "word", text: t });
+  for (const [t] of n.matchAll(Vs))
+    /^\s/.test(t) ? e.push({ kind: "space" }) : ms(t) ? e.push({ kind: "open", text: t }) : me(t) ? e.push({ kind: "close", text: t }) : e.push({ kind: "word", text: t });
   return e;
 }
-function Ai(n) {
+function Os(n) {
   let e = "", t = !1;
-  for (const s of n) {
-    if (s.kind === "space") {
+  for (const i of n) {
+    if (i.kind === "space") {
       e && (t = !0);
       continue;
     }
-    t && (e += " "), e += s.text, t = !1;
+    t && (e += " "), e += i.text, t = !1;
   }
   return e;
 }
-function Li(n) {
+function Ts(n) {
   let e = n.length;
   for (; e > 0 && (n[e - 1].kind === "space" || n[e - 1].kind === "open"); ) e--;
   return n.slice(e).some((t) => t.kind === "open") ? n.splice(e) : [];
 }
-function Oi(n) {
+function xs(n) {
   let e = 0;
   for (; e < n.length && (n[e].kind === "space" || n[e].kind === "close"); ) e++;
   return n.slice(0, e).some((t) => t.kind === "close") ? n.splice(0, e) : [];
 }
-function dt(n, e) {
+function gt(n, e) {
   const t = [];
-  let s = 0;
-  for (const r of n.matchAll(Un))
+  let i = 0;
+  for (const r of n.matchAll(zn))
     t.push({
-      tokens: _e(Wt(n.slice(s, r.index))),
+      tokens: Ge(Qt(n.slice(i, r.index))),
       language: e,
       tagged: !1
-    }), t.push({ tokens: _e(U(r[2])), language: r[1], tagged: !0 }), s = r.index + r[0].length;
+    }), t.push({ tokens: Ge(x(r[2])), language: r[1], tagged: !0 }), i = r.index + r[0].length;
   t.push({
-    tokens: _e(Wt(n.slice(s))),
+    tokens: Ge(Qt(n.slice(i))),
     language: e,
     tagged: !1
   });
   for (let r = 0; r < t.length - 1; r++)
-    !t[r].tagged && t[r + 1].tagged ? t[r + 1].tokens.unshift(...Li(t[r].tokens)) : t[r].tagged && !t[r + 1].tagged && t[r].tokens.push(...Oi(t[r + 1].tokens));
-  const i = [];
+    !t[r].tagged && t[r + 1].tagged ? t[r + 1].tokens.unshift(...Ts(t[r].tokens)) : t[r].tagged && !t[r + 1].tagged && t[r].tokens.push(...xs(t[r + 1].tokens));
+  const s = [];
   let a = 0;
   for (const r of t) {
-    const o = Ai(r.tokens);
-    o && (i.push({ plain: o, language: r.language, start: a, end: a + o.length }), a += o.length);
+    const o = Os(r.tokens);
+    o && (s.push({ plain: o, language: r.language, start: a, end: a + o.length }), a += o.length);
   }
-  return i;
+  return s;
 }
-const Vi = /<readium:[a-zA-Z][\w-]*\s+id="([^"]*)"\s*\/>/g, Ti = /(<lang\b[^>]*>)<sub\s+alias="([^"]*)"\s*>([\s\S]*?)<\/sub><\/lang>|<sub\s+alias="([^"]*)"\s*>([\s\S]*?)<\/sub>/, Nn = new RegExp(`${Vi.source}|${Ti.source}`, "g"), Ui = /[\p{L}\p{N}\p{Pd}]+$/u, xi = /^[\p{L}\p{N}\p{Pd}]+/u;
-function Ni(n) {
-  return Ee(n.replace(/&quot;/g, '"').replace(/&apos;/g, "'"));
+const Us = /<readium:[a-zA-Z][\w-]*\s+id="([^"]*)"\s*\/>/g, Ns = /(<lang\b[^>]*>)<sub\s+alias="([^"]*)"\s*>([\s\S]*?)<\/sub><\/lang>|<sub\s+alias="([^"]*)"\s*>([\s\S]*?)<\/sub>/, jn = new RegExp(`${Us.source}|${Ns.source}`, "g"), zs = /[\p{L}\p{N}\p{Pd}]+$/u, Bs = /^[\p{L}\p{N}\p{Pd}]+/u;
+function js(n) {
+  return Ie(n.replace(/&quot;/g, '"').replace(/&apos;/g, "'"));
 }
-function zi(n) {
-  return new RegExp(Nn).test(n);
+function Ms(n) {
+  return new RegExp(jn).test(n);
 }
-function Mi(n) {
+function Ds(n) {
   const e = [];
   let t = 0;
-  for (const i of n.matchAll(Nn)) {
-    const a = i[1] === void 0, r = i.index + i[0].length, o = a ? n.slice(t, i.index).match(Ui)?.[0] ?? "" : "", l = a ? n.slice(r).match(xi)?.[0] ?? "" : "", c = n.slice(t, i.index - o.length).trim();
+  for (const s of n.matchAll(jn)) {
+    const a = s[1] === void 0, r = s.index + s[0].length, o = a ? n.slice(t, s.index).match(zs)?.[0] ?? "" : "", l = a ? n.slice(r).match(Bs)?.[0] ?? "" : "", c = n.slice(t, s.index - o.length).trim();
     if (c && e.push({ ssml: c }), !a)
-      e.push({ placeholderId: i[1] });
+      e.push({ placeholderId: s[1] });
     else {
-      const u = i[2], d = i[3] ?? i[5], h = i[4] ?? i[6], f = (v) => u ? `${u}${v}</lang>` : v, p = (v) => f(`${o}${v}${l}`);
+      const u = s[2], d = s[3] ?? s[5], h = s[4] ?? s[6], f = (v) => u ? `${u}${v}</lang>` : v, p = (v) => f(`${o}${v}${l}`);
       e.push({ ssml: p(h), abbreviation: "text" });
-      const g = M(Ni(d));
+      const g = B(js(d));
       e.push({
         ssml: p(g),
         abbreviation: "alias",
@@ -1592,11 +1599,11 @@ function Mi(n) {
     }
     t = r + l.length;
   }
-  const s = n.slice(t).trim();
-  return s && e.push({ ssml: s }), e;
+  const i = n.slice(t).trim();
+  return i && e.push({ ssml: i }), e;
 }
-const Bi = 250;
-class Qt {
+const Fs = 250;
+class Wt {
   speechSynthesis;
   speechSynthesisUtterance;
   currentVoice = null;
@@ -1605,15 +1612,13 @@ class Qt {
   currentUtterances = [];
   currentUtteranceIndex = 0;
   playbackState = "idle";
-  events = new ze();
+  events = new je();
   voiceManager = null;
   defaultVoice = null;
-  // Keyed by `${language}:${needsBoundary}` — the boundary requirement rides in the key
-  // so a voice switch that flips it warms/reads a distinct slot instead of a stale one.
-  languageVoiceCache = /* @__PURE__ */ new Map();
+  // Shared by concurrent initialize() calls, e.g. an app's with languages and its navigator's without
+  initializing = null;
   // Languages of utterances' own voices loaded into the manager, even if it still lacks the voice
   loadedOwnVoiceLanguages = /* @__PURE__ */ new Set();
-  warmingLanguages = /* @__PURE__ */ new Map();
   speakGeneration = 0;
   // Enhanced properties for cross-browser compatibility
   resumeInfinityTimer;
@@ -1639,7 +1644,7 @@ class Qt {
   features;
   patches;
   constructor() {
-    if (this.features = ci(), this.patches = Pn(), !this.features.speechSynthesis || !this.features.speechSynthesisUtterance)
+    if (this.features = ds(), this.patches = Ln(), !this.features.speechSynthesis || !this.features.speechSynthesisUtterance)
       throw new Error("Web Speech API is not available in this environment");
     this.speechSynthesis = this.features.speechSynthesis, this.speechSynthesisUtterance = this.features.speechSynthesisUtterance;
   }
@@ -1656,18 +1661,19 @@ class Qt {
     return new this.speechSynthesisUtterance(e);
   }
   async initialize(e = {}) {
-    const { languages: t, maxTimeout: s, interval: i, maxLengthExceeded: a = "warn" } = e;
-    if (this.initialized)
-      return !1;
+    return this.initialized ? !1 : (this.initializing ??= this.load(e).finally(() => {
+      this.initializing = null;
+    }), this.initializing);
+  }
+  async load(e) {
+    const { languages: t, maxTimeout: i, interval: s, maxLengthExceeded: a = "warn" } = e;
     this.maxLengthExceeded = a;
     try {
-      this.voiceManager = await P.initialize({
+      return this.voiceManager = await I.initialize({
         languages: t,
-        maxTimeout: s,
-        interval: i
-      });
-      const r = t || [...navigator.languages || ["en"]];
-      return this.defaultVoice = await this.voiceManager.getDefaultVoice(r, this.voices), this.initialized = !0, !0;
+        maxTimeout: i,
+        interval: s
+      }), this.defaultVoice = await On(t, this.voices), this.initialized = !0, !0;
     } catch (r) {
       return console.error("Failed to initialize WebSpeechEngine:", r), this.initialized = !1, !1;
     }
@@ -1675,86 +1681,40 @@ class Qt {
   // Text length validation matching EasySpeech
   validateText(e) {
     if (new TextEncoder().encode(e).length > 4096) {
-      const s = "Text exceeds max length of 4096 bytes, which may not work with some voices.";
+      const i = "Text exceeds max length of 4096 bytes, which may not work with some voices.";
       switch (this.maxLengthExceeded) {
         case "none":
           break;
         case "error":
-          throw new Error(`WebSpeechEngine: ${s}`);
+          throw new Error(`WebSpeechEngine: ${i}`);
         default:
-          console.warn(`WebSpeechEngine: ${s}`);
+          console.warn(`WebSpeechEngine: ${i}`);
       }
     }
   }
-  getCurrentVoiceForUtterance(e) {
-    return e && typeof e == "object" ? e : typeof e == "string" ? this.voices.find((t) => t.name === e || t.language === e) || null : this.currentVoice || this.defaultVoice;
-  }
-  languageCacheKey(e, t) {
-    return `${e}:${t}`;
-  }
   // By `voiceURI`, as voices of one `name` can differ in quality or language.
-  ownVoice(e) {
-    if (!e.voice) return;
+  findVoice(e) {
     const t = this.voices;
-    return t.find((s) => s.voiceURI === e.voice) ?? t.find((s) => s.name === e.voice);
+    return t.find((i) => i.voiceURI === e) ?? t.find((i) => i.name === e);
+  }
+  ownVoice(e) {
+    return e.voice ? this.findVoice(e.voice) : void 0;
+  }
+  // The language of a voice the browser has, whether or not the manager has loaded it.
+  browserVoiceLanguage(e) {
+    const t = this.speechSynthesis.getVoices();
+    return (t.find((i) => i.voiceURI === e) ?? t.find((i) => i.name === e))?.lang;
   }
   // The language of the utterance's voice when the browser has it but the manager hasn't loaded that language.
   unloadedOwnVoiceLanguage(e) {
     if (!e.voice || this.ownVoice(e)) return;
-    const t = this.speechSynthesis.getVoices(), s = (t.find((i) => i.voiceURI === e.voice) ?? t.find((i) => i.name === e.voice))?.lang;
-    return s && !this.loadedOwnVoiceLanguages.has(s) ? s : void 0;
+    const t = this.browserVoiceLanguage(e.voice);
+    return t && !this.loadedOwnVoiceLanguages.has(t) ? t : void 0;
   }
-  // Returns `undefined` (not a fallback voice) when content.language hasn't
-  // been warmed into languageVoiceCache yet, or its own voice's language loaded — callers must await for it.
-  voiceForUtteranceSync(e) {
-    const t = this.ownVoice(e);
-    if (t)
-      return t;
-    if (this.unloadedOwnVoiceLanguage(e))
-      return;
-    const s = this.getCurrentVoiceForUtterance(this.currentVoice);
-    if (!e.language)
-      return s;
-    const i = T(e.language);
-    if (et(s, i))
-      return s;
-    const a = s?.controls?.boundary !== !1, r = this.languageCacheKey(i, a);
-    if (this.languageVoiceCache.has(r))
-      return this.languageVoiceCache.get(r) ?? s;
-  }
-  // Awaits warming for a not-yet-seen content language rather than falling back
-  // to the wrong-language voice.
+  // The utterance's own voice, loading its language first when needed, else the current voice.
   async voiceForUtterance(e) {
-    const t = this.voiceForUtteranceSync(e);
-    if (t !== void 0)
-      return t;
-    const s = this.unloadedOwnVoiceLanguage(e);
-    if (s) {
-      await P.initialize({ languages: [s] }), this.loadedOwnVoiceLanguages.add(s);
-      const i = this.voiceForUtteranceSync(e);
-      if (i !== void 0) return i;
-    }
-    return await this.warmLanguageVoiceCache([e]), this.voiceForUtteranceSync(e) ?? this.getCurrentVoiceForUtterance(this.currentVoice);
-  }
-  // Dedupes in-flight warms per (language, boundary requirement) so an awaited call and a
-  // fire-and-forget one for the same slot don't redo the work.
-  async warmLanguageVoiceCache(e) {
-    if (!this.voiceManager)
-      return;
-    const t = this.getCurrentVoiceForUtterance(this.currentVoice), s = t?.controls?.boundary !== !1, i = new Set(
-      e.filter((l) => !this.ownVoice(l)).map((l) => l.language).filter((l) => !!l).map((l) => T(l)).filter((l) => !et(t, l)).filter((l) => !this.languageVoiceCache.has(this.languageCacheKey(l, s)))
-    ), a = [...i].filter((l) => this.warmingLanguages.has(this.languageCacheKey(l, s))), o = [...i].filter((l) => !this.warmingLanguages.has(this.languageCacheKey(l, s))).map((l) => {
-      const c = this.languageCacheKey(l, s), u = (async () => {
-        await P.initialize({ languages: [l] });
-        const d = this.voices.filter((g) => An(g, l)), h = ht(d, s), p = (await this.voiceManager.sortVoicesByQuality(h))[0] ?? null;
-        this.languageVoiceCache.set(c, p), p || this.emitEvent({ type: "languagefallback", detail: { language: l, reason: "no-matching-voice" } });
-      })();
-      return this.warmingLanguages.set(c, u.finally(() => this.warmingLanguages.delete(c))), this.warmingLanguages.get(c);
-    });
-    await Promise.all([
-      ...o,
-      ...a.map((l) => this.warmingLanguages.get(this.languageCacheKey(l, s)))
-    ]);
+    const t = this.unloadedOwnVoiceLanguage(e);
+    return t && (await I.initialize({ languages: [t] }), this.loadedOwnVoiceLanguages.add(t)), this.ownVoice(e) ?? this.getCurrentVoice();
   }
   // The default voice until one is set
   getCurrentVoice() {
@@ -1766,32 +1726,32 @@ class Qt {
   toPlainText(e) {
     return e.map((t) => ({
       ...t,
-      plain: t.plain ?? (t.ssml ? U(mi(t.ssml)) : "")
+      plain: t.plain ?? (t.ssml ? x(Ss(t.ssml)) : "")
     }));
   }
   // Queue Management
   loadUtterances(e, t) {
-    this.currentUtterances = this.toPlainText(e), this.currentUtteranceIndex = we(t ?? 0, e.length), this.warmLanguageVoiceCache(this.currentUtterances), this.playbackState = "ready", this.emitEvent({ type: "ready" });
+    this.currentUtterances = this.toPlainText(e), this.currentUtteranceIndex = Ce(t ?? 0, e.length), this.playbackState = "ready", this.emitEvent({ type: "ready" });
   }
   // Voice Configuration
   async setVoice(e) {
     const t = this.currentVoice;
     if (typeof e == "string") {
-      const s = this.voices.find((i) => i.name === e || i.language === e);
-      s ? this.currentVoice = s : console.warn(`Voice "${e}" not found`);
+      const i = this.findVoice(e);
+      i ? this.currentVoice = i : console.warn(`Voice "${e}" not found`);
     } else
       this.currentVoice = e;
-    this.currentVoice?.name !== t?.name && this.scheduleRestartIfSpeaking(), this.voiceManager && this.defaultVoice && this.currentVoice && this.currentVoice.language !== this.defaultVoice.language && (this.defaultVoice = await this.voiceManager.getDefaultVoice([this.currentVoice.language], this.voices));
+    (this.currentVoice && D(this.currentVoice)) !== (t && D(t)) && this.scheduleRestartIfSpeaking();
   }
   // Read from the manager each time, as initializing it with other languages adds theirs
   get voices() {
     return this.voiceManager?.getVoices() ?? [];
   }
-  async getAvailableVoices() {
-    if (this.voiceManager)
-      return this.voices;
+  async getAvailableVoices(e, t) {
     try {
-      return await this.initialize(), this.voices;
+      this.voiceManager || await this.initialize();
+      const i = [...e ?? [], ...(t ?? []).flatMap((s) => this.browserVoiceLanguage(s) ?? [])];
+      return i.length && await I.initialize({ languages: i }), this.voices;
     } catch {
       return [];
     }
@@ -1810,9 +1770,9 @@ class Qt {
     this.patches.isSafari && this.speakGeneration++, this.cancelCurrentSpeech();
     const t = ++this.speakGeneration;
     this.isSpeakingInternal = !0, this.isPausedInternal = !1, this.setState("playing"), this.stopResumeInfinity(), this.currentUtteranceIndex >= this.currentUtterances.length && (this.currentUtteranceIndex = 0);
-    const s = this.lastCancelAt + Bi - Date.now();
-    if (this.patches.isSafari && s > 0) {
-      this.speakNextTask(t, 1, s);
+    const i = this.lastCancelAt + Fs - Date.now();
+    if (this.patches.isSafari && i > 0) {
+      this.speakNextTask(t, 1, i);
       return;
     }
     this.speakCurrentUtterance(t);
@@ -1823,7 +1783,7 @@ class Qt {
     }, 100)), this.patches.isSafari && this.speechSynthesis.speaking && (this.lastCancelAt = Date.now()), this.speechSynthesis.cancel();
   }
   // Safari: `unstartedRetries` is how many more times to speak it if Safari ends it without starting it, as it can right after cancel()
-  speakNextTask(e, t, s = 0) {
+  speakNextTask(e, t, i = 0) {
     setTimeout(() => {
       if (e === this.speakGeneration) {
         if (this.playbackState === "paused") {
@@ -1832,23 +1792,23 @@ class Qt {
         }
         this.playbackState === "playing" && this.speakCurrentUtterance(e, t);
       }
-    }, s);
+    }, i);
   }
   async speakCurrentUtterance(e, t) {
     if (this.currentUtteranceIndex >= this.currentUtterances.length) {
       this.setState("idle"), this.emitEvent({ type: "end" });
       return;
     }
-    const s = this.currentUtterances[this.currentUtteranceIndex], i = s.plain ?? "";
-    this.validateText(i);
-    const a = this.createUtterance(Ln(i)), r = await this.voiceForUtterance(s);
+    const i = this.currentUtterances[this.currentUtteranceIndex], s = i.plain ?? "";
+    this.validateText(s);
+    const a = this.createUtterance(Tn(s)), r = await this.voiceForUtterance(i);
     if (e !== this.speakGeneration)
       return;
     if (this.lacksNativePauseEvents = !1, this.speakingVoice = r, r && this.voiceManager) {
       const l = this.voiceManager.convertToSpeechSynthesisVoice(r);
       l && (a.voice = l, a.lang = l.lang, this.lacksNativePauseEvents = l.name.startsWith("Google") || l.name.startsWith("Chrome OS"));
     }
-    s.language && (a.lang = s.language), a.rate = this.rate, a.pitch = this.pitch, a.volume = this.volume;
+    i.language && (a.lang = i.language), a.rate = this.rate, a.pitch = this.pitch, a.volume = this.volume;
     let o = !1;
     a.onstart = () => {
       if (o = !0, e !== this.speakGeneration) return;
@@ -1908,7 +1868,7 @@ class Qt {
   startResumeInfinity(e) {
     this.shouldUseResumeInfinity() && (this.resumeInfinityTimer = window.setTimeout(() => {
       if (e) {
-        const { paused: s, speaking: i } = this.speechSynthesis, a = i || this.isSpeakingInternal, r = s || this.isPausedInternal;
+        const { paused: i, speaking: s } = this.speechSynthesis, a = s || this.isSpeakingInternal, r = i || this.isPausedInternal;
         a && !r && (this.speechSynthesis.pause(), this.speechSynthesis.resume());
       }
       this.startResumeInfinity(e);
@@ -1928,21 +1888,21 @@ class Qt {
   }
   // Playback Parameters
   setRate(e) {
-    const t = J(e, 0.1, 10, this.rate);
+    const t = Z(e, 0.1, 10, this.rate);
     t !== this.rate && (this.rate = t, this.scheduleRestartIfSpeaking());
   }
   getRate() {
     return this.rate;
   }
   setPitch(e) {
-    const t = J(e, 0, 2, this.pitch);
+    const t = Z(e, 0, 2, this.pitch);
     t !== this.pitch && (this.pitch = t, this.scheduleRestartIfSpeaking());
   }
   getPitch() {
     return this.pitch;
   }
   setVolume(e) {
-    const t = J(e, 0, 1, this.volume);
+    const t = Z(e, 0, 1, this.volume);
     t !== this.volume && (this.volume = t, this.scheduleRestartIfSpeaking());
   }
   getVolume() {
@@ -2004,30 +1964,30 @@ class Qt {
   }
   // Cleanup with comprehensive error handling
   async destroy() {
-    this.stop(), this.stopResumeInfinity(), this.events.clear(), this.currentUtterances = [], this.currentVoice = null, this.speakingVoice = null, this.voiceManager = null, this.defaultVoice = null, this.languageVoiceCache.clear(), this.warmingLanguages.clear(), this.initialized = !1;
+    this.stop(), this.stopResumeInfinity(), this.events.clear(), this.currentUtterances = [], this.currentVoice = null, this.speakingVoice = null, this.voiceManager = null, this.defaultVoice = null, this.initialized = !1;
   }
 }
-class Ar {
+class Vr {
   id = "webspeech";
   name = "Web Speech API";
   voiceEngine = null;
   // No cache to bypass here — local API, no network cost to re-checking.
   async getVoices() {
-    return this.voiceEngine || (this.voiceEngine = new Qt(), await this.voiceEngine.initialize()), this.voiceEngine.getAvailableVoices();
+    return this.voiceEngine || (this.voiceEngine = new Wt(), await this.voiceEngine.initialize()), this.voiceEngine.getAvailableVoices();
   }
   async createEngine(e) {
-    const t = new Qt();
+    const t = new Wt();
     return await t.initialize(), e && await t.setVoice(e), t;
   }
   async destroy() {
     this.voiceEngine && (await this.voiceEngine.destroy(), this.voiceEngine = null);
   }
 }
-function zn(n, e) {
+function Mn(n, e) {
   const t = [];
-  let s = -1, i = -1;
+  let i = -1, s = -1;
   const a = () => {
-    s !== -1 && (t.push({ text: Di(n, s, i), offset: n[s].offset }), s = -1, i = -1);
+    i !== -1 && (t.push({ text: _s(n, i, s), offset: n[i].offset }), i = -1, s = -1);
   };
   for (let r = 0; r < n.length; r++) {
     const o = n[r];
@@ -2035,54 +1995,54 @@ function zn(n, e) {
       a(), t.push({ text: o.text, offset: o.offset });
       continue;
     }
-    const l = o.offset + o.text.length, c = s === -1 ? o.text.length : l - n[s].offset;
-    s !== -1 && c > e && a(), s === -1 && (s = r), i = r;
+    const l = o.offset + o.text.length, c = i === -1 ? o.text.length : l - n[i].offset;
+    i !== -1 && c > e && a(), i === -1 && (i = r), s = r;
   }
   return a(), t;
 }
-function Di(n, e, t) {
-  const s = n[e], i = n[t];
-  return s === i ? s.text : n.slice(e, t + 1).map((a) => a.text).join("");
+function _s(n, e, t) {
+  const i = n[e], s = n[t];
+  return i === s ? i.text : n.slice(e, t + 1).map((a) => a.text).join("");
 }
-const Mn = new RegExp(
-  `[^${re}]*[${re}]+\\s*|[^${re}]+$`,
+const Dn = new RegExp(
+  `[^${ce}]*[${ce}]+\\s*|[^${ce}]+$`,
   "gu"
-), ji = /\S+\s*|\s+/g;
-function gt(n, e, t) {
-  const s = [];
-  for (const i of n.matchAll(t))
-    i[0].length !== 0 && s.push({ text: i[0], offset: e + i.index, atomic: !1 });
-  return s;
+), $s = /\S+\s*|\s+/g;
+function ft(n, e, t) {
+  const i = [];
+  for (const s of n.matchAll(t))
+    s[0].length !== 0 && i.push({ text: s[0], offset: e + s.index, atomic: !1 });
+  return i;
 }
-function ft(n, e) {
+function pt(n, e) {
   if (n.text.length <= e || n.atomic)
     return [n];
-  const t = gt(n.text, n.offset, ji);
+  const t = ft(n.text, n.offset, $s);
   if (t.length > 1)
-    return t.flatMap((r) => ft(r, e));
-  const s = [];
-  let i = n.offset, a = "";
+    return t.flatMap((r) => pt(r, e));
+  const i = [];
+  let s = n.offset, a = "";
   for (const r of n.text)
-    a.length > 0 && a.length + r.length > e && (s.push({ text: a, offset: i, atomic: !1 }), i += a.length, a = ""), a += r;
-  return a.length > 0 && s.push({ text: a, offset: i, atomic: !1 }), s;
+    a.length > 0 && a.length + r.length > e && (i.push({ text: a, offset: s, atomic: !1 }), s += a.length, a = ""), a += r;
+  return a.length > 0 && i.push({ text: a, offset: s, atomic: !1 }), i;
 }
-function Fi(n, e) {
+function Gs(n, e) {
   if (n.length <= e)
     return [{ text: n, offset: 0 }];
-  const s = gt(n, 0, Mn).flatMap((i) => ft(i, e));
-  return zn(s, e);
+  const i = ft(n, 0, Dn).flatMap((s) => pt(s, e));
+  return Mn(i, e);
 }
-const _i = /<([a-zA-Z][\w-]*)\b[^>]*>[\s\S]*?<\/\1>|<[a-zA-Z][\w-]*\b[^>]*\/>|[^<]+/g;
-function $i(n, e) {
+const qs = /<([a-zA-Z][\w-]*)\b[^>]*>[\s\S]*?<\/\1>|<[a-zA-Z][\w-]*\b[^>]*\/>|[^<]+/g;
+function Hs(n, e) {
   if (n.length <= e)
     return [{ text: n, offset: 0 }];
   const t = [];
-  for (const i of n.matchAll(_i))
-    i[0][0] === "<" ? t.push({ text: i[0], offset: i.index, atomic: !0 }) : t.push(...gt(i[0], i.index, Mn));
-  const s = t.flatMap((i) => ft(i, e));
-  return zn(s, e);
+  for (const s of n.matchAll(qs))
+    s[0][0] === "<" ? t.push({ text: s[0], offset: s.index, atomic: !0 }) : t.push(...ft(s[0], s.index, Dn));
+  const i = t.flatMap((s) => pt(s, e));
+  return Mn(i, e);
 }
-const qi = {
+const Ks = {
   wav: "audio/wav",
   mp3: "audio/mpeg",
   opus: "audio/ogg",
@@ -2092,31 +2052,31 @@ const qi = {
   webm: "audio/webm",
   m4a: "audio/mp4"
 };
-function Gi(n) {
-  return qi[n] ?? `audio/${n}`;
+function Qs(n) {
+  return Ks[n] ?? `audio/${n}`;
 }
-const Hi = ["flac", "wav", "opus", "aac", "ogg", "webm", "mp3"], Ki = ["opus", "aac", "webm", "ogg", "mp3", "wav", "flac"];
-function Wi(n, e, t) {
-  const s = (o) => t(Gi(o)) !== "", i = n.formats.filter(s);
-  if (e.preferredFormat && i.includes(e.preferredFormat))
+const Ws = ["flac", "wav", "opus", "aac", "ogg", "webm", "mp3"], Js = ["opus", "aac", "webm", "ogg", "mp3", "wav", "flac"];
+function Zs(n, e, t) {
+  const i = (o) => t(Qs(o)) !== "", s = n.formats.filter(i);
+  if (e.preferredFormat && s.includes(e.preferredFormat))
     return e.preferredFormat;
-  const a = e.strategy === "bandwidth" ? Ki : Hi, r = [...a, ...i.filter((o) => !a.includes(o))];
+  const a = e.strategy === "bandwidth" ? Js : Ws, r = [...a, ...s.filter((o) => !a.includes(o))];
   for (const o of r)
-    if (i.includes(o))
+    if (s.includes(o))
       return o;
   return n.default;
 }
-const Qi = /* @__PURE__ */ new Set(["wav", "flac"]), Ji = {
+const Xs = /* @__PURE__ */ new Set(["wav", "flac"]), Ys = {
   mp3: 48e3,
   opus: 24e3,
   aac: 48e3,
   ogg: 48e3,
   webm: 32e3
 };
-function Zi(n, e, t) {
-  return Qi.has(n) || !e || !t ? void 0 : t.saveData === !0 || /2g/.test(t.effectiveType ?? "") ? Ji[n] : void 0;
+function ea(n, e, t) {
+  return Xs.has(n) || !e || !t ? void 0 : t.saveData === !0 || /2g/.test(t.effectiveType ?? "") ? Ys[n] : void 0;
 }
-function Bn(n, e) {
+function Fn(n, e) {
   return {
     source: "server",
     label: n.name,
@@ -2131,7 +2091,7 @@ function Bn(n, e) {
     controls: e
   };
 }
-class ue extends Error {
+class ge extends Error {
   status;
   type;
   title;
@@ -2140,26 +2100,26 @@ class ue extends Error {
     super(e), this.name = "SpeechServerError", this.status = t.status, this.type = t.type, this.title = t.title, this.instance = t.instance;
   }
 }
-class Dn extends ue {
+class _n extends ge {
   constructor(e) {
     super(e, { status: 408, type: "https://readium.org/speech-server/error#stall", title: "Synthesis Stalled" }), this.name = "SpeechServerStallError";
   }
 }
-class jn extends Error {
+class $n extends Error {
   constructor(e) {
     super(e), this.name = "SpeechServerAudioDecodeError";
   }
 }
-class Fn extends Error {
+class Gn extends Error {
   constructor(e) {
     super(e), this.name = "SpeechServerNetworkError";
   }
 }
-async function oe(n) {
+async function ue(n) {
   if ((n.headers.get("content-type") ?? "").includes("application/problem+json"))
     try {
       const t = await n.json();
-      return new ue(t.detail || t.title || `Request failed with status ${n.status}`, {
+      return new ge(t.detail || t.title || `Request failed with status ${n.status}`, {
         status: t.status ?? n.status,
         type: t.type,
         title: t.title,
@@ -2167,25 +2127,25 @@ async function oe(n) {
       });
     } catch {
     }
-  return new ue(`Request failed with status ${n.status}`, { status: n.status });
+  return new ge(`Request failed with status ${n.status}`, { status: n.status });
 }
-const Xi = 3, Yi = 400;
-function ea(n) {
+const ta = 3, na = 400;
+function ia(n) {
   const e = atob(n), t = new Uint8Array(e.length);
-  for (let s = 0; s < e.length; s++)
-    t[s] = e.charCodeAt(s);
+  for (let i = 0; i < e.length; i++)
+    t[i] = e.charCodeAt(i);
   return t.buffer;
 }
-function ta(n) {
-  return J(n, 0.25, 4, 1);
+function sa(n) {
+  return Z(n, 0.25, 4, 1);
 }
-function ve(n) {
+function Se(n) {
   return n?.plain ?? n?.ssml ?? void 0;
 }
 function Jt(n) {
-  return n instanceof Dn ? { message: n.message, status: n.status, type: n.type, title: n.title, instance: n.instance, recoverable: !0 } : n instanceof ue ? { message: n.message, status: n.status, type: n.type, title: n.title, instance: n.instance, recoverable: !1 } : n instanceof jn ? { message: n.message, recoverable: !1 } : n instanceof Fn ? { message: n.message, recoverable: !0 } : n instanceof Error ? { message: n.message, recoverable: !1 } : { message: String(n), recoverable: !1 };
+  return n instanceof _n ? { message: n.message, status: n.status, type: n.type, title: n.title, instance: n.instance, recoverable: !0 } : n instanceof ge ? { message: n.message, status: n.status, type: n.type, title: n.title, instance: n.instance, recoverable: !1 } : n instanceof $n ? { message: n.message, recoverable: !1 } : n instanceof Gn ? { message: n.message, recoverable: !0 } : n instanceof Error ? { message: n.message, recoverable: !1 } : { message: String(n), recoverable: !1 };
 }
-class na {
+class aa {
   endpoints;
   fetchImpl;
   currentVoice = null;
@@ -2193,14 +2153,12 @@ class na {
   voices = [];
   voicesRequest = null;
   initializing = null;
-  // Keyed by `${language}:${needsBoundary}`, like WebSpeechEngine's, and holding the pick so concurrent prefetches share it
-  languageVoiceCache = /* @__PURE__ */ new Map();
   serviceInfo = null;
   serviceInfoPromise = null;
   currentUtterances = [];
   currentUtteranceIndex = 0;
   playbackState = "idle";
-  events = new ze();
+  events = new je();
   speakGeneration = 0;
   loadGeneration = 0;
   // Rolling buffer of upcoming utterances' audio, fetched one at a time via prefetchChainTail.
@@ -2229,17 +2187,17 @@ class na {
   pitch = 1;
   volume = 1;
   constructor(e) {
-    this.endpoints = e.endpoints, this.fetchImpl = e.fetch ?? fetch.bind(globalThis), this.prefetchWindow = e.prefetchWindow ?? Xi, this.readyBufferChars = e.readyBufferChars ?? Yi, this.overLengthText = e.overLengthText ?? "split", this.timeoutMs = e.timeoutMs, this.formatOptions = e.format ?? {}, this.canPlayType = typeof Audio < "u" ? (t) => new Audio().canPlayType(t) : () => "";
+    this.endpoints = e.endpoints, this.fetchImpl = e.fetch ?? fetch.bind(globalThis), this.prefetchWindow = e.prefetchWindow ?? ta, this.readyBufferChars = e.readyBufferChars ?? na, this.overLengthText = e.overLengthText ?? "split", this.timeoutMs = e.timeoutMs, this.formatOptions = e.format ?? {}, this.canPlayType = typeof Audio < "u" ? (t) => new Audio().canPlayType(t) : () => "";
   }
   // Lets a provider that already fetched /voices seed this engine without a second request.
   setAvailableVoices(e) {
-    this.voices = e, this.voicesRequest = null, this.languageVoiceCache.clear();
+    this.voices = e, this.voicesRequest = null;
   }
-  // Fetches the voices, and picks the default one by the browser's languages, as WebSpeechEngine does
+  // Fetches the voices, and picks the default one by navigator.languages, as WebSpeechEngine does without languages
   async initialize() {
     this.initializing = (async () => {
-      const e = await this.getAvailableVoices(), t = typeof navigator < "u" && navigator.languages?.length ? [...navigator.languages] : ["en"];
-      return this.defaultVoice = (await Rn(t, e))[0] ?? null, !0;
+      const e = await this.getAvailableVoices();
+      return this.defaultVoice = await On(void 0, e), !0;
     })();
     try {
       return await this.initializing;
@@ -2252,25 +2210,25 @@ class na {
   async fetchNetwork(e, t) {
     try {
       return await this.fetchImpl(e, t);
-    } catch (s) {
-      throw s instanceof TypeError ? new Fn(s.message) : s;
+    } catch (i) {
+      throw i instanceof TypeError ? new Gn(i.message) : i;
     }
   }
   loadUtterances(e, t) {
-    this.abortLiveControllers(), this.clearPrefetchCache(), this.currentUtterances = e, this.currentUtteranceIndex = we(t ?? 0, e.length), this.setState("loading"), this.bufferUntilReady(++this.loadGeneration);
+    this.abortLiveControllers(), this.clearPrefetchCache(), this.currentUtterances = e, this.currentUtteranceIndex = Ce(t ?? 0, e.length), this.setState("loading"), this.bufferUntilReady(++this.loadGeneration);
   }
   // Buffers enough utterances ahead of currentUtteranceIndex to cover readyBufferChars before
   // declaring "ready", so playback doesn't catch up to an empty prefetch cache right away —
   // starting from wherever playback will actually resume, not always utterance 0.
   async bufferUntilReady(e) {
-    const t = we(this.currentUtteranceIndex, this.currentUtterances.length), s = Math.min(this.indexCoveringChars(this.readyBufferChars, t), t + this.prefetchWindow), i = [];
-    for (let a = t; a <= s; a++) {
+    const t = Ce(this.currentUtteranceIndex, this.currentUtterances.length), i = Math.min(this.indexCoveringChars(this.readyBufferChars, t), t + this.prefetchWindow), s = [];
+    for (let a = t; a <= i; a++) {
       this.queuePrefetch(a);
       const r = this.prefetchCache.get(a);
-      r && i.push(r.then((o) => o[0].promise));
+      r && s.push(r.then((o) => o[0].promise));
     }
     try {
-      await Promise.all(i);
+      await Promise.all(s);
     } catch {
     }
     e !== this.loadGeneration || this.playbackState !== "loading" || this.setState("ready");
@@ -2278,46 +2236,33 @@ class na {
   indexCoveringChars(e, t) {
     if (this.currentUtterances.length === 0)
       return -1;
-    const s = we(t, this.currentUtterances.length);
-    let i = 0;
-    for (let a = s; a < this.currentUtterances.length; a++)
-      if (i += (ve(this.currentUtterances[a]) ?? "").length, i >= e)
+    const i = Ce(t, this.currentUtterances.length);
+    let s = 0;
+    for (let a = i; a < this.currentUtterances.length; a++)
+      if (s += (Se(this.currentUtterances[a]) ?? "").length, s >= e)
         return a;
     return this.currentUtterances.length - 1;
   }
-  // The utterance's own voice when this server has it, else one speaking its language, as on WebSpeechEngine.
+  // The utterance's own voice when this server has it, else the current voice.
   async voiceFor(e) {
-    this.voices.length === 0 && await (this.initializing ?? this.getAvailableVoices()).catch(() => {
-    });
-    const t = e?.voice ? this.voices.find((l) => l.identifier === e.voice || l.name === e.voice) : void 0;
-    if (t)
-      return t;
-    const s = this.currentVoice ?? this.defaultVoice;
-    if (!e?.language || this.voices.length === 0 || et(s, e.language))
-      return s;
-    const i = T(e.language), a = s?.controls?.boundary !== !1, r = `${i}:${a}`;
-    let o = this.languageVoiceCache.get(r);
-    return o || (o = this.pickLanguageVoice(i, a), this.languageVoiceCache.set(r, o)), await o ?? s;
-  }
-  async pickLanguageVoice(e, t) {
-    const s = this.voices.filter((a) => An(a, e)), i = s.length > 0 ? await In(e, ht(s, t)) : null;
-    return i || this.emitEvent({ type: "languagefallback", detail: { language: e, reason: "no-matching-voice" } }), i;
+    return this.voices.length === 0 && await (this.initializing ?? this.getAvailableVoices()).catch(() => {
+    }), (e?.voice ? this.voices.find((i) => i.identifier === e.voice || i.name === e.voice) : void 0) ?? this.currentVoice ?? this.defaultVoice;
   }
   setVoice(e) {
     const t = this.currentVoice?.identifier ?? this.currentVoice?.name;
     if (typeof e == "string") {
-      const s = this.voices.find((i) => i.identifier === e || i.name === e);
-      s ? this.currentVoice = s : (this.currentVoice = {
+      const i = this.voices.find((s) => s.identifier === e || s.name === e);
+      i ? this.currentVoice = i : (this.currentVoice = {
         source: "server",
         label: e,
         name: e,
         originalName: e,
         language: "",
         identifier: e
-      }, this.getAvailableVoices().then((i) => {
+      }, this.getAvailableVoices().then((s) => {
         if (this.currentVoice?.identifier !== e)
           return;
-        const a = i.find((r) => r.identifier === e || r.name === e);
+        const a = s.find((r) => r.identifier === e || r.name === e);
         a && (this.currentVoice = a, (a.identifier !== e || a.controls?.speed === !0) && (this.clearPrefetchCache(), this.scheduleRestartIfSpeaking()));
       }).catch(() => {
       }));
@@ -2337,9 +2282,9 @@ class na {
   async fetchVoices() {
     const [e, t] = await Promise.all([this.fetchNetwork(this.endpoints.voices), this.getServiceInfo()]);
     if (!e.ok)
-      throw await oe(e);
-    const s = await e.json(), i = new Map(t.providers.map((a) => [a.id, a.controls]));
-    return this.voices = s.map((a) => Bn(a, i.get(a.provider))), this.voices;
+      throw await ue(e);
+    const i = await e.json(), s = new Map(t.providers.map((a) => [a.id, a.controls]));
+    return this.voices = i.map((a) => Fn(a, s.get(a.provider))), this.voices;
   }
   // Cached after the first successful fetch; a failed fetch isn't cached, so the next
   // synthesize() call retries rather than being stuck on a transient network error.
@@ -2351,7 +2296,7 @@ class na {
   async fetchServiceInfo() {
     const e = await this.fetchNetwork(this.endpoints.service);
     if (!e.ok)
-      throw await oe(e);
+      throw await ue(e);
     return e.json();
   }
   speak(e) {
@@ -2371,19 +2316,19 @@ class na {
   async synthesizeAndPlay(e) {
     const t = this.currentUtteranceIndex;
     try {
-      const s = await this.resolveSynthesisStream(t);
+      const i = await this.resolveSynthesisStream(t);
       if (e !== this.speakGeneration)
         return;
-      const i = await this.voiceFor(this.currentUtterances[t]);
+      const s = await this.voiceFor(this.currentUtterances[t]);
       if (e !== this.speakGeneration)
         return;
-      await this.scheduleChunksStreaming(s, e, i), this.fillPrefetchWindow(t);
-    } catch (s) {
+      await this.scheduleChunksStreaming(i, e, s), this.fillPrefetchWindow(t);
+    } catch (i) {
       if (e !== this.speakGeneration)
         return;
       this.isSpeakingInternal = !1, this.setState("idle"), this.emitEvent({
         type: "error",
-        detail: Jt(s)
+        detail: Jt(i)
       });
     }
   }
@@ -2394,10 +2339,10 @@ class na {
     if (t) {
       this.prefetchCache.delete(e);
       try {
-        const s = await t;
-        for (const { controller: i } of s)
-          this.activeControllers.delete(i), this.liveControllers.add(i);
-        return s;
+        const i = await t;
+        for (const { controller: s } of i)
+          this.activeControllers.delete(s), this.liveControllers.add(s);
+        return i;
       } catch {
       }
     }
@@ -2406,20 +2351,20 @@ class na {
   // Chains up to `prefetchWindow` upcoming indices onto prefetchChainTail, one at a time.
   fillPrefetchWindow(e) {
     const t = Math.min(e + this.prefetchWindow, this.currentUtterances.length - 1);
-    for (let s = e + 1; s <= t; s++)
-      this.queuePrefetch(s);
+    for (let i = e + 1; i <= t; i++)
+      this.queuePrefetch(i);
   }
   queuePrefetch(e) {
     if (this.prefetchCache.has(e))
       return;
     const t = this.prefetchChainTail.then(() => this.synthesizeStream(e, !0));
-    this.prefetchCache.set(e, t), this.prefetchChainTail = t.then((s) => Promise.all(s.map((i) => i.promise))).then(
+    this.prefetchCache.set(e, t), this.prefetchChainTail = t.then((i) => Promise.all(i.map((s) => s.promise))).then(
       () => {
       },
       () => {
       }
     ), t.catch(() => {
-    }), t.then((s) => s.forEach((i) => i.promise.catch(() => {
+    }), t.then((i) => i.forEach((s) => s.promise.catch(() => {
     }))).catch(() => {
     });
   }
@@ -2430,16 +2375,16 @@ class na {
     this.liveControllers.forEach((e) => e.abort()), this.liveControllers.clear();
   }
   async synthesizeStream(e, t) {
-    const s = this.currentUtterances[e], i = !s.plain && !!s.ssml, a = s.language, r = ve(s) ?? "", o = i ? On(r).map : void 0, l = ve(this.currentUtterances[e - 1]), c = ve(this.currentUtterances[e + 1]), u = await this.getServiceInfo(), d = Wi(u.output, this.formatOptions, this.canPlayType), h = navigator.connection, f = Zi(d, this.formatOptions.adaptBitrateToNetwork ?? !1, h);
+    const i = this.currentUtterances[e], s = !i.plain && !!i.ssml, a = i.language, r = Se(i) ?? "", o = s ? xn(r).map : void 0, l = Se(this.currentUtterances[e - 1]), c = Se(this.currentUtterances[e + 1]), u = await this.getServiceInfo(), d = Zs(u.output, this.formatOptions, this.canPlayType), h = navigator.connection, f = ea(d, this.formatOptions.adaptBitrateToNetwork ?? !1, h);
     if (r.length <= u.limits.maxTextLength) {
       const m = new AbortController();
       return (t ? this.activeControllers : this.liveControllers).add(m), [{
-        promise: this.synthesizeChunk({ content: s, text: r, textOffset: 0, useSSML: i, ssmlMap: o, language: a, prevText: l, nextText: c, format: d, bitrate: f, controller: m }),
+        promise: this.synthesizeChunk({ content: i, text: r, textOffset: 0, useSSML: s, ssmlMap: o, language: a, prevText: l, nextText: c, format: d, bitrate: f, controller: m }),
         controller: m
       }];
     }
     if (this.overLengthText === "error")
-      throw new ue(
+      throw new ge(
         `Text exceeds this server's maximum length of ${u.limits.maxTextLength} characters`,
         {
           status: 413,
@@ -2447,27 +2392,27 @@ class na {
           title: "Payload Too Large"
         }
       );
-    const p = Math.min(u.limits.maxTextLength, this.readyBufferChars), g = i ? $i(r, p) : Fi(r, p), v = [];
+    const p = Math.min(u.limits.maxTextLength, this.readyBufferChars), g = s ? Hs(r, p) : Gs(r, p), v = [];
     let S = Promise.resolve();
     for (let m = 0; m < g.length; m++) {
       const C = m === 0 ? l : g[m - 1].text, y = m === g.length - 1 ? c : g[m + 1].text, b = g[m], k = new AbortController();
       (t ? this.activeControllers : this.liveControllers).add(k);
       const w = S.then(
-        () => this.synthesizeChunk({ content: s, text: b.text, textOffset: b.offset, useSSML: i, ssmlMap: o, language: a, prevText: C, nextText: y, format: d, bitrate: f, controller: k })
+        () => this.synthesizeChunk({ content: i, text: b.text, textOffset: b.offset, useSSML: s, ssmlMap: o, language: a, prevText: C, nextText: y, format: d, bitrate: f, controller: k })
       );
       v.push({ promise: w, controller: k }), S = w;
     }
     return v;
   }
   async synthesizeChunk(e) {
-    const { content: t, text: s, textOffset: i, useSSML: a, ssmlMap: r, language: o, prevText: l, nextText: c, format: u, bitrate: d, controller: h } = e;
+    const { content: t, text: i, textOffset: s, useSSML: a, ssmlMap: r, language: o, prevText: l, nextText: c, format: u, bitrate: d, controller: h } = e;
     try {
       const f = await this.voiceFor(t), p = await this.fetchNetwork(this.endpoints.synthesize, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: t.id,
-          text: a ? s : Ln(s),
+          text: a ? i : Tn(i),
           ssml: a,
           language: o,
           voice: f?.identifier ?? f?.name,
@@ -2479,15 +2424,15 @@ class na {
         signal: h.signal
       });
       if (!p.ok)
-        throw await oe(p);
-      const g = await p.json(), v = ea(g.audio);
+        throw await ue(p);
+      const g = await p.json(), v = ia(g.audio);
       let S;
       try {
         S = await this.ensureAudioContext().decodeAudioData(v);
       } catch {
-        throw new jn("Audio playback failed");
+        throw new $n("Audio playback failed");
       }
-      return { audioBuffer: S, format: g.format, boundaries: g.boundaries, textOffset: i, ssmlMap: r };
+      return { audioBuffer: S, format: g.format, boundaries: g.boundaries, textOffset: s, ssmlMap: r };
     } finally {
       this.activeControllers.delete(h), this.liveControllers.delete(h);
     }
@@ -2500,14 +2445,14 @@ class na {
   }
   // Races a chunk against bufferedAheadMs + timeoutMs rather than a flat per-request timeout,
   // since a slow chunk is harmless as long as buffered audio still covers it.
-  awaitWithStallDeadline(e, t, s) {
+  awaitWithStallDeadline(e, t, i) {
     if (this.timeoutMs === void 0)
       return e;
-    const i = s + this.timeoutMs;
+    const s = i + this.timeoutMs;
     return new Promise((a, r) => {
       const o = setTimeout(() => {
-        t.abort(), r(new Dn(`No audio chunk arrived within ${i.toFixed(0)}ms of the playback buffer running dry`));
-      }, i);
+        t.abort(), r(new _n(`No audio chunk arrived within ${s.toFixed(0)}ms of the playback buffer running dry`));
+      }, s);
       e.then(
         (l) => {
           clearTimeout(o), a(l);
@@ -2519,18 +2464,18 @@ class na {
     });
   }
   // Schedules chunks onto one continuous AudioContext timeline as they resolve.
-  async scheduleChunksStreaming(e, t, s) {
-    const i = await this.awaitWithStallDeadline(e[0].promise, e[0].controller, 0);
+  async scheduleChunksStreaming(e, t, i) {
+    const s = await this.awaitWithStallDeadline(e[0].promise, e[0].controller, 0);
     if (t !== this.speakGeneration)
       return;
-    const a = this.ensureAudioContext(), r = this.masterGain, l = s?.controls?.speed === !0 ? 1 : ta(this.rate);
-    this.scheduledChunks = [], this.setState("playing"), this.emitEvent({ type: "start", detail: { voice: s } });
+    const a = this.ensureAudioContext(), r = this.masterGain, l = i?.controls?.speed === !0 ? 1 : sa(this.rate);
+    this.scheduledChunks = [], this.setState("playing"), this.emitEvent({ type: "start", detail: { voice: i } });
     let c = a.currentTime, u = null;
     const d = (h) => {
       const f = a.createBufferSource();
       f.buffer = h.audioBuffer, f.playbackRate.value = l, f.connect(r), f.start(c), u && (u.onended = null), f.onended = () => this.handleUtteranceEnded(t), u = f, this.scheduledChunks.push({ chunk: h, startTime: c, node: f, nextBoundaryIndex: 0, rate: l }), c += h.audioBuffer.duration / l;
     };
-    d(i), this.startBoundaryPolling(t);
+    d(s), this.startBoundaryPolling(t);
     for (let h = 1; h < e.length; h++) {
       let f;
       try {
@@ -2562,21 +2507,21 @@ class na {
       return;
     const e = this.audioContext.currentTime;
     for (const t of this.scheduledChunks) {
-      const s = t.chunk.boundaries ?? [];
-      for (; t.nextBoundaryIndex < s.length && e >= t.startTime + s[t.nextBoundaryIndex].elapsedTime / t.rate; ) {
-        const i = s[t.nextBoundaryIndex], a = i.charIndex + t.chunk.textOffset;
-        let r = a, o = i.charLength;
+      const i = t.chunk.boundaries ?? [];
+      for (; t.nextBoundaryIndex < i.length && e >= t.startTime + i[t.nextBoundaryIndex].elapsedTime / t.rate; ) {
+        const s = i[t.nextBoundaryIndex], a = s.charIndex + t.chunk.textOffset;
+        let r = a, o = s.charLength;
         if (t.chunk.ssmlMap) {
           const l = t.chunk.ssmlMap;
-          r = Gt(l, a), o = Math.max(0, Gt(l, a + i.charLength) - r);
+          r = qt(l, a), o = Math.max(0, qt(l, a + s.charLength) - r);
         }
         this.emitEvent({
           type: "boundary",
           detail: {
-            name: i.name,
+            name: s.name,
             charIndex: r,
             charLength: o,
-            elapsedTime: i.elapsedTime
+            elapsedTime: s.elapsedTime
           }
         }), t.nextBoundaryIndex++;
       }
@@ -2612,21 +2557,21 @@ class na {
     this.speakGeneration++, this.loadGeneration++, this.stopAudio(), this.abortLiveControllers(), this.clearPrefetchCache(), this.isSpeakingInternal = !1, this.restartOnResume = !1, this.currentUtteranceIndex = 0, this.setState("idle"), this.emitEvent({ type: "stop" });
   }
   setRate(e) {
-    const t = J(e, 0.1, 10, this.rate);
+    const t = Z(e, 0.1, 10, this.rate);
     t !== this.rate && (this.rate = t, this.clearPrefetchCache(), this.scheduleRestartIfSpeaking());
   }
   getRate() {
     return this.rate;
   }
   setPitch(e) {
-    const t = J(e, 0, 2, this.pitch);
+    const t = Z(e, 0, 2, this.pitch);
     t !== this.pitch && (this.pitch = t, this.clearPrefetchCache(), this.scheduleRestartIfSpeaking());
   }
   getPitch() {
     return this.pitch;
   }
   setVolume(e) {
-    const t = J(e, 0, 1, this.volume);
+    const t = Z(e, 0, 1, this.volume);
     t !== this.volume && (this.volume = t, this.masterGain && (this.masterGain.gain.value = this.volume));
   }
   getVolume() {
@@ -2685,10 +2630,10 @@ class na {
       }
   }
   async destroy() {
-    this.stop(), await this.audioContext?.close(), this.audioContext = null, this.masterGain = null, this.events.clear(), this.currentUtterances = [], this.currentVoice = null, this.defaultVoice = null, this.voices = [], this.voicesRequest = null, this.languageVoiceCache.clear();
+    this.stop(), await this.audioContext?.close(), this.audioContext = null, this.masterGain = null, this.events.clear(), this.currentUtterances = [], this.currentVoice = null, this.defaultVoice = null, this.voices = [], this.voicesRequest = null;
   }
 }
-class Lr {
+class Or {
   id = "speech-server";
   name = "Readium Speech Server";
   options;
@@ -2700,29 +2645,29 @@ class Lr {
   async getVoices(e) {
     if (this.voices.length > 0 && !e)
       return this.voices;
-    const [t, s] = await Promise.all([
+    const [t, i] = await Promise.all([
       this.fetchImpl(this.options.endpoints.voices),
       this.fetchImpl(this.options.endpoints.service)
     ]);
     if (!t.ok)
-      throw await oe(t);
-    if (!s.ok)
-      throw await oe(s);
-    const i = await t.json(), a = await s.json(), r = new Map(a.providers.map((o) => [o.id, o.controls]));
-    return this.voices = i.map((o) => Bn(o, r.get(o.provider))), this.voices;
+      throw await ue(t);
+    if (!i.ok)
+      throw await ue(i);
+    const s = await t.json(), a = await i.json(), r = new Map(a.providers.map((o) => [o.id, o.controls]));
+    return this.voices = s.map((o) => Fn(o, r.get(o.provider))), this.voices;
   }
   async createEngine(e) {
-    const t = new na(this.options);
+    const t = new aa(this.options);
     return this.voices.length > 0 && t.setAvailableVoices(this.voices), e && t.setVoice(e), t;
   }
   async destroy() {
     this.voices = [];
   }
 }
-function sa(n) {
+function ra(n) {
   return n.detail?.recoverable === !0;
 }
-const ia = 3e4, aa = [
+const oa = 3e4, la = [
   "start",
   "pause",
   "resume",
@@ -2734,10 +2679,9 @@ const ia = 3e4, aa = [
   "idle",
   "loading",
   "ready",
-  "voiceschanged",
-  "languagefallback"
+  "voiceschanged"
 ];
-class ra {
+class ca {
   activeEngine;
   primaryProvider;
   fallbackProvider;
@@ -2769,10 +2713,10 @@ class ra {
   teardownEpoch = 0;
   // Bumped by every loadUtterances() call, so startEngineWhenReady() can tell its queue is stale.
   loadToken = 0;
-  events = new ze();
+  events = new je();
   unbindActiveEngine = null;
   constructor(e) {
-    this.activeEngine = e.primaryEngine, this.primaryProvider = e.primaryProvider, this.fallbackProvider = e.fallbackProvider, this.onFailure = e.onFailure ?? "fallback", this.healthCheckIntervalMs = e.healthCheckIntervalMs ?? ia, this.lastVoiceRequest = e.primaryEngine.getCurrentVoice() ?? void 0, this.bindActiveEngine();
+    this.activeEngine = e.primaryEngine, this.primaryProvider = e.primaryProvider, this.fallbackProvider = e.fallbackProvider, this.onFailure = e.onFailure ?? "fallback", this.healthCheckIntervalMs = e.healthCheckIntervalMs ?? oa, this.lastVoiceRequest = e.primaryEngine.getCurrentVoice() ?? void 0, this.bindActiveEngine();
   }
   async initialize() {
     return this.activeEngine.initialize?.();
@@ -2787,8 +2731,10 @@ class ra {
   getCurrentVoice() {
     return this.activeEngine.getCurrentVoice();
   }
-  getAvailableVoices() {
-    return this.activeEngine.getAvailableVoices();
+  // Once fallen back, the same offline restriction as the fallback voice, so content isn't given a network one.
+  async getAvailableVoices(e, t) {
+    const i = await this.activeEngine.getAvailableVoices(e, t);
+    return this.hasFallenBack ? this.reachableVoices(i) : i;
   }
   // The navigator advances to the next utterance via speak(nextIndex) — the one gap where we can
   // recover without an audible glitch, so intercept it if the primary is already reachable.
@@ -2866,13 +2812,13 @@ class ra {
     this.events.emit(e.type, e);
   }
   bindActiveEngine() {
-    const e = this.activeEngine, t = aa.map((s) => e.on(s, (i) => {
-      this.emitEvent(i), this.maybeRecoverNow();
+    const e = this.activeEngine, t = la.map((i) => e.on(i, (s) => {
+      this.emitEvent(s), this.maybeRecoverNow();
     }));
-    t.push(e.on("error", (s) => this.handleError(s))), this.unbindActiveEngine = () => t.forEach((s) => s());
+    t.push(e.on("error", (i) => this.handleError(i))), this.unbindActiveEngine = () => t.forEach((i) => i());
   }
   handleError(e) {
-    if (this.hasFallenBack || this.swapInFlight || this.onFailure === "error" || !sa(e)) {
+    if (this.hasFallenBack || this.swapInFlight || this.onFailure === "error" || !ra(e)) {
       this.emitEvent(e);
       return;
     }
@@ -2886,8 +2832,8 @@ class ra {
   // Starts or defers a freshly loaded engine based on live intent, not a snapshot from before the
   // swap — shared by both swap directions so a racing pause()/speak() is respected either way.
   startEngineWhenReady(e) {
-    const t = this.loadToken, s = e.on("ready", () => {
-      s(), t === this.loadToken && (this.desiredPlaying ? (this.engineStarted = !0, e.speak(this.desiredIndex)) : this.engineStarted = !1);
+    const t = this.loadToken, i = e.on("ready", () => {
+      i(), t === this.loadToken && (this.desiredPlaying ? (this.engineStarted = !0, e.speak(this.desiredIndex)) : this.engineStarted = !1);
     });
   }
   // Polls the primary provider until it's reachable again, then hands off to maybeRecoverNow()
@@ -2912,8 +2858,8 @@ class ra {
     let t = null;
     await this.performSwap(
       async () => {
-        const i = this.activeEngine.getCurrentVoice() ?? (typeof this.lastVoiceRequest == "object" ? this.lastVoiceRequest : null), a = i?.language || this.currentUtterances[this.desiredIndex]?.language || (typeof navigator < "u" ? navigator.language : "en");
-        if (t = await this.pickBestFallbackVoice(a, i?.gender, i?.controls?.boundary !== !1), !t) throw new Error("no offline-available fallback voice found");
+        const s = this.activeEngine.getCurrentVoice() ?? (typeof this.lastVoiceRequest == "object" ? this.lastVoiceRequest : null), a = s?.language || this.currentUtterances[this.desiredIndex]?.language || (typeof navigator < "u" ? navigator.language : "en");
+        if (t = await this.pickBestFallbackVoice(a, s?.gender, s?.controls?.boundary !== !1), !t) throw new Error("no offline-available fallback voice found");
         return this.fallbackProvider.createEngine(t);
       },
       () => (this.hasFallenBack = !0, this.onFailure === "fallbackAndRecover" && this.startHealthCheck(), { type: "enginefallback", detail: { reason: e.detail, voice: t } }),
@@ -2935,17 +2881,17 @@ class ra {
   // can't drift between them. createEngine builds the replacement (and may fail, invoking
   // onCreateFailed instead of swapping); onSwapped runs once the new engine is live and
   // returns the event to emit for that direction.
-  async performSwap(e, t, s) {
+  async performSwap(e, t, i) {
     this.swapInFlight = !0;
-    const i = this.teardownEpoch, a = this.activeEngine;
+    const s = this.teardownEpoch, a = this.activeEngine;
     let r;
     try {
       r = await e();
     } catch {
-      this.swapInFlight = !1, s();
+      this.swapInFlight = !1, i();
       return;
     }
-    if (i !== this.teardownEpoch) {
+    if (s !== this.teardownEpoch) {
       this.swapInFlight = !1, await r.destroy();
       return;
     }
@@ -2953,7 +2899,9 @@ class ra {
   }
   // Only skip the offlineAvailability filter when navigator.onLine is confirmed true — unknown
   // (unimplemented navigator.onLine) defaults to restricting, not to allowing online voices.
-  //
+  reachableVoices(e) {
+    return typeof navigator < "u" && navigator.onLine === !0 ? e : e.filter((i) => i.offlineAvailability === !0);
+  }
   // Language narrows first, gender second, boundary-support third: a same-language wrong-gender
   // voice beats a different-language right-gender one, and a same-gender voice that drops
   // boundary events beats one that also mismatches on boundary support. Falls back to any
@@ -2961,17 +2909,17 @@ class ra {
   // boundary support within that if none matches. Region/quality ranking within the final
   // candidate set is delegated to pickBestVoiceByRegion, the same ranking logic
   // sortVoicesByRegions uses.
-  async pickBestFallbackVoice(e, t, s) {
-    const i = await this.fallbackProvider.getVoices(), r = typeof navigator < "u" && navigator.onLine === !0 ? i : i.filter((p) => p.offlineAvailability === !0);
-    if (r.length === 0) return null;
-    const [o] = xe([e]), { voicesByLang: l } = Ne(r, [o]), c = l.get(o.baseLang) ?? [], u = c.length > 0 ? c : r, d = t ? u.filter((p) => p.gender === t) : [], h = d.length > 0 ? d : u, f = ht(h, s);
-    return In(e, f);
+  async pickBestFallbackVoice(e, t, i) {
+    const s = this.reachableVoices(await this.fallbackProvider.getVoices());
+    if (s.length === 0) return null;
+    const [a] = ze([e]), { voicesByLang: r } = Be(s, [a]), o = r.get(a.baseLang) ?? [], l = o.length > 0 ? o : s, c = t ? l.filter((h) => h.gender === t) : [], u = c.length > 0 ? c : l, d = An(u, i);
+    return Pn(e, d);
   }
   async destroy() {
     this.teardownEpoch++, this.healthCheckTimer !== null && (clearTimeout(this.healthCheckTimer), this.healthCheckTimer = null), this.unbindActiveEngine?.(), this.events.clear(), await this.activeEngine.destroy();
   }
 }
-class Or {
+class Tr {
   id = "fallback";
   name = "Fallback";
   primary;
@@ -2994,12 +2942,12 @@ class Or {
     let t;
     try {
       t = await this.primary.createEngine(e);
-    } catch (s) {
+    } catch (i) {
       if (this.onFailure === "error")
-        throw s;
+        throw i;
       return this.fallback.createEngine(e);
     }
-    return new ra({
+    return new ca({
       primaryEngine: t,
       primaryProvider: this.primary,
       fallbackProvider: this.fallback,
@@ -3011,29 +2959,29 @@ class Or {
     await Promise.all([this.primary.destroy(), this.fallback.destroy()]);
   }
 }
-function oa(n) {
-  return new zs({
-    start: new Dt(n.start),
-    end: n.end ? new Dt(n.end) : void 0
+function ua(n) {
+  return new Bi({
+    start: new Ft(n.start),
+    end: n.end ? new Ft(n.end) : void 0
   });
 }
-function la(n, e = window) {
-  const { href: t, text: s, cssSelector: i, domRange: a, fragment: r } = n, o = s ? new Os(s) : void 0, l = i || a ? /* @__PURE__ */ new Map() : void 0;
-  l && (i && l.set("cssSelector", i), a && l.set("domRange", oa(a).serialize()));
-  const u = l !== void 0 || r !== void 0 ? new Vs({
+function ha(n, e = window) {
+  const { href: t, text: i, cssSelector: s, domRange: a, fragment: r } = n, o = i ? new Oi(i) : void 0, l = s || a ? /* @__PURE__ */ new Map() : void 0;
+  l && (s && l.set("cssSelector", s), a && l.set("domRange", ua(a).serialize()));
+  const u = l !== void 0 || r !== void 0 ? new Ti({
     fragments: r ? [r] : void 0,
     otherLocations: l
   }) : void 0;
-  return new Ts({
+  return new xi({
     href: t ?? e.location.href,
     type: "text/html",
     text: o,
     locations: u
   });
 }
-class ca extends Ps {
-  constructor(e, t, s, i = {}) {
-    super(e.host, i), this.channel = e, this.wnd = t, this.decorator = s;
+class da extends Ai {
+  constructor(e, t, i, s = {}) {
+    super(e.host, s), this.channel = e, this.wnd = t, this.decorator = i;
   }
   channel;
   wnd;
@@ -3044,10 +2992,10 @@ class ca extends Ps {
   // call rather than clobbering the previous one.
   decorate(e, t) {
     this.applyDecorations(
-      e.map(({ id: s, style: i, ...a }) => ({
-        id: s,
-        style: i,
-        locator: la(a, this.wnd)
+      e.map(({ id: i, style: s, ...a }) => ({
+        id: i,
+        style: s,
+        locator: ha(a, this.wnd)
       })),
       t
     );
@@ -3056,12 +3004,11 @@ class ca extends Ps {
     super.destroy(), this.decorator.unmount(this.wnd, this.channel.frame), this.channel.frame.destroy();
   }
 }
-function Vr(n = window, e = {}) {
-  const t = new As(), s = new Ls();
-  return s.mount(n, t.frame), new ca(t, n, s, e);
+function xr(n = window, e = {}) {
+  const t = new Li(), i = new Vi();
+  return i.mount(n, t.frame), new da(t, n, i, e);
 }
-const _n = (n) => n.voiceURI ?? n.identifier ?? n.name;
-class Tr {
+class Ur {
   providers = /* @__PURE__ */ new Map();
   register(e) {
     if (this.providers.has(e.id))
@@ -3101,7 +3048,7 @@ class Tr {
     return t;
   }
 }
-const Be = (n, e, t) => Object.freeze({ range: Object.freeze([n, e]), step: t }), Re = Be(0, 5e3, 100), Ie = Be(0.1, 10, 0.1), Pe = Be(0, 2, 0.1), Ae = Be(0, 1, 0.05), pt = Object.freeze(["none", "few", "some", "most", "custom"]), mt = Object.freeze(["none", "block-level", "always"]), vt = Object.freeze(["plain", "ssml"]), yt = Object.freeze(["none", "utterance", "block"]), St = Object.freeze(["structure", "sentence"]), $n = Object.freeze(["never", "inline", "after"]), Zt = Object.freeze([
+const De = (n, e, t) => Object.freeze({ range: Object.freeze([n, e]), step: t }), Pe = De(0, 5e3, 100), Ae = De(0.1, 10, 0.1), Le = De(0, 2, 0.1), Ve = De(0, 1, 0.05), mt = Object.freeze(["none", "few", "some", "most", "custom"]), vt = Object.freeze(["none", "block-level", "always"]), yt = Object.freeze(["plain", "ssml"]), St = Object.freeze(["none", "utterance", "block"]), bt = Object.freeze(["structure", "sentence"]), qn = Object.freeze(["never", "inline", "after"]), Zt = Object.freeze([
   "format",
   "interruptions",
   "verbosity",
@@ -3112,35 +3059,35 @@ const Be = (n, e, t) => Object.freeze({ range: Object.freeze([n, e]), step: t })
   "segmentation",
   "reconstruct"
 ]);
-function bt(n) {
+function wt(n) {
   return n == null || typeof n == "boolean" ? n : void 0;
 }
-function V(n, e) {
+function T(n, e) {
   return n == null || e.includes(n) ? n : void 0;
 }
-function F(n, e) {
+function _(n, e) {
   if (n == null) return n;
   if (typeof n != "number" || Number.isNaN(n)) return;
-  const t = Math.min(...e), s = Math.max(...e);
-  return n >= t && n <= s ? n : void 0;
+  const t = Math.min(...e), i = Math.max(...e);
+  return n >= t && n <= i ? n : void 0;
 }
-function wt(n) {
+function kt(n) {
   if (n == null) return n;
   if (!(typeof n != "object" || Array.isArray(n)))
     return Object.values(n).every((e) => typeof e == "string") ? { ...n } : void 0;
 }
-function qn(n, e) {
+function Hn(n, e) {
   if (n == null) return n;
   if (!(typeof n != "object" || Array.isArray(n)))
     return Object.values(n).every((t) => t !== void 0 && e.includes(t)) ? { ...n } : void 0;
 }
-function Gn(n) {
-  return typeof n == "string" ? n : wt(n);
+function Kn(n) {
+  return typeof n == "string" ? n : kt(n);
 }
-function he(n) {
+function fe(n) {
   return n == null ? n : Array.isArray(n) && n.every((e) => typeof e == "string") ? [...n] : void 0;
 }
-class ua {
+class Xt {
   format;
   interruptions;
   verbosity;
@@ -3157,10 +3104,10 @@ class ua {
   pitch;
   volume;
   constructor(e = {}) {
-    this.format = V(e.format, vt) ?? "plain", this.interruptions = qn(e.interruptions, $n) ?? {}, this.verbosity = V(e.verbosity, pt) ?? "few", this.skip = he(e.skip) ?? [], this.contextualize = he(e.contextualize) ?? [], this.language = V(e.language, mt) ?? "block-level", this.languageOverrides = wt(e.languageOverrides) ?? {}, this.segmentation = V(e.segmentation, St) ?? "structure", this.reconstruct = bt(e.reconstruct) ?? !1, this.voice = Gn(e.voice) ?? null, this.pauseDuration = F(e.pauseDuration, Re.range) ?? 300, this.autoPause = V(e.autoPause, yt) ?? "none", this.rate = F(e.rate, Ie.range) ?? 1, this.pitch = F(e.pitch, Pe.range) ?? 1, this.volume = F(e.volume, Ae.range) ?? 1;
+    this.format = T(e.format, yt) ?? "plain", this.interruptions = Hn(e.interruptions, qn) ?? {}, this.verbosity = T(e.verbosity, mt) ?? "few", this.skip = fe(e.skip) ?? [], this.contextualize = fe(e.contextualize) ?? [], this.language = T(e.language, vt) ?? "block-level", this.languageOverrides = kt(e.languageOverrides) ?? {}, this.segmentation = T(e.segmentation, bt) ?? "structure", this.reconstruct = wt(e.reconstruct) ?? !1, this.voice = Kn(e.voice) ?? null, this.pauseDuration = _(e.pauseDuration, Pe.range) ?? 300, this.autoPause = T(e.autoPause, St) ?? "none", this.rate = _(e.rate, Ae.range) ?? 1, this.pitch = _(e.pitch, Le.range) ?? 1, this.volume = _(e.volume, Ve.range) ?? 1;
   }
 }
-class de {
+class ie {
   format;
   interruptions;
   verbosity;
@@ -3177,16 +3124,16 @@ class de {
   pitch;
   volume;
   constructor(e = {}) {
-    this.format = V(e.format, vt), this.interruptions = qn(e.interruptions, $n), this.verbosity = V(e.verbosity, pt), this.skip = he(e.skip), this.contextualize = he(e.contextualize), this.language = V(e.language, mt), this.languageOverrides = wt(e.languageOverrides), this.segmentation = V(e.segmentation, St), this.reconstruct = bt(e.reconstruct), this.voice = Gn(e.voice), this.pauseDuration = F(e.pauseDuration, Re.range), this.autoPause = V(e.autoPause, yt), this.rate = F(e.rate, Ie.range), this.pitch = F(e.pitch, Pe.range), this.volume = F(e.volume, Ae.range);
+    this.format = T(e.format, yt), this.interruptions = Hn(e.interruptions, qn), this.verbosity = T(e.verbosity, mt), this.skip = fe(e.skip), this.contextualize = fe(e.contextualize), this.language = T(e.language, vt), this.languageOverrides = kt(e.languageOverrides), this.segmentation = T(e.segmentation, bt), this.reconstruct = wt(e.reconstruct), this.voice = Kn(e.voice), this.pauseDuration = _(e.pauseDuration, Pe.range), this.autoPause = T(e.autoPause, St), this.rate = _(e.rate, Ae.range), this.pitch = _(e.pitch, Le.range), this.volume = _(e.volume, Ve.range);
   }
   merging(e) {
     const t = { ...this };
-    for (const s of Object.keys(e))
-      e[s] !== void 0 && (t[s] = e[s]);
-    return new de(t);
+    for (const i of Object.keys(e))
+      e[i] !== void 0 && (t[i] = e[i]);
+    return new ie(t);
   }
 }
-class Z {
+class X {
   _value;
   _effectiveValue;
   _isEffective;
@@ -3194,10 +3141,10 @@ class Z {
   constructor({
     initialValue: e = null,
     effectiveValue: t,
-    isEffective: s,
-    onChange: i
+    isEffective: i,
+    onChange: s
   }) {
-    this._value = e, this._effectiveValue = t, this._isEffective = s, this._onChange = i;
+    this._value = e, this._effectiveValue = t, this._isEffective = i, this._onChange = s;
   }
   set value(e) {
     this._value = e, this._onChange(this._value);
@@ -3215,19 +3162,19 @@ class Z {
     this._value = null, this._onChange(this._value);
   }
 }
-class ae extends Z {
+class le extends X {
   _supportedValues;
   constructor({
     initialValue: e = null,
     effectiveValue: t,
-    isEffective: s,
-    onChange: i,
+    isEffective: i,
+    onChange: s,
     supportedValues: a
   }) {
-    super({ initialValue: e, effectiveValue: t, isEffective: s, onChange: i }), this._supportedValues = a;
+    super({ initialValue: e, effectiveValue: t, isEffective: i, onChange: s }), this._supportedValues = a;
   }
   set value(e) {
-    if (e != null && V(e, this._supportedValues) === void 0)
+    if (e != null && T(e, this._supportedValues) === void 0)
       throw new Error(`Value '${String(e)}' is not in the supported values for this preference.`);
     this._value = e, this._onChange(this._value);
   }
@@ -3238,9 +3185,9 @@ class ae extends Z {
     return this._supportedValues;
   }
 }
-class ha extends Z {
+class ga extends X {
   set value(e) {
-    if (e != null && bt(e) === void 0)
+    if (e != null && wt(e) === void 0)
       throw new Error(`Value '${String(e)}' is not a boolean.`);
     this._value = e, this._onChange(this._value);
   }
@@ -3248,9 +3195,9 @@ class ha extends Z {
     return this._value;
   }
 }
-class Xt extends Z {
+class Yt extends X {
   set value(e) {
-    if (e != null && he(e) === void 0)
+    if (e != null && fe(e) === void 0)
       throw new Error(`Value '${String(e)}' is not an array of strings.`);
     this._value = e, this._onChange(this._value);
   }
@@ -3258,22 +3205,22 @@ class Xt extends Z {
     return this._value;
   }
 }
-class ye extends Z {
+class be extends X {
   _supportedRange;
   _step;
   _decimals;
   constructor({
     initialValue: e = null,
     effectiveValue: t,
-    isEffective: s,
-    onChange: i,
+    isEffective: i,
+    onChange: s,
     supportedRange: a,
     step: r
   }) {
-    super({ initialValue: e, effectiveValue: t, isEffective: s, onChange: i }), this._supportedRange = a, this._step = r, this._decimals = this._step.toString().includes(".") ? this._step.toString().split(".")[1].length : 0;
+    super({ initialValue: e, effectiveValue: t, isEffective: i, onChange: s }), this._supportedRange = a, this._step = r, this._decimals = this._step.toString().includes(".") ? this._step.toString().split(".")[1].length : 0;
   }
   set value(e) {
-    if (e != null && F(e, this._supportedRange) === void 0)
+    if (e != null && _(e, this._supportedRange) === void 0)
       throw new Error(`Value '${String(e)}' is out of the supported range for this preference.`);
     this._value = e, this._onChange(this._value);
   }
@@ -3302,7 +3249,7 @@ class ye extends Z {
     return e.toString();
   }
 }
-class Yt {
+class en {
   preferences;
   settings;
   // Cloned rather than aliased: edits made through this editor's setters
@@ -3310,12 +3257,12 @@ class Yt {
   // once explicitly passed to submitPreferences() — discarding the editor
   // without submitting must leave the navigator untouched.
   constructor(e, t) {
-    this.preferences = new de({ ...e }), this.settings = t;
+    this.preferences = new ie({ ...e }), this.settings = t;
   }
   // Explicit `null`s, not `undefined` — merging() skips `undefined` fields,
   // so only `null` actually clears them once submitted.
   clear() {
-    this.preferences = new de({
+    this.preferences = new ie({
       format: null,
       interruptions: null,
       verbosity: null,
@@ -3337,16 +3284,16 @@ class Yt {
     this.preferences[e] = t;
   }
   get format() {
-    return new ae({
+    return new le({
       initialValue: this.preferences.format,
       effectiveValue: this.settings.format,
       isEffective: this.preferences.format != null,
       onChange: (e) => this.updatePreference("format", e ?? null),
-      supportedValues: vt
+      supportedValues: yt
     });
   }
   get interruptions() {
-    return new Z({
+    return new X({
       initialValue: this.preferences.interruptions,
       effectiveValue: this.settings.interruptions,
       isEffective: this.preferences.interruptions != null,
@@ -3354,16 +3301,16 @@ class Yt {
     });
   }
   get verbosity() {
-    return new ae({
+    return new le({
       initialValue: this.preferences.verbosity,
       effectiveValue: this.settings.verbosity,
       isEffective: this.preferences.verbosity != null,
       onChange: (e) => this.updatePreference("verbosity", e ?? null),
-      supportedValues: pt
+      supportedValues: mt
     });
   }
   get skip() {
-    return new Xt({
+    return new Yt({
       initialValue: this.preferences.skip,
       effectiveValue: this.settings.skip,
       isEffective: this.preferences.skip != null,
@@ -3371,7 +3318,7 @@ class Yt {
     });
   }
   get contextualize() {
-    return new Xt({
+    return new Yt({
       initialValue: this.preferences.contextualize,
       effectiveValue: this.settings.contextualize,
       isEffective: this.preferences.contextualize != null,
@@ -3379,16 +3326,16 @@ class Yt {
     });
   }
   get language() {
-    return new ae({
+    return new le({
       initialValue: this.preferences.language,
       effectiveValue: this.settings.language,
       isEffective: this.preferences.language != null,
       onChange: (e) => this.updatePreference("language", e ?? null),
-      supportedValues: mt
+      supportedValues: vt
     });
   }
   get languageOverrides() {
-    return new Z({
+    return new X({
       initialValue: this.preferences.languageOverrides,
       effectiveValue: this.settings.languageOverrides,
       isEffective: this.preferences.languageOverrides != null,
@@ -3396,16 +3343,16 @@ class Yt {
     });
   }
   get segmentation() {
-    return new ae({
+    return new le({
       initialValue: this.preferences.segmentation,
       effectiveValue: this.settings.segmentation,
       isEffective: this.preferences.segmentation != null,
       onChange: (e) => this.updatePreference("segmentation", e ?? null),
-      supportedValues: St
+      supportedValues: bt
     });
   }
   get reconstruct() {
-    return new ha({
+    return new ga({
       initialValue: this.preferences.reconstruct,
       effectiveValue: this.settings.reconstruct,
       isEffective: this.settings.segmentation === "sentence" && this.preferences.reconstruct != null,
@@ -3413,7 +3360,7 @@ class Yt {
     });
   }
   get voice() {
-    return new Z({
+    return new X({
       initialValue: this.preferences.voice,
       effectiveValue: this.settings.voice,
       isEffective: this.preferences.voice != null,
@@ -3421,57 +3368,57 @@ class Yt {
     });
   }
   get pauseDuration() {
-    return new ye({
+    return new be({
       initialValue: this.preferences.pauseDuration,
       effectiveValue: this.settings.pauseDuration,
       isEffective: this.preferences.pauseDuration != null,
       onChange: (e) => this.updatePreference("pauseDuration", e ?? null),
-      supportedRange: Re.range,
-      step: Re.step
-    });
-  }
-  get autoPause() {
-    return new ae({
-      initialValue: this.preferences.autoPause,
-      effectiveValue: this.settings.autoPause,
-      isEffective: this.preferences.autoPause != null,
-      onChange: (e) => this.updatePreference("autoPause", e ?? null),
-      supportedValues: yt
-    });
-  }
-  get rate() {
-    return new ye({
-      initialValue: this.preferences.rate,
-      effectiveValue: this.settings.rate,
-      isEffective: this.preferences.rate != null,
-      onChange: (e) => this.updatePreference("rate", e ?? null),
-      supportedRange: Ie.range,
-      step: Ie.step
-    });
-  }
-  get pitch() {
-    return new ye({
-      initialValue: this.preferences.pitch,
-      effectiveValue: this.settings.pitch,
-      isEffective: this.preferences.pitch != null,
-      onChange: (e) => this.updatePreference("pitch", e ?? null),
       supportedRange: Pe.range,
       step: Pe.step
     });
   }
-  get volume() {
-    return new ye({
-      initialValue: this.preferences.volume,
-      effectiveValue: this.settings.volume,
-      isEffective: this.preferences.volume != null,
-      onChange: (e) => this.updatePreference("volume", e ?? null),
+  get autoPause() {
+    return new le({
+      initialValue: this.preferences.autoPause,
+      effectiveValue: this.settings.autoPause,
+      isEffective: this.preferences.autoPause != null,
+      onChange: (e) => this.updatePreference("autoPause", e ?? null),
+      supportedValues: St
+    });
+  }
+  get rate() {
+    return new be({
+      initialValue: this.preferences.rate,
+      effectiveValue: this.settings.rate,
+      isEffective: this.preferences.rate != null,
+      onChange: (e) => this.updatePreference("rate", e ?? null),
       supportedRange: Ae.range,
       step: Ae.step
     });
   }
+  get pitch() {
+    return new be({
+      initialValue: this.preferences.pitch,
+      effectiveValue: this.settings.pitch,
+      isEffective: this.preferences.pitch != null,
+      onChange: (e) => this.updatePreference("pitch", e ?? null),
+      supportedRange: Le.range,
+      step: Le.step
+    });
+  }
+  get volume() {
+    return new be({
+      initialValue: this.preferences.volume,
+      effectiveValue: this.settings.volume,
+      isEffective: this.preferences.volume != null,
+      onChange: (e) => this.updatePreference("volume", e ?? null),
+      supportedRange: Ve.range,
+      step: Ve.step
+    });
+  }
 }
-const Hn = ["audio", "figure", "image", "math", "table", "video"], Kn = [
-  ...Hn,
+const Qn = ["audio", "figure", "image", "math", "table", "video"], Wn = [
+  ...Qn,
   "blockquote",
   "chapter",
   "cover",
@@ -3484,8 +3431,8 @@ const Hn = ["audio", "figure", "image", "math", "table", "video"], Kn = [
   "rowheader",
   "subtitle",
   "tip"
-], da = [
-  ...Kn,
+], fa = [
+  ...Wn,
   "abstract",
   "acknowledgments",
   "afterword",
@@ -3529,7 +3476,7 @@ const Hn = ["audio", "figure", "image", "math", "table", "video"], Kn = [
   "separator",
   "summary",
   "term"
-], ga = {
+], pa = {
   none: /* @__PURE__ */ new Set([
     "aside",
     "audio",
@@ -3585,42 +3532,45 @@ const Hn = ["audio", "figure", "image", "math", "table", "video"], Kn = [
     "toc"
   ]),
   most: /* @__PURE__ */ new Set(["landmarks", "loa", "loi", "lot", "lov", "toc"])
-}, fa = {
+}, ma = {
   none: /* @__PURE__ */ new Set(),
-  few: new Set(Hn),
-  some: new Set(Kn),
-  most: new Set(da)
-}, tt = {
+  few: new Set(Qn),
+  some: new Set(Wn),
+  most: new Set(fa)
+}, st = {
   table: { few: "inline", some: "block", most: "block" }
 };
-function Se(n) {
+function we(n) {
   const e = {};
-  for (const t of Object.keys(tt))
-    e[t] = tt[t]?.[n] ?? "inline";
+  for (const t of Object.keys(st))
+    e[t] = st[t]?.[n] ?? "inline";
   return e;
 }
-const pa = {
-  none: Se("none"),
-  few: Se("few"),
-  some: Se("some"),
-  most: Se("most")
-}, Ur = Object.keys(tt);
-function ma(n, e) {
-  const t = n === "custom" ? {} : pa[n];
+const va = {
+  none: we("none"),
+  few: we("few"),
+  some: we("some"),
+  most: we("most")
+}, Nr = Object.keys(st);
+function ya(n, e) {
+  const t = n === "custom" ? {} : va[n];
   if (!e) return t;
-  const s = { ...t };
-  for (const i of Object.keys(e)) {
-    const a = e[i]?.[n];
-    a && (s[i] = a);
+  const i = { ...t };
+  for (const s of Object.keys(e)) {
+    const a = e[s]?.[n];
+    a && (i[s] = a);
   }
-  return s;
+  return i;
 }
-const va = (n, e) => {
-  if (!e || typeof n == "string") return n;
-  const [t] = R(e.language);
-  return !t || n && ut(n, t) !== void 0 ? n : { ...n, [t]: _n(e) };
+const Sa = (n, e) => {
+  if (!n || typeof n == "object" && Object.keys(n).length === 0) return e;
+  if (typeof n == "string" || !e || typeof e == "string") return n;
+  const t = new Set(Object.keys(n).map(L)), i = { ...n };
+  for (const [s, a] of Object.entries(e))
+    t.has(L(s)) || (i[s] = a);
+  return i;
 };
-class $e {
+class qe {
   format;
   interruptions;
   verbosity;
@@ -3636,39 +3586,36 @@ class $e {
   rate;
   pitch;
   volume;
-  /**
-   * @param engineVoice The engine's voice, which `voice` falls back to: when unset, or for its language in a record without it.
-   */
-  constructor(e, t, s) {
-    this.format = e.format ?? t.format, this.interruptions = e.interruptions ?? t.interruptions, this.verbosity = e.verbosity ?? t.verbosity, this.verbosity === "custom" ? (this.skip = e.skip ?? t.skip, this.contextualize = e.contextualize ?? t.contextualize) : (this.skip = [...ga[this.verbosity]], this.contextualize = [...fa[this.verbosity]]), this.language = e.language ?? t.language, this.languageOverrides = e.languageOverrides ?? t.languageOverrides, this.segmentation = e.segmentation ?? t.segmentation, this.reconstruct = e.reconstruct ?? t.reconstruct, this.voice = va(e.voice ?? t.voice, s), this.pauseDuration = e.pauseDuration ?? t.pauseDuration, this.autoPause = e.autoPause ?? t.autoPause, this.rate = e.rate ?? t.rate, this.pitch = e.pitch ?? t.pitch, this.volume = e.volume ?? t.volume;
+  constructor(e, t) {
+    this.format = e.format ?? t.format, this.interruptions = e.interruptions ?? t.interruptions, this.verbosity = e.verbosity ?? t.verbosity, this.verbosity === "custom" ? (this.skip = e.skip ?? t.skip, this.contextualize = e.contextualize ?? t.contextualize) : (this.skip = [...pa[this.verbosity]], this.contextualize = [...ma[this.verbosity]]), this.language = e.language ?? t.language, this.languageOverrides = e.languageOverrides ?? t.languageOverrides, this.segmentation = e.segmentation ?? t.segmentation, this.reconstruct = e.reconstruct ?? t.reconstruct, this.voice = Sa(e.voice, t.voice), this.pauseDuration = e.pauseDuration ?? t.pauseDuration, this.autoPause = e.autoPause ?? t.autoPause, this.rate = e.rate ?? t.rate, this.pitch = e.pitch ?? t.pitch, this.volume = e.volume ?? t.volume;
   }
 }
-const en = /* @__PURE__ */ new WeakMap(), Wn = /* @__PURE__ */ new WeakMap();
-function tn(n, e) {
-  Wn.set(n, e);
+const tn = /* @__PURE__ */ new WeakMap(), Jn = /* @__PURE__ */ new WeakMap();
+function nn(n, e) {
+  Jn.set(n, e);
 }
-const nt = /* @__PURE__ */ new WeakSet();
-function st(n) {
-  return nt.add(n), n;
+const at = /* @__PURE__ */ new WeakSet();
+function rt(n) {
+  return at.add(n), n;
 }
-function ya(n, e, t) {
-  const s = Wn.get(n);
-  if (s) {
-    const d = Kt(s.map, e), h = Kt(s.map, e + t);
+function ba(n, e, t) {
+  const i = Jn.get(n);
+  if (i) {
+    const d = Kt(i.map, e), h = Kt(i.map, e + t);
     e = d, t = Math.max(0, h - d);
   }
-  const i = n.offsets, a = !n.plain && !!n.ssml, r = s?.plain ?? n.plain ?? (n.ssml ? U(n.ssml) : "");
-  if (!i?.length || !r) return;
-  const o = en.get(n), l = o !== void 0 && e >= o.cursor;
+  const s = n.offsets, a = !n.plain && !!n.ssml, r = i?.plain ?? n.plain ?? (n.ssml ? x(n.ssml) : "");
+  if (!s?.length || !r) return;
+  const o = tn.get(n), l = o !== void 0 && e >= o.cursor;
   let c = l ? o.cursor : 0;
   const u = (d) => {
     const h = d.locate.text?.highlight;
-    return h && (a ? U(h) : h);
+    return h && (a ? x(h) : h);
   };
-  for (let d = l ? o.pieceIndex : 0; d < i.length; d++) {
-    const h = i[d];
-    if (nt.has(h.locate)) {
-      const v = i.slice(d + 1).find((b) => !nt.has(b.locate) && u(b)), S = v && u(v), m = S ? r.indexOf(S, c + h.end - h.start) : -1, C = S && m === -1 ? r.indexOf(S, c) : m, y = C === -1 ? r.length : C;
+  for (let d = l ? o.pieceIndex : 0; d < s.length; d++) {
+    const h = s[d];
+    if (at.has(h.locate)) {
+      const v = s.slice(d + 1).find((b) => !at.has(b.locate) && u(b)), S = v && u(v), m = S ? r.indexOf(S, c + h.end - h.start) : -1, C = S && m === -1 ? r.indexOf(S, c) : m, y = C === -1 ? r.length : C;
       if (e >= c && e < y) return;
       c = y;
       continue;
@@ -3679,7 +3626,7 @@ function ya(n, e, t) {
     if (p === -1) continue;
     const g = p + f.length;
     if (e >= p && e < g) {
-      en.set(n, { pieceIndex: d, cursor: c });
+      tn.set(n, { pieceIndex: d, cursor: c });
       const v = e - p, S = f.substring(v, Math.min(v + t, f.length));
       return { locate: {
         ...h.locate,
@@ -3694,13 +3641,13 @@ function ya(n, e, t) {
     c = g;
   }
 }
-function Sa(n, e) {
+function wa(n, e) {
   return e === "sentence" && n.offsets?.length ? n.offsets.map((t) => t.locate) : n.locate ? [n.locate] : [];
 }
 function z(n) {
   return { pattern: new RegExp(`(\\d+)\\s?u${n}\\b`, "g"), replace: (e, t) => `${t}µ${n}` };
 }
-const ba = {
+const ka = {
   "1/4": "¼",
   "1/2": "½",
   "3/4": "¾",
@@ -3720,8 +3667,8 @@ const ba = {
   "5/8": "⅝",
   "7/8": "⅞",
   "0/3": "↉"
-}, wa = {
-  ...ba,
+}, Ca = {
+  ...ka,
   // Rejects "(c)" directly preceded by "(a)"/"(b)" (a lettered list, not a copyright notice).
   "(c)": { pattern: new RegExp("(?<!\\([ab]\\)\\s{0,3})\\(c\\)", "g"), replace: "©" },
   "(C)": { pattern: new RegExp("(?<!\\([AB]\\)\\s{0,3})\\(C\\)", "g"), replace: "©" },
@@ -3747,21 +3694,21 @@ const ba = {
   // convention for pronunciation, but drop the real prime marks silently.
   "′": "'",
   "″": '"'
-}, ka = { contextualizations: { abstract: { block: { start: "Start of the abstract.", end: "End of the abstract." } }, acknowledgments: { block: { start: "Start of the acknowledgments.", end: "End of the acknowledgments." } }, afterword: { block: { start: "Start of the afterword.", end: "End of the afterword." } }, appendix: { block: { start: "Start of the appendix.", end: "End of the appendix." } }, aside: { block: { start: "Start of the aside.", end: "End of the aside." } }, audio: { inline: { labelled: "Audio with a label: {{ description }}", unlabelled: "Audio with no label." } }, bibliography: { block: { start: "Start of the bibliography.", end: "End of the bibliography." } }, biblioref: { inline: "Bibliographic reference." }, blockquote: { inline: "Blockquote." }, cell: { inline: { withHeader: "{{ header }}: {{ value }}", withoutHeader: "{{ value }}" } }, chapter: { block: { start: "Start of the chapter.", end: "End of the chapter." } }, colophon: { inline: "Colophon." }, complementary: { block: { start: "Start of the complementary content.", end: "End of the complementary content." } }, conclusion: { block: { start: "Start of the conclusion.", end: "End of the conclusion." } }, cover: { inline: { labelled: "Cover with a label: {{ description }}", unlabelled: "Cover with no label." } }, credit: { inline: "Credit." }, credits: { block: { start: "Start of the credits.", end: "End of the credits." } }, dedication: { inline: "Dedication." }, definition: { inline: "Definition." }, details: { block: { start: "Start of the disclosure.", end: "End of the disclosure." } }, endnotes: { block: { start: "Start of the endnotes.", end: "End of the endnotes." } }, epigraph: { inline: "Epigraph." }, epilogue: { block: { start: "Start of the epilogue.", end: "End of the epilogue." } }, errata: { block: { start: "Start of the errata.", end: "End of the errata." } }, example: { block: { start: "Start of the example.", end: "End of the example." } }, figure: { inline: "Figure: {{ description }}" }, footnote: { block: { start: "Start of the footnote.", end: "End of the footnote." } }, foreword: { block: { start: "Start of the foreword.", end: "End of the foreword." } }, glossary: { block: { start: "Start of the glossary.", end: "End of the glossary." } }, glossref: { inline: "Glossary definition.", term: "{{ term }}: {{ value }}" }, heading1: { inline: "Heading level 1." }, heading2: { inline: "Heading level 2." }, heading3: { inline: "Heading level 3." }, heading4: { inline: "Heading level 4." }, heading5: { inline: "Heading level 5." }, heading6: { inline: "Heading level 6." }, image: { inline: { labelled: "Image with a label: {{ description }}", unlabelled: "Image with no label." } }, index: { block: { start: "Start of the index.", end: "End of the index." } }, introduction: { block: { start: "Start of the introduction.", end: "End of the introduction." } }, list: { block: { start: "Start of the list.", end: "End of the list." } }, listItem: { inline: "List item." }, math: { inline: { labelled: "{{ description }}", unlabelled: "Math formula with no label." } }, notice: { inline: "Notice." }, pagebreak: { inline: "Pagebreak.", number: "Page {{ number }}" }, pagelist: { block: { start: "Start of the page list.", end: "End of the page list." } }, part: { inline: "Part." }, preface: { block: { start: "Start of the preface.", end: "End of the preface." } }, prologue: { block: { start: "Start of the prologue.", end: "End of the prologue." } }, pullquote: { inline: "Pullquote." }, qna: { block: { start: "Start of the questions and answers.", end: "End of the questions and answers." } }, row: { inline: "Row: {{ count }}" }, rowheader: { inline: { withHeader: "{{ header }}: {{ value }}", withoutHeader: "{{ value }}" } }, separator: { inline: "Separator." }, subtitle: { inline: "Subtitle." }, summary: { inline: "Summary." }, table: { block: { end: "End of the table.", start: { labelled: "Table: {{ description }}. {{ lines }}. {{ columns }}.", unlabelled: "Table. {{ lines }}. {{ columns }}." } }, inline: { labelled: "Table: {{ description }}. {{ lines }}. {{ columns }}.", unlabelled: "Table. {{ lines }}. {{ columns }}." }, parts: { columns_one: "1 column", columns_other: "{{ count }} columns", lines_one: "1 line", lines_other: "{{ count }} lines" } }, term: { inline: "Term." }, tip: { inline: "Tip." }, video: { inline: { labelled: "Video with a label: {{ description }}", unlabelled: "Video with no label." } } } }, Ca = {
-  speech: ka
-}, Qn = Ca.speech.contextualizations, it = { en: Qn }, Jn = {};
-function Ea(n) {
-  return it[n] || Jn[n] ? n : "en";
+}, Ea = { contextualizations: { abstract: { block: { start: "Start of the abstract.", end: "End of the abstract." } }, acknowledgments: { block: { start: "Start of the acknowledgments.", end: "End of the acknowledgments." } }, afterword: { block: { start: "Start of the afterword.", end: "End of the afterword." } }, appendix: { block: { start: "Start of the appendix.", end: "End of the appendix." } }, aside: { block: { start: "Start of the aside.", end: "End of the aside." } }, audio: { inline: { labelled: "Audio with a label: {{ description }}", unlabelled: "Audio with no label." } }, bibliography: { block: { start: "Start of the bibliography.", end: "End of the bibliography." } }, biblioref: { inline: "Bibliographic reference." }, blockquote: { inline: "Blockquote." }, cell: { inline: { withHeader: "{{ header }}: {{ value }}", withoutHeader: "{{ value }}" } }, chapter: { block: { start: "Start of the chapter.", end: "End of the chapter." } }, colophon: { inline: "Colophon." }, complementary: { block: { start: "Start of the complementary content.", end: "End of the complementary content." } }, conclusion: { block: { start: "Start of the conclusion.", end: "End of the conclusion." } }, cover: { inline: { labelled: "Cover with a label: {{ description }}", unlabelled: "Cover with no label." } }, credit: { inline: "Credit." }, credits: { block: { start: "Start of the credits.", end: "End of the credits." } }, dedication: { inline: "Dedication." }, definition: { inline: "Definition." }, details: { block: { start: "Start of the disclosure.", end: "End of the disclosure." } }, endnotes: { block: { start: "Start of the endnotes.", end: "End of the endnotes." } }, epigraph: { inline: "Epigraph." }, epilogue: { block: { start: "Start of the epilogue.", end: "End of the epilogue." } }, errata: { block: { start: "Start of the errata.", end: "End of the errata." } }, example: { block: { start: "Start of the example.", end: "End of the example." } }, figure: { inline: "Figure: {{ description }}" }, footnote: { block: { start: "Start of the footnote.", end: "End of the footnote." } }, foreword: { block: { start: "Start of the foreword.", end: "End of the foreword." } }, glossary: { block: { start: "Start of the glossary.", end: "End of the glossary." } }, glossref: { inline: "Glossary definition.", term: "{{ term }}: {{ value }}" }, heading1: { inline: "Heading level 1." }, heading2: { inline: "Heading level 2." }, heading3: { inline: "Heading level 3." }, heading4: { inline: "Heading level 4." }, heading5: { inline: "Heading level 5." }, heading6: { inline: "Heading level 6." }, image: { inline: { labelled: "Image with a label: {{ description }}", unlabelled: "Image with no label." } }, index: { block: { start: "Start of the index.", end: "End of the index." } }, introduction: { block: { start: "Start of the introduction.", end: "End of the introduction." } }, list: { block: { start: "Start of the list.", end: "End of the list." } }, listItem: { inline: "List item." }, math: { inline: { labelled: "{{ description }}", unlabelled: "Math formula with no label." } }, notice: { inline: "Notice." }, pagebreak: { inline: "Pagebreak.", number: "Page {{ number }}" }, pagelist: { block: { start: "Start of the page list.", end: "End of the page list." } }, part: { inline: "Part." }, preface: { block: { start: "Start of the preface.", end: "End of the preface." } }, prologue: { block: { start: "Start of the prologue.", end: "End of the prologue." } }, pullquote: { inline: "Pullquote." }, qna: { block: { start: "Start of the questions and answers.", end: "End of the questions and answers." } }, row: { inline: "Row: {{ count }}" }, rowheader: { inline: { withHeader: "{{ header }}: {{ value }}", withoutHeader: "{{ value }}" } }, separator: { inline: "Separator." }, subtitle: { inline: "Subtitle." }, summary: { inline: "Summary." }, table: { block: { end: "End of the table.", start: { labelled: "Table: {{ description }}. {{ lines }}. {{ columns }}.", unlabelled: "Table. {{ lines }}. {{ columns }}." } }, inline: { labelled: "Table: {{ description }}. {{ lines }}. {{ columns }}.", unlabelled: "Table. {{ lines }}. {{ columns }}." }, parts: { columns_one: "1 column", columns_other: "{{ count }} columns", lines_one: "1 line", lines_other: "{{ count }} lines" } }, term: { inline: "Term." }, tip: { inline: "Tip." }, video: { inline: { labelled: "Video with a label: {{ description }}", unlabelled: "Video with no label." } } } }, Ra = {
+  speech: Ea
+}, Zn = Ra.speech.contextualizations, ot = { en: Zn }, Xn = {};
+function Ia(n) {
+  return ot[n] || Xn[n] ? n : "en";
 }
-async function Ra(n) {
-  const e = it[n];
+async function Pa(n) {
+  const e = ot[n];
   if (e) return e;
-  const t = Jn[n];
-  if (!t) return Qn;
-  const s = (await t()).speech.contextualizations;
-  return it[n] = s, s;
+  const t = Xn[n];
+  if (!t) return Zn;
+  const i = (await t()).speech.contextualizations;
+  return ot[n] = i, i;
 }
-const Ia = {
+const Aa = {
   de: ["A.", "A.M.", "Abs.", "Abt.", "Abw.", "Adj.", "Adr.", "Akt.", "Allg.", "Alt.", "App.", "Apr.", "Art.", "Aug.", "Ausg.", "Ausschl.", "B.", "Bed.", "Ben.", "Ber.", "Best.", "Bibl.", "C.", "Ca.", "Chin.", "Chr.", "Co.", "D.", "D. h.", "Dat.", "Dez.", "Di.", "Dim.", "Dipl.-Ing.", "Dipl.-Kfm.", "Dir.", "Do.", "Dr.", "Dtzd.", "Einh.", "Erf.", "Evtl.", "F.", "F.f.", "Fa.", "Fam.", "Feb.", "Fn.", "Folg.", "Forts. f.", "Fr.", "Frl.", "G.", "Gebr.", "Gem.", "Geograph.", "Ges.", "Gesch.", "Ggf.", "Hbf.", "Hptst.", "Hr.", "Hrn.", "Hrsg.", "I.", "Inc.", "Ing.", "Inh.", "Int.", "J.", "J.D.", "Jahrh.", "Jan.", "Jr.", "Kap.", "Kfm.", "Kl.", "Konv.", "Kop.", "L.", "Ltd.", "M.", "Max.", "Mi.", "Min.", "Mind.", "Mio.", "Mo.", "Mod.", "Mrd.", "Msp.", "N.", "Nov.", "Nr.", "O.", "Obj.", "Okt.", "Op.", "P.", "P.M.", "PIN.", "Pfd.", "Phys.", "Port.", "Prot.", "Proz.", "Qu.", "R.", "Rd.", "Reg.", "Reg.-Bez.", "Rel.", "Rep.", "S.A.", "Sa.", "Schr.", "Sek.", "Sep.", "Sept.", "So.", "Spezif.", "St.", "StR.", "Std.", "Str.", "T.", "Tel.", "Temp.", "Test.", "Trans.", "Tägl.", "U.", "U. U.", "U.S.", "U.S.A.", "U.U.", "Urspr.", "Ursprüngl.", "Verf.", "Vgl.", "W.", "Wg.", "Y.", "Z.", "Z. B.", "Z. Zt.", "Ztr.", "a.D.", "a.M.", "a.Rh.", "a.a.O.", "a.a.S.", "am.", "amtl.", "b.", "beil.", "d.J.", "d.Ä.", "e.V.", "e.Wz.", "e.h.", "ehem.", "eigtl.", "einschl.", "entspr.", "erw.", "ev.", "evtl.", "exkl.", "frz.", "geb.", "gedr.", "gek.", "gesch.", "gest.", "ggf.", "ggfs.", "hpts.", "i.A.", "i.B.", "i.H.", "i.J.", "i.R.", "i.V.", "inkl.", "jew.", "jhrl.", "k. u. k.", "k.u.k.", "kath.", "kfm.", "kgl.", "led.", "m.E.", "m.W.", "mtl.", "möbl.", "n. Chr.", "n.u.Z.", "näml.", "o.A.", "o.B.", "o.g.", "od.", "p.Adr.", "r.", "röm.", "röm.-kath.", "s.", "s.a.", "schles.", "schweiz.", "schwäb.", "sog.", "südd.", "tägl.", "u.", "u. Z.", "u.A.w.g.", "u.U.", "u.a.", "u.v.a.", "u.Ä.", "u.ä.", "v. Chr.", "v. H.", "v. u. Z.", "v.Chr.", "v.H.", "v.R.w.", "v.T.", "v.u.Z.", "verh.", "verw.", "vgl.", "z.", "z.B.", "z.Hd.", "z.Z.", "zzgl.", "österr."],
   en: ["A.D.", "A.I.", "A.M.", "A.S.", "AA.", "AB.", "Abs.", "Adj.", "Adv.", "Alt.", "Approx.", "Aug.", "B.V.", "C.F.", "C.O.D.", "Capt.", "Col.", "Comm.", "Conn.", "Cont.", "D.A.", "D.C.", "DC.", "DR.", "Dec.", "Def.", "Dept.", "Diff.", "Dr.", "E.G.", "E.g.", "Ed.", "Est.", "Etc.", "Ex.", "Exec.", "Feb.", "Fn.", "Fri.", "Hon.B.A.", "I.", "I.D.", "I.T.", "I.e.", "J.B.", "J.D.", "J.K.", "Jan.", "Jun.", "K.R.", "L.A.", "L.P.", "Lev.", "Lib.", "Lt.", "Lt.Cdr.", "M.", "M.I.T.", "M.R.", "M.T.", "MR.", "Maj.", "Mar.", "Mart.", "Mb.", "Md.", "Mgr.", "Min.", "Misc.", "Mr.", "Mrs.", "Ms.", "Mt.", "N.V.", "N.Y.", "Nov.", "Nr.", "Num.", "Op.", "Org.", "P.M.", "P.O.", "P.V.", "PP.", "Ph.D.", "Phys.", "Prof.", "Pvt.", "R.L.", "R.T.", "Rep.", "Rev.", "S.A.", "S.A.R.", "S.E.", "S.p.A.", "Sep.", "Sept.", "Sgt.", "Sq.", "St.", "U.S.", "U.S.A.", "U.S.C.", "VS.", "Yr.", "a.m.", "d.", "dr.", "exec.", "pp.", "vs."],
   es: ["A.C.", "AA.", "All.", "Ant.", "Av.", "Avda.", "Bien.", "C.", "C.P.", "C.S.", "C.V.", "CA.", "Col.", "Comm.", "Corp.", "Cía.", "D.", "DC.", "Da.", "Desc.", "Desv.", "Dr.", "Dra.", "Drs.", "Dto.", "Dª.", "Dña.", "Em.", "Emm.", "Exc.", "Excma.", "Excmas.", "Excmo.", "Excmos.", "Exma.", "Exmas.", "Exmo.", "Exmos.", "FF.CC.", "Fabric.", "Fr.", "H.P.", "Id.", "Ilma.", "Ilmas.", "Ilmo.", "Ilmos.", "Inc.", "JJ.OO.", "K.", "Kit.", "Korn.", "L.", "Lcda.", "Lcdo.", "Lda.", "Ldo.", "Lic.", "Ltd.", "Ltda.", "Ltdo.", "M.", "MM.", "Mons.", "Mr.", "Mrs.", "O.M.", "PP.", "R.D.", "R.U.", "RAM.", "RR.HH.", "Rdo.", "Rdos.", "Reg.", "Rev.", "Rol.", "Rvdmo.", "Rvdmos.", "Rvdo.", "Rvdos.", "SA.", "SS.AA.", "SS.MM.", "Sdad.", "Seg.", "Sol.", "Sr.", "Sra.", "Sras.", "Sres.", "Srta.", "Srtas.", "Sta.", "Sto.", "Trab.", "U.S.", "U.S.A.", "Var.", "Vda.", "a. C.", "a. e. c.", "abr.", "afma.", "afmas.", "afmo.", "afmos.", "ago.", "bco.", "bol.", "c/c.", "cap.", "cf.", "cfr.", "col.", "d. C.", "depto.", "deptos.", "dic.", "doc.", "dom.", "dpto.", "dptos.", "dtor.", "e. c.", "e.g.", "ed.", "ej.", "ene.", "feb.", "fig.", "figs.", "fund.", "hnos.", "jue.", "jul.", "jun.", "licda.", "licdo.", "lun.", "mar.", "may.", "mié.", "ms.", "mss.", "mtro.", "nov.", "ntra.", "ntro.", "oct.", "p.ej.", "prof.", "prov.", "sept.", "sras.", "sres.", "srs.", "ss.", "sáb.", "trad.", "v.gr.", "vid.", "vie.", "vs."],
@@ -3771,63 +3718,63 @@ const Ia = {
   ru: ["авг.", "апр.", "дек.", "до н. э.", "кв.", "н. э.", "н.э.", "нояб.", "окт.", "отд.", "проф.", "руб.", "сент.", "тел.", "тыс.", "ул.", "февр.", "янв."],
   th: ["ค.ศ."]
 };
-function qe(n, e, t) {
-  let s = t;
-  for (; s > e && /\s/.test(n[s - 1]); ) s--;
-  return s;
+function He(n, e, t) {
+  let i = t;
+  for (; i > e && /\s/.test(n[i - 1]); ) i--;
+  return i;
 }
-const Pa = /[\s([{"'“‘]/;
-function Aa(n, e) {
+const La = /[\s([{"'“‘]/;
+function Va(n, e) {
   for (const t of e) {
     if (n.length < t.length || !n.endsWith(t)) continue;
-    const s = n.length - t.length - 1;
-    if (s < 0 || Pa.test(n[s])) return !0;
+    const i = n.length - t.length - 1;
+    if (i < 0 || La.test(n[i])) return !0;
   }
   return !1;
 }
-function La(n) {
+function Oa(n) {
   let e = 0;
   for (const t of n)
     if (new RegExp("\\p{L}", "u").test(t) && e++, e >= 2) return !0;
   return !1;
 }
-function Oa(n) {
+function Ta(n) {
   return /\.{3,}$/.test(n);
 }
-function Va(n, e, t, s) {
-  if (s === "“") return !0;
-  if (s !== '"') return !1;
-  let i = 0;
-  for (let a = e; a < t; a++) n[a] === '"' && i++;
-  return i % 2 === 1;
+function xa(n, e, t, i) {
+  if (i === "“") return !0;
+  if (i !== '"') return !1;
+  let s = 0;
+  for (let a = e; a < t; a++) n[a] === '"' && s++;
+  return s % 2 === 1;
 }
-const Ta = new RegExp(`[.!?][”"'’)\\]]*\\s+—\\s+(?=\\p{Lu})`, "gu");
-function Ua(n, e) {
-  const t = [...n.matchAll(Ta)].map((i) => i.index + i[0].length);
-  if (t.length === 0) return e;
-  const s = [];
-  for (const i of e) {
-    let a = i.start;
-    for (const r of t)
-      r > a && r < i.end && (s.push({ start: a, end: r }), a = r);
-    s.push({ start: a, end: i.end });
-  }
-  return s;
-}
-const xa = { "»": "«", "«": "»", "›": "‹", "‹": "›" };
+const Ua = new RegExp(`[.!?][”"'’)\\]]*\\s+—\\s+(?=\\p{Lu})`, "gu");
 function Na(n, e) {
-  const t = [], s = /* @__PURE__ */ new Map();
-  let i = 0;
+  const t = [...n.matchAll(Ua)].map((s) => s.index + s[0].length);
+  if (t.length === 0) return e;
+  const i = [];
+  for (const s of e) {
+    let a = s.start;
+    for (const r of t)
+      r > a && r < s.end && (i.push({ start: a, end: r }), a = r);
+    i.push({ start: a, end: s.end });
+  }
+  return i;
+}
+const za = { "»": "«", "«": "»", "›": "‹", "‹": "›" };
+function Ba(n, e) {
+  const t = [], i = /* @__PURE__ */ new Map();
+  let s = 0;
   const a = (r, o) => {
-    for (; i < r; i++) s.set(n[i], (s.get(n[i]) ?? 0) + 1);
-    return s.get(o) ?? 0;
+    for (; s < r; s++) i.set(n[s], (i.get(n[s]) ?? 0) + 1);
+    return i.get(o) ?? 0;
   };
   for (const r of e) {
     const o = { ...r }, l = t[t.length - 1];
     let c = o.start;
     for (; l && c < o.end; ) {
       for (; c < o.end && /\s/.test(n[c]); ) c++;
-      const u = xa[n[c]];
+      const u = za[n[c]];
       if (u === void 0 || a(l.end, u) <= a(l.end, n[c])) break;
       for (c++; c < o.end && /\s/.test(n[c]); ) c++;
       l.end = o.start = c;
@@ -3836,52 +3783,52 @@ function Na(n, e) {
   }
   return t;
 }
-function za(n, e, t) {
-  const s = Na(n, Ua(n, e));
-  for (let a = 0; a < s.length - 1; a++) {
-    const r = qe(n, s[a].start, s[a].end);
-    if (r !== s[a].end || r <= s[a].start) continue;
+function ja(n, e, t) {
+  const i = Ba(n, Na(n, e));
+  for (let a = 0; a < i.length - 1; a++) {
+    const r = He(n, i[a].start, i[a].end);
+    if (r !== i[a].end || r <= i[a].start) continue;
     const o = n[r - 1];
-    Va(n, s[a].start, r, o) && (s[a].end -= 1, s[a + 1].start -= 1);
+    xa(n, i[a].start, r, o) && (i[a].end -= 1, i[a + 1].start -= 1);
   }
-  const i = [];
-  for (const a of s) {
+  const s = [];
+  for (const a of i) {
     let r = a;
-    for (; i.length > 0; ) {
-      const o = i[i.length - 1], l = qe(n, o.start, o.end), c = n.slice(o.start, l);
-      if (!Aa(c, t) && La(c) && !Oa(c)) break;
-      i.pop(), r = { start: o.start, end: r.end };
+    for (; s.length > 0; ) {
+      const o = s[s.length - 1], l = He(n, o.start, o.end), c = n.slice(o.start, l);
+      if (!Va(c, t) && Oa(c) && !Ta(c)) break;
+      s.pop(), r = { start: o.start, end: r.end };
     }
-    i.push(r);
+    s.push(r);
   }
-  return i.map((a) => {
-    const r = qe(n, a.start, a.end);
+  return s.map((a) => {
+    const r = He(n, a.start, a.end);
     return { text: n.slice(a.start, r), start: a.start, end: a.end, contentEnd: r };
   });
 }
-const nn = /* @__PURE__ */ new Map();
-function Zn(n) {
-  let e = nn.get(n);
+const sn = /* @__PURE__ */ new Map();
+function Yn(n) {
+  let e = sn.get(n);
   if (!e) {
     try {
-      const [t, s] = R(n), i = s ? `${t}-${s}` : t;
-      e = { segmenter: new Intl.Segmenter(i, { granularity: "sentence" }), language: n };
+      const [t, i] = P(n), s = i ? `${t}-${i}` : t;
+      e = { segmenter: new Intl.Segmenter(s, { granularity: "sentence" }), language: n };
     } catch {
       e = { segmenter: new Intl.Segmenter("en", { granularity: "sentence" }), language: "en" };
     }
-    nn.set(n, e);
+    sn.set(n, e);
   }
   return e;
 }
 function Ma(n) {
-  return Zn(n).language;
+  return Yn(n).language;
 }
-async function Xn(n, e, t) {
+async function ei(n, e, t) {
   if (e === "") return [];
-  const { segmenter: s, language: i } = Zn(n), r = [...s.segment(e)].map((c) => ({ start: c.index, end: c.index + c.segment.length })), o = kn(Ia, i) ?? [], l = t ? [...o, ...t] : o;
-  return za(e, r, l);
+  const { segmenter: i, language: s } = Yn(n), r = [...i.segment(e)].map((c) => ({ start: c.index, end: c.index + c.segment.length })), o = Cn(Aa, s) ?? [], l = t ? [...o, ...t] : o;
+  return ja(e, r, l);
 }
-const xr = [
+const zr = [
   "aside",
   "audio",
   "bibliography",
@@ -3904,7 +3851,7 @@ const xr = [
   "table",
   "toc",
   "video"
-], Ba = [
+], Da = [
   // Headings
   "heading1",
   "heading2",
@@ -3962,50 +3909,50 @@ const xr = [
   "section",
   "summary",
   "tip"
-], Da = {
+], Fa = {
   footnote: { drops: ["aside"], unconditional: !0 },
   cover: { drops: ["image"] },
   pullquote: { drops: ["blockquote", "aside"] },
   epigraph: { drops: ["blockquote"] }
-}, ja = ["abbreviation", "biblioref", "glossref", "noteref", "pagebreak"], Fa = ["biblioref", "glossref"], _a = ["audio", "video", "image", "figure", "math", "table", "cover"], $a = ["cell", "rowheader"], qa = ["separator"], Le = new Set(Ba), kt = new Set(ja), Ga = new Set(_a), Yn = new Set($a), Ha = new Set(qa), le = new Set(Fa);
-function Ka(n, e) {
-  const t = Us.createInstance();
+}, _a = ["abbreviation", "biblioref", "glossref", "noteref", "pagebreak"], $a = ["biblioref", "glossref"], Ga = ["audio", "video", "image", "figure", "math", "table", "cover"], qa = ["cell", "rowheader"], Ha = ["separator"], Oe = new Set(Da), Ct = new Set(_a), Ka = new Set(Ga), ti = new Set(qa), Qa = new Set(Ha), he = new Set($a);
+function Wa(n, e) {
+  const t = Ui.createInstance();
   return t.init({
     lng: n,
     resources: { [n]: { translation: e } },
     interpolation: { escapeValue: !1 }
   }), t;
 }
-function Wa(n, e, t) {
+function Ja(n, e, t) {
   if (!e) return n;
-  const s = { ...n };
-  for (const i of Object.keys(e))
-    s[i] = t(n[i], e[i]);
-  return s;
+  const i = { ...n };
+  for (const s of Object.keys(e))
+    i[s] = t(n[s], e[s]);
+  return i;
 }
-function es(n, e) {
+function ni(n, e) {
   if (typeof e == "string" || typeof n != "object") return e;
   const t = { ...n };
-  for (const s of Object.keys(e))
-    t[s] = es(n[s], e[s]);
+  for (const i of Object.keys(e))
+    t[i] = ni(n[i], e[i]);
   return t;
 }
-function Qa(n, e) {
-  return Wa(n, e, es);
+function Za(n, e) {
+  return Ja(n, e, ni);
 }
-function ts(n, e = [], t = /* @__PURE__ */ new Map()) {
-  for (const s of n)
-    t.set(s, e), s.children && ts(s.children, [s, ...e], t);
+function ii(n, e = [], t = /* @__PURE__ */ new Map()) {
+  for (const i of n)
+    t.set(i, e), i.children && ii(i.children, [i, ...e], t);
   return t;
 }
-async function ns(n, e) {
-  const t = e.contextualizationLocale ?? "en", s = Qa(
-    await Ra(t),
+async function si(n, e) {
+  const t = e.contextualizationLocale ?? "en", i = Za(
+    await Pa(t),
     e.contextualization?.contextualizations
   );
   return {
-    i18n: Ka(t, s),
-    contextualizationLanguage: Ea(t),
+    i18n: Wa(t, i),
+    contextualizationLanguage: Ia(t),
     skip: new Set(e.skip ?? []),
     contextualize: new Set(e.contextualize ?? []),
     contextualizationShapes: e.contextualization?.shapes ?? {},
@@ -4021,596 +3968,596 @@ async function ns(n, e) {
     // (Intl.Segmenter has no built-in equivalent of its own) — this is only
     // the caller's own additive extras, per `SegmentationOptions.suppressions`.
     segmentationSuppressions: e.segmentation?.suppressions ?? {},
-    segmenter: e.segmentation?.segmenter ?? Xn,
+    segmenter: e.segmentation?.segmenter ?? ei,
     // Per-key override, not an additive union — each key holds one whole rule.
-    substitutions: { ...wa, ...e.substitutions },
+    substitutions: { ...Ca, ...e.substitutions },
     blockStarts: /* @__PURE__ */ new Set(),
     tableRowNumbers: /* @__PURE__ */ new Map(),
     tableCellHeaders: /* @__PURE__ */ new Map(),
     synthetic: /* @__PURE__ */ new Set(),
-    ancestorChains: ts(n),
+    ancestorChains: ii(n),
     pendingRange: /* @__PURE__ */ new Map(),
     edgeSubstitutedLocate: /* @__PURE__ */ new WeakMap(),
     aliasLocates: /* @__PURE__ */ new WeakSet(),
     placeholderPieces: /* @__PURE__ */ new Map()
   };
 }
-const Ja = /<lang xml:lang="[^"]*">([\s\S]*?)<\/lang>/g;
-function ss(n) {
-  return n.replace(Ja, "$1");
-}
-function is(n, e) {
-  return n === void 0 ? void 0 : ut(e, n) ?? n;
-}
-function $(n, e) {
-  return is(e.language === "none" ? e.contentLanguage : n ?? e.contentLanguage, e.languageOverrides);
-}
-function Ct(n, e) {
-  return n === e || n !== void 0 && e !== void 0 && n.toLowerCase() === e.toLowerCase();
-}
-function at(n, e) {
-  return R(n)[0] === R(e)[0];
-}
-function rt(n, e, t, s) {
-  const { language: i } = e;
-  return i === void 0 ? !0 : rs(e, t) ? os(e) ? (n.wordless = i, !0) : !s && n.content !== void 0 && !at(n.content, i) ? !1 : (n.entry = i, !0) : n.content !== void 0 && !Ct(n.content, i) || !s && n.entry !== void 0 && !at(i, n.entry) ? !1 : (n.content = i, !0);
-}
-function as(n, e, t) {
-  const s = {};
-  for (const i of n)
-    if (!rt(s, i, e, t)) return null;
-  return s.content ?? s.entry ?? s.wordless;
-}
-function Za(n, e) {
-  return as(n, e, !1);
-}
-function rs(n, e) {
-  return e.synthetic.has(n) && Ct(n.language, e.contextualizationLanguage);
-}
-function os(n) {
-  return !/[\p{L}\p{N}]/u.test(n.plain ?? Ee(n.ssml ?? ""));
-}
-function ls(n, e) {
-  return as(n, e, e.format === "ssml");
-}
-function cs(n, e, t) {
-  const s = n.ssml ?? "";
-  return !e || !n.language || !rs(n, t) || os(n) || at(n.language, e) ? s : `<lang xml:lang="${wn(n.language)}">${s}</lang>`;
+const Xa = /<lang xml:lang="[^"]*">([\s\S]*?)<\/lang>/g;
+function ai(n) {
+  return n.replace(Xa, "$1");
 }
 function Et(n, e) {
-  const t = e.format === "ssml", s = [];
-  let i = 0, a = {};
-  return n.forEach((r, o) => {
-    rt(a, r, e, t) || (s.push([i, o]), i = o, a = {}, rt(a, r, e, t));
-  }), n.length > 0 && s.push([i, n.length]), s;
+  return n === void 0 ? void 0 : ji(e, n) ?? n;
 }
-function us(n, e) {
-  return n.replace(/<lang xml:lang="([^"]*)">/g, (t, s) => {
-    const i = is(s, e);
-    return i === s ? t : `<lang xml:lang="${i}">`;
+function G(n, e) {
+  return Et(e.language === "none" ? e.contentLanguage : n ?? e.contentLanguage, e.languageOverrides);
+}
+function Rt(n, e) {
+  return n === e || n !== void 0 && e !== void 0 && n.toLowerCase() === e.toLowerCase();
+}
+function lt(n, e) {
+  return P(n)[0] === P(e)[0];
+}
+function ct(n, e, t, i) {
+  const { language: s } = e;
+  return s === void 0 ? !0 : oi(e, t) ? li(e) ? (n.wordless = s, !0) : !i && n.content !== void 0 && !lt(n.content, s) ? !1 : (n.entry = s, !0) : n.content !== void 0 && !Rt(n.content, s) || !i && n.entry !== void 0 && !lt(s, n.entry) ? !1 : (n.content = s, !0);
+}
+function ri(n, e, t) {
+  const i = {};
+  for (const s of n)
+    if (!ct(i, s, e, t)) return null;
+  return i.content ?? i.entry ?? i.wordless;
+}
+function Ya(n, e) {
+  return ri(n, e, !1);
+}
+function oi(n, e) {
+  return e.synthetic.has(n) && Rt(n.language, e.contextualizationLanguage);
+}
+function li(n) {
+  return !/[\p{L}\p{N}]/u.test(n.plain ?? Ie(n.ssml ?? ""));
+}
+function ci(n, e) {
+  return ri(n, e, e.format === "ssml");
+}
+function ui(n, e, t) {
+  const i = n.ssml ?? "";
+  return !e || !n.language || !oi(n, t) || li(n) || lt(n.language, e) ? i : `<lang xml:lang="${kn(n.language)}">${i}</lang>`;
+}
+function It(n, e) {
+  const t = e.format === "ssml", i = [];
+  let s = 0, a = {};
+  return n.forEach((r, o) => {
+    ct(a, r, e, t) || (i.push([s, o]), s = o, a = {}, ct(a, r, e, t));
+  }), n.length > 0 && i.push([s, n.length]), i;
+}
+function hi(n, e) {
+  return n.replace(/<lang xml:lang="([^"]*)">/g, (t, i) => {
+    const s = Et(i, e);
+    return s === i ? t : `<lang xml:lang="${s}">`;
   });
 }
-function x(n) {
+function U(n) {
   return n.role ? [...n.role] : [];
 }
-function Oe(n) {
+function Te(n) {
   return n.role?.has("math") ? void 0 : n.text;
 }
-function De(n) {
+function Fe(n) {
   const e = n.description?.text;
   if (e)
-    return e.plain ?? (e.ssml !== void 0 ? U(e.ssml) : void 0);
+    return e.plain ?? (e.ssml !== void 0 ? x(e.ssml) : void 0);
 }
-function hs(n) {
+function di(n) {
   return n.description?.text?.language;
 }
-function Ve(n, e = n) {
-  let t = "", s = "";
-  const i = [];
+function xe(n, e = n) {
+  let t = "", i = "";
+  const s = [];
   return n.forEach((a, r) => {
     const o = e[r];
-    if (o.length === 1 && pi(o) && s.endsWith(o)) {
-      i.push({ start: t.length, end: t.length });
+    if (o.length === 1 && ys(o) && i.endsWith(o)) {
+      s.push({ start: t.length, end: t.length });
       return;
     }
-    s && !fe(o) && !fi(s) && !/\s$/.test(s) && !/^\s/.test(o) && (t += " ", s += " ");
+    i && !me(o) && !vs(i) && !/\s$/.test(i) && !/^\s/.test(o) && (t += " ", i += " ");
     const l = t.length;
-    t += a, s += o, i.push({ start: l, end: t.length });
-  }), { joined: t, ranges: i };
+    t += a, i += o, s.push({ start: l, end: t.length });
+  }), { joined: t, ranges: s };
 }
-function X(n, e) {
-  const t = xs(n), s = O(n, e.ancestorChains)?.ref;
+function Y(n, e) {
+  const t = Ni(n), i = O(n, e.ancestorChains)?.ref;
   if (t) {
-    const i = { cssSelector: t };
-    return s?.href !== void 0 && (i.href = s.href), st(i);
+    const s = { cssSelector: t };
+    return i?.href !== void 0 && (s.href = i.href), rt(s);
   }
-  return s && st(s);
+  return i && rt(i);
 }
-function ds(n, e, t) {
-  const s = [];
-  return n.forEach((i, a) => {
-    if (i.offsets) {
-      s.push(...i.offsets);
+function gi(n, e, t) {
+  const i = [];
+  return n.forEach((s, a) => {
+    if (s.offsets) {
+      i.push(...s.offsets);
       return;
     }
-    if (t.synthetic.has(i)) return;
+    if (t.synthetic.has(s)) return;
     const r = e[a];
     if (!r || Array.isArray(r)) return;
     const o = O(r, t.ancestorChains);
     if (!o) return;
-    const l = t.format === "ssml" ? i.ssml : i.plain;
+    const l = t.format === "ssml" ? s.ssml : s.plain;
     if (!l) return;
-    const c = t.pendingRange.get(i), u = H(r) ? X(r, t) ?? o.ref : Y(o.ref, l);
-    s.push({ start: c?.start ?? 0, end: c?.end ?? l.length, locate: u });
-  }), s;
+    const c = t.pendingRange.get(s), u = K(r) ? Y(r, t) ?? o.ref : ee(o.ref, l);
+    i.push({ start: c?.start ?? 0, end: c?.end ?? l.length, locate: u });
+  }), i;
 }
-function sn(n, e, t, s) {
-  const i = s.edgeSubstitutedLocate.get(n);
-  if (i) return i[t];
-  if (!(!e || Array.isArray(e) || !H(e)))
-    return X(e, s);
+function an(n, e, t, i) {
+  const s = i.edgeSubstitutedLocate.get(n);
+  if (s) return s[t];
+  if (!(!e || Array.isArray(e) || !K(e)))
+    return Y(e, i);
 }
-function Xa(n, e, t) {
-  const s = n.map((l, c) => {
+function er(n, e, t) {
+  const i = n.map((l, c) => {
     if (l.locate) return l.locate;
     if (t.synthetic.has(l)) return;
     const u = e[c];
     if (!u || Array.isArray(u)) return;
     const d = t.format === "ssml" ? l.ssml : l.plain;
     if (d)
-      return H(u) ? O(u, t.ancestorChains) && X(u, t) : It(O(u, t.ancestorChains), d);
-  }), i = s.findIndex((l) => l !== void 0);
-  if (i === -1) return;
-  let a = s.length - 1;
-  for (; s[a] === void 0; ) a--;
-  if (i === a) return s[i];
-  const r = e[i], o = e[a];
+      return K(u) ? O(u, t.ancestorChains) && Y(u, t) : At(O(u, t.ancestorChains), d);
+  }), s = i.findIndex((l) => l !== void 0);
+  if (s === -1) return;
+  let a = i.length - 1;
+  for (; i[a] === void 0; ) a--;
+  if (s === a) return i[s];
+  const r = e[s], o = e[a];
   if (r && o && !Array.isArray(r) && !Array.isArray(o)) {
     const l = O(r, t.ancestorChains), c = O(o, t.ancestorChains);
-    return Pt(l, c, s[i]);
+    return Lt(l, c, i[s]);
   }
-  return s[i];
+  return i[s];
 }
-function je(n, e, t) {
-  const s = [], i = [], a = [];
+function _e(n, e, t) {
+  const i = [], s = [], a = [];
   for (let f = 0; f < n.length; f++) {
     const p = n[f], g = t.format === "ssml" ? p.ssml : p.plain;
-    g && (s.push(g), i.push(p), a.push(e[f]));
+    g && (i.push(g), s.push(p), a.push(e[f]));
   }
-  if (s.length === 0) return;
-  const r = ls(i, t);
+  if (i.length === 0) return;
+  const r = ci(s, t);
   if (r === null) return;
-  const { joined: o } = Ve(t.format === "ssml" ? i.map((f) => cs(f, r, t)) : s), l = t.format === "ssml" ? { ssml: o } : { plain: o };
+  const { joined: o } = xe(t.format === "ssml" ? s.map((f) => ui(f, r, t)) : i), l = t.format === "ssml" ? { ssml: o } : { plain: o };
   r && (l.language = r), n.some((f) => t.synthetic.has(f)) && t.synthetic.add(l);
-  const c = ds(i, a, t);
+  const c = gi(s, a, t);
   c.length > 0 && (l.offsets = c);
-  const u = Xa(i, a, t);
+  const u = er(s, a, t);
   u && (l.locate = u);
-  const d = sn(i[0], a[0], "leading", t), h = sn(i[i.length - 1], a[i.length - 1], "trailing", t);
+  const d = an(s[0], a[0], "leading", t), h = an(s[s.length - 1], a[s.length - 1], "trailing", t);
   return (d || h) && t.edgeSubstitutedLocate.set(l, { leading: d, trailing: h }), l;
 }
-function Rt(n, e, t, s) {
-  if (e === "plain" && t !== "block-level" && t !== "none" && n.ssml && xn(n.ssml))
-    return dt(n.ssml, n.language).map((r) => {
-      const o = { plain: r.plain }, l = $(r.language, s);
-      return l && (o.language = l), s.pendingRange.set(o, { start: r.start, end: r.end }), o;
+function Pt(n, e, t, i) {
+  if (e === "plain" && t !== "block-level" && t !== "none" && n.ssml && Bn(n.ssml))
+    return gt(n.ssml, n.language).map((r) => {
+      const o = { plain: r.plain }, l = G(r.language, i);
+      return l && (o.language = l), i.pendingRange.set(o, { start: r.start, end: r.end }), o;
     });
-  const i = {}, a = $(n.language, s);
-  return a && (i.language = a), e === "ssml" ? i.ssml = n.ssml ? us(n.ssml, s.languageOverrides) : M(n.plain ?? "") : i.plain = n.plain ?? U(n.ssml ?? ""), (t === "block-level" || t === "none") && i.ssml && (i.ssml = ss(i.ssml)), [i];
+  const s = {}, a = G(n.language, i);
+  return a && (s.language = a), e === "ssml" ? s.ssml = n.ssml ? hi(n.ssml, i.languageOverrides) : B(n.plain ?? "") : s.plain = n.plain ?? x(n.ssml ?? ""), (t === "block-level" || t === "none") && s.ssml && (s.ssml = ai(s.ssml)), [s];
 }
-function pe(n, e) {
+function ve(n, e) {
   return e !== "ssml" ? n : n.replace(/<[^>]+>/g, "").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&amp;/g, "&");
 }
-function Y(n, e) {
+function ee(n, e) {
   const t = n.cssSelector ?? n.domRange?.start.cssSelector;
   if (!t) return { ...n, text: { highlight: e } };
-  const s = { cssSelector: t, text: { highlight: e } };
-  return n.href !== void 0 && (s.href = n.href), s;
+  const i = { cssSelector: t, text: { highlight: e } };
+  return n.href !== void 0 && (i.href = n.href), i;
 }
 function O(n, e) {
-  const t = Bt(n);
+  const t = Dt(n);
   if (t) return { own: !0, ref: t };
-  for (const s of e.get(n) ?? []) {
-    const i = Bt(s);
-    if (i) return { own: !1, ref: i };
+  for (const i of e.get(n) ?? []) {
+    const s = Dt(i);
+    if (s) return { own: !1, ref: s };
   }
 }
-function It(n, e) {
+function At(n, e) {
   if (n)
-    return n.own ? n.ref : Y(n.ref, e);
+    return n.own ? n.ref : ee(n.ref, e);
 }
-function Pt(n, e, t) {
-  return (n && e ? Ns(n.ref, e.ref) : void 0) ?? t;
+function Lt(n, e, t) {
+  return (n && e ? zi(n.ref, e.ref) : void 0) ?? t;
 }
-function gs(n, e, t) {
-  const { ancestorChains: s } = t, i = /* @__PURE__ */ new Map();
+function fi(n, e, t) {
+  const { ancestorChains: i } = t, s = /* @__PURE__ */ new Map();
   for (const a of e)
-    a && !Array.isArray(a) && i.set(a, (i.get(a) ?? 0) + 1);
+    a && !Array.isArray(a) && s.set(a, (s.get(a) ?? 0) + 1);
   return n.map((a, r) => {
     if (a.offsets) return a;
     const o = e[r], l = a.plain ?? a.ssml ?? "";
     if (Array.isArray(o)) {
-      const [h, f] = o, p = O(h, s), g = O(f, s), v = Pt(p, g, It(p, l));
+      const [h, f] = o, p = O(h, i), g = O(f, i), v = Lt(p, g, At(p, l));
       return v ? { ...a, locate: v } : a;
     }
-    const c = o, u = c ? O(c, s) : void 0;
+    const c = o, u = c ? O(c, i) : void 0;
     if (!u) return a;
     const d = { ...a, locate: u.ref };
     if (!t.synthetic.has(a)) {
-      const h = t.pendingRange.get(a), f = h !== void 0 || c && (i.get(c) ?? 0) > 1, p = c && H(c) ? X(c, t) : void 0;
-      d.locate = p ?? (u.own && !f ? u.ref : Y(u.ref, l)), d.offsets = [{ start: h?.start ?? 0, end: h?.end ?? l.length, locate: d.locate }];
+      const h = t.pendingRange.get(a), f = h !== void 0 || c && (s.get(c) ?? 0) > 1, p = c && K(c) ? Y(c, t) : void 0;
+      d.locate = p ?? (u.own && !f ? u.ref : ee(u.ref, l)), d.offsets = [{ start: h?.start ?? 0, end: h?.end ?? l.length, locate: d.locate }];
     }
     return d;
   });
 }
-function At(n) {
-  const e = Me(Oe(n));
-  return e ? e.plain ?? (e.ssml ? U(e.ssml) : "") : "";
+function Vt(n) {
+  const e = Me(Te(n));
+  return e ? e.plain ?? (e.ssml ? x(e.ssml) : "") : "";
 }
-function Ya(n) {
+function tr(n) {
   const e = /* @__PURE__ */ new Map(), t = /* @__PURE__ */ new Map();
-  let s = 0, i;
+  let i = 0, s;
   return n.forEach((a, r) => {
     e.set(a, r + 1);
     const o = a.children ?? [];
-    if (s = Math.max(s, o.length), o.some((l) => l.role?.has("columnheader"))) {
-      i = o.map(At);
+    if (i = Math.max(i, o.length), o.some((l) => l.role?.has("columnheader"))) {
+      s = o.map(Vt);
       return;
     }
-    i && o.forEach((l, c) => {
+    s && o.forEach((l, c) => {
       if (!l.role?.has("cell") && !l.role?.has("rowheader")) return;
-      const u = i[c];
+      const u = s[c];
       u && t.set(l, u);
     });
-  }), { lines: n.length, columns: s, rowNumbers: e, cellHeaders: t };
+  }), { lines: n.length, columns: i, rowNumbers: e, cellHeaders: t };
 }
-function fs(n, e) {
-  const t = e.format === "ssml" ? { ssml: M(n) } : { plain: n };
+function pi(n, e) {
+  const t = e.format === "ssml" ? { ssml: B(n) } : { plain: n };
   return e.synthetic.add(t), t;
 }
-function B(n, e) {
-  const t = fs(n, e), s = e.language === "none" ? $(void 0, e) : e.contextualizationLanguage;
-  return s && (t.language = s), t;
+function j(n, e) {
+  const t = pi(n, e), i = e.language === "none" ? G(void 0, e) : e.contextualizationLanguage;
+  return i && (t.language = i), t;
 }
-function ot(n, e, t) {
-  const s = fs(n, t), i = $(hs(e), t);
-  return i && (s.language = i), s;
+function ut(n, e, t) {
+  const i = pi(n, t), s = G(di(e), t);
+  return s && (i.language = s), i;
 }
-function W(n, e, t, s) {
-  n.push(...s);
-  for (let i = 0; i < s.length; i++) e.push(t);
+function W(n, e, t, i) {
+  n.push(...i);
+  for (let s = 0; s < i.length; s++) e.push(t);
 }
-function Te(n, e, t, s, i, a, r) {
-  r ? (i.some((o) => t.blockStarts.has(o)) && t.blockStarts.add(r), W(n, e, a[0] ?? s, [r])) : (n.push(...i), e.push(...a));
+function Ue(n, e, t, i, s, a, r) {
+  r ? (s.some((o) => t.blockStarts.has(o)) && t.blockStarts.add(r), W(n, e, a[0] ?? i, [r])) : (n.push(...s), e.push(...a));
 }
-function G(n, e, t, s) {
-  const i = t ? `${e}.${t}` : void 0;
-  if (i && n.i18n.exists(i)) return n.i18n.t(i, s);
-  if (n.i18n.exists(e)) return n.i18n.t(e, s);
+function H(n, e, t, i) {
+  const s = t ? `${e}.${t}` : void 0;
+  if (s && n.i18n.exists(s)) return n.i18n.t(s, i);
+  if (n.i18n.exists(e)) return n.i18n.t(e, i);
 }
-function Lt(n, e) {
-  return Yn.has(n) ? !0 : e.contextualize.has(n);
+function Ot(n, e) {
+  return ti.has(n) ? !0 : e.contextualize.has(n);
 }
-function ps(n, e, t) {
-  return e.some((s) => {
-    const i = Da[s];
-    return i?.drops.includes(n) ? i.unconditional || Lt(s, t) : !1;
+function mi(n, e, t) {
+  return e.some((i) => {
+    const s = Fa[i];
+    return s?.drops.includes(n) ? s.unconditional || Ot(i, t) : !1;
   });
 }
-function ge(n, e, t, s, i) {
+function pe(n, e, t, i, s) {
   const a = e.lastIndexOf(t);
   if (a === -1) return;
-  const r = O(s, i.ancestorChains);
+  const r = O(i, s.ancestorChains);
   if (!r) return;
-  const o = Y(r.ref, t);
+  const o = ee(r.ref, t);
   n.offsets = [{ start: a, end: a + t.length, locate: o }], n.locate = r.own ? r.ref : o;
 }
-function Ge(n, e, t, s, i, a) {
+function Ke(n, e, t, i, s, a) {
   const r = a?.value;
-  if (r !== void 0 && r === At(t)) {
-    const l = $(t.text?.language, s);
-    l && (n.language = l), s.synthetic.delete(n), ge(n, e, r, t, s);
+  if (r !== void 0 && r === Vt(t)) {
+    const l = G(t.text?.language, i);
+    l && (n.language = l), i.synthetic.delete(n), pe(n, e, r, t, i);
     return;
   }
   const o = a?.description;
-  o !== void 0 && o === De(t) && (i === "figure" || i === "table") && ge(n, e, o, t, s);
+  o !== void 0 && o === Fe(t) && (s === "figure" || s === "table") && pe(n, e, o, t, i);
 }
-function an(n, e, t, s, i, a, r, o) {
-  if (!Lt(i, s)) return;
-  if ((s.i18n.exists(`${i}.block.start`) || s.i18n.exists(`${i}.block.end`)) && s.contextualizationShapes[i] !== "inline") {
-    const c = a === "before" ? `${i}.block.start` : `${i}.block.end`;
-    W(n, e, t, on(c, r, o, t, i, s));
+function rn(n, e, t, i, s, a, r, o) {
+  if (!Ot(s, i)) return;
+  if ((i.i18n.exists(`${s}.block.start`) || i.i18n.exists(`${s}.block.end`)) && i.contextualizationShapes[s] !== "inline") {
+    const c = a === "before" ? `${s}.block.start` : `${s}.block.end`;
+    W(n, e, t, ln(c, r, o, t, s, i));
     return;
   }
-  a === "before" && W(n, e, t, on(`${i}.inline`, r, o, t, i, s));
+  a === "before" && W(n, e, t, ln(`${s}.inline`, r, o, t, s, i));
 }
-const rn = "\0";
-function on(n, e, t, s, i, a) {
-  const r = G(a, n, e, t);
+const on = "\0";
+function ln(n, e, t, i, s, a) {
+  const r = H(a, n, e, t);
   if (!r) return [];
-  const o = t?.description, l = a.language !== "none" && o !== void 0 && o === De(s) ? $(hs(s), a) : void 0, c = l ? G(a, n, e, { ...t, description: rn })?.split(rn) : void 0;
+  const o = t?.description, l = a.language !== "none" && o !== void 0 && o === Fe(i) ? G(di(i), a) : void 0, c = l ? H(a, n, e, { ...t, description: on })?.split(on) : void 0;
   if (!l || !c || c.length < 2) {
-    const h = B(r, a);
-    return Ge(h, r, s, a, i, t), [h];
+    const h = j(r, a);
+    return Ke(h, r, i, a, s, t), [h];
   }
-  if (R(l)[0] === R(a.contextualizationLanguage)[0]) {
-    const h = B(r, a);
-    return h.language = l, Ge(h, r, s, a, i, t), [h];
+  if (P(l)[0] === P(a.contextualizationLanguage)[0]) {
+    const h = j(r, a);
+    return h.language = l, Ke(h, r, i, a, s, t), [h];
   }
-  const u = `<lang xml:lang="${wn(l)}">${M(o)}</lang>`, d = c.map((h) => M(h)).join(u);
+  const u = `<lang xml:lang="${kn(l)}">${B(o)}</lang>`, d = c.map((h) => B(h)).join(u);
   if (a.format === "ssml") {
-    const h = B(r, a);
-    return h.ssml = d, Ge(h, r, s, a, i, t), [h];
+    const h = j(r, a);
+    return h.ssml = d, Ke(h, r, i, a, s, t), [h];
   }
-  return dt(d, a.contextualizationLanguage).map((h) => {
-    if (h.language !== l) return B(h.plain, a);
-    const f = ot(h.plain, s, a);
-    return (i === "figure" || i === "table") && ge(f, h.plain, o, s, a), f;
+  return gt(d, a.contextualizationLanguage).map((h) => {
+    if (h.language !== l) return j(h.plain, a);
+    const f = ut(h.plain, i, a);
+    return (s === "figure" || s === "table") && pe(f, h.plain, o, i, a), f;
   });
 }
-function ln(n, e, t, s) {
-  const i = `${e}.parts.${t}`;
-  return n.i18n.exists(i, { count: s }) ? n.i18n.t(i, { count: s }) : String(s);
+function cn(n, e, t, i) {
+  const s = `${e}.parts.${t}`;
+  return n.i18n.exists(s, { count: i }) ? n.i18n.t(s, { count: i }) : String(i);
 }
-function er(n) {
-  const e = De(n);
+function nr(n) {
+  const e = Fe(n);
   return e === void 0 ? { variantKey: "unlabelled" } : { variantKey: "labelled", params: { description: e } };
 }
-function cn(n, e) {
+function un(n, e) {
   const t = e.tableCellHeaders.get(n);
   return {
     variantKey: t !== void 0 ? "withHeader" : "withoutHeader",
-    params: { header: t ?? "", value: At(n) }
+    params: { header: t ?? "", value: Vt(n) }
   };
 }
-const tr = {
+const ir = {
   table: (n, e) => {
-    const t = (n.children ?? []).filter((i) => i.role?.has("row")), s = Ya(t);
-    for (const [i, a] of s.rowNumbers) e.tableRowNumbers.set(i, a);
-    for (const [i, a] of s.cellHeaders) e.tableCellHeaders.set(i, a);
+    const t = (n.children ?? []).filter((s) => s.role?.has("row")), i = tr(t);
+    for (const [s, a] of i.rowNumbers) e.tableRowNumbers.set(s, a);
+    for (const [s, a] of i.cellHeaders) e.tableCellHeaders.set(s, a);
     return {
       params: {
-        lines: ln(e, "table", "lines", s.lines),
-        columns: ln(e, "table", "columns", s.columns)
+        lines: cn(e, "table", "lines", i.lines),
+        columns: cn(e, "table", "columns", i.columns)
       }
     };
   },
   row: (n, e) => ({ params: { count: String(e.tableRowNumbers.get(n) ?? "") } }),
-  cell: cn,
-  rowheader: cn
+  cell: un,
+  rowheader: un
 };
-function un(n, e, t) {
-  const s = er(e);
-  let i = s.variantKey, a = s.params;
-  const r = tr[n]?.(e, t);
-  r && (r.variantKey && (i = r.variantKey), a = { ...a, ...r.params });
+function hn(n, e, t) {
+  const i = nr(e);
+  let s = i.variantKey, a = i.params;
+  const r = ir[n]?.(e, t);
+  r && (r.variantKey && (s = r.variantKey), a = { ...a, ...r.params });
   const o = t.contextualizationParams?.(n, e);
-  return o && (a = { ...a, ...o }), { variantKey: i, params: a };
+  return o && (a = { ...a, ...o }), { variantKey: s, params: a };
 }
-const hn = "[\\u0391-\\u03A9\\u03B1-\\u03C9\\u03D8-\\u03E1]", nr = "[\\u0374\\u02B9\\u0384']", He = "[\\u05D0-\\u05EA]", dn = "[\\u0400-\\u0481\\u048A-\\u04FF]", sr = [
+const dn = "[\\u0391-\\u03A9\\u03B1-\\u03C9\\u03D8-\\u03E1]", sr = "[\\u0374\\u02B9\\u0384']", Qe = "[\\u05D0-\\u05EA]", gn = "[\\u0400-\\u0481\\u048A-\\u04FF]", ar = [
   new RegExp("^\\p{Nd}+$", "u"),
   new RegExp("^\\p{Nl}+$", "u"),
   /^(?=[MDCLXVI])M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$/i,
   /^[〇零一二三四五六七八九十百千万]+$/u,
   /^[፩-፼]+$/u,
-  new RegExp(`^${He}[\\u05F3']$`, "u"),
-  new RegExp(`^${He}+[\\u05F4"]${He}$`, "u"),
-  new RegExp(`^(?:\\u0375${hn})*${hn}+${nr}$`, "u"),
+  new RegExp(`^${Qe}[\\u05F3']$`, "u"),
+  new RegExp(`^${Qe}+[\\u05F4"]${Qe}$`, "u"),
+  new RegExp(`^(?:\\u0375${dn})*${dn}+${sr}$`, "u"),
   /^(?:[Ա-Ֆա-և]̅)+$/u,
-  new RegExp(`^\\u0482?${dn}+\\u0483${dn}*$`, "u")
+  new RegExp(`^\\u0482?${gn}+\\u0483${gn}*$`, "u")
 ];
-function ir(n) {
+function rr(n) {
   const e = n.trim();
-  return e.length > 0 && sr.some((t) => t.test(e));
+  return e.length > 0 && ar.some((t) => t.test(e));
 }
-function gn(n, e) {
-  return e.skip.size > 0 && n.some((t) => e.skip.has(t) && !kt.has(t) && !ps(t, n, e));
+function fn(n, e) {
+  return e.skip.size > 0 && n.some((t) => e.skip.has(t) && !Ct.has(t) && !mi(t, n, e));
 }
-function Ot(n, e) {
-  const t = n.find((s) => kt.has(s));
+function Tt(n, e) {
+  const t = n.find((i) => Ct.has(i));
   return t === void 0 ? void 0 : e.interruptions[t] ?? "after";
 }
-function ar(n, e) {
+function or(n, e) {
   const t = Me(n.text);
   if (!t) return [];
-  const s = t.plain ?? U(t.ssml ?? "");
-  if (ir(s)) {
-    const i = G(e, "pagebreak.number", void 0, { number: s.trim() });
-    if (i !== void 0) return [B(i, e)];
+  const i = t.plain ?? x(t.ssml ?? "");
+  if (rr(i)) {
+    const s = H(e, "pagebreak.number", void 0, { number: i.trim() });
+    if (s !== void 0) return [j(s, e)];
   }
-  return Rt(t, e.format, e.language, e);
+  return Pt(t, e.format, e.language, e);
 }
-function fn(n) {
+function pn(n) {
   n.plain !== void 0 && (n.plain += "."), n.ssml !== void 0 && (n.ssml += ".");
 }
-function rr(n, e) {
-  const t = ar(n, e);
+function lr(n, e) {
+  const t = or(n, e);
   if (!e.contextualize.has("pagebreak")) return t;
-  const s = e.i18n.exists("pagebreak.block.start") ? "pagebreak.block.start" : "pagebreak.inline", i = G(e, s);
-  if (i === void 0) return t;
-  const a = B(i, e);
+  const i = e.i18n.exists("pagebreak.block.start") ? "pagebreak.block.start" : "pagebreak.inline", s = H(e, i);
+  if (s === void 0) return t;
+  const a = j(s, e);
   if (t.length === 0) return [a];
-  const r = je([a, ...t], [void 0, ...t.map(() => n)], e);
-  return r ? (fn(r), [r]) : (fn(t[t.length - 1]), [a, ...t]);
+  const r = _e([a, ...t], [void 0, ...t.map(() => n)], e);
+  return r ? (pn(r), [r]) : (pn(t[t.length - 1]), [a, ...t]);
 }
-function or(n, e) {
-  const t = Me(Oe(n));
-  return t ? Rt(t, e.format, e.language, e) : [];
+function cr(n, e) {
+  const t = Me(Te(n));
+  return t ? Pt(t, e.format, e.language, e) : [];
 }
-const Ke = "", be = "";
-function Vt(n) {
-  return x(n).includes("term") || (n.children ?? []).some(Vt);
+const We = "", ke = "";
+function xt(n) {
+  return U(n).includes("term") || (n.children ?? []).some(xt);
 }
-const lt = /* @__PURE__ */ new Set();
-function ms(n) {
-  return Vt(n) ? [n, ...(n.children ?? []).flatMap(ms)] : [];
+const ht = /* @__PURE__ */ new Set();
+function vi(n) {
+  return xt(n) ? [n, ...(n.children ?? []).flatMap(vi)] : [];
 }
-function vs(n, e, t, s, i, a, r) {
+function yi(n, e, t, i, s, a, r) {
   if (e.length === 0) return;
-  const o = x(n).find((m) => le.has(m)), l = e.length > 1 ? e.find(Vt) : void 0, c = e.filter((m) => m !== l), u = o && i.contextualize.has(o) ? G(i, `${o}.inline`) : void 0, d = o && r && l ? G(i, `${o}.term`, void 0, { term: Ke, value: be }) : void 0, h = r ? e : c;
+  const o = U(n).find((m) => he.has(m)), l = e.length > 1 ? e.find(xt) : void 0, c = e.filter((m) => m !== l), u = o && s.contextualize.has(o) ? H(s, `${o}.inline`) : void 0, d = o && r && l ? H(s, `${o}.term`, void 0, { term: We, value: ke }) : void 0, h = r ? e : c;
   if (u === void 0 && !d) {
-    _(h, t, s, i, a);
+    $(h, t, i, s, a);
     return;
   }
-  const f = x(h[0]).some((m) => Le.has(m)) && !a, p = [], g = [];
-  u !== void 0 && (p.push(B(u, i)), g.push(n));
-  const v = a || f, S = [...h, ...l ? ms(l) : []];
-  S.forEach((m) => lt.add(m));
-  for (const m of (d ?? be).split(new RegExp(`(${Ke}|${be})`)))
-    m === Ke ? _([l], p, g, i, v) : m === be ? _(c, p, g, i, v) : m && (p.push(B(m, i)), g.push(n));
-  S.forEach((m) => lt.delete(m)), f && p.length > 0 && i.blockStarts.add(p[0]);
-  for (const [m, C] of Et(p, i)) {
-    const y = p.slice(m, C), b = g.slice(m, C), k = y.length > 1 ? je(y, b, i) : void 0;
-    Te(t, s, i, n, y, b, k);
+  const f = U(h[0]).some((m) => Oe.has(m)) && !a, p = [], g = [];
+  u !== void 0 && (p.push(j(u, s)), g.push(n));
+  const v = a || f, S = [...h, ...l ? vi(l) : []];
+  S.forEach((m) => ht.add(m));
+  for (const m of (d ?? ke).split(new RegExp(`(${We}|${ke})`)))
+    m === We ? $([l], p, g, s, v) : m === ke ? $(c, p, g, s, v) : m && (p.push(j(m, s)), g.push(n));
+  S.forEach((m) => ht.delete(m)), f && p.length > 0 && s.blockStarts.add(p[0]);
+  for (const [m, C] of It(p, s)) {
+    const y = p.slice(m, C), b = g.slice(m, C), k = y.length > 1 ? _e(y, b, s) : void 0;
+    Ue(t, i, s, n, y, b, k);
   }
 }
-function ys(n, e, t, s, i) {
+function Si(n, e, t, i, s) {
   n.forEach((a, r) => {
-    const o = r === 0 ? i : !1;
-    "ref" in a ? vs(a.ref, a.targets, e, t, s, o, !0) : Tt(a.node, e, t, s, o);
+    const o = r === 0 ? s : !1;
+    "ref" in a ? yi(a.ref, a.targets, e, t, i, o, !0) : Ut(a.node, e, t, i, o);
   });
 }
-function Ss(n, e) {
-  const t = Ot(x(n), e);
+function bi(n, e) {
+  const t = Tt(U(n), e);
   return t !== void 0 && t !== "inline";
 }
-function lr(n, e, t, s) {
-  const i = O(t, s.ancestorChains);
-  if (!i) return;
-  const a = st(Y(i.ref, U(e)));
-  s.aliasLocates.add(a);
+function ur(n, e, t, i) {
+  const s = O(t, i.ancestorChains);
+  if (!s) return;
+  const a = rt(ee(s.ref, x(e)));
+  i.aliasLocates.add(a);
   for (const r of n) {
-    const o = s.format === "ssml" ? U(r.ssml ?? "") : r.plain;
-    r.locate = a, r.offsets = [{ start: 0, end: o?.length ?? 0, locate: a }], s.edgeSubstitutedLocate.set(r, { leading: a, trailing: a });
+    const o = i.format === "ssml" ? x(r.ssml ?? "") : r.plain;
+    r.locate = a, r.offsets = [{ start: 0, end: o?.length ?? 0, locate: a }], i.edgeSubstitutedLocate.set(r, { leading: a, trailing: a });
   }
 }
-function cr(n, e, t, s, i, a, r) {
-  const o = n.text?.language, l = $(o, i), c = new Map((n.children ?? []).map((y) => [y.id, y])), u = [], d = [], h = [], f = /* @__PURE__ */ new Set(), p = /* @__PURE__ */ new Set(), g = /* @__PURE__ */ new Set(), v = i.segmentation === "sentence", S = i.interruptions.abbreviation === "never", m = i.interruptions.abbreviation === "inline", C = (y, b) => {
+function hr(n, e, t, i, s, a, r) {
+  const o = n.text?.language, l = G(o, s), c = new Map((n.children ?? []).map((y) => [y.id, y])), u = [], d = [], h = [], f = /* @__PURE__ */ new Set(), p = /* @__PURE__ */ new Set(), g = /* @__PURE__ */ new Set(), v = s.segmentation === "sentence", S = s.interruptions.abbreviation === "never", m = s.interruptions.abbreviation === "inline", C = (y, b) => {
     if (y.abbreviation !== "alias") return;
     const k = u.slice(b);
-    lr(k, y.abbreviationText, n, i), k.forEach((w) => g.add(w));
+    ur(k, y.abbreviationText, n, s), k.forEach((w) => g.add(w));
   };
-  for (let y of Mi(e)) {
+  for (let y of Ds(e)) {
     if (y.abbreviation && (y.abbreviation === "text" ? m : S)) continue;
     if (y.abbreviation === "alias" && !m && (y = { ...y, ssml: y.parenthesizedSsml }), y.placeholderId !== void 0) {
       const w = c.get(y.placeholderId);
       if (!w) continue;
-      if (Ss(w, i)) {
-        const E = x(w), I = E.some((L) => le.has(L));
-        if (I)
-          for (const L of or(w, i))
-            u.push(L), d.push(w);
-        const A = I ? Ot(E, i) === "never" || !w.children?.length ? [] : [{ ref: w, targets: w.children }] : [{ node: w }];
-        for (const L of A)
-          if (h.push(L), v) {
-            const K = u.length;
-            ys([L], u, d, i, h.length === 1 && (a || r)), u.slice(K).forEach((N) => p.add(N));
+      if (bi(w, s)) {
+        const E = U(w), R = E.some((V) => he.has(V));
+        if (R)
+          for (const V of cr(w, s))
+            u.push(V), d.push(w);
+        const A = R ? Tt(E, s) === "never" || !w.children?.length ? [] : [{ ref: w, targets: w.children }] : [{ node: w }];
+        for (const V of A)
+          if (h.push(V), v) {
+            const Q = u.length;
+            Si([V], u, d, s, h.length === 1 && (a || r)), u.slice(Q).forEach((N) => p.add(N));
           }
       } else {
         const E = u.length;
-        Tt(w, u, d, i, a), x(w).some((I) => kt.has(I)) && u.slice(E).forEach((I) => f.add(I));
+        Ut(w, u, d, s, a), U(w).some((R) => Ct.has(R)) && u.slice(E).forEach((R) => f.add(R));
       }
       continue;
     }
     if (!y.ssml) continue;
     const b = u.length;
-    if (i.format === "plain" && i.language !== "block-level" && i.language !== "none" && xn(y.ssml)) {
-      for (const w of dt(y.ssml, o)) {
-        const E = { plain: w.plain }, I = $(w.language, i);
-        I && (E.language = I), u.push(E), d.push(n);
+    if (s.format === "plain" && s.language !== "block-level" && s.language !== "none" && Bn(y.ssml)) {
+      for (const w of gt(y.ssml, o)) {
+        const E = { plain: w.plain }, R = G(w.language, s);
+        R && (E.language = R), u.push(E), d.push(n);
       }
       C(y, b);
       continue;
     }
     const k = {};
-    l && (k.language = l), i.format === "ssml" ? k.ssml = us(y.ssml, i.languageOverrides) : k.plain = U(y.ssml), (i.language === "block-level" || i.language === "none") && k.ssml && (k.ssml = ss(k.ssml)), u.push(k), d.push(n), C(y, b);
+    l && (k.language = l), s.format === "ssml" ? k.ssml = hi(y.ssml, s.languageOverrides) : k.plain = x(y.ssml), (s.language === "block-level" || s.language === "none") && k.ssml && (k.ssml = ai(k.ssml)), u.push(k), d.push(n), C(y, b);
   }
   if (v && h.length + f.size + g.size > 0)
     return u.forEach((y) => {
       const b = f.has(y) ? "inline" : p.has(y) ? "after" : g.has(y) ? "alias" : void 0;
-      i.placeholderPieces.set(y, { node: n, placement: b });
-    }), Te(t, s, i, n, u, d, void 0), [];
-  for (const [y, b] of Et(u, i)) {
-    const k = u.slice(y, b), w = d.slice(y, b), E = k.length > 1 ? je(k, w, i) : void 0;
-    Te(t, s, i, n, k, w, E);
+      s.placeholderPieces.set(y, { node: n, placement: b });
+    }), Ue(t, i, s, n, u, d, void 0), [];
+  for (const [y, b] of It(u, s)) {
+    const k = u.slice(y, b), w = d.slice(y, b), E = k.length > 1 ? _e(k, w, s) : void 0;
+    Ue(t, i, s, n, k, w, E);
   }
   return h;
 }
-function Tt(n, e, t, s, i) {
-  const a = x(n), r = De(n), o = Ot(a, s) === "never", l = o && a.some((g) => le.has(g));
-  if (gn(a, s) || o && !l) return;
-  const c = a.some((g) => Le.has(g)), u = c && !i, d = e.length, h = lt.has(n) ? [] : a.filter(
-    (g) => g !== "footnote" && g !== "pagebreak" && !le.has(g) && !ps(g, a, s)
-  ), f = a.some((g) => Ga.has(g) && s.contextualize.has(g)), p = a.includes("table") && r !== void 0 && !f;
+function Ut(n, e, t, i, s) {
+  const a = U(n), r = Fe(n), o = Tt(a, i) === "never", l = o && a.some((g) => he.has(g));
+  if (fn(a, i) || o && !l) return;
+  const c = a.some((g) => Oe.has(g)), u = c && !s, d = e.length, h = ht.has(n) ? [] : a.filter(
+    (g) => g !== "footnote" && g !== "pagebreak" && !he.has(g) && !mi(g, a, i)
+  ), f = a.some((g) => Ka.has(g) && i.contextualize.has(g)), p = a.includes("table") && r !== void 0 && !f;
   if (p) {
-    const g = ot(r, n, s);
-    ge(g, r, r, n, s), W(e, t, n, [g]);
+    const g = ut(r, n, i);
+    pe(g, r, r, n, i), W(e, t, n, [g]);
   }
   for (const g of h) {
     if (g === "figure" && r === void 0) continue;
-    const { variantKey: v, params: S } = un(g, n, s);
-    an(e, t, n, s, g, "before", v, S);
+    const { variantKey: v, params: S } = hn(g, n, i);
+    rn(e, t, n, i, g, "before", v, S);
   }
   if (a.includes("noteref"))
     for (const g of n.children ?? []) {
-      const v = x(g);
-      if (!gn(v, s))
+      const v = U(g);
+      if (!fn(v, i))
         if (v.includes("footnote")) {
-          const S = s.contextualize.has("footnote"), m = s.i18n.exists("footnote.block.start") || s.i18n.exists("footnote.block.end"), C = v.some((L) => Le.has(L)) && !i && s.interruptions.noteref !== "inline", y = S ? G(s, m ? "footnote.block.start" : "footnote.inline") : void 0, b = S && (y !== void 0 || m), k = [], w = [];
-          y !== void 0 && (k.push(B(y, s)), w.push(g));
-          const E = [], I = [];
-          if (_([g], E, I, s, i || C), C && E.length > 0 && s.blockStarts.add(E[0]), k.push(...E), w.push(...I), b && m) {
-            const L = G(s, "footnote.block.end");
-            L !== void 0 && (k.push(B(L, s)), w.push(g));
+          const S = i.contextualize.has("footnote"), m = i.i18n.exists("footnote.block.start") || i.i18n.exists("footnote.block.end"), C = v.some((V) => Oe.has(V)) && !s && i.interruptions.noteref !== "inline", y = S ? H(i, m ? "footnote.block.start" : "footnote.inline") : void 0, b = S && (y !== void 0 || m), k = [], w = [];
+          y !== void 0 && (k.push(j(y, i)), w.push(g));
+          const E = [], R = [];
+          if ($([g], E, R, i, s || C), C && E.length > 0 && i.blockStarts.add(E[0]), k.push(...E), w.push(...R), b && m) {
+            const V = H(i, "footnote.block.end");
+            V !== void 0 && (k.push(j(V, i)), w.push(g));
           }
-          const A = b && k.length > 1 ? je(k, w, s) : void 0;
-          Te(e, t, s, g, k, w, A);
+          const A = b && k.length > 1 ? _e(k, w, i) : void 0;
+          Ue(e, t, i, g, k, w, A);
         } else
-          _([g], e, t, s, i);
+          $([g], e, t, i, s);
     }
-  else if (!a.some((g) => Ha.has(g))) {
-    const g = Oe(n)?.ssml, v = a.some((S) => Yn.has(S) && Lt(S, s));
-    if (g && zi(g) && !v) {
-      const S = cr(n, g, e, t, s, i, c);
+  else if (!a.some((g) => Qa.has(g))) {
+    const g = Te(n)?.ssml, v = a.some((S) => ti.has(S) && Ot(S, i));
+    if (g && Ms(g) && !v) {
+      const S = hr(n, g, e, t, i, s, c);
       if (S.length > 0) {
-        const m = i || c && e.length > d;
-        ys(S, e, t, s, m);
+        const m = s || c && e.length > d;
+        Si(S, e, t, i, m);
       }
     } else if (a.includes("pagebreak")) {
-      if (W(e, t, n, rr(n, s)), n.children) {
-        const S = i || c && e.length > d;
-        _(n.children, e, t, s, S);
+      if (W(e, t, n, lr(n, i)), n.children) {
+        const S = s || c && e.length > d;
+        $(n.children, e, t, i, S);
       }
     } else {
-      const S = v ? void 0 : Me(Oe(n));
-      if (S && W(e, t, n, Rt(S, s.format, s.language, s)), n.children && !l) {
-        const m = i || c && e.length > d;
-        a.some((C) => le.has(C)) ? vs(n, n.children, e, t, s, m, Ss(n, s)) : _(n.children, e, t, s, m);
+      const S = v ? void 0 : Me(Te(n));
+      if (S && W(e, t, n, Pt(S, i.format, i.language, i)), n.children && !l) {
+        const m = s || c && e.length > d;
+        a.some((C) => he.has(C)) ? yi(n, n.children, e, t, i, m, bi(n, i)) : $(n.children, e, t, i, m);
       }
     }
   }
-  if (u && e.length > d && s.blockStarts.add(e[d]), r !== void 0 && !f && !p) {
-    const g = ot(r, n, s);
-    a.includes("figure") && ge(g, r, r, n, s), W(e, t, n, [g]);
+  if (u && e.length > d && i.blockStarts.add(e[d]), r !== void 0 && !f && !p) {
+    const g = ut(r, n, i);
+    a.includes("figure") && pe(g, r, r, n, i), W(e, t, n, [g]);
   }
   for (const g of h) {
     if (g === "figure" && r === void 0) continue;
-    const { variantKey: v, params: S } = un(g, n, s);
-    an(e, t, n, s, g, "after", v, S);
+    const { variantKey: v, params: S } = hn(g, n, i);
+    rn(e, t, n, i, g, "after", v, S);
   }
 }
-function _(n, e, t, s, i) {
-  n.forEach((a, r) => Tt(a, e, t, s, r === 0 ? i : !1));
+function $(n, e, t, i, s) {
+  n.forEach((a, r) => Ut(a, e, t, i, r === 0 ? s : !1));
 }
-const ur = Tn;
-async function bs(n, e, t, s) {
-  const i = ur(n);
+const dr = Nn;
+async function wi(n, e, t, i) {
+  const s = dr(n);
   let a = "";
   const r = [];
-  for (const h of i)
+  for (const h of s)
     r.push(a.length), h.kind === "text" ? a += h.text : h.kind === "paired" && (a += h.innerText);
   if (!a) return;
-  const o = await t(e, a, s);
+  const o = await t(e, a, i);
   if (o.length <= 1) return;
   const l = [];
   let c = "", u = 0;
@@ -4621,11 +4568,11 @@ async function bs(n, e, t, s) {
       const S = o[u], m = Math.min(v, S.end), C = m >= S.end && u < o.length - 1;
       let y = h.slice(g - f, m - f);
       C && (y = y.replace(/[ \t\r\n]+$/, ""));
-      const b = M(y);
+      const b = B(y);
       c += p ? p(b) : b, g = m, C && (l.push(c), c = "", u++);
     }
   }
-  return i.forEach((h, f) => {
+  return s.forEach((h, f) => {
     if (h.kind === "selfClosing")
       c += h.raw;
     else if (h.kind === "text")
@@ -4636,21 +4583,21 @@ async function bs(n, e, t, s) {
     }
   }), c && l.push(c.replace(/[ \t\r\n]+$/, "")), l;
 }
-function Ut(n, e) {
-  const t = e.segmenter === Xn ? Ma(n) : n;
-  return kn(e.segmentationSuppressions, t);
+function Nt(n, e) {
+  const t = e.segmenter === ei ? Ma(n) : n;
+  return Cn(e.segmentationSuppressions, t);
 }
-async function hr(n, e) {
-  const t = n.language ?? "en", s = Ut(t, e), i = e.format === "ssml" ? n.ssml : n.plain;
-  if (!i) return;
-  const a = await e.segmenter(t, pe(i, e.format), s);
+async function gr(n, e) {
+  const t = n.language ?? "en", i = Nt(t, e), s = e.format === "ssml" ? n.ssml : n.plain;
+  if (!s) return;
+  const a = await e.segmenter(t, ve(s, e.format), i);
   if (a.length <= 1) return;
   if (e.format !== "ssml") return a.map((o) => ({ text: o.text, start: o.start, end: o.contentEnd }));
-  const r = await bs(i, t, e.segmenter, s);
+  const r = await wi(s, t, e.segmenter, i);
   if (r)
     return a.map((o, l) => ({ text: r[l], start: o.start, end: o.contentEnd }));
 }
-const pn = /* @__PURE__ */ new Set([
+const mn = /* @__PURE__ */ new Set([
   "cell",
   "rowheader",
   "columnheader",
@@ -4665,67 +4612,67 @@ const pn = /* @__PURE__ */ new Set([
   "heading5",
   "heading6"
 ]);
-function mn(n) {
-  return n ? x(Array.isArray(n) ? n[1] : n) : [];
+function vn(n) {
+  return n ? U(Array.isArray(n) ? n[1] : n) : [];
 }
-function ws(n, e) {
+function ki(n, e) {
   return Array.isArray(n) ? n[e === "leading" ? 0 : 1] : n;
 }
-function vn(n, e, t) {
-  const s = ws(n, e);
-  return (t.ancestorChains.get(s) ?? []).filter((i) => x(i).some((a) => a !== "presentation"));
-}
 function yn(n, e, t) {
-  const s = ws(n, e);
-  return [s, ...t.ancestorChains.get(s) ?? []].find((i) => x(i).some((a) => Le.has(a)));
+  const i = ki(n, e);
+  return (t.ancestorChains.get(i) ?? []).filter((s) => U(s).some((a) => a !== "presentation"));
 }
-function dr(n, e) {
-  return n.length === e.length && n.every((t, s) => t === e[s]);
+function Sn(n, e, t) {
+  const i = ki(n, e);
+  return [i, ...t.ancestorChains.get(i) ?? []].find((s) => U(s).some((a) => Oe.has(a)));
 }
-function Sn(n, e, t, s) {
-  const i = s.edgeSubstitutedLocate.get(e)?.[t];
-  return i && !s.aliasLocates.has(i) ? !0 : !!n && !Array.isArray(n) && H(n);
+function fr(n, e) {
+  return n.length === e.length && n.every((t, i) => t === e[i]);
 }
-function te(n, e) {
+function bn(n, e, t, i) {
+  const s = i.edgeSubstitutedLocate.get(e)?.[t];
+  return s && !i.aliasLocates.has(s) ? !0 : !!n && !Array.isArray(n) && K(n);
+}
+function se(n, e) {
   return e.placeholderPieces.get(n)?.placement === "inline";
 }
-function ks(n, e) {
+function Ci(n, e) {
   return e.placeholderPieces.get(n)?.placement === "alias";
 }
-function gr(n, e) {
+function pr(n, e) {
   return e.placeholderPieces.get(n)?.placement === "after";
 }
-function Cs(n, e, t, s) {
-  for (const { piece: i, source: a } of n.get(e) ?? [])
-    t.push(i), s.push(a);
+function Ei(n, e, t, i) {
+  for (const { piece: s, source: a } of n.get(e) ?? [])
+    t.push(s), i.push(a);
   n.delete(e);
 }
-function ct(n, e, t) {
-  const s = t.placeholderPieces.get(n)?.node;
-  return s !== void 0 && s === t.placeholderPieces.get(e)?.node;
+function dt(n, e, t) {
+  const i = t.placeholderPieces.get(n)?.node;
+  return i !== void 0 && i === t.placeholderPieces.get(e)?.node;
 }
-function fr(n, e, t, s, i) {
-  const a = i.format === "ssml" ? n.ssml : n.plain, r = i.format === "ssml" ? t.ssml : t.plain;
-  return !a || !r ? !1 : ct(n, t, i) ? !0 : !(!Ct(n.language ?? "en", t.language ?? "en") || i.synthetic.has(n) || i.synthetic.has(t) || !e || !s || !i.segmentationReconstruct && yn(e, "trailing", i) !== yn(s, "leading", i) || mn(e).some((o) => pn.has(o)) || mn(s).some((o) => pn.has(o)) || !dr(vn(e, "trailing", i), vn(s, "leading", i)) || Sn(e, n, "trailing", i) || Sn(s, t, "leading", i));
+function mr(n, e, t, i, s) {
+  const a = s.format === "ssml" ? n.ssml : n.plain, r = s.format === "ssml" ? t.ssml : t.plain;
+  return !a || !r ? !1 : dt(n, t, s) ? !0 : !(!Rt(n.language ?? "en", t.language ?? "en") || s.synthetic.has(n) || s.synthetic.has(t) || !e || !i || !s.segmentationReconstruct && Sn(e, "trailing", s) !== Sn(i, "leading", s) || vn(e).some((o) => mn.has(o)) || vn(i).some((o) => mn.has(o)) || !fr(yn(e, "trailing", s), yn(i, "leading", s)) || bn(e, n, "trailing", s) || bn(i, t, "leading", s));
 }
-async function bn(n, e, t, s, i) {
-  const a = t.synthetic.has(n) ? void 0 : await hr(n, t);
+async function wn(n, e, t, i, s) {
+  const a = t.synthetic.has(n) ? void 0 : await gr(n, t);
   if (!a) {
-    s.push(n), i.push(e);
+    i.push(n), s.push(e);
     return;
   }
   const r = t.blockStarts.has(n);
   r && t.blockStarts.delete(n);
-  const o = Array.isArray(e) ? void 0 : e, l = o ? O(o, t.ancestorChains) : void 0, c = o && H(o) ? X(o, t) : void 0, u = t.edgeSubstitutedLocate.get(n);
+  const o = Array.isArray(e) ? void 0 : e, l = o ? O(o, t.ancestorChains) : void 0, c = o && K(o) ? Y(o, t) : void 0, u = t.edgeSubstitutedLocate.get(n);
   a.forEach(({ text: d, start: h, end: f }, p) => {
     const g = { ...n, [t.format]: d }, v = (p === 0 ? u?.leading : void 0) ?? (p === a.length - 1 ? u?.trailing : void 0) ?? c;
     if (v && l)
       g.locate = v, g.offsets = [{ start: h, end: f, locate: v }];
     else if (l) {
-      const S = t.format === "ssml" ? pe(d, t.format) : d, m = Y(l.ref, S);
+      const S = t.format === "ssml" ? ve(d, t.format) : d, m = ee(l.ref, S);
       g.locate = m, g.offsets = [{ start: h, end: f, locate: m }];
     }
-    r && p === 0 && t.blockStarts.add(g), s.push(g), i.push(e);
+    r && p === 0 && t.blockStarts.add(g), i.push(g), s.push(e);
   });
 }
 function q(n, e) {
@@ -4733,24 +4680,24 @@ function q(n, e) {
   for (; t < n.length - 1 && n[t + 1].start <= e; ) t++;
   return t;
 }
-async function pr(n, e, t, s) {
-  const i = n.map((c) => pe(e.format === "ssml" ? c.ssml : c.plain, e.format)), { joined: a, ranges: r } = Ve(i), o = await e.segmenter(t, a, s), l = new Array(n.length - 1).fill(!1);
+async function vr(n, e, t, i) {
+  const s = n.map((c) => ve(e.format === "ssml" ? c.ssml : c.plain, e.format)), { joined: a, ranges: r } = xe(s), o = await e.segmenter(t, a, i), l = new Array(n.length - 1).fill(!1);
   for (const c of o) {
     const u = q(r, c.start), d = c.end > c.start ? q(r, c.end - 1) : u;
     for (let h = u; h < d; h++) l[h] = !0;
   }
   return l;
 }
-function mr(n, e, t) {
-  const s = [...e];
-  return n.forEach((i, a) => {
-    if (!te(i, t)) return;
-    const r = a > 0 && ct(n[a - 1], i, t), o = a < n.length - 1 && ct(i, n[a + 1], t);
-    r && !s[a - 1] ? s[a - 1] = !0 : o && (s[a] = !0);
-  }), s;
+function yr(n, e, t) {
+  const i = [...e];
+  return n.forEach((s, a) => {
+    if (!se(s, t)) return;
+    const r = a > 0 && dt(n[a - 1], s, t), o = a < n.length - 1 && dt(s, n[a + 1], t);
+    r && !i[a - 1] ? i[a - 1] = !0 : o && (i[a] = !0);
+  }), i;
 }
-function vr(n, e, t, s, i) {
-  const a = (c) => te(t[q(s, c)], i), r = (c, u) => q(s, c) === q(s, u) && ks(t[q(s, c)], i), o = [];
+function Sr(n, e, t, i, s) {
+  const a = (c) => se(t[q(i, c)], s), r = (c, u) => q(i, c) === q(i, u) && Ci(t[q(i, c)], s), o = [];
   let l;
   return e.forEach((c, u) => {
     l ??= c;
@@ -4758,78 +4705,78 @@ function vr(n, e, t, s, i) {
     d && (a(c.contentEnd - 1) || a(d.start) || r(c.contentEnd - 1, d.start)) || (o.push({ text: n.slice(l.start, c.contentEnd), start: l.start, end: c.end, contentEnd: c.contentEnd }), l = void 0);
   }), o;
 }
-function yr(n, e, t, s, i, a, r) {
+function br(n, e, t, i, s, a, r) {
   const o = [];
-  for (let l = i; l <= a; l++) {
-    if (te(n[l], r) || ks(n[l], r)) {
-      o.push(...ds([n[l]], [e[l]], r));
+  for (let l = s; l <= a; l++) {
+    if (se(n[l], r) || Ci(n[l], r)) {
+      o.push(...gi([n[l]], [e[l]], r));
       continue;
     }
     const c = O(e[l], r.ancestorChains);
     if (!c) continue;
-    const u = t[l], d = H(e[l]) ? X(e[l], r) : void 0, h = Math.max(u.start, s.start), f = Math.min(u.end, l === a ? s.contentEnd : s.end);
+    const u = t[l], d = K(e[l]) ? Y(e[l], r) : void 0, h = Math.max(u.start, i.start), f = Math.min(u.end, l === a ? i.contentEnd : i.end);
     if (f <= h) continue;
-    const p = h - u.start, g = f - u.start, v = pe(r.format === "ssml" ? n[l].ssml : n[l].plain, r.format), S = d ?? Y(c.ref, v.slice(p, g));
+    const p = h - u.start, g = f - u.start, v = ve(r.format === "ssml" ? n[l].ssml : n[l].plain, r.format), S = d ?? ee(c.ref, v.slice(p, g));
     !d && p > 0 && (S.text = { ...S.text, before: v.slice(0, p) }), !d && g < v.length && (S.text = { ...S.text, after: v.slice(g) }), o.push({ start: p, end: g, locate: S });
   }
   return o;
 }
-function Es(n, e) {
-  const t = Za(n, e);
-  return t !== null ? t ?? "en" : n.find((s) => !te(s, e))?.language ?? n[0].language ?? "en";
+function Ri(n, e) {
+  const t = Ya(n, e);
+  return t !== null ? t ?? "en" : n.find((i) => !se(i, e))?.language ?? n[0].language ?? "en";
 }
-function Sr(n, e, t, s, i) {
-  const a = q(t, n.start), r = n.end > n.start ? q(t, n.end - 1) : a, o = Et(e.slice(a, r + 1), i);
+function wr(n, e, t, i, s) {
+  const a = q(t, n.start), r = n.end > n.start ? q(t, n.end - 1) : a, o = It(e.slice(a, r + 1), s);
   return o.map(([l, c], u) => {
-    const d = a + l, h = a + c - 1, f = u === o.length - 1, p = u === 0 ? n.start : t[d].start, g = f ? n.contentEnd : t[h].end, v = f ? n.end : t[h + 1].start, S = ls(e.slice(d, h + 1), i) ?? void 0, m = { text: s.slice(p, g), start: p, end: v, contentEnd: g }, C = o.length > 1 && d === h && te(e[d], i);
+    const d = a + l, h = a + c - 1, f = u === o.length - 1, p = u === 0 ? n.start : t[d].start, g = f ? n.contentEnd : t[h].end, v = f ? n.end : t[h + 1].start, S = ci(e.slice(d, h + 1), s) ?? void 0, m = { text: i.slice(p, g), start: p, end: v, contentEnd: g }, C = o.length > 1 && d === h && se(e[d], s);
     return { boundary: m, startIdx: d, endIdx: h, language: S, sentenceEnd: f ? n.end : void 0, isolated: C };
   });
 }
-async function br(n, e, t, s, i, a) {
-  const r = Es(n, t), o = Ut(r, t), l = n.map((m) => pe(t.format === "ssml" ? m.ssml : m.plain, t.format)), { joined: c, ranges: u } = Ve(l), d = vr(c, await t.segmenter(r, c, o), n, u, t), f = (d.length > 0 ? d : [{ text: c, start: 0, end: c.length, contentEnd: c.length }]).flatMap((m) => Sr(m, n, u, c, t));
+async function kr(n, e, t, i, s, a) {
+  const r = Ri(n, t), o = Nt(r, t), l = n.map((m) => ve(t.format === "ssml" ? m.ssml : m.plain, t.format)), { joined: c, ranges: u } = xe(l), d = Sr(c, await t.segmenter(r, c, o), n, u, t), f = (d.length > 0 ? d : [{ text: c, start: 0, end: c.length, contentEnd: c.length }]).flatMap((m) => wr(m, n, u, c, t));
   let p, g;
   if (t.format === "ssml") {
     const m = /* @__PURE__ */ new Map();
     for (const y of f) for (let b = y.startIdx; b <= y.endIdx; b++) m.set(b, y.language);
-    g = Ve(n.map((y, b) => cs(y, m.get(b), t)), l).joined;
+    g = xe(n.map((y, b) => ui(y, m.get(b), t)), l).joined;
     const C = f.map((y) => y.boundary);
-    p = f.length > 1 ? await bs(g, r, async () => C, o) : void 0;
+    p = f.length > 1 ? await wi(g, r, async () => C, o) : void 0;
   }
   const v = new Set(n.filter((m) => t.blockStarts.has(m))), S = (m, C) => {
     if (m !== void 0)
       for (let y = 0; y < n.length; y++)
-        (u[y].end <= m || C === f.length - 1) && Cs(a, y, s, i);
+        (u[y].end <= m || C === f.length - 1) && Ei(a, y, i, s);
   };
   f.forEach(({ boundary: m, startIdx: C, endIdx: y, language: b, sentenceEnd: k, isolated: w }, E) => {
     if (w) {
-      s.push(n[C]), i.push(e[C]), S(k, E);
+      i.push(n[C]), s.push(e[C]), S(k, E);
       return;
     }
-    const I = t.format === "ssml" ? p ? p[E] : g : m.text, A = { [t.format]: I }, L = t.language === "none" ? $(void 0, t) : b ?? "en";
-    L && (A.language = L), n.slice(C, y + 1).filter((se) => v.delete(se)).length > 0 && t.blockStarts.add(A);
-    const N = yr(n, e, u, m, C, y, t);
+    const R = t.format === "ssml" ? p ? p[E] : g : m.text, A = { [t.format]: R }, V = t.language === "none" ? G(void 0, t) : b ?? "en";
+    V && (A.language = V), n.slice(C, y + 1).filter((re) => v.delete(re)).length > 0 && t.blockStarts.add(A);
+    const N = br(n, e, u, m, C, y, t);
     N.length > 0 && (A.offsets = N);
-    const ne = [...Array(y - C + 1).keys()].map((se) => C + se).filter((se) => !te(n[se], t)), D = ne[0] ?? C, me = ne[ne.length - 1] ?? y, xt = O(e[D], t.ancestorChains), Nt = e[D], zt = (H(Nt) ? X(Nt, t) : void 0) ?? It(xt, I), Mt = D !== me ? Pt(xt, O(e[me], t.ancestorChains), zt) : zt;
-    Mt && (A.locate = Mt), s.push(A), i.push(D === me ? e[D] : [e[D], e[me]]), S(k, E);
+    const ae = [...Array(y - C + 1).keys()].map((re) => C + re).filter((re) => !se(n[re], t)), M = ae[0] ?? C, ye = ae[ae.length - 1] ?? y, zt = O(e[M], t.ancestorChains), Bt = e[M], jt = (K(Bt) ? Y(Bt, t) : void 0) ?? At(zt, R), Mt = M !== ye ? Lt(zt, O(e[ye], t.ancestorChains), jt) : jt;
+    Mt && (A.locate = Mt), i.push(A), s.push(M === ye ? e[M] : [e[M], e[ye]]), S(k, E);
   });
 }
-async function Rs(n, e, t) {
+async function Ii(n, e, t) {
   if (t.segmentation !== "sentence") return { out: n, sources: e };
-  const s = [], i = [];
+  const i = [], s = [];
   let a = 0;
   for (; a < n.length; ) {
     let r = a;
-    for (; r + 1 < n.length && fr(n[r], e[r], n[r + 1], e[r + 1], t); ) r++;
+    for (; r + 1 < n.length && mr(n[r], e[r], n[r + 1], e[r + 1], t); ) r++;
     if (r === a) {
-      await bn(n[a], e[a], t, s, i), a = r + 1;
+      await wn(n[a], e[a], t, i, s), a = r + 1;
       continue;
     }
     const o = [], l = [], c = /* @__PURE__ */ new Map();
     for (let p = a; p <= r; p++)
-      if (!gr(n[p], t))
+      if (!pr(n[p], t))
         o.push(n[p]), l.push(e[p]);
       else if (o.length === 0)
-        s.push(n[p]), i.push(e[p]);
+        i.push(n[p]), s.push(e[p]);
       else {
         const g = o.length - 1;
         c.set(g, [...c.get(g) ?? [], { piece: n[p], source: e[p] }]);
@@ -4838,57 +4785,59 @@ async function Rs(n, e, t) {
       a = r + 1;
       continue;
     }
-    const u = Es(o, t), d = await pr(o, t, u, Ut(u, t)), h = mr(o, d, t);
+    const u = Ri(o, t), d = await vr(o, t, u, Nt(u, t)), h = yr(o, d, t);
     let f = 0;
     for (let p = 0; p < o.length; p++)
       if (!(p < o.length - 1 && h[p])) {
         if (f === p)
-          await bn(o[f], l[f], t, s, i), Cs(c, f, s, i);
+          await wn(o[f], l[f], t, i, s), Ei(c, f, i, s);
         else {
           const g = /* @__PURE__ */ new Map();
           for (let v = f; v <= p; v++) c.has(v) && g.set(v - f, c.get(v));
-          await br(o.slice(f, p + 1), l.slice(f, p + 1), t, s, i, g);
+          await kr(o.slice(f, p + 1), l.slice(f, p + 1), t, i, s, g);
         }
         f = p + 1;
       }
     a = r + 1;
   }
-  return { out: s, sources: i };
+  return { out: i, sources: s };
 }
-function Is(n, e) {
+function Pi(n, e) {
   return Object.keys(e.substitutions).length === 0 ? n : n.map((t) => {
     if (t.ssml) {
-      const { ssml: o, plain: l, map: c } = Ii(t.ssml, e.substitutions);
+      const { ssml: o, plain: l, map: c } = Ls(t.ssml, e.substitutions);
       if (o === t.ssml) return t;
       const u = { ...t, ssml: o };
-      return tn(u, { plain: l, map: c }), u;
+      return nn(u, { plain: l, map: c }), u;
     }
-    const s = t.plain;
-    if (!s) return t;
-    const { text: i, map: a } = Ei(s, e.substitutions);
-    if (i === s) return t;
-    const r = { ...t, plain: i };
-    return tn(r, { plain: s, map: a }), r;
+    const i = t.plain;
+    if (!i) return t;
+    const { text: s, map: a } = Ps(i, e.substitutions);
+    if (s === i) return t;
+    const r = { ...t, plain: s };
+    return nn(r, { plain: i, map: a }), r;
   });
 }
-async function Nr(n, e = {}) {
-  const t = [], s = [], i = await ns(n, e);
-  _(n, t, s, i, !1);
-  const a = await Rs(t, s, i);
-  return Is(gs(a.out, a.sources, i), i);
+async function Br(n, e = {}) {
+  const t = [], i = [], s = await si(n, e);
+  $(n, t, i, s, !1);
+  const a = await Ii(t, i, s);
+  return Pi(fi(a.out, a.sources, s), s);
 }
-async function wr(n, e = {}) {
-  const t = [], s = [], i = await ns(n, e);
-  _(n, t, s, i, !1);
-  const a = await Rs(t, s, i), r = a.out.map((l) => i.blockStarts.has(l)), o = gs(a.out, a.sources, i);
-  return { utterances: Is(o, i), sources: a.sources, blockStarts: r };
+async function Cr(n, e = {}) {
+  const t = [], i = [], s = await si(n, e);
+  $(n, t, i, s, !1);
+  const a = await Ii(t, i, s), r = a.out.map((l) => s.blockStarts.has(l)), o = fi(a.out, a.sources, s);
+  return { utterances: Pi(o, s), sources: a.sources, blockStarts: r };
 }
-class zr {
+class jr {
   engine;
+  languages;
   contentQueue = [];
   // `contentQueue` as loaded, before `voice` stamped it — re-stamped when that changes.
   loadedQueue = [];
-  events = new ze();
+  loadedLanguages = [];
+  events = new je();
   // Navigator owns the state, not the engine
   navigatorState = "idle";
   // Scheduled by the "end" handler's pauseDuration delay — cleared on
@@ -4900,7 +4849,7 @@ class zr {
   _preferences;
   _settings;
   _preferencesEditor = null;
-  preferencesEditorEngineVoice = null;
+  preferencesEditorVoice = null;
   contextualizationOverrides;
   segmentationOverrides;
   // The raw GND source, retained only when content was loaded via
@@ -4923,8 +4872,21 @@ class zr {
   pendingResumeState = null;
   // Index to speak() on the next play() when autoPause has stopped playback between utterances.
   pendingAutoPauseIndex = null;
+  // The engine's voices, as last listed, which content without a voice of its own gets one of.
+  voices = [];
+  voiceIds = /* @__PURE__ */ new Set();
+  // Keyed by `${language}:${needsBoundary}`: the voice picked for content in a language, null when it has none.
+  pickedVoices = /* @__PURE__ */ new Map();
+  pickingVoices = /* @__PURE__ */ new Map();
+  // The engine's latest voice listing: one resolving after a newer one started gives way to it.
+  voiceListing = null;
+  reportedLanguageFallbacks = /* @__PURE__ */ new Set();
+  // `settings.voice` as "voiceschanged" last told it, so loads and refreshes racing each other tell a change once.
+  notifiedVoice = null;
+  // Bumped by every setContentQueue(), so a load still waiting for its voices knows it was superseded.
+  loadGeneration = 0;
   constructor(e, t = {}) {
-    this.engine = e, this._defaults = new ua(t.defaults), this._preferences = new de(t.preferences), this._settings = new $e(this._preferences, this._defaults), this.contextualizationOverrides = t.contextualizationOverrides, this.segmentationOverrides = t.segmentationOverrides, this.setupEngineListeners(), this.applyEngineParameters(), this.initializeEngine();
+    this.engine = e, this._defaults = new Xt(t.defaults), this._preferences = new ie(t.preferences), this._settings = new qe(this._preferences, this._defaults), this.contextualizationOverrides = t.contextualizationOverrides, this.segmentationOverrides = t.segmentationOverrides, this.languages = t.languages ?? [], this.setupEngineListeners(), this.applyEngineParameters(), this.notifiedVoice = this.spokenVoice(), this.initializeEngine();
   }
   // Unlike pauseDuration/autoPause (read live off settings), the engine owns rate/pitch/volume and must be pushed.
   applyEngineParameters() {
@@ -4932,10 +4894,113 @@ class zr {
   }
   async initializeEngine() {
     try {
-      await this.engine.initialize?.();
+      await this.engine.initialize?.(), await this.refreshVoices();
     } catch (e) {
       console.warn("Failed to initialize speech engine:", e);
     }
+  }
+  // The languages voices are picked for ahead: the configured ones, as `languageOverrides` speaks them, else the content's.
+  spokenLanguages() {
+    return (this.languages.length > 0 ? this.languages : this.contentLanguage ? [this.contentLanguage] : []).map((t) => Et(t, this._settings.languageOverrides) ?? t);
+  }
+  // The voice for content in `language`: a single voice for all, else the record's exact tag, then its base language.
+  voiceIdFor(e, t) {
+    return typeof e == "string" ? e : e && t ? Hi(e, t) : void 0;
+  }
+  // The main language's voice prefers boundary events; the others match its boundary support.
+  needsBoundary(e) {
+    const [t] = this.spokenLanguages();
+    if (!t || L(e) === L(t)) return !0;
+    const i = this.pickedVoices.get(this.pickKey(t, !0)), s = this.voiceIdFor(this.settingsWith(i ? { [this.pickedVoiceKey(t, i)]: D(i) } : null).voice, t);
+    return this.voices.find((r) => D(r) === s)?.controls?.boundary !== !1;
+  }
+  pickKey(e, t) {
+    return `${L(e)}:${t}`;
+  }
+  // `undefined` until picked
+  pickedVoice(e) {
+    return this.pickedVoices.get(this.pickKey(e, this.needsBoundary(e)));
+  }
+  async pickVoice(e) {
+    const t = this.needsBoundary(e), i = this.pickKey(e, t);
+    if (this.pickedVoices.has(i)) return;
+    let s = this.pickingVoices.get(i);
+    if (!s) {
+      const a = this.voices;
+      s = Vn(e, a, t).then((r) => {
+        this.voices === a && this.pickedVoices.set(i, r);
+      }).finally(() => this.pickingVoices.delete(i)), this.pickingVoices.set(i, s);
+    }
+    await s;
+  }
+  // Lists the engine's voices for the spoken languages and `languages`, and picks one for each, the main language first.
+  async pickVoices(e = []) {
+    const t = this.spokenLanguages(), i = [...new Set([...t, ...e].map((r) => L(r)).filter(Boolean))];
+    let s = this.engine.getAvailableVoices(i, this.preferredVoiceIds());
+    this.voiceListing = s;
+    let a = await s;
+    for (; s !== this.voiceListing; )
+      s = this.voiceListing, a = await s;
+    (a.length !== this.voices.length || a.some((r) => !this.voiceIds.has(D(r)))) && (this.voices = a, this.voiceIds = new Set(a.map((r) => D(r))), this.pickedVoices.clear(), this.pickingVoices.clear()), t[0] && await this.pickVoice(t[0]), await Promise.all(i.map((r) => this.pickVoice(r)));
+  }
+  // Picks again, re-stamping loaded content whose voice that changes, and tells when the spoken voices change.
+  async refreshVoices() {
+    if (await this.pickVoices(this.loadedLanguages), this.loadedQueue.length > 0 && this.stamped().some((e, t) => e.voice !== this.contentQueue[t]?.voice)) {
+      const { index: e, state: t } = this.resumeTarget();
+      await this.setContentQueue(this.loadedQueue, e, t);
+    }
+    this.notifyVoicesChanged();
+  }
+  // A swapped-in engine starts the queue stamped with the previous one's voices: held, then reloaded with its own.
+  async refreshVoicesForEngine() {
+    const e = this.pendingAdvanceTimeout !== null ? this.getCurrentUtteranceIndex() + 1 : null;
+    if (this.clearPendingAdvance(), this.engine.pause(), await this.pickVoices(this.loadedLanguages), this.loadedQueue.length > 0) {
+      const { index: t, state: i } = this.resumeTarget(), s = i && e !== null && this.getCurrentUtteranceIndex() === e - 1 ? e : t;
+      await this.setContentQueue(this.loadedQueue, s, i);
+    }
+    this.notifyVoicesChanged();
+  }
+  notifyVoicesChanged() {
+    const e = this.spokenVoice();
+    this.sameSettingValue(this.notifiedVoice, e) || (this.notifiedVoice = e, this.emitEvent({ type: "voiceschanged" }));
+  }
+  spokenVoice() {
+    return this.settings.voice;
+  }
+  // The preference's voices the engine has, by their ids; an engine listing no voice can't tell, so it's trusted with them.
+  availableVoice(e) {
+    if (typeof e == "string") return this.listedVoiceId(e) ?? null;
+    if (!e) return null;
+    const t = Object.fromEntries(Object.entries(e).flatMap(([i, s]) => {
+      const a = this.listedVoiceId(s);
+      return a ? [[i, a]] : [];
+    }));
+    return Object.keys(t).length > 0 ? t : null;
+  }
+  // Listed whatever their language, so they're kept rather than taken for another browser's.
+  preferredVoiceIds() {
+    const e = this._settings.voice;
+    return typeof e == "string" ? [e] : e ? Object.values(e) : [];
+  }
+  // Matched by id, else by name, as engines match a voice.
+  listedVoiceId(e) {
+    if (this.voices.length === 0) return e;
+    const t = this.voices.find((i) => D(i) === e) ?? this.voices.find((i) => i.name === e);
+    return t && D(t);
+  }
+  // The voice picked for each spoken and loaded language.
+  pickedVoiceRecord() {
+    const e = {};
+    for (const t of /* @__PURE__ */ new Set([...this.spokenLanguages(), ...this.loadedLanguages])) {
+      const i = this.pickedVoice(t);
+      i && (e[this.pickedVoiceKey(t, i)] ??= D(i));
+    }
+    return Object.keys(e).length > 0 ? e : null;
+  }
+  // A pick is for the language's region only when the voice is of it, else for its base language.
+  pickedVoiceKey(e, t) {
+    const [i, s] = P(e);
+    return s && P(t.language)[1] === s ? e : de(i) === de(e) ? i : e;
   }
   setupEngineListeners() {
     this.engine.on("start", (e) => {
@@ -4945,8 +5010,8 @@ class zr {
     }), this.engine.on("end", () => {
       const e = this.engine.getCurrentUtteranceIndex(), t = this.engine.getUtteranceCount();
       if (e < t - 1) {
-        const s = this._settings.autoPause === "utterance" || this.contentBlockStarts[e + 1] === !0;
-        this._settings.autoPause !== "none" && s ? (this.pendingAutoPauseIndex = e + 1, this.setNavigatorState("paused"), this.emitEvent({ type: "pause" })) : this.pendingAdvanceTimeout = setTimeout(() => {
+        const i = this._settings.autoPause === "utterance" || this.contentBlockStarts[e + 1] === !0;
+        this._settings.autoPause !== "none" && i ? (this.pendingAutoPauseIndex = e + 1, this.setNavigatorState("paused"), this.emitEvent({ type: "pause" })) : this.pendingAdvanceTimeout = setTimeout(() => {
           this.pendingAdvanceTimeout = null, this.engine.speak(e + 1);
         }, this._settings.pauseDuration);
       } else
@@ -4969,25 +5034,23 @@ class zr {
           return;
         }
         if (t === "paused") {
-          const s = e ?? 0;
-          this.pendingAutoPauseIndex = s, s > 0 ? this.engine.setCurrentUtteranceIndex(s, () => this.setNavigatorState("paused")) : this.setNavigatorState("paused");
+          const i = e ?? 0;
+          this.pendingAutoPauseIndex = i, i > 0 ? this.engine.setCurrentUtteranceIndex(i, () => this.setNavigatorState("paused")) : this.setNavigatorState("paused");
           return;
         }
         this.setNavigatorState("ready"), this.emitEvent({ type: "ready" });
       }
     }), this.engine.on("boundary", (e) => {
-      const { charIndex: t, charLength: s } = e.detail ?? {}, i = this.loadedQueue[this.getCurrentUtteranceIndex()], a = i && typeof t == "number" && typeof s == "number" ? ya(i, t, s) : void 0;
+      const { charIndex: t, charLength: i } = e.detail ?? {}, s = this.loadedQueue[this.getCurrentUtteranceIndex()], a = s && typeof t == "number" && typeof i == "number" ? ba(s, t, i) : void 0;
       this.emitEvent(a ? { ...e, detail: { ...e.detail, ...a } } : e);
     }), this.engine.on("mark", (e) => {
       this.emitEvent(e);
     }), this.engine.on("voiceschanged", () => {
-      this.emitEvent({ type: "voiceschanged" });
-    }), this.engine.on("languagefallback", (e) => {
-      this.emitEvent(e);
+      this.refreshVoices();
     }), this.engine.on("enginefallback", (e) => {
-      this.emitEvent(e);
+      this.emitEvent(e), this.refreshVoicesForEngine();
     }), this.engine.on("enginerecovered", (e) => {
-      this.emitEvent(e);
+      this.emitEvent(e), this.refreshVoicesForEngine();
     });
   }
   setNavigatorState(e) {
@@ -5006,33 +5069,51 @@ class zr {
   async loadGndContent(e, t = {}) {
     this.source = e, this.contentLanguage = t.language, await this.reextract();
   }
-  setContentQueue(e, t = null, s = null) {
-    this.clearPendingAdvance(), this.pendingAutoPauseIndex = null, (this.navigatorState === "playing" || this.navigatorState === "paused") && this.engine.stop(), this.loadedQueue = Array.isArray(e) ? [...e] : [e];
-    const i = this.loadedQueue.map((a) => this.withVoice(this.withLanguage(a)));
-    this.contentQueue = i, this.pendingResumeIndex = t, this.pendingResumeState = s, this.setNavigatorState("loading"), this.emitEvent({ type: "loading" }), this.engine.loadUtterances(i, t ?? void 0), this.emitContentChangeEvent({ content: i });
+  async setContentQueue(e, t = null, i = null) {
+    this.clearPendingAdvance(), this.pendingAutoPauseIndex = null, (this.navigatorState === "playing" || this.navigatorState === "paused") && this.engine.stop(), this.loadedQueue = Array.isArray(e) ? [...e] : [e], this.contentQueue = [], this.pendingResumeIndex = t, this.pendingResumeState = i, this.setNavigatorState("loading"), this.emitEvent({ type: "loading" });
+    const s = ++this.loadGeneration, a = this.loadedQueue.map((l) => this.withLanguage(l)).filter((l) => !l.voice && l.language);
+    this.loadedLanguages = [...new Set(a.map((l) => l.language))];
+    const r = this.loadedLanguages.filter((l) => this.pickedVoice(l) === void 0);
+    if (r.length > 0 && (await this.pickVoices(r).catch(() => {
+    }), s !== this.loadGeneration))
+      return;
+    const o = this.stamped();
+    this.contentQueue = o, this.reportLanguageFallbacks(o), this.engine.loadUtterances(o, t ?? void 0), this.emitContentChangeEvent({ content: o }), this.notifyVoicesChanged();
+  }
+  stamped() {
+    const e = this.settings.voice;
+    return this.loadedQueue.map((t) => this.withVoice(this.withLanguage(t), e));
+  }
+  // Once per language, for content in a language the engine has no voice for, spoken with the engine's own.
+  reportLanguageFallbacks(e) {
+    if (this.voices.length !== 0)
+      for (const t of e) {
+        if (t.voice || !t.language || this.pickedVoice(t.language) !== null) continue;
+        const i = L(t.language);
+        this.reportedLanguageFallbacks.has(i) || (this.reportedLanguageFallbacks.add(i), this.emitEvent({ type: "languagefallback", detail: { language: t.language, reason: "no-matching-voice" } }));
+      }
   }
   // The content's language when a loadContent() utterance has none; extraction applies it to loadGndContent()'s.
   withLanguage(e) {
     return this.source !== void 0 || this.contentLanguage === void 0 || e.language ? e : { ...e, language: this.contentLanguage };
   }
-  // The utterance's own voice, else `voice`'s for its language.
-  withVoice(e) {
-    const t = this._settings.voice;
-    if (e.voice || !t) return e;
-    const s = typeof t == "string" ? t : e.language && ut(t, e.language);
-    return s ? { ...e, voice: s } : e;
+  // The utterance's own voice, else the spoken voice for its language.
+  withVoice(e, t) {
+    if (e.voice) return e;
+    const i = this.voiceIdFor(t, e.language);
+    return i ? { ...e, voice: i } : e;
   }
   // Re-runs extraction from `this.source`, resuming near the old position if playback was underway.
   async reextract() {
     if (!this.source) return;
-    const { index: e, state: t } = this.resumeTarget(), s = this.contentSources, { utterances: i, sources: a, blockStarts: r } = await wr(this.source, {
+    const { index: e, state: t } = this.resumeTarget(), i = this.contentSources, { utterances: s, sources: a, blockStarts: r } = await Cr(this.source, {
       format: this._settings.format,
       interruptions: this._settings.interruptions,
       skip: this._settings.skip,
       contextualize: this._settings.contextualize,
       contextualization: {
         contextualizations: this.contextualizationOverrides?.contextualizations,
-        shapes: ma(this._settings.verbosity, this.contextualizationOverrides?.shapes),
+        shapes: ya(this._settings.verbosity, this.contextualizationOverrides?.shapes),
         params: this.contextualizationOverrides?.params
       },
       language: this._settings.language,
@@ -5046,18 +5127,18 @@ class zr {
       }
     });
     this.contentSources = a, this.contentBlockStarts = r;
-    const o = t && e !== null ? this.resolveResumeIndex(s, e, a) : null;
-    this.setContentQueue(i, o, t);
+    const o = t && e !== null ? this.resolveResumeIndex(i, e, a) : null;
+    await this.setContentQueue(s, o, t);
   }
   // Nearest node at or before oldIndex that's still present in newSources.
   // A reconstructed-sentence span (a `[first, last]` tuple) is a fresh array
   // each extraction, so it never matches by identity — skipped in favor of
   // the next plain single-node entry further back.
-  resolveResumeIndex(e, t, s) {
-    for (let i = Math.min(t, e.length - 1); i >= 0; i--) {
-      const a = e[i];
+  resolveResumeIndex(e, t, i) {
+    for (let s = Math.min(t, e.length - 1); s >= 0; s--) {
+      const a = e[s];
       if (a === void 0 || Array.isArray(a)) continue;
-      const r = s.indexOf(a);
+      const r = i.indexOf(a);
       if (r !== -1) return r;
     }
     return null;
@@ -5092,8 +5173,11 @@ class zr {
         this.engine.resume();
     else if (this.navigatorState === "ready" || this.navigatorState === "idle")
       this.setNavigatorState("playing"), this.engine.speak();
-    else if (this.navigatorState === "playing")
-      return;
+    else {
+      if (this.navigatorState === "playing")
+        return;
+      this.navigatorState === "loading" && (this.pendingResumeState = "playing");
+    }
   }
   pause() {
     if (this.navigatorState === "playing") {
@@ -5102,7 +5186,7 @@ class zr {
         return;
       }
       this.pendingAutoPauseIndex = null, this.setNavigatorState("paused"), this.engine.pause();
-    }
+    } else this.navigatorState === "loading" && this.pendingResumeState === "playing" && (this.pendingResumeState = "paused");
   }
   stop() {
     this.clearPendingAdvance(), this.pendingAutoPauseIndex = null, this.setNavigatorState("idle"), this.engine.stop(), this.emitEvent({ type: "stop" });
@@ -5111,9 +5195,9 @@ class zr {
     this.pendingAdvanceTimeout !== null && (clearTimeout(this.pendingAdvanceTimeout), this.pendingAdvanceTimeout = null);
   }
   skipToPosition(e, t = !1) {
-    const s = this.getCurrentUtteranceIndex();
-    return e < 0 || e >= this.contentQueue.length ? !1 : (e === s || (this.clearPendingAdvance(), this.navigatorState === "paused" && !t ? (this.pendingAutoPauseIndex !== null && (this.pendingAutoPauseIndex = e), this.engine.setCurrentUtteranceIndex(e, (i) => {
-      if (i) {
+    const i = this.getCurrentUtteranceIndex();
+    return e < 0 || e >= this.contentQueue.length ? !1 : (e === i || (this.clearPendingAdvance(), this.navigatorState === "paused" && !t ? (this.pendingAutoPauseIndex !== null && (this.pendingAutoPauseIndex = e), this.engine.setCurrentUtteranceIndex(e, (s) => {
+      if (s) {
         const a = this.getCurrentContent();
         a && this.emitUtteranceBoundary(a), this.emitEvent({
           type: "skip",
@@ -5153,26 +5237,32 @@ class zr {
   // LocatorOptions there — and the same "resolve, then skip if there's nothing
   // to show" shape, since there's no raw engine event to fall back to unenriched.
   emitUtteranceBoundary(e) {
-    const t = this._settings.segmentation, s = Sa(e, t);
-    if (!s.length) return;
-    const i = t === "sentence" ? "sentence" : "structure";
+    const t = this._settings.segmentation, i = wa(e, t);
+    if (!i.length) return;
+    const s = t === "sentence" ? "sentence" : "structure";
     this.emitEvent({
       type: "boundary",
-      detail: { name: i, charIndex: 0, charLength: (e.plain ?? "").length, locate: s }
+      detail: { name: s, charIndex: 0, charLength: (e.plain ?? "").length, locate: i }
     });
   }
   emitContentChangeEvent(e) {
     this.events.emit("contentchange", { type: "contentchange", detail: e });
   }
   // Preferences API (Configurable<SpeechSettings, SpeechPreferences>)
-  // With the engine's voice, which content without its own is spoken with; utterances are stamped from the preference alone.
   get settings() {
-    return new $e(this._preferences, this._defaults, this.engine.getCurrentVoice());
+    return this.settingsWith(this.pickedVoiceRecord());
   }
-  // Rebuilt, staged edits kept, once the engine's voice changes, e.g. when it picks its default after being read.
+  // `picks` are the voice defaults; the preference's voices the engine doesn't have give way to them.
+  settingsWith(e) {
+    return new qe(
+      this._preferences.merging(new ie({ voice: this.availableVoice(this._settings.voice) })),
+      new Xt({ ...this._defaults, voice: e })
+    );
+  }
+  // Rebuilt, staged edits kept, once the spoken voices change, e.g. when they're picked after being read.
   get preferencesEditor() {
-    const e = this.engine.getCurrentVoice(), t = e ? _n(e) : null;
-    return (this._preferencesEditor === null || t !== this.preferencesEditorEngineVoice) && (this._preferencesEditor = new Yt(this._preferencesEditor?.preferences ?? this._preferences, this.settings), this.preferencesEditorEngineVoice = t), this._preferencesEditor;
+    const e = this.spokenVoice();
+    return (this._preferencesEditor === null || !this.sameSettingValue(e, this.preferencesEditorVoice)) && (this._preferencesEditor = new en(this._preferencesEditor?.preferences ?? this._preferences, this.settings), this.preferencesEditorVoice = e), this._preferencesEditor;
   }
   async submitPreferences(e) {
     !this.source && this.contentQueue.length > 0 && Zt.some((t) => e[t] !== void 0) && console.warn(
@@ -5181,12 +5271,14 @@ class zr {
   }
   async applyPreferences() {
     const e = this._settings;
-    if (this._settings = new $e(this._preferences, this._defaults), this.applyEngineParameters(), this._preferencesEditor !== null && (this._preferencesEditor = new Yt(this._preferences, this.settings)), Zt.some((t) => !this.sameSettingValue(this.extractionValue(e, t), this.extractionValue(this._settings, t))))
+    if (this._settings = new qe(this._preferences, this._defaults), this.applyEngineParameters(), (!this.sameSettingValue(e.voice, this._settings.voice) || !this.sameSettingValue(e.languageOverrides, this._settings.languageOverrides)) && await this.pickVoices().catch(() => {
+    }), this._preferencesEditor !== null && (this._preferencesEditor = new en(this._preferences, this.settings)), Zt.some((t) => !this.sameSettingValue(this.extractionValue(e, t), this.extractionValue(this._settings, t))))
       await this.reextract();
     else if (this.loadedQueue.length > 0 && !this.sameSettingValue(e.voice, this._settings.voice)) {
-      const { index: t, state: s } = this.resumeTarget();
-      this.setContentQueue(this.loadedQueue, t, s);
+      const { index: t, state: i } = this.resumeTarget();
+      await this.setContentQueue(this.loadedQueue, t, i);
     }
+    this.notifyVoicesChanged();
   }
   // `reconstruct` only shapes extraction in sentence segmentation.
   extractionValue(e, t) {
@@ -5195,94 +5287,96 @@ class zr {
   // Arrays (skip/contextualize) compare as sets and records (languageOverrides) by entries, not by reference.
   sameSettingValue(e, t) {
     if (Array.isArray(e) && Array.isArray(t))
-      return e.length === t.length && e.every((s) => t.includes(s));
+      return e.length === t.length && e.every((i) => t.includes(i));
     if (e && t && typeof e == "object" && typeof t == "object") {
-      const s = Object.entries(e);
-      return s.length === Object.keys(t).length && s.every(([i, a]) => t[i] === a);
+      const i = Object.entries(e);
+      return i.length === Object.keys(t).length && i.every(([s, a]) => t[s] === a);
     }
     return e === t;
   }
   async destroy() {
-    this.clearPendingAdvance(), this.events.clear(), await this.engine.destroy();
+    this.loadGeneration++, this.loadedQueue = [], this.clearPendingAdvance(), this.events.clear(), await this.engine.destroy();
   }
 }
 export {
-  ha as BooleanPreference,
-  ae as EnumPreference,
-  Or as FallbackEngineProvider,
-  ra as FallbackSpeechEngine,
-  jr as Locator,
-  Fr as LocatorLocations,
-  _r as LocatorText,
-  Z as Preference,
-  ye as RangePreference,
-  ca as ReadiumSpeechDecorationController,
-  zr as ReadiumSpeechNavigator,
-  Tr as ReadiumSpeechProviderRegistry,
-  ua as SpeechDefaults,
-  de as SpeechPreferences,
-  Yt as SpeechPreferencesEditor,
-  jn as SpeechServerAudioDecodeError,
-  na as SpeechServerEngine,
-  Lr as SpeechServerEngineProvider,
-  ue as SpeechServerError,
-  Fn as SpeechServerNetworkError,
-  Dn as SpeechServerStallError,
-  $e as SpeechSettings,
-  Xt as StringArrayPreference,
-  Qt as WebSpeechEngine,
-  Ar as WebSpeechEngineProvider,
-  P as WebSpeechVoiceManager,
-  yt as autoPauseScopes,
-  Ba as blockLevelRoles,
-  ce as chineseVariantMap,
-  Fi as chunkPlainText,
-  $i as chunkSsmlText,
-  En as compareAlphabetically,
-  Cn as compareByPreferredRegion,
-  pa as contextualizationShapesAtVerbosity,
-  fa as contextualizedAtVerbosity,
-  ee as createJsonOrderMap,
-  la as createLocator,
-  Qn as defaultContextualizations,
-  R as extractLangRegionFromBCP47,
-  Nr as extractUtterances,
-  vt as extractionFormats,
+  ga as BooleanPreference,
+  le as EnumPreference,
+  Tr as FallbackEngineProvider,
+  ca as FallbackSpeechEngine,
+  _r as Locator,
+  $r as LocatorLocations,
+  Gr as LocatorText,
+  X as Preference,
+  be as RangePreference,
+  da as ReadiumSpeechDecorationController,
+  jr as ReadiumSpeechNavigator,
+  Ur as ReadiumSpeechProviderRegistry,
+  Xt as SpeechDefaults,
+  ie as SpeechPreferences,
+  en as SpeechPreferencesEditor,
+  $n as SpeechServerAudioDecodeError,
+  aa as SpeechServerEngine,
+  Or as SpeechServerEngineProvider,
+  ge as SpeechServerError,
+  Gn as SpeechServerNetworkError,
+  _n as SpeechServerStallError,
+  qe as SpeechSettings,
+  Yt as StringArrayPreference,
+  Wt as WebSpeechEngine,
+  Vr as WebSpeechEngineProvider,
+  I as WebSpeechVoiceManager,
+  St as autoPauseScopes,
+  Da as blockLevelRoles,
+  te as chineseVariantMap,
+  Gs as chunkPlainText,
+  Hs as chunkSsmlText,
+  Rn as compareAlphabetically,
+  En as compareByPreferredRegion,
+  va as contextualizationShapesAtVerbosity,
+  ma as contextualizedAtVerbosity,
+  ne as createJsonOrderMap,
+  ha as createLocator,
+  Zn as defaultContextualizations,
+  P as extractLangRegionFromBCP47,
+  Br as extractUtterances,
+  yt as extractionFormats,
   Zt as extractionPreferenceKeys,
-  ht as filterByBoundarySupport,
-  Js as filterByLanguages,
-  _t as filterOutNoveltyVoices,
-  $t as filterOutVeryLowQualityVoices,
-  Qe as getLanguageDisplayName,
-  ke as getQualityValue,
-  _n as getVoiceId,
-  Ne as groupVoicesByLanguage,
-  ja as interruptionRoles,
-  Ze as isNoveltyVoice,
-  sa as isRecoverableFailure,
-  Xe as isVeryLowQualityVoice,
-  mt as languageModes,
-  Bn as mapServerVoice,
-  Gi as mimeTypeForFormat,
-  Re as pauseDurationRangeConfig,
-  In as pickBestVoiceByRegion,
-  Pe as pitchRangeConfig,
-  Ie as rateRangeConfig,
-  ya as resolveBoundaryLocate,
-  Sa as resolveUtteranceLocate,
-  St as segmentationModes,
-  Zi as selectBitrate,
-  Wi as selectFormat,
-  Vr as setupDecorations,
-  Ur as shapeableRoles,
-  xr as skippableRoles,
-  ga as skippedAtVerbosity,
-  Je as sortAlphabetically,
-  $s as sortByPreferredRegion,
-  Q as sortByQuality,
-  Rn as sortVoicesByRegions,
-  oe as toSpeechServerError,
-  ut as valueForLanguage,
-  pt as verbosityPresets,
-  Ae as volumeRangeConfig
+  An as filterByBoundarySupport,
+  Yi as filterByLanguages,
+  tt as filterOutNoveltyVoices,
+  nt as filterOutVeryLowQualityVoices,
+  Ze as getLanguageDisplayName,
+  Ee as getQualityValue,
+  D as getVoiceId,
+  Be as groupVoicesByLanguage,
+  _a as interruptionRoles,
+  Ye as isNoveltyVoice,
+  ra as isRecoverableFailure,
+  et as isVeryLowQualityVoice,
+  vt as languageModes,
+  Fn as mapServerVoice,
+  Qs as mimeTypeForFormat,
+  Pe as pauseDurationRangeConfig,
+  Pn as pickBestVoiceByRegion,
+  On as pickDefaultVoice,
+  Vn as pickLanguageVoice,
+  Le as pitchRangeConfig,
+  Ae as rateRangeConfig,
+  ba as resolveBoundaryLocate,
+  wa as resolveUtteranceLocate,
+  bt as segmentationModes,
+  ea as selectBitrate,
+  Zs as selectFormat,
+  xr as setupDecorations,
+  Nr as shapeableRoles,
+  zr as skippableRoles,
+  pa as skippedAtVerbosity,
+  Xe as sortAlphabetically,
+  qi as sortByPreferredRegion,
+  J as sortByQuality,
+  In as sortVoicesByRegions,
+  ue as toSpeechServerError,
+  ji as valueForLanguage,
+  mt as verbosityPresets,
+  Ve as volumeRangeConfig
 };
