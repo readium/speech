@@ -1156,6 +1156,58 @@ test.serial("after an engine fallback, a queue with nothing to stamp again plays
   t.is(navigator.getState(), "playing");
 });
 
+test.serial("an engine fallback between utterances plays the next one once, with the swapped-in engine's voices", async (t) => {
+  t.teardown(stubOnLine(true));
+  const primary = new FakeEngine({ synchronous: true });
+  primary.availableVoices = [listedVoice("Server", "fr-FR")];
+  const fallbackProvider = new FakeFallbackProvider();
+  fallbackProvider.engineOptions = { synchronous: true };
+  const spoken: [number | undefined, string | undefined][] = [];
+  const createEngine = fallbackProvider.createEngine.bind(fallbackProvider);
+  fallbackProvider.createEngine = async (voice?: any) => {
+    const engine = await createEngine(voice);
+    engine.getAvailableVoices = async () => {
+      await new Promise((resolve) => setTimeout(resolve, 60));
+      return [listedVoice("Web", "fr-FR")];
+    };
+    const speak = engine.speak.bind(engine);
+    engine.speak = (index?: number) => {
+      spoken.push([index, engine.loadUtterancesCalls.at(-1)?.[index ?? 0]?.voice]);
+      speak(index);
+    };
+    return engine;
+  };
+  const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  const navigator = new ReadiumSpeechNavigator(wrapper, { languages: ["fr"], preferences: { pauseDuration: 30 } });
+  await settled();
+  navigator.loadContent([{ plain: "Un.", language: "fr" }, { plain: "Deux.", language: "fr" }]);
+  await settled();
+  navigator.play();
+
+  primary.emit("end");
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await new Promise((resolve) => setTimeout(resolve, 120));
+  t.deepEqual(spoken, [[1, "Web-fr-FR"]]);
+});
+
+test.serial("an engine fallback to a buffering engine, with nothing to stamp again, plays once it's ready", async (t) => {
+  t.teardown(stubOnLine(true));
+  const primary = new FakeEngine({ synchronous: true });
+  const fallbackProvider = new FakeFallbackProvider();
+  const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  const navigator = new ReadiumSpeechNavigator(wrapper);
+  navigator.loadContent([{ plain: "Bonjour.", language: "fr", voice: "Own" }]);
+  await settled();
+  navigator.play();
+
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await settled();
+  await settled();
+  fallbackProvider.engine!.emit("ready");
+  await settled();
+  t.deepEqual(fallbackProvider.engine!.speakCalls, [0]);
+});
+
 test("a voice preference by name is the engine's voice of that name", async (t) => {
   const engine = new VoicedMockEngine([alba, nora]);
   const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en"], preferences: { voice: "Nora" } });

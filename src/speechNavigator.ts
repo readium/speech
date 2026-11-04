@@ -212,22 +212,28 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   // Picks again, re-stamping loaded content whose voice that changes, and tells when the spoken voices change.
-  private async refreshVoices(): Promise<boolean> {
+  private async refreshVoices(): Promise<void> {
     await this.pickVoices(this.loadedLanguages);
-    const restamped = this.loadedQueue.length > 0 && this.stamped().some((utterance, index) => utterance.voice !== this.contentQueue[index]?.voice);
-    if (restamped) {
+    if (this.loadedQueue.length > 0 && this.stamped().some((utterance, index) => utterance.voice !== this.contentQueue[index]?.voice)) {
       const { index, state } = this.resumeTarget();
       await this.setContentQueue(this.loadedQueue, index, state);
     }
     this.notifyVoicesChanged();
-    return restamped;
   }
 
-  // A swapped-in engine starts the queue stamped with the previous one's voices: held until stamped with its own.
+  // A swapped-in engine starts the queue stamped with the previous one's voices: held, then reloaded with its own.
   private async refreshVoicesForEngine(): Promise<void> {
+    // Between utterances, playback resumes at the next one, unless moved meanwhile
+    const next = this.pendingAdvanceTimeout !== null ? this.getCurrentUtteranceIndex() + 1 : null;
+    this.clearPendingAdvance();
     this.engine.pause();
-    const restamped = await this.refreshVoices();
-    if (!restamped && this.navigatorState === "playing") this.engine.resume();
+    await this.pickVoices(this.loadedLanguages);
+    if (this.loadedQueue.length > 0) {
+      const { index, state } = this.resumeTarget();
+      const resumeIndex = state && next !== null && this.getCurrentUtteranceIndex() === next - 1 ? next : index;
+      await this.setContentQueue(this.loadedQueue, resumeIndex, state);
+    }
+    this.notifyVoicesChanged();
   }
 
   private notifyVoicesChanged(): void {
