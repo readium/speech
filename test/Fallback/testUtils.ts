@@ -63,8 +63,10 @@ export class FakeEngine {
     return this.currentVoice;
   }
 
+  availableVoices: any[] = [];
+
   async getAvailableVoices(): Promise<any[]> {
-    return [];
+    return this.availableVoices;
   }
 
   speak(index?: number): void {
