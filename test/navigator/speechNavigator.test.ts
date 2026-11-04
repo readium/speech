@@ -1038,6 +1038,27 @@ test("voiceschanged fires when a voice preference changes the voices, without co
   t.is(changes, 1, "not for preferences leaving the voices the same");
 });
 
+test("Chinese variants get their own voice, keyed by their own tags", async (t) => {
+  const engine = new VoicedMockEngine([listedVoice("Sinji", "yue"), listedVoice("Tingting", "cmn-CN")]);
+  const navigator = new ReadiumSpeechNavigator(engine, { languages: ["zh-HK", "zh-TW"] });
+  await settled();
+  t.deepEqual(navigator.settings.voice, { "zh-HK": "Sinji-yue", zh: "Tingting-cmn-CN" });
+
+  navigator.loadContent([{ plain: "a", language: "zh-HK" }, { plain: "b", language: "zh-TW" }]);
+  await settled();
+  t.deepEqual(engine.loadedUtterances.map((u) => u.voice), ["Sinji-yue", "Tingting-cmn-CN"]);
+});
+
+test("a voice preference keyed by a Chinese variant's alias applies to it", async (t) => {
+  const engine = new VoicedMockEngine([listedVoice("Sinji", "yue-HK"), listedVoice("Aasing", "yue-HK")]);
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { voice: { "yue-HK": "Aasing-yue-HK" } } });
+  navigator.loadContent([{ plain: "a", language: "zh-HK" }]);
+  await settled();
+
+  t.is(engine.loadedUtterances[0].voice, "Aasing-yue-HK");
+  t.deepEqual(navigator.settings.voice, { "yue-HK": "Aasing-yue-HK" }, "the pick under the same tag gives way");
+});
+
 test("destroy() drops a load still waiting for its voices", async (t) => {
   const engine = new VoicedMockEngine([alba]);
   const navigator = new ReadiumSpeechNavigator(engine);

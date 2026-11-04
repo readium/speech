@@ -4,16 +4,16 @@ import { SpeechDefaults } from "./SpeechDefaults.js";
 import type { AutoPauseScope, SpeechPreferences, VerbosityPreset, VoicePreference } from "./SpeechPreferences.js";
 import { contextualizedAtVerbosity, skippedAtVerbosity } from "./verbosityTables.js";
 import type { ExtractionFormat, Interruption, LanguageMode, Segmentation } from "../utterances/types.js";
-const languageTag = (language: string): string => language.toLowerCase().replace(/_/g, "-");
+import { normalizeLanguageCode } from "../voices/languageCode.js";
 
 // A record keeps the default's voice for each tag it has none for, so an exact tag still wins over its base language.
 const mergedVoice = (preference: VoicePreference | null | undefined, fallback: VoicePreference | null): VoicePreference | null => {
   if (!preference || (typeof preference === "object" && Object.keys(preference).length === 0)) return fallback;
   if (typeof preference === "string" || !fallback || typeof fallback === "string") return preference;
-  const tags = new Set(Object.keys(preference).map(languageTag));
+  const tags = new Set(Object.keys(preference).map(normalizeLanguageCode));
   const merged = { ...preference };
   for (const [language, id] of Object.entries(fallback)) {
-    if (!tags.has(languageTag(language))) merged[language] = id;
+    if (!tags.has(normalizeLanguageCode(language))) merged[language] = id;
   }
   return merged;
 };

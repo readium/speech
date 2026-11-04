@@ -17,9 +17,10 @@ import type { SentenceSegmenter } from "./utterances/sentenceSegmenter.js";
 import { ReadiumSpeechVoice } from "./voices/types.js";
 import { getVoiceId } from "./voices/voiceId.js";
 import { pickLanguageVoice } from "./voices/defaultVoice.js";
-import { normalizeLanguageCode } from "./voices/languages.js";
+import { normalizeLanguageCode } from "./voices/languageCode.js";
+import { voiceBaseLanguage, voiceForLanguage } from "./voices/voiceForLanguage.js";
+import { extractLangRegionFromBCP47 } from "./utils/language.js";
 import { EventEmitter } from "./utils/eventEmitter.js";
-import { extractLangRegionFromBCP47, valueForLanguage } from "./utils/language.js";
 
 // Set once at construction, never through `submitPreferences()` — none of
 // this changes at runtime the way a preference does.
@@ -147,7 +148,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // The voice for content in `language`: a single voice for all, else the record's exact tag, then its base language.
   private voiceIdFor(voice: VoicePreference | null, language: string | undefined): string | undefined {
     if (typeof voice === "string") return voice;
-    return voice && language ? valueForLanguage(voice, language) : undefined;
+    return voice && language ? voiceForLanguage(voice, language) : undefined;
   }
 
   // The main language's voice prefers boundary events; the others match its boundary support.
@@ -245,7 +246,9 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   // A pick is for the language's region only when the voice is of it, else for its base language.
   private pickedVoiceKey(language: string, picked: ReadiumSpeechVoice): string {
     const [base, region] = extractLangRegionFromBCP47(language);
-    return region && extractLangRegionFromBCP47(picked.language)[1] === region ? language : base;
+    if (region && extractLangRegionFromBCP47(picked.language)[1] === region) return language;
+    // Unless the base is another voice language's too, e.g. zh, Mandarin's, for zh-HK's Cantonese
+    return voiceBaseLanguage(base) === voiceBaseLanguage(language) ? base : language;
   }
 
   private setupEngineListeners(): void {

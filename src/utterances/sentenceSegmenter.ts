@@ -27,7 +27,7 @@ const segmenters = new Map<string, { segmenter: Intl.Segmenter; language: string
 function segmenterFor(language: string): { segmenter: Intl.Segmenter; language: string } {
   let entry = segmenters.get(language);
   if (!entry) {
-    // Not normalizeLanguageCode(): it maps Chinese to voice codes, and its module needs Vite's import.meta.glob.
+    // Not normalizeLanguageCode(): it maps Chinese to voice codes.
     // Intl.Segmenter throws on a malformed tag (e.g. "en_US"): normalized, else English like content without a language.
     try {
       const [base, region] = extractLangRegionFromBCP47(language);

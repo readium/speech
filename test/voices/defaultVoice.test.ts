@@ -26,6 +26,13 @@ test("pickLanguageVoice() is null without a voice of the language, novelty ones 
   t.is(await pickLanguageVoice("en", [voice("Alba", "en-US", { isNovelty: true })]), null);
 });
 
+test("pickLanguageVoice() matches a language's alias, e.g. Cantonese for zh-HK", async (t) => {
+  const voices = [voice("Sinji", "yue-HK"), voice("Tingting", "cmn-CN")];
+
+  t.is((await pickLanguageVoice("zh-HK", voices))?.name, "Sinji");
+  t.is((await pickLanguageVoice("zh-CN", voices))?.name, "Tingting");
+});
+
 test("pickDefaultVoice() picks for the first of its languages with a voice", async (t) => {
   const voices = [voice("Alba", "en-US"), voice("Lea", "fr-FR")];
 

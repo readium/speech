@@ -67,6 +67,14 @@ test("a voice record keeps the defaults' voice for each tag it has none for", (t
   t.deepEqual(settings.voice, { fr: "amelie", "de-AT": "anna", en_us: "alex", "fr-CA": "chantal", de: "helena" });
 });
 
+test("a voice record's tags replace the defaults' for the same voice language, e.g. zh-HK for yue-HK", (t) => {
+  const settings = new SpeechSettings(
+    new SpeechPreferences({ voice: { "zh-HK": "aasing" } }),
+    new SpeechDefaults({ voice: { "yue-HK": "sinji", cmn: "tingting" } }),
+  );
+  t.deepEqual(settings.voice, { "zh-HK": "aasing", cmn: "tingting" });
+});
+
 test("a single voice replaces the defaults' voices", (t) => {
   const settings = new SpeechSettings(new SpeechPreferences({ voice: "amelie" }), new SpeechDefaults({ voice: { en: "samantha" } }));
   t.is(settings.voice, "amelie");

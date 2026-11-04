@@ -2,6 +2,7 @@ import { ReadiumSpeechVoice } from "./types.js";
 import { filterOutNoveltyVoices, filterOutVeryLowQualityVoices } from "./filters.js";
 import { filterByBoundarySupport, pickBestVoiceByRegion, sortVoicesByRegions } from "./sorting.js";
 import { extractLangRegionFromBCP47 } from "../utils/language.js";
+import { normalizeLanguageCode } from "./languageCode.js";
 
 /**
  * Picks the voice content in `language` is spoken with: among its base language's voices, whatever the region,
@@ -13,9 +14,11 @@ export const pickLanguageVoice = async (
   voices: ReadiumSpeechVoice[],
   needsBoundary: boolean = true
 ): Promise<ReadiumSpeechVoice | null> => {
-  const [baseLanguage] = extractLangRegionFromBCP47(language);
+  // Normalized first, as aliases differ in base language, e.g. zh-HK is yue-HK
+  const baseLanguageOf = (tag: string) => extractLangRegionFromBCP47(normalizeLanguageCode(tag))[0];
+  const baseLanguage = baseLanguageOf(language);
   const matching = filterOutVeryLowQualityVoices(filterOutNoveltyVoices(voices))
-    .filter(voice => extractLangRegionFromBCP47(voice.language)[0] === baseLanguage);
+    .filter(voice => baseLanguageOf(voice.language) === baseLanguage);
   if (matching.length === 0) return null;
   return pickBestVoiceByRegion(language, filterByBoundarySupport(matching, needsBoundary));
 };
