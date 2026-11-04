@@ -4,6 +4,7 @@ import { ReadiumSpeechUtterance } from "../utterance.js";
 import { ReadiumSpeechVoice } from "../voices/types.js";
 import { WebSpeechVoiceManager } from "./WebSpeechVoiceManager.js";
 import { pickDefaultVoice } from "../voices/defaultVoice.js";
+import { getVoiceId } from "../voices/voiceId.js";
 
 import { detectFeatures, WebSpeechFeatures } from "../utils/features.js";
 import { detectPlatformFeatures, WebSpeechPlatformPatches } from "../utils/patches.js";
@@ -215,7 +216,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       this.currentVoice = voice;
     }
 
-    if (this.currentVoice?.name !== previousVoice?.name) {
+    if ((this.currentVoice && getVoiceId(this.currentVoice)) !== (previousVoice && getVoiceId(previousVoice))) {
       this.scheduleRestartIfSpeaking();
     }
   }
