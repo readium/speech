@@ -212,13 +212,22 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   // Picks again, re-stamping loaded content whose voice that changes, and tells when the spoken voices change.
-  private async refreshVoices(): Promise<void> {
+  private async refreshVoices(): Promise<boolean> {
     await this.pickVoices(this.loadedLanguages);
-    if (this.loadedQueue.length > 0 && this.stamped().some((utterance, index) => utterance.voice !== this.contentQueue[index]?.voice)) {
+    const restamped = this.loadedQueue.length > 0 && this.stamped().some((utterance, index) => utterance.voice !== this.contentQueue[index]?.voice);
+    if (restamped) {
       const { index, state } = this.resumeTarget();
       await this.setContentQueue(this.loadedQueue, index, state);
     }
     this.notifyVoicesChanged();
+    return restamped;
+  }
+
+  // A swapped-in engine starts the queue stamped with the previous one's voices: held until stamped with its own.
+  private async refreshVoicesForEngine(): Promise<void> {
+    this.engine.pause();
+    const restamped = await this.refreshVoices();
+    if (!restamped && this.navigatorState === "playing") this.engine.resume();
   }
 
   private notifyVoicesChanged(): void {
@@ -362,15 +371,14 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       void this.refreshVoices();
     });
 
-    // The swapped-in engine has other voices, so content's are picked again for it
     this.engine.on("enginefallback", (event) => {
       this.emitEvent(event);
-      void this.refreshVoices();
+      void this.refreshVoicesForEngine();
     });
 
     this.engine.on("enginerecovered", (event) => {
       this.emitEvent(event);
-      void this.refreshVoices();
+      void this.refreshVoicesForEngine();
     });
   }
 

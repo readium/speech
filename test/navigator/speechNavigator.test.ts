@@ -1,7 +1,8 @@
 import test from "ava";
 import { GuidedNavigationObject } from "@readium/shared";
-import { ReadiumSpeechNavigator, ReadiumSpeechVoice, SpeechPreferences } from "../../build/index.js";
+import { FallbackSpeechEngine, ReadiumSpeechNavigator, ReadiumSpeechVoice, SpeechPreferences } from "../../build/index.js";
 import { MockEngine, settled } from "./mockEngine.js";
+import { FakeEngine, FakeFallbackProvider, FakePrimaryProvider, stubOnLine } from "../Fallback/testUtils.js";
 
 const gnd = (json: unknown[]): GuidedNavigationObject[] => GuidedNavigationObject.deserializeArray(json)!;
 
@@ -1093,6 +1094,56 @@ test("a voice list resolving after a newer one doesn't replace it", async (t) =>
   listFirst();
   await settled();
   t.deepEqual(navigator.settings.voice, { en: "Nora-en-US" });
+});
+
+test.serial("after an engine fallback, the queue is only played once stamped with the swapped-in engine's voices", async (t) => {
+  t.teardown(stubOnLine(true));
+  const primary = new FakeEngine({ synchronous: true });
+  primary.availableVoices = [listedVoice("Server", "fr-FR")];
+  const fallbackProvider = new FakeFallbackProvider();
+  fallbackProvider.engineOptions = { synchronous: true };
+  const spokenVoices: (string | undefined)[] = [];
+  const createEngine = fallbackProvider.createEngine.bind(fallbackProvider);
+  fallbackProvider.createEngine = async (voice?: any) => {
+    const engine = await createEngine(voice);
+    engine.availableVoices = [listedVoice("Web", "fr-FR")];
+    const speak = engine.speak.bind(engine);
+    engine.speak = (index?: number) => {
+      spokenVoices.push(engine.loadUtterancesCalls.at(-1)?.[0]?.voice);
+      speak(index);
+    };
+    return engine;
+  };
+  const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  const navigator = new ReadiumSpeechNavigator(wrapper, { languages: ["fr"] });
+  await settled();
+  navigator.loadContent([{ plain: "Bonjour.", language: "fr" }]);
+  await settled();
+  navigator.play();
+  t.is(primary.loadUtterancesCalls.at(-1)?.[0]?.voice, "Server-fr-FR");
+
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await settled();
+  await settled();
+  t.deepEqual(spokenVoices, ["Web-fr-FR"]);
+});
+
+test.serial("after an engine fallback, a queue with nothing to stamp again plays on", async (t) => {
+  t.teardown(stubOnLine(true));
+  const primary = new FakeEngine({ synchronous: true });
+  const fallbackProvider = new FakeFallbackProvider();
+  fallbackProvider.engineOptions = { synchronous: true };
+  const wrapper = new FallbackSpeechEngine({ primaryEngine: primary as any, primaryProvider: new FakePrimaryProvider() as any, fallbackProvider: fallbackProvider as any });
+  const navigator = new ReadiumSpeechNavigator(wrapper);
+  navigator.loadContent([{ plain: "Bonjour.", language: "fr", voice: "Own" }]);
+  await settled();
+  navigator.play();
+
+  primary.emit("error", { message: "network failure", recoverable: true });
+  await settled();
+  await settled();
+  t.deepEqual(fallbackProvider.engine!.speakCalls, [0]);
+  t.is(navigator.getState(), "playing");
 });
 
 test("destroy() drops a load still waiting for its voices", async (t) => {
