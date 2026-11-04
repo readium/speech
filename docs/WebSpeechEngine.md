@@ -40,6 +40,10 @@ async initialize(options?: {
 
 `languages`, `maxTimeout`, and `interval` are forwarded as-is to `WebSpeechVoiceManager.initialize()` — see [VoiceManagement.md](VoiceManagement.md#initialize-the-voice-manager) for what each does.
 
+`languages` are also the content's languages, in order, that the default voice is picked for when no voice is set: the best voice of the first one with voices, preferring one with boundary events. Without `languages`, it uses the user's preferred languages (`navigator.languages`) instead. `getCurrentVoice()` returns that default until a voice is set with `setVoice()`, given a voice or its id, matched by `voiceURI`, then `name`.
+
+Each utterance is spoken with its own [`voice`](Playback.md#speaking-an-utterance-with-its-own-voice) when the browser has it, else with the current voice, whatever the utterance's `language`. `ReadiumSpeechNavigator` gives each utterance a voice for its language (see [Playback.md](Playback.md#speaking-in-an-utterances-own-content-language)).
+
 `maxLengthExceeded` (default `"warn"`) controls what happens when an utterance's text exceeds the Web Speech API's practical length limit: `"warn"` logs a console warning and speaks anyway, `"error"` throws, `"none"` does nothing and speaks anyway. Unlike `SpeechServerEngine`'s `overLengthText: "split"` (see [SpeechServerEngine.md](SpeechServerEngine.md)), there is no splitting behavior here — the Web Speech API has no equivalent server-side request-size constraint to work around, just an engine-dependent practical ceiling.
 
-Calling `initialize()` again on an already-initialized engine is a no-op (`false`).
+Calling `initialize()` again on an already-initialized engine is a no-op (`false`). A call made while another is still running shares it, and its options are ignored.

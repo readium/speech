@@ -108,6 +108,16 @@ const navigator = new ReadiumSpeechNavigator(engine, {
 
 The `segmentation` and `reconstruct` preferences (`segmentation.mode`/`segmentation.reconstruct`) stay live `submitPreferences()` settings (see [Preferences](Preferences.md#prosody)) — only `suppressions` and `segmenter` are construction-time, since neither is meant to change mid-session.
 
+### `languages`
+
+The content's languages, main first, e.g. a publication's, also set once at construction:
+
+```typescript
+const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en", "fr"] });
+```
+
+Each gets a voice picked as soon as the engine is initialized, in the language the [`languageOverrides`](Preferences.md) preference speaks it in, before any content in it is loaded: `settings.voice` has one for each (see [Preferences](Preferences.md#voice)). Without `languages`, the content's language given to `loadContent()`/`loadGndContent()` stands in. See [Speaking in an utterance's own content language](#speaking-in-an-utterances-own-content-language).
+
 ## Events
 
 ### `ReadiumSpeechPlaybackEvent`
@@ -145,7 +155,7 @@ See [Highlighting.md](Highlighting.md#highlighting-from-locateoffsets) for how t
 
 ### Speaking an utterance with its own voice
 
-An utterance's `voice` is the voice an engine speaks it with, when it has that voice: matched by `voiceURI` on `WebSpeechEngine` (then `name`, which voices of different quality or languages can share), among every voice of the browser, loading its language's voice data if `WebSpeechVoiceManager.initialize()` wasn't called with it; by `identifier` or `name` on `SpeechServerEngine`. Without one, or with a voice the engine doesn't have (e.g. a `WebSpeechEngine` voice once `FallbackSpeechEngine` has swapped to a server), the engine uses its own choice, following the utterance's content language as below.
+An utterance's `voice` is the voice an engine speaks it with, when it has that voice: matched by `voiceURI` on `WebSpeechEngine` (then `name`, which voices of different quality or languages can share), among every voice of the browser, loading its language's voice data if `WebSpeechVoiceManager.initialize()` wasn't called with it; by `identifier` or `name` on `SpeechServerEngine`. Without one, or with a voice the engine doesn't have (e.g. a `WebSpeechEngine` voice once `FallbackSpeechEngine` has swapped to a server), the engine speaks it with its current voice, the one set with `setVoice()` else its default, whatever the utterance's language. The navigator gives utterances a voice for their language, as below.
 
 `ReadiumSpeechNavigator` sets it on the utterances without one from its [`voice` preference](Preferences.md#voice), so it's only worth setting by hand for a specific utterance.
 
@@ -153,7 +163,11 @@ Every engine's `"start"` event, and so `ReadiumSpeechNavigator`'s, reports the v
 
 ### Speaking in an utterance's own content language
 
-An utterance without a voice of its own is spoken in its `language`: with the selected/default voice when that voice speaks the same language, whatever the region, else with the best available voice for that language — region-strict, preferring one with the same boundary-event support as the selected voice. With no voice for that language at all, the selected/default voice speaks it and a `"languagefallback"` event fires with `detail: { language, reason: "no-matching-voice" }`. An utterance without a `language` is spoken with the selected/default voice. Extraction's [`language`](UtteranceExtraction.md#language) option decides which languages utterances carry, so `language: "none"` keeps one voice throughout.
+`ReadiumSpeechNavigator` gives every utterance without a voice of its own one for its `language`: the [`voice` preference](Preferences.md#voice)'s for it, when the engine has that voice, else the one it picks for the language with `pickLanguageVoice()`, ranked as `WebSpeechVoiceManager` ranks regions: the content's region, then the language's default region from the JSON, then the others (`fr-CA` content without an `fr-CA` voice gets an `fr-FR` one). The main language's voice, the first of [`languages`](#languages), prefers boundary events; the other languages' voices prefer the same boundary support as the main voice, so word highlighting doesn't come and go between languages.
+
+Voices are picked again when the engine's voices change, including when [`FallbackSpeechEngine`](FallbackEngine.md) swaps engines. Content in a language without a voice picked yet waits for it: the navigator stays `"loading"`, and a `play()` meanwhile plays once the engine is ready. With no voice for that language at all, the utterance is left to the engine's current voice, and a `"languagefallback"` event fires once for the language, with `detail: { language, reason: "no-matching-voice" }`. An utterance without a `language` only gets a voice for all content from the preference. Extraction's [`language`](UtteranceExtraction.md#language) option decides which languages utterances carry, so `language: "none"` keeps one voice throughout.
+
+An engine given an utterance without a voice, e.g. without the navigator, speaks it in its `language` itself: with the selected/default voice when that voice speaks the same language, else with the best voice for that language, ranked the same way, preferring one with the same boundary-event support as the selected voice.
 
 ### `ReadiumSpeechPlaybackState`
 

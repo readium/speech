@@ -212,6 +212,17 @@ getQualityValue(quality): number
 - `createJsonOrderMap`: base language → voice name → index in that language's JSON data, for `"json"` voices only. Built automatically when omitted.
 - `getQualityValue`: `veryLow` 1 … `veryHigh` 5, `0` when missing or unknown.
 
+### Picking a voice
+
+```typescript
+async pickLanguageVoice(language: string, voices: ReadiumSpeechVoice[], needsBoundary?: boolean): Promise<ReadiumSpeechVoice | null>
+async pickDefaultVoice(languages: string[] | undefined, voices: ReadiumSpeechVoice[]): Promise<ReadiumSpeechVoice | null>
+```
+
+`pickLanguageVoice` picks the voice for `language`: among the voices of its base language, whatever the region, without novelty or very low quality ones, preferring those whose boundary support is `needsBoundary` (default `true`), ranked by `pickBestVoiceByRegion`: `language`'s region, then the language's default region from the JSON, then the others. `null` without a voice of the language.
+
+`pickDefaultVoice` picks one voice for several languages: the `pickLanguageVoice` of the first of `languages` with one, else the first of `sortVoicesByRegions(languages, voices)`. Without `languages`, the user's preferred languages (`navigator.languages`) are used. `voiceManager.getDefaultVoice()` differs: it ranks all `voices` by `languages`, without preferring boundary events.
+
 ## Interfaces & Types
 
 ### `ReadiumSpeechVoice`
@@ -308,4 +319,4 @@ The speech server's `GET /service` always sends every field explicitly. Client c
 type TVoiceControls = Pick<TServerVoiceControls, "pitch" | "boundary">;
 ```
 
-Used for json/browser voices, where both properties default to enabled when absent.
+Used for json/browser voices, where both properties default to enabled when absent. Browser voices, those missing from the JSON, always have `boundary: false`.
