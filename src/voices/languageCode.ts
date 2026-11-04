@@ -21,16 +21,18 @@ export const chineseVariantMap: {[key: string]: string} = {
 export const normalizeLanguageCode = (lang: string): string => {
   if (!lang) return "";
   
-  // First normalize to lowercase and replace underscores with hyphens
-  // A script doesn't tell voice languages apart, e.g. "zh-Hant-HK" is "zh-HK"
-  let normalized = lang.toLowerCase().replace(/_/g, "-").split("-").filter((subtag, index) => index === 0 || !/^[a-z]{4}$/.test(subtag)).join("-");
-  
   // Handle BCP47 formatting (e.g., "en-US" -> "en-US", "en-us" -> "en-US")
-  if (/\w{2,3}-\w{2,3}/.test(normalized)) {
-    const [language, region] = normalized.split("-");
-    normalized = `${language.toLowerCase()}-${region.toUpperCase()}`;
-  }
-  
-  // Then check for Chinese variants
-  return chineseVariantMap[normalized] || normalized;
+  const formatted = (tag: string): string => {
+    if (!/\w{2,3}-\w{2,3}/.test(tag)) return tag;
+    const [language, region] = tag.split("-");
+    return `${language}-${region.toUpperCase()}`;
+  };
+
+  // First normalize to lowercase and replace underscores with hyphens
+  const lowercased = lang.toLowerCase().replace(/_/g, "-");
+  const normalized = formatted(lowercased);
+
+  // Then check for Chinese variants, whose script doesn't tell them apart, e.g. "zh-Hant-HK" is "zh-HK"
+  const withoutScript = formatted(lowercased.split("-").filter((subtag, index) => index === 0 || !/^[a-z]{4}$/.test(subtag)).join("-"));
+  return chineseVariantMap[normalized] || chineseVariantMap[withoutScript] || normalized;
 };

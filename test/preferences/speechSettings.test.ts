@@ -75,6 +75,14 @@ test("a voice record's tags replace the defaults' for the same voice language, e
   t.deepEqual(settings.voice, { "zh-HK": "aasing", cmn: "tingting" });
 });
 
+test("a voice record keeps the defaults' voice for another script of its language", (t) => {
+  const settings = new SpeechSettings(
+    new SpeechPreferences({ voice: { "sr-Latn": "latin" } }),
+    new SpeechDefaults({ voice: { "sr-Cyrl": "cyrillic" } }),
+  );
+  t.deepEqual(settings.voice, { "sr-Latn": "latin", "sr-Cyrl": "cyrillic" });
+});
+
 test("a single voice replaces the defaults' voices", (t) => {
   const settings = new SpeechSettings(new SpeechPreferences({ voice: "amelie" }), new SpeechDefaults({ voice: { en: "samantha" } }));
   t.is(settings.voice, "amelie");

@@ -8,3 +8,7 @@ test("normalizeLanguageCode() maps Chinese variants whatever their script", (t) 
   t.is(normalizeLanguageCode("zh-Hant"), "cmn");
   t.is(normalizeLanguageCode("zh_hant_hk"), "yue-HK");
 });
+
+test("normalizeLanguageCode() keeps other languages' scripts apart", (t) => {
+  t.not(normalizeLanguageCode("sr-Latn"), normalizeLanguageCode("sr-Cyrl"));
+});
