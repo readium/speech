@@ -1059,6 +1059,19 @@ test("a voice preference keyed by a Chinese variant's alias applies to it", asyn
   t.deepEqual(navigator.settings.voice, { "yue-HK": "Aasing-yue-HK" }, "the pick under the same tag gives way");
 });
 
+test("voices listed later are picked for content whose language is only on its utterances", async (t) => {
+  const engine = new VoicedMockEngine([alba]);
+  const navigator = new ReadiumSpeechNavigator(engine);
+  navigator.loadContent([{ plain: "Bonjour.", language: "fr" }]);
+  await settled();
+  t.is(engine.loadedUtterances[0].voice, undefined);
+
+  engine.listed = [alba, lea];
+  engine.emit({ type: "voiceschanged" });
+  await settled();
+  t.is(engine.loadedUtterances[0].voice, "Lea-fr-FR");
+});
+
 test("destroy() drops a load still waiting for its voices", async (t) => {
   const engine = new VoicedMockEngine([alba]);
   const navigator = new ReadiumSpeechNavigator(engine);

@@ -205,7 +205,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   // Picks again, re-stamping loaded content whose voice that changes, and tells when the spoken voices change.
   private async refreshVoices(): Promise<void> {
-    await this.pickVoices();
+    await this.pickVoices(this.loadedLanguages);
     if (this.loadedQueue.length > 0 && this.stamped().some((utterance, index) => utterance.voice !== this.contentQueue[index]?.voice)) {
       const { index, state } = this.resumeTarget();
       await this.setContentQueue(this.loadedQueue, index, state);
