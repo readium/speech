@@ -959,6 +959,23 @@ test("play() while the content's voices are picked plays once the engine is read
   t.is(engine.loadedUtterances[0].voice, "Alba-en-US");
 });
 
+test("the previous content's ready while the content's voices are picked doesn't play it", async (t) => {
+  const engine = new VoicedMockEngine([alba, lea]);
+  const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en"] });
+  await settled();
+  navigator.loadContent([{ plain: "Hello.", language: "en" }]);
+  navigator.loadContent([{ plain: "Bonjour.", language: "fr" }]);
+  navigator.play();
+  engine.emit({ type: "ready" });
+  t.is(engine.speakCalls.length, 0);
+  t.is(navigator.getState(), "loading");
+
+  await settled();
+  engine.emit({ type: "ready" });
+  t.is(engine.speakCalls.length, 1);
+  t.is(engine.loadedUtterances[0].plain, "Bonjour.");
+});
+
 test("voiceschanged fires and preferencesEditor is rebuilt, staged edits kept, once voices are picked", async (t) => {
   const navigator = new ReadiumSpeechNavigator(new VoicedMockEngine([alba]), { languages: ["en"] });
   let changes = 0;
@@ -980,6 +997,24 @@ test("destroy() drops a load still waiting for its voices", async (t) => {
   const navigator = new ReadiumSpeechNavigator(engine);
   navigator.loadContent([{ plain: "Hello.", language: "en" }]);
   await navigator.destroy();
+  await settled();
+
+  t.deepEqual(engine.loadedUtterances, []);
+});
+
+test("destroy() drops a reload by voices listed after it", async (t) => {
+  let listVoices!: () => void;
+  const listed = new Promise<void>((resolve) => (listVoices = resolve));
+  const engine = new (class extends VoicedMockEngine {
+    async getAvailableVoices(): Promise<ReadiumSpeechVoice[]> {
+      await listed;
+      return this.listed;
+    }
+  })([alba]);
+  const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en"] });
+  navigator.loadContent([{ plain: "Hello.", language: "en" }]);
+  await navigator.destroy();
+  listVoices();
   await settled();
 
   t.deepEqual(engine.loadedUtterances, []);

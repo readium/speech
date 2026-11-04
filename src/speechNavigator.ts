@@ -394,6 +394,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     }
 
     this.loadedQueue = Array.isArray(content) ? [...content] : [content];
+    // Until loaded, the engine's "ready" is the previous content's
+    this.contentQueue = [];
     this.pendingResumeIndex = resumeIndex;
     this.pendingResumeState = resumeState;
 
@@ -742,8 +744,9 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   }
 
   async destroy(): Promise<void> {
-    // A load still waiting for its voices is dropped
+    // A load still waiting for its voices is dropped, and the content isn't reloaded once voices are listed
     this.loadGeneration++;
+    this.loadedQueue = [];
     this.clearPendingAdvance();
     this.events.clear();
     await this.engine.destroy();
