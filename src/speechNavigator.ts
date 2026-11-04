@@ -241,13 +241,22 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     return this.settings.voice;
   }
 
-  // The preference's voices the engine has; an engine listing no voice can't tell, so it's trusted with them.
+  // The preference's voices the engine has, by their ids; an engine listing no voice can't tell, so it's trusted with them.
   private availableVoice(voice: VoicePreference | null): VoicePreference | null {
-    const available = (id: string) => this.voices.length === 0 || this.voiceIds.has(id);
-    if (typeof voice === "string") return available(voice) ? voice : null;
+    if (typeof voice === "string") return this.listedVoiceId(voice) ?? null;
     if (!voice) return null;
-    const voices = Object.fromEntries(Object.entries(voice).filter(([, id]) => available(id)));
+    const voices = Object.fromEntries(Object.entries(voice).flatMap(([language, id]) => {
+      const listed = this.listedVoiceId(id);
+      return listed ? [[language, listed]] : [];
+    }));
     return Object.keys(voices).length > 0 ? voices : null;
+  }
+
+  // Matched by id, else by name, as engines match a voice.
+  private listedVoiceId(id: string): string | undefined {
+    if (this.voices.length === 0) return id;
+    const voice = this.voices.find(voice => getVoiceId(voice) === id) ?? this.voices.find(voice => voice.name === id);
+    return voice && getVoiceId(voice);
   }
 
   // The voice picked for each spoken and loaded language.

@@ -1146,6 +1146,16 @@ test.serial("after an engine fallback, a queue with nothing to stamp again plays
   t.is(navigator.getState(), "playing");
 });
 
+test("a voice preference by name is the engine's voice of that name", async (t) => {
+  const engine = new VoicedMockEngine([alba, nora]);
+  const navigator = new ReadiumSpeechNavigator(engine, { languages: ["en"], preferences: { voice: "Nora" } });
+  navigator.loadContent([{ plain: "Hello.", language: "en" }]);
+  await settled();
+
+  t.is(navigator.settings.voice, "Nora-en-US");
+  t.is(engine.loadedUtterances[0].voice, "Nora-en-US");
+});
+
 test("destroy() drops a load still waiting for its voices", async (t) => {
   const engine = new VoicedMockEngine([alba]);
   const navigator = new ReadiumSpeechNavigator(engine);
