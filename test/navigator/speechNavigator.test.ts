@@ -992,6 +992,36 @@ test("voiceschanged fires and preferencesEditor is rebuilt, staged edits kept, o
   t.is(navigator.preferencesEditor, rebuilt, "not rebuilt again while the voices stay the same");
 });
 
+test("voiceschanged fires once content in another language gets its voice picked", async (t) => {
+  const navigator = new ReadiumSpeechNavigator(new VoicedMockEngine([alba, lea]), { languages: ["en"] });
+  await settled();
+  let changes = 0;
+  navigator.on("voiceschanged", () => changes++);
+
+  navigator.loadContent([{ plain: "Bonjour.", language: "fr" }]);
+  await settled();
+  t.is(changes, 1);
+  t.deepEqual(navigator.settings.voice, { en: "Alba-en-US", fr: "Lea-fr-FR" });
+
+  navigator.loadContent([{ plain: "Salut.", language: "fr" }]);
+  await settled();
+  t.is(changes, 1, "not again for content whose voices are the same");
+});
+
+test("voiceschanged fires when a voice preference changes the voices, without content loaded", async (t) => {
+  const navigator = new ReadiumSpeechNavigator(new VoicedMockEngine([alba, lea, thomas]), { languages: ["en", "fr"] });
+  await settled();
+  let changes = 0;
+  navigator.on("voiceschanged", () => changes++);
+
+  await navigator.submitPreferences(new SpeechPreferences({ voice: { fr: "Thomas-fr-FR" } }));
+  t.is(changes, 1);
+  t.deepEqual(navigator.settings.voice, { fr: "Thomas-fr-FR", en: "Alba-en-US" });
+
+  await navigator.submitPreferences(new SpeechPreferences({ rate: 1.5 }));
+  t.is(changes, 1, "not for preferences leaving the voices the same");
+});
+
 test("destroy() drops a load still waiting for its voices", async (t) => {
   const engine = new VoicedMockEngine([alba]);
   const navigator = new ReadiumSpeechNavigator(engine);

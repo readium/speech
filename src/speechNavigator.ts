@@ -103,6 +103,8 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
   private pickedVoices: Map<string, ReadiumSpeechVoice | null> = new Map();
   private pickingVoices: Map<string, Promise<void>> = new Map();
   private reportedLanguageFallbacks: Set<string> = new Set();
+  // `settings.voice` as "voiceschanged" last told it, so loads and refreshes racing each other tell a change once.
+  private notifiedVoice: VoicePreference | null = null;
   // Bumped by every setContentQueue(), so a load still waiting for its voices knows it was superseded.
   private loadGeneration = 0;
 
@@ -116,6 +118,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.languages = configuration.languages ?? [];
     this.setupEngineListeners();
     this.applyEngineParameters();
+    this.notifiedVoice = this.spokenVoice();
     void this.initializeEngine();
   }
 
@@ -201,15 +204,19 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
 
   // Picks again, re-stamping loaded content whose voice that changes, and tells when the spoken voices change.
   private async refreshVoices(): Promise<void> {
-    const previous = this.spokenVoice();
     await this.pickVoices();
     if (this.loadedQueue.length > 0 && this.stamped().some((utterance, index) => utterance.voice !== this.contentQueue[index]?.voice)) {
       const { index, state } = this.resumeTarget();
       await this.setContentQueue(this.loadedQueue, index, state);
     }
-    if (!this.sameSettingValue(previous, this.spokenVoice())) {
-      this.emitEvent({ type: "voiceschanged" });
-    }
+    this.notifyVoicesChanged();
+  }
+
+  private notifyVoicesChanged(): void {
+    const voice = this.spokenVoice();
+    if (this.sameSettingValue(this.notifiedVoice, voice)) return;
+    this.notifiedVoice = voice;
+    this.emitEvent({ type: "voiceschanged" });
   }
 
   private spokenVoice(): VoicePreference | null {
@@ -420,6 +427,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
     this.reportLanguageFallbacks(contents);
     this.engine.loadUtterances(contents, resumeIndex ?? undefined);
     this.emitContentChangeEvent({ content: contents });
+    this.notifyVoicesChanged();
   }
 
   private stamped(): ReadiumSpeechUtterance[] {
@@ -724,6 +732,7 @@ export class ReadiumSpeechNavigator implements ReadiumSpeechNavigatorContract {
       const { index, state } = this.resumeTarget();
       await this.setContentQueue(this.loadedQueue, index, state);
     }
+    this.notifyVoicesChanged();
   }
 
   // `reconstruct` only shapes extraction in sentence segmentation.
