@@ -1,5 +1,5 @@
 import test from "ava";
-import { ReadiumSpeechNavigator, WebSpeechEngine, WebSpeechVoiceManager, getVoiceId } from "../../build/index.js";
+import { ReadiumSpeechNavigator, WebSpeechEngine, WebSpeechVoiceManager, getVoiceId, SYSTEM_VOICE_ID } from "../../build/index.js";
 import { setGlobals, makeVoice, mockVoices, resetVoiceManager } from "./testUtils.js";
 
 test.beforeEach(() => {
@@ -213,4 +213,50 @@ test.serial("getCurrentVoice() returns the default voice until one is set", asyn
   const french = (await engine.getAvailableVoices()).find((v: any) => v.language === "fr-FR")!;
   await engine.setVoice(french);
   t.is(engine.getCurrentVoice(), french);
+});
+
+function inSafari(engine: WebSpeechEngine, isSafariBrowser = true): WebSpeechEngine {
+  (engine as any).patches = { ...(engine as any).patches, isSafari: isSafariBrowser, isSafariBrowser };
+  return engine;
+}
+
+test("in Safari, the system voice is listed", async (t) => {
+  const engine = inSafari(await makeEngine());
+  const voices = await engine.getAvailableVoices();
+
+  t.true(voices.some((v: any) => getVoiceId(v) === SYSTEM_VOICE_ID));
+});
+
+test("outside Safari, the system voice isn't listed nor found", async (t) => {
+  const engine = inSafari(await makeEngine(), false);
+  const voices = await engine.getAvailableVoices();
+  engine.setVoice(SYSTEM_VOICE_ID);
+
+  t.false(voices.some((v: any) => getVoiceId(v) === SYSTEM_VOICE_ID));
+  t.not(engine.getCurrentVoice() && getVoiceId(engine.getCurrentVoice()!), SYSTEM_VOICE_ID);
+});
+
+test("content with the system voice is spoken without a voice, in its language", async (t) => {
+  const { spoken } = setGlobals(mockVoices);
+  const engine = inSafari(await makeEngine());
+  const started: any[] = [];
+  engine.on("start", (event: any) => started.push(event.detail.voice));
+
+  engine.loadUtterances([{ id: "1", plain: "bonjour", language: "fr-FR", voice: SYSTEM_VOICE_ID }]);
+  engine.speak();
+  await new Promise(resolve => setTimeout(resolve, 20));
+
+  t.is(spoken[0].voice, null);
+  t.is(spoken[0].lang, "fr-FR");
+  t.is(getVoiceId(started[0]), SYSTEM_VOICE_ID);
+});
+
+test("the system voice preference reaches the content", async (t) => {
+  const engine = inSafari(await makeEngine());
+  const navigator = new ReadiumSpeechNavigator(engine, { preferences: { voice: { "en-US": SYSTEM_VOICE_ID } } });
+  navigator.loadContent([{ plain: "hello", language: "en-US" }, { plain: "bonjour", language: "fr-FR" }]);
+  await new Promise(resolve => setTimeout(resolve, 20));
+
+  t.is(navigator.getContentQueue()[0].voice, SYSTEM_VOICE_ID);
+  t.is(navigator.getContentQueue()[1].voice, "French Voice-fr-FR");
 });

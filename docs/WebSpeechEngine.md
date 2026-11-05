@@ -47,3 +47,13 @@ Each utterance is spoken with its own [`voice`](Playback.md#speaking-an-utteranc
 `maxLengthExceeded` (default `"warn"`) controls what happens when an utterance's text exceeds the Web Speech API's practical length limit: `"warn"` logs a console warning and speaks anyway, `"error"` throws, `"none"` does nothing and speaks anyway. Unlike `SpeechServerEngine`'s `overLengthText: "split"` (see [SpeechServerEngine.md](SpeechServerEngine.md)), there is no splitting behavior here — the Web Speech API has no equivalent server-side request-size constraint to work around, just an engine-dependent practical ceiling.
 
 Calling `initialize()` again on an already-initialized engine is a no-op (`false`). A call made while another is still running shares it, and its options are ignored.
+
+## System voice
+
+In Safari, `getAvailableVoices()` also lists `systemVoice()`, with the id `SYSTEM_VOICE_ID`. Content with it is spoken without a voice, so Safari uses the system's Spoken Content voice, Siri voices included, which `speechSynthesis.getVoices()` doesn't list. It's never picked for a language, as its language can't be known (`"und"`): set it with the `voice` preference.
+
+```ts
+import { SYSTEM_VOICE_ID, SpeechPreferences } from "@readium/speech";
+
+await navigator.submitPreferences(new SpeechPreferences({ voice: { "en-US": SYSTEM_VOICE_ID } }));
+```

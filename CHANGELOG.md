@@ -2,6 +2,12 @@
 
 All notable changes to this project are documented here. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); this project follows [Semantic Versioning](https://semver.org/).
 
+## [Unreleased]
+
+### Added
+
+- `systemVoice()`, `SYSTEM_VOICE_ID` and `isSystemVoice()`: in Safari, `WebSpeechEngine` lists the system voice, and speaks content with it without a voice, so Safari uses the system's Spoken Content voice, Siri voices included. It's never picked for a language.
+
 ## [0.19.0] - 2026-11-04
 
 ### Added

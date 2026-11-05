@@ -4,6 +4,7 @@ export interface WebSpeechPlatformPatches {
   isAndroid: boolean;
   isFirefox: boolean;
   isSafari: boolean;
+  isSafariBrowser: boolean;
   isKaiOS: boolean;
 }
 
@@ -26,11 +27,14 @@ export const detectPlatformFeatures = (): WebSpeechPlatformPatches => {
   };
   // WebKit, every iOS browser included; Chromium user agents mention Safari too
   const isSafari = () => /AppleWebKit/i.test(userAgent) && !/Chrome|Chromium|Edg\/|OPR|Android/i.test(userAgent);
+  // Safari itself: WKWebViews have no Safari/ token, other iOS browsers add their own
+  const isSafariBrowser = () => isSafari() && /Version\/[\d.]+.*Safari\//.test(userAgent) && !/CriOS|FxiOS|EdgiOS/.test(userAgent);
 
   return {
     isAndroid: isAndroid(),
     isFirefox: isFirefox() || isKaiOS(),
     isSafari: isSafari(),
+    isSafariBrowser: isSafariBrowser(),
     isKaiOS: isKaiOS()
   };
 };

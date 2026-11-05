@@ -3,6 +3,7 @@ import { filterOutNoveltyVoices, filterOutVeryLowQualityVoices } from "./filters
 import { filterByBoundarySupport, pickBestVoiceByRegion, sortVoicesByRegions } from "./sorting.js";
 import { extractLangRegionFromBCP47 } from "../utils/language.js";
 import { normalizeLanguageCode } from "./languageCode.js";
+import { isSystemVoice } from "./systemVoice.js";
 
 /**
  * Picks the voice content in `language` is spoken with: among its base language's voices, whatever the region,
@@ -18,7 +19,7 @@ export const pickLanguageVoice = async (
   const baseLanguageOf = (tag: string) => extractLangRegionFromBCP47(normalizeLanguageCode(tag))[0];
   const baseLanguage = baseLanguageOf(language);
   const matching = filterOutVeryLowQualityVoices(filterOutNoveltyVoices(voices))
-    .filter(voice => baseLanguageOf(voice.language) === baseLanguage);
+    .filter(voice => !isSystemVoice(voice) && baseLanguageOf(voice.language) === baseLanguage);
   if (matching.length === 0) return null;
   return pickBestVoiceByRegion(language, filterByBoundarySupport(matching, needsBoundary));
 };
@@ -39,5 +40,5 @@ export const pickDefaultVoice = async (
     const voice = await pickLanguageVoice(language, voices);
     if (voice) return voice;
   }
-  return (await sortVoicesByRegions(languages, voices))[0] ?? null;
+  return (await sortVoicesByRegions(languages, voices.filter(voice => !isSystemVoice(voice))))[0] ?? null;
 };

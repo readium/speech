@@ -1,5 +1,5 @@
 import test from "ava";
-import { pickDefaultVoice, pickLanguageVoice, ReadiumSpeechVoice } from "../../build/index.js";
+import { pickDefaultVoice, pickLanguageVoice, ReadiumSpeechVoice, systemVoice } from "../../build/index.js";
 
 const voice = (name: string, language: string, overrides: Partial<ReadiumSpeechVoice> = {}): ReadiumSpeechVoice => ({
   source: "json", label: name, name, originalName: name, language, voiceURI: `${name}-${language}`, ...overrides,
@@ -37,4 +37,9 @@ test("pickDefaultVoice() picks for the first of its languages with a voice", asy
   const voices = [voice("Alba", "en-US"), voice("Lea", "fr-FR")];
 
   t.is((await pickDefaultVoice(["de", "fr", "en"], voices))?.name, "Lea");
+});
+
+test("the system voice is never picked", async (t) => {
+  t.is(await pickLanguageVoice("und", [systemVoice()]), null);
+  t.is(await pickDefaultVoice(["en"], [systemVoice()]), null);
 });

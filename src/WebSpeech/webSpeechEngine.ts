@@ -5,6 +5,7 @@ import { ReadiumSpeechVoice } from "../voices/types.js";
 import { WebSpeechVoiceManager } from "./WebSpeechVoiceManager.js";
 import { pickDefaultVoice } from "../voices/defaultVoice.js";
 import { getVoiceId } from "../voices/voiceId.js";
+import { isSystemVoice, systemVoice } from "../voices/systemVoice.js";
 
 import { detectFeatures, WebSpeechFeatures } from "../utils/features.js";
 import { detectPlatformFeatures, WebSpeechPlatformPatches } from "../utils/patches.js";
@@ -150,6 +151,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
   // By `voiceURI`, as voices of one `name` can differ in quality or language.
   private findVoice(id: string): ReadiumSpeechVoice | undefined {
+    if (this.patches.isSafariBrowser && isSystemVoice(id)) return systemVoice();
     const voices = this.voices;
     return voices.find(voice => voice.voiceURI === id) ?? voices.find(voice => voice.name === id);
   }
@@ -237,7 +239,7 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
       // Broadens the manager when initialize() was scoped to other languages
       const all = [...(languages ?? []), ...(voiceIds ?? []).flatMap(id => this.browserVoiceLanguage(id) ?? [])];
       if (all.length) await WebSpeechVoiceManager.initialize({ languages: all });
-      return this.voices;
+      return this.patches.isSafariBrowser ? [...this.voices, systemVoice()] : this.voices;
     } catch {
       return [];
     }
@@ -347,7 +349,8 @@ export class WebSpeechEngine implements ReadiumSpeechPlaybackEngine {
 
     this.lacksNativePauseEvents = false;
     this.speakingVoice = selectedVoice;
-    if (selectedVoice && this.voiceManager) {
+    // The system voice is the one Safari speaks with when the utterance has none
+    if (selectedVoice && !isSystemVoice(selectedVoice) && this.voiceManager) {
       // Convert ReadiumSpeechVoice to SpeechSynthesisVoice using the initialized voiceManager
       const nativeVoice = this.voiceManager.convertToSpeechSynthesisVoice(selectedVoice);
       

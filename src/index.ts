@@ -18,6 +18,7 @@ export * from "./voices/filters.js";
 export * from "./voices/sorting.js";
 export * from "./voices/defaultVoice.js";
 export * from "./voices/voiceId.js";
+export * from "./voices/systemVoice.js";
 export * from "./engine.js";
 export * from "./navigator.js";
 export * from "./provider.js";
