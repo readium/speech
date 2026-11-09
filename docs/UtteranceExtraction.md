@@ -479,7 +479,7 @@ A role can have either one or both. `table` has both — see [`contextualization
 A catalog value can be a plain string, or a small object of named variants — `labelled`/`unlabelled`, `withHeader`/`withoutHeader` — that the extractor picks between based on the node:
 
 - `audio`/`video`/`image`/`math`/`table` (and any other role with a `description`) pick `labelled` when the node has one, `unlabelled` otherwise.
-- `cell`/`rowheader` pick `withHeader` when a column header was found for that cell, `withoutHeader` otherwise.
+- `cell`/`rowheader` pick `withHeader` when a column header was found for that cell, `withoutHeader` otherwise. A row with a `columnheader` is the header row for the rows after it, until the next one. A cell's header is the text of the header row's cell at the same position, if not empty. GND has no colspan/rowspan, so a spanning cell shifts every cell after it in its row onto the wrong header. Cells before the first header row have none.
 
 ### `parts`
 
@@ -490,9 +490,9 @@ Pluralizable fragments a role's own wording references as tokens (`{{ lines }}`)
 Each placeholder below is filled in automatically — no `contextualization.params` needed:
 
 - `{{ description }}` — for any node with a `description`, whatever its role.
-- `{{ lines }}` / `{{ columns }}` — `table`'s own row/column counts.
+- `{{ lines }}` / `{{ columns }}` — `table`'s row count, header rows included, and its widest row's cell count.
 - `{{ count }}` — a `row`'s 1-based position.
-- `{{ header }}` / `{{ value }}` — a `cell`/`rowheader`'s column-header text and content. GND carries no colspan/rowspan, so a cell's header is matched by position, not by explicit association.
+- `{{ header }}` / `{{ value }}` — a `cell`/`rowheader`'s column-header text and content, the header matched by position (see [Variants](#variants)).
 
 Any other placeholder — one not in this list, or on a role of your own — needs a [`contextualization.params`](#contextualizationparams) entry.
 
