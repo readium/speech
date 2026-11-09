@@ -9,6 +9,10 @@ All notable changes to this project are documented here. Format follows [Keep a 
 - `interruptionValues`: the values each role in `interruptions` takes, `"never"`, `"inline"` and `"after"`.
 - `builtInSuppressions`, for a custom `segmentation.segmenter` to apply, and `builtInSubstitutions`, which `substitutions` merges over, with its `SubstitutionTable` and `SubstitutionRule` types.
 
+### Changed
+
+- **Breaking:** `ReadiumSpeechPlaybackEvent`'s `detail` is typed per event type, from `ReadiumSpeechPlaybackEventDetails`, instead of `any`: `ReadiumSpeechPlaybackEvent<"start">` has `detail: { voice }`. `on()` on engines and `ReadiumSpeechNavigator` is generic, so a listener gets the event of the type it listens to. The navigator's events, `"contentchange"` included, are `ReadiumSpeechNavigatorEvent`, from `ReadiumSpeechNavigatorEventDetails`. A `"boundary"` detail is a `ReadiumSpeechBoundaryDetail`.
+
 ### Removed
 
 - **Breaking:** SpeechServer internals are no longer exported: `chunkPlainText`, `chunkSsmlText`, `TextChunk`, `selectFormat`, `selectBitrate`, `mimeTypeForFormat`, `CanPlayType`, `CanPlayTypeResult`, `NetworkInfo`, `mapServerVoice`, `toSpeechServerError`, `SpeechServerProblemDetails`, `SpeechServerVoice`, `SpeechServerServiceInfo`, `SpeechServerSynthesizeRequest`, `SpeechServerSynthesizeBoundaryResponse` and `SpeechServerTimingMark`.

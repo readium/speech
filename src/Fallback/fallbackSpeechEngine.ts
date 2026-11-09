@@ -210,8 +210,8 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     return this.activeEngine.getUtteranceCount();
   }
 
-  on(event: ReadiumSpeechPlaybackEvent["type"], callback: (event: ReadiumSpeechPlaybackEvent) => void): () => void {
-    return this.events.on(event, callback);
+  on<T extends ReadiumSpeechPlaybackEvent["type"]>(event: T, callback: (event: ReadiumSpeechPlaybackEvent<T>) => void): () => void {
+    return this.events.on(event, callback as (event: ReadiumSpeechPlaybackEvent) => void);
   }
 
   private emitEvent(event: ReadiumSpeechPlaybackEvent): void {
@@ -228,7 +228,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     this.unbindActiveEngine = () => unsubscribers.forEach(unsubscribe => unsubscribe());
   }
 
-  private handleError(event: ReadiumSpeechPlaybackEvent): void {
+  private handleError(event: ReadiumSpeechPlaybackEvent<"error">): void {
     if (this.hasFallenBack || this.swapInFlight || this.onFailure === "error" || !isRecoverableFailure(event)) {
       this.emitEvent(event);
       return;
@@ -286,7 +286,7 @@ export class FallbackSpeechEngine implements ReadiumSpeechPlaybackEngine {
     void this.recoverToPrimary();
   }
 
-  private async swapToFallback(originalEvent: ReadiumSpeechPlaybackEvent): Promise<void> {
+  private async swapToFallback(originalEvent: ReadiumSpeechPlaybackEvent<"error">): Promise<void> {
     let bestVoice: ReadiumSpeechVoice | null = null;
 
     await this.performSwap(
