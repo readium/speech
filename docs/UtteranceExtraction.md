@@ -40,7 +40,7 @@ Some roles get a synthesized navigational contextualization spoken around their 
 
 ```typescript
 interface ExtractUtterancesOptions {
-  format: "plain" | "ssml";
+  format?: "plain" | "ssml"; // default "plain"
   skip?: GndRole[];
   contextualize?: GndRole[];
   contextualizationLocale?: string;
@@ -61,6 +61,7 @@ interface ContextualizationOptions {
 
 interface SegmentationOptions {
   mode?: "structure" | "sentence"; // default "structure"
+  reconstruct?: boolean; // default false, sentence mode only
   suppressions?: Record<string, string[]>; // per-language sentence-ending exceptions, keyed like `language`
   segmenter?: SentenceSegmenter; // replaces the built-in Intl.Segmenter-based sentence splitter
 }
@@ -339,7 +340,7 @@ await extractUtterances(gnd, {
 
 #### `segmenter`
 
-The built-in sentence splitter is [`Intl.Segmenter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter) with `granularity: "sentence"`, plus this library's own abbreviation-suppression pass on top (`suppressions` above, merged with [`builtInSuppressions`](../src/utterances/builtInSuppressions.ts)). Risks worth knowing before relying on it:
+The built-in sentence splitter is [`Intl.Segmenter`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Segmenter) with `granularity: "sentence"`, plus this library's own abbreviation-suppression pass on top (`suppressions` above, merged with the exported `builtInSuppressions`). Risks worth knowing before relying on it:
 
 - **ICU data availability.** `Intl.Segmenter`'s sentence-break behavior depends on the JS engine's bundled ICU/CLDR data. Runtimes that ship reduced ICU (some mobile WebViews, some server builds configured with `small-icu`) can produce different — sometimes worse — boundaries than a desktop browser, with no error raised.
 - **Locale coverage is uneven.** The Unicode sentence-break algorithm behind it is tuned mainly for widely-used languages; boundary quality for less common locales can be noticeably weaker, and there's no per-locale opt-out — the same algorithm runs regardless of `language`.
@@ -371,7 +372,14 @@ const mySegmenter: SentenceSegmenter = async (language, text, customSuppressions
 await extractUtterances(gnd, { format: "plain", segmentation: { mode: "sentence", segmenter: mySegmenter } });
 ```
 
-A supplied `segmenter` fully replaces the built-in one — it's handed the same per-language `suppressions` (as its own `customSuppressions` argument) but owns deciding what to do with them; `builtInSuppressions` is not merged in automatically, since that list exists specifically to patch `Intl.Segmenter`'s gaps.
+A supplied `segmenter` fully replaces the built-in one — it's handed the same per-language `suppressions` (as its own `customSuppressions` argument) but owns deciding what to do with them; `builtInSuppressions` is not merged in automatically, since that list exists specifically to patch `Intl.Segmenter`'s gaps. It's keyed by primary subtag, while `language` is the utterance's full tag:
+
+```typescript
+const mySegmenter: SentenceSegmenter = async (language, text, customSuppressions = []) => {
+  const suppressions = [...(builtInSuppressions[new Intl.Locale(language).language] ?? []), ...customSuppressions];
+  return mySentenceLibrary.segment(text, { locale: language, suppressions });
+};
+```
 
 #### Reconstruction heuristics
 
@@ -396,7 +404,7 @@ Anything left outside a merge group is split on its own sentence boundaries inde
 
 ### `substitutions`
 
-Rewrites ASCII-typed imitations of Unicode symbols in `plain`/`ssml` before an utterance is returned, so the imitation is spoken as the symbol it stands in for rather than read literally. Merged by key on top of [`builtInSubstitutions`](../src/utterances/builtInSubstitutions.ts) — a caller-supplied key replaces the built-in rule of the same name rather than adding to it.
+Rewrites ASCII-typed imitations of Unicode symbols in `plain`/`ssml` before an utterance is returned, so the imitation is spoken as the symbol it stands in for rather than read literally. Merged by key on top of the exported `builtInSubstitutions` — a caller-supplied key replaces the built-in rule of the same name rather than adding to it.
 
 ```typescript
 // <p>See page 5, fig. 2.</p>
@@ -405,6 +413,11 @@ await extractUtterances(gnd, { format: "plain", substitutions: { "fig.": "figure
 ```
 
 A rule value is either a plain string, matched as a whole token (like `"fig."` above), or `{ pattern, replace }` for a match that needs its own regex:
+
+```typescript
+type SubstitutionRule = string | { pattern: RegExp; replace: string | ((...match: string[]) => string) };
+type SubstitutionTable = Record<string, SubstitutionRule>;
+```
 
 ```typescript
 // <p>See p.5 for details.</p>

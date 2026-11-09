@@ -7,6 +7,7 @@ All notable changes to this project are documented here. Format follows [Keep a 
 ### Added
 
 - `interruptionValues`: the values each role in `interruptions` takes, `"never"`, `"inline"` and `"after"`.
+- `builtInSuppressions`, for a custom `segmentation.segmenter` to apply, and `builtInSubstitutions`, which `substitutions` merges over, with its `SubstitutionTable` and `SubstitutionRule` types.
 
 ### Removed
 
